@@ -24,7 +24,7 @@ void DuiSettingsPage::createContent()
 
     DuiPannableViewport* desktopViewport = new DuiPannableViewport(Qt::Vertical, this);
 
-
+#if 0
     // --- TODO: Please replace me ---
     DuiWidget* textWidget = new DuiWidget();
 
@@ -42,6 +42,7 @@ void DuiSettingsPage::createContent()
 
 
     desktopViewport->setWidget(textWidget);
+#endif
     mainLayout->addItem(desktopViewport);
 
     setLayout(mainLayout);
