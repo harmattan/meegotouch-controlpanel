@@ -17,8 +17,10 @@ void DuiSettingsPage::createContent()
 {
     DuiLinearLayout* mainLayout = new DuiLinearLayout(Qt::Vertical);
 
-    DuiLabel* m_Label = new DuiLabel("Title");
-    mainLayout->addItem(m_Label);
+    DuiLabel* title = new DuiLabel("Title");
+    title->setAlignment(Qt::AlignCenter);
+    title->setMaximumHeight(30);
+    mainLayout->addItem(title);
 
     DuiPannableViewport* desktopViewport = new DuiPannableViewport(Qt::Vertical, this);
 
