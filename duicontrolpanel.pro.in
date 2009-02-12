@@ -1,0 +1,13 @@
+TARGET = duicontrolpanel
+TEMPLATE = app
+
+OBJECTS_DIR = tmp
+MOC_DIR = tmp
+CONFIG += build_all silent warn_on
+
+# !!! TODO !!!
+# INCLUDEPATH += ${QTDIR}/dui
+INCLUDEPATH += /usr/local/Trolltech/Qt-4.5.0-beta1/include/dui
+
+LIBS += -ldui
+
