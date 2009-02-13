@@ -4,9 +4,9 @@
 
 #include <duilinearlayout.h>
 #include <duilabel.h>
-#include "duisimplecategory.h"
 #include <duipannableviewport.h>
 
+#include "duisimplecategory.h"
 
 DuiSettingsPage::DuiSettingsPage()
 {
@@ -28,25 +28,6 @@ void DuiSettingsPage::createContent()
     category->add(subcategory);
     desktopViewport->setWidget(category);
     
-#if 0
-    // --- TODO: Please replace me ---
-    DuiWidget* textWidget = new DuiWidget();
-
-    DuiFlowLayout* textLayout = new DuiFlowLayout();
-    for (int i=0; i<360; i++){
-        DuiLabel* label = new DuiLabel(QString("%1%1%1 ").arg(i));
-        textLayout->addItem(label);
-    }
-    textWidget->setLayout(textLayout);
-
-    textWidget->setMinimumSize(size().width()-30, 800);
-    textWidget->setMaximumSize(size().width()-30, 800);
-
-    // ---
-
-
-    desktopViewport->setWidget(textWidget);
-#endif
     mainLayout->addItem(desktopViewport);
 
     setLayout(mainLayout);

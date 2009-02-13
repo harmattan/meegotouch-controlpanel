@@ -1,23 +1,23 @@
-#include "duisimplecategory.h"
-#include "duilinearlayout.h"
-#include "duilabel.h"
+#include <duisimplecategory.h>
+#include <duilinearlayout.h>
+#include <duilabel.h>
 DuiSimpleCategory::DuiSimpleCategory(const QString& title,
                                  QGraphicsWidget *parent) :
     DuiSettingsCategory(title, parent)
 				
 {
-    resize(200, 200);
     createContents();
+    resize(200, 200);
 }
 
 void 
 DuiSimpleCategory::createContents()
 {
 	m_Layout = new DuiLinearLayout(Qt::Vertical);
-	DuiLabel *caption = new DuiLabel(title(), this);
-	DuiLabel *caption2 = new DuiLabel("title", this);
-	caption->setAlignment(Qt::AlignTop|Qt::AlignCenter);
-	m_Layout->addItem(caption);
+//    DuiLabel *caption = new DuiLabel(title(), this);
+    DuiLabel *caption2 = new DuiLabel("title", this);
+    caption2->setAlignment(Qt::AlignCenter);
+//	m_Layout->addItem(caption);
 	m_Layout->addItem(caption2);
 	setLayout(m_Layout);
 }
