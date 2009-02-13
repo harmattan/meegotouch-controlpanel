@@ -5,11 +5,9 @@ class DuiSettingsCategory : public DuiSettingsComponent
 {
     Q_OBJECT
 public:
-    explicit DuiSettingsCategory(const QString& title="",
+    explicit DuiSettingsCategory(const QString& title,
                                  QGraphicsWidget *parent=0);
-    virtual void paint (QPainter *painter, 
-                        const QStyleOptionGraphicsItem *option,
-                        QWidget *widget=0);
+
     // Composite Pattern Interface	
     virtual void add(DuiSettingsComponent *component);
     virtual void remove(DuiSettingsComponent *component);

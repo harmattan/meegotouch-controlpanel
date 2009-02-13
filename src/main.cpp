@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 {
     DuiApplication a(argc, argv);
 
-    DuiTheme::loadCSS("application.css");
+    DuiTheme::loadCSS("duicontrolpanel.css");
     MainWindow win;
     win.show();
 
