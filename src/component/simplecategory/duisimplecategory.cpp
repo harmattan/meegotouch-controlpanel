@@ -6,25 +6,38 @@ DuiSimpleCategory::DuiSimpleCategory(const QString& title,
     DuiSettingsCategory(title, parent)
 				
 {
+    resize(200, 200);
     createContents();
 }
 
 void 
 DuiSimpleCategory::createContents()
 {
-	DuiLinearLayout *layout = new DuiLinearLayout(Qt::Vertical);
+	m_Layout = new DuiLinearLayout(Qt::Vertical);
 	DuiLabel *caption = new DuiLabel(title());
-
-	layout->addItem(caption);
-	setLayout(layout);
+	DuiLabel *caption2 = new DuiLabel("title");
+	caption->setAlignment(Qt::AlignTop|Qt::AlignCenter);
+	m_Layout->addItem(caption);
+	m_Layout->addItem(caption2);
+	setLayout(m_Layout);
 }
 
+void 
+DuiSimpleCategory::add(DuiSettingsComponent *component)
+{
+	m_Layout->addItem(component);
+	DuiSettingsCategory::add(component);
+}
 void 
 DuiSimpleCategory::paint (QPainter *painter, 
                             const QStyleOptionGraphicsItem *option,
                             QWidget *widget)
 {
-	DuiSettingsCategory::paint(painter, option, widget);
+    Q_UNUSED(option);                                                       
+    Q_UNUSED(widget);                                                                            
+                                                                                
+    painter->drawRect(0, 0, size().width(), size().height());                   
+	//DuiSettingsCategory::paint(painter, option, widget);
 }
 
 void 
