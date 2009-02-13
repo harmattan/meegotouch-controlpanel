@@ -14,8 +14,8 @@ void
 DuiSimpleCategory::createContents()
 {
 	m_Layout = new DuiLinearLayout(Qt::Vertical);
-	DuiLabel *caption = new DuiLabel(title());
-	DuiLabel *caption2 = new DuiLabel("title");
+	DuiLabel *caption = new DuiLabel(title(), this);
+	DuiLabel *caption2 = new DuiLabel("title", this);
 	caption->setAlignment(Qt::AlignTop|Qt::AlignCenter);
 	m_Layout->addItem(caption);
 	m_Layout->addItem(caption2);

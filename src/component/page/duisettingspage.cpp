@@ -4,7 +4,7 @@
 
 #include <duilinearlayout.h>
 #include <duilabel.h>
-#include <duiflowlayout.h>
+#include "duisimplecategory.h"
 #include <duipannableviewport.h>
 
 
@@ -23,7 +23,11 @@ void DuiSettingsPage::createContent()
     mainLayout->addItem(title);
 
     DuiPannableViewport* desktopViewport = new DuiPannableViewport(Qt::Vertical, this);
-
+    DuiSimpleCategory *category = new DuiSimpleCategory("Example");
+    DuiSimpleCategory *subcategory = new DuiSimpleCategory("SubCategory");
+    category->add(subcategory);
+    desktopViewport->setWidget(category);
+    
 #if 0
     // --- TODO: Please replace me ---
     DuiWidget* textWidget = new DuiWidget();
@@ -51,6 +55,7 @@ void DuiSettingsPage::createContent()
 
 void DuiSettingsPage::organizeContent(Dui::Orientation ori)
 {
+    Q_UNUSED(ori);  
     qDebug() << "WARNING: orientation change is not yet implemented";
 }
 
