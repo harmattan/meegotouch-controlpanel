@@ -1,17 +1,17 @@
-#include "duisettingspage.h"
-
 #include <QtDebug>
-
-#include <duilinearlayout.h>
-#include <duilabel.h>
 #include <duipannableviewport.h>
 
+<<<<<<< HEAD:src/component/page/duisettingspage.cpp
 #include <duibutton.h>
 
 #include <QGridLayout>
 
 #include "duisimplecategory.h"
 #include "duimaincategory.h"
+=======
+#include "duisettingspage.h"
+
+>>>>>>> 011a46d6151cf9c3f6f525ddff7d47fd85a0c355:src/component/page/duisettingspage.cpp
 
 #include "button2.h"
 
@@ -22,6 +22,7 @@ DuiSettingsPage::DuiSettingsPage()
 
 void DuiSettingsPage::createContent()
 {
+<<<<<<< HEAD:src/component/page/duisettingspage.cpp
     DuiLinearLayout* mainLayout = new DuiLinearLayout(Qt::Vertical);
 
     DuiLabel* title = new DuiLabel("Title");
@@ -36,48 +37,12 @@ void DuiSettingsPage::createContent()
 
     mainLayout->addItem(button->layout());
 
+=======
+>>>>>>> 011a46d6151cf9c3f6f525ddff7d47fd85a0c355:src/component/page/duisettingspage.cpp
     m_DesktopViewport = new DuiPannableViewport(Qt::Vertical, this);
-#if 0
-    DuiSimpleCategory *category = new DuiSimpleCategory("Example");
-    DuiSimpleCategory *subcategory = new DuiSimpleCategory("SubCategory");
-    category->add(subcategory);
-#endif
-
-    m_Category = new DuiMainCategory(tr("Settings"));
-    for (int i=0; i<10;i++){
-        if (i%2){
-            DuiSimpleCategory *c2 = new DuiSimpleCategory("Two in a row1");
-            DuiSimpleCategory *c3 = new DuiSimpleCategory("Tow in a row2");
-            m_Category->add(c2, c3);
-        } else {
-            DuiSimpleCategory *c1 = new DuiSimpleCategory("One in a row");
-            m_Category->add(c1);
-        }
-    }
-
-    connect (m_DesktopViewport,
-             SIGNAL(sizeChanged(const QSizeF &, const QSizeF &)),
-             this, SLOT(onSizeChanged(const QSizeF &, const QSizeF &)));
-    m_DesktopViewport->setWidget(m_Category);
-
-    
-    mainLayout->addItem(m_DesktopViewport);
-
-    setLayout(mainLayout);
 }
 
 
-/* This function is responsible for keeping the width of the panned widget
-   and its viewport the same. */
-void DuiSettingsPage::onSizeChanged(const QSizeF & pannedWidgetSize,
-                                    const QSizeF & pannableViewportSize)
-{
-    int width = pannableViewportSize.width();
-    if (pannedWidgetSize.width() != width){
-        m_Category->setMinimumSize(width, -1);
-        m_Category->setMaximumSize(width, -1);
-    }
-}
 
 
 void DuiSettingsPage::organizeContent(Dui::Orientation ori)
