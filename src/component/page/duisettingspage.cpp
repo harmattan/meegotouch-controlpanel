@@ -1,17 +1,15 @@
 #include <QtDebug>
 #include <duipannableviewport.h>
 
-<<<<<<< HEAD:src/component/page/duisettingspage.cpp
 #include <duibutton.h>
 
 #include <QGridLayout>
 
 #include "duisimplecategory.h"
 #include "duimaincategory.h"
-=======
+
 #include "duisettingspage.h"
 
->>>>>>> 011a46d6151cf9c3f6f525ddff7d47fd85a0c355:src/component/page/duisettingspage.cpp
 
 #include "button2.h"
 
@@ -22,7 +20,7 @@ DuiSettingsPage::DuiSettingsPage()
 
 void DuiSettingsPage::createContent()
 {
-<<<<<<< HEAD:src/component/page/duisettingspage.cpp
+    /*
     DuiLinearLayout* mainLayout = new DuiLinearLayout(Qt::Vertical);
 
     DuiLabel* title = new DuiLabel("Title");
@@ -37,8 +35,7 @@ void DuiSettingsPage::createContent()
 
     mainLayout->addItem(button->layout());
 
-=======
->>>>>>> 011a46d6151cf9c3f6f525ddff7d47fd85a0c355:src/component/page/duisettingspage.cpp
+*/
     m_DesktopViewport = new DuiPannableViewport(Qt::Vertical, this);
 }
 
