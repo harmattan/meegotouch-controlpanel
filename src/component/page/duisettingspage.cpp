@@ -7,6 +7,7 @@
 
 #include "duisimplecategory.h"
 #include "duimaincategory.h"
+#include "duiwidgetview.h"
 
 #include "duisettingspage.h"
 
@@ -20,7 +21,7 @@ DuiSettingsPage::DuiSettingsPage()
 
 void DuiSettingsPage::createContent()
 {
-    /*
+   /*
     DuiLinearLayout* mainLayout = new DuiLinearLayout(Qt::Vertical);
 
     DuiLabel* title = new DuiLabel("Title");
@@ -33,9 +34,9 @@ void DuiSettingsPage::createContent()
 
     CButton2 *button = new CButton2("alpha", 200, 90, "beta", 110, 30, 30, 30);
 
-    mainLayout->addItem(button->layout());
+    mainLayout->addItem(button->layout());*/
 
-*/
+
     m_DesktopViewport = new DuiPannableViewport(Qt::Vertical, this);
 }
 

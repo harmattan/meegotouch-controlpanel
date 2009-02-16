@@ -5,6 +5,8 @@
 
 #include <duilinearlayout.h>
 #include <duilabel.h>
+#include <duitheme.h>
+#include <qpixmap.h>
 
 
 DuiDescriptionComponent::DuiDescriptionComponent(DuiSettingsCategory *category,
@@ -78,11 +80,13 @@ void DuiDescriptionComponent::paint (QPainter * painter,
     // --
 
     // background:
-    painter->setBrush(bgColor);
+    //painter->setBrush(bgColor);
     QPen pen(borderColor);
-    pen.setWidth(borderWidth);
-    painter->setPen(pen);
-    painter->drawRoundedRect(boundingRect(), 20, 16);
+    //pen.setWidth(borderWidth);
+    //painter->setPen(pen);
+    //painter->drawRoundedRect(boundingRect(), 20, 16);
+    QPixmap *background = DuiTheme::pixmap("C1-container-background", QSize(380, 160));
+    painter->drawPixmap(QPoint(0, 0), *background);
 
     // line between the title & description:
     pen.setColor(lineColor);
