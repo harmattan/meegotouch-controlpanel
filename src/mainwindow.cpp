@@ -1,15 +1,14 @@
 #include "mainwindow.h"
-
-#include "duisettingspage.h"
-
+#include "pagefactory.h"
 #include <duinavigationbar.h>
-
 
 MainWindow::MainWindow()
 {
-    DuiApplicationPage* mainPage = new DuiSettingsPage();
+    DuiApplicationPage* mainPage = PageFactory::instance()->create(MAINPAGE);
     addPage(mainPage);
-
     showPage(mainPage);
 }
 
+MainWindow::~MainWindow()
+{
+}

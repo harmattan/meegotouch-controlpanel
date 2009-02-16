@@ -18,6 +18,8 @@ public:
     DuiSettingsCategory* category() const {return 0;};
 protected:
     virtual void createContents()=0;
+signals:
+    void subPageOpen(int pageID);
 protected slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation)=0;
 private:
