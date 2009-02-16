@@ -6,8 +6,14 @@
 #include <duilabel.h>
 #include <duipannableviewport.h>
 
+#include <duibutton.h>
+
+#include <QGridLayout>
+
 #include "duisimplecategory.h"
 #include "duimaincategory.h"
+
+#include "button2.h"
 
 DuiSettingsPage::DuiSettingsPage()
 {
@@ -20,8 +26,15 @@ void DuiSettingsPage::createContent()
 
     DuiLabel* title = new DuiLabel("Title");
     title->setAlignment(Qt::AlignCenter);
-    title->setMaximumHeight(30);
+    title->setMaximumHeight(130);
+
+    title->setMinimumWidth(300);
+
     mainLayout->addItem(title);
+
+    CButton2 *button = new CButton2("alpha", 200, 90, "beta", 110, 30, 30, 30);
+
+    mainLayout->addItem(button->layout());
 
     m_DesktopViewport = new DuiPannableViewport(Qt::Vertical, this);
 #if 0
