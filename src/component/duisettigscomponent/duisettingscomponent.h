@@ -20,6 +20,7 @@ public:
 
     virtual DuiSettingsComponent* child(int i) const;
     DuiSettingsCategory* category() const {return 0;}
+
 protected:
     virtual void createContents()=0;
 signals:

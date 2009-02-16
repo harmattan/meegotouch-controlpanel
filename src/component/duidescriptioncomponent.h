@@ -17,8 +17,13 @@ public:
     void setDescription(const QString& desc);
 
         // Composite Pattern Interface
-    virtual void add(DuiSettingsComponent *component){}
-    virtual void remove(DuiSettingsComponent *component){}
+    virtual void add(DuiSettingsComponent *){}
+    virtual void remove(DuiSettingsComponent *){}
+
+    virtual void paint (QPainter * painter,
+                        const QStyleOptionGraphicsItem * option,
+                        QWidget * widget = 0 );
+
 
 protected:
     virtual void createContents();
