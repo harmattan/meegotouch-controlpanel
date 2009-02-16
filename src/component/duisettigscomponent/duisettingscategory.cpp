@@ -1,19 +1,10 @@
 #include "duisettingscategory.h"
 DuiSettingsCategory::DuiSettingsCategory(const QString& title,
                                  QGraphicsWidget *parent) :
-    DuiSettingsComponent(0, title, parent)
-				
+    DuiSettingsComponent(0, title, parent)				
 {
 }
 
-void 
-DuiSettingsCategory::paint (QPainter *painter, 
-                            const QStyleOptionGraphicsItem *option,
-                            QWidget *widget)
-{
-    foreach (DuiSettingsComponent* component, m_Children)
-        component->paint(painter, option, widget);
-}
 void 
 DuiSettingsCategory::add(DuiSettingsComponent *component)
 {
@@ -35,5 +26,5 @@ DuiSettingsCategory::child(int i) const
 void 
 DuiSettingsCategory::onOrientationChange (const Dui::Orientation &orientation)
 {
-    Q_UNUSED(orientation);	
+    Q_UNUSED(orientation);
 }

@@ -2,7 +2,6 @@
 #define DUISETTINGSPAGE_H
 
 #include <DuiApplicationPage>
-
 class DuiPannableViewport;
 class DuiSettingsPage : public DuiApplicationPage
 {
@@ -13,7 +12,9 @@ public:
     virtual void createContent();
     virtual void organizeContent(Dui::Orientation ori);
 protected:
-   DuiPannableViewport *m_Viewport;
+   DuiPannableViewport *m_DesktopViewport;
+
+private:
 };
 
 #endif // DUISETTINGSPAGE_H
