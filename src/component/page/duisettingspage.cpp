@@ -1,6 +1,8 @@
 #include <QtDebug>
 #include <duipannableviewport.h>
+
 #include "duisettingspage.h"
+
 
 DuiSettingsPage::DuiSettingsPage()
 {

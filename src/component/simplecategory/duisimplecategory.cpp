@@ -1,4 +1,4 @@
-#include <duisimplecategory.h>
+#include "duisimplecategory.h"
 #include <duilinearlayout.h>
 #include <duilabel.h>
 DuiSimpleCategory::DuiSimpleCategory(const QString& title,
