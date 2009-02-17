@@ -141,3 +141,18 @@ void DuiDescriptionComponent::setFullRowSize()
     setTextAlignment(Qt::AlignHCenter);
 }
 
+
+void DuiDescriptionComponent::mousePressEvent (QGraphicsSceneMouseEvent *event)
+{
+    DuiSettingsComponent::mousePressEvent(event);
+    qDebug() << "XXX mouse press";
+    event->accept();
+}
+
+void DuiDescriptionComponent::mouseReleaseEvent (QGraphicsSceneMouseEvent * event)
+{
+    DuiSettingsComponent::mouseReleaseEvent(event);
+    qDebug() << "XXX mouse release";
+    event->accept();
+}
+
