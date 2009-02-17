@@ -53,6 +53,11 @@ DuiDescriptionComponent::createContents()
     m_Caption->setFont(captionFont);
     // --
 
+    // this fixes a dui issue, that the labels are eating up our clickEvents
+    m_Description->setAcceptedMouseButtons(0);
+    m_Caption->setAcceptedMouseButtons(0);
+    // --
+
     m_Layout->addItem(m_Caption);
     m_Layout->addItem(m_Description);
     setLayout(m_Layout);
@@ -144,15 +149,15 @@ void DuiDescriptionComponent::setFullRowSize()
 
 void DuiDescriptionComponent::mousePressEvent (QGraphicsSceneMouseEvent *event)
 {
-    DuiSettingsComponent::mousePressEvent(event);
     qDebug() << "XXX mouse press";
+    DuiSettingsComponent::mousePressEvent(event);
     event->accept();
 }
 
 void DuiDescriptionComponent::mouseReleaseEvent (QGraphicsSceneMouseEvent * event)
 {
-    DuiSettingsComponent::mouseReleaseEvent(event);
     qDebug() << "XXX mouse release";
+    DuiSettingsComponent::mouseReleaseEvent(event);
     event->accept();
 }
 
