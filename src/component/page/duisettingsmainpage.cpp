@@ -32,7 +32,7 @@ static const QString componentTexts[] = {
     DuiSettingsMainPage::tr("Adjust phone security settings with e.g. "
                             "passcode, privacy lock etc."),
     DuiSettingsMainPage::tr("Device system"), /* <- title */
-    DuiSettingsMainPage::tr("View memory information and backup/restore data."),
+    DuiSettingsMainPage::tr("View memory information and backup / restore data."),
     DuiSettingsMainPage::tr("Account"), /* <- title */
     DuiSettingsMainPage::tr("Create your own service accounts in e.g. Ovi, "
                             "Google, Yahooo etc. and adjust settings for "

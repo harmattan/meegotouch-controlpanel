@@ -8,15 +8,24 @@
 #include <duitheme.h>
 #include <qpixmap.h>
 
-static const QSize fullSize(670,65);
-static const QSize halfSize(330,65);
+static const QSize fullSize(720,55);
+static const QSize halfSize(340,55);
 
 DuiDescriptionComponent::DuiDescriptionComponent(DuiSettingsCategory *category,
                                                  const QString& title,
                                                  QGraphicsWidget *parent) :
-    DuiSettingsComponent(category, title, parent)
+    DuiSettingsComponent(category, title, parent),
+    m_Background (NULL)
 {
     createContents();
+}
+
+
+DuiDescriptionComponent::~DuiDescriptionComponent() {
+    if (m_Background) {
+        // DuiTheme::releasePixmap(m_Background);
+        delete m_Background;
+    }
 }
 
 
@@ -84,9 +93,27 @@ void DuiDescriptionComponent::paint (QPainter * painter,
     QColor borderColor = Qt::lightGray;
     // --
 
-    QPixmap *background = DuiTheme::pixmap("C2-container-dark-landscape-123px",
+    if (m_Background == NULL || m_Background->width() != size().width()){
+        if (m_Background) {
+            // DuiTheme::releasePixmap(m_Background);
+            delete m_Background;
+        }
+        m_Background = DuiTheme::pixmap("C2-container-dark-landscape-123px",
                                            size());
-    painter->drawPixmap(QPoint(0, 0), *background);
+        if (!m_Background) {
+            qWarning ("theme lacks bg picture for settings component");
+            return;
+        }
+
+        /* TODO this is because DuiTheme does not want to resize the image
+           above its size. Fix it with appropriate pixmap, or duitheme feature
+           request. */
+        QPixmap* themePix = m_Background;
+        m_Background = new QPixmap(m_Background->scaled(size().toSize()));
+        DuiTheme::releasePixmap(themePix);
+        /* -- */
+    }
+    painter->drawPixmap(QPoint(0, 0), *m_Background);
 
     // line between the title & description:
     QPen pen = painter->pen();

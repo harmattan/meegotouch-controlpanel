@@ -10,6 +10,7 @@ enum {
 DuiBackgroundView::DuiBackgroundView(DuiPannableViewport &widget)
 	          :m_viewport(widget)
 {
+	m_background.load(":images/starfield.png");
 	updateStyle();
 }
 
@@ -22,12 +23,7 @@ void DuiBackgroundView::paint(QPainter *painter,
 	Q_UNUSED(widget);
 	// Q_UNUSED(painter);
 	
-    QPixmap background(":images/starfield.png");
-    if (background.isNull()) {
-        return;
-    }
-
-	QPixmap *background_ptr = &background;
+	QPixmap *background_ptr = &m_background;
 	// background = styleAttribute<QPixmap *>(BackgroundAttribute);
 	// background = DuiTheme::pixmap("C1-container-background");
 

@@ -12,6 +12,7 @@ public:
     DuiDescriptionComponent(DuiSettingsCategory *category,
                             const QString& title="",
                             QGraphicsWidget *parent=0);
+    ~DuiDescriptionComponent();
 
     virtual void setTitle(const QString& title);
     void setDescription(const QString& desc);
@@ -35,6 +36,7 @@ private:
     DuiLinearLayout *m_Layout;
     DuiLabel *m_Description;
     DuiLabel *m_Caption;
+    QPixmap *m_Background;
 };
 
 
