@@ -8,7 +8,7 @@
 
 #include "duimaincategory.h"
 #include "duidescriptioncomponent.h"
-
+#include "pages.h"
 static const QString componentTexts[] = {
     DuiSettingsMainPage::tr("Personalization"), /* <- title */
     DuiSettingsMainPage::tr("<font>Personalize the device with e.g. </font>"
@@ -80,7 +80,8 @@ void DuiSettingsMainPage::createContent()
         DuiDescriptionComponent *compo1 = new DuiDescriptionComponent(
                 m_Category, title);
         compo1->setDescription(componentTexts[i+1]);
-
+        compo1->setSubPageId(Pages::ACCOUNTS);
+	connect(compo1, SIGNAL(openSubPage(Pages::Id)), this, SIGNAL(openSubPage(Pages::Id)));
         title = componentTexts[i+2];
         DuiDescriptionComponent *compo2 = new DuiDescriptionComponent(
                 m_Category, title);
