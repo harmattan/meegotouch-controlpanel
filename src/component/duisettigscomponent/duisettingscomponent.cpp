@@ -14,3 +14,10 @@ DuiSettingsComponent::child(int i) const
     qDebug() << "No child handling";
     return 0;
 }
+
+void
+DuiSettingsComponent::switchToSubPage()
+{
+    emit openSubPage(subPageId());
+}
+
