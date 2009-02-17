@@ -7,8 +7,8 @@ enum {
 };
 
 
-DuiBackgroundView::DuiBackgroundView(DuiPannableViewport &widget)
-	          :m_viewport(widget)
+DuiBackgroundView::DuiBackgroundView()//DuiPannableViewport &widget)
+	          :m_viewport(0)
 {
 	m_background.load(":images/starfield.png");
 	updateStyle();
