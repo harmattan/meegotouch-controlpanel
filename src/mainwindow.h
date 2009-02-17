@@ -13,6 +13,7 @@ public:
     ~MainWindow();
 public slots:
     void changePage(Pages::Id pageId);
+    void homeClicked();
 };
 
 #endif // MAINWINDOW_H
