@@ -3,10 +3,9 @@
 
 #include <duiwidgetview.h>
 #include <duistylable.h>
-#include <duipannableviewport.h>
 
-// class DuiBackgroundView : public DuiStylable<DuiBackgroundView, DuiWidgetView> 
-class DuiBackgroundView : public DuiWidgetView
+class DuiBackgroundView : public DuiStylable<DuiBackgroundView, DuiWidgetView>
+// class DuiBackgroundView : public DuiWidgetView
 {
 	public:
 		DuiBackgroundView(DuiWidgetController *controller);
@@ -18,7 +17,7 @@ class DuiBackgroundView : public DuiWidgetView
 		virtual void setGeometry(const QRectF &rect);
 	        virtual QRectF boundingRect() const;
 
-		// static void registerStyleAttributes(DuiStyleDescription &description);
+		static void registerStyleAttributes(DuiStyleDescription &description);
 
 	protected:
 		virtual QSizeF sizeHint(Qt::SizeHint which, 
@@ -27,6 +26,6 @@ class DuiBackgroundView : public DuiWidgetView
 	private:
 		DuiWidgetController *m_viewport;
 
-		QPixmap m_background;
+		QPixmap *m_background;
 };
 #endif // DUIBACKGROUNDVIEW_H

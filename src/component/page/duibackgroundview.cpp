@@ -1,16 +1,18 @@
 #include "duibackgroundview.h"
 #include <QDebug>
 #include <duitheme.h>
+#include <duiwidgetcontroller.h>
 
 enum {
 	BackgroundAttribute
 };
 
 DuiBackgroundView::DuiBackgroundView(DuiWidgetController *controller)
-	          :DuiWidgetView(controller), m_viewport(controller)
+	          :DuiStylable<DuiBackgroundView, DuiWidgetView>(controller), 
+		  m_viewport(controller)
 {
-	m_background.load(":images/starfield.png");
 	updateStyle();
+	m_background = styleAttribute<QPixmap *>(BackgroundAttribute);
 }
 
 
@@ -20,13 +22,8 @@ void DuiBackgroundView::paint(QPainter *painter,
 {
 	Q_UNUSED(option);
 	Q_UNUSED(widget);
-	// Q_UNUSED(painter);
 	
-	QPixmap *background_ptr = &m_background;
-	// background = styleAttribute<QPixmap *>(BackgroundAttribute);
-	// background = DuiTheme::pixmap("C1-container-background");
-
-	if (background_ptr != NULL) {
+	if (m_background != NULL) {
 		 // Always draw the background texture without rotation
 		 const QTransform w = painter->worldTransform();
 		 painter->setWorldTransform(QTransform());
@@ -37,12 +34,12 @@ void DuiBackgroundView::paint(QPainter *painter,
 		 	painter->drawTiledPixmap(QRectF(0, 0, 
 						DuiDeviceProfile::instance()->width(), 
 						DuiDeviceProfile::instance()->height()), 
-						*background_ptr, offset);
+						*m_background, offset);
 		 } else {
 			 painter->drawTiledPixmap(QRectF(0, 0, 
 						 DuiDeviceProfile::instance()->height(), 
 						 DuiDeviceProfile::instance()->width()), 
-					 	 *background_ptr, offset);
+					 	 *m_background, offset);
 		 }
 		 
 		 // Reset the transform
@@ -75,7 +72,7 @@ QSizeF DuiBackgroundView::sizeHint(Qt::SizeHint which,
 }
 
 
-/* void DuiBackgroundView::registerStyleAttributes(DuiStyleDescription& description)
+void DuiBackgroundView::registerStyleAttributes(DuiStyleDescription& description)
 {
 	description.addAttribute(BackgroundAttribute, "background");
-}*/
+}
