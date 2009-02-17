@@ -1,0 +1,40 @@
+diff --git a/src/duiwidget.cpp b/src/duiwidget.cpp
+index 957a910..e65950e 100644
+--- a/src/duiwidget.cpp
++++ b/src/duiwidget.cpp
+@@ -129,9 +129,6 @@ QVariant DuiWidget::itemChange(GraphicsItemChange change, const QVariant &value)
+      *
+      * ItemSceneHasChanged:
+      *   Catches the case where a DPV is put to scene with children already there
+-     *
+-     * There is some overlapping there: When a new item is added as a child,
+-     * both ItemChildAddedChange and ItemSceneHasChanged gets called
+      */
+ 
+     switch (change) {
+@@ -141,20 +138,11 @@ QVariant DuiWidget::itemChange(GraphicsItemChange change, const QVariant &value)
+         break;
+ 
+     case ItemChildAddedChange:
+-        parent = this;
+-        child = value.value<QGraphicsItem *>();
+-
+-        while (parent) {
+-            if (dynamic_cast<DuiPannableViewport *>(parent)) {
+-                if (child->scene() && parent->scene()) {
+-                    child->installSceneEventFilter(parent);
+-                    //qDebug() << "Installing filter (case 1) " << (void*)child;
+-                }
+-
+-                break;
+-            }
+-            parent = parent->parentItem();
+-        }
++        /*
++         * When a new item is added as a child both ItemChildAddedChange and
++         * ItemSceneHasChanged gets called. The event filter is installed in
++         * the ItemSceneHasChanged case so nothing should be done here.
++         */
+         break;
+ 
+     case ItemChildRemovedChange:
