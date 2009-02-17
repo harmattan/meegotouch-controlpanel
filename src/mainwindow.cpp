@@ -4,7 +4,13 @@
 
 MainWindow::MainWindow()
 {
-    changePage(Pages::MAIN);
+   connect(navigationBar(), SIGNAL(homeClicked()), this, SLOT(homeClicked())); 
+   changePage(Pages::MAIN);
+}
+
+void MainWindow::homeClicked()
+{
+   changePage(Pages::MAIN);
 }
 
 MainWindow::~MainWindow()
@@ -22,8 +28,12 @@ MainWindow::changePage(Pages::Id pageId)
     connect (page, SIGNAL(openSubPage(Pages::Id)), this, 
 		SLOT(changePage(Pages::Id)));
     qDebug() << Q_FUNC_INFO;
-    if (currentPage())
-    	removePage(currentPage());
+    DuiApplicationPage* oldPage = currentPage();
+    if (oldPage)
+      {
+      	removePage(oldPage);
+//        delete oldPage;
+      }
     showPage(page);
     
 }
