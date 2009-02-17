@@ -10,6 +10,7 @@
 #include "duiwidgetview.h"
 
 #include "duisettingspage.h"
+#include "duibackgroundview.h"
 
 
 #include "button2.h"
@@ -38,6 +39,8 @@ void DuiSettingsPage::createContent()
 
 
     m_DesktopViewport = new DuiPannableViewport(Qt::Vertical, this);
+    DuiBackgroundView *view = new DuiBackgroundView(*m_DesktopViewport);
+    m_DesktopViewport->setView(view);
 }
 
 

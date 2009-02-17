@@ -85,7 +85,7 @@ void DuiDescriptionComponent::paint (QPainter * painter,
     //pen.setWidth(borderWidth);
     //painter->setPen(pen);
     //painter->drawRoundedRect(boundingRect(), 20, 16);
-    QPixmap *background = DuiTheme::pixmap("C1-container-background", QSize(380, 160));
+    QPixmap *background = DuiTheme::pixmap("C2-container-dark-landscape-123px", QSize(380, 160));
     painter->drawPixmap(QPoint(0, 0), *background);
 
     // line between the title & description:

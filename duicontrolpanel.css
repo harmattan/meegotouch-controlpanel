@@ -3,3 +3,6 @@ DuiLabel {
     textFont: font("Nokia Sans Cn", 12);
 }
 
+DuiBackgroundView {
+	background: images(starfield);
+}
