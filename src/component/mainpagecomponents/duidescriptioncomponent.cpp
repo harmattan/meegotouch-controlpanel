@@ -15,7 +15,7 @@ DuiDescriptionComponent::DuiDescriptionComponent(DuiSettingsCategory *category,
                                                  const QString& title,
                                                  QGraphicsWidget *parent) :
     DuiSettingsComponent(category, title, parent),
-    m_Background (NULL), m_Active(false)
+    m_Background (NULL)
 {
     createContents();
 }
@@ -120,11 +120,6 @@ void DuiDescriptionComponent::paint (QPainter * painter,
     }
     painter->drawPixmap(QPoint(0, 0), *m_Background);
 
-    if (m_Active) {
-        painter->setBrush(Qt::white);
-        painter->drawRect(boundingRect());
-    }
-
     // line between the title & description:
     QPen pen = painter->pen();
     pen.setColor(lineColor);
@@ -155,18 +150,14 @@ void DuiDescriptionComponent::setFullRowSize()
 void DuiDescriptionComponent::mousePressEvent (QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "XXX mouse press";
-    m_Active = true;
-    update();
-//    DuiSettingsComponent::mousePressEvent(event);
+    DuiSettingsComponent::mousePressEvent(event);
     event->accept();
 }
 
 void DuiDescriptionComponent::mouseReleaseEvent (QGraphicsSceneMouseEvent * event)
 {
     qDebug() << "XXX mouse release";
-    m_Active = false;
-    update();
-//    DuiSettingsComponent::mouseReleaseEvent(event);
+    DuiSettingsComponent::mouseReleaseEvent(event);
     event->accept();
 }
 
