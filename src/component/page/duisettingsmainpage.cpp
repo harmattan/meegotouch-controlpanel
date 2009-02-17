@@ -11,35 +11,48 @@
 
 static const QString componentTexts[] = {
     DuiSettingsMainPage::tr("Personalization"), /* <- title */
-    DuiSettingsMainPage::tr("Personalize the device with e.g. profile, "
-                            "themes, fonts, home screen, language etc."),
+    DuiSettingsMainPage::tr("<font>Personalize the device with e.g. </font>"
+                            "<font color=#e48415>profile, themes, fonts, "
+                            "home screen, language etc.</font>"),
     DuiSettingsMainPage::tr("Connectivity"), /* <- title */
-    DuiSettingsMainPage::tr("Adjust connections of e.g. Internet connection, "
-                            "Bluetooth, GPS etc."),
+    DuiSettingsMainPage::tr("<font>Adjust connections of e.g. </font>"
+                            "<font color='#e48415'>"
+                            "Internet connection, Bluetooth, GPS etc.</font>"),
     DuiSettingsMainPage::tr("Display"), /* <- title */
-    DuiSettingsMainPage::tr("Adjust display appearance with e.g. Light "
-                            "sensor, brightness etc."),
+    DuiSettingsMainPage::tr("<font>Adjust display appearance with e.g. </font>"
+                            "<font color=#e48415>Light "
+                            "sensor, brightness etc.</font>"),
     DuiSettingsMainPage::tr("Sound"), /* <- title */
-    DuiSettingsMainPage::tr("Adjust tones for e.g. Message alert, email "
-                            "alert etc."),
+    DuiSettingsMainPage::tr("<font>Adjust tones for e.g. </font>"
+                            "<font color=#e48415>"
+                            "Message alert, email "
+                            "alert etc.</font>"),
     DuiSettingsMainPage::tr("Call"), /* <- title */
-    DuiSettingsMainPage::tr("Adjust settings with e.g. call waiting, "
-                            "automatic redial etc."),
+    DuiSettingsMainPage::tr("<font>Adjust settings with e.g. </font>"
+                            "<font color=#e48415>"
+                            "call waiting, automatic redial etc.</font>"),
     DuiSettingsMainPage::tr("Date & Time"), /* <- title */
-    DuiSettingsMainPage::tr("Adjust Date & Time with e.g. time format and "
-                            "timezone."),
+    DuiSettingsMainPage::tr("<font>Adjust Date & Time with e.g. </font>"
+                            "<font color=#e48415>"
+                            "time format and timezone.</font>"),
     DuiSettingsMainPage::tr("Security"), /* <- title */
-    DuiSettingsMainPage::tr("Adjust phone security settings with e.g. "
-                            "passcode, privacy lock etc."),
+    DuiSettingsMainPage::tr("<font>Adjust phone security settings with e.g. "
+                            "</font><font color=#e48415>passcode, privacy lock"
+                            " etc.</font>"),
     DuiSettingsMainPage::tr("Device system"), /* <- title */
-    DuiSettingsMainPage::tr("View memory information and backup / restore data."),
+    DuiSettingsMainPage::tr("<font>View </font><font color=#e48415>"
+                            "memory information</font><font> and </font>"
+                            "<font color=#e48415>backup / restore "
+                            "data.</font>"),
     DuiSettingsMainPage::tr("Account"), /* <- title */
-    DuiSettingsMainPage::tr("Create your own service accounts in e.g. Ovi, "
-                            "Google, Yahooo etc. and adjust settings for "
-                            "existing accounts,"),
+    DuiSettingsMainPage::tr("<font>Create your own service accounts in e.g. "
+                            "</font><font color=#e48415>Ovi, Google, Yahooo "
+                            "etc. </font><font>and adjust settings for "
+                            "existing accounts,</font>"),
     DuiSettingsMainPage::tr("Application"), /* <- title */
-    DuiSettingsMainPage::tr("Adjust settings for each application e.g. "
-                            "Browser, Messaging, Calendar etc."),
+    DuiSettingsMainPage::tr("<font>Adjust settings for each application e.g. "
+                            "</font><font color=#e48415>Browser, Messaging, "
+                            "Calendar etc.</font>"),
     QString()
 };
 
@@ -53,7 +66,7 @@ void DuiSettingsMainPage::createContent()
     DuiSettingsPage::createContent();
     DuiLinearLayout* mainLayout = new DuiLinearLayout(Qt::Vertical);
 
-    DuiLabel* title = new DuiLabel("Title");
+    DuiLabel* title = new DuiLabel("Settings");
     title->setAlignment(Qt::AlignCenter);
     title->setMaximumHeight(30);
     mainLayout->addItem(title);
