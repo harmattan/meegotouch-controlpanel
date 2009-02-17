@@ -39,6 +39,7 @@ private:
     DuiLabel *m_Description;
     DuiLabel *m_Caption;
     QPixmap *m_Background;
+    bool m_Active;
 };
 
 

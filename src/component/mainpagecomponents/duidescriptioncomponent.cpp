@@ -15,7 +15,7 @@ DuiDescriptionComponent::DuiDescriptionComponent(DuiSettingsCategory *category,
                                                  const QString& title,
                                                  QGraphicsWidget *parent) :
     DuiSettingsComponent(category, title, parent),
-    m_Background (NULL)
+    m_Background (NULL), m_Active(false)
 {
     createContents();
 }
@@ -51,6 +51,11 @@ DuiDescriptionComponent::createContents()
     captionFont.setPointSize(captionFont.pointSize()+2);
     captionFont.setBold(true);
     m_Caption->setFont(captionFont);
+    // --
+
+    // this fixes a dui issue, that the labels are eating up our clickEvents
+    m_Description->setAcceptedMouseButtons(0);
+    m_Caption->setAcceptedMouseButtons(0);
     // --
 
     m_Layout->addItem(m_Caption);
@@ -115,6 +120,11 @@ void DuiDescriptionComponent::paint (QPainter * painter,
     }
     painter->drawPixmap(QPoint(0, 0), *m_Background);
 
+    if (m_Active) {
+        painter->setBrush(Qt::white);
+        painter->drawRect(boundingRect());
+    }
+
     // line between the title & description:
     QPen pen = painter->pen();
     pen.setColor(lineColor);
@@ -144,15 +154,19 @@ void DuiDescriptionComponent::setFullRowSize()
 
 void DuiDescriptionComponent::mousePressEvent (QGraphicsSceneMouseEvent *event)
 {
-    DuiSettingsComponent::mousePressEvent(event);
     qDebug() << "XXX mouse press";
+    m_Active = true;
+    update();
+//    DuiSettingsComponent::mousePressEvent(event);
     event->accept();
 }
 
 void DuiDescriptionComponent::mouseReleaseEvent (QGraphicsSceneMouseEvent * event)
 {
-    DuiSettingsComponent::mouseReleaseEvent(event);
     qDebug() << "XXX mouse release";
+    m_Active = false;
+    update();
+//    DuiSettingsComponent::mouseReleaseEvent(event);
     event->accept();
 }
 
