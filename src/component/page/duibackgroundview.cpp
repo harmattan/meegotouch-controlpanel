@@ -7,8 +7,8 @@ enum {
 };
 
 
-DuiBackgroundView::DuiBackgroundView()//DuiPannableViewport &widget)
-	          :m_viewport(0)
+DuiBackgroundView::DuiBackgroundView(DuiPannableViewport &widget)
+	          :m_viewport(widget)
 {
 	m_background.load(":images/starfield.png");
 	updateStyle();
@@ -76,7 +76,7 @@ QSizeF DuiBackgroundView::sizeHint(Qt::SizeHint which,
 }
 
 
-void DuiBackgroundView::registerStyleAttributes(DuiStyleDescription& description)
+/* void DuiBackgroundView::registerStyleAttributes(DuiStyleDescription& description)
 {
 	description.addAttribute(BackgroundAttribute, "background");
-}
+}*/

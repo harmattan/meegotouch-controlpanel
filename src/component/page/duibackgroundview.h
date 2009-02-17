@@ -5,10 +5,11 @@
 #include <duistylable.h>
 #include <duipannableviewport.h>
 
-class DuiBackgroundView : public DuiStylable<DuiBackgroundView, DuiWidgetView> 
+// class DuiBackgroundView : public DuiStylable<DuiBackgroundView, DuiWidgetView> 
+class DuiBackgroundView : public DuiWidgetView
 {
 	public:
-		DuiBackgroundView();//DuiPannableViewport &widget);
+		DuiBackgroundView(DuiPannableViewport &widget);
 
 		virtual void paint(QPainter *painter, 
 				   const QStyleOptionGraphicsItem *option, 
@@ -17,7 +18,7 @@ class DuiBackgroundView : public DuiStylable<DuiBackgroundView, DuiWidgetView>
 		virtual void setGeometry(const QRectF &rect);
 	        virtual QRectF boundingRect() const;
 
-		static void registerStyleAttributes(DuiStyleDescription &description);
+		// static void registerStyleAttributes(DuiStyleDescription &description);
 
 	protected:
 		virtual QSizeF sizeHint(Qt::SizeHint which, 
