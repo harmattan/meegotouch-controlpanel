@@ -9,6 +9,8 @@
 #include "duimaincategory.h"
 #include "duidescriptioncomponent.h"
 #include "pages.h"
+
+
 static const QString componentTexts[] = {
     DuiSettingsMainPage::tr("Personalization"), /* <- title */
     DuiSettingsMainPage::tr("<font>Personalize the device with e.g. </font>"
@@ -16,7 +18,7 @@ static const QString componentTexts[] = {
                             "home screen, language etc.</font>"),
     DuiSettingsMainPage::tr("Connectivity"), /* <- title */
     DuiSettingsMainPage::tr("<font>Adjust connections of e.g. </font>"
-                            "<font color='#e48415'>"
+                            "<font color=#e48415>"
                             "Internet connection, Bluetooth, GPS etc.</font>"),
     DuiSettingsMainPage::tr("Display"), /* <- title */
     DuiSettingsMainPage::tr("<font>Adjust display appearance with e.g. </font>"
@@ -56,6 +58,16 @@ static const QString componentTexts[] = {
     QString()
 };
 
+static const QString resetSettingsTitle = DuiSettingsMainPage::tr(
+                                                "Reset settings");
+static const QString resetSettingsDescription = DuiSettingsMainPage::tr(
+                                  "Reset network settings; Delete all media "
+                                  "and data or reset all settings without "
+                                  "deleting all media and data.");
+
+static const QString settingsTitle = DuiSettingsMainPage::tr("Settings");
+
+
 DuiSettingsMainPage::DuiSettingsMainPage()
 {
 }
@@ -66,12 +78,12 @@ void DuiSettingsMainPage::createContent()
     DuiSettingsPage::createContent();
     DuiLinearLayout* mainLayout = new DuiLinearLayout(Qt::Vertical);
 
-    DuiLabel* title = new DuiLabel("Settings");
+    DuiLabel* title = new DuiLabel(settingsTitle);
     title->setAlignment(Qt::AlignCenter);
     title->setMaximumHeight(30);
     mainLayout->addItem(title);
 
-    m_Category = new DuiMainCategory(tr("Settings"));
+    m_Category = new DuiMainCategory(settingsTitle);
     Q_ASSERT (sizeof (componentTexts) / sizeof(QString) % 4 == 1);
     for (int i=0; true; i+=4){
         QString title = componentTexts[i];
@@ -81,7 +93,9 @@ void DuiSettingsMainPage::createContent()
                 m_Category, title);
         compo1->setDescription(componentTexts[i+1]);
         compo1->setSubPageId(Pages::ACCOUNTS);
-	connect(compo1, SIGNAL(openSubPage(Pages::Id)), this, SIGNAL(openSubPage(Pages::Id)));
+        connect(compo1, SIGNAL(openSubPage(Pages::Id)),
+                this, SIGNAL(openSubPage(Pages::Id)));
+
         title = componentTexts[i+2];
         DuiDescriptionComponent *compo2 = new DuiDescriptionComponent(
                 m_Category, title);
@@ -91,10 +105,8 @@ void DuiSettingsMainPage::createContent()
 
     // reset settings:
     DuiDescriptionComponent *resetSettings = new DuiDescriptionComponent(
-            m_Category, "Reset settings");
-    resetSettings->setDescription("Reset network settings; Delete all media "
-                                  "and data or reset all settings without "
-                                  "deleting all media and data.");
+            m_Category, resetSettingsTitle);
+    resetSettings->setDescription(resetSettingsDescription);
     resetSettings->setFullRowSize ();
     m_Category->add(resetSettings);
 

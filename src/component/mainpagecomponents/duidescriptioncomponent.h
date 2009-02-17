@@ -31,6 +31,7 @@ protected:
     virtual void createContents();
     virtual void mousePressEvent ( QGraphicsSceneMouseEvent * event );
     virtual void mouseReleaseEvent ( QGraphicsSceneMouseEvent * event );
+    virtual void polishEvent ();
 
 protected slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation);

@@ -1,6 +1,6 @@
 DuiLabel {
-    textColor: #dddddd;
-    textFont: font("Nokia Sans Cn", 12);
+    color: #dddddd;
+    font: font("Nokia Sans Cn", 12);
 }
 
 DuiPannableViewport {
