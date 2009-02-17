@@ -15,6 +15,7 @@ public:
 
     virtual void setTitle(const QString& title);
     void setDescription(const QString& desc);
+    void setTextAlignment(Qt::Alignment align);
 
         // Composite Pattern Interface
     virtual void add(DuiSettingsComponent *){}
@@ -23,10 +24,11 @@ public:
     virtual void paint (QPainter * painter,
                         const QStyleOptionGraphicsItem * option,
                         QWidget * widget = 0 );
-
+    void setFullRowSize();
 
 protected:
     virtual void createContents();
+
 protected slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation);
 private:

@@ -9,6 +9,7 @@ DuiMainCategory::DuiMainCategory(
 ) : DuiSettingsCategory(title, parent)
 {
     m_Layout = new DuiGridLayout();
+
     setLayout(m_Layout);
 }
 
