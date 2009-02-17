@@ -1,6 +1,6 @@
 #include "pagefactory.h"
 #include "duisettingsmainpage.h"
-//#include "duisettingsaccountspage.h"
+#include "duisettingsaccountspage.h"
 #include <QtDebug>
 PageFactory *PageFactory::sm_Instance =0;
 
@@ -42,5 +42,5 @@ PageFactory::createMainPage()
 DuiSettingsPage* 
 PageFactory::createAccountsPage()
 {
-    return 0;//new DuiSettingsAccountPage();
+    return new DuiSettingsAccountPage();
 }

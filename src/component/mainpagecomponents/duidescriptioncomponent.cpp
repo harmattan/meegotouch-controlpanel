@@ -150,6 +150,7 @@ void DuiDescriptionComponent::setFullRowSize()
 void DuiDescriptionComponent::mousePressEvent (QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "XXX mouse press";
+    switchToSubPage();
     DuiSettingsComponent::mousePressEvent(event);
     event->accept();
 }
