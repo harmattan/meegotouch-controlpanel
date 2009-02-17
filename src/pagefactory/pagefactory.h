@@ -2,21 +2,14 @@
 #define PAGEFACTORY_H
 
 #include "duisettingspage.h"
-
-
-typedef
-enum {
-   MAINPAGE = 0,
-   ACCOUNTSPAGE=1 
-} PageID;
-
+#include "pages.h"
 class DuiSettingsPage;
 
 class PageFactory
 {
 public:
     static PageFactory *instance();
-    DuiSettingsPage* create (PageID pageID);
+    DuiSettingsPage* create (Pages::Id pageID);
 protected:
     PageFactory();
     DuiSettingsPage* createMainPage();	

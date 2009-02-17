@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <DuiApplicationWindow>
+#include "pages.h"
 class PageFactory;
 class MainWindow : public DuiApplicationWindow
 {
@@ -10,6 +11,8 @@ class MainWindow : public DuiApplicationWindow
 public:
     MainWindow();
     ~MainWindow();
+public slots:
+    void changePage(Pages::Id pageId);
 };
 
 #endif // MAINWINDOW_H

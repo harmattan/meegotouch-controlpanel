@@ -1,6 +1,7 @@
 #include "pagefactory.h"
 #include "duisettingsmainpage.h"
-
+//#include "duisettingsaccountspage.h"
+#include <QtDebug>
 PageFactory *PageFactory::sm_Instance =0;
 
 PageFactory::PageFactory()
@@ -14,17 +15,20 @@ PageFactory::instance()
     return sm_Instance;
 }
 DuiSettingsPage* 
-PageFactory::create(PageID pageID)
+PageFactory::create(Pages::Id pageID)
 {
     DuiSettingsPage *page=0;
     switch (pageID)
       {
-        case MAINPAGE:
+	case Pages::MAIN:
             page = createMainPage();
             break;
-        case ACCOUNTSPAGE:
+        case Pages::ACCOUNTS:
             page = createAccountsPage();
             break;
+	default:
+            qWarning() << "Bad page ID: " << pageID;
+	    page=0;
       }  
     return page;
 }
@@ -38,5 +42,5 @@ PageFactory::createMainPage()
 DuiSettingsPage* 
 PageFactory::createAccountsPage()
 {
-    return 0; // new DuiSettingsAccountsPage();
+    return 0;//new DuiSettingsAccountPage();
 }

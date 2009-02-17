@@ -15,6 +15,7 @@ public:
     DuiSettingsCategory* category() const {return 0;}
 protected slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation);
+
 private:
     QVector<DuiSettingsComponent*> m_Children; 
 };
