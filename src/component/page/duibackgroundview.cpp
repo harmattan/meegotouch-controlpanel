@@ -6,9 +6,8 @@ enum {
 	BackgroundAttribute
 };
 
-
-DuiBackgroundView::DuiBackgroundView(DuiPannableViewport &widget)
-	          :m_viewport(widget)
+DuiBackgroundView::DuiBackgroundView(DuiWidgetController *controller)
+	          :DuiWidgetView(controller), m_viewport(controller)
 {
 	m_background.load(":images/starfield.png");
 	updateStyle();
@@ -62,8 +61,8 @@ void DuiBackgroundView::setGeometry(const QRectF &rect)
 QRectF DuiBackgroundView::boundingRect() const 
 {
 	return QRectF(0.0, 0.0, 
-			m_viewport.geometry().width(),
-			m_viewport.geometry().height());
+			m_viewport->geometry().width(),
+			m_viewport->geometry().height());
 }
 
 QSizeF DuiBackgroundView::sizeHint(Qt::SizeHint which,
@@ -72,7 +71,7 @@ QSizeF DuiBackgroundView::sizeHint(Qt::SizeHint which,
 	Q_UNUSED(which);
 	Q_UNUSED(constraint);
 
-	return QSizeF(m_viewport.geometry().width(), m_viewport.geometry().height());
+	return QSizeF(m_viewport->geometry().width(), m_viewport->geometry().height());
 }
 
 
