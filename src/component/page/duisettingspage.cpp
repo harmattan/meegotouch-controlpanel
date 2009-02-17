@@ -39,7 +39,7 @@ void DuiSettingsPage::createContent()
 
 
     m_DesktopViewport = new DuiPannableViewport(Qt::Vertical, this);
-    DuiBackgroundView *view = new DuiBackgroundView(*m_DesktopViewport);
+    DuiBackgroundView *view = new DuiBackgroundView(m_DesktopViewport);
     m_DesktopViewport->setView(view);
 }
 

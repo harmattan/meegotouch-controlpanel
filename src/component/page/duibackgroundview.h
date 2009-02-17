@@ -9,7 +9,7 @@
 class DuiBackgroundView : public DuiWidgetView
 {
 	public:
-		DuiBackgroundView(DuiPannableViewport &widget);
+		DuiBackgroundView(DuiWidgetController *controller);
 
 		virtual void paint(QPainter *painter, 
 				   const QStyleOptionGraphicsItem *option, 
@@ -25,7 +25,7 @@ class DuiBackgroundView : public DuiWidgetView
 				        const QSizeF & constraint = QSizeF()) const;
 
 	private:
-		DuiPannableViewport& m_viewport;
+		DuiWidgetController *m_viewport;
 
 		QPixmap m_background;
 };
