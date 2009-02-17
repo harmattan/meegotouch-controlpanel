@@ -24,6 +24,8 @@ class DuiBackgroundView : public DuiStylable<DuiBackgroundView, DuiWidgetView>
 				        const QSizeF & constraint = QSizeF()) const;
 
 	private:
-		DuiPannableViewport &m_viewport;	
+		DuiPannableViewport &m_viewport;
+
+		QPixmap m_background;
 };
 #endif // DUIBACKGROUNDVIEW_H
