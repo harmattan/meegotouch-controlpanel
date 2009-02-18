@@ -8,9 +8,12 @@ public:
     explicit DuiSimpleComponent(DuiSettingsCategory *category,
                                   const QString& title="",
                                   QGraphicsWidget *parent=0);
+    virtual void add(DuiSettingsComponent *component){};
+    virtual void remove(DuiSettingsComponent *component){};
 protected:
     virtual void createContents();
-private:
+protected slots:
+    virtual void onOrientationChange (const Dui::Orientation &orientation){};
     	
 };
 #endif //DUISETTINGSCOMPONENT_H
