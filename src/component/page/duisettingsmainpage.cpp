@@ -8,6 +8,7 @@
 
 #include "duimaincategory.h"
 #include "duidescriptioncomponent.h"
+#include "duirecentlyusedcomponent.h"
 #include "pages.h"
 
 
@@ -78,13 +79,19 @@ void DuiSettingsMainPage::createContent()
     DuiSettingsPage::createContent();
     DuiLinearLayout* mainLayout = new DuiLinearLayout(Qt::Vertical);
 
-    DuiLabel* title = new DuiLabel();
-    title->setText(settingsTitle);
+    DuiLabel* title = new DuiLabel(settingsTitle);
     title->setAlignment(Qt::AlignCenter);
     title->setMaximumHeight(30);
     mainLayout->addItem(title);
 
     m_Category = new DuiMainCategory(settingsTitle);
+
+    // most recent used items:
+    DuiRecentlyUsedComponent* recentlyComp = new DuiRecentlyUsedComponent(
+                                                    m_Category);
+    m_Category->add(recentlyComp);
+
+    // category descriptions:
     Q_ASSERT (sizeof (componentTexts) / sizeof(QString) % 4 == 1);
     for (int i=0; true; i+=4){
         QString title = componentTexts[i];
