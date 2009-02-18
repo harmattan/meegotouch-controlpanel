@@ -4,6 +4,8 @@
 #include <duiwidgetview.h>
 #include <duistylable.h>
 
+class DuiWidgetController;
+
 class DuiBackgroundView : public DuiStylable<DuiBackgroundView, DuiWidgetView>
 // class DuiBackgroundView : public DuiWidgetView
 {
