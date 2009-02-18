@@ -12,7 +12,7 @@ public:
 
     virtual void createContents();
 
-protected slots:
+public slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation);
 
 private:

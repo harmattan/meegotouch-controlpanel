@@ -5,7 +5,12 @@ DuiSettingsComponent::DuiSettingsComponent(DuiSettingsCategory *category,
 				  QGraphicsWidget *parent) : DuiWidget(parent),
                                 m_Title(title),
 				m_Category(category)
-{}	 
+{
+    /* Sadly this is not coming, so implemented in a manual way.
+    connect (this, SIGNAL(orientationChanged (const Dui::Orientation &)),
+             this, SLOT(onOrientationChange (const Dui::Orientation &)));
+     */
+}
 
 DuiSettingsComponent*
 DuiSettingsComponent::child(int i) const

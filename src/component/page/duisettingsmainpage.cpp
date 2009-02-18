@@ -3,6 +3,7 @@
 #include <QtDebug>
 
 #include <duilinearlayout.h>
+#include <duimultilayout.h>
 #include <duilabel.h>
 #include <duipannableviewport.h>
 
@@ -116,6 +117,8 @@ void DuiSettingsMainPage::createContent()
             m_Category, resetSettingsTitle);
     resetSettings->setDescription(resetSettingsDescription);
     resetSettings->setFullRowSize ();
+    connect(resetSettings, SIGNAL(openSubPage(Pages::Id)),
+            this, SLOT(onResetSettingsClicked()));
     m_Category->add(resetSettings);
 
     connect (m_DesktopViewport,
@@ -142,4 +145,26 @@ void DuiSettingsMainPage::onSizeChanged(const QSizeF & pannedWidgetSize,
     }
 }
 
+void DuiSettingsMainPage::organizeContent(Dui::Orientation ori)
+{
+    DuiSettingsPage::organizeContent(ori);
+
+    m_Category->onOrientationChange(ori);
+}
+
+
+// ----- FOR TESTING -----
+#include <duideviceprofile.h>
+void DuiSettingsMainPage::onResetSettingsClicked()
+{
+    DuiDeviceProfile *profile = DuiDeviceProfile::instance();
+    if ( profile->orientation() == Dui::Portrait ) {
+        qDebug() << "XXX mode changes to Angle0";
+        profile->setOrientationAngle (DuiDeviceProfile::Angle0);
+    } else {
+        qDebug() << "XXX mode changes to Angle90";
+        profile->setOrientationAngle (DuiDeviceProfile::Angle90);
+    }
+}
+// --
 

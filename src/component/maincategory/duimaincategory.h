@@ -18,11 +18,8 @@ public:
 protected:
     virtual void createContents();
 
+protected:
     class DuiGridLayout* m_Layout;
-
-
-protected slots:
-    virtual void onOrientationChange (const Dui::Orientation &orientation);
 
 };
 

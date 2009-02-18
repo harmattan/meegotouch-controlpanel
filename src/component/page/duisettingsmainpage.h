@@ -9,8 +9,12 @@ class DuiSettingsMainPage : public DuiSettingsPage
 public:
     DuiSettingsMainPage();
     virtual void createContent();
+    virtual void organizeContent(Dui::Orientation ori);
+
 protected slots:
     void onSizeChanged(const QSizeF & size1, const QSizeF & size2);
+    void onResetSettingsClicked();
+
 private:
     DuiMainCategory *m_Category;
 

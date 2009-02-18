@@ -5,13 +5,16 @@
 
 #include <duilabel.h>
 
-static const QSize fullSize(720,65);
-static const QSize halfSize(340,65);
+static const QSize fullSizeLandscape(720,65);
+static const QSize halfSizeLandscape(340,65);
+static const QSize fullSizePortrait(405,85);
+static const QSize halfSizePortrait(180,125);
 
 DuiDescriptionComponent::DuiDescriptionComponent(DuiSettingsCategory *category,
                                                  const QString& title,
                                                  QGraphicsWidget *parent) :
-    DuiBackgroundComponent(category, title, parent)
+    DuiBackgroundComponent(category, title, parent),
+    m_Orientation(Dui::Landscape)
 {
     createContents();
 }
@@ -24,13 +27,9 @@ DuiDescriptionComponent::createContents()
 
     m_Description = new DuiLabel();
     m_Description->setObjectName("ComponentDescription");
-    m_Description->setAlignment(Qt::AlignJustify | Qt::AlignTop);
     m_Description->setWordWrap(true);
 
-    // TODO: move to stylesheet
-    m_Description->setMaximumSize(halfSize);
-    m_Description->setMinimumSize(halfSize);
-    // --
+    setHalfRowSize();
 
     // this fixes a dui issue, that the labels are eating up our clickEvents
     m_Description->setAcceptedMouseButtons(0);
@@ -40,10 +39,16 @@ DuiDescriptionComponent::createContents()
 }
 
 
-void
-DuiDescriptionComponent::onOrientationChange (const Dui::Orientation &orientation)
+void DuiDescriptionComponent::onOrientationChange (
+                                        const Dui::Orientation &orientation)
 {
+    m_Orientation = orientation;
     DuiBackgroundComponent::onOrientationChange(orientation);
+    if (m_IsFullRow) {
+        setFullRowSize();
+    } else {
+        setHalfRowSize();
+    }
 }
 
 
@@ -65,11 +70,32 @@ void DuiDescriptionComponent::setTextAlignment(Qt::Alignment align)
 void DuiDescriptionComponent::setFullRowSize()
 {
     /* prohibit the description to change the widget's width too big */
+    // TODO: move to stylesheet
+    QSize fullSize = (m_Orientation != Dui::Portrait) ? fullSizeLandscape
+                     : fullSizePortrait;
     m_Description->setMaximumSize(fullSize);
     m_Description->setMinimumSize(fullSize);
+    // --
 
     setTextAlignment(Qt::AlignHCenter);
     setTitleAlignment(Qt::AlignHCenter);
+    m_IsFullRow = true;
+}
+
+
+void DuiDescriptionComponent::setHalfRowSize()
+{
+    /* prohibit the description to change the widget's width too big */
+    // TODO: move to stylesheet
+    QSize halfSize = (m_Orientation != Dui::Portrait) ? halfSizeLandscape
+                     : halfSizePortrait;
+    m_Description->setMaximumSize(halfSize);
+    m_Description->setMinimumSize(halfSize);
+    // --
+
+    setTextAlignment(Qt::AlignTop);
+    setTitleAlignment(Qt::AlignLeft);
+    m_IsFullRow = false;
 }
 
 

@@ -13,7 +13,8 @@ public:
     virtual void remove(DuiSettingsComponent *component);
     virtual DuiSettingsComponent* child(int i) const;
     DuiSettingsCategory* category() const {return 0;}
-protected slots:
+
+public slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation);
 
 private:

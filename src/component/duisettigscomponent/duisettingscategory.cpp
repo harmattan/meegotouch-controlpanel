@@ -26,5 +26,7 @@ DuiSettingsCategory::child(int i) const
 void 
 DuiSettingsCategory::onOrientationChange (const Dui::Orientation &orientation)
 {
-    Q_UNUSED(orientation);
+    foreach (DuiSettingsComponent* component, m_Children) {
+        component->onOrientationChange(orientation);
+    }
 }

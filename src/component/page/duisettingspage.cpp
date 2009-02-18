@@ -49,6 +49,11 @@ void DuiSettingsPage::createContent()
 void DuiSettingsPage::organizeContent(Dui::Orientation ori)
 {
     Q_UNUSED(ori);
-    qDebug() << "WARNING: orientation change is not yet implemented";
+
+    // make the layout reorganize its elements:
+    QGraphicsLayout* layout = this->layout();
+    if (!layout) return;
+    layout->invalidate();
+    layout->activate();
 }
 

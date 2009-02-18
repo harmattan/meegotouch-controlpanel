@@ -35,14 +35,7 @@ void DuiMainCategory::add(DuiSettingsComponent *component1,
 }
 
 
-
 void DuiMainCategory::createContents()
 {
-}
-
-
-void DuiMainCategory::onOrientationChange (const Dui::Orientation &orientation)
-{
-    Q_UNUSED(orientation);
 }
 

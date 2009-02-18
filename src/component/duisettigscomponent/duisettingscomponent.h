@@ -3,7 +3,9 @@
 
 #include <DuiWidget>
 #include "pages.h"
+
 class DuiSettingsCategory;
+
 class DuiSettingsComponent : public DuiWidget
 {
     Q_OBJECT
@@ -25,10 +27,13 @@ public:
 protected:
     virtual void createContents()=0;
     virtual void switchToSubPage(); 
+
 signals:
     void openSubPage(Pages::Id subPageId);
-protected slots:
+
+public slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation)=0;
+
 private:
     QString m_Title; 
     DuiSettingsCategory* m_Category; 

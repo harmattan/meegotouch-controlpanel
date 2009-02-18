@@ -15,6 +15,7 @@ public:
     void setTextAlignment(Qt::Alignment align);
 
     void setFullRowSize();
+    void setHalfRowSize();
 
 protected:
     virtual void createContents();
@@ -22,11 +23,13 @@ protected:
     virtual void mouseReleaseEvent ( QGraphicsSceneMouseEvent * event );
     virtual void polishEvent ();
 
-protected slots:
+public slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation);
 
 private:
     DuiLabel *m_Description;
+    bool m_IsFullRow;
+    Dui::Orientation m_Orientation;
 };
 
 
