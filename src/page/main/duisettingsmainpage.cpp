@@ -70,8 +70,10 @@ static const QString resetSettingsDescription = DuiSettingsMainPage::tr(
 static const QString settingsTitle = DuiSettingsMainPage::tr("Settings");
 
 
-DuiSettingsMainPage::DuiSettingsMainPage()
+DuiSettingsMainPage::DuiSettingsMainPage() :
+	DuiSettingsPage()
 {
+    m_PageId = Pages::MAIN;
 }
 
 

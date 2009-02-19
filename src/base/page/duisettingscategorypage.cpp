@@ -8,7 +8,8 @@
 #include "duimaincategory.h"
 
 
-DuiSettingsCategoryPage::DuiSettingsCategoryPage()
+DuiSettingsCategoryPage::DuiSettingsCategoryPage() :
+	DuiSettingsPage()
 {
 }
 

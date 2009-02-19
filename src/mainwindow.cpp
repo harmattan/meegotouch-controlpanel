@@ -2,15 +2,23 @@
 #include "pagefactory.h"
 #include <duinavigationbar.h>
 
-MainWindow::MainWindow()
+MainWindow::MainWindow() : m_Referer(Pages::NOPAGE)
 {
    connect(navigationBar(), SIGNAL(homeClicked()), this, SLOT(homeClicked())); 
+   connect(navigationBar(), SIGNAL(backClicked()), this, SLOT(backClicked())); 
    changePage(Pages::MAIN);
 }
 
 void MainWindow::homeClicked()
 {
    changePage(Pages::MAIN);
+}
+
+void MainWindow::backClicked()
+{
+  if (m_Referer == Pages::NOPAGE)
+        return;
+   changePage(m_Referer);
 }
 
 MainWindow::~MainWindow()
@@ -31,9 +39,13 @@ MainWindow::changePage(Pages::Id pageId)
     DuiApplicationPage* oldPage = currentPage();
     if (oldPage)
       {
+        m_Referer = PageFactory::idOf(oldPage);
       	removePage(oldPage);
-//        delete oldPage;
       }
+    PageFactory::idOf(page) == Pages::MAIN ?
+       navigationBar()->showCloseButton()
+    :
+       navigationBar()->showBackButton();
     showPage(page);
     
 }

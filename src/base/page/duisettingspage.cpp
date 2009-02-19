@@ -15,7 +15,7 @@
 
 #include "button2.h"
 
-DuiSettingsPage::DuiSettingsPage()
+DuiSettingsPage::DuiSettingsPage() : DuiApplicationPage() 
 {
 }
 

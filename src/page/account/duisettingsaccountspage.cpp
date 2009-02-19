@@ -6,8 +6,10 @@
 
 
 
-DuiSettingsAccountPage::DuiSettingsAccountPage() : DuiSettingsCategoryPage() 
+DuiSettingsAccountPage::DuiSettingsAccountPage()
+                       : DuiSettingsCategoryPage() 
 {
+    m_PageId = Pages::ACCOUNTS;
 }
 
 

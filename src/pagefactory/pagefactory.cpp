@@ -14,11 +14,17 @@ PageFactory::instance()
         sm_Instance = new PageFactory();
     return sm_Instance;
 }
+
+Pages::Id
+PageFactory::idOf(DuiApplicationPage *page)
+{
+    return qobject_cast<DuiSettingsPage*>(page)->pageId();
+}
 DuiSettingsPage* 
-PageFactory::create(Pages::Id pageID)
+PageFactory::create(Pages::Id pageId)
 {
     DuiSettingsPage *page=0;
-    switch (pageID)
+    switch (pageId)
       {
 	case Pages::MAIN:
             page = createMainPage();
@@ -27,7 +33,7 @@ PageFactory::create(Pages::Id pageID)
             page = createAccountsPage();
             break;
 	default:
-            qWarning() << "Bad page ID: " << pageID;
+            qWarning() << "Bad page ID: " << pageId;
 	    page=0;
       }  
     return page;

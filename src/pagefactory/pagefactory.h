@@ -9,7 +9,8 @@ class PageFactory
 {
 public:
     static PageFactory *instance();
-    DuiSettingsPage* create (Pages::Id pageID);
+    static Pages::Id idOf(DuiApplicationPage *page);
+    DuiSettingsPage* create (Pages::Id pageId);
 protected:
     PageFactory();
     DuiSettingsPage* createMainPage();	
