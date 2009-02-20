@@ -9,6 +9,8 @@
 #include "duimaincategory.h"
 #include "duidescriptioncomponent.h"
 
+#include "button2.h"
+
 static const QString componentTexts[] = {
     DuiSettingsMainPage::tr("Personalization"), /* <- title */
     DuiSettingsMainPage::tr("Personalize the device with e.g. profile, "
@@ -57,6 +59,29 @@ void DuiSettingsMainPage::createContent()
     title->setAlignment(Qt::AlignCenter);
     title->setMaximumHeight(30);
     mainLayout->addItem(title);
+
+/* dummy
+    CButton2 *button1 = new CButton2("alpha", 300, 90, "beta", 110, 30, 30, 30);
+    CButton2 *button2 = new CButton2("alpha", 300, 90, "beta", 110, 30, 30, 30);
+    CButton2 *button3 = new CButton2("alpha", 300, 90, "beta", 110, 30, 30, 30);
+
+    mainLayout->addItem(button1->layout());
+    mainLayout->addItem(button2->layout());
+    mainLayout->addItem(button3->layout());
+*/
+
+    MainContainer *tmpContainer = new MainContainer;
+
+    tmpContainer->add("aaaa", "1");
+    tmpContainer->add("aaaa", "2");
+
+    tmpContainer->add("bbbb", "1");
+    tmpContainer->add("bbbb", "2");
+
+    tmpContainer->add("cccc", "1");
+    tmpContainer->add("cccc", "2");
+
+    mainLayout->addItem(tmpContainer->layout());
 
     m_Category = new DuiMainCategory(tr("Settings"));
     Q_ASSERT (sizeof (componentTexts) / sizeof(QString) % 4 == 1);

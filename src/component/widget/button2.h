@@ -6,8 +6,34 @@
 #include "duigridlayout.h"
 
 #include <duibutton.h>
+#include <duibuttonview.h>
+
+#include <duibutton2view.h>
+
+#include <duiwidgetview.h>
+#include <duitheme.h>
 
 
+class MainContainer : public QObject {
+
+    public:
+        MainContainer();
+
+        void add(QString text1, QString text2);
+        //void remove();
+
+        DuiGridLayout* layout();
+
+    private:
+        DuiGridLayout* m_Layout;
+
+        int m_PosX;
+        int m_PosY;
+
+        static const int layoutFieldWidth = 350;
+        static const int layoutFieltHeight = 100;
+
+};
 
 class CButton2 : public QObject{
 
@@ -31,6 +57,13 @@ class CButton2 : public QObject{
 
         DuiButton* m_BigButton;
         DuiButton* m_SmallButton;
+
+        DuiWidgetView *m_BigButtonView;
+        DuiWidgetView *m_SmallButtonView;
+
+        DuiWidgetView* view;
+        DuiButton* button2;
+
 };
 
 #endif

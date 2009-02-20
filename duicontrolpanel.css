@@ -1,8 +1,104 @@
+
 DuiLabel {
     textColor: #dddddd;
     textFont: font("Nokia Sans Cn", 12);
 }
 
 DuiBackgroundView {
-	background: images(starfield);
+	background: image(starfield);
+}
+
+DuiButton {
+    view: DuiButtonView;
+    text: Next;
+    font: font(sans, 15);
+    textColor: #FF0000;
+    preferredsize: size(350, 100);
+    minsize: size(350, 100);
+    maxsize: size(350, 100);
+}
+
+DuiButtonView {
+    preferredsize: size(350, 100);
+    minsize: size(350, 100);
+    maxsize: size(350, 100);
+
+    normalBackgroundName: SB-disabled;
+    pressedBackgroundName: SB-disabled;
+
+    font: font(sans, 55);
+    textColor: #0000FF;
+    iconSize: size(8mm, 8mm);
+    cloudColor: #FF0000;
+    cloudDuration: 500;
+    cloudStartSize: 0.0;
+    cloudEndSize: 1.4;
+    cloudStartOpacity: 0.9;
+    horizontalBoxEdgePercent: 10;
+}
+
+
+
+
+#BigButton {
+%    view: BigButtonView;
+    text: Next;
+    font: font(sans, 5);
+    textColor: #000000;
+    preferredsize: size(350, 100);
+    minsize: size(350, 100);
+    maxsize: size(350, 100);
+}
+
+#SmallButton {
+%    view: SmallButtonView;
+    text: Next;
+    font: font(sans, 5);
+    textColor: #000000;
+    preferredsize: size(80, 80);
+    minsize: size(80, 80);
+    maxsize: size(80, 80);
+}
+
+#BigButtonView {
+    preferredsize: size(350, 100);
+    minsize: size(350, 100);
+    maxsize: size(350, 100);
+
+    normalBackgroundName: Menu-box;
+    pressedBackgroundName: W-Icon-weather;
+
+    font: font(sans, 55);
+    textColor: #0000FF;
+    iconSize: size(8mm, 8mm);
+    cloudColor: #FF0000;
+    cloudDuration: 500;
+    cloudStartSize: 0.0;
+    cloudEndSize: 1.4;
+    cloudStartOpacity: 0.9;
+    horizontalBoxEdgePercent: 10;
+}
+
+#SmallButtonView {
+    preferredsize: size(80, 80);
+    minsize: size(80, 80);
+    maxsize: size(80, 80);
+
+    normalBackgroundName: W-Icon-weather;
+    pressedBackgroundName: W-Icon-weather;
+
+    font: font(sans, 55);
+    textColor: #0000FF;
+    iconSize: size(8mm, 8mm);
+    cloudColor: #FFFF00;
+    cloudDuration: 500;
+    cloudStartSize: 0.0;
+    cloudEndSize: 1.4;
+    cloudStartOpacity: 0.9;
+    horizontalBoxEdgePercent: 10;
+}
+
+DuiButtonView {
+    normalBackgroundName: W-Icon-weather;
+    pressedBackgroundName: W-Icon-weather;
 }
