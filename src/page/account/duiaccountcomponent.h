@@ -2,6 +2,7 @@
 #define DUIACCOUNTCOMPONENT_H
 #include "duisimplecomponent.h" 
 class DuiImageLabel;
+class QGraphicsSceneMouseEvent;
 class DuiAccountComponent : public DuiSimpleComponent
 {
     Q_OBJECT
@@ -11,6 +12,7 @@ public:
                                   QGraphicsWidget *parent=0);
 protected:
     virtual void createContents();
+    virtual void mousePressEvent (QGraphicsSceneMouseEvent *event);
 private:
     DuiImageLabel* m_Label;
     	

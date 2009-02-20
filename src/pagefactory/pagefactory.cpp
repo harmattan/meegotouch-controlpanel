@@ -1,6 +1,7 @@
 #include "pagefactory.h"
 #include "duisettingsmainpage.h"
 #include "duisettingsaccountspage.h"
+#include "duisettingsappletpage.h"
 #include <QtDebug>
 PageFactory *PageFactory::sm_Instance =0;
 
@@ -32,6 +33,9 @@ PageFactory::create(Pages::Id pageId)
         case Pages::ACCOUNTS:
             page = createAccountsPage();
             break;
+        case Pages::APPLET:
+            page = createAppletPage();
+            break;
 	default:
             qWarning() << "Bad page ID: " << pageId;
 	    page=0;
@@ -49,4 +53,10 @@ DuiSettingsPage*
 PageFactory::createAccountsPage()
 {
     return new DuiSettingsAccountPage();
+}
+
+DuiSettingsPage* 
+PageFactory::createAppletPage()
+{
+    return new DuiSettingsAppletPage();
 }

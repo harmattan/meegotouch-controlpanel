@@ -15,6 +15,7 @@ protected:
     PageFactory();
     DuiSettingsPage* createMainPage();	
     DuiSettingsPage* createAccountsPage();	
+    DuiSettingsPage* createAppletPage();	
 private:
     static PageFactory* sm_Instance;
 };

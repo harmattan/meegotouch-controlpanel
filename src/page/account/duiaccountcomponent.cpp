@@ -2,6 +2,7 @@
 #include "duiimagelabel.h" 
 #include "duilinearlayout.h" 
 #include "duitheme.h"
+#include <QGraphicsSceneMouseEvent>
 #include <QtDebug>
 DuiAccountComponent::DuiAccountComponent(DuiSettingsCategory *category,
                                   const QString& title, 
@@ -22,3 +23,8 @@ DuiAccountComponent::createContents()
     layout->addItem(m_Label);
     setLayout(layout);
 }
+void DuiAccountComponent::mousePressEvent (QGraphicsSceneMouseEvent *event) 
+{                                                                               
+    switchToSubPage();                                                          
+    event->accept();                                                            
+}          
