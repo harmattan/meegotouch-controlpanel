@@ -21,6 +21,13 @@ PageFactory::idOf(DuiApplicationPage *page)
 {
     return qobject_cast<DuiSettingsPage*>(page)->pageId();
 }
+
+Pages::Id
+PageFactory::refererOf(DuiApplicationPage *page)
+{
+    return qobject_cast<DuiSettingsPage*>(page)->referer();
+}
+
 DuiSettingsPage* 
 PageFactory::create(Pages::Id pageId)
 {

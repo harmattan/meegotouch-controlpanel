@@ -10,6 +10,7 @@ class PageFactory
 public:
     static PageFactory *instance();
     static Pages::Id idOf(DuiApplicationPage *page);
+    static Pages::Id refererOf(DuiApplicationPage *page);
     DuiSettingsPage* create (Pages::Id pageId);
 protected:
     PageFactory();

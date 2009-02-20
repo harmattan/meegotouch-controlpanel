@@ -3,6 +3,7 @@
 DuiSettingsAppletPage::DuiSettingsAppletPage() : DuiSettingsPage() 
 {
     m_PageId = Pages::APPLET;
+    m_Referer = Pages::NOPAGE;
 }
 
 void DuiSettingsAppletPage::createContent()

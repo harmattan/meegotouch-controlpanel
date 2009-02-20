@@ -13,11 +13,14 @@ public:
     virtual void organizeContent(Dui::Orientation ori);
     Pages::Id pageId() const {return m_PageId;};
     void setPageId(Pages::Id pageId) {m_PageId = pageId;};
+    Pages::Id referer() const {return m_Referer;};
+    void setReferer(Pages::Id referer) {m_Referer = referer;};
 signals:
     void openSubPage(Pages::Id subPageId);
 protected:
    DuiPannableViewport *m_DesktopViewport;
    Pages::Id m_PageId;
+   Pages::Id m_Referer;
 private:
 };
 
