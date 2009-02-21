@@ -74,6 +74,7 @@ DuiSettingsMainPage::DuiSettingsMainPage() :
 	DuiSettingsPage()
 {
     m_PageId = Pages::MAIN;
+    m_Referer = Pages::NOPAGE;
 }
 
 

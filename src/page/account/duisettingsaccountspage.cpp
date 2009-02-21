@@ -10,6 +10,7 @@ DuiSettingsAccountPage::DuiSettingsAccountPage()
                        : DuiSettingsCategoryPage() 
 {
     m_PageId = Pages::ACCOUNTS;
+    m_Referer = Pages::MAIN;
 }
 
 
