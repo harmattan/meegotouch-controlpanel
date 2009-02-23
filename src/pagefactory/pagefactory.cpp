@@ -1,6 +1,7 @@
 #include "pagefactory.h"
 #include "duisettingsmainpage.h"
-//#include "duisettingsaccountspage.h"
+#include "duisettingsaccountspage.h"
+#include "duisettingsappletpage.h"
 #include <QtDebug>
 PageFactory *PageFactory::sm_Instance =0;
 
@@ -14,11 +15,24 @@ PageFactory::instance()
         sm_Instance = new PageFactory();
     return sm_Instance;
 }
+
+Pages::Id
+PageFactory::idOf(DuiApplicationPage *page)
+{
+    return qobject_cast<DuiSettingsPage*>(page)->pageId();
+}
+
+Pages::Id
+PageFactory::refererOf(DuiApplicationPage *page)
+{
+    return qobject_cast<DuiSettingsPage*>(page)->referer();
+}
+
 DuiSettingsPage* 
-PageFactory::create(Pages::Id pageID)
+PageFactory::create(Pages::Id pageId)
 {
     DuiSettingsPage *page=0;
-    switch (pageID)
+    switch (pageId)
       {
 	case Pages::MAIN:
             page = createMainPage();
@@ -26,8 +40,11 @@ PageFactory::create(Pages::Id pageID)
         case Pages::ACCOUNTS:
             page = createAccountsPage();
             break;
+        case Pages::APPLET:
+            page = createAppletPage();
+            break;
 	default:
-            qWarning() << "Bad page ID: " << pageID;
+            qWarning() << "Bad page ID: " << pageId;
 	    page=0;
       }  
     return page;
@@ -42,5 +59,11 @@ PageFactory::createMainPage()
 DuiSettingsPage* 
 PageFactory::createAccountsPage()
 {
-    return 0;//new DuiSettingsAccountPage();
+    return new DuiSettingsAccountPage();
+}
+
+DuiSettingsPage* 
+PageFactory::createAppletPage()
+{
+    return new DuiSettingsAppletPage();
 }
