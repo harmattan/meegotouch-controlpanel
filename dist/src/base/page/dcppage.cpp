@@ -4,21 +4,21 @@
 #include <QGridLayout>
 #include "duiwidgetview.h"
 
-#include "duisettingspage.h"
-#include "duibackgroundview.h"
+#include "dcppage.h"
+#include "dcpbackgroundview.h"
 
-DuiSettingsPage::DuiSettingsPage() : DuiApplicationPage() 
+DcpPage::DcpPage() : DuiApplicationPage() 
 {
 }
 
-void DuiSettingsPage::createContent()
+void DcpPage::createContent()
 {    
     m_DesktopViewport = new DuiPannableViewport(Qt::Vertical, this);
-    DuiBackgroundView *view = new DuiBackgroundView(m_DesktopViewport);
+    DcpBackgroundView *view = new DcpBackgroundView(m_DesktopViewport);
     m_DesktopViewport->setView(view);
 }
 
-void DuiSettingsPage::organizeContent(Dui::Orientation ori)
+void DcpPage::organizeContent(Dui::Orientation ori)
 {
     Q_UNUSED(ori);
 

@@ -1,7 +1,7 @@
 #include "pagefactory.h"
-#include "duisettingsmainpage.h"
-#include "duisettingsaccountspage.h"
-#include "duisettingsappletpage.h"
+#include "dcpmainpage.h"
+#include "dcpaccountspage.h"
+#include "dcpappletpage.h"
 #include <QtDebug>
 PageFactory *PageFactory::sm_Instance =0;
 
@@ -19,19 +19,19 @@ PageFactory::instance()
 Pages::Id
 PageFactory::idOf(DuiApplicationPage *page)
 {
-    return qobject_cast<DuiSettingsPage*>(page)->pageId();
+    return qobject_cast<DcpPage*>(page)->pageId();
 }
 
 Pages::Id
 PageFactory::refererOf(DuiApplicationPage *page)
 {
-    return qobject_cast<DuiSettingsPage*>(page)->referer();
+    return qobject_cast<DcpPage*>(page)->referer();
 }
 
-DuiSettingsPage* 
+DcpPage* 
 PageFactory::create(Pages::Id pageId)
 {
-    DuiSettingsPage *page=0;
+    DcpPage *page=0;
     switch (pageId)
       {
 	case Pages::MAIN:
@@ -50,20 +50,20 @@ PageFactory::create(Pages::Id pageId)
     return page;
 }
 
-DuiSettingsPage* 
+DcpPage* 
 PageFactory::createMainPage()
 {
-    return new DuiSettingsMainPage();
+    return new DcpMainPage();
 }
 
-DuiSettingsPage* 
+DcpPage* 
 PageFactory::createAccountsPage()
 {
-    return new DuiSettingsAccountPage();
+    return new DcpAccountPage();
 }
 
-DuiSettingsPage* 
+DcpPage* 
 PageFactory::createAppletPage()
 {
-    return new DuiSettingsAppletPage();
+    return new DcpAppletPage();
 }

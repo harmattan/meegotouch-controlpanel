@@ -1,26 +1,26 @@
-#ifndef DUIBACKGROUNDCOMPONENT_H
-#define DUIBACKGROUNDCOMPONENT_H
+#ifndef DCPBACKGROUNDCOMPONENT_H
+#define DCPBACKGROUNDCOMPONENT_H
 
-#include "duisettingscomponent.h"
+#include "dcpcomponent.h"
 
 class DuiLabel;
 class DuiLinearLayout;
 
-class DuiBackgroundComponent: public DuiSettingsComponent
+class DcpBackgroundComponent: public DcpComponent
 {
     Q_OBJECT
 public:
-    DuiBackgroundComponent(DuiSettingsCategory *category,
+    DcpBackgroundComponent(DcpCategory *category,
                             const QString& title="",
                             QGraphicsWidget *parent=0);
-    ~DuiBackgroundComponent();
+    ~DcpBackgroundComponent();
 
     virtual void setTitle(const QString& title);
     void setTitleAlignment(Qt::Alignment align);
 
         // Composite Pattern Interface
-    virtual void add(DuiSettingsComponent *){}
-    virtual void remove(DuiSettingsComponent *){}
+    virtual void add(DcpComponent *){}
+    virtual void remove(DcpComponent *){}
 
     virtual void paint (QPainter * painter,
                         const QStyleOptionGraphicsItem * option,
@@ -41,4 +41,4 @@ private:
 };
 
 
-#endif // DUIBACKGROUNDCOMPONENT_H
+#endif // DCPBACKGROUNDCOMPONENT_H

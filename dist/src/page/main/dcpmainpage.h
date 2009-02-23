@@ -1,13 +1,13 @@
-#ifndef DUISETTINGSMAINPAGE_H
-#define DUISETTINGSMAINPAGE_H
+#ifndef DCPMAINPAGE_H
+#define DCPMAINPAGE_H
 
-#include "duisettingspage.h"
-class DuiMainCategory;
-class DuiSettingsMainPage : public DuiSettingsPage
+#include "dcppage.h"
+class DcpMainCategory;
+class DcpMainPage : public DcpPage
 {
     Q_OBJECT
 public:
-    DuiSettingsMainPage();
+    DcpMainPage();
     virtual void createContent();
     virtual void organizeContent(Dui::Orientation ori);
 
@@ -16,7 +16,7 @@ protected slots:
     void onResetSettingsClicked();
 
 private:
-    DuiMainCategory *m_Category;
+    DcpMainCategory *m_Category;
 
 };
 

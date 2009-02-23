@@ -1,6 +1,6 @@
-#include "duisettingscomponent.h" 
+#include "dcpcomponent.h" 
 #include <QtDebug>
-DuiSettingsComponent::DuiSettingsComponent(DuiSettingsCategory *category,
+DcpComponent::DcpComponent(DcpCategory *category,
                                   const QString& title, 
 				  QGraphicsWidget *parent) : DuiWidget(parent),
                                 m_Title(title),
@@ -12,8 +12,8 @@ DuiSettingsComponent::DuiSettingsComponent(DuiSettingsCategory *category,
      */
 }
 
-DuiSettingsComponent*
-DuiSettingsComponent::child(int i) const
+DcpComponent*
+DcpComponent::child(int i) const
 {
     Q_UNUSED(i);
     qDebug() << "No child handling";
@@ -21,7 +21,7 @@ DuiSettingsComponent::child(int i) const
 }
 
 void
-DuiSettingsComponent::switchToSubPage()
+DcpComponent::switchToSubPage()
 {
     emit openSubPage(subPageId());
 }

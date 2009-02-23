@@ -1,13 +1,13 @@
-#ifndef DUIDESCRIPTIONCOMPONENT_H
-#define DUIDESCRIPTIONCOMPONENT_H
+#ifndef DCPDESCRIPTIONCOMPONENT_H
+#define DCPDESCRIPTIONCOMPONENT_H
 
-#include "duibackgroundcomponent.h"
+#include "dcpbackgroundcomponent.h"
 
-class DuiDescriptionComponent:public DuiBackgroundComponent
+class DcpDescriptionComponent:public DcpBackgroundComponent
 {
     Q_OBJECT
 public:
-    DuiDescriptionComponent(DuiSettingsCategory *category,
+    DcpDescriptionComponent(DcpCategory *category,
                             const QString& title="",
                             QGraphicsWidget *parent=0);
 
@@ -33,4 +33,4 @@ private:
 };
 
 
-#endif // DUIDESCRIPTIONCOMPONENT_H
+#endif // DCPDESCRIPTIONCOMPONENT_H

@@ -6,11 +6,11 @@
 
 class DuiWidgetController;
 
-class DuiBackgroundView : public DuiStylable<DuiBackgroundView, DuiWidgetView>
-// class DuiBackgroundView : public DuiWidgetView
+class DcpBackgroundView : public DuiStylable<DcpBackgroundView, DuiWidgetView>
+// class DcpBackgroundView : public DuiWidgetView
 {
 	public:
-		DuiBackgroundView(DuiWidgetController *controller);
+		DcpBackgroundView(DuiWidgetController *controller);
 
 		virtual void paint(QPainter *painter, 
 				   const QStyleOptionGraphicsItem *option, 

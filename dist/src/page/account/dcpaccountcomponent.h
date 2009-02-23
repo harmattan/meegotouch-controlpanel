@@ -1,13 +1,13 @@
-#ifndef DUIACCOUNTCOMPONENT_H
-#define DUIACCOUNTCOMPONENT_H
-#include "duisimplecomponent.h" 
+#ifndef DCPACCOUNTCOMPONENT_H
+#define DCPACCOUNTCOMPONENT_H
+#include "dcpsimplecomponent.h" 
 class DuiImageLabel;
 class QGraphicsSceneMouseEvent;
-class DuiAccountComponent : public DuiSimpleComponent
+class DcpAccountComponent : public DcpSimpleComponent
 {
     Q_OBJECT
 public:
-    explicit DuiAccountComponent(DuiSettingsCategory *category,
+    explicit DcpAccountComponent(DcpCategory *category,
                                   const QString& title="",
                                   QGraphicsWidget *parent=0);
 protected:
@@ -17,4 +17,4 @@ private:
     DuiImageLabel* m_Label;
     	
 };
-#endif //DUIACCOUNTCOMPONENT_H
+#endif //DCPACCOUNTCOMPONENT_H

@@ -1,16 +1,16 @@
-#ifndef DUISETTINGSCOMPONENT_H
-#define DUISETTINGSCOMPONENT_H
+#ifndef DCPCOMPONENT_H
+#define DCPCOMPONENT_H
 
 #include <DuiWidget>
 #include "pages.h"
 
-class DuiSettingsCategory;
+class DcpCategory;
 
-class DuiSettingsComponent : public DuiWidget
+class DcpComponent : public DuiWidget
 {
     Q_OBJECT
 public:
-    explicit DuiSettingsComponent(DuiSettingsCategory *category,
+    explicit DcpComponent(DcpCategory *category,
                                   const QString& title="",
                                   QGraphicsWidget *parent=0);
     QString title() const {return m_Title;}
@@ -18,11 +18,11 @@ public:
     void setSubPageId(Pages::Id subPageId) {m_SubPageId = subPageId;};          
     Pages::Id subPageId() const {return m_SubPageId;};                      
     // Composite Pattern Interface	
-    virtual void add(DuiSettingsComponent *component)=0;
-    virtual void remove(DuiSettingsComponent *component)=0;
+    virtual void add(DcpComponent *component)=0;
+    virtual void remove(DcpComponent *component)=0;
 
-    virtual DuiSettingsComponent* child(int i) const;
-    DuiSettingsCategory* category() const {return 0;}
+    virtual DcpComponent* child(int i) const;
+    DcpCategory* category() const {return 0;}
 
 protected:
     virtual void createContents()=0;
@@ -36,7 +36,7 @@ public slots:
 
 private:
     QString m_Title; 
-    DuiSettingsCategory* m_Category; 
+    DcpCategory* m_Category; 
     Pages::Id m_SubPageId;
 };
-#endif //DUISETTINGSCOMPONENT_H
+#endif //DCPCOMPONENT_H

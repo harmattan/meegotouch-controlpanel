@@ -1,16 +1,16 @@
-#include "duisimplecategory.h"
+#include "dcpsimplecategory.h"
 #include <duilinearlayout.h>
 #include <duilabel.h>
-DuiSimpleCategory::DuiSimpleCategory(const QString& title,
+DcpSimpleCategory::DcpSimpleCategory(const QString& title,
                                  QGraphicsWidget *parent) :
-    DuiSettingsCategory(title, parent)
+    DcpCategory(title, parent)
 				
 {
     createContents();
 }
 
 void 
-DuiSimpleCategory::createContents()
+DcpSimpleCategory::createContents()
 {
 	m_Layout = new DuiLinearLayout(Qt::Vertical);
     DuiLabel *caption = new DuiLabel(title());
@@ -25,14 +25,14 @@ DuiSimpleCategory::createContents()
 }
 
 void 
-DuiSimpleCategory::add(DuiSettingsComponent *component)
+DcpSimpleCategory::add(DcpComponent *component)
 {
 	m_Layout->addItem(component);
-	DuiSettingsCategory::add(component);
+	DcpCategory::add(component);
 }
 
 void 
-DuiSimpleCategory::paint (QPainter *painter, 
+DcpSimpleCategory::paint (QPainter *painter, 
                             const QStyleOptionGraphicsItem *option,
                             QWidget *widget)
 {
@@ -40,11 +40,11 @@ DuiSimpleCategory::paint (QPainter *painter,
     Q_UNUSED(widget);                                                                            
                                                                                 
     painter->drawRect(boundingRect());
-    DuiSettingsCategory::paint(painter, option, widget);
+    DcpCategory::paint(painter, option, widget);
 }
 
 void 
-DuiSimpleCategory::onOrientationChange (const Dui::Orientation &orientation)
+DcpSimpleCategory::onOrientationChange (const Dui::Orientation &orientation)
 {
     Q_UNUSED(orientation);	
 }

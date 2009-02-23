@@ -1,22 +1,22 @@
-#include "duibackgroundcomponent.h"
+#include "dcpbackgroundcomponent.h"
 
 #include <duilinearlayout.h>
 #include <duilabel.h>
 #include <duitheme.h>
 #include <qpixmap.h>
 
-DuiBackgroundComponent::DuiBackgroundComponent(
-                            DuiSettingsCategory *category,
+DcpBackgroundComponent::DcpBackgroundComponent(
+                            DcpCategory *category,
                             const QString& title,
                             QGraphicsWidget *parent):
-    DuiSettingsComponent(category, title, parent),
+    DcpComponent(category, title, parent),
     m_Background (NULL)
 {
 
 }
 
 
-DuiBackgroundComponent::~DuiBackgroundComponent() {
+DcpBackgroundComponent::~DcpBackgroundComponent() {
     if (m_Background) {
         // DuiTheme::releasePixmap(m_Background);
         delete m_Background;
@@ -25,7 +25,7 @@ DuiBackgroundComponent::~DuiBackgroundComponent() {
 
 
 void
-DuiBackgroundComponent::createContents()
+DcpBackgroundComponent::createContents()
 {
     m_Layout = new DuiLinearLayout(Qt::Vertical);
     m_Caption = new DuiLabel(title());
@@ -50,21 +50,21 @@ DuiBackgroundComponent::createContents()
 
 
 void
-DuiBackgroundComponent::onOrientationChange (const Dui::Orientation &orientation)
+DcpBackgroundComponent::onOrientationChange (const Dui::Orientation &orientation)
 {
-    // DuiSettingsComponent::onOrientationChange(orientation);
+    // DcpComponent::onOrientationChange(orientation);
     Q_UNUSED(orientation);
 }
 
 
-void DuiBackgroundComponent::setTitle(const QString& title)
+void DcpBackgroundComponent::setTitle(const QString& title)
 {
     m_Caption->setText(title);
-    DuiSettingsComponent::setTitle(title);
+    DcpComponent::setTitle(title);
 }
 
 
-void DuiBackgroundComponent::paint (QPainter * painter,
+void DcpBackgroundComponent::paint (QPainter * painter,
                                      const QStyleOptionGraphicsItem * option,
                                      QWidget * widget)
 {
@@ -110,13 +110,13 @@ void DuiBackgroundComponent::paint (QPainter * painter,
 }
 
 
-void DuiBackgroundComponent::setTitleAlignment(Qt::Alignment align)
+void DcpBackgroundComponent::setTitleAlignment(Qt::Alignment align)
 {
     m_Caption->setAlignment(align);
 }
 
 
-void DuiBackgroundComponent::addItem ( QGraphicsLayoutItem * item )
+void DcpBackgroundComponent::addItem ( QGraphicsLayoutItem * item )
 {
     m_Layout->addItem(item);
 }

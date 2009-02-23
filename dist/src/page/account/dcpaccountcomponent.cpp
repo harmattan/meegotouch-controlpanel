@@ -1,19 +1,19 @@
-#include "duiaccountcomponent.h" 
+#include "dcpaccountcomponent.h" 
 #include "duiimagelabel.h" 
 #include "duilinearlayout.h" 
 #include "duitheme.h"
 #include <QGraphicsSceneMouseEvent>
 #include <QtDebug>
-DuiAccountComponent::DuiAccountComponent(DuiSettingsCategory *category,
+DcpAccountComponent::DcpAccountComponent(DcpCategory *category,
                                   const QString& title, 
 				  QGraphicsWidget *parent) :
-		 DuiSimpleComponent(category, title, parent)
+		 DcpSimpleComponent(category, title, parent)
 {
     createContents();
 }	 
 
 void
-DuiAccountComponent::createContents()
+DcpAccountComponent::createContents()
 {
     DuiLinearLayout *layout = new DuiLinearLayout(Qt::Vertical); 
     m_Label = new DuiImageLabel();
@@ -23,7 +23,7 @@ DuiAccountComponent::createContents()
     layout->addItem(m_Label);
     setLayout(layout);
 }
-void DuiAccountComponent::mousePressEvent (QGraphicsSceneMouseEvent *event) 
+void DcpAccountComponent::mousePressEvent (QGraphicsSceneMouseEvent *event) 
 {                                                                               
     switchToSubPage();                                                          
     event->accept();                                                            

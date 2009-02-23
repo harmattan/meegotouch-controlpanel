@@ -1,20 +1,20 @@
-#ifndef DUISIMPLECATEGORY_H
-#define DUISIMPLECATEGORY_H
+#ifndef DCPSIMPLECATEGORY_H
+#define DCPSIMPLECATEGORY_H
 
-#include "duisettingscategory.h"
+#include "dcpcategory.h"
 
 class DuiLinearLayout;
 
-class DuiSimpleCategory : public DuiSettingsCategory
+class DcpSimpleCategory : public DcpCategory
 {
     Q_OBJECT
 public:
-    explicit DuiSimpleCategory(const QString& title="",
+    explicit DcpSimpleCategory(const QString& title="",
                                  QGraphicsWidget *parent=0);
     virtual void paint (QPainter *painter, 
                         const QStyleOptionGraphicsItem *option,
                         QWidget *widget=0);
-    virtual void add(DuiSettingsComponent *component);
+    virtual void add(DcpComponent *component);
 
 protected:
     virtual void createContents();    
@@ -27,4 +27,4 @@ private:
 
  };
 
-#endif //DUISETTINGSCATEGORY_H
+#endif //DCPSETTINGSCATEGORY_H

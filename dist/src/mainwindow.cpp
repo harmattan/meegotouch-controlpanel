@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "pagefactory.h"
-#include "duisettingspage.h"
+#include "dcppage.h"
 #include <duinavigationbar.h>
 
 MainWindow::MainWindow() : m_Referer(Pages::NOPAGE)
@@ -30,12 +30,12 @@ MainWindow::changePage(Pages::Id pageId)
 
   if (pageId == Pages::NOPAGE)
         return;
-    DuiSettingsPage* page = PageFactory::instance()->create(pageId);
+    DcpPage* page = PageFactory::instance()->create(pageId);
     addPage(page);
     connect (page, SIGNAL(openSubPage(Pages::Id)), this, 
 		SLOT(changePage(Pages::Id)));
     qDebug() << Q_FUNC_INFO;
-    DuiSettingsPage* oldPage = qobject_cast<DuiSettingsPage*>(currentPage());
+    DcpPage* oldPage = qobject_cast<DcpPage*>(currentPage());
     if (oldPage)
       {
 	if (page->referer() == Pages::NOPAGE)

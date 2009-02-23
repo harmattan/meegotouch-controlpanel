@@ -1,18 +1,18 @@
-#ifndef DUISETTINGSAPPLETPAGE_H
-#define DUISETTINGSAPPLETPAGE_H
+#ifndef DCPAPPLETPAGE_H
+#define DCPAPPLETPAGE_H
 
-#include "duisettingspage.h" 
+#include "dcppage.h" 
 #include "pages.h"
 
-class DuiSettingsAppletPage : public DuiSettingsPage
+class DcpAppletPage : public DcpPage
 {
     Q_OBJECT
 public:
-    DuiSettingsAppletPage();
+    DcpAppletPage();
     virtual void createContent();
     virtual void organizeContent(Dui::Orientation ori);
     void init(const QString &appletBinary, const QString &appletMetaData,
               const QString &appletId);
 };
 
-#endif // DUISETTINGSAPPLETPAGE_H
+#endif // DCPAPPLETPAGE_H

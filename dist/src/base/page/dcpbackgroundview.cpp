@@ -1,4 +1,4 @@
-#include "duibackgroundview.h"
+#include "dcpbackgroundview.h"
 #include <QDebug>
 #include <duitheme.h>
 #include <duiwidgetcontroller.h>
@@ -7,8 +7,8 @@ enum {
 	BackgroundAttribute
 };
 
-DuiBackgroundView::DuiBackgroundView(DuiWidgetController *controller)
-	          :DuiStylable<DuiBackgroundView, DuiWidgetView>(controller), 
+DcpBackgroundView::DcpBackgroundView(DuiWidgetController *controller)
+	          :DuiStylable<DcpBackgroundView, DuiWidgetView>(controller), 
 		  m_viewport(controller)
 {
 	updateStyle();
@@ -16,7 +16,7 @@ DuiBackgroundView::DuiBackgroundView(DuiWidgetController *controller)
 }
 
 
-void DuiBackgroundView::paint(QPainter *painter, 
+void DcpBackgroundView::paint(QPainter *painter, 
 		const QStyleOptionGraphicsItem *option, 
 		QWidget *widget)
 {
@@ -50,19 +50,19 @@ void DuiBackgroundView::paint(QPainter *painter,
 }
 
 
-void DuiBackgroundView::setGeometry(const QRectF &rect)
+void DcpBackgroundView::setGeometry(const QRectF &rect)
 {
 	Q_UNUSED(rect);
 }
 
-QRectF DuiBackgroundView::boundingRect() const 
+QRectF DcpBackgroundView::boundingRect() const 
 {
 	return QRectF(0.0, 0.0, 
 			m_viewport->geometry().width(),
 			m_viewport->geometry().height());
 }
 
-QSizeF DuiBackgroundView::sizeHint(Qt::SizeHint which,
+QSizeF DcpBackgroundView::sizeHint(Qt::SizeHint which,
 		const QSizeF &constraint) const
 {
 	Q_UNUSED(which);
@@ -72,7 +72,7 @@ QSizeF DuiBackgroundView::sizeHint(Qt::SizeHint which,
 }
 
 
-void DuiBackgroundView::registerStyleAttributes(DuiStyleDescription& description)
+void DcpBackgroundView::registerStyleAttributes(DuiStyleDescription& description)
 {
 	description.addAttribute(BackgroundAttribute, "background");
 }

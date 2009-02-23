@@ -1,9 +1,9 @@
 #ifndef PAGEFACTORY_H
 #define PAGEFACTORY_H
 
-#include "duisettingspage.h"
+#include "dcppage.h"
 #include "pages.h"
-class DuiSettingsPage;
+class DcpPage;
 
 class PageFactory
 {
@@ -11,12 +11,12 @@ public:
     static PageFactory *instance();
     static Pages::Id idOf(DuiApplicationPage *page);
     static Pages::Id refererOf(DuiApplicationPage *page);
-    DuiSettingsPage* create (Pages::Id pageId);
+    DcpPage* create (Pages::Id pageId);
 protected:
     PageFactory();
-    DuiSettingsPage* createMainPage();	
-    DuiSettingsPage* createAccountsPage();	
-    DuiSettingsPage* createAppletPage();	
+    DcpPage* createMainPage();	
+    DcpPage* createAccountsPage();	
+    DcpPage* createAppletPage();	
 private:
     static PageFactory* sm_Instance;
 };

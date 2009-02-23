@@ -1,22 +1,22 @@
-#include "duisettingscategorypage.h"
+#include "dcpcategorypage.h"
 
 #include <QtDebug>
 
 #include <duilinearlayout.h>
 #include <duilabel.h>
 #include <duipannableviewport.h>
-#include "duimaincategory.h"
+#include "dcpmaincategory.h"
 
 
-DuiSettingsCategoryPage::DuiSettingsCategoryPage() :
-	DuiSettingsPage()
+DcpCategoryPage::DcpCategoryPage() :
+	DcpPage()
 {
 }
 
 
-void DuiSettingsCategoryPage::createContent()
+void DcpCategoryPage::createContent()
 {
-    DuiSettingsPage::createContent();
+    DcpPage::createContent();
     DuiLinearLayout* mainLayout = new DuiLinearLayout(Qt::Vertical);
 
     DuiLabel* title = new DuiLabel("Title");
@@ -24,7 +24,7 @@ void DuiSettingsCategoryPage::createContent()
     title->setMaximumHeight(30);
     mainLayout->addItem(title);
 
-    m_Category = new DuiMainCategory("");
+    m_Category = new DcpMainCategory("");
 
     connect (m_DesktopViewport,
              SIGNAL(sizeChanged(const QSizeF &, const QSizeF &)),
@@ -40,7 +40,7 @@ void DuiSettingsCategoryPage::createContent()
 
 /* This function is responsible for keeping the width of the panned widget
    and its viewport the same. */
-void DuiSettingsCategoryPage::onSizeChanged(const QSizeF & pannedWidgetSize,
+void DcpCategoryPage::onSizeChanged(const QSizeF & pannedWidgetSize,
                                     const QSizeF & pannableViewportSize)
 {
     int width = pannableViewportSize.width();

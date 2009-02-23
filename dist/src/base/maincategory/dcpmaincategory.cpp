@@ -1,12 +1,12 @@
-#include "duimaincategory.h"
+#include "dcpmaincategory.h"
 
 #include <duigridlayout.h>
 #include <duideviceprofile.h>
 #include <QtDebug>
 
-DuiMainCategory::DuiMainCategory(
+DcpMainCategory::DcpMainCategory(
         const QString& title, QGraphicsWidget *parent
-) : DuiSettingsCategory(title, parent)
+) : DcpCategory(title, parent)
 {
     m_Layout = new DuiGridLayout();
 
@@ -14,28 +14,28 @@ DuiMainCategory::DuiMainCategory(
 }
 
 
-void DuiMainCategory::add(DuiSettingsComponent *component)
+void DcpMainCategory::add(DcpComponent *component)
 {
     // rowspan = 2
     m_Layout->addItem(component, m_Layout->rowCount(), 0 /* column */,
                     1 /* rowspan */, 2 /* columnspan */);
-    DuiSettingsCategory::add(component);
+    DcpCategory::add(component);
 }
 
 
-void DuiMainCategory::add(DuiSettingsComponent *component1,
-                          DuiSettingsComponent *component2)
+void DcpMainCategory::add(DcpComponent *component1,
+                          DcpComponent *component2)
 {
     int row = m_Layout->rowCount();
     m_Layout->addItem(component1, row, 0 /* column */);
     m_Layout->addItem(component2, row, 1 /* column */);
 
-    DuiSettingsCategory::add(component1);
-    DuiSettingsCategory::add(component2);
+    DcpCategory::add(component1);
+    DcpCategory::add(component2);
 }
 
 
-void DuiMainCategory::createContents()
+void DcpMainCategory::createContents()
 {
 }
 

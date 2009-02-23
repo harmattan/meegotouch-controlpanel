@@ -1,14 +1,14 @@
-#ifndef DUISETTINGSPAGE_H
-#define DUISETTINGSPAGE_H
+#ifndef DCPPAGE_H
+#define DCPPAGE_H
 
 #include <DuiApplicationPage>
 #include "pages.h"
 class DuiPannableViewport;
-class DuiSettingsPage : public DuiApplicationPage
+class DcpPage : public DuiApplicationPage
 {
     Q_OBJECT
 public:
-    DuiSettingsPage();
+    DcpPage();
     virtual void createContent();
     virtual void organizeContent(Dui::Orientation ori);
     Pages::Id pageId() const {return m_PageId;};
@@ -24,4 +24,4 @@ protected:
 private:
 };
 
-#endif // DUISETTINGSPAGE_H
+#endif // DCPPAGE_H
