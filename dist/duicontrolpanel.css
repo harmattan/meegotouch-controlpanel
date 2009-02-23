@@ -1,0 +1,8 @@
+DuiLabel {
+    color: #dddddd;
+    font: font("Nokia Sans Cn", 12);
+}
+
+DuiPannableViewport {
+	background: image(starfield);
+}

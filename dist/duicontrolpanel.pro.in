@@ -1,0 +1,26 @@
+TARGET = duicontrolpanel
+TEMPLATE = app
+
+OBJECTS_DIR = tmp
+MOC_DIR = tmp
+CONFIG += build_all silent warn_on
+
+INCLUDEPATH += $$[QT_INSTALL_HEADERS]/dui
+LIBS += -ldui
+
+# this creates the installation process
+# PREFIX = "debian/duicontrolpanel/usr"
+PREFIX = $(DEBIAN_DESTDIR)/usr
+
+target.path += $${PREFIX}/bin
+
+# skin.files += themes ??? ...
+# skin.path = $${PREFIX}/share/duicontrolpanel
+
+# desktop.files += mediaplayer.desktop
+# desktop.path = $${PREFIX}/share/applications/... ???
+
+INSTALLS += target  # skin desktop
+
+# for make deb
+include(debian/deb.pri)
