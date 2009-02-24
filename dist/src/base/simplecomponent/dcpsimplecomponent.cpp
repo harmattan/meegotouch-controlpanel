@@ -11,3 +11,15 @@ DcpSimpleComponent::DcpSimpleComponent(DcpCategory *category,
 void
 DcpSimpleComponent::createContents()
 {}
+    
+void
+DcpSimpleComponent::add(DcpComponent *component)
+{
+    Q_UNUSED(component)
+}
+
+void
+DcpSimpleComponent::remove(DcpComponent *component)
+{
+    Q_UNUSED(component)
+}
