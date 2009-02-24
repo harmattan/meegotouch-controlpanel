@@ -1,7 +1,7 @@
 
-#include "mostusedcontainer.h"
+#include "dcpmostusedcontainer.h"
 
-#include "button2.h"
+#include "dcpbutton.h"
 
 #include <QtDebug>
 
@@ -10,7 +10,7 @@
 #include <duitheme.h>
 
 
-MostUsedContainer::MostUsedContainer() :
+DcpMostUsedContainer::DcpMostUsedContainer() :
     m_PosX(0) ,
     m_PosY(0)
 
@@ -29,7 +29,7 @@ MostUsedContainer::MostUsedContainer() :
 
 }
 
-void MostUsedContainer::add(QString text1, QString text2, bool enable)
+void DcpMostUsedContainer::add(QString text1, QString text2, bool enable)
 {
     //m_Layout->addItem(new DuiButton(text1), xx, yy, Qt::AlignCenter);
     
@@ -41,7 +41,7 @@ void MostUsedContainer::add(QString text1, QString text2, bool enable)
     int widthSmall  = 80;
     int heightSmall = 80;
 
-    CButton2 *tmpButton = new CButton2(text1, widthBig, heightBig, text2, posXSmall, posYSmall, widthSmall, heightSmall, enable);
+    DcpButton *tmpButton = new DcpButton(text1, widthBig, heightBig, text2, posXSmall, posYSmall, widthSmall, heightSmall, enable);
     //m_Layout->addItem(new DuiButton("test")/*tmpButton*/, m_PosX, m_PosY, Qt::AlignCenter);
 
     m_Layout->addItem(tmpButton->layout(), m_PosY, m_PosX, Qt::AlignCenter);
@@ -56,7 +56,7 @@ void MostUsedContainer::add(QString text1, QString text2, bool enable)
 }
 
 
-DuiGridLayout* MostUsedContainer::layout()
+DuiGridLayout* DcpMostUsedContainer::layout()
 {
     return m_Layout;
 }

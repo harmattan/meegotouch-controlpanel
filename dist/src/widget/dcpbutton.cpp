@@ -1,4 +1,4 @@
-#include "button2.h"
+#include "dcpbutton.h"
 
 #include <QtDebug>
 
@@ -8,7 +8,7 @@
 
 
 
-CButton2::CButton2(QString bigLabel, int bigWidth, int bigHeight, QString smallLabel, int smallX, int smallY, int smallWidth, int smallHeight, bool enable)
+DcpButton::DcpButton(QString bigLabel, int bigWidth, int bigHeight, QString smallLabel, int smallX, int smallY, int smallWidth, int smallHeight, bool enable)
 {
     m_Layout = new DuiGridLayout();
 
@@ -108,7 +108,7 @@ CButton2::CButton2(QString bigLabel, int bigWidth, int bigHeight, QString smallL
 
 }
 
-void CButton2::setEnable(bool enable) {
+void DcpButton::setEnable(bool enable) {
 
     m_Enable = enable;
 
@@ -124,18 +124,18 @@ void CButton2::setEnable(bool enable) {
 
 }
 
-DuiGridLayout* CButton2::layout()
+DuiGridLayout* DcpButton::layout()
 {
     return m_Layout;
 }
 
-void CButton2::bigClicked()
+void DcpButton::bigClicked()
 {
     qDebug() << "bigClicked";
     emit clicked("bigClicked");
 }
 
-void CButton2::smallClickedOn()
+void DcpButton::smallClickedOn()
 {
     m_SmallButtonOn->hide();
     m_SmallButtonOff->show();
@@ -144,7 +144,7 @@ void CButton2::smallClickedOn()
     emit clicked("smallClickedOn");
 }
 
-void CButton2::smallClickedOff()
+void DcpButton::smallClickedOff()
 {
     m_SmallButtonOn->show();
     m_SmallButtonOff->hide();
@@ -153,7 +153,7 @@ void CButton2::smallClickedOff()
     emit clicked("smallClickedOff");
 }
 
-void CButton2::disableClicked()
+void DcpButton::disableClicked()
 {
     qDebug() << "disableClicked";
     emit clicked("disableClicked");

@@ -1,5 +1,5 @@
-#ifndef BUTTON2_H
-#define BUTTON2_H
+#ifndef DCPBUTTON_H
+#define DCPBUTTON_H
 
 #include <DuiApplicationPage>
 
@@ -13,13 +13,13 @@
 
 
 
-class CButton2 : public QObject{
+class DcpButton : public QObject{
 
     Q_OBJECT;
 
     public:
 
-        CButton2(QString bigLabel, int bigWidth, int bigHeight, QString smallLabel, int smallX, int smallY, int smallWidth, int smallHeight, bool enable = true);
+        DcpButton(QString bigLabel, int bigWidth, int bigHeight, QString smallLabel, int smallX, int smallY, int smallWidth, int smallHeight, bool enable = true);
 
         void setEnable(bool enable);
 

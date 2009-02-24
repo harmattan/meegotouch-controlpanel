@@ -1,5 +1,5 @@
-#ifndef MOSTUSEDCONTAINER_H
-#define MOSTUSEDCONTAINER_H
+#ifndef DCPMOSTUSEDCONTAINER_H
+#define DCPMOSTUSEDCONTAINER_H
 
 #include <DuiApplicationPage>
 
@@ -12,10 +12,10 @@
 #include <duitheme.h>
 
 
-class MostUsedContainer : public QObject {
+class DcpMostUsedContainer : public QObject {
 
     public:
-        MostUsedContainer();
+        DcpMostUsedContainer();
 
         void add(QString text1, QString text2, bool enable = true);
         //void remove();
