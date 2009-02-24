@@ -6,3 +6,57 @@ DuiLabel {
 DuiPannableViewport {
 	background: image(starfield);
 }
+
+
+#BigButton {
+        view: DuiButtonView;
+        text: Next;
+        font: font(sans, 15);
+        textColor: #FF0000;
+        preferredsize: size(350, 100);
+        minsize: size(350, 100);
+        maxsize: size(350, 100);
+
+        normalBackgroundName: Menu-box;
+        pressedBackgroundName: Toggle-btn-selected;
+}
+
+#SmallButtonOn {
+        view: DuiButtonView;
+        text: Next;
+        font: font(sans, 15);
+        textColor: #FF0000;
+        preferredsize: size(350, 100);
+        minsize: size(350, 100);
+        maxsize: size(350, 100);
+
+        normalBackgroundName: W-Icon-weather;
+        pressedBackgroundName: W-Icon-favourites;
+}
+
+#SmallButtonOff {
+        view: DuiButtonView;
+        text: Next;
+        font: font(sans, 15);
+        textColor: #FF0000;
+        preferredsize: size(350, 100);
+        minsize: size(350, 100);
+        maxsize: size(350, 100);
+
+        normalBackgroundName: Icon-new-SMS;
+        pressedBackgroundName: Icon-maps;
+}
+
+#SmallButtonDisable {
+        view: DuiButtonView;
+        text: Next;
+        font: font(sans, 15);
+        textColor: #FF0000;
+        preferredsize: size(350, 100);
+        minsize: size(350, 100);
+        maxsize: size(350, 100);
+
+        normalBackgroundName: Media-control-pause;
+        pressedBackgroundName: Media-control-play;
+}
+

@@ -13,8 +13,6 @@
 #include "pages.h"
 #include "maintranslations.h"
 
-
-
 DcpMainPage::DcpMainPage() :
 	DcpPage()
 {

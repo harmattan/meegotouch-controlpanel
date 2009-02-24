@@ -66,6 +66,43 @@
   <variable>buildconfiguration-Release-cleanstep1</variable>
   <valuemap type="QVariantMap" >
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Release</value>
+   <valuelist key="abstractProcess.Environment" type="QVariantList" >
+    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-fWf7LBKZ0T,guid=000fc292933612b8d55cb1c049a3b1bf</value>
+    <value type="QString" >DESKTOP_SESSION=default</value>
+    <value type="QString" >DESKTOP_STARTUP_ID=</value>
+    <value type="QString" >DISPLAY=:0.0</value>
+    <value type="QString" >GDMSESSION=default</value>
+    <value type="QString" >GDM_LANG=en_US.UTF-8</value>
+    <value type="QString" >GDM_XSERVER_LOCATION=local</value>
+    <value type="QString" >GNOME_DESKTOP_SESSION_ID=this-is-deprecated</value>
+    <value type="QString" >GNOME_KEYRING_PID=6474</value>
+    <value type="QString" >GNOME_KEYRING_SOCKET=/tmp/keyring-0oaGIE/socket</value>
+    <value type="QString" >GPG_AGENT_INFO=/tmp/seahorse-JUOSZV/S.gpg-agent:6548:1</value>
+    <value type="QString" >GTK_RC_FILES=/etc/gtk/gtkrc:/home/retsoft/.gtkrc-1.2-gnome2</value>
+    <value type="QString" >HOME=/home/retsoft</value>
+    <value type="QString" >LANG=en_US.UTF-8</value>
+    <value type="QString" >LOGNAME=retsoft</value>
+    <value type="QString" >ORBIT_SOCKETDIR=/tmp/orbit-retsoft</value>
+    <value type="QString" >PATH=/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games</value>
+    <value type="QString" >PWD=/home/retsoft</value>
+    <value type="QString" >QTDIR=/usr</value>
+    <value type="QString" >SESSION_MANAGER=local/ubuntu:/tmp/.ICE-unix/6485</value>
+    <value type="QString" >SHELL=/bin/bash</value>
+    <value type="QString" >SSH_AUTH_SOCK=/tmp/keyring-0oaGIE/ssh</value>
+    <value type="QString" >USER=retsoft</value>
+    <value type="QString" >USERNAME=retsoft</value>
+    <value type="QString" >WINDOWPATH=7</value>
+    <value type="QString" >XAUTHORITY=/home/retsoft/.Xauthority</value>
+    <value type="QString" >XDG_DATA_DIRS=/usr/local/share/:/usr/share/:/usr/share/gdm/</value>
+    <value type="QString" >XDG_SESSION_COOKIE=2c89d06fe54db0d9d0ad4e5c48e9e7bb-1235464637.656799-1078014488</value>
+   </valuelist>
+   <valuelist key="abstractProcess.arguments" type="QVariantList" >
+    <value type="QString" >clean</value>
+    <value type="QString" >-w</value>
+   </valuelist>
+   <value key="abstractProcess.command" type="QString" >/usr/bin/make</value>
+   <value key="abstractProcess.enabled" type="bool" >true</value>
+   <value key="abstractProcess.workingDirectory" type="QString" >/scratchbox/users/retsoft/home/retsoft/dui/duicontrolpanel</value>
   </valuemap>
  </data>
  <data>

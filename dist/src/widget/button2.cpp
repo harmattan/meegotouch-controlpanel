@@ -59,7 +59,7 @@ CButton2::CButton2(QString bigLabel, int bigWidth, int bigHeight, QString smallL
     m_SmallButtonOff->setMaximumHeight(smallHeight);
 
     m_DisableButton = new DuiButton(smallLabel);
-    m_DisableButton->setObjectName("DisableButton");
+    m_DisableButton->setObjectName("SmallButtonDisable");
     m_DisableButton->setMinimumWidth(smallWidth);
     m_DisableButton->setMaximumWidth(smallWidth);
     m_DisableButton->setMinimumHeight(smallHeight);

@@ -1,5 +1,6 @@
 #include "dcprecentlyusedcomponent.h"
 
+#include "mostusedcontainer.h"
 
 DcpRecentlyUsedComponent::DcpRecentlyUsedComponent(
                             DcpCategory *category,
@@ -12,6 +13,19 @@ DcpRecentlyUsedComponent::DcpRecentlyUsedComponent(
 void DcpRecentlyUsedComponent::createContents()
 {
     DcpBackgroundComponent::createContents();
+
+    MostUsedContainer *tmpContainer = new MostUsedContainer;
+    
+    tmpContainer->add("aaaa", "1");
+    tmpContainer->add("aaaa", "2");
+    
+    tmpContainer->add("bbbb", "1", false);
+    tmpContainer->add("bbbb", "2");
+    
+    tmpContainer->add("cccc", "1");
+    tmpContainer->add("cccc", "2", false);
+    
+    addItem(tmpContainer->layout());
 
     addItem(new DuiWidget());
 }
