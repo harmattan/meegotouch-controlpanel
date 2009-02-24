@@ -2,6 +2,7 @@
 #include "exampleappletinterface.h"
 #include <QDebug>
 #include "duipannableviewport.h"
+#include "duilinearlayout.h"
 #include <QPluginLoader>
 DcpAppletPage::DcpAppletPage(const QString &appletBinary) : DcpPage() 
 {
@@ -19,6 +20,9 @@ DcpAppletPage::~DcpAppletPage()
 void DcpAppletPage::createContent()
 {
     DcpPage::createContent();
+    DuiLinearLayout* mainLayout = new DuiLinearLayout(Qt::Vertical); 
+    mainLayout->addItem(m_DesktopViewport);
+    setLayout(mainLayout);
 }
 
 void DcpAppletPage::organizeContent(Dui::Orientation ori)
