@@ -13,7 +13,7 @@ public:
 protected:
     virtual void createContents();
 protected slots:
-    virtual void onOrientationChange (const Dui::Orientation &orientation){};
+    virtual void onOrientationChange (const Dui::Orientation &){};
     	
 };
 #endif //DCPSIMPLECOMPONENT_H
