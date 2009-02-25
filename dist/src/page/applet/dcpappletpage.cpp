@@ -2,14 +2,14 @@
 #include "exampleappletinterface.h"
 #include <QDebug>
 #include "duipannableviewport.h"
+#include "dcpmaincategory.h"
 #include "duilinearlayout.h"
 #include <QPluginLoader>
-DcpAppletPage::DcpAppletPage(const QString &appletBinary) : DcpPage() 
+DcpAppletPage::DcpAppletPage(const QString &appletBinary) : DcpCategoryPage(),
+    m_AppletBinary(appletBinary) 
 {
     m_PageId = Pages::APPLET;
     m_Referer = Pages::NOPAGE;
-    createContent();
-    init(appletBinary);
 }
 
 DcpAppletPage::~DcpAppletPage()
@@ -19,10 +19,8 @@ DcpAppletPage::~DcpAppletPage()
 } 
 void DcpAppletPage::createContent()
 {
-    DcpPage::createContent();
-    DuiLinearLayout* mainLayout = new DuiLinearLayout(Qt::Vertical); 
-    mainLayout->addItem(m_DesktopViewport);
-    setLayout(mainLayout);
+    DcpCategoryPage::createContent();
+    initApplet();
 }
 
 void DcpAppletPage::organizeContent(Dui::Orientation ori)
@@ -30,14 +28,9 @@ void DcpAppletPage::organizeContent(Dui::Orientation ori)
     Q_UNUSED(ori);
 }
 
-void DcpAppletPage::init(const QString &appletBinary, 
-				 const QString &appletMetaData,
-				 const QString &appletId)
+void DcpAppletPage::initApplet()
 {
-	Q_UNUSED(appletMetaData);
-	Q_UNUSED(appletId);
-    
-    QPluginLoader loader(appletBinary);
+    QPluginLoader loader(appletBinary());
     if (!loader.load())
       {
 		qDebug() << "Loading applet is failed!";
@@ -51,12 +44,7 @@ void DcpAppletPage::init(const QString &appletBinary,
 	    m_View = applet->constructWidget();
 		if (m_View) {
 			//scene()->addItem(m_View);
-			m_DesktopViewport->setWidget(m_View);
-            m_View->setGeometry(QRectF(0, 0,
-		 					   DuiDeviceProfile::instance()->width(),
-								   DuiDeviceProfile::instance()->height()));
-
-//					scene()->setBackgroundBrush(QColor(0, 0, 0, 255));
+			viewport()->setWidget(m_View);
 				} else {
 					qWarning() << "applet->constructWidget() failed.";
 				}
@@ -65,8 +53,8 @@ void DcpAppletPage::init(const QString &appletBinary,
 				qWarning() << "Can't convert object to ExampleAppletInterface.";
 			}
 
-//	delete applet;
-//	applet = NULL;
+	delete applet;
+	applet = NULL;
 
  
 }

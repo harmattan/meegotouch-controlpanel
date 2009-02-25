@@ -15,6 +15,7 @@ public:
     void setPageId(Pages::Id pageId) {m_PageId = pageId;};
     Pages::Id referer() const {return m_Referer;};
     void setReferer(Pages::Id referer) {m_Referer = referer;};
+    DuiPannableViewport* viewport() const {return m_DesktopViewport;};
 signals:
     void openSubPage(Pages::Id subPageId);
 protected:
