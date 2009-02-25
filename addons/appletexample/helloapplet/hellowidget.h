@@ -13,23 +13,9 @@ class HelloWidget : public DuiWidget {
 			   const QStyleOptionGraphicsItem *option,
 			   QWidget *widget);
 
-		QSizeF minimumSize() const;
-
-		QSizeF preferredSize() const;
-
-		QSizeF maximumSize() const;
-
 		
 	protected:
 		void initWidget();
-
-
-	private:
-		QSizeF m_minimumSize;
-
-		QSizeF m_preferredSize;
-
-		QSizeF m_maximumSize;
 };
 
 #endif // HELLOWIDGET_H
