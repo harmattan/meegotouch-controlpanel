@@ -1,0 +1,19 @@
+[Desktop Entry]
+Type=DUIApplet
+Name=Profile
+Icon=
+Exec=
+
+[DUI]
+X-DUIApplet-Applet=libimageapplet.so
+X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
+X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
+
+[DCP]
+WidgetType= DcpLabel
+Text1= Profile
+Text2= Ringing
+
+ButtonCSS= BigButton
+Label1CSS= LabelFont1
+Label2CSS= LabelFont2

@@ -20,12 +20,15 @@ void DcpRecentlyUsedComponent::createContents()
     tmpContainer->add("desktop/ringtone.desktop");
     tmpContainer->add("desktop/profile.desktop");
 
+
+    tmpContainer->addButton("aaaa", "1", true, 2);
+
     tmpContainer->add("desktop/theme.desktop");
     tmpContainer->add("desktop/wallpaper.desktop");
 
 
-    tmpContainer->add("desktop/language.desktop");
-    tmpContainer->add("desktop/region_format.desktop");
+    //tmpContainer->add("desktop/language.desktop");
+    //tmpContainer->add("desktop/region_format.desktop");
 
 
 /*

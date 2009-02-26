@@ -1,0 +1,19 @@
+[Desktop Entry]
+Type=DUIApplet
+Name=Region_format
+Icon=
+Exec=
+
+[DUI]
+X-DUIApplet-Applet=libimageapplet.so
+X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
+X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
+
+[DCP]
+WidgetType= DcpLabel
+Text1= Region format
+Text2= United States
+
+ButtonCSS= BigButton
+Label1CSS= LabelFont1
+Label2CSS= LabelFont2

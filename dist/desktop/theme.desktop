@@ -1,0 +1,20 @@
+[Desktop Entry]
+Type=DUIApplet
+Name=Theme
+Icon=
+Exec=
+
+[DUI]
+X-DUIApplet-Applet=libimageapplet.so
+X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
+X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
+
+[DCP]
+WidgetType= DcpImage
+Text1= Theme
+Image= images/backgroundP.png
+
+ButtonCSS= BigButton
+Label1CSS= LabelFont1
+Label2CSS= LabelFont2
+

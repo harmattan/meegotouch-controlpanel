@@ -48,12 +48,15 @@ void DcpMostUsedContainer::add(const QString& file)
   delete tmp;
 }
 
-void DcpMostUsedContainer::addButton(const QString& text1, const QString& text2, bool enable)
+void DcpMostUsedContainer::addButton(const QString& text1, const QString& text2, bool enable, int length)
 {
     //m_Layout->addItem(new DuiButton(text1), xx, yy, Qt::AlignCenter);
     
     //dummy data
-    int widthBig  = 350;
+    int widthBig = 350;
+    if (length==2)
+      widthBig = 705;
+   
     int heightBig = 100;
     int posXSmall = 250;
     int posYSmall = 10;
@@ -63,9 +66,22 @@ void DcpMostUsedContainer::addButton(const QString& text1, const QString& text2,
     DcpButton *tmpButton = new DcpButton(text1, widthBig, heightBig, text2, posXSmall, posYSmall, widthSmall, heightSmall, enable);
     //m_Layout->addItem(new DuiButton("test")/*tmpButton*/, m_PosX, m_PosY, Qt::AlignCenter);
 
-    m_Layout->addItem(tmpButton->layout(), m_PosY, m_PosX, Qt::AlignCenter);
 
-    addPos();
+    if  (length==2) {
+        
+        if (m_PosX!=0) {
+            m_PosX = 0;
+            m_PosY++;
+        }
+  
+        m_Layout->addItem(tmpButton->layout(), m_PosY, m_PosX, 1, 2, Qt::AlignCenter);
+        //m_Layout->addItem(tmpButton->layout(), m_PosY, m_PosX, 1, 2, Qt::AlignHCenter|Qt::AlignLeft);
+        addPos2();
+    } else {
+        m_Layout->addItem(tmpButton->layout(), m_PosY, m_PosX, Qt::AlignCenter);
+        addPos();
+    }
+   
 }
 
 void DcpMostUsedContainer::addLabel(const QString& text1, const QString& text2)
@@ -133,3 +149,14 @@ void DcpMostUsedContainer::addPos()
         m_PosY++;
     }
 }
+
+void DcpMostUsedContainer::addPos2()
+{
+    m_PosX+=2;
+
+    if (m_PosX>1) {
+        m_PosX = 0;
+        m_PosY++;
+    }
+}
+

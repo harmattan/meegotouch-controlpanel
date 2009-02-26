@@ -86,7 +86,8 @@ DcpButton::DcpButton(QString bigLabel, int bigWidth, int bigHeight, QString smal
 //    button2->setView(view);
 
 
-    m_Layout->addItem(m_BigButton, 0, 0, 3, 3, Qt::AlignCenter);
+    //m_Layout->addItem(m_BigButton, 0, 0, 3, 3, Qt::AlignCenter);
+    m_Layout->addItem(m_BigButton, 0, 0, 3, 3, Qt::AlignLeft);
     m_Layout->addItem(m_SmallButtonOn, 1, 1, Qt::AlignCenter);
     m_Layout->addItem(m_SmallButtonOff, 1, 1, Qt::AlignCenter);
     m_Layout->addItem(m_DisableButton, 1, 1, Qt::AlignCenter);
