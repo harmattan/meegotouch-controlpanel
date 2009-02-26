@@ -15,3 +15,6 @@ CONFIG += build_all silent warn_on debug
 INCLUDEPATH += $$[QT_INSTALL_HEADERS]/dui
 LIBS += -ldui
 
+# a fake check target so as not to stop the testing:
+QMAKE_EXTRA_TARGETS += check
+
