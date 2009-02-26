@@ -2,12 +2,16 @@
 #include "dcpmostusedcontainer.h"
 
 #include "dcpbutton.h"
+#include "dcplabel.h"
+#include "dcpimage.h"
 
 #include <QtDebug>
 
 #include <duigridlayout.h>
 
 #include <duitheme.h>
+
+#include "dcpdesktopentry.h"
 
 
 DcpMostUsedContainer::DcpMostUsedContainer() :
@@ -29,7 +33,22 @@ DcpMostUsedContainer::DcpMostUsedContainer() :
 
 }
 
-void DcpMostUsedContainer::add(QString text1, QString text2, bool enable)
+void DcpMostUsedContainer::add(const QString& file)
+{
+  DcpDesktopEntry* tmp = new DcpDesktopEntry(file);
+
+  if (tmp->widgetType() == "DcpLabel") {
+    addLabelCSS(tmp->text1(), tmp->text2(), tmp->buttonCSS(), tmp->label1CSS(), tmp->label2CSS());
+  } else if (tmp->widgetType() == "DcpButton") {
+    addButton(tmp->text1(), tmp->text2());
+  } else if (tmp->widgetType() == "DcpImage") {
+    addImageCSS(tmp->text1(), tmp->image(), tmp->buttonCSS(), tmp->label1CSS());
+  }
+
+  delete tmp;
+}
+
+void DcpMostUsedContainer::addButton(const QString& text1, const QString& text2, bool enable)
 {
     //m_Layout->addItem(new DuiButton(text1), xx, yy, Qt::AlignCenter);
     
@@ -46,13 +65,57 @@ void DcpMostUsedContainer::add(QString text1, QString text2, bool enable)
 
     m_Layout->addItem(tmpButton->layout(), m_PosY, m_PosX, Qt::AlignCenter);
 
+    addPos();
+}
 
-    m_PosX++;
+void DcpMostUsedContainer::addLabel(const QString& text1, const QString& text2)
+{
+    //m_Layout->addItem(new DuiButton(text1), xx, yy, Qt::AlignCenter);
+    
+    //dummy data
+    int width  = 350;
+    int upHeight = 50;
+    int downHeight = 50;
+    
+    DcpLabel *tmpLabel = new DcpLabel(text1, text2, width, upHeight, downHeight);
+    
+    m_Layout->addItem(tmpLabel->layout(), m_PosY, m_PosX, Qt::AlignCenter);
 
-    if (m_PosX>1) {
-        m_PosX = 0;
-        m_PosY++;
-    }
+    addPos();
+}
+
+void DcpMostUsedContainer::addLabelCSS(const QString& text1, const QString& text2, const QString& cssButton, const QString& cssUpLabel, const QString& cssDownLabel)
+{
+    //m_Layout->addItem(new DuiButton(text1), xx, yy, Qt::AlignCenter);
+    
+    //dummy data
+    int width  = 350;
+    int upHeight = 50;
+    int downHeight = 50;
+    
+    DcpLabel *tmpLabel = new DcpLabel(text1, text2, width, upHeight, downHeight, cssButton, cssUpLabel, cssDownLabel);
+    
+    m_Layout->addItem(tmpLabel->layout(), m_PosY, m_PosX, Qt::AlignCenter);
+
+    addPos();
+}
+
+void DcpMostUsedContainer::addImageCSS(const QString& text, const QString& image, const QString& cssButton, const QString& cssLabel)
+{
+    //m_Layout->addItem(new DuiButton(text1), xx, yy, Qt::AlignCenter);
+    
+    //dummy data
+    int width  = 350;
+    int upHeight = 50;
+    int downHeight = 50;
+
+    int imageHeight = 100;
+    
+    DcpImage *tmpImage = new DcpImage(text, image, width, upHeight, downHeight, imageHeight, cssButton, cssLabel);
+
+    m_Layout->addItem(tmpImage->layout(), m_PosY, m_PosX, Qt::AlignCenter);
+
+    addPos();
 }
 
 
@@ -61,3 +124,12 @@ DuiGridLayout* DcpMostUsedContainer::layout()
     return m_Layout;
 }
 
+void DcpMostUsedContainer::addPos()
+{
+    m_PosX++;
+
+    if (m_PosX>1) {
+        m_PosX = 0;
+        m_PosY++;
+    }
+}

@@ -17,10 +17,19 @@ class DcpMostUsedContainer : public QObject {
     public:
         DcpMostUsedContainer();
 
-        void add(QString text1, QString text2, bool enable = true);
+        void add(const QString& file);
+        void addButton(const QString& text1, const QString& text2, bool enable = true);
+        void addLabel(const QString& text1, const QString& text2);
+
+        void addLabelCSS(const QString& text1, const QString& text2, const QString& cssButton, const QString& cssUpLabel, const QString& cssDownLabel);
+
+        void addImageCSS(const QString& text, const QString& image, const QString& cssButton, const QString& cssUpLabel);
+
         //void remove();
 
         DuiGridLayout* layout();
+
+        void addPos();
 
     private:
         DuiGridLayout* m_Layout;
@@ -30,7 +39,6 @@ class DcpMostUsedContainer : public QObject {
 
         static const int layoutFieldWidth = 350;
         static const int layoutFieltHeight = 100;
-
 };
 
 #endif

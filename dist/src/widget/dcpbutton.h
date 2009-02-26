@@ -44,7 +44,6 @@ class DcpButton : public QObject{
 
         DuiButton* m_DisableButton;
 
-
         bool m_Enable;
 };
 

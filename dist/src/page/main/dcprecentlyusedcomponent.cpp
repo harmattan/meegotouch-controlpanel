@@ -16,15 +16,39 @@ void DcpRecentlyUsedComponent::createContents()
 
     DcpMostUsedContainer *tmpContainer = new DcpMostUsedContainer;
     
-    tmpContainer->add("aaaa", "1");
-    tmpContainer->add("aaaa", "2");
+
+    tmpContainer->add("desktop/ringtone.desktop");
+    tmpContainer->add("desktop/profile.desktop");
+
+    tmpContainer->add("desktop/theme.desktop");
+    tmpContainer->add("desktop/wallpaper.desktop");
+
+
+    tmpContainer->add("desktop/language.desktop");
+    tmpContainer->add("desktop/region_format.desktop");
+
+
+/*
+language.desktop
+ringtone.desktop
+region_format.desktop   
+wallpaper.desktop
+profile.desktop    
+theme.desktop      
+*/
+
+
+    /*
+    tmpContainer->addButton("aaaa", "1");
+    tmpContainer->addButton("aaaa", "2");
     
-    tmpContainer->add("bbbb", "1", false);
-    tmpContainer->add("bbbb", "2");
+    tmpContainer->addButton("bbbb", "1", false);
+    tmpContainer->addButton("bbbb", "2");
     
-    tmpContainer->add("cccc", "1");
-    tmpContainer->add("cccc", "2", false);
+    tmpContainer->addLabel("cccc", "1111");
     
+    tmpContainer->addButton("cccc", "2", false);
+    */
     addItem(tmpContainer->layout());
 
     addItem(new DuiWidget());

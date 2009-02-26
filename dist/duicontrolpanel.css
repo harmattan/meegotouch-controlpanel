@@ -7,6 +7,16 @@ DuiPannableViewport {
 	background: image(starfield);
 }
 
+#LabelFont1 {
+    color: #FFFFFF;
+    font: font("Nokia Sans Cn", 24);
+}
+
+#LabelFont2 {
+    color: #FFA000;
+    font: font("Nokia Sans Cn", 18);
+}
+
 
 #BigButton {
         view: DuiButtonView;
@@ -60,3 +70,25 @@ DuiPannableViewport {
         pressedBackgroundName: Media-control-play;
 }
 
+#LabelButton {
+        view: DuiButtonView;
+        text: Next;
+        font: font(sans, 15);
+        textColor: #FF0000;
+        preferredsize: size(350, 100);
+        minsize: size(350, 100);
+        maxsize: size(350, 100);
+
+        normalBackgroundName: Menu-box;
+        pressedBackgroundName: Toggle-btn-selected;
+}
+
+#UpLabel {
+    color: #FF0000;
+    font: font("Nokia Sans Cn", 12);
+}
+
+#DownLabel {
+    color: #00FF00;
+    font: font("Nokia Sans Cn", 20);
+}
