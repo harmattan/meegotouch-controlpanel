@@ -4,18 +4,15 @@
 #include <duilabel.h>
 #include <duislider.h>
 
-
 HelloWidget::HelloWidget(QGraphicsWidget *parent)
 	    :DuiWidget(parent)
 {
 	initWidget();
 }
 
-
 HelloWidget::~HelloWidget()
 {
 }
-
 
 void HelloWidget::paint(QPainter *painter,
 			const QStyleOptionGraphicsItem *option,
@@ -25,7 +22,6 @@ void HelloWidget::paint(QPainter *painter,
 	Q_UNUSED(option);
 	Q_UNUSED(widget);
 }
-
 
 void HelloWidget::initWidget()
 {
@@ -73,12 +69,10 @@ void HelloWidget::initWidget()
 	mainLayout->addItem(new DuiLabel("Note! Display settings depend on the user power profile."));
 }
 
-
 void HelloWidget::setBrightnessLabel(int value)
 {
 	m_brightnessLabel->setText(QString("Brightness: %1 %").arg(value));
 }
-
 
 void HelloWidget::setScreenLabel(int value)
 {

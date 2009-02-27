@@ -10,8 +10,8 @@ const int BIG_WIDTH    = 350;
 const int BIG_HEIGHT   =  90;
 const int SMALL_WIDTH  =  80;
 const int SMALL_HEIGHT =  80;
-const int SMALL_X      = 250;
-const int SMALL_Y      =  10;
+const int SMALL_X      =  10;
+const int SMALL_Y      =   5;
 
 DcpAccountComponent::DcpAccountComponent(DcpCategory *category,
                                   const QString& title, 

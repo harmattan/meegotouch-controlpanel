@@ -1,6 +1,7 @@
 #include "mainview.h"
 #include "exampleappletinterface.h"
 
+#include <duipannableviewport.h>
 #include <duilinearlayout.h>
 #include <QPluginLoader>
 #include <QDir>

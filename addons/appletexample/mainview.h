@@ -2,22 +2,22 @@
 #define MAINVIEW_H
 
 #include <duiwidget.h>
-#include <duipannableviewport.h>
 
-class MainView : public DuiWidget {
+class DuiPannableViewport;
+
+class MainView : public DuiWidget 
+{
 	Q_OBJECT
 
-	public:
-		MainView(DuiWidget *parent = 0);
+public:
+	MainView(DuiWidget *parent = 0);
+	virtual ~MainView();
 
-		virtual ~MainView();
+protected:
+	void initWidget();
 
-	protected:
-		void initWidget();
-
-	private:
-		DuiPannableViewport *m_viewport;
-
-		DuiWidget *m_widget;
+private:
+	DuiPannableViewport *m_viewport;
+	DuiWidget *m_widget;
 };
 #endif // MAINVIEW_H

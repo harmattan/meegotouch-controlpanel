@@ -14,9 +14,8 @@ MainWindow::MainWindow()
 
 MainWindow::~MainWindow()
 {
-	if (m_view) {
+	if (m_view) 
 		delete m_view;
-	}
 }
 
 

@@ -14,7 +14,7 @@ SOURCES       = helloapplet.cpp \
 TARGET        = $$qtLibraryTarget(exampleapplet)
 DESTDIR       = ../lib
 
-target.path += $$[QT_INSTALL_LIBS]/dui/applets
+target.path += $$[QT_INSTALL_LIBS]/duicontrolpanel/applets
 
 INSTALLS += \
 	    target
