@@ -52,7 +52,14 @@ QPixmap DcpImageUtils::scaledPixmap(const QString& id, int newWidth,
   * cause that works with a cache.
   */
 QPixmap DcpImageUtils::borderCorrectScale(const QPixmap& pixmap,
-                           int newWidth, int newHeight, int borderSize) {
+                           int newWidth, int newHeight, int borderSize)
+{
+    if (pixmap.isNull() || pixmap.height() < 2*borderSize ||
+        pixmap.width() < 2*borderSize)
+    {
+        return QPixmap();
+    }
+
     QPixmap result(newWidth, newHeight);
     result.fill(Qt::transparent);
     QPainter painter(&result);

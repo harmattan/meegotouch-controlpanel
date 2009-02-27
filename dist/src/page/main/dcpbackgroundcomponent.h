@@ -5,6 +5,7 @@
 
 class DuiLabel;
 class DuiLinearLayout;
+#include <QPixmap>
 
 class DcpBackgroundComponent: public DcpComponent
 {
@@ -36,7 +37,7 @@ protected:
 
 private:
     DuiLabel *m_Caption;
-    QPixmap *m_Background;
+    QPixmap m_Background;
     DuiLinearLayout *m_Layout;
 };
 

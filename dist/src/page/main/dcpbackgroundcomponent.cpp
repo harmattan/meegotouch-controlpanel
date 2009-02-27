@@ -3,7 +3,6 @@
 #include <duilinearlayout.h>
 #include <duilabel.h>
 #include <duitheme.h>
-#include <qpixmap.h>
 
 #include "dcpimageutils.h"
 
@@ -11,18 +10,12 @@ DcpBackgroundComponent::DcpBackgroundComponent(
                             DcpCategory *category,
                             const QString& title,
                             QGraphicsWidget *parent):
-    DcpComponent(category, title, parent),
-    m_Background (NULL)
+    DcpComponent(category, title, parent)
 {
-
 }
 
 
 DcpBackgroundComponent::~DcpBackgroundComponent() {
-    if (m_Background) {
-        // DuiTheme::releasePixmap(m_Background);
-        delete m_Background;
-    }
 }
 
 
@@ -80,30 +73,15 @@ void DcpBackgroundComponent::paint (QPainter * painter,
     QColor borderColor = Qt::lightGray;
     // --
 
-    if (m_Background == NULL || m_Background->width() != size().width()){
-        if (m_Background) {
-            // DuiTheme::releasePixmap(m_Background);
-            delete m_Background;
-        }
-        m_Background = DuiTheme::pixmap("C2-container-dark-landscape-123px");
-        if (!m_Background) {
+    if (m_Background.isNull() || m_Background.width() != size().width()){
+        m_Background = DcpImageUtils::instance()->scaledPixmap(
+                "C2-container-dark-landscape-123px", size().toSize());
+        if (m_Background.isNull()) {
             qWarning ("theme lacks bg picture for settings component");
             return;
         }
-
-        /* TODO this is because DuiTheme does not want to resize the image
-           above its size. Fix it with appropriate pixmap, or duitheme feature
-           request. */
-        QPixmap* themePix = m_Background;
-        m_Background = new QPixmap(
-                DcpImageUtils::borderCorrectScale(*m_Background,
-                                   size().toSize().width(),
-                                   size().toSize().height())
-        );
-        DuiTheme::releasePixmap(themePix);
-        /* -- */
     }
-    painter->drawPixmap(QPoint(0, 0), *m_Background);
+    painter->drawPixmap(QPoint(0, 0), m_Background);
 
     // line between the title & description:
     QPen pen = painter->pen();
