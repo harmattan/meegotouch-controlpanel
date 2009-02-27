@@ -96,7 +96,7 @@ void DcpBackgroundComponent::paint (QPainter * painter,
            request. */
         QPixmap* themePix = m_Background;
         m_Background = new QPixmap(
-                borderCorrectScale(*m_Background,
+                DcpImageUtils::borderCorrectScale(*m_Background,
                                    size().toSize().width(),
                                    size().toSize().height())
         );
