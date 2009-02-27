@@ -26,10 +26,8 @@ void DcpMainPage::createContent()
     DcpPage::createContent();
     DuiLinearLayout* mainLayout = new DuiLinearLayout(Qt::Vertical);
 
-    DuiLabel* title = new DuiLabel(Dcp::settingsTitle);
-    title->setAlignment(Qt::AlignCenter);
-    title->setMaximumHeight(30);
-    mainLayout->addItem(title);
+    setTitle(Dcp::settingsTitle);
+    mainLayout->addItem(m_Title);
 
     m_Category = new DcpMainCategory(Dcp::settingsTitle);
 
