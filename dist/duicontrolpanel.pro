@@ -4,7 +4,7 @@ CONFIG += debug
 CONFIG += build_all silent warn_on
 
 SUBDIRS += src \
-	   tests
+#	   tests
 #	   examples
 
 # this creates the installation process

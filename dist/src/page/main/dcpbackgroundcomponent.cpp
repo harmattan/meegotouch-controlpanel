@@ -5,6 +5,8 @@
 #include <duitheme.h>
 #include <qpixmap.h>
 
+#include "dcpimageutils.h"
+
 DcpBackgroundComponent::DcpBackgroundComponent(
                             DcpCategory *category,
                             const QString& title,
@@ -83,8 +85,7 @@ void DcpBackgroundComponent::paint (QPainter * painter,
             // DuiTheme::releasePixmap(m_Background);
             delete m_Background;
         }
-        m_Background = DuiTheme::pixmap("C2-container-dark-landscape-123px",
-                                           size());
+        m_Background = DuiTheme::pixmap("C2-container-dark-landscape-123px");
         if (!m_Background) {
             qWarning ("theme lacks bg picture for settings component");
             return;
@@ -94,7 +95,11 @@ void DcpBackgroundComponent::paint (QPainter * painter,
            above its size. Fix it with appropriate pixmap, or duitheme feature
            request. */
         QPixmap* themePix = m_Background;
-        m_Background = new QPixmap(m_Background->scaled(size().toSize()));
+        m_Background = new QPixmap(
+                borderCorrectScale(*m_Background,
+                                   size().toSize().width(),
+                                   size().toSize().height())
+        );
         DuiTheme::releasePixmap(themePix);
         /* -- */
     }
