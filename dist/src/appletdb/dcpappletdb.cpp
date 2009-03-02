@@ -1,6 +1,8 @@
 #include "dcpappletdb.h"
 #include "dcpappletmetadata.h"
-
+#include <QDir>
+#include <QDebug>
+const QString APPLETFILTER = "*.desktop";
 DcpAppletDb::DcpAppletDb(const QString &pathName)
 {
     addPath(pathName);
@@ -14,11 +16,28 @@ DcpAppletDb::~DcpAppletDb()
 void
 DcpAppletDb::addPath(const QString &pathName)
 {
-    Q_UNUSED(pathName);
+    QDir appDir(pathName, APPLETFILTER);
+    if (!appDir.exists())
+    {
+        qWarning() << "Applet dir" << pathName << "does not exists";
+        return;
+    }
+    
+    foreach(QString appFile, appDir.entryList())
+    {
+        m_Applets.append(new DcpAppletMetadata(appDir.absoluteFilePath(appFile)));
+    }
 }
 
-QList<DcpAppletMetaData*> 
-DcpAppletDb::listByCategory(const QString& name)
+QList<DcpAppletMetadata*>* 
+DcpAppletDb::listByCategory(const QString& category)
 {
-    Q_UNUSED(name);
+    QList<DcpAppletMetadata*> *filtered = new QList<DcpAppletMetadata*>();
+    foreach (DcpAppletMetadata *item, m_Applets)
+    {
+        qDebug() << item->category() << "==" << category;
+        if (item->category() == category)
+            filtered->append(item);
+    }
+    return filtered;
 }

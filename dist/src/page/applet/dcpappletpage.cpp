@@ -44,7 +44,7 @@ void DcpAppletPage::initApplet()
 	    m_View = applet->constructWidget();
 		if (m_View) {
 			//scene()->addItem(m_View);
-			viewport()->setWidget(m_View);
+			panLayout()->addItem(m_View);
 				} else {
 					qWarning() << "applet->constructWidget() failed.";
 				}

@@ -14,7 +14,7 @@
 #include "maintranslations.h"
 
 DcpMainPage::DcpMainPage() :
-	DcpPage()
+	DcpCategoryPage()
 {
     m_PageId = Pages::MAIN;
     m_Referer = Pages::NOPAGE;
@@ -23,20 +23,15 @@ DcpMainPage::DcpMainPage() :
 
 void DcpMainPage::createContent()
 {
-    DcpPage::createContent();
-    DuiLinearLayout* mainLayout = new DuiLinearLayout(Qt::Vertical);
-
+    DcpCategoryPage::createContent();
     setTitle(Dcp::settingsTitle);
-    mainLayout->addItem(m_Title);
-
-    m_Category = new DcpMainCategory(Dcp::settingsTitle);
-
     // most recent used items:
     DcpRecentlyUsedComponent* recentlyComp = new DcpRecentlyUsedComponent(
                                                     m_Category);
     m_Category->add(recentlyComp);
 
     // category descriptions:
+
     Q_ASSERT (sizeof (Dcp::componentTexts) / sizeof(QString) % 4 == 1);
     for (int i=0; true; i+=4){
         QString title = Dcp::componentTexts[i];
@@ -65,29 +60,9 @@ void DcpMainPage::createContent()
             this, SLOT(onResetSettingsClicked()));
     m_Category->add(resetSettings);
 
-    connect (m_DesktopViewport,
-             SIGNAL(sizeChanged(const QSizeF &, const QSizeF &)),
-             this, SLOT(onSizeChanged(const QSizeF &, const QSizeF &)));
-    m_DesktopViewport->setWidget(m_Category);
-
-
-    mainLayout->addItem(m_DesktopViewport);
-
-    setLayout(mainLayout);
 }
 
 
-/* This function is responsible for keeping the width of the panned widget
-   and its viewport the same. */
-void DcpMainPage::onSizeChanged(const QSizeF & pannedWidgetSize,
-                                    const QSizeF & pannableViewportSize)
-{
-    int width = pannableViewportSize.width();
-    if (pannedWidgetSize.width() != width){
-        m_Category->setMinimumSize(width, -1);
-        m_Category->setMaximumSize(width, -1);
-    }
-}
 
 void DcpMainPage::organizeContent(Dui::Orientation ori)
 {
