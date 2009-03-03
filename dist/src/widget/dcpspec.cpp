@@ -47,6 +47,7 @@ DcpSpec::DcpSpec(const QString& image, int width, int height, int smallWidth, in
     //QPixmap *copyPixmap = new QPixmap(tmpPixmap->copy(0 , 0, 50, 50));
     //m_Image = new DuiImage(copyPixmap);
   
+    qDebug() << "image     =============      " << tmpPixmap->size().width() << tmpPixmap->size().height();
 
     int originalMiddleWidth = tmpPixmap->width() - smallWidth*2;
     int originalMiddleHeight = tmpPixmap->height() - smallHeight*2;
@@ -77,7 +78,7 @@ DcpSpec::DcpSpec(const QString& image, int width, int height, int smallWidth, in
                                              newMiddleWidth, smallHeight);
 
 
-    m_ImageRightUp = initImageFix(tmpPixmap, tmpPixmap->width() - smallWidth, tmpPixmap->height() - smallHeight, smallWidth, smallHeight);
+    m_ImageRightUp = initImageFix(tmpPixmap, tmpPixmap->width() - smallWidth, 0, smallWidth, smallHeight);
 
     m_ImageRightMiddle = initImageResize(tmpPixmap, tmpPixmap->width() - smallWidth, smallHeight,
                                                     smallWidth, originalMiddleHeight,

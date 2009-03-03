@@ -11,7 +11,7 @@
 
 #include <duitheme.h>
 
-#include "dcpdesktopentry.h"
+#include "dcpappletmetadata.h"
 
 #include "dcpspec.h"
 
@@ -36,7 +36,7 @@ DcpMostUsedContainer::DcpMostUsedContainer() :
 
 void DcpMostUsedContainer::add(const QString& file)
 {
-  DcpDesktopEntry* tmp = new DcpDesktopEntry(file);
+  DcpAppletMetadata* tmp = new DcpAppletMetadata(file);
 
   if (tmp->widgetType() == "DcpLabel") {
     addLabelCSS(tmp->text1(), tmp->text2(), tmp->buttonCSS(), tmp->label1CSS(), tmp->label2CSS());
@@ -45,8 +45,9 @@ void DcpMostUsedContainer::add(const QString& file)
   } else if (tmp->widgetType() == "DcpImage") {
     addImageCSS(tmp->text1(), tmp->image(), tmp->buttonCSS(), tmp->label1CSS());
   } else if (tmp->widgetType() == "DcpSpec") {
-   
-      DcpSpec *tmpSpec = new DcpSpec(tmp->image(), 200, 100, 30, 30, "");
+ 
+      //dummy  
+      DcpSpec *tmpSpec = new DcpSpec(tmp->image(), 200, 100, 10, 10, "");
       m_Layout->addItem(tmpSpec->layout(), m_PosY, m_PosX, Qt::AlignCenter);
       addPos();
   }

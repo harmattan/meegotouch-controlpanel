@@ -5,6 +5,15 @@ enum  {
     KeyOnPicture,
     KeyOffPicture,
     KeyDisabledPicture,
+
+    KeyWidgetType,
+    KeyText1,
+    KeyText2,
+    KeyImage,
+    KeyButtonCSS,
+    KeyLabel1CSS,
+    KeyLabel2CSS,
+
     KeyCount
 };
 
@@ -12,7 +21,15 @@ const QString Keys[KeyCount] = {
     "DCP/Category",
     "DCP/OnPicture",
     "DCP/OffPicture",
-    "DCP/DisabledPicture"
+    "DCP/DisabledPicture",
+    
+    "DCP/WidgetType",
+    "DCP/Text1",
+    "DCP/Text2",
+    "DCP/Image",
+    "DCP/ButtonCSS",
+    "DCP/Label1CSS",
+    "DCP/Label2CSS"
 };
 
 DcpAppletMetadata::DcpAppletMetadata(const QString& filename) 
@@ -47,4 +64,40 @@ DcpAppletMetadata::appletBinary() const
 {
     return "";
 }
+
+QString DcpAppletMetadata::widgetType()
+{
+    return value(Keys[KeyWidgetType]).toString();
+}
+
+QString DcpAppletMetadata::text1()
+{
+    return value(Keys[KeyText1]).toString();
+}
+
+QString DcpAppletMetadata::text2()
+{
+    return value(Keys[KeyText2]).toString();
+}
+
+QString DcpAppletMetadata::image()
+{
+    return value(Keys[KeyImage]).toString();
+}
+
+QString DcpAppletMetadata::buttonCSS()
+{
+    return value(Keys[KeyButtonCSS]).toString();
+}
+
+QString DcpAppletMetadata::label1CSS()
+{
+    return value(Keys[KeyLabel1CSS]).toString();
+}
+
+QString DcpAppletMetadata::label2CSS()
+{
+    return value(Keys[KeyLabel2CSS]).toString();
+}
+
 
