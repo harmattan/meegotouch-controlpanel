@@ -1,7 +1,13 @@
 #ifndef DCPAPPLETDB_H
 #define DCPAPPLETDB_H
 #include <QList>
+#include <QString>
 class DcpAppletMetadata;
+
+namespace DcpApplet {
+    const QString Dir = "/usr/lib/dcpcontrolpanel";
+};
+
 class DcpAppletDb
 {
 public:

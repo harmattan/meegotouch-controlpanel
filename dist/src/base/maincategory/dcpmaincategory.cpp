@@ -6,7 +6,7 @@
 
 DcpMainCategory::DcpMainCategory(
         const QString& title, QGraphicsWidget *parent
-) : DcpCategory(title, parent)
+) : DcpCategory(title, parent), m_ColCount(0), m_RowCount(0)
 {
     m_Layout = new DuiGridLayout();
 
@@ -17,22 +17,25 @@ DcpMainCategory::DcpMainCategory(
 void DcpMainCategory::add(DcpComponent *component)
 {
     // rowspan = 2
-    m_Layout->addItem(component, m_Layout->rowCount(), 0 /* column */,
+    m_Layout->addItem(component, m_RowCount, 0 /* column */,
                     1 /* rowspan */, 2 /* columnspan */);
     DcpCategory::add(component);
+    m_RowCount++;
 }
 
 
-void DcpMainCategory::add(DcpComponent *component1,
-                          DcpComponent *component2)
+void DcpMainCategory::append(DcpComponent *component)
 {
-    int row = m_Layout->rowCount();
-    m_Layout->addItem(component1, row, 0 /* column */);
-    m_Layout->addItem(component2, row, 1 /* column */);
-
-    DcpCategory::add(component1);
-    DcpCategory::add(component2);
+    m_Layout->addItem(component, m_RowCount, m_ColCount);
+    DcpCategory::add(component);
+    m_ColCount++;
+    if (m_ColCount > m_MaxColumns)
+    {
+        m_ColCount = 0;
+        m_RowCount++;
+    }
 }
+
 
 
 void DcpMainCategory::createContents()

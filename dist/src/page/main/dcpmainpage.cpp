@@ -24,7 +24,7 @@ DcpMainPage::DcpMainPage() :
 void DcpMainPage::createContent()
 {
     DcpCategoryPage::createContent();
-    setTitle(Dcp::settingsTitle);
+    setTitle(DcpMain::settingsTitle);
     // most recent used items:
     DcpRecentlyUsedComponent* recentlyComp = new DcpRecentlyUsedComponent(
                                                     m_Category);
@@ -32,29 +32,26 @@ void DcpMainPage::createContent()
 
     // category descriptions:
 
-    Q_ASSERT (sizeof (Dcp::componentTexts) / sizeof(QString) % 4 == 1);
-    for (int i=0; true; i+=4){
-        QString title = Dcp::componentTexts[i];
-        if (title.isNull()) break;
+    m_Category->setMaxColumns(2);
+    for (int i=0; true; i++)
+       {
+        DcpCategoryInfo info = DcpMain::CategoryInfos[i];
+        if (info.title == "")
+             break;
 
-        DcpDescriptionComponent *compo1 = new DcpDescriptionComponent(
-                m_Category, title);
-        compo1->setDescription(Dcp::componentTexts[i+1]);
-        compo1->setSubPageId(Pages::ACCOUNTS);
-        connect(compo1, SIGNAL(openSubPage(Pages::Id)),
+        DcpDescriptionComponent *component = new DcpDescriptionComponent(
+                m_Category, info.title);
+        component->setDescription("<span>" + info.description + "</span>");
+        component->setSubPageId(Pages::ACCOUNTS);
+        connect(component, SIGNAL(openSubPage(Pages::Id)),
                 this, SIGNAL(openSubPage(Pages::Id)));
-
-        title = Dcp::componentTexts[i+2];
-        DcpDescriptionComponent *compo2 = new DcpDescriptionComponent(
-                m_Category, title);
-        compo2->setDescription(Dcp::componentTexts[i+3]);
-        m_Category->add(compo1, compo2);
+        m_Category->append(component);
     }
 
     // reset settings:
     DcpDescriptionComponent *resetSettings = new DcpDescriptionComponent(
-            m_Category, Dcp::resetSettingsTitle);
-    resetSettings->setDescription(Dcp::resetSettingsDescription);
+            m_Category, DcpMain::resetSettingsTitle);
+    resetSettings->setDescription(DcpMain::resetSettingsDescription);
     resetSettings->setFullRowSize ();
     connect(resetSettings, SIGNAL(openSubPage(Pages::Id)),
             this, SLOT(onResetSettingsClicked()));

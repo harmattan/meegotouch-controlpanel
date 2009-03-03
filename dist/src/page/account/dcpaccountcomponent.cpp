@@ -25,13 +25,6 @@ DcpAccountComponent::DcpAccountComponent(DcpCategory *category,
 void
 DcpAccountComponent::createContents()
 {
-    /* DuiLinearLayout *layout = new DuiLinearLayout(Qt::Vertical, this); 
-    m_Label = new DuiImageLabel();
-    m_Label->setText(title());
-    m_Label->setImage(new DuiImage(DuiTheme::pixmap("W-Icon-flickr")));
-    m_Label->setImageVisible(true);
-    layout->addItem(m_Label);
-    setLayout(layout); */
     DcpButton *button = new DcpButton(title(),
 		    		      BIG_WIDTH,
 				      BIG_HEIGHT,

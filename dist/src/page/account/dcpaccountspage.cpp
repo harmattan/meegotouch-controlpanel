@@ -22,7 +22,9 @@ void DcpAccountPage::createContent()
     DcpAccountComponent *googleAccount = new DcpAccountComponent(m_Category, "Google");
     flickrAccount->setSubPageId(Pages::APPLET);
     connect(flickrAccount, SIGNAL(openSubPage(Pages::Id)),
-            this, SIGNAL(openSubPage(Pages::Id)));  
-    m_Category->add(flickrAccount, googleAccount);
+            this, SIGNAL(openSubPage(Pages::Id))); 
+    m_Category->setMaxColumns(2); 
+    m_Category->append(flickrAccount);
+    m_Category->append(googleAccount);
     panLayout()->addItem(new DuiLabel("Halihaw!"));
 }
