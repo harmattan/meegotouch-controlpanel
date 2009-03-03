@@ -8,12 +8,12 @@ public:
     explicit DcpSimpleComponent(DcpCategory *category,
                                   const QString& title="",
                                   QGraphicsWidget *parent=0);
-    virtual void add(DcpComponent *component){};
-    virtual void remove(DcpComponent *component){};
+    virtual void add(DcpComponent *component);
+    virtual void remove(DcpComponent *component);
 protected:
     virtual void createContents();
 protected slots:
-    virtual void onOrientationChange (const Dui::Orientation &orientation){};
+    virtual void onOrientationChange (const Dui::Orientation &){};
     	
 };
 #endif //DCPSIMPLECOMPONENT_H

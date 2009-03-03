@@ -17,24 +17,12 @@ DcpCategoryPage::DcpCategoryPage() :
 void DcpCategoryPage::createContent()
 {
     DcpPage::createContent();
-    DuiLinearLayout* mainLayout = new DuiLinearLayout(Qt::Vertical);
-
-    DuiLabel* title = new DuiLabel("Title");
-    title->setAlignment(Qt::AlignCenter);
-    title->setMaximumHeight(30);
-    mainLayout->addItem(title);
-
     m_Category = new DcpMainCategory("");
-
+    panLayout()->addItem(m_Category);
     connect (m_DesktopViewport,
              SIGNAL(sizeChanged(const QSizeF &, const QSizeF &)),
              this, SLOT(onSizeChanged(const QSizeF &, const QSizeF &)));
-    m_DesktopViewport->setWidget(m_Category);
-
-
-    mainLayout->addItem(m_DesktopViewport);
-
-    setLayout(mainLayout);
+    
 }
 
 
@@ -45,6 +33,8 @@ void DcpCategoryPage::onSizeChanged(const QSizeF & pannedWidgetSize,
 {
     int width = pannableViewportSize.width();
     if (pannedWidgetSize.width() != width){
+        panWidget()->setMinimumSize(width, -1);
+        panWidget()->setMaximumSize(width, -1);
         m_Category->setMinimumSize(width, -1);
         m_Category->setMaximumSize(width, -1);
     }

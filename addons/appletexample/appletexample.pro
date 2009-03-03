@@ -9,6 +9,8 @@ LIBS 		+= -L./lib -ldui
 
 # Input
 HEADERS		+= mainwindow.h \
+		   mainview.h
 
 SOURCES		+= main.cpp \
 		   mainwindow.cpp \
+		   mainview.cpp

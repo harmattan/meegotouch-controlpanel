@@ -2,7 +2,8 @@
 #include "dcpmaincategory.h"
 #include "dcpaccountcomponent.h"
 #include <QtDebug>
-
+#include "duilabel.h"
+#include "duilinearlayout.h"
 
 
 DcpAccountPage::DcpAccountPage()
@@ -19,7 +20,11 @@ void DcpAccountPage::createContent()
     m_Category->setTitle(tr("Accounts"));
     DcpAccountComponent *flickrAccount = new DcpAccountComponent(m_Category, "Flickr");
     DcpAccountComponent *googleAccount = new DcpAccountComponent(m_Category, "Google");
-    flickrAccount->setSubPageId(Pages::APPLET);                                     connect(flickrAccount, SIGNAL(openSubPage(Pages::Id)),                         	this, SIGNAL(openSubPage(Pages::Id)));  
-    m_Category->add(flickrAccount, googleAccount);
+    flickrAccount->setSubPageId(Pages::APPLET);
+    connect(flickrAccount, SIGNAL(openSubPage(Pages::Id)),
+            this, SIGNAL(openSubPage(Pages::Id))); 
+    m_Category->setMaxColumns(2); 
+    m_Category->append(flickrAccount);
+    m_Category->append(googleAccount);
+    panLayout()->addItem(new DuiLabel("Halihaw!"));
 }
-

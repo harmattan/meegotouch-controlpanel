@@ -14,7 +14,10 @@ protected:
     virtual void createContents();
     virtual void mousePressEvent (QGraphicsSceneMouseEvent *event);
 private:
-    DuiImageLabel* m_Label;
+    // DuiImageLabel* m_Label;
+
+private slots:
+	virtual void handleClick(QString);
     	
 };
 #endif //DCPACCOUNTCOMPONENT_H

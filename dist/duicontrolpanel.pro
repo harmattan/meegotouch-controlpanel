@@ -1,12 +1,11 @@
-TARGET = duicontrolpanel
-TEMPLATE = app
+TEMPLATE = subdirs
 
-OBJECTS_DIR = tmp
-MOC_DIR = tmp
+CONFIG += debug
 CONFIG += build_all silent warn_on
 
-INCLUDEPATH += $$[QT_INSTALL_HEADERS]/dui
-LIBS += -ldui
+SUBDIRS += src \
+#	   tests
+#	   examples
 
 # this creates the installation process
 # PREFIX = "debian/duicontrolpanel/usr"
@@ -24,3 +23,10 @@ INSTALLS += target  # skin desktop
 
 # for make deb
 include(debian/deb.pri)
+
+# for check:
+check.target = check
+check.CONFIG = recursive
+QMAKE_EXTRA_TARGETS += check
+
+

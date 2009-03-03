@@ -3,21 +3,18 @@
 
 #include <DuiApplicationWindow>
 
-class MainWindow : public DuiApplicationWindow {
+class MainWindow : public DuiApplicationWindow 
+{
 	Q_OBJECT
 
-	public:
-		MainWindow();
+public:
+	MainWindow();
+	virtual ~MainWindow();
 
-		virtual ~MainWindow();
+protected:
+	void initWindow();
 
-
-	protected:
-		void initWindow();
-
-
-	private:
-		DuiWidget *m_view;
+private:
+	DuiWidget *m_view;
 };
-
 #endif // MAINWINDOW_H

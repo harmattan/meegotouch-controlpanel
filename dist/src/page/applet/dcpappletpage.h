@@ -1,18 +1,24 @@
 #ifndef DCPAPPLETPAGE_H
 #define DCPAPPLETPAGE_H
 
-#include "dcppage.h" 
+#include "dcpcategorypage.h" 
 #include "pages.h"
 
-class DcpAppletPage : public DcpPage
+class DcpAppletPage : public DcpCategoryPage
 {
     Q_OBJECT
 public:
-    DcpAppletPage();
+    DcpAppletPage(const QString &appletBinary);
+    virtual ~DcpAppletPage();
     virtual void createContent();
     virtual void organizeContent(Dui::Orientation ori);
-    void init(const QString &appletBinary, const QString &appletMetaData,
-              const QString &appletId);
+    const QString appletBinary() const {return m_AppletBinary;};
+    void setAppletBinary(const QString &appletBinary){m_AppletBinary=appletBinary;};
+protected:
+    virtual void initApplet();
+private:
+    DuiWidget *m_View;
+    QString m_AppletBinary;
 };
 
 #endif // DCPAPPLETPAGE_H

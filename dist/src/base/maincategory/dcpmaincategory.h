@@ -12,15 +12,16 @@ public:
                     QGraphicsWidget *parent=0);
 
     virtual void add(DcpComponent *component);
-    virtual void add(DcpComponent *component1,
-                     DcpComponent *component2);
-
+    virtual void append(DcpComponent *component);
+    virtual void setMaxColumns(int columns){m_MaxColumns = columns;};
 protected:
     virtual void createContents();
 
 protected:
     class DuiGridLayout* m_Layout;
-
+    int m_MaxColumns;
+    int m_ColCount;
+    int m_RowCount;
 };
 
 #endif // DCPMAINCATEGORY_H

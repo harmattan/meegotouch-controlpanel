@@ -65,5 +65,5 @@ PageFactory::createAccountsPage()
 DcpPage* 
 PageFactory::createAppletPage()
 {
-    return new DcpAppletPage();
+    return new DcpAppletPage("/usr/lib/duicontrolpanel/applets/libexampleapplet.so");
 }

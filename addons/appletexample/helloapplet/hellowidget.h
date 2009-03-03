@@ -2,34 +2,29 @@
 #define HELLOWIDGET_H
 
 #include <DuiWidget>
+class DuiLabel;
 
-class HelloWidget : public DuiWidget {
-	public:
-		HelloWidget(QGraphicsWidget *parent = 0);
+class HelloWidget : public DuiWidget 
+{
+	Q_OBJECT
+		
+public:
+	HelloWidget(QGraphicsWidget *parent = 0);
+	virtual ~HelloWidget();
 
-		virtual ~HelloWidget();
-
-		void paint(QPainter *painter,
+	void paint(QPainter *painter,
 			   const QStyleOptionGraphicsItem *option,
 			   QWidget *widget);
 
-		QSizeF minimumSize() const;
-
-		QSizeF preferredSize() const;
-
-		QSizeF maximumSize() const;
-
+protected:
+	void initWidget();
 		
-	protected:
-		void initWidget();
-
-
-	private:
-		QSizeF m_minimumSize;
-
-		QSizeF m_preferredSize;
-
-		QSizeF m_maximumSize;
+private:
+	DuiLabel *m_brightnessLabel;
+	DuiLabel *m_screenLabel;
+		
+private slots:
+	virtual void setBrightnessLabel(int value);
+	virtual void setScreenLabel(int value);
 };
-
 #endif // HELLOWIDGET_H
