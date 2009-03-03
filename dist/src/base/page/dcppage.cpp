@@ -17,12 +17,6 @@ DcpPage::~DcpPage()
 {
     if (m_DesktopViewport)
         delete m_DesktopViewport;
-    if (m_PanWidget)
-        delete m_PanWidget;
-    if (m_PanLayout)
-        delete m_PanLayout;
-    if (m_MainLayout)
-        delete m_MainLayout;
     if (m_Title)
         delete m_Title;
     if (m_BackgroundView)
