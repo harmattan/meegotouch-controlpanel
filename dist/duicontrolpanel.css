@@ -7,6 +7,14 @@ DuiPannableViewport {
 	background: image(starfield);
 }
 
+
+DuiImage {
+	leftMargin: 0;
+        topMargin: 0;
+	rightMargin: 0;
+	bottomMargin: 0;
+}	
+
 #LabelFont1 {
     color: #FFFFFF;
     font: font("Nokia Sans Cn", 24);

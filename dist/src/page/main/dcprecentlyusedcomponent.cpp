@@ -17,6 +17,8 @@ void DcpRecentlyUsedComponent::createContents()
     DcpMostUsedContainer *tmpContainer = new DcpMostUsedContainer;
     
 
+    tmpContainer->add("desktop/spec.desktop");
+
     tmpContainer->add("desktop/ringtone.desktop");
     tmpContainer->add("desktop/profile.desktop");
 

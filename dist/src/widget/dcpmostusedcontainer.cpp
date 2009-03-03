@@ -13,6 +13,7 @@
 
 #include "dcpdesktopentry.h"
 
+#include "dcpspec.h"
 
 DcpMostUsedContainer::DcpMostUsedContainer() :
     m_PosX(0) ,
@@ -43,7 +44,13 @@ void DcpMostUsedContainer::add(const QString& file)
     addButton(tmp->text1(), tmp->text2());
   } else if (tmp->widgetType() == "DcpImage") {
     addImageCSS(tmp->text1(), tmp->image(), tmp->buttonCSS(), tmp->label1CSS());
+  } else if (tmp->widgetType() == "DcpSpec") {
+   
+      DcpSpec *tmpSpec = new DcpSpec(tmp->image(), 200, 100, 30, 30, "");
+      m_Layout->addItem(tmpSpec->layout(), m_PosY, m_PosX, Qt::AlignCenter);
+      addPos();
   }
+
 
   delete tmp;
 }
