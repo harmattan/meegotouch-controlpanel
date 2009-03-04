@@ -1,6 +1,7 @@
 #include "dcprecentlyusedcomponent.h"
 
 #include "dcpmostusedcontainer.h"
+#include "dcpappletdb.h"
 
 DcpRecentlyUsedComponent::DcpRecentlyUsedComponent(
                             DcpCategory *category,
@@ -16,17 +17,18 @@ void DcpRecentlyUsedComponent::createContents()
 
     DcpMostUsedContainer *tmpContainer = new DcpMostUsedContainer;
     
+    DcpAppletDb *db = DcpAppletDb::instance();   
 
-    tmpContainer->add("desktop/spec.desktop");
+    tmpContainer->add(db->applet("spec"));
 
-    tmpContainer->add("desktop/ringtone.desktop");
-    tmpContainer->add("desktop/profile.desktop");
+    tmpContainer->add(db->applet("ringtone.desktop"));
+    tmpContainer->add(db->applet("profile.desktop"));
 
 
     tmpContainer->addButton("aaaa", "1", true, 2);
 
-    tmpContainer->add("desktop/theme.desktop");
-    tmpContainer->add("desktop/wallpaper.desktop");
+    tmpContainer->add(db->applet("theme.desktop"));
+    tmpContainer->add(db->applet("wallpaper.desktop"));
 
 
     //tmpContainer->add("desktop/language.desktop");

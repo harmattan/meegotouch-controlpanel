@@ -3,6 +3,17 @@
 #include <QDir>
 #include <QDebug>
 const QString APPLETFILTER = "*.desktop";
+
+DcpAppletDb *DcpAppletDb::sm_Instance=0;
+
+DcpAppletDb*
+DcpAppletDb::instance(const QString &pathName)
+{
+    if (!sm_Instance)
+        sm_Instance = new DcpAppletDb(pathName);
+    return sm_Instance;
+}
+
 DcpAppletDb::DcpAppletDb(const QString &pathName)
 {
     addPath(pathName);
@@ -25,7 +36,8 @@ DcpAppletDb::addPath(const QString &pathName)
     
     foreach(QString appFile, appDir.entryList())
     {
-        m_Applets.append(new DcpAppletMetadata(appDir.absoluteFilePath(appFile)));
+        DcpAppletMetadata *metadata = new DcpAppletMetadata(appDir.absoluteFilePath(appFile));
+        m_Applets[metadata->name()] = metadata;
     }
 }
 
@@ -41,3 +53,9 @@ DcpAppletDb::listByCategory(const QString& category)
     }
     return filtered;
 }
+
+DcpAppletMetadata*
+DcpAppletDb::applet(const QString& name)
+{
+    return m_Applets[name];
+};
