@@ -36,24 +36,29 @@ DcpMostUsedContainer::DcpMostUsedContainer() :
 
 void DcpMostUsedContainer::add(const QString& file)
 {
+    qWarning() << Q_FUNC_INFO << "DEPRECATED!!! ";
   DcpAppletMetadata* tmp = new DcpAppletMetadata(file);
+  add(tmp);
 
-  if (tmp->widgetType() == "DcpLabel") {
-    addLabelCSS(tmp->text1(), tmp->text2(), tmp->buttonCSS(), tmp->label1CSS(), tmp->label2CSS());
-  } else if (tmp->widgetType() == "DcpButton") {
-    addButton(tmp->text1(), tmp->text2());
-  } else if (tmp->widgetType() == "DcpImage") {
-    addImageCSS(tmp->text1(), tmp->image(), tmp->buttonCSS(), tmp->label1CSS());
-  } else if (tmp->widgetType() == "DcpSpec") {
+  delete tmp;
+}
+
+void DcpMostUsedContainer::add(DcpAppletMetadata *metadata)
+{
+  if (metadata->widgetType() == "DcpLabel") {
+    addLabelCSS(metadata->text1(), metadata->text2(), metadata->buttonCSS(), metadata->label1CSS(), metadata->label2CSS());
+  } else if (metadata->widgetType() == "DcpButton") {
+    addButton(metadata->text1(), metadata->text2());
+  } else if (metadata->widgetType() == "DcpImage") {
+    addImageCSS(metadata->text1(), metadata->image(), metadata->buttonCSS(), metadata->label1CSS());
+  } else if (metadata->widgetType() == "DcpSpec") {
  
       //dummy  
-      DcpSpec *tmpSpec = new DcpSpec(tmp->image(), 200, 100, 10, 10, "");
+      DcpSpec *tmpSpec = new DcpSpec(metadata->image(), 200, 100, 10, 10, "");
       m_Layout->addItem(tmpSpec->layout(), m_PosY, m_PosX, Qt::AlignCenter);
       addPos();
   }
 
-
-  delete tmp;
 }
 
 void DcpMostUsedContainer::addButton(const QString& text1, const QString& text2, bool enable, int length)

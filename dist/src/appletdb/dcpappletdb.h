@@ -1,22 +1,26 @@
 #ifndef DCPAPPLETDB_H
 #define DCPAPPLETDB_H
 #include <QList>
+#include <QMap>
 #include <QString>
 class DcpAppletMetadata;
 
 namespace DcpApplet {
-    const QString Dir = "/usr/lib/dcpcontrolpanel";
+    const QString DefaultPath = "desktop";
 };
 
 class DcpAppletDb
 {
 public:
-    DcpAppletDb(const QString &pathName);
+    static DcpAppletDb *instance(const QString &pathName=DcpApplet::DefaultPath);
     void addPath(const QString &pathName);
     virtual ~DcpAppletDb();
     QList<DcpAppletMetadata*>* listByCategory(const QString& category);
-
+    DcpAppletMetadata *applet(const QString& name);
+protected:
+    DcpAppletDb(const QString &pathName);
 private:
-    QList<DcpAppletMetadata*> m_Applets;  
+    QMap<QString, DcpAppletMetadata*> m_Applets;  
+    static DcpAppletDb *sm_Instance;
 };
 #endif // DCPAPPLETDB_H

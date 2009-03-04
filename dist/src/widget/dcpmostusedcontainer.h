@@ -10,7 +10,7 @@
 
 #include <duiwidgetview.h>
 #include <duitheme.h>
-
+class DcpAppletMetadata;
 
 class DcpMostUsedContainer : public QObject {
 
@@ -18,6 +18,7 @@ class DcpMostUsedContainer : public QObject {
         DcpMostUsedContainer();
 
         void add(const QString& file);
+        void add(DcpAppletMetadata *metadata);
         void addButton(const QString& text1, const QString& text2, bool enable = true, int length = 1);
         void addLabel(const QString& text1, const QString& text2);
 

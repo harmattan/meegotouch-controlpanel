@@ -1,6 +1,7 @@
 #include "dcprecentlyusedcomponent.h"
 
 #include "dcpmostusedcontainer.h"
+#include "dcpappletdb.h"
 
 DcpRecentlyUsedComponent::DcpRecentlyUsedComponent(
                             DcpCategory *category,
@@ -16,21 +17,18 @@ void DcpRecentlyUsedComponent::createContents()
 
     DcpMostUsedContainer *tmpContainer = new DcpMostUsedContainer;
     
-
-    tmpContainer->add("desktop/spec.desktop");
-
-    tmpContainer->add("desktop/ringtone.desktop");
-    tmpContainer->add("desktop/profile.desktop");
+    DcpAppletDb *db = DcpAppletDb::instance();   
 
 
-    tmpContainer->addButton("aaaa", "1", true, 2);
+    tmpContainer->add(db->applet("Ringtone"));
+    tmpContainer->add(db->applet("Profile"));
 
-    tmpContainer->add("desktop/theme.desktop");
-    tmpContainer->add("desktop/wallpaper.desktop");
+    tmpContainer->add(db->applet("Theme"));
+    tmpContainer->add(db->applet("Wallpaper"));
 
 
-    //tmpContainer->add("desktop/language.desktop");
-    //tmpContainer->add("desktop/region_format.desktop");
+    tmpContainer->add(db->applet("Language"));
+    tmpContainer->add(db->applet("Region_format"));
 
 
 /*
@@ -56,7 +54,7 @@ theme.desktop
     */
     addItem(tmpContainer->layout());
 
-    addItem(new DuiWidget());
+  //  addItem(new DuiWidget());
 }
 
 
