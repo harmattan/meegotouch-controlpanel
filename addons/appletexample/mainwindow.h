@@ -15,6 +15,6 @@ protected:
 	void initWindow();
 
 private:
-	DuiWidget *m_view;
+    DuiApplicationPage *m_view;
 };
 #endif // MAINWINDOW_H

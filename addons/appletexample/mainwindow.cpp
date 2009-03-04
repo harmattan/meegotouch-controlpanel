@@ -4,6 +4,7 @@
 #include <QPluginLoader>
 #include <QDebug>
 #include <QDir>
+#include <QGraphicsSceneResizeEvent>
 
 MainWindow::MainWindow()
 	   :DuiApplicationWindow()
@@ -22,10 +23,8 @@ MainWindow::~MainWindow()
 void MainWindow::initWindow() 
 {
 	m_view = new MainView();
-	m_view->setGeometry(QRectF(0, 0,
-				DuiDeviceProfile::instance()->width(),
-				DuiDeviceProfile::instance()->height()));
 
-	scene()->setBackgroundBrush(QColor(0, 0, 0, 255));
-	scene()->addItem(m_view);
+    addPage(m_view);
+    showPage(m_view);
 }
+
