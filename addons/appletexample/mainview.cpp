@@ -5,13 +5,14 @@
 #include <duilinearlayout.h>
 #include <QPluginLoader>
 #include <QDir>
-#include <QDebug>
+#include <QtDebug>
+#include <QGraphicsSceneResizeEvent>
+#include <QStyleOptionGraphicsItem>
+#include <duilabel.h>
 
-
-MainView::MainView(DuiWidget *parent)
-	 :DuiWidget(parent)
+MainView::MainView()
+     :DuiApplicationPage(), m_viewport(NULL)
 {
-	initWidget();
 }
 
 
@@ -19,13 +20,22 @@ MainView::~MainView()
 {
 }
 
-void MainView::initWidget()
+ void MainView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+            QWidget *widget)
+ {
+     painter->setBrush(Qt::black);
+     painter->drawRect(option->rect);
+ }
+
+
+void MainView::createContent()
 {
-	DuiLinearLayout *mainLayout = new DuiLinearLayout(Qt::Vertical, this);
-	mainLayout->setMargin(50);
-	mainLayout->setPadding(5);
+    DuiLinearLayout *mainLayout = new DuiLinearLayout(Qt::Vertical);
+    mainLayout->setMargin(50);
+    mainLayout->setPadding(5);
 
 	m_viewport = new DuiPannableViewport(Qt::Vertical);
+    m_viewport->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	
 	QString appletPlace;
 	appletPlace += QDir::currentPath();
@@ -61,5 +71,17 @@ void MainView::initWidget()
 		qWarning() << "Example applet can't loaded.";
 	}
 
-	mainLayout->addItem(m_viewport);
+    m_viewport->setMinimumSize(this->size());
+    mainLayout->addItem(m_viewport);
+    this->setLayout(mainLayout);
+}
+
+
+void MainView::resizeEvent ( QGraphicsSceneResizeEvent * event ) {
+    if (m_viewport) m_viewport->setMinimumSize(this->size());
+    DuiApplicationPage::resizeEvent(event);
+}
+
+
+void MainView::organizeContent(Dui::Orientation) {
 }
