@@ -19,20 +19,16 @@ void DcpRecentlyUsedComponent::createContents()
     
     DcpAppletDb *db = DcpAppletDb::instance();   
 
-    tmpContainer->add(db->applet("spec"));
 
-    tmpContainer->add(db->applet("ringtone.desktop"));
-    tmpContainer->add(db->applet("profile.desktop"));
+    tmpContainer->add(db->applet("Ringtone"));
+    tmpContainer->add(db->applet("Profile"));
 
-
-    tmpContainer->addButton("aaaa", "1", true, 2);
-
-    tmpContainer->add(db->applet("theme.desktop"));
-    tmpContainer->add(db->applet("wallpaper.desktop"));
+    tmpContainer->add(db->applet("Theme"));
+    tmpContainer->add(db->applet("Wallpaper"));
 
 
-    //tmpContainer->add("desktop/language.desktop");
-    //tmpContainer->add("desktop/region_format.desktop");
+    tmpContainer->add(db->applet("Language"));
+    tmpContainer->add(db->applet("Region_format"));
 
 
 /*
@@ -58,7 +54,7 @@ theme.desktop
     */
     addItem(tmpContainer->layout());
 
-    addItem(new DuiWidget());
+  //  addItem(new DuiWidget());
 }
 
 

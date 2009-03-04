@@ -37,7 +37,7 @@ DcpAppletDb::addPath(const QString &pathName)
     foreach(QString appFile, appDir.entryList())
     {
         DcpAppletMetadata *metadata = new DcpAppletMetadata(appDir.absoluteFilePath(appFile));
-        m_Applets[metadata->name()] = metadata;
+       m_Applets[metadata->name()] = metadata;
     }
 }
 
@@ -57,5 +57,8 @@ DcpAppletDb::listByCategory(const QString& category)
 DcpAppletMetadata*
 DcpAppletDb::applet(const QString& name)
 {
-    return m_Applets[name];
+    DcpAppletMetadata *metadata = m_Applets.value(name, 0);
+    if (!metadata)
+        qWarning() << "No such applet:" << name;
+    return metadata;
 };

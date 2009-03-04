@@ -6,7 +6,7 @@
 class DcpAppletMetadata;
 
 namespace DcpApplet {
-    const QString DefaultPath = "/usr/lib/dcpcontrolpanel";
+    const QString DefaultPath = "desktop";
 };
 
 class DcpAppletDb
