@@ -7,14 +7,16 @@
 #include <duitheme.h>
 
 #include "dcpimageutils.h"
+#include "dcpappletmetadata.h"
 
 #include <QDebug>
 
 DcpButtonComponent::DcpButtonComponent(
                             DcpCategory *category,
+                            DcpAppletMetadata * metadata,
                             const QString& title,
                             QGraphicsWidget *parent):
-    DcpComponent(category, title, parent)
+    DcpComponent(category, title, parent), m_Metadata(metadata)
 {
 
   createContents();
@@ -28,33 +30,12 @@ DcpButtonComponent::~DcpButtonComponent() {
 void
 DcpButtonComponent::createContents()
 {
-/*
-    m_Layout = new DuiLinearLayout(Qt::Vertical);
-    m_Caption = new DuiLabel(title());
-    m_Caption->setObjectName("ComponentCaption");
-
-    // TODO: move to stylesheet
-    this->setContentsMargins(10,10,10,10);
-
-    QFont captionFont = m_Caption->font();
-    captionFont.setPointSize(captionFont.pointSize()+2);
-    captionFont.setBold(true);
-    m_Caption->setFont(captionFont);
-    // --
-
-    // this fixes a dui issue, that the labels are eating up our clickEvents
-    m_Caption->setAcceptedMouseButtons(0);
-    // --
-
-    m_Layout->addItem(m_Caption);
-    setLayout(m_Layout);
-*/
 
   //dummy, must modify constructor
-  QString bigLabel = "text1";
+  QString bigLabel = metadata()->text1();
   int bigWidth = 350;
   int bigHeight = 100;
-  QString smallLabel = "text2";
+  QString smallLabel = metadata()->text2();
   int smallX = 200;
   int smallY = 40;
   int smallWidth = 50;
@@ -164,12 +145,6 @@ DcpButtonComponent::onOrientationChange (const Dui::Orientation &orientation)
     Q_UNUSED(orientation);
 }
 
-
-void DcpButtonComponent::setTitle(const QString& title)
-{
-//    m_Caption->setText(title);
-//    DcpComponent::setTitle(title);
-}
 
 /*
 void DcpButtonComponent::paint (QPainter * painter,

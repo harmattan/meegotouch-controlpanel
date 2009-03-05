@@ -3,7 +3,6 @@
 
 #include <DuiApplicationWindow>
 #include "pages.h"
-class PageFactory;
 class MainWindow : public DuiApplicationWindow
 {
     Q_OBJECT

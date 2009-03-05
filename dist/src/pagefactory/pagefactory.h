@@ -17,6 +17,7 @@ protected:
     DcpPage* createMainPage();	
     DcpPage* createAccountsPage();	
     DcpPage* createAppletPage();	
+    DcpPage* createAppletCategoryPage(const QString& appletCategory);
 private:
     static PageFactory* sm_Instance;
 };

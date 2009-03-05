@@ -41,15 +41,15 @@ DcpAppletDb::addPath(const QString &pathName)
     }
 }
 
-QList<DcpAppletMetadata*>* 
+DcpAppletMetadataList 
 DcpAppletDb::listByCategory(const QString& category)
 {
-    QList<DcpAppletMetadata*> *filtered = new QList<DcpAppletMetadata*>();
+    QList<DcpAppletMetadata*> filtered;
     foreach (DcpAppletMetadata *item, m_Applets)
     {
         qDebug() << item->category() << "==" << category;
         if (item->category() == category)
-            filtered->append(item);
+            filtered.append(item);
     }
     return filtered;
 }

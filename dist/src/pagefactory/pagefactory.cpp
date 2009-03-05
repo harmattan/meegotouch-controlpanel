@@ -2,6 +2,7 @@
 #include "dcpmainpage.h"
 #include "dcpaccountspage.h"
 #include "dcpappletpage.h"
+#include "dcpappletcategorypage.h"
 #include <QtDebug>
 PageFactory *PageFactory::sm_Instance =0;
 
@@ -40,13 +41,34 @@ PageFactory::create(Pages::Id pageId)
         case Pages::ACCOUNTS:
             page = createAccountsPage();
             break;
+        case Pages::PERSONALIZATION:
+            page = createAppletCategoryPage("Personalization");
+            break;
+        case Pages::CONNECTIVITY:
+            page = createAppletCategoryPage("Connectivity");
+            break;
+        case Pages::DISPLAY:
+            page = createAppletCategoryPage("Display");
+            break;
+        case Pages::SOUND:
+            page = createAppletCategoryPage("Sound");
+            break;
+        case Pages::CALL:
+            page = createAppletCategoryPage("Call");
+            break;
+        case Pages::DATETIME:
+            page = createAppletCategoryPage("Datetime");
+            break;
+        case Pages::SECURITY:
+            page = createAppletCategoryPage("Security");
+            break;
         case Pages::APPLET:
             page = createAppletPage();
             break;
 	default:
             qWarning() << "Bad page ID: " << pageId;
             // page=0;
-            page = createMainPage();
+            page = createAppletCategoryPage("Personalization");
       }  
     return page;
 }
@@ -67,4 +89,10 @@ DcpPage*
 PageFactory::createAppletPage()
 {
     return new DcpAppletPage("/usr/lib/duicontrolpanel/applets/libexampleapplet.so");
+}
+
+DcpPage* 
+PageFactory::createAppletCategoryPage(const QString& appletCategory)
+{
+    return new DcpAppletCategoryPage(appletCategory);
 }

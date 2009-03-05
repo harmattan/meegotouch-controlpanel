@@ -2,29 +2,30 @@
 #define DCPBUTTONCOMPONENT_H
 
 #include "dcpcomponent.h"
+#include <QPixmap>
 
 class DuiLabel;
 class DuiButton;
 class DuiLinearLayout;
 class DuiGridLayout;
-#include <QPixmap>
-
+class DcpAppletMetadata;
 class DcpButtonComponent: public DcpComponent
 {
     Q_OBJECT
 public:
     DcpButtonComponent(DcpCategory *category,
-                            const QString& title="",
-                            QGraphicsWidget *parent=0);
+                       DcpAppletMetadata* metadata,
+                       const QString& title="",
+                       QGraphicsWidget *parent=0);
     ~DcpButtonComponent();
 
     //DcpButton(QString bigLabel, int bigWidth, int bigHeight, QString smallLabel, int smallX, int smallY, int smallWidth, int smallHeight, bool enable = true);
 
     void setEnable(bool enable);
-
+    void setMetadata(DcpAppletMetadata* metadata) {m_Metadata = metadata;};
+    DcpAppletMetadata* metadata() const {return m_Metadata;};
     //DuiGridLayout* layout();
 
-    virtual void setTitle(const QString& title);
     void setTitleAlignment(Qt::Alignment align);
 
         // Composite Pattern Interface
@@ -66,6 +67,7 @@ private:
         DuiButton* m_DisableButton;
 
         bool m_Enable;
+        DcpAppletMetadata *m_Metadata; 
 
 
 };

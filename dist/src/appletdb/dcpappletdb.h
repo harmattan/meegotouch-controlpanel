@@ -5,6 +5,9 @@
 #include <QString>
 class DcpAppletMetadata;
 
+typedef QList<DcpAppletMetadata*> DcpAppletMetadataList;
+typedef QMap<QString, DcpAppletMetadata*> DcpAppletMetadataMap;
+
 namespace DcpApplet {
     const QString DefaultPath = "desktop";
 };
@@ -15,12 +18,12 @@ public:
     static DcpAppletDb *instance(const QString &pathName=DcpApplet::DefaultPath);
     void addPath(const QString &pathName);
     virtual ~DcpAppletDb();
-    QList<DcpAppletMetadata*>* listByCategory(const QString& category);
+    DcpAppletMetadataList listByCategory(const QString& category);
     DcpAppletMetadata *applet(const QString& name);
 protected:
     DcpAppletDb(const QString &pathName);
 private:
-    QMap<QString, DcpAppletMetadata*> m_Applets;  
+    DcpAppletMetadataMap m_Applets;  
     static DcpAppletDb *sm_Instance;
 };
 #endif // DCPAPPLETDB_H

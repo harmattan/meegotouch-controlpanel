@@ -6,6 +6,7 @@ namespace Pages {
       MAIN,
       ACCOUNTS,
       APPLET,
+      APPLETCATEGORY,
       PERSONALIZATION,
       CONNECTIVITY,
       DISPLAY,
