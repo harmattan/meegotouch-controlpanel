@@ -45,7 +45,8 @@ PageFactory::create(Pages::Id pageId)
             break;
 	default:
             qWarning() << "Bad page ID: " << pageId;
-	    page=0;
+            // page=0;
+            page = createMainPage();
       }  
     return page;
 }

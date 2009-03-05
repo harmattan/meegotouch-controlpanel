@@ -1,0 +1,19 @@
+#LanguageBigButton {
+        view: DuiButtonView;
+        text: Next;
+        font: font("Nokia Sans Cn", 15);
+        textColor: #FF0000;
+
+        normalBackgroundName: Toggle-btn-normal;
+        pressedBackgroundName: Toggle-btn-selected;
+}
+
+#LanguageLeftLabel {
+        color: #FFFFFF;
+        font: font("Nokia Sans Cn", 24);
+}
+
+#LanguageRightLabel {
+        color: #FFA000;
+        font: font("Nokia Sans Cn", 18);
+}

@@ -27,6 +27,9 @@ void DcpMainPage::createContent()
 {
     DcpCategoryPage::createContent();
     setTitle(DcpMain::settingsTitle);
+
+    m_Category->setMaxColumns(2);
+
     // most recent used items:
     DcpRecentlyUsedComponent* recentlyComp = new DcpRecentlyUsedComponent(
                                                     m_Category);
@@ -39,7 +42,6 @@ m_Category->append(tmp);
 
     // category descriptions:
 
-    m_Category->setMaxColumns(2);
     for (int i=0; true; i++)
        {
         DcpCategoryInfo info = DcpMain::CategoryInfos[i];
@@ -49,7 +51,7 @@ m_Category->append(tmp);
         DcpDescriptionComponent *component = new DcpDescriptionComponent(
                 m_Category, info.title);
         component->setDescription("<span>" + info.description + "</span>");
-        component->setSubPageId(Pages::ACCOUNTS);
+        component->setSubPageId(info.subPageId);
         connect(component, SIGNAL(openSubPage(Pages::Id)),
                 this, SIGNAL(openSubPage(Pages::Id)));
         m_Category->append(component);
@@ -63,7 +65,6 @@ m_Category->append(tmp);
     connect(resetSettings, SIGNAL(openSubPage(Pages::Id)),
             this, SLOT(onResetSettingsClicked()));
     m_Category->add(resetSettings);
-
 }
 
 

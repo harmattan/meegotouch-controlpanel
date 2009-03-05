@@ -58,7 +58,6 @@ void DcpMostUsedContainer::add(DcpAppletMetadata *metadata)
       m_Layout->addItem(tmpSpec->layout(), m_PosY, m_PosX, Qt::AlignCenter);
       addPos();
   }
-
 }
 
 void DcpMostUsedContainer::addButton(const QString& text1, const QString& text2, bool enable, int length)

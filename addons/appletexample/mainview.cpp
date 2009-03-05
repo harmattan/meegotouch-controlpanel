@@ -10,6 +10,9 @@
 #include <QStyleOptionGraphicsItem>
 #include <duilabel.h>
 
+const QString appletDir = "/usr/lib/duicontrolpanel/applets/";
+const int viewportMargin = 45;
+
 MainView::MainView()
      :DuiApplicationPage(), m_viewport(NULL)
 {
@@ -20,26 +23,24 @@ MainView::~MainView()
 {
 }
 
- void MainView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+void MainView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             QWidget *widget)
- {
+{
+     Q_UNUSED(option);
+     Q_UNUSED(widget);
      painter->setBrush(Qt::black);
      painter->drawRect(option->rect);
- }
-
+}
 
 void MainView::createContent()
 {
     DuiLinearLayout *mainLayout = new DuiLinearLayout(Qt::Vertical);
-    mainLayout->setMargin(50);
-    mainLayout->setPadding(5);
+    mainLayout->setMargin(viewportMargin);
 
 	m_viewport = new DuiPannableViewport(Qt::Vertical);
-    m_viewport->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	
 	QString appletPlace;
-	appletPlace += QDir::currentPath();
-	appletPlace += "/lib/libexampleapplet.so";
+	appletPlace += appletDir + "liblanguageapplet.so";
 	
 	// qWarning() << appletPlace;
 
@@ -54,6 +55,8 @@ void MainView::createContent()
 				m_widget = applet->constructWidget();
 				if (m_widget) {
 					m_viewport->setWidget(m_widget);
+                    m_widget->setMaximumWidth(DuiDeviceProfile::instance()->width() 
+                                    - viewportMargin * 2);
 				} else {
 					qWarning() << "applet->constructWidget() failed.";
 				}
@@ -71,17 +74,17 @@ void MainView::createContent()
 		qWarning() << "Example applet can't loaded.";
 	}
 
-    m_viewport->setMinimumSize(this->size());
+    m_viewport->setMinimumSize(m_widget->size() + QSize(5, 0));
     mainLayout->addItem(m_viewport);
     this->setLayout(mainLayout);
 }
 
-
-void MainView::resizeEvent ( QGraphicsSceneResizeEvent * event ) {
+void MainView::resizeEvent ( QGraphicsSceneResizeEvent * event ) 
+{
     if (m_viewport) m_viewport->setMinimumSize(this->size());
     DuiApplicationPage::resizeEvent(event);
 }
 
-
-void MainView::organizeContent(Dui::Orientation) {
+void MainView::organizeContent(Dui::Orientation) 
+{
 }
