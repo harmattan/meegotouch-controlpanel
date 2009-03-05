@@ -38,9 +38,9 @@ void DcpMainPage::createContent()
 
     m_Category->add(recentlyComp);
 
-DcpButtonComponent *tmp = new DcpButtonComponent(m_Category, 
-    DcpAppletDb::instance()->applet("Language"));
-m_Category->append(tmp);
+//DcpButtonComponent *tmp = new DcpButtonComponent(m_Category, 
+//    DcpAppletDb::instance()->applet("Language"));
+//m_Category->append(tmp);
 
     // category descriptions:
 
