@@ -13,6 +13,8 @@
 #include "pages.h"
 #include "maintranslations.h"
 
+#include "dcpbuttoncomponent.h"
+
 DcpMainPage::DcpMainPage() :
 	DcpCategoryPage()
 {
@@ -28,7 +30,12 @@ void DcpMainPage::createContent()
     // most recent used items:
     DcpRecentlyUsedComponent* recentlyComp = new DcpRecentlyUsedComponent(
                                                     m_Category);
+
+
     m_Category->add(recentlyComp);
+
+DcpButtonComponent *tmp = new DcpButtonComponent(m_Category);
+m_Category->append(tmp);
 
     // category descriptions:
 

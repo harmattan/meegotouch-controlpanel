@@ -5,6 +5,8 @@
 
 #include <duilabel.h>
 
+#include <duigridlayout.h>
+
 static const QSize fullSizeLandscape(720,65);
 static const QSize halfSizeLandscape(340,65);
 static const QSize fullSizePortrait(405,85);
@@ -36,6 +38,7 @@ DcpDescriptionComponent::createContents()
     // --
 
     addItem(m_Description);
+
 }
 
 
