@@ -1,5 +1,5 @@
+#include <QDateTime>
 #include "dcpappletmetadata.h"
-
 enum  {
     KeyCategory = 0,
     KeyOnPicture,
@@ -33,8 +33,9 @@ const QString Keys[KeyCount] = {
 };
 
 DcpAppletMetadata::DcpAppletMetadata(const QString& filename) 
-    : DuiDesktopEntry(filename)
+    : DuiDesktopEntry(filename), m_FileInfo(QFileInfo(filename))
 {
+   
 }
 
 DcpAppletMetadata::~DcpAppletMetadata()
@@ -44,7 +45,15 @@ DcpAppletMetadata::~DcpAppletMetadata()
 bool
 DcpAppletMetadata::isValid()
 {
-    return false;
+    return DuiDesktopEntry::isValid();
+}
+
+bool
+DcpAppletMetadata::isModified()
+{
+    QFileInfo info(m_FileInfo.fileName());
+    bool modified = info.lastModified() >  m_FileInfo.lastModified();
+    m_FileInfo = info;
 }
 
 QString

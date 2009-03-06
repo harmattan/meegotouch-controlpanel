@@ -1,12 +1,9 @@
 #include "dcpappletcategorypage.h"
 #include <QDebug>
 #include "dcpmaincategory.h"
+#include "dcpbuttoncomponent.h"
 #include "dcpappletdb.h"
 #include "dcpappletmetadata.h"
-#include "dcpbuttoncomponent.h"
-#include "duilinearlayout.h"
-#include "duilabel.h"
-#include <QPluginLoader>
 DcpAppletCategoryPage::DcpAppletCategoryPage(const QString &appletCategory) : DcpCategoryPage(),
     m_AppletCategory(appletCategory) 
 {
@@ -21,14 +18,15 @@ void DcpAppletCategoryPage::createContent()
 {
     DcpCategoryPage::createContent();
     m_Category->setMaxColumns(2);
+    DcpAppletDb::instance()->refresh();
     DcpAppletMetadataList list = DcpAppletDb::instance()->listByCategory(appletCategory());
     if (!list.isEmpty())
     {
         foreach(DcpAppletMetadata *metadata, list)
-            m_Category->append(new DcpButtonComponent(m_Category, metadata));
+           m_Category->append(new DcpButtonComponent(0, metadata));
     }
-    else
-        panLayout()->addItem(new DuiLabel("No applets in this category yet."));
+    setTitle("Applets");
+   
 }
 
 void DcpAppletCategoryPage::organizeContent(Dui::Orientation ori)

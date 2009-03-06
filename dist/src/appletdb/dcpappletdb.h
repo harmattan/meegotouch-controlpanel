@@ -20,10 +20,16 @@ public:
     virtual ~DcpAppletDb();
     DcpAppletMetadataList listByCategory(const QString& category);
     DcpAppletMetadata *applet(const QString& name);
+    void addFile(const QString& filename);
+    void eraseEntry(DcpAppletMetadata *metadata);
+    void refresh();
 protected:
     DcpAppletDb(const QString &pathName);
+    void refreshPath(const QString &pathName);
 private:
-    DcpAppletMetadataMap m_Applets;  
+    DcpAppletMetadataMap m_AppletsByName;  
+    DcpAppletMetadataMap m_AppletsByFile; 
+    QList<QString> m_Paths; 
     static DcpAppletDb *sm_Instance;
 };
 #endif // DCPAPPLETDB_H
