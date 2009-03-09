@@ -5,6 +5,7 @@
 #include <duigridlayout.h>
 
 #include <duitheme.h>
+#include "dcpbuttonview.h"
 
 
 
@@ -37,6 +38,11 @@ DcpButton::DcpButton(QString bigLabel, int bigWidth, int bigHeight, QString smal
 
 
     m_BigButton = new DuiButton(bigLabel);
+
+    // TODO: this moves to the view config file when updating to newer dui
+    m_BigButton->setView(new DcpButtonView(m_BigButton));
+    // --
+
     m_BigButton->setObjectName("BigButton");
     m_BigButton->setMinimumWidth(bigWidth);
     m_BigButton->setMaximumWidth(bigWidth);

@@ -7,6 +7,7 @@
 #include <duitheme.h>
 
 const float MINIMALIZE = 0.9f;
+#include "dcpbuttonview.h"
 
 DcpLabel::DcpLabel(const QString& upLabel, const QString& downLabel, int width, int upHeight, int downHeight, const QString& cssButton, const QString& cssUpLabel, const QString& cssDownLabel)
 {
@@ -30,7 +31,12 @@ DcpLabel::DcpLabel(const QString& upLabel, const QString& downLabel, int width, 
      */
 
     m_Button = new DuiButton("");
+
+
+    // TODO: this moves to the view config file when updating to newer dui
+    m_Button->setView(new DcpButtonView(m_Button));
     m_Button->setObjectName(cssButton);
+
     m_Button->setMinimumWidth(width);
     m_Button->setMaximumWidth(width);
     m_Button->setMinimumHeight(upHeight + downHeight);
