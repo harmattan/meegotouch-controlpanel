@@ -17,7 +17,7 @@ public:
 public slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation);
 
-private:
+protected:
     QVector<DcpComponent*> m_Children; 
 };
 #endif //DCPCATEGORY_H

@@ -6,6 +6,10 @@ const QString APPLETFILTER = "*.desktop";
 
 DcpAppletDb *DcpAppletDb::sm_Instance=0;
 
+static bool orderLessThan(DcpAppletMetadata *meta1, DcpAppletMetadata *meta2)
+{
+    return meta1->order() < meta2->order();
+}
 DcpAppletDb*
 DcpAppletDb::instance(const QString &pathName)
 {
@@ -53,6 +57,7 @@ DcpAppletDb::listByCategory(const QString& category)
         if (item->category() == category)
             filtered.append(item);
     }
+    qSort(filtered.begin(), filtered.end(), orderLessThan);
     return filtered;
 }
 

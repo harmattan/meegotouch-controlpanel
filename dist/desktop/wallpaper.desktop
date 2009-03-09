@@ -11,6 +11,7 @@ X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
 Category= Personalization 
+Order=3
 WidgetType= DcpImage
 Text1= Wallpaper
 

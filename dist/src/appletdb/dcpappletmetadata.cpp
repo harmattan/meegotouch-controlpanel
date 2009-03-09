@@ -2,6 +2,7 @@
 #include "dcpappletmetadata.h"
 enum  {
     KeyCategory = 0,
+    KeyOrder,
     KeyOnPicture,
     KeyOffPicture,
     KeyDisabledPicture,
@@ -13,12 +14,13 @@ enum  {
     KeyButtonCSS,
     KeyLabel1CSS,
     KeyLabel2CSS,
-
+    
     KeyCount
 };
 
 const QString Keys[KeyCount] = {
     "DCP/Category",
+    "DCP/Order",
     "DCP/OnPicture",
     "DCP/OffPicture",
     "DCP/DisabledPicture",
@@ -107,6 +109,11 @@ QString DcpAppletMetadata::label1CSS()
 QString DcpAppletMetadata::label2CSS()
 {
     return value(Keys[KeyLabel2CSS]).toString();
+}
+
+int DcpAppletMetadata::order()
+{
+    return value(Keys[KeyOrder]).toInt();
 }
 
 

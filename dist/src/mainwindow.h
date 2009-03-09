@@ -14,6 +14,7 @@ public slots:
     void changePage(Pages::Id pageId);
     void homeClicked();
     void backClicked();
+    void onRotateClicked();
 private:
     Pages::Id m_Referer;
 };
