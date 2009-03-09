@@ -5,6 +5,7 @@
 #include <duilabel.h>
 #include <duitheme.h>
 
+const QString cssDir    = "/usr/lib/duicontrolpanel/css/";
 const int upRowHeight   =  90;
 const int downRowHeight =  80;
 
@@ -15,7 +16,7 @@ LanguageButton::LanguageButton(QString upText,
                 m_upText(upText),
                 m_downText(downText)
 {
-        DuiTheme::loadCSS("languageapplet.css");
+        DuiTheme::loadCSS(cssDir + "languageapplet.css");
         initWidget();
 }
 
