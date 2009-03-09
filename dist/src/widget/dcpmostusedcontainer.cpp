@@ -52,7 +52,6 @@ void DcpMostUsedContainer::add(DcpAppletMetadata *metadata)
   } else if (metadata->widgetType() == "DcpImage") {
     addImageCSS(metadata->text1(), metadata->image(), metadata->buttonCSS(), metadata->label1CSS());
   } else if (metadata->widgetType() == "DcpSpec") {
- 
       //dummy  
       DcpSpec *tmpSpec = new DcpSpec(metadata->image(), 200, 100, 10, 10, "");
       m_Layout->addItem(tmpSpec->layout(), m_PosY, m_PosX, Qt::AlignCenter);

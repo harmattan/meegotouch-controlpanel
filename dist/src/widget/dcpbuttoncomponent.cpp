@@ -11,6 +11,8 @@
 
 #include <QDebug>
 
+
+
 DcpButtonComponent::DcpButtonComponent(
                             DcpCategory *category,
                             DcpAppletMetadata * metadata,
@@ -69,6 +71,7 @@ DcpButtonComponent::createContents()
 
 
     m_BigButton = new DuiButton(bigLabel);
+//    m_BigButton->setView(new DcpButtonView(m_BigButton));
     m_BigButton->setObjectName("BigButton");
     m_BigButton->setMinimumWidth(bigWidth);
     m_BigButton->setMaximumWidth(bigWidth);
