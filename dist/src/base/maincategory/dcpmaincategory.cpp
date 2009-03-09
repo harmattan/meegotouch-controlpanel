@@ -63,10 +63,10 @@ DcpMainCategory::onOrientationChange (const Dui::Orientation &orientation)
         setLayout(layout);
         qDebug() << "Changing orientation to Dui::Portrait";
         //delete m_Layout;
-        //m_Layout = 0;
+       // m_Layout = 0;
     }
     else
-    if (!m_Layout)
+    if (0)
     {
         //DuiLinearLayout *layout = (DuiLinearLayout*)(this->layout());
         m_Layout = new DuiGridLayout();
