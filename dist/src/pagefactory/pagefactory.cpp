@@ -4,7 +4,12 @@
 #include "dcpappletpage.h"
 #include "dcpappletcategorypage.h"
 #include <QtDebug>
+
+#include "dcpmostusedcategorypage.h"
+
 PageFactory *PageFactory::sm_Instance =0;
+
+
 
 PageFactory::PageFactory()
 {}
@@ -36,6 +41,7 @@ PageFactory::create(Pages::Id pageId)
     switch (pageId)
       {
 	case Pages::MAIN:
+            //page = new DcpMostUsedCategoryPage("dsadsa");
             page = createMainPage();
             break;
         case Pages::ACCOUNTS:
