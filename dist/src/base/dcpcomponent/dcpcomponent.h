@@ -29,7 +29,7 @@ protected:
     virtual void switchToSubPage(); 
 
 signals:
-    void openSubPage(Pages::Id subPageId);
+    void openSubPage(Pages::Id subPageId, const QString& param="");
 
 public slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation)=0;

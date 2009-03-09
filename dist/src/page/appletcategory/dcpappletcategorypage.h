@@ -4,6 +4,7 @@
 #include "dcpcategorypage.h" 
 #include "pages.h"
 
+class DcpAppletContainer;
 class DcpAppletCategoryPage : public DcpCategoryPage
 {
     Q_OBJECT
@@ -16,6 +17,7 @@ public:
     void setAppletCategory(const QString &appletCategory){m_AppletCategory=appletCategory;};
 private:
     QString m_AppletCategory;
+    DcpAppletContainer *m_AppletContainer;
 };
 
 #endif // DCPAPPLETCATEGORYPAGE_H

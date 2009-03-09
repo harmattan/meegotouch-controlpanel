@@ -5,12 +5,13 @@ Icon=
 Exec=
 
 [DUI]
-X-DUIApplet-Applet=libimageapplet.so
+X-DUIApplet-Applet=liblanguageapplet.so
 X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
 X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
 Category= Personalization
+Order=4
 WidgetType= DcpLabel
 Text1= Language
 Text2=

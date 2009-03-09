@@ -2,6 +2,7 @@
 #include "pagefactory.h"
 #include "dcppage.h"
 #include <duinavigationbar.h>
+#include <duideviceprofile.h>
 
 MainWindow::MainWindow() : m_Referer(Pages::NOPAGE)
 {
@@ -12,7 +13,8 @@ MainWindow::MainWindow() : m_Referer(Pages::NOPAGE)
 
 void MainWindow::homeClicked()
 {
-   changePage(Pages::MAIN);
+//   changePage(Pages::MAIN);
+   onRotateClicked();
 }
 
 void MainWindow::backClicked()
@@ -25,15 +27,15 @@ MainWindow::~MainWindow()
 }
 
 void
-MainWindow::changePage(Pages::Id pageId)
+MainWindow::changePage(Pages::Id pageId, const QString &param)
 {
 
   if (pageId == Pages::NOPAGE)
         return;
-    DcpPage* page = PageFactory::instance()->create(pageId);
+    DcpPage* page = PageFactory::instance()->create(pageId, param);
     addPage(page);
-    connect (page, SIGNAL(openSubPage(Pages::Id)), this, 
-		SLOT(changePage(Pages::Id)));
+    connect (page, SIGNAL(openSubPage(Pages::Id, const QString&)), this, 
+		SLOT(changePage(Pages::Id, const QString&)));
     qDebug() << Q_FUNC_INFO;
     DcpPage* oldPage = qobject_cast<DcpPage*>(currentPage());
     if (oldPage)
@@ -48,4 +50,17 @@ MainWindow::changePage(Pages::Id pageId)
        navigationBar()->showBackButton();
     showPage(page);
     
+}
+void MainWindow::onRotateClicked()
+{
+    DuiDeviceProfile *profile = DuiDeviceProfile::instance();
+   // m_Category->onOrientationChange(profile->orientation());
+
+    if ( profile->orientation() == Dui::Portrait ) {
+        qDebug() << "XXX mode changes to Angle0";
+        profile->setOrientationAngle (DuiDeviceProfile::Angle0);
+    } else {
+        qDebug() << "XXX mode changes to Angle90";
+        profile->setOrientationAngle (DuiDeviceProfile::Angle90);
+    }
 }

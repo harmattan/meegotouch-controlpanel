@@ -83,8 +83,8 @@ void DcpMainPage::createContent()
                 m_Category, info.title);
         component->setDescription("<span>" + info.description + "</span>");
         component->setSubPageId(info.subPageId);
-        connect(component, SIGNAL(openSubPage(Pages::Id)),
-                this, SIGNAL(openSubPage(Pages::Id)));
+        connect(component, SIGNAL(openSubPage(Pages::Id, const QString&)),
+                this, SIGNAL(openSubPage(Pages::Id, const QString&)));
         m_Category->append(component);
     }
 
@@ -93,8 +93,8 @@ void DcpMainPage::createContent()
             m_Category, DcpMain::resetSettingsTitle);
     resetSettings->setDescription(DcpMain::resetSettingsDescription);
     resetSettings->setFullRowSize ();
-    connect(resetSettings, SIGNAL(openSubPage(Pages::Id)),
-            this, SLOT(onResetSettingsClicked()));
+ //   connect(resetSettings, SIGNAL(openSubPage(Pages::Id)),
+//            this, SLOT(onResetSettingsClicked()));
     m_Category->add(resetSettings);
 
 }
@@ -104,8 +104,8 @@ void DcpMainPage::createContent()
 void DcpMainPage::organizeContent(Dui::Orientation ori)
 {
     DcpPage::organizeContent(ori);
-
     m_Category->onOrientationChange(ori);
+    qDebug() << "ORI!!";
 }
 
 
@@ -114,6 +114,8 @@ void DcpMainPage::organizeContent(Dui::Orientation ori)
 void DcpMainPage::onResetSettingsClicked()
 {
     DuiDeviceProfile *profile = DuiDeviceProfile::instance();
+   // m_Category->onOrientationChange(profile->orientation());
+
     if ( profile->orientation() == Dui::Portrait ) {
         qDebug() << "XXX mode changes to Angle0";
         profile->setOrientationAngle (DuiDeviceProfile::Angle0);

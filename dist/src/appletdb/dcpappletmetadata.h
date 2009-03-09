@@ -1,13 +1,14 @@
 #ifndef DCPAPPLETMETADATA_H
 #define DCPAPPLETMETADATA_H
 #include <duidesktopentry.h>
-
+#include <QFileInfo>
 class DcpAppletMetadata : public DuiDesktopEntry
 {
 public:
     DcpAppletMetadata(const QString& filename);
     virtual ~DcpAppletMetadata();
     bool isValid();
+    bool isModified();
     QString category() const;
     QString icon() const;
     QString appletBinary() const;
@@ -22,5 +23,8 @@ public:
     QString buttonCSS();
     QString label1CSS();
     QString label2CSS();
+    int order();
+private:
+    QFileInfo m_FileInfo;
 };
-#endif // DCPAPPLETMETADATA_H
+#endif // DCPAPP LETMETADATA_H

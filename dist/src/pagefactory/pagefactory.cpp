@@ -2,6 +2,8 @@
 #include "dcpmainpage.h"
 #include "dcpaccountspage.h"
 #include "dcpappletpage.h"
+#include "dcpappletdb.h"
+#include "dcpappletmetadata.h"
 #include "dcpappletcategorypage.h"
 #include <QtDebug>
 
@@ -35,7 +37,7 @@ PageFactory::refererOf(DuiApplicationPage *page)
 }
 
 DcpPage* 
-PageFactory::create(Pages::Id pageId)
+PageFactory::create(Pages::Id pageId, const QString &param)
 {
     DcpPage *page=0;
     switch (pageId)
@@ -69,7 +71,7 @@ PageFactory::create(Pages::Id pageId)
             page = createAppletCategoryPage("Security");
             break;
         case Pages::APPLET:
-            page = createAppletPage();
+            page = createAppletPage(DcpAppletDb::instance()->applet(param));
             break;
 	default:
             qWarning() << "Bad page ID: " << pageId;
@@ -92,9 +94,11 @@ PageFactory::createAccountsPage()
 }
 
 DcpPage* 
-PageFactory::createAppletPage()
+PageFactory::createAppletPage(DcpAppletMetadata *metadata)
 {
-    return new DcpAppletPage("/usr/lib/duicontrolpanel/applets/libexampleapplet.so");
+    QString lib =DcpApplet::Lib + metadata->appletBinary();
+    qDebug() << "APPLET SO: " << lib;    
+    return new DcpAppletPage(lib);
 }
 
 DcpPage* 

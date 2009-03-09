@@ -26,7 +26,6 @@ DuiImage {
 }
 
 #BigButton {
-//        view: DuiButtonView;
         text: Next;
         font: font(sans, 15);
         textColor: #FF0000;
@@ -34,14 +33,14 @@ DuiImage {
         minsize: size(350, 100);
         maxsize: size(350, 100);
 
-        normalBackgroundName: Menu-box;
+        bgName: Menu-box;
+        normalBackgroundName: ;
         pressedBackgroundName: Toggle-btn-selected;
 }
 
 						
 
 #SmallButtonOn {
-        view: DuiButtonView;
         text: Next;
         font: font(sans, 15);
         textColor: #FF0000;
@@ -54,7 +53,6 @@ DuiImage {
 }
 
 #SmallButtonOff {
-        view: DuiButtonView;
         text: Next;
         font: font(sans, 15);
         textColor: #FF0000;
@@ -67,7 +65,6 @@ DuiImage {
 }
 
 #SmallButtonDisable {
-        view: DuiButtonView;
         text: Next;
         font: font(sans, 15);
         textColor: #FF0000;
@@ -80,7 +77,6 @@ DuiImage {
 }
 
 #LabelButton {
-        view: DuiButtonView;
         text: Next;
         font: font(sans, 15);
         textColor: #FF0000;

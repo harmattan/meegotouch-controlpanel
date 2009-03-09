@@ -1,7 +1,8 @@
+#include <QDateTime>
 #include "dcpappletmetadata.h"
-
 enum  {
     KeyCategory = 0,
+    KeyOrder,
     KeyOnPicture,
     KeyOffPicture,
     KeyDisabledPicture,
@@ -13,12 +14,13 @@ enum  {
     KeyButtonCSS,
     KeyLabel1CSS,
     KeyLabel2CSS,
-
+    KeyAppletBinary,
     KeyCount
 };
 
 const QString Keys[KeyCount] = {
     "DCP/Category",
+    "DCP/Order",
     "DCP/OnPicture",
     "DCP/OffPicture",
     "DCP/DisabledPicture",
@@ -29,12 +31,14 @@ const QString Keys[KeyCount] = {
     "DCP/Image",
     "DCP/ButtonCSS",
     "DCP/Label1CSS",
-    "DCP/Label2CSS"
+    "DCP/Label2CSS",
+    "DUI/X-DUIApplet-Applet"
 };
 
 DcpAppletMetadata::DcpAppletMetadata(const QString& filename) 
-    : DuiDesktopEntry(filename)
+    : DuiDesktopEntry(filename), m_FileInfo(QFileInfo(filename))
 {
+   
 }
 
 DcpAppletMetadata::~DcpAppletMetadata()
@@ -44,7 +48,16 @@ DcpAppletMetadata::~DcpAppletMetadata()
 bool
 DcpAppletMetadata::isValid()
 {
-    return false;
+    return DuiDesktopEntry::isValid();
+}
+
+bool
+DcpAppletMetadata::isModified()
+{
+    QFileInfo info(m_FileInfo.fileName());
+    bool modified = info.lastModified() >  m_FileInfo.lastModified();
+    m_FileInfo = info;
+    return modified;
 }
 
 QString
@@ -62,7 +75,7 @@ DcpAppletMetadata::icon() const
 QString
 DcpAppletMetadata::appletBinary() const
 {
-    return "";
+    return value(Keys[KeyAppletBinary]).toString();
 }
 
 QString DcpAppletMetadata::widgetType()
@@ -98,6 +111,11 @@ QString DcpAppletMetadata::label1CSS()
 QString DcpAppletMetadata::label2CSS()
 {
     return value(Keys[KeyLabel2CSS]).toString();
+}
+
+int DcpAppletMetadata::order()
+{
+    return value(Keys[KeyOrder]).toInt();
 }
 
 

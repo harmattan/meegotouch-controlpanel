@@ -11,9 +11,10 @@ public:
     MainWindow();
     ~MainWindow();
 public slots:
-    void changePage(Pages::Id pageId);
+    void changePage(Pages::Id pageId, const QString &param="");
     void homeClicked();
     void backClicked();
+    void onRotateClicked();
 private:
     Pages::Id m_Referer;
 };

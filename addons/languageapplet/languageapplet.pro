@@ -14,9 +14,12 @@ SOURCES       = languageapplet.cpp \
                 languagebutton.cpp
 
 TARGET        = $$qtLibraryTarget(languageapplet)
+css.files     = languageapplet.css
 DESTDIR       = lib
 
 target.path += $$[QT_INSTALL_LIBS]/duicontrolpanel/applets
+css.path += $$[QT_INSTALL_LIBS]/duicontrolpanel/css
 
 INSTALLS += \
-	    target
+	    target \
+	    css
