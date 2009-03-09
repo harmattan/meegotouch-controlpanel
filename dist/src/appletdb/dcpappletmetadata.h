@@ -23,6 +23,7 @@ public:
     QString buttonCSS();
     QString label1CSS();
     QString label2CSS();
+    int order();
 private:
     QFileInfo m_FileInfo;
 };

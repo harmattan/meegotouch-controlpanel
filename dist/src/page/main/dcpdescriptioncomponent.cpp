@@ -47,7 +47,7 @@ void DcpDescriptionComponent::onOrientationChange (
 {
     m_Orientation = orientation;
     DcpBackgroundComponent::onOrientationChange(orientation);
-    if (m_IsFullRow) {
+    if (m_IsFullRow || orientation == Dui::Portrait) {
         setFullRowSize();
     } else {
         setHalfRowSize();
@@ -104,9 +104,9 @@ void DcpDescriptionComponent::setHalfRowSize()
 
 void DcpDescriptionComponent::mousePressEvent (QGraphicsSceneMouseEvent *event)
 {
-    switchToSubPage();
     DcpBackgroundComponent::mousePressEvent(event);
     event->accept();
+    switchToSubPage();
 }
 
 void DcpDescriptionComponent::mouseReleaseEvent (QGraphicsSceneMouseEvent * event)

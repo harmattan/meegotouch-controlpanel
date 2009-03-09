@@ -11,9 +11,11 @@ X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
 Category= Personalization
+Order= 0
 WidgetType= DcpLabel
 Text1= Ringtone
 Text2= Happy.aac
+
 
 ButtonCSS= BigButton
 Label1CSS= LabelFont1
