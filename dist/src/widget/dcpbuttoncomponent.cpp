@@ -8,6 +8,7 @@
 
 #include "dcpimageutils.h"
 #include "dcpappletmetadata.h"
+#include "dcpbuttonview.h"
 
 #include <QDebug>
 
@@ -71,7 +72,11 @@ DcpButtonComponent::createContents()
 
 
     m_BigButton = new DuiButton(bigLabel);
-//    m_BigButton->setView(new DcpButtonView(m_BigButton));
+
+    // TODO: this moves to the view config file when updating to newer dui
+    m_BigButton->setView(new DcpButtonView(m_BigButton));
+    // --
+
     m_BigButton->setObjectName("BigButton");
     m_BigButton->setMinimumWidth(bigWidth);
     m_BigButton->setMaximumWidth(bigWidth);
