@@ -4,6 +4,7 @@
 #include <duilinearlayout.h>
 #include <duideviceprofile.h>
 #include <QtDebug>
+#include <duiproxywidget.h>
 
 DcpMainCategory::DcpMainCategory(
         const QString& title, QGraphicsWidget *parent
@@ -20,7 +21,7 @@ void DcpMainCategory::add(DcpComponent *component)
         m_ColCount = 0;
         m_RowCount++;
     }
-    m_Layout->addItem(component, m_RowCount, 0 /* column */,
+    m_Layout->addItem(new DuiProxyWidget(component), m_RowCount, 0 /* column */,
                     1 /* rowspan */, m_MaxColumns /* columnspan */);
 
     DcpCategory::add(component);
@@ -32,7 +33,7 @@ void DcpMainCategory::add(DcpComponent *component)
 void DcpMainCategory::append(DcpComponent *component)
 {
     DcpCategory::add(component);
-    m_Layout->addItem(component, m_RowCount, m_ColCount);
+    m_Layout->addItem(new DuiProxyWidget(component), m_RowCount, m_ColCount);
     m_ColCount++;
     if (m_ColCount >= m_MaxColumns)
     {
