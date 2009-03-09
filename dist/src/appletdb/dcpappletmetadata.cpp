@@ -57,6 +57,7 @@ DcpAppletMetadata::isModified()
     QFileInfo info(m_FileInfo.fileName());
     bool modified = info.lastModified() >  m_FileInfo.lastModified();
     m_FileInfo = info;
+    return modified;
 }
 
 QString
