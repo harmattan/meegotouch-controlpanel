@@ -23,7 +23,13 @@ void DcpAppletCategoryPage::createContent()
     if (!list.isEmpty())
     {
         foreach(DcpAppletMetadata *metadata, list)
-           m_Category->append(new DcpButtonComponent(0, metadata));
+        {
+           DcpButtonComponent *button = new DcpButtonComponent(0, metadata); 
+           button->setSubPageId(Pages::APPLET);
+           connect(button, SIGNAL(openSubPage(Pages::Id, const QString&)),
+                this, SIGNAL(openSubPage(Pages::Id, const QString&)));
+           m_Category->append(button);
+        }
     }
     setTitle("Applets");
    

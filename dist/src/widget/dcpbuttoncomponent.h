@@ -40,7 +40,8 @@ public:
 
 public slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation);
-
+    virtual void switchToSubPage();
+    void bigClicked();
 protected:
     void addItem ( QGraphicsLayoutItem * item );
 

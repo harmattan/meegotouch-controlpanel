@@ -27,15 +27,15 @@ MainWindow::~MainWindow()
 }
 
 void
-MainWindow::changePage(Pages::Id pageId)
+MainWindow::changePage(Pages::Id pageId, const QString &param)
 {
 
   if (pageId == Pages::NOPAGE)
         return;
-    DcpPage* page = PageFactory::instance()->create(pageId);
+    DcpPage* page = PageFactory::instance()->create(pageId, param);
     addPage(page);
-    connect (page, SIGNAL(openSubPage(Pages::Id)), this, 
-		SLOT(changePage(Pages::Id)));
+    connect (page, SIGNAL(openSubPage(Pages::Id, const QString&)), this, 
+		SLOT(changePage(Pages::Id, const QString&)));
     qDebug() << Q_FUNC_INFO;
     DcpPage* oldPage = qobject_cast<DcpPage*>(currentPage());
     if (oldPage)

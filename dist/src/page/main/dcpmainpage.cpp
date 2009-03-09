@@ -54,8 +54,8 @@ void DcpMainPage::createContent()
                 m_Category, info.title);
         component->setDescription("<span>" + info.description + "</span>");
         component->setSubPageId(info.subPageId);
-        connect(component, SIGNAL(openSubPage(Pages::Id)),
-                this, SIGNAL(openSubPage(Pages::Id)));
+        connect(component, SIGNAL(openSubPage(Pages::Id, const QString&)),
+                this, SIGNAL(openSubPage(Pages::Id, const QString&)));
         m_Category->append(component);
     }
 

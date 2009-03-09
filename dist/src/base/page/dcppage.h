@@ -25,7 +25,7 @@ public:
     DuiWidget* panWidget() const {return m_PanWidget;};
     DuiLinearLayout* panLayout() const {return m_PanLayout;};
 signals:
-    void openSubPage(Pages::Id subPageId);
+    void openSubPage(Pages::Id subPageId, const QString &param);
 protected:
    DuiPannableViewport *m_DesktopViewport;
    DcpBackgroundView *m_BackgroundView;
