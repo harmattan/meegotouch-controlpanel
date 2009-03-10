@@ -10,6 +10,7 @@
 #include "dcpimageutils.h"
 #include "dcpappletmetadata.h"
 
+#include "dcpbuttonview.h"
 #include <QDebug>
 
 const float MINIMALIZE = 0.9f;
@@ -69,7 +70,7 @@ QString cssLabel = m_Metadata->label1CSS();
     m_Button = new DuiButton("");
 
     // TODO: this moves to the view config file when updating to newer dui
-//    m_Button->setView(new DcpButtonView(m_Button));
+    m_Button->setView(new DcpButtonView(m_Button));
     // --
 
 qDebug() << "-----------------------------" << cssButton << "-----------------------------";
