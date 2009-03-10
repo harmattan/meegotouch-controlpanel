@@ -45,29 +45,8 @@ void DcpMainPage::createContent()
 
     m_Category->add(recentlyComp);
 
-  /*
-    DcpMainCategory *tmp = new DcpMainCategory("rizsa");
-    tmp->setMaxColumns(2);
-
-    tmp->append(new DcpLabelComponent(m_Category, new DcpAppletMetadata("desktop/language.desktop")));
-    tmp->append(new DcpLabelComponent(m_Category, new DcpAppletMetadata("desktop/profile.desktop")));
-    
-    tmp->append(new DcpLabelComponent(m_Category, new DcpAppletMetadata("desktop/region_format.desktop")));
-    tmp->append(new DcpLabelComponent(m_Category, new DcpAppletMetadata("desktop/ringtone.desktop")));
-  
-    tmp->append(new DcpLabelComponent(m_Category, new DcpAppletMetadata("desktop/theme.desktop")));
-    tmp->append(new DcpLabelComponent(m_Category, new DcpAppletMetadata("desktop/wallpaper.desktop")));
-  */
-
     DcpMostUsedCategory *tmp = new DcpMostUsedCategory("TEXT - TEXT");
-
     m_Category->add(tmp);
-
-
-
-   // DcpMostUsedCategoryPage * tmpMostUsedCategoryPage = new DcpMostUsedCategoryPage("");
-  //  m_Category->add(tmpMostUsedCategoryPage);
-
 
 
 //DcpButtonComponent *tmp = new DcpButtonComponent(m_Category, 

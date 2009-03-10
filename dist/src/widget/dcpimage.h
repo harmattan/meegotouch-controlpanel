@@ -14,7 +14,6 @@
 #include <duitheme.h>
 
 
-
 class DcpImage : public QObject{
 
     Q_OBJECT;

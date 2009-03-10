@@ -12,8 +12,9 @@ class DcpMostUsedCategory  : public DcpMainCategory
 public:
     DcpMostUsedCategory(const QString& title, QGraphicsWidget *parent=0);
 
-
     virtual void paint (QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget);
+
+    void addWidget(const QString& file);
 
 protected:
     virtual void createContents();

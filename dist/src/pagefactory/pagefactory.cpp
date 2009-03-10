@@ -7,8 +7,6 @@
 #include "dcpappletcategorypage.h"
 #include <QtDebug>
 
-#include "dcpmostusedcategorypage.h"
-
 PageFactory *PageFactory::sm_Instance =0;
 
 

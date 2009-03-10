@@ -18,6 +18,7 @@ const float TRANSLATEY = 5;
 
 DcpImage::DcpImage(const QString& label, const QString& image, int width, int upHeight, int downHeight, int imageWidth, const QString& cssButton, const QString& cssLabel)
 {
+
     m_Layout = new DuiGridLayout();
 
     m_Layout->setColumnMinimumWidth ( 0, width );
