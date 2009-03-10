@@ -28,8 +28,8 @@ void LanguageWidget::paint(QPainter *painter,
 	Q_UNUSED(option);
 	Q_UNUSED(widget);
     
-    QPen pen(QColor(120, 120, 120, 255));
-    QBrush brush(QColor(50, 50, 50, 255));
+    QPen pen(QColor(120, 120, 120, 240));
+    QBrush brush(QColor(90, 90, 90, 245));
     painter->setPen(pen);
     painter->setBrush(brush);
     painter->drawRect(QRectF(0.0, 0.0,
