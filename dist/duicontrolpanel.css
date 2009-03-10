@@ -34,7 +34,7 @@ DuiImage {
         maxsize: size(350, 100);
 
         bgName: Menu-box;
-        normalBackgroundName: ;
+        normalBackgroundName: Menu-box;
         pressedBackgroundName: Toggle-btn-selected;
 }
 

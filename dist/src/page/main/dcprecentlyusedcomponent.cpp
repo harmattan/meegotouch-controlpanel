@@ -15,8 +15,10 @@ void DcpRecentlyUsedComponent::createContents()
 {
     DcpBackgroundComponent::createContents();
 
+/*
     DcpMostUsedContainer *tmpContainer = new DcpMostUsedContainer;
-    
+   
+ 
     DcpAppletDb *db = DcpAppletDb::instance();   
 
 
@@ -29,7 +31,7 @@ void DcpRecentlyUsedComponent::createContents()
 
     tmpContainer->add(db->applet("Language"));
     tmpContainer->add(db->applet("Region_format"));
-
+*/
 
 /*
 language.desktop
@@ -52,7 +54,8 @@ theme.desktop
     
     tmpContainer->addButton("cccc", "2", false);
     */
-    addItem(tmpContainer->layout());
+ 
+//   addItem(tmpContainer->layout());
 
   //  addItem(new DuiWidget());
 }

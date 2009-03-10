@@ -21,6 +21,8 @@
 
 #include "dcpappletmetadata.h"
 
+#include "dcpmostusedcategory.h"
+
 DcpMainPage::DcpMainPage() :
 	DcpCategoryPage()
 {
@@ -43,7 +45,7 @@ void DcpMainPage::createContent()
 
     m_Category->add(recentlyComp);
 
-  
+  /*
     DcpMainCategory *tmp = new DcpMainCategory("rizsa");
     tmp->setMaxColumns(2);
 
@@ -55,7 +57,9 @@ void DcpMainPage::createContent()
   
     tmp->append(new DcpLabelComponent(m_Category, new DcpAppletMetadata("desktop/theme.desktop")));
     tmp->append(new DcpLabelComponent(m_Category, new DcpAppletMetadata("desktop/wallpaper.desktop")));
-  
+  */
+
+    DcpMostUsedCategory *tmp = new DcpMostUsedCategory("TEXT - TEXT");
 
     m_Category->add(tmp);
 
