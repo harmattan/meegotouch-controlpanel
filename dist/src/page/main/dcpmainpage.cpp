@@ -17,8 +17,6 @@
 #include "dcpbuttoncomponent.h"
 #include "dcplabelcomponent.h"
 
-#include "dcpmostusedcategorypage.h"
-
 #include "dcpappletmetadata.h"
 
 #include "dcpmostusedcategory.h"
