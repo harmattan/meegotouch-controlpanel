@@ -160,6 +160,7 @@ void DcpButtonComponent::paint (QPainter * painter,
 
 void DcpLabelComponent::setTitleAlignment(Qt::Alignment align)
 {
+        Q_UNUSED(align);
  //   m_Caption->setAlignment(align);
 }
 

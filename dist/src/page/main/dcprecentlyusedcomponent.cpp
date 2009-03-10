@@ -2,13 +2,14 @@
 
 #include "dcpmostusedcontainer.h"
 #include "dcpappletdb.h"
+#include "maintranslations.h"
 
 #include "dcpmostusedcategory.h"
 
 DcpRecentlyUsedComponent::DcpRecentlyUsedComponent(
                             DcpCategory *category,
                             QGraphicsWidget *parent)
-        : DcpBackgroundComponent(category, tr("Most recent used"), parent)
+        : DcpBackgroundComponent(category, DcpMain::mostRecentUsedTitle, parent)
 {
     createContents();
 }
