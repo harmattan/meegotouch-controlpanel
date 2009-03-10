@@ -72,6 +72,8 @@ QString cssLabel = m_Metadata->label1CSS();
 //    m_Button->setView(new DcpButtonView(m_Button));
     // --
 
+qDebug() << "-----------------------------" << cssButton << "-----------------------------";
+
     m_Button->setObjectName(cssButton);
 
     m_Button->setMinimumWidth(width);

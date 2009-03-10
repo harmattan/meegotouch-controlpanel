@@ -16,7 +16,7 @@ WidgetType= DcpImage
 Text1= Theme
 Image= images/backgroundP.png
 
-ButtonCSS= BigButton
+ButtonCSS= ImageButton
 Label1CSS= LabelFont1
 Label2CSS= LabelFont2
 
