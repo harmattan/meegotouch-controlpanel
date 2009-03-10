@@ -57,10 +57,10 @@ void MainWindow::onRotateClicked()
    // m_Category->onOrientationChange(profile->orientation());
 
     if ( profile->orientation() == Dui::Portrait ) {
-        qDebug() << "XXX mode changes to Angle0";
+        qDebug() << "mode changes to Angle0";
         profile->setOrientationAngle (DuiDeviceProfile::Angle0);
     } else {
-        qDebug() << "XXX mode changes to Angle90";
+        qDebug() << "mode changes to Angle90";
         profile->setOrientationAngle (DuiDeviceProfile::Angle90);
     }
 }

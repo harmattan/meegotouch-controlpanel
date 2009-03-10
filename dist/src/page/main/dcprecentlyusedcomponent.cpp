@@ -3,6 +3,8 @@
 #include "dcpmostusedcontainer.h"
 #include "dcpappletdb.h"
 
+#include "dcpmostusedcategory.h"
+
 DcpRecentlyUsedComponent::DcpRecentlyUsedComponent(
                             DcpCategory *category,
                             QGraphicsWidget *parent)
@@ -58,6 +60,9 @@ theme.desktop
 //   addItem(tmpContainer->layout());
 
   //  addItem(new DuiWidget());
+
+
+  addItem(new DcpMostUsedCategory("TXT"));
 }
 
 

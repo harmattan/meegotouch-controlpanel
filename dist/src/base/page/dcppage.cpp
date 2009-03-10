@@ -62,7 +62,11 @@ void DcpPage::organizeContent(Dui::Orientation ori)
     // make the layout reorganize its elements:
     QGraphicsLayout* layout = this->layout();
     if (!layout) return;
-    layout->invalidate();
+
+    layout->setMinimumSize(DuiDeviceProfile::instance()->resolution());
+    layout->setPreferredSize(DuiDeviceProfile::instance()->resolution());
+    layout->setMaximumSize(DuiDeviceProfile::instance()->resolution());
+//   layout->invalidate();
     layout->activate();
 }
 

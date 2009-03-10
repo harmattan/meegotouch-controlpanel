@@ -17,8 +17,6 @@
 #include "dcpbuttoncomponent.h"
 #include "dcplabelcomponent.h"
 
-#include "dcpmostusedcategorypage.h"
-
 #include "dcpappletmetadata.h"
 
 #include "dcpmostusedcategory.h"
@@ -45,8 +43,8 @@ void DcpMainPage::createContent()
 
     m_Category->add(recentlyComp);
 
-    DcpMostUsedCategory *tmp = new DcpMostUsedCategory("TEXT - TEXT");
-    m_Category->add(tmp);
+//    DcpMostUsedCategory *tmp = new DcpMostUsedCategory("TEXT - TEXT");
+//    m_Category->add(tmp);
 
 
 //DcpButtonComponent *tmp = new DcpButtonComponent(m_Category, 
@@ -100,10 +98,8 @@ void DcpMainPage::onResetSettingsClicked()
    // m_Category->onOrientationChange(profile->orientation());
 
     if ( profile->orientation() == Dui::Portrait ) {
-        qDebug() << "XXX mode changes to Angle0";
         profile->setOrientationAngle (DuiDeviceProfile::Angle0);
     } else {
-        qDebug() << "XXX mode changes to Angle90";
         profile->setOrientationAngle (DuiDeviceProfile::Angle90);
     }
 }

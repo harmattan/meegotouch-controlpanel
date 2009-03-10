@@ -25,7 +25,7 @@ DcpMostUsedCategory::DcpMostUsedCategory(const QString& title, QGraphicsWidget *
 {
   createContents();
 
-   m_Background = new QPixmap("images/backgroundP.png");
+   //m_Background = new QPixmap("images/backgroundP.png");
 
 }
 
@@ -61,7 +61,7 @@ void DcpMostUsedCategory::paint (QPainter * painter,
     //Q_UNUSED(option);
     //Q_UNUSED(widget);
 
-   painter->drawPixmap(0, 0, SIZEWIDTH, SIZEHEIGHT,  *m_Background);
+//   painter->drawPixmap(0, 0, SIZEWIDTH, SIZEHEIGHT,  *m_Background);
 
   DuiWidget::paint(painter, option, widget);
 

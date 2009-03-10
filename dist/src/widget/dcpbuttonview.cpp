@@ -13,7 +13,6 @@ DcpButtonView::DcpButtonView(DuiButton *controller):
     DuiStylable<DcpButtonView, DuiButtonView>(controller),
     m_Controller(controller)
 {
-    qDebug("XXXX !!!!!!! heyho");
 }
 
 void DcpButtonView::paint ( QPainter * painter,
@@ -38,12 +37,10 @@ void DcpButtonView::paint ( QPainter * painter,
 void DcpButtonView::styleUpdated ()
 {
     m_BgId = styleAttribute<QString>(BG_ATTRIB);
-    qDebug() << "XXX styleupdate" << m_BgId;
 }
 
 void DcpButtonView::registerStyleAttributes(DuiStyleDescription& description)
 {
-    qDebug() << "XXX register";
     DuiButtonView::registerStyleAttributes(description);
     BG_ATTRIB = description.numberOfAttributes() + 1;
     description.addAttribute(BG_ATTRIB, styleBgName);

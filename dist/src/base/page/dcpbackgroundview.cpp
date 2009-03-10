@@ -76,3 +76,5 @@ void DcpBackgroundView::registerStyleAttributes(DuiStyleDescription& description
 {
 	description.addAttribute(BackgroundAttribute, "background");
 }
+
+DUI_REGISTER_VIEW("DcpBackgroundView", DcpBackgroundView, DuiWidgetController);
