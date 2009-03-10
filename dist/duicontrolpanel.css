@@ -25,7 +25,6 @@ DuiImage {
     font: font("Nokia Sans Cn", 18);
 }
 
-
 #BigButton {
         text: Next;
         font: font(sans, 15);
@@ -35,9 +34,11 @@ DuiImage {
         maxsize: size(350, 100);
 
         bgName: Menu-box;
-        normalBackgroundName: ;
+        normalBackgroundName: Menu-box;
         pressedBackgroundName: Toggle-btn-selected;
 }
+
+						
 
 #SmallButtonOn {
         text: Next;
