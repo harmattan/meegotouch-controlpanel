@@ -32,29 +32,34 @@ void DcpAppletPage::initApplet()
 {
     QPluginLoader loader(appletBinary());
     if (!loader.load())
-      {
-		qDebug() << "Loading applet is failed!";
-        return;
-      }
+    {
+	    qDebug() << "Loading applet is failed!";
+	    return;
+    }
+    
     QObject *object = loader.instance();
     if (!object)
         return;    
+    
     ExampleAppletInterface *applet = qobject_cast<ExampleAppletInterface*>(object);
-    if (applet) {
-	    m_View = applet->constructWidget();
-		if (m_View) {
-			//scene()->addItem(m_View);
-			panLayout()->addItem(m_View);
-				} else {
-					qWarning() << "applet->constructWidget() failed.";
-				}
+    if (applet) 
+    {
+	m_View = applet->constructWidget();
+	if (m_View) 
+	{
+		panLayout()->addItem(m_View);
+		m_View->setMaximumWidth(DuiDeviceProfile::instance()->width() - 60);
+        m_View->setMinimumWidth(DuiDeviceProfile::instance()->width() - 60);
+	} else 
+	{
+		qWarning() << "applet->constructWidget() failed.";
+	}
 				
-			} else {
-				qWarning() << "Can't convert object to ExampleAppletInterface.";
-			}
+    } else 
+    {
+	qWarning() << "Can't convert object to ExampleAppletInterface.";
+    }
 
-	delete applet;
-	applet = NULL;
-
- 
+    delete applet;
+    applet = NULL;
 }

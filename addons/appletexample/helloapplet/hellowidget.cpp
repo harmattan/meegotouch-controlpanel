@@ -18,9 +18,16 @@ void HelloWidget::paint(QPainter *painter,
 			const QStyleOptionGraphicsItem *option,
 			QWidget *widget)
 {
-	Q_UNUSED(painter);
 	Q_UNUSED(option);
 	Q_UNUSED(widget);
+
+    QPen pen(QColor(120, 120, 120, 255));
+    QBrush brush(QColor(50, 50, 50, 255));
+    painter->setPen(pen);
+    painter->setBrush(brush);
+    painter->drawRect(QRectF(0.0, 0.0,
+                             size().width(),
+                             size().height()));
 }
 
 void HelloWidget::initWidget()

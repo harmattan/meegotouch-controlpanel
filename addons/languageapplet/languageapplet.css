@@ -4,7 +4,7 @@
         font: font("Nokia Sans Cn", 15);
         textColor: #FF0000;
 
-        normalBackgroundName: Toggle-btn-normal;
+        normalBackgroundName: Menu-box;
         pressedBackgroundName: Toggle-btn-selected;
 }
 
