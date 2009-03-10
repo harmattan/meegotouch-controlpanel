@@ -41,7 +41,7 @@ DcpImageComponent::createContents()
 
     //dummy, must modify constructor
     //dummy data
-    int width  = 350;
+    int width  = 330;
     int upHeight = 50;
     int downHeight = 50;
 

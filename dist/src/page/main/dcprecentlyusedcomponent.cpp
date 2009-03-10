@@ -62,7 +62,7 @@ theme.desktop
   //  addItem(new DuiWidget());
 
 
-  addItem(new DcpMostUsedCategory("TXT"));
+     addItem(new DcpMostUsedCategory("TXT"));
 }
 
 
