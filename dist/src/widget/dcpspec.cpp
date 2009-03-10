@@ -10,6 +10,7 @@
 
 DcpSpec::DcpSpec(const QString& image, int width, int height, int smallWidth, int smallHeight, const QString& css)
 {
+        Q_UNUSED(css);
     m_Layout = new DuiGridLayout();
 
     m_Layout->setColumnMinimumWidth ( 0, smallWidth );
