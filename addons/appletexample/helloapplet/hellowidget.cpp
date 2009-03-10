@@ -74,6 +74,10 @@ void HelloWidget::initWidget()
 	mainLayout->addItem(plainWidget2);
 
 	mainLayout->addItem(new DuiLabel("Note! Display settings depend on the user power profile."));
+
+    DuiWidget *spacerItem = new DuiWidget(this);
+    spacerItem->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    mainLayout->addItem(spacerItem);
 }
 
 void HelloWidget::setBrightnessLabel(int value)
