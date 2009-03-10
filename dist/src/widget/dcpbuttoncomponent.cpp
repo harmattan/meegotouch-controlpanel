@@ -37,12 +37,12 @@ DcpButtonComponent::createContents()
   //dummy, must modify constructor
   QString bigLabel = metadata()->text1();
   int bigWidth = 350;
-  int bigHeight = 100;
+  int bigHeight = 90;
   QString smallLabel = metadata()->text2();
-  int smallX = 200;
-  int smallY = 40;
+  int smallX = 290;
+  int smallY = 30;
   int smallWidth = 50;
-  int smallHeight = 20;
+  int smallHeight = 50;
   bool enable = true;
 
     m_GridLayout = new DuiGridLayout();
@@ -196,6 +196,7 @@ void DcpButtonComponent::paint (QPainter * painter,
 
 void DcpButtonComponent::setTitleAlignment(Qt::Alignment align)
 {
+        Q_UNUSED(align);
  //   m_Caption->setAlignment(align);
 }
 

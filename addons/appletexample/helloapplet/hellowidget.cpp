@@ -18,9 +18,16 @@ void HelloWidget::paint(QPainter *painter,
 			const QStyleOptionGraphicsItem *option,
 			QWidget *widget)
 {
-	Q_UNUSED(painter);
 	Q_UNUSED(option);
 	Q_UNUSED(widget);
+
+    QPen pen(QColor(120, 120, 120, 255));
+    QBrush brush(QColor(50, 50, 50, 255));
+    painter->setPen(pen);
+    painter->setBrush(brush);
+    painter->drawRect(QRectF(0.0, 0.0,
+                             size().width(),
+                             size().height()));
 }
 
 void HelloWidget::initWidget()
@@ -67,6 +74,10 @@ void HelloWidget::initWidget()
 	mainLayout->addItem(plainWidget2);
 
 	mainLayout->addItem(new DuiLabel("Note! Display settings depend on the user power profile."));
+
+    DuiWidget *spacerItem = new DuiWidget(this);
+    spacerItem->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    mainLayout->addItem(spacerItem);
 }
 
 void HelloWidget::setBrightnessLabel(int value)
