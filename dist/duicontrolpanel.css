@@ -26,19 +26,6 @@ DuiImage {
 }
 
 
-#ImageButton {
-	text: Next;
-	font: font(sans, 15);
-	textColor: #FF0000;
-	preferredsize: size(350, 100);
-	minsize: size(350, 100);
-	maxsize: size(350, 100);
-
-	normalBackgroundName: Menu-box;
-	pressedBackgroundName: Toggle-btn-selected;
-}
-									
-
 #BigButton {
         text: Next;
         font: font(sans, 15);
