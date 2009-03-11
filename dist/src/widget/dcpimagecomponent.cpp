@@ -48,10 +48,10 @@ DcpImageComponent::createContents()
 
     int imageWidth = 100;
 
-QString label = m_Metadata->text1(); 
-QString image = m_Metadata->image();
-QString cssButton = m_Metadata->buttonCSS();
-QString cssLabel = m_Metadata->label1CSS();
+    QString label = m_Metadata->text1(); 
+    QString image = m_Metadata->image();
+    QString cssButton = m_Metadata->buttonCSS();
+    QString cssLabel = m_Metadata->label1CSS();
 
   
     m_GridLayout = new DuiGridLayout();
@@ -72,8 +72,6 @@ QString cssLabel = m_Metadata->label1CSS();
     // TODO: this moves to the view config file when updating to newer dui
     m_Button->setView(new DcpButtonView(m_Button));
     // --
-
-qDebug() << "-----------------------------" << cssButton << "-----------------------------";
 
     m_Button->setObjectName(cssButton);
 

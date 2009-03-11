@@ -13,7 +13,7 @@
 
 #include <QDebug>
 
-const float MINIMALIZE = 0.9f;
+const float MINIMALIZE = .95f;
 
 DcpLabelComponent::DcpLabelComponent(
                             DcpCategory *category,

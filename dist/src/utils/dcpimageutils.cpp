@@ -32,7 +32,7 @@ QPixmap DcpImageUtils::scaledPixmap(const QString& id, int newWidth,
     QString key = createKey(id, newWidth, newHeight, borderSize);
     QPixmap pixmap;
     if (!m_PixmapCache->find(key, pixmap)){
-        /* write "const" here for new dui */ QPixmap* source = DuiTheme::pixmap(id);
+        /* write "const" here for new dui */ const QPixmap* source = DuiTheme::pixmap(id);
         pixmap = borderCorrectScale(*source, newWidth, newHeight, borderSize);
         if (!pixmap.isNull()){
             m_PixmapCache->insert(key, pixmap);

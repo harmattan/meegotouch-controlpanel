@@ -28,7 +28,7 @@ void DcpPage::createContent()
     m_MainLayout = new DuiLinearLayout(Qt::Vertical);
     m_DesktopViewport = new DuiPannableViewport(Qt::Vertical, this);
     m_BackgroundView = new DcpBackgroundView(m_DesktopViewport);
-    m_DesktopViewport->setView(m_BackgroundView);
+    //m_DesktopViewport->setWidgetView(m_BackgroundView);
     m_PanWidget = new DuiWidget();
     m_PanLayout = new DuiLinearLayout(Qt::Vertical);
     m_PanWidget->setLayout(m_PanLayout);
