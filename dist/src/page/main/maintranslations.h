@@ -128,6 +128,7 @@ static const DcpCategoryInfo CategoryInfos[] = {
                                      "deleting all media and data.");
    
    const QString settingsTitle = trid("dcp_title_settings", "Settings");
+   const QString mostRecentUsedTitle = trid ("dcp_title_mostrecent", "Most recent used");
    
 };
 #endif // MAINTRANSLATIONS_H

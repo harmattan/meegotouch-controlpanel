@@ -13,7 +13,7 @@
 #include "dcpbuttonview.h"
 #include <QDebug>
 
-const float MINIMALIZE = 0.9f;
+const float MINIMALIZE = 0.95f;
 
 const float MINIMALIZEIMAGE = 0.8f;
 
@@ -127,6 +127,7 @@ DcpImageComponent::onOrientationChange (const Dui::Orientation &orientation)
 
 void DcpImageComponent::setTitleAlignment(Qt::Alignment align)
 {
+        Q_UNUSED(align);
  //   m_Caption->setAlignment(align);
 }
 
