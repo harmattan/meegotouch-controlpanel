@@ -1,0 +1,13 @@
+@(../common/common.css)
+
+DuiButton {
+    font: font(Nokia Sans Wide, 13);
+    textColor: #55FF55;
+    glowColor: #55FF55;
+    cloudColor: #55FF55;    
+}
+
+DuiLabel {
+    color: #FFFFFF;
+    font: font(Nokia Sans Wide, 13);
+}
