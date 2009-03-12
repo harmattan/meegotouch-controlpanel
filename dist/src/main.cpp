@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 {
     DuiApplication app(argc, argv);
 
-    DuiTheme::instance()->changeTheme("duicontrolpanel");
+  //  DuiTheme::instance()->changeTheme("duicontrolpanel");
   //  DuiTheme::loadCSS("duicontrolpanel.css");
 
     DuiLocale locale;                                                           
