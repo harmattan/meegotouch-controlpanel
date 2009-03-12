@@ -8,6 +8,14 @@ DuiPannableViewport {
 }
 
 
+DuiApplicationMenu {
+    content: ;
+    preferredsize: size(300mm, 10mm);
+    minsize: size(200mm, 10mm);  
+    maxsize: size(30%, 10mm);   
+}
+
+
 DuiImage {
 	leftMargin: 0;
         topMargin: 0;
