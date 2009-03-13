@@ -5,6 +5,7 @@
 #include <duilinearlayout.h>
 #include <duibutton.h>
 #include <duilabel.h>
+#include <duitheme.h>
 
 
 const int buttonHeight = 130;
@@ -13,6 +14,7 @@ const int buttonWidth  = 690;
 LanguageWidget::LanguageWidget(QGraphicsWidget *parent)
 	    :DuiWidget(parent)
 {
+    DuiTheme::instance()->changeTheme("duicontrolpanel");
 	initWidget();
 }
 

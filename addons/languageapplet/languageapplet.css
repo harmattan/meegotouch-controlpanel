@@ -4,8 +4,8 @@
         font: font("Nokia Sans Cn", 15);
         textColor: #FF0000;
 
-        normalBackgroundName: languagebutton-bg;
-        pressedBackgroundName: Toggle-btn-selected;
+        normalBackgroundName: "languagebutton-bg";
+        pressedBackgroundName: "Toggle-btn-selected";
 }
 
 #LanguageLeftLabel {
