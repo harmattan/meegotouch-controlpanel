@@ -2,15 +2,17 @@
 #include <duipannableviewport.h>
 #include <QGraphicsLayout>
 #include <QGridLayout>
+#include <duitheme.h>
 #include "duiwidgetview.h"
 #include "duilabel.h"
 #include "duilinearlayout.h"
 
 #include "dcppage.h"
-#include "dcpbackgroundview.h"
 
 DcpPage::DcpPage() : DuiApplicationPage() 
 {
+    // hardcoded property    
+    m_background = DuiTheme::pixmap("starfield");
 }
 
 DcpPage::~DcpPage() 
@@ -19,16 +21,14 @@ DcpPage::~DcpPage()
         delete m_DesktopViewport;
     if (m_Title)
         delete m_Title;
-    if (m_BackgroundView)
-        delete m_BackgroundView;
+
+    DuiTheme::releasePixmap(m_background);
 }
 
 void DcpPage::createContent()
 {    
     m_MainLayout = new DuiLinearLayout(Qt::Vertical);
     m_DesktopViewport = new DuiPannableViewport(Qt::Vertical, this);
-    m_BackgroundView = new DcpBackgroundView(m_DesktopViewport);
-    //m_DesktopViewport->setWidgetView(m_BackgroundView);
     m_PanWidget = new DuiWidget();
     m_PanLayout = new DuiLinearLayout(Qt::Vertical);
     m_PanWidget->setLayout(m_PanLayout);
@@ -41,7 +41,6 @@ void DcpPage::createContent()
     m_MainLayout->addItem(m_DesktopViewport);
     setLayout(m_MainLayout);
 }
-
 
 const QString 
 DcpPage::title() const
@@ -70,3 +69,36 @@ void DcpPage::organizeContent(Dui::Orientation ori)
     layout->activate();
 }
 
+void
+DcpPage::paint(QPainter *painter,
+               const QStyleOptionGraphicsItem *option,
+               QWidget *widget)
+{
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
+    
+    if (m_background != NULL) {
+        // Always draw the background texture without rotation
+        const QTransform w = painter->worldTransform();
+        painter->setWorldTransform(QTransform());
+        QPointF p = w.map(QPointF(0.0, 0.0));
+        QPointF offset(-p.x() + w.dx(), -p.y() + w.dy());
+        if (DuiDeviceProfile::instance()->orientation() == Dui::Landscape) 
+        {
+            painter->drawTiledPixmap(QRectF(0.0, 0.0,
+                                            DuiDeviceProfile::instance()->width(),
+                                            DuiDeviceProfile::instance()->height()),
+                                            *m_background, offset);
+        } else {
+            painter->drawTiledPixmap(QRectF(0.0, 0.0,
+                                            DuiDeviceProfile::instance()->height(),
+                                            DuiDeviceProfile::instance()->width()),
+                                            *m_background, offset);
+        }
+                         
+        // Reset the transform
+        painter->setWorldTransform(w);
+    } else {
+        qWarning() << "DcpPage's background pixmap is not loaded.";
+    }
+}
