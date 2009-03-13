@@ -4,22 +4,13 @@ CONFIG += debug
 CONFIG += build_all silent warn_on
 
 SUBDIRS += src \
-#	   tests
+#	   tests \
 #	   examples
 
-# this creates the installation process
-# PREFIX = "debian/duicontrolpanel/usr"
-PREFIX = $(DEBIAN_DESTDIR)/usr
-
-target.path += $${PREFIX}/bin
-
-# skin.files += themes ??? ...
-# skin.path = $${PREFIX}/share/duicontrolpanel
-
-# desktop.files += mediaplayer.desktop
-# desktop.path = $${PREFIX}/share/applications/... ???
-
-INSTALLS += target  # skin desktop
+# install targets:
+include (common.pri)
+include(theme/theme.pri)
+include(desktop/desktop.pri)
 
 # for make deb
 include(debian/deb.pri)
