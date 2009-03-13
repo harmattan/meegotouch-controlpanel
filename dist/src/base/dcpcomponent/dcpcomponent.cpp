@@ -23,6 +23,6 @@ DcpComponent::child(int i) const
 void
 DcpComponent::switchToSubPage()
 {
-    emit openSubPage(subPageId());
+    emit openSubPage(subPage());
 }
 

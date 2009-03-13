@@ -22,16 +22,10 @@ PageFactory::instance()
     return sm_Instance;
 }
 
-Pages::Id
-PageFactory::idOf(DuiApplicationPage *page)
+DcpPage*
+PageFactory::page(DuiApplicationPage *page)
 {
-    return qobject_cast<DcpPage*>(page)->pageId();
-}
-
-Pages::Id
-PageFactory::refererOf(DuiApplicationPage *page)
-{
-    return qobject_cast<DcpPage*>(page)->referer();
+    return qobject_cast<DcpPage*>(page);
 }
 
 DcpPage* 
@@ -94,9 +88,7 @@ PageFactory::createAccountsPage()
 DcpPage* 
 PageFactory::createAppletPage(DcpAppletMetadata *metadata)
 {
-    QString lib =DcpApplet::Lib + metadata->appletBinary();
-    qDebug() << "APPLET SO: " << lib;    
-    return new DcpAppletPage(lib);
+    return new DcpAppletPage(metadata);
 }
 
 DcpPage* 

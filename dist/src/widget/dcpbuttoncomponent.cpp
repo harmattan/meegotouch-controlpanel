@@ -209,7 +209,7 @@ void DcpButtonComponent::addItem ( QGraphicsLayoutItem * item )
 void
 DcpButtonComponent::switchToSubPage()
 {
-    emit openSubPage(subPageId(), m_Metadata->name());
+    emit openSubPage(subPage());
 }
 
 void

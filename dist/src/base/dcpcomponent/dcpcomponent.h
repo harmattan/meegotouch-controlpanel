@@ -15,8 +15,10 @@ public:
                                   QGraphicsWidget *parent=0);
     QString title() const {return m_Title;}
     virtual void setTitle(const QString& title) {m_Title = title;}
-    void setSubPageId(Pages::Id subPageId) {m_SubPageId = subPageId;};          
-    Pages::Id subPageId() const {return m_SubPageId;};                      
+    void setSubPage(Pages::Handle subPage) {m_SubPage = subPage;}; 
+    void setSubPage(Pages::Id id, const QString &param="") 
+        {m_SubPage.id = id; m_SubPage.param = param;};          
+    Pages::Handle subPage() const {return m_SubPage;};                      
     // Composite Pattern Interface	
     virtual void add(DcpComponent *component)=0;
     virtual void remove(DcpComponent *component)=0;
@@ -29,7 +31,7 @@ protected:
     virtual void switchToSubPage(); 
 
 signals:
-    void openSubPage(Pages::Id subPageId, const QString& param="");
+    void openSubPage(Pages::Handle);
 
 public slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation)=0;
@@ -37,6 +39,6 @@ public slots:
 private:
     QString m_Title; 
     DcpCategory* m_Category; 
-    Pages::Id m_SubPageId;
+    Pages::Handle m_SubPage;
 };
 #endif //DCPCOMPONENT_H

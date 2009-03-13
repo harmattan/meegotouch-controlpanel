@@ -24,8 +24,8 @@
 DcpMainPage::DcpMainPage() :
 	DcpCategoryPage()
 {
-    m_PageId = Pages::MAIN;
-    m_Referer = Pages::NOPAGE;
+    setHandle(Pages::MAIN);
+    setReferer(Pages::NOPAGE);
 }
 
 
@@ -63,9 +63,9 @@ void DcpMainPage::createContent()
         DcpDescriptionComponent *component = new DcpDescriptionComponent(
                 m_Category, info.title);
         component->setDescription("<span>" + info.description + "</span>");
-        component->setSubPageId(info.subPageId);
-        connect(component, SIGNAL(openSubPage(Pages::Id, const QString&)),
-                this, SIGNAL(openSubPage(Pages::Id, const QString&)));
+        component->setSubPage(info.subPageId);
+        connect(component, SIGNAL(openSubPage(Pages::Handle)),
+                this, SIGNAL(openSubPage(Pages::Handle)));
         m_Category->append(component);
     }
 
@@ -74,7 +74,7 @@ void DcpMainPage::createContent()
             m_Category, DcpMain::resetSettingsTitle);
     resetSettings->setDescription(DcpMain::resetSettingsDescription);
     resetSettings->setFullRowSize ();
- //   connect(resetSettings, SIGNAL(openSubPage(Pages::Id)),
+ //   connect(resetSettings, SIGNAL(openSubPage(Pages::Handle)),
 //            this, SLOT(onResetSettingsClicked()));
     m_Category->add(resetSettings);
 

@@ -4,11 +4,12 @@
 #include <duinavigationbar.h>
 #include <duideviceprofile.h>
 
-MainWindow::MainWindow() : m_Referer(Pages::NOPAGE)
+MainWindow::MainWindow() 
 {
    connect(navigationBar(), SIGNAL(homeClicked()), this, SLOT(homeClicked())); 
    connect(navigationBar(), SIGNAL(backClicked()), this, SLOT(backClicked())); 
-   changePage(Pages::MAIN);
+   Pages::Handle handle = {Pages::MAIN, ""};
+   changePage(handle);
 }
 
 void MainWindow::homeClicked()
@@ -19,7 +20,8 @@ void MainWindow::homeClicked()
 
 void MainWindow::backClicked()
 {
-   changePage(PageFactory::refererOf(currentPage()));
+    DcpPage* page = PageFactory::page(currentPage());
+    changePage(page->referer());
 }
 
 MainWindow::~MainWindow()
@@ -27,27 +29,28 @@ MainWindow::~MainWindow()
 }
 
 void
-MainWindow::changePage(Pages::Id pageId, const QString &param)
+MainWindow::changePage(Pages::Handle handle)
 {
 
-  if (pageId == Pages::NOPAGE)
+  if (handle.id == Pages::NOPAGE)
         return;
-    DcpPage* page = PageFactory::instance()->create(pageId, param);
+    DcpPage* page = PageFactory::instance()->create(handle.id, handle.param);
     addPage(page);
-    connect (page, SIGNAL(openSubPage(Pages::Id, const QString&)), this, 
-		SLOT(changePage(Pages::Id, const QString&)));
+    connect (page, SIGNAL(openSubPage(Pages::Handle)), this, 
+		SLOT(changePage(Pages::Handle)));
     qDebug() << Q_FUNC_INFO;
-    DcpPage* oldPage = qobject_cast<DcpPage*>(currentPage());
+    DcpPage* oldPage = PageFactory::page(currentPage());
     if (oldPage)
       {
-	if (page->referer() == Pages::NOPAGE)
-	    page->setReferer(oldPage->pageId());      
+	if (page->referer().id == Pages::NOPAGE)
+	    page->setReferer(oldPage->handle());      
 	removePage(oldPage);
       }
-    page->pageId() == Pages::MAIN ?
+    page->handle().id == Pages::MAIN ?
        navigationBar()->showCloseButton()
     :
        navigationBar()->showBackButton();
+    
     showPage(page);
     
 }

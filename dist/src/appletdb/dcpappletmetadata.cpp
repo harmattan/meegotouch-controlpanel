@@ -1,5 +1,6 @@
 #include <QDateTime>
 #include "dcpappletmetadata.h"
+#include "dcpapplet.h"
 enum  {
     KeyCategory = 0,
     KeyOrder,
@@ -14,7 +15,7 @@ enum  {
     KeyButtonCSS,
     KeyLabel1CSS,
     KeyLabel2CSS,
-    KeyAppletBinary,
+    KeyBinary,
     KeyCount
 };
 
@@ -73,9 +74,15 @@ DcpAppletMetadata::icon() const
 }
 
 QString
-DcpAppletMetadata::appletBinary() const
+DcpAppletMetadata::binary() const
 {
-    return value(Keys[KeyAppletBinary]).toString();
+    return value(Keys[KeyBinary]).toString();
+}
+
+QString
+DcpAppletMetadata::fullBinary() const
+{
+    return DcpApplet::Lib + binary();
 }
 
 QString DcpAppletMetadata::widgetType()

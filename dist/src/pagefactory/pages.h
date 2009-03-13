@@ -1,5 +1,6 @@
 #ifndef PAGES_H
 #define PAGES_H
+#include <QString>
 namespace Pages {
     typedef enum {
       NOPAGE = -1,
@@ -15,5 +16,11 @@ namespace Pages {
       DATETIME,
       SECURITY
    } Id;
+
+   typedef struct _Handle Handle;
+   struct _Handle {
+        Id id;
+        QString param;
+    };
 };
 #endif // PAGES_H

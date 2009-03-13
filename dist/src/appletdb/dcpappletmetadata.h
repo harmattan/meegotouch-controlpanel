@@ -11,7 +11,8 @@ public:
     bool isModified();
     QString category() const;
     QString icon() const;
-    QString appletBinary() const;
+    QString binary() const;
+    QString fullBinary() const;
 
     QString widgetType();
 

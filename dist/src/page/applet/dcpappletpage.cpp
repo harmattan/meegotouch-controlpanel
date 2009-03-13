@@ -5,11 +5,13 @@
 #include "dcpmaincategory.h"
 #include "duilinearlayout.h"
 #include <QPluginLoader>
-DcpAppletPage::DcpAppletPage(const QString &appletBinary) : DcpCategoryPage(),
-    m_AppletBinary(appletBinary) 
+#include "dcpappletmetadata.h"
+DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
+    DcpCategoryPage(),
+    m_Metadata(metadata) 
 {
-    m_PageId = Pages::APPLET;
-    m_Referer = Pages::NOPAGE;
+    setHandle(Pages::APPLET);
+    setReferer(Pages::NOPAGE);
 }
 
 DcpAppletPage::~DcpAppletPage()
@@ -30,7 +32,7 @@ void DcpAppletPage::organizeContent(Dui::Orientation ori)
 
 void DcpAppletPage::initApplet()
 {
-    QPluginLoader loader(appletBinary());
+    QPluginLoader loader(m_Metadata->fullBinary());
     if (!loader.load())
     {
 	    qDebug() << "Loading applet is failed!";
@@ -63,4 +65,11 @@ void DcpAppletPage::initApplet()
 
     delete applet;
     applet = NULL;
+}
+void DcpAppletPage::setReferer(Pages::Id id, const QString &param)
+{
+    Q_UNUSED(param);
+    m_Referer.id = id;
+    m_Referer.param = m_Metadata->category();
+    qDebug() << m_Referer.param;
 }

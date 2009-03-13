@@ -3,15 +3,12 @@
 #include <QList>
 #include <QMap>
 #include <QString>
+#include "dcpapplet.h"
 class DcpAppletMetadata;
 
 typedef QList<DcpAppletMetadata*> DcpAppletMetadataList;
 typedef QMap<QString, DcpAppletMetadata*> DcpAppletMetadataMap;
 
-namespace DcpApplet {
-    const QString DefaultPath = "/usr/lib/duicontrolpanel/";
-    const QString Lib = DefaultPath + "applets/";
-};
 
 class DcpAppletDb
 {

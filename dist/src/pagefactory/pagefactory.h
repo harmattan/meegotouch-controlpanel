@@ -9,8 +9,7 @@ class PageFactory
 {
 public:
     static PageFactory *instance();
-    static Pages::Id idOf(DuiApplicationPage *page);
-    static Pages::Id refererOf(DuiApplicationPage *page);
+    static DcpPage* page(DuiApplicationPage *page);
     DcpPage* create (Pages::Id pageId, const QString &param);
 protected:
     PageFactory();

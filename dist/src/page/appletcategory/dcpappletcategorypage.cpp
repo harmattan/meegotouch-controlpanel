@@ -7,8 +7,8 @@
 DcpAppletCategoryPage::DcpAppletCategoryPage(const QString &appletCategory) : DcpCategoryPage(),
     m_AppletCategory(appletCategory) 
 {
-    m_PageId = Pages::APPLETCATEGORY;
-    m_Referer = Pages::MAIN;
+    setHandle(Pages::APPLETCATEGORY);
+    setReferer(Pages::MAIN);
 }
 
 DcpAppletCategoryPage::~DcpAppletCategoryPage()
@@ -25,9 +25,9 @@ void DcpAppletCategoryPage::createContent()
         foreach(DcpAppletMetadata *metadata, list)
         {
            DcpButtonComponent *button = new DcpButtonComponent(0, metadata); 
-           button->setSubPageId(Pages::APPLET);
-           connect(button, SIGNAL(openSubPage(Pages::Id, const QString&)),
-                this, SIGNAL(openSubPage(Pages::Id, const QString&)));
+           button->setSubPage(Pages::APPLET, metadata->name());
+           connect(button, SIGNAL(openSubPage(Pages::Handle)),
+                this, SIGNAL(openSubPage(Pages::Handle)));
            m_Category->append(button);
         }
     }
@@ -39,4 +39,3 @@ void DcpAppletCategoryPage::organizeContent(Dui::Orientation ori)
 {
     Q_UNUSED(ori);
 }
-

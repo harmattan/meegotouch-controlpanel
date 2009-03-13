@@ -3,22 +3,24 @@
 
 #include "dcpcategorypage.h" 
 #include "pages.h"
-
+class DcpAppletMetadata;
 class DcpAppletPage : public DcpCategoryPage
 {
     Q_OBJECT
 public:
-    DcpAppletPage(const QString &appletBinary);
+    DcpAppletPage(DcpAppletMetadata* metadata);
     virtual ~DcpAppletPage();
     virtual void createContent();
     virtual void organizeContent(Dui::Orientation ori);
-    const QString appletBinary() const {return m_AppletBinary;};
-    void setAppletBinary(const QString &appletBinary){m_AppletBinary=appletBinary;};
+    DcpAppletMetadata* metadata() const {return m_Metadata;};
+    void setMetadata(DcpAppletMetadata* metadata){m_Metadata = metadata;};
+    virtual void setReferer(Pages::Id id, const QString &param="");
+
 protected:
     virtual void initApplet();
 private:
     DuiWidget *m_View;
-    QString m_AppletBinary;
+    DcpAppletMetadata* m_Metadata;
 };
 
 #endif // DCPAPPLETPAGE_H
