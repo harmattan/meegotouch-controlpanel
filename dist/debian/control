@@ -1,5 +1,5 @@
 Source: duicontrolpanel
-Section: devel
+Section: unknown
 Priority: extra
 Maintainer: Robert Manner <robert.manner@blumsoft.eu>
 Build-Depends: debhelper (>= 5), libdui-dev
