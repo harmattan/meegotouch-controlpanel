@@ -4,7 +4,6 @@
 #include <DuiApplicationPage>
 #include "pages.h"
 class DuiPannableViewport;
-class DcpBackgroundView;
 class DuiLabel;
 class DuiLinearLayout;
 class DcpPage : public DuiApplicationPage
@@ -24,11 +23,13 @@ public:
     DuiPannableViewport* viewport() const {return m_DesktopViewport;};
     DuiWidget* panWidget() const {return m_PanWidget;};
     DuiLinearLayout* panLayout() const {return m_PanLayout;};
+    void paint(QPainter *painter, 
+               const QStyleOptionGraphicsItem *option,
+               QWidget *widget = 0);
 signals:
     void openSubPage(Pages::Id subPageId, const QString &param);
 protected:
    DuiPannableViewport *m_DesktopViewport;
-   DcpBackgroundView *m_BackgroundView;
    DuiLabel *m_Title;
    DuiWidget *m_PanWidget;
    DuiLinearLayout *m_PanLayout;
@@ -36,6 +37,7 @@ protected:
    Pages::Id m_PageId;
    Pages::Id m_Referer;
 private:
+   const QPixmap *m_background;
 };
 
 #endif // DCPPAGE_H

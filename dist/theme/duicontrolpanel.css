@@ -3,11 +3,6 @@ DuiLabel {
     font: font("Nokia Sans Cn", 12);
 }
 
-DuiPannableViewport {
-	background: image(starfield,100,100);
-}
-
-
 DuiApplicationMenu {
     content: ;
     preferredsize: size(300mm, 10mm);
