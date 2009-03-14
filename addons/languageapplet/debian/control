@@ -1,0 +1,12 @@
+Source: duicontrolpanel-languageapplet
+Section: unknown
+Priority: extra
+Maintainer: Robert Manner <robert.manner@blumsoft.eu>
+Build-Depends: debhelper (>= 5), libdui-dev
+Standards-Version: 3.7.2
+
+Package: duicontrolpanel-languageapplet
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel
+Description: Language applet for the control panel application
+
