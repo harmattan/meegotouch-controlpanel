@@ -16,6 +16,9 @@
 
 #include "dcpappletmetadata.h"
 
+#include "duilinearlayout.h"
+#include "duigridlayout.h"
+
 const static int SIZEWIDTH = 760;
 const static int SIZEHEIGHT = 400;
 
@@ -43,6 +46,7 @@ void DcpMostUsedCategory::createContents()
 //    append(new DcpLabelComponent(this, new DcpAppletMetadata("desktop/wallpaper.desktop")));
 
 
+    //dummy code
     addWidget("desktop/language.desktop");
     addWidget("desktop/profile.desktop");
     
@@ -89,3 +93,88 @@ void DcpMostUsedCategory::addWidget(const QString& file)
 
   delete metadata;
 }
+
+void 
+DcpMostUsedCategory::onOrientationChange (const Dui::Orientation &orientation)
+{
+
+    if (orientation == Dui::Portrait) {
+
+        m_ColCount = 0;
+        m_RowCount = 0;
+
+        foreach(DcpComponent *component, m_Children) {
+            m_Layout->removeAt(0);
+        }
+
+        setMaxColumns(1);
+
+        foreach(DcpComponent *component, m_Children) {
+            add(component);
+        }
+
+
+    }
+    else {
+
+qDebug() << "??????????????????????????????????????????????:::::::::::::::::::::::::";
+
+        m_ColCount = 0;
+        m_RowCount = 0;
+
+         foreach(DcpComponent *component, m_Children) {
+            m_Layout->removeAt(0);
+        }
+
+        setMaxColumns(2);
+
+        foreach(DcpComponent *component, m_Children) {
+            add(component);
+        }
+   }
+
+return;
+//DcpMainCategory::onOrientationChange (orientation);
+
+//return;
+
+    if (orientation == Dui::Portrait) {
+
+        DuiLinearLayout *layout = new DuiLinearLayout(Qt::Vertical);
+
+int cnt = 0;
+
+        foreach(DcpComponent *component, m_Children) {
+
+        qDebug() << "CNT: " << cnt++;
+
+            component->onOrientationChange(orientation);
+            layout->addItem(component);
+        }
+
+        setLayout(layout);
+
+        //delete m_Layout;
+        //m_Layout = 0;
+
+    }
+    else {
+   /*
+      qDebug() << "  ----------------------------------------------  DcpMostUsedCategory   other";
+       //DuiLinearLayout *layout = (DuiLinearLayout*)(this->layout());
+        m_Layout = new DuiGridLayout();
+        foreach(DcpComponent *component, m_Children)
+        {
+            component->onOrientationChange(orientation);
+            if (m_ColSpans[component] == m_MaxColumns)
+                add(component);
+            else
+                append(component);
+        }
+        //delete layout;
+*/
+        setLayout(m_Layout);
+        qDebug() << "Changing orientation to Dui::Landscape";
+   }
+}   
+
