@@ -10,6 +10,9 @@ DuiApplicationMenu {
     maxsize: size(30%, 10mm);   
 }
 
+DuiPannableWidget#MainPageViewport {
+	background: "starfield";
+}
 
 DuiImage {
 	leftMargin: 0;
@@ -37,7 +40,6 @@ DuiImage {
         minsize: size(350, 100);
         maxsize: size(350, 100);
 
-//        bgName: "Menu-box";
         normalBackgroundName: "Menu-box";
         pressedBackgroundName: "Toggle-btn-selected";
 	horizontalBoxEdgePercent: 0.3;
