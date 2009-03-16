@@ -55,7 +55,6 @@ DcpLabelComponent::createContents()
     m_GridLayout->setRowMinimumHeight ( 0, upHeight );
     m_GridLayout->setRowMinimumHeight ( 1, downHeight );
     
-
     m_GridLayout->setRowMaximumHeight ( 0, upHeight );
     m_GridLayout->setRowMaximumHeight ( 1, downHeight );
 
