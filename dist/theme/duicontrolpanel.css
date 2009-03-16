@@ -40,6 +40,7 @@ DuiImage {
 //        bgName: "Menu-box";
         normalBackgroundName: "Menu-box";
         pressedBackgroundName: "Toggle-btn-selected";
+	horizontalBoxEdgePercent: 0.3;
 }
 
 						

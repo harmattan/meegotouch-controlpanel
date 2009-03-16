@@ -7,7 +7,6 @@
 #include <duigridlayout.h>
 
 #include <duitheme.h>
-#include "dcpbuttonview.h"
 
 const float MINIMALIZE = 0.9f;
 
@@ -39,10 +38,6 @@ DcpImage::DcpImage(const QString& label, const QString& image, int width, int up
      */
 
     m_Button = new DuiButton("");
-
-    // TODO: this moves to the view config file when updating to newer dui
-    m_Button->setView(new DcpButtonView(m_Button));
-    // --
 
     m_Button->setObjectName(cssButton);
 
