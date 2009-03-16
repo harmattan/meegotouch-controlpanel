@@ -7,7 +7,7 @@
 #include <QPluginLoader>
 #include "dcpappletmetadata.h"
 DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
-    DcpCategoryPage(),
+    DcpPage(),
     m_Metadata(metadata) 
 {
     setHandle(Pages::APPLET);
@@ -19,9 +19,10 @@ DcpAppletPage::~DcpAppletPage()
     if (m_View)
         delete m_View;
 } 
+
 void DcpAppletPage::createContent()
 {
-    DcpCategoryPage::createContent();
+    DcpPage::createContent();
     initApplet();
 }
 
@@ -66,6 +67,8 @@ void DcpAppletPage::initApplet()
     delete applet;
     applet = NULL;
 }
+
+
 void DcpAppletPage::setReferer(Pages::Id id, const QString &param)
 {
     Q_UNUSED(param);

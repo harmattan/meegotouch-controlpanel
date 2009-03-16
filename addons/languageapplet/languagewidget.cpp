@@ -14,7 +14,7 @@ const int buttonWidth  = 690;
 LanguageWidget::LanguageWidget(QGraphicsWidget *parent)
 	    :DuiWidget(parent)
 {
-    DuiTheme::instance()->changeTheme("duicontrolpanel");
+//    DuiTheme::instance()->changeTheme("duicontrolpanel");
 	initWidget();
 }
 

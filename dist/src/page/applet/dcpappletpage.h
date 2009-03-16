@@ -1,10 +1,10 @@
 #ifndef DCPAPPLETPAGE_H
 #define DCPAPPLETPAGE_H
 
-#include "dcpcategorypage.h" 
+#include "dcppage.h"
 #include "pages.h"
 class DcpAppletMetadata;
-class DcpAppletPage : public DcpCategoryPage
+class DcpAppletPage : public DcpPage
 {
     Q_OBJECT
 public:
