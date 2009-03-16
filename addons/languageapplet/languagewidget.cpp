@@ -29,7 +29,7 @@ void LanguageWidget::paint(QPainter *painter,
 	Q_UNUSED(widget);
     
     QPen pen(QColor(120, 120, 120, 240));
-    QBrush brush(QColor(90, 90, 90, 245));
+    QBrush brush(QColor(20, 20, 20, 240));
     painter->setPen(pen);
     painter->setBrush(brush);
     painter->drawRect(QRectF(0.0, 0.0,
@@ -46,12 +46,13 @@ void LanguageWidget::initWidget()
                                                     "English", this);
     mainLayout->addItem(firstButton);
     
-    LanguageButton *secondButton = new LanguageButton("Keyboard (2)",
+    LanguageButton *secondButton = new LanguageButton("Keyboard languages (2)",
                                                     "English, Suomi", this);
     mainLayout->addItem(secondButton);
 
     DuiLabel *simpleText = new DuiLabel("To set language display format, go to", 
                     this);
+    simpleText->setObjectName("LanguageSimpleText");
     simpleText->setAlignment(Qt::AlignCenter);
     simpleText->setMaximumHeight(60);
     mainLayout->addItem(simpleText);

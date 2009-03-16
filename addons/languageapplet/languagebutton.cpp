@@ -6,9 +6,8 @@
 #include <duitheme.h>
 
 const QString cssDir    = "/usr/share/themes/dui/duicontrolpanel/";
-const int rowHeight     =    90;
-const int rowWidth      =   680;
-const float minimalize  =  0.9f;
+const int rowHeight     =    75;
+const int rowWidth      =   690;
 
 LanguageButton::LanguageButton(QString upText,
                                QString downText,
@@ -36,6 +35,8 @@ void LanguageButton::paint(QPainter *painter,
 
 void LanguageButton::initWidget()
 {
+        const QString   spaceUp("   ");
+        const QString spaceDown("    ");
         const int upRowHeight   = rowHeight * 0.55;
         const int downRowHeight = rowHeight * 0.45;
 
@@ -55,23 +56,23 @@ void LanguageButton::initWidget()
         m_bigButton->setMaximumWidth(rowWidth);
 
         // m_leftLabel
-        m_leftLabel = new DuiLabel(m_upText, this);
+        m_leftLabel = new DuiLabel(spaceUp + m_upText, this);
         m_leftLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         m_leftLabel->setObjectName("LanguageLeftLabel");
         m_leftLabel->setMinimumHeight(upRowHeight);
         m_leftLabel->setMaximumHeight(upRowHeight);
-        m_leftLabel->setMinimumWidth(rowWidth * 0.85f);
-        m_leftLabel->setMaximumWidth(rowWidth * 0.85f);
+        m_leftLabel->setMinimumWidth(rowWidth);
+        m_leftLabel->setMaximumWidth(rowWidth);
         m_leftLabel->setAcceptedMouseButtons(0);
         
         // m_rightLabel
-        m_rightLabel = new DuiLabel(m_downText, this);
-        m_rightLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+        m_rightLabel = new DuiLabel(spaceDown + m_downText, this);
+        m_rightLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         m_rightLabel->setObjectName("LanguageRightLabel");
         m_rightLabel->setMinimumHeight(downRowHeight);
         m_rightLabel->setMaximumHeight(downRowHeight);
-        m_rightLabel->setMinimumWidth(rowWidth * 0.95f);
-        m_rightLabel->setMaximumWidth(rowWidth * 0.95f);
+        m_rightLabel->setMinimumWidth(rowWidth);
+        m_rightLabel->setMaximumWidth(rowWidth);
         m_rightLabel->setAcceptedMouseButtons(0);
         
         mainLayout->addItem(m_bigButton, 0, 0, 2, 1, Qt::AlignCenter);

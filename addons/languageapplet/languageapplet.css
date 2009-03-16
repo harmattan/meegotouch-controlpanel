@@ -10,10 +10,15 @@
 
 #LanguageLeftLabel {
         color: #FFFFFF;
-        font: font("Nokia Sans Cn", 24);
+        font: font("Nokia Sans Cn", 20);
 }
 
 #LanguageRightLabel {
         color: #FFA000;
-        font: font("Nokia Sans Cn", 18);
+        font: font("Nokia Sans Cn", 16);
+}
+
+#LanguageSimpleText {
+        color: #FFFFFF;
+        font: font("Nokia Sans Cn", 14);
 }
