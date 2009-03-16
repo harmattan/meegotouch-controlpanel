@@ -5,7 +5,7 @@
 #include <duilabel.h>
 #include <duitheme.h>
 
-const QString cssDir    = "/usr/share/theme/dui/duicontrolpanel/";
+const QString cssDir    = "/usr/share/themes/dui/duicontrolpanel/";
 const int rowHeight     =    90;
 const int rowWidth      =   680;
 const float minimalize  =  0.9f;

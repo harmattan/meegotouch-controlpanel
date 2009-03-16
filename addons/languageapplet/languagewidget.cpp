@@ -14,7 +14,6 @@ const int buttonWidth  = 690;
 LanguageWidget::LanguageWidget(QGraphicsWidget *parent)
 	    :DuiWidget(parent)
 {
-//    DuiTheme::instance()->changeTheme("duicontrolpanel");
 	initWidget();
 }
 
@@ -26,7 +25,6 @@ void LanguageWidget::paint(QPainter *painter,
 			               const QStyleOptionGraphicsItem *option,
 			               QWidget *widget)
 {
-	// Q_UNUSED(painter);
 	Q_UNUSED(option);
 	Q_UNUSED(widget);
     
@@ -42,8 +40,6 @@ void LanguageWidget::paint(QPainter *painter,
 void LanguageWidget::initWidget()
 {
     // there is some "magic number" sorry for that
-	// this->setMinimumWidth(DuiDeviceProfile::instance()->width());
-    // this->setMinimumHeight(DuiDeviceProfile::instance()->height() - 40);
 	DuiLinearLayout *mainLayout = new DuiLinearLayout(Qt::Vertical, this);
 
     LanguageButton *firstButton = new LanguageButton("Display language",
