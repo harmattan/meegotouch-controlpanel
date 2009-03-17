@@ -15,6 +15,7 @@ enum  {
     KeyButtonCSS,
     KeyLabel1CSS,
     KeyLabel2CSS,
+    KeyUsage,
     KeyBinary,
     KeyCount
 };
@@ -33,6 +34,7 @@ const QString Keys[KeyCount] = {
     "DCP/ButtonCSS",
     "DCP/Label1CSS",
     "DCP/Label2CSS",
+    "DCP/Usage",
     "DUI/X-DUIApplet-Applet"
 };
 
@@ -119,6 +121,12 @@ QString DcpAppletMetadata::label2CSS()
 {
     return value(Keys[KeyLabel2CSS]).toString();
 }
+
+int DcpAppletMetadata::usage()
+{
+    return value(Keys[KeyUsage]).toInt();
+}
+
 
 int DcpAppletMetadata::order()
 {

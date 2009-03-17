@@ -3,12 +3,17 @@
 #include <QDir>
 #include <QDebug>
 const QString APPLETFILTER = "*.desktop";
-
+const int MAXMOSTUSED = 6;
 DcpAppletDb *DcpAppletDb::sm_Instance=0;
 
 static bool orderLessThan(DcpAppletMetadata *meta1, DcpAppletMetadata *meta2)
 {
     return meta1->order() < meta2->order();
+}
+
+static bool usageGreatherThan(DcpAppletMetadata *meta1, DcpAppletMetadata *meta2)
+{
+    return meta1->usage() > meta2->usage();
 }
 DcpAppletDb*
 DcpAppletDb::instance(const QString &pathName)
@@ -51,6 +56,7 @@ DcpAppletMetadataList
 DcpAppletDb::listByCategory(const QString& category)
 {
     QList<DcpAppletMetadata*> filtered;
+
     foreach (DcpAppletMetadata *item, m_AppletsByName)
     {
         qDebug() << item->category() << "==" << category;
@@ -59,6 +65,14 @@ DcpAppletDb::listByCategory(const QString& category)
     }
     qSort(filtered.begin(), filtered.end(), orderLessThan);
     return filtered;
+}
+
+DcpAppletMetadataList 
+DcpAppletDb::listMostUsed()
+{
+   DcpAppletMetadataList mostUsed = m_AppletsByName.values();
+   qSort(mostUsed.begin(), mostUsed.end(), usageGreatherThan); 
+   return mostUsed.mid(0, MAXMOSTUSED);
 }
 
 DcpAppletMetadata*
