@@ -34,6 +34,7 @@ void DcpPage::createContent()
     m_Title = new DuiLabel("-");
     m_Title->setAlignment(Qt::AlignCenter);
     m_Title->setMaximumHeight(30);
+    m_Title->setZValue(30);
     m_MainLayout->addItem(m_Title);
     m_MainLayout->addItem(m_DesktopViewport);
     setLayout(m_MainLayout);
