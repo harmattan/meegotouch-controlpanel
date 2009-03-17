@@ -15,7 +15,6 @@ X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 Category= Personalization 
 Order=1
 WidgetType= DcpLabel
-Text1= Profile
 Text2= Ringing
 
 ButtonCSS= BigButton
