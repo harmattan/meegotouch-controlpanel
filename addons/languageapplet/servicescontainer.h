@@ -20,6 +20,10 @@ public:
                   QWidget *parent = 0);
     //! \reimp_end
     
+    //! \reimp
+    virtual void resizeEvent(QGraphicsSceneResizeEvent *event);
+    //! \reimp_end
+    
     void addServices(const QString &name);
 
 protected:

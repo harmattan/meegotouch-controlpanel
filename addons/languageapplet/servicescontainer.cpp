@@ -27,11 +27,6 @@ void ServicesContainer::paint(QPainter *painter,
     Q_UNUSED(option);
     Q_UNUSED(widget);
     
-    // load background pixmap
-    // not a perfect solution for corner problem
-    m_background = DuiTheme::horizBoxedPixmap("C2-container-dark-landscape-123px",
-                                              QSize(geometry().width(), geometry().height()), 
-                                              10);
     if (m_background)
     {
         painter->drawPixmap(QPoint(0, 0), *m_background);
@@ -48,6 +43,16 @@ void ServicesContainer::paint(QPainter *painter,
     qreal y = m_caption->y() + m_caption->size().height();
     painter->drawLine(borderWidth, y, 
                       size().width() - 2 * borderWidth, y);
+}
+
+void ServicesContainer::resizeEvent(QGraphicsSceneResizeEvent *event)
+{
+    Q_UNUSED(event);
+     // load background pixmap
+    // not a perfect solution for corner problem
+    m_background = DuiTheme::horizBoxedPixmap("C2-container-dark-landscape-123px",
+                                              QSize(geometry().width(), geometry().height()), 
+                                              25);
 }
 
 void ServicesContainer::initContainer()
