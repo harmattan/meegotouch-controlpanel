@@ -1,6 +1,8 @@
 #include <QDateTime>
 #include "dcpappletmetadata.h"
 #include "dcpapplet.h"
+#include <duilocale.h>
+
 enum  {
     KeyCategory = 0,
     KeyOrder,
@@ -9,7 +11,6 @@ enum  {
     KeyDisabledPicture,
 
     KeyWidgetType,
-    KeyText1,
     KeyText2,
     KeyImage,
     KeyButtonCSS,
@@ -17,6 +18,11 @@ enum  {
     KeyLabel2CSS,
     KeyUsage,
     KeyBinary,
+
+    KeyName,
+    KeyNameId,
+    KeyNameCatalog,
+
     KeyCount
 };
 
@@ -26,9 +32,8 @@ const QString Keys[KeyCount] = {
     "DCP/OnPicture",
     "DCP/OffPicture",
     "DCP/DisabledPicture",
-    
+
     "DCP/WidgetType",
-    "DCP/Text1",
     "DCP/Text2",
     "DCP/Image",
     "DCP/ButtonCSS",
@@ -36,6 +41,10 @@ const QString Keys[KeyCount] = {
     "DCP/Label2CSS",
     "DCP/Usage",
     "DUI/X-DUIApplet-Applet"
+
+    "Desktop Entry/Name",
+    "Desktop Entry/X-logical-id",
+    "Desktop Entry/X-translation-catalog"
 };
 
 DcpAppletMetadata::DcpAppletMetadata(const QString& filename) 
@@ -94,7 +103,10 @@ QString DcpAppletMetadata::widgetType()
 
 QString DcpAppletMetadata::text1()
 {
-    return value(Keys[KeyText1]).toString();
+    QString id = value(Keys[KeyNameId]).toString();
+    QString name = value(Keys[KeyName]).toString();
+//    QString catalog = value(Keys[KeyNameCatalog]).toString();
+    return DuiLocale::trid(qPrintable(id), qPrintable(name));
 }
 
 QString DcpAppletMetadata::text2()

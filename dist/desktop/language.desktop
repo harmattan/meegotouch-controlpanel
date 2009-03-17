@@ -1,6 +1,9 @@
 [Desktop Entry]
 Type=DUIApplet
 Name=Language
+X-logical-id=duisettings_appletname_language
+X-translation-catalog=duisettings
+
 Icon=
 Exec=
 
@@ -13,8 +16,8 @@ X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 Category= Personalization
 Order=4
 WidgetType= DcpLabel
-Text1= Language
 Text2=
 ButtonCSS= BigButton
 Label1CSS= LabelFont1
 Label2CSS= LabelFont2
+

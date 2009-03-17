@@ -15,6 +15,7 @@
 #include "dcpmostusedcategory.h"
 
 #include "dcpappletmetadata.h"
+#include "dcpapplet.h"
 
 const static int SIZEWIDTH = 760;
 const static int SIZEHEIGHT = 400;
@@ -43,14 +44,14 @@ void DcpMostUsedCategory::createContents()
 //    append(new DcpLabelComponent(this, new DcpAppletMetadata("desktop/wallpaper.desktop")));
 
 
-    addWidget("desktop/language.desktop");
-    addWidget("desktop/profile.desktop");
+    addWidget(DcpApplet::DefaultPath + "language.desktop");
+    addWidget(DcpApplet::DefaultPath + "profile.desktop");
     
-    addWidget("desktop/region_format.desktop");
-    addWidget("desktop/ringtone.desktop");
+    addWidget(DcpApplet::DefaultPath + "region_format.desktop");
+    addWidget(DcpApplet::DefaultPath + "ringtone.desktop");
   
-    addWidget("desktop/theme.desktop");
-    addWidget("desktop/wallpaper.desktop");
+    addWidget(DcpApplet::DefaultPath + "theme.desktop");
+    addWidget(DcpApplet::DefaultPath + "wallpaper.desktop");
 
 }
 

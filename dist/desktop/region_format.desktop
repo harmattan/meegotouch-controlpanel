@@ -1,6 +1,8 @@
 [Desktop Entry]
 Type=DUIApplet
-Name=Region_format
+Name=Region format
+X-logical-id=duisettings_appletname_regionformat
+X-translation-catalog=duisettings
 Icon=
 Exec=
 
@@ -13,7 +15,6 @@ X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 Category= Personalization
 Order=5
 WidgetType= DcpLabel
-Text1= Region format
 Text2= United States
 
 ButtonCSS= BigButton
