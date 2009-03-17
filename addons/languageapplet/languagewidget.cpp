@@ -1,5 +1,6 @@
 #include "languagewidget.h"
 #include "languagebutton.h"
+#include "servicescontainer.h"
 
 #include <QPen>
 #include <duilinearlayout.h>
@@ -50,6 +51,9 @@ void LanguageWidget::initWidget()
                                                     "English, Suomi", this);
     mainLayout->addItem(secondButton);
 
+    ServicesContainer *servicesContainer = new ServicesContainer(this);
+    mainLayout->addItem(servicesContainer);
+
     DuiLabel *simpleText = new DuiLabel("To set language display format, go to", 
                     this);
     simpleText->setObjectName("LanguageSimpleText");
@@ -64,6 +68,7 @@ void LanguageWidget::initWidget()
 
     mainLayout->setAlignment(firstButton, Qt::AlignHCenter);
     mainLayout->setAlignment(secondButton, Qt::AlignHCenter);
+    mainLayout->setAlignment(servicesContainer, Qt::AlignHCenter);
     mainLayout->setAlignment(simpleText, Qt::AlignHCenter);
     mainLayout->setAlignment(regionFormatButton, Qt::AlignHCenter);
 }

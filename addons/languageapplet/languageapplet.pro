@@ -7,11 +7,17 @@ OBJECTS_DIR   = .objects
 
 HEADERS       = languageapplet.h \
                 languagewidget.h \
-                languagebutton.h
+                languagebutton.h \
+                servicescontainer.h \
+                servicesbutton.h \
+                servicesbuttonblock.h
 
 SOURCES       = languageapplet.cpp \
                 languagewidget.cpp \
-                languagebutton.cpp
+                languagebutton.cpp \
+                servicescontainer.cpp \
+                servicesbutton.cpp \
+                servicesbuttonblock.cpp
 
 TARGET        = $$qtLibraryTarget(languageapplet)
 css.files     = languageapplet.css
