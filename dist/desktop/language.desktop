@@ -1,6 +1,9 @@
 [Desktop Entry]
 Type=DUIApplet
 Name=Language
+X-logical-id=duisettings_appletname_language
+X-translation-catalog=duisettings
+
 Icon=
 Exec=
 
@@ -18,3 +21,4 @@ Text2=
 ButtonCSS= BigButton
 Label1CSS= LabelFont1
 Label2CSS= LabelFont2
+
