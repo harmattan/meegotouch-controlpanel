@@ -40,7 +40,7 @@ const QString Keys[KeyCount] = {
     "DCP/Label1CSS",
     "DCP/Label2CSS",
     "DCP/Usage",
-    "DUI/X-DUIApplet-Applet"
+    "DUI/X-DUIApplet-Applet",
 
     "Desktop Entry/Name",
     "Desktop Entry/X-logical-id",
