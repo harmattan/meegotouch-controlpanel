@@ -8,6 +8,16 @@
         pressedBackgroundName: "Toggle-btn-selected";
 }
 
+#ServicesButton {
+        view: DuiButtonView;
+        text: Next;
+        font: font("Nokia Sans Cn", 15);
+        textColor: #FFFFFF;
+
+        normalBackgroundName: "languagebutton-bg";
+        pressedBackgroundName: "Toggle-btn-selected";
+}
+
 #LanguageLeftLabel {
         color: #FFFFFF;
         font: font("Nokia Sans Cn", 20);
@@ -21,4 +31,14 @@
 #LanguageSimpleText {
         color: #FFFFFF;
         font: font("Nokia Sans Cn", 14);
+}
+
+#ServicesContainerCaption {
+        color: #FFFFFF;
+        font: font("Nokia Sans Cn", 16);
+}
+
+#ServicesContainerSignLabel {
+        color: #FFFFFF;
+        font: font("Nokia Sans Cn", 18);
 }
