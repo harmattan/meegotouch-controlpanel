@@ -14,6 +14,7 @@ DcpAppletCategoryPage::DcpAppletCategoryPage(const QString &appletCategory) : Dc
 DcpAppletCategoryPage::~DcpAppletCategoryPage()
 {
 } 
+
 void DcpAppletCategoryPage::createContent()
 {
     DcpCategoryPage::createContent();
@@ -31,8 +32,7 @@ void DcpAppletCategoryPage::createContent()
            m_Category->append(button);
         }
     }
-    setTitle("Applets");
-   
+    setTitle(appletCategory());
 }
 
 void DcpAppletCategoryPage::organizeContent(Dui::Orientation ori)

@@ -12,7 +12,7 @@ X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
 X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
-Category= Personalization
+Category= Seeing & Touching
 Order=2
 WidgetType= DcpImage
 Image= images/backgroundP.png

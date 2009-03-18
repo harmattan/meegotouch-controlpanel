@@ -28,6 +28,7 @@ PageFactory::page(DuiApplicationPage *page)
     return qobject_cast<DcpPage*>(page);
 }
 
+
 DcpPage* 
 PageFactory::create(Pages::Id pageId, const QString &param)
 {
@@ -41,34 +42,37 @@ PageFactory::create(Pages::Id pageId, const QString &param)
         case Pages::ACCOUNTS:
             page = createAccountsPage();
             break;
-        case Pages::PERSONALIZATION:
-            page = createAppletCategoryPage("Personalization");
+        case Pages::REGIONALSETTING:
+            page = createAppletCategoryPage("Regional settings");
             break;
         case Pages::CONNECTIVITY:
             page = createAppletCategoryPage("Connectivity");
             break;
-        case Pages::DISPLAY:
-            page = createAppletCategoryPage("Display");
+        case Pages::SEEINGTOUCHING:
+            page = createAppletCategoryPage("Seeing & Touching");
+            break;
+        case Pages::APPLICATION:
+            page = createAppletCategoryPage("Application");
             break;
         case Pages::SOUND:
             page = createAppletCategoryPage("Sound");
             break;
-        case Pages::CALL:
-            page = createAppletCategoryPage("Call");
+        case Pages::DEVICESYSTEM:
+            page = createAppletCategoryPage("Device system");
             break;
-        case Pages::DATETIME:
-            page = createAppletCategoryPage("Datetime");
-            break;
-        case Pages::SECURITY:
-            page = createAppletCategoryPage("Security");
+        case Pages::APPLETCATEGORY:
+            page = createAppletCategoryPage(param);
             break;
         case Pages::APPLET:
             page = createAppletPage(DcpAppletDb::instance()->applet(param));
             break;
-	default:
-            qWarning() << "Bad page ID: " << pageId;
-            // page=0;
-            page = createAppletCategoryPage("Personalization");
+        case Pages::RESETSETTINGS:
+            qWarning ("Reset settings page is not implemented yet.");
+            page = createAppletCategoryPage("not implemented");
+            break;
+    default:
+            qWarning() << "DCP" << "Bad page ID: " << pageId;
+            //page=0;
       }  
     return page;
 }

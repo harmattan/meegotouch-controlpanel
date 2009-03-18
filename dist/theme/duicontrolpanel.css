@@ -35,7 +35,7 @@ DuiImage {
 #BigButton {
         text: Next;
         font: font(sans, 15);
-        textColor: #FF0000;
+        textColor: #FFFFFF;
         preferredsize: size(350, 100);
         minsize: size(350, 100);
         maxsize: size(350, 100);
@@ -45,7 +45,18 @@ DuiImage {
 	horizontalBoxEdgePercent: 0.3;
 }
 
-						
+#AppletCategoryButton {
+        text: Next;
+        font: font(sans, 15);
+        textColor: #FFFFFF;
+        preferredsize: size(350, 100);
+        minsize: size(350, 100);
+        maxsize: size(350, 100);
+
+        normalBackgroundName: "appletcategorybutton-bg";
+        pressedBackgroundName: "Toggle-btn-selected";
+	horizontalBoxEdgePercent: 0.3;
+}
 
 #SmallButtonOn {
         text: Next;
@@ -86,7 +97,7 @@ DuiImage {
 #LabelButton {
         text: Next;
         font: font(sans, 15);
-        textColor: #FF0000;
+        textColor: #FFFFFF;
         preferredsize: size(350, 100);
         minsize: size(350, 100);
         maxsize: size(350, 100);

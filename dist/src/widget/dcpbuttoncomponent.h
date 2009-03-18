@@ -61,11 +61,13 @@ private:
         DuiGridLayout* m_GridLayout;
 
         DuiButton* m_BigButton;
+        DuiLabel *m_upLabel;
+        DuiLabel *m_downLabel;
 
-        DuiButton* m_SmallButtonOn;
-        DuiButton* m_SmallButtonOff;
+        // DuiButton* m_SmallButtonOn;
+        // DuiButton* m_SmallButtonOff;
 
-        DuiButton* m_DisableButton;
+        // DuiButton* m_DisableButton;
 
         bool m_Enable;
         DcpAppletMetadata *m_Metadata; 

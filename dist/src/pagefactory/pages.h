@@ -5,16 +5,16 @@ namespace Pages {
     typedef enum {
       NOPAGE = -1,
       MAIN,
+      SEEINGTOUCHING,
+      CONNECTIVITY,
+      SOUND,
+      APPLICATION,
+      REGIONALSETTING,
       ACCOUNTS,
+      DEVICESYSTEM,
       APPLET,
       APPLETCATEGORY,
-      PERSONALIZATION,
-      CONNECTIVITY,
-      DISPLAY,
-      SOUND,
-      CALL,
-      DATETIME,
-      SECURITY
+      RESETSETTINGS
    } Id;
 
    class Handle {
