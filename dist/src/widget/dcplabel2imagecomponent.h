@@ -1,26 +1,27 @@
-#ifndef DCPLABELCOMPONENT_H
-#define DCPLABELCOMPONENT_H
+#ifndef DCPLABEL2IMAGE_H
+#define DCPLABEL2BUTTON_H
 
 #include "dcpcomponent.h"
 #include <QPixmap>
 
 class DuiLabel;
 class DuiButton;
+class DuiImage;
 class DuiLinearLayout;
 class DuiGridLayout;
 class DcpAppletMetadata;
 
-class DcpLabelComponent: public DcpComponent
+class DcpLabel2ImageComponent: public DcpComponent
 {
     Q_OBJECT
 public:
-    DcpLabelComponent(DcpCategory *category,
+    DcpLabel2ImageComponent(DcpCategory *category,
                        DcpAppletMetadata* metadata,
                        const QString& title="",
                        QGraphicsWidget *parent=0);
-    ~DcpLabelComponent();
+    ~DcpLabel2ImageComponent();
 
-    //DcpButton(QString bigLabel, int bigWidth, int bigHeight, QString smallLabel, int smallX, int smallY, int smallWidth, int smallHeight, bool enable = true);gi 
+    //DcpButton(QString bigLabel, int bigWidth, int bigHeight, QString smallLabel, int smallX, int smallY, int smallWidth, int smallHeight, bool enable = true);
 
     void setMetadata(DcpAppletMetadata* metadata) {m_Metadata = metadata;};
     DcpAppletMetadata* metadata() const {return m_Metadata;};
@@ -40,7 +41,8 @@ public:
 
 public slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation);
-
+    virtual void switchToSubPage();
+    void bigClicked();
 protected:
     void addItem ( QGraphicsLayoutItem * item );
 
@@ -63,9 +65,12 @@ private:
 
         DuiButton* m_TriangleButton;
 
-        DuiLabel* m_Label;
+        DuiLabel* m_UpLabel;
+        DuiLabel* m_DownLabel;
 
+        DuiImage *m_Image;
         DcpAppletMetadata *m_Metadata; 
+
 };
 
 

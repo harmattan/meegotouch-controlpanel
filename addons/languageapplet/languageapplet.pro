@@ -10,14 +10,16 @@ HEADERS       = languageapplet.h \
                 languagebutton.h \
                 servicescontainer.h \
                 servicesbutton.h \
-                servicesbuttonblock.h
+                servicesbuttonblock.h \
+                dcpimageutils.h
 
 SOURCES       = languageapplet.cpp \
                 languagewidget.cpp \
                 languagebutton.cpp \
                 servicescontainer.cpp \
                 servicesbutton.cpp \
-                servicesbuttonblock.cpp
+                servicesbuttonblock.cpp \
+                dcpimageutils.cpp
 
 TARGET        = $$qtLibraryTarget(languageapplet)
 css.files     = languageapplet.css

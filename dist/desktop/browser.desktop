@@ -1,8 +1,6 @@
 [Desktop Entry]
 Type=DUIApplet
-Name=Wallpaper
-X-logical-id=qtn_sett_main_wallpaper
-X-translation-catalog=duisettings
+Name=Browser
 Icon=
 Exec=
 
@@ -12,13 +10,11 @@ X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
 X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
-Category= Wallpaper 
-Order=3
-WidgetType= DcpLabel2Image
-Text1= Wallpaper
-Text2= Name of the wallpaper
+Category= Browser 
+Order=1
+WidgetType= DcpLabel
+Text1= Browser
 
 ButtonCSS= BigButton
 Label1CSS= LabelFont1
-Label2CSS= LabelFont2
-Image= images/starfield.png
+

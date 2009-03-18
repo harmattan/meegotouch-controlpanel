@@ -1,4 +1,4 @@
-#include "dcplabelcomponent.h"
+#include "dcplabel2component.h"
 
 #include <duilinearlayout.h>
 #include <duigridlayout.h>
@@ -11,9 +11,9 @@
 
 #include <QDebug>
 
-const float MINIMALIZE = .95f;
 
-DcpLabelComponent::DcpLabelComponent(
+
+DcpLabel2Component::DcpLabel2Component(
                             DcpCategory *category,
                             DcpAppletMetadata * metadata,
                             const QString& title,
@@ -25,32 +25,29 @@ DcpLabelComponent::DcpLabelComponent(
 }
 
 
-DcpLabelComponent::~DcpLabelComponent() {
+DcpLabel2Component::~DcpLabel2Component() {
 }
 
 
-void
-DcpLabelComponent::createContents()
+void DcpLabel2Component::createContents()
 {
 
-    //dummy, must modify constructor
-    //dummy data
     QString upLabel = metadata()->text1();
- 
-
+    QString downLabel = metadata()->text2();
 
   //dummy, must modify constructor  
     int smallWidth = 20;    //0,1
-    int labelWidth = 290;   //2
-
-    int width = smallWidth*2 + labelWidth;
-
+    int labelWidth = 170;   //2
+    int spaceWidth = 5;     //3
+    int imageWidth = 115;     //4
 
     int triangleSize = 20;
-  
+
+    int width = smallWidth*2 + labelWidth + spaceWidth + imageWidth;
+    
     int height = 100;
 
-     m_GridLayout = new DuiGridLayout();
+    m_GridLayout = new DuiGridLayout();
 
     m_GridLayout->setColumnMinimumWidth ( 0, smallWidth );
     m_GridLayout->setColumnMaximumWidth ( 0, smallWidth );
@@ -62,9 +59,30 @@ DcpLabelComponent::createContents()
     m_GridLayout->setColumnMaximumWidth ( 2, labelWidth );
 
 
-    m_GridLayout->setRowMinimumHeight ( 0, height );
-    m_GridLayout->setRowMaximumHeight ( 1, height );
- 
+    for (int i=0;i<2;i++) {
+        m_GridLayout->setRowMinimumHeight ( i, height/2 );
+        m_GridLayout->setRowMaximumHeight ( i, height/2 );
+    }
+
+/*
+
+ for (int yy =0; yy<2; yy++)
+        for (int xx =0; xx<5; xx++) {
+            DuiButton *tmp = new DuiButton("text");
+            m_GridLayout->addItem(tmp, yy, xx, Qt::AlignCenter);
+            tmp->setZValue(10);
+         }
+*/
+/*
+  DuiButton *tmp = new DuiButton("text");
+  m_GridLayout->addItem(tmp, 0, 4, 2, 2, Qt::AlignHCenter|Qt::AlignLeft);
+  tmp->setMinimumWidth(imageWidth);
+  tmp->setMaximumWidth(imageWidth);
+  tmp->setMinimumHeight(imageHeight);
+  tmp->setMaximumHeight(imageHeight);
+  tmp->setZValue(10);
+*/
+
     m_BigButton = new DuiButton;
 
     m_BigButton->setObjectName("BigButton");
@@ -81,40 +99,52 @@ DcpLabelComponent::createContents()
     m_TriangleButton->setMinimumHeight(triangleSize);
     m_TriangleButton->setMaximumHeight(triangleSize);
 
-    
-    m_Label = new DuiLabel(upLabel);
-    m_Label->setObjectName("UpLabel");
+
+    m_UpLabel = new DuiLabel(upLabel);
+    m_UpLabel->setObjectName("UpLabel");
 //    m_UpLabel->setMinimumWidth(labelWidth);
 //    m_UpLabel->setMaximumWidth(labelWidth);
-    m_Label->setMinimumHeight(height);
-    m_Label->setMaximumHeight(height);
-    m_Label->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
-    m_Label->setAcceptedMouseButtons(0);
+    m_UpLabel->setMinimumHeight(height/2);
+    m_UpLabel->setMaximumHeight(height/2);
+    m_UpLabel->setAlignment(Qt::AlignLeft|Qt::AlignBottom);
+    m_UpLabel->setAcceptedMouseButtons(0);
+
+  
+    m_DownLabel = new DuiLabel(downLabel);
+    m_DownLabel->setObjectName("DownLabel");
+  //  m_UpLabel->setMinimumWidth(smallWidth+labelWidth);
+  //  m_UpLabel->setMaximumWidth(smallWidth+labelWidth);
+    m_UpLabel->setMinimumHeight(height/2);
+    m_UpLabel->setMaximumHeight(height/2);
+    m_DownLabel->setAlignment(Qt::AlignLeft|Qt::AlignTop);
+    m_DownLabel->setAcceptedMouseButtons(0);
 
 
 
     m_GridLayout->addItem(m_BigButton, 0, 0, 2, 5, Qt::AlignLeft);
 
-    m_GridLayout->addItem(m_TriangleButton, 0, 1, Qt::AlignCenter);
+    m_GridLayout->addItem(m_TriangleButton, 0, 1, Qt::AlignBottom);
 
-    m_GridLayout->addItem(m_Label, 0, 2, Qt::AlignCenter);
+    m_GridLayout->addItem(m_UpLabel, 0, 2, Qt::AlignCenter);
+    m_GridLayout->addItem(m_DownLabel, 1, 1, 1, 2, Qt::AlignCenter);
 
 
     connect(m_BigButton, SIGNAL(clicked()), this, SLOT(bigClicked()));
-
+ 
 
     m_BigButton->setZValue(1);
     m_TriangleButton->setZValue(2);
-    m_Label->setZValue(4);
- 
+    m_UpLabel->setZValue(6);
+    m_DownLabel->setZValue(7);
+
+
     m_Layout = new DuiLinearLayout(Qt::Vertical);
     m_Layout->addItem(m_GridLayout);
     setLayout(m_Layout);
 }
 
 
-void
-DcpLabelComponent::onOrientationChange (const Dui::Orientation &orientation)
+void DcpLabel2Component::onOrientationChange (const Dui::Orientation &orientation)
 {
     // DcpComponent::onOrientationChange(orientation);
     Q_UNUSED(orientation);
@@ -161,14 +191,25 @@ void DcpButtonComponent::paint (QPainter * painter,
 }*/
 
 
-void DcpLabelComponent::setTitleAlignment(Qt::Alignment align)
+void DcpLabel2Component::setTitleAlignment(Qt::Alignment align)
 {
         Q_UNUSED(align);
  //   m_Caption->setAlignment(align);
 }
 
 
-void DcpLabelComponent::addItem ( QGraphicsLayoutItem * item )
+void DcpLabel2Component::addItem ( QGraphicsLayoutItem * item )
 {
     m_Layout->addItem(item);
 }
+
+void DcpLabel2Component::switchToSubPage()
+{
+    emit openSubPage(subPage());
+}
+
+void DcpLabel2Component::bigClicked()
+{
+    switchToSubPage();
+}
+

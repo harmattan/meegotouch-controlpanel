@@ -1,8 +1,6 @@
 [Desktop Entry]
 Type=DUIApplet
-Name=Wallpaper
-X-logical-id=qtn_sett_main_wallpaper
-X-translation-catalog=duisettings
+Name=Passcode
 Icon=
 Exec=
 
@@ -12,13 +10,17 @@ X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
 X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
-Category= Wallpaper 
-Order=3
-WidgetType= DcpLabel2Image
-Text1= Wallpaper
-Text2= Name of the wallpaper
+Category= Passcode 
+Order=1
+WidgetType= DcpLabelButton
+Text1= Passcode
 
 ButtonCSS= BigButton
+SmallButtonOnCSS= SmallButtonOn
+SmallButtonOffCSS= SmallButtonOff
+SmallButtonDisableCSS= SmallButtonDisable
+
+
 Label1CSS= LabelFont1
 Label2CSS= LabelFont2
-Image= images/starfield.png
+

@@ -63,12 +63,16 @@ theme.desktop
   //  addItem(new DuiWidget());
 
 
-     addItem(new DcpMostUsedCategory("TXT"));
+    m_MostUsedCategory = new DcpMostUsedCategory("TXT");
+    addItem(m_MostUsedCategory);
 }
 
 
 void DcpRecentlyUsedComponent::onOrientationChange (
                                     const Dui::Orientation &orientation)
 {
+
+    m_MostUsedCategory->onOrientationChange(orientation);
+
     DcpBackgroundComponent::onOrientationChange(orientation);
 }

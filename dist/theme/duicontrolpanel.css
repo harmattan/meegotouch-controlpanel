@@ -104,3 +104,10 @@ DuiImage {
     color: #00FF00;
     font: font("Nokia Sans Cn", 20);
 }
+
+
+#TriangleButton {
+        normalBackgroundName: "Icon-close";
+        pressedBackgroundName: "Icon-close";
+}
+

@@ -3,6 +3,8 @@
 
 #include "dcpbackgroundcomponent.h"
 
+class DcpMostUsedCategory;
+
 class DcpRecentlyUsedComponent: public DcpBackgroundComponent
 {
     Q_OBJECT
@@ -16,6 +18,7 @@ public slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation);
 
 private:
+    DcpMostUsedCategory *m_MostUsedCategory;
 	
 };
 

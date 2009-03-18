@@ -60,13 +60,14 @@ DcpImage::DcpImage(const QString& label, const QString& image, int width, int up
     //QPixmap *copyPixmap = new QPixmap(tmpPixmap->copy(0 , 0, 50, 50));
     //m_Image = new DuiImage(copyPixmap);
     
-    m_Image = new DuiImage(image);
+    //m_Image = new DuiImage(image);
+    //m_Image->setMinimumWidth(imageSize);
+    //m_Image->setMaximumWidth(imageSize);
+    //m_Image->setMinimumHeight(imageSize);
+    //m_Image->setMaximumHeight(imageSize);
       
     //m_DownLabel->setObjectName(cssDownLabel);
-    m_Image->setMinimumWidth(imageWidth*MINIMALIZEIMAGE);
-    m_Image->setMaximumWidth(imageWidth*MINIMALIZEIMAGE);
-    m_Image->setMinimumHeight(downHeight*MINIMALIZEIMAGE);
-    m_Image->setMaximumHeight(downHeight*MINIMALIZEIMAGE);
+
 //    m_Image->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
     m_Image->setAcceptedMouseButtons(0);
 

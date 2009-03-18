@@ -1,5 +1,6 @@
 #include "servicescontainer.h"
 #include "servicesbuttonblock.h"
+#include "dcpimageutils.h"
 
 #include <qpainter.h>
 #include <duitheme.h>
@@ -14,10 +15,10 @@ ServicesContainer::ServicesContainer(QGraphicsWidget *parent)
 
 ServicesContainer::~ServicesContainer()
 {
-    if (m_background)
+    /* if (m_background)
     {
         DuiTheme::releasePixmap(m_background);
-    }
+    }*/
 }
 
 void ServicesContainer::paint(QPainter *painter,
@@ -27,9 +28,9 @@ void ServicesContainer::paint(QPainter *painter,
     Q_UNUSED(option);
     Q_UNUSED(widget);
     
-    if (m_background)
+    if (!m_background.isNull())
     {
-        painter->drawPixmap(QPoint(0, 0), *m_background);
+        painter->drawPixmap(QPoint(0, 0), m_background);
     }
 
     // draw line below the title
@@ -51,9 +52,12 @@ void ServicesContainer::resizeEvent(QGraphicsSceneResizeEvent *event)
     
     // load background pixmap
     // not a perfect solution for corner problem
-    m_background = DuiTheme::horizBoxedPixmap("C2-container-dark-landscape-123px",
-                                              QSize(geometry().width(), geometry().height()), 
-                                              50);
+    // m_background = DuiTheme::horizBoxedPixmap("C2-container-dark-landscape-123px",
+    //                                          QSize(geometry().width(), geometry().height()), 
+    //                                          50);
+    m_background = DcpImageUtils::instance()->scaledPixmap(
+                                            "C2-container-dark-landscape-123px",
+                                            size().toSize());
 }
 
 void ServicesContainer::initContainer()
