@@ -48,11 +48,12 @@ void ServicesContainer::paint(QPainter *painter,
 void ServicesContainer::resizeEvent(QGraphicsSceneResizeEvent *event)
 {
     Q_UNUSED(event);
-     // load background pixmap
+    
+    // load background pixmap
     // not a perfect solution for corner problem
     m_background = DuiTheme::horizBoxedPixmap("C2-container-dark-landscape-123px",
                                               QSize(geometry().width(), geometry().height()), 
-                                              25);
+                                              50);
 }
 
 void ServicesContainer::initContainer()
