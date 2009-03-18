@@ -61,12 +61,12 @@ void DcpMostUsedCategory::createContents()
     addWidget(DcpApplet::DefaultPath + "theme.desktop");
     addWidget(DcpApplet::DefaultPath + "wallpaper.desktop");*/
 
-    addWidget("desktop/browser.desktop");
-    addWidget("desktop/wallpaper.desktop");
-    addWidget("desktop/positioning.desktop");
-    addWidget("desktop/display.desktop");
-    addWidget("desktop/datetime.desktop");
-    addWidget("desktop/passcode.desktop");
+    addWidget("browser.desktop");
+    addWidget("wallpaper.desktop");
+    addWidget("positioning.desktop");
+    addWidget("display.desktop");
+    addWidget("datetime.desktop");
+    addWidget("passcode.desktop");
 }
 
 void DcpMostUsedCategory::paint (QPainter * painter,
@@ -85,7 +85,7 @@ void DcpMostUsedCategory::paint (QPainter * painter,
 void DcpMostUsedCategory::addWidget(const QString& file)
 {
   
-  DcpAppletMetadata* metadata = new DcpAppletMetadata(file);
+  DcpAppletMetadata* metadata = new DcpAppletMetadata(DcpApplet::DefaultPath + file);
 
   if (metadata->widgetType() == "DcpLabel") {
     append(new DcpLabelComponent(this, metadata));
