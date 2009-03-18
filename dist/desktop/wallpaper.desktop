@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=DUIApplet
 Name=Wallpaper
-X-logical-id=duisettings_appletname_wallpaper
+X-logical-id=qtn_sett_main_wallpaper
 X-translation-catalog=duisettings
 Icon=
 Exec=

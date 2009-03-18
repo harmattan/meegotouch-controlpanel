@@ -17,8 +17,8 @@ namespace Pages {
       SECURITY
    } Id;
 
-   typedef struct _Handle Handle;
-   struct _Handle {
+   class Handle {
+   public:
         Id id;
         QString param;
     };
