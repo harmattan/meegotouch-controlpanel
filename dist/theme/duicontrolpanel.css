@@ -96,13 +96,13 @@ DuiImage {
 }
 
 #UpLabel {
-    color: #FF0000;
-    font: font("Nokia Sans Cn", 12);
+    color: #FFFFFF;
+    font: font("Nokia Sans Cn", 20);
 }
 
 #DownLabel {
-    color: #00FF00;
-    font: font("Nokia Sans Cn", 20);
+    color: #FFA000;
+    font: font("Nokia Sans Cn", 16);
 }
 
 
