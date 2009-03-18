@@ -1,6 +1,5 @@
 #include "pagefactory.h"
 #include "dcpmainpage.h"
-#include "dcpaccountspage.h"
 #include "dcpappletpage.h"
 #include "dcpappletdb.h"
 #include "dcpappletmetadata.h"
@@ -36,11 +35,10 @@ PageFactory::create(Pages::Id pageId, const QString &param)
     switch (pageId)
       {
 	case Pages::MAIN:
-            //page = new DcpMostUsedCategoryPage("dsadsa");
             page = createMainPage();
             break;
         case Pages::ACCOUNTS:
-            page = createAccountsPage();
+            page = createAppletCategoryPage("Account");
             break;
         case Pages::REGIONALSETTING:
             page = createAppletCategoryPage("Regional settings");
@@ -81,12 +79,6 @@ DcpPage*
 PageFactory::createMainPage()
 {
     return new DcpMainPage();
-}
-
-DcpPage* 
-PageFactory::createAccountsPage()
-{
-    return new DcpAccountPage();
 }
 
 DcpPage* 
