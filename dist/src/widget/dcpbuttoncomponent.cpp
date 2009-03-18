@@ -43,6 +43,8 @@ DcpButtonComponent::createContents()
   int smallWidth = 50;
   int smallHeight = 50;
   bool enable = true;
+  const QString   upSpacer("  ");
+  const QString downSpacer("   ");
 
     m_GridLayout = new DuiGridLayout();
 
@@ -70,16 +72,24 @@ DcpButtonComponent::createContents()
      */
 
 
-    m_BigButton = new DuiButton(bigLabel);
+    // m_BigButton = new DuiButton(bigLabel);
+    m_BigButton = new DuiButton(this);
 
-    m_BigButton->setObjectName("BigButton");
+    m_BigButton->setObjectName("AppletCategoryButton");
     m_BigButton->setMinimumWidth(bigWidth);
     m_BigButton->setMaximumWidth(bigWidth);
     m_BigButton->setMinimumHeight(bigHeight);
     m_BigButton->setMaximumHeight(bigHeight);
 
+    m_upLabel = new DuiLabel(upSpacer + bigLabel, this);
+    m_upLabel->setObjectName("LabelFont1");
+    m_upLabel->setAcceptedMouseButtons(0);
 
-    m_SmallButtonOn = new DuiButton(smallLabel);
+    m_downLabel = new DuiLabel(downSpacer + smallLabel, this);
+    m_downLabel->setObjectName("LabelFont2");
+    m_downLabel->setAcceptedMouseButtons(0);
+
+    /*m_SmallButtonOn = new DuiButton(smallLabel);
     m_SmallButtonOn->setObjectName("SmallButtonOn");
     m_SmallButtonOn->setMinimumWidth(smallWidth);
     m_SmallButtonOn->setMaximumWidth(smallWidth);
@@ -98,25 +108,29 @@ DcpButtonComponent::createContents()
     m_DisableButton->setMinimumWidth(smallWidth);
     m_DisableButton->setMaximumWidth(smallWidth);
     m_DisableButton->setMinimumHeight(smallHeight);
-    m_DisableButton->setMaximumHeight(smallHeight);
+    m_DisableButton->setMaximumHeight(smallHeight);*/
 
     //m_Layout->addItem(m_BigButton, 0, 0, 3, 3, Qt::AlignCenter);
     m_GridLayout->addItem(m_BigButton, 0, 0, 3, 3, Qt::AlignLeft);
-    m_GridLayout->addItem(m_SmallButtonOn, 1, 1, Qt::AlignCenter);
-    m_GridLayout->addItem(m_SmallButtonOff, 1, 1, Qt::AlignCenter);
-    m_GridLayout->addItem(m_DisableButton, 1, 1, Qt::AlignCenter);
+    m_GridLayout->addItem(m_upLabel, 0, 0, Qt::AlignLeft);
+    m_GridLayout->addItem(m_downLabel, 1, 0, Qt::AlignLeft);
+    // m_GridLayout->addItem(m_SmallButtonOn, 1, 1, Qt::AlignCenter);
+    // m_GridLayout->addItem(m_SmallButtonOff, 1, 1, Qt::AlignCenter);
+    // m_GridLayout->addItem(m_DisableButton, 1, 1, Qt::AlignCenter);
 
     connect(m_BigButton, SIGNAL(clicked()), this, SLOT(bigClicked()));
-    connect(m_SmallButtonOn, SIGNAL(clicked()), this, SLOT(smallClickedOn()));
-    connect(m_SmallButtonOff, SIGNAL(clicked()), this, SLOT(smallClickedOff()));
-    connect(m_DisableButton, SIGNAL(clicked()), this, SLOT(disableClicked()));
+    // connect(m_SmallButtonOn, SIGNAL(clicked()), this, SLOT(smallClickedOn()));
+    // connect(m_SmallButtonOff, SIGNAL(clicked()), this, SLOT(smallClickedOff()));
+    // connect(m_DisableButton, SIGNAL(clicked()), this, SLOT(disableClicked()));
 
     setEnable(enable);
 
     m_BigButton->setZValue(1);
-    m_SmallButtonOn->setZValue(2);
-    m_SmallButtonOff->setZValue(3);
-    m_DisableButton->setZValue(4);
+    m_upLabel->setZValue(2);
+    m_downLabel->setZValue(3);
+    // m_SmallButtonOn->setZValue(2);
+    // m_SmallButtonOff->setZValue(3);
+    // m_DisableButton->setZValue(4);
 
     m_Layout = new DuiLinearLayout(Qt::Vertical);
     m_Layout->addItem(m_GridLayout);
@@ -129,13 +143,13 @@ void DcpButtonComponent::setEnable(bool enable) {
     m_Enable = enable;
 
     if (m_Enable) {
-        m_SmallButtonOn->show();
-        m_SmallButtonOff->hide();
-        m_DisableButton->hide();
+        // m_SmallButtonOn->show();
+        // m_SmallButtonOff->hide();
+        // m_DisableButton->hide();
     } else {
-        m_SmallButtonOn->hide();
-        m_SmallButtonOff->hide();
-        m_DisableButton->show();
+        // m_SmallButtonOn->hide();
+        // m_SmallButtonOff->hide();
+        // m_DisableButton->show();
     }
 
 }
