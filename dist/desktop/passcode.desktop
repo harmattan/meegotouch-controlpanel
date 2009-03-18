@@ -3,6 +3,8 @@ Type=DUIApplet
 Name=Passcode
 Icon=
 Exec=
+X-logical-id=qtn_sett_main_passcode                                         
+X-translation-catalog=duisettings
 
 [DUI]
 X-DUIApplet-Applet=libexampleapplet.so
@@ -10,7 +12,7 @@ X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
 X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
-Category= Passcode 
+Category= Call 
 Order=1
 WidgetType= DcpLabelButton
 Text1= Passcode

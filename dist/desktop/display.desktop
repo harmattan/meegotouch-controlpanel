@@ -3,7 +3,8 @@ Type=DUIApplet
 Name=Display
 Icon=
 Exec=
-
+X-logical-id=qtn_sett_main_display                                             
+X-translation-catalog=duisettings
 [DUI]
 X-DUIApplet-Applet=libexampleapplet.so
 X-DUIApplet-ImageLandscape=Widget_landscape_weather.png

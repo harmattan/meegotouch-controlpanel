@@ -14,7 +14,8 @@ namespace Pages {
       SOUND,
       CALL,
       DATETIME,
-      SECURITY
+      SECURITY,
+      APPLICATION
    } Id;
 
    class Handle {

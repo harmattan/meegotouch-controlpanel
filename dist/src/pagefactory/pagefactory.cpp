@@ -62,13 +62,14 @@ PageFactory::create(Pages::Id pageId, const QString &param)
         case Pages::SECURITY:
             page = createAppletCategoryPage("Security");
             break;
+        case Pages::APPLETCATEGORY:
+            page = createAppletCategoryPage(param);
+            break;
         case Pages::APPLET:
             page = createAppletPage(DcpAppletDb::instance()->applet(param));
-            break;
 	default:
-            qWarning() << "Bad page ID: " << pageId;
-            // page=0;
-            page = createAppletCategoryPage("Personalization");
+            qWarning() << "DCP" << "Bad page ID: " << pageId;
+            //page=0;
       }  
     return page;
 }

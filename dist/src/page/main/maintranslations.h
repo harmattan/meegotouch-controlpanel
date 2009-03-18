@@ -116,7 +116,7 @@ static const DcpCategoryInfo CategoryInfos[] = {
              "Calendar etc.</font>"
             ),
         "Application",
-        Pages::APPLET
+        Pages::APPLICATION
     },
     {"", "", "", Pages::NOPAGE}
 	};

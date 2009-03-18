@@ -3,6 +3,8 @@ Type=DUIApplet
 Name=DateTime
 Icon=
 Exec=
+X-logical-id=qtn_sett_main_date_time
+X-translation-catalog=duisettings
 
 [DUI]
 X-DUIApplet-Applet=libexampleapplet.so

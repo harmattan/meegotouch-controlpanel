@@ -11,7 +11,7 @@ DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
     m_Metadata(metadata) 
 {
     setHandle(Pages::APPLET);
-    setReferer(Pages::NOPAGE);
+    setReferer(Pages::APPLETCATEGORY, metadata->category());
 }
 
 DcpAppletPage::~DcpAppletPage()
@@ -71,8 +71,7 @@ void DcpAppletPage::initApplet()
 
 void DcpAppletPage::setReferer(Pages::Id id, const QString &param)
 {
-    Q_UNUSED(param);
     m_Referer.id = id;
-    m_Referer.param = m_Metadata->category();
-    qDebug() << m_Referer.param;
+    m_Referer.param = param;//m_Metadata->category();
+    qDebug() << "DCP" << m_Referer.param;
 }
