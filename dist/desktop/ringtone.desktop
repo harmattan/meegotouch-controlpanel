@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=DUIApplet
 Name=Ringtone
-X-logical-id=duisettings_appletname_ringtone
+X-logical-id=qtn_sett_main_ringtone
 X-translation-catalog=duisettings
 Icon=
 Exec=

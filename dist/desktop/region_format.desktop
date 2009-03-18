@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=DUIApplet
 Name=Region format
-X-logical-id=duisettings_appletname_regionformat
+X-logical-id=qtn_sett_main_region
 X-translation-catalog=duisettings
 Icon=
 Exec=

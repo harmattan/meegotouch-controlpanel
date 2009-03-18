@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=DUIApplet
 Name=Theme
-X-logical-id=duisettings_appletname_theme
+X-logical-id=qtn_sett_main_theme
 X-translation-catalog=duisettings
 Icon=
 Exec=
