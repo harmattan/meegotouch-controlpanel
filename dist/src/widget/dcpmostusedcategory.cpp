@@ -84,7 +84,7 @@ void DcpMostUsedCategory::paint (QPainter * painter,
 
 void DcpMostUsedCategory::addWidget(const QString& file)
 {
-  
+
   DcpAppletMetadata* metadata = new DcpAppletMetadata(DcpApplet::DefaultPath + file);
 
   if (metadata->widgetType() == "DcpLabel") {
