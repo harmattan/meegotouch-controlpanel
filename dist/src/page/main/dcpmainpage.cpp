@@ -34,6 +34,8 @@ void DcpMainPage::createContent()
     DcpCategoryPage::createContent();
     setTitle(DcpMain::settingsTitle);
 
+    m_DesktopViewport->setObjectName("MainPageViewport");
+
     m_Category->setMaxColumns(2);
 
     // most recent used items:

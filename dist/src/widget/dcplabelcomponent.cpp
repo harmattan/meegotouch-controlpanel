@@ -43,8 +43,8 @@ DcpLabelComponent::createContents()
     int smallWidth = 20;    //0,1
     int labelWidth = 290;   //2
 
-
     int width = smallWidth*2 + labelWidth;
+
 
     int triangleSize = 20;
   

@@ -7,22 +7,34 @@ OBJECTS_DIR   = .objects
 
 HEADERS       = languageapplet.h \
                 languagewidget.h \
-                languagebutton.h
+                languagebutton.h \
+                servicescontainer.h \
+                servicesbutton.h \
+                servicesbuttonblock.h \
+                dcpimageutils.h
 
 SOURCES       = languageapplet.cpp \
                 languagewidget.cpp \
-                languagebutton.cpp
+                languagebutton.cpp \
+                servicescontainer.cpp \
+                servicesbutton.cpp \
+                servicesbuttonblock.cpp \
+                dcpimageutils.cpp
 
 TARGET        = $$qtLibraryTarget(languageapplet)
 css.files     = languageapplet.css
+image.files   = images/*.png
 DESTDIR       = lib
 
 target.path += $$(DEBIAN_DESTDIR)$$[QT_INSTALL_LIBS]/duicontrolpanel/applets
-css.path += $$(DEBIAN_DESTDIR)/usr/share/theme/dui/duicontrolpanel
+css.path    += $$(DEBIAN_DESTDIR)/usr/share/themes/dui/duicontrolpanel
+image.path  += $$(DEBIAN_DESTDIR)/usr/share/themes/dui/duicontrolpanel/images
 
 message ("Plugin path will be: "$$target.path)
 message ("CSS path will be: "$$css.path)
+message ("Image path will be: "$$image.path)
 
 INSTALLS += \
-	    target \
-	    css
+	        target \
+	        css \
+            image

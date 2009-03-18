@@ -19,6 +19,7 @@
 #include "dcpmostusedcategory.h"
 
 #include "dcpappletmetadata.h"
+#include "dcpapplet.h"
 
 #include "duilinearlayout.h"
 #include "duigridlayout.h"
@@ -51,12 +52,14 @@ void DcpMostUsedCategory::createContents()
 
 
     //dummy code
-    /*addWidget("desktop/language.desktop");
-    addWidget("desktop/profile.desktop");
-    addWidget("desktop/region_format.desktop");
-    addWidget("desktop/ringtone.desktop");
-    addWidget("desktop/theme.desktop");
-    addWidget("desktop/wallpaper.desktop");*/
+    /*   addWidget(DcpApplet::DefaultPath + "language.desktop");
+    addWidget(DcpApplet::DefaultPath + "profile.desktop");
+    
+    addWidget(DcpApplet::DefaultPath + "region_format.desktop");
+    addWidget(DcpApplet::DefaultPath + "ringtone.desktop");
+  
+    addWidget(DcpApplet::DefaultPath + "theme.desktop");
+    addWidget(DcpApplet::DefaultPath + "wallpaper.desktop");*/
 
     addWidget("desktop/browser.desktop");
     addWidget("desktop/wallpaper.desktop");
@@ -64,7 +67,6 @@ void DcpMostUsedCategory::createContents()
     addWidget("desktop/display.desktop");
     addWidget("desktop/datetime.desktop");
     addWidget("desktop/passcode.desktop");
-
 }
 
 void DcpMostUsedCategory::paint (QPainter * painter,

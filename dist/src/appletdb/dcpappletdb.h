@@ -17,6 +17,7 @@ public:
     void addPath(const QString &pathName);
     virtual ~DcpAppletDb();
     DcpAppletMetadataList listByCategory(const QString& category);
+    DcpAppletMetadataList listMostUsed();
     DcpAppletMetadata *applet(const QString& name);
     void addFile(const QString& filename);
     void eraseEntry(DcpAppletMetadata *metadata);

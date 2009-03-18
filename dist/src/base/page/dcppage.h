@@ -28,9 +28,7 @@ public:
     DuiPannableViewport* viewport() const {return m_DesktopViewport;};
     DuiWidget* panWidget() const {return m_PanWidget;};
     DuiLinearLayout* panLayout() const {return m_PanLayout;};
-    void paint(QPainter *painter, 
-               const QStyleOptionGraphicsItem *option,
-               QWidget *widget = 0);
+
 signals:
     void openSubPage(Pages::Handle handle);
 protected:
@@ -41,8 +39,7 @@ protected:
    DuiLinearLayout *m_MainLayout;
    Pages::Handle m_Handle;
    Pages::Handle m_Referer;
-private:
-   const QPixmap *m_background;
+
 };
 
 #endif // DCPPAGE_H

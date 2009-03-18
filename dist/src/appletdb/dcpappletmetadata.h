@@ -25,6 +25,7 @@ public:
     QString label1CSS();
     QString label2CSS();
     int order();
+    int usage();
 private:
     QFileInfo m_FileInfo;
 };

@@ -1,5 +1,6 @@
 #include "languagewidget.h"
 #include "languagebutton.h"
+#include "servicescontainer.h"
 
 #include <QPen>
 #include <duilinearlayout.h>
@@ -14,7 +15,6 @@ const int buttonWidth  = 690;
 LanguageWidget::LanguageWidget(QGraphicsWidget *parent)
 	    :DuiWidget(parent)
 {
-//    DuiTheme::instance()->changeTheme("duicontrolpanel");
 	initWidget();
 }
 
@@ -26,12 +26,11 @@ void LanguageWidget::paint(QPainter *painter,
 			               const QStyleOptionGraphicsItem *option,
 			               QWidget *widget)
 {
-	// Q_UNUSED(painter);
 	Q_UNUSED(option);
 	Q_UNUSED(widget);
     
     QPen pen(QColor(120, 120, 120, 240));
-    QBrush brush(QColor(90, 90, 90, 245));
+    QBrush brush(QColor(20, 20, 20, 240));
     painter->setPen(pen);
     painter->setBrush(brush);
     painter->drawRect(QRectF(0.0, 0.0,
@@ -42,20 +41,22 @@ void LanguageWidget::paint(QPainter *painter,
 void LanguageWidget::initWidget()
 {
     // there is some "magic number" sorry for that
-	// this->setMinimumWidth(DuiDeviceProfile::instance()->width());
-    // this->setMinimumHeight(DuiDeviceProfile::instance()->height() - 40);
 	DuiLinearLayout *mainLayout = new DuiLinearLayout(Qt::Vertical, this);
 
     LanguageButton *firstButton = new LanguageButton("Display language",
                                                     "English", this);
     mainLayout->addItem(firstButton);
     
-    LanguageButton *secondButton = new LanguageButton("Keyboard (2)",
+    LanguageButton *secondButton = new LanguageButton("Keyboard languages (2)",
                                                     "English, Suomi", this);
     mainLayout->addItem(secondButton);
 
+    ServicesContainer *servicesContainer = new ServicesContainer(this);
+    mainLayout->addItem(servicesContainer);
+
     DuiLabel *simpleText = new DuiLabel("To set language display format, go to", 
                     this);
+    simpleText->setObjectName("LanguageSimpleText");
     simpleText->setAlignment(Qt::AlignCenter);
     simpleText->setMaximumHeight(60);
     mainLayout->addItem(simpleText);
@@ -67,6 +68,7 @@ void LanguageWidget::initWidget()
 
     mainLayout->setAlignment(firstButton, Qt::AlignHCenter);
     mainLayout->setAlignment(secondButton, Qt::AlignHCenter);
+    mainLayout->setAlignment(servicesContainer, Qt::AlignHCenter);
     mainLayout->setAlignment(simpleText, Qt::AlignHCenter);
     mainLayout->setAlignment(regionFormatButton, Qt::AlignHCenter);
 }
