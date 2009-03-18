@@ -14,7 +14,6 @@ public:
 protected:
     PageFactory();
     DcpPage* createMainPage();	
-    DcpPage* createAccountsPage();	
     DcpPage* createAppletPage(DcpAppletMetadata *metadata);	
     DcpPage* createAppletCategoryPage(const QString& appletCategory);
 private:
