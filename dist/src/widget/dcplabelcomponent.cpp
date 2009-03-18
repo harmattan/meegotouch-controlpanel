@@ -35,69 +35,78 @@ DcpLabelComponent::createContents()
 
     //dummy, must modify constructor
     //dummy data
-    int width  = 330;
-    int upHeight = 50;
-    int downHeight = 50;
+    QString upLabel = metadata()->text1();
+ 
 
-    QString upLabel = m_Metadata->text1();
-    QString downLabel = m_Metadata->text2();
-    QString cssButton = m_Metadata->buttonCSS();
-    QString cssUpLabel = m_Metadata->label1CSS();
-    QString cssDownLabel = m_Metadata->label2CSS();
 
+  //dummy, must modify constructor  
+    int smallWidth = 20;    //0,1
+    int labelWidth = 290;   //2
+
+
+    int width = smallWidth*2 + labelWidth;
+
+    int triangleSize = 20;
   
-    m_GridLayout = new DuiGridLayout();
+    int height = 100;
 
-    m_GridLayout->setColumnMinimumWidth ( 0, width );
+     m_GridLayout = new DuiGridLayout();
+
+    m_GridLayout->setColumnMinimumWidth ( 0, smallWidth );
+    m_GridLayout->setColumnMaximumWidth ( 0, smallWidth );
+
+    m_GridLayout->setColumnMinimumWidth ( 1, smallWidth );
+    m_GridLayout->setColumnMaximumWidth ( 1, smallWidth );
+
+    m_GridLayout->setColumnMinimumWidth ( 2, labelWidth );
+    m_GridLayout->setColumnMaximumWidth ( 2, labelWidth );
+
+
+    m_GridLayout->setRowMinimumHeight ( 0, height );
+    m_GridLayout->setRowMaximumHeight ( 1, height );
+ 
+    m_BigButton = new DuiButton;
+
+    m_BigButton->setObjectName("BigButton");
+    m_BigButton->setMinimumWidth(width);
+    m_BigButton->setMaximumWidth(width);
+    m_BigButton->setMinimumHeight(height);
+    m_BigButton->setMaximumHeight(height);
+
+
+    m_TriangleButton = new DuiButton;
+    m_TriangleButton->setObjectName("TriangleButton");
+    m_TriangleButton->setMinimumWidth(triangleSize);
+    m_TriangleButton->setMaximumWidth(triangleSize);
+    m_TriangleButton->setMinimumHeight(triangleSize);
+    m_TriangleButton->setMaximumHeight(triangleSize);
+
     
-    m_GridLayout->setColumnMaximumWidth ( 0, width );
-    
-    m_GridLayout->setRowMinimumHeight ( 0, upHeight );
-    m_GridLayout->setRowMinimumHeight ( 1, downHeight );
-    
-
-    m_GridLayout->setRowMaximumHeight ( 0, upHeight );
-    m_GridLayout->setRowMaximumHeight ( 1, downHeight );
-
-    m_Button = new DuiButton("");
-
-    m_Button->setObjectName(cssButton);
-    m_Button->setMinimumWidth(width);
-    m_Button->setMaximumWidth(width);
-    m_Button->setMinimumHeight(upHeight + downHeight);
-    m_Button->setMaximumHeight(upHeight + downHeight);
+    m_Label = new DuiLabel(upLabel);
+    m_Label->setObjectName("UpLabel");
+//    m_UpLabel->setMinimumWidth(labelWidth);
+//    m_UpLabel->setMaximumWidth(labelWidth);
+    m_Label->setMinimumHeight(height);
+    m_Label->setMaximumHeight(height);
+    m_Label->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
+    m_Label->setAcceptedMouseButtons(0);
 
 
-    m_UpLabel = new DuiLabel(upLabel);
-    m_UpLabel->setObjectName(cssUpLabel);
-    m_UpLabel->setMinimumWidth(width*MINIMALIZE);
-    m_UpLabel->setMaximumWidth(width*MINIMALIZE);
-    m_UpLabel->setMinimumHeight(upHeight);
-    m_UpLabel->setMaximumHeight(upHeight);
-    m_UpLabel->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
-    m_UpLabel->setAcceptedMouseButtons(0);
 
-    m_DownLabel = new DuiLabel(downLabel);
-    m_DownLabel->setObjectName(cssDownLabel);
-    m_DownLabel->setMinimumWidth(width*MINIMALIZE);
-    m_DownLabel->setMaximumWidth(width*MINIMALIZE);
-    m_DownLabel->setMinimumHeight(downHeight);
-    m_DownLabel->setMaximumHeight(downHeight);
-    m_DownLabel->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
-    m_DownLabel->setAcceptedMouseButtons(0);
+    m_GridLayout->addItem(m_BigButton, 0, 0, 2, 5, Qt::AlignLeft);
 
-    m_GridLayout->addItem(m_Button, 0, 0, 2, 1, Qt::AlignCenter);
-    m_GridLayout->addItem(m_UpLabel, 0, 0, Qt::AlignCenter);
-    m_GridLayout->addItem(m_DownLabel, 1, 0, Qt::AlignCenter);
+    m_GridLayout->addItem(m_TriangleButton, 0, 1, Qt::AlignCenter);
+
+    m_GridLayout->addItem(m_Label, 0, 2, Qt::AlignCenter);
 
 
-   // connect(m_Button, SIGNAL(clicked()), this, SLOT(labelButtonClicked()));
+    connect(m_BigButton, SIGNAL(clicked()), this, SLOT(bigClicked()));
 
-    m_Button->setZValue(1);
-    
-    m_UpLabel->setZValue(2);
-    m_DownLabel->setZValue(3);
 
+    m_BigButton->setZValue(1);
+    m_TriangleButton->setZValue(2);
+    m_Label->setZValue(4);
+ 
     m_Layout = new DuiLinearLayout(Qt::Vertical);
     m_Layout->addItem(m_GridLayout);
     setLayout(m_Layout);

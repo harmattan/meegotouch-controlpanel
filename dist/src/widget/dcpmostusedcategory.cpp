@@ -10,7 +10,11 @@
 
 #include "dcpbuttoncomponent.h"
 #include "dcplabelcomponent.h"
+#include "dcplabel2component.h"
 #include "dcpimagecomponent.h"
+#include "dcplabel2buttoncomponent.h"
+#include "dcplabel2imagecomponent.h"
+#include "dcplabelbuttoncomponent.h"
 
 #include "dcpmostusedcategory.h"
 
@@ -47,14 +51,19 @@ void DcpMostUsedCategory::createContents()
 
 
     //dummy code
-    addWidget("desktop/language.desktop");
+    /*addWidget("desktop/language.desktop");
     addWidget("desktop/profile.desktop");
-    
     addWidget("desktop/region_format.desktop");
     addWidget("desktop/ringtone.desktop");
-  
     addWidget("desktop/theme.desktop");
+    addWidget("desktop/wallpaper.desktop");*/
+
+    addWidget("desktop/browser.desktop");
     addWidget("desktop/wallpaper.desktop");
+    addWidget("desktop/positioning.desktop");
+    addWidget("desktop/display.desktop");
+    addWidget("desktop/datetime.desktop");
+    addWidget("desktop/passcode.desktop");
 
 }
 
@@ -78,7 +87,8 @@ void DcpMostUsedCategory::addWidget(const QString& file)
 
   if (metadata->widgetType() == "DcpLabel") {
     append(new DcpLabelComponent(this, metadata));
-    //addLabelCSS(metadata->text1(), metadata->text2(), metadata->buttonCSS(), metadata->label1CSS(), metadata->label2CSS());
+  } else if (metadata->widgetType() == "DcpLabel2") {
+    append(new DcpLabel2Component(this, metadata));
   } else if (metadata->widgetType() == "DcpButton") {
     //addButton(metadata->text1(), metadata->text2());
   } else if (metadata->widgetType() == "DcpImage") {
@@ -89,6 +99,12 @@ void DcpMostUsedCategory::addWidget(const QString& file)
  //     DcpSpec *tmpSpec = new DcpSpec(metadata->image(), 200, 100, 10, 10, "");
  //     m_Layout->addItem(tmpSpec->layout(), m_PosY, m_PosX, Qt::AlignCenter);
  //     addPos();
+  } else if (metadata->widgetType() == "DcpLabelButton") {
+    append(new DcpLabelButtonComponent(this, metadata));
+  } else if (metadata->widgetType() == "DcpLabel2Button") {
+    append(new DcpLabel2ButtonComponent(this, metadata));
+  } else if (metadata->widgetType() == "DcpLabel2Image") {
+    append(new DcpLabel2ImageComponent(this, metadata));
   }
 
   delete metadata;
@@ -116,8 +132,6 @@ DcpMostUsedCategory::onOrientationChange (const Dui::Orientation &orientation)
 
     }
     else {
-
-qDebug() << "??????????????????????????????????????????????:::::::::::::::::::::::::";
 
         m_ColCount = 0;
         m_RowCount = 0;

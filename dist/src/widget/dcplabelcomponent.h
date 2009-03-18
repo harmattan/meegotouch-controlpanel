@@ -20,9 +20,8 @@ public:
                        QGraphicsWidget *parent=0);
     ~DcpLabelComponent();
 
-    //DcpButton(QString bigLabel, int bigWidth, int bigHeight, QString smallLabel, int smallX, int smallY, int smallWidth, int smallHeight, bool enable = true);
+    //DcpButton(QString bigLabel, int bigWidth, int bigHeight, QString smallLabel, int smallX, int smallY, int smallWidth, int smallHeight, bool enable = true);gi 
 
-    void setEnable(bool enable);
     void setMetadata(DcpAppletMetadata* metadata) {m_Metadata = metadata;};
     DcpAppletMetadata* metadata() const {return m_Metadata;};
     //DuiGridLayout* layout();
@@ -60,15 +59,13 @@ private:
     protected:
         DuiGridLayout* m_GridLayout;
 
-        DuiButton* m_Button;
+        DuiButton* m_BigButton;
 
-        DuiLabel* m_UpLabel;
-        DuiLabel* m_DownLabel;
+        DuiButton* m_TriangleButton;
 
+        DuiLabel* m_Label;
 
         DcpAppletMetadata *m_Metadata; 
-
-
 };
 
 
