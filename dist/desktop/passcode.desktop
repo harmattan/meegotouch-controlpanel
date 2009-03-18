@@ -12,7 +12,7 @@ X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
 X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
-Category= Call 
+Category= Device system
 Order=1
 WidgetType= DcpLabelButton
 Text1= Passcode

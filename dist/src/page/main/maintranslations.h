@@ -16,18 +16,17 @@ struct _DcpCategoryInfo
 namespace DcpMain {
 static const DcpCategoryInfo CategoryInfos[] = {
     {
-        trid("dcp_title_personalization", "Personalization"),
-        trid("dcp_desc_personalization",
-             "Personalize the device with e.g.<br/> "
-             "<font color=#e48415>profile, themes, fonts,<br/> "
-             "home screen, language etc.</font>"
+        trid("qtn_sett_main_seeing", "Seeing & Touching"),
+        trid("qtn_sett_main_seeing_info",
+             "Adjust settings for e.g. <font color=#e48415>"
+             "Wallpaper, Theme, Brightness, Touch feedback, etc."
             ),
-        "Personalization",
-        Pages::PERSONALIZATION
+        "Seeing & Touching",
+        Pages::SEEINGTOUCHING
     },
     {
-        trid("dcp_title_connectivity", "Connectivity"), 
-        trid("dcp_desc_connectivity",
+        trid("qtn_sett_main_connectivity", "Connectivity"),
+        trid("qtn_sett_main_connectivity_info",
              "Adjust connections of e.g. "
              "<font color=#e48415>"
              "Internet connection, Bluetooth, GPS etc.</font>"
@@ -36,70 +35,28 @@ static const DcpCategoryInfo CategoryInfos[] = {
         Pages::CONNECTIVITY
     },
     {
-        trid("dcp_title_display", "Display"), 
-        trid("dcp_desc_display",
-             "Adjust display appearance with e.g. "
-             "<font color=#e48415>Light "
-             "sensor, brightness etc.</font>"
-            ),
-        "Display",
-        Pages::DISPLAY
-    },
-    {
-        trid("dcp_title_sound", "Sound"), 
-        trid("dcp_desc_sound",
-             "Adjust tones for e.g. "
+        trid("qtn_sett_main_sound", "Sound"),
+        trid("qtn_sett_main_sound_info",
+             "Adjust settings for e.g. "
              "<font color=#e48415>"
-             "Message alert, email "
-             "alert etc.</font>"
+             "Ringtone, profile, volume control, system sound"
+             " etc.</font>"
             ),
         "Sound",
         Pages::SOUND
     },
     {
-        trid("dcp_title_call", "Call"), 
-        trid("dcp_desc_call",
-             "Adjust settings with e.g. "
-             "<font color=#e48415>"
-             "call waiting, automatic redial etc.</font>"
+        trid("qtn_sett_main_regional", "Regional settings"),
+        trid("qtn_sett_main_regional_info",
+             "Adjust Language & Time setting with e.g. "
+             "<font color=#e48415>region format and timezone, etc.</font>"
             ),
-        "Call",
-        Pages::CALL
+        "RegionalSettings",
+        Pages::REGIONALSETTING
     },
     {
-        trid("dcp_title_datetime", "Date & Time"), 
-        trid("dcp_desc_datetime",
-             "Adjust Date & Time with e.g. "
-             "<font color=#e48415>"
-             "time format and timezone.</font>"
-            ),
-        "DateTime",
-        Pages::DATETIME
-    },
-    {
-        trid("dcp_title_security", "Security"), 
-        trid("dcp_desc_security",
-             "Adjust phone security settings with e.g. "
-             "<font color=#e48415>passcode, privacy lock"
-             " etc.</font>"
-            ),
-        "Security",
-        Pages::SECURITY
-    },
-    {
-        trid("dcp_title_device", "Device system"), 
-        trid("dcp_desc_device",
-             "View <font color=#e48415>"
-             "memory information</font> and "
-             "<font color=#e48415>backup / restore "
-             "data.</font>"
-            ),
-        "System",
-        Pages::MAIN
-    },
-    {
-        trid("dcp_title_account", "Account"), 
-        trid("dcp_desc_account",
+        trid("qtn_sett_main_account", "Service accounts"),
+        trid("qtn_sett_main_account_info",
              "Create your own service accounts in e.g. "
              "<font color=#e48415>Ovi, Google, Yahooo "
              "etc. </font>and adjust settings for "
@@ -109,8 +66,19 @@ static const DcpCategoryInfo CategoryInfos[] = {
         Pages::ACCOUNTS
     },
     {
-        trid("dcp_title_application", "Application"), 
-        trid("dcp_desc_application",
+        trid("qtn_sett_main_device", "Device system"),
+        trid("qtn_sett_main_device_info",
+             "Adjust system settings with e.g. <font color=#e48415>"
+             "Battery, Call & SIM, passcode, Sync, </font> and "
+             "<font color=#e48415>Backup / restore "
+             "</font>"
+            ),
+        "System",
+        Pages::DEVICESYSTEM
+    },
+    {
+        trid("qtn_sett_application", "Application"),
+        trid("qtn_sett_application_info",
              "Adjust settings for each application e.g. "
              "<font color=#e48415>Browser, Messaging, "
              "Calendar etc.</font>"
@@ -118,18 +86,25 @@ static const DcpCategoryInfo CategoryInfos[] = {
         "Application",
         Pages::APPLICATION
     },
+    {
+        trid("qtn_sett_resetsettings", "Reset settings"),
+        trid("qtn_sett_resetsettings_info",
+             "Delete all media "
+             "and data or reset all settings without "
+             "deleting media and data."
+            ),
+        "Reset settings",
+        Pages::RESETSETTINGS
+    },
     {"", "", "", Pages::NOPAGE}
 	};
-
-   const QString resetSettingsTitle = trid("dcp_title_reset_settings", "Reset settings");
-   const QString resetSettingsDescription = trid("dcp_desc_reset_settings",
-                                     "Reset network settings; Delete all media "
-                                     "and data or reset all settings without "
-                                     "deleting all media and data.");
    
-   const QString settingsTitle = trid("dcp_title_settings", "Settings");
-   const QString mostRecentUsedTitle = trid ("dcp_title_mostrecent", "Most recent used");
+   const QString settingsTitle = trid("qtn_sett_title", "Settings");
+   const QString mostRecentUsedTitle = trid ("qtn_sett_main_most", "Most recent used");
    
 };
 #endif // MAINTRANSLATIONS_H
+
+
+
 

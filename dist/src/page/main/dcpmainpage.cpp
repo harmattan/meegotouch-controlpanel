@@ -71,15 +71,6 @@ void DcpMainPage::createContent()
         m_Category->append(component);
     }
 
-    // reset settings:
-    DcpDescriptionComponent *resetSettings = new DcpDescriptionComponent(
-            m_Category, DcpMain::resetSettingsTitle);
-    resetSettings->setDescription(DcpMain::resetSettingsDescription);
-    resetSettings->setFullRowSize ();
- //   connect(resetSettings, SIGNAL(openSubPage(Pages::Handle)),
-//            this, SLOT(onResetSettingsClicked()));
-    m_Category->add(resetSettings);
-
 }
 
 
