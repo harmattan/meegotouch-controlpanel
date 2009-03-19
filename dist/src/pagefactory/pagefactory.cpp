@@ -64,6 +64,9 @@ PageFactory::create(Pages::Id pageId, const QString &param)
         case Pages::APPLET:
             page = createAppletPage(DcpAppletDb::instance()->applet(param));
             break;
+        case Pages::APPLETFROMMOSTUSED:
+            page = createAppletPageFromMostUsed(DcpAppletDb::instance()->applet(param));
+            break;
         case Pages::RESETSETTINGS:
             qWarning ("Reset settings page is not implemented yet.");
             page = createAppletCategoryPage("not implemented");
@@ -81,10 +84,21 @@ PageFactory::createMainPage()
     return new DcpMainPage();
 }
 
-DcpPage* 
+DcpPage*
 PageFactory::createAppletPage(DcpAppletMetadata *metadata)
 {
-    return new DcpAppletPage(metadata);
+    DcpPage *page = new DcpAppletPage(metadata);
+    page->setReferer(Pages::APPLETCATEGORY, metadata->category());
+    return page;
+}
+
+
+DcpPage* 
+PageFactory::createAppletPageFromMostUsed(DcpAppletMetadata *metadata)
+{
+    DcpPage *page = new DcpAppletPage(metadata);
+    page->setReferer(Pages::MAIN);
+    return page;
 }
 
 DcpPage* 

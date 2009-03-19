@@ -107,3 +107,38 @@ void DcpLabel2ButtonComponent::setEnable(bool enable) {
     }
 
 }
+
+/*
+void
+DcpLabel2ButtonComponent::onOrientationChange (const Dui::Orientation &orientation)
+{
+    // DcpComponent::onOrientationChange(orientation);
+    Q_UNUSED(orientation);
+}
+
+
+void DcpLabel2ButtonComponent::setTitleAlignment(Qt::Alignment align)
+{
+        Q_UNUSED(align);
+ //   m_Caption->setAlignment(align);
+}
+
+
+void DcpLabel2ButtonComponent::addItem ( QGraphicsLayoutItem * item )
+{
+    m_Layout->addItem(item);
+}
+
+void
+DcpLabel2ButtonComponent::switchToSubPage()
+{
+    qDebug() << "DCP" << "EMIT";
+    emit openSubPage(subPage());
+}
+
+void
+DcpLabel2ButtonComponent::bigClicked()
+{
+    switchToSubPage();
+}
+*/

@@ -58,3 +58,8 @@ void DcpLabelComponent::createContents()
 
     initLayout();
 }
+
+void DcpLabelComponent::bigClicked()
+{
+    switchToSubPage();
+}

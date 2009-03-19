@@ -22,6 +22,9 @@ public:
 
     virtual void createContents();
 
+public slots:
+    void bigClicked();
+
 };
 
 #endif // DCPLABELCOMPONENT_H

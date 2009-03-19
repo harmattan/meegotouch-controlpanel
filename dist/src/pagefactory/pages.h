@@ -13,6 +13,7 @@ namespace Pages {
       ACCOUNTS,
       DEVICESYSTEM,
       APPLET,
+      APPLETFROMMOSTUSED,
       APPLETCATEGORY,
       RESETSETTINGS
    } Id;
