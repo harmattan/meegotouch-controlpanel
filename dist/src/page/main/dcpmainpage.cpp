@@ -42,20 +42,11 @@ void DcpMainPage::createContent()
     DcpRecentlyUsedComponent* recentlyComp = new DcpRecentlyUsedComponent(
                                                     m_Category);
 
-
+    connect(recentlyComp, SIGNAL(openSubPage(Pages::Handle)),
+                this, SIGNAL(openSubPage(Pages::Handle)));
     m_Category->add(recentlyComp);
 
-//    DcpMostUsedCategory *tmp = new DcpMostUsedCategory("TEXT - TEXT");
-//    m_Category->add(tmp);
-
-
-//DcpButtonComponent *tmp = new DcpButtonComponent(m_Category, 
-//    DcpAppletDb::instance()->applet("Language"));
-//m_Category->append(tmp);
-
     // category descriptions:
-
-
     for (int i=0; true; i++)
        {
         DcpCategoryInfo info = DcpMain::CategoryInfos[i];

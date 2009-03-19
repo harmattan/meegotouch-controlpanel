@@ -1,11 +1,10 @@
-#include "dcpmainpage.h"
+#include "pages.h"
 
 #include <QtDebug>
 
 
 #include "dcpappletdb.h"
 #include "dcpmaincategory.h"
-#include "dcpdescriptioncomponent.h"
 #include "dcprecentlyusedcomponent.h"
 
 #include "dcpbuttoncomponent.h"
@@ -40,76 +39,47 @@ DcpMostUsedCategory::DcpMostUsedCategory(const QString& title, QGraphicsWidget *
 void DcpMostUsedCategory::createContents()
 {
     setMaxColumns(2);
-
-//    append(new DcpLabelComponent(this, new DcpAppletMetadata("desktop/language.desktop")));
-//    append(new DcpLabelComponent(this, new DcpAppletMetadata("desktop/profile.desktop")));
-    
-//    append(new DcpLabelComponent(this, new DcpAppletMetadata("desktop/region_format.desktop")));
-//    append(new DcpLabelComponent(this, new DcpAppletMetadata("desktop/ringtone.desktop")));
-  
-//    append(new DcpLabelComponent(this, new DcpAppletMetadata("desktop/theme.desktop")));
-//    append(new DcpLabelComponent(this, new DcpAppletMetadata("desktop/wallpaper.desktop")));
-
-
-    //dummy code
-    /*   addWidget(DcpApplet::DefaultPath + "language.desktop");
-    addWidget(DcpApplet::DefaultPath + "profile.desktop");
-    
-    addWidget(DcpApplet::DefaultPath + "region_format.desktop");
-    addWidget(DcpApplet::DefaultPath + "ringtone.desktop");
-  
-    addWidget(DcpApplet::DefaultPath + "theme.desktop");
-    addWidget(DcpApplet::DefaultPath + "wallpaper.desktop");*/
-
-    addWidget("browser.desktop");
-    addWidget("wallpaper.desktop");
-    addWidget("positioning.desktop");
-    addWidget("display.desktop");
-    addWidget("datetime.desktop");
-    addWidget("passcode.desktop");
+    addComponent(DcpAppletDb::instance()->applet("Browser"));
+    addComponent(DcpAppletDb::instance()->applet("Wallpaper"));
+    addComponent(DcpAppletDb::instance()->applet("Positioning"));
+    addComponent(DcpAppletDb::instance()->applet("Display"));
+    addComponent(DcpAppletDb::instance()->applet("DateTime"));
+    addComponent(DcpAppletDb::instance()->applet("Passcode"));
 }
 
 void DcpMostUsedCategory::paint (QPainter * painter,
                                      const QStyleOptionGraphicsItem * option,
                                      QWidget * widget)
 {
-    //Q_UNUSED(option);
-    //Q_UNUSED(widget);
-
-//   painter->drawPixmap(0, 0, SIZEWIDTH, SIZEHEIGHT,  *m_Background);
-
   DuiWidget::paint(painter, option, widget);
-
 }
 
-void DcpMostUsedCategory::addWidget(const QString& file)
+void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata)
 {
-
-  DcpAppletMetadata* metadata = new DcpAppletMetadata(DcpApplet::DefaultPath + file);
-
+  DcpComponent *component = 0; 
   if (metadata->widgetType() == "DcpLabel") {
-    append(new DcpLabelComponent(this, metadata));
+    component = new DcpLabelComponent(this, metadata);
   } else if (metadata->widgetType() == "DcpLabel2") {
-    append(new DcpLabel2Component(this, metadata));
+    component = new DcpLabel2Component(this, metadata);
   } else if (metadata->widgetType() == "DcpButton") {
-    //addButton(metadata->text1(), metadata->text2());
   } else if (metadata->widgetType() == "DcpImage") {
-    append(new DcpImageComponent(this, metadata));
-   // addImageCSS(metadata->text1(), metadata->image(), metadata->buttonCSS(), metadata->label1CSS());
+    component = new DcpImageComponent(this, metadata);
   } else if (metadata->widgetType() == "DcpSpec") {
-      //dummy  
- //     DcpSpec *tmpSpec = new DcpSpec(metadata->image(), 200, 100, 10, 10, "");
- //     m_Layout->addItem(tmpSpec->layout(), m_PosY, m_PosX, Qt::AlignCenter);
- //     addPos();
   } else if (metadata->widgetType() == "DcpLabelButton") {
-    append(new DcpLabelButtonComponent(this, metadata));
+    component = new DcpLabelButtonComponent(this, metadata);
   } else if (metadata->widgetType() == "DcpLabel2Button") {
-    append(new DcpLabel2ButtonComponent(this, metadata));
+    component = new DcpLabel2ButtonComponent(this, metadata);
   } else if (metadata->widgetType() == "DcpLabel2Image") {
-    append(new DcpLabel2ImageComponent(this, metadata));
+    component = new DcpLabel2ImageComponent(this, metadata);
   }
-
-  delete metadata;
+  if (component)
+    {
+        qDebug() << "DCP: connecting to " << metadata->name();
+        component->setSubPage(Pages::APPLETFROMMOSTUSED, metadata->name());
+        connect(component, SIGNAL(openSubPage(Pages::Handle)),                  
+                this, SIGNAL(openSubPage(Pages::Handle)));
+        append(component);
+    }
 }
 
 void 

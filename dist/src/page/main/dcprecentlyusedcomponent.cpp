@@ -13,57 +13,12 @@ DcpRecentlyUsedComponent::DcpRecentlyUsedComponent(
 {
     createContents();
 }
-
 void DcpRecentlyUsedComponent::createContents()
 {
     DcpBackgroundComponent::createContents();
-
-/*
-    DcpMostUsedContainer *tmpContainer = new DcpMostUsedContainer;
-   
- 
-    DcpAppletDb *db = DcpAppletDb::instance();   
-
-
-    tmpContainer->add(db->applet("Ringtone"));
-    tmpContainer->add(db->applet("Profile"));
-
-    tmpContainer->add(db->applet("Theme"));
-    tmpContainer->add(db->applet("Wallpaper"));
-
-
-    tmpContainer->add(db->applet("Language"));
-    tmpContainer->add(db->applet("Region_format"));
-*/
-
-/*
-language.desktop
-ringtone.desktop
-region_format.desktop   
-wallpaper.desktop
-profile.desktop    
-theme.desktop      
-*/
-
-
-    /*
-    tmpContainer->addButton("aaaa", "1");
-    tmpContainer->addButton("aaaa", "2");
-    
-    tmpContainer->addButton("bbbb", "1", false);
-    tmpContainer->addButton("bbbb", "2");
-    
-    tmpContainer->addLabel("cccc", "1111");
-    
-    tmpContainer->addButton("cccc", "2", false);
-    */
- 
-//   addItem(tmpContainer->layout());
-
-  //  addItem(new DuiWidget());
-
-
     m_MostUsedCategory = new DcpMostUsedCategory("TXT");
+    connect(m_MostUsedCategory, SIGNAL(openSubPage(Pages::Handle)),
+                this, SIGNAL(openSubPage(Pages::Handle)));
     addItem(m_MostUsedCategory);
 }
 
@@ -73,6 +28,5 @@ void DcpRecentlyUsedComponent::onOrientationChange (
 {
 
     m_MostUsedCategory->onOrientationChange(orientation);
-
     DcpBackgroundComponent::onOrientationChange(orientation);
 }

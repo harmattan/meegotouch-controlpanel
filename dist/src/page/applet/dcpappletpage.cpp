@@ -11,7 +11,6 @@ DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
     m_Metadata(metadata) 
 {
     setHandle(Pages::APPLET);
-    setReferer(Pages::APPLETCATEGORY, metadata->category());
 }
 
 DcpAppletPage::~DcpAppletPage()

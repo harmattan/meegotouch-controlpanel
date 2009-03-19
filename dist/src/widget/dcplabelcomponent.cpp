@@ -172,3 +172,8 @@ void DcpLabelComponent::addItem ( QGraphicsLayoutItem * item )
 {
     m_Layout->addItem(item);
 }
+
+void DcpLabelComponent::bigClicked()
+{
+    switchToSubPage();
+}

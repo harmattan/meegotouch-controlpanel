@@ -1,11 +1,8 @@
 #ifndef MCPMOSTUSEDCATEGORY_H
 #define MCPMOSTUSEDCATEGORY_H
-
 #include "dcpmaincategory.h"
 
-#include <QPixmap>
-
-
+class DcpAppletMetadata;
 class DcpMostUsedCategory  : public DcpMainCategory
 {
 
@@ -14,7 +11,7 @@ public:
 
     virtual void paint (QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget);
 
-    void addWidget(const QString& file);
+    void addComponent(DcpAppletMetadata *metadata);
 
 protected:
     virtual void createContents();
@@ -22,7 +19,7 @@ protected:
 public slots:  
     virtual void onOrientationChange (const Dui::Orientation &orientation);   
 
-  QPixmap *m_Background;
+//  QPixmap *m_Background;
 };
 
 #endif

@@ -269,6 +269,7 @@ void DcpLabel2ButtonComponent::addItem ( QGraphicsLayoutItem * item )
 void
 DcpLabel2ButtonComponent::switchToSubPage()
 {
+    qDebug() << "DCP" << "EMIT";
     emit openSubPage(subPage());
 }
 
