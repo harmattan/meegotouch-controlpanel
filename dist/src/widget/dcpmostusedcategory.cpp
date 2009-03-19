@@ -61,12 +61,21 @@ void DcpMostUsedCategory::createContents()
     addWidget(DcpApplet::DefaultPath + "theme.desktop");
     addWidget(DcpApplet::DefaultPath + "wallpaper.desktop");*/
 
+/*
     addWidget("browser.desktop");
     addWidget("wallpaper.desktop");
     addWidget("positioning.desktop");
     addWidget("display.desktop");
     addWidget("datetime.desktop");
     addWidget("passcode.desktop");
+*/
+   
+    foreach (DcpAppletMetadata *item, DcpAppletDb::instance()->listMostUsed())
+    {
+        qDebug() << "?????????????????????????????????"<< item->text1() << "     ------------    "<< item->widgetType();
+        //if (item.category() == category)
+        //    filtered.append(item);
+    }
 }
 
 void DcpMostUsedCategory::paint (QPainter * painter,
