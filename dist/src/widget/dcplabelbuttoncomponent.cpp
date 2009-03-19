@@ -57,7 +57,7 @@ void DcpLabelButtonComponent::createContents()
     
     m_BigButton = newButton(width, height, "BigButton");
     m_UpLabel = newLabel(height, upLabel, "UpLabel", Qt::AlignLeft|Qt::AlignVCenter);
-    m_TriangleButton = newButton(20, "TriangleButton");
+    m_TriangleButton = newButton(triangleSize, "TriangleButton");
 
 
     m_SmallButtonOn = newButton(imageSize, "SmallButtonOn");
@@ -101,3 +101,7 @@ void DcpLabelButtonComponent::setEnable(bool enable) {
     }
 
 }
+
+void DcpLabelButtonComponent::smallClickedOn(){}
+void DcpLabelButtonComponent::smallClickedOff(){}
+void DcpLabelButtonComponent::disableClicked(){}

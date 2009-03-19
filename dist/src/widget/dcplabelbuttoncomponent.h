@@ -25,6 +25,12 @@ public:
     virtual void setEnable(bool enable);
 
 
+    public slots:
+        void smallClickedOn();
+        void smallClickedOff();
+        void disableClicked();
+
+
     protected:
         DuiButton* m_SmallButtonOn;
         DuiButton* m_SmallButtonOff;

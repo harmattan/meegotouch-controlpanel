@@ -59,7 +59,7 @@ void DcpLabel2ButtonComponent::createContents()
     
     m_BigButton = newButton(width, height, "BigButton");
     m_UpLabel = newLabel(height/2, upLabel, "UpLabel", Qt::AlignLeft|Qt::AlignBottom);
-    m_TriangleButton = newButton(20, "TriangleButton");
+    m_TriangleButton = newButton(triangleSize, "TriangleButton");
 
     m_DownLabel = newLabel(height/2, downLabel, "DownLabel", Qt::AlignLeft|Qt::AlignTop);
 
@@ -107,6 +107,11 @@ void DcpLabel2ButtonComponent::setEnable(bool enable) {
     }
 
 }
+
+void DcpLabel2ButtonComponent::smallClickedOn(){}
+void DcpLabel2ButtonComponent::smallClickedOff(){}
+void DcpLabel2ButtonComponent::disableClicked(){}
+
 
 /*
 void
