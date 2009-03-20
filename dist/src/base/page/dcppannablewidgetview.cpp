@@ -1,3 +1,5 @@
+#if 0
+
 #include "dcppannablewidgetview.h"
 #include <QDebug>
 #include <duitheme.h>
@@ -8,7 +10,7 @@ enum {
 };
 
 DcpPannableWidgetView::DcpPannableWidgetView(DuiPannableWidget *controller)
-              :DuiStylable<DcpPannableWidgetView, DuiPannableWidgetView>(controller),
+              :DuiPannableWidgetView(controller),
           m_viewport(controller), m_background (NULL)
 {
 }
@@ -78,3 +80,6 @@ void DcpPannableWidgetView::registerStyleAttributes(DuiStyleDescription& descrip
 
 
 DUI_REGISTER_VIEW("DcpPannableWidgetView", DcpPannableWidgetView, DuiPannableWidget);
+
+#endif
+

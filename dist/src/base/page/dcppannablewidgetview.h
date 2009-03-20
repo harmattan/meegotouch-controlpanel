@@ -1,3 +1,4 @@
+#if 0
 #ifndef DCPPANNABLEWIDGETVIEW_H
 #define DCPPANNABLEWIDGETVIEW_H
 
@@ -28,3 +29,4 @@ class DcpPannableWidgetView : public DuiStylable<DcpPannableWidgetView, DuiPanna
 };
 
 #endif // DCPPANNABLEWIDGETVIEW_H
+#endif
