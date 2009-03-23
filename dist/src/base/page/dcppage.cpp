@@ -16,8 +16,8 @@ DcpPage::DcpPage() : DuiApplicationPage()
 
 DcpPage::~DcpPage() 
 {
-    if (m_Title)
-        delete m_Title;
+    // if (m_Title)
+    //    delete m_Title;
 }
 
 void DcpPage::createContent()
@@ -25,11 +25,11 @@ void DcpPage::createContent()
     m_MainLayout = new DuiLinearLayout(Qt::Vertical);
     centralWidget()->setLayout(m_MainLayout);
 
-    m_Title = new DuiLabel("-");
+    /* m_Title = new DuiLabel("-");
     m_Title->setAlignment(Qt::AlignCenter);
     m_Title->setMaximumHeight(30);
     m_Title->setZValue(30);
-    m_MainLayout->addItem(m_Title);
+    m_MainLayout->addItem(m_Title);*/
     centralWidget()->setLayout(m_MainLayout);
 }
 
@@ -37,13 +37,15 @@ void DcpPage::createContent()
 const QString 
 DcpPage::title() const
 {
-    return m_Title->text();
+    // return m_Title->text();
+    return m_Title;
 }
 
 void
 DcpPage::setTitle(const QString& title)
 {
-    m_Title->setText(title);
+    // m_Title->setText(title);
+    m_Title = title;
 }
 
 void DcpPage::organizeContent(Dui::Orientation ori)

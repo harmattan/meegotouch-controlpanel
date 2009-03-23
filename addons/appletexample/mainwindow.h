@@ -8,7 +8,7 @@ class MainWindow : public DuiApplicationWindow
 	Q_OBJECT
 
 public:
-	MainWindow();
+	MainWindow(QWidget *parent = 0);
 	virtual ~MainWindow();
 
 protected:

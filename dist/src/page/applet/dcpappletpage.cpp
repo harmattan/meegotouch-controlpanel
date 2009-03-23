@@ -46,21 +46,23 @@ void DcpAppletPage::initApplet()
     ExampleAppletInterface *applet = qobject_cast<ExampleAppletInterface*>(object);
     if (applet) 
     {
-	m_View = applet->constructWidget();
-	if (m_View) 
-	{
-        mainLayout()->addItem(m_View);
-		m_View->setMaximumWidth(DuiDeviceProfile::instance()->width() - 60);
-        m_View->setMinimumWidth(DuiDeviceProfile::instance()->width() - 60);
-        m_View->setMinimumHeight(DuiDeviceProfile::instance()->height());
-	} else 
-	{
-		qWarning() << "applet->constructWidget() failed.";
-	}
+	    m_View = applet->constructWidget();
+        setTitle(applet->title());
+	    
+        if (m_View) 
+	    {
+            mainLayout()->addItem(m_View);
+		    m_View->setMaximumWidth(DuiDeviceProfile::instance()->width() - 60);
+            m_View->setMinimumWidth(DuiDeviceProfile::instance()->width() - 60);
+            m_View->setMinimumHeight(DuiDeviceProfile::instance()->height());
+	    } else 
+	    {
+		    qWarning() << "applet->constructWidget() failed.";
+	    }
 				
     } else 
     {
-	qWarning() << "Can't convert object to ExampleAppletInterface.";
+	    qWarning() << "Can't convert object to ExampleAppletInterface.";
     }
 
     delete applet;

@@ -49,7 +49,11 @@ MainWindow::changePage(Pages::Handle handle)
        navigationBar()->showCloseButton()
     :
        navigationBar()->showBackButton();
+
    page->appearNow(DuiSceneWindow::DestroyWhenDone);
+   navigationBar()->setViewMenuButtonText(page->title());
+
+
     
 }
 void MainWindow::onRotateClicked()

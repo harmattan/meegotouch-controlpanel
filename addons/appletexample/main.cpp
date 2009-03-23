@@ -5,7 +5,7 @@ int main(int argc, char **argv)
 {
 	DuiApplication duiApp(argc, argv);
 	
-	MainWindow window;
+    MainWindow window;
 	window.show();
 
 	return duiApp.exec();

@@ -9,3 +9,8 @@ DuiWidget* HelloApplet::constructWidget()
 {
 	return new HelloWidget();
 }
+
+QString HelloApplet::title() const
+{
+        return "Example Applet";
+}

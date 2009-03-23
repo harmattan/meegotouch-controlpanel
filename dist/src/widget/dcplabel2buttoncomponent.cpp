@@ -86,13 +86,13 @@ void DcpLabel2ButtonComponent::createContents()
     connect(m_SmallButtonOff, SIGNAL(clicked()), this, SLOT(smallClickedOff()));
     connect(m_DisableButton, SIGNAL(clicked()), this, SLOT(disableClicked()));
 
-    setEnable(m_Enable);
+    setEnableButton(m_Enable);
 
     initLayout();
 }
 
 
-void DcpLabel2ButtonComponent::setEnable(bool enable) {
+void DcpLabel2ButtonComponent::setEnableButton(bool enable) {
 
     m_Enable = enable;
 
