@@ -11,5 +11,7 @@ class LanguageApplet : public QObject, public ExampleAppletInterface
 
 public:
 	virtual DuiWidget* constructWidget();
+
+    virtual QString title() const;
 };
 #endif // HELLOLANGUAGE_H
