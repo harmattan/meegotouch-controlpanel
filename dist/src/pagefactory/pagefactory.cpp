@@ -76,6 +76,7 @@ PageFactory::create(Pages::Id pageId, const QString &param)
             //page=0;
       }  
     page->createContent();
+    page->organizeContent(DuiDeviceProfile::instance()->orientation());
     return page;
 }
 

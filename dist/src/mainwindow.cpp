@@ -52,10 +52,8 @@ MainWindow::changePage(Pages::Handle handle)
 
    page->appearNow(DuiSceneWindow::DestroyWhenDone);
    navigationBar()->setViewMenuButtonText(page->title());
-
-
-    
 }
+
 void MainWindow::onRotateClicked()
 {
     DuiDeviceProfile *profile = DuiDeviceProfile::instance();
