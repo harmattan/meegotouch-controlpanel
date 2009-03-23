@@ -18,8 +18,9 @@ DcpLabel2ImageComponent::DcpLabel2ImageComponent(
                             QGraphicsWidget *parent):
     DcpBasicComponent(category, metadata, title, parent)
 {
+    m_Type = DCPLABEL2IMAGE;
 
-  createContents();
+    createContents();
 }
 
 

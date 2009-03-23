@@ -3,6 +3,8 @@
 #include "dcpapplet.h"
 #include <duilocale.h>
 
+#include "dcpbasiccomponent.h"
+
 enum  {
     KeyCategory = 0,
     KeyOrder,
@@ -99,6 +101,18 @@ DcpAppletMetadata::fullBinary() const
 QString DcpAppletMetadata::widgetType()
 {
     return value(Keys[KeyWidgetType]).toString();
+}
+
+int DcpAppletMetadata::widgetTypeID()
+{
+  QString type = value(Keys[KeyWidgetType]).toString();
+  
+  for(int i=0; i<WIDGETN; i++)  //it use dcpbasiccomponent.h
+    if (WIDGETNAME[i]==type)
+      return i;
+  
+  return -1;  //error
+
 }
 
 QString DcpAppletMetadata::text1()

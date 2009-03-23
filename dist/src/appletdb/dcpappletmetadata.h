@@ -16,6 +16,8 @@ public:
 
     QString widgetType();
 
+    int widgetTypeID();
+
     QString text1();
     QString text2();
 

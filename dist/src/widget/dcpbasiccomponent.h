@@ -5,12 +5,31 @@
 #include <QPixmap>
 #include <QColor>
 
+#include <QString>
+
 class DuiLabel;
 class DuiButton;
 class DuiImage;
 class DuiLinearLayout;
 class DuiGridLayout;
 class DcpAppletMetadata;
+
+static const QString  WIDGETNAME[] = {
+    "DcpLabel",
+    "DcpLabel2",
+    "DcpLabelButton",
+    "DcpLabel2Button",
+    "DcpLabel2Image"
+};
+
+enum WIDGETTYPEID {
+    DCPLABEL,           //"DcpLabel"
+    DCPLABEL2,          //"DcpLabel2"
+    DCPLABELBUTTON,     //"DcpLabelButton"
+    DCPLABEL2BUTTON,    //"DcpLabel2Button"
+    DCPLABEL2IMAGE,      //"DcpLabel2Image"
+    WIDGETN
+};
 
 class DcpBasicComponent: public DcpComponent
 {
@@ -78,6 +97,7 @@ protected:
 
     int m_Z;
 
+    int m_Type;
 };
 
 inline void DcpBasicComponent::setMetadata(DcpAppletMetadata* metadata)

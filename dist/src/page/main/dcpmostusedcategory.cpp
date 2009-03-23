@@ -9,7 +9,6 @@
 #include "dcpbuttoncomponent.h"
 #include "dcplabelcomponent.h"
 #include "dcplabel2component.h"
-#include "dcpimagecomponent.h"
 #include "dcplabel2buttoncomponent.h"
 #include "dcplabel2imagecomponent.h"
 #include "dcplabelbuttoncomponent.h"
@@ -60,7 +59,27 @@ void DcpMostUsedCategory::paint (QPainter * painter,
 void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata)
 {
 
-  DcpComponent *component = 0; 
+  DcpComponent *component = 0;
+
+  switch (metadata->widgetTypeID()) {
+      case DCPLABEL :
+          component = new DcpLabelComponent(this, metadata);
+      break;
+      case DCPLABEL2 :
+          component = new DcpLabel2Component(this, metadata);
+      break;
+      case DCPLABELBUTTON :
+          component = new DcpLabelButtonComponent(this, metadata);
+      break;
+      case DCPLABEL2BUTTON :
+          component = new DcpLabel2ButtonComponent(this, metadata);
+      break;
+      case DCPLABEL2IMAGE :
+          component = new DcpLabel2ImageComponent(this, metadata);
+      break;
+  }
+
+/*
   if (metadata->widgetType() == "DcpLabel") {
     component = new DcpLabelComponent(this, metadata);
   } else if (metadata->widgetType() == "DcpLabel2") {
@@ -76,6 +95,8 @@ void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata)
   } else if (metadata->widgetType() == "DcpLabel2Image") {
     component = new DcpLabel2ImageComponent(this, metadata);
   }
+*/
+
   if (component)
     {
         qDebug() << "DCP: connecting to " << metadata->name();

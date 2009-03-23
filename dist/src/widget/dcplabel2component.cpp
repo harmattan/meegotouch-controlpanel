@@ -21,6 +21,8 @@ DcpLabel2Component::DcpLabel2Component(
     DcpBasicComponent(category, metadata, title, parent)
 {
 
+  m_Type = DCPLABEL2;
+
   createContents();
 }
 
