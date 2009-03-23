@@ -18,11 +18,12 @@ void DcpCategoryPage::createContent()
 {
     DcpPage::createContent();
     m_Category = new DcpMainCategory("");
-    panLayout()->addItem(m_Category);
+    mainLayout()->addItem(m_Category);
+    /* XXX
     connect (m_DesktopViewport,
              SIGNAL(sizeChanged(const QSizeF &, const QSizeF &)),
              this, SLOT(onSizeChanged(const QSizeF &, const QSizeF &)));
-    
+    */
 }
 
 
@@ -31,13 +32,15 @@ void DcpCategoryPage::createContent()
 void DcpCategoryPage::onSizeChanged(const QSizeF & pannedWidgetSize,
                                     const QSizeF & pannableViewportSize)
 {
-    int width = pannableViewportSize.width();
+/* XXX
+   int width = pannableViewportSize.width();
     if (pannedWidgetSize.width() != width){
         panWidget()->setMinimumSize(width, -1);
         panWidget()->setMaximumSize(width, -1);
         m_Category->setMinimumSize(width, -1);
         m_Category->setMaximumSize(width, -1);
     }
+    */
 }
 
 

@@ -16,8 +16,6 @@ DcpPage::DcpPage() : DuiApplicationPage()
 
 DcpPage::~DcpPage() 
 {
-    if (m_DesktopViewport)
-        delete m_DesktopViewport;
     if (m_Title)
         delete m_Title;
 }
@@ -25,19 +23,14 @@ DcpPage::~DcpPage()
 void DcpPage::createContent()
 {    
     m_MainLayout = new DuiLinearLayout(Qt::Vertical);
-    m_DesktopViewport = new DuiPannableViewport(Qt::Vertical, this);
-    m_PanWidget = new DuiWidget();
-    m_PanLayout = new DuiLinearLayout(Qt::Vertical);
-    m_PanWidget->setLayout(m_PanLayout);
-    m_DesktopViewport->setWidget(m_PanWidget);
+    centralWidget()->setLayout(m_MainLayout);
 
     m_Title = new DuiLabel("-");
     m_Title->setAlignment(Qt::AlignCenter);
     m_Title->setMaximumHeight(30);
     m_Title->setZValue(30);
     m_MainLayout->addItem(m_Title);
-    m_MainLayout->addItem(m_DesktopViewport);
-    setLayout(m_MainLayout);
+    centralWidget()->setLayout(m_MainLayout);
 }
 
 
