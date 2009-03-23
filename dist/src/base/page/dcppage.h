@@ -6,9 +6,12 @@
 class DuiPannableViewport;
 class DuiLabel;
 class DuiLinearLayout;
+
+
 class DcpPage : public DuiApplicationPage
 {
     Q_OBJECT
+
 public:
     DcpPage();
     virtual ~DcpPage();
@@ -26,12 +29,15 @@ public:
     const QString title() const;
     virtual void setTitle(const QString& title);
     DuiLinearLayout *mainLayout() { return m_MainLayout; }
+
 signals:
     void openSubPage(Pages::Handle handle);
+
 protected:
-   // DuiLabel *m_Title;
    QString m_Title;
+
    DuiLinearLayout *m_MainLayout;
+
    Pages::Handle m_Handle;
    Pages::Handle m_Referer;
 };

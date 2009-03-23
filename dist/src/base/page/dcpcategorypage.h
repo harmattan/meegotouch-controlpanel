@@ -3,6 +3,7 @@
 
 #include "dcppage.h"
 class DcpMainCategory;
+class QGraphicsSceneResizeEvent;
 
 class DcpCategoryPage : public DcpPage
 {
@@ -11,8 +12,8 @@ public:
     DcpCategoryPage();
     virtual void createContent();
 
-protected slots:
-    void onSizeChanged(const QSizeF & size1, const QSizeF & size2);
+protected:
+//    virtual void resizeEvent ( QGraphicsSceneResizeEvent * event );
 
 protected:
     DcpMainCategory *m_Category;

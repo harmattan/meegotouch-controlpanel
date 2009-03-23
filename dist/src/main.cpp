@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
 
 //    DuiTheme::instance()->changeTheme("common");
 //    DuiTheme::loadCSS("duicontrolpanel.css");
+//    DuiTheme::instance()->addPixmapDirectory("images");
 
     DuiLocale locale;                                                           
     locale.addTranslationPath("./ts");                                          

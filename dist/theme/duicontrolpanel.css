@@ -3,21 +3,11 @@ DuiLabel {
     font: font("Nokia Sans Cn", 12);
 }
 
-/*
-DuiApplicationMenu {
-    content: ;
-    preferredsize: size(300mm, 10mm);
-    minsize: size(200mm, 10mm);  
-    maxsize: size(30%, 10mm);   
+
+DuiApplicationPage {
+	background: image(starfield);
 }
 
-DuiPannableWidget#MainPageViewport {
-	background: "starfield";
-}
-*/
-
-DuiPannableViewport {
-}
 
 DuiImage {
 	leftMargin: 0;
