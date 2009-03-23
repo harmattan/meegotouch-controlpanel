@@ -9,3 +9,8 @@ DuiWidget* LanguageApplet::constructWidget()
 {
 	return new LanguageWidget();
 }
+
+QString LanguageApplet::title() const
+{
+        return "Language";
+}

@@ -11,5 +11,7 @@ class HelloApplet : public QObject, public ExampleAppletInterface
 
 public:
 	virtual DuiWidget* constructWidget();
+
+    virtual QString title() const;
 };
 #endif // HELLOAPPLET_H
