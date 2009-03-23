@@ -26,7 +26,6 @@ DcpMainPage::DcpMainPage() :
 {
     setHandle(Pages::MAIN);
     setReferer(Pages::NOPAGE);
-    createContent();
 }
 
 
