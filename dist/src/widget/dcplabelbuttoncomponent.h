@@ -19,11 +19,9 @@ public:
                        QGraphicsWidget *parent=0);
     ~DcpLabelButtonComponent();
 
-
     virtual void createContents();
 
-    virtual void setEnable(bool enable);
-
+    virtual void setEnableButton(bool enable);
 
     public slots:
         void smallClickedOn();

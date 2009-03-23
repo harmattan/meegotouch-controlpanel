@@ -22,7 +22,7 @@ public:
                        QGraphicsWidget *parent=0);
     ~DcpBasicComponent();
 
-    virtual void setEnable(bool /*enable*/) {}
+    virtual void setEnableButton(bool /*enable*/) {}
 
     void setMetadata(DcpAppletMetadata* metadata);
     DcpAppletMetadata* metadata() const;
@@ -37,7 +37,7 @@ public:
 
     virtual void createContents();
 
-
+protected:
     void initLayout();
 
     void initRow(int height);
@@ -52,14 +52,15 @@ public:
 
     DuiLabel* newLabel(int height, const QString &text, const QString &objectName, Qt::Alignment alignment);
 
-    DuiImage* newImage(const QString &name, int size, int borderSize, const QColor &color = QColor(128, 128, 128));
+    DuiImage* newImage(const QString &name, int size, int borderSize, const QColor &color = Qt::gray);
+
+
+    void addItem ( QGraphicsLayoutItem * item );
 
 public slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation);
     virtual void switchToSubPage();
     void bigClicked();
-protected:
-    void addItem ( QGraphicsLayoutItem * item );
 
 protected:
     DuiLinearLayout* m_Layout;
