@@ -35,7 +35,6 @@ MainWindow::changePage(Pages::Handle handle)
   if (handle.id == Pages::NOPAGE)
         return;
     DcpPage* page = PageFactory::instance()->create(handle.id, handle.param);
-//    addPage(page);
     connect (page, SIGNAL(openSubPage(Pages::Handle)), this, 
 		SLOT(changePage(Pages::Handle)));
     qDebug() << Q_FUNC_INFO;
@@ -44,15 +43,13 @@ MainWindow::changePage(Pages::Handle handle)
       {
 	if (page->referer().id == Pages::NOPAGE)
 	    page->setReferer(oldPage->handle());      
-//	removePage(oldPage);
+	oldPage->dissappearNow();
       }
     page->handle().id == Pages::MAIN ?
        navigationBar()->showCloseButton()
     :
        navigationBar()->showBackButton();
-    
-//    showPage(page);
-   page->appearNow();
+   page->appearNow(DuiSceneWindow::DestroyWhenDone);
     
 }
 void MainWindow::onRotateClicked()
