@@ -11,6 +11,7 @@ DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
     m_Metadata(metadata) 
 {
     setHandle(Pages::APPLET);
+    setTitle("Applet page");
 }
 
 DcpAppletPage::~DcpAppletPage()

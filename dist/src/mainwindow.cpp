@@ -52,6 +52,8 @@ MainWindow::changePage(Pages::Handle handle)
        navigationBar()->showBackButton();
     
 //    showPage(page);
+
+   navigationBar()->setViewMenuButtonText(page->title());
    page->appearNow();
     
 }

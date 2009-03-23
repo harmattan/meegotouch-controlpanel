@@ -6,8 +6,8 @@
 #include <QDir>
 #include <QGraphicsSceneResizeEvent>
 
-MainWindow::MainWindow()
-	   :DuiApplicationWindow()
+MainWindow::MainWindow(QWidget *parent)
+	   :DuiApplicationWindow(parent)
 {
 	initWindow();
 }
@@ -24,7 +24,6 @@ void MainWindow::initWindow()
 {
 	m_view = new MainView();
 
-    addPage(m_view);
-    showPage(m_view);
+    m_view->appearNow();
 }
 

@@ -11,6 +11,6 @@ LIBS 		+= -L./lib -ldui
 HEADERS		+= mainwindow.h \
 		   mainview.h
 
-SOURCES		+= main.cpp \
+SOURCES		+= main.cpp  \
 		   mainwindow.cpp \
 		   mainview.cpp
