@@ -13,9 +13,6 @@ public:
     virtual void createContent();
 
 protected:
-//    virtual void resizeEvent ( QGraphicsSceneResizeEvent * event );
-
-protected:
     DcpMainCategory *m_Category;
 
 };

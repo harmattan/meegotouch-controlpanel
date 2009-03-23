@@ -51,7 +51,6 @@ void DcpPage::organizeContent(Dui::Orientation ori)
 
     QSize size = DuiDeviceProfile::instance()->resolution();
     size.setHeight(1500);
-    qDebug() << "XXX organizeContent" << size;
     widget->setMinimumSize(size);
     widget->setPreferredSize(size);
     widget->setMaximumSize(size);
