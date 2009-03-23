@@ -75,6 +75,7 @@ PageFactory::create(Pages::Id pageId, const QString &param)
             qWarning() << "DCP" << "Bad page ID: " << pageId;
             //page=0;
       }  
+    page->createContent();
     return page;
 }
 

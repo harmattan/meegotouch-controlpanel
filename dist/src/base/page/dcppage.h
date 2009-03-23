@@ -25,17 +25,11 @@ public:
         {m_Referer.id = id; m_Referer.param = param;};
     const QString title() const;
     virtual void setTitle(const QString& title);
-    DuiPannableViewport* viewport() const {return m_DesktopViewport;};
-    DuiWidget* panWidget() const {return m_PanWidget;};
-    DuiLinearLayout* panLayout() const {return m_PanLayout;};
-
+    DuiLinearLayout *mainLayout() { return m_MainLayout; }
 signals:
     void openSubPage(Pages::Handle handle);
 protected:
-   DuiPannableViewport *m_DesktopViewport;
    DuiLabel *m_Title;
-   DuiWidget *m_PanWidget;
-   DuiLinearLayout *m_PanLayout;
    DuiLinearLayout *m_MainLayout;
    Pages::Handle m_Handle;
    Pages::Handle m_Referer;

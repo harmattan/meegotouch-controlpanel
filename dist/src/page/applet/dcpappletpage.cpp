@@ -49,7 +49,7 @@ void DcpAppletPage::initApplet()
 	m_View = applet->constructWidget();
 	if (m_View) 
 	{
-		panLayout()->addItem(m_View);
+        mainLayout()->addItem(m_View);
 		m_View->setMaximumWidth(DuiDeviceProfile::instance()->width() - 60);
         m_View->setMinimumWidth(DuiDeviceProfile::instance()->width() - 60);
         m_View->setMinimumHeight(DuiDeviceProfile::instance()->height());

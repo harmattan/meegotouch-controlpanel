@@ -35,7 +35,7 @@ MainWindow::changePage(Pages::Handle handle)
   if (handle.id == Pages::NOPAGE)
         return;
     DcpPage* page = PageFactory::instance()->create(handle.id, handle.param);
-    addPage(page);
+//    addPage(page);
     connect (page, SIGNAL(openSubPage(Pages::Handle)), this, 
 		SLOT(changePage(Pages::Handle)));
     qDebug() << Q_FUNC_INFO;
@@ -51,7 +51,8 @@ MainWindow::changePage(Pages::Handle handle)
     :
        navigationBar()->showBackButton();
     
-    showPage(page);
+//    showPage(page);
+   page->appearNow();
     
 }
 void MainWindow::onRotateClicked()

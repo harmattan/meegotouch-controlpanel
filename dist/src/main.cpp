@@ -10,8 +10,8 @@ int main(int argc, char *argv[])
 {
     DuiApplication app(argc, argv);
 
-  //  DuiTheme::instance()->changeTheme("duicontrolpanel");
-  //  DuiTheme::loadCSS("duicontrolpanel.css");
+//    DuiTheme::instance()->changeTheme("common");
+//    DuiTheme::loadCSS("duicontrolpanel.css");
 
     DuiLocale locale;                                                           
     locale.addTranslationPath("./ts");                                          

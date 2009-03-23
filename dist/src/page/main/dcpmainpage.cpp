@@ -31,11 +31,13 @@ DcpMainPage::DcpMainPage() :
 
 void DcpMainPage::createContent()
 {
+    qDebug() << "XXX creating main page";
     DcpCategoryPage::createContent();
     setTitle(DcpMain::settingsTitle);
 
+/* XXX
     m_DesktopViewport->setObjectName("MainPageViewport");
-
+*/
     m_Category->setMaxColumns(2);
 
     // most recent used items:
