@@ -11,8 +11,6 @@
 #include "dcpimageutils.h"
 #include "dcpappletmetadata.h"
 
-
-
 DcpLabel2ImageComponent::DcpLabel2ImageComponent(
                             DcpCategory *category,
                             DcpAppletMetadata * metadata,
@@ -59,6 +57,7 @@ void DcpLabel2ImageComponent::createContents()
     m_BigButton = newButton(width, height, "BigButton");
     m_UpLabel = newLabel(height/2, upLabel, "UpLabel", Qt::AlignLeft|Qt::AlignBottom);
     m_TriangleButton = newButton(triangleSize, "TriangleButton");
+    m_TriangleButton->translate(0,7); //bad
 
     
     m_Image =  newImage(image, imageSize, 2);
@@ -68,11 +67,12 @@ void DcpLabel2ImageComponent::createContents()
 
     m_GridLayout->addItem(m_BigButton, 0, 0, 2, 5, Qt::AlignLeft);
 
-    m_GridLayout->addItem(m_TriangleButton, 0, 1, Qt::AlignBottom);
+    m_GridLayout->addItem(m_TriangleButton, 0, 1, Qt::AlignCenter);
 
     m_GridLayout->addItem(m_Image, 0, 4, 2, 1, Qt::AlignVCenter|Qt::AlignLeft);
 
     m_GridLayout->addItem(m_UpLabel, 0, 2, Qt::AlignCenter);
+    
     m_GridLayout->addItem(m_DownLabel, 1, 1, 1, 2, Qt::AlignCenter);
 
 

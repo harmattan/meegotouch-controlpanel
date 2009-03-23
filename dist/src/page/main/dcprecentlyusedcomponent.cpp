@@ -22,8 +22,7 @@ void DcpRecentlyUsedComponent::createContents()
 }
 
 
-void DcpRecentlyUsedComponent::onOrientationChange (
-                                    const Dui::Orientation &orientation)
+void DcpRecentlyUsedComponent::onOrientationChange (const Dui::Orientation &orientation)
 {
 
     m_MostUsedCategory->onOrientationChange(orientation);

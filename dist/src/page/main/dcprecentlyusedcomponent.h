@@ -22,5 +22,4 @@ private:
 	
 };
 
-
 #endif // DCPRECENTLYUSEDCOMPONENT_H

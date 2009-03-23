@@ -2,7 +2,6 @@
 
 #include <QtDebug>
 
-
 #include "dcpappletdb.h"
 #include "dcpmaincategory.h"
 #include "dcprecentlyusedcomponent.h"
@@ -23,9 +22,6 @@
 #include "duilinearlayout.h"
 #include "duigridlayout.h"
 
-const static int SIZEWIDTH = 760;
-const static int SIZEHEIGHT = 400;
-
 
 DcpMostUsedCategory::DcpMostUsedCategory(const QString& title, QGraphicsWidget *parent) :
   DcpMainCategory(title, parent)
@@ -41,30 +37,17 @@ void DcpMostUsedCategory::createContents()
     setMaxColumns(2);
 
     //dummy code
-    /*   addWidget(DcpApplet::DefaultPath + "language.desktop");
-    addWidget(DcpApplet::DefaultPath + "profile.desktop");
-    
-    addWidget(DcpApplet::DefaultPath + "region_format.desktop");
-    addWidget(DcpApplet::DefaultPath + "ringtone.desktop");
-  
-    addWidget(DcpApplet::DefaultPath + "theme.desktop");
-    addWidget(DcpApplet::DefaultPath + "wallpaper.desktop");*/
-
-/*
-    addWidget("browser.desktop");
-    addWidget("wallpaper.desktop");
-    addWidget("positioning.desktop");
-    addWidget("display.desktop");
-    addWidget("datetime.desktop");
-    addWidget("passcode.desktop");
-*/
-   
-    addComponent(DcpAppletDb::instance()->applet("Browser"));
+  /*  addComponent(DcpAppletDb::instance()->applet("Browser"));
     addComponent(DcpAppletDb::instance()->applet("Wallpaper"));
     addComponent(DcpAppletDb::instance()->applet("Positioning"));
     addComponent(DcpAppletDb::instance()->applet("Display"));
     addComponent(DcpAppletDb::instance()->applet("DateTime"));
-    addComponent(DcpAppletDb::instance()->applet("Passcode"));
+    addComponent(DcpAppletDb::instance()->applet("Passcode"));*/
+
+    foreach (DcpAppletMetadata *item, DcpAppletDb::instance()->listMostUsed())
+    {
+         addComponent(item);
+    }
 }
 
 void DcpMostUsedCategory::paint (QPainter * painter,
@@ -76,6 +59,7 @@ void DcpMostUsedCategory::paint (QPainter * painter,
 
 void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata)
 {
+
   DcpComponent *component = 0; 
   if (metadata->widgetType() == "DcpLabel") {
     component = new DcpLabelComponent(this, metadata);
@@ -102,8 +86,7 @@ void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata)
     }
 }
 
-void 
-DcpMostUsedCategory::onOrientationChange (const Dui::Orientation &orientation)
+void DcpMostUsedCategory::onOrientationChange (const Dui::Orientation &orientation)
 {
 
     if (orientation == Dui::Portrait) {
@@ -148,12 +131,7 @@ return;
 
         DuiLinearLayout *layout = new DuiLinearLayout(Qt::Vertical);
 
-int cnt = 0;
-
         foreach(DcpComponent *component, m_Children) {
-
-        qDebug() << "CNT: " << cnt++;
-
             component->onOrientationChange(orientation);
             layout->addItem(component);
         }
@@ -183,4 +161,3 @@ int cnt = 0;
         qDebug() << "Changing orientation to Dui::Landscape";
    }
 }   
-

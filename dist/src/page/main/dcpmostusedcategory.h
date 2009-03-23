@@ -3,6 +3,7 @@
 #include "dcpmaincategory.h"
 
 class DcpAppletMetadata;
+
 class DcpMostUsedCategory  : public DcpMainCategory
 {
 
