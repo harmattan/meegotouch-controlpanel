@@ -2,7 +2,7 @@
 #include <duilinearlayout.h>
 #include <duibutton.h>
 
-const int height =  60;
+const int height =  75;
 
 ServicesButton::ServicesButton(QGraphicsWidget *parent, const QString &title)
                :DuiWidget(parent)
@@ -20,6 +20,6 @@ void ServicesButton::resizeEvent(QGraphicsSceneResizeEvent *event)
 {
     Q_UNUSED(event);
 
-    m_button->setMinimumWidth(DuiDeviceProfile::instance()->width() / 3 - 60);
-    m_button->setMaximumWidth(DuiDeviceProfile::instance()->width() / 3 - 60);
+    m_button->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - 80);
+    m_button->setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - 80);
 }

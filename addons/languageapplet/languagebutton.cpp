@@ -6,7 +6,7 @@
 #include <duitheme.h>
 
 const QString cssDir    = "/usr/share/themes/dui/duicontrolpanel/";
-const int rowHeight     =    85;
+const int rowHeight     =    90;
 
 LanguageButton::LanguageButton(QString upText,
                                QString downText,
