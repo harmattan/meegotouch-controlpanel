@@ -47,6 +47,7 @@ void DcpMostUsedCategory::createContents()
     {
          addComponent(item);
     }
+
 }
 
 void DcpMostUsedCategory::paint (QPainter * painter,
