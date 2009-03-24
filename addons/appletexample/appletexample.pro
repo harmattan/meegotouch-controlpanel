@@ -3,14 +3,14 @@ OBJECTS_DIR 	= .objects
 MOC_DIR 	= .moc
 CONFIG		+= build_all silent warn_on
 
-INCLUDEPATH 	+= $$[QT_INSTALL_HEADERS]/dui -I ./helloapplet
+INCLUDEPATH 	+= $$[QT_INSTALL_HEADERS]/dui -I ../languageapplet
 LIBS 		+= -L./lib -ldui
 
 
 # Input
 HEADERS		+= mainwindow.h \
-		   mainview.h
+		       mainview.h
 
 SOURCES		+= main.cpp  \
-		   mainwindow.cpp \
-		   mainview.cpp
+		       mainwindow.cpp \
+		       mainview.cpp

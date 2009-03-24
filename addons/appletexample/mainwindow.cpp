@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "mainview.h"
 
+#include <duinavigationbar.h>
 #include <QPluginLoader>
 #include <QDebug>
 #include <QDir>
@@ -23,7 +24,6 @@ MainWindow::~MainWindow()
 void MainWindow::initWindow() 
 {
 	m_view = new MainView();
-
     m_view->appearNow();
+    navigationBar()->setViewMenuButtonText("Language");
 }
-

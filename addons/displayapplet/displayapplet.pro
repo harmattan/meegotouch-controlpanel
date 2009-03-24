@@ -12,7 +12,7 @@ SOURCES       = displayapplet.cpp \
 		        displaywidget.cpp
 
 TARGET        = $$qtLibraryTarget(displayapplet)
-DESTDIR       = ../lib
+DESTDIR       = lib
 
 target.path += $$[QT_INSTALL_LIBS]/duicontrolpanel/applets
 

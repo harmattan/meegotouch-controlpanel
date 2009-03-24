@@ -3,8 +3,6 @@
 
 #include <duiapplicationpage.h>
 
-class DuiPannableViewport;
-
 class MainView : public DuiApplicationPage
 {
 	Q_OBJECT
@@ -21,7 +19,6 @@ protected:
             QWidget *widget);
 
 private:
-	DuiPannableViewport *m_viewport;
 	DuiWidget *m_widget;
 };
 #endif // MAINVIEW_H

@@ -14,8 +14,9 @@ const QString appletDir = "/usr/lib/duicontrolpanel/applets/";
 const int viewportMargin = 45;
 
 MainView::MainView()
-     :DuiApplicationPage(), m_viewport(NULL)
+     :DuiApplicationPage()
 {
+        createContent();
 }
 
 
@@ -37,8 +38,6 @@ void MainView::createContent()
     DuiLinearLayout *mainLayout = new DuiLinearLayout(Qt::Vertical);
     mainLayout->setMargin(viewportMargin);
 
-	m_viewport = new DuiPannableViewport(Qt::Vertical);
-	
 	QString appletPlace;
 	appletPlace += appletDir + "liblanguageapplet.so";
 	
@@ -54,7 +53,7 @@ void MainView::createContent()
 			if (applet) {
 				m_widget = applet->constructWidget();
 				if (m_widget) {
-					m_viewport->setWidget(m_widget);
+					mainLayout->addItem(m_widget);
                     m_widget->setMaximumWidth(DuiDeviceProfile::instance()->width() 
                                     - viewportMargin * 2);
 				} else {
@@ -74,15 +73,13 @@ void MainView::createContent()
 		qWarning() << "Example applet can't loaded.";
 	}
 
-    m_viewport->setMinimumSize(m_widget->size() + QSize(5, 0));
-    mainLayout->addItem(m_viewport);
-    this->setLayout(mainLayout);
+    centralWidget()->setLayout(mainLayout);
 }
 
 void MainView::resizeEvent ( QGraphicsSceneResizeEvent * event ) 
 {
-    if (m_viewport) m_viewport->setMinimumSize(this->size());
-    DuiApplicationPage::resizeEvent(event);
+    Q_UNUSED(event);
+    // DuiApplicationPage::resizeEvent(event);
 }
 
 void MainView::organizeContent(Dui::Orientation) 
