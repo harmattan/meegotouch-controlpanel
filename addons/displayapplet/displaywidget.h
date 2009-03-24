@@ -1,16 +1,16 @@
-#ifndef HELLOWIDGET_H
-#define HELLOWIDGET_H
+#ifndef DISPLAYWIDGET_H
+#define DISPLAYWIDGET_H
 
 #include <DuiWidget>
 class DuiLabel;
 
-class HelloWidget : public DuiWidget 
+class DisplayWidget : public DuiWidget 
 {
 	Q_OBJECT
 		
 public:
-	HelloWidget(QGraphicsWidget *parent = 0);
-	virtual ~HelloWidget();
+	DisplayWidget(QGraphicsWidget *parent = 0);
+	virtual ~DisplayWidget();
 
 	void paint(QPainter *painter,
 			   const QStyleOptionGraphicsItem *option,
@@ -27,4 +27,4 @@ private slots:
 	virtual void setBrightnessLabel(int value);
 	virtual void setScreenLabel(int value);
 };
-#endif // HELLOWIDGET_H
+#endif // DISPLAYWIDGET_H

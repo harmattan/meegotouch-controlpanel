@@ -1,20 +1,20 @@
-#include "hellowidget.h"
+#include "displaywidget.h"
 
 #include <duilinearlayout.h>
 #include <duilabel.h>
 #include <duislider.h>
 
-HelloWidget::HelloWidget(QGraphicsWidget *parent)
+DisplayWidget::DisplayWidget(QGraphicsWidget *parent)
 	    :DuiWidget(parent)
 {
 	initWidget();
 }
 
-HelloWidget::~HelloWidget()
+DisplayWidget::~DisplayWidget()
 {
 }
 
-void HelloWidget::paint(QPainter *painter,
+void DisplayWidget::paint(QPainter *painter,
 			const QStyleOptionGraphicsItem *option,
 			QWidget *widget)
 {
@@ -30,7 +30,7 @@ void HelloWidget::paint(QPainter *painter,
                              size().height()));
 }
 
-void HelloWidget::initWidget()
+void DisplayWidget::initWidget()
 {
 	this->setMinimumWidth(DuiDeviceProfile::instance()->width());
 	DuiLinearLayout *mainLayout = new DuiLinearLayout(Qt::Vertical, this);
@@ -80,12 +80,12 @@ void HelloWidget::initWidget()
     mainLayout->addItem(spacerItem);
 }
 
-void HelloWidget::setBrightnessLabel(int value)
+void DisplayWidget::setBrightnessLabel(int value)
 {
 	m_brightnessLabel->setText(QString("Brightness: %1 %").arg(value));
 }
 
-void HelloWidget::setScreenLabel(int value)
+void DisplayWidget::setScreenLabel(int value)
 {
 	m_screenLabel->setText(QString("Screen lights on: %1 sec").arg(value));
 }
