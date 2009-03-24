@@ -1,0 +1,12 @@
+Source: duicontrolpanel-displayapplet
+Section: unknown
+Priority: extra
+Maintainer: Robert Manner <robert.manner@blumsoft.eu>
+Build-Depends: debhelper (>= 5), libdui-dev
+Standards-Version: 3.7.2
+
+Package: duicontrolpanel-displayapplet
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel
+Description: Display applet for the control panel application
+
