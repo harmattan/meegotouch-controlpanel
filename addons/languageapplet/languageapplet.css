@@ -20,25 +20,25 @@
 
 #LanguageLeftLabel {
         color: #FFFFFF;
-        font: font("Nokia Sans Cn", 20);
+        font: font("Nokia Sans Cn", 24);
 }
 
 #LanguageRightLabel {
         color: #FFA000;
-        font: font("Nokia Sans Cn", 16);
+        font: font("Nokia Sans Cn", 20);
 }
 
 #LanguageSimpleText {
         color: #FFFFFF;
-        font: font("Nokia Sans Cn", 14);
+        font: font("Nokia Sans Cn", 18);
 }
 
 #ServicesContainerCaption {
         color: #FFFFFF;
-        font: font("Nokia Sans Cn", 16);
+        font: font("Nokia Sans Cn", 28);
 }
 
 #ServicesContainerSignLabel {
         color: #FFFFFF;
-        font: font("Nokia Sans Cn", 18);
+        font: font("Nokia Sans Cn", 28);
 }

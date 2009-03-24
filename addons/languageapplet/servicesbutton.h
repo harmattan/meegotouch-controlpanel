@@ -11,6 +11,8 @@ class ServicesButton : public DuiWidget
 public:
     ServicesButton(QGraphicsWidget *parent = 0, const QString &title = "");
 
+    void resizeEvent(QGraphicsSceneResizeEvent *event);
+
 private:
     DuiButton *m_button;
 };
