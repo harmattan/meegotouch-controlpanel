@@ -1,10 +1,10 @@
-#ifndef HELLOAPPLET_H
-#define HELLOAPPLET_H
+#ifndef DISPLAYAPPLET_H
+#define DISPLAYAPPLET_H
 
 #include "exampleappletinterface.h"
 #include <QObject>
 
-class HelloApplet : public QObject, public ExampleAppletInterface 
+class DisplayApplet : public QObject, public ExampleAppletInterface 
 {
 	Q_OBJECT
 	Q_INTERFACES(ExampleAppletInterface)
@@ -14,4 +14,4 @@ public:
 
     virtual QString title() const;
 };
-#endif // HELLOAPPLET_H
+#endif // DISPLAYAPPLET_H
