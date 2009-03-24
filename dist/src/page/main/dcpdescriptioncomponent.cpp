@@ -7,10 +7,10 @@
 
 #include <duigridlayout.h>
 
-static const QSize fullSizeLandscape(720,65);
-static const QSize halfSizeLandscape(340,65);
-static const QSize fullSizePortrait(405,85);
-static const QSize halfSizePortrait(180,125);
+static const QSize fullSizeLandscape(784,65);
+static const QSize halfSizeLandscape(372,65);
+static const QSize fullSizePortrait = fullSizeLandscape;
+static const QSize halfSizePortrait = fullSizeLandscape;
 
 DcpDescriptionComponent::DcpDescriptionComponent(DcpCategory *category,
                                                  const QString& title,

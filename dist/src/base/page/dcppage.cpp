@@ -42,7 +42,6 @@ DcpPage::setTitle(const QString& title)
 void DcpPage::organizeContent(Dui::Orientation ori)
 {
     Q_UNUSED(ori);
-
 /*
     // make the layout reorganize its elements:
     QGraphicsLayout* layout = this->mainLayout();
@@ -51,12 +50,12 @@ void DcpPage::organizeContent(Dui::Orientation ori)
 
     QSize size = DuiDeviceProfile::instance()->resolution();
     size.setHeight(1500);
+    widget->setGeometry(QRectF(QPointF(0,0),size));
     widget->setMinimumSize(size);
     widget->setPreferredSize(size);
     widget->setMaximumSize(size);
-*/
 
-/*
+
     layout->invalidate();
     layout->activate();
  */
