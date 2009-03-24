@@ -5,9 +5,12 @@
 #include "pages.h"
 
 class DcpAppletContainer;
+class DcpAppletMetadata;
+
 class DcpAppletCategoryPage : public DcpCategoryPage
 {
     Q_OBJECT
+
 public:
     DcpAppletCategoryPage(const QString &appletCategory);
     virtual ~DcpAppletCategoryPage();
@@ -15,6 +18,10 @@ public:
     virtual void organizeContent(Dui::Orientation ori);
     const QString appletCategory() const {return m_AppletCategory;};
     void setAppletCategory(const QString &appletCategory){m_AppletCategory=appletCategory;};
+
+protected:
+    void addComponent(DcpAppletMetadata *metadata);
+
 private:
     QString m_AppletCategory;
     DcpAppletContainer *m_AppletContainer;

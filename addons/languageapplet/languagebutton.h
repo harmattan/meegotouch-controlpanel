@@ -21,6 +21,8 @@ public:
                const QStyleOptionGraphicsItem *option,
                QWidget *widget = 0);
 
+    void resizeEvent(QGraphicsSceneResizeEvent *event);
+    
 protected:
     void initWidget();
 

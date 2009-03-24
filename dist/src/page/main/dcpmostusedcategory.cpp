@@ -116,6 +116,7 @@ void DcpMostUsedCategory::onOrientationChange (const Dui::Orientation &orientati
         m_RowCount = 0;
 
         foreach(DcpComponent *component, m_Children) {
+            Q_UNUSED(component);
             m_Layout->removeAt(0);
         }
 
@@ -133,6 +134,7 @@ void DcpMostUsedCategory::onOrientationChange (const Dui::Orientation &orientati
         m_RowCount = 0;
 
          foreach(DcpComponent *component, m_Children) {
+            Q_UNUSED(component);
             m_Layout->removeAt(0);
         }
 
