@@ -99,6 +99,7 @@ DuiImage {
 
         normalBackgroundName: "Menu-box";
         pressedBackgroundName: "Toggle-btn-selected";
+	horizontalBoxEdgePercent: 0.3;
 }
 
 #UpLabel {
