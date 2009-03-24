@@ -3,14 +3,12 @@
 #include "servicescontainer.h"
 
 #include <QPen>
+#include <duideviceprofile.h>
 #include <duilinearlayout.h>
 #include <duibutton.h>
 #include <duilabel.h>
 #include <duitheme.h>
 
-
-const int buttonHeight = 130;
-const int buttonWidth  = 690;
 
 LanguageWidget::LanguageWidget(QGraphicsWidget *parent)
 	    :DuiWidget(parent)
@@ -38,18 +36,26 @@ void LanguageWidget::paint(QPainter *painter,
                             size().height()));
 }
 
+void LanguageWidget::resizeEvent(QGraphicsSceneResizeEvent *event)
+{
+    Q_UNUSED(event);
+
+    m_displayButton->setMinimumWidth(size().width() - 20);
+    m_keyboardButton->setMinimumWidth(size().width() - 20);
+}
+
 void LanguageWidget::initWidget()
 {
     // there is some "magic number" sorry for that
 	DuiLinearLayout *mainLayout = new DuiLinearLayout(Qt::Vertical, this);
 
-    LanguageButton *firstButton = new LanguageButton("Display language",
-                                                    "English", this);
-    mainLayout->addItem(firstButton);
+    m_displayButton = new LanguageButton("Display language",
+                                       "English", this);
+    mainLayout->addItem(m_displayButton);
     
-    LanguageButton *secondButton = new LanguageButton("Keyboard languages (2)",
+    m_keyboardButton = new LanguageButton("Keyboard languages (2)",
                                                     "English, Suomi", this);
-    mainLayout->addItem(secondButton);
+    mainLayout->addItem(m_keyboardButton);
 
     ServicesContainer *servicesContainer = new ServicesContainer(this);
     mainLayout->addItem(servicesContainer);
@@ -66,9 +72,9 @@ void LanguageWidget::initWidget()
     regionFormatButton->setMaximumHeight(45);
     mainLayout->addItem(regionFormatButton);
 
-    mainLayout->setAlignment(firstButton, Qt::AlignHCenter);
-    mainLayout->setAlignment(secondButton, Qt::AlignHCenter);
-    mainLayout->setAlignment(servicesContainer, Qt::AlignHCenter);
-    mainLayout->setAlignment(simpleText, Qt::AlignHCenter);
-    mainLayout->setAlignment(regionFormatButton, Qt::AlignHCenter);
+    mainLayout->setAlignment(m_displayButton, Qt::AlignCenter);
+    mainLayout->setAlignment(m_keyboardButton, Qt::AlignCenter);
+    mainLayout->setAlignment(servicesContainer, Qt::AlignCenter);
+    mainLayout->setAlignment(simpleText, Qt::AlignCenter);
+    mainLayout->setAlignment(regionFormatButton, Qt::AlignCenter);
 }

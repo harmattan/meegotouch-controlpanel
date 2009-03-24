@@ -6,7 +6,7 @@
 #include <duitheme.h>
 
 const QString cssDir    = "/usr/share/themes/dui/duicontrolpanel/";
-const int rowHeight     =    75;
+const int rowHeight     =    85;
 const int rowWidth      =   690;
 
 LanguageButton::LanguageButton(QString upText,
@@ -52,8 +52,8 @@ void LanguageButton::initWidget()
         m_bigButton->setObjectName("LanguageBigButton");
         m_bigButton->setMinimumHeight(upRowHeight + downRowHeight);
         m_bigButton->setMaximumHeight(upRowHeight + downRowHeight);
-        m_bigButton->setMinimumWidth(rowWidth);
-        m_bigButton->setMaximumWidth(rowWidth);
+        // m_bigButton->setMinimumWidth(rowWidth);
+        // m_bigButton->setMaximumWidth(rowWidth);
 
         // m_leftLabel
         m_leftLabel = new DuiLabel(spaceUp + m_upText, this);
@@ -61,8 +61,8 @@ void LanguageButton::initWidget()
         m_leftLabel->setObjectName("LanguageLeftLabel");
         m_leftLabel->setMinimumHeight(upRowHeight);
         m_leftLabel->setMaximumHeight(upRowHeight);
-        m_leftLabel->setMinimumWidth(rowWidth);
-        m_leftLabel->setMaximumWidth(rowWidth);
+        // m_leftLabel->setMinimumWidth(rowWidth);
+        // m_leftLabel->setMaximumWidth(rowWidth);
         m_leftLabel->setAcceptedMouseButtons(0);
         
         // m_rightLabel
@@ -71,8 +71,8 @@ void LanguageButton::initWidget()
         m_rightLabel->setObjectName("LanguageRightLabel");
         m_rightLabel->setMinimumHeight(downRowHeight);
         m_rightLabel->setMaximumHeight(downRowHeight);
-        m_rightLabel->setMinimumWidth(rowWidth);
-        m_rightLabel->setMaximumWidth(rowWidth);
+        // m_rightLabel->setMinimumWidth(rowWidth);
+        // m_rightLabel->setMaximumWidth(rowWidth);
         m_rightLabel->setAcceptedMouseButtons(0);
         
         mainLayout->addItem(m_bigButton, 0, 0, 2, 1, Qt::AlignCenter);

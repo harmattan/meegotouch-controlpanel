@@ -72,10 +72,11 @@ void DcpAppletPage::initApplet()
     }
 
     mainLayout()->addItem(m_View);
-//    mainLayout()->setAlignment(m_View, Qt::AlignHCenter);
-    m_View->setMaximumWidth(DuiDeviceProfile::instance()->width() - 60);
-    m_View->setMinimumWidth(DuiDeviceProfile::instance()->width() - 60);
-    m_View->setMinimumHeight(DuiDeviceProfile::instance()->height() - 80);
+    mainLayout()->setAlignment(m_View, Qt::AlignCenter);
+    mainLayout()->setContentsMargins(25.0, 10.0, 25.0, 10.0);
+    m_View->setMaximumWidth(DuiDeviceProfile::instance()->width() - 50);
+    m_View->setMinimumWidth(DuiDeviceProfile::instance()->width() - 50);
+    m_View->setMinimumHeight(DuiDeviceProfile::instance()->height() - 50);
 }
 
 
