@@ -6,9 +6,12 @@
 #include "duilinearlayout.h"
 #include <QPluginLoader>
 #include "dcpappletmetadata.h"
+#include <duilabel.h>
+#include <duilocale.h>
+
 DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
-    DcpPage(),
-    m_Metadata(metadata) 
+    DcpPage(), m_View(NULL),
+    m_Metadata(metadata)
 {
     setHandle(Pages::APPLET);
 }
@@ -35,38 +38,43 @@ void DcpAppletPage::initApplet()
     QPluginLoader loader(m_Metadata->fullBinary());
     if (!loader.load())
     {
-	    qDebug() << "Loading applet is failed!";
-	    return;
-    }
-    
-    QObject *object = loader.instance();
-    if (!object)
-        return;    
-    
-    ExampleAppletInterface *applet = qobject_cast<ExampleAppletInterface*>(object);
-    if (applet) 
-    {
-	    m_View = applet->constructWidget();
-        setTitle(applet->title());
-	    
-        if (m_View) 
-	    {
-            mainLayout()->addItem(m_View);
-		    m_View->setMaximumWidth(DuiDeviceProfile::instance()->width() - 60);
-            m_View->setMinimumWidth(DuiDeviceProfile::instance()->width() - 60);
-            m_View->setMinimumHeight(DuiDeviceProfile::instance()->height());
-	    } else 
-	    {
-		    qWarning() << "applet->constructWidget() failed.";
-	    }
-				
-    } else 
-    {
-	    qWarning() << "Can't convert object to ExampleAppletInterface.";
+        qDebug() << "Loading applet failed!";
+
+    } else {
+        QObject *object = loader.instance();
+
+        ExampleAppletInterface *applet = qobject_cast<ExampleAppletInterface*>(object);
+        if (applet)
+        {
+            m_View = applet->constructWidget();
+            setTitle(applet->title());
+
+            if (!m_View)
+            {
+                qWarning() << "applet->constructWidget() failed.";
+            }
+
+            delete applet;
+
+        } else
+        {
+            qWarning() << "Can't convert object to ExampleAppletInterface.";
+        }
     }
 
-    delete applet;
-    applet = NULL;
+
+    if (!m_View) {
+        DuiLabel* missingLabel = new DuiLabel(
+                DuiLocale::trid("dcp_no_applet_name", "Plugin not available"));
+        missingLabel->setAlignment(Qt::AlignCenter);
+        m_View = missingLabel;
+        setTitle(DuiLocale::trid("dcp_no_applet_title", "Missing plugin"));
+    }
+
+    mainLayout()->addItem(m_View);
+    m_View->setMaximumWidth(DuiDeviceProfile::instance()->width() - 60);
+    m_View->setMinimumWidth(DuiDeviceProfile::instance()->width() - 60);
+    m_View->setMinimumHeight(DuiDeviceProfile::instance()->height());
 }
 
 
