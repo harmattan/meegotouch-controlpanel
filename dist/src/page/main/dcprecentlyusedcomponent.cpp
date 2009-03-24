@@ -15,10 +15,13 @@ DcpRecentlyUsedComponent::DcpRecentlyUsedComponent(
 void DcpRecentlyUsedComponent::createContents()
 {
     DcpBackgroundComponent::createContents();
+
     m_MostUsedCategory = new DcpMostUsedCategory("TXT");
     connect(m_MostUsedCategory, SIGNAL(openSubPage(Pages::Handle)),
                 this, SIGNAL(openSubPage(Pages::Handle)));
     addItem(m_MostUsedCategory);
+
+    m_MostUsedCategory->translate(12,0); //bad
 }
 
 

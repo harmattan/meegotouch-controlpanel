@@ -27,7 +27,7 @@ DcpBackgroundComponent::createContents()
     m_Caption->setObjectName("ComponentCaption");
 
     // TODO: move to stylesheet
-    this->setContentsMargins(10,10,10,10);
+    this->setContentsMargins(10, 10, 10, 10);
 
     QFont captionFont = m_Caption->font();
     captionFont.setPointSize(captionFont.pointSize()+2);

@@ -1,8 +1,7 @@
-#ifndef DCPBASIC_H
-#define DCPBASIC_H
+#ifndef DCPBASICCOMPONENT_H
+#define DCPBASICCOMPONENT_H
 
 #include "dcpcomponent.h"
-#include <QPixmap>
 #include <QColor>
 
 #include <QString>
@@ -56,6 +55,8 @@ public:
 
     virtual void createContents();
 
+    int getType();
+    
 protected:
     void initLayout();
 
@@ -92,21 +93,30 @@ protected:
 
     DuiLabel* m_UpLabel;
 
-    bool m_Enable;
+    bool m_EnableButton;
     DcpAppletMetadata *m_Metadata; 
 
     int m_Z;
 
     int m_Type;
+
+    static const int m_LabelWidth = 186;   //2
+    static const int m_LabelWidth2 = 306;   //2
 };
 
 inline void DcpBasicComponent::setMetadata(DcpAppletMetadata* metadata)
 {
-  m_Metadata = metadata;
+    m_Metadata = metadata;
 }
 
-inline DcpAppletMetadata* DcpBasicComponent::metadata() const {
-  return m_Metadata;
+inline DcpAppletMetadata* DcpBasicComponent::metadata() const
+{
+    return m_Metadata;
 }
 
-#endif // DCPBACKGROUNDCOMPONENT_H
+inline int DcpBasicComponent::getType()
+{
+    return m_Type;
+}
+
+#endif // DCPBASICCOMPONENT_H

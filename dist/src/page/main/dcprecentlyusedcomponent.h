@@ -9,8 +9,7 @@ class DcpRecentlyUsedComponent: public DcpBackgroundComponent
 {
     Q_OBJECT
 public:
-    DcpRecentlyUsedComponent(DcpCategory *category,
-                            QGraphicsWidget *parent=0);
+    DcpRecentlyUsedComponent(DcpCategory *category, QGraphicsWidget *parent=0);
 
     virtual void createContents();
 

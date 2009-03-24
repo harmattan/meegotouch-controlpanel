@@ -39,19 +39,18 @@ void DcpLabel2ImageComponent::createContents()
 
   //dummy, must modify constructor  
     int smallWidth = 20;    //0,1
-    int labelWidth = 170;   //2
     int spaceWidth = 5;     //3
     int imageWidth = 115;     //4
 
     int triangleSize = 20;
 
-    int width = smallWidth*2 + labelWidth + spaceWidth + imageWidth;
+    int width = smallWidth*2 + m_LabelWidth + spaceWidth + imageWidth;
     
     int height = 100;
 
     int imageSize = 70;     //3
     
-    initColumn(smallWidth, smallWidth, labelWidth, spaceWidth, imageWidth );
+    initColumn(smallWidth, smallWidth, m_LabelWidth, spaceWidth, imageWidth );
     initRow2(height/2);
 
 

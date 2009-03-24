@@ -36,13 +36,12 @@ void DcpLabelComponent::createContents()
  
     //dummy, must modify constructor  
     int smallWidth = 20;    //0,1
-    int labelWidth = 290;   //2
-
-    int width = smallWidth*2 + labelWidth;
+   
+    int width = smallWidth*2 + m_LabelWidth2;
 
     int height = 100;
 
-    initColumn(smallWidth, smallWidth, labelWidth );
+    initColumn(smallWidth, smallWidth, m_LabelWidth2 );
     initRow(height);
   
     m_BigButton = newButton(width, height, "BigButton");
