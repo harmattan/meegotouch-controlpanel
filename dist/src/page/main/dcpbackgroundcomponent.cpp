@@ -27,7 +27,7 @@ DcpBackgroundComponent::createContents()
     m_Caption->setObjectName("ComponentCaption");
 
     // TODO: move to stylesheet
-    this->setContentsMargins(10, 10, 10, 10);
+    this->setContentsMargins(10, 0, 10, 0);
 
     QFont captionFont = m_Caption->font();
     captionFont.setPointSize(captionFont.pointSize()+2);
@@ -39,8 +39,8 @@ DcpBackgroundComponent::createContents()
     m_Caption->setAcceptedMouseButtons(0);
     // --
 
-    m_Layout->addItem(m_Caption);
     setLayout(m_Layout);
+    addItem(m_Caption);
 }
 
 
@@ -67,7 +67,6 @@ void DcpBackgroundComponent::paint (QPainter * painter,
     Q_UNUSED(widget);
 
     // TODO: move to stylesheet
-    int borderWidth = 2;
     QColor lineColor = QColor::fromRgb(0x3d, 0x2a, 0x0f);
     QColor bgColor = Qt::black;
     QColor borderColor = Qt::lightGray;
@@ -76,7 +75,7 @@ void DcpBackgroundComponent::paint (QPainter * painter,
     if (m_Background.isNull() || m_Background.width() != size().width()){
         m_Background = DcpImageUtils::instance()->scaledPixmap(
         //        "C2-container-dark-landscape-123px", size().toSize());
-                "Mashup-container", size().toSize());
+                "Mashup-container", size().toSize(), 30);
         if (m_Background.isNull()) {
             qWarning ("theme lacks bg picture for settings component");
             return;
