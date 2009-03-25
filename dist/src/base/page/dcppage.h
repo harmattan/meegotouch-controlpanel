@@ -33,6 +33,9 @@ public:
 signals:
     void openSubPage(Pages::Handle handle);
 
+protected slots:
+    void onOrientationAngleChanged();
+
 protected:
    QString m_Title;
 

@@ -17,10 +17,6 @@ public:
 protected:
     virtual void createContents();
 
-public slots:  
-    virtual void onOrientationChange (const Dui::Orientation &orientation);   
-
-//  QPixmap *m_Background;
 };
 
 #endif
