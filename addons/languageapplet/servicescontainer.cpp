@@ -92,6 +92,11 @@ void ServicesContainer::initContainer()
     captionLayout->setAlignment(spacerItem, Qt::AlignCenter);
     captionLayout->setAlignment(signButton, Qt::AlignRight | Qt::AlignBottom);
     m_mainLayout->addItem(captionLayout);
+
+    DuiWidget *spacerItem2 = new DuiWidget(this);
+    spacerItem2->setMaximumHeight(10);
+    spacerItem2->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    m_mainLayout->addItem(spacerItem2);
     
     // Example how to add ServicesButtonBlock  
     ServicesButtonBlock *blockOne = 
