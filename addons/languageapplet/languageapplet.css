@@ -4,7 +4,7 @@
         font: font("Nokia Sans Cn", 15);
         textColor: #FF0000;
 
-        normalBackgroundName: "languagebutton-bg";
+        normalBackgroundName: "C2-container";
         pressedBackgroundName: "Toggle-btn-selected";
 }
 
@@ -14,7 +14,7 @@
         font: font("Nokia Sans Cn", 15);
         textColor: #FFFFFF;
 
-        normalBackgroundName: "languagebutton-bg";
+        normalBackgroundName: "C2-container";
         pressedBackgroundName: "Toggle-btn-selected";
 }
 

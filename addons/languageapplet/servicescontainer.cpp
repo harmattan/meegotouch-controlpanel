@@ -28,13 +28,17 @@ void ServicesContainer::paint(QPainter *painter,
     Q_UNUSED(option);
     Q_UNUSED(widget);
     
+    m_background = DcpImageUtils::instance()->scaledPixmap(
+                                            "Mashup-container",
+                                            size().toSize());
+
     if (!m_background.isNull())
     {
         painter->drawPixmap(QPoint(0, 0), m_background);
     }
 
     // draw line below the title
-    int borderWidth = 2;
+    /* int borderWidth = 2;
     QColor lineColor = QColor::fromRgb(0x3d, 0x2a, 0x0f);
     QPen pen = painter->pen();
     pen.setColor(lineColor);
@@ -43,7 +47,7 @@ void ServicesContainer::paint(QPainter *painter,
 
     qreal y = m_caption->y() + m_caption->size().height();
     painter->drawLine(borderWidth, y, 
-                      size().width() - 2 * borderWidth, y);
+                      size().width() - 2 * borderWidth, y);*/
 }
 
 void ServicesContainer::resizeEvent(QGraphicsSceneResizeEvent *event)
@@ -56,7 +60,7 @@ void ServicesContainer::resizeEvent(QGraphicsSceneResizeEvent *event)
     //                                          QSize(geometry().width(), geometry().height()), 
     //                                          50);
     m_background = DcpImageUtils::instance()->scaledPixmap(
-                                            "C2-container-dark-landscape-123px",
+                                            "Mashup-container",
                                             size().toSize());
 }
 
