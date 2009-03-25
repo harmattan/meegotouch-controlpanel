@@ -77,7 +77,7 @@ void DcpBackgroundComponent::paint (QPainter * painter,
         //        "C2-container-dark-landscape-123px", size().toSize());
                 "Mashup-container", size().toSize(), 30);
         if (m_Background.isNull()) {
-            qWarning ("theme lacks bg picture for settings component");
+            // qWarning ("theme lacks bg picture for settings component");
             return;
         }
     }
