@@ -48,13 +48,14 @@ void LanguageWidget::initWidget()
 {
     // there is some "magic number" sorry for that
 	DuiLinearLayout *mainLayout = new DuiLinearLayout(Qt::Vertical, this);
+    mainLayout->setSpacing(15);
 
     m_displayButton = new LanguageButton("Display language",
-                                       "English", this);
+                                       "English GB", this);
     mainLayout->addItem(m_displayButton);
     
     m_keyboardButton = new LanguageButton("Keyboard languages (2)",
-                                                    "English, Suomi", this);
+                                                    "English GB, Suomi", this);
     mainLayout->addItem(m_keyboardButton);
 
     ServicesContainer *servicesContainer = new ServicesContainer(this);
@@ -68,8 +69,8 @@ void LanguageWidget::initWidget()
     mainLayout->addItem(simpleText);
 
     DuiButton *regionFormatButton = new DuiButton("Region format", this);
-    regionFormatButton->setMaximumWidth(350);
-    regionFormatButton->setMaximumHeight(45);
+    regionFormatButton->setMaximumWidth(270);
+    regionFormatButton->setMaximumHeight(60);
     mainLayout->addItem(regionFormatButton);
 
     mainLayout->setAlignment(m_displayButton, Qt::AlignCenter);

@@ -20,8 +20,6 @@ void DcpRecentlyUsedComponent::createContents()
     connect(m_MostUsedCategory, SIGNAL(openSubPage(Pages::Handle)),
                 this, SIGNAL(openSubPage(Pages::Handle)));
     addItem(m_MostUsedCategory);
-
-    m_MostUsedCategory->translate(12,0); //bad
 }
 
 

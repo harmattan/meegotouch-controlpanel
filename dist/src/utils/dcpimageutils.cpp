@@ -81,7 +81,6 @@ QPixmap DcpImageUtils::borderCorrectScale(const QPixmap& pixmap,
     if (pixmap.isNull() || pixmap.height() < 2*borderSize ||
         pixmap.width() < 2*borderSize)
     {
-        qDebug("XXX image too small");
         return QPixmap();
     }
 

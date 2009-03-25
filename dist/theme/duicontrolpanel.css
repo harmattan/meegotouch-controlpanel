@@ -35,7 +35,7 @@ DuiImage {
         minsize: size(350, 100);
         maxsize: size(350, 100);
 
-        normalBackgroundName: "Menu-box";
+        normalBackgroundName: "C2-container";
         pressedBackgroundName: "Toggle-btn-selected";
 	horizontalBoxEdgePercent: 0.3;
 }
@@ -48,7 +48,7 @@ DuiImage {
         minsize: size(350, 100);
         maxsize: size(350, 100);
 
-        normalBackgroundName: "appletcategorybutton-bg";
+        normalBackgroundName: "C2-container";
         pressedBackgroundName: "Toggle-btn-selected";
 	horizontalBoxEdgePercent: 0.3;
 }
@@ -97,7 +97,7 @@ DuiImage {
         minsize: size(350, 100);
         maxsize: size(350, 100);
 
-        normalBackgroundName: "Menu-box";
+        normalBackgroundName: "C2-container";
         pressedBackgroundName: "Toggle-btn-selected";
 	horizontalBoxEdgePercent: 0.3;
 }
@@ -114,7 +114,7 @@ DuiImage {
 
 
 #TriangleButton {
-        normalBackgroundName: "Icon-close";
-        pressedBackgroundName: "Icon-close";
+        normalBackgroundName: "See-more-indicator-small";
+        pressedBackgroundName: "See-more-indicator-small";
 }
 
