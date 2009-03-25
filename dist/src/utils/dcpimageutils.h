@@ -3,6 +3,7 @@
 
 #include <QPixmap>
 #include <QString>
+#include <QHash>
 class QPixmapCache;
 
 class DcpImageUtils {
@@ -18,9 +19,11 @@ public:
 
 protected:
     DcpImageUtils();
+    ~DcpImageUtils();
     static DcpImageUtils* sm_Instance;
 
     QPixmapCache* m_PixmapCache;
+    QHash<QString, const QPixmap*> m_PixmapUnderLoading;
 };
 
 
