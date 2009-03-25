@@ -104,6 +104,8 @@ protected:
 
     static const int m_LabelWidth = 186;   //2
     static const int m_LabelWidth2 = 306;   //2
+
+    static const int m_TriangleSize = 16;
 };
 
 inline void DcpBasicComponent::setMetadata(DcpAppletMetadata* metadata)

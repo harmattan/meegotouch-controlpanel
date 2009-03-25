@@ -43,8 +43,6 @@ void DcpLabel2Component::createContents()
     int spaceWidth = 5;     //3
     int imageWidth = 115;     //4
 
-    int triangleSize = 20;
-
     int width = smallWidth*2 + m_LabelWidth + spaceWidth + imageWidth;
     
     int height = 100;
@@ -55,7 +53,7 @@ void DcpLabel2Component::createContents()
     
     m_BigButton = newButton(width, height, "BigButton");
     m_UpLabel = newLabel(height/2, upLabel, "UpLabel", Qt::AlignLeft|Qt::AlignBottom);
-    m_TriangleButton = newButton(triangleSize, "TriangleButton");
+    m_TriangleButton = newButton(m_TriangleSize, "TriangleButton");
 
     m_DownLabel = newLabel(height/2, downLabel, "DownLabel", Qt::AlignLeft|Qt::AlignTop);
 

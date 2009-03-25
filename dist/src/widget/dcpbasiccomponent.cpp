@@ -14,8 +14,6 @@
 
 //DuiButton* DcpBasicComponent::m_TriangleButtonOriginal = NULL;
 
-static const int TRIANGLESIZE = 20;
-
 DcpBasicComponent::DcpBasicComponent(
                             DcpCategory *category,
                             DcpAppletMetadata * metadata,
