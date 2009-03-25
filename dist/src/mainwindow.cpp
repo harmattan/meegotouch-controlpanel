@@ -43,7 +43,7 @@ MainWindow::changePage(Pages::Handle handle)
       {
 	if (page->referer().id == Pages::NOPAGE)
 	    page->setReferer(oldPage->handle());      
-	oldPage->dissappearNow();
+	oldPage->disappearNow();
       }
     page->handle().id == Pages::MAIN ?
        navigationBar()->showCloseButton()

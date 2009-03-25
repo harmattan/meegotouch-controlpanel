@@ -46,13 +46,8 @@ void DcpMainCategory::add(DcpComponent *component)
     m_LandscapeLayout->addItemAtPosition(component,
                                          m_RowCount, 0 /* column */,
               1 /* rowspan */, m_MaxColumns /* columnspan */);
-<<<<<<< Updated upstream:dist/src/base/maincategory/dcpmaincategory.cpp
 /*    m_PortraitLayout->addItemAtPosition(component,
                                         m_ItemCount);*/
-=======
-    m_PortraitLayout->addItemAtPosition(component,
-                                        m_ItemCount);
->>>>>>> Stashed changes:dist/src/base/maincategory/dcpmaincategory.cpp
 
     DcpCategory::add(component);
     m_RowCount++;
