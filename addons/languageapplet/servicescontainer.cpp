@@ -84,13 +84,15 @@ void ServicesContainer::initContainer()
     m_mainLayout->addItem(captionLayout);
     
     // Example how to add ServicesButtonBlock  
-    ServicesButtonBlock *blockOne = new ServicesButtonBlock(this);
+    ServicesButtonBlock *blockOne = 
+            new ServicesButtonBlock("Recent released display languages", this);
     m_mainLayout->addItem(blockOne);
     blockOne->addServicesButton("Language 1");
     blockOne->addServicesButton("Language 2");
     blockOne->addServicesButton("Language 3");
 
-    ServicesButtonBlock *blockTwo = new ServicesButtonBlock(this);
+    ServicesButtonBlock *blockTwo = 
+            new ServicesButtonBlock("Recent released keyboard languages", this);
     m_mainLayout->addItem(blockTwo);
     blockTwo->addServicesButton("Language");
 }
