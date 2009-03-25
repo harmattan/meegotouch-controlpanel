@@ -75,7 +75,8 @@ void DcpBackgroundComponent::paint (QPainter * painter,
 
     if (m_Background.isNull() || m_Background.width() != size().width()){
         m_Background = DcpImageUtils::instance()->scaledPixmap(
-                "C2-container-dark-landscape-123px", size().toSize());
+        //        "C2-container-dark-landscape-123px", size().toSize());
+                "Mashup-container", size().toSize());
         if (m_Background.isNull()) {
             qWarning ("theme lacks bg picture for settings component");
             return;
@@ -84,12 +85,12 @@ void DcpBackgroundComponent::paint (QPainter * painter,
     painter->drawPixmap(QPoint(0, 0), m_Background);
 
     // line between the title & description:
-    QPen pen = painter->pen();
+    /* QPen pen = painter->pen();
     pen.setColor(lineColor);
     pen.setWidth(1);
     painter->setPen(pen);
     qreal y = m_Caption->y() + m_Caption->size().height() + 2;
-    painter->drawLine(borderWidth, y, size().width()-2*borderWidth, y);
+    painter->drawLine(borderWidth, y, size().width()-2*borderWidth, y);*/
 }
 
 

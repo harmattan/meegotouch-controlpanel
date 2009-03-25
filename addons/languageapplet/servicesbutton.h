@@ -2,7 +2,10 @@
 #define SERVICESBUTTON_H
 
 #include <DuiWidget>
+
+class DuiGridLayout;
 class DuiButton;
+class DuiLabel;
 
 class ServicesButton : public DuiWidget
 {
@@ -14,6 +17,8 @@ public:
     void resizeEvent(QGraphicsSceneResizeEvent *event);
 
 private:
-    DuiButton *m_button;
+    DuiGridLayout   *m_mainLayout;
+    DuiButton       *m_button;
+    DuiLabel        *m_label;
 };
 #endif // SERVICESBUTTON_H

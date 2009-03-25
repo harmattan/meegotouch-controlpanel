@@ -4,7 +4,7 @@
         font: font("Nokia Sans Cn", 15);
         textColor: #FF0000;
 
-        normalBackgroundName: "languagebutton-bg";
+        normalBackgroundName: "C2-container";
         pressedBackgroundName: "Toggle-btn-selected";
 }
 
@@ -14,8 +14,13 @@
         font: font("Nokia Sans Cn", 15);
         textColor: #FFFFFF;
 
-        normalBackgroundName: "languagebutton-bg";
+        normalBackgroundName: "C2-container";
         pressedBackgroundName: "Toggle-btn-selected";
+}
+
+#ServicesButtonLabel {
+        color: #FFFFFF;
+        font: font("Nokia Sans Cn", 20);
 }
 
 #LanguageLeftLabel {
@@ -38,7 +43,11 @@
         font: font("Nokia Sans Cn", 28);
 }
 
-#ServicesContainerSignLabel {
-        color: #FFFFFF;
-        font: font("Nokia Sans Cn", 28);
+#ServicesContainerSignButton {
+        preferredsize: size(50, 50);
+        minsize: size(50, 50);
+        maxsize: size(50, 50);
+        
+        normalBackgroundName: "See-more-indicator-big";
+        pressedBackgroundName: "See-more-indicator-big";
 }

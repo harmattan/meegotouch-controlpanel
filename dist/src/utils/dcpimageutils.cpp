@@ -13,11 +13,18 @@ DcpImageUtils::DcpImageUtils()
     m_PixmapCache = new QPixmapCache();
 }
 
+DcpImageUtils::~DcpImageUtils() {
+    delete m_PixmapCache;
+    foreach (const QPixmap* pixmap, m_PixmapUnderLoading.values()) {
+        DuiTheme::releasePixmap(pixmap);
+    }
+}
 
 static inline QString createKey(const QString& id, int newWidth,
                                int newHeight, int borderSize)
 {
-    return id + "," + newWidth + "," + newHeight + "," + borderSize;
+    return id + "," + QString::number(newWidth) + ","
+            + QString::number(newHeight) + "," + QString::number(borderSize);
 }
 
 
@@ -31,13 +38,28 @@ QPixmap DcpImageUtils::scaledPixmap(const QString& id, int newWidth,
 {
     QString key = createKey(id, newWidth, newHeight, borderSize);
     QPixmap pixmap;
+
+    /* The pixmaps way:
+       1) goes into m_PixmapUnderLoading while it is not loaded
+            (meanwhile null pixmap is returned)
+       2) goes into m_PixmapCache when loaded and edited
+     */
+
     if (!m_PixmapCache->find(key, pixmap)){
-        /* write "const" here for new dui */ const QPixmap* source = DuiTheme::pixmap(id);
+        const QPixmap* source;
+        if (m_PixmapUnderLoading.contains(key)){
+            source = m_PixmapUnderLoading.value(key);
+        } else {
+            source = DuiTheme::pixmap(id);
+            m_PixmapUnderLoading.insert(key,source);
+        }
+
         pixmap = borderCorrectScale(*source, newWidth, newHeight, borderSize);
         if (!pixmap.isNull()){
             m_PixmapCache->insert(key, pixmap);
+            m_PixmapUnderLoading.remove(key);
+            DuiTheme::releasePixmap(source);
         }
-        DuiTheme::releasePixmap(source);
     }
     return pixmap;
 }
@@ -59,6 +81,7 @@ QPixmap DcpImageUtils::borderCorrectScale(const QPixmap& pixmap,
     if (pixmap.isNull() || pixmap.height() < 2*borderSize ||
         pixmap.width() < 2*borderSize)
     {
+        qDebug("XXX image too small");
         return QPixmap();
     }
 
