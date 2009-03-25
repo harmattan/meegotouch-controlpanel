@@ -76,7 +76,7 @@ void DcpAppletPage::initApplet()
     mainLayout()->setContentsMargins(25.0, 10.0, 25.0, 10.0);
     m_View->setMaximumWidth(DuiDeviceProfile::instance()->width() - 50);
     m_View->setMinimumWidth(DuiDeviceProfile::instance()->width() - 50);
-    m_View->setMinimumHeight(DuiDeviceProfile::instance()->height() - 50);
+    m_View->setMinimumHeight(DuiDeviceProfile::instance()->height() - 100);
 }
 
 
