@@ -75,8 +75,11 @@ void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata)
       case DCPLABEL2BUTTON :
           component = new DcpLabel2ButtonComponent(this, metadata);
       break;
-      case DCPLABEL2IMAGE :
-          component = new DcpLabel2ImageComponent(this, metadata);
+      case DCPLABEL2IMAGELEFT :
+          component = new DcpLabel2ImageComponent(this, metadata, Qt::AlignLeft);
+      break;
+      case DCPLABEL2IMAGERIGHT :
+          component = new DcpLabel2ImageComponent(this, metadata, Qt::AlignRight);
       break;
   }
 

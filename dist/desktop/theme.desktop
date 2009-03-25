@@ -14,8 +14,12 @@ X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 [DCP]
 Category= Seeing & Touching
 Order=2
-WidgetType= DcpLabel2Image
-Image= images/backgroundP.png
+WidgetType= DcpLabel2ImageLeft
+
+Text1= Theme
+Text2= default
+
+Image= images/starfield.png
 
 ButtonCSS= BigButton
 Label1CSS= LabelFont1

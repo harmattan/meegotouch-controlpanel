@@ -47,29 +47,31 @@ void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata)
 {
     DcpComponent *component = 0;
 
-    switch(metadata->widgetTypeID())
-    {
+    switch(metadata->widgetTypeID()) {
         case DCPLABEL:
-                component = new DcpLabelComponent(0, metadata);
-                break;
+            component = new DcpLabelComponent(0, metadata);
+        break;
         case DCPLABEL2:
-                component = new DcpLabel2Component(0, metadata);
-                break;
+            component = new DcpLabel2Component(0, metadata);
+        break;
         case DCPLABELBUTTON:
-                component = new DcpLabelButtonComponent(0, metadata);
-                break;
+            component = new DcpLabelButtonComponent(0, metadata);
+        break;
         case DCPLABEL2BUTTON:
-                component = new DcpLabel2ButtonComponent(0, metadata);
-                break;
-        case DCPLABEL2IMAGE:
-                component = new DcpLabel2ImageComponent(0, metadata);
-                break;
+            component = new DcpLabel2ButtonComponent(0, metadata);
+        break;
+        case DCPLABEL2IMAGELEFT :
+            component = new DcpLabel2ImageComponent(0, metadata, Qt::AlignLeft);
+        break;
+        case DCPLABEL2IMAGERIGHT :
+            component = new DcpLabel2ImageComponent(0, metadata, Qt::AlignRight);
+        break;
         default:
-                break;
+        break;
     }
 
-    if (component)
-    {
+    if (component) {
+
         component->setSubPage(Pages::APPLET, metadata->name());
         connect(component, SIGNAL(openSubPage(Pages::Handle)),
                         this, SIGNAL(openSubPage(Pages::Handle)));

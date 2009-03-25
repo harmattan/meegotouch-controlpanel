@@ -14,11 +14,17 @@
 DcpLabel2ImageComponent::DcpLabel2ImageComponent(
                             DcpCategory *category,
                             DcpAppletMetadata * metadata,
+                            Qt::Alignment alignment,
                             const QString& title,
                             QGraphicsWidget *parent):
-    DcpBasicComponent(category, metadata, title, parent)
+    DcpBasicComponent(category, metadata, title, parent),
+    m_Alignment(alignment)
 {
-    m_Type = DCPLABEL2IMAGE;
+
+    if (m_Alignment==Qt::AlignLeft)
+        m_Type = DCPLABEL2IMAGELEFT;
+    else
+        m_Type = DCPLABEL2IMAGERIGHT;
 
 
     m_UpLabelText = this->metadata()->text1();
@@ -62,9 +68,10 @@ void DcpLabel2ImageComponent::createContents()
 
     initRow2(m_Height/2);
 
-
-initLeft();
-//initRight();
+    if (m_Alignment==Qt::AlignLeft)
+        initLeft();
+    else
+        initRight();
 
 
     connect(m_BigButton, SIGNAL(clicked()), this, SLOT(bigClicked()));

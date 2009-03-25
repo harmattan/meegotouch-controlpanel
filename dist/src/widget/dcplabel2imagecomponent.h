@@ -16,9 +16,10 @@ class DcpLabel2ImageComponent: public DcpBasicComponent
     Q_OBJECT
 public:
     DcpLabel2ImageComponent(DcpCategory *category,
-                       DcpAppletMetadata* metadata,
-                       const QString& title="",
-                       QGraphicsWidget *parent=0);
+                            DcpAppletMetadata* metadata,
+                            Qt::Alignment alignment = Qt::AlignRight,
+                            const QString& title="",
+                            QGraphicsWidget *parent=0);
     ~DcpLabel2ImageComponent();
 
     virtual void createContents();
@@ -46,6 +47,8 @@ protected:
         int m_Height;
     
         int m_ImageSize;
+
+        Qt::Alignment m_Alignment;
 
 };
 
