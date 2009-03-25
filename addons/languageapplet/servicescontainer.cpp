@@ -6,6 +6,7 @@
 #include <duitheme.h>
 #include <duilinearlayout.h>
 #include <duilabel.h>
+#include <duibutton.h>
 
 ServicesContainer::ServicesContainer(QGraphicsWidget *parent)
                   :DuiWidget(parent)
@@ -28,10 +29,14 @@ void ServicesContainer::paint(QPainter *painter,
     Q_UNUSED(option);
     Q_UNUSED(widget);
     
-    m_background = DcpImageUtils::instance()->scaledPixmap(
+    if (m_background.isNull())
+    {
+        qDebug() << "m_background is loaded";
+        m_background = DcpImageUtils::instance()->scaledPixmap(
                                             "Mashup-container",
                                             size().toSize());
-
+    }
+    
     if (!m_background.isNull())
     {
         painter->drawPixmap(QPoint(0, 0), m_background);
@@ -59,9 +64,9 @@ void ServicesContainer::resizeEvent(QGraphicsSceneResizeEvent *event)
     // m_background = DuiTheme::horizBoxedPixmap("C2-container-dark-landscape-123px",
     //                                          QSize(geometry().width(), geometry().height()), 
     //                                          50);
-    m_background = DcpImageUtils::instance()->scaledPixmap(
+    /* m_background = DcpImageUtils::instance()->scaledPixmap(
                                             "Mashup-container",
-                                            size().toSize());
+                                            size().toSize());*/
 }
 
 void ServicesContainer::initContainer()
@@ -79,12 +84,13 @@ void ServicesContainer::initContainer()
     spacerItem->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     captionLayout->addItem(spacerItem);
 
-    DuiLabel *signLabel = new DuiLabel(">", this);
-    signLabel->setObjectName("ServicesContainerSignLabel");
-    captionLayout->addItem(signLabel);
+    DuiButton *signButton = new DuiButton(this);
+    signButton->setObjectName("ServicesContainerSignButton");
+    captionLayout->addItem(signButton);
 
     captionLayout->setAlignment(m_caption, Qt::AlignLeft  | Qt::AlignBottom);
-    captionLayout->setAlignment(signLabel, Qt::AlignRight | Qt::AlignBottom);
+    captionLayout->setAlignment(spacerItem, Qt::AlignCenter);
+    captionLayout->setAlignment(signButton, Qt::AlignRight | Qt::AlignBottom);
     m_mainLayout->addItem(captionLayout);
     
     // Example how to add ServicesButtonBlock  

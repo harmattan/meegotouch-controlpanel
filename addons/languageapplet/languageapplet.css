@@ -18,6 +18,11 @@
         pressedBackgroundName: "Toggle-btn-selected";
 }
 
+#ServicesButtonLabel {
+        color: #FFFFFF;
+        font: font("Nokia Sans Cn", 20);
+}
+
 #LanguageLeftLabel {
         color: #FFFFFF;
         font: font("Nokia Sans Cn", 24);
@@ -38,7 +43,11 @@
         font: font("Nokia Sans Cn", 28);
 }
 
-#ServicesContainerSignLabel {
-        color: #FFFFFF;
-        font: font("Nokia Sans Cn", 28);
+#ServicesContainerSignButton {
+        preferredsize: size(50, 50);
+        minsize: size(50, 50);
+        maxsize: size(50, 50);
+        
+        normalBackgroundName: "See-more-indicator-big";
+        pressedBackgroundName: "See-more-indicator-big";
 }
