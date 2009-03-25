@@ -3,7 +3,7 @@
 #include <duibutton.h>
 #include <duilabel.h>
 
-const int height =  85;
+const int height =  80;
 const QString space = "        ";
 
 ServicesButton::ServicesButton(QGraphicsWidget *parent, const QString &title)

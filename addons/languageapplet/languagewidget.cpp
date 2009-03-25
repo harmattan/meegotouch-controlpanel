@@ -69,8 +69,8 @@ void LanguageWidget::initWidget()
     mainLayout->addItem(simpleText);
 
     DuiButton *regionFormatButton = new DuiButton("Region format", this);
-    regionFormatButton->setMaximumWidth(320);
-    regionFormatButton->setMaximumHeight(65);
+    regionFormatButton->setMaximumWidth(270);
+    regionFormatButton->setMaximumHeight(60);
     mainLayout->addItem(regionFormatButton);
 
     mainLayout->setAlignment(m_displayButton, Qt::AlignCenter);
