@@ -12,8 +12,6 @@ include (common.pri)
 include(theme/theme.pri)
 include(desktop/desktop.pri)
 
-# for make deb
-include(debian/deb.pri)
 
 # for check:
 check.target = check

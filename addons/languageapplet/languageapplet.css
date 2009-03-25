@@ -20,33 +20,33 @@
 
 #ServicesButtonLabel {
         color: #FFFFFF;
-        font: font("Nokia Sans Cn", 20);
+        font: font("Nokia Sans Cn", 18);
 }
 
 #LanguageLeftLabel {
         color: #FFFFFF;
-        font: font("Nokia Sans Cn", 24);
+        font: font("Nokia Sans Cn", 18);
 }
 
 #LanguageRightLabel {
         color: #FFA000;
-        font: font("Nokia Sans Cn", 20);
+        font: font("Nokia Sans Cn", 16);
 }
 
 #LanguageSimpleText {
         color: #FFFFFF;
-        font: font("Nokia Sans Cn", 18);
+        font: font("Nokia Sans Cn", 16);
 }
 
 #ServicesContainerCaption {
         color: #FFFFFF;
-        font: font("Nokia Sans Cn", 28);
+        font: font("Nokia Sans Cn", 20);
 }
 
 #ServicesContainerSignButton {
-        preferredsize: size(50, 50);
-        minsize: size(50, 50);
-        maxsize: size(50, 50);
+        preferredsize: size(40, 40);
+        minsize: size(40, 40);
+        maxsize: size(40, 40);
         
         normalBackgroundName: "See-more-indicator-big";
         pressedBackgroundName: "See-more-indicator-big";

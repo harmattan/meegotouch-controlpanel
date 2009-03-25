@@ -14,8 +14,9 @@ MainWindow::MainWindow()
 
 void MainWindow::homeClicked()
 {
-//   changePage(Pages::MAIN);
-   onRotateClicked();
+   Pages::Handle handle = {Pages::MAIN, ""};
+   changePage(handle);
+//   onRotateClicked();
 }
 
 void MainWindow::backClicked()

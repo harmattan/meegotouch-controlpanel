@@ -38,7 +38,6 @@ DcpDescriptionComponent::createContents()
     // --
 
     addItem(m_Description);
-
 }
 
 

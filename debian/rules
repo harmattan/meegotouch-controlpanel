@@ -31,8 +31,8 @@ build: build-stamp
 build-stamp: configure-stamp 
 	dh_testdir
 
-	DEBIAN_DESTDIR=$(PWD)/debian/duicontrolpanel qmake
-	DEBIAN_DESTDIR=$(PWD)/debian/duicontrolpanel $(MAKE)
+	DEBIAN_DESTDIR=$(PWD)/debian/tmp qmake
+	DEBIAN_DESTDIR=$(PWD)/debian/tmp $(MAKE)
 	touch $@
 
 clean:
@@ -51,7 +51,7 @@ install: build
 	dh_clean -k 
 	dh_installdirs
 
-	DEBIAN_DESTDIR=$(PWD)/debian/duicontrolpanel $(MAKE) install
+	DEBIAN_DESTDIR=$(PWD)/debian/tmp $(MAKE) install
 
 
 # Build architecture-independent files here.
@@ -65,7 +65,7 @@ binary-arch: build install
 	dh_installchangelogs 
 	dh_installdocs
 	dh_installexamples
-#	dh_install
+	dh_install --sourcedir=debian/tmp
 #	dh_installmenu
 #	dh_installdebconf	
 #	dh_installlogrotate

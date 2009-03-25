@@ -1,0 +1,4 @@
+usr/bin/duicontrolpanel
+usr/lib/duicontrolpanel/*desktop
+usr/share/themes/dui/duicontrolpanel/duicontrolpanel.*
+usr/share/themes/dui/duicontrolpanel/images/*
