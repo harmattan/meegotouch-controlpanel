@@ -44,14 +44,6 @@ DcpBackgroundComponent::createContents()
 }
 
 
-void
-DcpBackgroundComponent::onOrientationChange (const Dui::Orientation &orientation)
-{
-    // DcpComponent::onOrientationChange(orientation);
-    Q_UNUSED(orientation);
-}
-
-
 void DcpBackgroundComponent::setTitle(const QString& title)
 {
     m_Caption->setText(title);

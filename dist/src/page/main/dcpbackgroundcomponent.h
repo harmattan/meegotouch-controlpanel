@@ -29,9 +29,6 @@ public:
 
     virtual void createContents();
 
-public slots:
-    virtual void onOrientationChange (const Dui::Orientation &orientation);
-
 protected:
     void addItem ( QGraphicsLayoutItem * item );
 

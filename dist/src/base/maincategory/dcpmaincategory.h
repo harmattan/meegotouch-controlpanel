@@ -23,7 +23,7 @@ protected:
 protected:
     class DuiLayout* m_Layout;
     class DuiGridLayoutPolicy* m_LandscapeLayout;
-    class DuiLinearLayoutPolicy* m_PortraitLayout;
+    class DuiGridLayoutPolicy* m_PortraitLayout;
 
     int m_MaxColumns;
 

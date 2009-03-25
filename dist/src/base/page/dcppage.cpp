@@ -45,6 +45,8 @@ DcpPage::setTitle(const QString& title)
 void DcpPage::organizeContent(Dui::Orientation ori)
 {
     Q_UNUSED(ori);
+    centralWidget()->layout()->invalidate();
+    centralWidget()->layout()->activate();
 }
 
 void DcpPage::onOrientationAngleChanged() {
