@@ -21,11 +21,15 @@ protected:
     virtual void createContents();
 
 protected:
-    class DuiGridLayout* m_Layout;
+    class DuiLayout* m_Layout;
+    class DuiGridLayoutPolicy* m_LandscapeLayout;
+    class DuiGridLayoutPolicy* m_PortraitLayout;
+
     int m_MaxColumns;
-    QMap<DcpComponent*, int> m_ColSpans;
+
     int m_ColCount;
     int m_RowCount;
+    int m_ItemCount;
 };
 
 #endif // DCPMAINCATEGORY_H

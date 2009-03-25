@@ -1,5 +1,7 @@
 #include "dcpcomponent.h" 
 #include <QtDebug>
+#include <QGraphicsLayout>
+
 DcpComponent::DcpComponent(DcpCategory *category,
                                   const QString& title, 
 				  QGraphicsWidget *parent) : DuiWidget(parent),
@@ -26,3 +28,12 @@ DcpComponent::switchToSubPage()
     emit openSubPage(subPage());
 }
 
+void
+DcpComponent::onOrientationChange(const Dui::Orientation& orientation)
+{
+    Q_UNUSED(orientation);
+    if (layout()) {
+        layout()->invalidate();
+        layout()->activate();
+    }
+}

@@ -16,6 +16,7 @@ void DcpRecentlyUsedComponent::createContents()
 {
     DcpBackgroundComponent::createContents();
 
+    setContentsMargins(18,10,18,20);
     m_MostUsedCategory = new DcpMostUsedCategory("TXT");
     connect(m_MostUsedCategory, SIGNAL(openSubPage(Pages::Handle)),
                 this, SIGNAL(openSubPage(Pages::Handle)));
@@ -25,7 +26,7 @@ void DcpRecentlyUsedComponent::createContents()
 
 void DcpRecentlyUsedComponent::onOrientationChange (const Dui::Orientation &orientation)
 {
-
+    qDebug("XXX DcpRecentlyUsedComponent::onOrientationChange");
     m_MostUsedCategory->onOrientationChange(orientation);
     DcpBackgroundComponent::onOrientationChange(orientation);
 }

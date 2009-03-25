@@ -178,13 +178,6 @@ void DcpBasicComponent::setEnable(bool enable) {
 }*/
 
 
-void DcpBasicComponent::onOrientationChange (const Dui::Orientation &orientation)
-{
-    // DcpComponent::onOrientationChange(orientation);
-    Q_UNUSED(orientation);
-}
-
-
 /*
 void DcpButtonComponent::paint (QPainter * painter,
                                      const QStyleOptionGraphicsItem * option,

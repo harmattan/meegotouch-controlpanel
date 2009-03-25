@@ -8,6 +8,9 @@ DuiApplicationPage {
 	background: image(starfield);
 }
 
+DuiNavigationBar {
+	background: ;
+}
 
 DuiImage {
 	leftMargin: 0;

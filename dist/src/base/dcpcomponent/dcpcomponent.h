@@ -34,7 +34,7 @@ signals:
     void openSubPage(Pages::Handle);
 
 public slots:
-    virtual void onOrientationChange (const Dui::Orientation &orientation)=0;
+    virtual void onOrientationChange (const Dui::Orientation &orientation);
 
 private:
     QString m_Title; 

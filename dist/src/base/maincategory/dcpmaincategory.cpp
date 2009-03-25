@@ -1,16 +1,35 @@
 #include "dcpmaincategory.h"
 
-#include <duigridlayout.h>
-#include <duilinearlayout.h>
-#include <duideviceprofile.h>
-#include <QtDebug>
+#include <duilayout.h>
+#include <duigridlayoutpolicy.h>
+#include <duilinearlayoutpolicy.h>
+
 #include <duiproxywidget.h>
+
+#include <duideviceprofile.h>
+#include <duibasiclayoutanimator.h>
+#include <QtDebug>
+
 
 DcpMainCategory::DcpMainCategory(
         const QString& title, QGraphicsWidget *parent
-) : DcpCategory(title, parent), m_ColCount(0), m_RowCount(0)
+) : DcpCategory(title, parent), m_ColCount(0), m_RowCount(0), m_ItemCount(0)
 {
-    m_Layout = new DuiGridLayout();
+    m_Layout = new DuiLayout();
+
+    m_LandscapeLayout = new DuiGridLayoutPolicy(m_Layout);
+
+    /* This workaround is because dui needs inserting the same item to the
+     * active layoutPolicy first. (a restriction currently)
+     * -> portraitlayout gets created in onOrientationChange() */
+    m_PortraitLayout = NULL;
+    m_Layout->setPolicy(m_LandscapeLayout);
+    /* -- */
+
+    DuiBasicLayoutAnimator* animator = new DuiBasicLayoutAnimator();
+    animator->setAnimationSpeed(150);
+    m_Layout->setAnimator(animator);
+
     setLayout(m_Layout);
 }
 
@@ -21,26 +40,40 @@ void DcpMainCategory::add(DcpComponent *component)
         m_ColCount = 0;
         m_RowCount++;
     }
-    m_Layout->addItem(new DuiProxyWidget(component), m_RowCount, 0 /* column */,
-                    1 /* rowspan */, m_MaxColumns /* columnspan */);
+
+/*    qDebug() << "XXX pos: " << title() << m_RowCount << m_ColCount << m_ItemCount
+             << "single";
+ */
+    m_LandscapeLayout->addItemAtPosition(component,
+                                         m_RowCount, 0 /* column */,
+              1 /* rowspan */, m_MaxColumns /* columnspan */);
+/*    m_PortraitLayout->addItemAtPosition(component,
+                                        m_ItemCount);*/
 
     DcpCategory::add(component);
-    m_ColSpans[component] = m_MaxColumns;
     m_RowCount++;
+    m_ItemCount++;
 }
 
 
 void DcpMainCategory::append(DcpComponent *component)
 {
-    DcpCategory::add(component);
-    m_Layout->addItem(new DuiProxyWidget(component), m_RowCount, m_ColCount);
-    m_ColCount++;
     if (m_ColCount >= m_MaxColumns)
     {
         m_ColCount = 0;
         m_RowCount++;
     }
-    m_ColSpans[component] = 0;
+/*
+    qDebug() << "XXX pos:" << title() << m_RowCount << m_ColCount << m_ItemCount;
+ */
+    m_LandscapeLayout->addItemAtPosition(component,
+                                         m_RowCount, m_ColCount);
+/*    m_PortraitLayout->addItemAtPosition(component,
+                                        m_ItemCount); */
+
+    DcpCategory::add(component);
+    m_ColCount++;
+    m_ItemCount++;
 }
 
 
@@ -52,34 +85,22 @@ void DcpMainCategory::createContents()
 void 
 DcpMainCategory::onOrientationChange (const Dui::Orientation &orientation)
 {
-    if (orientation == Dui::Portrait)
-    {
-        DuiLinearLayout *layout = new DuiLinearLayout(Qt::Vertical);
-        foreach(DcpComponent *component, m_Children)
-        {
-            component->onOrientationChange(orientation);
-            layout->addItem(component);
+    if (orientation == Dui::Portrait) {
+        qDebug() << "XXX changing layout policy to portrait";
+        if (!m_PortraitLayout) {
+//            m_PortraitLayout = new DuiLinearLayoutPolicy(m_Layout, Qt::Vertical);
+            m_PortraitLayout = new DuiGridLayoutPolicy(m_Layout);
+            qDebug() << "XXX creating portrait layout, itemcount:"
+                     << m_Layout->count();
+            for (int i=0; i<m_Layout->count(); i++) {
+                m_PortraitLayout->addItemAtPosition(m_Layout->itemAt(i),i,0);
+            }
         }
-        setLayout(layout);
-        qDebug() << "Changing orientation to Dui::Portrait";
-        //delete m_Layout;
-       // m_Layout = 0;
+        m_Layout->setPolicy(m_PortraitLayout);
+    } else {
+        qDebug() << "XXX changing layout policy to landscape";
+        m_Layout->setPolicy(m_LandscapeLayout);
     }
-    else
-    if (0)
-    {
-        //DuiLinearLayout *layout = (DuiLinearLayout*)(this->layout());
-        m_Layout = new DuiGridLayout();
-        foreach(DcpComponent *component, m_Children)
-        {
-            component->onOrientationChange(orientation);
-            if (m_ColSpans[component] == m_MaxColumns)
-                add(component);
-            else
-                append(component);
-        }
-        //delete layout;
-        setLayout(m_Layout);
-        qDebug() << "Changing orientation to Dui::Landscape";
-    }
+
+    DcpCategory::onOrientationChange(orientation);
 }   

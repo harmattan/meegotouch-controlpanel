@@ -1,4 +1,6 @@
 #include "dcpcategory.h"
+#include <QGraphicsLayout>
+
 DcpCategory::DcpCategory(const QString& title,
                                  QGraphicsWidget *parent) :
     DcpComponent(0, title, parent)				
@@ -29,4 +31,5 @@ DcpCategory::onOrientationChange (const Dui::Orientation &orientation)
     foreach (DcpComponent* component, m_Children) {
         component->onOrientationChange(orientation);
     }
+    DcpComponent::onOrientationChange(orientation);
 }

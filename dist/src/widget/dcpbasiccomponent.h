@@ -80,7 +80,6 @@ protected:
     void addItem ( QGraphicsLayoutItem * item );
 
 public slots:
-    virtual void onOrientationChange (const Dui::Orientation &orientation);
     virtual void switchToSubPage();
     void bigClicked();
 
