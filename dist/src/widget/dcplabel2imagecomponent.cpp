@@ -20,6 +20,24 @@ DcpLabel2ImageComponent::DcpLabel2ImageComponent(
 {
     m_Type = DCPLABEL2IMAGE;
 
+
+    m_UpLabelText = this->metadata()->text1();
+    m_DownLabelText = this->metadata()->text2();
+
+
+    //dummy, must modify constructor  
+    m_SmallWidth = 20;    //0,1
+    m_SpaceWidth = 5;     //3
+    int m_ImageWidth = 115;     //4
+
+    m_TriangleSize = 20;
+
+    m_Width = m_SmallWidth*2 + m_LabelWidth + m_SpaceWidth + m_ImageWidth;
+    
+    m_Height = 100;
+
+    m_ImageSize = 64;     //3
+
     createContents();
 }
 
@@ -31,53 +49,62 @@ DcpLabel2ImageComponent::~DcpLabel2ImageComponent()
 
 void DcpLabel2ImageComponent::createContents()
 {
-
-    QString upLabel = metadata()->text1();
-    QString downLabel = metadata()->text2();
-
-    QString image = metadata()->image();
-
-  //dummy, must modify constructor  
-    int smallWidth = 20;    //0,1
-    int spaceWidth = 5;     //3
-    int imageWidth = 115;     //4
-
-    int triangleSize = 20;
-
-    int width = smallWidth*2 + m_LabelWidth + spaceWidth + imageWidth;
-    
-    int height = 100;
-
-    int imageSize = 70;     //3
-    
-    initColumn(smallWidth, smallWidth, m_LabelWidth, spaceWidth, imageWidth );
-    initRow2(height/2);
-
-
-    m_BigButton = newButton(width, height, "BigButton");
-    m_UpLabel = newLabel(height/2, upLabel, "UpLabel", Qt::AlignLeft|Qt::AlignBottom);
-    m_TriangleButton = newButton(triangleSize, "TriangleButton");
+  
+    m_BigButton = newButton(m_Width, m_Height, "BigButton");
+    m_UpLabel = newLabel(m_Height/2, m_UpLabelText, "UpLabel", Qt::AlignLeft|Qt::AlignBottom);
+    m_TriangleButton = newButton(m_TriangleSize, "TriangleButton");
     m_TriangleButton->translate(0,7); //bad
 
     
-    m_Image =  newImage(image, imageSize, 2);
+    m_Image =  newImage(metadata()->image(), m_ImageSize, 2);
 
-    m_DownLabel = newLabel(height/2, downLabel, "DownLabel", Qt::AlignLeft|Qt::AlignTop);
+    m_DownLabel = newLabel(m_Height/2, m_DownLabelText, "DownLabel", Qt::AlignLeft|Qt::AlignTop);
 
+    initRow2(m_Height/2);
+
+
+initLeft();
+//initRight();
+
+
+    connect(m_BigButton, SIGNAL(clicked()), this, SLOT(bigClicked()));
+
+    initLayout();
+}
+
+
+void DcpLabel2ImageComponent::initRight()
+{
+
+
+    initColumn(m_SmallWidth, m_SmallWidth, m_LabelWidth, m_SpaceWidth, m_ImageWidth );
 
     m_GridLayout->addItem(m_BigButton, 0, 0, 2, 5, Qt::AlignLeft);
 
     m_GridLayout->addItem(m_TriangleButton, 0, 1, Qt::AlignCenter);
 
-    m_GridLayout->addItem(m_Image, 0, 4, 2, 1, Qt::AlignVCenter|Qt::AlignLeft);
+    m_GridLayout->addItem(m_Image, 0, 4, 2, 1, Qt::AlignCenter);
 
     m_GridLayout->addItem(m_UpLabel, 0, 2, Qt::AlignCenter);
     
     m_GridLayout->addItem(m_DownLabel, 1, 1, 1, 2, Qt::AlignCenter);
 
+}
 
-    connect(m_BigButton, SIGNAL(clicked()), this, SLOT(bigClicked()));
 
+void DcpLabel2ImageComponent::initLeft()
+{
 
-    initLayout();
+    initColumn(m_ImageWidth, m_SpaceWidth, m_SmallWidth, m_SmallWidth, m_LabelWidth);
+  
+    m_GridLayout->addItem(m_BigButton, 0, 0, 2, 5, Qt::AlignLeft);
+
+    m_GridLayout->addItem(m_TriangleButton, 0, 3, Qt::AlignCenter);
+
+    m_GridLayout->addItem(m_Image, 0, 0, 2, 1, Qt::AlignCenter);
+    m_Image->translate(15,0); // Qt::AlignCenter BUG
+
+    m_GridLayout->addItem(m_UpLabel, 0, 4, Qt::AlignCenter);
+    
+    m_GridLayout->addItem(m_DownLabel, 1, 3, 1, 2, Qt::AlignCenter);
 }
