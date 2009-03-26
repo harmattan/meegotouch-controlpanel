@@ -56,10 +56,11 @@ void DcpLabel2ImageComponent::createContents()
   
     m_BigButton = newButton(m_Width, m_Height, "BigButton");
     m_UpLabel = newLabel(m_Height/2, m_UpLabelText, "UpLabel", Qt::AlignLeft|Qt::AlignBottom);
-    m_TriangleButton = newButton(m_TriangleSize, "TriangleButton");
-  //  m_TriangleButton->translate(0,7); //bad
+    m_TriangleButton = newButton(16, "TriangleButton");
+    m_TriangleButton->translate(0,7); //bad
 
     
+    //m_Image =  newImage(metadata()->image(), m_ImageSize, 2);
     m_Image =  newImage(metadata()->image(), m_ImageSize, 2);
 
     m_DownLabel = newLabel(m_Height/2, m_DownLabelText, "DownLabel", Qt::AlignLeft|Qt::AlignTop);

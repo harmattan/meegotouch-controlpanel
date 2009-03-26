@@ -40,8 +40,6 @@ protected:
         int m_SpaceWidth;
         int m_ImageWidth;
     
-        int m_TriangleSize;
-    
         int m_Width;
         
         int m_Height;
