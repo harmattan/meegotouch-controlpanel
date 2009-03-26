@@ -7,8 +7,8 @@
 
 #include <duigridlayout.h>
 
-static const QSize fullSizeLandscape(784,65);
-static const QSize halfSizeLandscape(372,65);
+static const QSize fullSizeLandscape(784,170);
+static const QSize halfSizeLandscape(372,170);
 static const QSize fullSizePortrait = fullSizeLandscape;
 static const QSize halfSizePortrait = fullSizeLandscape;
 
@@ -118,7 +118,7 @@ void DcpDescriptionComponent::polishEvent (){
     /* TODO remove this workaround once DuiLabel's word wrap is corrected
      * for html.
      * It forces the description to rethink the word wraps correctly */
-
+    
     static qreal change = 0.0001;
     m_Description->setMinimumWidth(m_Description->minimumWidth()-change);
     m_Description->setMaximumWidth(m_Description->maximumWidth()-change);

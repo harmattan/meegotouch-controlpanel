@@ -4,6 +4,7 @@
 #include "maintranslations.h"
 
 #include "dcpmostusedcategory.h"
+#include <duilabel.h>
 
 DcpRecentlyUsedComponent::DcpRecentlyUsedComponent(
                             DcpCategory *category,
@@ -16,7 +17,10 @@ void DcpRecentlyUsedComponent::createContents()
 {
     DcpBackgroundComponent::createContents();
 
+    // TODO: to stylesheet
     setContentsMargins(18,10,18,20);
+    // --
+
     m_MostUsedCategory = new DcpMostUsedCategory("TXT");
     connect(m_MostUsedCategory, SIGNAL(openSubPage(Pages::Handle)),
                 this, SIGNAL(openSubPage(Pages::Handle)));

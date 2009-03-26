@@ -32,8 +32,8 @@ public:
 protected:
     void addItem ( QGraphicsLayoutItem * item );
 
-private:
     DuiLabel *m_Caption;
+private:
     QPixmap m_Background;
     DuiLinearLayout *m_Layout;
 };

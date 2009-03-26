@@ -28,11 +28,6 @@ DcpBackgroundComponent::createContents()
 
     // TODO: move to stylesheet
     this->setContentsMargins(10, 0, 10, 0);
-
-    QFont captionFont = m_Caption->font();
-    captionFont.setPointSize(captionFont.pointSize()+2);
-    captionFont.setBold(true);
-    m_Caption->setFont(captionFont);
     // --
 
     // this fixes a dui issue, that the labels are eating up our clickEvents
