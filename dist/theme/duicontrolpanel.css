@@ -3,6 +3,14 @@ DuiLabel {
     font: font("Nokia Sans Cn", 12);
 }
 
+DuiLabel#ComponentCaption {
+    font: font("Nokia Sans Cn", 28px);
+}
+
+DuiLabel#ComponentDescription {
+    font: font("Nokia Sans Cn", 22px);
+
+}
 
 DuiApplicationPage {
 	background: image(starfield);

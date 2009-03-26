@@ -7,8 +7,8 @@
 
 #include <duigridlayout.h>
 
-static const QSize fullSizeLandscape(784,65);
-static const QSize halfSizeLandscape(372,65);
+static const QSize fullSizeLandscape(784,170);
+static const QSize halfSizeLandscape(372,170);
 static const QSize fullSizePortrait = fullSizeLandscape;
 static const QSize halfSizePortrait = fullSizeLandscape;
 
