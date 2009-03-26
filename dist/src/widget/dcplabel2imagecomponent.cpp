@@ -86,13 +86,13 @@ void DcpLabel2ImageComponent::initRight()
 
     m_GridLayout->addItem(m_BigButton, 0, 0, 2, 5, Qt::AlignLeft);
 
-    m_GridLayout->addItem(m_TriangleButton, 0, 1+1, Qt::AlignCenter);
+    m_GridLayout->addItem(m_TriangleButton, 0, 1, Qt::AlignCenter);
 
-//    m_GridLayout->addItem(m_Image, 0, 4, 2, 1, Qt::AlignCenter);
+    m_GridLayout->addItem(m_Image, 0, 4, 2, 1, Qt::AlignCenter);
 
-//    m_GridLayout->addItem(m_UpLabel, 0, 2, Qt::AlignCenter);
+    m_GridLayout->addItem(m_UpLabel, 0, 2, Qt::AlignCenter);
     
-//    m_GridLayout->addItem(m_DownLabel, 1, 1, 1, 2, Qt::AlignCenter);
+    m_GridLayout->addItem(m_DownLabel, 1, 1, 1, 2, Qt::AlignCenter);
 
 }
 
@@ -104,12 +104,12 @@ void DcpLabel2ImageComponent::initLeft()
   
     m_GridLayout->addItem(m_BigButton, 0, 0, 2, 5, Qt::AlignLeft);
 
-    m_GridLayout->addItem(m_TriangleButton, 0, 3+1, Qt::AlignCenter);
+    m_GridLayout->addItem(m_TriangleButton, 0, 3, Qt::AlignCenter);
 
-  //  m_GridLayout->addItem(m_Image, 0, 0, 2, 1, Qt::AlignCenter);
+    m_GridLayout->addItem(m_Image, 0, 0, 2, 1, Qt::AlignCenter);
     m_Image->translate(15,0); // Qt::AlignCenter BUG
 
-//    m_GridLayout->addItem(m_UpLabel, 0, 4, Qt::AlignCenter);
+    m_GridLayout->addItem(m_UpLabel, 0, 4, Qt::AlignCenter);
     
-//    m_GridLayout->addItem(m_DownLabel, 1, 3, 1, 2, Qt::AlignCenter);
+    m_GridLayout->addItem(m_DownLabel, 1, 3, 1, 2, Qt::AlignCenter);
 }
