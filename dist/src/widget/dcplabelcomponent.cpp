@@ -46,7 +46,7 @@ void DcpLabelComponent::createContents()
   
     m_BigButton = newButton(width, height, "BigButton");
     m_UpLabel = newLabel(height, upLabel, "UpLabel", Qt::AlignLeft|Qt::AlignVCenter);
-    m_TriangleButton = newButton(20, "TriangleButton");
+    m_TriangleButton = newButton(m_TriangleSize, "TriangleButton");
 
     m_GridLayout->addItem(m_BigButton, 0, 0, 2, 3, Qt::AlignLeft);
     m_GridLayout->addItem(m_TriangleButton, 0, 1, Qt::AlignCenter);
