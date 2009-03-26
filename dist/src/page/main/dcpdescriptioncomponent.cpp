@@ -118,7 +118,7 @@ void DcpDescriptionComponent::polishEvent (){
     /* TODO remove this workaround once DuiLabel's word wrap is corrected
      * for html.
      * It forces the description to rethink the word wraps correctly */
-
+    
     static qreal change = 0.0001;
     m_Description->setMinimumWidth(m_Description->minimumWidth()-change);
     m_Description->setMaximumWidth(m_Description->maximumWidth()-change);
