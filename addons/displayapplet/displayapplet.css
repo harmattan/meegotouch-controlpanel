@@ -1,0 +1,24 @@
+#LabelBrightness {
+        color: #FFFFFF;
+        font: font("Nokia Sans Cn", 16);
+}
+
+#LabelScreen {
+        color: #FFFFFF;
+        font: font("Nokia Sans Cn", 16);
+}
+
+#LabelScreenLight {
+        color: #FFFFFF;
+        font: font("Nokia Sans Cn", 16);
+}
+
+#ScreenToggleButton {
+        preferredSize: size(35, 35);
+
+        minsize: size(35, 35);
+        maxsize: size(35, 35);
+
+        normalBackgroundName: "Toggle-on";
+        pressedBackgroundName: "Toggle-off";
+}

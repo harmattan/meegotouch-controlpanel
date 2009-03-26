@@ -3,6 +3,7 @@
 
 #include <DuiWidget>
 class DuiLabel;
+class DuiButton;
 
 class DisplayWidget : public DuiWidget 
 {
@@ -20,8 +21,9 @@ protected:
 	void initWidget();
 		
 private:
-	DuiLabel *m_brightnessLabel;
-	DuiLabel *m_screenLabel;
+	DuiLabel    *m_brightnessLabel;
+	DuiLabel    *m_screenLabel;
+    DuiButton   *m_screenToggleButton;
 		
 private slots:
 	virtual void setBrightnessLabel(int value);
