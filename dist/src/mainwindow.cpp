@@ -45,14 +45,14 @@ MainWindow::changePage(Pages::Handle handle)
       {
 	if (page->referer().id == Pages::NOPAGE)
 	    page->setReferer(oldPage->handle());      
-	oldPage->disappearNow();
+	oldPage->disappear();
       }
     page->handle().id == Pages::MAIN ?
        navigationBar()->showCloseButton()
     :
        navigationBar()->showBackButton();
 
-   page->appearNow(DuiSceneWindow::DestroyWhenDone);
+   page->appearNow(DuiSceneWindow::KeepWhenDone);
    navigationBar()->setViewMenuButtonText(page->title());
 }
 
