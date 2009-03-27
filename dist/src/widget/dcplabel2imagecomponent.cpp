@@ -21,6 +21,8 @@ DcpLabel2ImageComponent::DcpLabel2ImageComponent(
     m_Alignment(alignment)
 {
 
+//  qDebug() << "-----------------------------------  KONSTRUKTOR   " << "  DcpLabel2ImageComponent::DcpLabel2ImageComponent()";
+
     if (m_Alignment==Qt::AlignLeft)
         m_Type = DCPLABEL2IMAGELEFT;
     else
@@ -48,6 +50,15 @@ DcpLabel2ImageComponent::DcpLabel2ImageComponent(
 
 DcpLabel2ImageComponent::~DcpLabel2ImageComponent()
 {
+
+  //qDebug() << "-----------------------------------  DESRUKTOR    " << "  DcpLabel2ImageComponent::~DcpLabel2ImageComponent()";
+
+    delete m_BigButton;
+    delete m_TriangleButton;
+
+    delete m_UpLabel;
+    delete m_DownLabel;
+    delete m_Image;
 }
 
 

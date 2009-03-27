@@ -27,6 +27,13 @@ DcpLabelButtonComponent::DcpLabelButtonComponent(
 
 DcpLabelButtonComponent::~DcpLabelButtonComponent()
 {
+    delete m_BigButton;
+    delete m_UpLabel;
+    delete m_TriangleButton;
+
+    delete m_SmallButtonOn;
+    delete m_SmallButtonOff;
+    delete m_DisableButton;
 }
 
 
