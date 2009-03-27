@@ -41,12 +41,12 @@ MainWindow::changePage(Pages::Handle handle)
     connect (page, SIGNAL(openSubPage(Pages::Handle)), this,
         SLOT(changePage(Pages::Handle)));
     qDebug() << "XXX" << Q_FUNC_INFO << (void*)m_CurrentPage << "->" << (void*)page;
+    page->appearNow(DuiSceneWindow::KeepWhenDone);
     if (m_CurrentPage) {
         if (page->referer().id == Pages::NOPAGE)
             page->setReferer(m_CurrentPage->handle());
         m_CurrentPage->disappear();
     }
-    page->appearNow(DuiSceneWindow::KeepWhenDone);
 
     page->handle().id == Pages::MAIN ?
        navigationBar()->showCloseButton()

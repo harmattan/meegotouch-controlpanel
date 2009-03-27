@@ -28,11 +28,6 @@ void DcpAppletPage::createContent()
     initApplet();
 }
 
-void DcpAppletPage::organizeContent(Dui::Orientation ori)
-{
-    Q_UNUSED(ori);
-}
-
 void DcpAppletPage::initApplet()
 {
     QPluginLoader loader(m_Metadata->fullBinary());

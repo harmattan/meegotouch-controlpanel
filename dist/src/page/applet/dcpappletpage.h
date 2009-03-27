@@ -11,7 +11,6 @@ public:
     DcpAppletPage(DcpAppletMetadata* metadata);
     virtual ~DcpAppletPage();
     virtual void createContent();
-    virtual void organizeContent(Dui::Orientation ori);
     DcpAppletMetadata* metadata() const {return m_Metadata;};
     void setMetadata(DcpAppletMetadata* metadata){m_Metadata = metadata;};
     virtual void setReferer(Pages::Id id, const QString &param="");

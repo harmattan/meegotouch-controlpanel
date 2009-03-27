@@ -4,11 +4,11 @@ DuiLabel {
 }
 
 DuiLabel#ComponentCaption {
-    font: font("Nokia Sans Cn", 28px);
+    font: font("Nokia Sans Cn", 20px);
 }
 
 DuiLabel#ComponentDescription {
-    font: font("Nokia Sans Cn", 22px);
+    font: font("Nokia Sans Cn", 16px);
 
 }
 
