@@ -3,6 +3,8 @@
 
 #include <DuiApplicationWindow>
 #include "pages.h"
+
+
 class MainWindow : public DuiApplicationWindow
 {
     Q_OBJECT
@@ -16,6 +18,7 @@ public slots:
     void backClicked();
     void onRotateClicked();
 private:
+    class DcpPage* m_CurrentPage;
 };
 
 #endif // MAINWINDOW_H

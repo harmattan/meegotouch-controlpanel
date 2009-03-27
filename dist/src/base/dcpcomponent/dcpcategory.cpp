@@ -28,8 +28,8 @@ DcpCategory::child(int i) const
 void 
 DcpCategory::onOrientationChange (const Dui::Orientation &orientation)
 {
+    DcpComponent::onOrientationChange(orientation);
     foreach (DcpComponent* component, m_Children) {
         component->onOrientationChange(orientation);
     }
-    DcpComponent::onOrientationChange(orientation);
 }

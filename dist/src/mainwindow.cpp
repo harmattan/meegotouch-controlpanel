@@ -4,7 +4,7 @@
 #include <duinavigationbar.h>
 #include <duideviceprofile.h>
 
-MainWindow::MainWindow() 
+MainWindow::MainWindow():m_CurrentPage(NULL)
 {
    connect(navigationBar(), SIGNAL(homeClicked()), this, SLOT(homeClicked())); 
    connect(navigationBar(), SIGNAL(backClicked()), this, SLOT(backClicked())); 
@@ -40,20 +40,19 @@ MainWindow::changePage(Pages::Handle handle)
     connect (page, SIGNAL(openSubPage(Pages::Handle)), this, 
 		SLOT(changePage(Pages::Handle)));
     qDebug() << Q_FUNC_INFO;
-    DcpPage* oldPage = PageFactory::page(currentPage());
-    if (oldPage)
-      {
-	if (page->referer().id == Pages::NOPAGE)
-	    page->setReferer(oldPage->handle());      
-	oldPage->disappear();
-      }
+    if (m_CurrentPage) {
+        if (page->referer().id == Pages::NOPAGE)
+            page->setReferer(m_CurrentPage->handle());
+        m_CurrentPage->disappear();
+    }
+    page->appearNow(DuiSceneWindow::KeepWhenDone);
+
     page->handle().id == Pages::MAIN ?
        navigationBar()->showCloseButton()
     :
        navigationBar()->showBackButton();
-
-   page->appearNow(DuiSceneWindow::KeepWhenDone);
    navigationBar()->setViewMenuButtonText(page->title());
+   m_CurrentPage = page;
 }
 
 void MainWindow::onRotateClicked()

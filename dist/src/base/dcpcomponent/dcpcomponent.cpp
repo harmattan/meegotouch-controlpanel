@@ -8,10 +8,6 @@ DcpComponent::DcpComponent(DcpCategory *category,
                                 m_Title(title),
 				m_Category(category)
 {
-    /* Sadly this is not coming, so implemented in a manual way.
-    connect (this, SIGNAL(orientationChanged (const Dui::Orientation &)),
-             this, SLOT(onOrientationChange (const Dui::Orientation &)));
-     */
 }
 
 DcpComponent*
@@ -32,6 +28,7 @@ void
 DcpComponent::onOrientationChange(const Dui::Orientation& orientation)
 {
     Q_UNUSED(orientation);
+
     if (layout()) {
         layout()->invalidate();
         layout()->activate();
