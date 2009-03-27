@@ -39,7 +39,6 @@ public:
     virtual void createContents();
 
 public slots:
-    virtual void switchToSubPage();
     void bigClicked();
 protected:
     void addItem ( QGraphicsLayoutItem * item );

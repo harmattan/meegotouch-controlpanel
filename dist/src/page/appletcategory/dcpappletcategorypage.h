@@ -15,7 +15,6 @@ public:
     DcpAppletCategoryPage(const QString &appletCategory);
     virtual ~DcpAppletCategoryPage();
     virtual void createContent();
-    virtual void organizeContent(Dui::Orientation ori);
     const QString appletCategory() const {return m_AppletCategory;};
     void setAppletCategory(const QString &appletCategory){m_AppletCategory=appletCategory;};
 

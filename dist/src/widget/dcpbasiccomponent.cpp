@@ -231,11 +231,6 @@ void DcpBasicComponent::addItem ( QGraphicsLayoutItem * item )
     m_Layout->addItem(item);
 }
 
-void DcpBasicComponent::switchToSubPage()
-{
-    emit openSubPage(subPage());
-}
-
 void DcpBasicComponent::bigClicked()
 {
     switchToSubPage();

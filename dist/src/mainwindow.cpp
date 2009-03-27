@@ -3,6 +3,7 @@
 #include "dcppage.h"
 #include <duinavigationbar.h>
 #include <duideviceprofile.h>
+#include <QtDebug>
 
 MainWindow::MainWindow():m_CurrentPage(NULL)
 {
@@ -33,13 +34,13 @@ MainWindow::~MainWindow()
 void
 MainWindow::changePage(Pages::Handle handle)
 {
-
-  if (handle.id == Pages::NOPAGE)
+    if (handle.id == Pages::NOPAGE)
         return;
+
     DcpPage* page = PageFactory::instance()->create(handle.id, handle.param);
-    connect (page, SIGNAL(openSubPage(Pages::Handle)), this, 
-		SLOT(changePage(Pages::Handle)));
-    qDebug() << Q_FUNC_INFO;
+    connect (page, SIGNAL(openSubPage(Pages::Handle)), this,
+        SLOT(changePage(Pages::Handle)));
+    qDebug() << "XXX" << Q_FUNC_INFO << (void*)m_CurrentPage << "->" << (void*)page;
     if (m_CurrentPage) {
         if (page->referer().id == Pages::NOPAGE)
             page->setReferer(m_CurrentPage->handle());
@@ -51,9 +52,11 @@ MainWindow::changePage(Pages::Handle handle)
        navigationBar()->showCloseButton()
     :
        navigationBar()->showBackButton();
-   navigationBar()->setViewMenuButtonText(page->title());
-   m_CurrentPage = page;
+
+    navigationBar()->setViewMenuButtonText(page->title());
+    m_CurrentPage = page;
 }
+
 
 void MainWindow::onRotateClicked()
 {

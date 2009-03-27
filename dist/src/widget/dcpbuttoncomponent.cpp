@@ -208,12 +208,6 @@ void DcpButtonComponent::addItem ( QGraphicsLayoutItem * item )
 }
 
 void
-DcpButtonComponent::switchToSubPage()
-{
-    emit openSubPage(subPage());
-}
-
-void
 DcpButtonComponent::bigClicked()
 {
     switchToSubPage();

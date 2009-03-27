@@ -80,7 +80,6 @@ protected:
     void addItem ( QGraphicsLayoutItem * item );
 
 public slots:
-    virtual void switchToSubPage();
     void bigClicked();
 
 protected:

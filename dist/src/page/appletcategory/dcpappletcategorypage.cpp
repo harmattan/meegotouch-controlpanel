@@ -38,11 +38,6 @@ void DcpAppletCategoryPage::createContent()
     setTitle(appletCategory());
 }
 
-void DcpAppletCategoryPage::organizeContent(Dui::Orientation ori)
-{
-    Q_UNUSED(ori);
-}
-
 void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata)
 {
     DcpComponent *component = 0;
