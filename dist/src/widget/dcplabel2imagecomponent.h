@@ -30,11 +30,12 @@ protected:
 
     protected:
         DuiLabel* m_DownLabel;
-        DuiImage *m_Image;
+        DuiImage* m_Image;
 
         QString m_UpLabelText;
         QString m_DownLabelText;
 
+        DuiButton* m_SpacerButton;
 
         int m_SmallWidth;
         int m_SpaceWidth;

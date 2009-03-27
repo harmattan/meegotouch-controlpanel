@@ -59,7 +59,8 @@ void DcpLabel2ImageComponent::createContents()
     m_TriangleButton = newButton(16, "TriangleButton");
     m_TriangleButton->translate(0,7); //bad
 
-    
+  //  m_SpacerButton = newButton(5, m_Height*0.8f, "SpacerButton");
+ 
     //m_Image =  newImage(metadata()->image(), m_ImageSize, 2);
     m_Image =  newImage(metadata()->image(), m_ImageSize, 2);
 
@@ -89,6 +90,8 @@ void DcpLabel2ImageComponent::initRight()
 
     m_GridLayout->addItem(m_TriangleButton, 0, 1, Qt::AlignCenter);
 
+//m_GridLayout->addItem(m_SpacerButton, 0, 3, 2, 1, Qt::AlignCenter);
+
     m_GridLayout->addItem(m_Image, 0, 4, 2, 1, Qt::AlignCenter);
 
     m_GridLayout->addItem(m_UpLabel, 0, 2, Qt::AlignCenter);
@@ -104,6 +107,8 @@ void DcpLabel2ImageComponent::initLeft()
     initColumn(m_ImageWidth, m_SpaceWidth, m_SmallWidth, m_SmallWidth, m_LabelWidth);
   
     m_GridLayout->addItem(m_BigButton, 0, 0, 2, 5, Qt::AlignLeft);
+
+//m_GridLayout->addItem(m_SpacerButton, 0, 2, 2, 1, Qt::AlignCenter);
 
     m_GridLayout->addItem(m_TriangleButton, 0, 3, Qt::AlignCenter);
 

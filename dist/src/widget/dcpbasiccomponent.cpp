@@ -139,7 +139,8 @@ DuiLabel* DcpBasicComponent::newLabel(int height, const QString &text, const QSt
 
 DuiImage* DcpBasicComponent::newImage(const QString &name, int size, int borderSize, const QColor &color)
 {
-    DuiImage *image = new DuiImage(name);
+    //DuiImage *image = new DuiImage(name); //MEMORY 
+    DuiImage *image = new DuiImage("");
     image->setMinimumWidth(size);
     image->setMaximumWidth(size);
     image->setMinimumHeight(size);
