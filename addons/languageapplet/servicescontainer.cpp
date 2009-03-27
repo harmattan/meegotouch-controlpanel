@@ -1,6 +1,5 @@
 #include "servicescontainer.h"
 #include "servicesbuttonblock.h"
-#include "dcpimageutils.h"
 
 #include <qpainter.h>
 #include <duitheme.h>
@@ -9,17 +8,17 @@
 #include <duibutton.h>
 
 ServicesContainer::ServicesContainer(QGraphicsWidget *parent)
-                  :DuiWidget(parent)
+                  :DuiWidget(parent), m_Background(NULL)
 {
     initContainer();
 }
 
 ServicesContainer::~ServicesContainer()
 {
-    /* if (m_background)
+    if (m_Background)
     {
-        DuiTheme::releasePixmap(m_background);
-    }*/
+        DuiTheme::releasePixmap(m_Background);
+    }
 }
 
 void ServicesContainer::paint(QPainter *painter,
@@ -29,18 +28,23 @@ void ServicesContainer::paint(QPainter *painter,
     Q_UNUSED(option);
     Q_UNUSED(widget);
     
-    if (m_background.isNull())
-    {
-        qDebug() << "m_background is loaded";
-        m_background = DcpImageUtils::instance()->scaledPixmap(
-                                            "Mashup-container",
-                                            size().toSize());
+    // reload pixmap if the size changes:
+    QSize size = this->size().toSize();
+    if (m_Background && m_Background->size() != size) {
+        DuiTheme::releasePixmap(m_Background);
+        m_Background = NULL;
+    }
+    // if not loaded:
+    if (!m_Background){
+        static const int border = 30;
+        m_Background = DuiTheme::boxedPixmap("Mashup-container",size,
+                                             border, border, border, border);
+    }
+    // if available, then draw it:
+    if (m_Background) {
+        painter->drawPixmap(0, 0, *m_Background);
     }
     
-    if (!m_background.isNull())
-    {
-        painter->drawPixmap(QPoint(0, 0), m_background);
-    }
 
     // draw line below the title
     /* int borderWidth = 2;
@@ -58,15 +62,6 @@ void ServicesContainer::paint(QPainter *painter,
 void ServicesContainer::resizeEvent(QGraphicsSceneResizeEvent *event)
 {
     Q_UNUSED(event);
-    
-    // load background pixmap
-    // not a perfect solution for corner problem
-    // m_background = DuiTheme::horizBoxedPixmap("C2-container-dark-landscape-123px",
-    //                                          QSize(geometry().width(), geometry().height()), 
-    //                                          50);
-    /* m_background = DcpImageUtils::instance()->scaledPixmap(
-                                            "Mashup-container",
-                                            size().toSize());*/
 }
 
 void ServicesContainer::initContainer()

@@ -8,7 +8,6 @@
 
 #include <duitheme.h>
 
-#include "dcpimageutils.h"
 #include "dcpappletmetadata.h"
 
 DcpLabel2ImageComponent::DcpLabel2ImageComponent(

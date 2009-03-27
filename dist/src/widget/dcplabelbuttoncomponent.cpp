@@ -6,7 +6,6 @@
 #include <duibutton.h>
 #include <duitheme.h>
 
-#include "dcpimageutils.h"
 #include "dcpappletmetadata.h"
 
 #include <QDebug>

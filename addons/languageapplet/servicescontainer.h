@@ -30,7 +30,7 @@ protected:
     void initContainer();
 
 private:
-    QPixmap         m_background;
+    const QPixmap   *m_Background;
     DuiLabel        *m_caption;
     DuiLinearLayout *m_mainLayout;
 }; 

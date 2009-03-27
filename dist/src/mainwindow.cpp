@@ -15,10 +15,11 @@ MainWindow::MainWindow():m_CurrentPage(NULL)
 
 void MainWindow::homeClicked()
 {
+    /*
    Pages::Handle handle = {Pages::MAIN, ""};
    changePage(handle);
-
-//   onRotateClicked();
+*/
+   onRotateClicked();
 }
 
 void MainWindow::backClicked()
