@@ -36,7 +36,7 @@ DcpLabel2ImageComponent::DcpLabel2ImageComponent(
     //dummy, must modify constructor  
     m_SmallWidth = 20;    //0,1
     m_SpaceWidth = 5;     //3
-    int m_ImageWidth = 115;     //4
+    m_ImageWidth = 115;     //4
 
     m_Width = m_SmallWidth*2 + m_LabelWidth + m_SpaceWidth + m_ImageWidth;
     
