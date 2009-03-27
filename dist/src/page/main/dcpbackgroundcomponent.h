@@ -34,7 +34,7 @@ protected:
 
     DuiLabel *m_Caption;
 private:
-    QPixmap m_Background;
+    const QPixmap *m_Background;
     DuiLinearLayout *m_Layout;
 };
 

@@ -4,18 +4,17 @@
 #include <duilabel.h>
 #include <duitheme.h>
 
-#include "dcpimageutils.h"
-
 DcpBackgroundComponent::DcpBackgroundComponent(
                             DcpCategory *category,
                             const QString& title,
                             QGraphicsWidget *parent):
-    DcpComponent(category, title, parent)
+    DcpComponent(category, title, parent), m_Background(NULL)
 {
 }
 
 
 DcpBackgroundComponent::~DcpBackgroundComponent() {
+    DuiTheme::releasePixmap(m_Background);
 }
 
 
@@ -59,6 +58,26 @@ void DcpBackgroundComponent::paint (QPainter * painter,
     QColor borderColor = Qt::lightGray;
     // --
 
+    // reload pixmap if the size changes:
+    QSize size = this->size().toSize();
+    if (m_Background && m_Background->size() != size) {
+        qDebug() << "XXX pixmap was released because of size change" <<
+                    m_Background->size() << "->" << size;
+        DuiTheme::releasePixmap(m_Background);
+        m_Background = NULL;
+    }
+    // if not loaded:
+    if (!m_Background){
+        static const int border = 30;
+        m_Background = DuiTheme::boxedPixmap("Mashup-container",size,
+                                             border, border, border, border);
+    }
+    // if available, then draw it:
+    if (m_Background) {
+        painter->drawPixmap(0, 0, *m_Background);
+    }
+
+#if 0
     if (m_Background.isNull() || m_Background.width() != size().width()){
         m_Background = DcpImageUtils::instance()->scaledPixmap(
         //        "C2-container-dark-landscape-123px", size().toSize());
@@ -77,6 +96,7 @@ void DcpBackgroundComponent::paint (QPainter * painter,
     painter->setPen(pen);
     qreal y = m_Caption->y() + m_Caption->size().height() + 2;
     painter->drawLine(borderWidth, y, size().width()-2*borderWidth, y);*/
+#endif
 }
 
 

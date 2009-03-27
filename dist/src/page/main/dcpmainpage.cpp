@@ -68,7 +68,6 @@ void DcpMainPage::organizeContent(Dui::Orientation ori)
 {
     DcpPage::organizeContent(ori);
     m_Category->onOrientationChange(ori);
-    qDebug() << "XXX ORI!!";
 }
 
 

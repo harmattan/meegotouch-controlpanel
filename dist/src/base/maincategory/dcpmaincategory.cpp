@@ -41,9 +41,6 @@ void DcpMainCategory::add(DcpComponent *component)
         m_RowCount++;
     }
 
-/*    qDebug() << "XXX pos: " << title() << m_RowCount << m_ColCount << m_ItemCount
-             << "single";
- */
     m_LandscapeLayout->addItemAtPosition(component,
                                          m_RowCount, 0 /* column */,
               1 /* rowspan */, m_MaxColumns /* columnspan */);
@@ -63,9 +60,7 @@ void DcpMainCategory::append(DcpComponent *component)
         m_ColCount = 0;
         m_RowCount++;
     }
-/*
-    qDebug() << "XXX pos:" << title() << m_RowCount << m_ColCount << m_ItemCount;
- */
+
     m_LandscapeLayout->addItemAtPosition(component,
                                          m_RowCount, m_ColCount);
 /*    m_PortraitLayout->addItemAtPosition(component,
@@ -86,19 +81,15 @@ void
 DcpMainCategory::onOrientationChange (const Dui::Orientation &orientation)
 {
     if (orientation == Dui::Portrait) {
-        qDebug() << "XXX changing layout policy to portrait";
         if (!m_PortraitLayout) {
 //            m_PortraitLayout = new DuiLinearLayoutPolicy(m_Layout, Qt::Vertical);
             m_PortraitLayout = new DuiGridLayoutPolicy(m_Layout);
-            qDebug() << "XXX creating portrait layout, itemcount:"
-                     << m_Layout->count();
             for (int i=0; i<m_Layout->count(); i++) {
                 m_PortraitLayout->addItemAtPosition(m_Layout->itemAt(i),i,0);
             }
         }
         m_Layout->setPolicy(m_PortraitLayout);
     } else {
-        qDebug() << "XXX changing layout policy to landscape";
         m_Layout->setPolicy(m_LandscapeLayout);
     }
 
