@@ -2,11 +2,7 @@
 
 #include <QtDebug>
 
-#include <duilinearlayout.h>
-#include <duilabel.h>
-#include <duipannableviewport.h>
-
-#include <QGraphicsSceneResizeEvent>
+#include <duilinearlayoutpolicy.h>
 
 #include "dcpmaincategory.h"
 
@@ -21,6 +17,6 @@ void DcpCategoryPage::createContent()
 {
     DcpPage::createContent();
     m_Category = new DcpMainCategory("");
-    mainLayout()->addItem(m_Category);
+    append(m_Category);
 }
 

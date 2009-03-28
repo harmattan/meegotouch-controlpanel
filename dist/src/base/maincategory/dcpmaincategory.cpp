@@ -22,9 +22,9 @@ DcpMainCategory::DcpMainCategory(
     /* This workaround is because dui needs inserting the same item to the
      * active layoutPolicy first. (a restriction currently)
      * -> portraitlayout gets created in onOrientationChange() */
-    m_PortraitLayout = NULL;
     m_Layout->setPolicy(m_LandscapeLayout);
     /* -- */
+    m_PortraitLayout = new DuiLinearLayoutPolicy(m_Layout, Qt::Vertical);
 
     DuiBasicLayoutAnimator* animator = new DuiBasicLayoutAnimator();
     animator->setAnimationSpeed(150);
@@ -45,8 +45,8 @@ void DcpMainCategory::add(DcpComponent *component)
     m_LandscapeLayout->addItemAtPosition(component,
                                          m_RowCount, 0 /* column */,
               1 /* rowspan */, m_MaxColumns /* columnspan */);
-/*    m_PortraitLayout->addItemAtPosition(component,
-                                        m_ItemCount);*/
+    m_PortraitLayout->addItemAtPosition(component,
+                                        m_ItemCount);
 
     DcpCategory::add(component);
     m_RowCount++;
@@ -65,8 +65,8 @@ void DcpMainCategory::append(DcpComponent *component)
 //    qDebug() << "XXX append" << m_RowCount << m_ColCount;
     m_LandscapeLayout->addItemAtPosition(component,
                                          m_RowCount, m_ColCount);
-/*    m_PortraitLayout->addItemAtPosition(component,
-                                        m_ItemCount); */
+    m_PortraitLayout->addItemAtPosition(component,
+                                        m_ItemCount);
 
     DcpCategory::add(component);
     m_ColCount++;
@@ -74,22 +74,15 @@ void DcpMainCategory::append(DcpComponent *component)
 }
 
 
-
 void DcpMainCategory::createContents()
 {
 }
+
 
 void 
 DcpMainCategory::onOrientationChange (const Dui::Orientation &orientation)
 {
     if (orientation == Dui::Portrait) {
-        if (!m_PortraitLayout) {
-//            m_PortraitLayout = new DuiLinearLayoutPolicy(m_Layout, Qt::Vertical);
-            m_PortraitLayout = new DuiGridLayoutPolicy(m_Layout);
-            for (int i=0; i<m_Layout->count(); i++) {
-                m_PortraitLayout->addItemAtPosition(m_Layout->itemAt(i),i,0);
-            }
-        }
         m_Layout->setPolicy(m_PortraitLayout);
     } else {
         m_Layout->setPolicy(m_LandscapeLayout);

@@ -22,20 +22,17 @@ public:
         // Composite Pattern Interface
     virtual void add(DcpComponent *){}
     virtual void remove(DcpComponent *){}
-
-    virtual void paint (QPainter * painter,
-                        const QStyleOptionGraphicsItem * option,
-                        QWidget * widget = 0 );
-
     virtual void createContents();
 
 protected:
     void addItem ( QGraphicsLayoutItem * item );
 
-    DuiLabel *m_Caption;
+    virtual void resizeEvent ( QGraphicsSceneResizeEvent * event );
+
 private:
     const QPixmap *m_Background;
     DuiLinearLayout *m_Layout;
+    DuiLabel *m_Caption;
 };
 
 

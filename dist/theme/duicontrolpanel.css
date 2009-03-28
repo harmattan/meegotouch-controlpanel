@@ -9,8 +9,16 @@ DuiLabel#ComponentCaption {
 
 DuiLabel#ComponentDescription {
     font: font("Nokia Sans Cn", 16px);
-
 }
+
+DcpBackgroundComponent {
+	normalBackgroundName: "Mashup-container";
+	backgroundBoxEdge: 30;
+	lineWidth: 2;
+	lineColor: #3d2a0f;
+	lineSkip: 2;
+}
+
 
 DuiApplicationPage {
 	background: image(starfield);

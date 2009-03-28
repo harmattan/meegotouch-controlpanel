@@ -10,10 +10,6 @@ public:
     DcpMainPage();
     virtual void createContent();
     virtual void organizeContent(Dui::Orientation ori);
-protected slots:
-    void onResetSettingsClicked();
-
-
 };
 
 #endif // DUISETTINGSMAINPAGE_H

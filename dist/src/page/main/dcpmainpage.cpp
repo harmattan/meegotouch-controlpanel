@@ -2,24 +2,12 @@
 
 #include <QtDebug>
 
-#include <duilinearlayout.h>
-#include <duimultilayout.h>
-#include <duilabel.h>
-#include <duipannableviewport.h>
-
-#include "dcpappletdb.h"
 #include "dcpmaincategory.h"
 #include "dcpdescriptioncomponent.h"
 #include "dcprecentlyusedcomponent.h"
 #include "pages.h"
 #include "maintranslations.h"
 
-#include "dcpbuttoncomponent.h"
-#include "dcplabelcomponent.h"
-
-#include "dcpappletmetadata.h"
-
-#include "dcpmostusedcategory.h"
 
 DcpMainPage::DcpMainPage() :
 	DcpCategoryPage()
@@ -59,7 +47,7 @@ void DcpMainPage::createContent()
                 this, SIGNAL(openSubPage(Pages::Handle)));
         m_Category->append(component);
     }
-
+    setBackButtonEnabled(false);
 }
 
 
@@ -70,19 +58,4 @@ void DcpMainPage::organizeContent(Dui::Orientation ori)
     m_Category->onOrientationChange(ori);
 }
 
-
-// ----- FOR TESTING -----
-#include <duideviceprofile.h>
-void DcpMainPage::onResetSettingsClicked()
-{
-    DuiDeviceProfile *profile = DuiDeviceProfile::instance();
-   // m_Category->onOrientationChange(profile->orientation());
-
-    if ( profile->orientation() == Dui::Portrait ) {
-        profile->setOrientationAngle (DuiDeviceProfile::Angle0);
-    } else {
-        profile->setOrientationAngle (DuiDeviceProfile::Angle90);
-    }
-}
-// --
 

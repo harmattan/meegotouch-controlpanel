@@ -48,13 +48,14 @@ MainWindow::changePage(Pages::Handle handle)
             page->setReferer(m_CurrentPage->handle());
         m_CurrentPage->disappear();
     }
-
+/*
     page->handle().id == Pages::MAIN ?
        navigationBar()->showCloseButton()
     :
        navigationBar()->showBackButton();
 
     navigationBar()->setViewMenuButtonText(page->title());
+*/
     m_CurrentPage = page;
 }
 

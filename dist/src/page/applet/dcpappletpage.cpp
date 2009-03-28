@@ -1,14 +1,14 @@
-#include "dcpappletpage.h"
-#include "dcpappletif.h"
 #include <QDebug>
-#include "duipannableviewport.h"
-#include "dcpmaincategory.h"
-#include "duilinearlayout.h"
 #include <QPluginLoader>
-#include "dcpappletmetadata.h"
 #include <duilabel.h>
 #include <duilocale.h>
 #include "dcpwidget.h"
+
+#include "dcpappletpage.h"
+#include "dcpappletif.h"
+#include "dcpappletmetadata.h"
+
+
 DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
     DcpPage(), m_View(NULL),
     m_Metadata(metadata)
@@ -57,7 +57,6 @@ void DcpAppletPage::initApplet()
         }
     }
 
-
     if (!m_View) {
        /* DuiLabel* missingLabel = new DuiLabel(
                 DuiLocale::trid("dcp_no_applet_name", "Plugin not available"));
@@ -67,9 +66,9 @@ void DcpAppletPage::initApplet()
         setTitle(DuiLocale::trid("dcp_no_applet_title", "Missing plugin"));
     }
 
-    mainLayout()->addItem(m_View);
-    mainLayout()->setAlignment(m_View, Qt::AlignCenter);
-    mainLayout()->setContentsMargins(25.0, 10.0, 25.0, 10.0);
+    append(m_View);
+    this->setContentsMargins(25.0, 10.0, 25.0, 10.0);
+
     m_View->setMaximumWidth(DuiDeviceProfile::instance()->width() - 50);
     m_View->setMinimumWidth(DuiDeviceProfile::instance()->width() - 50);
     m_View->setMinimumHeight(DuiDeviceProfile::instance()->height() - 100);
