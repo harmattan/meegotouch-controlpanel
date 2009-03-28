@@ -75,8 +75,6 @@ PageFactory::create(Pages::Id pageId, const QString &param)
             qWarning() << "DCP" << "Bad page ID: " << pageId;
             //page=0;
     }
-//    page->createContent();
-//    page->organizeContent(DuiDeviceProfile::instance()->orientation());
     return page;
 }
 

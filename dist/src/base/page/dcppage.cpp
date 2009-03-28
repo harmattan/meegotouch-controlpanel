@@ -19,22 +19,12 @@ void DcpPage::createContent()
 {
     DuiLayout* layout = new DuiLayout();
     m_MainLayout = new DuiLinearLayoutPolicy(layout, Qt::Vertical);
+    layout->setAnimator(NULL);
     layout->setPolicy(m_MainLayout);
     centralWidget()->setLayout(layout);
+    setBackButtonEnabled(true);
 }
 
-
-const QString 
-DcpPage::title() const
-{
-    return m_Title;
-}
-
-void
-DcpPage::setTitle(const QString& title)
-{
-    m_Title = title;
-}
 
 void DcpPage::organizeContent(Dui::Orientation ori)
 {

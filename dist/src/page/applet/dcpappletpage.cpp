@@ -23,6 +23,7 @@ DcpAppletPage::~DcpAppletPage()
 
 void DcpAppletPage::createContent()
 {
+    DcpPage::createContent();
     initApplet();
 }
 

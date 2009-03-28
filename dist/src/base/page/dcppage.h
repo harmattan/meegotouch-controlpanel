@@ -25,8 +25,6 @@ public:
     void setReferer(Pages::Handle referer) {m_Referer = referer;}; 
     virtual void setReferer(Pages::Id id, const QString &param="") 
         {m_Referer.id = id; m_Referer.param = param;};
-    const QString title() const;
-    virtual void setTitle(const QString& title);
     DuiLinearLayoutPolicy *mainLayout() { return m_MainLayout; }
 
 signals:
@@ -37,8 +35,6 @@ protected slots:
 
 protected:
     void append (QGraphicsWidget* widget);
-
-   QString m_Title;
 
    DuiLinearLayoutPolicy *m_MainLayout;
 

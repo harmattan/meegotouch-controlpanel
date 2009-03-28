@@ -47,7 +47,7 @@ void DcpMainPage::createContent()
                 this, SIGNAL(openSubPage(Pages::Handle)));
         m_Category->append(component);
     }
-
+    setBackButtonEnabled(false);
 }
 
 
