@@ -1,9 +1,8 @@
 #include <QtDebug>
 
-#include <duilinearlayout.h>
-
 #include "dcppage.h"
-
+#include <duilayout.h>
+#include <duilinearlayoutpolicy.h>
 
 DcpPage::DcpPage() : DuiApplicationPage() 
 {
@@ -17,16 +16,11 @@ DcpPage::~DcpPage()
 }
 
 void DcpPage::createContent()
-{    
-    m_MainLayout = new DuiLinearLayout(Qt::Vertical);
-    centralWidget()->setLayout(m_MainLayout);
-/*
-    m_Title = new DuiLabel("-");
-    m_Title->setAlignment(Qt::AlignCenter);
-    m_Title->setMaximumHeight(30);
-    m_Title->setZValue(30);
-    m_MainLayout->addItem(m_Title);
- */
+{
+    DuiLayout* layout = new DuiLayout();
+    m_MainLayout = new DuiLinearLayoutPolicy(layout, Qt::Vertical);
+    layout->setPolicy(m_MainLayout);
+    centralWidget()->setLayout(layout);
 }
 
 
@@ -51,5 +45,10 @@ void DcpPage::organizeContent(Dui::Orientation ori)
 
 void DcpPage::onOrientationAngleChanged() {
     organizeContent(DuiDeviceProfile::instance()->orientation());
+}
+
+void DcpPage::append (QGraphicsWidget* widget) {
+    Q_ASSERT(mainLayout());
+    mainLayout()->addItemAtPosition(widget, mainLayout()->count());
 }
 

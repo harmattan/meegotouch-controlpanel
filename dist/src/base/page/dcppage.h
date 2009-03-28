@@ -5,8 +5,7 @@
 #include "pages.h"
 class DuiPannableViewport;
 class DuiLabel;
-class DuiLinearLayout;
-
+class DuiLinearLayoutPolicy;
 
 class DcpPage : public DuiApplicationPage
 {
@@ -28,7 +27,7 @@ public:
         {m_Referer.id = id; m_Referer.param = param;};
     const QString title() const;
     virtual void setTitle(const QString& title);
-    DuiLinearLayout *mainLayout() { return m_MainLayout; }
+    DuiLinearLayoutPolicy *mainLayout() { return m_MainLayout; }
 
 signals:
     void openSubPage(Pages::Handle handle);
@@ -37,9 +36,11 @@ protected slots:
     void onOrientationAngleChanged();
 
 protected:
+    void append (QGraphicsWidget* widget);
+
    QString m_Title;
 
-   DuiLinearLayout *m_MainLayout;
+   DuiLinearLayoutPolicy *m_MainLayout;
 
    Pages::Handle m_Handle;
    Pages::Handle m_Referer;
