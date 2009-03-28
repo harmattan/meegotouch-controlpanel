@@ -1,13 +1,13 @@
 #ifndef LANGUAGEAPPLET_H
 #define LANGUAGEAPPLET_H
 
-#include "exampleappletinterface.h"
+#include "dcpappletif.h"
 #include <QObject>
 
-class LanguageApplet : public QObject, public ExampleAppletInterface 
+class LanguageApplet : public QObject, public DcpAppletIf 
 {
 	Q_OBJECT
-	Q_INTERFACES(ExampleAppletInterface)
+	Q_INTERFACES(DcpAppletIf)
 
 public:
 	virtual DuiWidget* constructWidget();
