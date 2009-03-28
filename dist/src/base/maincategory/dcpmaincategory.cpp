@@ -19,12 +19,10 @@ DcpMainCategory::DcpMainCategory(
 
     m_LandscapeLayout = new DuiGridLayoutPolicy(m_Layout);
 
-    /* This workaround is because dui needs inserting the same item to the
-     * active layoutPolicy first. (a restriction currently)
-     * -> portraitlayout gets created in onOrientationChange() */
     m_Layout->setPolicy(m_LandscapeLayout);
-    /* -- */
     m_PortraitLayout = new DuiLinearLayoutPolicy(m_Layout, Qt::Vertical);
+
+//    m_Layout->setAnimator(NULL);
 
     DuiBasicLayoutAnimator* animator = new DuiBasicLayoutAnimator();
     animator->setAnimationSpeed(150);

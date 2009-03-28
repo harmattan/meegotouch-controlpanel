@@ -1,9 +1,10 @@
 #include "dcpbackgroundcomponent.h"
+#include "dcpbackgroundlineview.h"
 
-#include <duilinearlayout.h>
 #include <duilabel.h>
 #include <duitheme.h>
-#include "dcpbackgroundlineview.h"
+#include <duilinearlayoutpolicy.h>
+#include <duibasiclayoutanimator.h>
 
 DcpBackgroundComponent::DcpBackgroundComponent(
                             DcpCategory *category,
@@ -14,10 +15,6 @@ DcpBackgroundComponent::DcpBackgroundComponent(
     setViewType("bglineview");
 }
 
-
-DcpBackgroundComponent::~DcpBackgroundComponent() {
-    // DuiTheme::releasePixmap(m_Background);
-}
 
 void DcpBackgroundComponent::resizeEvent ( QGraphicsSceneResizeEvent * event )
 {
@@ -32,20 +29,28 @@ void DcpBackgroundComponent::resizeEvent ( QGraphicsSceneResizeEvent * event )
 void
 DcpBackgroundComponent::createContents()
 {
-    m_Layout = new DuiLinearLayout(Qt::Vertical);
+    DuiLayout* layout = new DuiLayout();
+
+    //    layout->setAnimator(NULL);
+    DuiBasicLayoutAnimator* animator = new DuiBasicLayoutAnimator();
+    animator->setAnimationSpeed(150);
+    layout->setAnimator(animator);
+
+    m_Layout = new DuiLinearLayoutPolicy(layout,Qt::Vertical);
     m_Caption = new DuiLabel(title());
     m_Caption->setObjectName("ComponentCaption");
 
     // TODO: move to stylesheet
-    this->setContentsMargins(10, 0, 10, 0);
+    this->setContentsMargins(20, 10, 20, 10);
     // --
 
     // this fixes a dui issue, that the labels are eating up our clickEvents
     m_Caption->setAcceptedMouseButtons(0);
     // --
 
-    setLayout(m_Layout);
     addItem(m_Caption);
+    layout->setPolicy(m_Layout);
+    setLayout(layout);
 }
 
 
@@ -64,5 +69,5 @@ void DcpBackgroundComponent::setTitleAlignment(Qt::Alignment align)
 
 void DcpBackgroundComponent::addItem ( QGraphicsLayoutItem * item )
 {
-    m_Layout->addItem(item);
+    m_Layout->addItemAtPosition(item, m_Layout->count());
 }
