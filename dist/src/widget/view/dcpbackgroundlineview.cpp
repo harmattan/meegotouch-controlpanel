@@ -64,6 +64,7 @@ void DcpBackgroundLineView::resizeEvent ( QGraphicsSceneResizeEvent * event )
 {
     DuiWidgetView::resizeEvent(event);
     updateGraphics();
+    update();
 }
 
 void DcpBackgroundLineView::styleUpdated()

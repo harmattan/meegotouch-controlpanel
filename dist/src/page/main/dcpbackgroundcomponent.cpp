@@ -21,7 +21,9 @@ void DcpBackgroundComponent::resizeEvent ( QGraphicsSceneResizeEvent * event )
     DcpBackgroundLineView* view =
             qobject_cast<DcpBackgroundLineView*>(this->view);
     if (view && m_Caption) {
-        view->setLinePosition(m_Caption->geometry().bottom() + 2);
+        qreal top;
+        getContentsMargins(NULL,&top,NULL,NULL);
+        view->setLinePosition(m_Caption->size().height()+top);
     }
     DuiWidgetController::resizeEvent(event);
 }
