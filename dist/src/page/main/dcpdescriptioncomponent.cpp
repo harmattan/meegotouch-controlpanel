@@ -5,8 +5,6 @@
 
 #include <duilabel.h>
 
-#include <duigridlayout.h>
-
 static const QSize fullSizeLandscape(784,90);
 static const QSize halfSizeLandscape(372,90);
 static const QSize fullSizePortrait = fullSizeLandscape;
@@ -46,11 +44,6 @@ void DcpDescriptionComponent::onOrientationChange (
 {
     m_Orientation = orientation;
     DcpBackgroundComponent::onOrientationChange(orientation);
-/*    if (m_IsFullRow || orientation == Dui::Portrait) {
-        setFullRowSize();
-    } else {
-        setHalfRowSize();
-    } */
 }
 
 

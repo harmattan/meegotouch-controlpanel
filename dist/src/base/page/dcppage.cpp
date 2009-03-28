@@ -23,6 +23,7 @@ void DcpPage::createContent()
     layout->setPolicy(m_MainLayout);
     centralWidget()->setLayout(layout);
     setBackButtonEnabled(true);
+    layout->setContentsMargins(15,0,15,0);
 }
 
 
