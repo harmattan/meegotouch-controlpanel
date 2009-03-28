@@ -1,11 +1,11 @@
 #ifndef DISPLAYWIDGET_H
 #define DISPLAYWIDGET_H
 
-#include <DuiWidget>
+#include "dcpwidget.h" 
 class DuiLabel;
 class DuiButton;
 
-class DisplayWidget : public DuiWidget 
+class DisplayWidget : public DcpWidget 
 {
 	Q_OBJECT
 		

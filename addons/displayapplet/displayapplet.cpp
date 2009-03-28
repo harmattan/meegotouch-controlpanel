@@ -2,10 +2,11 @@
 
 #include "displayapplet.h"
 #include "displaywidget.h"
+#include "dcpwidget.h"
 
 Q_EXPORT_PLUGIN2(displayapplet, DisplayApplet)
 	
-DuiWidget* DisplayApplet::constructWidget()
+DcpWidget* DisplayApplet::constructWidget()
 {
 	return new DisplayWidget();
 }

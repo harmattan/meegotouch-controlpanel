@@ -10,7 +10,7 @@ const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/";
 const int widgetWidth = 100;
 
 DisplayWidget::DisplayWidget(QGraphicsWidget *parent)
-	    :DuiWidget(parent)
+	    :DcpWidget(parent)
 {
     DuiTheme::loadCSS(cssDir + "displayapplet.css");
 	initWidget();

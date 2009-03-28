@@ -3,12 +3,12 @@
 
 #include <QtPlugin>
 
-class DuiWidget;
+class DcpWidget;
 
 class DcpAppletIf {
 public:
     virtual ~DcpAppletIf() {}
-	virtual DuiWidget* constructWidget() = 0;
+	virtual DcpWidget* constructWidget() = 0;
     virtual QString title() const = 0;
 };
 

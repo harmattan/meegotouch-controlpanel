@@ -3,14 +3,14 @@
 
 #include "dcpappletif.h"
 #include <QObject>
-
+class DcpWidget;
 class DisplayApplet : public QObject, public DcpAppletIf 
 {
 	Q_OBJECT
 	Q_INTERFACES(DcpAppletIf)
 
 public:
-	virtual DuiWidget* constructWidget();
+	virtual DcpWidget* constructWidget();
 
     virtual QString title() const;
 };

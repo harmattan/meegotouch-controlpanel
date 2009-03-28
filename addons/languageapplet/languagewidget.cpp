@@ -8,10 +8,10 @@
 #include <duibutton.h>
 #include <duilabel.h>
 #include <duitheme.h>
-
+#include "dcpwidget.h"
 
 LanguageWidget::LanguageWidget(QGraphicsWidget *parent)
-	    :DuiWidget(parent)
+	    :DcpWidget(parent)
 {
 	initWidget();
 }

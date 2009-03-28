@@ -8,7 +8,7 @@
 #include "dcpappletmetadata.h"
 #include <duilabel.h>
 #include <duilocale.h>
-
+#include "dcpwidget.h"
 DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
     DcpPage(), m_View(NULL),
     m_Metadata(metadata)
@@ -59,10 +59,11 @@ void DcpAppletPage::initApplet()
 
 
     if (!m_View) {
-        DuiLabel* missingLabel = new DuiLabel(
+       /* DuiLabel* missingLabel = new DuiLabel(
                 DuiLocale::trid("dcp_no_applet_name", "Plugin not available"));
         missingLabel->setAlignment(Qt::AlignCenter);
-        m_View = missingLabel;
+        m_View = qobject_cast<DcpWidget*>(missingLabel);
+        */
         setTitle(DuiLocale::trid("dcp_no_applet_title", "Missing plugin"));
     }
 

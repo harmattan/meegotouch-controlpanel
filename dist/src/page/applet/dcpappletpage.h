@@ -4,6 +4,7 @@
 #include "dcppage.h"
 #include "pages.h"
 class DcpAppletMetadata;
+class DcpWidget;
 class DcpAppletPage : public DcpPage
 {
     Q_OBJECT
@@ -18,7 +19,7 @@ public:
 protected:
     virtual void initApplet();
 private:
-    DuiWidget *m_View;
+    DcpWidget *m_View;
     DcpAppletMetadata* m_Metadata;
 };
 

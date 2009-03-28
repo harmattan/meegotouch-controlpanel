@@ -1,11 +1,11 @@
 #ifndef LANGUAGEWIDGET_H
 #define LANGUAGEWIDGET_H
 
-#include <DuiWidget>
+#include "dcpwidget.h" 
 
 class LanguageButton;
 
-class LanguageWidget : public DuiWidget 
+class LanguageWidget : public DcpWidget 
 {
 	Q_OBJECT
 		
