@@ -1,5 +1,5 @@
 #include "dcpappletpage.h"
-#include "exampleappletinterface.h"
+#include "dcpappletif.h"
 #include <QDebug>
 #include "duipannableviewport.h"
 #include "dcpmaincategory.h"
@@ -38,7 +38,7 @@ void DcpAppletPage::initApplet()
     } else {
         QObject *object = loader.instance();
 
-        ExampleAppletInterface *applet = qobject_cast<ExampleAppletInterface*>(object);
+        DcpAppletIf *applet = qobject_cast<DcpAppletIf*>(object);
         if (applet)
         {
             m_View = applet->constructWidget();

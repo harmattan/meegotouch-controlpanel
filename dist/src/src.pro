@@ -21,7 +21,10 @@ QMAKE_EXTRA_TARGETS += check
 
 include (../common.pri)
 target.path += $${PREFIX}/bin
+
+install_headers.path = $${PREFIX}/include/qt4/dui/ 
+install_headers.files = dcpappletif.h
 message("The install path for the executable will be: "$$target.path)
 
-INSTALLS += target 
+INSTALLS += target install_headers
 
