@@ -1,12 +1,12 @@
 #ifndef DCPCOMPONENT_H
 #define DCPCOMPONENT_H
 
-#include <DuiWidget>
+#include <duiwidgetcontroller.h>
 #include "pages.h"
 
 class DcpCategory;
 
-class DcpComponent : public DuiWidget
+class DcpComponent : public DuiWidgetController
 {
     Q_OBJECT
 public:
@@ -25,6 +25,9 @@ public:
 
     virtual DcpComponent* child(int i) const;
     DcpCategory* category() const {return 0;}
+
+    virtual QSizeF sizeHint(Qt::SizeHint which,
+                            const QSizeF & constraint = QSizeF()) const;
 
 protected:
     virtual void createContents()=0;
