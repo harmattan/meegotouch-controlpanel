@@ -57,7 +57,7 @@ DuiButton#BigButton {
 
         normalBackground: "C2-container";
         pressedBackground: "Toggle-btn-selected";
-//	horizontalBoxEdgePercent: 0.3;
+	horizontalBoxEdgePercent: 0.3;
 }
 
 #AppletCategoryButton {
@@ -69,7 +69,7 @@ DuiButton#BigButton {
 
         normalBackground: "C2-container";
         pressedBackground: "Toggle-btn-selected";
-//	horizontalBoxEdgePercent: 0.3;
+	horizontalBoxEdgePercent: 0.3;
 }
 
 #SmallButtonOn {
@@ -114,7 +114,7 @@ DuiButton#BigButton {
 
         normalBackground: "C2-container";
         pressedBackground: "Toggle-btn-selected";
-//	horizontalBoxEdgePercent: 0.3;
+	horizontalBoxEdgePercent: 0.3;
 }
 
 #UpLabel {

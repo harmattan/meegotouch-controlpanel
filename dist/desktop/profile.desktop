@@ -16,6 +16,7 @@ Category= Regional settings
 Order=1
 WidgetType= DcpLabel
 Text2= Ringing
+Toggle= TRUE
 
 ButtonCSS= BigButton
 Label1CSS= LabelFont1

@@ -13,20 +13,14 @@
 DcpLabel2ImageComponent::DcpLabel2ImageComponent(
                             DcpCategory *category,
                             DcpAppletMetadata * metadata,
-                            Qt::Alignment alignment,
                             const QString& title,
                             QGraphicsWidget *parent):
     DcpBasicComponent(category, metadata, title, parent),
-    m_Alignment(alignment)
+    m_Alignment(metadata->align())
 {
 
-//  qDebug() << "-----------------------------------  KONSTRUKTOR   " << "  DcpLabel2ImageComponent::DcpLabel2ImageComponent()";
-
-    if (m_Alignment==Qt::AlignLeft)
-        m_Type = DCPLABEL2IMAGELEFT;
-    else
-        m_Type = DCPLABEL2IMAGERIGHT;
-
+    m_Type = DCPLABEL2IMAGE;
+    m_EnableToggle = metadata->toggle();
 
     m_UpLabelText = this->metadata()->text1();
     m_DownLabelText = this->metadata()->text2();
@@ -49,8 +43,6 @@ DcpLabel2ImageComponent::DcpLabel2ImageComponent(
 
 DcpLabel2ImageComponent::~DcpLabel2ImageComponent()
 {
-
-  //qDebug() << "-----------------------------------  DESRUKTOR    " << "  DcpLabel2ImageComponent::~DcpLabel2ImageComponent()";
 
     delete m_BigButton;
     delete m_TriangleButton;

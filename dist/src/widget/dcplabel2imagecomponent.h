@@ -17,7 +17,6 @@ class DcpLabel2ImageComponent: public DcpBasicComponent
 public:
     DcpLabel2ImageComponent(DcpCategory *category,
                             DcpAppletMetadata* metadata,
-                            Qt::Alignment alignment = Qt::AlignRight,
                             const QString& title="",
                             QGraphicsWidget *parent=0);
     ~DcpLabel2ImageComponent();
@@ -25,29 +24,29 @@ public:
     virtual void createContents();
 
 protected:
-      void initRight();
-      void initLeft();
+    void initRight();
+    void initLeft();
 
-    protected:
-        DuiLabel* m_DownLabel;
-        DuiImage* m_Image;
+protected:
+    DuiLabel* m_DownLabel;
+    DuiImage* m_Image;
 
-        QString m_UpLabelText;
-        QString m_DownLabelText;
+    QString m_UpLabelText;
+    QString m_DownLabelText;
 
-        DuiButton* m_SpacerButton;
+    DuiButton* m_SpacerButton;
 
-        int m_SmallWidth;
-        int m_SpaceWidth;
-        int m_ImageWidth;
+    int m_SmallWidth;
+    int m_SpaceWidth;
+    int m_ImageWidth;
+
+    int m_Width;
     
-        int m_Width;
-        
-        int m_Height;
-    
-        int m_ImageSize;
+    int m_Height;
 
-        Qt::Alignment m_Alignment;
+    int m_ImageSize;
+
+    Qt::Alignment m_Alignment;
 
 };
 

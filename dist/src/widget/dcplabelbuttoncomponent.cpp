@@ -18,9 +18,9 @@ DcpLabelButtonComponent::DcpLabelButtonComponent(
                             QGraphicsWidget *parent):
     DcpBasicComponent(category, metadata, title, parent)
 {
-  m_Type = DCPLABELBUTTON;
-
-  createContents();
+    m_Type = DCPLABELBUTTON;
+    m_EnableToggle = metadata->toggle();
+    createContents();
 }
 
 

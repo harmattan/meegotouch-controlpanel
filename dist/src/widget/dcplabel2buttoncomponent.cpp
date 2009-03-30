@@ -19,9 +19,9 @@ DcpLabel2ButtonComponent::DcpLabel2ButtonComponent(
                             QGraphicsWidget *parent):
     DcpBasicComponent(category, metadata, title, parent)
 {
-  m_Type = DCPLABEL2BUTTON;
-   
-  createContents();
+    m_Type = DCPLABEL2BUTTON;
+    m_SmallToggle = metadata->smallToggle();
+    createContents();
 }
 
 
@@ -113,7 +113,11 @@ void DcpLabel2ButtonComponent::setEnableButton(bool enable) {
 
 }
 
-void DcpLabel2ButtonComponent::smallClickedOn(){}
+void DcpLabel2ButtonComponent::smallClickedOn()
+{
+    if (m_SmallToggle)
+      m_SmallButtonOn->setDown(true);
+}
 void DcpLabel2ButtonComponent::smallClickedOff(){}
 void DcpLabel2ButtonComponent::disableClicked(){}
 
@@ -146,9 +150,4 @@ DcpLabel2ButtonComponent::switchToSubPage()
     emit openSubPage(subPage());
 }
 
-void
-DcpLabel2ButtonComponent::bigClicked()
-{
-    switchToSubPage();
-}
 */

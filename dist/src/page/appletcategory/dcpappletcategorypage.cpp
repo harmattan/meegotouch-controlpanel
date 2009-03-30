@@ -28,6 +28,7 @@ void DcpAppletCategoryPage::createContent()
     m_Category->setMaxColumns(2);
     DcpAppletDb::instance()->refresh();
     DcpAppletMetadataList list = DcpAppletDb::instance()->listByCategory(appletCategory());
+
     if (!list.isEmpty())
     {
         foreach(DcpAppletMetadata *metadata, list)
@@ -35,6 +36,7 @@ void DcpAppletCategoryPage::createContent()
             addComponent(metadata);
         }
     }
+
     setTitle(appletCategory());
 }
 
@@ -55,11 +57,8 @@ void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata)
         case DCPLABEL2BUTTON:
             component = new DcpLabel2ButtonComponent(0, metadata);
         break;
-        case DCPLABEL2IMAGELEFT :
-            component = new DcpLabel2ImageComponent(0, metadata, Qt::AlignLeft);
-        break;
-        case DCPLABEL2IMAGERIGHT :
-            component = new DcpLabel2ImageComponent(0, metadata, Qt::AlignRight);
+        case DCPLABEL2IMAGE :
+            component = new DcpLabel2ImageComponent(0, metadata);
         break;
         default:
         break;
