@@ -19,6 +19,6 @@
         minsize: size(35, 35);
         maxsize: size(35, 35);
 
-        normalBackgroundName: "Toggle-on";
-        pressedBackgroundName: "Toggle-off";
+        normalBackground: "Toggle-on";
+        pressedBackground: "Toggle-off";
 }

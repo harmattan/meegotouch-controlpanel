@@ -10,6 +10,13 @@ Architecture: any
 Depends: libdui0, ${shlibs:Depends}, ${misc:Depends}
 Description: Control Panel
 
+                                                                                
+Package: duicontrolpanel-dev
+Architecture: all                                                               
+Depends: libdui0                                                                           
+Description: duicontrolpanel development files                                           
+ Development files for Dui Control Panel including its applet interface                                
+
 Package: duicontrolpanel-languageapplet
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel

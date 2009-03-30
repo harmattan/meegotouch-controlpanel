@@ -1,40 +1,58 @@
 #include "dcpbackgroundcomponent.h"
+#include "dcpbackgroundlineview.h"
 
-#include <duilinearlayout.h>
 #include <duilabel.h>
 #include <duitheme.h>
+#include <duilinearlayoutpolicy.h>
+#include <duibasiclayoutanimator.h>
 
 DcpBackgroundComponent::DcpBackgroundComponent(
                             DcpCategory *category,
                             const QString& title,
                             QGraphicsWidget *parent):
-    DcpComponent(category, title, parent), m_Background(NULL)
+    DcpComponent(category, title, parent), m_Background(NULL), m_Caption(NULL)
 {
+    setViewType("bglineview");
 }
 
 
-DcpBackgroundComponent::~DcpBackgroundComponent() {
-    DuiTheme::releasePixmap(m_Background);
+void DcpBackgroundComponent::resizeEvent ( QGraphicsSceneResizeEvent * event )
+{
+    DcpBackgroundLineView* view =
+            qobject_cast<DcpBackgroundLineView*>(this->view);
+    if (view && m_Caption) {
+        qreal top;
+        getContentsMargins(NULL,&top,NULL,NULL);
+        view->setLinePosition(m_Caption->size().height()+top);
+    }
+    DuiWidgetController::resizeEvent(event);
 }
-
 
 void
 DcpBackgroundComponent::createContents()
 {
-    m_Layout = new DuiLinearLayout(Qt::Vertical);
+    DuiLayout* layout = new DuiLayout();
+
+    //    layout->setAnimator(NULL);
+    DuiBasicLayoutAnimator* animator = new DuiBasicLayoutAnimator();
+    animator->setAnimationSpeed(150);
+    layout->setAnimator(animator);
+
+    m_Layout = new DuiLinearLayoutPolicy(layout,Qt::Vertical);
     m_Caption = new DuiLabel(title());
     m_Caption->setObjectName("ComponentCaption");
 
     // TODO: move to stylesheet
-    this->setContentsMargins(10, 0, 10, 0);
+    this->setContentsMargins(20, 10, 20, 10);
     // --
 
     // this fixes a dui issue, that the labels are eating up our clickEvents
     m_Caption->setAcceptedMouseButtons(0);
     // --
 
-    setLayout(m_Layout);
     addItem(m_Caption);
+    layout->setPolicy(m_Layout);
+    setLayout(layout);
 }
 
 
@@ -42,61 +60,6 @@ void DcpBackgroundComponent::setTitle(const QString& title)
 {
     m_Caption->setText(title);
     DcpComponent::setTitle(title);
-}
-
-
-void DcpBackgroundComponent::paint (QPainter * painter,
-                                     const QStyleOptionGraphicsItem * option,
-                                     QWidget * widget)
-{
-    Q_UNUSED(option);
-    Q_UNUSED(widget);
-
-    // TODO: move to stylesheet
-    QColor lineColor = QColor::fromRgb(0x3d, 0x2a, 0x0f);
-    QColor bgColor = Qt::black;
-    QColor borderColor = Qt::lightGray;
-    // --
-
-    // reload pixmap if the size changes:
-    QSize size = this->size().toSize();
-    if (m_Background && m_Background->size() != size) {
-        qDebug() << "XXX pixmap was released because of size change" <<
-                    m_Background->size() << "->" << size;
-        DuiTheme::releasePixmap(m_Background);
-        m_Background = NULL;
-    }
-    // if not loaded:
-    if (!m_Background){
-        static const int border = 30;
-        m_Background = DuiTheme::boxedPixmap("Mashup-container",size,
-                                             border, border, border, border);
-    }
-    // if available, then draw it:
-    if (m_Background) {
-        painter->drawPixmap(0, 0, *m_Background);
-    }
-
-#if 0
-    if (m_Background.isNull() || m_Background.width() != size().width()){
-        m_Background = DcpImageUtils::instance()->scaledPixmap(
-        //        "C2-container-dark-landscape-123px", size().toSize());
-                "Mashup-container", size().toSize(), 30);
-        if (m_Background.isNull()) {
-            // qWarning ("theme lacks bg picture for settings component");
-            return;
-        }
-    }
-    painter->drawPixmap(QPoint(0, 0), m_Background);
-
-    // line between the title & description:
-    /* QPen pen = painter->pen();
-    pen.setColor(lineColor);
-    pen.setWidth(1);
-    painter->setPen(pen);
-    qreal y = m_Caption->y() + m_Caption->size().height() + 2;
-    painter->drawLine(borderWidth, y, size().width()-2*borderWidth, y);*/
-#endif
 }
 
 
@@ -108,5 +71,5 @@ void DcpBackgroundComponent::setTitleAlignment(Qt::Alignment align)
 
 void DcpBackgroundComponent::addItem ( QGraphicsLayoutItem * item )
 {
-    m_Layout->addItem(item);
+    m_Layout->addItemAtPosition(item, m_Layout->count());
 }

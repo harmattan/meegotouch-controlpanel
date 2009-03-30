@@ -1,13 +1,13 @@
 #ifndef DISPLAYAPPLET_H
 #define DISPLAYAPPLET_H
 
-#include "exampleappletinterface.h"
+#include "dcpappletif.h"
 #include <QObject>
 
-class DisplayApplet : public QObject, public ExampleAppletInterface 
+class DisplayApplet : public QObject, public DcpAppletIf 
 {
 	Q_OBJECT
-	Q_INTERFACES(ExampleAppletInterface)
+	Q_INTERFACES(DcpAppletIf)
 
 public:
 	virtual DuiWidget* constructWidget();

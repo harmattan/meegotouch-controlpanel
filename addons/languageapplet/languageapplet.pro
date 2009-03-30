@@ -1,7 +1,9 @@
 TEMPLATE      = lib
 CONFIG       += plugin gui dui
 LIBS         += -ldui
-INCLUDEPATH  += $$[QT_INSTALL_HEADERS]/dui
+INCLUDEPATH  += $$[QT_INSTALL_HEADERS]/dui\
+                ../../dist/src/appletif
+
 MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects
 

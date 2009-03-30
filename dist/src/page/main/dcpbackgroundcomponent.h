@@ -4,7 +4,6 @@
 #include "dcpcomponent.h"
 
 class DuiLabel;
-class DuiLinearLayout;
 #include <QPixmap>
 
 class DcpBackgroundComponent: public DcpComponent
@@ -14,7 +13,6 @@ public:
     DcpBackgroundComponent(DcpCategory *category,
                             const QString& title="",
                             QGraphicsWidget *parent=0);
-    ~DcpBackgroundComponent();
 
     virtual void setTitle(const QString& title);
     void setTitleAlignment(Qt::Alignment align);
@@ -22,20 +20,17 @@ public:
         // Composite Pattern Interface
     virtual void add(DcpComponent *){}
     virtual void remove(DcpComponent *){}
-
-    virtual void paint (QPainter * painter,
-                        const QStyleOptionGraphicsItem * option,
-                        QWidget * widget = 0 );
-
     virtual void createContents();
 
 protected:
     void addItem ( QGraphicsLayoutItem * item );
 
-    DuiLabel *m_Caption;
+    virtual void resizeEvent ( QGraphicsSceneResizeEvent * event );
+
 private:
     const QPixmap *m_Background;
-    DuiLinearLayout *m_Layout;
+    class DuiLinearLayoutPolicy *m_Layout;
+    DuiLabel *m_Caption;
 };
 
 

@@ -4,7 +4,7 @@
 
 DcpComponent::DcpComponent(DcpCategory *category,
                                   const QString& title, 
-				  QGraphicsWidget *parent) : DuiWidget(parent),
+                  QGraphicsWidget *parent) : DuiWidgetController(parent),
                                 m_Title(title),
 				m_Category(category)
 {
@@ -34,3 +34,11 @@ DcpComponent::onOrientationChange(const Dui::Orientation& orientation)
         layout()->activate();
     }
 }
+
+
+QSizeF DcpComponent::sizeHint(Qt::SizeHint which,
+                              const QSizeF & constraint) const
+{
+    return DuiWidget::sizeHint(which, constraint);
+}
+
