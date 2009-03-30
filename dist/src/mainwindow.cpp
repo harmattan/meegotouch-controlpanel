@@ -41,7 +41,6 @@ MainWindow::changePage(Pages::Handle handle)
     DcpPage* page = PageFactory::instance()->create(handle.id, handle.param);
     connect (page, SIGNAL(openSubPage(Pages::Handle)), this,
         SLOT(changePage(Pages::Handle)));
-    qDebug() << "XXX" << Q_FUNC_INFO << (void*)m_CurrentPage << "->" << (void*)page;
     page->appearNow(DuiSceneWindow::KeepWhenDone);
     if (m_CurrentPage) {
         if (page->referer().id == Pages::NOPAGE)
