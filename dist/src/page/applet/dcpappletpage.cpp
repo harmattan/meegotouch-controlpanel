@@ -30,6 +30,7 @@ void DcpAppletPage::createContent()
 
 void DcpAppletPage::initApplet()
 {
+    qDebug() << "DCP: " <<  m_Metadata->fullBinary();
     QPluginLoader loader(m_Metadata->fullBinary());
     if (!loader.load())
     {
