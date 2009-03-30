@@ -47,8 +47,8 @@ DuiImage {
 
 
 DuiButton#BigButton {
-        font: font(sans, 15);
-        textColor: #FFFFFF;
+        font: font("sans", 15);
+        normalTextColor: #FFFFFF;
         preferredsize: size(350, 100);
         minsize: size(350, 100);
         maxsize: size(350, 100);
@@ -59,8 +59,8 @@ DuiButton#BigButton {
 }
 
 #AppletCategoryButton {
-        font: font(sans, 15);
-        textColor: #FFFFFF;
+        font: font("sans", 15);
+        normalTextColor: #FFFFFF;
         preferredsize: size(350, 100);
         minsize: size(350, 100);
         maxsize: size(350, 100);
@@ -71,8 +71,8 @@ DuiButton#BigButton {
 }
 
 #SmallButtonOn {
-        font: font(sans, 15);
-        textColor: #FF0000;
+        font: font("sans", 15);
+        normalTextColor: #FF0000;
         preferredsize: size(350, 100);
         minsize: size(350, 100);
         maxsize: size(350, 100);
@@ -82,8 +82,8 @@ DuiButton#BigButton {
 }
 
 #SmallButtonOff {
-        font: font(sans, 15);
-        textColor: #FF0000;
+        font: font("sans", 15);
+        normalTextColor: #FF0000;
         preferredsize: size(350, 100);
         minsize: size(350, 100);
         maxsize: size(350, 100);
@@ -93,8 +93,8 @@ DuiButton#BigButton {
 }
 
 #SmallButtonDisable {
-        font: font(sans, 15);
-        textColor: #FF0000;
+        font: font("sans", 15);
+        normalTextColor: #FF0000;
         preferredsize: size(350, 100);
         minsize: size(350, 100);
         maxsize: size(350, 100);
@@ -104,8 +104,8 @@ DuiButton#BigButton {
 }
 
 #LabelButton {
-        font: font(sans, 15);
-        textColor: #FFFFFF;
+        font: font("sans", 15);
+        normalTextColor: #FFFFFF;
         preferredsize: size(350, 100);
         minsize: size(350, 100);
         maxsize: size(350, 100);

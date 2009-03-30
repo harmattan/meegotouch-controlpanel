@@ -17,6 +17,7 @@ DcpPage::~DcpPage()
 
 void DcpPage::createContent()
 {
+    qDebug() << "XXX createContent";
     DuiLayout* layout = new DuiLayout();
     m_MainLayout = new DuiLinearLayoutPolicy(layout, Qt::Vertical);
     layout->setAnimator(NULL);
@@ -30,6 +31,7 @@ void DcpPage::createContent()
 void DcpPage::organizeContent(Dui::Orientation ori)
 {
     Q_UNUSED(ori);
+    qDebug() << "XXX organizeContent";
     centralWidget()->layout()->invalidate();
     centralWidget()->layout()->activate();
 }
