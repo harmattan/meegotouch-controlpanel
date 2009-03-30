@@ -28,6 +28,7 @@ void DcpAppletCategoryPage::createContent()
     m_Category->setMaxColumns(2);
     DcpAppletDb::instance()->refresh();
     DcpAppletMetadataList list = DcpAppletDb::instance()->listByCategory(appletCategory());
+
     if (!list.isEmpty())
     {
         foreach(DcpAppletMetadata *metadata, list)
@@ -35,12 +36,16 @@ void DcpAppletCategoryPage::createContent()
             addComponent(metadata);
         }
     }
+
     setTitle(appletCategory());
 }
 
 void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata)
 {
     DcpComponent *component = 0;
+
+
+qDebug() << "-----------------------------------------------------------------------------------------      " << metadata->widgetTypeID();
 
     switch(metadata->widgetTypeID()) {
         case DCPLABEL:

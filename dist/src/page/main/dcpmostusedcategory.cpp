@@ -103,6 +103,7 @@ void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata)
 
   if (component)
     {
+
         qDebug() << "DCP: connecting to " << metadata->name();
         component->setSubPage(Pages::APPLETFROMMOSTUSED, metadata->name());
         connect(component, SIGNAL(openSubPage(Pages::Handle)),                  

@@ -29,10 +29,10 @@ DuiNavigationBar {
 }
 
 DuiImage {
-	leftMargin: 0;
-        topMargin: 0;
-	rightMargin: 0;
-	bottomMargin: 0;
+//	leftMargin: 0;
+//        topMargin: 0;
+//	rightMargin: 0;
+//	bottomMargin: 0;
 }	
 
 #LabelFont1 {
@@ -55,7 +55,7 @@ DuiButton#BigButton {
 
         normalBackground: "C2-container";
         pressedBackground: "Toggle-btn-selected";
-	horizontalBoxEdgePercent: 0.3;
+//	horizontalBoxEdgePercent: 0.3;
 }
 
 #AppletCategoryButton {
@@ -67,7 +67,7 @@ DuiButton#BigButton {
 
         normalBackground: "C2-container";
         pressedBackground: "Toggle-btn-selected";
-	horizontalBoxEdgePercent: 0.3;
+//	horizontalBoxEdgePercent: 0.3;
 }
 
 #SmallButtonOn {
@@ -112,7 +112,7 @@ DuiButton#BigButton {
 
         normalBackground: "C2-container";
         pressedBackground: "Toggle-btn-selected";
-	horizontalBoxEdgePercent: 0.3;
+//	horizontalBoxEdgePercent: 0.3;
 }
 
 #UpLabel {

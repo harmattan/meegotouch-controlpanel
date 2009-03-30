@@ -18,6 +18,7 @@ DcpLabelComponent::DcpLabelComponent(
     DcpBasicComponent(category, metadata, title, parent)
 {
   createContents();
+
 }
 
 
