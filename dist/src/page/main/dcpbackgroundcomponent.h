@@ -21,7 +21,9 @@ public:
     virtual void add(DcpComponent *){}
     virtual void remove(DcpComponent *){}
     virtual void createContents();
-
+    virtual void paint (QPainter *painter,
+                        const QStyleOptionGraphicsItem *option,
+                        QWidget *widget=0);
 protected:
     void addItem ( QGraphicsLayoutItem * item );
 

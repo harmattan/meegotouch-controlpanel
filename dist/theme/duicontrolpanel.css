@@ -14,8 +14,8 @@ DuiLabel#ComponentDescription {
 DcpBackgroundComponent {
 	normalBackgroundName: "Mashup-container";
 	backgroundBoxEdge: 30;
-	lineWidth: 2;
-	lineColor: #3d2a0f;
+	lineWidth: 1;
+	lineColor: #FFA000;
 	lineSkip: 2;
 }
 
@@ -24,9 +24,11 @@ DuiApplicationPage {
 	background: image(starfield);
 }
 
+
 DuiNavigationBar {
-	background: ;
+	background: image(Top-bar-landscape);
 }
+
 
 DuiImage {
 	leftMargin: 0;

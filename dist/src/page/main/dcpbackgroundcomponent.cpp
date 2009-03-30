@@ -18,6 +18,14 @@ DcpBackgroundComponent::DcpBackgroundComponent(
 
 void DcpBackgroundComponent::resizeEvent ( QGraphicsSceneResizeEvent * event )
 {
+    DuiWidgetController::resizeEvent(event);
+}
+
+
+void DcpBackgroundComponent::paint (QPainter *painter,
+                                    const QStyleOptionGraphicsItem *option,
+                                    QWidget *widget)
+{
     DcpBackgroundLineView* view =
             qobject_cast<DcpBackgroundLineView*>(this->view);
     if (view && m_Caption) {
@@ -25,7 +33,7 @@ void DcpBackgroundComponent::resizeEvent ( QGraphicsSceneResizeEvent * event )
         getContentsMargins(NULL,&top,NULL,NULL);
         view->setLinePosition(m_Caption->size().height()+top);
     }
-    DuiWidgetController::resizeEvent(event);
+    DcpComponent::paint(painter, option, widget);
 }
 
 void
