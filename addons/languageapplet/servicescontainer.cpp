@@ -74,6 +74,7 @@ void ServicesContainer::initContainer()
     
     m_mainLayout->setPolicy(mainLayoutPolicy);
     mainLayoutPolicy->setSpacing(10);
+    mainLayoutPolicy->setContentsMargins(12.0, 5.0, 5.0, 12.0);
 
     // captionLayout
     DuiLayout *captionLayout = new DuiLayout(0);
@@ -81,7 +82,7 @@ void ServicesContainer::initContainer()
             new DuiLinearLayoutPolicy(captionLayout, Qt::Horizontal);
     captionLayout->setPolicy(captionLayoutPolicy);
 
-    m_caption = new DuiLabel("  Ovi feeds (4)", this);
+    m_caption = new DuiLabel("Ovi feeds (4)", this);
     m_caption->setObjectName("ServicesContainerCaption");
     captionLayoutPolicy->addItemAtPosition(m_caption, 
                     0, Qt::AlignLeft | Qt::AlignBottom);
@@ -94,8 +95,10 @@ void ServicesContainer::initContainer()
 
     DuiButton *signButton = new DuiButton(this);
     signButton->setObjectName("ServicesContainerSignButton");
+    signButton->setMaximumWidth(32);
+    signButton->setMaximumHeight(32);
     captionLayoutPolicy->addItemAtPosition(signButton,
-                    2, Qt::AlignRight | Qt::AlignBottom);
+                    2, Qt::AlignRight | Qt::AlignVCenter);
 
     mainLayoutPolicy->addItemAtPosition(captionLayout,
                     0, Qt::AlignVCenter | Qt::AlignTop);

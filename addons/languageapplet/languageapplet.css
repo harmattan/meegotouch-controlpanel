@@ -1,6 +1,10 @@
-#LanguageBigButton {
+#LanguageButton {
         normalBackground: "C2-container";
         pressedBackground: "Toggle-btn-selected";
+}
+
+#LanguageButtonSeeMoreSmall {
+        normalBackground: "See-more-indicator-small";
 }
 
 #ServicesButton {
@@ -34,10 +38,5 @@
 }
 
 #ServicesContainerSignButton {
-        preferredsize: size(40, 40);
-        minsize: size(40, 40);
-        maxsize: size(40, 40);
-        
         normalBackground: "See-more-indicator-big";
-        pressedBackground: "See-more-indicator-big";
 }
