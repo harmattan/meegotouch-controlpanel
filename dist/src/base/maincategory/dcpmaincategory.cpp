@@ -38,7 +38,7 @@ void DcpMainCategory::add(DcpComponent *component)
         m_ColCount = 0;
         m_RowCount++;
     }
-
+    component->setParent(this);
 //    qDebug() << "XXX add" << m_RowCount << 0;
     m_LandscapeLayout->addItemAtPosition(component,
                                          m_RowCount, 0 /* column */,
@@ -59,6 +59,7 @@ void DcpMainCategory::append(DcpComponent *component)
         m_ColCount = 0;
         m_RowCount++;
     }
+    component->setParent(this);
 
 //    qDebug() << "XXX append" << m_RowCount << m_ColCount;
     m_LandscapeLayout->addItemAtPosition(component,

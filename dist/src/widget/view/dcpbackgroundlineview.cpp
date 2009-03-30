@@ -40,8 +40,6 @@ void DcpBackgroundLineView::drawBackground(QPainter* painter,
                                 const QStyleOptionGraphicsItem* option) const
 {
 	Q_UNUSED(option);
-    //DuiWidgetView::drawBackground(painter, option);
-    qDebug() << "XXX ajjajajjajja";
 
     if (m_Background) {
         painter->drawPixmap(0, 0, *m_Background);
