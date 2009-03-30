@@ -31,10 +31,11 @@ void DcpAppletPage::createContent()
 void DcpAppletPage::initApplet()
 {
     qDebug() << "DCP: " <<  m_Metadata->fullBinary();
+    DuiWidget *view;
     QPluginLoader loader(m_Metadata->fullBinary());
     if (!loader.load())
     {
-        qDebug() << "Loading applet failed!";
+        qDebug() << "Loading applet failed: " << loader.errorString();
 
     } else {
         QObject *object = loader.instance();
@@ -59,20 +60,22 @@ void DcpAppletPage::initApplet()
     }
 
     if (!m_View) {
-       /* DuiLabel* missingLabel = new DuiLabel(
+        DuiLabel* missingLabel = new DuiLabel(
                 DuiLocale::trid("dcp_no_applet_name", "Plugin not available"));
         missingLabel->setAlignment(Qt::AlignCenter);
-        m_View = qobject_cast<DcpWidget*>(missingLabel);
-        */
+        view = missingLabel;
+        
         setTitle(DuiLocale::trid("dcp_no_applet_title", "Missing plugin"));
     }
+    else
+        view = m_View;
 
-    append(m_View);
+    append(view);
     this->setContentsMargins(25.0, 10.0, 25.0, 10.0);
 
-    m_View->setMaximumWidth(DuiDeviceProfile::instance()->width() - 50);
-    m_View->setMinimumWidth(DuiDeviceProfile::instance()->width() - 50);
-    m_View->setMinimumHeight(DuiDeviceProfile::instance()->height() - 100);
+    view->setMaximumWidth(DuiDeviceProfile::instance()->width() - 50);
+    view->setMinimumWidth(DuiDeviceProfile::instance()->width() - 50);
+    view->setMinimumHeight(DuiDeviceProfile::instance()->height() - 100);
 }
 
 

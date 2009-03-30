@@ -1,7 +1,8 @@
+include (../common.pri)
 TEMPLATE = app
 TARGET = ../duicontrolpanel
 DEPENDPATH += $$system(find ./ -type d)
-INCLUDEPATH += $$DEPENDPATH
+INCLUDEPATH += $$DEPENDPATH ../../lib/src/appletif
 
 OBJECTS_DIR = ../tmp
 MOC_DIR = ../tmp
@@ -19,7 +20,6 @@ LIBS += -ldui
 # a fake check target so as not to stop the testing:
 QMAKE_EXTRA_TARGETS += check
 
-include (../common.pri)
 target.path += $${PREFIX}/bin
 
 install_headers.path = $${PREFIX}/include/qt4/dui/ 
