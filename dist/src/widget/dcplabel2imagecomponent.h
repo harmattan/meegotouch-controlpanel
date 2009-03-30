@@ -17,7 +17,6 @@ class DcpLabel2ImageComponent: public DcpBasicComponent
 public:
     DcpLabel2ImageComponent(DcpCategory *category,
                             DcpAppletMetadata* metadata,
-                            Qt::Alignment alignment = Qt::AlignRight,
                             const QString& title="",
                             QGraphicsWidget *parent=0);
     ~DcpLabel2ImageComponent();

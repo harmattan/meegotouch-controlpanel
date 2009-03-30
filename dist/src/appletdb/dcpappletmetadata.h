@@ -18,6 +18,10 @@ public:
 
     int widgetTypeID();
 
+    Qt::Alignment align();
+    bool toggle();
+    bool smallToggle();
+
     QString text1();
     QString text2();
 

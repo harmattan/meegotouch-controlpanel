@@ -232,6 +232,8 @@ void DcpBasicComponent::addItem ( QGraphicsLayoutItem * item )
 
 void DcpBasicComponent::bigClicked()
 {
-    switchToSubPage();
+    if (m_EnableToggle)
+        m_BigButton->setDown(true);
+    else
+      switchToSubPage();
 }
-

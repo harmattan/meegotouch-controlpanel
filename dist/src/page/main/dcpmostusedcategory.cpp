@@ -6,7 +6,6 @@
 #include "dcpmaincategory.h"
 #include "dcprecentlyusedcomponent.h"
 
-#include "dcpbuttoncomponent.h"
 #include "dcplabelcomponent.h"
 #include "dcplabel2component.h"
 #include "dcplabel2buttoncomponent.h"
@@ -75,11 +74,8 @@ void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata)
       case DCPLABEL2BUTTON :
           component = new DcpLabel2ButtonComponent(this, metadata);
       break;
-      case DCPLABEL2IMAGELEFT :
-          component = new DcpLabel2ImageComponent(this, metadata, Qt::AlignLeft);
-      break;
-      case DCPLABEL2IMAGERIGHT :
-          component = new DcpLabel2ImageComponent(this, metadata, Qt::AlignRight);
+      case DCPLABEL2IMAGE :
+          component = new DcpLabel2ImageComponent(this, metadata);
       break;
   }
 

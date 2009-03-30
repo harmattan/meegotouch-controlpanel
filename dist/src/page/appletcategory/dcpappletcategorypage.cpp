@@ -44,9 +44,6 @@ void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata)
 {
     DcpComponent *component = 0;
 
-
-qDebug() << "-----------------------------------------------------------------------------------------      " << metadata->widgetTypeID();
-
     switch(metadata->widgetTypeID()) {
         case DCPLABEL:
             component = new DcpLabelComponent(0, metadata);
@@ -60,11 +57,8 @@ qDebug() << "-------------------------------------------------------------------
         case DCPLABEL2BUTTON:
             component = new DcpLabel2ButtonComponent(0, metadata);
         break;
-        case DCPLABEL2IMAGELEFT :
-            component = new DcpLabel2ImageComponent(0, metadata, Qt::AlignLeft);
-        break;
-        case DCPLABEL2IMAGERIGHT :
-            component = new DcpLabel2ImageComponent(0, metadata, Qt::AlignRight);
+        case DCPLABEL2IMAGE :
+            component = new DcpLabel2ImageComponent(0, metadata);
         break;
         default:
         break;

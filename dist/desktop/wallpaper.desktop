@@ -14,7 +14,9 @@ X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 [DCP]
 Category= Seeing & Touching
 Order=3
-WidgetType= DcpLabel2ImageRight
+WidgetType= DcpLabel2Image
+Align= Right
+
 Text1= Wallpaper
 Text2= Name of the wallpaper
 

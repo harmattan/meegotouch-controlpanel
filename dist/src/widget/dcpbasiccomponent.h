@@ -18,8 +18,7 @@ static const QString  WIDGETNAME[] = {
     "DcpLabel2",
     "DcpLabelButton",
     "DcpLabel2Button",
-    "DcpLabel2ImageLeft",
-    "DcpLabel2ImageRight"
+    "DcpLabel2Image",
 };
 
 enum WIDGETTYPEID {
@@ -27,8 +26,7 @@ enum WIDGETTYPEID {
     DCPLABEL2,          //"DcpLabel2"
     DCPLABELBUTTON,     //"DcpLabelButton"
     DCPLABEL2BUTTON,    //"DcpLabel2Button"
-    DCPLABEL2IMAGELEFT,      //"DcpLabel2ImageLeft"
-    DCPLABEL2IMAGERIGHT,      //"DcpLabel2ImageRight"
+    DCPLABEL2IMAGE,      //"DcpLabel2Image"
     WIDGETN
 };
 
@@ -99,6 +97,8 @@ protected:
     int m_Z;
 
     int m_Type;
+
+    bool m_EnableToggle;
 
     static const int m_LabelWidth = 186;   //2
     static const int m_LabelWidth2 = 306;   //2
