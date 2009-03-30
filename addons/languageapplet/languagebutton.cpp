@@ -1,6 +1,7 @@
 #include "languagebutton.h"
 
-#include <duigridlayout.h>
+#include <duilayout.h>
+#include <duigridlayoutpolicy.h>
 #include <duibutton.h>
 #include <duilabel.h>
 #include <duitheme.h>
@@ -35,6 +36,9 @@ void LanguageButton::paint(QPainter *painter,
 void LanguageButton::resizeEvent(QGraphicsSceneResizeEvent *event)
 {
     Q_UNUSED(event);
+
+    setMinimumHeight(rowHeight);
+    setMaximumHeight(rowHeight);
 }
 
 void LanguageButton::initWidget()
@@ -45,12 +49,13 @@ void LanguageButton::initWidget()
     const int downRowHeight = rowHeight * 0.45;
 
     // mainLayout
-    mainLayout = new DuiGridLayout(this);
-    mainLayout->setRowMinimumHeight(0, upRowHeight);
-    mainLayout->setRowMinimumHeight(1, downRowHeight);
-    mainLayout->setRowMaximumHeight(0, upRowHeight);
-    mainLayout->setRowMaximumHeight(1, downRowHeight);
-                
+    DuiLayout *mainLayout = new DuiLayout(this);
+    mainLayout->setAnimator(0);
+
+    DuiGridLayoutPolicy *mainLayoutPolicy = 
+            new DuiGridLayoutPolicy(mainLayout);
+    mainLayout->setPolicy(mainLayoutPolicy);
+    
     // m_bigButton
     m_bigButton = new DuiButton(this);
     m_bigButton->setObjectName("LanguageBigButton");
@@ -73,9 +78,9 @@ void LanguageButton::initWidget()
     m_rightLabel->setMaximumHeight(downRowHeight);
     m_rightLabel->setAcceptedMouseButtons(0);
         
-    mainLayout->addItem(m_bigButton, 0, 0, 2, 1, Qt::AlignCenter);
-    mainLayout->addItem(m_leftLabel, 0, 0, Qt::AlignCenter);
-    mainLayout->addItem(m_rightLabel, 1, 0, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(m_bigButton, 0, 0, 1, 0, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(m_leftLabel, 0, 0, 1, 0, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(m_rightLabel, 1, 0, 2, 0, Qt::AlignCenter);
 
     m_bigButton->setZValue(1);
     m_leftLabel->setZValue(2);

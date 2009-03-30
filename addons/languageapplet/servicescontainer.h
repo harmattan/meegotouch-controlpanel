@@ -4,7 +4,7 @@
 #include <duiwidget.h>
 class QPixmap;
 class DuiLabel;
-class DuiLinearLayout;
+class DuiLayout;
 
 class ServicesContainer : public DuiWidget 
 {
@@ -32,6 +32,6 @@ protected:
 private:
     const QPixmap   *m_Background;
     DuiLabel        *m_caption;
-    DuiLinearLayout *m_mainLayout;
+    DuiLayout       *m_mainLayout;
 }; 
 #endif // SERVICESCONTAINER_H

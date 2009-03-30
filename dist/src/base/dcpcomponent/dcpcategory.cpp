@@ -33,3 +33,4 @@ DcpCategory::onOrientationChange (const Dui::Orientation &orientation)
         component->onOrientationChange(orientation);
     }
 }
+

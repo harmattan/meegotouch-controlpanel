@@ -6,7 +6,7 @@
 
 class DcpCategory;
 
-class DcpComponent : public DuiWidget
+class DcpComponent : public DuiWidgetController
 {
     Q_OBJECT
 public:
@@ -28,6 +28,7 @@ public:
 
     virtual QSizeF sizeHint(Qt::SizeHint which,
                             const QSizeF & constraint = QSizeF()) const;
+    QRectF boundingRect() const;
 
 protected:
     virtual void createContents()=0;

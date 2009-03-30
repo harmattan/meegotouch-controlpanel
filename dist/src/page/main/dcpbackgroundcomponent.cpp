@@ -12,21 +12,20 @@ DcpBackgroundComponent::DcpBackgroundComponent(
                             QGraphicsWidget *parent):
     DcpComponent(category, title, parent), m_Background(NULL), m_Caption(NULL)
 {
-   // setViewType("bglineview");
+   setViewType("bglineview");
 }
 
 
 void DcpBackgroundComponent::resizeEvent ( QGraphicsSceneResizeEvent * event )
 {
-/*    DcpBackgroundLineView* view =
+    DcpBackgroundLineView* view =
             qobject_cast<DcpBackgroundLineView*>(this->view);
     if (view && m_Caption) {
         qreal top;
         getContentsMargins(NULL,&top,NULL,NULL);
         view->setLinePosition(m_Caption->size().height()+top);
     }
-    DuiWidgetController::resizeEvent(event);*/
-    DuiWidget::resizeEvent(event);
+    DuiWidgetController::resizeEvent(event);
 }
 
 void
