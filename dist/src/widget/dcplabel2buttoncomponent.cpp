@@ -20,7 +20,7 @@ DcpLabel2ButtonComponent::DcpLabel2ButtonComponent(
     DcpBasicComponent(category, metadata, title, parent)
 {
     m_Type = DCPLABEL2BUTTON;
-    m_EnableToggle = metadata->toggle();
+    m_SmallToggle = metadata->smallToggle();
     createContents();
 }
 
@@ -113,7 +113,11 @@ void DcpLabel2ButtonComponent::setEnableButton(bool enable) {
 
 }
 
-void DcpLabel2ButtonComponent::smallClickedOn(){}
+void DcpLabel2ButtonComponent::smallClickedOn()
+{
+    if (m_SmallToggle)
+      m_SmallButtonOn->setDown(true);
+}
 void DcpLabel2ButtonComponent::smallClickedOff(){}
 void DcpLabel2ButtonComponent::disableClicked(){}
 

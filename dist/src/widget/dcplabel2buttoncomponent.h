@@ -29,13 +29,14 @@ public slots:
     void disableClicked();
 
 
-    protected:
-        DuiButton* m_SmallButtonOn;
-        DuiButton* m_SmallButtonOff;
-        DuiButton* m_DisableButton;
+protected:
+    DuiButton* m_SmallButtonOn;
+    DuiButton* m_SmallButtonOff;
+    DuiButton* m_DisableButton;
 
-        DuiLabel* m_DownLabel;
+    DuiLabel* m_DownLabel;
 
+    bool m_SmallToggle;
 };
 
 

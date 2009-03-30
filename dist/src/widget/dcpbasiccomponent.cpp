@@ -20,12 +20,15 @@ DcpBasicComponent::DcpBasicComponent(
                             QGraphicsWidget *parent):
     DcpComponent(category, title, parent), m_Metadata(metadata), m_Z(1)
 {
-  //createContents();
-  m_GridLayout = new DuiGridLayout();
 
-  //if (m_TriangleButtonOriginal==NULL) {
-  //    m_TriangleButtonOriginal = newButton(TRIANGLESIZE, "TriangleButton");
-  //}
+    m_EnableToggle = metadata->toggle();
+
+    //createContents();
+    m_GridLayout = new DuiGridLayout();
+  
+    //if (m_TriangleButtonOriginal==NULL) {
+    //    m_TriangleButtonOriginal = newButton(TRIANGLESIZE, "TriangleButton");
+    //}
 
 }
 
