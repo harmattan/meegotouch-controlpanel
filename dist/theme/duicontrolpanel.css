@@ -14,8 +14,8 @@ DuiLabel#ComponentDescription {
 DcpBackgroundComponent {
 	normalBackgroundName: "Mashup-container";
 	backgroundBoxEdge: 30;
-	lineWidth: 2;
-	lineColor: #3d2a0f;
+	lineWidth: 1;
+	lineColor: #FFA000;
 	lineSkip: 2;
 }
 
@@ -24,9 +24,11 @@ DuiApplicationPage {
 	background: image(starfield);
 }
 
+
 DuiNavigationBar {
-	background: ;
+	background: image(Top-bar-landscape);
 }
+
 
 DuiImage {
 	leftMargin: 0;
@@ -67,8 +69,8 @@ DuiImage {
         minsize: size(350, 100);
         maxsize: size(350, 100);
 
-        normalBackgroundName: "C2-container";
-        pressedBackgroundName: "Toggle-btn-selected";
+        normalBackground: "C2-container";
+        pressedBackground: "Toggle-btn-selected";
 	horizontalBoxEdgePercent: 0.3;
 }
 
@@ -116,8 +118,13 @@ DuiImage {
         minsize: size(350, 100);
         maxsize: size(350, 100);
 
+<<<<<<< HEAD:dist/theme/duicontrolpanel.css
         normalBackgroundName: "C2-container";
         pressedBackgroundName: "Toggle-btn-selected";
+=======
+        normalBackground: "C2-container";
+        pressedBackground: "Toggle-btn-selected";
+>>>>>>> feecdf29febb62ecb4044c95d383ef4661c1d58c:dist/theme/duicontrolpanel.css
 	horizontalBoxEdgePercent: 0.3;
 }
 

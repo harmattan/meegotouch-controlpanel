@@ -15,7 +15,7 @@ public:
 
     virtual QSizeF sizeHint(Qt::SizeHint which, const QSizeF &constraint) const;
 
-    void setLinePosition(int pos);
+    void setLinePosition(qreal pos);
 protected:
     virtual void drawBackground(QPainter* painter,
                                 const QStyleOptionGraphicsItem* option) const;
@@ -27,7 +27,7 @@ private:
 
     void updateGraphics();
 
-    int m_LinePosition;
+    qreal m_LinePosition;
     const QPixmap* m_Background;
     DuiWidgetController* m_Controller;
 };

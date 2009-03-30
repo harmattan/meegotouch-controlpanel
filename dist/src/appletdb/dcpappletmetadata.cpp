@@ -13,6 +13,10 @@ enum  {
     KeyDisabledPicture,
 
     KeyWidgetType,
+    KeyAlign,
+    KeyToggle,
+    KeySmallToggle,
+
     KeyText2,
     KeyImage,
     KeyButtonCSS,
@@ -36,6 +40,10 @@ const QString Keys[KeyCount] = {
     "DCP/DisabledPicture",
 
     "DCP/WidgetType",
+    "DCP/Align",
+    "DCP/Toggle",
+    "DCP/SmallToggle",
+
     "DCP/Text2",
     "DCP/Image",
     "DCP/ButtonCSS",
@@ -113,6 +121,30 @@ int DcpAppletMetadata::widgetTypeID()
   
   return -1;  //error
 
+}
+
+Qt::Alignment DcpAppletMetadata::align()
+{
+  if (value(Keys[KeyAlign]).toString().toUpper() == "LEFT")
+    return Qt::AlignLeft;
+
+  return Qt::AlignRight;
+}
+
+bool DcpAppletMetadata::toggle()
+{
+  if (value(Keys[KeyToggle]).toString() == "TRUE")
+    return true;
+
+  return false;
+}
+
+bool DcpAppletMetadata::smallToggle()
+{
+  if (value(Keys[KeySmallToggle]).toString() == "TRUE")
+    return true;
+
+  return false;
 }
 
 QString DcpAppletMetadata::text1()

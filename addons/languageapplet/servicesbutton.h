@@ -3,7 +3,7 @@
 
 #include <DuiWidget>
 
-class DuiGridLayout;
+class DuiLayout;
 class DuiButton;
 class DuiLabel;
 
@@ -17,7 +17,7 @@ public:
     void resizeEvent(QGraphicsSceneResizeEvent *event);
 
 private:
-    DuiGridLayout   *m_mainLayout;
+    DuiLayout   *m_mainLayout;
     DuiButton       *m_button;
     DuiLabel        *m_label;
 };

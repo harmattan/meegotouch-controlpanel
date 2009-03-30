@@ -1,19 +1,18 @@
 #ifndef LANGUAGEBUTTON_H
 #define LANGUAGEBUTTON_H
 
-#include <DuiWidget>
-class DuiGridLayout;
-class DuiButton;
+#include <DuiButton>
 class DuiLabel;
+class QPixmap;
 
-class LanguageButton : public DuiWidget 
+class LanguageButton : public DuiButton 
 {
         Q_OBJECT
                 
 public:
     LanguageButton(QString upText, 
                    QString downText, 
-                   QGraphicsWidget *parent = 0);
+                   DuiWidget *parent = 0);
 
     virtual ~LanguageButton();
 
@@ -29,9 +28,8 @@ protected:
 private:
     QString m_upText;
     QString m_downText;
-    DuiGridLayout *mainLayout;
-    DuiButton *m_bigButton;
-    DuiLabel *m_leftLabel;
-    DuiLabel *m_rightLabel;
+    DuiLabel *m_upLabel;
+    DuiLabel *m_downLabel;
+    const QPixmap *m_Background;
 };
 #endif

@@ -17,9 +17,9 @@ DcpLabelComponent::DcpLabelComponent(
                             QGraphicsWidget *parent):
     DcpBasicComponent(category, metadata, title, parent)
 {
-  createContents();
+    createContents();
+    m_EnableToggle = metadata->toggle();
 }
-
 
 DcpLabelComponent::~DcpLabelComponent()
 {
@@ -58,9 +58,4 @@ void DcpLabelComponent::createContents()
     connect(m_BigButton, SIGNAL(clicked()), this, SLOT(bigClicked()));
 
     initLayout();
-}
-
-void DcpLabelComponent::bigClicked()
-{
-    switchToSubPage();
 }
