@@ -1,5 +1,6 @@
 #include "servicesbutton.h"
-#include <duigridlayout.h>
+#include <duilayout.h>
+#include <duigridlayoutpolicy.h>
 #include <duibutton.h>
 #include <duilabel.h>
 
@@ -9,9 +10,10 @@ const QString space = "        ";
 ServicesButton::ServicesButton(QGraphicsWidget *parent, const QString &title)
                :DuiWidget(parent)
 {
-    m_mainLayout = new DuiGridLayout(this);
-    m_mainLayout->setRowMinimumHeight(0, height);
-    m_mainLayout->setRowMaximumHeight(0, height);
+    m_mainLayout = new DuiLayout(this);
+    DuiGridLayoutPolicy *landscapeLayout = new DuiGridLayoutPolicy(m_mainLayout);
+
+    m_mainLayout->setPolicy(landscapeLayout);
     
     m_button = new DuiButton(this);
     m_button->setObjectName("ServicesButton");
@@ -25,8 +27,8 @@ ServicesButton::ServicesButton(QGraphicsWidget *parent, const QString &title)
     m_label->setObjectName("ServicesButtonLabel");
     m_label->setAcceptedMouseButtons(0);
     
-    m_mainLayout->addItem(m_button, 0, 0, 2, 1, Qt::AlignCenter);
-    m_mainLayout->addItem(m_label, 0, 0, Qt::AlignCenter);
+    landscapeLayout->addItemAtPosition(m_button, 0, 0, 2, 1, Qt::AlignCenter);
+    landscapeLayout->addItemAtPosition(m_label, 0, 0, 2, 1, Qt::AlignCenter);
 }
 
 void ServicesButton::resizeEvent(QGraphicsSceneResizeEvent *event)
@@ -43,9 +45,4 @@ void ServicesButton::resizeEvent(QGraphicsSceneResizeEvent *event)
 
     m_label->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
     m_label->setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
-    
-    m_mainLayout->setColumnMinimumWidth(0, 
-                    DuiDeviceProfile::instance()->width() / 2 - devide);
-    m_mainLayout->setColumnMaximumWidth(0,
-                    DuiDeviceProfile::instance()->width() / 2 - devide);
 }

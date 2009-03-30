@@ -2,7 +2,6 @@
 #define LANGUAGEBUTTON_H
 
 #include <DuiWidget>
-class DuiGridLayout;
 class DuiButton;
 class DuiLabel;
 
@@ -29,7 +28,6 @@ protected:
 private:
     QString m_upText;
     QString m_downText;
-    DuiGridLayout *mainLayout;
     DuiButton *m_bigButton;
     DuiLabel *m_leftLabel;
     DuiLabel *m_rightLabel;

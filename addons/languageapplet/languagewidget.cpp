@@ -4,7 +4,8 @@
 
 #include <QPen>
 #include <duideviceprofile.h>
-#include <duilinearlayout.h>
+#include <duilayout.h>
+#include <duilinearlayoutpolicy.h>
 #include <duibutton.h>
 #include <duilabel.h>
 #include <duitheme.h>
@@ -47,35 +48,36 @@ void LanguageWidget::resizeEvent(QGraphicsSceneResizeEvent *event)
 void LanguageWidget::initWidget()
 {
     // there is some "magic number" sorry for that
-	DuiLinearLayout *mainLayout = new DuiLinearLayout(Qt::Vertical, this);
-    mainLayout->setSpacing(15);
+    DuiLayout *mainLayout = new DuiLayout(this);
+	DuiLinearLayoutPolicy *mainLayoutPolicy = 
+            new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
+    mainLayout->setPolicy(mainLayoutPolicy);
+    
+    mainLayoutPolicy->setSpacing(15);
+    mainLayoutPolicy->setContentsMargins(12.0, 12.0, 12.0, 12.0);
 
     m_displayButton = new LanguageButton("Display language",
                                        "English GB", this);
-    mainLayout->addItem(m_displayButton);
+    m_displayButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    mainLayoutPolicy->addItemAtPosition(m_displayButton, 0, Qt::AlignCenter);
     
     m_keyboardButton = new LanguageButton("Keyboard languages (2)",
                                                     "English GB, Suomi", this);
-    mainLayout->addItem(m_keyboardButton);
+    m_keyboardButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    mainLayoutPolicy->addItemAtPosition(m_keyboardButton, 1, Qt::AlignCenter);
 
     ServicesContainer *servicesContainer = new ServicesContainer(this);
-    mainLayout->addItem(servicesContainer);
+    mainLayoutPolicy->addItemAtPosition(servicesContainer, 2, Qt::AlignCenter);
 
     DuiLabel *simpleText = new DuiLabel("To set language display format, go to", 
                     this);
     simpleText->setObjectName("LanguageSimpleText");
     simpleText->setAlignment(Qt::AlignCenter);
     simpleText->setMaximumHeight(60);
-    mainLayout->addItem(simpleText);
+    mainLayoutPolicy->addItemAtPosition(simpleText, 3, Qt::AlignCenter);
 
     DuiButton *regionFormatButton = new DuiButton("Region format", this);
     regionFormatButton->setMaximumWidth(270);
     regionFormatButton->setMaximumHeight(60);
-    mainLayout->addItem(regionFormatButton);
-
-    mainLayout->setAlignment(m_displayButton, Qt::AlignCenter);
-    mainLayout->setAlignment(m_keyboardButton, Qt::AlignCenter);
-    mainLayout->setAlignment(servicesContainer, Qt::AlignCenter);
-    mainLayout->setAlignment(simpleText, Qt::AlignCenter);
-    mainLayout->setAlignment(regionFormatButton, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(regionFormatButton, 4, Qt::AlignCenter);
 }
