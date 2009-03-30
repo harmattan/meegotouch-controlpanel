@@ -41,6 +41,7 @@ void DcpBackgroundLineView::drawBackground(QPainter* painter,
 {
 	Q_UNUSED(option);
     //DuiWidgetView::drawBackground(painter, option);
+    qDebug() << "XXX ajjajajjajja";
 
     if (m_Background) {
         painter->drawPixmap(0, 0, *m_Background);
@@ -64,6 +65,7 @@ void DcpBackgroundLineView::resizeEvent ( QGraphicsSceneResizeEvent * event )
 {
     DuiWidgetView::resizeEvent(event);
     updateGraphics();
+    update();
 }
 
 void DcpBackgroundLineView::styleUpdated()

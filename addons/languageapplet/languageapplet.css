@@ -1,11 +1,11 @@
 #LanguageBigButton {
-        normalBackgroundName: "C2-container";
-        pressedBackgroundName: "Toggle-btn-selected";
+        normalBackground: "C2-container";
+        pressedBackground: "Toggle-btn-selected";
 }
 
 #ServicesButton {
-        normalBackgroundName: "C2-container";
-        pressedBackgroundName: "Toggle-btn-selected";
+        normalBackground: "C2-container";
+        pressedBackground: "Toggle-btn-selected";
 }
 
 #ServicesButtonLabel {
@@ -38,6 +38,6 @@
         minsize: size(40, 40);
         maxsize: size(40, 40);
         
-        normalBackgroundName: "See-more-indicator-big";
-        pressedBackgroundName: "See-more-indicator-big";
+        normalBackground: "See-more-indicator-big";
+        pressedBackground: "See-more-indicator-big";
 }

@@ -6,7 +6,7 @@
 
 class DcpCategory;
 
-class DcpComponent : public DuiWidgetController
+class DcpComponent : public DuiWidget
 {
     Q_OBJECT
 public:

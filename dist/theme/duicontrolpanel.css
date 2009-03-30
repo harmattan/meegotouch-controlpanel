@@ -56,7 +56,7 @@ DuiImage {
 
         normalBackgroundName: "C2-container";
         pressedBackgroundName: "Toggle-btn-selected";
-	    horizontalBoxEdgePercent: 0.3;
+	horizontalBoxEdgePercent: 0.3;
 }
 
 #AppletCategoryButton {
@@ -69,7 +69,7 @@ DuiImage {
 
         normalBackgroundName: "C2-container";
         pressedBackgroundName: "Toggle-btn-selected";
-    	horizontalBoxEdgePercent: 0.3;
+	horizontalBoxEdgePercent: 0.3;
 }
 
 #SmallButtonOn {
@@ -118,7 +118,7 @@ DuiImage {
 
         normalBackgroundName: "C2-container";
         pressedBackgroundName: "Toggle-btn-selected";
-    	horizontalBoxEdgePercent: 0.3;
+	horizontalBoxEdgePercent: 0.3;
 }
 
 #UpLabel {

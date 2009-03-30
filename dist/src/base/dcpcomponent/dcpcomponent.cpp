@@ -4,7 +4,7 @@
 
 DcpComponent::DcpComponent(DcpCategory *category,
                                   const QString& title, 
-                  QGraphicsWidget *parent) : DuiWidgetController(parent),
+                  QGraphicsWidget *parent) : DuiWidget(parent),
                                 m_Title(title),
 				m_Category(category)
 {
