@@ -30,23 +30,10 @@ void ServicesContainer::paint(QPainter *painter,
     Q_UNUSED(option);
     Q_UNUSED(widget);
     
-    // reload pixmap if the size changes:
-    QSize size = this->size().toSize();
-    if (m_Background && m_Background->size() != size) {
-        DuiTheme::releasePixmap(m_Background);
-        m_Background = NULL;
-    }
-    // if not loaded:
-    if (!m_Background){
-        static const int border = 30;
-        m_Background = DuiTheme::boxedPixmap("Mashup-container",size,
-                                             border, border, border, border);
-    }
     // if available, then draw it:
     if (m_Background) {
         painter->drawPixmap(0, 0, *m_Background);
     }
-    
 
     // draw line below the title
     int borderWidth = 2;
@@ -64,6 +51,11 @@ void ServicesContainer::paint(QPainter *painter,
 void ServicesContainer::resizeEvent(QGraphicsSceneResizeEvent *event)
 {
     Q_UNUSED(event);
+    
+    QSize size = this->size().toSize();
+    static const int border = 30;
+    m_Background = DuiTheme::boxedPixmap("Mashup-container",size,
+                                         border, border, border, border);
 }
 
 void ServicesContainer::initContainer()
@@ -75,7 +67,7 @@ void ServicesContainer::initContainer()
     m_mainLayout->setPolicy(mainLayoutPolicy);
     mainLayoutPolicy->setSpacing(10);
     mainLayoutPolicy->setContentsMargins(12.0, 5.0, 5.0, 12.0);
-
+    
     // captionLayout
     DuiLayout *captionLayout = new DuiLayout(0);
     DuiLinearLayoutPolicy *captionLayoutPolicy = 
@@ -112,20 +104,22 @@ void ServicesContainer::initContainer()
     // Example how to add ServicesButtonBlock  
     ServicesButtonBlock *blockOne = 
             new ServicesButtonBlock("Recent released display languages", this);
-        blockOne->addServicesButton("Language 1");
-    blockOne->addServicesButton("Language 2");
-    blockOne->addServicesButton("Language 3");
+    for (int i = 1; i < 6; i++) {
+        blockOne->addServicesButton(QString("Language %1").arg(i));
+    }
 
     ServicesButtonBlock *blockTwo = 
             new ServicesButtonBlock("Recent released keyboard languages", this);
-        blockTwo->addServicesButton("Language");
+    for (int i = 1; i < 4; i++) {
+        blockTwo->addServicesButton(QString("Language %1").arg(i));
+    }
 
     mainLayoutPolicy->addItemAtPosition(blockOne,
                     2, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(blockTwo,
                     3, Qt::AlignCenter);
 
-    this->update();
+    m_mainLayout->commitRelayout();
 }
 
 void ServicesContainer::addServices(const QString &name)

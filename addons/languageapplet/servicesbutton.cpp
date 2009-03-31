@@ -1,34 +1,64 @@
 #include "servicesbutton.h"
+#include <duitheme.h>
 #include <duilayout.h>
-#include <duigridlayoutpolicy.h>
+#include <duilinearlayoutpolicy.h>
 #include <duibutton.h>
 #include <duilabel.h>
 
-const int height =  80;
-const QString space = "        ";
+const int height = 90;
 
-ServicesButton::ServicesButton(QGraphicsWidget *parent, const QString &title)
-               :DuiWidget(parent)
+ServicesButton::ServicesButton(DuiWidget *parent, const QString &title)
+               :DuiButton(parent)
 {
     m_mainLayout = new DuiLayout(this);
-    DuiGridLayoutPolicy *landscapeLayout = new DuiGridLayoutPolicy(m_mainLayout);
+    DuiLinearLayoutPolicy *landscapeLayout = 
+            new DuiLinearLayoutPolicy(m_mainLayout, Qt::Vertical);
 
     m_mainLayout->setPolicy(landscapeLayout);
-    
-    m_button = new DuiButton(this);
-    m_button->setObjectName("ServicesButton");
-    m_button->setMinimumHeight(height);
-    m_button->setMaximumHeight(height);
 
-    m_label = new DuiLabel(space + title, this);
+    // labelLayout
+    DuiLayout *labelLayout = new DuiLayout(0);
+    DuiLinearLayoutPolicy *labelLayoutPolicy = 
+            new DuiLinearLayoutPolicy(labelLayout, Qt::Horizontal);
+    labelLayout->setPolicy(labelLayoutPolicy);
+
+    DuiWidget *spacer = new DuiWidget(this);
+    spacer->setMinimumWidth(12);
+    spacer->setMaximumWidth(12);
+    spacer->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+
+    DuiButton *seeMoreSmall = new DuiButton(this);
+    seeMoreSmall->setObjectName("ServicesButtonSeeMoreSmall");
+    seeMoreSmall->setAcceptedMouseButtons(0);
+    seeMoreSmall->setMaximumWidth(20);
+    seeMoreSmall->setMaximumHeight(20);
+    
+    m_label = new DuiLabel(title, this);
     m_label->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-    m_label->setMinimumHeight(height);
-    m_label->setMaximumHeight(height);
     m_label->setObjectName("ServicesButtonLabel");
     m_label->setAcceptedMouseButtons(0);
     
-    landscapeLayout->addItemAtPosition(m_button, 0, 0, 2, 1, Qt::AlignCenter);
-    landscapeLayout->addItemAtPosition(m_label, 0, 0, 2, 1, Qt::AlignCenter);
+    labelLayoutPolicy->addItemAtPosition(spacer, 0, Qt::AlignCenter);
+    labelLayoutPolicy->addItemAtPosition(seeMoreSmall, 1, Qt::AlignCenter);
+    labelLayoutPolicy->addItemAtPosition(m_label, 2, Qt::AlignCenter);
+
+    // spacer
+    DuiWidget *spacerItem = new DuiWidget(this);
+    spacerItem->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    DuiWidget *spacerItem2 = new DuiWidget(this);
+    spacerItem2->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    landscapeLayout->addItemAtPosition(spacerItem, 0, Qt::AlignCenter);
+    landscapeLayout->addItemAtPosition(labelLayout, 1, Qt::AlignCenter);
+    landscapeLayout->addItemAtPosition(spacerItem2, 2, Qt::AlignCenter);
+}
+
+ServicesButton::~ServicesButton()
+{   
+    if (m_background)
+    {
+        DuiTheme::releasePixmap(m_background);
+    }
 }
 
 void ServicesButton::resizeEvent(QGraphicsSceneResizeEvent *event)
@@ -39,10 +69,26 @@ void ServicesButton::resizeEvent(QGraphicsSceneResizeEvent *event)
 
     setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
     setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+    setMinimumHeight(height);
+    setMaximumHeight(height);
 
-    m_button->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
-    m_button->setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+    QSize size = this->size().toSize();
+    static const int border = 10;
+    m_background = DuiTheme::boxedPixmap("C2-container", size,
+                                         border, border, border, border);
+}
 
-    m_label->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
-    m_label->setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+void ServicesButton::paint(QPainter *painter,
+                           const QStyleOptionGraphicsItem *option,
+                           QWidget *widget)
+{
+    // Q_UNUSED(painter);
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
+
+    // if available, then draw it:
+    if (m_background) 
+    {
+        painter->drawPixmap(0, 0, *m_background);
+    }                
 }

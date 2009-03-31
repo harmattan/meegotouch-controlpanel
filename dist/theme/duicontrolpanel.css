@@ -49,83 +49,65 @@ DuiImage {
 
 
 #BigButton {
-        text: Next;
-        font: font(sans, 15);
-        textColor: #FFFFFF;
-        preferredsize: size(350, 100);
-        minsize: size(350, 100);
-        maxsize: size(350, 100);
+    text: Next;
+    font: font(sans, 15);
+    textColor: #FFFFFF;
+    preferredsize: size(350, 100);
+    minsize: size(350, 100);
+    maxsize: size(350, 100);
 
-        normalBackgroundName: "C2-container";
-        pressedBackgroundName: "Toggle-btn-selected";
-	horizontalBoxEdgePercent: 0.3;
-}
-
-#AppletCategoryButton {
-        text: Next;
-        font: font(sans, 15);
-        textColor: #FFFFFF;
-        preferredsize: size(350, 100);
-        minsize: size(350, 100);
-        maxsize: size(350, 100);
-
-        normalBackground: "C2-container";
-        pressedBackground: "Toggle-btn-selected";
+    normalBackground: "C2-container";
+    pressedBackground: "Toggle-btn-selected";
 	horizontalBoxEdgePercent: 0.3;
 }
 
 #SmallButtonOn {
-        text: Next;
-        font: font(sans, 15);
-        textColor: #FF0000;
-        preferredsize: size(350, 100);
-        minsize: size(350, 100);
-        maxsize: size(350, 100);
+    text: Next;
+    font: font(sans, 15);
+    textColor: #FF0000;
+    preferredsize: size(350, 100);
+    minsize: size(350, 100);
+    maxsize: size(350, 100);
 
-        normalBackgroundName: "W-Icon-weather";
-        pressedBackgroundName: "W-Icon-favourites";
+    normalBackground: "W-Icon-weather";
+    pressedBackground: "W-Icon-favourites";
 }
 
 #SmallButtonOff {
-        text: Next;
-        font: font(sans, 15);
-        textColor: #FF0000;
-        preferredsize: size(350, 100);
-        minsize: size(350, 100);
-        maxsize: size(350, 100);
+    text: Next;
+    font: font(sans, 15);
+    textColor: #FF0000;
+    preferredsize: size(350, 100);
+    minsize: size(350, 100);
+    maxsize: size(350, 100);
 
-        normalBackgroundName: "Icon-new-SMS";
-        pressedBackgroundName: "Icon-maps";
+    normalBackground: "Icon-new-SMS";
+    pressedBackground: "Icon-maps";
 }
 
 #SmallButtonDisable {
-        text: Next;
-        font: font(sans, 15);
-        textColor: #FF0000;
-        preferredsize: size(350, 100);
-        minsize: size(350, 100);
-        maxsize: size(350, 100);
+    text: Next;
+    font: font(sans, 15);
+    textColor: #FF0000;
+    preferredsize: size(350, 100);
+    minsize: size(350, 100);
+    maxsize: size(350, 100);
 
-        normalBackgroundName: "Media-control-pause";
-        pressedBackgroundName: "Media-control-play";
+    normalBackground: "Media-control-pause";
+    pressedBackground: "Media-control-play";
 }
 
 #LabelButton {
-        text: Next;
-        font: font(sans, 15);
-        textColor: #FFFFFF;
-        preferredsize: size(350, 100);
-        minsize: size(350, 100);
-        maxsize: size(350, 100);
+    text: Next;
+    font: font(sans, 15);
+    textColor: #FFFFFF;
+    preferredsize: size(350, 100);
+    minsize: size(350, 100);
+    maxsize: size(350, 100);
 
-<<<<<<< HEAD:dist/theme/duicontrolpanel.css
-        normalBackgroundName: "C2-container";
-        pressedBackgroundName: "Toggle-btn-selected";
-=======
-        normalBackground: "C2-container";
-        pressedBackground: "Toggle-btn-selected";
->>>>>>> feecdf29febb62ecb4044c95d383ef4661c1d58c:dist/theme/duicontrolpanel.css
-	horizontalBoxEdgePercent: 0.3;
+    normalBackground: "C2-container";
+    pressedBackground: "Toggle-btn-selected";
+    horizontalBoxEdgePercent: 0.3;
 }
 
 #UpLabel {
@@ -140,13 +122,13 @@ DuiImage {
 
 
 #TriangleButton {
-        normalBackgroundName: "See-more-indicator-small";
-        pressedBackgroundName: "See-more-indicator-small";
+    normalBackground: "See-more-indicator-small";
+    pressedBackground: "See-more-indicator-small";
 }
 
 
 #SpacerButton {
-	normalBackgroundName: "Single-line-input-field";
-	pressedBackgroundName: "Single-line-input-field";
+	normalBackground: "Single-line-input-field";
+	pressedBackground: "Single-line-input-field";
 }
 

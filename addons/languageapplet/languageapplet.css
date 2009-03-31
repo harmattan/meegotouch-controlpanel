@@ -17,6 +17,10 @@
         font: font("Nokia Sans Cn", 20);
 }
 
+#ServicesButtonSeeMoreSmall {
+        normalBackground: "See-more-indicator-small";
+}
+
 #LanguageLeftLabel {
         color: #FFFFFF;
         font: font("Nokia Sans Cn", 18);
