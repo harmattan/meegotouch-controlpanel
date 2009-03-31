@@ -10,7 +10,7 @@ public:
     DcpWidget(QGraphicsWidget *parent=0) : DuiWidget(parent){};
     virtual ~DcpWidget(){};
 signals:
-    void refresh();
+    void changeWidget(int widgetId);
 };
 
 #endif // DCPWIDGET_H

@@ -1,5 +1,5 @@
 #include "displaywidget.h"
-
+#include "dcpdisplay.h"
 #include <duitheme.h>
 #include <duibutton.h>
 #include <duilinearlayout.h>
@@ -91,7 +91,9 @@ void DisplayWidget::initWidget()
     m_screenToggleButton = new DuiButton(this);
     m_screenToggleButton->setObjectName("ScreenToggleButton");
     m_screenToggleButton->setCheckable(true);
+    connect(m_screenToggleButton, SIGNAL(clicked()), this, SLOT(nextPage()));
     screenHLayout->addItem(m_screenToggleButton);
+    
 
     DuiWidget *spacerItem2 = new DuiWidget(this);
     spacerItem2->setMaximumHeight(20);
@@ -139,4 +141,9 @@ void DisplayWidget::setBrightnessLabel(int value)
 void DisplayWidget::setScreenLabel(int value)
 {
 	m_screenLabel->setText(QString("Screen lights on: %1 sec").arg(value));
+}
+
+void DisplayWidget::nextPage()
+{
+    emit changeWidget(DcpDisplay::Page1);
 }

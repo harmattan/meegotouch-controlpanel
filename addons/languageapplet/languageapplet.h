@@ -10,7 +10,8 @@ class LanguageApplet : public QObject, public DcpAppletIf
 	Q_INTERFACES(DcpAppletIf)
 
 public:
-	virtual DcpWidget* constructWidget();
+    virtual void init(){};
+	virtual DcpWidget* constructWidget(int widgetId=0);
 
     virtual QString title() const;
 };

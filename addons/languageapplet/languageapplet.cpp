@@ -5,7 +5,7 @@
 #include "dcpwidget.h"
 Q_EXPORT_PLUGIN2(languageapplet, LanguageApplet)
 	
-DcpWidget* LanguageApplet::constructWidget()
+DcpWidget* LanguageApplet::constructWidget(int widgetId)
 {
 	return new LanguageWidget();
 }

@@ -2,6 +2,7 @@
 #include <QPluginLoader>
 #include <duilabel.h>
 #include <duilocale.h>
+#include <duilinearlayoutpolicy.h>
 #include "dcpwidget.h"
 
 #include "dcpappletpage.h"
@@ -28,35 +29,22 @@ void DcpAppletPage::createContent()
     initApplet();
 }
 
-void DcpAppletPage::initApplet()
+void DcpAppletPage::createView(int widgetId)
 {
-    qDebug() << "DCP: " <<  m_Metadata->fullBinary();
     DuiWidget *view;
-    QPluginLoader loader(m_Metadata->fullBinary());
-    if (!loader.load())
+    qDebug() << "DCP" << Q_FUNC_INFO << widgetId;
+    if (m_View)
+        mainLayout()->layout()->removeItem(mainLayout()->layout()->itemStateAt(0));
+    m_View = m_Applet->constructWidget(widgetId);
+    setTitle(m_Applet->title());
+    connect (m_View, SIGNAL(changeWidget(int)), this, SLOT(createView(int)));
+
+    if (!m_View)
     {
-        qDebug() << "Loading applet failed: " << loader.errorString();
-
-    } else {
-        QObject *object = loader.instance();
-
-        DcpAppletIf *applet = qobject_cast<DcpAppletIf*>(object);
-        if (applet)
-        {
-            m_View = applet->constructWidget();
-            setTitle(applet->title());
-
-            if (!m_View)
-            {
-                qWarning() << "applet->constructWidget() failed.";
-            }
-
-            delete applet;
-
-        } else
-        {
-            qWarning() << "Can't convert object to ExampleAppletInterface.";
-        }
+        qWarning() << "applet->constructWidget() failed.";
+    } else
+    {
+        m_View->show();
     }
 
     if (!m_View) {
@@ -76,6 +64,30 @@ void DcpAppletPage::initApplet()
     view->setMaximumWidth(DuiDeviceProfile::instance()->width() - 50);
     view->setMinimumWidth(DuiDeviceProfile::instance()->width() - 50);
     view->setMinimumHeight(DuiDeviceProfile::instance()->height() - 100);
+
+}
+
+void DcpAppletPage::initApplet()
+{
+    qDebug() << "DCP: " <<  m_Metadata->fullBinary();
+    QPluginLoader loader(m_Metadata->fullBinary());
+    if (!loader.load())
+    {
+        qDebug() << "Loading applet failed: " << loader.errorString();
+
+    } else {
+        QObject *object = loader.instance();
+
+        m_Applet = qobject_cast<DcpAppletIf*>(object);
+        if (m_Applet)
+        {
+            createView(0);
+        } else
+        {
+            qWarning() << "Can't convert object to ExampleAppletInterface.";
+        }
+    }
+
 }
 
 

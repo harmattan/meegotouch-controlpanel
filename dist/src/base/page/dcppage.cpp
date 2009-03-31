@@ -41,3 +41,7 @@ void DcpPage::append (QGraphicsWidget* widget) {
     mainLayout()->addItemAtPosition(widget, mainLayout()->count());
 }
 
+void DcpPage::remove (QGraphicsWidget* widget) {
+    Q_ASSERT(mainLayout());
+}
+
