@@ -24,5 +24,9 @@ protected:
 private:
     LanguageButton *m_displayButton;
     LanguageButton *m_keyboardButton;
+
+private slots:
+    virtual void displayPage();
+    virtual void keyboardPage();
 };
 #endif // LANGUAGEWIDGET_H
