@@ -18,10 +18,7 @@ public:
 
 protected:
 	void initWidget();
-protected slots:
-    void nextPage();		
 private:
 	DuiLabel    *m_Label;
-    DuiButton   *m_Button;
 };
 #endif // DUMMYWIDGET_H

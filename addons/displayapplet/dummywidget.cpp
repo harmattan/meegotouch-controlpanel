@@ -44,7 +44,3 @@ void DummyWidget::initWidget()
 
     mainLayout->setAlignment(m_Label, Qt::AlignCenter);
 }
-void DummyWidget::nextPage()
-{
-    emit changeWidget(DcpDisplay::Page2);
-}

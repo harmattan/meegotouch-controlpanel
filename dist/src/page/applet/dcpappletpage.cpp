@@ -31,10 +31,11 @@ void DcpAppletPage::createContent()
 
 void DcpAppletPage::createView(int widgetId)
 {
+    hide();
     DuiWidget *view;
     qDebug() << "DCP" << Q_FUNC_INFO << widgetId;
     if (m_View)
-        mainLayout()->layout()->removeItem(mainLayout()->layout()->itemStateAt(0));
+       mainLayout()->layout()->removeItem(mainLayout()->layout()->itemStateAt(0));
     m_View = m_Applet->constructWidget(widgetId);
     setTitle(m_Applet->title());
     connect (m_View, SIGNAL(changeWidget(int)), this, SLOT(createView(int)));
@@ -64,7 +65,7 @@ void DcpAppletPage::createView(int widgetId)
     view->setMaximumWidth(DuiDeviceProfile::instance()->width() - 30);
     view->setMinimumWidth(DuiDeviceProfile::instance()->width() - 30);
     view->setMinimumHeight(DuiDeviceProfile::instance()->height() - 100);
-
+    show();
 }
 
 void DcpAppletPage::initApplet()
