@@ -11,6 +11,11 @@
 
 #include <QDebug>
 
+#include <duilayout.h>
+#include <duigridlayoutpolicy.h>
+#include <duilinearlayoutpolicy.h>
+#include <duibasiclayoutanimator.h>
+
 //DuiButton* DcpBasicComponent::m_TriangleButtonOriginal = NULL;
 
 DcpBasicComponent::DcpBasicComponent(
@@ -40,9 +45,29 @@ DcpBasicComponent::~DcpBasicComponent()
 
 void DcpBasicComponent::initLayout()
 {
-    m_Layout = new DuiLinearLayout(Qt::Vertical);
-    m_Layout->addItem(m_GridLayout);
-    setLayout(m_Layout);
+
+    DuiLayout* layout = new DuiLayout();
+
+    //    layout->setAnimator(NULL);
+    DuiBasicLayoutAnimator* animator = new DuiBasicLayoutAnimator();
+    animator->setAnimationSpeed(150);
+    layout->setAnimator(animator);
+
+    m_Layout = new DuiLinearLayoutPolicy(layout,Qt::Vertical);
+
+    //dummy
+    this->setContentsMargins(20, 10, 20, 10);
+
+    addItem(m_GridLayout);
+    layout->setPolicy(m_Layout);
+    setLayout(layout);
+
+
+
+
+//    m_Layout = new DuiLinearLayout(Qt::Vertical);
+//    m_Layout->addItem(m_GridLayout);
+//    setLayout(m_Layout);
 }
 
 
@@ -230,7 +255,8 @@ void DcpBasicComponent::setTitleAlignment(Qt::Alignment align)
 
 void DcpBasicComponent::addItem ( QGraphicsLayoutItem * item )
 {
-    m_Layout->addItem(item);
+    //m_Layout->addItem(item);
+    m_Layout->addItemAtPosition(item, m_Layout->count());
 }
 
 void DcpBasicComponent::bigClicked()
