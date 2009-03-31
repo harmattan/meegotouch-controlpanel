@@ -97,3 +97,14 @@ void DcpAppletPage::setReferer(Pages::Id id, const QString &param)
     m_Referer.param = param;//m_Metadata->category();
     qDebug() << "DCP" << m_Referer.param;
 }
+
+bool DcpAppletPage::back()
+{
+    if (m_View->referer() == -1)
+        return true;
+    else
+    {
+        createView(m_View->referer());
+        return false;
+    };
+};

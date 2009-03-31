@@ -1,9 +1,10 @@
 #include "dummywidget.h"
+#include "dcpdisplay.h"
 
 #include <duitheme.h>
 #include <duilinearlayout.h>
 #include <duilabel.h>
-
+#include <duibutton.h>
 const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/";
 const int widgetWidth = 100;
 
@@ -13,6 +14,7 @@ DummyWidget::DummyWidget(const QString& text, QGraphicsWidget *parent)
     DuiTheme::loadCSS(cssDir + "displayapplet.css");
 	m_Label = new DuiLabel(text, this);
     initWidget();
+    setReferer(DcpDisplay::Main);
 }
 
 DummyWidget::~DummyWidget()
@@ -37,8 +39,12 @@ void DummyWidget::paint(QPainter *painter,
 
 void DummyWidget::initWidget()
 {
-    DuiLinearLayout *mainLayout = new DuiLinearLayout(Qt::Horizontal, this);
+    DuiLinearLayout *mainLayout = new DuiLinearLayout(Qt::Vertical, this);
     mainLayout->addItem(m_Label);
+
     mainLayout->setAlignment(m_Label, Qt::AlignCenter);
 }
-
+void DummyWidget::nextPage()
+{
+    emit changeWidget(DcpDisplay::Page2);
+}

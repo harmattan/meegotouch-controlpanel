@@ -4,6 +4,7 @@
 #include <duinavigationbar.h>
 #include <duideviceprofile.h>
 #include <QtDebug>
+#include "dcpappletpage.h"
 
 MainWindow::MainWindow():m_CurrentPage(NULL)
 {
@@ -25,7 +26,16 @@ void MainWindow::homeClicked()
 void MainWindow::backClicked()
 {
     DcpPage* page = PageFactory::page(currentPage());
-    changePage(page->referer());
+    bool change = true;
+    if (page->handle().id == Pages::APPLET
+        || page->handle().id == Pages::APPLETFROMMOSTUSED)
+         change = qobject_cast<DcpAppletPage*>(page)->back();
+    if (change)
+        changePage(page->referer());
+    page->referer().id == Pages::MAIN ?
+       navigationBar()->showCloseButton()
+    :
+       navigationBar()->showBackButton();
 }
 
 MainWindow::~MainWindow()
@@ -47,14 +57,14 @@ MainWindow::changePage(Pages::Handle handle)
             page->setReferer(m_CurrentPage->handle());
         m_CurrentPage->disappear();
     }
-/*
+
     page->handle().id == Pages::MAIN ?
        navigationBar()->showCloseButton()
     :
        navigationBar()->showBackButton();
 
     navigationBar()->setViewMenuButtonText(page->title());
-*/
+
     m_CurrentPage = page;
 }
 

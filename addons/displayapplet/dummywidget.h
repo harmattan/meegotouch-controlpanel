@@ -3,7 +3,7 @@
 
 #include "dcpwidget.h" 
 class DuiLabel;
-
+class DuiButton;
 class DummyWidget : public DcpWidget 
 {
 	Q_OBJECT
@@ -18,8 +18,10 @@ public:
 
 protected:
 	void initWidget();
-		
+protected slots:
+    void nextPage();		
 private:
 	DuiLabel    *m_Label;
+    DuiButton   *m_Button;
 };
 #endif // DUMMYWIDGET_H

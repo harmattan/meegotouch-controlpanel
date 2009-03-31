@@ -13,6 +13,7 @@ DisplayWidget::DisplayWidget(QGraphicsWidget *parent)
 	    :DcpWidget(parent)
 {
     DuiTheme::loadCSS(cssDir + "displayapplet.css");
+    setReferer(DcpDisplay::NoReferer);
 	initWidget();
 }
 

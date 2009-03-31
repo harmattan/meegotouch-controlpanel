@@ -16,7 +16,7 @@ public:
     DcpAppletMetadata* metadata() const {return m_Metadata;};
     void setMetadata(DcpAppletMetadata* metadata){m_Metadata = metadata;};
     virtual void setReferer(Pages::Id id, const QString &param="");
-    
+    bool back();
 protected:
     virtual void initApplet();
 protected slots:
