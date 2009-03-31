@@ -10,6 +10,7 @@
 #include <duilabel.h>
 #include <duitheme.h>
 #include "dcpwidget.h"
+#include "dcplanguage.h"
 
 LanguageWidget::LanguageWidget(QGraphicsWidget *parent)
 	    :DcpWidget(parent)
@@ -51,10 +52,14 @@ void LanguageWidget::initWidget()
     m_displayButton = new LanguageButton("Display language",
                                        "English GB", this);
     m_displayButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    connect(m_displayButton, SIGNAL(clicked()), 
+            this, SLOT(displayPage()));
     
     m_keyboardButton = new LanguageButton("Keyboard languages (2)",
                                                     "English GB, Suomi", this);
     m_keyboardButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    connect(m_keyboardButton, SIGNAL(clicked()),
+            this, SLOT(keyboardPage()));
 
     ServicesContainer *servicesContainer = new ServicesContainer(this);
 
@@ -84,4 +89,14 @@ void LanguageWidget::initWidget()
     mainLayoutPolicy->addItemAtPosition(servicesContainer, 2, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(simpleText, 3, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(regionFormatButton, 4, Qt::AlignCenter);
+}
+
+void LanguageWidget::displayPage()
+{
+    emit changeWidget(DcpLanguage::Display);
+}
+
+void LanguageWidget::keyboardPage()
+{
+    emit changeWidget(DcpLanguage::Keyboard);
 }
