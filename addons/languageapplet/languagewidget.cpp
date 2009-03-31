@@ -15,6 +15,7 @@
 LanguageWidget::LanguageWidget(QGraphicsWidget *parent)
 	    :DcpWidget(parent)
 {
+    setReferer(DcpLanguage::NoReferer);
 	initWidget();
 }
 
