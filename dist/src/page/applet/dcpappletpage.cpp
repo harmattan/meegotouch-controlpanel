@@ -59,10 +59,10 @@ void DcpAppletPage::createView(int widgetId)
         view = m_View;
 
     append(view);
-    this->setContentsMargins(25.0, 10.0, 25.0, 10.0);
+    this->setContentsMargins(12.0, 12.0, 12.0, 18.0);
 
-    view->setMaximumWidth(DuiDeviceProfile::instance()->width() - 50);
-    view->setMinimumWidth(DuiDeviceProfile::instance()->width() - 50);
+    view->setMaximumWidth(DuiDeviceProfile::instance()->width() - 30);
+    view->setMinimumWidth(DuiDeviceProfile::instance()->width() - 30);
     view->setMinimumHeight(DuiDeviceProfile::instance()->height() - 100);
 
 }

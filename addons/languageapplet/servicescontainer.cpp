@@ -4,7 +4,6 @@
 #include <qpainter.h>
 #include <duitheme.h>
 #include <duilayout.h>
-#include <duigridlayoutpolicy.h>
 #include <duilinearlayoutpolicy.h>
 #include <duilabel.h>
 #include <duibutton.h>
@@ -60,14 +59,6 @@ void ServicesContainer::resizeEvent(QGraphicsSceneResizeEvent *event)
 
 void ServicesContainer::initContainer()
 {
-    m_mainLayout = new DuiLayout(this);
-    DuiLinearLayoutPolicy* mainLayoutPolicy = 
-            new DuiLinearLayoutPolicy(m_mainLayout, Qt::Vertical);
-    
-    m_mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayoutPolicy->setSpacing(10);
-    mainLayoutPolicy->setContentsMargins(12.0, 5.0, 5.0, 12.0);
-    
     // captionLayout
     DuiLayout *captionLayout = new DuiLayout(0);
     DuiLinearLayoutPolicy *captionLayoutPolicy = 
@@ -91,35 +82,33 @@ void ServicesContainer::initContainer()
     signButton->setMaximumHeight(32);
     captionLayoutPolicy->addItemAtPosition(signButton,
                     2, Qt::AlignRight | Qt::AlignVCenter);
-
-    mainLayoutPolicy->addItemAtPosition(captionLayout,
-                    0, Qt::AlignVCenter | Qt::AlignTop);
-
-    DuiWidget *spacerItem2 = new DuiWidget(this);
-    spacerItem2->setMaximumHeight(10);
-    spacerItem2->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    mainLayoutPolicy->addItemAtPosition(spacerItem2,
-                    1, Qt::AlignCenter);
     
     // Example how to add ServicesButtonBlock  
     ServicesButtonBlock *blockOne = 
             new ServicesButtonBlock("Recent released display languages", this);
-    for (int i = 1; i < 6; i++) {
-        blockOne->addServicesButton(QString("Language %1").arg(i));
+    for (int i = 0; i < 3; i++) {
+        blockOne->addServicesButton("Language");
     }
 
     ServicesButtonBlock *blockTwo = 
             new ServicesButtonBlock("Recent released keyboard languages", this);
-    for (int i = 1; i < 4; i++) {
-        blockTwo->addServicesButton(QString("Language %1").arg(i));
-    }
+    blockTwo->addServicesButton("Language");
 
+    // m_mainLayout
+    m_mainLayout = new DuiLayout(this);
+    DuiLinearLayoutPolicy* mainLayoutPolicy = 
+            new DuiLinearLayoutPolicy(m_mainLayout, Qt::Vertical);
+    
+    m_mainLayout->setPolicy(mainLayoutPolicy);
+    mainLayoutPolicy->setSpacing(10);
+    mainLayoutPolicy->setContentsMargins(12.0, 5.0, 5.0, 20.0);
+    
+    mainLayoutPolicy->addItemAtPosition(captionLayout,
+                    0, Qt::AlignVCenter | Qt::AlignTop);
     mainLayoutPolicy->addItemAtPosition(blockOne,
-                    2, Qt::AlignCenter);
+                    1, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(blockTwo,
-                    3, Qt::AlignCenter);
-
-    m_mainLayout->commitRelayout();
+                    2, Qt::AlignCenter);
 }
 
 void ServicesContainer::addServices(const QString &name)
