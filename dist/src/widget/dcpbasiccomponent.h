@@ -12,6 +12,7 @@ class DuiImage;
 class DuiLinearLayout;
 class DuiGridLayout;
 class DcpAppletMetadata;
+class DuiLayout;
 
 static const QString  WIDGETNAME[] = {
     "DcpLabel",
@@ -81,7 +82,8 @@ public slots:
     void bigClicked();
 
 protected:
-    DuiLinearLayout* m_Layout;
+    //DuiLayout* m_Layout;
+    class DuiLinearLayoutPolicy* m_Layout;
 
     DuiGridLayout* m_GridLayout;
 
