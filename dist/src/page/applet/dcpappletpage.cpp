@@ -74,7 +74,13 @@ void DcpAppletPage::initApplet()
     if (!loader.load())
     {
         qDebug() << "Loading applet failed: " << loader.errorString();
-
+        DuiLabel* missingLabel = new DuiLabel(
+                DuiLocale::trid("dcp_no_applet_name", "Plugin not available"));
+        missingLabel->setAlignment(Qt::AlignCenter);
+        append(missingLabel);
+        
+        setTitle(DuiLocale::trid("dcp_no_applet_title", "Missing plugin"));
+        m_Applet = NULL;
     } else {
         QObject *object = loader.instance();
 
@@ -84,6 +90,8 @@ void DcpAppletPage::initApplet()
             createView(0);
         } else
         {
+   
+ 
             qWarning() << "Can't convert object to ExampleAppletInterface.";
         }
     }
@@ -100,6 +108,8 @@ void DcpAppletPage::setReferer(Pages::Id id, const QString &param)
 
 bool DcpAppletPage::back()
 {
+    if (!m_Applet)
+        return true;
     if (m_View->referer() == -1)
         return true;
     else
