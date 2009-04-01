@@ -14,7 +14,7 @@ X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 [DCP]
 Category= Sound
 Order= 0
-WidgetType= DcpLabel
+WidgetType= DcpLabel2
 Text2= Happy.aac
 
 

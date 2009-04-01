@@ -53,7 +53,7 @@ void DcpLabel2Component::createContents()
     
     int height = 100;
 
-    initColumn(smallWidth, smallWidth, m_LabelWidth);
+    initColumn(smallWidth, 0, 0);
     initRow2(height/2);
 
     
@@ -64,13 +64,12 @@ void DcpLabel2Component::createContents()
     m_DownLabel = newLabel(height/2, downLabel, "DownLabel", Qt::AlignLeft|Qt::AlignTop);
 
 
- 
-    m_GridLayout->addItem(m_BigButton, 0, 0, 2, 5, Qt::AlignLeft);
+    m_WidgetLayoutPolicy->addItemAtPosition(m_BigButton, 0, 0, 2, 3, Qt::AlignLeft);
 
-    m_GridLayout->addItem(m_TriangleButton, 0, 1, Qt::AlignBottom);
+    m_WidgetLayoutPolicy->addItemAtPosition(m_TriangleButton, 0, 1, 1, 1, Qt::AlignBottom);
 
-    m_GridLayout->addItem(m_UpLabel, 0, 2, Qt::AlignCenter);
-    m_GridLayout->addItem(m_DownLabel, 1, 1, 1, 2, Qt::AlignCenter);
+    m_WidgetLayoutPolicy->addItemAtPosition(m_UpLabel, 0, 2, 1, 1, Qt::AlignCenter);
+    m_WidgetLayoutPolicy->addItemAtPosition(m_DownLabel, 1, 1, 1, 2, Qt::AlignCenter);
 
 
     connect(m_BigButton, SIGNAL(clicked()), this, SLOT(bigClicked()));

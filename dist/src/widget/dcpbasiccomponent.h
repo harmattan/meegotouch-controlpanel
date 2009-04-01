@@ -3,6 +3,7 @@
 
 #include "dcpcomponent.h"
 #include <QColor>
+#include <duigridlayoutpolicy.h>
 
 #include <QString>
 
@@ -85,7 +86,15 @@ protected:
     //DuiLayout* m_Layout;
     class DuiLinearLayoutPolicy* m_Layout;
 
-    DuiGridLayout* m_GridLayout;
+    class DuiLayout *m_MainLayout;
+
+    DuiLinearLayoutPolicy *m_MainLayoutPolicy;
+
+    class DuiLayout *m_WidgetLayout;
+    class DuiGridLayoutPolicy *m_WidgetLayoutPolicy;
+
+
+    //DuiGridLayout* m_GridLayout;
 
     DuiButton* m_BigButton;
 

@@ -29,6 +29,10 @@ DcpMainCategory::DcpMainCategory(
     m_Layout->setAnimator(animator);
 
     setLayout(m_Layout);
+
+    m_LandscapeLayout->setColumnSpacing(0, 20);
+//    m_LandscapeLayout->setColumnSpacing(1,400);
+
 }
 
 

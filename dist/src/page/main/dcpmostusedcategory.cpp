@@ -26,6 +26,8 @@ DcpMostUsedCategory::DcpMostUsedCategory(const QString& title, QGraphicsWidget *
 {
   createContents();
 
+ setContentsMargins(0, 0, 0, 0);
+
    //m_Background = new QPixmap("images/backgroundP.png");
 
 }

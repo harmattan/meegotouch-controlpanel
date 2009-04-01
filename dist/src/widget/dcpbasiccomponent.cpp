@@ -12,7 +12,6 @@
 #include <QDebug>
 
 #include <duilayout.h>
-#include <duigridlayoutpolicy.h>
 #include <duilinearlayoutpolicy.h>
 #include <duibasiclayoutanimator.h>
 
@@ -29,11 +28,26 @@ DcpBasicComponent::DcpBasicComponent(
     m_EnableToggle = metadata->toggle();
 
     //createContents();
-    m_GridLayout = new DuiGridLayout();
-  
+    //m_GridLayout = new DuiGridLayout();
+
     //if (m_TriangleButtonOriginal==NULL) {
     //    m_TriangleButtonOriginal = newButton(TRIANGLESIZE, "TriangleButton");
     //}
+
+
+
+    m_MainLayout = new DuiLayout(this);
+    m_MainLayoutPolicy = new DuiLinearLayoutPolicy(m_MainLayout, Qt::Vertical);
+    m_MainLayout->setPolicy(m_MainLayoutPolicy);
+
+    m_WidgetLayout = new DuiLayout(0);
+    m_WidgetLayoutPolicy = new DuiGridLayoutPolicy(m_WidgetLayout);
+    m_WidgetLayout->setPolicy(m_WidgetLayoutPolicy);
+
+    DuiBasicLayoutAnimator* animator = new DuiBasicLayoutAnimator();
+   
+    //animator->setAnimationSpeed(1000);
+    m_WidgetLayout->setAnimator(0);
 
 }
 
@@ -46,23 +60,7 @@ DcpBasicComponent::~DcpBasicComponent()
 void DcpBasicComponent::initLayout()
 {
 
-    DuiLayout* layout = new DuiLayout();
-
-    //    layout->setAnimator(NULL);
-    DuiBasicLayoutAnimator* animator = new DuiBasicLayoutAnimator();
-    animator->setAnimationSpeed(150);
-    layout->setAnimator(animator);
-
-    m_Layout = new DuiLinearLayoutPolicy(layout,Qt::Vertical);
-
-    //dummy
-    this->setContentsMargins(20, 10, 20, 10);
-
-    addItem(m_GridLayout);
-    layout->setPolicy(m_Layout);
-    setLayout(layout);
-
-
+  m_MainLayoutPolicy->addItemAtPosition(m_WidgetLayout, 0, Qt::AlignCenter);;
 
 
 //    m_Layout = new DuiLinearLayout(Qt::Vertical);
@@ -70,37 +68,44 @@ void DcpBasicComponent::initLayout()
 //    setLayout(m_Layout);
 }
 
-
+    
 void DcpBasicComponent::initRow(int height)
 {
-    m_GridLayout->setRowMinimumHeight ( 0, height );
-    m_GridLayout->setRowMaximumHeight ( 0, height );
+    //m_GridLayout->setRowMinimumHeight ( 0, height );
+    //m_GridLayout->setRowMaximumHeight ( 0, height );
+
+    //m_WidgetLayoutPolicy->setRowSpacing(0, height);
 }
 
 void DcpBasicComponent::initRow2(int height)
 {
     for (int i=0;i<2;i++) {
-        m_GridLayout->setRowMinimumHeight ( i, height/2 );
-        m_GridLayout->setRowMaximumHeight ( i, height/2 );
+        //m_GridLayout->setRowMinimumHeight ( i, height/2 );
+        //m_GridLayout->setRowMaximumHeight ( i, height/2 );
+     //   m_WidgetLayoutPolicy->setRowSpacing(i, height/2);
     };
 }
 
 void DcpBasicComponent::initColumn(int s1, int s2, int s3)
 {
-    m_GridLayout->setColumnMinimumWidth ( 0, s1 );
-    m_GridLayout->setColumnMaximumWidth ( 0, s1 );
+    //m_GridLayout->setColumnMinimumWidth ( 0, s1 );
+    //m_GridLayout->setColumnMaximumWidth ( 0, s1 );
 
-    m_GridLayout->setColumnMinimumWidth ( 1, s2 );
-    m_GridLayout->setColumnMaximumWidth ( 1, s2 );
+    //m_GridLayout->setColumnMinimumWidth ( 1, s2 );
+    //m_GridLayout->setColumnMaximumWidth ( 1, s2 );
 
-    m_GridLayout->setColumnMinimumWidth ( 2, s3 );
-    m_GridLayout->setColumnMaximumWidth ( 2, s3 );
+    //m_GridLayout->setColumnMinimumWidth ( 2, s3 );
+    //m_GridLayout->setColumnMaximumWidth ( 2, s3 );
+
+    m_WidgetLayoutPolicy->setColumnSpacing(0, s1);
+    m_WidgetLayoutPolicy->setColumnSpacing(1, s2);
+    m_WidgetLayoutPolicy->setColumnSpacing(2, s3);
 }
 
 
 void DcpBasicComponent::initColumn(int s1, int s2, int s3, int s4, int s5)
 {
-    m_GridLayout->setColumnMinimumWidth ( 0, s1 );
+    /*m_GridLayout->setColumnMinimumWidth ( 0, s1 );
     m_GridLayout->setColumnMaximumWidth ( 0, s1 );
 
     m_GridLayout->setColumnMinimumWidth ( 1, s2 );
@@ -113,7 +118,13 @@ void DcpBasicComponent::initColumn(int s1, int s2, int s3, int s4, int s5)
     m_GridLayout->setColumnMaximumWidth ( 3, s4 );
 
     m_GridLayout->setColumnMinimumWidth ( 4, s5 );
-    m_GridLayout->setColumnMaximumWidth ( 4, s5 );
+    m_GridLayout->setColumnMaximumWidth ( 4, s5 );*/
+
+    m_WidgetLayoutPolicy->setColumnSpacing(0, s1);
+    m_WidgetLayoutPolicy->setColumnSpacing(1, s2);
+    m_WidgetLayoutPolicy->setColumnSpacing(2, s3);
+    m_WidgetLayoutPolicy->setColumnSpacing(3, s4);
+    m_WidgetLayoutPolicy->setColumnSpacing(4, s5);
 }
 
 DuiButton* DcpBasicComponent::newButton(int size, const QString &name)
@@ -151,8 +162,8 @@ DuiLabel* DcpBasicComponent::newLabel(int height, const QString &text, const QSt
 {
     DuiLabel *label = new DuiLabel(text);
     label->setObjectName(objectName);
-//    m_UpLabel->setMinimumWidth(labelWidth);
-//    m_UpLabel->setMaximumWidth(labelWidth);
+    label->setMinimumWidth(200);// dummy
+    label->setMaximumWidth(200);// dummy
     label->setMinimumHeight(height);
     label->setMaximumHeight(height);
     label->setAlignment(alignment);
@@ -166,8 +177,8 @@ DuiLabel* DcpBasicComponent::newLabel(int height, const QString &text, const QSt
 
 DuiImage* DcpBasicComponent::newImage(const QString &name, int size, int borderSize, const QColor &color)
 {
-    //DuiImage *image = new DuiImage(name); //MEMORY 
-    DuiImage *image = new DuiImage("");
+    DuiImage *image = new DuiImage(name); //MEMORY 
+    //DuiImage *image = new DuiImage("");
     image->setMinimumWidth(size);
     image->setMaximumWidth(size);
     image->setMinimumHeight(size);

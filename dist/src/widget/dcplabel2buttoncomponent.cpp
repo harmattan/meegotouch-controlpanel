@@ -47,26 +47,22 @@ void DcpLabel2ButtonComponent::createContents()
     QString downLabel = metadata()->text2();
 
   //dummy, must modify constructor  
-    int smallWidth = 20;    //0,1
+    int m_SmallWidth = 20;    //0,1
     int spaceWidth = 5;     //3
     int imageWidth = 115;     //4
 
-    int width = smallWidth*2 + m_LabelWidth + spaceWidth + imageWidth;
+    int width = m_SmallWidth*2 + m_LabelWidth + spaceWidth + imageWidth;
     
-    int height = 100;
+    int m_Height = 100;
 
     int imageSize = 70;     
     
-    
-    initColumn(smallWidth, smallWidth, m_LabelWidth, spaceWidth, imageWidth );
-    initRow2(height/2);
-
-    
-    m_BigButton = newButton(width, height, "BigButton");
-    m_UpLabel = newLabel(height/2, upLabel, "UpLabel", Qt::AlignLeft|Qt::AlignBottom);
+  
+    m_BigButton = newButton(width, m_Height, "BigButton");
+    m_UpLabel = newLabel(m_Height/2, upLabel, "UpLabel", Qt::AlignLeft|Qt::AlignBottom);
     m_TriangleButton = newButton(m_TriangleSize, "TriangleButton");
 
-    m_DownLabel = newLabel(height/2, downLabel, "DownLabel", Qt::AlignLeft|Qt::AlignTop);
+    m_DownLabel = newLabel(m_Height/2, downLabel, "DownLabel", Qt::AlignLeft|Qt::AlignTop);
 
 
     m_SmallButtonOn = newButton(imageSize, "SmallButtonOn");
@@ -74,17 +70,17 @@ void DcpLabel2ButtonComponent::createContents()
     m_DisableButton = newButton(imageSize, "SmallButtonDisable");
 
 
-    m_GridLayout->addItem(m_BigButton, 0, 0, 2, 5, Qt::AlignLeft);
+    initColumn(m_SmallWidth, 0, 0, 0, 0);
+    initRow2(m_Height/2);
 
-    m_GridLayout->addItem(m_TriangleButton, 0, 1, Qt::AlignBottom);
+    m_WidgetLayoutPolicy->addItemAtPosition(m_BigButton, 0, 0, 2, 3, Qt::AlignLeft);
 
-    m_GridLayout->addItem(m_SmallButtonOn, 0, 4, 2, 1, Qt::AlignVCenter|Qt::AlignLeft);
-    m_GridLayout->addItem(m_SmallButtonOff, 0, 4, 2, 1,  Qt::AlignVCenter|Qt::AlignLeft);
-    m_GridLayout->addItem(m_DisableButton, 0, 4, 2, 1,  Qt::AlignVCenter|Qt::AlignLeft);
+    m_WidgetLayoutPolicy->addItemAtPosition(m_TriangleButton, 0, 1, 1, 1, Qt::AlignBottom);
 
-    m_GridLayout->addItem(m_UpLabel, 0, 2, Qt::AlignCenter);
-    m_GridLayout->addItem(m_DownLabel, 1, 1, 1, 2, Qt::AlignCenter);
+    m_WidgetLayoutPolicy->addItemAtPosition(m_UpLabel, 0, 2, 1, 1, Qt::AlignCenter);
+    m_WidgetLayoutPolicy->addItemAtPosition(m_DownLabel, 1, 1, 1, 2, Qt::AlignCenter);
 
+    m_WidgetLayoutPolicy->addItemAtPosition(m_SmallButtonOn, 0, 3, 2, 1, Qt::AlignVCenter|Qt::AlignLeft);
 
     connect(m_BigButton, SIGNAL(clicked()), this, SLOT(bigClicked()));
     connect(m_SmallButtonOn, SIGNAL(clicked()), this, SLOT(smallClickedOn()));

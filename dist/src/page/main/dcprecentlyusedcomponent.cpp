@@ -18,13 +18,16 @@ void DcpRecentlyUsedComponent::createContents()
     DcpBackgroundComponent::createContents();
 
     // TODO: to stylesheet
-    setContentsMargins(18,10,18,20);
+    //setContentsMargins(60,10,60,20);
+    setContentsMargins(0, 10, 0, 10);
     // --
 
     m_MostUsedCategory = new DcpMostUsedCategory("TXT");
     connect(m_MostUsedCategory, SIGNAL(openSubPage(Pages::Handle)),
                 this, SIGNAL(openSubPage(Pages::Handle)));
     addItem(m_MostUsedCategory);
+
+    m_MostUsedCategory->translate(73,0);//dummy bad
 }
 
 
