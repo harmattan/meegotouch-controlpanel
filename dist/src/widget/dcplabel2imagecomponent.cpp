@@ -1,7 +1,5 @@
 #include "dcplabel2imagecomponent.h"
 
-#include <duilinearlayout.h>
-#include <duigridlayout.h>
 #include <duilabel.h>
 #include <duibutton.h>
 #include <duiimage.h>

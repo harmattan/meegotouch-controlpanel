@@ -5,8 +5,6 @@
 
 class DuiLabel;
 class DuiButton;
-class DuiLinearLayout;
-class DuiGridLayout;
 class DcpAppletMetadata;
 
 class DcpLabelButtonComponent: public DcpBasicComponent

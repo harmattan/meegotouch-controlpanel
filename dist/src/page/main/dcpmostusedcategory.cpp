@@ -17,9 +17,6 @@
 #include "dcpappletmetadata.h"
 #include "dcpapplet.h"
 
-#include "duilinearlayout.h"
-#include "duigridlayout.h"
-
 
 DcpMostUsedCategory::DcpMostUsedCategory(const QString& title, QGraphicsWidget *parent) :
   DcpMainCategory(title, parent)

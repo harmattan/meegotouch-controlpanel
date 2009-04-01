@@ -7,8 +7,6 @@
 class DuiLabel;
 class DuiButton;
 class DuiImage;
-class DuiLinearLayout;
-class DuiGridLayout;
 class DcpAppletMetadata;
 
 class DcpLabel2ImageComponent: public DcpBasicComponent
