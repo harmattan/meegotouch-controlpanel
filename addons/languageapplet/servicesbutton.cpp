@@ -11,6 +11,7 @@ ServicesButton::ServicesButton(DuiWidget *parent, const QString &title)
                :DuiButton(parent)
 {
     m_mainLayout = new DuiLayout(this);
+    // m_mainLayout->setAnimator(0);
     DuiLinearLayoutPolicy *landscapeLayout = 
             new DuiLinearLayoutPolicy(m_mainLayout, Qt::Vertical);
 
@@ -18,6 +19,7 @@ ServicesButton::ServicesButton(DuiWidget *parent, const QString &title)
 
     // labelLayout
     DuiLayout *labelLayout = new DuiLayout(0);
+    // labelLayout->setAnimator(0);
     DuiLinearLayoutPolicy *labelLayoutPolicy = 
             new DuiLinearLayoutPolicy(labelLayout, Qt::Horizontal);
     labelLayout->setPolicy(labelLayoutPolicy);

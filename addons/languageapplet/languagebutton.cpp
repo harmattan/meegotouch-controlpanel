@@ -60,6 +60,7 @@ void LanguageButton::initWidget()
 {
     // mainLayout
     DuiLayout *mainLayout = new DuiLayout(this);
+    // mainLayout->setAnimator(0),
     this->setObjectName("LanguageButton");
     
     // upLabelLayout
@@ -108,6 +109,7 @@ void LanguageButton::initWidget()
 
     // labelLayout
     DuiLayout *labelLayout = new DuiLayout(0);
+    // labelLayout->setAnimator(0);
     DuiLinearLayoutPolicy *labelLayoutPolicy = 
             new DuiLinearLayoutPolicy(labelLayout, Qt::Vertical);
     labelLayout->setPolicy(labelLayoutPolicy);

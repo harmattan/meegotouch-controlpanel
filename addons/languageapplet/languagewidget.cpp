@@ -53,8 +53,8 @@ void LanguageWidget::initWidget()
     m_displayButton = new LanguageButton("Display language",
                                        "English GB", this);
     m_displayButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-//    connect(m_displayButton, SIGNAL(clicked()), 
-//            this, SLOT(displayPage()));
+    connect(m_displayButton, SIGNAL(clicked()), 
+            this, SLOT(displayPage()));
     
     m_keyboardButton = new LanguageButton("Keyboard languages (2)",
                                                     "English GB, Suomi", this);
@@ -77,6 +77,7 @@ void LanguageWidget::initWidget()
 
     // Layout
     DuiLayout *mainLayout = new DuiLayout(this);
+    // mainLayout->setAnimator(0);
 	DuiLinearLayoutPolicy *mainLayoutPolicy = 
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
