@@ -4,6 +4,8 @@
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
 #include <duilist.h>
+#include <QStringListModel>
+#include <QItemSelectionModel>
 #include "dcplanguage.h"
 
 const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/";
@@ -11,7 +13,7 @@ const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/";
 DisplayWidget::DisplayWidget(QGraphicsWidget *parent)
               :DcpWidget(parent)
 {
-    // DuiTheme::loadCSS(cssDir + "languageapplet.css");
+    DuiTheme::loadCSS(cssDir + "languageapplet.css");
     setReferer(DcpLanguage::Main);
     initWidget();
 }
@@ -39,9 +41,32 @@ void DisplayWidget::paint(QPainter *painter,
 void DisplayWidget::initWidget()
 {
     DuiList *inDeviceList = new DuiList(this);
+    inDeviceList->setObjectName("DisplayLanguageList");
+    inDeviceList->setTopGroupHeader("Select display language");
+    inDeviceList->addGroupHeader(0, "In-device language");
+    inDeviceList->enableItemSelection(true);
+    inDeviceList->setItemSize(QSize(200, 30));
+    
+    QString rushian = 
+        QString("P%1cc").arg(QChar(0x0443)) + QChar(0x043A) + QChar(0x0438) + QChar(0x0439); 
+
+    QStringList languageList;
+    languageList << "Dansk" << "Deutsch" << "English GB" << "English US" 
+            << QString("Fran%1ais (Canada)").arg(QChar(0x00e7)) 
+            << QString("Fran%1ais (France)").arg(QChar(0x00e7)) 
+            << "Italiaon"
+            << QString("LA Espa%1ol").arg(QChar(0x00f1)) 
+            << "Nederlands" << "Norks" 
+            << QString("Portugu%1s").arg(QChar(0x00ea))
+            << QString("Portugu%1s BR").arg(QChar(0x00ea)) 
+            << rushian << "Suomi";
+
+    QStringListModel *deviceListModel = new QStringListModel(languageList);
+    inDeviceList->setItemModel(deviceListModel);
     
     // Layout
     DuiLayout *mainLayout = new DuiLayout(this);
+    // mainLayout->setAnimator(0);
     DuiLinearLayoutPolicy *mainLayoutPolicy =
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);

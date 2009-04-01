@@ -59,8 +59,12 @@ void ServicesContainer::resizeEvent(QGraphicsSceneResizeEvent *event)
 
 void ServicesContainer::initContainer()
 {
+    // m_mainLayout
+    m_mainLayout = new DuiLayout(this);
+
     // captionLayout
-    DuiLayout *captionLayout = new DuiLayout(0);
+    DuiLayout *captionLayout = new DuiLayout(m_mainLayout);
+    // captionLayout->setAnimator(0);
     DuiLinearLayoutPolicy *captionLayoutPolicy = 
             new DuiLinearLayoutPolicy(captionLayout, Qt::Horizontal);
     captionLayout->setPolicy(captionLayoutPolicy);
@@ -94,8 +98,7 @@ void ServicesContainer::initContainer()
             new ServicesButtonBlock("Recent released keyboard languages", this);
     blockTwo->addServicesButton("Language");
 
-    // m_mainLayout
-    m_mainLayout = new DuiLayout(this);
+    // m_mainLayout->setAnimator(0);
     DuiLinearLayoutPolicy* mainLayoutPolicy = 
             new DuiLinearLayoutPolicy(m_mainLayout, Qt::Vertical);
     
