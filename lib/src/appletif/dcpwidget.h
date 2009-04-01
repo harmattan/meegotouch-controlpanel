@@ -9,8 +9,12 @@ class DcpWidget: public DuiWidget {
 public:
     DcpWidget(QGraphicsWidget *parent=0) : DuiWidget(parent){};
     virtual ~DcpWidget(){};
+    void setReferer(int widgetId) {m_Referer = widgetId;};
+    int referer() {return m_Referer;}
 signals:
-    void refresh();
+    void changeWidget(int widgetId);
+private:
+    int m_Referer;
 };
 
 #endif // DCPWIDGET_H

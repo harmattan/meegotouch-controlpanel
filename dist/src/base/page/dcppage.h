@@ -35,6 +35,7 @@ protected slots:
 
 protected:
     void append (QGraphicsWidget* widget);
+    void remove (QGraphicsWidget* widget);
 
    DuiLinearLayoutPolicy *m_MainLayout;
 

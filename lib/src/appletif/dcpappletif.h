@@ -8,7 +8,8 @@ class DcpWidget;
 class DcpAppletIf {
 public:
     virtual ~DcpAppletIf() {}
-	virtual DcpWidget* constructWidget() = 0;
+    virtual void init() = 0;
+	virtual DcpWidget* constructWidget(int widgetId) = 0;
     virtual QString title() const = 0;
 };
 

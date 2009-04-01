@@ -10,8 +10,16 @@ class LanguageApplet : public QObject, public DcpAppletIf
 	Q_INTERFACES(DcpAppletIf)
 
 public:
-	virtual DcpWidget* constructWidget();
+    virtual void init();
+	virtual DcpWidget* constructWidget(int widgetId);
+
+    virtual DcpWidget* mainPage();
+    virtual DcpWidget* displayPage();
+    virtual DcpWidget* keyboardPage();
 
     virtual QString title() const;
+
+private:
+    int m_widgetIndex;
 };
 #endif // HELLOLANGUAGE_H

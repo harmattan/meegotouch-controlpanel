@@ -2,6 +2,7 @@
 #include <QPluginLoader>
 #include <duilabel.h>
 #include <duilocale.h>
+#include <duilinearlayoutpolicy.h>
 #include "dcpwidget.h"
 
 #include "dcpappletpage.h"
@@ -28,35 +29,23 @@ void DcpAppletPage::createContent()
     initApplet();
 }
 
-void DcpAppletPage::initApplet()
+void DcpAppletPage::createView(int widgetId)
 {
-    qDebug() << "DCP: " <<  m_Metadata->fullBinary();
+    hide();
     DuiWidget *view;
-    QPluginLoader loader(m_Metadata->fullBinary());
-    if (!loader.load())
+    qDebug() << "DCP" << Q_FUNC_INFO << widgetId;
+    if (m_View)
+       mainLayout()->layout()->removeItem(mainLayout()->layout()->itemStateAt(0));
+    m_View = m_Applet->constructWidget(widgetId);
+    setTitle(m_Applet->title());
+    connect (m_View, SIGNAL(changeWidget(int)), this, SLOT(createView(int)));
+
+    if (!m_View)
     {
-        qDebug() << "Loading applet failed: " << loader.errorString();
-
-    } else {
-        QObject *object = loader.instance();
-
-        DcpAppletIf *applet = qobject_cast<DcpAppletIf*>(object);
-        if (applet)
-        {
-            m_View = applet->constructWidget();
-            setTitle(applet->title());
-
-            if (!m_View)
-            {
-                qWarning() << "applet->constructWidget() failed.";
-            }
-
-            delete applet;
-
-        } else
-        {
-            qWarning() << "Can't convert object to ExampleAppletInterface.";
-        }
+        qWarning() << "applet->constructWidget() failed.";
+    } else
+    {
+        m_View->show();
     }
 
     if (!m_View) {
@@ -71,11 +60,43 @@ void DcpAppletPage::initApplet()
         view = m_View;
 
     append(view);
-    this->setContentsMargins(25.0, 10.0, 25.0, 10.0);
+    this->setContentsMargins(12.0, 12.0, 12.0, 18.0);
 
-    view->setMaximumWidth(DuiDeviceProfile::instance()->width() - 50);
-    view->setMinimumWidth(DuiDeviceProfile::instance()->width() - 50);
+    view->setMaximumWidth(DuiDeviceProfile::instance()->width() - 30);
+    view->setMinimumWidth(DuiDeviceProfile::instance()->width() - 30);
     view->setMinimumHeight(DuiDeviceProfile::instance()->height() - 100);
+    show();
+}
+
+void DcpAppletPage::initApplet()
+{
+    qDebug() << "DCP: " <<  m_Metadata->fullBinary();
+    QPluginLoader loader(m_Metadata->fullBinary());
+    if (!loader.load())
+    {
+        qDebug() << "Loading applet failed: " << loader.errorString();
+        DuiLabel* missingLabel = new DuiLabel(
+                DuiLocale::trid("dcp_no_applet_name", "Plugin not available"));
+        missingLabel->setAlignment(Qt::AlignCenter);
+        append(missingLabel);
+        
+        setTitle(DuiLocale::trid("dcp_no_applet_title", "Missing plugin"));
+        m_Applet = NULL;
+    } else {
+        QObject *object = loader.instance();
+
+        m_Applet = qobject_cast<DcpAppletIf*>(object);
+        if (m_Applet)
+        {
+            createView(0);
+        } else
+        {
+   
+ 
+            qWarning() << "Can't convert object to ExampleAppletInterface.";
+        }
+    }
+
 }
 
 
@@ -85,3 +106,16 @@ void DcpAppletPage::setReferer(Pages::Id id, const QString &param)
     m_Referer.param = param;//m_Metadata->category();
     qDebug() << "DCP" << m_Referer.param;
 }
+
+bool DcpAppletPage::back()
+{
+    if (!m_Applet)
+        return true;
+    if (m_View->referer() == -1)
+        return true;
+    else
+    {
+        createView(m_View->referer());
+        return false;
+    };
+};

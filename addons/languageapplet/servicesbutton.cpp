@@ -65,7 +65,7 @@ void ServicesButton::resizeEvent(QGraphicsSceneResizeEvent *event)
 {
     Q_UNUSED(event);
 
-    int devide = 65;
+    int devide = 55;
 
     setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
     setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);

@@ -10,10 +10,12 @@
 #include <duilabel.h>
 #include <duitheme.h>
 #include "dcpwidget.h"
+#include "dcplanguage.h"
 
 LanguageWidget::LanguageWidget(QGraphicsWidget *parent)
 	    :DcpWidget(parent)
 {
+    setReferer(DcpLanguage::NoReferer);
 	initWidget();
 }
 
@@ -48,37 +50,54 @@ void LanguageWidget::resizeEvent(QGraphicsSceneResizeEvent *event)
 void LanguageWidget::initWidget()
 {
     // there is some "magic number" sorry for that
-    DuiLayout *mainLayout = new DuiLayout(this);
-	DuiLinearLayoutPolicy *mainLayoutPolicy = 
-            new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
-    mainLayout->setPolicy(mainLayoutPolicy);
-    
-    mainLayoutPolicy->setSpacing(15);
-    mainLayoutPolicy->setContentsMargins(12.0, 12.0, 12.0, 12.0);
-
     m_displayButton = new LanguageButton("Display language",
                                        "English GB", this);
     m_displayButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    mainLayoutPolicy->addItemAtPosition(m_displayButton, 0, Qt::AlignCenter);
+//    connect(m_displayButton, SIGNAL(clicked()), 
+//            this, SLOT(displayPage()));
     
     m_keyboardButton = new LanguageButton("Keyboard languages (2)",
                                                     "English GB, Suomi", this);
     m_keyboardButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    mainLayoutPolicy->addItemAtPosition(m_keyboardButton, 1, Qt::AlignCenter);
+    connect(m_keyboardButton, SIGNAL(clicked()),
+            this, SLOT(keyboardPage()));
 
     ServicesContainer *servicesContainer = new ServicesContainer(this);
-    mainLayoutPolicy->addItemAtPosition(servicesContainer, 2, Qt::AlignCenter);
 
     DuiLabel *simpleText = new DuiLabel("To set language display format, go to", 
                     this);
     simpleText->setObjectName("LanguageSimpleText");
     simpleText->setAlignment(Qt::AlignCenter);
     simpleText->setMaximumHeight(60);
-    mainLayoutPolicy->addItemAtPosition(simpleText, 3, Qt::AlignCenter);
 
     DuiButton *regionFormatButton = new DuiButton("Region format", this);
     regionFormatButton->setMaximumWidth(270);
     regionFormatButton->setMaximumHeight(60);
     regionFormatButton->setMinimumHeight(60);
+
+    // Layout
+    DuiLayout *mainLayout = new DuiLayout(this);
+	DuiLinearLayoutPolicy *mainLayoutPolicy = 
+            new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
+    mainLayout->setPolicy(mainLayoutPolicy);
+    
+    mainLayoutPolicy->setSpacing(15);
+    mainLayoutPolicy->setContentsMargins(12.0, 20.0, 12.0, 20.0);
+
+    // Add widgets
+    mainLayoutPolicy->addItemAtPosition(m_displayButton, 0, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(m_keyboardButton, 1, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(servicesContainer, 2, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(simpleText, 3, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(regionFormatButton, 4, Qt::AlignCenter);
+}
+
+void LanguageWidget::displayPage()
+{
+    emit changeWidget(DcpLanguage::Display);
+}
+
+void LanguageWidget::keyboardPage()
+{
+    emit changeWidget(DcpLanguage::Keyboard);
 }

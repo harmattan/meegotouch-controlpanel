@@ -8,10 +8,13 @@ MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects
 
 HEADERS       = displayapplet.h \
-		        displaywidget.h
+		        displaywidget.h \
+                dummywidget.h
 
 SOURCES       = displayapplet.cpp \
-		        displaywidget.cpp
+		        displaywidget.cpp \
+                dummywidget.cpp 
+
 
 TARGET        = $$qtLibraryTarget(displayapplet)
 css.files     = displayapplet.css 

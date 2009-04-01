@@ -28,5 +28,6 @@ private:
 private slots:
 	virtual void setBrightnessLabel(int value);
 	virtual void setScreenLabel(int value);
+    void nextPage();
 };
 #endif // DISPLAYWIDGET_H
