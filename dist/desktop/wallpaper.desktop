@@ -23,4 +23,4 @@ Text2= Name of the wallpaper
 ButtonCSS= BigButton
 Label1CSS= LabelFont1
 Label2CSS= LabelFont2
-Image= images/starfield.png
+Image= /usr/share/themes/dui/duicontrolpanel/images/starfield.png

@@ -20,7 +20,7 @@ Align= Left
 Text1= Theme
 Text2= default
 
-Image= images/starfield.png
+Image= /usr/share/themes/dui/duicontrolpanel/images/starfield.png
 
 ButtonCSS= BigButton
 Label1CSS= LabelFont1
