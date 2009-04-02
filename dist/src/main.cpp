@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
 
     DuiLocale locale;                                                           
     locale.addTranslationPath("./ts");                                          
+    locale.addTranslationPath("/usr/share/dui/l10n");
     locale.installCategoryCatalog(DuiLocale::DuiLcMessages, "duicontrolpanel"); 
     qDebug() << trid("dcp_test", "Teesttt");
     
