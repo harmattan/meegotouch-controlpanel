@@ -1,5 +1,6 @@
 #include "servicescontainer.h"
 #include "servicesbuttonblock.h"
+#include "languagetranslation.h"
 
 #include <qpainter.h>
 #include <duitheme.h>
@@ -69,7 +70,7 @@ void ServicesContainer::initContainer()
             new DuiLinearLayoutPolicy(captionLayout, Qt::Horizontal);
     captionLayout->setPolicy(captionLayoutPolicy);
 
-    m_caption = new DuiLabel("Ovi feeds (4)", this);
+    m_caption = new DuiLabel(DcpLanguage::OviFeeds + " (4)", this);
     m_caption->setObjectName("ServicesContainerCaption");
     captionLayoutPolicy->addItemAtPosition(m_caption, 
                     0, Qt::AlignLeft | Qt::AlignBottom);
@@ -89,13 +90,13 @@ void ServicesContainer::initContainer()
     
     // Example how to add ServicesButtonBlock  
     ServicesButtonBlock *blockOne = 
-            new ServicesButtonBlock("Recent released display languages", this);
+            new ServicesButtonBlock(DcpLanguage::RecentDisplayText, this);
     for (int i = 0; i < 3; i++) {
         blockOne->addServicesButton("Language");
     }
 
     ServicesButtonBlock *blockTwo = 
-            new ServicesButtonBlock("Recent released keyboard languages", this);
+            new ServicesButtonBlock(DcpLanguage::RecentKeyboardText, this);
     blockTwo->addServicesButton("Language");
 
     // m_mainLayout->setAnimator(0);

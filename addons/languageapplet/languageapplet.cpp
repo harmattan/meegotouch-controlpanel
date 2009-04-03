@@ -7,6 +7,7 @@
 #include "keyboardwidget.h"
 #include "dcpwidget.h"
 #include "dcplanguage.h"
+#include "languagetranslation.h"
 
 Q_EXPORT_PLUGIN2(languageapplet, LanguageApplet)
 
@@ -51,5 +52,5 @@ DcpWidget* LanguageApplet::keyboardPage()
 
 QString LanguageApplet::title() const
 {
-        return "Language";
+        return DcpLanguage::AppletTitle;
 }

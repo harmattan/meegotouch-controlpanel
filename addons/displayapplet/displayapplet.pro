@@ -9,6 +9,7 @@ OBJECTS_DIR   = .objects
 
 HEADERS       = displayapplet.h \
 		        displaywidget.h \
+                displaytranslation.h \
                 dummywidget.h
 
 SOURCES       = displayapplet.cpp \

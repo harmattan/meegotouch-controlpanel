@@ -2,6 +2,7 @@
 #include <QDebug>
 #include "displayapplet.h"
 #include "displaywidget.h"
+#include "displaytranslation.h"
 #include "dummywidget.h"
 #include "dcpwidget.h"
 #include "dcpdisplay.h"
@@ -51,5 +52,5 @@ DcpWidget* DisplayApplet::page2()
 
 QString DisplayApplet::title() const
 {
-        return "Display";
+        return DcpDisplay::AppletTitle;
 }

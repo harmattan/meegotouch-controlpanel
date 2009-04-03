@@ -1,6 +1,7 @@
 #include "languagewidget.h"
 #include "languagebutton.h"
 #include "servicescontainer.h"
+#include "languagetranslation.h"
 
 #include <QPen>
 #include <duideviceprofile.h>
@@ -50,27 +51,27 @@ void LanguageWidget::resizeEvent(QGraphicsSceneResizeEvent *event)
 void LanguageWidget::initWidget()
 {
     // there is some "magic number" sorry for that
-    m_displayButton = new LanguageButton("Display language",
+    m_displayButton = new LanguageButton(DcpLanguage::DisplayButtonTitle,
                                        "English GB", this);
     m_displayButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    connect(m_displayButton, SIGNAL(clicked()), 
-            this, SLOT(displayPage()));
+    // connect(m_displayButton, SIGNAL(clicked()), 
+    //        this, SLOT(displayPage()));
     
-    m_keyboardButton = new LanguageButton("Keyboard languages (2)",
+    m_keyboardButton = new LanguageButton(DcpLanguage::KeyboardButtonTitle + " (2)",
                                                     "English GB, Suomi", this);
     m_keyboardButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    connect(m_keyboardButton, SIGNAL(clicked()),
-            this, SLOT(keyboardPage()));
+    // connect(m_keyboardButton, SIGNAL(clicked()),
+    //        this, SLOT(keyboardPage()));
 
     ServicesContainer *servicesContainer = new ServicesContainer(this);
 
-    DuiLabel *simpleText = new DuiLabel("To set language display format, go to", 
+    DuiLabel *simpleText = new DuiLabel(DcpLanguage::SetLanguageText, 
                     this);
     simpleText->setObjectName("LanguageSimpleText");
     simpleText->setAlignment(Qt::AlignCenter);
     simpleText->setMaximumHeight(60);
 
-    DuiButton *regionFormatButton = new DuiButton("Region format", this);
+    DuiButton *regionFormatButton = new DuiButton(DcpLanguage::RegionButtonTitle, this);
     regionFormatButton->setMaximumWidth(270);
     regionFormatButton->setMaximumHeight(60);
     regionFormatButton->setMinimumHeight(60);

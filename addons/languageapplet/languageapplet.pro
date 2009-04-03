@@ -16,7 +16,8 @@ HEADERS       = languageapplet.h \
                 servicesbuttonblock.h \
                 dcplanguage.h \
                 displaywidget.h \
-                keyboardwidget.h
+                keyboardwidget.h \
+                languagetranslation.h
 
 SOURCES       = languageapplet.cpp \
                 languagewidget.cpp \

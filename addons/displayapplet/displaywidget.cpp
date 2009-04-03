@@ -1,4 +1,5 @@
 #include "displaywidget.h"
+#include "displaytranslation.h"
 #include "dcpdisplay.h"
 #include <duitheme.h>
 #include <duibutton.h>
@@ -59,7 +60,8 @@ void DisplayWidget::initWidget()
     centralLayout->setPolicy(centralLayoutPolicy);
     centralLayoutPolicy->setContentsMargins(5.0, 20.0, 5.0, 20.0);
 	
-	m_brightnessLabel = new DuiLabel(QString("Brightness: %1 %").arg(50));
+	m_brightnessLabel = new DuiLabel(DcpDisplay::BrightnessText 
+                    + QString(" %1 %").arg(50));
 	m_brightnessLabel->setObjectName("LabelBrightness");
 	centralLayoutPolicy->addItemAtPosition(m_brightnessLabel, 0, Qt::AlignLeft);
 	
@@ -72,7 +74,8 @@ void DisplayWidget::initWidget()
 		this, SLOT(setBrightnessLabel(int)));
 	centralLayoutPolicy->addItemAtPosition(sliderBrightness, 1, Qt::AlignLeft);
 
-	m_screenLabel = new DuiLabel(QString("Screen lights on: %1 sec").arg(50));
+	m_screenLabel = new DuiLabel(DcpDisplay::ScreenLightsText 
+                    + QString(" %1 sec").arg(50));
     m_screenLabel->setObjectName("LabelScreen");
 	centralLayoutPolicy->addItemAtPosition(m_screenLabel, 2, Qt::AlignLeft);
 
@@ -97,7 +100,7 @@ void DisplayWidget::initWidget()
     screenHLayout->setPolicy(screenHLayoutPolicy);
     screenHLayoutPolicy->setSpacing(20);
 
-	DuiLabel *screenLightLabel = new DuiLabel("While charging keep screen lights", this);
+	DuiLabel *screenLightLabel = new DuiLabel(DcpDisplay::ChargingText, this);
     screenLightLabel->setObjectName("LabelScreenLight");
 	screenHLayoutPolicy->addItemAtPosition(screenLightLabel, 0, Qt::AlignLeft);
 
@@ -120,7 +123,7 @@ void DisplayWidget::initWidget()
 	centralLayoutPolicy->addItemAtPosition(spacerItem3, 6, Qt::AlignCenter);
 
 	centralLayoutPolicy->addItemAtPosition(
-                    new DuiLabel("Note! Display settings depend on the user power profile."),
+                    new DuiLabel(DcpDisplay::NoteText),
                     7, Qt::AlignLeft);
 
     DuiWidget *spacerItem4 = new DuiWidget(this);
@@ -141,12 +144,14 @@ void DisplayWidget::initWidget()
 
 void DisplayWidget::setBrightnessLabel(int value)
 {
-	m_brightnessLabel->setText(QString("Brightness: %1 %").arg(value));
+	m_brightnessLabel->setText(DcpDisplay::BrightnessText 
+                    + QString(" %1 %").arg(value));
 }
 
 void DisplayWidget::setScreenLabel(int value)
 {
-	m_screenLabel->setText(QString("Screen lights on: %1 sec").arg(value));
+	m_screenLabel->setText(DcpDisplay::ScreenLightsText 
+                    + QString(" %1 sec").arg(value));
 }
 
 void DisplayWidget::nextPage()
