@@ -3,12 +3,10 @@
 #include <duitheme.h>
 #include "dcplanguage.h"
 
-const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/";
 
 KeyboardWidget::KeyboardWidget(QGraphicsWidget *parent)
               :DcpWidget(parent)
 {
-    // DuiTheme::loadCSS(cssDir + "languageapplet.css");
     setReferer(DcpLanguage::Main);
     initWidget();
 }

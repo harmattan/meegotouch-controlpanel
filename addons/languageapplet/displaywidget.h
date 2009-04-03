@@ -3,6 +3,9 @@
 
 #include "dcpwidget.h"
 
+// class DuiLayout;
+// class DuiList;
+
 class DisplayWidget : public DcpWidget
 {
     Q_OBJECT
@@ -17,5 +20,9 @@ public:
 
 protected:
     void initWidget();
+
+// private:
+    // DuiLayout   *m_mainLayout;
+    // DuiList     *m_inDeviceList;
 };
 #endif //DISPLAYWIDGET_H

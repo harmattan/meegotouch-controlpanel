@@ -32,10 +32,15 @@ void DcpAppletPage::createContent()
 void DcpAppletPage::createView(int widgetId)
 {
     hide();
-    DuiWidget *view;
+    DuiWidget *view = 0;
     qDebug() << "DCP" << Q_FUNC_INFO << widgetId;
-    if (m_View)
+
+    if (m_View) {
+       m_View->hide();
        mainLayout()->layout()->removeItem(mainLayout()->layout()->itemStateAt(0));
+       m_View = NULL;
+    }
+
     m_View = m_Applet->constructWidget(widgetId);
     setTitle(m_Applet->title());
     connect (m_View, SIGNAL(changeWidget(int)), this, SLOT(createView(int)));
@@ -56,10 +61,12 @@ void DcpAppletPage::createView(int widgetId)
         
         setTitle(DuiLocale::trid("dcp_no_applet_title", "Missing plugin"));
     }
-    else
+    else {
         view = m_View;
+    }
 
     append(view);
+    
     this->setContentsMargins(12.0, 12.0, 12.0, 18.0);
 
     view->setMaximumWidth(DuiDeviceProfile::instance()->width() - 30);

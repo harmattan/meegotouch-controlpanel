@@ -3,23 +3,24 @@
 #include <duitheme.h>
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
-#include <duilist.h>
-#include <QStringListModel>
-#include <QItemSelectionModel>
+// #include <duilist.h>
+// #include <QStringListModel>
+// #include <QItemSelectionModel>
 #include "dcplanguage.h"
-
-const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/";
 
 DisplayWidget::DisplayWidget(QGraphicsWidget *parent)
               :DcpWidget(parent)
 {
-    DuiTheme::loadCSS(cssDir + "languageapplet.css");
     setReferer(DcpLanguage::Main);
     initWidget();
 }
 
 DisplayWidget::~DisplayWidget()
 {
+    /* if (m_inDeviceList)
+    {
+        delete m_inDeviceList;
+    }*/
 }
 
 void DisplayWidget::paint(QPainter *painter,
@@ -40,14 +41,13 @@ void DisplayWidget::paint(QPainter *painter,
 
 void DisplayWidget::initWidget()
 {
-    DuiList *inDeviceList = new DuiList(this);
-    inDeviceList->setObjectName("DisplayLanguageList");
-    inDeviceList->setTopGroupHeader("Select display language");
-    inDeviceList->addGroupHeader(0, "In-device language");
-    inDeviceList->enableItemSelection(true);
-    inDeviceList->setItemSize(QSize(200, 30));
+    /* m_inDeviceList = new DuiList(this);
+    m_inDeviceList->setTopGroupHeader("Select display language");
+    m_inDeviceList->addGroupHeader(0, "In-device language");
+    m_inDeviceList->enableItemSelection(true);
+    m_inDeviceList->setItemSize(QSize(200, 30));*/
     
-    QString rushian = 
+    /* QString rushian = 
         QString("P%1cc").arg(QChar(0x0443)) + QChar(0x043A) + QChar(0x0438) + QChar(0x0439); 
 
     QStringList languageList;
@@ -61,18 +61,17 @@ void DisplayWidget::initWidget()
             << QString("Portugu%1s BR").arg(QChar(0x00ea)) 
             << rushian << "Suomi";
 
-    QStringListModel *deviceListModel = new QStringListModel(languageList);
-    inDeviceList->setItemModel(deviceListModel);
+    QStringListModel deviceListModel(languageList);*/
+    // m_inDeviceList->setItemModel(&deviceListModel);
     
     // Layout
-    DuiLayout *mainLayout = new DuiLayout(this);
-    // mainLayout->setAnimator(0);
+    /* m_mainLayout = new DuiLayout(this);
     DuiLinearLayoutPolicy *mainLayoutPolicy =
-            new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
-    mainLayout->setPolicy(mainLayoutPolicy);
+            new DuiLinearLayoutPolicy(m_mainLayout, Qt::Vertical);
+    m_mainLayout->setPolicy(mainLayoutPolicy);
     
     mainLayoutPolicy->setContentsMargins(12.0, 12.0, 12.0, 12.0);
     mainLayoutPolicy->setSpacing(15);
 
-    mainLayoutPolicy->addItemAtPosition(inDeviceList, 0, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(m_inDeviceList, 0, Qt::AlignCenter);*/
 }
