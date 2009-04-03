@@ -2,7 +2,8 @@
 #include "dcpdisplay.h"
 #include <duitheme.h>
 #include <duibutton.h>
-#include <duilinearlayout.h>
+#include <duilayout.h>
+#include <duilinearlayoutpolicy.h>
 #include <duilabel.h>
 #include <duislider.h>
 
@@ -35,11 +36,15 @@ void DisplayWidget::paint(QPainter *painter,
     painter->drawRect(QRectF(0.0, 0.0,
                              size().width(),
                              size().height()));
+
 }
 
 void DisplayWidget::initWidget()
 {
-    DuiLinearLayout *mainLayout = new DuiLinearLayout(Qt::Horizontal, this);
+    DuiLayout *mainLayout = new DuiLayout(this);
+    DuiLinearLayoutPolicy *mainLayoutPolicy = 
+            new DuiLinearLayoutPolicy(mainLayout, Qt::Horizontal);
+    mainLayout->setPolicy(mainLayoutPolicy);
 	
     // leftWidget
     DuiWidget *leftWidget  = new DuiWidget(this);
@@ -48,76 +53,79 @@ void DisplayWidget::initWidget()
     leftWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
 
     // centralLayout
-    DuiLinearLayout *centralLayout = new DuiLinearLayout(Qt::Vertical, 0);
+    DuiLayout *centralLayout = new DuiLayout(0);
+    DuiLinearLayoutPolicy *centralLayoutPolicy =
+            new DuiLinearLayoutPolicy(centralLayout, Qt::Vertical);
+    centralLayout->setPolicy(centralLayoutPolicy);
+    centralLayoutPolicy->setContentsMargins(5.0, 20.0, 5.0, 20.0);
 	
-	m_brightnessLabel = new DuiLabel(QString("Brightness: %1 %").arg(0));
+	m_brightnessLabel = new DuiLabel(QString("Brightness: %1 %").arg(50));
 	m_brightnessLabel->setObjectName("LabelBrightness");
-	centralLayout->addItem(m_brightnessLabel);
+	centralLayoutPolicy->addItemAtPosition(m_brightnessLabel, 0, Qt::AlignLeft);
 	
-	DuiSlider *sliderBrightness = new DuiSlider(this);
+	DuiSlider *sliderBrightness = new DuiSlider(this, "continuous");
 	sliderBrightness->setOrientation(Qt::Horizontal);
 	sliderBrightness->setRange(0, 100);
 	sliderBrightness->setValue(50);
 	sliderBrightness->setMaximumHeight(20);
 	connect(sliderBrightness, SIGNAL(valueChanged(int )), 
 		this, SLOT(setBrightnessLabel(int)));
-	centralLayout->addItem(sliderBrightness);
+	centralLayoutPolicy->addItemAtPosition(sliderBrightness, 1, Qt::AlignLeft);
 
-	m_screenLabel = new DuiLabel(QString("Screen lights on: %1 sec").arg(0));
+	m_screenLabel = new DuiLabel(QString("Screen lights on: %1 sec").arg(50));
     m_screenLabel->setObjectName("LabelScreen");
-	centralLayout->addItem(m_screenLabel);
+	centralLayoutPolicy->addItemAtPosition(m_screenLabel, 2, Qt::AlignLeft);
 
-	DuiSlider *sliderScreen = new DuiSlider(this);
+	DuiSlider *sliderScreen = new DuiSlider(this, "continuous");
 	sliderScreen->setOrientation(Qt::Horizontal);
 	sliderScreen->setRange(0, 100);
 	sliderScreen->setValue(50);
 	sliderScreen->setMaximumHeight(20);
 	connect(sliderScreen, SIGNAL(valueChanged(int )),
 	 	this, SLOT(setScreenLabel(int )));
-	centralLayout->addItem(sliderScreen);
+	centralLayoutPolicy->addItemAtPosition(sliderScreen, 3, Qt::AlignLeft);
 
 	DuiWidget *spacerItem = new DuiWidget(this);
 	spacerItem->setMinimumHeight(40);
 	spacerItem->setMaximumHeight(40);
-	centralLayout->addItem(spacerItem);
+	centralLayoutPolicy->addItemAtPosition(spacerItem, 4, Qt::AlignCenter);
 
     // screenHLayout
-    DuiLinearLayout *screenHLayout = new DuiLinearLayout(Qt::Horizontal, 0);
-    screenHLayout->setSpacing(20);
+    DuiLayout *screenHLayout = new DuiLayout(0);
+    DuiLinearLayoutPolicy *screenHLayoutPolicy =
+            new DuiLinearLayoutPolicy(screenHLayout, Qt::Horizontal);
+    screenHLayout->setPolicy(screenHLayoutPolicy);
+    screenHLayoutPolicy->setSpacing(20);
 
 	DuiLabel *screenLightLabel = new DuiLabel("While charging keep screen lights", this);
     screenLightLabel->setObjectName("LabelScreenLight");
-	screenHLayout->addItem(screenLightLabel);
+	screenHLayoutPolicy->addItemAtPosition(screenLightLabel, 0, Qt::AlignLeft);
 
     m_screenToggleButton = new DuiButton(this);
     m_screenToggleButton->setObjectName("ScreenToggleButton");
     m_screenToggleButton->setCheckable(true);
-    connect(m_screenToggleButton, SIGNAL(clicked()), this, SLOT(nextPage()));
-    screenHLayout->addItem(m_screenToggleButton);
-    
+    // connect(m_screenToggleButton, SIGNAL(clicked()), this, SLOT(nextPage()));
+    screenHLayoutPolicy->addItemAtPosition(m_screenToggleButton, 1, Qt::AlignLeft);
 
     DuiWidget *spacerItem2 = new DuiWidget(this);
     spacerItem2->setMaximumHeight(20);
     spacerItem2->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    screenHLayout->addItem(spacerItem2);
+    screenHLayoutPolicy->addItemAtPosition(spacerItem2, 2, Qt::AlignLeft);
 
-    screenHLayout->setAlignment(screenLightLabel, Qt::AlignLeft | Qt::AlignVCenter);
-    screenHLayout->setAlignment(m_screenToggleButton, Qt::AlignLeft | Qt::AlignVCenter);
-
-    centralLayout->addItem(screenHLayout);
+    centralLayoutPolicy->addItemAtPosition(screenHLayout, 5, Qt::AlignLeft);
     
 	DuiWidget *spacerItem3 = new DuiWidget(this);
 	spacerItem3->setMinimumHeight(30);
 	spacerItem3->setMaximumHeight(30);
-	centralLayout->addItem(spacerItem3);
+	centralLayoutPolicy->addItemAtPosition(spacerItem3, 6, Qt::AlignCenter);
 
-	centralLayout->addItem(new DuiLabel("Note! Display settings depend on the user power profile."));
+	centralLayoutPolicy->addItemAtPosition(
+                    new DuiLabel("Note! Display settings depend on the user power profile."),
+                    7, Qt::AlignLeft);
 
     DuiWidget *spacerItem4 = new DuiWidget(this);
     spacerItem4->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    centralLayout->addItem(spacerItem4);
-
-    centralLayout->setAlignment(m_brightnessLabel, Qt::AlignLeft | Qt::AlignVCenter);
+    centralLayoutPolicy->addItemAtPosition(spacerItem4, 8, Qt::AlignCenter);
 
     // rigthWidget
     DuiWidget *rightWidget  = new DuiWidget(this);
@@ -125,13 +133,10 @@ void DisplayWidget::initWidget()
     rightWidget->setMaximumWidth(widgetWidth);
     rightWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
 
-    mainLayout->addItem(leftWidget);
-    mainLayout->addItem(centralLayout);
-    mainLayout->addItem(rightWidget);
+    mainLayoutPolicy->addItemAtPosition(leftWidget, 0, Qt::AlignLeft);
+    mainLayoutPolicy->addItemAtPosition(centralLayout, 1, Qt::AlignHCenter);
+    mainLayoutPolicy->addItemAtPosition(rightWidget, 2, Qt::AlignRight);
 
-    mainLayout->setAlignment(leftWidget, Qt::AlignLeft);
-    mainLayout->setAlignment(centralLayout, Qt::AlignHCenter);
-    mainLayout->setAlignment(rightWidget, Qt::AlignRight);
 }
 
 void DisplayWidget::setBrightnessLabel(int value)
