@@ -30,13 +30,13 @@ void LanguageWidget::paint(QPainter *painter,
 	Q_UNUSED(option);
 	Q_UNUSED(widget);
     
-    QPen pen(QColor(120, 120, 120, 240));
+    /* QPen pen(QColor(120, 120, 120, 240));
     QBrush brush(QColor(20, 20, 20, 240));
     painter->setPen(pen);
     painter->setBrush(brush);
     painter->drawRect(QRectF(0.0, 0.0,
                             size().width(),
-                            size().height()));
+                            size().height()));*/
 }
 
 void LanguageWidget::resizeEvent(QGraphicsSceneResizeEvent *event)
@@ -75,6 +75,11 @@ void LanguageWidget::initWidget()
     regionFormatButton->setMaximumHeight(60);
     regionFormatButton->setMinimumHeight(60);
 
+    // SpacerItem
+    DuiWidget *spacerItem = new DuiWidget(this);
+    spacerItem->setMinimumHeight(20);
+    spacerItem->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
     // Layout
     DuiLayout *mainLayout = new DuiLayout(this);
     // mainLayout->setAnimator(0);
@@ -91,6 +96,7 @@ void LanguageWidget::initWidget()
     mainLayoutPolicy->addItemAtPosition(servicesContainer, 2, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(simpleText, 3, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(regionFormatButton, 4, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(spacerItem, 5, Qt::AlignCenter);
 }
 
 void LanguageWidget::displayPage()
