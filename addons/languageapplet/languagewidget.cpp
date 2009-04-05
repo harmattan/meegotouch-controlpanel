@@ -54,14 +54,14 @@ void LanguageWidget::initWidget()
     m_displayButton = new LanguageButton(DcpLanguage::DisplayButtonTitle,
                                        "English GB", this);
     m_displayButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    // connect(m_displayButton, SIGNAL(clicked()), 
-    //        this, SLOT(displayPage()));
+    connect(m_displayButton, SIGNAL(clicked()), 
+            this, SLOT(displayPage()));
     
     m_keyboardButton = new LanguageButton(DcpLanguage::KeyboardButtonTitle + " (2)",
                                                     "English GB, Suomi", this);
     m_keyboardButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    // connect(m_keyboardButton, SIGNAL(clicked()),
-    //        this, SLOT(keyboardPage()));
+    connect(m_keyboardButton, SIGNAL(clicked()),
+            this, SLOT(keyboardPage()));
 
     ServicesContainer *servicesContainer = new ServicesContainer(this);
 

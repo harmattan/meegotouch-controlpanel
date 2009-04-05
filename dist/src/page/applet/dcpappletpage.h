@@ -3,28 +3,16 @@
 
 #include "dcppage.h"
 #include "pages.h"
-class DcpAppletMetadata;
-class DcpAppletIf;
-class DcpWidget;
+class DuiWidget;
 class DcpAppletPage : public DcpPage
 {
     Q_OBJECT
 public:
-    DcpAppletPage(DcpAppletMetadata* metadata);
+    DcpAppletPage(DuiWidget* widget);
     virtual ~DcpAppletPage();
     virtual void createContent();
-    DcpAppletMetadata* metadata() const {return m_Metadata;};
-    void setMetadata(DcpAppletMetadata* metadata){m_Metadata = metadata;};
-    virtual void setReferer(Pages::Id id, const QString &param="");
-    bool back();
-protected:
-    virtual void initApplet();
-protected slots:
-    void createView(int widgetId);
 private:
-    DcpWidget *m_View;
-    DcpAppletMetadata* m_Metadata;
-    DcpAppletIf *m_Applet;
+    DuiWidget *m_MainWidget;
 };
 
 #endif // DCPAPPLETPAGE_H

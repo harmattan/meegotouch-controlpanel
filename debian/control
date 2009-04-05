@@ -17,7 +17,7 @@ Description: Development files for the control panel application and its applets
 
 Package: duicontrolpanel
 Architecture: any
-Depends: libdui0, ${shlibs:Depends}, ${misc:Depends}, libduicontrolpanel
+Depends: libdui0, ${shlibs:Depends}, ${misc:Depends}, libduicontrolpanel, duicontrolpanel-l10n
 Description: Control Panel
 
                                                                                 

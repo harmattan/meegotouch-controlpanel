@@ -10,6 +10,8 @@ MainWindow::MainWindow():m_CurrentPage(NULL)
 {
    connect(navigationBar(), SIGNAL(homeClicked()), this, SLOT(homeClicked())); 
    connect(navigationBar(), SIGNAL(backClicked()), this, SLOT(backClicked())); 
+   connect(PageFactory::instance(), SIGNAL(changePage(DcpPage*)), 
+        this, SLOT(appletChangePage(DcpPage*))); 
    Pages::Handle handle = {Pages::MAIN, ""};
    changePage(handle);
 }
@@ -29,7 +31,7 @@ void MainWindow::backClicked()
     bool change = true;
     if (page->handle().id == Pages::APPLET
         || page->handle().id == Pages::APPLETFROMMOSTUSED)
-         change = qobject_cast<DcpAppletPage*>(page)->back();
+         change = PageFactory::instance()->backFromApplet();
     if (change)
         changePage(page->referer());
     page->referer().id == Pages::MAIN ?
@@ -82,3 +84,10 @@ void MainWindow::onRotateClicked()
         profile->setOrientationAngle (DuiDeviceProfile::Angle90);
     }
 }
+
+void
+MainWindow::appletChangePage(DcpPage *page)
+{
+    page->appearNow(DuiSceneWindow::KeepWhenDone);
+}
+

@@ -4,7 +4,7 @@
 #include <DuiApplicationWindow>
 #include "pages.h"
 
-
+class DcpPage;
 class MainWindow : public DuiApplicationWindow
 {
     Q_OBJECT
@@ -17,6 +17,7 @@ public slots:
     void homeClicked();
     void backClicked();
     void onRotateClicked();
+    void appletChangePage(DcpPage *page);
 private:
     class DcpPage* m_CurrentPage;
 };

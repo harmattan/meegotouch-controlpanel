@@ -2,12 +2,17 @@
 #include "dcpmainpage.h"
 #include "dcpappletpage.h"
 #include "dcpappletdb.h"
+#include "dcpappletif.h"
 #include "dcpappletmetadata.h"
 #include "dcpappletcategorypage.h"
+#include "dcpwidget.h"
+#include "dcpappletloader.h"
 #include <QtDebug>
+#include <DuiLabel>
+#include <duilocale.h>
 
 PageFactory *PageFactory::sm_Instance =0;
-
+DcpAppletLoader *PageFactory::sm_AppletLoader = 0;
 
 
 PageFactory::PageFactory()
@@ -62,7 +67,7 @@ PageFactory::create(Pages::Id pageId, const QString &param)
             page = createAppletCategoryPage(param);
             break;
         case Pages::APPLET:
-            page = createAppletPage(DcpAppletDb::instance()->applet(param));
+            page = createAppletPageFromCategory(DcpAppletDb::instance()->applet(param));
             break;
         case Pages::APPLETFROMMOSTUSED:
             page = createAppletPageFromMostUsed(DcpAppletDb::instance()->applet(param));
@@ -85,9 +90,9 @@ PageFactory::createMainPage()
 }
 
 DcpPage*
-PageFactory::createAppletPage(DcpAppletMetadata *metadata)
+PageFactory::createAppletPageFromCategory(DcpAppletMetadata *metadata)
 {
-    DcpPage *page = new DcpAppletPage(metadata);
+    DcpPage *page = createAppletPage(metadata);
     page->setReferer(Pages::APPLETCATEGORY, metadata->category());
     return page;
 }
@@ -96,8 +101,35 @@ PageFactory::createAppletPage(DcpAppletMetadata *metadata)
 DcpPage* 
 PageFactory::createAppletPageFromMostUsed(DcpAppletMetadata *metadata)
 {
-    DcpPage *page = new DcpAppletPage(metadata);
+    DcpPage *page = createAppletPage(metadata);
     page->setReferer(Pages::MAIN);
+    return page;
+}
+
+DcpPage*
+PageFactory::createAppletPage(DcpAppletMetadata *metadata)
+{
+    QString title;
+    DuiWidget *widget;
+     if (loadApplet(metadata))
+       {
+          m_AppletWidget = sm_AppletLoader->applet()->constructWidget(0);
+          title = sm_AppletLoader->applet()->title();
+          connect(m_AppletWidget,
+                  SIGNAL(changeWidget(int)), 
+                  this, SLOT(changeAppletWidget(int)));
+          widget = m_AppletWidget;
+       }
+     else
+      {
+          DuiLabel *missingLabel = new DuiLabel(trid("dcp_no_applet_name",
+                                     "Plugin not available"));
+          missingLabel->setAlignment(Qt::AlignCenter);
+          widget = missingLabel;
+          title = trid("dcp_no_applet_title", "Missing plugin");
+      }
+    DcpPage *page = new DcpAppletPage(widget);
+    page->setTitle(title);
     return page;
 }
 
@@ -105,4 +137,43 @@ DcpPage*
 PageFactory::createAppletCategoryPage(const QString& appletCategory)
 {
     return new DcpAppletCategoryPage(appletCategory);
+}
+
+bool 
+PageFactory::loadApplet(DcpAppletMetadata *metadata)
+{
+    if (sm_AppletLoader)
+        delete sm_AppletLoader;
+    sm_AppletLoader = new DcpAppletLoader(metadata);
+    bool result = true;
+    if (!sm_AppletLoader->applet())
+    {
+        qWarning() << sm_AppletLoader->errorMsg();
+        result = false;
+    }
+    return result;
+}
+    
+void PageFactory::changeAppletWidget(int widgetId)
+{
+    m_AppletWidget = sm_AppletLoader->applet()->constructWidget(widgetId);
+    connect(m_AppletWidget, SIGNAL(changeWidget(int)), this, 
+                           SLOT(changeAppletWidget(int)));
+    DcpPage *page = new DcpAppletPage(m_AppletWidget);
+    page->setTitle(sm_AppletLoader->applet()->title());
+    emit changePage(page);
+}
+
+bool 
+PageFactory::backFromApplet()
+{
+     if (!sm_AppletLoader->applet())
+          return true;
+     if (m_AppletWidget->referer() == -1)
+         return true;
+      else
+      {
+          changeAppletWidget(m_AppletWidget->referer());
+          return false;
+      };
 }
