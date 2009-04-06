@@ -36,7 +36,7 @@ protected:
 
     DuiLabel* m_DownLabel;
 
-    bool m_SmallToggle;
+    bool m_EnableSmallToggle;
 };
 
 

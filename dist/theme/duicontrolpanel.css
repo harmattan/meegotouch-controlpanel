@@ -57,7 +57,7 @@ DuiImage {
     maxsize: size(350, 100);
 
     normalBackground: "C2-container";
-    pressedBackground: "Toggle-btn-selected";
+    pressedBackground: "Toggle-on";
 	horizontalBoxEdgePercent: 0.3;
 }
 
@@ -130,5 +130,10 @@ DuiImage {
 #SpacerButton {
 	normalBackground: "Single-line-input-field";
 	pressedBackground: "Single-line-input-field";
+}
+
+#SmallToggle {
+    normalBackground: "Toggle-off";
+    pressedBackground: "Toggle-on";
 }
 

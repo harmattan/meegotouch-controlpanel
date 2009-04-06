@@ -18,7 +18,7 @@ DcpLabel2ButtonComponent::DcpLabel2ButtonComponent(
     DcpBasicComponent(category, metadata, title, parent)
 {
     m_Type = DCPLABEL2BUTTON;
-    m_SmallToggle = metadata->smallToggle();
+    m_EnableSmallToggle = metadata->smallToggle();
     createContents();
 }
 
@@ -62,8 +62,11 @@ void DcpLabel2ButtonComponent::createContents()
 
     m_DownLabel = newLabel(m_Height/2, downLabel, "DownLabel", Qt::AlignLeft|Qt::AlignTop);
 
-
-    m_SmallButtonOn = newButton(imageSize, "SmallButtonOn");
+    if(m_EnableSmallToggle)
+      m_SmallButtonOn = newButton(imageSize, "SmallToggle");
+    else
+      m_SmallButtonOn = newButton(imageSize, "SmallButtonOn");
+    
     m_SmallButtonOff = newButton(imageSize, "SmallButtonOff");
     m_DisableButton = newButton(imageSize, "SmallButtonDisable");
 
@@ -109,7 +112,7 @@ void DcpLabel2ButtonComponent::setEnableButton(bool enable) {
 
 void DcpLabel2ButtonComponent::smallClickedOn()
 {
-    if (m_SmallToggle)
+    if (m_EnableSmallToggle)
       m_SmallButtonOn->setDown(true);
 }
 void DcpLabel2ButtonComponent::smallClickedOff(){}

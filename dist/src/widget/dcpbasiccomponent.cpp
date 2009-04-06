@@ -43,7 +43,7 @@ DcpBasicComponent::DcpBasicComponent(
     m_WidgetLayoutPolicy = new DuiGridLayoutPolicy(m_WidgetLayout);
     m_WidgetLayout->setPolicy(m_WidgetLayoutPolicy);
 
-    DuiBasicLayoutAnimator* animator = new DuiBasicLayoutAnimator();
+   // DuiBasicLayoutAnimator* animator = new DuiBasicLayoutAnimator();
    
     //animator->setAnimationSpeed(1000);
     m_WidgetLayout->setAnimator(0);
