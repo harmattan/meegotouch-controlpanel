@@ -161,6 +161,8 @@ void PageFactory::changeAppletWidget(int widgetId)
                            SLOT(changeAppletWidget(int)));
     DcpPage *page = new DcpAppletPage(m_AppletWidget);
     page->setTitle(sm_AppletLoader->applet()->title());
+    page->setReferer(Pages::APPLETCATEGORY, 
+        sm_AppletLoader->metadata()->category());
     emit changePage(page);
 }
 
