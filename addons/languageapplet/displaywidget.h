@@ -3,8 +3,8 @@
 
 #include "dcpwidget.h"
 
-// class DuiLayout;
-// class DuiList;
+class DuiLayout;
+class DuiList;
 
 class DisplayWidget : public DcpWidget
 {
@@ -21,8 +21,8 @@ public:
 protected:
     void initWidget();
 
-// private:
-    // DuiLayout   *m_mainLayout;
-    // DuiList     *m_inDeviceList;
+private:
+    DuiLayout   *m_mainLayout;
+    DuiList     *m_inDeviceList;
 };
 #endif //DISPLAYWIDGET_H
