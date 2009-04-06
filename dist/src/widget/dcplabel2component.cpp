@@ -47,19 +47,17 @@ void DcpLabel2Component::createContents()
     int spaceWidth = 5;     //3
     int imageWidth = 115;     //4
 
-    int width = smallWidth*2 + m_LabelWidth + spaceWidth + imageWidth;
+   // int width = smallWidth*2 + m_LabelWidth + spaceWidth + imageWidth;
     
-    int height = 100;
-
     initColumn(smallWidth, 0, 0);
-    initRow2(height/2);
+    initRow2(m_Height/2);
 
     
-    m_BigButton = newButton(width, height, CSS_BIGBUTTON);
-    m_UpLabel = newLabel(height/2, upLabel, CSS_UPLABEL, Qt::AlignLeft|Qt::AlignBottom);
+    m_BigButton = newButton(m_Width, m_Height, CSS_BIGBUTTON);
+    m_UpLabel = newLabel(m_Height/2, upLabel, CSS_UPLABEL, Qt::AlignLeft|Qt::AlignBottom);
     m_TriangleButton = newButton(m_TriangleSize, CSS_TRIANGLEBUTTON);
 
-    m_DownLabel = newLabel(height/2, downLabel, CSS_DOWNLABEL, Qt::AlignLeft|Qt::AlignTop);
+    m_DownLabel = newLabel(m_Height/2, downLabel, CSS_DOWNLABEL, Qt::AlignLeft|Qt::AlignTop);
 
 
     m_WidgetLayoutPolicy->addItemAtPosition(m_BigButton, 0, 0, 2, 3, Qt::AlignLeft);

@@ -29,10 +29,8 @@ DcpLabel2ImageComponent::DcpLabel2ImageComponent(
     m_SpaceWidth = 5;     //3
     m_ImageWidth = 115;     //4
 
-    m_Width = m_SmallWidth*2 + m_LabelWidth + m_SpaceWidth + m_ImageWidth;
+   // m_Width = m_SmallWidth*2 + m_LabelWidth + m_SpaceWidth + m_ImageWidth;
     
-    m_Height = 100;
-
     m_ImageSize = 64;     //3
 
     createContents();

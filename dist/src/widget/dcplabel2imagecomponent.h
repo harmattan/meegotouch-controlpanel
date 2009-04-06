@@ -38,10 +38,7 @@ protected:
     int m_SpaceWidth;
     int m_ImageWidth;
 
-    int m_Width;
-    
-    int m_Height;
-
+   
     int m_ImageSize;
 
     Qt::Alignment m_Alignment;

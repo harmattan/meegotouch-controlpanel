@@ -48,11 +48,9 @@ void DcpLabel2ButtonComponent::createContents()
 
     int width = m_SmallWidth*2 + m_LabelWidth + spaceWidth + imageWidth;
     
-    int m_Height = 100;
-
     int imageSize = 70;     
     
-    m_BigButton = newButton(width, m_Height, CSS_BIGBUTTON);
+    m_BigButton = newButton(m_Width, m_Height, CSS_BIGBUTTON);
 
     m_UpLabel = newLabel(m_Height/2, upLabel, CSS_UPLABEL, Qt::AlignLeft|Qt::AlignBottom);
     m_TriangleButton = newButton(m_TriangleSize, CSS_TRIANGLEBUTTON);
