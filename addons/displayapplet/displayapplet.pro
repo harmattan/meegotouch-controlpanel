@@ -1,9 +1,12 @@
 QMAKE_LIBDIR += ../../lib/lib
 TEMPLATE      = lib
-CONFIG       += plugin gui dui
+CONFIG       += plugin gui dui silent
 LIBS         += -ldui -lduicontrolpanel
 INCLUDEPATH  += $$[QT_INSTALL_HEADERS]/dui \
                 ../../lib/src/appletif
+# new one:
+INCLUDEPATH += /usr/include/dui
+
 MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects
 

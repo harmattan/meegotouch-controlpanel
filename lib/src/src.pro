@@ -2,6 +2,7 @@ TEMPLATE      = lib
 CONFIG       += plugin gui dui
 LIBS         += -ldui 
 INCLUDEPATH  += $$[QT_INSTALL_HEADERS]/dui
+INCLUDEPATH  += /usr/include/dui
 MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects
 
