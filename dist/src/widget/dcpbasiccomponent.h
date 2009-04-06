@@ -32,6 +32,21 @@ enum WIDGETTYPEID {
     WIDGETN
 };
 
+const QString CSS_BIGBUTTON = "BigButton";
+
+const QString CSS_UPLABEL = "UpLabel";;
+const QString CSS_DOWNLABEL = "DownLabel";
+const QString CSS_TRIANGLEBUTTON = "TriangleButton";
+
+const QString CSS_SMALBUTTONON = "SmallButtonOn";
+const QString CSS_SMALBUTTONOFF = "SmallButtonOff";
+
+const QString CSS_SMALTOGGLEBUTTON = "SmallToggle";
+const QString CSS_SMALLBUTTONDISBLE = "SmallButtonDisable";
+
+const QString CSS_SPACERBUTTON = "SpacerButton";
+
+
 class DcpBasicComponent: public DcpComponent
 {
     Q_OBJECT

@@ -8,14 +8,11 @@
 
 #include <QDebug>
 
-
-
-DcpLabel2ButtonComponent::DcpLabel2ButtonComponent(
-                            DcpCategory *category,
-                            DcpAppletMetadata * metadata,
-                            const QString& title,
-                            QGraphicsWidget *parent):
-    DcpBasicComponent(category, metadata, title, parent)
+DcpLabel2ButtonComponent::DcpLabel2ButtonComponent( DcpCategory *category,
+                                                    DcpAppletMetadata * metadata,
+                                                    const QString& title,
+                                                    QGraphicsWidget *parent):
+                          DcpBasicComponent(category, metadata, title, parent)
 {
     m_Type = DCPLABEL2BUTTON;
     m_EnableSmallToggle = metadata->smallToggle();
@@ -55,20 +52,22 @@ void DcpLabel2ButtonComponent::createContents()
 
     int imageSize = 70;     
     
-  
-    m_BigButton = newButton(width, m_Height, "BigButton");
-    m_UpLabel = newLabel(m_Height/2, upLabel, "UpLabel", Qt::AlignLeft|Qt::AlignBottom);
-    m_TriangleButton = newButton(m_TriangleSize, "TriangleButton");
+    m_BigButton = newButton(width, m_Height, CSS_BIGBUTTON);
 
-    m_DownLabel = newLabel(m_Height/2, downLabel, "DownLabel", Qt::AlignLeft|Qt::AlignTop);
+    m_UpLabel = newLabel(m_Height/2, upLabel, CSS_UPLABEL, Qt::AlignLeft|Qt::AlignBottom);
+    m_TriangleButton = newButton(m_TriangleSize, CSS_TRIANGLEBUTTON);
+
+    m_DownLabel = newLabel(m_Height/2, downLabel, CSS_DOWNLABEL, Qt::AlignLeft|Qt::AlignTop);
+
 
     if(m_EnableSmallToggle)
-      m_SmallButtonOn = newButton(imageSize, "SmallToggle");
+      m_SmallButtonOn = newButton(imageSize, CSS_SMALTOGGLEBUTTON);
     else
-      m_SmallButtonOn = newButton(imageSize, "SmallButtonOn");
+      m_SmallButtonOn = newButton(imageSize, CSS_SMALBUTTONON);
     
-    m_SmallButtonOff = newButton(imageSize, "SmallButtonOff");
-    m_DisableButton = newButton(imageSize, "SmallButtonDisable");
+    m_SmallButtonOff = newButton(imageSize, CSS_SMALBUTTONOFF);
+
+    m_DisableButton = newButton(imageSize, CSS_SMALLBUTTONDISBLE);
 
 
     initColumn(m_SmallWidth, 0, 0, 0, 0);
