@@ -27,7 +27,8 @@ void DcpRecentlyUsedComponent::createContents()
                 this, SIGNAL(openSubPage(Pages::Handle)));
     addItem(m_MostUsedCategory);
 
-    m_MostUsedCategory->translate(73,0);//dummy bad
+    m_MostUsedCategory->translate(15,0);//dummy bad
+
 }
 
 

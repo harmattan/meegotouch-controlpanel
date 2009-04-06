@@ -30,7 +30,8 @@ DcpMainCategory::DcpMainCategory(
 
     setLayout(m_Layout);
 
-    m_LandscapeLayout->setColumnSpacing(0, 20);
+    m_LandscapeLayout->setColumnSpacing(0, 20); //dummy
+
 //    m_LandscapeLayout->setColumnSpacing(1,400);
 
 }

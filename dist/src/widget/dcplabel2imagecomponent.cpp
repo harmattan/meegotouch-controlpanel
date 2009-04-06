@@ -29,10 +29,8 @@ DcpLabel2ImageComponent::DcpLabel2ImageComponent(
     m_SpaceWidth = 5;     //3
     m_ImageWidth = 115;     //4
 
-    m_Width = m_SmallWidth*2 + m_LabelWidth + m_SpaceWidth + m_ImageWidth;
+   // m_Width = m_SmallWidth*2 + m_LabelWidth + m_SpaceWidth + m_ImageWidth;
     
-    m_Height = 100;
-
     m_ImageSize = 64;     //3
 
     createContents();
@@ -53,18 +51,18 @@ DcpLabel2ImageComponent::~DcpLabel2ImageComponent()
 
 void DcpLabel2ImageComponent::createContents()
 {
-  
-    m_BigButton = newButton(m_Width, m_Height, "BigButton");
-    m_UpLabel = newLabel(m_Height/2, m_UpLabelText, "UpLabel", Qt::AlignLeft|Qt::AlignBottom);
-    m_TriangleButton = newButton(m_TriangleSize, "TriangleButton");
+
+    m_BigButton = newButton(m_Width, m_Height, CSS_BIGBUTTON);
+    m_UpLabel = newLabel(m_Height/2, m_UpLabelText, CSS_UPLABEL, Qt::AlignLeft|Qt::AlignBottom);
+    m_TriangleButton = newButton(m_TriangleSize, CSS_TRIANGLEBUTTON);
     m_TriangleButton->translate(0,7); //bad
 
-    m_SpacerButton = newButton(5, m_Height*0.8f, "SpacerButton");
+    m_SpacerButton = newButton(5, m_Height*0.8f, CSS_SPACERBUTTON);
  
     //m_Image =  newImage(metadata()->image(), m_ImageSize, 2);
     m_Image =  newImage(metadata()->image(), m_ImageSize, 2);
 
-    m_DownLabel = newLabel(m_Height/2, m_DownLabelText, "DownLabel", Qt::AlignLeft|Qt::AlignTop);
+    m_DownLabel = newLabel(m_Height/2, m_DownLabelText, CSS_DOWNLABEL, Qt::AlignLeft|Qt::AlignTop);
 
     initRow2(m_Height/2);
 

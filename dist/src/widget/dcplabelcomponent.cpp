@@ -42,19 +42,17 @@ void DcpLabelComponent::createContents()
     //dummy, must modify constructor  
     int smallWidth = 20;    //0,1
    
-    int width = smallWidth*2 + m_LabelWidth2;
-
-    int height = 100;
+   // int width = smallWidth*2 + m_LabelWidth2;
 
     //initColumn(smallWidth, smallWidth, m_LabelWidth2 );
 
     initColumn(smallWidth, 0, 0);
 
-    initRow(height);
+    initRow(m_Height);
   
-    m_BigButton = newButton(width, height, "BigButton");
-    m_UpLabel = newLabel(height, upLabel, "UpLabel", Qt::AlignLeft|Qt::AlignVCenter);
-    m_TriangleButton = newButton(m_TriangleSize, "TriangleButton");
+    m_BigButton = newButton(m_Width, m_Height, CSS_BIGBUTTON);
+    m_UpLabel = newLabel(m_Height, upLabel, CSS_UPLABEL, Qt::AlignLeft|Qt::AlignVCenter);
+    m_TriangleButton = newButton(m_TriangleSize, CSS_TRIANGLEBUTTON);
 
     //m_GridLayout->addItem(m_BigButton, 0, 0, 2, 3, Qt::AlignLeft);
     //m_GridLayout->addItem(m_TriangleButton, 0, 1, Qt::AlignCenter);

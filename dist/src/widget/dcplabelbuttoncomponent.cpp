@@ -44,25 +44,22 @@ void DcpLabelButtonComponent::createContents()
     int spaceWidth = 5;     //3
     int imageWidth = 115;     //4
 
-    int width = smallWidth*2 + m_LabelWidth + spaceWidth + imageWidth;
+    //int width = smallWidth*2 + m_LabelWidth + spaceWidth + imageWidth;
     
-    int height = 100;
-
     int imageSize = 70;     
     
     
     initColumn(smallWidth, smallWidth, m_LabelWidth, spaceWidth, imageWidth );
-    initRow(height);
+    initRow(m_Height);
 
-    
-    m_BigButton = newButton(width, height, "BigButton");
-    m_UpLabel = newLabel(height, upLabel, "UpLabel", Qt::AlignLeft|Qt::AlignVCenter);
-    m_TriangleButton = newButton(m_TriangleSize, "TriangleButton");
+    m_BigButton = newButton(m_Width, m_Height, CSS_BIGBUTTON);
+    m_UpLabel = newLabel(m_Height, upLabel, CSS_UPLABEL, Qt::AlignLeft|Qt::AlignVCenter);
+    m_TriangleButton = newButton(m_TriangleSize, CSS_TRIANGLEBUTTON);
 
 
-    m_SmallButtonOn = newButton(imageSize, "SmallButtonOn");
-    m_SmallButtonOff = newButton(imageSize, "SmallButtonOff");
-    m_DisableButton = newButton(imageSize, "SmallButtonDisable");
+    m_SmallButtonOn = newButton(imageSize, CSS_SMALBUTTONON);
+    m_SmallButtonOff = newButton(imageSize, CSS_SMALBUTTONOFF);
+    m_DisableButton = newButton(imageSize, CSS_SMALLBUTTONDISBLE);
 
 
     m_WidgetLayoutPolicy->addItemAtPosition(m_BigButton, 0, 0, 2, 5, Qt::AlignLeft);
