@@ -48,7 +48,8 @@ MainWindow::changePage(Pages::Handle handle)
     connect (page, SIGNAL(openSubPage(Pages::Handle)), this,
         SLOT(changePage(Pages::Handle)));
     connect(page, SIGNAL(backButtonClicked()), this, SLOT(backClicked()));
-    page->appearNow(DuiSceneWindow::DestroyWhenDone);
+//    page->appearNow(DuiSceneWindow::DestroyWhenDone); TODO
+    page->appearNow(DuiSceneWindow::KeepWhenDone);
     if (m_CurrentPage) {
         if (page->referer().id == Pages::NOPAGE)
             page->setReferer(m_CurrentPage->handle());
@@ -79,6 +80,7 @@ MainWindow::appletChangePage(DcpPage *page)
     m_CurrentPage = page;
     qDebug() << "XXXX appletChangePage" << (void*) page;
     connect(page, SIGNAL(backButtonClicked()), this, SLOT(backClicked()));
-    page->appearNow(DuiSceneWindow::DestroyWhenDone);
+//    page->appearNow(DuiSceneWindow::DestroyWhenDone); TODO
+    page->appearNow(DuiSceneWindow::KeepWhenDone);
 }
 
