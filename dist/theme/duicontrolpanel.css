@@ -31,10 +31,10 @@ DuiNavigationBar {
 
 
 DuiImage {
-	leftMargin: 0;
-        topMargin: 0;
-	rightMargin: 0;
-	bottomMargin: 0;
+	leftMargin: 0.0;
+        topMargin: 0.0;
+	rightMargin: 0.0;
+	bottomMargin: 0.0;
 }	
 
 #LabelFont1 {
@@ -58,7 +58,7 @@ DuiImage {
 
     normalBackground: "C2-container";
     pressedBackground: "Toggle-on";
-	horizontalBoxEdgePercent: 0.3;
+    horizontalBoxEdgePercent: 30;
 }
 
 #SmallButtonOn {
@@ -107,7 +107,7 @@ DuiImage {
 
     normalBackground: "C2-container";
     pressedBackground: "Toggle-btn-selected";
-    horizontalBoxEdgePercent: 0.3;
+    horizontalBoxEdgePercent: 30;
 }
 
 #UpLabel {
