@@ -12,7 +12,7 @@ DcpAppletPage::DcpAppletPage(DuiWidget *widget):
 DcpAppletPage::~DcpAppletPage()
 {
     if (m_MainWidget)
-        delete m_MainWidget;
+        m_MainWidget->deleteLater();
 } 
 
 void DcpAppletPage::createContent()

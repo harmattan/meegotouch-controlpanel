@@ -26,13 +26,6 @@ DcpLabel2Component::DcpLabel2Component(
 
 DcpLabel2Component::~DcpLabel2Component()
 {
-
-    delete m_BigButton;
-    delete m_UpLabel;
-    delete m_TriangleButton;
-
-    delete m_DownLabel;
-
 }
 
 

@@ -22,16 +22,6 @@ DcpLabel2ButtonComponent::DcpLabel2ButtonComponent( DcpCategory *category,
 
 DcpLabel2ButtonComponent::~DcpLabel2ButtonComponent()
 {
-
-    delete m_BigButton;
-    delete m_UpLabel;
-    delete m_TriangleButton;
-
-    delete m_DownLabel;
-
-    delete m_SmallButtonOn;
-    delete m_SmallButtonOff;
-    delete m_DisableButton;
 }
 
 

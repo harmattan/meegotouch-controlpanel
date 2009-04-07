@@ -9,14 +9,18 @@ DcpPage::DcpPage() : DuiApplicationPage()
     connect(DuiDeviceProfile::instance(), SIGNAL(orientationAngleChanged
                             (DuiDeviceProfile::DeviceOrientationAngle)),
             this, SLOT(onOrientationAngleChanged()));
+    qDebug() << "XXX page alloc";
 }
 
 DcpPage::~DcpPage() 
 {
+    qDebug() << "XXX page destroyal" << title() << (void*) this;
 }
 
 void DcpPage::createContent()
 {
+    qDebug() << "XXX page createContent" << metaObject()->className()
+             << (void*) this;
     DuiLayout* layout = new DuiLayout();
     m_MainLayout = new DuiLinearLayoutPolicy(layout, Qt::Vertical);
     layout->setAnimator(NULL);

@@ -39,13 +39,6 @@ DcpLabel2ImageComponent::DcpLabel2ImageComponent(
 
 DcpLabel2ImageComponent::~DcpLabel2ImageComponent()
 {
-
-    delete m_BigButton;
-    delete m_TriangleButton;
-
-    delete m_UpLabel;
-    delete m_DownLabel;
-    delete m_Image;
 }
 
 

@@ -1,15 +1,12 @@
 #include "mainwindow.h"
 #include "pagefactory.h"
 #include "dcppage.h"
-#include <duinavigationbar.h>
 #include <duideviceprofile.h>
 #include <QtDebug>
 #include "dcpappletpage.h"
 
 MainWindow::MainWindow():m_CurrentPage(NULL)
 {
-   connect(navigationBar(), SIGNAL(homeClicked()), this, SLOT(homeClicked())); 
-   connect(navigationBar(), SIGNAL(backClicked()), this, SLOT(backClicked())); 
    connect(PageFactory::instance(), SIGNAL(changePage(DcpPage*)), 
         this, SLOT(appletChangePage(DcpPage*))); 
    Pages::Handle handle = {Pages::MAIN, ""};
@@ -27,17 +24,13 @@ void MainWindow::homeClicked()
 
 void MainWindow::backClicked()
 {
-    DcpPage* page = PageFactory::page(currentPage());
+    Q_ASSERT(m_CurrentPage);
     bool change = true;
-    if (page->handle().id == Pages::APPLET
-        || page->handle().id == Pages::APPLETFROMMOSTUSED)
+    if (m_CurrentPage->handle().id == Pages::APPLET
+        || m_CurrentPage->handle().id == Pages::APPLETFROMMOSTUSED)
          change = PageFactory::instance()->backFromApplet();
     if (change)
-        changePage(page->referer());
-    page->referer().id == Pages::MAIN ?
-       navigationBar()->showCloseButton()
-    :
-       navigationBar()->showBackButton();
+        changePage(m_CurrentPage->referer());
 }
 
 MainWindow::~MainWindow()
@@ -51,21 +44,15 @@ MainWindow::changePage(Pages::Handle handle)
         return;
 
     DcpPage* page = PageFactory::instance()->create(handle.id, handle.param);
+    qDebug() << "XXXX changePage" << (void*) page;
     connect (page, SIGNAL(openSubPage(Pages::Handle)), this,
         SLOT(changePage(Pages::Handle)));
-    page->appearNow(DuiSceneWindow::KeepWhenDone);
+    connect(page, SIGNAL(backButtonClicked()), this, SLOT(backClicked()));
+    page->appearNow(DuiSceneWindow::DestroyWhenDone);
     if (m_CurrentPage) {
         if (page->referer().id == Pages::NOPAGE)
             page->setReferer(m_CurrentPage->handle());
-        m_CurrentPage->disappear();
     }
-
-    page->handle().id == Pages::MAIN ?
-       navigationBar()->showCloseButton()
-    :
-       navigationBar()->showBackButton();
-
-    navigationBar()->setViewMenuButtonText(page->title());
 
     m_CurrentPage = page;
 }
@@ -74,7 +61,6 @@ MainWindow::changePage(Pages::Handle handle)
 void MainWindow::onRotateClicked()
 {
     DuiDeviceProfile *profile = DuiDeviceProfile::instance();
-   // m_Category->onOrientationChange(profile->orientation());
 
     if ( profile->orientation() == Dui::Portrait ) {
         qDebug() << "mode changes to Angle0";
@@ -85,9 +71,14 @@ void MainWindow::onRotateClicked()
     }
 }
 
+
 void
 MainWindow::appletChangePage(DcpPage *page)
 {
-    page->appearNow(DuiSceneWindow::KeepWhenDone);
+    Q_ASSERT(page);
+    m_CurrentPage = page;
+    qDebug() << "XXXX appletChangePage" << (void*) page;
+    connect(page, SIGNAL(backButtonClicked()), this, SLOT(backClicked()));
+    page->appearNow(DuiSceneWindow::DestroyWhenDone);
 }
 
