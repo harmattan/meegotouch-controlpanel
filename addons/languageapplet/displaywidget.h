@@ -3,8 +3,8 @@
 
 #include "dcpwidget.h"
 
-class DuiLayout;
-class DuiList;
+class QPixmap;
+class DuiLabel;
 
 class DisplayWidget : public DcpWidget
 {
@@ -17,12 +17,13 @@ public:
     void paint(QPainter *painter,
                const QStyleOptionGraphicsItem *option,
                QWidget *widget = 0);
+    void resizeEvent(QGraphicsSceneResizeEvent *event);
 
 protected:
     void initWidget();
 
 private:
-    DuiLayout   *m_mainLayout;
-    DuiList     *m_inDeviceList;
+    const QPixmap   *m_background;
+    DuiLabel        *m_titleLabel;
 };
 #endif //DISPLAYWIDGET_H

@@ -44,3 +44,18 @@
 #ServicesContainerSignButton {
         normalBackground: "See-more-indicator-big";
 }
+
+#DisplayLanguageTitleLabel {
+        color: #FFFFFF;
+        font: font("Nokia Sans Cn", 18);
+}
+
+#DisplayLanguageSelectTitle {
+        color: #FFFFFF;
+        font: font("Nokia Sans Cn", 16);
+}
+
+#LanguageNormalListItem {
+        color: #FFFFFF;
+        font: font("Nokia Sans Cn", 16);
+}

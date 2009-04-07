@@ -19,7 +19,10 @@ HEADERS       = languageapplet.h \
                 dcplanguage.h \
                 displaywidget.h \
                 keyboardwidget.h \
-                languagetranslation.h
+                languagetranslation.h \
+                languagelistitem.h \
+                dcpspaceritem.h \
+                languageselectcontainer.h
 
 SOURCES       = languageapplet.cpp \
                 languagewidget.cpp \
@@ -28,7 +31,10 @@ SOURCES       = languageapplet.cpp \
                 servicesbutton.cpp \
                 servicesbuttonblock.cpp \
                 displaywidget.cpp \
-                keyboardwidget.cpp
+                keyboardwidget.cpp \
+                languagelistitem.cpp \
+                dcpspaceritem.cpp \
+                languageselectcontainer.cpp
 
 TARGET        = $$qtLibraryTarget(languageapplet)
 css.files     = languageapplet.css

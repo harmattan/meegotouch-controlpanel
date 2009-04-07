@@ -30,6 +30,7 @@ DcpWidget* DisplayApplet::constructWidget(int widgetId)
 
         default:
                     qDebug() << "Page Unknown";
+                    return NULL;
                     break;
     };
 }
