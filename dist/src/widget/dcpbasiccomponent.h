@@ -6,6 +6,7 @@
 #include <duigridlayoutpolicy.h>
 
 #include <QString>
+#include "dcpwidgettypes.h"
 
 class DuiLabel;
 class DuiButton;
@@ -14,23 +15,6 @@ class DuiLinearLayout;
 class DuiGridLayout;
 class DcpAppletMetadata;
 class DuiLayout;
-
-static const QString  WIDGETNAME[] = {
-    "DcpLabel",
-    "DcpLabel2",
-    "DcpLabelButton",
-    "DcpLabel2Button",
-    "DcpLabel2Image",
-};
-
-enum WIDGETTYPEID {
-    DCPLABEL,           //"DcpLabel"
-    DCPLABEL2,          //"DcpLabel2"
-    DCPLABELBUTTON,     //"DcpLabelButton"
-    DCPLABEL2BUTTON,    //"DcpLabel2Button"
-    DCPLABEL2IMAGE,      //"DcpLabel2Image"
-    WIDGETN
-};
 
 const QString CSS_BIGBUTTON = "BigButton";
 
