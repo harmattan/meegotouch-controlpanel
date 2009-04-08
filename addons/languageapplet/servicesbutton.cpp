@@ -4,6 +4,7 @@
 #include <duilinearlayoutpolicy.h>
 #include <duibutton.h>
 #include <duilabel.h>
+#include <QGraphicsSceneResizeEvent>
 
 const int height = 90;
 
@@ -53,6 +54,9 @@ ServicesButton::ServicesButton(DuiWidget *parent, const QString &title)
     landscapeLayout->addItemAtPosition(spacerItem, 0, Qt::AlignCenter);
     landscapeLayout->addItemAtPosition(labelLayout, 1, Qt::AlignCenter);
     landscapeLayout->addItemAtPosition(spacerItem2, 2, Qt::AlignCenter);
+
+    setMaximumHeight(height);
+    
 }
 
 ServicesButton::~ServicesButton()
@@ -65,16 +69,17 @@ ServicesButton::~ServicesButton()
 
 void ServicesButton::resizeEvent(QGraphicsSceneResizeEvent *event)
 {
-    Q_UNUSED(event);
-
+/*
     int devide = 55;
-
     setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
     setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+ */
+	/*
     setMinimumHeight(height);
     setMaximumHeight(height);
+    */
 
-    QSize size = this->size().toSize();
+    QSize size = event->newSize().toSize();
     static const int border = 10;
     m_background = DuiTheme::boxedPixmap("C2-container", size,
                                          border, border, border, border);

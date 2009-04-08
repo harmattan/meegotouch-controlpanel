@@ -8,6 +8,7 @@
 #include <duilinearlayoutpolicy.h>
 #include <duilabel.h>
 #include <duibutton.h>
+#include <QGraphicsSceneResizeEvent>
 
 ServicesContainer::ServicesContainer(QGraphicsWidget *parent)
                   :DuiWidget(parent), m_Background(NULL)
@@ -32,7 +33,7 @@ void ServicesContainer::paint(QPainter *painter,
     
     // if available, then draw it:
     if (m_Background) {
-        painter->drawPixmap(0, 0, *m_Background);
+        painter->drawPixmap(0,0, *m_Background);
     }
 
     // draw line below the title
@@ -52,8 +53,10 @@ void ServicesContainer::resizeEvent(QGraphicsSceneResizeEvent *event)
 {
     Q_UNUSED(event);
     
-    QSize size = this->size().toSize();
+    QSize size = event->newSize().toSize();
     static const int border = 30;
+    if (m_Background)
+	    DuiTheme::releasePixmap(m_Background);
     m_Background = DuiTheme::boxedPixmap("Mashup-container",size,
                                          border, border, border, border);
 }
