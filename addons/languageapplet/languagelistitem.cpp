@@ -1,9 +1,13 @@
 #include "languagelistitem.h"
 #include "dcpspaceritem.h"
 
-#include <duilayout.h>
-#include <duilinearlayoutpolicy.h>
+#include <QDebug>
+// #include <duilayout.h>
+// #include <duilinearlayoutpolicy.h>
+#include <duilinearlayout.h>
 #include <duilabel.h>
+#include <duibutton.h>
+#include <qgraphicswidget.h>
 
 const int height = 60;
 
@@ -58,6 +62,17 @@ void LanguageListItem::resizeEvent(QGraphicsSceneResizeEvent *event)
 void LanguageListItem::checked(bool ok)
 {
     m_checked = ok;
+    if (m_checked) {
+        m_normalLabel->setVisible(false);
+        m_labelLayout->removeItem(m_normalLabel);
+        m_highlightLabel->setVisible(true);
+        m_checkMark->setVisible(true);
+    } else {
+        m_normalLabel->setVisible(true);
+        m_labelLayout->insertItem(0, m_normalLabel);
+        m_highlightLabel->setVisible(false);
+        m_checkMark->setVisible(false);
+    }
 }
 
 bool LanguageListItem::isChecked()
@@ -67,30 +82,68 @@ bool LanguageListItem::isChecked()
 
 void LanguageListItem::initWidget()
 {
-    DuiLayout *mainLayout = new DuiLayout(this);
+    /* DuiLayout *mainLayout = new DuiLayout(this);
     DuiLinearLayoutPolicy *mainLayoutPolicy = 
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
     mainLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 5, 5, 
                             QSizePolicy::Fixed, QSizePolicy::Expanding),
-                    0, Qt::AlignCenter);
+                    0, Qt::AlignCenter);*/
+
+    DuiLinearLayout *mainLayout = new DuiLinearLayout(Qt::Vertical, this);
+    mainLayout->addItem(new DcpSpacerItem(this, 5, 5, QSizePolicy::Fixed, QSizePolicy::Expanding));
 
     // label
-    DuiLayout *labelLayout = new DuiLayout(NULL);
+    /* DuiLayout *labelLayout = new DuiLayout(NULL);
     DuiLinearLayoutPolicy *labelLayoutPolicy = 
             new DuiLinearLayoutPolicy(labelLayout, Qt::Horizontal);
-    labelLayout->setPolicy(labelLayoutPolicy);
+    labelLayout->setPolicy(labelLayoutPolicy);*/
+    m_labelLayout = new DuiLinearLayout(Qt::Horizontal, NULL);
     
-    DuiLabel *mainLabel = new DuiLabel(m_labelText, this);
-    mainLabel->setObjectName("LanguageNormalListItem");
-    labelLayoutPolicy->addItemAtPosition(
+    // normalLabel
+    m_normalLabel = new DuiLabel(m_labelText, this);
+    m_normalLabel->setObjectName("LanguageNormalListItem");
+    /* labelLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 10, 10, QSizePolicy::Fixed, QSizePolicy::Fixed),
                     0, Qt::AlignLeft | Qt::AlignVCenter);
-    labelLayoutPolicy->addItemAtPosition(mainLabel, 1, Qt::AlignLeft | Qt::AlignVCenter);
+    labelLayoutPolicy->addItemAtPosition(m_normalLabel, 1, Qt::AlignLeft | Qt::AlignVCenter);*/
+    m_labelLayout->addItem(new DcpSpacerItem(this, 10, 10, QSizePolicy::Fixed, QSizePolicy::Fixed));
+    m_labelLayout->addItem(m_normalLabel);
+    
+    // highlightLabel
+    m_highlightLabel = new DuiLabel(m_labelText, this);
+    m_highlightLabel->setObjectName("LanguageHighlightListItem");
+    /* labelLayoutPolicy->addItemAtPosition(m_highlightLabel, 0, Qt::AlignLeft | Qt::AlignVCenter);
     mainLayoutPolicy->addItemAtPosition(labelLayout, 1, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 5, 5,
                             QSizePolicy::Fixed, QSizePolicy::Expanding),
-                    2, Qt::AlignCenter);
+                    2, Qt::AlignCenter);*/
+    m_labelLayout->addItem(m_highlightLabel);
+    m_labelLayout->setAlignment(m_highlightLabel, Qt::AlignLeft | Qt::AlignVCenter);
+    m_labelLayout->addItem(new DcpSpacerItem(this, 200, 5, QSizePolicy::Expanding, QSizePolicy::Fixed));
+
+    // checkMark
+    m_checkMark = new DuiButton(this);
+    m_checkMark->setObjectName("LanguageCheckMark");
+    m_checkMark->setMaximumWidth(32);
+    m_checkMark->setMaximumHeight(32);
+    m_labelLayout->addItem(m_checkMark);
+    m_labelLayout->setAlignment(m_checkMark, Qt::AlignRight | Qt::AlignVCenter);
+    
+    mainLayout->addItem(m_labelLayout);
+    mainLayout->addItem(new DcpSpacerItem(this, 5, 5,
+                            QSizePolicy::Fixed, QSizePolicy::Expanding));
+
+    if (m_checked) {
+        m_normalLabel->setVisible(false);
+        m_labelLayout->removeItem(m_normalLabel);
+        m_highlightLabel->setVisible(true);
+        m_checkMark->setVisible(true);
+    } else {
+        m_normalLabel->setVisible(true);
+        m_highlightLabel->setVisible(false);
+        m_checkMark->setVisible(false);
+    }
 }

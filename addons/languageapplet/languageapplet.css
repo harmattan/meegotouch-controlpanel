@@ -59,3 +59,18 @@
         color: #FFFFFF;
         font: font("Nokia Sans Cn", 16);
 }
+
+#LanguageHighlightListItem {
+        color: #E48415;
+        font: font("Nokia Sans Cn", 16);
+}
+
+#LanguageCrossListItem {
+        color: #E48415;
+        font: font("Sans Cn", 16);
+}
+
+#LanguageCheckMark {
+        normalBackground: "Check-mark";
+}
+
