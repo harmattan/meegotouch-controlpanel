@@ -1,6 +1,7 @@
 #include "servicescontainer.h"
 #include "servicesbuttonblock.h"
 #include "languagetranslation.h"
+#include "dcpspaceritem.h"
 
 #include <qpainter.h>
 #include <duitheme.h>
@@ -68,7 +69,6 @@ void ServicesContainer::initContainer()
 
     // captionLayout
     DuiLayout *captionLayout = new DuiLayout(m_mainLayout);
-    // captionLayout->setAnimator(0);
     DuiLinearLayoutPolicy *captionLayoutPolicy = 
             new DuiLinearLayoutPolicy(captionLayout, Qt::Horizontal);
     captionLayout->setPolicy(captionLayoutPolicy);
@@ -78,10 +78,8 @@ void ServicesContainer::initContainer()
     captionLayoutPolicy->addItemAtPosition(m_caption, 
                     0, Qt::AlignLeft | Qt::AlignBottom);
 
-    DuiWidget *spacerItem = new DuiWidget(this);
-    spacerItem->setMaximumHeight(5);
-    spacerItem->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    captionLayoutPolicy->addItemAtPosition(spacerItem,
+    captionLayoutPolicy->addItemAtPosition(
+                    new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Fixed),
                     1, Qt::AlignCenter);
 
     DuiButton *signButton = new DuiButton(this);
@@ -116,6 +114,9 @@ void ServicesContainer::initContainer()
                     1, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(blockTwo,
                     2, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(
+                    new DcpSpacerItem(this, 10, 12, QSizePolicy::Expanding, QSizePolicy::Fixed),
+                    3, Qt::AlignCenter);
 }
 
 void ServicesContainer::addServices(const QString &name)
