@@ -52,6 +52,7 @@ ServicesButton::ServicesButton(DuiWidget *parent, const QString &title)
 
     setMinimumHeight(height);
     setMaximumHeight(height);
+    setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - 40);
 }
 
 ServicesButton::~ServicesButton()

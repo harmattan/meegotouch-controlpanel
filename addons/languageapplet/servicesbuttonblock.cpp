@@ -1,5 +1,6 @@
 #include "servicesbuttonblock.h"
 #include "servicesbutton.h"
+#include "dcpspaceritem.h"
 
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
@@ -37,21 +38,9 @@ void ServicesButtonBlock::initWidget()
     DuiLayout *buttonLayout = new DuiLayout();
     m_buttonLayoutPolicy = new DuiGridLayoutPolicy(buttonLayout);
     buttonLayout->setPolicy(m_buttonLayoutPolicy);
-    // m_buttonLayout = new DuiGridLayout(0);
-
-    // add spacer item to keep the proper widget's width
-    /* DuiWidget *spacer = new DuiWidget(this);
-    spacer->setMaximumHeight(5);
-    spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    m_buttonLayout->addItem(spacer, 0, 3, Qt::AlignCenter);*/
-    
-    /* DuiLinearLayout *mainLayout = new DuiLinearLayout(Qt::Vertical, this);
-    mainLayout->setContentsMargins(12.0, 12.0, 12.0, 12.0);
-    mainLayout->setSpacing(10);
-    mainLayout->addItem(m_header);
-    mainLayout->addItem(m_buttonLayout);
-    mainLayout->setAlignment(m_header, Qt::AlignCenter);
-    mainLayout->setAlignment(m_buttonLayout, Qt::AlignCenter);*/
+    m_buttonLayoutPolicy->addItemAtPosition(
+                    new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Fixed),
+                    0, 3);
 
     mainLayoutPolicy->addItemAtPosition(buttonLayout, 1, Qt::AlignCenter);
 }
