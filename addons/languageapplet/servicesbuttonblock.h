@@ -3,7 +3,7 @@
 
 #include <DuiWidget>
 class ServicesButton;
-class DuiGridLayout;
+class DuiGridLayoutPolicy;
 class DuiLabel;
 
 class ServicesButtonBlock : public DuiWidget
@@ -23,6 +23,6 @@ private:
     QString                  m_title;
     QVector<ServicesButton*> m_buttonVector;
     DuiLabel                *m_header;
-    DuiGridLayout           *m_buttonLayout;
+    DuiGridLayoutPolicy     *m_buttonLayoutPolicy;
 };
 #endif // SERVICESBUTTONBLOCK_H
