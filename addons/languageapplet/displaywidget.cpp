@@ -80,7 +80,7 @@ void DisplayWidget::initWidget()
     DuiLinearLayoutPolicy *mainLayoutPolicy =
             new DuiLinearLayoutPolicy(m_mainLayout, Qt::Vertical);
     m_mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayoutPolicy->setContentsMargins(5.0, 12.0, 5.0, 12.0);
+    mainLayoutPolicy->setContentsMargins(0.0, 12.0, 0.0, 12.0);
 
     // titleLayout
     DuiLayout *titleLayout = new DuiLayout(NULL);
