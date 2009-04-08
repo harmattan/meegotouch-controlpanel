@@ -7,8 +7,8 @@ class DcpAppletMetadata : public DuiDesktopEntry
 public:
     DcpAppletMetadata(const QString& filename);
     virtual ~DcpAppletMetadata();
-    bool isValid();
-    bool isModified();
+    virtual bool isValid();
+    virtual bool isModified();
     QString category() const;
     QString icon() const;
     QString binary() const;
