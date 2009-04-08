@@ -80,7 +80,7 @@ void DisplayWidget::initWidget()
     DuiLinearLayoutPolicy *mainLayoutPolicy =
             new DuiLinearLayoutPolicy(m_mainLayout, Qt::Vertical);
     m_mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayoutPolicy->setContentsMargins(12.0, 12.0, 12.0, 12.0);
+    mainLayoutPolicy->setContentsMargins(5.0, 12.0, 5.0, 12.0);
 
     // titleLayout
     DuiLayout *titleLayout = new DuiLayout(NULL);
@@ -107,4 +107,7 @@ void DisplayWidget::initWidget()
                                         languageList, this);
     mainLayoutPolicy->addItemAtPosition(selectCont, 1, Qt::AlignCenter);
                                             
+    mainLayoutPolicy->addItemAtPosition(
+                    new DcpSpacerItem(this, 10, 20, QSizePolicy::Fixed, QSizePolicy::Fixed),
+                    2, Qt::AlignCenter);
 }

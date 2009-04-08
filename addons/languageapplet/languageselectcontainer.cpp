@@ -1,5 +1,6 @@
 #include "languageselectcontainer.h"
 #include "languagelistitem.h"
+#include "grouptitlewidget.h"
 
 #include <duilinearlayout.h>
 #include <duigridlayout.h>
@@ -24,15 +25,9 @@ void LanguageSelectContainer::initWidget()
     // mainLayout
     DuiLinearLayout *mainLayout = new DuiLinearLayout(Qt::Vertical, this);
     
-    // titleLayout
-    DuiLinearLayout *titleLayout = new DuiLinearLayout(Qt::Horizontal, NULL);
-
-    DuiLabel *titleLabel = new DuiLabel(m_titleText, this);
-    titleLabel->setObjectName("DisplayLanguageSelectTitle");
-    titleLayout->addItem(titleLabel);
-    titleLayout->setAlignment(titleLabel, Qt::AlignLeft | Qt::AlignVCenter);
-
-    mainLayout->addItem(titleLayout);
+    GroupTitleWidget *titleLabel = new GroupTitleWidget(m_titleText, this);
+    mainLayout->addItem(titleLabel);
+    mainLayout->setAlignment(titleLabel, Qt::AlignLeft | Qt::AlignVCenter);
 
     // gridLayout
     DuiGridLayout *itemLayout = new DuiGridLayout(NULL);
@@ -51,4 +46,5 @@ void LanguageSelectContainer::initWidget()
 
     mainLayout->addItem(itemLayout);
     mainLayout->setAlignment(itemLayout, Qt::AlignCenter);
+    m_listItemVector[2]->checked(true);
 }

@@ -3,6 +3,10 @@
 
 #include <DuiWidget>
 
+class DuiLabel;
+class DuiButton;
+class DuiLinearLayout;
+
 class LanguageListItem : public DuiWidget
 {
     Q_OBJECT
@@ -24,7 +28,11 @@ protected:
     void initWidget();
 
 private:
-    QString m_labelText;
-    bool    m_checked;
+    QString 	    m_labelText;
+    DuiLinearLayout *m_labelLayout;
+    DuiLabel	    *m_normalLabel;
+    DuiLabel        *m_highlightLabel;
+    DuiButton       *m_checkMark;
+    bool    	    m_checked;
 };
 #endif // LANGUAGELISTITEM_H
