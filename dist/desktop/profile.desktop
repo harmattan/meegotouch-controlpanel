@@ -14,7 +14,7 @@ X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 [DCP]
 Category= Regional settings
 Order=1
-WidgetType= DcpLabel
+WidgetType= DcpLabel2
 Text2= Ringing
 Toggle= TRUE
 

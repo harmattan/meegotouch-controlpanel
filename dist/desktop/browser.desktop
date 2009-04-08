@@ -13,8 +13,8 @@ X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 [DCP]
 Category= Application 
 Order=1
-WidgetType= DcpLabel
-Text1= Browser
+WidgetType= DcpLabel2
+Text2= firefox
 
 ButtonCSS= BigButton
 Label1CSS= LabelFont1

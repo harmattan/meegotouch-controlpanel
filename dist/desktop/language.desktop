@@ -15,8 +15,8 @@ X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 [DCP]
 Category= Regional settings
 Order=4
-WidgetType= DcpLabel
-Text2=
+WidgetType= DcpLabel2
+Text2=English GB
 ButtonCSS= BigButton
 Label1CSS= LabelFont1
 Label2CSS= LabelFont2
