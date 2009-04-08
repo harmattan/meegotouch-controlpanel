@@ -5,8 +5,8 @@
 
 #include <duilabel.h>
 
-static const QSize fullSizeLandscape(784,90);
-static const QSize halfSizeLandscape(372,90);
+static const QSize fullSizeLandscape(790,90);
+static const QSize halfSizeLandscape(378,90);
 static const QSize fullSizePortrait = fullSizeLandscape;
 static const QSize halfSizePortrait = fullSizeLandscape;
 
