@@ -143,7 +143,6 @@ void LanguageListItem::initWidget()
         m_checkMark->setVisible(true);
     } else {
         m_normalLabel->setVisible(true);
-        m_labelLayout->insertItem(0, m_normalLabel);
         m_highlightLabel->setVisible(false);
         m_checkMark->setVisible(false);
     }
