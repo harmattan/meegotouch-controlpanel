@@ -3,7 +3,7 @@
 #include "dcpapplet.h"
 #include <duilocale.h>
 
-#include "dcpbasiccomponent.h"
+#include "dcpwidgettypes.h"
 
 enum  {
     KeyCategory = 0,
@@ -115,7 +115,7 @@ int DcpAppletMetadata::widgetTypeID()
 {
   QString type = value(Keys[KeyWidgetType]).toString();
   
-  for(int i=0; i<WIDGETN; i++)  //it use dcpbasiccomponent.h
+  for(int i=0; i<WIDGETN; i++) 
     if (WIDGETNAME[i]==type)
       return i;
   

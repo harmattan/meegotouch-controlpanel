@@ -13,7 +13,6 @@
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
 #include <duibasiclayoutanimator.h>
-
 //DuiButton* DcpBasicComponent::m_TriangleButtonOriginal = NULL;
 
 DcpBasicComponent::DcpBasicComponent(

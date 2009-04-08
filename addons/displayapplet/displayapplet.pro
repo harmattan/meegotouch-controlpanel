@@ -1,9 +1,9 @@
-QMAKE_LIBDIR += ../../lib/lib
+QMAKE_LIBDIR += ../../lib/lib/
 TEMPLATE      = lib
 CONFIG       += plugin gui dui silent
 LIBS         += -ldui -lduicontrolpanel
 INCLUDEPATH  += $$[QT_INSTALL_HEADERS]/dui \
-                ../../lib/src/appletif
+                $$system(find ../../lib/src/ -type d)
 # new one:
 INCLUDEPATH += /usr/include/dui
 
