@@ -26,6 +26,8 @@ public:
 
 protected:
     void initWidget();
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
 private:
     QString 	    m_labelText;

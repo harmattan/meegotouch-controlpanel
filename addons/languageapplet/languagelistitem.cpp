@@ -2,6 +2,7 @@
 #include "dcpspaceritem.h"
 
 #include <QDebug>
+#include <QGraphicsSceneMouseEvent>
 // #include <duilayout.h>
 // #include <duilinearlayoutpolicy.h>
 #include <duilinearlayout.h>
@@ -69,7 +70,7 @@ void LanguageListItem::checked(bool ok)
         m_checkMark->setVisible(true);
     } else {
         m_normalLabel->setVisible(true);
-        m_labelLayout->insertItem(0, m_normalLabel);
+        m_labelLayout->insertItem(1, m_normalLabel);
         m_highlightLabel->setVisible(false);
         m_checkMark->setVisible(false);
     }
@@ -104,6 +105,7 @@ void LanguageListItem::initWidget()
     // normalLabel
     m_normalLabel = new DuiLabel(m_labelText, this);
     m_normalLabel->setObjectName("LanguageNormalListItem");
+    m_normalLabel->setAcceptedMouseButtons(0);
     /* labelLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 10, 10, QSizePolicy::Fixed, QSizePolicy::Fixed),
                     0, Qt::AlignLeft | Qt::AlignVCenter);
@@ -114,6 +116,7 @@ void LanguageListItem::initWidget()
     // highlightLabel
     m_highlightLabel = new DuiLabel(m_labelText, this);
     m_highlightLabel->setObjectName("LanguageHighlightListItem");
+    m_highlightLabel->setAcceptedMouseButtons(0);
     /* labelLayoutPolicy->addItemAtPosition(m_highlightLabel, 0, Qt::AlignLeft | Qt::AlignVCenter);
     mainLayoutPolicy->addItemAtPosition(labelLayout, 1, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(
@@ -127,6 +130,7 @@ void LanguageListItem::initWidget()
     // checkMark
     m_checkMark = new DuiButton(this);
     m_checkMark->setObjectName("LanguageCheckMark");
+    m_checkMark->setAcceptedMouseButtons(0);
     m_checkMark->setMaximumWidth(32);
     m_checkMark->setMaximumHeight(32);
     m_labelLayout->addItem(m_checkMark);
@@ -146,4 +150,17 @@ void LanguageListItem::initWidget()
         m_highlightLabel->setVisible(false);
         m_checkMark->setVisible(false);
     }
+}
+
+void LanguageListItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    DuiWidget::mousePressEvent(event);
+    event->accept();
+    checked(!m_checked);
+}
+
+void LanguageListItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    DuiWidget::mouseReleaseEvent(event);
+    event->accept();
 }
