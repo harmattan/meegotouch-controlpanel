@@ -1,7 +1,7 @@
 #ifndef DCPAPPLETMETADATA_H
 #define DCPAPPLETMETADATA_H
 #include <duidesktopentry.h>
-#include <QFileInfo>
+class DcpAppletMetadataPrivate;
 class DcpAppletMetadata : public DuiDesktopEntry
 {
 public:
@@ -33,6 +33,7 @@ public:
     int order();
     int usage();
 private:
-    QFileInfo m_FileInfo;
+    DcpAppletMetadataPrivate * const d;
+//    Q_DISABLE_COPY(DcpAppletMetadata);
 };
 #endif // DCPAPP LETMETADATA_H

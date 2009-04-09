@@ -3,6 +3,7 @@
 #include "dcpapplet.h"
 #include <duilocale.h>
 
+#include "dcpappletmetadata_p.h"
 #include "dcpwidgettypes.h"
 
 enum  {
@@ -58,7 +59,7 @@ const QString Keys[KeyCount] = {
 };
 
 DcpAppletMetadata::DcpAppletMetadata(const QString& filename) 
-    : DuiDesktopEntry(filename), m_FileInfo(QFileInfo(filename))
+    : DuiDesktopEntry(filename), d (new DcpAppletMetadataPrivate)
 {
    
 }
@@ -76,9 +77,9 @@ DcpAppletMetadata::isValid()
 bool
 DcpAppletMetadata::isModified()
 {
-    QFileInfo info(m_FileInfo.fileName());
-    bool modified = info.lastModified() >  m_FileInfo.lastModified();
-    m_FileInfo = info;
+    QFileInfo info(d->m_FileInfo.fileName());
+    bool modified = info.lastModified() >  d->m_FileInfo.lastModified();
+    d->m_FileInfo = info;
     return modified;
 }
 
@@ -190,5 +191,4 @@ int DcpAppletMetadata::order()
 {
     return value(Keys[KeyOrder]).toInt();
 }
-
 

@@ -12,6 +12,7 @@
 #include <duitheme.h>
 #include "dcpwidget.h"
 #include "dcplanguage.h"
+#include "dcplanguageconf.h"
 
 LanguageWidget::LanguageWidget(QGraphicsWidget *parent)
 	    :DcpWidget(parent)
@@ -53,7 +54,7 @@ void LanguageWidget::initWidget()
 {
     // there is some "magic number" sorry for that
     m_displayButton = new LanguageButton(DcpLanguage::DisplayButtonTitle,
-                                       "English GB", this);
+                            DcpLanguageConf::instance()->displayLanguage(), this);
     m_displayButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     connect(m_displayButton, SIGNAL(clicked()), 
             this, SLOT(displayPage()));

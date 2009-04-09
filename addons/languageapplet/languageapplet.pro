@@ -23,7 +23,8 @@ HEADERS       = languageapplet.h \
                 languagelistitem.h \
                 dcpspaceritem.h \
                 languageselectcontainer.h \
-                grouptitlewidget.h
+                grouptitlewidget.h \
+                dcplanguageconf.h
 
 SOURCES       = languageapplet.cpp \
                 languagewidget.cpp \
@@ -36,7 +37,9 @@ SOURCES       = languageapplet.cpp \
                 languagelistitem.cpp \
                 dcpspaceritem.cpp \
                 languageselectcontainer.cpp \
-                grouptitlewidget.cpp
+                grouptitlewidget.cpp\
+                dcplanguageconf.cpp
+
 
 TARGET        = $$qtLibraryTarget(languageapplet)
 css.files     = languageapplet.css
