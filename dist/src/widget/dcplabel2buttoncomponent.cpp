@@ -44,6 +44,7 @@ void DcpLabel2ButtonComponent::createContents()
 
     m_UpLabel = newLabel(m_Height/2, upLabel, CSS_UPLABEL, Qt::AlignLeft|Qt::AlignBottom);
     m_TriangleButton = newButton(m_TriangleSize, CSS_TRIANGLEBUTTON);
+    m_TriangleButton->translate(0, -10); // TODO please remove me
 
     m_DownLabel = newLabel(m_Height/2, downLabel, CSS_DOWNLABEL, Qt::AlignLeft|Qt::AlignTop);
 
@@ -61,14 +62,14 @@ void DcpLabel2ButtonComponent::createContents()
     initColumn(m_SmallWidth, 0, 0, 0, 0);
     initRow2(m_Height/2);
 
-    m_WidgetLayoutPolicy->addItemAtPosition(m_BigButton, 0, 0, 2, 3, Qt::AlignLeft);
+    m_WidgetLayoutPolicy->addItemAtPosition(m_BigButton, 0, 0, 2, 4, Qt::AlignLeft);
 
     m_WidgetLayoutPolicy->addItemAtPosition(m_TriangleButton, 0, 1, 1, 1, Qt::AlignBottom);
 
-    m_WidgetLayoutPolicy->addItemAtPosition(m_UpLabel, 0, 2, 1, 1, Qt::AlignCenter);
-    m_WidgetLayoutPolicy->addItemAtPosition(m_DownLabel, 1, 1, 1, 2, Qt::AlignCenter);
+    m_WidgetLayoutPolicy->addItemAtPosition(m_UpLabel, 0, 2, 1, 1, Qt::AlignVCenter);
+    m_WidgetLayoutPolicy->addItemAtPosition(m_DownLabel, 1, 1, 1, 2, Qt::AlignVCenter);
 
-    m_WidgetLayoutPolicy->addItemAtPosition(m_SmallButtonOn, 0, 3, 2, 1, Qt::AlignVCenter|Qt::AlignLeft);
+    m_WidgetLayoutPolicy->addItemAtPosition(m_SmallButtonOn, 0, 3, 2, 1, Qt::AlignVCenter|Qt::AlignRight);
 
     connect(m_BigButton, SIGNAL(clicked()), this, SLOT(bigClicked()));
     connect(m_SmallButtonOn, SIGNAL(clicked()), this, SLOT(smallClickedOn()));
