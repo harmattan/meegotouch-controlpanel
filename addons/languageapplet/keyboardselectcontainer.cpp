@@ -17,8 +17,12 @@ KeyboardSelectContainer::KeyboardSelectContainer(const QString &title,
                          m_itemList(itemList)
 {
     initWidget();
-    this->selectItem("English GB");
-    this->selectItem("Suomi");
+    QStringList keyboardList = DcpLanguageConf::instance()->keyboardLanguages();
+    QStringListIterator iterator(keyboardList);
+    while (iterator.hasNext())
+    {
+        this->selectItem(iterator.next());
+    }
 }
 
 KeyboardSelectContainer::~KeyboardSelectContainer()
@@ -62,7 +66,22 @@ void KeyboardSelectContainer::initWidget()
     for (int i = 0; i < m_listItemVector.size(); i++)
     {
         itemLayout->addItemAtPosition(m_listItemVector[i], i / 2, i % 2);
+        connect(m_listItemVector[i], SIGNAL(clicked()), this, SLOT(itemClicked()));
     }
 
     mainLayoutPolicy->addItemAtPosition(gridLayout, 1, Qt::AlignCenter);
+}
+
+void KeyboardSelectContainer::itemClicked()
+{
+    for (int i = 0; i < m_listItemVector.size(); i++)
+    {
+        if (m_listItemVector[i]->isChecked())
+        {
+            DcpLanguageConf::instance()->removeKeyboardLanguage(m_listItemVector[i]->text());
+            DcpLanguageConf::instance()->addKeyboardLanguage(m_listItemVector[i]->text());
+        } else {
+            DcpLanguageConf::instance()->removeKeyboardLanguage(m_listItemVector[i]->text());
+        }
+    }
 }
