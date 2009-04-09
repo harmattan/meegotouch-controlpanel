@@ -10,9 +10,13 @@ public:
     ~DcpLanguageConf();
     QString displayLanguage();
     void setDisplayLanguage(QString displayLanguage);
-    QStringList keyboardLanguage();
+    QStringList keyboardLanguages();
+    QString keyboardLanguagesAsText();
+    int keyboardLanguagesNumber();
     QStringList languages();
-    void setKeyboardLanguage();
+    void addKeyboardLanguage(QString language);
+    void removeKeyboardLanguage(QString language);
+    void setKeyboardLanguage(QStringList languages);
 protected:
     DcpLanguageConf();
 private:
@@ -20,5 +24,7 @@ private:
     // This will come from GConf. 
     // Storing in private member is for test only!
     QString m_DisplayLanguage;
+    QStringList m_KeyboardLanguages;
+    QStringList m_Languages;
 };
 #endif // DCPLANGUAGECONF_H

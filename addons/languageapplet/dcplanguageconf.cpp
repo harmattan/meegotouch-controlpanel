@@ -13,8 +13,13 @@ DcpLanguageConf::instance()
 
 DcpLanguageConf::DcpLanguageConf() : DuiConf()
 {
-    m_DisplayLanguage = "English GB";
 //    addDir(DCPLANGUAGECONFDIR);
+    m_DisplayLanguage = "English GB";
+    addKeyboardLanguage(m_DisplayLanguage);
+    addKeyboardLanguage("Suomi");
+    addKeyboardLanguage("Whatever");
+    removeKeyboardLanguage("Whatever");
+
 }
 
 DcpLanguageConf::~DcpLanguageConf()
@@ -35,13 +40,44 @@ DcpLanguageConf::setDisplayLanguage(QString displayLanguage)
     m_DisplayLanguage = displayLanguage;
 }
 
-QStringList
-DcpLanguageConf::keyboardLanguage()
+QStringList 
+DcpLanguageConf::keyboardLanguages()
 {
-    return QStringList();
+    return m_KeyboardLanguages;
+}
+
+QString 
+DcpLanguageConf::keyboardLanguagesAsText()
+{
+    return m_KeyboardLanguages.join(", ");
+}
+
+QStringList 
+DcpLanguageConf::languages()
+{
+    return m_Languages;
 }
 
 void 
-DcpLanguageConf::setKeyboardLanguage()
+DcpLanguageConf::addKeyboardLanguage(QString language)
 {
+    m_KeyboardLanguages.append(language);
+}
+
+void 
+DcpLanguageConf::removeKeyboardLanguage(QString language)
+{
+    m_KeyboardLanguages.removeOne(language);
+}
+
+void
+DcpLanguageConf::setKeyboardLanguage(QStringList languages)
+{
+    m_KeyboardLanguages = languages;
+}
+
+int 
+DcpLanguageConf::keyboardLanguagesNumber()
+{
+    m_KeyboardLanguages.count() + 1;
 }

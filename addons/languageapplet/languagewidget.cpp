@@ -59,8 +59,10 @@ void LanguageWidget::initWidget()
     connect(m_displayButton, SIGNAL(clicked()), 
             this, SLOT(displayPage()));
     
-    m_keyboardButton = new LanguageButton(DcpLanguage::KeyboardButtonTitle + " (2)",
-                                                    "English GB, Suomi", this);
+    m_keyboardButton = new LanguageButton(DcpLanguage::KeyboardButtonTitle + 
+    " (" +  QString::number(DcpLanguageConf::instance()->keyboardLanguagesNumber())
+     + ")",
+              DcpLanguageConf::instance()->keyboardLanguagesAsText(), this);
     m_keyboardButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     connect(m_keyboardButton, SIGNAL(clicked()),
             this, SLOT(keyboardPage()));
