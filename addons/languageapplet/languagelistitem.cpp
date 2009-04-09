@@ -167,7 +167,7 @@ void LanguageListItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     DuiWidget::mousePressEvent(event);
     event->accept();
-    // checked(!m_checked);
+    checked(!m_checked);
     m_clicked = true;
     emit clicked();
 }
