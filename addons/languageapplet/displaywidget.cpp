@@ -105,9 +105,15 @@ void DisplayWidget::initWidget()
     LanguageSelectContainer *selectCont = 
             new LanguageSelectContainer("In-device language",
                                         languageList, this);
+    connect(selectCont, SIGNAL(changeBackToMain()), this, SLOT(changeBack()));
     mainLayoutPolicy->addItemAtPosition(selectCont, 1, Qt::AlignCenter);
                                             
     mainLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 10, 20, QSizePolicy::Fixed, QSizePolicy::Fixed),
                     2, Qt::AlignCenter);
+}
+
+void DisplayWidget::changeBack()
+{
+    emit changeWidget(referer());
 }
