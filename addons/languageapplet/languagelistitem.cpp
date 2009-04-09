@@ -55,7 +55,7 @@ void LanguageListItem::resizeEvent(QGraphicsSceneResizeEvent *event)
     setMaximumHeight(height);
 
     // set width
-    int devide = 40;
+    int devide = 20;
     setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
     setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
 }

@@ -13,22 +13,20 @@ DcpRecentlyUsedComponent::DcpRecentlyUsedComponent(
 {
     createContents();
 }
+
 void DcpRecentlyUsedComponent::createContents()
 {
+    m_HasSignButton = false;
     DcpBackgroundComponent::createContents();
 
     // TODO: to stylesheet
-    //setContentsMargins(60,10,60,20);
-    setContentsMargins(0, 10, 0, 10);
+    setContentsMargins(20, 10, 20, 10);
     // --
 
     m_MostUsedCategory = new DcpMostUsedCategory("TXT");
     connect(m_MostUsedCategory, SIGNAL(openSubPage(Pages::Handle)),
                 this, SIGNAL(openSubPage(Pages::Handle)));
     addItem(m_MostUsedCategory);
-
-    m_MostUsedCategory->translate(15,0);//dummy bad
-
 }
 
 

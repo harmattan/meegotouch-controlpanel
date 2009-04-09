@@ -29,6 +29,7 @@ protected:
 
     virtual void resizeEvent ( QGraphicsSceneResizeEvent * event );
 
+    bool m_HasSignButton;
 private:
     const QPixmap *m_Background;
     class DuiLinearLayoutPolicy *m_Layout;

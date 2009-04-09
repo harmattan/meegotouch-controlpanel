@@ -2,6 +2,7 @@
 #include "dcpbackgroundlineview.h"
 
 #include <duilabel.h>
+#include <duibutton.h>
 #include <duitheme.h>
 #include <duilinearlayoutpolicy.h>
 #include <duibasiclayoutanimator.h>
@@ -10,7 +11,10 @@ DcpBackgroundComponent::DcpBackgroundComponent(
                             DcpCategory *category,
                             const QString& title,
                             QGraphicsWidget *parent):
-    DcpComponent(category, title, parent), m_Background(NULL), m_Caption(NULL)
+    DcpComponent(category, title, parent),
+    m_HasSignButton(true),
+    m_Background(NULL),
+    m_Caption(NULL)
 {
    setViewType("bglineview");
 }
@@ -41,7 +45,7 @@ DcpBackgroundComponent::createContents()
 {
     DuiLayout* layout = new DuiLayout();
 
-    //    layout->setAnimator(NULL);
+    // TODO: layout->setAnimator(NULL);
     DuiBasicLayoutAnimator* animator = new DuiBasicLayoutAnimator();
     animator->setAnimationSpeed(150);
     layout->setAnimator(animator);
@@ -50,16 +54,36 @@ DcpBackgroundComponent::createContents()
     m_Caption = new DuiLabel(title());
     m_Caption->setObjectName("ComponentCaption");
 
+    DuiLayout * captionLayout = new DuiLayout();
+    DuiLinearLayoutPolicy *captionLayoutPolicy =
+        new DuiLinearLayoutPolicy(captionLayout, Qt::Horizontal);
+    captionLayout->setPolicy(captionLayoutPolicy);
+
+    captionLayoutPolicy->addItemAtPosition(m_Caption,
+                    0, Qt::AlignLeft | Qt::AlignBottom);
+
     // TODO: move to stylesheet
     this->setContentsMargins(20, 10, 20, 10);
-    // --
+
+    /* TODO manni
+       remove this way of "parameter passing" after the layout is able to
+       handle hidden widgets */
+    if (m_HasSignButton) {
+        DuiButton* signButton = new DuiButton(this);
+        signButton->setObjectName("SignButton");
+        signButton->setMaximumWidth(32);
+        signButton->setMaximumHeight(32);
+        captionLayoutPolicy->addItemAtPosition(signButton,
+                        1, Qt::AlignRight | Qt::AlignVCenter);
+        this->setContentsMargins(20, 10, 8, 10);
+    }
 
     // this fixes a dui issue, that the labels are eating up our clickEvents
     m_Caption->setAcceptedMouseButtons(0);
     // --
 
-    addItem(m_Caption);
     layout->setPolicy(m_Layout);
+    addItem(captionLayout);
     setLayout(layout);
 }
 

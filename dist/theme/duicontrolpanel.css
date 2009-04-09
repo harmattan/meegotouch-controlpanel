@@ -7,6 +7,10 @@ DuiLabel#ComponentCaption {
     font: font("Nokia Sans Cn", 20px);
 }
 
+#SignButton {
+    normalBackground: "See-more-indicator-big";
+}
+
 DuiLabel#ComponentDescription {
     font: font("Nokia Sans Cn", 16px);
 }

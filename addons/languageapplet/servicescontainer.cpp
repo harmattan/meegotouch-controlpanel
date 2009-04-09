@@ -1,6 +1,7 @@
 #include "servicescontainer.h"
 #include "servicesbuttonblock.h"
 #include "languagetranslation.h"
+#include "dcpspaceritem.h"
 
 #include <qpainter.h>
 #include <duitheme.h>
@@ -8,6 +9,7 @@
 #include <duilinearlayoutpolicy.h>
 #include <duilabel.h>
 #include <duibutton.h>
+#include <QGraphicsSceneResizeEvent>
 
 ServicesContainer::ServicesContainer(QGraphicsWidget *parent)
                   :DuiWidget(parent), m_Background(NULL)
@@ -32,7 +34,7 @@ void ServicesContainer::paint(QPainter *painter,
     
     // if available, then draw it:
     if (m_Background) {
-        painter->drawPixmap(0, 0, *m_Background);
+        painter->drawPixmap(0,0, *m_Background);
     }
 
     // draw line below the title
@@ -52,8 +54,10 @@ void ServicesContainer::resizeEvent(QGraphicsSceneResizeEvent *event)
 {
     Q_UNUSED(event);
     
-    QSize size = this->size().toSize();
+    QSize size = event->newSize().toSize();
     static const int border = 30;
+    if (m_Background)
+	    DuiTheme::releasePixmap(m_Background);
     m_Background = DuiTheme::boxedPixmap("Mashup-container",size,
                                          border, border, border, border);
 }
@@ -65,7 +69,6 @@ void ServicesContainer::initContainer()
 
     // captionLayout
     DuiLayout *captionLayout = new DuiLayout(m_mainLayout);
-    // captionLayout->setAnimator(0);
     DuiLinearLayoutPolicy *captionLayoutPolicy = 
             new DuiLinearLayoutPolicy(captionLayout, Qt::Horizontal);
     captionLayout->setPolicy(captionLayoutPolicy);
@@ -75,10 +78,8 @@ void ServicesContainer::initContainer()
     captionLayoutPolicy->addItemAtPosition(m_caption, 
                     0, Qt::AlignLeft | Qt::AlignBottom);
 
-    DuiWidget *spacerItem = new DuiWidget(this);
-    spacerItem->setMaximumHeight(5);
-    spacerItem->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    captionLayoutPolicy->addItemAtPosition(spacerItem,
+    captionLayoutPolicy->addItemAtPosition(
+                    new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Fixed),
                     1, Qt::AlignCenter);
 
     DuiButton *signButton = new DuiButton(this);
@@ -113,6 +114,9 @@ void ServicesContainer::initContainer()
                     1, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(blockTwo,
                     2, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(
+                    new DcpSpacerItem(this, 10, 12, QSizePolicy::Expanding, QSizePolicy::Fixed),
+                    3, Qt::AlignCenter);
 }
 
 void ServicesContainer::addServices(const QString &name)
