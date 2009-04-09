@@ -17,7 +17,8 @@ LanguageListItem::LanguageListItem(const QString &text,
                                    DuiWidget *parent)
                  :DuiWidget(parent), 
                   m_labelText(text), 
-                  m_checked(checked)
+                  m_checked(checked),
+                  m_clicked(false)
 {
     initWidget();
 }
@@ -79,6 +80,16 @@ void LanguageListItem::checked(bool ok)
 bool LanguageListItem::isChecked()
 {
     return m_checked;
+}
+
+QString LanguageListItem::text() const
+{
+    return m_labelText;
+}
+
+bool LanguageListItem::isClicked()
+{
+    return m_clicked;
 }
 
 void LanguageListItem::initWidget()
@@ -156,7 +167,9 @@ void LanguageListItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     DuiWidget::mousePressEvent(event);
     event->accept();
-    checked(!m_checked);
+    // checked(!m_checked);
+    m_clicked = true;
+    emit clicked();
 }
 
 void LanguageListItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)

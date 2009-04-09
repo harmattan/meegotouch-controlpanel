@@ -13,7 +13,7 @@ DcpLanguageConf::instance()
 
 DcpLanguageConf::DcpLanguageConf() : DuiConf()
 {
-    m_DisplayLanguage = "Engish GB";
+    m_DisplayLanguage = "English GB";
 //    addDir(DCPLANGUAGECONFDIR);
 }
 

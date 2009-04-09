@@ -15,6 +15,8 @@ public:
                             DuiWidget *parent = 0);
     ~LanguageSelectContainer();
 
+    void selectItem(const QString &text);
+
 protected:
     void initWidget();
 
@@ -22,5 +24,11 @@ private:
     QString m_titleText;
     QStringList m_itemList;
     QVector<LanguageListItem*> m_listItemVector;
+
+private slots:
+    virtual void itemClicked();
+
+signals:
+    void changeBackToMain();
 };
 #endif  // LANGUAGESELECTCONTAINER_H

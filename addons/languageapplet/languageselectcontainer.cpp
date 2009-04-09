@@ -1,7 +1,9 @@
 #include "languageselectcontainer.h"
 #include "languagelistitem.h"
 #include "grouptitlewidget.h"
+#include "dcplanguageconf.h"
 
+#include <QDebug>
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
 #include <duigridlayoutpolicy.h>
@@ -15,10 +17,22 @@ LanguageSelectContainer::LanguageSelectContainer(const QString &title,
                          m_itemList(itemList)
 {
     initWidget();
+    this->selectItem(DcpLanguageConf::instance()->displayLanguage());
 }
 
 LanguageSelectContainer::~LanguageSelectContainer()
 {
+}
+
+void LanguageSelectContainer::selectItem(const QString &text)
+{
+    for (int i = 0; i < m_listItemVector.size(); i++)
+    {
+        if (text == m_listItemVector[i]->text())
+        {
+            m_listItemVector[i]->checked(true);
+        }
+    }
 }
 
 void LanguageSelectContainer::initWidget()
@@ -47,9 +61,25 @@ void LanguageSelectContainer::initWidget()
     for (int i = 0; i < m_listItemVector.size(); i++)
     {
         itemLayout->addItemAtPosition(m_listItemVector[i], i / 2, i % 2);
+        connect(m_listItemVector[i], SIGNAL(clicked()), this, SLOT(itemClicked()));
     }
 
     mainLayoutPolicy->addItemAtPosition(gridLayout, 1, Qt::AlignCenter);
-    
-    m_listItemVector[2]->checked(true);
+}
+
+void LanguageSelectContainer::itemClicked()
+{
+    int num = 0;
+    for (int i = 0; i < m_listItemVector.size(); i++)
+    {
+        if (m_listItemVector[i]->isClicked()) {
+                m_listItemVector[i]->checked(true);
+                num = i;
+        } else {
+            m_listItemVector[i]->checked(false);
+        }
+    }
+
+    DcpLanguageConf::instance()->setDisplayLanguage(m_listItemVector[num]->text());
+    emit changeBackToMain();
 }
