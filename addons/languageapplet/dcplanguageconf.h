@@ -11,6 +11,7 @@ public:
     QString displayLanguage();
     void setDisplayLanguage(QString displayLanguage);
     QStringList keyboardLanguage();
+    QStringList languages();
     void setKeyboardLanguage();
 protected:
     DcpLanguageConf();
