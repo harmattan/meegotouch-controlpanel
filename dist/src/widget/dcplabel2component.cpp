@@ -45,10 +45,11 @@ void DcpLabel2Component::createContents()
     initColumn(smallWidth, 0, 0);
     initRow2(m_Height/2);
 
-    
     m_BigButton = newButton(m_Width, m_Height, CSS_BIGBUTTON);
     m_UpLabel = newLabel(m_Height/2, upLabel, CSS_UPLABEL, Qt::AlignLeft|Qt::AlignBottom);
+
     m_TriangleButton = newButton(m_TriangleSize, CSS_TRIANGLEBUTTON);
+    m_TriangleButton->translate(0, -10); // TODO please remove me
 
     m_DownLabel = newLabel(m_Height/2, downLabel, CSS_DOWNLABEL, Qt::AlignLeft|Qt::AlignTop);
 
@@ -57,8 +58,8 @@ void DcpLabel2Component::createContents()
 
     m_WidgetLayoutPolicy->addItemAtPosition(m_TriangleButton, 0, 1, 1, 1, Qt::AlignBottom);
 
-    m_WidgetLayoutPolicy->addItemAtPosition(m_UpLabel, 0, 2, 1, 1, Qt::AlignCenter);
-    m_WidgetLayoutPolicy->addItemAtPosition(m_DownLabel, 1, 1, 1, 2, Qt::AlignCenter);
+    m_WidgetLayoutPolicy->addItemAtPosition(m_UpLabel, 0, 2, 1, 1, Qt::AlignBottom);
+    m_WidgetLayoutPolicy->addItemAtPosition(m_DownLabel, 1, 1, 1, 2, Qt::AlignTop);
 
 
     connect(m_BigButton, SIGNAL(clicked()), this, SLOT(bigClicked()));

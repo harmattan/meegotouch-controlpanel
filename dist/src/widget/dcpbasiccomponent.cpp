@@ -32,8 +32,6 @@ DcpBasicComponent::DcpBasicComponent(
     //    m_TriangleButtonOriginal = newButton(TRIANGLESIZE, "TriangleButton");
     //}
 
-
-
     m_MainLayout = new DuiLayout(this);
     m_MainLayoutPolicy = new DuiLinearLayoutPolicy(m_MainLayout, Qt::Vertical);
     m_MainLayout->setPolicy(m_MainLayoutPolicy);

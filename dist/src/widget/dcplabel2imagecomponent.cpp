@@ -81,9 +81,10 @@ void DcpLabel2ImageComponent::initRight()
     m_WidgetLayoutPolicy->addItemAtPosition(m_BigButton, 0, 0, 2, 5, Qt::AlignLeft);
 
     m_WidgetLayoutPolicy->addItemAtPosition(m_TriangleButton, 0, 1, 1, 1, Qt::AlignBottom);
+    m_TriangleButton->translate(0, -15); // TODO please remove me
 
-    m_WidgetLayoutPolicy->addItemAtPosition(m_UpLabel, 0, 2, 1, 1, Qt::AlignCenter);
-    m_WidgetLayoutPolicy->addItemAtPosition(m_DownLabel, 1, 1, 1, 2, Qt::AlignCenter);
+    m_WidgetLayoutPolicy->addItemAtPosition(m_UpLabel, 0, 2, 1, 1, Qt::AlignVCenter);
+    m_WidgetLayoutPolicy->addItemAtPosition(m_DownLabel, 1, 1, 1, 2, Qt::AlignVCenter);
 
 
 
@@ -129,7 +130,7 @@ void DcpLabel2ImageComponent::initLeft()
 
    // m_Image->translate(15,0); // Qt::AlignCenter BUG
 
-    m_WidgetLayoutPolicy->addItemAtPosition(m_UpLabel, 0, 4, 1, 1, Qt::AlignCenter);
+    m_WidgetLayoutPolicy->addItemAtPosition(m_UpLabel, 0, 4, 1, 1, Qt::AlignVCenter);
     
-    m_WidgetLayoutPolicy->addItemAtPosition(m_DownLabel, 1, 3, 1, 2, Qt::AlignCenter);
+    m_WidgetLayoutPolicy->addItemAtPosition(m_DownLabel, 1, 3, 1, 2, Qt::AlignVCenter);
 }

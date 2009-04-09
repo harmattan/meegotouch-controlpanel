@@ -18,7 +18,7 @@ WidgetType= DcpLabel2Image
 Align= Left
 
 Text1= Theme
-Text2= default
+Text2=default
 
 Image= /usr/share/themes/dui/duicontrolpanel/images/starfield_thumb.png
 

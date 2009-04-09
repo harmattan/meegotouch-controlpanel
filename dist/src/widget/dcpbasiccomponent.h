@@ -115,7 +115,7 @@ protected:
 
     static const int m_TriangleSize = 16;
 
-    static const int m_Width = 402;
+    static const int m_Width = 392;
 
     static const int m_Height = 88;
 };
