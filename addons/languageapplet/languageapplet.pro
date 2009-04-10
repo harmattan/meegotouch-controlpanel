@@ -18,6 +18,7 @@ HEADERS       = languageapplet.h \
                 servicesbuttonblock.h \
                 dcplanguage.h \
                 displaywidget.h \
+                displaydialog.h \
                 keyboardwidget.h \
                 languagetranslation.h \
                 languagelistitem.h \
@@ -34,6 +35,7 @@ SOURCES       = languageapplet.cpp \
                 servicesbutton.cpp \
                 servicesbuttonblock.cpp \
                 displaywidget.cpp \
+                displaydialog.cpp \
                 keyboardwidget.cpp \
                 languagelistitem.cpp \
                 dcpspaceritem.cpp \

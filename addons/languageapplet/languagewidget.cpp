@@ -13,6 +13,7 @@
 #include "dcpwidget.h"
 #include "dcplanguage.h"
 #include "dcplanguageconf.h"
+#include "displaydialog.h"
 
 LanguageWidget::LanguageWidget(QGraphicsWidget *parent)
 	    :DcpWidget(parent)
@@ -106,7 +107,10 @@ void LanguageWidget::initWidget()
 
 void LanguageWidget::displayPage()
 {
-    emit changeWidget(DcpLanguage::Display);
+//    emit changeWidget(DcpLanguage::Display);
+    DisplayDialog *dlg = new DisplayDialog();
+    dlg->exec();
+
 }
 
 void LanguageWidget::keyboardPage()
