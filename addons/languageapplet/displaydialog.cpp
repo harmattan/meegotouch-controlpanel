@@ -1,4 +1,5 @@
 #include "displaydialog.h"
+#include "displaywidget.h"
 #include "dcpspaceritem.h"
 #include "languageselectcontainer.h"
 
@@ -16,99 +17,15 @@ DisplayDialog::DisplayDialog()
 
 DisplayDialog::~DisplayDialog()
 {
-    if (m_background)
-    {
-        DuiTheme::releasePixmap(m_background);
-    }
 }
-/*
-void DisplayDialog::paint(QPainter *painter,
-                          const QStyleOptionGraphicsItem *option,
-                          QWidget *widget)
-{
-    Q_UNUSED(option);
-    Q_UNUSED(widget);
-
-    if (m_background)
-    {  
-        painter->drawPixmap(0, 0, *m_background);
-    }
-
-    // draw line below the title
-    int borderWidth = 2;
-    QColor lineColor = QColor::fromRgb(0x80, 0x80, 0x80);
-    QPen pen = painter->pen();
-    pen.setColor(lineColor);
-    pen.setWidth(1);
-    painter->setPen(pen);
-
-    qreal y = m_titleLabel->y() + m_titleLabel->size().height();
-    painter->drawLine(borderWidth, y,
-                      geometry().size().width() - 2 * borderWidth, y);
-}
-*/
-/*void DisplayDialog::resizeEvent(QGraphicsSceneResizeEvent *event)
-{
-    Q_UNUSED(event);
-
-    QSize size = this->size().toSize();
-    static const int border = 30;
-    m_background = DuiTheme::boxedPixmap("Mashup-container", size,
-                                         border, border, border, border);
-}
-*/
 void DisplayDialog::initWidget()
 {
-    QString rushian = 
-        QString("P%1cc").arg(QChar(0x0443)) + QChar(0x043A) + QChar(0x0438) + QChar(0x0439); 
-
-    QStringList languageList;
-    languageList << "Dansk" << "Deutsch" << "English GB" << "English US" 
-            << QString("Fran%1ais (Canada)").arg(QChar(0x00e7)) 
-            << QString("Fran%1ais (France)").arg(QChar(0x00e7)) 
-            << "Italiaon"
-            << QString("LA Espa%1ol").arg(QChar(0x00f1)) 
-            << "Nederlands" << "Norks" 
-            << QString("Portugu%1s").arg(QChar(0x00ea))
-            << QString("Portugu%1s BR").arg(QChar(0x00ea)) 
-            << rushian << "Suomi";
-
-    
-    // Layout
-    DuiLayout *m_mainLayout = new DuiLayout(this);
+    DisplayWidget *widget = new DisplayWidget(this);
+    DuiLayout *mainLayout = new DuiLayout(this);
     DuiLinearLayoutPolicy *mainLayoutPolicy =
-            new DuiLinearLayoutPolicy(m_mainLayout, Qt::Vertical);
-    m_mainLayout->setPolicy(mainLayoutPolicy);
+            new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
+    mainLayout->setPolicy(mainLayoutPolicy);
     mainLayoutPolicy->setContentsMargins(2.0, 10.0, 2.0, 10.0);
-
-    // titleLayout
-    DuiLayout *titleLayout = new DuiLayout(NULL);
-    DuiLinearLayoutPolicy *titleLayoutPolicy = 
-            new DuiLinearLayoutPolicy(titleLayout, Qt::Horizontal);
-    titleLayout->setPolicy(titleLayoutPolicy);
-    
-    titleLayoutPolicy->addItemAtPosition(
-                    new DcpSpacerItem(this, 5, 5,
-                            QSizePolicy::Expanding, QSizePolicy::Fixed),
-                    0, Qt::AlignLeft);
-    m_titleLabel = new DuiLabel("Select display language");
-    m_titleLabel->setObjectName("DisplayLanguageTitleLabel");
-    titleLayoutPolicy->addItemAtPosition(m_titleLabel, 1, Qt::AlignCenter);
-    titleLayoutPolicy->addItemAtPosition(
-                    new DcpSpacerItem(this, 5, 5, 
-                        QSizePolicy::Expanding, QSizePolicy::Fixed),
-                    2, Qt::AlignRight);
-    mainLayoutPolicy->addItemAtPosition(titleLayout, 0, Qt::AlignCenter);
-
-    // LanguageSelectContainer
-    LanguageSelectContainer *selectCont = 
-            new LanguageSelectContainer("In-device language",
-                                        languageList, this);
-    connect(selectCont, SIGNAL(changeBackToMain()), this, SLOT(changeBack()));
-    mainLayoutPolicy->addItemAtPosition(selectCont, 1, Qt::AlignCenter);
-                                            
-    mainLayoutPolicy->addItemAtPosition(
-                    new DcpSpacerItem(this, 10, 20, QSizePolicy::Fixed, QSizePolicy::Fixed),
-                    2, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(widget, 1, Qt::AlignCenter);
 }
 
