@@ -74,3 +74,8 @@
         normalBackground: "Check-mark";
 }
 
+#LanguageViewport {
+   preferredsize: size(864, 480);                                                 
+    minsize: size(864, 480);                                                       
+    maxsize: size(864, 480);       
+}

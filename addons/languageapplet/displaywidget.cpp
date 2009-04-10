@@ -115,5 +115,5 @@ void DisplayWidget::initWidget()
 
 void DisplayWidget::changeBack()
 {
-    emit changeWidget(referer());
+    emit clicked();
 }

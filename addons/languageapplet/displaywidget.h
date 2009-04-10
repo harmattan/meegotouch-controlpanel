@@ -18,7 +18,8 @@ public:
                const QStyleOptionGraphicsItem *option,
                QWidget *widget = 0);
     void resizeEvent(QGraphicsSceneResizeEvent *event);
-
+signals:
+    void clicked();
 protected:
     void initWidget();
 
