@@ -26,5 +26,6 @@ protected:
 private:
     const QPixmap   *m_background;
     DuiLabel        *m_titleLabel;
+
 };
 #endif //DISPLAYWIDGET_H

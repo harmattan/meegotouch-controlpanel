@@ -7,6 +7,7 @@
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
 #include "dcplanguage.h"
+#include <duipannableviewport.h>
 
 DisplayWidget::DisplayWidget(QGraphicsWidget *parent)
               :DcpWidget(parent)
@@ -34,7 +35,7 @@ void DisplayWidget::paint(QPainter *painter,
     {  
         painter->drawPixmap(0, 0, *m_background);
     }
-
+#if 0
     // draw line below the title
     int borderWidth = 2;
     QColor lineColor = QColor::fromRgb(0x80, 0x80, 0x80);
@@ -46,6 +47,7 @@ void DisplayWidget::paint(QPainter *painter,
     qreal y = m_titleLabel->y() + m_titleLabel->size().height();
     painter->drawLine(borderWidth, y,
                       geometry().size().width() - 2 * borderWidth, y);
+#endif
 }
 
 void DisplayWidget::resizeEvent(QGraphicsSceneResizeEvent *event)
@@ -92,9 +94,9 @@ void DisplayWidget::initWidget()
                     new DcpSpacerItem(this, 5, 5,
                             QSizePolicy::Expanding, QSizePolicy::Fixed),
                     0, Qt::AlignLeft);
-    m_titleLabel = new DuiLabel("Select display language");
-    m_titleLabel->setObjectName("DisplayLanguageTitleLabel");
-    titleLayoutPolicy->addItemAtPosition(m_titleLabel, 1, Qt::AlignCenter);
+    DuiLabel* titleLabel = new DuiLabel("Select display language");
+    titleLabel->setObjectName("DisplayLanguageTitleLabel");
+    titleLayoutPolicy->addItemAtPosition(titleLabel, 1, Qt::AlignCenter);
     titleLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 5, 5, 
                         QSizePolicy::Expanding, QSizePolicy::Fixed),
@@ -106,9 +108,14 @@ void DisplayWidget::initWidget()
             new LanguageSelectContainer("In-device language",
                                         languageList, this);
     connect(selectCont, SIGNAL(changeBackToMain()), this, SLOT(changeBack()));
-    mainLayoutPolicy->addItemAtPosition(selectCont, 1, Qt::AlignCenter);
+    DuiPannableViewport* viewport = new DuiPannableViewport(this);
+    viewport->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    viewport->setWidget(selectCont);
+    viewport->setObjectName("LanguageViewport");
+
+    mainLayoutPolicy->addItemAtPosition(viewport, 1, Qt::AlignCenter);
                                             
     mainLayoutPolicy->addItemAtPosition(
-                    new DcpSpacerItem(this, 10, 20, QSizePolicy::Fixed, QSizePolicy::Fixed),
+                    new DcpSpacerItem(this, 10, 20, QSizePolicy::Expanding, QSizePolicy::Fixed),
                     2, Qt::AlignCenter);
 }
