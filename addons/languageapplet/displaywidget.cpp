@@ -63,6 +63,7 @@ void DisplayWidget::resizeEvent(QGraphicsSceneResizeEvent *event)
 
 void DisplayWidget::mousePressEvent ( QGraphicsSceneMouseEvent * event )
 {
+    DuiWidget::mousePressEvent(event);
     event->accept();
 }
 
