@@ -17,9 +17,6 @@ public slots:
     void homeClicked();
     void backClicked();
     void onRotateClicked();
-    void appletChangePage(DcpPage *page);
-private:
-    class DcpPage* m_CurrentPage;
 };
 
 #endif // MAINWINDOW_H

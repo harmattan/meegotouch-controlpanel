@@ -49,3 +49,7 @@ void DcpPage::remove (QGraphicsWidget* widget) {
     Q_ASSERT(mainLayout());
 }
 
+void DcpPage::back()
+{
+    emit openSubPage(referer());
+}

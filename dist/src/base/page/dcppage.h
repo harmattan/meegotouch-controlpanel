@@ -26,7 +26,7 @@ public:
     virtual void setReferer(Pages::Id id, const QString &param="") 
         {m_Referer.id = id; m_Referer.param = param;};
     DuiLinearLayoutPolicy *mainLayout() { return m_MainLayout; }
-
+    virtual void back();
 signals:
     void openSubPage(Pages::Handle handle);
 

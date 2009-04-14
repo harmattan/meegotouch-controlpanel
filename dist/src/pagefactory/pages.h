@@ -20,6 +20,7 @@ namespace Pages {
 
    class Handle {
    public:
+//        Handle(Id i, QString p="") {id=i;param=p;}
         Id id;
         QString param;
     };

@@ -13,24 +13,18 @@ class PageFactory : public QObject
 public:
     static PageFactory *instance();
     static DcpPage* page(DuiApplicationPage *page);
-    DcpPage* create (Pages::Id pageId, const QString &param);
-    bool backFromApplet();
-signals:
-    void changePage(DcpPage *page);
+    DcpPage* create (Pages::Handle &handle);
+    DcpPage* currentPage(){return m_CurrentPage;}
 protected:
     PageFactory();
-    bool loadApplet(DcpAppletMetadata *metadata);
     DcpPage* createMainPage();	
     DcpPage* createAppletPage(DcpAppletMetadata *metadata);
     DcpPage* createAppletPageFromCategory(DcpAppletMetadata *metadata);
     DcpPage* createAppletPageFromMostUsed(DcpAppletMetadata *metadata);
     DcpPage* createAppletCategoryPage(const QString& appletCategory);
-protected slots:
-    void changeAppletWidget(int widgetId);
 private:
-    DcpWidget *m_AppletWidget; 
+    DcpPage *m_CurrentPage;
     static PageFactory* sm_Instance;
-    static DcpAppletLoader* sm_AppletLoader;
     
 };
 

@@ -3,16 +3,23 @@
 
 #include "dcppage.h"
 #include "pages.h"
-class DuiWidget;
+class DcpWidget;
+class DcpAppletMetadata;
+class DcpAppletLoader;
 class DcpAppletPage : public DcpPage
 {
     Q_OBJECT
 public:
-    DcpAppletPage(DuiWidget* widget);
+    DcpAppletPage(DcpAppletMetadata *metadata);
     virtual ~DcpAppletPage();
     virtual void createContent();
+    virtual void back();
+protected:
+    bool loadApplet();
 private:
-    DuiWidget *m_MainWidget;
+    DcpAppletMetadata *m_Metadata;
+    DcpWidget *m_MainWidget;
+    DcpAppletLoader* m_AppletLoader;
 };
 
 #endif // DCPAPPLETPAGE_H

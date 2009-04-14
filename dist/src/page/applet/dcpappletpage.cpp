@@ -1,25 +1,45 @@
 //#include <duilinearlayoutpolicy.h>
 #include "dcpwidget.h"
 #include "dcpappletpage.h"
+#include "dcpappletif.h"
+#include "dcpappletmetadata.h"
+#include "dcpappletloader.h"
+#include "duilabel.h"
+#include "duilocale.h"
 
-
-DcpAppletPage::DcpAppletPage(DuiWidget *widget):
-    DcpPage(), m_MainWidget(widget)
+DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
+    DcpPage(), m_Metadata(metadata)
 {
     setHandle(Pages::APPLET);
 }
 
 DcpAppletPage::~DcpAppletPage()
 {
-    if (m_MainWidget)
-        m_MainWidget->deleteLater();
+    delete m_AppletLoader;
 } 
 
 void DcpAppletPage::createContent()
 {
     DcpPage::createContent();
-    append(m_MainWidget);
-    
+    QString title;
+    DuiWidget *widget;
+     if (loadApplet())
+       {
+          m_MainWidget = m_AppletLoader->applet()->constructWidget(0);
+          widget = m_MainWidget;
+          title = m_AppletLoader->applet()->title();
+       }
+     else
+      {
+          DuiLabel *missingLabel = new DuiLabel(trid("dcp_no_applet_name",
+                                     "Plugin not available"));
+          missingLabel->setAlignment(Qt::AlignCenter);
+          widget = missingLabel;
+          title = trid("dcp_no_applet_title", "Missing plugin");
+      }
+    setTitle(title);
+    append(widget);
+  
     this->setContentsMargins(12.0, 12.0, 12.0, 18.0);
 
     m_MainWidget->setMaximumWidth(DuiDeviceProfile::instance()->width() - 30);
@@ -27,3 +47,22 @@ void DcpAppletPage::createContent()
     m_MainWidget->setMinimumHeight(DuiDeviceProfile::instance()->height() - 100);
 }
 
+bool 
+DcpAppletPage::loadApplet()
+{
+    m_AppletLoader = new DcpAppletLoader(m_Metadata);
+    bool result = true;
+    if (!m_AppletLoader->applet())
+    {
+        qWarning() << m_AppletLoader->errorMsg();
+        result = false;
+    }
+    return result;
+}
+
+void DcpAppletPage::back()
+{
+    if (m_MainWidget->back())
+        DcpPage::back();
+    
+} 

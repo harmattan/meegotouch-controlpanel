@@ -12,11 +12,11 @@
 #include <duilocale.h>
 
 PageFactory *PageFactory::sm_Instance =0;
-DcpAppletLoader *PageFactory::sm_AppletLoader = 0;
-
 
 PageFactory::PageFactory()
-{}
+{
+    m_CurrentPage = 0;
+}
 
 PageFactory*
 PageFactory::instance()
@@ -34,10 +34,10 @@ PageFactory::page(DuiApplicationPage *page)
 
 
 DcpPage* 
-PageFactory::create(Pages::Id pageId, const QString &param)
+PageFactory::create(Pages::Handle &handle)
 {
     DcpPage *page=0;
-    switch (pageId)
+    switch (handle.id)
       {
 	case Pages::MAIN:
             page = createMainPage();
@@ -64,22 +64,26 @@ PageFactory::create(Pages::Id pageId, const QString &param)
             page = createAppletCategoryPage("Device system");
             break;
         case Pages::APPLETCATEGORY:
-            page = createAppletCategoryPage(param);
+            page = createAppletCategoryPage(handle.param);
             break;
         case Pages::APPLET:
-            page = createAppletPageFromCategory(DcpAppletDb::instance()->applet(param));
+            page = createAppletPageFromCategory(DcpAppletDb::instance()->applet(handle.param));
             break;
         case Pages::APPLETFROMMOSTUSED:
-            page = createAppletPageFromMostUsed(DcpAppletDb::instance()->applet(param));
+            page = createAppletPageFromMostUsed(DcpAppletDb::instance()->applet(handle.param));
             break;
         case Pages::RESETSETTINGS:
             qWarning ("Reset settings page is not implemented yet.");
             page = createAppletCategoryPage("not implemented");
             break;
     default:
-            qWarning() << "DCP" << "Bad page ID: " << pageId;
-            //page=0;
+            qWarning() << "DCP" << "Bad page ID: " << handle.id;
     }
+    if (page && m_CurrentPage) {
+        if (page->referer().id == Pages::NOPAGE)
+            page->setReferer(m_CurrentPage->handle());
+    }
+    m_CurrentPage = page;
     return page;
 }
 
@@ -109,27 +113,7 @@ PageFactory::createAppletPageFromMostUsed(DcpAppletMetadata *metadata)
 DcpPage*
 PageFactory::createAppletPage(DcpAppletMetadata *metadata)
 {
-    QString title;
-    DuiWidget *widget;
-     if (loadApplet(metadata))
-       {
-          m_AppletWidget = sm_AppletLoader->applet()->constructWidget(0);
-          title = sm_AppletLoader->applet()->title();
-          connect(m_AppletWidget,
-                  SIGNAL(changeWidget(int)), 
-                  this, SLOT(changeAppletWidget(int)));
-          widget = m_AppletWidget;
-       }
-     else
-      {
-          DuiLabel *missingLabel = new DuiLabel(trid("dcp_no_applet_name",
-                                     "Plugin not available"));
-          missingLabel->setAlignment(Qt::AlignCenter);
-          widget = missingLabel;
-          title = trid("dcp_no_applet_title", "Missing plugin");
-      }
-    DcpPage *page = new DcpAppletPage(widget);
-    page->setTitle(title);
+    DcpPage *page = new DcpAppletPage(metadata);
     return page;
 }
 
@@ -139,40 +123,4 @@ PageFactory::createAppletCategoryPage(const QString& appletCategory)
     return new DcpAppletCategoryPage(appletCategory);
 }
 
-bool 
-PageFactory::loadApplet(DcpAppletMetadata *metadata)
-{
-    if (sm_AppletLoader)
-        delete sm_AppletLoader;
-    sm_AppletLoader = new DcpAppletLoader(metadata);
-    bool result = true;
-    if (!sm_AppletLoader->applet())
-    {
-        qWarning() << sm_AppletLoader->errorMsg();
-        result = false;
-    }
-    return result;
-}
-    
-void PageFactory::changeAppletWidget(int widgetId)
-{
-    m_AppletWidget = sm_AppletLoader->applet()->constructWidget(widgetId);
-    connect(m_AppletWidget, SIGNAL(changeWidget(int)), this, 
-                           SLOT(changeAppletWidget(int)));
-    DcpPage *page = new DcpAppletPage(m_AppletWidget);
-    page->setTitle(sm_AppletLoader->applet()->title());
-    page->setReferer(Pages::APPLETCATEGORY, 
-        sm_AppletLoader->metadata()->category());
-    emit changePage(page);
-}
 
-bool 
-PageFactory::backFromApplet()
-{
-     if (!sm_AppletLoader->applet())
-        return true;
-     else
-      {
-         return m_AppletWidget->back();
-      };
-}
