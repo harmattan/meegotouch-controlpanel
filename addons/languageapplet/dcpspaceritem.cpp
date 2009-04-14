@@ -14,7 +14,7 @@ DcpSpacerItem::DcpSpacerItem(DuiWidget *parent,
         hPolicy == QSizePolicy::Fixed)
     {
         setMaximumWidth(width);
-    }
+    } 
 
     if (vPolicy == QSizePolicy::Maximum ||
         vPolicy == QSizePolicy::Fixed)

@@ -47,9 +47,6 @@ void LanguageButton::resizeEvent(QGraphicsSceneResizeEvent *event)
 {
     Q_UNUSED(event);
 
-    setMinimumHeight(rowHeight);
-    setMaximumHeight(rowHeight);
-
     QSize size = this->size().toSize();
     static const int border = 10;
     m_Background = DuiTheme::boxedPixmap("C2-container", size,
@@ -129,4 +126,7 @@ void LanguageButton::initWidget()
 
     m_upLabel->setZValue(1);
     m_downLabel->setZValue(2);
+
+    setMinimumHeight(rowHeight);
+    setMaximumHeight(rowHeight);
 }

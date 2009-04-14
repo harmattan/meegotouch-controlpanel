@@ -1,13 +1,9 @@
 #include "displaydialog.h"
 #include "displaywidget.h"
-#include "dcpspaceritem.h"
 #include "languageselectcontainer.h"
 
-#include <duitheme.h>
-#include <duilabel.h>
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
-#include <duipannableviewport.h>
 #include "dcplanguage.h"
 
 DisplayDialog::DisplayDialog()
@@ -19,25 +15,23 @@ DisplayDialog::DisplayDialog()
 DisplayDialog::~DisplayDialog()
 {
 }
-#include <QtDebug>
+
 void DisplayDialog::initWidget()
 {
-    QSizeF dialogSize = DuiDeviceProfile::instance()->resolution();
-    dialogSize.setHeight(dialogSize.height()-60);
-    this->setContentsMargins(20,0,20,0);
-    qDebug() << "XXX" << dialogSize;
-    this->setMinimumSize(dialogSize);
-    DuiPannableViewport* viewport = new DuiPannableViewport(this);
     DisplayWidget *widget = new DisplayWidget();
 
-    viewport->setWidget(widget);
-    viewport->setObjectName("LanguageViewport");
     DuiLayout *mainLayout = new DuiLayout();
     DuiLinearLayoutPolicy *mainLayoutPolicy =
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayoutPolicy->addItemAtPosition(viewport, 0, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(widget, 0, Qt::AlignCenter);
     setLayout(mainLayout);
     connect(widget, SIGNAL(clicked()), this, SLOT(accept()));
+
+    // TODO onOrientationChange
+    QSizeF dialogSize = DuiDeviceProfile::instance()->resolution();
+    dialogSize.setHeight(dialogSize.height()-60);
+    this->setContentsMargins(15,0,15,0);
+    this->setMinimumSize(dialogSize);
 }
 

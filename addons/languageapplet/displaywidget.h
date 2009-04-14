@@ -25,7 +25,6 @@ protected:
 
 private:
     const QPixmap   *m_background;
-    DuiLabel        *m_titleLabel;
 
 private slots:
     virtual void    changeBack();
