@@ -5,7 +5,7 @@
 
 class DuiLabel;
 class DuiButton;
-class DuiLinearLayout;
+class DuiGridLayoutPolicy;
 
 class LanguageListItem : public DuiWidget
 {
@@ -13,7 +13,6 @@ class LanguageListItem : public DuiWidget
 
 public:
     LanguageListItem(const QString &text, 
-                     bool checked = false,
                      DuiWidget *parent = 0);
     ~LanguageListItem();
 
@@ -32,13 +31,14 @@ protected:
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
 private:
-    QString 	    m_labelText;
-    DuiLinearLayout *m_labelLayout;
-    DuiLabel	    *m_normalLabel;
-    DuiLabel        *m_highlightLabel;
-    DuiButton       *m_checkMark;
-    bool    	    m_checked;
-    bool            m_clicked;
+    QString 	            m_labelText;
+    DuiGridLayoutPolicy     *m_labelLayoutPolicy;
+    DuiLabel	            *m_normalLabel;
+    DuiButton               *m_checkMark;
+    bool    	            m_checked;
+    bool                    m_clicked;
+    bool                    m_first;
+
 signals:
     void            clicked();
 };
