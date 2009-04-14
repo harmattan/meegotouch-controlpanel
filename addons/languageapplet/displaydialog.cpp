@@ -19,10 +19,17 @@ DisplayDialog::DisplayDialog()
 DisplayDialog::~DisplayDialog()
 {
 }
+#include <QtDebug>
 void DisplayDialog::initWidget()
 {
+    QSizeF dialogSize = DuiDeviceProfile::instance()->resolution();
+    dialogSize.setHeight(dialogSize.height()-60);
+    this->setContentsMargins(20,0,20,0);
+    qDebug() << "XXX" << dialogSize;
+    this->setMinimumSize(dialogSize);
     DuiPannableViewport* viewport = new DuiPannableViewport(this);
     DisplayWidget *widget = new DisplayWidget();
+
     viewport->setWidget(widget);
     viewport->setObjectName("LanguageViewport");
     DuiLayout *mainLayout = new DuiLayout();
