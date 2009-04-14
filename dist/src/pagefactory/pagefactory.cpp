@@ -171,12 +171,8 @@ PageFactory::backFromApplet()
 {
      if (!sm_AppletLoader->applet())
         return true;
-     if (m_AppletWidget->referer() == -1)
-        return true;
      else
       {
-         qDebug() << "XXX applet referer is" << m_AppletWidget->referer();
-          changeAppletWidget(m_AppletWidget->referer());
-          return false;
+         return m_AppletWidget->back();
       };
 }

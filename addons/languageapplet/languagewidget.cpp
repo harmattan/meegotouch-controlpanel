@@ -16,7 +16,7 @@
 #include "displaydialog.h"
 
 LanguageWidget::LanguageWidget(QGraphicsWidget *parent)
-	    :DcpWidget(parent)
+	    :DcpWidget(parent), m_Dlg(0)
 {
     setReferer(DcpLanguage::NoReferer);
 	initWidget();
@@ -108,12 +108,24 @@ void LanguageWidget::initWidget()
 void LanguageWidget::displayPage()
 {
 //    emit changeWidget(DcpLanguage::Display);
-    DisplayDialog *dlg = new DisplayDialog();
-    dlg->exec();
+    m_Dlg = new DisplayDialog();
+    
+    m_Dlg->exec();
 
 }
 
 void LanguageWidget::keyboardPage()
 {
     emit changeWidget(DcpLanguage::Keyboard);
+}
+
+bool LanguageWidget::back()
+{
+    if (m_Dlg)
+        {
+            m_Dlg->done(0);
+            return false;
+        }
+    return DcpWidget::back();
+        
 }

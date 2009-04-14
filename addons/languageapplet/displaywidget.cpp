@@ -112,8 +112,3 @@ void DisplayWidget::initWidget()
                     new DcpSpacerItem(this, 10, 20, QSizePolicy::Fixed, QSizePolicy::Fixed),
                     2, Qt::AlignCenter);
 }
-
-void DisplayWidget::changeBack()
-{
-    emit clicked();
-}
