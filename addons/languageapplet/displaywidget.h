@@ -17,11 +17,12 @@ public:
     void paint(QPainter *painter,
                const QStyleOptionGraphicsItem *option,
                QWidget *widget = 0);
-    void resizeEvent(QGraphicsSceneResizeEvent *event);
 signals:
     void clicked();
 protected:
     void initWidget();
+    virtual void mousePressEvent ( QGraphicsSceneMouseEvent * event );
+    virtual void resizeEvent(QGraphicsSceneResizeEvent *event);
 
 private:
     const QPixmap   *m_background;

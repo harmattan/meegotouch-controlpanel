@@ -10,6 +10,7 @@ MainWindow::MainWindow():m_CurrentPage(NULL)
    connect(PageFactory::instance(), SIGNAL(changePage(DcpPage*)), 
         this, SLOT(appletChangePage(DcpPage*))); 
    Pages::Handle handle = {Pages::MAIN, ""};
+  // Pages::Handle handle = {Pages::APPLET, "Language"};
    changePage(handle);
 }
 
@@ -44,7 +45,7 @@ MainWindow::changePage(Pages::Handle handle)
         return;
 
     DcpPage* page = PageFactory::instance()->create(handle.id, handle.param);
-    qDebug() << "XXXX changePage" << (void*) page;
+    qDebug() << "XXXX changePage" << (void*) page; 
     connect (page, SIGNAL(openSubPage(Pages::Handle)), this,
         SLOT(changePage(Pages::Handle)));
     connect(page, SIGNAL(backButtonClicked()), this, SLOT(backClicked()));

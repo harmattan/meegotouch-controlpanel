@@ -18,6 +18,7 @@ DisplayDialog::~DisplayDialog()
 
 void DisplayDialog::initWidget()
 {
+    setObjectName("DcpDialog");
     DisplayWidget *widget = new DisplayWidget();
 
     DuiLayout *mainLayout = new DuiLayout();
@@ -31,7 +32,6 @@ void DisplayDialog::initWidget()
     // TODO onOrientationChange
     QSizeF dialogSize = DuiDeviceProfile::instance()->resolution();
     dialogSize.setHeight(dialogSize.height()-60);
-    this->setContentsMargins(15,20,15,20);
     this->setMinimumSize(dialogSize);
 }
 

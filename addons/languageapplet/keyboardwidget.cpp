@@ -8,6 +8,7 @@
 #include <duilinearlayoutpolicy.h>
 #include <duipannableviewport.h>
 #include "dcplanguage.h"
+#include <QGraphicsSceneMouseEvent>
 
 KeyboardWidget::KeyboardWidget(QGraphicsWidget *parent)
               :DcpWidget(parent)
@@ -28,12 +29,18 @@ void KeyboardWidget::paint(QPainter *painter,
                           const QStyleOptionGraphicsItem *option,
                           QWidget *widget)
 {
+    // TODO generalize this with own view?
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
+    painter->setBrush(QColor::fromRgb(0,0,0,128));
+    painter->drawRect(rect());
+
     if (m_background)
-    {  
-        painter->drawPixmap(0, 0, *m_background);
+    {
+        qreal left, top;
+        getContentsMargins(&left, &top, NULL, NULL);
+        painter->drawPixmap(left, top, *m_background);
     }
 }
 
@@ -43,8 +50,20 @@ void KeyboardWidget::resizeEvent(QGraphicsSceneResizeEvent *event)
 
     QSize size = this->size().toSize();
     static const int border = 30;
+    if (m_background) {
+        DuiTheme::releasePixmap(m_background);
+    }
+    qreal left, top, right, bottom;
+    getContentsMargins(&left, &top, &right, &bottom);
+    size.setWidth(size.width()-left-right);
+    size.setHeight(size.height()-top-bottom);
     m_background = DuiTheme::boxedPixmap("Mashup-container", size,
                                          border, border, border, border);
+}
+
+void KeyboardWidget::mousePressEvent ( QGraphicsSceneMouseEvent * event )
+{
+    event->accept();
 }
 
 void KeyboardWidget::initWidget()
@@ -105,4 +124,5 @@ void KeyboardWidget::initWidget()
     mainLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 10, 20, QSizePolicy::Expanding, QSizePolicy::Fixed),
                     2, Qt::AlignCenter);
+    setContentsMargins(15,20,15,20);
 }

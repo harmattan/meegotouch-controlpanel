@@ -15,6 +15,7 @@ DuiLabel#ComponentDescription {
     font: font("Nokia Sans Cn", 16px);
 }
 
+
 DcpBackgroundComponent {
 	normalBackgroundName: "Mashup-container";
 	backgroundBoxEdge: 30;

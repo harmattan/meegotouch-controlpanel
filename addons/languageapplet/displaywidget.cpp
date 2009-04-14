@@ -8,9 +8,10 @@
 #include <duilinearlayoutpolicy.h>
 #include "dcplanguage.h"
 #include <duipannableviewport.h>
+#include <QGraphicsSceneMouseEvent>
 
 DisplayWidget::DisplayWidget(QGraphicsWidget *parent)
-              :DcpWidget(parent)
+              :DcpWidget(parent), m_background(NULL)
 {
     setReferer(DcpLanguage::Main);
     initWidget();
@@ -28,26 +29,19 @@ void DisplayWidget::paint(QPainter *painter,
                           const QStyleOptionGraphicsItem *option,
                           QWidget *widget)
 {
+    // TODO generalize this with own view?
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
+    painter->setBrush(QColor::fromRgb(0,0,0,128));
+    painter->drawRect(rect());
+
     if (m_background)
     {  
-        painter->drawPixmap(0, 0, *m_background);
+        qreal left, top;
+        getContentsMargins(&left, &top, NULL, NULL);
+        painter->drawPixmap(left, top, *m_background);
     }
-#if 0
-    // draw line below the title
-    int borderWidth = 2;
-    QColor lineColor = QColor::fromRgb(0x80, 0x80, 0x80);
-    QPen pen = painter->pen();
-    pen.setColor(lineColor);
-    pen.setWidth(1);
-    painter->setPen(pen);
-
-    qreal y = m_titleLabel->y() + m_titleLabel->size().height();
-    painter->drawLine(borderWidth, y,
-                      geometry().size().width() - 2 * borderWidth, y);
-#endif
 }
 
 void DisplayWidget::resizeEvent(QGraphicsSceneResizeEvent *event)
@@ -56,8 +50,20 @@ void DisplayWidget::resizeEvent(QGraphicsSceneResizeEvent *event)
 
     QSize size = this->size().toSize();
     static const int border = 30;
+    if (m_background) {
+        DuiTheme::releasePixmap(m_background);
+    }
+    qreal left, top, right, bottom;
+    getContentsMargins(&left, &top, &right, &bottom);
+    size.setWidth(size.width()-left-right);
+    size.setHeight(size.height()-top-bottom);
     m_background = DuiTheme::boxedPixmap("Mashup-container", size,
                                          border, border, border, border);
+}
+
+void DisplayWidget::mousePressEvent ( QGraphicsSceneMouseEvent * event )
+{
+    event->accept();
 }
 
 void DisplayWidget::initWidget()
@@ -119,6 +125,7 @@ void DisplayWidget::initWidget()
     mainLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 10, 20, QSizePolicy::Expanding, QSizePolicy::Fixed),
                     2, Qt::AlignCenter);
+    setContentsMargins(15,20,15,20);
 }
 
 void DisplayWidget::changeBack()

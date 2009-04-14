@@ -110,8 +110,9 @@ void LanguageWidget::displayPage()
 {
 //    emit changeWidget(DcpLanguage::Display);
     DisplayDialog *dlg = new DisplayDialog();
+    this->setEnabled(false);
     dlg->exec();
-
+    this->setEnabled(true);
 }
 
 void LanguageWidget::keyboardPage()
