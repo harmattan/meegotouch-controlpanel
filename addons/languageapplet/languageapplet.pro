@@ -20,6 +20,7 @@ HEADERS       = languageapplet.h \
                 displaywidget.h \
                 displaydialog.h \
                 keyboardwidget.h \
+                keyboarddialog.h \
                 languagetranslation.h \
                 languagelistitem.h \
                 dcpspaceritem.h \
@@ -37,6 +38,7 @@ SOURCES       = languageapplet.cpp \
                 displaywidget.cpp \
                 displaydialog.cpp \
                 keyboardwidget.cpp \
+                keyboarddialog.cpp \
                 languagelistitem.cpp \
                 dcpspaceritem.cpp \
                 languageselectcontainer.cpp \

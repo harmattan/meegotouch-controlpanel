@@ -4,7 +4,6 @@
 #include "dcpwidget.h"
 
 class QPixmap;
-class DuiLabel;
 
 class KeyboardWidget : public DcpWidget
 {
@@ -24,6 +23,5 @@ protected:
 
 private:
     const QPixmap   *m_background;
-    DuiLabel        *m_titleLabel;
 };
 #endif //KEYBOARDWIDGET_H

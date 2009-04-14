@@ -96,6 +96,7 @@ void DisplayWidget::initWidget()
                     0, Qt::AlignLeft);
     DuiLabel* titleLabel = new DuiLabel("Select display language");
     titleLabel->setObjectName("DisplayLanguageTitleLabel");
+    titleLabel->setAcceptedMouseButtons(0);
     titleLayoutPolicy->addItemAtPosition(titleLabel, 1, Qt::AlignCenter);
     titleLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 5, 5, 

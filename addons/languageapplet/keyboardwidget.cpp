@@ -6,6 +6,7 @@
 #include <duilabel.h>
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
+#include <duipannableviewport.h>
 #include "dcplanguage.h"
 
 KeyboardWidget::KeyboardWidget(QGraphicsWidget *parent)
@@ -34,19 +35,6 @@ void KeyboardWidget::paint(QPainter *painter,
     {  
         painter->drawPixmap(0, 0, *m_background);
     }
-
-    // draw line below the title
-    int borderWidth = 2;
-    QColor lineColor = QColor::fromRgb(0x80, 0x80, 0x80);
-    QPen pen = painter->pen();
-    pen.setColor(lineColor);
-    pen.setWidth(1);
-    painter->setPen(pen);
-
-    qreal y = m_titleLabel->y() + m_titleLabel->size().height();
-    painter->drawLine(borderWidth, y,
-                      geometry().size().width() - 2 * borderWidth, y);
-
 }
 
 void KeyboardWidget::resizeEvent(QGraphicsSceneResizeEvent *event)
@@ -93,9 +81,10 @@ void KeyboardWidget::initWidget()
                     new DcpSpacerItem(this, 5, 5,
                             QSizePolicy::Expanding, QSizePolicy::Fixed),
                     0, Qt::AlignLeft);
-    m_titleLabel = new DuiLabel("Select keyboard languages");
-    m_titleLabel->setObjectName("DisplayLanguageTitleLabel");
-    titleLayoutPolicy->addItemAtPosition(m_titleLabel, 1, Qt::AlignCenter);
+    DuiLabel *titleLabel = new DuiLabel("Select keyboard languages");
+    titleLabel->setObjectName("DisplayLanguageTitleLabel");
+    titleLabel->setAcceptedMouseButtons(0);
+    titleLayoutPolicy->addItemAtPosition(titleLabel, 1, Qt::AlignCenter);
     titleLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 5, 5, 
                         QSizePolicy::Expanding, QSizePolicy::Fixed),
@@ -107,9 +96,13 @@ void KeyboardWidget::initWidget()
             new KeyboardSelectContainer("In-device language",
                                         languageList, this);
     connect(selectCont, SIGNAL(changeBackToMain()), this, SLOT(changeBack()));
-    mainLayoutPolicy->addItemAtPosition(selectCont, 1, Qt::AlignCenter);
+    DuiPannableViewport* viewport = new DuiPannableViewport(this);
+    viewport->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    viewport->setWidget(selectCont);
+    viewport->setObjectName("LanguageViewport");
+    mainLayoutPolicy->addItemAtPosition(viewport, 1, Qt::AlignCenter);
                                             
     mainLayoutPolicy->addItemAtPosition(
-                    new DcpSpacerItem(this, 10, 20, QSizePolicy::Fixed, QSizePolicy::Fixed),
+                    new DcpSpacerItem(this, 10, 20, QSizePolicy::Expanding, QSizePolicy::Fixed),
                     2, Qt::AlignCenter);
 }
