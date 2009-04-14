@@ -60,7 +60,7 @@ void KeyboardSelectContainer::initWidget()
     while (iterator.hasNext())
     {
         QString name = iterator.next();
-        m_listItemVector.append(new LanguageListItem(name, false, this));
+        m_listItemVector.append(new LanguageListItem(name, this));
     }
 
     for (int i = 0; i < m_listItemVector.size(); i++)

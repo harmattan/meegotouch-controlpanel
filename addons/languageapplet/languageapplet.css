@@ -56,12 +56,6 @@
 }
 
 #LanguageNormalListItem {
-        color: #FFFFFF;
-        font: font("Nokia Sans Cn", 16);
-}
-
-#LanguageHighlightListItem {
-        color: #E48415;
         font: font("Nokia Sans Cn", 16);
 }
 

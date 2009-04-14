@@ -3,9 +3,9 @@
 
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
-// #include <duilayout.h>
-// #include <duilinearlayoutpolicy.h>
-#include <duilinearlayout.h>
+#include <duilayout.h>
+#include <duigridlayoutpolicy.h>
+#include <duilinearlayoutpolicy.h>
 #include <duilabel.h>
 #include <duibutton.h>
 #include <qgraphicswidget.h>
@@ -13,12 +13,12 @@
 const int height = 60;
 
 LanguageListItem::LanguageListItem(const QString &text, 
-                                   bool checked,
                                    DuiWidget *parent)
                  :DuiWidget(parent), 
                   m_labelText(text), 
-                  m_checked(checked),
-                  m_clicked(false)
+                  m_checked(false),
+                  m_clicked(false),
+                  m_first(true)
 {
     initWidget();
 }
@@ -50,30 +50,33 @@ void LanguageListItem::paint(QPainter *painter,
 void LanguageListItem::resizeEvent(QGraphicsSceneResizeEvent *event)
 {
     Q_UNUSED(event);
-
-    // set height
-    setMinimumHeight(height);
-    setMaximumHeight(height);
-
-    // set width
-    int devide = 20;
-    setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
-    setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
 }
 
 void LanguageListItem::checked(bool ok)
 {
     m_checked = ok;
     if (m_checked) {
-        m_normalLabel->setVisible(false);
-        m_labelLayout->removeItem(m_normalLabel);
-        m_highlightLabel->setVisible(true);
+        m_normalLabel->setText("<font color=#e48415>" + m_labelText
+                               + "</font>");
+        if (m_first) 
+        {
+            // checkMark
+            m_checkMark = new DuiButton(this);
+            m_checkMark->setObjectName("LanguageCheckMark");
+            m_checkMark->setAcceptedMouseButtons(0);
+            m_checkMark->setMaximumWidth(32);
+            m_checkMark->setMaximumHeight(32);
+            m_labelLayoutPolicy->addItemAtPosition(m_checkMark, 0, 3);
+            m_first = false;
+        }
         m_checkMark->setVisible(true);
     } else {
-        m_normalLabel->setVisible(true);
-        m_labelLayout->insertItem(1, m_normalLabel);
-        m_highlightLabel->setVisible(false);
-        m_checkMark->setVisible(false);
+        m_normalLabel->setText("<font color=#ffffff>" + m_labelText
+                               + "</font>");
+        if (!m_first)
+        {
+            m_checkMark->setVisible(false);
+        }
     }
 }
 
@@ -94,73 +97,50 @@ bool LanguageListItem::isClicked()
 
 void LanguageListItem::initWidget()
 {
-    /* DuiLayout *mainLayout = new DuiLayout(this);
+    DuiLayout *mainLayout = new DuiLayout(this);
     DuiLinearLayoutPolicy *mainLayoutPolicy = 
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
     mainLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 5, 5, 
                             QSizePolicy::Fixed, QSizePolicy::Expanding),
-                    0, Qt::AlignCenter);*/
-
-    DuiLinearLayout *mainLayout = new DuiLinearLayout(Qt::Vertical, this);
-    mainLayout->addItem(new DcpSpacerItem(this, 5, 5, QSizePolicy::Fixed, QSizePolicy::Expanding));
+                    0, Qt::AlignCenter);
 
     // label
-    /* DuiLayout *labelLayout = new DuiLayout(NULL);
-    DuiLinearLayoutPolicy *labelLayoutPolicy = 
-            new DuiLinearLayoutPolicy(labelLayout, Qt::Horizontal);
-    labelLayout->setPolicy(labelLayoutPolicy);*/
-    m_labelLayout = new DuiLinearLayout(Qt::Horizontal, NULL);
+    DuiLayout *labelLayout = new DuiLayout(NULL);
+    m_labelLayoutPolicy = new DuiGridLayoutPolicy(labelLayout);
+    labelLayout->setPolicy(m_labelLayoutPolicy);
+    m_labelLayoutPolicy->addItemAtPosition(
+                    new DcpSpacerItem(this, 15, 10, QSizePolicy::Fixed, QSizePolicy::Fixed),
+                    0, 0);
     
     // normalLabel
-    m_normalLabel = new DuiLabel(m_labelText, this);
+    m_normalLabel = new DuiLabel("<font color=#ffffff>" + m_labelText + "</font>", this);
     m_normalLabel->setObjectName("LanguageNormalListItem");
     m_normalLabel->setAcceptedMouseButtons(0);
-    /* labelLayoutPolicy->addItemAtPosition(
-                    new DcpSpacerItem(this, 10, 10, QSizePolicy::Fixed, QSizePolicy::Fixed),
-                    0, Qt::AlignLeft | Qt::AlignVCenter);
-    labelLayoutPolicy->addItemAtPosition(m_normalLabel, 1, Qt::AlignLeft | Qt::AlignVCenter);*/
-    m_labelLayout->addItem(new DcpSpacerItem(this, 10, 10, QSizePolicy::Fixed, QSizePolicy::Fixed));
-    m_labelLayout->addItem(m_normalLabel);
+    m_normalLabel->setMinimumWidth(200);
+    m_labelLayoutPolicy->addItemAtPosition(m_normalLabel, 0, 1);
     
-    // highlightLabel
-    m_highlightLabel = new DuiLabel(m_labelText, this);
-    m_highlightLabel->setObjectName("LanguageHighlightListItem");
-    m_highlightLabel->setAcceptedMouseButtons(0);
-    /* labelLayoutPolicy->addItemAtPosition(m_highlightLabel, 0, Qt::AlignLeft | Qt::AlignVCenter);
-    mainLayoutPolicy->addItemAtPosition(labelLayout, 1, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(
-                    new DcpSpacerItem(this, 5, 5,
-                            QSizePolicy::Fixed, QSizePolicy::Expanding),
-                    2, Qt::AlignCenter);*/
-    m_labelLayout->addItem(m_highlightLabel);
-    m_labelLayout->setAlignment(m_highlightLabel, Qt::AlignLeft | Qt::AlignVCenter);
-    m_labelLayout->addItem(new DcpSpacerItem(this, 200, 5, QSizePolicy::Expanding, QSizePolicy::Fixed));
+    m_labelLayoutPolicy->addItemAtPosition(
+                    new DcpSpacerItem(this, 130, 5, QSizePolicy::Expanding, QSizePolicy::Fixed),
+                    0, 2);
 
     // checkMark
-    m_checkMark = new DuiButton(this);
-    m_checkMark->setObjectName("LanguageCheckMark");
-    m_checkMark->setAcceptedMouseButtons(0);
-    m_checkMark->setMaximumWidth(32);
-    m_checkMark->setMaximumHeight(32);
-    m_labelLayout->addItem(m_checkMark);
-    m_labelLayout->setAlignment(m_checkMark, Qt::AlignRight | Qt::AlignVCenter);
+    m_checkMark = NULL;
     
-    mainLayout->addItem(m_labelLayout);
-    mainLayout->addItem(new DcpSpacerItem(this, 5, 5,
-                            QSizePolicy::Fixed, QSizePolicy::Expanding));
+    mainLayoutPolicy->addItemAtPosition(labelLayout, 1, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(new DcpSpacerItem(this, 5, 5,
+                                  QSizePolicy::Fixed, QSizePolicy::Expanding),
+                                  2, Qt::AlignCenter);
 
-    if (m_checked) {
-        m_normalLabel->setVisible(false);
-        m_labelLayout->removeItem(m_normalLabel);
-        m_highlightLabel->setVisible(true);
-        m_checkMark->setVisible(true);
-    } else {
-        m_normalLabel->setVisible(true);
-        m_highlightLabel->setVisible(false);
-        m_checkMark->setVisible(false);
-    }
+    // set height
+    setMinimumHeight(height);
+    setMaximumHeight(height);
+
+    // set width
+    int devide = 20;
+    setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+    setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
 }
 
 void LanguageListItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
