@@ -3,6 +3,7 @@
 #include "dcppage.h"
 #include <duideviceprofile.h>
 #include <QtDebug>
+#include <duinavigationbar.h>
 
 MainWindow::MainWindow()
 {
@@ -23,6 +24,12 @@ void MainWindow::homeClicked()
 void MainWindow::backClicked()
 {
     PageFactory::instance()->back();
+
+    /* overrides dui behaviour that it changes to close when switching
+       inside a page TODO remove */
+    if (PageFactory::instance()->currentPage()->handle().id == Pages::APPLET) {
+        navigationBar()->showBackButton();
+    }
 }
 
 MainWindow::~MainWindow()
@@ -36,8 +43,7 @@ MainWindow::changePage(Pages::Handle handle)
     connect (page, SIGNAL(openSubPage(Pages::Handle)), this,
         SLOT(changePage(Pages::Handle)));
     connect(page, SIGNAL(backButtonClicked()), this, SLOT(backClicked()));
-    page->appearNow(DuiSceneWindow::DestroyWhenDone); //TODO
-
+    page->appear(DuiSceneWindow::DestroyWhenDone); //TODO
 }
 
 

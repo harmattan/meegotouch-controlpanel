@@ -3,7 +3,7 @@
 
 #include <DuiButton>
 class DuiLabel;
-class QPixmap;
+// class QPixmap;
 
 class LanguageButton : public DuiButton 
 {
@@ -32,6 +32,6 @@ private:
     QString m_downText;
     DuiLabel *m_upLabel;
     DuiLabel *m_downLabel;
-    const QPixmap *m_Background;
+    // const QPixmap *m_Background;
 };
 #endif

@@ -127,6 +127,5 @@ PageFactory::createAppletCategoryPage(const QString& appletCategory)
 void
 PageFactory::back()
 {
-   m_CurrentPage->back();
-        
+   m_CurrentPage->back(); 
 };
