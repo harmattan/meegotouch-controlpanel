@@ -14,7 +14,8 @@ LanguageButton::LanguageButton(QString upText,
                                DuiWidget *parent)
                :DuiButton(parent),
                 m_upText(upText),
-                m_downText(downText)
+                m_downText(downText),
+		m_Background(NULL)
 {
         DuiTheme::loadCSS(cssDir + "languageapplet.css");
         initWidget();
@@ -49,6 +50,10 @@ void LanguageButton::resizeEvent(QGraphicsSceneResizeEvent *event)
 
     QSize size = this->size().toSize();
     static const int border = 10;
+    if (m_Background)
+    {
+        DuiTheme::releasePixmap(m_Background);
+    }
     m_Background = DuiTheme::boxedPixmap("C2-container", size,
                                          border, border, border, border);
 }

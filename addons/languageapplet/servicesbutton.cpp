@@ -11,7 +11,7 @@
 const int height = 80;
 
 ServicesButton::ServicesButton(DuiWidget *parent, const QString &title)
-               :DuiButton(parent)
+               :DuiButton(parent), m_background(NULL)
 {
     m_mainLayout = new DuiLayout(this);
     DuiLinearLayoutPolicy *landscapeLayout = 
@@ -67,6 +67,10 @@ void ServicesButton::resizeEvent(QGraphicsSceneResizeEvent *event)
 {
     QSize size = event->newSize().toSize();
     static const int border = 10;
+    if (m_background)
+    {
+        DuiTheme::releasePixmap(m_background);
+    }
     m_background = DuiTheme::boxedPixmap("C2-container", size,
                                          border, border, border, border);
 }

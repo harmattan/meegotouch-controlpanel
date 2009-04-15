@@ -45,6 +45,73 @@ DcpLabel2ImageComponent::~DcpLabel2ImageComponent()
 void DcpLabel2ImageComponent::createContents()
 {
 
+		initColumn(0, 0, 0, 0, 0);
+
+    m_BigButton = newButton(m_Width, m_Height, CSS_BIGBUTTON);
+    m_UpLabel = newLabel(m_Height/2, m_UpLabelText, CSS_UPLABEL, Qt::AlignLeft|Qt::AlignBottom);
+    m_TriangleButton = newButton(m_TriangleSize, CSS_TRIANGLEBUTTON);
+		m_TriangleButton->translate(0, -10); // TODO please remove me
+
+//BACK    m_SpacerButton = newButton(5, m_Height*0.8f, CSS_SPACERBUTTON);
+ 
+    m_Image =  newImage(metadata()->image(), m_ImageSize, 2);
+
+    m_DownLabel = newLabel(m_Height/2, m_DownLabelText, CSS_DOWNLABEL, Qt::AlignLeft|Qt::AlignTop);
+
+    initRow2(m_Height/2);
+
+    if (m_Alignment==Qt::AlignLeft)
+        initLeft();
+    else
+        initRight();
+
+
+    connect(m_BigButton, SIGNAL(clicked()), this, SLOT(bigClicked()));
+
+    initLayout();
+}
+
+
+void DcpLabel2ImageComponent::initRight()
+{
+
+    initColumn(m_SmallWidth, 0, 0, 0, 0);
+    initRow2(m_Height/2);
+
+    m_WidgetLayoutPolicy->addItemAtPosition(m_BigButton, 0, 0, 2, 4, Qt::AlignLeft);
+
+    m_WidgetLayoutPolicy->addItemAtPosition(m_TriangleButton, 0, 1, 1, 1, Qt::AlignBottom);
+
+    m_WidgetLayoutPolicy->addItemAtPosition(m_UpLabel, 0, 2, 1, 1, Qt::AlignVCenter);
+    m_WidgetLayoutPolicy->addItemAtPosition(m_DownLabel, 1, 1, 1, 2, Qt::AlignVCenter);
+
+    m_WidgetLayoutPolicy->addItemAtPosition(m_Image, 0, 3, 2, 1, Qt::AlignVCenter|Qt::AlignRight);
+
+}
+
+
+void DcpLabel2ImageComponent::initLeft()
+{
+
+    initColumn(m_SmallWidth, m_SmallWidth, 0, 0, 0);
+
+    initRow2(m_Height/2);
+
+    m_WidgetLayoutPolicy->addItemAtPosition(m_BigButton, 0, 0, 2, 4);
+
+    m_WidgetLayoutPolicy->addItemAtPosition(m_TriangleButton, 0, 2, 1, 1, Qt::AlignBottom);
+
+    m_WidgetLayoutPolicy->addItemAtPosition(m_UpLabel, 0, 3, 1, 1, Qt::AlignVCenter);
+    m_WidgetLayoutPolicy->addItemAtPosition(m_DownLabel, 1, 2, 1, 2, Qt::AlignVCenter);
+
+    m_WidgetLayoutPolicy->addItemAtPosition(m_Image, 0, 1, 2, 1, Qt::AlignVCenter|Qt::AlignRight);
+
+}
+
+/*
+void DcpLabel2ImageComponent::createContents()
+{
+
     m_BigButton = newButton(m_Width, m_Height, CSS_BIGBUTTON);
     m_UpLabel = newLabel(m_Height/2, m_UpLabelText, CSS_UPLABEL, Qt::AlignLeft|Qt::AlignBottom);
     m_TriangleButton = newButton(m_TriangleSize, CSS_TRIANGLEBUTTON);
@@ -134,3 +201,4 @@ void DcpLabel2ImageComponent::initLeft()
     
     m_WidgetLayoutPolicy->addItemAtPosition(m_DownLabel, 1, 3, 1, 2, Qt::AlignVCenter);
 }
+*/
