@@ -11,7 +11,7 @@
 #include <QGraphicsSceneMouseEvent>
 
 KeyboardWidget::KeyboardWidget(QGraphicsWidget *parent)
-              :DcpWidget(parent)
+              :DcpWidget(parent), m_background(NULL)
 {
     setReferer(DcpLanguage::Main);
     initWidget();

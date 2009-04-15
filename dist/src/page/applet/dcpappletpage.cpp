@@ -52,7 +52,6 @@ void DcpAppletPage::back()
 {
     if (m_MainWidget->back())
         DcpPage::back();
-    
 }
 
 void 
@@ -63,7 +62,7 @@ DcpAppletPage::changeWidget(int widgetId)
     setCentralWidget(m_MainWidget);
   
     setTitle(m_AppletLoader->applet()->title());
-    this->setContentsMargins(12.0, 12.0, 12.0, 18.0);
+    this->setContentsMargins(120.0, 12.0, 12.0, 18.0);
 
     m_MainWidget->setMaximumWidth(DuiDeviceProfile::instance()->width() - 30);
     m_MainWidget->setMinimumWidth(DuiDeviceProfile::instance()->width() - 30);
