@@ -12,6 +12,11 @@
         pressedBackground: "Toggle-btn-selected";
 }
 
+#RegionFormatButton {
+        view: DuiButtonView;
+        font: font("Nokia Sans Cn", 18);
+}
+
 #ServicesButtonLabel {
         color: #FFFFFF;
         font: font("Nokia Sans Cn", 20);
@@ -33,7 +38,7 @@
 
 #LanguageSimpleText {
         color: #FFFFFF;
-        font: font("Nokia Sans Cn", 16);
+        font: font("Nokia Sans Cn", 18);
 }
 
 #ServicesContainerCaption {

@@ -2,6 +2,7 @@
 #include "languagebutton.h"
 #include "servicescontainer.h"
 #include "languagetranslation.h"
+#include "dcpspaceritem.h"
 
 #include <QPen>
 #include <duideviceprofile.h>
@@ -61,7 +62,7 @@ void LanguageWidget::initWidget()
     connect(m_keyboardButton, SIGNAL(clicked()),
             this, SLOT(keyboardPage()));
 
-    ServicesContainer *servicesContainer = new ServicesContainer(this);
+    // ServicesContainer *servicesContainer = new ServicesContainer(this);
 
     DuiLabel *simpleText = new DuiLabel(DcpLanguage::SetLanguageText, 
                     this);
@@ -70,18 +71,13 @@ void LanguageWidget::initWidget()
     simpleText->setMaximumHeight(60);
 
     DuiButton *regionFormatButton = new DuiButton(DcpLanguage::RegionButtonTitle, this);
-    regionFormatButton->setMaximumWidth(270);
+    regionFormatButton->setObjectName("RegionFormatButton");
+    regionFormatButton->setMaximumWidth(380);
     regionFormatButton->setMaximumHeight(60);
     regionFormatButton->setMinimumHeight(60);
 
-    // SpacerItem
-    DuiWidget *spacerItem = new DuiWidget(this);
-    spacerItem->setMinimumHeight(20);
-    spacerItem->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-
     // Layout
     DuiLayout *mainLayout = new DuiLayout(this);
-    // mainLayout->setAnimator(0);
 	DuiLinearLayoutPolicy *mainLayoutPolicy = 
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
@@ -92,10 +88,15 @@ void LanguageWidget::initWidget()
     // Add widgets
     mainLayoutPolicy->addItemAtPosition(m_displayButton, 0, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(m_keyboardButton, 1, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(servicesContainer, 2, Qt::AlignCenter);
+    // mainLayoutPolicy->addItemAtPosition(servicesContainer, 2, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(
+                    new DcpSpacerItem(this, 10, 30, QSizePolicy::Expanding, QSizePolicy::Fixed),
+                    2, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(simpleText, 3, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(regionFormatButton, 4, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(spacerItem, 5, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(
+                    new DcpSpacerItem(this, 10, 20, QSizePolicy::Expanding, QSizePolicy::Fixed), 
+                    5, Qt::AlignCenter);
 }
 
 void LanguageWidget::displayPage()

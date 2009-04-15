@@ -14,8 +14,8 @@ LanguageButton::LanguageButton(QString upText,
                                DuiWidget *parent)
                :DuiButton(parent),
                 m_upText(upText),
-                m_downText(downText),
-		m_Background(NULL)
+                m_downText(downText)
+		        // m_Background(NULL)
 {
         DuiTheme::loadCSS(cssDir + "languageapplet.css");
         initWidget();
@@ -23,10 +23,10 @@ LanguageButton::LanguageButton(QString upText,
 
 LanguageButton::~LanguageButton()
 {
-    if (m_Background)
+    /* if (m_Background)
     {
         DuiTheme::releasePixmap(m_Background);
-    }
+    }*/
 }
 
 void LanguageButton::paint(QPainter *painter,
@@ -38,24 +38,35 @@ void LanguageButton::paint(QPainter *painter,
     Q_UNUSED(widget);
 
     // if available, then draw it:
-    if (m_Background) 
+    /* if (m_Background) 
     {
         painter->drawPixmap(0, 0, *m_Background);
-    }                
+    }*/
+
+    int borderWidth = 2;
+    QColor lineColor = QColor(130, 130, 130, 244);
+    QPen pen = painter->pen();
+    pen.setWidth(1);
+    pen.setColor(lineColor);
+    painter->setPen(pen);
+
+    qreal y = size().height();
+    painter->drawLine(borderWidth, y,
+                      geometry().size().width() - 2 * borderWidth, y);
 }
 
 void LanguageButton::resizeEvent(QGraphicsSceneResizeEvent *event)
 {
     Q_UNUSED(event);
 
-    QSize size = this->size().toSize();
+    /* QSize size = this->size().toSize();
     static const int border = 10;
     if (m_Background)
     {
         DuiTheme::releasePixmap(m_Background);
     }
     m_Background = DuiTheme::boxedPixmap("C2-container", size,
-                                         border, border, border, border);
+                                         border, border, border, border);*/
 }
 
 void LanguageButton::setUpText(const QString &text)
