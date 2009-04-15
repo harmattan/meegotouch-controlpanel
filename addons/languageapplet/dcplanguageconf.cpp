@@ -16,7 +16,7 @@ DcpLanguageConf::DcpLanguageConf() : DuiConf()
 //    addDir(DCPLANGUAGECONFDIR);
     m_DisplayLanguage = "English GB";
     addKeyboardLanguage(m_DisplayLanguage);
-
+    addKeyboardLanguage("Suomi");
 }
 
 DcpLanguageConf::~DcpLanguageConf()

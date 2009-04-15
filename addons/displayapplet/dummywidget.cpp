@@ -2,7 +2,8 @@
 #include "dcpdisplay.h"
 
 #include <duitheme.h>
-#include <duilinearlayout.h>
+#include <duilayout.h>
+#include <duilinearlayoutpolicy.h>
 #include <duilabel.h>
 #include <duibutton.h>
 const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/";
@@ -39,8 +40,10 @@ void DummyWidget::paint(QPainter *painter,
 
 void DummyWidget::initWidget()
 {
-    DuiLinearLayout *mainLayout = new DuiLinearLayout(Qt::Vertical, this);
-    mainLayout->addItem(m_Label);
-
-    mainLayout->setAlignment(m_Label, Qt::AlignCenter);
+    DuiLayout *mainLayout = new DuiLayout(this);
+    DuiLinearLayoutPolicy *mainLayoutPolicy =
+            new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
+    mainLayout->setPolicy(mainLayoutPolicy);
+    mainLayoutPolicy->addItemAtPosition(m_Label, 0, Qt::AlignCenter);
+    this->setLayout(mainLayout);
 }
