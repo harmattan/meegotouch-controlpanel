@@ -22,8 +22,7 @@ void MainWindow::homeClicked()
 
 void MainWindow::backClicked()
 {
-    PageFactory::instance()->currentPage()->back();
-    currentPage()->setBackButtonEnabled(!PageFactory::instance()->isCloseable());
+    PageFactory::instance()->back();
 }
 
 MainWindow::~MainWindow()

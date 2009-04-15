@@ -10,6 +10,7 @@ DcpPage::DcpPage() : DuiApplicationPage()
                             (DuiDeviceProfile::DeviceOrientationAngle)),
             this, SLOT(onOrientationAngleChanged()));
     qDebug() << "XXX page alloc";
+    setBackButtonEnabled(true);
 }
 
 DcpPage::~DcpPage() 

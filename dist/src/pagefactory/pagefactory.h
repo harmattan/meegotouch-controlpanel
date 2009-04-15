@@ -15,7 +15,7 @@ public:
     static DcpPage* page(DuiApplicationPage *page);
     DcpPage* create (Pages::Handle &handle);
     DcpPage* currentPage(){return m_CurrentPage;}
-    bool isCloseable();
+    void back();
 protected:
     PageFactory();
     DcpPage* createMainPage();	

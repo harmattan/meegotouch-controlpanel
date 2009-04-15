@@ -124,8 +124,9 @@ PageFactory::createAppletCategoryPage(const QString& appletCategory)
 }
 
 
-bool 
-PageFactory::isCloseable()
+void
+PageFactory::back()
 {
-   return m_CurrentPage->handle().id == Pages::MAIN;
+   m_CurrentPage->back();
+        
 };
