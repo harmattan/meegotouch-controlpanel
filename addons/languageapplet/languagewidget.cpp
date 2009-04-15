@@ -107,6 +107,7 @@ void LanguageWidget::displayPage()
     this->updateLanguageButtons();        
     this->setEnabled(true);
     m_Dlg->deleteLater();
+    m_Dlg=NULL;
 }
 
 void LanguageWidget::keyboardPage()
@@ -117,6 +118,7 @@ void LanguageWidget::keyboardPage()
     this->updateLanguageButtons();
     this->setEnabled(true);
     m_Dlg->deleteLater();
+    m_Dlg=NULL;
 }
 
 bool LanguageWidget::back()
