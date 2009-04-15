@@ -7,7 +7,7 @@
 #include <duilinearlayoutpolicy.h>
 
 GroupTitleWidget::GroupTitleWidget(const QString &text, DuiWidget *parent)
-                 :DuiWidget(parent)
+                 :DuiWidget(parent), m_background(NULL)
 {
     // mainLayout
     DuiLayout *mainLayout = new DuiLayout(this);
@@ -50,6 +50,10 @@ void GroupTitleWidget::resizeEvent(QGraphicsSceneResizeEvent *event)
 
     QSize size = this->size().toSize();
     static const int border = 10;
+    if (m_background)
+    {
+        DuiTheme::releasePixmap(m_background);
+    }
     m_background = DuiTheme::boxedPixmap("Divider-with-label", size,
                                          border, border, border, border);
 }
