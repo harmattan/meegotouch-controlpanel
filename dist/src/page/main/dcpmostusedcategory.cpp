@@ -21,9 +21,9 @@
 DcpMostUsedCategory::DcpMostUsedCategory(const QString& title, QGraphicsWidget *parent) :
   DcpMainCategory(title, parent)
 {
-  createContents();
+  	createContents();
 
-    m_LandscapeLayout->setColumnSpacing(0, 110); //dummy
+    //m_LandscapeLayout->setColumnSpacing(0, 0); //dummy
 
     setContentsMargins(0, 10, 0, 10);
 
@@ -81,8 +81,7 @@ void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata)
     if (component) {
         qDebug() << "DCP: connecting to " << metadata->name();
         component->setSubPage(Pages::APPLETFROMMOSTUSED, metadata->name());
-        connect(component, SIGNAL(openSubPage(Pages::Handle)),                  
-                this, SIGNAL(openSubPage(Pages::Handle)));
+        connect(component, SIGNAL(openSubPage(Pages::Handle)), this, SIGNAL(openSubPage(Pages::Handle)));
         append(component);
     }
 }

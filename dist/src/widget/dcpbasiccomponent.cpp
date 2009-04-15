@@ -272,4 +272,5 @@ void DcpBasicComponent::bigClicked()
         m_BigButton->setDown(true);
     else
       switchToSubPage();
+
 }

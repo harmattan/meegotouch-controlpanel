@@ -44,7 +44,6 @@ DcpLabel2ImageComponent::~DcpLabel2ImageComponent()
 
 void DcpLabel2ImageComponent::createContents()
 {
-
 		initColumn(0, 0, 0, 0, 0);
 
     m_BigButton = newButton(m_Width, m_Height, CSS_BIGBUTTON);

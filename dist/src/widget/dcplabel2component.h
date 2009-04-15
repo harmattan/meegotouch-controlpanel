@@ -8,6 +8,7 @@ class DuiButton;
 class DuiLinearLayout;
 class DuiGridLayout;
 class DcpAppletMetadata;
+class DcpButton;
 
 class DcpLabel2Component: public DcpBasicComponent
 {
@@ -21,9 +22,9 @@ public:
 
     virtual void createContents();
 
-    protected:
-
-        DuiLabel* m_DownLabel;
+protected:
+//		DuiLabel* m_DownLabel;
+		DcpButton *m_Button;
 
 };
 
