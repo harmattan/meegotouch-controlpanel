@@ -13,8 +13,15 @@ DcpButton::DcpButton(const QString &title, DuiWidget *parent, const QString &typ
 
 		connect(m_View, SIGNAL(clicked()), this, SIGNAL(clicked()));
 
+		setMinimumWidth(m_View->width());
     setMaximumWidth(m_View->width());
+
+		setMinimumHeight(m_View->height());
     setMaximumHeight(m_View->height());
+
+		qDebug() << m_View->width() << "     " << m_View->height();
+
+Q_ASSERT(0);
 }
 
 void DcpButton::setText(const QString& text1, const QString& text2)
