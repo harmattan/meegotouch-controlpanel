@@ -21,6 +21,8 @@ public:
                QWidget *widget = 0);
 
     void resizeEvent(QGraphicsSceneResizeEvent *event);
+    void setUpText(const QString &text);
+    void setDownText(const QString &text);
     
 protected:
     void initWidget();

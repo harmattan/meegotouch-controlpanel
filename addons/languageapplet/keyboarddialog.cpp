@@ -25,7 +25,6 @@ void KeyboardDialog::initWidget()
     mainLayout->setPolicy(mainLayoutPolicy);
     mainLayoutPolicy->addItemAtPosition(widget, 0, Qt::AlignCenter);
     setLayout(mainLayout);
-    connect(widget, SIGNAL(clicked()), this, SLOT(accept()));
 
     // TODO onOrientationChange
     QSizeF dialogSize = DuiDeviceProfile::instance()->resolution();

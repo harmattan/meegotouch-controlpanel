@@ -53,6 +53,16 @@ void LanguageButton::resizeEvent(QGraphicsSceneResizeEvent *event)
                                          border, border, border, border);
 }
 
+void LanguageButton::setUpText(const QString &text)
+{
+    m_upLabel->setText(text);
+}
+
+void LanguageButton::setDownText(const QString &text)
+{
+    m_downLabel->setText(text);
+}
+
 void LanguageButton::initWidget()
 {
     // mainLayout

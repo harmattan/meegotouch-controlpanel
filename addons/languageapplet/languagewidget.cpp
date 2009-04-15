@@ -34,14 +34,6 @@ void LanguageWidget::paint(QPainter *painter,
     Q_UNUSED(painter);
 	Q_UNUSED(option);
 	Q_UNUSED(widget);
-    
-    /* QPen pen(QColor(120, 120, 120, 240));
-    QBrush brush(QColor(20, 20, 20, 240));
-    painter->setPen(pen);
-    painter->setBrush(brush);
-    painter->drawRect(QRectF(0.0, 0.0,
-                            size().width(),
-                            size().height()));*/
 }
 
 void LanguageWidget::resizeEvent(QGraphicsSceneResizeEvent *event)
@@ -111,6 +103,7 @@ void LanguageWidget::displayPage()
     m_Dlg = new DisplayDialog();
     this->setEnabled(false);
     m_Dlg->exec();
+    this->updateLanguageButtons();        
     this->setEnabled(true);
     m_Dlg->deleteLater();
 }
@@ -120,6 +113,7 @@ void LanguageWidget::keyboardPage()
     m_Dlg = new KeyboardDialog();
     this->setEnabled(false);
     m_Dlg->exec();
+    this->updateLanguageButtons();
     this->setEnabled(true);
     m_Dlg->deleteLater();
 }
@@ -132,5 +126,14 @@ bool LanguageWidget::back()
             return false;
         }
     return DcpWidget::back();
-        
+}
+
+void LanguageWidget::updateLanguageButtons()
+{
+   m_displayButton->setDownText(DcpLanguageConf::instance()->displayLanguage());
+   m_keyboardButton->setUpText(DcpLanguage::KeyboardButtonTitle +
+                               " (" +  
+                               QString::number(DcpLanguageConf::instance()->keyboardLanguagesNumber())
+                                + ")");
+   m_keyboardButton->setDownText(DcpLanguageConf::instance()->keyboardLanguagesAsText());
 }
