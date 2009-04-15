@@ -41,8 +41,8 @@ void LanguageWidget::resizeEvent(QGraphicsSceneResizeEvent *event)
 {
     Q_UNUSED(event);
 
-    m_displayButton->setMinimumWidth(size().width() - 20);
-    m_keyboardButton->setMinimumWidth(size().width() - 20);
+    m_displayButton->setMinimumWidth(size().width());
+    m_keyboardButton->setMinimumWidth(size().width());
 }
 
 void LanguageWidget::initWidget()
@@ -83,7 +83,6 @@ void LanguageWidget::initWidget()
     mainLayout->setPolicy(mainLayoutPolicy);
     
     mainLayoutPolicy->setSpacing(15);
-    mainLayoutPolicy->setContentsMargins(12.0, 20.0, 12.0, 20.0);
 
     // Add widgets
     mainLayoutPolicy->addItemAtPosition(m_displayButton, 0, Qt::AlignCenter);
