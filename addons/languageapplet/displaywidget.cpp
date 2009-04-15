@@ -115,7 +115,7 @@ void DisplayWidget::initWidget()
     LanguageSelectContainer *selectCont = 
             new LanguageSelectContainer("In-device language",
                                         languageList, this);
-    connect(selectCont, SIGNAL(changeBackToMain()), this, SLOT(changeBack()));
+    connect(selectCont, SIGNAL(changeBackToMain()), this, SIGNAL(clicked()));
     DuiPannableViewport* viewport = new DuiPannableViewport(this);
     viewport->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     viewport->setWidget(selectCont);

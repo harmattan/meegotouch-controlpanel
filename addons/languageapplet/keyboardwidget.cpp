@@ -115,7 +115,6 @@ void KeyboardWidget::initWidget()
     KeyboardSelectContainer *selectCont = 
             new KeyboardSelectContainer("In-device language",
                                         languageList, this);
-    connect(selectCont, SIGNAL(changeBackToMain()), this, SLOT(changeBack()));
     DuiPannableViewport* viewport = new DuiPannableViewport(this);
     viewport->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     viewport->setWidget(selectCont);

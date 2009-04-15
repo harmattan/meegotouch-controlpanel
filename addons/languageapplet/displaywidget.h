@@ -17,8 +17,10 @@ public:
     void paint(QPainter *painter,
                const QStyleOptionGraphicsItem *option,
                QWidget *widget = 0);
+
 signals:
     void clicked();
+
 protected:
     void initWidget();
     virtual void mousePressEvent ( QGraphicsSceneMouseEvent * event );
@@ -27,6 +29,5 @@ protected:
 private:
     const QPixmap   *m_background;
     DuiLabel        *m_titleLabel;
-
 };
 #endif //DISPLAYWIDGET_H

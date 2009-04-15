@@ -20,6 +20,7 @@ public:
     virtual bool back();
 protected:
 	void initWidget();
+    void updateLanguageButtons();
 
 private:
     LanguageButton *m_displayButton;
