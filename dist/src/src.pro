@@ -26,5 +26,8 @@ target.path += $${PREFIX}/bin
 
 message("The install path for the executable will be: "$$target.path)
 
-INSTALLS += target
+desktop_entry.path = $${PREFIX}/share/applications/dui
+desktop_entry.files = duicontrolpanel.desktop
 
+INSTALLS += target \
+            desktop_entry
