@@ -44,8 +44,7 @@ void DcpLabel2ButtonComponent::createContents()
 
     m_UpLabel = newLabel(m_Height/2, upLabel, CSS_UPLABEL, Qt::AlignLeft|Qt::AlignBottom);
     m_TriangleButton = newButton(m_TriangleSize, CSS_TRIANGLEBUTTON);
-    m_TriangleButton->translate(0, -10); // TODO please remove me
-
+ 
     m_DownLabel = newLabel(m_Height/2, downLabel, CSS_DOWNLABEL, Qt::AlignLeft|Qt::AlignTop);
 
 
@@ -57,6 +56,13 @@ void DcpLabel2ButtonComponent::createContents()
     m_SmallButtonOff = newButton(imageSize, CSS_SMALBUTTONOFF);
 
     m_DisableButton = newButton(imageSize, CSS_SMALLBUTTONDISBLE);
+
+
+		m_TriangleButton->translate(5, -5); // TODO please remove me
+		m_UpLabel->translate(5, 5);
+		m_DownLabel->translate(5, -5);
+
+		m_SmallButtonOn->translate(70, 0);
 
 
     initColumn(m_SmallWidth, 0, 0, 0, 0);
