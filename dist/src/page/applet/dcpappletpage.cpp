@@ -11,6 +11,7 @@ DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
     DcpPage(), m_Metadata(metadata)
 {
     setHandle(Pages::APPLET);
+    m_MainWidget = NULL;
 }
 
 DcpAppletPage::~DcpAppletPage()
@@ -50,9 +51,12 @@ DcpAppletPage::loadApplet()
 
 void DcpAppletPage::back()
 {
-    if (m_MainWidget->back()) {
+    if (!m_MainWidget)
         DcpPage::back();
-    }
+    else
+    if (m_MainWidget->back())
+        DcpPage::back();
+    
 }
 
 void 
