@@ -21,30 +21,18 @@ DcpAppletPage::~DcpAppletPage()
 void DcpAppletPage::createContent()
 {
     DcpPage::createContent();
-    QString title;
-    DuiWidget *widget;
-     if (loadApplet())
+    if (loadApplet())
        {
-          m_MainWidget = m_AppletLoader->applet()->constructWidget(0);
-          widget = m_MainWidget;
-          title = m_AppletLoader->applet()->title();
+          changeWidget(0);
        }
      else
       {
           DuiLabel *missingLabel = new DuiLabel(trid("dcp_no_applet_name",
                                      "Plugin not available"));
           missingLabel->setAlignment(Qt::AlignCenter);
-          widget = missingLabel;
-          title = trid("dcp_no_applet_title", "Missing plugin");
+          setCentralWidget(missingLabel);
+          setTitle(trid("dcp_no_applet_title", "Missing plugin"));
       }
-    setTitle(title);
-    append(widget);
-  
-    this->setContentsMargins(12.0, 12.0, 12.0, 18.0);
-
-    m_MainWidget->setMaximumWidth(DuiDeviceProfile::instance()->width() - 30);
-    m_MainWidget->setMinimumWidth(DuiDeviceProfile::instance()->width() - 30);
-    m_MainWidget->setMinimumHeight(DuiDeviceProfile::instance()->height() - 100);
 }
 
 bool 
@@ -65,4 +53,20 @@ void DcpAppletPage::back()
     if (m_MainWidget->back())
         DcpPage::back();
     
-} 
+}
+
+void 
+DcpAppletPage::changeWidget(int widgetId)
+{
+    m_MainWidget = m_AppletLoader->applet()->constructWidget(widgetId);
+    connect(m_MainWidget, SIGNAL(changeWidget(int)), this, SLOT(changeWidget(int)));
+    setCentralWidget(m_MainWidget);
+  
+    setTitle(m_AppletLoader->applet()->title());
+    this->setContentsMargins(12.0, 12.0, 12.0, 18.0);
+
+    m_MainWidget->setMaximumWidth(DuiDeviceProfile::instance()->width() - 30);
+    m_MainWidget->setMinimumWidth(DuiDeviceProfile::instance()->width() - 30);
+    m_MainWidget->setMinimumHeight(DuiDeviceProfile::instance()->height() - 100);
+
+}

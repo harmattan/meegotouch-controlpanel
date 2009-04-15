@@ -4,7 +4,6 @@
 #include "dcpwidget.h"
 
 class QPixmap;
-class DuiLabel;
 
 class KeyboardWidget : public DcpWidget
 {
@@ -17,13 +16,13 @@ public:
     void paint(QPainter *painter,
                const QStyleOptionGraphicsItem *option,
                QWidget *widget = 0);
-    void resizeEvent(QGraphicsSceneResizeEvent *event);
 
 protected:
     void initWidget();
+    virtual void mousePressEvent ( QGraphicsSceneMouseEvent * event );
+    virtual void resizeEvent(QGraphicsSceneResizeEvent *event);
 
 private:
     const QPixmap   *m_background;
-    DuiLabel        *m_titleLabel;
 };
 #endif //KEYBOARDWIDGET_H

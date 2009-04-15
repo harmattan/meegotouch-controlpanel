@@ -1,25 +1,23 @@
-#include "displaydialog.h"
-#include "displaywidget.h"
-#include "languageselectcontainer.h"
+#include "keyboarddialog.h"
+#include "keyboardwidget.h"
 
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
 #include "dcplanguage.h"
-
-DisplayDialog::DisplayDialog()
+        
+KeyboardDialog::KeyboardDialog()
               :DuiDialog()
 {
     initWidget();
 }
 
-DisplayDialog::~DisplayDialog()
+KeyboardDialog::~KeyboardDialog()
 {
 }
 
-void DisplayDialog::initWidget()
+void KeyboardDialog::initWidget()
 {
-    setObjectName("DcpDialog");
-    DisplayWidget *widget = new DisplayWidget();
+    KeyboardWidget *widget = new KeyboardWidget();
 
     DuiLayout *mainLayout = new DuiLayout();
     DuiLinearLayoutPolicy *mainLayoutPolicy =
@@ -34,4 +32,3 @@ void DisplayDialog::initWidget()
     dialogSize.setHeight(dialogSize.height()-60);
     this->setMinimumSize(dialogSize);
 }
-

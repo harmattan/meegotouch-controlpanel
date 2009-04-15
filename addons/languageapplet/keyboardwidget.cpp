@@ -6,7 +6,9 @@
 #include <duilabel.h>
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
+#include <duipannableviewport.h>
 #include "dcplanguage.h"
+#include <QGraphicsSceneMouseEvent>
 
 KeyboardWidget::KeyboardWidget(QGraphicsWidget *parent)
               :DcpWidget(parent)
@@ -27,26 +29,19 @@ void KeyboardWidget::paint(QPainter *painter,
                           const QStyleOptionGraphicsItem *option,
                           QWidget *widget)
 {
+    // TODO generalize this with own view?
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
+    painter->setBrush(QColor::fromRgb(0,0,0,128));
+    painter->drawRect(rect());
+
     if (m_background)
-    {  
-        painter->drawPixmap(0, 0, *m_background);
+    {
+        qreal left, top;
+        getContentsMargins(&left, &top, NULL, NULL);
+        painter->drawPixmap(left, top, *m_background);
     }
-
-    // draw line below the title
-    int borderWidth = 2;
-    QColor lineColor = QColor::fromRgb(0x80, 0x80, 0x80);
-    QPen pen = painter->pen();
-    pen.setColor(lineColor);
-    pen.setWidth(1);
-    painter->setPen(pen);
-
-    qreal y = m_titleLabel->y() + m_titleLabel->size().height();
-    painter->drawLine(borderWidth, y,
-                      geometry().size().width() - 2 * borderWidth, y);
-
 }
 
 void KeyboardWidget::resizeEvent(QGraphicsSceneResizeEvent *event)
@@ -55,8 +50,21 @@ void KeyboardWidget::resizeEvent(QGraphicsSceneResizeEvent *event)
 
     QSize size = this->size().toSize();
     static const int border = 30;
+    if (m_background) {
+        DuiTheme::releasePixmap(m_background);
+    }
+    qreal left, top, right, bottom;
+    getContentsMargins(&left, &top, &right, &bottom);
+    size.setWidth(size.width()-left-right);
+    size.setHeight(size.height()-top-bottom);
     m_background = DuiTheme::boxedPixmap("Mashup-container", size,
                                          border, border, border, border);
+}
+
+void KeyboardWidget::mousePressEvent ( QGraphicsSceneMouseEvent * event )
+{
+    DuiWidget::mousePressEvent(event);
+    event->accept();
 }
 
 void KeyboardWidget::initWidget()
@@ -93,9 +101,10 @@ void KeyboardWidget::initWidget()
                     new DcpSpacerItem(this, 5, 5,
                             QSizePolicy::Expanding, QSizePolicy::Fixed),
                     0, Qt::AlignLeft);
-    m_titleLabel = new DuiLabel("Select keyboard languages");
-    m_titleLabel->setObjectName("DisplayLanguageTitleLabel");
-    titleLayoutPolicy->addItemAtPosition(m_titleLabel, 1, Qt::AlignCenter);
+    DuiLabel *titleLabel = new DuiLabel("Select keyboard languages");
+    titleLabel->setObjectName("DisplayLanguageTitleLabel");
+    titleLabel->setAcceptedMouseButtons(0);
+    titleLayoutPolicy->addItemAtPosition(titleLabel, 1, Qt::AlignCenter);
     titleLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 5, 5, 
                         QSizePolicy::Expanding, QSizePolicy::Fixed),
@@ -107,9 +116,14 @@ void KeyboardWidget::initWidget()
             new KeyboardSelectContainer("In-device language",
                                         languageList, this);
     connect(selectCont, SIGNAL(changeBackToMain()), this, SLOT(changeBack()));
-    mainLayoutPolicy->addItemAtPosition(selectCont, 1, Qt::AlignCenter);
+    DuiPannableViewport* viewport = new DuiPannableViewport(this);
+    viewport->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    viewport->setWidget(selectCont);
+    viewport->setObjectName("LanguageViewport");
+    mainLayoutPolicy->addItemAtPosition(viewport, 1, Qt::AlignCenter);
                                             
     mainLayoutPolicy->addItemAtPosition(
-                    new DcpSpacerItem(this, 10, 20, QSizePolicy::Fixed, QSizePolicy::Fixed),
+                    new DcpSpacerItem(this, 10, 20, QSizePolicy::Expanding, QSizePolicy::Fixed),
                     2, Qt::AlignCenter);
+    setContentsMargins(15,20,15,20);
 }

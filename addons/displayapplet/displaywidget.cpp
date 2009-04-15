@@ -107,7 +107,7 @@ void DisplayWidget::initWidget()
     m_screenToggleButton = new DuiButton(this);
     m_screenToggleButton->setObjectName("ScreenToggleButton");
     m_screenToggleButton->setCheckable(true);
-    // connect(m_screenToggleButton, SIGNAL(clicked()), this, SLOT(nextPage()));
+    connect(m_screenToggleButton, SIGNAL(clicked()), this, SLOT(nextPage()));
     screenHLayoutPolicy->addItemAtPosition(m_screenToggleButton, 1, Qt::AlignLeft);
 
     DuiWidget *spacerItem2 = new DuiWidget(this);

@@ -6,7 +6,8 @@
 
 MainWindow::MainWindow()
 {
-   Pages::Handle handle = {Pages::MAIN,""};
+   Pages::Handle handle = {Pages::MAIN, ""};
+  // Pages::Handle handle = {Pages::APPLET, "Language"};
    changePage(handle);
 }
 
@@ -22,6 +23,7 @@ void MainWindow::homeClicked()
 void MainWindow::backClicked()
 {
     PageFactory::instance()->currentPage()->back();
+    currentPage()->setBackButtonEnabled(!PageFactory::instance()->isCloseable());
 }
 
 MainWindow::~MainWindow()
@@ -32,7 +34,6 @@ void
 MainWindow::changePage(Pages::Handle handle)
 {
     DcpPage *page = PageFactory::instance()->create(handle);
-    
     connect (page, SIGNAL(openSubPage(Pages::Handle)), this,
         SLOT(changePage(Pages::Handle)));
     connect(page, SIGNAL(backButtonClicked()), this, SLOT(backClicked()));

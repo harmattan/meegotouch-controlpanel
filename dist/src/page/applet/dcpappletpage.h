@@ -14,6 +14,8 @@ public:
     virtual ~DcpAppletPage();
     virtual void createContent();
     virtual void back();
+protected slots:
+    void changeWidget(int widgetId);
 protected:
     bool loadApplet();
 private:

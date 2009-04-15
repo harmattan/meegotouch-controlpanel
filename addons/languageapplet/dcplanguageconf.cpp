@@ -76,5 +76,5 @@ DcpLanguageConf::setKeyboardLanguage(QStringList languages)
 int 
 DcpLanguageConf::keyboardLanguagesNumber()
 {
-    m_KeyboardLanguages.count() + 1;
+    return m_KeyboardLanguages.count();
 }
