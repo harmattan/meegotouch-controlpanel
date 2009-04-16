@@ -44,12 +44,22 @@ void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata)
 {
     DcpComponent *component = 0;
 
+    // TODO: this is to show the new widget only (temporary)
+    component = new DcpLabel2Component(0, metadata);
+    qobject_cast<DcpLabel2Component*>(component)->setBgObjectName("AppletPageDcpButton");
+    component->setMaximumSize(99999, 99999);
+ 
+#if 0
     switch(metadata->widgetTypeID()) {
         case DCPLABEL:
             component = new DcpLabelComponent(0, metadata);
         break;
         case DCPLABEL2:
             component = new DcpLabel2Component(0, metadata);
+            /* FIXME: apply this to all components when bigbutton
+               is on all DcpBasicComponent */
+            qobject_cast<DcpLabel2Component*>(component)->setBgObjectName(
+                    "AppletPageDcpButton");
         break;
         case DCPLABELBUTTON:
             component = new DcpLabelButtonComponent(0, metadata);
@@ -64,6 +74,7 @@ void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata)
         break;
     }
 
+#endif
     if (component) {
 
         component->setSubPage(Pages::APPLET, metadata->name());

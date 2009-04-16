@@ -19,6 +19,7 @@ public:
                        const QString& title="",
                        QGraphicsWidget *parent=0);
     ~DcpLabel2Component();
+    void setBgObjectName(const QString& objectName);
 
     virtual void createContents();
 
@@ -27,6 +28,5 @@ protected:
 		DcpButton *m_Button;
 
 };
-
 
 #endif // DCPLABEL2_H
