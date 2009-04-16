@@ -153,18 +153,18 @@ DuiImage {
     textColor2: #FFA000;
     font2: font("Nokia Sans Cn", 16);
 
-    textSize1: size(300, 30);
-    textPos1: pos(40, 20);
+    textSize1: size(300, 40);
+    textPos1: pos(40, 15);
 
     textSize2: size(300, 30);
-    textPos2: pos(25, 50);
+    textPos2: pos(25, 45);
 
     textAlign1: "Left";
     textAlign2: "Left";
 
     triangleBackground: "See-more-indicator-small";
     triangleBackgroundSize: size(16, 16);
-    trianglePos: pos(25, 30);
+    trianglePos: pos(25, 25);
 }
 
 
