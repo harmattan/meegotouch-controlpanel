@@ -31,6 +31,7 @@ DcpMainCategory::DcpMainCategory(
     setLayout(m_Layout);
 
     m_LandscapeLayout->setColumnSpacing(0, 12);
+    m_LandscapeLayout->setVerticalSpacing(12);
 }
 
 
