@@ -1,12 +1,13 @@
 #include "displaywidget.h"
 #include "dcpspaceritem.h"
 #include "languageselectcontainer.h"
+#include "dcplanguage.h"
+#include "languagetranslation.h"
 
 #include <duitheme.h>
 #include <duilabel.h>
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
-#include "dcplanguage.h"
 #include <duipannableviewport.h>
 #include <QGraphicsSceneMouseEvent>
 
@@ -101,7 +102,7 @@ void DisplayWidget::initWidget()
                     new DcpSpacerItem(this, 5, 5,
                             QSizePolicy::Expanding, QSizePolicy::Fixed),
                     0, Qt::AlignLeft);
-    DuiLabel* titleLabel = new DuiLabel("Select display language");
+    DuiLabel* titleLabel = new DuiLabel(DcpLanguage::SelectDisplayText);
     titleLabel->setObjectName("DisplayLanguageTitleLabel");
     titleLabel->setAcceptedMouseButtons(0);
     titleLayoutPolicy->addItemAtPosition(titleLabel, 1, Qt::AlignCenter);
@@ -113,7 +114,7 @@ void DisplayWidget::initWidget()
 
     // LanguageSelectContainer
     LanguageSelectContainer *selectCont = 
-            new LanguageSelectContainer("In-device language",
+            new LanguageSelectContainer(DcpLanguage::InDeviceText,
                                         languageList, this);
     connect(selectCont, SIGNAL(changeBackToMain()), this, SIGNAL(clicked()));
     DuiPannableViewport* viewport = new DuiPannableViewport(this);

@@ -15,5 +15,11 @@ namespace DcpLanguage {
                     "Recent released display languages");
     const QString RecentKeyboardText = trid("recent_keyboard_text",
                     "Recent released keyboard languages");
+    const QString SelectDisplayText = trid("select_display_text",
+                    "Select display language");
+    const QString SelectKeyboardText = trid("select_keyboard_text",
+                    "Select keyboard languages");
+    const QString InDeviceText = trid("in_device_text",
+                    "In-device language");
 };
 #endif // LANGUAGETRANSLATION_H

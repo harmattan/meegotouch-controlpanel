@@ -1,13 +1,14 @@
 #include "keyboardwidget.h"
 #include "dcpspaceritem.h"
 #include "keyboardselectcontainer.h"
+#include "dcplanguage.h"
+#include "languagetranslation.h"
 
 #include <duitheme.h>
 #include <duilabel.h>
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
 #include <duipannableviewport.h>
-#include "dcplanguage.h"
 #include <QGraphicsSceneMouseEvent>
 
 KeyboardWidget::KeyboardWidget(QGraphicsWidget *parent)
@@ -101,7 +102,7 @@ void KeyboardWidget::initWidget()
                     new DcpSpacerItem(this, 5, 5,
                             QSizePolicy::Expanding, QSizePolicy::Fixed),
                     0, Qt::AlignLeft);
-    DuiLabel *titleLabel = new DuiLabel("Select keyboard languages");
+    DuiLabel *titleLabel = new DuiLabel(DcpLanguage::SelectKeyboardText);
     titleLabel->setObjectName("DisplayLanguageTitleLabel");
     titleLabel->setAcceptedMouseButtons(0);
     titleLayoutPolicy->addItemAtPosition(titleLabel, 1, Qt::AlignCenter);
@@ -113,7 +114,7 @@ void KeyboardWidget::initWidget()
 
     // LanguageSelectContainer
     KeyboardSelectContainer *selectCont = 
-            new KeyboardSelectContainer("In-device language",
+            new KeyboardSelectContainer(DcpLanguage::InDeviceText,
                                         languageList, this);
     DuiPannableViewport* viewport = new DuiPannableViewport(this);
     viewport->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
