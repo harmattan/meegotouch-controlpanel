@@ -89,7 +89,7 @@ void DcpLabel2ImageComponent::initRight()
 		m_UpLabel->translate(5, 5);
 		m_DownLabel->translate(5, -5);
 
-		m_Image->translate(70, 0);
+		m_Image->translate(70, -5);
 
 
 }
@@ -116,6 +116,7 @@ void DcpLabel2ImageComponent::initLeft()
 		m_UpLabel->translate(5, 5);
 		m_DownLabel->translate(5, -5);
 
+		m_Image->translate(0, -5);
 }
 
 /*
