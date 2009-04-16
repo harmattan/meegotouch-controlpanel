@@ -107,7 +107,11 @@ void DcpLabel2ButtonComponent::setEnableButton(bool enable) {
 void DcpLabel2ButtonComponent::smallClickedOn()
 {
     if (m_EnableSmallToggle)
-      m_SmallButtonOn->setDown(true);
+      	m_SmallButtonOn->setDown(true);
+		else
+				m_SmallButtonOn->setDown(false);
+
+		m_EnableSmallToggle = !m_EnableSmallToggle;
 }
 void DcpLabel2ButtonComponent::smallClickedOff(){}
 void DcpLabel2ButtonComponent::disableClicked(){}
