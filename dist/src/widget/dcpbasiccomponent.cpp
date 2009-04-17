@@ -55,8 +55,9 @@ DcpBasicComponent::~DcpBasicComponent()
 
 void DcpBasicComponent::initLayout()
 {
-
-  m_MainLayoutPolicy->addItemAtPosition(m_WidgetLayout, 0, Qt::AlignCenter);;
+    DuiWidget* widget = new DuiWidget();
+    widget->setLayout(m_WidgetLayout);
+    m_MainLayoutPolicy->addItemAtPosition(widget, 0, Qt::AlignCenter);;
 
 
 //    m_Layout = new DuiLinearLayout(Qt::Vertical);

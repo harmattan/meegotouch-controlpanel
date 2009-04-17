@@ -43,7 +43,7 @@ MainWindow::changePage(Pages::Handle handle)
     connect (page, SIGNAL(openSubPage(Pages::Handle)), this,
         SLOT(changePage(Pages::Handle)));
     connect(page, SIGNAL(backButtonClicked()), this, SLOT(backClicked()));
-    page->appear(DuiSceneWindow::DestroyWhenDone); //TODO
+    page->appear(DuiSceneWindow::KeepWhenDone); //TODO -> Destroy
 }
 
 
