@@ -9,7 +9,6 @@ class DcpMainPage : public DcpCategoryPage
 public:
     DcpMainPage();
     virtual void createContent();
-    virtual void organizeContent(Dui::Orientation ori);
 };
 
 #endif // DUISETTINGSMAINPAGE_H

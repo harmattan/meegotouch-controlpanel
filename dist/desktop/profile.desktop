@@ -12,8 +12,8 @@ X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
 X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
-Category= Regional settings
-Order=1
+Category= Sound
+Order=2
 WidgetType= DcpLabel2
 Text2= Ringing
 Toggle= TRUE
