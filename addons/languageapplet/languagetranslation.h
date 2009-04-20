@@ -27,5 +27,7 @@ namespace DcpLanguage {
                     "Installed language");
     const QString RemoveButtonText = trid ("remove_button_text",
                     "Remove");
+    const QString RemoveLanguage = trid("remove_language_text", 
+                    "Keep Last?");
 };
 #endif // LANGUAGETRANSLATION_H
