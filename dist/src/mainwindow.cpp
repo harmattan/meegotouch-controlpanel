@@ -4,6 +4,7 @@
 #include <duideviceprofile.h>
 #include <QtDebug>
 #include <duinavigationbar.h>
+#include <duiaction.h>
 
 MainWindow::MainWindow()
 {
@@ -43,6 +44,14 @@ MainWindow::changePage(Pages::Handle handle)
     connect (page, SIGNAL(openSubPage(Pages::Handle)), this,
         SLOT(changePage(Pages::Handle)));
     connect(page, SIGNAL(backButtonClicked()), this, SLOT(backClicked()));
+
+    // --- temporary to test rotating the device ---
+    DuiAction* rotateAction = new DuiAction("ROT", page);
+    page->addAction(rotateAction);
+    connect (rotateAction, SIGNAL (triggered()),
+             this, SLOT(onRotateClicked()));
+    // ---
+
     page->appear(DuiSceneWindow::KeepWhenDone); //TODO -> Destroy
 }
 

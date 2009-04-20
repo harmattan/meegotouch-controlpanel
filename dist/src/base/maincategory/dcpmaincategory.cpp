@@ -92,3 +92,10 @@ DcpMainCategory::onOrientationChange (const Dui::Orientation &orientation)
 
     DcpCategory::onOrientationChange(orientation);
 }   
+
+
+void DcpMainCategory::polishEvent ()
+{
+    onOrientationChange(DuiDeviceProfile::instance()->orientation());
+}
+
