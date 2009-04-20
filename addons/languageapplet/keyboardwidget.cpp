@@ -1,6 +1,7 @@
 #include "keyboardwidget.h"
 #include "dcpspaceritem.h"
 #include "keyboardselectcontainer.h"
+#include "languagelabelbuttoncontainer.h"
 #include "dcplanguage.h"
 #include "languagetranslation.h"
 
@@ -112,13 +113,36 @@ void KeyboardWidget::initWidget()
                     2, Qt::AlignRight);
     mainLayoutPolicy->addItemAtPosition(titleLayout, 0, Qt::AlignCenter);
 
+    // DonwloadedLanguage
+    LanguageLabelButtonContainer *downloadedCont =
+            new LanguageLabelButtonContainer(LanguageLabelButtonContainer::DOWNLOADED,
+                                             this);
+
+    // InstalledLanguage
+    LanguageLabelButtonContainer *installedCont =
+            new LanguageLabelButtonContainer(LanguageLabelButtonContainer::INSTALLED,
+                                             this);
+
     // LanguageSelectContainer
     KeyboardSelectContainer *selectCont = 
             new KeyboardSelectContainer(DcpLanguage::InDeviceText,
                                         languageList, this);
+    
+    // contWidget
+    DuiWidget *contWidget = new DuiWidget(this);
+    DuiLayout *contLayout = new DuiLayout(contWidget);
+    DuiLinearLayoutPolicy *contLayoutPolicy =
+            new DuiLinearLayoutPolicy(contLayout, Qt::Vertical);
+    contLayout->setPolicy(contLayoutPolicy);
+
+    contLayoutPolicy->addItemAtPosition(downloadedCont, 0, Qt::AlignCenter);
+    contLayoutPolicy->addItemAtPosition(installedCont, 1, Qt::AlignCenter);
+    contLayoutPolicy->addItemAtPosition(selectCont, 2, Qt::AlignCenter);
+    contWidget->setLayout(contLayout);
+
     DuiPannableViewport* viewport = new DuiPannableViewport(this);
     viewport->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    viewport->setWidget(selectCont);
+    viewport->setWidget(contWidget);
     viewport->setObjectName("LanguageViewport");
     mainLayoutPolicy->addItemAtPosition(viewport, 1, Qt::AlignCenter);
                                             

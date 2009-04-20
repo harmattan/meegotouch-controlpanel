@@ -9,7 +9,7 @@ public:
     DcpSpacerItem(DuiWidget *parent, int width, int height, 
                   QSizePolicy::Policy hPolicy = QSizePolicy::Minimum,
                   QSizePolicy::Policy vPolicy = QSizePolicy::Minimum);
-    ~DcpSpacerItem();
+    virtual ~DcpSpacerItem();
 
     void changeSize(int width, int height,
                     QSizePolicy::Policy hPolicy = QSizePolicy::Minimum,

@@ -2,12 +2,15 @@
 #include "languagelistitem.h"
 #include "grouptitlewidget.h"
 #include "dcplanguageconf.h"
+#include "languagetranslation.h"
 
 #include <QDebug>
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
 #include <duigridlayoutpolicy.h>
 #include <duilabel.h>
+#include <duilocale.h>
+#include <DuiMessageBox>
 
 KeyboardSelectContainer::KeyboardSelectContainer(const QString &title,
                                                  QStringList itemList,
@@ -74,14 +77,27 @@ void KeyboardSelectContainer::initWidget()
 
 void KeyboardSelectContainer::itemClicked()
 {
-    for (int i = 0; i < m_listItemVector.size(); i++)
+    for (int i = 0, checkCount = m_listItemVector.size();
+             i < m_listItemVector.size(); i++)
     {
         if (m_listItemVector[i]->isChecked())
         {
             DcpLanguageConf::instance()->removeKeyboardLanguage(m_listItemVector[i]->text());
             DcpLanguageConf::instance()->addKeyboardLanguage(m_listItemVector[i]->text());
         } else {
+            checkCount--;
+            bool doRemove = true;
+            if (checkCount < 1)
+            {
+                DuiMessageBox mb("Keep last language?",
+                                 DuiMessageBox::Ok|DuiMessageBox::Cancel);                                                                   
+                mb.exec();
+                doRemove = mb.result() == DuiDialog::Accepted;
+                }
+            if (doRemove)
             DcpLanguageConf::instance()->removeKeyboardLanguage(m_listItemVector[i]->text());
+            else
+               selectItem(m_listItemVector[i]->text());
         }
     }
 }

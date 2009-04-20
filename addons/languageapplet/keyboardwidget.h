@@ -11,16 +11,20 @@ class KeyboardWidget : public DcpWidget
 
 public:
     KeyboardWidget(QGraphicsWidget *parent = 0);
-    ~KeyboardWidget();
+    virtual ~KeyboardWidget();
 
-    void paint(QPainter *painter,
+    //! reimp
+    virtual void paint(QPainter *painter,
                const QStyleOptionGraphicsItem *option,
                QWidget *widget = 0);
+    //! reimp_end
 
 protected:
     void initWidget();
+    //! reimp
     virtual void mousePressEvent ( QGraphicsSceneMouseEvent * event );
     virtual void resizeEvent(QGraphicsSceneResizeEvent *event);
+    //! reimp_end
 
 private:
     const QPixmap   *m_background;

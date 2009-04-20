@@ -9,12 +9,13 @@ class GroupTitleWidget : public DuiWidget
 {
 public:
     GroupTitleWidget(const QString &text, DuiWidget *parent = 0);
-    ~GroupTitleWidget();
-
-    void paint(QPainter *painter,
+    virtual ~GroupTitleWidget();
+    //! reimp
+    virtual void paint(QPainter *painter,
                const QStyleOptionGraphicsItem *option,
                QWidget *widget = 0);
-    void resizeEvent(QGraphicsSceneResizeEvent *event);
+    virtual void resizeEvent(QGraphicsSceneResizeEvent *event);
+    //! reimp_end
 
 private:
     const QPixmap *m_background;

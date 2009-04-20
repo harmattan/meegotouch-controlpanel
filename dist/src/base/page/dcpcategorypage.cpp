@@ -20,3 +20,10 @@ void DcpCategoryPage::createContent()
     append(m_Category);
 }
 
+
+void DcpCategoryPage::organizeContent(Dui::Orientation ori)
+{
+    DcpPage::organizeContent(ori);
+    m_Category->onOrientationChange(ori);
+}
+

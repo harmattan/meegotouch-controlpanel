@@ -13,13 +13,14 @@ class ServicesButton : public DuiButton
 
 public:
     ServicesButton(DuiWidget *parent = 0, const QString &title = "");
-    ~ServicesButton();
+    virtual ~ServicesButton();
 
-    void resizeEvent(QGraphicsSceneResizeEvent *event);
-
-    void paint(QPainter *painter,
+    //! reimp
+    virtual void resizeEvent(QGraphicsSceneResizeEvent *event);
+    virtual void paint(QPainter *painter,
                const QStyleOptionGraphicsItem *option,
                QWidget *widget = 0);
+    //! reimp_end
 
 private:
     DuiLayout       *m_mainLayout;

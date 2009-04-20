@@ -11,6 +11,7 @@ class DcpCategoryPage : public DcpPage
 public:
     DcpCategoryPage();
     virtual void createContent();
+    virtual void organizeContent(Dui::Orientation ori);
 
 protected:
     DcpMainCategory *m_Category;

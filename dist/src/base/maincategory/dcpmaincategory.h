@@ -20,6 +20,7 @@ public slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation);   
 protected:
     virtual void createContents();
+    virtual void polishEvent ();
 
 protected:
     DuiLayout* m_Layout;
