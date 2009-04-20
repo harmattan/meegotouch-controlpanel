@@ -36,6 +36,16 @@
         font: font("Nokia Sans Cn", 15);
 }
 
+#LanguageUpLabel {
+        color: #FFFFFF;
+        font: font("Nokia Sans Cn", 16);
+}
+
+#LanguageDownLabel {
+        color: #FFFFFF;
+        font: font("Nokia Sans Cn", 15);
+}
+
 #LanguageSimpleText {
         color: #FFFFFF;
         font: font("Nokia Sans Cn", 18);
@@ -71,6 +81,12 @@
 
 #LanguageCheckMark {
         normalBackground: "Check-mark";
+}
+
+#RemoveButton {
+        font: font("Nokia Sans Cn", 16);
+        textColor: #FFFFFF;
+        normalBackground: "Divider-with-label";
 }
 
 #LanguageViewport {

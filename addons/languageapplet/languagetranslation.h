@@ -20,6 +20,12 @@ namespace DcpLanguage {
     const QString SelectKeyboardText = trid("select_keyboard_text",
                     "Select keyboard languages");
     const QString InDeviceText = trid("in_device_text",
-                    "In-device language");
+                    "Pre-installed languages");
+    const QString DownloadedText = trid("donwloaded_text",
+                    "Downloaded language");
+    const QString InstalledText = trid("installed_text",
+                    "Installed language");
+    const QString RemoveButtonText = trid ("remove_button_text",
+                    "Remove");
 };
 #endif // LANGUAGETRANSLATION_H

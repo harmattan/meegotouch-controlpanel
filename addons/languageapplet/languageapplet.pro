@@ -26,8 +26,11 @@ HEADERS       = languageapplet.h \
                 dcpspaceritem.h \
                 languageselectcontainer.h \
                 keyboardselectcontainer.h \
+                languagelabelbuttoncontainer.h \
                 grouptitlewidget.h \
-                dcplanguageconf.h
+                dcplanguageconf.h \
+                languagelabel.h \
+                removablelistitem.h
 
 SOURCES       = languageapplet.cpp \
                 languagewidget.cpp \
@@ -43,8 +46,11 @@ SOURCES       = languageapplet.cpp \
                 dcpspaceritem.cpp \
                 languageselectcontainer.cpp \
                 keyboardselectcontainer.cpp \
+                languagelabelbuttoncontainer.cpp \
                 grouptitlewidget.cpp\
-                dcplanguageconf.cpp
+                dcplanguageconf.cpp \
+                languagelabel.cpp \
+                removablelistitem.cpp
 
 
 TARGET        = $$qtLibraryTarget(languageapplet)
