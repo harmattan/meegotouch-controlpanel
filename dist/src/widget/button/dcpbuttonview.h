@@ -20,6 +20,11 @@ public:
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = NULL);
     virtual QRectF boundingRect() const;
 
+		virtual void paintBackground(QPainter *painter);
+		virtual void paintTriangle(QPainter *painter);
+		virtual void paintText(QPainter *painter);
+
+
 		void setText1(const QString& text);
 		void setText2(const QString& text);
 
@@ -36,13 +41,52 @@ protected:
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
 private:
+    Q_DISABLE_COPY(DcpButtonView);
+
+protected:
 
 		QString m_Text1;
 		QString m_Text2;
 
     DcpButton &controller;
 
-    Q_DISABLE_COPY(DcpButtonView);
+	enum styleAttributes {
+	
+			MarginLeftAttribute,
+			MarginRightAttribute,
+			MarginTopAttribute,
+			MarginBottomAttribute,
+			MarginMiddleAttribute,
+	
+			BackgroundAttribute,
+			BackgroundSizeAttribute,
+	
+			Font1Attribute,
+			Font2Attribute,
+	
+			TextColor1Attribute,
+			TextColor2Attribute,
+	
+			TextSize1Attribute,
+			TextSize2Attribute,
+	
+			TextPos1Attribute,
+			TextPos2Attribute,
+	
+			TextAlign1Attribute,
+			TextAlign2Attribute,
+	
+			TriangleBackgroundAttribute,
+			TriangleBackgroundSizeAttribute,
+			TrianglePosAttribute,
+
+			ImageNameAttribute,
+			ImageSizeAttribute,
+			ImageSpacerAttribute,
+
+			BackgroundBorderAttribute
+	
+	};
 };
 
 

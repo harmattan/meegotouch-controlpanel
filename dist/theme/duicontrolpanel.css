@@ -36,10 +36,10 @@ DuiNavigationBar {
 
 
 DuiImage {
-	leftMargin: 0.0;
-        topMargin: 0.0;
-	rightMargin: 0.0;
-	bottomMargin: 0.0;
+  leftMargin: 0.0;
+  topMargin: 0.0;
+  rightMargin: 0.0;
+  bottomMargin: 0.0;
 }	
 
 #LabelFont1 {
@@ -143,6 +143,13 @@ DuiImage {
 }
 
 #DcpButton {
+
+    marginLeft: 25;
+	  marginRight: 20;
+	  marginTop: 12;
+		marginBottom: 6;
+		marginMiddle: 4;
+	
     backgroundImage: "C2-container";
 
     backgroundSize: size(392, 88);
@@ -154,17 +161,23 @@ DuiImage {
     font2: font("Nokia Sans Cn", 16);
 
     textSize1: size(300, 40);
-    textPos1: pos(40, 15);
+    textPos1: pos(20, 0);
 
     textSize2: size(300, 30);
-    textPos2: pos(25, 45);
+    textPos2: pos(0, 30);
 
     textAlign1: "Left";
     textAlign2: "Left";
 
     triangleBackground: "See-more-indicator-small";
     triangleBackgroundSize: size(16, 16);
-    trianglePos: pos(25, 25);
+    trianglePos: pos(0, 10);
+
+    imageName: image(starfield);
+    imageSize: size(64, 64);
+    imageSpacer: 20;
+
+    backgroundBorder: "Thumbnail-frame";
 }
 
 #AppletPageDcpButton {
