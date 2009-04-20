@@ -89,7 +89,7 @@ void KeyboardSelectContainer::itemClicked()
             bool doRemove = true;
             if (checkCount < 1)
             {
-                DuiMessageBox mb("Remove last language?",
+                DuiMessageBox mb("Keep last language?",
                                  DuiMessageBox::Ok|DuiMessageBox::Cancel);                                                                   
                 mb.exec();
                 doRemove = mb.result() == DuiDialog::Accepted;
