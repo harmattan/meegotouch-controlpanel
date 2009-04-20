@@ -21,5 +21,8 @@ namespace DcpLanguage {
                     "Select keyboard languages");
     const QString InDeviceText = trid("in_device_text",
                     "In-device language");
+    const QString RemoveLanguage = trid("remove_language_text", "Keep Last?");
+//                    "You have not selected any keyboard language,\
+//would you like to keep the previous selection?");
 };
 #endif // LANGUAGETRANSLATION_H
