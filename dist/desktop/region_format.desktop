@@ -13,7 +13,7 @@ X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
 Category= Regional settings
-Order=5
+Order=2
 WidgetType= DcpLabel2
 Text2= United States
 
