@@ -178,6 +178,9 @@ DuiImage {
     marginSpacer: 20;
 
     backgroundBorder: "Thumbnail-frame";
+
+    toggleOn: "Toggle-on";
+    toggleOff: "Toggle-off";
 }
 
 #AppletPageDcpButton {

@@ -84,7 +84,10 @@ protected:
 			ImageSizeAttribute,
 			MarginSpacerAttribute,
 
-			BackgroundBorderAttribute
+			BackgroundBorderAttribute,
+
+			ToggleOnAttribute,
+			ToggleOffAttribute
 	
 	};
 };

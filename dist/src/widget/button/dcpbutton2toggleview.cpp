@@ -7,9 +7,12 @@ DUI_STYLABLE_CPP(DcpButton2ToggleView, DuiWidgetView)
 #include "dcpbutton.h"
 
 DcpButton2ToggleView::DcpButton2ToggleView(DcpButton &button) :
-    DcpButton2ImageView(button)
+    DcpButton2ImageView(button),
+		m_EnableToggle(false)
 {
+		m_Side = RIGHTSIDE;
 }
+
 
 DcpButton2ToggleView::~DcpButton2ToggleView()
 {
@@ -22,14 +25,18 @@ void DcpButton2ToggleView::paint(QPainter *painter, const QStyleOptionGraphicsIt
 
 		paintBackground(painter);
 		
-
-		//paintTriangle(painter);
-		//paintTextLeft(painter);
-		//paintToggleLeft(painter);
-
-		paintTriangleRight(painter);
-		paintTextRight(painter);
-		paintToggleRight(painter);
+		switch(m_Side) {
+				case LEFTSIDE :
+						paintTriangle(painter);
+						paintTextLeft(painter);
+						paintToggleLeft(painter);
+				break;
+				case RIGHTSIDE :
+						paintTriangleRight(painter);
+						paintTextRight(painter);
+						paintToggleRight(painter);
+				break;
+			}
 
 		return;
 }
@@ -39,57 +46,109 @@ void DcpButton2ToggleView::paintToggleLeft(QPainter *painter)
 
   	int marginSpacer = styleAttribute<int>(MarginSpacerAttribute);
 
-		QPixmap *image = new QPixmap(QPixmap(*styleAttribute<const QPixmap*>(ImageNameAttribute)).scaled(styleAttribute<const QSize>(ImageSizeAttribute)));
+ 		m_ToggleOn = DuiTheme::pixmap( styleAttribute<const QString>(ToggleOnAttribute), styleAttribute<const QSize>(ImageSizeAttribute));
 
+		m_ToggleOff = DuiTheme::pixmap( styleAttribute<const QString>(ToggleOffAttribute), styleAttribute<const QSize>(ImageSizeAttribute));
+	
 
-    if (image != NULL) {
+    if (m_ToggleOn && m_ToggleOff)
+				if (m_EnableToggle) {
+						QPointF imagePoint( width() - m_ToggleOn->width() - marginSpacer,
+												 			 (height() - m_ToggleOn->height()) / 2					);
 
-				QPointF imagePoint( width() - image->width() - marginSpacer,
-										 			 (height() - image->height()) / 2					);
+        		painter->drawPixmap(imagePoint, *m_ToggleOn);
+				} else {
+						QPointF imagePoint( width() - m_ToggleOff->width() - marginSpacer,
+												 			 (height() - m_ToggleOff->height()) / 2					);
 
-        painter->drawPixmap(imagePoint, *image);
-		}
+        		painter->drawPixmap(imagePoint, *m_ToggleOff);
 
+				}
 		
-		const QPixmap *border = DuiTheme::pixmap(	styleAttribute<const QString>(BackgroundBorderAttribute),
-																							QSize(image->width(), image->height())										);
-
-    if (border != NULL) {
-
-				QPointF imagePoint( width() - border->width() - marginSpacer,
-										 			 (height() - border->height()) / 2					);
-
-        painter->drawPixmap(imagePoint, *border);
-		}
-
 }
 
 void DcpButton2ToggleView::paintToggleRight(QPainter *painter)
 {
-  	int marginSpacer = styleAttribute<int>(MarginSpacerAttribute);
+ 	int marginSpacer = styleAttribute<int>(MarginSpacerAttribute);
 
-		QPixmap *image = new QPixmap(QPixmap(*styleAttribute<const QPixmap*>(ImageNameAttribute)).scaled(styleAttribute<const QSize>(ImageSizeAttribute)));
+ 		m_ToggleOn = DuiTheme::pixmap( styleAttribute<const QString>(ToggleOnAttribute), styleAttribute<const QSize>(ImageSizeAttribute));
 
+		m_ToggleOff = DuiTheme::pixmap( styleAttribute<const QString>(ToggleOffAttribute), styleAttribute<const QSize>(ImageSizeAttribute));
+	
 
-    if (image != NULL) {
+    if (m_ToggleOn && m_ToggleOff)
+				if (m_EnableToggle) {
+						QPointF imagePoint( marginSpacer,
+												 			 (height() - m_ToggleOn->height()) / 2					);
 
-				QPointF imagePoint( marginSpacer,
-										 			 (height() - image->height()) / 2					);
+        		painter->drawPixmap(imagePoint, *m_ToggleOn);
+				} else {
+						QPointF imagePoint( marginSpacer,
+												 			 (height() - m_ToggleOff->height()) / 2					);
 
-        painter->drawPixmap(imagePoint, *image);
-		}
+        		painter->drawPixmap(imagePoint, *m_ToggleOff);
 
+				}
+
+}
+
+void DcpButton2ToggleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+ 
+		int marginSpacer = styleAttribute<int>(MarginSpacerAttribute);
+
+ 		if (m_ToggleOn && m_ToggleOff)
+				switch(m_Side) {
+					case LEFTSIDE :
+							if (m_EnableToggle) {
+										QRect rect(	width() - m_ToggleOn->width() - marginSpacer,
+															(height() - m_ToggleOn->height()) / 2,
+															width() - marginSpacer,
+															(height() + m_ToggleOn->height()) / 2					);
 		
-		const QPixmap *border = DuiTheme::pixmap(	styleAttribute<const QString>(BackgroundBorderAttribute),
-																							QSize(image->width(), image->height())										);
+									if (rect.contains(event->pos().x(), event->pos().y())) {
+											m_EnableToggle = !m_EnableToggle;
+											return;
+									}
+							} else {
+									QRect rect(	width() - m_ToggleOff->width() - marginSpacer,
+															(height() - m_ToggleOff->height()) / 2,
+															width() - marginSpacer,
+															(height() + m_ToggleOff->height()) / 2					);
+			
+									if (rect.contains(event->pos().x(), event->pos().y())) {
+											m_EnableToggle = !m_EnableToggle;
+											return;
+									}
+							}
+					break;
+					case RIGHTSIDE :
+							if (m_EnableToggle) {
+										QRect rect(	marginSpacer,
+															(height() - m_ToggleOn->height()) / 2,
+															marginSpacer + m_ToggleOn->width(),
+															(height() + m_ToggleOn->height()) / 2					);
+		
+									if (rect.contains(event->pos().x(), event->pos().y())) {
+										m_EnableToggle = !m_EnableToggle;
+										return;
+									}
+							} else {
+									QRect rect(	marginSpacer,
+															(height() - m_ToggleOff->height()) / 2,
+															marginSpacer + m_ToggleOff->width(),
+															(height() + m_ToggleOff->height()) / 2					);
+			
+									if (rect.contains(event->pos().x(), event->pos().y())) {
+											m_EnableToggle = !m_EnableToggle;
+											return;
+									}
+							}
+					break;
+				}
+				
 
-    if (border != NULL) {
-
-				QPointF imagePoint( marginSpacer,
-										 			 (height() - border->height()) / 2					);
-
-        painter->drawPixmap(imagePoint, *border);
-		}
+		emit clicked();	
 }
 
 void DcpButton2ToggleView::registerStyleAttributes(DuiStyleDescription &description)
@@ -127,5 +186,8 @@ void DcpButton2ToggleView::registerStyleAttributes(DuiStyleDescription &descript
 		description.addAttribute(ImageSizeAttribute, "imageSize");
 		description.addAttribute(MarginSpacerAttribute, "marginSpacer");
 
-		description.addAttribute(BackgroundBorderAttribute, "backgroundBorder");
+//		description.addAttribute(BackgroundBorderAttribute, "backgroundBorder");
+
+		description.addAttribute(ToggleOnAttribute, "toggleOn");
+		description.addAttribute(ToggleOffAttribute, "toggleOff");
 }
