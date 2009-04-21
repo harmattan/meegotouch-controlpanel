@@ -75,7 +75,8 @@ void KeyboardSelectContainer::itemClicked(LanguageListItem* item)
             if (DcpLanguageConf::instance()->keyboardLanguagesNumber() == 1)
             {
                 DuiMessageBox mb("Keep last language?",
-                                 DuiMessageBox::Ok|DuiMessageBox::Cancel);                                                                   
+                                 DuiMessageBox::Ok|DuiMessageBox::Cancel);
+                mb.setParent(this);                
                 mb.exec();
                 doKeep = mb.result() != DuiDialog::Accepted;
                 }
