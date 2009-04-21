@@ -93,7 +93,7 @@ void KeyboardSelectContainer::itemClicked(QString language)
                 DuiMessageBox mb("Keep last language?",
                                  DuiMessageBox::Ok|DuiMessageBox::Cancel);                                                                   
                 mb.exec();
-                doRemove = mb.result() == DuiDialog::Rejected;
+                doRemove = mb.result() != DuiDialog::Rejected;
                 }
             if (doRemove)
             DcpLanguageConf::instance()->removeKeyboardLanguage(language);
