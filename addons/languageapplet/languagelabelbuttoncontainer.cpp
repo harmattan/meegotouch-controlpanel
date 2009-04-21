@@ -23,10 +23,10 @@ LanguageLabelButtonContainer::~LanguageLabelButtonContainer()
 void LanguageLabelButtonContainer::initWidget()
 {
     // mainLayout
-    DuiLayout *mainLayout = new DuiLayout(this);
+    m_mainLayout = new DuiLayout(this);
     DuiLinearLayoutPolicy *mainLayoutPolicy =
-            new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
-    mainLayout->setPolicy(mainLayoutPolicy);
+            new DuiLinearLayoutPolicy(m_mainLayout, Qt::Vertical);
+    m_mainLayout->setPolicy(mainLayoutPolicy);
 
     // group title
     GroupTitleWidget *titleLabel = NULL;
@@ -35,7 +35,7 @@ void LanguageLabelButtonContainer::initWidget()
     {
         case LanguageLabelButtonContainer::DOWNLOADED:
                 titleLabel = new GroupTitleWidget(DcpLanguage::DownloadedText, this);
-                removeItem = new RemovableListItem("Deutsch", "Version 0.2", this);
+                removeItem = new RemovableListItem("Hungarian", "Version 0.2", this);
                 break;
         case LanguageLabelButtonContainer::INSTALLED:
                 titleLabel = new GroupTitleWidget(DcpLanguage::InstalledText, this);
@@ -44,7 +44,19 @@ void LanguageLabelButtonContainer::initWidget()
         default:
                 break;
     }
+    connect(removeItem, SIGNAL(clicked(int)), this, SLOT(deleteItem(int)));
 
     mainLayoutPolicy->addItemAtPosition(titleLabel, 0, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(removeItem, 1, Qt::AlignCenter);
+    removeItem->setId(1);
+    
+    this->setLayout(m_mainLayout);
+}
+
+void LanguageLabelButtonContainer::deleteItem(int id)
+{
+    if (id >= 0)
+    {
+        m_mainLayout->removeAt(id);
+    }
 }

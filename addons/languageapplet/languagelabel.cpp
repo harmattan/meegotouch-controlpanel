@@ -38,7 +38,7 @@ void LanguageLabel::paint(QPainter *painter,
     Q_UNUSED(parent);
 
     int borderWidth = 2;
-    QColor lineColor = QColor(130, 130, 130, 244);
+    QColor lineColor = QColor(80, 80, 80, 244);
     QPen pen = painter->pen();
     pen.setWidth(1);
     pen.setColor(lineColor);
@@ -58,12 +58,14 @@ void LanguageLabel::initWidget()
     mainLayout->setPolicy(mainLayoutPolicy);
     mainLayoutPolicy->setContentsMargins(20.0, 1.0, 12.0, 1.0);
     mainLayoutPolicy->setSpacing(2);
+    this->setAcceptedMouseButtons(0);
 
     if (m_downText.isEmpty()) 
     {
         // single label
         DuiLabel *label = new DuiLabel(m_upText, this);
         label->setObjectName("LanguageLeftLabel");
+        label->setAcceptedMouseButtons(0);
         mainLayoutPolicy->addItemAtPosition(
                      new DcpSpacerItem(this, 10, 10, QSizePolicy::Fixed, QSizePolicy::Expanding),
                      0, Qt::AlignCenter);
@@ -75,11 +77,13 @@ void LanguageLabel::initWidget()
         // upLabel
         DuiLabel *upLabel = new DuiLabel(m_upText, this);
         upLabel->setObjectName("LanguageUpLabel");
+        upLabel->setAcceptedMouseButtons(0);
 
         // downLabel
         DuiLabel *downLabel = new DuiLabel(m_downText, this);
         downLabel->setMinimumWidth(300);
         downLabel->setObjectName("LanguageDownLabel");
+        downLabel->setAcceptedMouseButtons(0);
 
         mainLayoutPolicy->addItemAtPosition(
                         new DcpSpacerItem(this, 10, 10, QSizePolicy::Fixed, QSizePolicy::Expanding),

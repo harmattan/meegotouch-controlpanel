@@ -3,6 +3,8 @@
 
 #include <DuiWidget>
 
+class DuiLayout;
+
 class LanguageLabelButtonContainer : public DuiWidget
 {
     Q_OBJECT
@@ -22,5 +24,9 @@ protected:
 
 private:
     LanguageLabelButtonContainer::Type m_type;
+    DuiLayout *m_mainLayout;
+
+private slots:
+    virtual void deleteItem(int id);
 };
 #endif // LANGUAGELBELBUTTONCONTAINER_H
