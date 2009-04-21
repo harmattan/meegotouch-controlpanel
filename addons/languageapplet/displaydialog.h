@@ -16,6 +16,9 @@ public:
 protected:
     void initWidget();
 
+protected slots:
+    void onOrientationAngleChanged ();
+
 private:
     const QPixmap   *m_background;
 };
