@@ -23,19 +23,14 @@ KeyboardSelectContainer::KeyboardSelectContainer(const QString &title,
     QStringList keyboardList = DcpLanguageConf::instance()->keyboardLanguages();
     QStringListIterator iterator(keyboardList);
     while (iterator.hasNext())
-    {
-        this->selectItem(iterator.next());
-    }
+        m_listItems[iterator.next()]->checked(true);
 }
+
 
 KeyboardSelectContainer::~KeyboardSelectContainer()
 {
 }
 
-void KeyboardSelectContainer::selectItem(const QString &text)
-{
-    m_listItems[text]->checked(true);
-}
 
 void KeyboardSelectContainer::initWidget()
 {
@@ -85,7 +80,7 @@ void KeyboardSelectContainer::itemClicked(LanguageListItem* item)
                 doKeep = mb.result() != DuiDialog::Accepted;
                 }
             if (doKeep)
-               selectItem(item->text());
+               item->checked(true);
             else
                 DcpLanguageConf::instance()->removeKeyboardLanguage(item->text());
         }

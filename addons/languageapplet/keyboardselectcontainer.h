@@ -15,8 +15,6 @@ public:
                             DuiWidget *parent = 0);
     ~KeyboardSelectContainer();
 
-    void selectItem(const QString &text);
-
 protected:
     void initWidget();
 
