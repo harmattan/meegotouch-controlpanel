@@ -87,6 +87,7 @@
         font: font("Nokia Sans Cn", 16);
         textColor: #FFFFFF;
         normalBackground: "Divider-with-label";
+        horizBoxedEdgePercent: 30;
 }
 
 #LanguageViewport {

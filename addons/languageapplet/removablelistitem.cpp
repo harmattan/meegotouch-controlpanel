@@ -15,7 +15,8 @@ RemovableListItem::RemovableListItem(const QString &upText,
                                      DuiWidget *parent)
                   :DuiWidget(parent),
                    m_upText(upText),
-                   m_downText(downText)
+                   m_downText(downText),
+                   m_id(-1)
 {
     initWidget();
 }
@@ -31,6 +32,16 @@ RemovableListItem::RemovableListItem(const QString &text,
 
 RemovableListItem::~RemovableListItem()
 {
+}
+
+void RemovableListItem::setId(int id)
+{
+    m_id = id;
+}
+
+int RemovableListItem::id()
+{
+    return m_id;
 }
 
 void RemovableListItem::initWidget()
@@ -59,6 +70,7 @@ void RemovableListItem::initWidget()
     m_removeButton->setMaximumHeight(buttonHeight);
     m_removeButton->setMinimumHeight(buttonHeight);
     m_removeButton->setObjectName("RemoveButton");
+    connect(m_removeButton, SIGNAL(clicked()), this, SLOT(removeClicked()));
 
     mainLayoutPolicy->addItemAtPosition(label, 0, Qt::AlignLeft | Qt::AlignVCenter);
     mainLayoutPolicy->addItemAtPosition(
@@ -67,4 +79,9 @@ void RemovableListItem::initWidget()
     mainLayoutPolicy->addItemAtPosition(m_removeButton, 2, Qt::AlignRight | Qt::AlignVCenter);
     
     this->setLayout(mainLayout);
+}
+
+void RemovableListItem::removeClicked()
+{
+    emit clicked(m_id);
 }
