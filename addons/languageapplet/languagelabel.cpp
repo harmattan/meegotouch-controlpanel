@@ -81,7 +81,6 @@ void LanguageLabel::initWidget()
 
         // downLabel
         DuiLabel *downLabel = new DuiLabel(m_downText, this);
-        downLabel->setMinimumWidth(300);
         downLabel->setObjectName("LanguageDownLabel");
         downLabel->setAcceptedMouseButtons(0);
 
@@ -98,8 +97,18 @@ void LanguageLabel::initWidget()
     this->setLayout(mainLayout);
 
     // fixed sizes
-    setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - 20);
-    setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - 20);
     setMinimumHeight(height);
     setMaximumHeight(height);
+
+    connect(DuiDeviceProfile::instance(), SIGNAL(orientationAngleChanged (DuiDeviceProfile::DeviceOrientationAngle)),
+            this, SLOT(onOrientationAngleChanged ()));
+    onOrientationAngleChanged();
 }
+
+
+void LanguageLabel::onOrientationAngleChanged()
+{
+    setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - 20);
+    setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - 20);
+}
+

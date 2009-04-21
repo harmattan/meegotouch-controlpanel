@@ -44,7 +44,7 @@ void LanguageSelectContainer::initWidget()
     mainLayout->setPolicy(mainLayoutPolicy);
     
     GroupTitleWidget *titleLabel = new GroupTitleWidget(m_titleText, this);
-    mainLayoutPolicy->addItemAtPosition(titleLabel, 0, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(titleLabel, 0);
 
     // gridLayout
     DuiLayout *gridLayout = new DuiLayout(NULL);
@@ -65,7 +65,7 @@ void LanguageSelectContainer::initWidget()
                 this, SLOT(itemClicked(LanguageListItem *)));
     }
 
-    mainLayoutPolicy->addItemAtPosition(gridLayout, 1, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(gridLayout, 1);
 }
 
 void LanguageSelectContainer::itemClicked(LanguageListItem *item)
@@ -74,3 +74,4 @@ void LanguageSelectContainer::itemClicked(LanguageListItem *item)
     DcpLanguageConf::instance()->setDisplayLanguage(item->text());
     emit changeBackToMain();
 }
+

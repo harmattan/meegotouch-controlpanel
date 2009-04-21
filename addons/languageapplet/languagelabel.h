@@ -24,6 +24,9 @@ public:
 protected:
     void initWidget();
 
+protected slots:
+   void onOrientationAngleChanged();
+
 private:
     QString m_upText;
     QString m_downText;
