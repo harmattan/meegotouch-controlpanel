@@ -26,7 +26,7 @@ private:
     QVector<LanguageListItem*> m_listItemVector;
 
 private slots:
-    virtual void itemClicked();
+    virtual void itemClicked(LanguageListItem *item);
 
 signals:
     void changeBackToMain();
