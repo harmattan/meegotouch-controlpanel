@@ -23,25 +23,14 @@ KeyboardSelectContainer::KeyboardSelectContainer(const QString &title,
     QStringList keyboardList = DcpLanguageConf::instance()->keyboardLanguages();
     QStringListIterator iterator(keyboardList);
     while (iterator.hasNext())
-    {
-        this->selectItem(iterator.next());
-    }
+        m_listItems[iterator.next()]->checked(true);
 }
+
 
 KeyboardSelectContainer::~KeyboardSelectContainer()
 {
 }
 
-void KeyboardSelectContainer::selectItem(const QString &text)
-{
-    for (int i = 0; i < m_listItemVector.size(); i++)
-    {
-        if (text == m_listItemVector[i]->text())
-        {
-            m_listItemVector[i]->checked(true);
-        }
-    }
-}
 
 void KeyboardSelectContainer::initWidget()
 {
@@ -60,45 +49,41 @@ void KeyboardSelectContainer::initWidget()
     gridLayout->setPolicy(itemLayout);
     
     QStringListIterator iterator(m_itemList);
+    int i=0;
     while (iterator.hasNext())
     {
         QString name = iterator.next();
-        m_listItemVector.append(new LanguageListItem(name, this));
+        LanguageListItem *item = new LanguageListItem(name, this);
+        m_listItems[name] = item;
+        itemLayout->addItemAtPosition(item, i / 2, i % 2);
+        connect(item, SIGNAL(clicked(LanguageListItem*)), this,
+                SLOT(itemClicked(LanguageListItem*)));
+        i++;
     }
 
-    for (int i = 0; i < m_listItemVector.size(); i++)
-    {
-        itemLayout->addItemAtPosition(m_listItemVector[i], i / 2, i % 2);
-        connect(m_listItemVector[i], SIGNAL(clicked(QString)), this,
-                SLOT(itemClicked(QString)));
-    }
 
     mainLayoutPolicy->addItemAtPosition(gridLayout, 1, Qt::AlignCenter);
 }
 
-void KeyboardSelectContainer::itemClicked(QString language)
+void KeyboardSelectContainer::itemClicked(LanguageListItem* item)
 {
-    for (int i = 0, checkCount = m_listItemVector.size();
-             i < m_listItemVector.size(); i++)
-    {
-        if (m_listItemVector[i]->isChecked())
-        {
-            DcpLanguageConf::instance()->removeKeyboardLanguage(m_listItemVector[i]->text());
-            DcpLanguageConf::instance()->addKeyboardLanguage(m_listItemVector[i]->text());
+    if (item->isChecked())  
+        {      
+            DcpLanguageConf::instance()->addKeyboardLanguage(item->text());
         } else {
-            checkCount--;
             bool doKeep = false;
-            if (checkCount < 1)
+            if (DcpLanguageConf::instance()->keyboardLanguagesNumber() == 1)
             {
                 DuiMessageBox mb("Keep last language?",
-                                 DuiMessageBox::Ok|DuiMessageBox::Cancel);                                                                   
+                                 DuiMessageBox::Ok|DuiMessageBox::Cancel);
+                mb.setParent(this);                
                 mb.exec();
                 doKeep = mb.result() != DuiDialog::Accepted;
                 }
             if (doKeep)
-               selectItem(language);
+               item->checked(true);
             else
-                DcpLanguageConf::instance()->removeKeyboardLanguage(language);
+                DcpLanguageConf::instance()->removeKeyboardLanguage(item->text());
         }
     }
-}
+

@@ -45,6 +45,6 @@ private:
     bool                    m_first;
 
 signals:
-    void            clicked(QString language);
+    void            clicked(LanguageListItem *item);
 };
 #endif // LANGUAGELISTITEM_H
