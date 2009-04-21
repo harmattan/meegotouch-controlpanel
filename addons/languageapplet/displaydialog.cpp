@@ -40,7 +40,5 @@ void DisplayDialog::onOrientationAngleChanged ()
     dialogSize.setHeight(dialogSize.height()-60);
     this->setMinimumSize(dialogSize);
     this->setMaximumSize(dialogSize);
-    layout()->invalidate();
-    layout()->activate();
 }
 
