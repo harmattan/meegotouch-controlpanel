@@ -11,8 +11,6 @@
 #include <QtDebug>
 #include <DuiLabel>
 #include <duilocale.h>
-#include <DuiAction>
-#include <duiapplication.h>
 
 PageFactory *PageFactory::sm_Instance =0;
 
@@ -117,11 +115,6 @@ DcpPage*
 PageFactory::createAppletPage(DcpAppletMetadata *metadata)
 {
     DcpPage *page = new DcpAppletPage(metadata);
-    // closeAction
-    DuiAction *closeAction = new DuiAction(DcpMain::quitSettingsMenuItem, this);
-    closeAction->setPossibleLocations(DuiAction::ViewMenu);
-    connect(closeAction, SIGNAL(triggered()), this, SLOT(closeApplication()));
-    page->addAction(closeAction);
     return page;
 }
 
@@ -136,9 +129,3 @@ PageFactory::back()
 {
    m_CurrentPage->back(); 
 };
-
-void
-PageFactory::closeApplication()
-{
-    qApp->closeAllWindows();    
-}
