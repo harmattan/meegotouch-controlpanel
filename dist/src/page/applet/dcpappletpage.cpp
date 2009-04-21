@@ -71,6 +71,21 @@ DcpAppletPage::changeWidget(int widgetId)
   
     setTitle(m_AppletLoader->applet()->title());
 
-    m_MainWidget->setMinimumWidth(DuiDeviceProfile::instance()->width() - 30);
-    m_MainWidget->setMinimumHeight(DuiDeviceProfile::instance()->height() - 100);
+    setUpMainWidgetSize();
 }
+
+
+void DcpAppletPage::setUpMainWidgetSize()
+{
+    if (m_MainWidget){
+        m_MainWidget->setMinimumWidth(DuiDeviceProfile::instance()->width() - 30);
+        m_MainWidget->setMinimumHeight(DuiDeviceProfile::instance()->height() - 100);
+    }
+}
+
+void DcpAppletPage::organizeContent(Dui::Orientation ori)
+{
+    DcpPage::organizeContent(ori);
+    setUpMainWidgetSize();
+}
+

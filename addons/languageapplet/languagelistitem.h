@@ -45,6 +45,6 @@ private:
     bool                    m_first;
 
 signals:
-    void            clicked();
+    void            clicked(LanguageListItem *item);
 };
 #endif // LANGUAGELISTITEM_H
