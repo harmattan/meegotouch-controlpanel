@@ -69,13 +69,14 @@ void KeyboardSelectContainer::initWidget()
     for (int i = 0; i < m_listItemVector.size(); i++)
     {
         itemLayout->addItemAtPosition(m_listItemVector[i], i / 2, i % 2);
-        connect(m_listItemVector[i], SIGNAL(clicked()), this, SLOT(itemClicked()));
+        connect(m_listItemVector[i], SIGNAL(clicked(QString)), this,
+                SLOT(itemClicked(QString)));
     }
 
     mainLayoutPolicy->addItemAtPosition(gridLayout, 1, Qt::AlignCenter);
 }
 
-void KeyboardSelectContainer::itemClicked()
+void KeyboardSelectContainer::itemClicked(QString language)
 {
     for (int i = 0, checkCount = m_listItemVector.size();
              i < m_listItemVector.size(); i++)
@@ -92,12 +93,12 @@ void KeyboardSelectContainer::itemClicked()
                 DuiMessageBox mb("Keep last language?",
                                  DuiMessageBox::Ok|DuiMessageBox::Cancel);                                                                   
                 mb.exec();
-                doRemove = mb.result() == DuiDialog::Accepted;
+                doRemove = mb.result() == DuiDialog::Rejected;
                 }
             if (doRemove)
-            DcpLanguageConf::instance()->removeKeyboardLanguage(m_listItemVector[i]->text());
+            DcpLanguageConf::instance()->removeKeyboardLanguage(language);
             else
-               selectItem(m_listItemVector[i]->text());
+               selectItem(language);
         }
     }
 }

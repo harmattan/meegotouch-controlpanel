@@ -149,7 +149,7 @@ void LanguageListItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
     event->accept();
     checked(!m_checked);
     m_clicked = true;
-    emit clicked();
+    emit clicked(text());
 }
 
 void LanguageListItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)

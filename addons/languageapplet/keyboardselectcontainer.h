@@ -26,6 +26,6 @@ private:
     QVector<LanguageListItem*> m_listItemVector;
 
 private slots:
-    virtual void itemClicked();
+    virtual void itemClicked(QString language);
 };
 #endif  // KEYBOARDSELECTCONTAINER_H
