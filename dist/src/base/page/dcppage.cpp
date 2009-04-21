@@ -44,6 +44,7 @@ void DcpPage::organizeContent(Dui::Orientation ori)
 
 void DcpPage::onOrientationAngleChanged() {
     organizeContent(DuiDeviceProfile::instance()->orientation());
+    qDebug() << "XXX" << size() << centralWidget()->size();
 }
 
 void DcpPage::append (QGraphicsWidget* widget) {

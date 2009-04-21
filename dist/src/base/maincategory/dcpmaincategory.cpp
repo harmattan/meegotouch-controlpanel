@@ -22,12 +22,6 @@ DcpMainCategory::DcpMainCategory(
     m_Layout->setPolicy(m_LandscapeLayout);
     m_PortraitLayout = new DuiLinearLayoutPolicy(m_Layout, Qt::Vertical);
 
-//    m_Layout->setAnimator(NULL);
-
-    DuiBasicLayoutAnimator* animator = new DuiBasicLayoutAnimator();
-    animator->setAnimationSpeed(150);
-    m_Layout->setAnimator(animator);
-
     setLayout(m_Layout);
 
     m_LandscapeLayout->setColumnSpacing(0, 12);
