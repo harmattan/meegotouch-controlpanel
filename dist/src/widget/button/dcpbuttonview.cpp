@@ -57,7 +57,6 @@ void DcpButtonView::paintTriangle(QPainter *painter)
 
         painter->drawPixmap(trianglePoint, *triangle);
 		}
-
 }
 
 void DcpButtonView::paintText(QPainter *painter)
@@ -133,21 +132,6 @@ void DcpButtonView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 		emit clicked();
 }
 
-int DcpButtonView::stringToAlign(const QString& align)
-{
-	
-		if (align == "Left")
-				return Qt::AlignLeft;
-
-		if (align == "Right")
-			return Qt::AlignRight;
-
-		if (align == "Center")
-				return Qt::AlignHCenter;
-
-		return 0;
-}
-
 int DcpButtonView::width()
 {
 		return styleAttribute<const QSize>(BackgroundSizeAttribute).width();
@@ -156,4 +140,35 @@ int DcpButtonView::width()
 int DcpButtonView::height()
 {
 		return styleAttribute<const QSize>(BackgroundSizeAttribute).height();
+}
+
+
+
+
+typedef struct ALIGNTYPE{
+	QString m_Name;
+	Qt::Alignment m_Flag;
+};
+
+ALIGNTYPE listAlignment[] = {   { "AlignLeft", Qt::AlignLeft },
+																{ "AlignRight", Qt::AlignRight },
+																{ "AlignHCenter", Qt::AlignHCenter },
+
+																{ "AlignTop", Qt::AlignTop },
+																{ "AlignBottom", Qt::AlignBottom },
+																{ "AlignVCenter", Qt::AlignVCenter },
+
+																{ "AlignHCenter", Qt::AlignHCenter }        };
+
+
+Qt::Alignment DcpButtonView::stringToAlign(const QString& alignment)
+{
+
+	Qt::Alignment outAligment;
+
+	for (int i = 0; i < sizeof(listAlignment)/sizeof(ALIGNTYPE); i++)
+			if (alignment.indexOf(listAlignment[i].m_Name) != -1)
+				outAligment |= listAlignment[i].m_Flag;
+
+		return outAligment;
 }

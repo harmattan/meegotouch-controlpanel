@@ -24,6 +24,12 @@ public:
 		virtual void paintTextLeft(QPainter *painter);
 		virtual void paintImageLeft(QPainter *painter);
 
+
+		virtual void paintTriangleRight(QPainter *painter);
+		virtual void paintTextRight(QPainter *painter);
+		virtual void paintImageRight(QPainter *painter);
+
+
 private:
     Q_DISABLE_COPY(DcpButton2ImageView);
 };

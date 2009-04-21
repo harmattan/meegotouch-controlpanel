@@ -166,8 +166,8 @@ DuiImage {
     textSize2: size(300, 30);
     textPos2: pos(0, 30);
 
-    textAlign1: "Left";
-    textAlign2: "Left";
+    textAlign1: "AlignLeft";
+    textAlign2: "AlignLeft";
 
     triangleBackground: "See-more-indicator-small";
     triangleBackgroundSize: size(16, 16);
@@ -175,7 +175,7 @@ DuiImage {
 
     imageName: image(starfield);
     imageSize: size(64, 64);
-    imageSpacer: 20;
+    marginSpacer: 20;
 
     backgroundBorder: "Thumbnail-frame";
 }

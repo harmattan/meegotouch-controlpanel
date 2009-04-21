@@ -28,7 +28,7 @@ public:
 		void setText1(const QString& text);
 		void setText2(const QString& text);
 
-		int stringToAlign(const QString& align);
+		Qt::Alignment stringToAlign(const QString& alignment);
 
 		int width();
 		int height();
@@ -82,7 +82,7 @@ protected:
 
 			ImageNameAttribute,
 			ImageSizeAttribute,
-			ImageSpacerAttribute,
+			MarginSpacerAttribute,
 
 			BackgroundBorderAttribute
 	
