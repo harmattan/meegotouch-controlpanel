@@ -87,18 +87,18 @@ void KeyboardSelectContainer::itemClicked(QString language)
             DcpLanguageConf::instance()->addKeyboardLanguage(m_listItemVector[i]->text());
         } else {
             checkCount--;
-            bool doRemove = true;
+            bool doKeep = false;
             if (checkCount < 1)
             {
                 DuiMessageBox mb("Keep last language?",
                                  DuiMessageBox::Ok|DuiMessageBox::Cancel);                                                                   
                 mb.exec();
-                doRemove = mb.result() != DuiDialog::Rejected;
+                doKeep = mb.result() == DuiDialog::Accepted;
                 }
-            if (doRemove)
-            DcpLanguageConf::instance()->removeKeyboardLanguage(language);
-            else
+            if (doKeep)
                selectItem(language);
+            else
+                DcpLanguageConf::instance()->removeKeyboardLanguage(language);
         }
     }
 }
