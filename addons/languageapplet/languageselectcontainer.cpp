@@ -61,7 +61,7 @@ void LanguageSelectContainer::initWidget()
     for (int i = 0; i < m_listItemVector.size(); i++)
     {
         itemLayout->addItemAtPosition(m_listItemVector[i], i / 2, i % 2);
-        connect(m_listItemVector[i], SIGNAL(clicked()), this, SLOT(itemClicked()));
+        connect(m_listItemVector[i], SIGNAL(clicked(QString)), this, SLOT(itemClicked()));
     }
 
     mainLayoutPolicy->addItemAtPosition(gridLayout, 1, Qt::AlignCenter);
