@@ -2,7 +2,7 @@
 #define KEYBOARDSELECTCONTAINER_H
 
 #include <DuiWidget>
-
+#include <QMap>
 class LanguageListItem;
 
 class KeyboardSelectContainer : public DuiWidget
@@ -23,9 +23,9 @@ protected:
 private:
     QString m_titleText;
     QStringList m_itemList;
-    QVector<LanguageListItem*> m_listItemVector;
+    QMap<QString, LanguageListItem*> m_listItems;
 
 private slots:
-    virtual void itemClicked(QString language);
+    virtual void itemClicked(LanguageListItem *item);
 };
 #endif  // KEYBOARDSELECTCONTAINER_H
