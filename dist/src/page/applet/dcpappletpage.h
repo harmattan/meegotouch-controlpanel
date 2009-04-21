@@ -18,7 +18,10 @@ protected slots:
     void changeWidget(int widgetId);
 protected:
     bool loadApplet();
+    virtual void organizeContent(Dui::Orientation ori);
 private:
+    void setUpMainWidgetSize();
+
     DcpAppletMetadata *m_Metadata;
     DcpWidget *m_MainWidget;
     DcpAppletLoader* m_AppletLoader;
