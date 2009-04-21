@@ -93,7 +93,7 @@ void KeyboardSelectContainer::itemClicked(QString language)
                 DuiMessageBox mb("Keep last language?",
                                  DuiMessageBox::Ok|DuiMessageBox::Cancel);                                                                   
                 mb.exec();
-                doKeep = mb.result() == DuiDialog::Accepted;
+                doKeep = mb.result() != DuiDialog::Accepted;
                 }
             if (doKeep)
                selectItem(language);
