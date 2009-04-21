@@ -59,12 +59,15 @@ MainWindow::changePage(Pages::Handle handle)
 void MainWindow::onRotateClicked()
 {
     DuiDeviceProfile *profile = DuiDeviceProfile::instance();
-
-    if ( profile->orientation() == Dui::Portrait ) {
-        qDebug() << "mode changes to Angle0";
-        profile->setOrientationAngle (DuiDeviceProfile::Angle0);
-    } else {
-        qDebug() << "mode changes to Angle90";
-        profile->setOrientationAngle (DuiDeviceProfile::Angle90);
+    static DuiDeviceProfile::DeviceOrientationAngle angle = DuiDeviceProfile::Angle0;
+    if (angle == DuiDeviceProfile::Angle270) {
+	angle = DuiDeviceProfile::Angle0;
+    } else if (angle == DuiDeviceProfile::Angle0) {
+	angle = DuiDeviceProfile::Angle90;
+    } else if (angle == DuiDeviceProfile::Angle90) {
+	angle = DuiDeviceProfile::Angle180;
+    } else if (angle == DuiDeviceProfile::Angle180) {
+	angle = DuiDeviceProfile::Angle270;
     }
+    profile->setOrientationAngle (angle);
 }
