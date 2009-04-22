@@ -54,14 +54,19 @@ void DcpButton2ImageView::paint(QPainter *painter, const QStyleOptionGraphicsIte
 		paintBackground(painter);
 		
 
-		//paintTriangle(painter);
-		//paintTextLeft(painter);
-		//paintImageLeft(painter);
+		if ( m_Alignment==Qt::AlignLeft ) {
+      	paintTriangle(painter);
+				paintTextLeft(painter);
+				paintImageLeft(painter);
 
-		paintTriangleRight(painter);
-		paintTextRight(painter);
-		paintImageRight(painter);
+		} else {
+  //  if ( m_Alignment==Qt::AlignRight ) {
+      	paintTriangleRight(painter);
+				paintTextRight(painter);
+				paintImageRight(painter);
 
+		}
+	
 		return;
 }
 

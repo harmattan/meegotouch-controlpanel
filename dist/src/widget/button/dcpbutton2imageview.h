@@ -29,7 +29,6 @@ public:
 		virtual void paintTextRight(QPainter *painter);
 		virtual void paintImageRight(QPainter *painter);
 
-
 private:
     Q_DISABLE_COPY(DcpButton2ImageView);
 };

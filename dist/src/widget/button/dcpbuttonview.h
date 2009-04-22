@@ -33,6 +33,8 @@ public:
 		int width();
 		int height();
 
+		void setAlignment(Qt::Alignment alignment);
+
 signals:
     void clicked();
 
@@ -90,8 +92,15 @@ protected:
 			ToggleOffAttribute
 	
 	};
+
+		Qt::Alignment m_Alignment;
 };
 
+
+inline void DcpButtonView::setAlignment(Qt::Alignment alignment)
+{
+		m_Alignment = alignment;
+}
 
 inline void DcpButtonView::setText1(const QString& text)
 {

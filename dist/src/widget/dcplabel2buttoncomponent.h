@@ -8,6 +8,7 @@ class DuiButton;
 class DuiLinearLayout;
 class DuiGridLayout;
 class DcpAppletMetadata;
+class DcpButton;
 
 class DcpLabel2ButtonComponent: public DcpBasicComponent
 {
@@ -37,6 +38,8 @@ protected:
     DuiLabel* m_DownLabel;
 
     bool m_EnableSmallToggle;
+
+		DcpButton *m_Button;
 };
 
 

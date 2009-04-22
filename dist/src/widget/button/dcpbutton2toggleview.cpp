@@ -10,7 +10,6 @@ DcpButton2ToggleView::DcpButton2ToggleView(DcpButton &button) :
     DcpButton2ImageView(button),
 		m_EnableToggle(false)
 {
-		m_Side = RIGHTSIDE;
 }
 
 
@@ -24,19 +23,22 @@ void DcpButton2ToggleView::paint(QPainter *painter, const QStyleOptionGraphicsIt
     Q_UNUSED(option);
 
 		paintBackground(painter);
+
+		if ( m_Alignment==Qt::AlignLeft ) {
+      	paintTriangle(painter);
+				paintTextLeft(painter);
+				paintToggleLeft(painter);
+			
+
+		} else {
+  //  if ( m_Alignment==Qt::AlignRight ) {
+      	paintTriangleRight(painter);
+				paintTextRight(painter);
+				paintToggleRight(painter);
+			
+
+		}
 		
-		switch(m_Side) {
-				case LEFTSIDE :
-						paintTriangle(painter);
-						paintTextLeft(painter);
-						paintToggleLeft(painter);
-				break;
-				case RIGHTSIDE :
-						paintTriangleRight(painter);
-						paintTextRight(painter);
-						paintToggleRight(painter);
-				break;
-			}
 
 		return;
 }
@@ -98,53 +100,51 @@ void DcpButton2ToggleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 		int marginSpacer = styleAttribute<int>(MarginSpacerAttribute);
 
  		if (m_ToggleOn && m_ToggleOff)
-				switch(m_Side) {
-					case LEFTSIDE :
-							if (m_EnableToggle) {
-										QRect rect(	width() - m_ToggleOn->width() - marginSpacer,
-															(height() - m_ToggleOn->height()) / 2,
-															width() - marginSpacer,
-															(height() + m_ToggleOn->height()) / 2					);
+
+				if ( m_Alignment==Qt::AlignLeft ) {
+						if (m_EnableToggle) {
+								QRect rect(	width() - m_ToggleOn->width() - marginSpacer,
+														(height() - m_ToggleOn->height()) / 2,
+														width() - marginSpacer,
+														(height() + m_ToggleOn->height()) / 2					);
 		
-									if (rect.contains(event->pos().x(), event->pos().y())) {
-											m_EnableToggle = !m_EnableToggle;
-											return;
-									}
-							} else {
-									QRect rect(	width() - m_ToggleOff->width() - marginSpacer,
-															(height() - m_ToggleOff->height()) / 2,
-															width() - marginSpacer,
-															(height() + m_ToggleOff->height()) / 2					);
-			
-									if (rect.contains(event->pos().x(), event->pos().y())) {
-											m_EnableToggle = !m_EnableToggle;
-											return;
-									}
-							}
-					break;
-					case RIGHTSIDE :
-							if (m_EnableToggle) {
-										QRect rect(	marginSpacer,
-															(height() - m_ToggleOn->height()) / 2,
-															marginSpacer + m_ToggleOn->width(),
-															(height() + m_ToggleOn->height()) / 2					);
-		
-									if (rect.contains(event->pos().x(), event->pos().y())) {
+								if (rect.contains(event->pos().x(), event->pos().y())) {
 										m_EnableToggle = !m_EnableToggle;
 										return;
-									}
-							} else {
-									QRect rect(	marginSpacer,
-															(height() - m_ToggleOff->height()) / 2,
-															marginSpacer + m_ToggleOff->width(),
-															(height() + m_ToggleOff->height()) / 2					);
+								}
+						} else {
+								QRect rect(	width() - m_ToggleOff->width() - marginSpacer,
+														(height() - m_ToggleOff->height()) / 2,
+														width() - marginSpacer,
+														(height() + m_ToggleOff->height()) / 2					);
 			
-									if (rect.contains(event->pos().x(), event->pos().y())) {
-											m_EnableToggle = !m_EnableToggle;
-											return;
-									}
+								if (rect.contains(event->pos().x(), event->pos().y())) {
+										m_EnableToggle = !m_EnableToggle;
+										return;
+								}
+						}
+				} else {
+						if (m_EnableToggle) {
+								QRect rect(	marginSpacer,
+							 							(height() - m_ToggleOn->height()) / 2,
+														marginSpacer + m_ToggleOn->width(),
+														(height() + m_ToggleOn->height()) / 2					);
+		
+								if (rect.contains(event->pos().x(), event->pos().y())) {
+										m_EnableToggle = !m_EnableToggle;
+										return;
+								}
+						} else {
+								QRect rect(	marginSpacer,
+														(height() - m_ToggleOff->height()) / 2,
+														marginSpacer + m_ToggleOff->width(),
+														(height() + m_ToggleOff->height()) / 2					);
+			
+								if (rect.contains(event->pos().x(), event->pos().y())) {
+										m_EnableToggle = !m_EnableToggle;
+										return;
+								}
 							}
-					break;
 				}
 				
 

@@ -8,6 +8,7 @@ class DuiLabel;
 class DuiButton;
 class DuiImage;
 class DcpAppletMetadata;
+class DcpButton;
 
 class DcpLabel2ImageComponent: public DcpBasicComponent
 {
@@ -42,6 +43,8 @@ protected:
     int m_ImageSize;
 
     Qt::Alignment m_Alignment;
+
+		DcpButton *m_Button;
 
 };
 

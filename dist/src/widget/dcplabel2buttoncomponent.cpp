@@ -6,6 +6,8 @@
 
 #include "dcpappletmetadata.h"
 
+#include "dcpbutton.h"
+
 #include <QDebug>
 
 DcpLabel2ButtonComponent::DcpLabel2ButtonComponent( DcpCategory *category,
@@ -27,6 +29,16 @@ DcpLabel2ButtonComponent::~DcpLabel2ButtonComponent()
 
 void DcpLabel2ButtonComponent::createContents()
 {
+
+
+		m_Button = new DcpButton(DCPLABEL2TOGGLE);
+
+		m_Button->setText(metadata()->text1(), metadata()->text2());
+   	m_WidgetLayoutPolicy->addItemAtPosition(m_Button, 0, 0);
+
+		connect(m_Button, SIGNAL(clicked()), this, SLOT(bigClicked()));
+
+/*
 
     QString upLabel = metadata()->text1();
     QString downLabel = metadata()->text2();
@@ -83,13 +95,13 @@ void DcpLabel2ButtonComponent::createContents()
     connect(m_DisableButton, SIGNAL(clicked()), this, SLOT(disableClicked()));
 
     setEnableButton(true);
-
+*/
     initLayout();
 }
 
 
 void DcpLabel2ButtonComponent::setEnableButton(bool enable) {
-
+/*
     m_EnableButton = enable;
 
     if (m_EnableButton) {
@@ -101,17 +113,19 @@ void DcpLabel2ButtonComponent::setEnableButton(bool enable) {
         m_SmallButtonOff->hide();
         m_DisableButton->show();
     }
-
+*/
 }
 
 void DcpLabel2ButtonComponent::smallClickedOn()
 {
+/*
     if (m_EnableSmallToggle)
       	m_SmallButtonOn->setDown(true);
 		else
 				m_SmallButtonOn->setDown(false);
 
 		m_EnableSmallToggle = !m_EnableSmallToggle;
+*/
 }
 void DcpLabel2ButtonComponent::smallClickedOff(){}
 void DcpLabel2ButtonComponent::disableClicked(){}
