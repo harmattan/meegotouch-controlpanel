@@ -113,7 +113,9 @@ void DisplayWidget::initWidget()
                     new DcpSpacerItem(this, 5, 5, 
                         QSizePolicy::Expanding, QSizePolicy::Fixed),
                     2, Qt::AlignRight);
-    mainLayoutPolicy->addItemAtPosition(titleLayout, 0, Qt::AlignCenter);
+    DuiWidget* titleWidget = new DuiWidget(this);
+    titleWidget->setLayout(titleLayout);
+    mainLayoutPolicy->addItemAtPosition(titleWidget, 0, Qt::AlignCenter);
 
     // DonwloadedLanguage
     LanguageLabelButtonContainer *downloadedCont =
