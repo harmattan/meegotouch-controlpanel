@@ -24,6 +24,7 @@ void LanguageLabelButtonContainer::initWidget()
 {
     // mainLayout
     m_mainLayout = new DuiLayout(this);
+    m_mainLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *mainLayoutPolicy =
             new DuiLinearLayoutPolicy(m_mainLayout, Qt::Vertical);
     m_mainLayout->setPolicy(mainLayoutPolicy);

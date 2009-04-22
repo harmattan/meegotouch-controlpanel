@@ -39,6 +39,7 @@ void LanguageSelectContainer::initWidget()
 {
     // mainLayout
     DuiLayout *mainLayout = new DuiLayout(this);
+    mainLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *mainLayoutPolicy = 
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
@@ -48,6 +49,7 @@ void LanguageSelectContainer::initWidget()
 
     // gridLayout
     DuiLayout *gridLayout = new DuiLayout(NULL);
+    gridLayout->setAnimator(NULL);
     DuiGridLayoutPolicy *itemLayout = new DuiGridLayoutPolicy(gridLayout);
     gridLayout->setPolicy(itemLayout);
     

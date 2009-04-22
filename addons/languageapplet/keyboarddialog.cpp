@@ -20,6 +20,7 @@ void KeyboardDialog::initWidget()
     KeyboardWidget *widget = new KeyboardWidget();
 
     DuiLayout *mainLayout = new DuiLayout();
+    mainLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *mainLayoutPolicy =
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);

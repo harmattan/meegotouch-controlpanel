@@ -88,6 +88,7 @@ void DisplayWidget::initWidget()
     
     // Layout
     DuiLayout *m_mainLayout = new DuiLayout(this);
+    m_mainLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *mainLayoutPolicy =
             new DuiLinearLayoutPolicy(m_mainLayout, Qt::Vertical);
     m_mainLayout->setPolicy(mainLayoutPolicy);
@@ -95,6 +96,7 @@ void DisplayWidget::initWidget()
 
     // titleLayout
     DuiLayout *titleLayout = new DuiLayout(NULL);
+    titleLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *titleLayoutPolicy = 
             new DuiLinearLayoutPolicy(titleLayout, Qt::Horizontal);
     titleLayout->setPolicy(titleLayoutPolicy);
@@ -136,6 +138,7 @@ void DisplayWidget::initWidget()
     // contWidget
     DuiWidget *contWidget = new DuiWidget(this);
     m_contLayout = new DuiLayout(contWidget);
+    m_contLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *contLayoutPolicy =
             new DuiLinearLayoutPolicy(m_contLayout, Qt::Vertical);
     m_contLayout->setPolicy(contLayoutPolicy);

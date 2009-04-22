@@ -16,6 +16,7 @@ DcpMainCategory::DcpMainCategory(
 ) : DcpCategory(title, parent), m_ColCount(0), m_RowCount(0), m_ItemCount(0)
 {
     m_Layout = new DuiLayout();
+    m_Layout->setAnimator(NULL);
 
     m_LandscapeLayout = new DuiGridLayoutPolicy(m_Layout);
 

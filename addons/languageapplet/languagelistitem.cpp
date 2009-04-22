@@ -98,6 +98,7 @@ bool LanguageListItem::isClicked()
 void LanguageListItem::initWidget()
 {
     DuiLayout *mainLayout = new DuiLayout(this);
+    mainLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *mainLayoutPolicy = 
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
@@ -108,6 +109,7 @@ void LanguageListItem::initWidget()
 
     // label
     DuiLayout *labelLayout = new DuiLayout(NULL);
+    labelLayout->setAnimator(NULL);
     m_labelLayoutPolicy = new DuiGridLayoutPolicy(labelLayout);
     labelLayout->setPolicy(m_labelLayoutPolicy);
     m_labelLayoutPolicy->addItemAtPosition(

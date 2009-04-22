@@ -11,6 +11,7 @@ GroupTitleWidget::GroupTitleWidget(const QString &text, DuiWidget *parent)
 {
     // mainLayout
     DuiLayout *mainLayout = new DuiLayout(this);
+    mainLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *mainLayoutPolicy = 
             new DuiLinearLayoutPolicy(mainLayout, Qt::Horizontal);
     mainLayout->setPolicy(mainLayoutPolicy);

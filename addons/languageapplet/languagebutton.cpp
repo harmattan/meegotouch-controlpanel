@@ -87,6 +87,7 @@ void LanguageButton::initWidget()
     
     // mainLayout
     DuiLayout *mainLayout = new DuiLayout(this);
+    mainLayout->setAnimator(NULL);
     DuiGridLayoutPolicy *mainLayoutPolicy =
             new DuiGridLayoutPolicy(mainLayout);
     mainLayout->setPolicy(mainLayoutPolicy);
@@ -95,6 +96,7 @@ void LanguageButton::initWidget()
     
     // seeMoreLayout
     DuiLayout *seeMoreLayout = new DuiLayout(NULL);
+    seeMoreLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *seeMoreLayoutPolicy =
             new DuiLinearLayoutPolicy(seeMoreLayout, Qt::Vertical);
     seeMoreLayout->setPolicy(seeMoreLayoutPolicy);

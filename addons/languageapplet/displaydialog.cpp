@@ -22,6 +22,7 @@ void DisplayDialog::initWidget()
     DisplayWidget *widget = new DisplayWidget();
 
     DuiLayout *mainLayout = new DuiLayout();
+    mainLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *mainLayoutPolicy =
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);

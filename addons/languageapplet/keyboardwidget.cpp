@@ -88,6 +88,7 @@ void KeyboardWidget::initWidget()
     
     // Layout
     DuiLayout *m_mainLayout = new DuiLayout(this);
+    m_mainLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *mainLayoutPolicy =
             new DuiLinearLayoutPolicy(m_mainLayout, Qt::Vertical);
     m_mainLayout->setPolicy(mainLayoutPolicy);
@@ -95,6 +96,7 @@ void KeyboardWidget::initWidget()
 
     // titleLayout
     DuiLayout *titleLayout = new DuiLayout(NULL);
+    titleLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *titleLayoutPolicy = 
             new DuiLinearLayoutPolicy(titleLayout, Qt::Horizontal);
     titleLayout->setPolicy(titleLayoutPolicy);
@@ -131,6 +133,7 @@ void KeyboardWidget::initWidget()
     // contWidget
     DuiWidget *contWidget = new DuiWidget(this);
     DuiLayout *contLayout = new DuiLayout(contWidget);
+    contLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *contLayoutPolicy =
             new DuiLinearLayoutPolicy(contLayout, Qt::Vertical);
     contLayout->setPolicy(contLayoutPolicy);

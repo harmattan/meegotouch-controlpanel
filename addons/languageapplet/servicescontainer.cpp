@@ -66,9 +66,11 @@ void ServicesContainer::initContainer()
 {
     // m_mainLayout
     m_mainLayout = new DuiLayout(this);
+    m_mainLayout->setAnimator(NULL);
 
     // captionLayout
     DuiLayout *captionLayout = new DuiLayout(m_mainLayout);
+    captionLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *captionLayoutPolicy = 
             new DuiLinearLayoutPolicy(captionLayout, Qt::Horizontal);
     captionLayout->setPolicy(captionLayoutPolicy);

@@ -30,6 +30,7 @@ void DcpPage::createContent()
 void DcpPage::_createLayout()
 {
     DuiLayout* layout = new DuiLayout();
+    layout->setAnimator(NULL);
     m_MainLayout = new DuiLinearLayoutPolicy(layout, Qt::Vertical);
     layout->setAnimator(NULL);
     layout->setPolicy(m_MainLayout);
