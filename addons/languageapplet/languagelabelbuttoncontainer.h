@@ -4,6 +4,7 @@
 #include <DuiWidget>
 
 class DuiLayout;
+class RemovableListItem;
 
 class LanguageLabelButtonContainer : public DuiWidget
 {
@@ -17,16 +18,20 @@ public:
 
     LanguageLabelButtonContainer(LanguageLabelButtonContainer::Type type,
                                 DuiWidget *parent = 0);
-    ~LanguageLabelButtonContainer();
+    virtual ~LanguageLabelButtonContainer();
     
 protected:
     void initWidget();
 
 private:
-    LanguageLabelButtonContainer::Type m_type;
-    DuiLayout *m_mainLayout;
+    LanguageLabelButtonContainer::Type  m_type;
+    DuiLayout                           *m_mainLayout;
+    QVector<RemovableListItem*>         m_itemVector;
 
 private slots:
-    virtual void deleteItem(int id);
+    virtual void deleteItem(RemovableListItem *item);
+
+signals:
+    void removeMe(LanguageLabelButtonContainer*);
 };
 #endif // LANGUAGELBELBUTTONCONTAINER_H

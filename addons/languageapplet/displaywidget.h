@@ -5,6 +5,8 @@
 
 class QPixmap;
 class DuiLabel;
+class DuiLayout;
+class LanguageLabelButtonContainer;
 
 class DisplayWidget : public DcpWidget
 {
@@ -32,5 +34,9 @@ protected:
 private:
     const QPixmap   *m_background;
     DuiLabel        *m_titleLabel;
+    DuiLayout       *m_contLayout;
+
+private slots:
+    virtual void    removeContainer(LanguageLabelButtonContainer*);
 };
 #endif //DISPLAYWIDGET_H

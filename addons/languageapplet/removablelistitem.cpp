@@ -15,8 +15,7 @@ RemovableListItem::RemovableListItem(const QString &upText,
                                      DuiWidget *parent)
                   :DuiWidget(parent),
                    m_upText(upText),
-                   m_downText(downText),
-                   m_id(-1)
+                   m_downText(downText)
 {
     initWidget();
 }
@@ -32,16 +31,6 @@ RemovableListItem::RemovableListItem(const QString &text,
 
 RemovableListItem::~RemovableListItem()
 {
-}
-
-void RemovableListItem::setId(int id)
-{
-    m_id = id;
-}
-
-int RemovableListItem::id()
-{
-    return m_id;
 }
 
 void RemovableListItem::initWidget()
@@ -83,5 +72,5 @@ void RemovableListItem::initWidget()
 
 void RemovableListItem::removeClicked()
 {
-    emit clicked(m_id);
+    emit clicked(this);
 }

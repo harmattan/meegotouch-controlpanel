@@ -16,8 +16,6 @@ public:
     RemovableListItem(const QString &text,
                       DuiWidget *parent = 0);
     virtual ~RemovableListItem();
-    void setId(int id);
-    int id();
 
 protected:
     void initWidget();
@@ -25,13 +23,12 @@ protected:
 private:
     QString     m_upText;
     QString     m_downText;
-    int         m_id;
     DuiButton   *m_removeButton;
 
 private slots:
     virtual void removeClicked();
 
 signals:
-    void clicked(int id);
+    void clicked(RemovableListItem*);
 };
 #endif // REMOVABLELISTITEM_H

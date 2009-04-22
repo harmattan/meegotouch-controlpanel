@@ -30,33 +30,43 @@ void LanguageLabelButtonContainer::initWidget()
 
     // group title
     GroupTitleWidget *titleLabel = NULL;
-    RemovableListItem *removeItem = NULL;
     switch (m_type)
     {
         case LanguageLabelButtonContainer::DOWNLOADED:
                 titleLabel = new GroupTitleWidget(DcpLanguage::DownloadedText, this);
-                removeItem = new RemovableListItem("Hungarian", "Version 0.2", this);
+                m_itemVector.push_back(new RemovableListItem("Magyar", "Version 0.2", this));
                 break;
         case LanguageLabelButtonContainer::INSTALLED:
                 titleLabel = new GroupTitleWidget(DcpLanguage::InstalledText, this);
-                removeItem = new RemovableListItem("Language", this);
+                m_itemVector.push_back(new RemovableListItem("Language 1", this));
+                m_itemVector.push_back(new RemovableListItem("Language 2", this));
                 break;
         default:
                 break;
     }
-    connect(removeItem, SIGNAL(clicked(int)), this, SLOT(deleteItem(int)));
 
     mainLayoutPolicy->addItemAtPosition(titleLabel, 0, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(removeItem, 1, Qt::AlignCenter);
-    removeItem->setId(1);
+    for (int i = 0; i < m_itemVector.size(); i++)
+    {
+        mainLayoutPolicy->addItemAtPosition(m_itemVector[i], i + 1, Qt::AlignCenter);
+        connect(m_itemVector[i], SIGNAL(clicked(RemovableListItem*)), 
+                this, SLOT(deleteItem(RemovableListItem*)));
+    }
     
     this->setLayout(m_mainLayout);
 }
 
-void LanguageLabelButtonContainer::deleteItem(int id)
+void LanguageLabelButtonContainer::deleteItem(RemovableListItem *item)
 {
-    if (id >= 0)
-    {
-        m_mainLayout->removeAt(id);
-    }
+   if (m_itemVector.contains(item))
+   {
+        item->hide();
+        m_itemVector.remove(m_itemVector.indexOf(item));
+        int index = m_mainLayout->findIndexForItem(static_cast<QGraphicsItem*>(item));
+        m_mainLayout->removeAt(index);
+        if (m_itemVector.isEmpty())
+        {
+            emit removeMe(this);
+        }
+   }
 }
