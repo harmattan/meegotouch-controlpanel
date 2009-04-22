@@ -128,7 +128,9 @@ void LanguageButton::initWidget()
     m_downLabel->setObjectName("LanguageRightLabel");
     m_downLabel->setAcceptedMouseButtons(0);
  
-    mainLayoutPolicy->addItemAtPosition(seeMoreLayout, 0, 0);
+    DuiWidget* seeMoreWidget = new DuiWidget(this);
+    seeMoreWidget->setLayout(seeMoreLayout);
+    mainLayoutPolicy->addItemAtPosition(seeMoreWidget, 0, 0);
     mainLayoutPolicy->addItemAtPosition(m_upLabel, 0, 1);
     mainLayoutPolicy->addItemAtPosition(m_downLabel, 1, 1);
     mainLayoutPolicy->addItemAtPosition(
