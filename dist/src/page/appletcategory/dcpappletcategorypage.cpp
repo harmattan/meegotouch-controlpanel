@@ -6,7 +6,7 @@
 
 #include "dcplabelcomponent.h"
 #include "dcplabel2component.h"
-#include "dcplabel2buttoncomponent.h"
+#include "dcplabel2togglecomponent.h"
 #include "dcplabel2imagecomponent.h"
 #include "dcplabelbuttoncomponent.h"
 

@@ -1,5 +1,5 @@
-#ifndef DCPLABEL2BUTTON_H
-#define DCPLABEL2BUTTON_H
+#ifndef DCPLABEL2TOGGLE_H
+#define DCPLABEL2TOGGLE_H
 
 #include "dcpbasiccomponent.h"
 
@@ -10,15 +10,15 @@ class DuiGridLayout;
 class DcpAppletMetadata;
 class DcpButton;
 
-class DcpLabel2ButtonComponent: public DcpBasicComponent
+class DcpLabel2ToggleComponent: public DcpBasicComponent
 {
     Q_OBJECT
 public:
-    DcpLabel2ButtonComponent(DcpCategory *category,
+    DcpLabel2ToggleComponent(DcpCategory *category,
                        DcpAppletMetadata* metadata,
                        const QString& title="",
                        QGraphicsWidget *parent=0);
-    ~DcpLabel2ButtonComponent();
+    ~DcpLabel2ToggleComponent();
   
     virtual void createContents();
 

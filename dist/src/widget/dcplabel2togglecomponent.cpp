@@ -1,4 +1,4 @@
-#include "dcplabel2buttoncomponent.h"
+#include "dcplabel2togglecomponent.h"
 
 #include <duilabel.h>
 #include <duibutton.h>
@@ -10,7 +10,7 @@
 
 #include <QDebug>
 
-DcpLabel2ButtonComponent::DcpLabel2ButtonComponent( DcpCategory *category,
+DcpLabel2ToggleComponent::DcpLabel2ToggleComponent( DcpCategory *category,
                                                     DcpAppletMetadata * metadata,
                                                     const QString& title,
                                                     QGraphicsWidget *parent):
@@ -22,12 +22,12 @@ DcpLabel2ButtonComponent::DcpLabel2ButtonComponent( DcpCategory *category,
 }
 
 
-DcpLabel2ButtonComponent::~DcpLabel2ButtonComponent()
+DcpLabel2ToggleComponent::~DcpLabel2ToggleComponent()
 {
 }
 
 
-void DcpLabel2ButtonComponent::createContents()
+void DcpLabel2ToggleComponent::createContents()
 {
 
 
@@ -100,7 +100,7 @@ void DcpLabel2ButtonComponent::createContents()
 }
 
 
-void DcpLabel2ButtonComponent::setEnableButton(bool enable) {
+void DcpLabel2ToggleComponent::setEnableButton(bool enable) {
 /*
     m_EnableButton = enable;
 
@@ -116,7 +116,7 @@ void DcpLabel2ButtonComponent::setEnableButton(bool enable) {
 */
 }
 
-void DcpLabel2ButtonComponent::smallClickedOn()
+void DcpLabel2ToggleComponent::smallClickedOn()
 {
 /*
     if (m_EnableSmallToggle)
@@ -127,8 +127,8 @@ void DcpLabel2ButtonComponent::smallClickedOn()
 		m_EnableSmallToggle = !m_EnableSmallToggle;
 */
 }
-void DcpLabel2ButtonComponent::smallClickedOff(){}
-void DcpLabel2ButtonComponent::disableClicked(){}
+void DcpLabel2ToggleComponent::smallClickedOff(){}
+void DcpLabel2ToggleComponent::disableClicked(){}
 
 
 /*
