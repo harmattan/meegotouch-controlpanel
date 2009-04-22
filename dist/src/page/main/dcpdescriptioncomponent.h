@@ -1,9 +1,9 @@
 #ifndef DCPDESCRIPTIONCOMPONENT_H
 #define DCPDESCRIPTIONCOMPONENT_H
 
-#include "dcpbackgroundcomponent.h"
+#include "dcpcomponent.h"
 
-class DcpDescriptionComponent:public DcpBackgroundComponent
+class DcpDescriptionComponent:public DcpComponent
 {
     Q_OBJECT
 public:
@@ -16,6 +16,8 @@ public:
 
     void setFullRowSize();
     void setHalfRowSize();
+    virtual void add(DcpComponent*){}
+    virtual void remove(DcpComponent*){}
 
 protected:
     virtual void createContents();
@@ -27,10 +29,11 @@ public slots:
 
 private:
     void initSizes();
-    DuiLabel *m_Description;
+    class DuiLabel *m_Description;
     bool m_IsFullRow;
     Dui::Orientation m_Orientation;
 };
 
 
 #endif // DCPDESCRIPTIONCOMPONENT_H
+
