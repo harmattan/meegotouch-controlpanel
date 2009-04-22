@@ -4,6 +4,8 @@
 #include "dcpwidget.h"
 
 class QPixmap;
+class DuiLayout;
+class LanguageLabelButtonContainer;
 
 class KeyboardWidget : public DcpWidget
 {
@@ -28,5 +30,9 @@ protected:
 
 private:
     const QPixmap   *m_background;
+    DuiLayout       *m_contLayout;
+
+private slots:
+    virtual void    removeContainer(LanguageLabelButtonContainer*);
 };
 #endif //KEYBOARDWIDGET_H

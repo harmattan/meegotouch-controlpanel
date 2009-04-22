@@ -167,5 +167,6 @@ void DisplayWidget::removeContainer(LanguageLabelButtonContainer *cont)
 {
     cont->hide();
     int index = m_contLayout->findIndexForItem(static_cast<QGraphicsItem*>(cont));
-    m_contLayout->removeAt(index);
+    if (index != -1)
+        m_contLayout->removeAt(index);
 }

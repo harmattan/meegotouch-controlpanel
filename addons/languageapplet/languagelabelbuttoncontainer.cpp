@@ -28,6 +28,8 @@ void LanguageLabelButtonContainer::initWidget()
     DuiLinearLayoutPolicy *mainLayoutPolicy =
             new DuiLinearLayoutPolicy(m_mainLayout, Qt::Vertical);
     m_mainLayout->setPolicy(mainLayoutPolicy);
+    mainLayoutPolicy->setContentsMargins(1.0, 0.0, 1.0, 0.0);
+    mainLayoutPolicy->setSpacing(2);
 
     // group title
     GroupTitleWidget *titleLabel = NULL;
@@ -64,7 +66,9 @@ void LanguageLabelButtonContainer::deleteItem(RemovableListItem *item)
         item->hide();
         m_itemVector.remove(m_itemVector.indexOf(item));
         int index = m_mainLayout->findIndexForItem(static_cast<QGraphicsItem*>(item));
-        m_mainLayout->removeAt(index);
+        if (index != -1)
+            m_mainLayout->removeAt(index);
+        
         if (m_itemVector.isEmpty())
         {
             emit removeMe(this);
