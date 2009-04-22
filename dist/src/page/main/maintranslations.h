@@ -101,6 +101,5 @@ static const DcpCategoryInfo CategoryInfos[] = {
    
    const QString settingsTitle = trid("qtn_sett_title", "Settings");
    const QString mostRecentUsedTitle = trid ("qtn_sett_main_most", "Most recent used");
-   const QString quitSettingsMenuItem = trid("qtn_quit_settings", "Quit settings");
 };
 #endif // MAINTRANSLATIONS_H

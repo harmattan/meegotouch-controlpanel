@@ -29,5 +29,7 @@ namespace DcpLanguage {
                     "Remove");
     const QString RemoveLanguage = trid("remove_language_text", 
                     "Keep Last?");
+    const QString QuitSettingsMenuText = trid("quit_settings_menu_text",
+                    "Quit settings");
 };
 #endif // LANGUAGETRANSLATION_H

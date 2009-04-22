@@ -137,10 +137,9 @@ void LanguageListItem::initWidget()
     setMinimumHeight(height);
     setMaximumHeight(height);
 
-    // set width
-    int devide = 20;
-    setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
-    setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+    connect(DuiDeviceProfile::instance(), SIGNAL(orientationAngleChanged (DuiDeviceProfile::DeviceOrientationAngle)),
+            this, SLOT(onOrientationAngleChanged ()));
+    onOrientationAngleChanged();
 }
 
 void LanguageListItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -157,3 +156,13 @@ void LanguageListItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     DuiWidget::mouseReleaseEvent(event);
     event->accept();
 }
+
+
+void LanguageListItem::onOrientationAngleChanged()
+{
+    // set width
+    int devide = 20;
+    setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+    setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+}
+

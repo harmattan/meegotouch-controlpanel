@@ -4,6 +4,7 @@
 #include "dcpappletif.h"
 #include <QObject>
 class DcpWidget;
+class DuiAction;
 
 class DisplayApplet : public QObject, public DcpAppletIf 
 {
@@ -19,6 +20,7 @@ public:
 	virtual DcpWidget* page2();
 
     virtual QString title() const;
+    virtual QVector<DuiAction *> viewMenuItems();
 private:
     int m_WidgetIndex;
 };

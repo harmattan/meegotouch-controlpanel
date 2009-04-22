@@ -26,8 +26,6 @@ protected:
 private:
     DcpPage *m_CurrentPage;
     static PageFactory* sm_Instance;
-private slots:
-    virtual void closeApplication();
 };
 
 #endif // PAGEFACTORY_H

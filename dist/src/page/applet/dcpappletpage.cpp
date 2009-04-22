@@ -6,6 +6,7 @@
 #include "dcpappletloader.h"
 #include "duilabel.h"
 #include "duilocale.h"
+#include <DuiAction>
 
 DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
     DcpPage(), m_Metadata(metadata)
@@ -70,6 +71,15 @@ DcpAppletPage::changeWidget(int widgetId)
     append(m_MainWidget);
   
     setTitle(m_AppletLoader->applet()->title());
+
+    QVector<DuiAction*> vector = m_AppletLoader->applet()->viewMenuItems();
+    if (!vector.isEmpty())
+    {
+        for (int i = 0; i < vector.size(); i++)
+        {
+            addAction(vector[i]);        
+        }
+    }
 
     setUpMainWidgetSize();
 }

@@ -35,6 +35,9 @@ protected:
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     //! reimp_end
 
+protected slots:
+    void onOrientationAngleChanged();
+
 private:
     QString 	            m_labelText;
     DuiGridLayoutPolicy     *m_labelLayoutPolicy;
