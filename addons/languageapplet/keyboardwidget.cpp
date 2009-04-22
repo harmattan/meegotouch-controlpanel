@@ -153,6 +153,7 @@ void KeyboardWidget::initWidget()
     viewport->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     viewport->setWidget(contWidget);
     viewport->setObjectName("LanguageViewport");
+    viewport->setMaximumHeight(DuiDeviceProfile::instance()->height() - 165);
     mainLayoutPolicy->addItemAtPosition(viewport, 1, Qt::AlignCenter);
                                             
     mainLayoutPolicy->addItemAtPosition(

@@ -154,6 +154,8 @@ void DisplayWidget::initWidget()
     viewport->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     viewport->setWidget(contWidget);
     viewport->setObjectName("LanguageViewport");
+    // TODO: remove me
+    viewport->setMaximumHeight(DuiDeviceProfile::instance()->height() - 165);
 
     mainLayoutPolicy->addItemAtPosition(viewport, 1, Qt::AlignCenter);
                                             
