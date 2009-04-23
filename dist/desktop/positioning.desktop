@@ -17,6 +17,7 @@ WidgetType= DcpLabel2Button
 Text1= Positioning
 Text2= GPS+WLAN
 SmallToggle= TRUE
+Align= Left
 
 ButtonCSS= BigButton
 SmallButtonOnCSS= SmallButtonOn
