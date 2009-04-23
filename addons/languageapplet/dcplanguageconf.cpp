@@ -115,7 +115,7 @@ DcpLanguageConf::defaultLanguages()
     languageList << "Dansk" << "Deutsch" << "English GB" << "English US" 
             << QString("Fran%1ais (Canada)").arg(QChar(0x00e7)) 
             << QString("Fran%1ais (France)").arg(QChar(0x00e7)) 
-            << "Italiaon"
+            << "Italian"
             << QString("LA Espa%1ol").arg(QChar(0x00f1)) 
             << "Nederlands" << "Norks" 
             << QString("Portugu%1s").arg(QChar(0x00ea))
