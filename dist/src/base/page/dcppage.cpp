@@ -22,15 +22,21 @@ void DcpPage::createContent()
 {
     qDebug() << "XXX page createContent" << metaObject()->className()
              << (void*) this;
+    setBackButtonEnabled(true);
+
+    _createLayout();
+}
+
+void DcpPage::_createLayout()
+{
     DuiLayout* layout = new DuiLayout();
+    layout->setAnimator(NULL);
     m_MainLayout = new DuiLinearLayoutPolicy(layout, Qt::Vertical);
     layout->setAnimator(NULL);
     layout->setPolicy(m_MainLayout);
     centralWidget()->setLayout(layout);
-    setBackButtonEnabled(true);
     layout->setContentsMargins(12.0,0.0,12.0,0.0);
 }
-
 
 void DcpPage::organizeContent(Dui::Orientation ori)
 {
@@ -47,7 +53,14 @@ void DcpPage::append (QGraphicsWidget* widget) {
 }
 
 void DcpPage::remove (QGraphicsWidget* widget) {
-    Q_ASSERT(mainLayout());
+    // FIXME dui removeItem segfaults
+    /*
+    DuiLayout* layout = (DuiLayout*)centralWidget()->layout();
+    Q_ASSERT(layout);
+    layout->removeItem(widget);
+    */
+    Q_UNUSED(widget);
+    _createLayout();
 }
 
 void DcpPage::back()

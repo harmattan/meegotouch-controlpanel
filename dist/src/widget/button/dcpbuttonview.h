@@ -28,10 +28,12 @@ public:
 		void setText1(const QString& text);
 		void setText2(const QString& text);
 
-		int stringToAlign(const QString& align);
+		Qt::Alignment stringToAlign(const QString& alignment);
 
 		int width();
 		int height();
+
+		void setAlignment(Qt::Alignment alignment);
 
 signals:
     void clicked();
@@ -82,13 +84,25 @@ protected:
 
 			ImageNameAttribute,
 			ImageSizeAttribute,
-			ImageSpacerAttribute,
 
-			BackgroundBorderAttribute
+			MarginSpacerAttribute,
+
+			BackgroundBorderAttribute,
+
+			ToggleOnAttribute,
+			ToggleOffAttribute
 	
 	};
+
+		Qt::Alignment m_Alignment;
+
 };
 
+
+inline void DcpButtonView::setAlignment(Qt::Alignment alignment)
+{
+		m_Alignment = alignment;
+}
 
 inline void DcpButtonView::setText1(const QString& text)
 {

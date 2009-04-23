@@ -66,9 +66,11 @@ void ServicesContainer::initContainer()
 {
     // m_mainLayout
     m_mainLayout = new DuiLayout(this);
+    m_mainLayout->setAnimator(NULL);
 
     // captionLayout
     DuiLayout *captionLayout = new DuiLayout(m_mainLayout);
+    captionLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *captionLayoutPolicy = 
             new DuiLinearLayoutPolicy(captionLayout, Qt::Horizontal);
     captionLayout->setPolicy(captionLayoutPolicy);
@@ -108,7 +110,9 @@ void ServicesContainer::initContainer()
     mainLayoutPolicy->setSpacing(10);
     mainLayoutPolicy->setContentsMargins(12.0, 5.0, 5.0, 20.0);
     
-    mainLayoutPolicy->addItemAtPosition(captionLayout,
+    DuiWidget* captionWidget = new DuiWidget(this);
+    captionWidget->setLayout(captionLayout);
+    mainLayoutPolicy->addItemAtPosition(captionWidget,
                     0, Qt::AlignVCenter | Qt::AlignTop);
     mainLayoutPolicy->addItemAtPosition(blockOne,
                     1, Qt::AlignCenter);

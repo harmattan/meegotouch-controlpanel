@@ -45,16 +45,14 @@ DcpBackgroundComponent::createContents()
 {
     DuiLayout* layout = new DuiLayout();
 
-    // TODO: layout->setAnimator(NULL);
-    DuiBasicLayoutAnimator* animator = new DuiBasicLayoutAnimator();
-    animator->setAnimationSpeed(150);
-    layout->setAnimator(animator);
+    layout->setAnimator(NULL);
 
     m_Layout = new DuiLinearLayoutPolicy(layout,Qt::Vertical);
     m_Caption = new DuiLabel(title());
     m_Caption->setObjectName("ComponentCaption");
 
     DuiLayout * captionLayout = new DuiLayout();
+    captionLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *captionLayoutPolicy =
         new DuiLinearLayoutPolicy(captionLayout, Qt::Horizontal);
     captionLayout->setPolicy(captionLayoutPolicy);

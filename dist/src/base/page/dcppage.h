@@ -41,6 +41,8 @@ protected:
 
    Pages::Handle m_Handle;
    Pages::Handle m_Referer;
+private:
+   void _createLayout();
 };
 
 #endif // DCPPAGE_H

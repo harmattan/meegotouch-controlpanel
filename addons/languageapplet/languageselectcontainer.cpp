@@ -39,15 +39,17 @@ void LanguageSelectContainer::initWidget()
 {
     // mainLayout
     DuiLayout *mainLayout = new DuiLayout(this);
+    mainLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *mainLayoutPolicy = 
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
     
     GroupTitleWidget *titleLabel = new GroupTitleWidget(m_titleText, this);
-    mainLayoutPolicy->addItemAtPosition(titleLabel, 0, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(titleLabel, 0);
 
     // gridLayout
     DuiLayout *gridLayout = new DuiLayout(NULL);
+    gridLayout->setAnimator(NULL);
     DuiGridLayoutPolicy *itemLayout = new DuiGridLayoutPolicy(gridLayout);
     gridLayout->setPolicy(itemLayout);
     
@@ -61,25 +63,17 @@ void LanguageSelectContainer::initWidget()
     for (int i = 0; i < m_listItemVector.size(); i++)
     {
         itemLayout->addItemAtPosition(m_listItemVector[i], i / 2, i % 2);
-        connect(m_listItemVector[i], SIGNAL(clicked()), this, SLOT(itemClicked()));
+        connect(m_listItemVector[i], SIGNAL(clicked(LanguageListItem *)), 
+                this, SLOT(itemClicked(LanguageListItem *)));
     }
 
-    mainLayoutPolicy->addItemAtPosition(gridLayout, 1, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(gridLayout, 1);
 }
 
-void LanguageSelectContainer::itemClicked()
+void LanguageSelectContainer::itemClicked(LanguageListItem *item)
 {
-    int num = 0;
-    for (int i = 0; i < m_listItemVector.size(); i++)
-    {
-        if (m_listItemVector[i]->isClicked()) {
-                m_listItemVector[i]->checked(true);
-                num = i;
-        } else {
-            m_listItemVector[i]->checked(false);
-        }
-    }
-
-    DcpLanguageConf::instance()->setDisplayLanguage(m_listItemVector[num]->text());
+    item->checked(true);
+    DcpLanguageConf::instance()->setDisplayLanguage(item->text());
     emit changeBackToMain();
 }
+

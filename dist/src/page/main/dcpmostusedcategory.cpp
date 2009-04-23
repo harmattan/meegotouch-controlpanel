@@ -8,7 +8,7 @@
 
 #include "dcplabelcomponent.h"
 #include "dcplabel2component.h"
-#include "dcplabel2buttoncomponent.h"
+#include "dcplabel2togglecomponent.h"
 #include "dcplabel2imagecomponent.h"
 #include "dcplabelbuttoncomponent.h"
 
@@ -69,8 +69,9 @@ void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata)
       case DCPLABELBUTTON :
           component = new DcpLabelButtonComponent(this, metadata);
       break;
-      case DCPLABEL2BUTTON :
-          component = new DcpLabel2ButtonComponent(this, metadata);
+      case DCPLABEL2TOGGLE :
+			case DCPLABEL2BUTTON :	//dummy
+          component = new DcpLabel2ToggleComponent(this, metadata);
       break;
       case DCPLABEL2IMAGE :
           component = new DcpLabel2ImageComponent(this, metadata);

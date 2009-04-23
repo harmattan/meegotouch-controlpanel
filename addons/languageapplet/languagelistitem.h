@@ -14,12 +14,15 @@ class LanguageListItem : public DuiWidget
 public:
     LanguageListItem(const QString &text, 
                      DuiWidget *parent = 0);
-    ~LanguageListItem();
+    virtual ~LanguageListItem();
 
-    void paint(QPainter *painter,
+    //! reimp
+    virtual void paint(QPainter *painter,
                const QStyleOptionGraphicsItem *option,
                QWidget *widget = 0);
     void resizeEvent(QGraphicsSceneResizeEvent *event);
+    //! reimp_end
+
     void checked(bool ok);
     bool isChecked();
     bool isClicked();
@@ -27,8 +30,13 @@ public:
 
 protected:
     void initWidget();
+    //! reimp
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event);
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    //! reimp_end
+
+protected slots:
+    void onOrientationAngleChanged();
 
 private:
     QString 	            m_labelText;
@@ -40,6 +48,6 @@ private:
     bool                    m_first;
 
 signals:
-    void            clicked();
+    void            clicked(LanguageListItem *item);
 };
 #endif // LANGUAGELISTITEM_H

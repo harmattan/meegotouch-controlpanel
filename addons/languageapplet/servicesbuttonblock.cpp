@@ -28,6 +28,7 @@ void ServicesButtonBlock::addServicesButton(const QString &name)
 void ServicesButtonBlock::initWidget()
 {
     DuiLayout *mainLayout = new DuiLayout(this);
+    mainLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *mainLayoutPolicy = 
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
@@ -36,11 +37,14 @@ void ServicesButtonBlock::initWidget()
     mainLayoutPolicy->addItemAtPosition(m_header, 0, Qt::AlignLeft);
 
     DuiLayout *buttonLayout = new DuiLayout();
+    buttonLayout->setAnimator(NULL);
     m_buttonLayoutPolicy = new DuiGridLayoutPolicy(buttonLayout);
     buttonLayout->setPolicy(m_buttonLayoutPolicy);
     m_buttonLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Fixed),
                     0, 3);
 
-    mainLayoutPolicy->addItemAtPosition(buttonLayout, 1, Qt::AlignCenter);
+    DuiWidget* buttonWidget = new DuiWidget(this);
+    buttonWidget->setLayout(buttonLayout);
+    mainLayoutPolicy->addItemAtPosition(buttonWidget, 1, Qt::AlignCenter);
 }

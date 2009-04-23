@@ -16,17 +16,12 @@ DcpMainCategory::DcpMainCategory(
 ) : DcpCategory(title, parent), m_ColCount(0), m_RowCount(0), m_ItemCount(0)
 {
     m_Layout = new DuiLayout();
+    m_Layout->setAnimator(NULL);
 
     m_LandscapeLayout = new DuiGridLayoutPolicy(m_Layout);
 
     m_Layout->setPolicy(m_LandscapeLayout);
     m_PortraitLayout = new DuiLinearLayoutPolicy(m_Layout, Qt::Vertical);
-
-//    m_Layout->setAnimator(NULL);
-
-    DuiBasicLayoutAnimator* animator = new DuiBasicLayoutAnimator();
-    animator->setAnimationSpeed(150);
-    m_Layout->setAnimator(animator);
 
     setLayout(m_Layout);
 
@@ -92,3 +87,10 @@ DcpMainCategory::onOrientationChange (const Dui::Orientation &orientation)
 
     DcpCategory::onOrientationChange(orientation);
 }   
+
+
+void DcpMainCategory::polishEvent ()
+{
+    onOrientationChange(DuiDeviceProfile::instance()->orientation());
+}
+

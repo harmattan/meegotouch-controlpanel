@@ -7,8 +7,8 @@
 
 static const QSize fullSizeLandscape(804,90);
 static const QSize halfSizeLandscape(385,90);
-static const QSize fullSizePortrait = fullSizeLandscape;
-static const QSize halfSizePortrait = fullSizeLandscape;
+static const QSize halfSizePortrait(429,90);
+static const QSize fullSizePortrait = halfSizePortrait;
 
 DcpDescriptionComponent::DcpDescriptionComponent(DcpCategory *category,
                                                  const QString& title,
@@ -43,6 +43,7 @@ void DcpDescriptionComponent::onOrientationChange (
                                         const Dui::Orientation &orientation)
 {
     m_Orientation = orientation;
+    initSizes();
     DcpBackgroundComponent::onOrientationChange(orientation);
 }
 
@@ -64,32 +65,32 @@ void DcpDescriptionComponent::setTextAlignment(Qt::Alignment align)
   */
 void DcpDescriptionComponent::setFullRowSize()
 {
-    /* prohibit the description to change the widget's width too big */
-    // TODO: move to stylesheet
-    QSize fullSize = (m_Orientation != Dui::Portrait) ? fullSizeLandscape
-                     : fullSizePortrait;
-    m_Description->setMaximumSize(fullSize);
-    m_Description->setMinimumSize(fullSize);
-    // --
-
-    setTextAlignment(Qt::AlignHCenter);
-    setTitleAlignment(Qt::AlignHCenter);
     m_IsFullRow = true;
+}
+
+
+void DcpDescriptionComponent::initSizes()
+{
+	QSize descSize;
+	if (m_IsFullRow) {
+	    descSize = (m_Orientation != Dui::Portrait) ? fullSizeLandscape
+			     : fullSizePortrait;
+
+	    setTextAlignment(Qt::AlignHCenter);
+	    setTitleAlignment(Qt::AlignHCenter);
+	} else {
+    	    descSize = (m_Orientation != Dui::Portrait) ? halfSizeLandscape
+                     	     : halfSizePortrait;
+    	    setTextAlignment(Qt::AlignTop);
+    	    setTitleAlignment(Qt::AlignLeft);
+	}
+	m_Description->setMaximumSize(descSize);
+	m_Description->setMinimumSize(descSize);
 }
 
 
 void DcpDescriptionComponent::setHalfRowSize()
 {
-    /* prohibit the description to change the widget's width too big */
-    // TODO: move to stylesheet
-    QSize halfSize = (m_Orientation != Dui::Portrait) ? halfSizeLandscape
-                     : halfSizePortrait;
-    m_Description->setMaximumSize(halfSize);
-    m_Description->setMinimumSize(halfSize);
-    // --
-
-    setTextAlignment(Qt::AlignTop);
-    setTitleAlignment(Qt::AlignLeft);
     m_IsFullRow = false;
 }
 
@@ -107,17 +108,4 @@ void DcpDescriptionComponent::mouseReleaseEvent (QGraphicsSceneMouseEvent * even
     event->accept();
 }
 
-void DcpDescriptionComponent::polishEvent (){
-    /* TODO remove this workaround once DuiLabel's word wrap is corrected
-     * for html.
-     * It forces the description to rethink the word wraps correctly */
-    
-    static qreal change = 0.0001;
-    m_Description->setMinimumWidth(m_Description->minimumWidth()-change);
-    m_Description->setMaximumWidth(m_Description->maximumWidth()-change);
-    m_Description->setText(m_Description->text());
 
-    /* --- */
-
-    DcpBackgroundComponent::polishEvent();
-}

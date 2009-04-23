@@ -166,8 +166,8 @@ DuiImage {
     textSize2: size(300, 30);
     textPos2: pos(0, 30);
 
-    textAlign1: "Left";
-    textAlign2: "Left";
+    textAlign1: "AlignLeft";
+    textAlign2: "AlignLeft";
 
     triangleBackground: "See-more-indicator-small";
     triangleBackgroundSize: size(16, 16);
@@ -175,9 +175,18 @@ DuiImage {
 
     imageName: image(starfield);
     imageSize: size(64, 64);
+<<<<<<< HEAD:dist/theme/duicontrolpanel.css
     imageSpacer: 20;
 
     backgroundBorder: "Thumbnail-frame";
+=======
+    marginSpacer: 20;
+
+    backgroundBorder: "Thumbnail-frame";
+
+    toggleOn: "Toggle-on";
+    toggleOff: "Toggle-off";
+>>>>>>> 15bb5b8d4aa0eeae8fbf1a01f21696e7535b95a7:dist/theme/duicontrolpanel.css
 }
 
 #AppletPageDcpButton {

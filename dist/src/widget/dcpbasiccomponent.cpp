@@ -33,6 +33,7 @@ DcpBasicComponent::DcpBasicComponent(
     //}
 
     m_MainLayout = new DuiLayout(this);
+    m_MainLayout->setAnimator(NULL);
     m_MainLayoutPolicy = new DuiLinearLayoutPolicy(m_MainLayout, Qt::Vertical);
     m_MainLayout->setPolicy(m_MainLayoutPolicy);
 

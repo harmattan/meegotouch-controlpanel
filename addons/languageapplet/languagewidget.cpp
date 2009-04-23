@@ -78,6 +78,7 @@ void LanguageWidget::initWidget()
 
     // Layout
     DuiLayout *mainLayout = new DuiLayout(this);
+    mainLayout->setAnimator(NULL);
 	DuiLinearLayoutPolicy *mainLayoutPolicy = 
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);

@@ -21,12 +21,12 @@ protected:
     virtual void createContents();
     virtual void mousePressEvent ( QGraphicsSceneMouseEvent * event );
     virtual void mouseReleaseEvent ( QGraphicsSceneMouseEvent * event );
-    virtual void polishEvent ();
 
 public slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation);
 
 private:
+    void initSizes();
     DuiLabel *m_Description;
     bool m_IsFullRow;
     Dui::Orientation m_Orientation;

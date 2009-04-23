@@ -7,6 +7,7 @@
 #include "dcpappletcategorypage.h"
 #include "dcpwidget.h"
 #include "dcpappletloader.h"
+#include "maintranslations.h"
 #include <QtDebug>
 #include <DuiLabel>
 #include <duilocale.h>
@@ -122,7 +123,6 @@ PageFactory::createAppletCategoryPage(const QString& appletCategory)
 {
     return new DcpAppletCategoryPage(appletCategory);
 }
-
 
 void
 PageFactory::back()

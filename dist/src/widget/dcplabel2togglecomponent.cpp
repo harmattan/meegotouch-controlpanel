@@ -1,4 +1,4 @@
-#include "dcplabel2buttoncomponent.h"
+#include "dcplabel2togglecomponent.h"
 
 #include <duilabel.h>
 #include <duibutton.h>
@@ -6,9 +6,11 @@
 
 #include "dcpappletmetadata.h"
 
+#include "dcpbutton.h"
+
 #include <QDebug>
 
-DcpLabel2ButtonComponent::DcpLabel2ButtonComponent( DcpCategory *category,
+DcpLabel2ToggleComponent::DcpLabel2ToggleComponent( DcpCategory *category,
                                                     DcpAppletMetadata * metadata,
                                                     const QString& title,
                                                     QGraphicsWidget *parent):
@@ -20,13 +22,23 @@ DcpLabel2ButtonComponent::DcpLabel2ButtonComponent( DcpCategory *category,
 }
 
 
-DcpLabel2ButtonComponent::~DcpLabel2ButtonComponent()
+DcpLabel2ToggleComponent::~DcpLabel2ToggleComponent()
 {
 }
 
 
-void DcpLabel2ButtonComponent::createContents()
+void DcpLabel2ToggleComponent::createContents()
 {
+
+
+		m_Button = new DcpButton(DCPLABEL2TOGGLE);
+
+		m_Button->setText(metadata()->text1(), metadata()->text2());
+   	m_WidgetLayoutPolicy->addItemAtPosition(m_Button, 0, 0);
+
+		connect(m_Button, SIGNAL(clicked()), this, SLOT(bigClicked()));
+
+/*
 
     QString upLabel = metadata()->text1();
     QString downLabel = metadata()->text2();
@@ -83,13 +95,13 @@ void DcpLabel2ButtonComponent::createContents()
     connect(m_DisableButton, SIGNAL(clicked()), this, SLOT(disableClicked()));
 
     setEnableButton(true);
-
+*/
     initLayout();
 }
 
 
-void DcpLabel2ButtonComponent::setEnableButton(bool enable) {
-
+void DcpLabel2ToggleComponent::setEnableButton(bool enable) {
+/*
     m_EnableButton = enable;
 
     if (m_EnableButton) {
@@ -101,20 +113,22 @@ void DcpLabel2ButtonComponent::setEnableButton(bool enable) {
         m_SmallButtonOff->hide();
         m_DisableButton->show();
     }
-
+*/
 }
 
-void DcpLabel2ButtonComponent::smallClickedOn()
+void DcpLabel2ToggleComponent::smallClickedOn()
 {
+/*
     if (m_EnableSmallToggle)
       	m_SmallButtonOn->setDown(true);
 		else
 				m_SmallButtonOn->setDown(false);
 
 		m_EnableSmallToggle = !m_EnableSmallToggle;
+*/
 }
-void DcpLabel2ButtonComponent::smallClickedOff(){}
-void DcpLabel2ButtonComponent::disableClicked(){}
+void DcpLabel2ToggleComponent::smallClickedOff(){}
+void DcpLabel2ToggleComponent::disableClicked(){}
 
 
 /*

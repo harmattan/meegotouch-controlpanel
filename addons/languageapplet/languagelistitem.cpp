@@ -98,6 +98,7 @@ bool LanguageListItem::isClicked()
 void LanguageListItem::initWidget()
 {
     DuiLayout *mainLayout = new DuiLayout(this);
+    mainLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *mainLayoutPolicy = 
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
@@ -108,6 +109,7 @@ void LanguageListItem::initWidget()
 
     // label
     DuiLayout *labelLayout = new DuiLayout(NULL);
+    labelLayout->setAnimator(NULL);
     m_labelLayoutPolicy = new DuiGridLayoutPolicy(labelLayout);
     labelLayout->setPolicy(m_labelLayoutPolicy);
     m_labelLayoutPolicy->addItemAtPosition(
@@ -128,7 +130,9 @@ void LanguageListItem::initWidget()
     // checkMark
     m_checkMark = NULL;
     
-    mainLayoutPolicy->addItemAtPosition(labelLayout, 1, Qt::AlignCenter);
+    DuiWidget* labelWidget = new DuiWidget(this);
+    labelWidget->setLayout(labelLayout);
+    mainLayoutPolicy->addItemAtPosition(labelWidget, 1, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(new DcpSpacerItem(this, 5, 5,
                                   QSizePolicy::Fixed, QSizePolicy::Expanding),
                                   2, Qt::AlignCenter);
@@ -137,10 +141,9 @@ void LanguageListItem::initWidget()
     setMinimumHeight(height);
     setMaximumHeight(height);
 
-    // set width
-    int devide = 20;
-    setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
-    setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+    connect(DuiDeviceProfile::instance(), SIGNAL(orientationAngleChanged (DuiDeviceProfile::DeviceOrientationAngle)),
+            this, SLOT(onOrientationAngleChanged ()));
+    onOrientationAngleChanged();
 }
 
 void LanguageListItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -149,7 +152,7 @@ void LanguageListItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
     event->accept();
     checked(!m_checked);
     m_clicked = true;
-    emit clicked();
+    emit clicked(this);
 }
 
 void LanguageListItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
@@ -157,3 +160,13 @@ void LanguageListItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     DuiWidget::mouseReleaseEvent(event);
     event->accept();
 }
+
+
+void LanguageListItem::onOrientationAngleChanged()
+{
+    // set width
+    int devide = 20;
+    setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+    setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+}
+

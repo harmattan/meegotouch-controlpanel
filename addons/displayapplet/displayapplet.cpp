@@ -6,6 +6,7 @@
 #include "dummywidget.h"
 #include "dcpwidget.h"
 #include "dcpdisplay.h"
+#include <DuiAction>
 
 Q_EXPORT_PLUGIN2(displayapplet, DisplayApplet)
 
@@ -54,4 +55,10 @@ DcpWidget* DisplayApplet::page2()
 QString DisplayApplet::title() const
 {
         return DcpDisplay::AppletTitle;
+}
+
+QVector<DuiAction*> DisplayApplet::viewMenuItems()
+{
+    QVector<DuiAction*> vector;
+    return vector;
 }

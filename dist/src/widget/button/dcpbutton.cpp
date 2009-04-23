@@ -6,10 +6,26 @@
 
 #include "dcpbutton2imageview.h"
 
-DcpButton::DcpButton(const QString &title, DuiWidget *parent, const QString &type) : DuiButton(title, parent, type)
+#include "dcpbutton2imageview.h"
+#include "dcpbutton2toggleview.h"
+
+DcpButton::DcpButton(int buttonType, const QString &title, DuiWidget *parent, const QString &type) : DuiButton(title, parent, type)
 {
 
-		m_View = new DcpButton2ImageView(*this);
+		switch (buttonType) {
+    		case DCPLABEL :
+
+				break;
+				case DCPLABEL2 :
+						m_View = new DcpButton2View(*this);
+				break;
+  	  	case DCPLABEL2IMAGE :
+						m_View = new DcpButton2ImageView(*this);
+				break;
+   	 		case DCPLABEL2TOGGLE :
+						m_View = new DcpButton2ToggleView(*this);
+				break;
+		}
 
     setView(m_View);
 
@@ -35,4 +51,9 @@ void DcpButton::setText(const QString& text1, const QString& text2)
 
 DcpButton::~DcpButton()
 {
+}
+
+void DcpButton::setAlignment(Qt::Alignment alignment)
+{
+		m_View->setAlignment(alignment);
 }

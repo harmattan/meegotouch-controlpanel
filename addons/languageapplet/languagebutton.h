@@ -16,11 +16,13 @@ public:
 
     virtual ~LanguageButton();
 
-    void paint(QPainter *painter,
+    //! \reimp
+    virtual void paint(QPainter *painter,
                const QStyleOptionGraphicsItem *option,
                QWidget *widget = 0);
+    virtual void resizeEvent(QGraphicsSceneResizeEvent *event);
+    //! \reimp_end
 
-    void resizeEvent(QGraphicsSceneResizeEvent *event);
     void setUpText(const QString &text);
     void setDownText(const QString &text);
     

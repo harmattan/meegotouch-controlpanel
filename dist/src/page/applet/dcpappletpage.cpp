@@ -6,6 +6,7 @@
 #include "dcpappletloader.h"
 #include "duilabel.h"
 #include "duilocale.h"
+#include <DuiAction>
 
 DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
     DcpPage(), m_Metadata(metadata)
@@ -62,12 +63,39 @@ void DcpAppletPage::back()
 void 
 DcpAppletPage::changeWidget(int widgetId)
 {
+    if (m_MainWidget != NULL)
+        remove(m_MainWidget);
+
     m_MainWidget = m_AppletLoader->applet()->constructWidget(widgetId);
     connect(m_MainWidget, SIGNAL(changeWidget(int)), this, SLOT(changeWidget(int)));
     append(m_MainWidget);
   
     setTitle(m_AppletLoader->applet()->title());
 
-    m_MainWidget->setMinimumWidth(DuiDeviceProfile::instance()->width() - 30);
-    m_MainWidget->setMinimumHeight(DuiDeviceProfile::instance()->height() - 100);
+    QVector<DuiAction*> vector = m_AppletLoader->applet()->viewMenuItems();
+    if (!vector.isEmpty())
+    {
+        for (int i = 0; i < vector.size(); i++)
+        {
+            addAction(vector[i]);        
+        }
+    }
+
+    setUpMainWidgetSize();
 }
+
+
+void DcpAppletPage::setUpMainWidgetSize()
+{
+    if (m_MainWidget){
+        m_MainWidget->setMinimumWidth(DuiDeviceProfile::instance()->width() - 30);
+        m_MainWidget->setMinimumHeight(DuiDeviceProfile::instance()->height() - 100);
+    }
+}
+
+void DcpAppletPage::organizeContent(Dui::Orientation ori)
+{
+    DcpPage::organizeContent(ori);
+    setUpMainWidgetSize();
+}
+
