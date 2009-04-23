@@ -1,11 +1,15 @@
 
 #include "dcpbutton.h"
+
 #include "dcpbuttonview.h"
+#include "dcpbutton2view.h"
+
+#include "dcpbutton2imageview.h"
 
 DcpButton::DcpButton(const QString &title, DuiWidget *parent, const QString &type) : DuiButton(title, parent, type)
 {
 
-		m_View = new DcpButtonView(*this);
+		m_View = new DcpButton2ImageView(*this);
 
     setView(m_View);
 
