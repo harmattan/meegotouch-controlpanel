@@ -2,6 +2,7 @@
 #define DCPLANGUAGECONF_H
 #include "duiconf.h"
 #include <QString>
+#include <QSettings>
 #include <QStringList>
 class DcpLanguageConf : public DuiConf
 {
@@ -13,7 +14,8 @@ public:
     QStringList keyboardLanguages();
     QString keyboardLanguagesAsText();
     int keyboardLanguagesNumber();
-    QStringList languages();
+    QStringList availableInputLanguages();
+    QStringList availableKeyboardLanguages();
     void addKeyboardLanguage(QString language);
     void removeKeyboardLanguage(QString language);
     void setKeyboardLanguage(QStringList languages);
@@ -25,6 +27,8 @@ private:
     // Storing in private member is for test only!
     QString m_DisplayLanguage;
     QStringList m_KeyboardLanguages;
-    QStringList m_Languages;
+    QStringList m_availableInputLanguages;
+    QStringList m_availableKeyboardLanguages;
+    QSettings m_Settings;
 };
 #endif // DCPLANGUAGECONF_H

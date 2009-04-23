@@ -1,6 +1,16 @@
 #include "dcplanguageconf.h"
-const QString DCPLANGUAGEDIR = "/system/language/";
+
+namespace LanguageKey
+{
+    const QString InputMethod ="Maemo/DuiInputMethod/";
+    const QString Languages = InputMethod + "language/";
+    const QString CurrentLanguage = Languages + "current";
+    const QString KeyboardLayout = InputMethod + "keyboard-layout/";
+    const QString CurrentKeyboardLayout = Languages + "current";
+};
+
 DcpLanguageConf *DcpLanguageConf::sm_Instance = NULL;
+
 
 DcpLanguageConf*
 DcpLanguageConf::instance()
@@ -11,11 +21,11 @@ DcpLanguageConf::instance()
     return sm_Instance;
 }
 
-DcpLanguageConf::DcpLanguageConf() : DuiConf()
+DcpLanguageConf::DcpLanguageConf() : DuiConf(),
+                             m_Settings("Maemo", "DuiControlPanel")
 {
-//    addDir(DCPLANGUAGECONFDIR);
-    m_DisplayLanguage = "English GB";
-    addKeyboardLanguage(m_DisplayLanguage);
+    setDisplayLanguage("English GB");
+    addKeyboardLanguage(displayLanguage());
     addKeyboardLanguage("Suomi");
 }
 
@@ -28,13 +38,13 @@ DcpLanguageConf::~DcpLanguageConf()
 QString 
 DcpLanguageConf::displayLanguage()
 {
-    return m_DisplayLanguage;
+    return m_Settings.value(LanguageKey::CurrentLanguage).toString();
 }
 
 void 
 DcpLanguageConf::setDisplayLanguage(QString displayLanguage)
 {
-    m_DisplayLanguage = displayLanguage;
+    m_Settings.setValue(LanguageKey::CurrentLanguage, displayLanguage);
 }
 
 QStringList 
@@ -47,12 +57,6 @@ QString
 DcpLanguageConf::keyboardLanguagesAsText()
 {
     return m_KeyboardLanguages.join(", ");
-}
-
-QStringList 
-DcpLanguageConf::languages()
-{
-    return m_Languages;
 }
 
 void 
@@ -78,3 +82,14 @@ DcpLanguageConf::keyboardLanguagesNumber()
 {
     return m_KeyboardLanguages.count();
 }
+
+QStringList
+DcpLanguageConf::availableInputLanguages(){
+
+}
+
+QStringList 
+DcpLanguageConf::availableKeyboardLanguages()
+{
+
+};
