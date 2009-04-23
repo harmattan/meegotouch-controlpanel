@@ -32,6 +32,7 @@ public:
     QString label2CSS();
     int order();
     int usage();
+    QString settingsValue();
 private:
     DcpAppletMetadataPrivate * const d;
 //    Q_DISABLE_COPY(DcpAppletMetadata);

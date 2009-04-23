@@ -2,10 +2,9 @@
 #include "dcpappletmetadata.h"
 #include "dcpapplet.h"
 #include <duilocale.h>
-
+#include <QDebug>
 #include "dcpappletmetadata_p.h"
 #include "dcpwidgettypes.h"
-
 enum  {
     KeyCategory = 0,
     KeyOrder,
@@ -30,7 +29,8 @@ enum  {
     KeyNameId,
     KeyNameCatalog,
 
-    KeyCount
+    KeyValuePath,
+    KeyCount,
 };
 
 const QString Keys[KeyCount] = {
@@ -55,7 +55,8 @@ const QString Keys[KeyCount] = {
 
     "Desktop Entry/Name",
     "Desktop Entry/X-logical-id",
-    "Desktop Entry/X-translation-catalog"
+    "Desktop Entry/X-translation-catalog",
+    "DCP/ValuePath"
 };
 
 DcpAppletMetadata::DcpAppletMetadata(const QString& filename) 
@@ -158,7 +159,10 @@ QString DcpAppletMetadata::text1()
 
 QString DcpAppletMetadata::text2()
 {
-    return value(Keys[KeyText2]).toString();
+    QString val = settingsValue();
+    if (val.isEmpty())
+        val = value(Keys[KeyText2]).toString();
+    return val;
 }
 
 QString DcpAppletMetadata::image()
@@ -191,4 +195,20 @@ int DcpAppletMetadata::order()
 {
     return value(Keys[KeyOrder]).toInt();
 }
+
+QString DcpAppletMetadata::settingsValue()
+{
+    QSettings settings("Maemo", "DuiControlPanel");
+    QString val = "";
+    QString confKey = "";
+    QString key = Keys[KeyValuePath];
+    if (contains(key))
+     {
+        confKey = value(key).toString();
+        val = settings.value(confKey).toString();
+     }
+    qDebug() << "DCP" << key << confKey << val;
+    return val;
+}
+
 
