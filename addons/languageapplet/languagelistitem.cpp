@@ -130,7 +130,9 @@ void LanguageListItem::initWidget()
     // checkMark
     m_checkMark = NULL;
     
-    mainLayoutPolicy->addItemAtPosition(labelLayout, 1, Qt::AlignCenter);
+    DuiWidget* labelWidget = new DuiWidget(this);
+    labelWidget->setLayout(labelLayout);
+    mainLayoutPolicy->addItemAtPosition(labelWidget, 1, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(new DcpSpacerItem(this, 5, 5,
                                   QSizePolicy::Fixed, QSizePolicy::Expanding),
                                   2, Qt::AlignCenter);

@@ -64,7 +64,9 @@ void KeyboardSelectContainer::initWidget()
     }
 
 
-    mainLayoutPolicy->addItemAtPosition(gridLayout, 1, Qt::AlignCenter);
+    DuiWidget* gridWidget = new DuiWidget(this);
+    gridWidget->setLayout(gridLayout);
+    mainLayoutPolicy->addItemAtPosition(gridWidget, 1, Qt::AlignCenter);
 }
 
 void KeyboardSelectContainer::itemClicked(LanguageListItem* item)

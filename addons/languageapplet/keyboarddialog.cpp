@@ -36,6 +36,6 @@ void KeyboardDialog::onOrientationAngleChanged ()
 {
     QSizeF dialogSize = DuiDeviceProfile::instance()->resolution();
     dialogSize.setHeight(dialogSize.height()-60);
-    this->setMinimumSize(dialogSize);
-    this->setMaximumSize(dialogSize);
+    layout()->itemAt(0)->setMinimumSize(dialogSize);
+    layout()->itemAt(0)->setMaximumSize(dialogSize);
 }

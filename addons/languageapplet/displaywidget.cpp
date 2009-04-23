@@ -113,7 +113,9 @@ void DisplayWidget::initWidget()
                     new DcpSpacerItem(this, 5, 5, 
                         QSizePolicy::Expanding, QSizePolicy::Fixed),
                     2, Qt::AlignRight);
-    mainLayoutPolicy->addItemAtPosition(titleLayout, 0, Qt::AlignCenter);
+    DuiWidget* titleWidget = new DuiWidget(this);
+    titleWidget->setLayout(titleLayout);
+    mainLayoutPolicy->addItemAtPosition(titleWidget, 0, Qt::AlignCenter);
 
     // DonwloadedLanguage
     LanguageLabelButtonContainer *downloadedCont =
@@ -152,6 +154,8 @@ void DisplayWidget::initWidget()
     viewport->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     viewport->setWidget(contWidget);
     viewport->setObjectName("LanguageViewport");
+    // TODO: remove me
+    viewport->setMaximumHeight(DuiDeviceProfile::instance()->height() - 165);
 
     mainLayoutPolicy->addItemAtPosition(viewport, 1, Qt::AlignCenter);
                                             
@@ -165,5 +169,6 @@ void DisplayWidget::removeContainer(LanguageLabelButtonContainer *cont)
 {
     cont->hide();
     int index = m_contLayout->findIndexForItem(static_cast<QGraphicsItem*>(cont));
-    m_contLayout->removeAt(index);
+    if (index != -1)
+        m_contLayout->removeAt(index);
 }

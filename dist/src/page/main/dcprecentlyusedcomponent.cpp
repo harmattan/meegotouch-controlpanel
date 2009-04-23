@@ -20,7 +20,7 @@ void DcpRecentlyUsedComponent::createContents()
     DcpBackgroundComponent::createContents();
 
     // TODO: to stylesheet
-    setContentsMargins(20, 10, 0, 10);
+    setContentsMargins(20, 10, 20, 10);
     // --
 
     m_MostUsedCategory = new DcpMostUsedCategory("TXT");
