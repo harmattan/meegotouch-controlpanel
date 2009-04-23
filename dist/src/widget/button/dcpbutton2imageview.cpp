@@ -6,9 +6,11 @@ DUI_STYLABLE_CPP(DcpButton2ImageView, DuiWidgetView)
 #include <DuiTheme>
 #include "dcpbutton.h"
 
+//dummy
+const QString imageFile    = "/usr/share/themes/dui/duicontrolpanel/images/starfield.png";
+
 /* 
 LEFT
->>>>>>> 15bb5b8d4aa0eeae8fbf1a01f21696e7535b95a7:dist/src/widget/button/dcpbutton2imageview.cpp
 Margins:
 
               marginLeft                  imageSpacer 
@@ -41,6 +43,10 @@ marginMiddle >  +   Image   +----------------+
 DcpButton2ImageView::DcpButton2ImageView(DcpButton &button) :
     DcpButton2View(button)
 {
+
+	//QPixmap *image = new QPixmap(QPixmap(*styleAttribute<const QPixmap*>(ImageNameAttribute)).scaled(styleAttribute<const QSize>(ImageSizeAttribute)));
+
+	m_Image = new QPixmap(QPixmap(imageFile).scaled(64, 64)); //dummy
 }
 
 DcpButton2ImageView::~DcpButton2ImageView()
@@ -72,22 +78,24 @@ void DcpButton2ImageView::paint(QPainter *painter, const QStyleOptionGraphicsIte
 
 void DcpButton2ImageView::paintTextLeft(QPainter *painter)
 {
-  	int marginLeft = styleAttribute<int>(MarginLeftAttribute);
-    int marginRight = styleAttribute<int>(MarginRightAttribute);
-    int marginTop = styleAttribute<int>(MarginTopAttribute);
-    int marginBottom = styleAttribute<int>(MarginBottomAttribute);
-		int marginMiddle = styleAttribute<int>(MarginMiddleAttribute);
+	int marginLeft = styleAttribute<int>(MarginLeftAttribute);
+	int marginRight = styleAttribute<int>(MarginRightAttribute);
+	int marginTop = styleAttribute<int>(MarginTopAttribute);
+	int marginBottom = styleAttribute<int>(MarginBottomAttribute);
+	int marginMiddle = styleAttribute<int>(MarginMiddleAttribute);
 
+	int triangleWidth = styleAttribute<const QSize>(TriangleBackgroundSizeAttribute).width() + styleAttribute<int>(MarginTriangleAttribute);
 
-		int fieldWidth = 	styleAttribute<const QSize>(BackgroundSizeAttribute).width() -
-											marginLeft -
-											marginRight -
-											styleAttribute<const QSize>(ImageSizeAttribute).width() -
-											styleAttribute<int>(MarginSpacerAttribute) ;
+	int fieldWidth = 	styleAttribute<const QSize>(BackgroundSizeAttribute).width() -
+										marginLeft -
+										marginRight -
+										triangleWidth -
+										styleAttribute<const QSize>(ImageSizeAttribute).width() -
+										styleAttribute<int>(MarginSpacerAttribute) ;
 
 		int fieldHeight = (styleAttribute<const QSize>(BackgroundSizeAttribute).height() - marginTop - marginBottom - marginMiddle) / 2;
 
-		QRectF text1Rect(	styleAttribute<QPointF>(TextPos1Attribute).x() + marginLeft,
+		QRectF text1Rect(	styleAttribute<QPointF>(TextPos1Attribute).x() + marginLeft + triangleWidth,
 											styleAttribute<QPointF>(TextPos1Attribute).y() + marginTop,
 											fieldWidth,
 											fieldHeight);
@@ -101,7 +109,7 @@ void DcpButton2ImageView::paintTextLeft(QPainter *painter)
 											m_Text1);
 
 
-		QRectF text2Rect(	styleAttribute<QPointF>(TextPos2Attribute).x() + marginLeft,
+		QRectF text2Rect(	styleAttribute<QPointF>(TextPos2Attribute).x() + marginLeft + triangleWidth,
 											styleAttribute<QPointF>(TextPos2Attribute).y() + marginTop,
 											fieldWidth,
 											fieldHeight);
@@ -120,20 +128,20 @@ void DcpButton2ImageView::paintImageLeft(QPainter *painter)
 
   	int marginSpacer = styleAttribute<int>(MarginSpacerAttribute);
 
-		QPixmap *image = new QPixmap(QPixmap(*styleAttribute<const QPixmap*>(ImageNameAttribute)).scaled(styleAttribute<const QSize>(ImageSizeAttribute)));
+//		QPixmap *image = new QPixmap(QPixmap(*styleAttribute<const QPixmap*>(ImageNameAttribute)).scaled(styleAttribute<const QSize>(ImageSizeAttribute)));
 
 
-    if (image != NULL) {
+    if (m_Image != NULL) {
 
-				QPointF imagePoint( width() - image->width() - marginSpacer,
-										 			 (height() - image->height()) / 2					);
+				QPointF imagePoint( width() - m_Image->width() - marginSpacer,
+										 			 (height() - m_Image->height()) / 2					);
 
-        painter->drawPixmap(imagePoint, *image);
+        painter->drawPixmap(imagePoint, *m_Image);
 		}
 
 		
 		const QPixmap *border = DuiTheme::pixmap(	styleAttribute<const QString>(BackgroundBorderAttribute),
-																							QSize(image->width(), image->height())										);
+																							QSize(m_Image->width(), m_Image->height())										);
 
     if (border != NULL) {
 
@@ -164,22 +172,25 @@ void DcpButton2ImageView::paintTriangleRight(QPainter *painter)
 
 void DcpButton2ImageView::paintTextRight(QPainter *painter)
 {
-		int marginLeft = styleAttribute<int>(MarginLeftAttribute);
-    int marginRight = styleAttribute<int>(MarginRightAttribute);
-    int marginTop = styleAttribute<int>(MarginTopAttribute);
-    int marginBottom = styleAttribute<int>(MarginBottomAttribute);
-		int marginMiddle = styleAttribute<int>(MarginMiddleAttribute);
+	int marginLeft = styleAttribute<int>(MarginLeftAttribute);
+	int marginRight = styleAttribute<int>(MarginRightAttribute);
+	int marginTop = styleAttribute<int>(MarginTopAttribute);
+	int marginBottom = styleAttribute<int>(MarginBottomAttribute);
+	int marginMiddle = styleAttribute<int>(MarginMiddleAttribute);
+
+	int triangleWidth = styleAttribute<const QSize>(TriangleBackgroundSizeAttribute).width() + styleAttribute<int>(MarginTriangleAttribute);
 
 
-		int fieldWidth = 	styleAttribute<const QSize>(BackgroundSizeAttribute).width() -
-											marginLeft -
-											marginRight -
-											styleAttribute<const QSize>(ImageSizeAttribute).width() -
-											styleAttribute<int>(MarginSpacerAttribute);
+	int fieldWidth = 	styleAttribute<const QSize>(BackgroundSizeAttribute).width() -
+										marginLeft -
+										marginRight -
+										triangleWidth -
+										styleAttribute<const QSize>(ImageSizeAttribute).width() -
+										styleAttribute<int>(MarginSpacerAttribute);
 
-		int fieldHeight = (styleAttribute<const QSize>(BackgroundSizeAttribute).height() - marginTop - marginBottom - marginMiddle) / 2;
+	int fieldHeight = (styleAttribute<const QSize>(BackgroundSizeAttribute).height() - marginTop - marginBottom - marginMiddle) / 2;
 
-		QRectF text1Rect(	styleAttribute<QPointF>(TextPos1Attribute).x() + styleAttribute<int>(MarginSpacerAttribute) + styleAttribute<const QSize>(ImageSizeAttribute).width() + marginLeft,
+		QRectF text1Rect(	styleAttribute<QPointF>(TextPos1Attribute).x() + styleAttribute<int>(MarginSpacerAttribute) + styleAttribute<const QSize>(ImageSizeAttribute).width() + marginLeft + triangleWidth,
 											styleAttribute<QPointF>(TextPos1Attribute).y() + marginTop,
 											fieldWidth,
 											fieldHeight);
@@ -193,7 +204,7 @@ void DcpButton2ImageView::paintTextRight(QPainter *painter)
 											m_Text1);
 
 
-		QRectF text2Rect(	styleAttribute<QPointF>(TextPos2Attribute).x() + styleAttribute<int>(MarginSpacerAttribute) + styleAttribute<const QSize>(ImageSizeAttribute).width() + marginLeft,
+		QRectF text2Rect(	styleAttribute<QPointF>(TextPos2Attribute).x() + styleAttribute<int>(MarginSpacerAttribute) + styleAttribute<const QSize>(ImageSizeAttribute).width() + marginLeft + triangleWidth,
 											styleAttribute<QPointF>(TextPos2Attribute).y() + marginTop,
 											fieldWidth,
 											fieldHeight);
@@ -211,20 +222,17 @@ void DcpButton2ImageView::paintImageRight(QPainter *painter)
 {
   	int marginSpacer = styleAttribute<int>(MarginSpacerAttribute);
 
-		QPixmap *image = new QPixmap(QPixmap(*styleAttribute<const QPixmap*>(ImageNameAttribute)).scaled(styleAttribute<const QSize>(ImageSizeAttribute)));
-
-
-    if (image != NULL) {
+	    if (m_Image != NULL) {
 
 				QPointF imagePoint( marginSpacer,
-										 			 (height() - image->height()) / 2					);
+										 			 (height() - m_Image->height()) / 2					);
 
-        painter->drawPixmap(imagePoint, *image);
+        painter->drawPixmap(imagePoint, *m_Image);
 		}
 
 		
 		const QPixmap *border = DuiTheme::pixmap(	styleAttribute<const QString>(BackgroundBorderAttribute),
-																							QSize(image->width(), image->height())										);
+																							QSize(m_Image->width(), m_Image->height()) );
 
     if (border != NULL) {
 
@@ -265,6 +273,8 @@ void DcpButton2ImageView::registerStyleAttributes(DuiStyleDescription &descripti
 		description.addAttribute(TriangleBackgroundAttribute, "triangleBackground");
 		description.addAttribute(TriangleBackgroundSizeAttribute, "triangleBackgroundSize");
 		description.addAttribute(TrianglePosAttribute, "trianglePos");
+
+		description.addAttribute(MarginTriangleAttribute, "marginTriangle");
 
 		description.addAttribute(ImageNameAttribute, "imageName");
 		description.addAttribute(ImageSizeAttribute, "imageSize");

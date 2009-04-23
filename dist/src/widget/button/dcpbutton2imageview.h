@@ -21,15 +21,17 @@ public:
 
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = NULL);
 
-		virtual void paintTextLeft(QPainter *painter);
-		virtual void paintImageLeft(QPainter *painter);
+    virtual void paintTextLeft(QPainter *painter);
+    virtual void paintImageLeft(QPainter *painter);
 
-		virtual void paintTriangleRight(QPainter *painter);
-		virtual void paintTextRight(QPainter *painter);
-		virtual void paintImageRight(QPainter *painter);
+    virtual void paintTriangleRight(QPainter *painter);
+    virtual void paintTextRight(QPainter *painter);
+    virtual void paintImageRight(QPainter *painter);
 
 private:
     Q_DISABLE_COPY(DcpButton2ImageView);
+
+    QPixmap *m_Image;
 };
 
 #endif

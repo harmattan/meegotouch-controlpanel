@@ -161,7 +161,7 @@ DuiImage {
     font2: font("Nokia Sans Cn", 16);
 
     textSize1: size(300, 40);
-    textPos1: pos(20, 0);
+    textPos1: pos(0, 0);
 
     textSize2: size(300, 30);
     textPos2: pos(0, 30);
@@ -173,20 +173,18 @@ DuiImage {
     triangleBackgroundSize: size(16, 16);
     trianglePos: pos(0, 10);
 
+    marginTriangle: 4;
+
     imageName: image(starfield);
     imageSize: size(64, 64);
-<<<<<<< HEAD:dist/theme/duicontrolpanel.css
-    imageSpacer: 20;
 
-    backgroundBorder: "Thumbnail-frame";
-=======
     marginSpacer: 20;
 
     backgroundBorder: "Thumbnail-frame";
 
     toggleOn: "Toggle-on";
     toggleOff: "Toggle-off";
->>>>>>> 15bb5b8d4aa0eeae8fbf1a01f21696e7535b95a7:dist/theme/duicontrolpanel.css
+
 }
 
 #AppletPageDcpButton {

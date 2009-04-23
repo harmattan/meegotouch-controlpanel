@@ -33,20 +33,24 @@ DcpButton2View::~DcpButton2View()
 
 void DcpButton2View::paintText(QPainter *painter)
 {
-  	int marginLeft = styleAttribute<int>(MarginLeftAttribute);
-    int marginRight = styleAttribute<int>(MarginRightAttribute);
-    int marginTop = styleAttribute<int>(MarginTopAttribute);
-    int marginBottom = styleAttribute<int>(MarginBottomAttribute);
-		int marginMiddle = styleAttribute<int>(MarginMiddleAttribute);
+	int marginLeft = styleAttribute<int>(MarginLeftAttribute);
+	int marginRight = styleAttribute<int>(MarginRightAttribute);
+	int marginTop = styleAttribute<int>(MarginTopAttribute);
+	int marginBottom = styleAttribute<int>(MarginBottomAttribute);
+	int marginMiddle = styleAttribute<int>(MarginMiddleAttribute);
+
+	//int marginTriangle = styleAttribute<int>(MarginTriangleAttribute);
+
+	int triangleWidth = styleAttribute<const QSize>(TriangleBackgroundSizeAttribute).width() + styleAttribute<int>(MarginTriangleAttribute);
 
 
-		int fieldWidth = styleAttribute<const QSize>(BackgroundSizeAttribute).width() - marginLeft - marginRight;
-		int fieldHeight = (styleAttribute<const QSize>(BackgroundSizeAttribute).height() - marginTop - marginBottom - marginMiddle) / 2;
+	int fieldWidth = styleAttribute<const QSize>(BackgroundSizeAttribute).width() - marginLeft - marginRight - triangleWidth;
+	int fieldHeight = (styleAttribute<const QSize>(BackgroundSizeAttribute).height() - marginTop - marginBottom - marginMiddle) / 2;
 
-		QRectF text1Rect(	styleAttribute<QPointF>(TextPos1Attribute).x() + marginLeft,
-											styleAttribute<QPointF>(TextPos1Attribute).y() + marginTop,
-											fieldWidth,
-											fieldHeight);
+	QRectF text1Rect(	styleAttribute<QPointF>(TextPos1Attribute).x() + marginLeft + triangleWidth,
+										styleAttribute<QPointF>(TextPos1Attribute).y() + marginTop,
+										fieldWidth,
+										fieldHeight);
 
 /*
 		QRectF text1Rect(	styleAttribute<QPointF>(TextPos1Attribute).x() + marginLeft,
@@ -63,7 +67,7 @@ void DcpButton2View::paintText(QPainter *painter)
 											m_Text1);
 
 
-		QRectF text2Rect(	styleAttribute<QPointF>(TextPos2Attribute).x() + marginLeft,
+		QRectF text2Rect(	styleAttribute<QPointF>(TextPos2Attribute).x() + marginLeft + triangleWidth,
 											styleAttribute<QPointF>(TextPos2Attribute).y() + marginTop,
 											fieldWidth,
 											fieldHeight);
@@ -114,5 +118,7 @@ void DcpButton2View::registerStyleAttributes(DuiStyleDescription &description)
 		description.addAttribute(TriangleBackgroundAttribute, "triangleBackground");
 		description.addAttribute(TriangleBackgroundSizeAttribute, "triangleBackgroundSize");
 		description.addAttribute(TrianglePosAttribute, "trianglePos");
+
+		description.addAttribute(MarginTriangleAttribute, "marginTriangle");
 
 }

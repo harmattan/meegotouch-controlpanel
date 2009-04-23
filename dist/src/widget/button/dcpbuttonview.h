@@ -81,6 +81,7 @@ protected:
 			TriangleBackgroundAttribute,
 			TriangleBackgroundSizeAttribute,
 			TrianglePosAttribute,
+			MarginTriangleAttribute,
 
 			ImageNameAttribute,
 			ImageSizeAttribute,
