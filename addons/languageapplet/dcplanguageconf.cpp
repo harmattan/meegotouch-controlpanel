@@ -6,7 +6,7 @@ namespace LanguageKey
     const QString Languages = InputMethod + "language/";
     const QString CurrentLanguage = Languages + "current";
     const QString KeyboardLayout = InputMethod + "keyboard-layout/";
-    const QString CurrentKeyboardLayout = Languages + "current";
+    const QString CurrentKeyboardLayout = KeyboardLayout + "current";
 };
 
 DcpLanguageConf *DcpLanguageConf::sm_Instance = NULL;
@@ -24,9 +24,14 @@ DcpLanguageConf::instance()
 DcpLanguageConf::DcpLanguageConf() : DuiConf(),
                              m_Settings("Maemo", "DuiControlPanel")
 {
-    setDisplayLanguage("English GB");
-    addKeyboardLanguage(displayLanguage());
-    addKeyboardLanguage("Suomi");
+    if (!m_Settings.contains(LanguageKey::CurrentLanguage))
+        setDisplayLanguage("English GB");
+    
+    if (!m_Settings.contains(LanguageKey::CurrentKeyboardLayout))
+      {
+        addKeyboardLanguage(displayLanguage());
+        addKeyboardLanguage("Suomi");
+      }
 }
 
 DcpLanguageConf::~DcpLanguageConf()
@@ -50,46 +55,71 @@ DcpLanguageConf::setDisplayLanguage(QString displayLanguage)
 QStringList 
 DcpLanguageConf::keyboardLanguages()
 {
-    return m_KeyboardLanguages;
+    return m_Settings.value(LanguageKey::CurrentKeyboardLayout).toStringList();
 }
 
 QString 
 DcpLanguageConf::keyboardLanguagesAsText()
 {
-    return m_KeyboardLanguages.join(", ");
+    return keyboardLanguages().join(", ");
 }
 
 void 
 DcpLanguageConf::addKeyboardLanguage(QString language)
 {
-    m_KeyboardLanguages.append(language);
+    QStringList list = keyboardLanguages();
+    list.append(language);
+    setKeyboardLanguages(list);
 }
 
 void 
 DcpLanguageConf::removeKeyboardLanguage(QString language)
 {
-    m_KeyboardLanguages.removeOne(language);
+    QStringList list = keyboardLanguages();
+    list.removeOne(language);
+    setKeyboardLanguages(list);
 }
 
 void
-DcpLanguageConf::setKeyboardLanguage(QStringList languages)
+DcpLanguageConf::setKeyboardLanguages(QStringList languages)
 {
-    m_KeyboardLanguages = languages;
+    m_Settings.setValue(LanguageKey::CurrentKeyboardLayout, languages);
 }
 
 int 
 DcpLanguageConf::keyboardLanguagesNumber()
 {
-    return m_KeyboardLanguages.count();
+    return keyboardLanguages().count();
 }
 
 QStringList
-DcpLanguageConf::availableInputLanguages(){
-
+DcpLanguageConf::availableInputLanguages()
+{
+    return defaultLanguages();
 }
 
 QStringList 
 DcpLanguageConf::availableKeyboardLanguages()
 {
-
+    return defaultLanguages();
 };
+
+QStringList 
+DcpLanguageConf::defaultLanguages()
+{
+
+    QString rushian = 
+        QString("P%1cc").arg(QChar(0x0443)) + QChar(0x043A) + QChar(0x0438) + QChar(0x0439); 
+
+    QStringList languageList;
+    languageList << "Dansk" << "Deutsch" << "English GB" << "English US" 
+            << QString("Fran%1ais (Canada)").arg(QChar(0x00e7)) 
+            << QString("Fran%1ais (France)").arg(QChar(0x00e7)) 
+            << "Italiaon"
+            << QString("LA Espa%1ol").arg(QChar(0x00f1)) 
+            << "Nederlands" << "Norks" 
+            << QString("Portugu%1s").arg(QChar(0x00ea))
+            << QString("Portugu%1s BR").arg(QChar(0x00ea)) 
+            << rushian << "Suomi";
+    return languageList;
+}

@@ -2,6 +2,7 @@
 #include "dcpspaceritem.h"
 #include "languageselectcontainer.h"
 #include "dcplanguage.h"
+#include "dcplanguageconf.h"
 #include "languagetranslation.h"
 #include "languagelabelbuttoncontainer.h"
 
@@ -71,21 +72,6 @@ void DisplayWidget::mousePressEvent ( QGraphicsSceneMouseEvent * event )
 
 void DisplayWidget::initWidget()
 {
-    QString rushian = 
-        QString("P%1cc").arg(QChar(0x0443)) + QChar(0x043A) + QChar(0x0438) + QChar(0x0439); 
-
-    QStringList languageList;
-    languageList << "Dansk" << "Deutsch" << "English GB" << "English US" 
-            << QString("Fran%1ais (Canada)").arg(QChar(0x00e7)) 
-            << QString("Fran%1ais (France)").arg(QChar(0x00e7)) 
-            << "Italiaon"
-            << QString("LA Espa%1ol").arg(QChar(0x00f1)) 
-            << "Nederlands" << "Norks" 
-            << QString("Portugu%1s").arg(QChar(0x00ea))
-            << QString("Portugu%1s BR").arg(QChar(0x00ea)) 
-            << rushian << "Suomi";
-
-    
     // Layout
     DuiLayout *m_mainLayout = new DuiLayout(this);
     m_mainLayout->setAnimator(NULL);
@@ -134,7 +120,7 @@ void DisplayWidget::initWidget()
     // LanguageSelectContainer
     LanguageSelectContainer *selectCont = 
             new LanguageSelectContainer(DcpLanguage::InDeviceText,
-                                        languageList, this);
+                  DcpLanguageConf::instance()->availableInputLanguages(), this);
     connect(selectCont, SIGNAL(changeBackToMain()), this, SIGNAL(clicked()));
     
     // contWidget
