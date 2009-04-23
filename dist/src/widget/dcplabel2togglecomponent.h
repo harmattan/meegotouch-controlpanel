@@ -40,6 +40,8 @@ protected:
     bool m_EnableSmallToggle;
 
 		DcpButton *m_Button;
+
+    Qt::Alignment m_Alignment;
 };
 
 
