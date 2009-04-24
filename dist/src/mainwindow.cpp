@@ -54,7 +54,7 @@ MainWindow::changePage(Pages::Handle handle)
     // ---
     // closeAction
     DuiAction *quitAction = new DuiAction(DcpMain::quitMenuItemText, this);
-    quitAction->setPossibleLocations(DuiAction::ViewMenu);
+    quitAction->setLocation(DuiAction::ViewMenu);
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
     
     // Add actions to page
