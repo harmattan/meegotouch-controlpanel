@@ -54,12 +54,13 @@ MainWindow::changePage(Pages::Handle handle)
     // ---
     // closeAction
     DuiAction *quitAction = new DuiAction(DcpMain::quitMenuItemText, this);
-    quitAction->setPossibleLocations(DuiAction::ViewMenu);
+    quitAction->setLocation(DuiAction::ViewMenu);
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
     
     // Add actions to page
+    if (handle.id != Pages::MAIN)
+        page->addAction(quitAction);
     page->addAction(rotateAction);
-    page->addAction(quitAction);
 
     page->appear(DuiSceneWindow::KeepWhenDone); //TODO -> Destroy
 }
