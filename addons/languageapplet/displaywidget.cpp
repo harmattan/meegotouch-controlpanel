@@ -78,50 +78,6 @@ void DisplayWidget::initWidget()
     DuiLinearLayoutPolicy *mainLayoutPolicy =
             new DuiLinearLayoutPolicy(m_mainLayout, Qt::Vertical);
     m_mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayoutPolicy->setContentsMargins(2.0, 10.0, 2.0, 10.0);
-
-    // titleLayout
-    DuiLayout *titleLayout = new DuiLayout(NULL);
-    titleLayout->setAnimator(NULL);
-    DuiLinearLayoutPolicy *titleLayoutPolicy = 
-            new DuiLinearLayoutPolicy(titleLayout, Qt::Horizontal);
-    titleLayout->setPolicy(titleLayoutPolicy);
-    
-    titleLayoutPolicy->addItemAtPosition(
-                    new DcpSpacerItem(this, 5, 5,
-                            QSizePolicy::Expanding, QSizePolicy::Fixed),
-                    0, Qt::AlignLeft);
-    DuiLabel* titleLabel = new DuiLabel(DcpLanguage::SelectDisplayText);
-    titleLabel->setObjectName("DisplayLanguageTitleLabel");
-    titleLabel->setAcceptedMouseButtons(0);
-    titleLayoutPolicy->addItemAtPosition(titleLabel, 1, Qt::AlignCenter);
-    titleLayoutPolicy->addItemAtPosition(
-                    new DcpSpacerItem(this, 5, 5, 
-                        QSizePolicy::Expanding, QSizePolicy::Fixed),
-                    2, Qt::AlignRight);
-    DuiWidget* titleWidget = new DuiWidget(this);
-    titleWidget->setLayout(titleLayout);
-    mainLayoutPolicy->addItemAtPosition(titleWidget, 0, Qt::AlignCenter);
-
-    // DonwloadedLanguage
-    LanguageLabelButtonContainer *downloadedCont =
-            new LanguageLabelButtonContainer(LanguageLabelButtonContainer::DOWNLOADED,
-                                             this);
-    connect(downloadedCont, SIGNAL(removeMe(LanguageLabelButtonContainer*)),
-            this, SLOT(removeContainer(LanguageLabelButtonContainer*)));
-
-    // InstalledLanguage
-    LanguageLabelButtonContainer *installedCont =
-            new LanguageLabelButtonContainer(LanguageLabelButtonContainer::INSTALLED,
-                                             this);
-    connect(installedCont, SIGNAL(removeMe(LanguageLabelButtonContainer*)),
-            this, SLOT(removeContainer(LanguageLabelButtonContainer*)));
-
-    // LanguageSelectContainer
-    LanguageSelectContainer *selectCont = 
-            new LanguageSelectContainer(DcpLanguage::InDeviceText,
-                  DcpLanguageConf::instance()->availableInputLanguages(), this);
-    connect(selectCont, SIGNAL(changeBackToMain()), this, SIGNAL(clicked()));
     
     // contWidget
     DuiWidget *contWidget = new DuiWidget(this);
@@ -131,9 +87,54 @@ void DisplayWidget::initWidget()
             new DuiLinearLayoutPolicy(m_contLayout, Qt::Vertical);
     m_contLayout->setPolicy(contLayoutPolicy);
 
-    contLayoutPolicy->addItemAtPosition(downloadedCont, 0, Qt::AlignCenter);
-    contLayoutPolicy->addItemAtPosition(installedCont, 1, Qt::AlignCenter);
-    contLayoutPolicy->addItemAtPosition(selectCont, 2, Qt::AlignCenter);
+    // titleLayout
+    DuiLayout *titleLayout = new DuiLayout(NULL);
+    titleLayout->setAnimator(NULL);
+    DuiLinearLayoutPolicy *titleLayoutPolicy = 
+            new DuiLinearLayoutPolicy(titleLayout, Qt::Horizontal);
+    titleLayout->setPolicy(titleLayoutPolicy);
+    
+    // titleLabel
+    DuiLabel* titleLabel = new DuiLabel(DcpLanguage::SelectDisplayText, contWidget);
+    titleLabel->setObjectName("DisplayLanguageTitleLabel");
+    titleLabel->setAcceptedMouseButtons(0);
+    
+    // Add items to titleLayoutPolicy
+    titleLayoutPolicy->addItemAtPosition(
+                    new DcpSpacerItem(contWidget, 5, 5,
+                            QSizePolicy::Expanding, QSizePolicy::Fixed),
+                    0, Qt::AlignLeft);
+    titleLayoutPolicy->addItemAtPosition(titleLabel, 1, Qt::AlignCenter);
+    titleLayoutPolicy->addItemAtPosition(
+                    new DcpSpacerItem(contWidget, 5, 5, 
+                        QSizePolicy::Expanding, QSizePolicy::Fixed),
+                    2, Qt::AlignRight);
+
+    // DonwloadedLanguage
+    LanguageLabelButtonContainer *downloadedCont =
+            new LanguageLabelButtonContainer(LanguageLabelButtonContainer::DOWNLOADED,
+                                             contWidget);
+    connect(downloadedCont, SIGNAL(removeMe(LanguageLabelButtonContainer*)),
+            this, SLOT(removeContainer(LanguageLabelButtonContainer*)));
+
+    // InstalledLanguage
+    LanguageLabelButtonContainer *installedCont =
+            new LanguageLabelButtonContainer(LanguageLabelButtonContainer::INSTALLED,
+                                             contWidget);
+    connect(installedCont, SIGNAL(removeMe(LanguageLabelButtonContainer*)),
+            this, SLOT(removeContainer(LanguageLabelButtonContainer*)));
+
+    // LanguageSelectContainer
+    LanguageSelectContainer *selectCont = 
+            new LanguageSelectContainer(DcpLanguage::InDeviceText,
+                  DcpLanguageConf::instance()->availableInputLanguages(), contWidget);
+    connect(selectCont, SIGNAL(changeBackToMain()), this, SIGNAL(clicked()));
+    
+    // Add items to contLayoutPolicy
+    contLayoutPolicy->addItemAtPosition(titleLayout, 0, Qt::AlignCenter);
+    contLayoutPolicy->addItemAtPosition(downloadedCont, 1, Qt::AlignCenter);
+    contLayoutPolicy->addItemAtPosition(installedCont, 2, Qt::AlignCenter);
+    contLayoutPolicy->addItemAtPosition(selectCont, 3, Qt::AlignCenter);
     contWidget->setLayout(m_contLayout);
     
     DuiPannableViewport* viewport = new DuiPannableViewport(this);
@@ -141,7 +142,7 @@ void DisplayWidget::initWidget()
     viewport->setWidget(contWidget);
     viewport->setObjectName("LanguageViewport");
     // TODO: remove me
-    viewport->setMaximumHeight(DuiDeviceProfile::instance()->height() - 165);
+    viewport->setMaximumHeight(DuiDeviceProfile::instance()->height() - 125);
 
     mainLayoutPolicy->addItemAtPosition(viewport, 1, Qt::AlignCenter);
                                             
