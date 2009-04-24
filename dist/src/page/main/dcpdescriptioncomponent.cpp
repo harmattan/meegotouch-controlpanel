@@ -1,20 +1,17 @@
 #include "dcpdescriptioncomponent.h"
 
-#include <QtDebug>
-#include <QGraphicsSceneResizeEvent>
-
 #include <duilabel.h>
+#include <duicontainer.h>
+#include <duilayout.h>
+#include <duilinearlayoutpolicy.h>
 
-static const QSize fullSizeLandscape(804,90);
-static const QSize halfSizeLandscape(385,90);
-static const QSize halfSizePortrait(429,90);
-static const QSize fullSizePortrait = halfSizePortrait;
+#include <QGraphicsSceneMouseEvent>
 
 DcpDescriptionComponent::DcpDescriptionComponent(DcpCategory *category,
                                                  const QString& title,
                                                  QGraphicsWidget *parent) :
-    DcpBackgroundComponent(category, title, parent),
-    m_Orientation(Dui::Landscape)
+    DcpComponent(category, title, parent),
+    m_Container(NULL)
 {
     createContents();
 }
@@ -23,28 +20,35 @@ DcpDescriptionComponent::DcpDescriptionComponent(DcpCategory *category,
 void
 DcpDescriptionComponent::createContents()
 {
-    DcpBackgroundComponent::createContents();
+    m_Container = new DuiContainer(this);
+    m_Container->setAcceptedMouseButtons(0);
+    setTitle(title());
+
+//    m_Container->setText("More...");
+//     m_Container->setExpand(true);
+//     m_Container->setIconID("My-Icon-ID");
 
     m_Description = new DuiLabel();
     m_Description->setObjectName("ComponentDescription");
     m_Description->setWordWrap(true);
-
-    setHalfRowSize();
-
-    // this fixes a dui issue, that the labels are eating up our clickEvents
     m_Description->setAcceptedMouseButtons(0);
-    // --
+//    m_Description->setContentsMargins(50,0,50,0);
 
-    addItem(m_Description);
+    m_Container->setCentralWidget(m_Description);
+
+    DuiLayout* layout = new DuiLayout(this);
+    layout->setAnimator(NULL);
+    DuiLinearLayoutPolicy* layoutPolicy = new DuiLinearLayoutPolicy(layout,
+                                                            Qt::Vertical);
+    layoutPolicy->addItemAtPosition(m_Container, 0);
+    layout->setPolicy(layoutPolicy);
 }
 
-
-void DcpDescriptionComponent::onOrientationChange (
-                                        const Dui::Orientation &orientation)
+void DcpDescriptionComponent::setTitle (const QString& title)
 {
-    m_Orientation = orientation;
-    initSizes();
-    DcpBackgroundComponent::onOrientationChange(orientation);
+    Q_ASSERT(m_Container);
+    m_Container->setTitle(title);
+    DcpComponent::setTitle(title);
 }
 
 
@@ -60,51 +64,17 @@ void DcpDescriptionComponent::setTextAlignment(Qt::Alignment align)
 }
 
 
-/** This function changes the component's look and feel to the one
-  * that is the full row size description.
-  */
-void DcpDescriptionComponent::setFullRowSize()
-{
-    m_IsFullRow = true;
-}
-
-
-void DcpDescriptionComponent::initSizes()
-{
-	QSize descSize;
-	if (m_IsFullRow) {
-	    descSize = (m_Orientation != Dui::Portrait) ? fullSizeLandscape
-			     : fullSizePortrait;
-
-	    setTextAlignment(Qt::AlignHCenter);
-	    setTitleAlignment(Qt::AlignHCenter);
-	} else {
-    	    descSize = (m_Orientation != Dui::Portrait) ? halfSizeLandscape
-                     	     : halfSizePortrait;
-    	    setTextAlignment(Qt::AlignTop);
-    	    setTitleAlignment(Qt::AlignLeft);
-	}
-	m_Description->setMaximumSize(descSize);
-	m_Description->setMinimumSize(descSize);
-}
-
-
-void DcpDescriptionComponent::setHalfRowSize()
-{
-    m_IsFullRow = false;
-}
-
-
 void DcpDescriptionComponent::mousePressEvent (QGraphicsSceneMouseEvent *event)
 {
-    DcpBackgroundComponent::mousePressEvent(event);
+    DcpComponent::mousePressEvent(event);
     event->accept();
     switchToSubPage();
 }
 
+
 void DcpDescriptionComponent::mouseReleaseEvent (QGraphicsSceneMouseEvent * event)
 {
-    DcpBackgroundComponent::mouseReleaseEvent(event);
+    DcpComponent::mouseReleaseEvent(event);
     event->accept();
 }
 

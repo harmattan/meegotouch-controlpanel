@@ -4,34 +4,42 @@
 #include "maintranslations.h"
 
 #include "dcpmostusedcategory.h"
-#include <duilabel.h>
+#include <duicontainer.h>
+#include <duilayout.h>
+#include <duilinearlayoutpolicy.h>
+
 
 DcpRecentlyUsedComponent::DcpRecentlyUsedComponent(
                             DcpCategory *category,
                             QGraphicsWidget *parent)
-        : DcpBackgroundComponent(category, DcpMain::mostRecentUsedTitle, parent)
+        : DcpComponent(category, DcpMain::mostRecentUsedTitle, parent)
 {
     createContents();
 }
 
 void DcpRecentlyUsedComponent::createContents()
 {
-    m_HasSignButton = false;
-    DcpBackgroundComponent::createContents();
-
-    // TODO: to stylesheet
-    setContentsMargins(20, 10, 22, 10);
-    // --
+    DuiContainer *box = new DuiContainer(this);
+    box->setTitle(title());
 
     m_MostUsedCategory = new DcpMostUsedCategory("TXT");
     connect(m_MostUsedCategory, SIGNAL(openSubPage(Pages::Handle)),
                 this, SIGNAL(openSubPage(Pages::Handle)));
-    addItem(m_MostUsedCategory);
+
+    box->setCentralWidget(m_MostUsedCategory);
+ //   box->setCentralWidget(button);
+
+    DuiLayout* layout = new DuiLayout(this);
+    layout->setAnimator(NULL);
+    DuiLinearLayoutPolicy* layoutPolicy = new DuiLinearLayoutPolicy(layout,
+                                                            Qt::Vertical);
+    layoutPolicy->addItemAtPosition(box, 0);
+    layout->setPolicy(layoutPolicy);
 }
 
 
-void DcpRecentlyUsedComponent::onOrientationChange (const Dui::Orientation &orientation)
+void DcpRecentlyUsedComponent::onOrientationChange
+                            (const Dui::Orientation &orientation)
 {
     m_MostUsedCategory->onOrientationChange(orientation);
-    DcpBackgroundComponent::onOrientationChange(orientation);
 }

@@ -1,9 +1,10 @@
 #ifndef DCPDESCRIPTIONCOMPONENT_H
 #define DCPDESCRIPTIONCOMPONENT_H
 
-#include "dcpbackgroundcomponent.h"
+#include "dcpcomponent.h"
+class DuiContainer;
 
-class DcpDescriptionComponent:public DcpBackgroundComponent
+class DcpDescriptionComponent:public DcpComponent
 {
     Q_OBJECT
 public:
@@ -14,23 +15,21 @@ public:
     void setDescription(const QString& desc);
     void setTextAlignment(Qt::Alignment align);
 
-    void setFullRowSize();
-    void setHalfRowSize();
+    virtual void add(DcpComponent*){}
+    virtual void remove(DcpComponent*){}
+    virtual void setTitle(const QString& title);
 
 protected:
     virtual void createContents();
     virtual void mousePressEvent ( QGraphicsSceneMouseEvent * event );
     virtual void mouseReleaseEvent ( QGraphicsSceneMouseEvent * event );
 
-public slots:
-    virtual void onOrientationChange (const Dui::Orientation &orientation);
-
 private:
-    void initSizes();
-    DuiLabel *m_Description;
-    bool m_IsFullRow;
+    class DuiLabel *m_Description;
     Dui::Orientation m_Orientation;
+    DuiContainer *m_Container;
 };
 
 
 #endif // DCPDESCRIPTIONCOMPONENT_H
+
