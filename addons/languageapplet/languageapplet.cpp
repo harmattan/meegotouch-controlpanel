@@ -1,7 +1,7 @@
 #include <QtGui>
 #include <QDebug>
 #include <DuiAction>
-#include <duiapplication.h>
+// #include <duiapplication.h>
 
 #include "languageapplet.h"
 #include "languagewidget.h"
@@ -63,10 +63,10 @@ QVector<DuiAction*> LanguageApplet::viewMenuItems()
     QVector<DuiAction*> vector;
     
     // closeAction
-    DuiAction *closeAction = new DuiAction(DcpLanguage::QuitSettingsMenuText, this);
+    /* DuiAction *closeAction = new DuiAction(DcpLanguage::QuitSettingsMenuText, this);
     closeAction->setPossibleLocations(DuiAction::ViewMenu);
     connect(closeAction, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
-    vector.push_back(closeAction);
+    vector.push_back(closeAction);*/
 
     return vector;    
 }

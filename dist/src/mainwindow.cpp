@@ -1,14 +1,16 @@
 #include "mainwindow.h"
 #include "pagefactory.h"
 #include "dcppage.h"
+#include "maintranslations.h"
 #include <duideviceprofile.h>
 #include <QtDebug>
 #include <duinavigationbar.h>
 #include <duiaction.h>
+#include <duiapplication.h>
 
 MainWindow::MainWindow()
 {
-   Pages::Handle handle = {Pages::MAIN, ""};
+      Pages::Handle handle = {Pages::MAIN, ""};
   // Pages::Handle handle = {Pages::APPLET, "Language"};
    changePage(handle);
 }
@@ -47,10 +49,17 @@ MainWindow::changePage(Pages::Handle handle)
 
     // --- temporary to test rotating the device ---
     DuiAction* rotateAction = new DuiAction("ROT", page);
-    page->addAction(rotateAction);
     connect (rotateAction, SIGNAL (triggered()),
              this, SLOT(onRotateClicked()));
     // ---
+    // closeAction
+    DuiAction *quitAction = new DuiAction(DcpMain::quitMenuItemText, this);
+    quitAction->setPossibleLocations(DuiAction::ViewMenu);
+    connect(quitAction, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
+    
+    // Add actions to page
+    page->addAction(rotateAction);
+    page->addAction(quitAction);
 
     page->appear(DuiSceneWindow::KeepWhenDone); //TODO -> Destroy
 }
