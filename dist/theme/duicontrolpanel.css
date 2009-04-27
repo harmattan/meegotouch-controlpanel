@@ -146,14 +146,14 @@ DuiImage {
 #DcpButton {
 
     marginLeft: 25;
-	  marginRight: 20;
-	  marginTop: 12;
-		marginBottom: 6;
-		marginMiddle: 4;
+    marginRight: 20;
+    marginTop: 12;
+    marginBottom: 6;
+    marginMiddle: 4;
 	
     backgroundImage: "C2-container";
 
-    backgroundSize: size(392, 88);
+    backgroundSize: size(405, 88);
 
     textColor1: #FFFFFF;
     font1: font("Nokia Sans Cn", 20);

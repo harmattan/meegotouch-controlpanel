@@ -32,7 +32,8 @@ DcpDescriptionComponent::createContents()
     m_Description->setObjectName("ComponentDescription");
     m_Description->setWordWrap(true);
     m_Description->setAcceptedMouseButtons(0);
-//    m_Description->setContentsMargins(50,0,50,0);
+    m_Description->setSizePolicy(QSizePolicy::Expanding,
+                                 QSizePolicy::Expanding);
 
     m_Container->setCentralWidget(m_Description);
 
