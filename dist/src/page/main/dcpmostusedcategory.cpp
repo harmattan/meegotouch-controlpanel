@@ -17,7 +17,6 @@
 #include "dcpappletmetadata.h"
 #include "dcpapplet.h"
 
-
 DcpMostUsedCategory::DcpMostUsedCategory(const QString& title, QGraphicsWidget *parent) :
   DcpMainCategory(title, parent)
 {
@@ -53,11 +52,13 @@ void DcpMostUsedCategory::paint (QPainter * painter, const QStyleOptionGraphicsI
 {
 	DuiWidget::paint(painter, option, widget);
 
-	painter->setPen(QColor(64, 64, 64));
-
+	/*//dummy
+	const QColor LINECOLOR = QColor(64, 64, 64);
+	painter->setPen(LINECOLOR);
 	for (int y=0; y<2; y++)
 		for (int x=0; x<2; x++)
 			painter->drawLine(x*420, 105 + y*100, (x+1)*405 , 105 + y*100);
+	*/
 }
 
 void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata)
