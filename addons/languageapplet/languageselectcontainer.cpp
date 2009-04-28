@@ -28,7 +28,7 @@ void LanguageSelectContainer::selectItem(const QString &text)
 {
     for (int i = 0; i < m_listItemVector.size(); i++)
     {
-        if (text == m_listItemVector[i]->text())
+        if (text == m_listItemVector[i]->langCode())
         {
             m_listItemVector[i]->checked(true);
         }
@@ -56,8 +56,9 @@ void LanguageSelectContainer::initWidget()
     QStringListIterator iterator(m_itemList);
     while (iterator.hasNext())
     {
-        QString name = iterator.next();
-        m_listItemVector.append(new LanguageListItem(name, this));
+        QString langCode = iterator.next();
+        m_listItemVector.append(new LanguageListItem(langCode,
+                                DcpLanguageConf::fullName(langCode), this));
     }
 
     for (int i = 0; i < m_listItemVector.size(); i++)
@@ -73,7 +74,7 @@ void LanguageSelectContainer::initWidget()
 void LanguageSelectContainer::itemClicked(LanguageListItem *item)
 {
     item->checked(true);
-    DcpLanguageConf::instance()->setDisplayLanguage(item->text());
+    DcpLanguageConf::instance()->setDisplayLanguage(item->langCode());
     emit changeBackToMain();
 }
 

@@ -23,7 +23,8 @@ KeyboardSelectContainer::KeyboardSelectContainer(const QString &title,
     QStringList keyboardList = DcpLanguageConf::instance()->keyboardLanguages();
     QStringListIterator iterator(keyboardList);
     while (iterator.hasNext())
-        m_listItems[iterator.next()]->checked(true);
+        if (m_listItems[iterator.next()])
+            m_listItems[iterator.next()]->checked(true);
 }
 
 
@@ -54,9 +55,10 @@ void KeyboardSelectContainer::initWidget()
     int i=0;
     while (iterator.hasNext())
     {
-        QString name = iterator.next();
-        LanguageListItem *item = new LanguageListItem(name, this);
-        m_listItems[name] = item;
+        QString langCode = iterator.next();
+        LanguageListItem *item = new LanguageListItem(langCode, 
+            DcpLanguageConf::fullName(langCode), this);
+        m_listItems[langCode] = item;
         itemLayout->addItemAtPosition(item, i / 2, i % 2);
         connect(item, SIGNAL(clicked(LanguageListItem*)), this,
                 SLOT(itemClicked(LanguageListItem*)));
@@ -73,7 +75,7 @@ void KeyboardSelectContainer::itemClicked(LanguageListItem* item)
 {
     if (item->isChecked())  
         {      
-            DcpLanguageConf::instance()->addKeyboardLanguage(item->text());
+            DcpLanguageConf::instance()->addKeyboardLanguage(item->langCode());
         } else {
             bool doKeep = false;
             if (DcpLanguageConf::instance()->keyboardLanguagesNumber() == 1)
@@ -87,7 +89,7 @@ void KeyboardSelectContainer::itemClicked(LanguageListItem* item)
             if (doKeep)
                item->checked(true);
             else
-                DcpLanguageConf::instance()->removeKeyboardLanguage(item->text());
+                DcpLanguageConf::instance()->removeKeyboardLanguage(item->langCode());
         }
     }
 

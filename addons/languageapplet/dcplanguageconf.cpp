@@ -1,4 +1,5 @@
 #include "dcplanguageconf.h"
+#include <duilocale.h>
 
 namespace LanguageKey
 {
@@ -25,12 +26,11 @@ DcpLanguageConf::DcpLanguageConf() : DuiConf(),
                              m_Settings("Maemo", "DuiControlPanel")
 {
     if (!m_Settings.contains(LanguageKey::CurrentLanguage))
-        setDisplayLanguage("English GB");
+        setDisplayLanguage("en_GB");
     
     if (!m_Settings.contains(LanguageKey::CurrentKeyboardLayout))
       {
         addKeyboardLanguage(displayLanguage());
-        addKeyboardLanguage("Suomi");
       }
 }
 
@@ -61,7 +61,10 @@ DcpLanguageConf::keyboardLanguages()
 QString 
 DcpLanguageConf::keyboardLanguagesAsText()
 {
-    return keyboardLanguages().join(", ");
+    QStringList list;
+    foreach(QString langCode, keyboardLanguages())
+       list.append(fullName(langCode)); 
+    return list.join(", ");
 }
 
 void 
@@ -95,7 +98,25 @@ DcpLanguageConf::keyboardLanguagesNumber()
 QStringList
 DcpLanguageConf::availableInputLanguages()
 {
+    m_Settings.beginGroup(LanguageKey::Languages);
+    foreach (QString lang, m_Settings.childKeys())
+        qDebug() << "DCP: Input Language" << lang;
+    m_Settings.endGroup();
+
+    foreach (QString lang, defaultLanguages())
+        qDebug() << "DCP: " << fullName(lang);
     return defaultLanguages();
+;
+}
+
+QString
+DcpLanguageConf::fullName(QString lang)
+{
+    DuiLocale locale(lang);
+    QString result = locale.languageEndonym();
+    if (locale.language() != locale.country().toLower())
+        result += " (" + locale.countryEndonym() + ")";
+    return result; 
 }
 
 QStringList 
@@ -108,7 +129,7 @@ QStringList
 DcpLanguageConf::defaultLanguages()
 {
 
-    QString rushian = 
+ /*   QString rushian = 
         QString("P%1cc").arg(QChar(0x0443)) + QChar(0x043A) + QChar(0x0438) + QChar(0x0439); 
 
     QStringList languageList;
@@ -121,5 +142,9 @@ DcpLanguageConf::defaultLanguages()
             << QString("Portugu%1s").arg(QChar(0x00ea))
             << QString("Portugu%1s BR").arg(QChar(0x00ea)) 
             << rushian << "Suomi";
+    */
+    QStringList languageList;
+    languageList << "dn_DN" << "de_DE" << "en_GB" << "en_US" 
+     << "fr_CA" << "fr_FR" << "it_IT" << "es_ES" << "nl_NL";
     return languageList;
 }

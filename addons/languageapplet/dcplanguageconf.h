@@ -19,6 +19,7 @@ public:
     void addKeyboardLanguage(QString language);
     void removeKeyboardLanguage(QString language);
     void setKeyboardLanguages(QStringList languages);
+    static QString fullName(QString lang);
 protected:
     DcpLanguageConf();
     QStringList defaultLanguages();

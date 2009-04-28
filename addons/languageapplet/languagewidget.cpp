@@ -49,7 +49,8 @@ void LanguageWidget::initWidget()
 {
     // there is some "magic number" sorry for that
     m_displayButton = new LanguageButton(DcpLanguage::DisplayButtonTitle,
-                            DcpLanguageConf::instance()->displayLanguage(), this);
+    DcpLanguageConf::fullName(DcpLanguageConf::instance()->displayLanguage()),
+     this);
     m_displayButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     connect(m_displayButton, SIGNAL(clicked()), 
             this, SLOT(displayPage()));

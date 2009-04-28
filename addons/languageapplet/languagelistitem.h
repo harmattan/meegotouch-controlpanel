@@ -12,7 +12,8 @@ class LanguageListItem : public DuiWidget
     Q_OBJECT
 
 public:
-    LanguageListItem(const QString &text, 
+    LanguageListItem(const QString &langCode,
+                     const QString &text, 
                      DuiWidget *parent = 0);
     virtual ~LanguageListItem();
 
@@ -27,6 +28,7 @@ public:
     bool isChecked();
     bool isClicked();
     QString text() const;
+    QString langCode() const;
 
 protected:
     void initWidget();
@@ -39,15 +41,16 @@ protected slots:
     void onOrientationAngleChanged();
 
 private:
-    QString 	            m_labelText;
-    DuiGridLayoutPolicy     *m_labelLayoutPolicy;
-    DuiLabel	            *m_normalLabel;
-    DuiButton               *m_checkMark;
-    bool    	            m_checked;
-    bool                    m_clicked;
-    bool                    m_first;
-
+    QString m_LangCode;
+    QString m_LabelText;
+    DuiGridLayoutPolicy *m_LabelLayoutPolicy;
+    DuiLabel *m_NormalLabel;
+    DuiButton *m_CheckMark;
+    bool m_Checked;
+    bool m_Clicked;
+    bool m_First;
+    
 signals:
-    void            clicked(LanguageListItem *item);
+    void clicked(LanguageListItem *item);
 };
 #endif // LANGUAGELISTITEM_H
