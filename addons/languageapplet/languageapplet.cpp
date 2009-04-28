@@ -15,7 +15,7 @@ Q_EXPORT_PLUGIN2(languageapplet, LanguageApplet)
 
 void LanguageApplet::init()
 {
-    m_widgetIndex = DcpLanguage::Main;
+    m_WidgetIndex = DcpLanguage::Main;
 } 
 
 DcpWidget* LanguageApplet::constructWidget(int widgetId)

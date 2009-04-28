@@ -14,8 +14,8 @@ RemovableListItem::RemovableListItem(const QString &upText,
                                      const QString &downText,
                                      DuiWidget *parent)
                   :DuiWidget(parent),
-                   m_upText(upText),
-                   m_downText(downText)
+                   m_UpText(upText),
+                   m_DownText(downText)
 {
     initWidget();
 }
@@ -23,8 +23,8 @@ RemovableListItem::RemovableListItem(const QString &upText,
 RemovableListItem::RemovableListItem(const QString &text,
                                      DuiWidget *parent)
                   :DuiWidget(parent),
-                   m_upText(text),
-                   m_downText(QString(""))
+                   m_UpText(text),
+                   m_DownText(QString(""))
 {
     initWidget();
 }
@@ -46,27 +46,27 @@ void RemovableListItem::initWidget()
 
     // label
     LanguageLabel *label = NULL;
-    if (m_downText.isEmpty())
+    if (m_DownText.isEmpty())
     {
-        label = new LanguageLabel(m_upText, this);
+        label = new LanguageLabel(m_UpText, this);
     } else {
-        label = new LanguageLabel(m_upText, m_downText, this);
+        label = new LanguageLabel(m_UpText, m_DownText, this);
     }
 
     // button
-    m_removeButton = new DuiButton(DcpLanguage::RemoveButtonText, this);
-    m_removeButton->setMaximumWidth(buttonWidth);
-    m_removeButton->setMinimumWidth(buttonWidth);
-    m_removeButton->setMaximumHeight(buttonHeight);
-    m_removeButton->setMinimumHeight(buttonHeight);
-    m_removeButton->setObjectName("RemoveButton");
-    connect(m_removeButton, SIGNAL(clicked()), this, SLOT(removeClicked()));
+    m_RemoveButton = new DuiButton(DcpLanguage::RemoveButtonText, this);
+    m_RemoveButton->setMaximumWidth(buttonWidth);
+    m_RemoveButton->setMinimumWidth(buttonWidth);
+    m_RemoveButton->setMaximumHeight(buttonHeight);
+    m_RemoveButton->setMinimumHeight(buttonHeight);
+    m_RemoveButton->setObjectName("RemoveButton");
+    connect(m_RemoveButton, SIGNAL(clicked()), this, SLOT(removeClicked()));
 
     mainLayoutPolicy->addItemAtPosition(label, 0, Qt::AlignLeft | Qt::AlignVCenter);
     mainLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 10, 10, QSizePolicy::Expanding, QSizePolicy::Fixed),
                     1, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(m_removeButton, 2, Qt::AlignRight | Qt::AlignVCenter);
+    mainLayoutPolicy->addItemAtPosition(m_RemoveButton, 2, Qt::AlignRight | Qt::AlignVCenter);
     
     this->setLayout(mainLayout);
 }

@@ -11,14 +11,14 @@
 const int height = 80;
 
 ServicesButton::ServicesButton(DuiWidget *parent, const QString &title)
-               :DuiButton(parent), m_background(NULL)
+               :DuiButton(parent), m_Background(NULL)
 {
-    m_mainLayout = new DuiLayout(this);
-    m_mainLayout->setAnimator(NULL);
+    m_MainLayout = new DuiLayout(this);
+    m_MainLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *landscapeLayout = 
-            new DuiLinearLayoutPolicy(m_mainLayout, Qt::Vertical);
+            new DuiLinearLayoutPolicy(m_MainLayout, Qt::Vertical);
 
-    m_mainLayout->setPolicy(landscapeLayout);
+    m_MainLayout->setPolicy(landscapeLayout);
 
     // labelLayout
     DuiLayout *labelLayout = new DuiLayout(0);
@@ -33,16 +33,16 @@ ServicesButton::ServicesButton(DuiWidget *parent, const QString &title)
     seeMoreSmall->setMaximumWidth(20);
     seeMoreSmall->setMaximumHeight(20);
     
-    m_label = new DuiLabel(title, this);
-    m_label->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-    m_label->setObjectName("ServicesButtonLabel");
-    m_label->setAcceptedMouseButtons(0);
+    m_Label = new DuiLabel(title, this);
+    m_Label->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    m_Label->setObjectName("ServicesButtonLabel");
+    m_Label->setAcceptedMouseButtons(0);
     
     labelLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 12, 12, QSizePolicy::Fixed, QSizePolicy::Fixed), 
                     0, Qt::AlignCenter);
     labelLayoutPolicy->addItemAtPosition(seeMoreSmall, 1, Qt::AlignCenter);
-    labelLayoutPolicy->addItemAtPosition(m_label, 2, Qt::AlignCenter);
+    labelLayoutPolicy->addItemAtPosition(m_Label, 2, Qt::AlignCenter);
 
     landscapeLayout->addItemAtPosition(
                     new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Expanding), 
@@ -52,6 +52,7 @@ ServicesButton::ServicesButton(DuiWidget *parent, const QString &title)
                     new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Expanding), 
                             2, Qt::AlignCenter);
 
+    this->setLayout(m_MainLayout);
     setMinimumHeight(height);
     setMaximumHeight(height);
     setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - 40);
@@ -59,9 +60,8 @@ ServicesButton::ServicesButton(DuiWidget *parent, const QString &title)
 
 ServicesButton::~ServicesButton()
 {   
-    if (m_background)
-    {
-        DuiTheme::releasePixmap(m_background);
+    if (m_Background) {
+        DuiTheme::releasePixmap(m_Background);
     }
 }
 
@@ -69,11 +69,11 @@ void ServicesButton::resizeEvent(QGraphicsSceneResizeEvent *event)
 {
     QSize size = event->newSize().toSize();
     static const int border = 10;
-    if (m_background)
-    {
-        DuiTheme::releasePixmap(m_background);
+    if (m_Background) {
+        DuiTheme::releasePixmap(m_Background);
     }
-    m_background = DuiTheme::boxedPixmap("C2-container", size,
+    
+    m_Background = DuiTheme::boxedPixmap("C2-container", size,
                                          border, border, border, border);
 }
 
@@ -86,8 +86,7 @@ void ServicesButton::paint(QPainter *painter,
     Q_UNUSED(widget);
 
     // if available, then draw it:
-    if (m_background) 
-    {
-        painter->drawPixmap(0, 0, *m_background);
+    if (m_Background) {
+        painter->drawPixmap(0, 0, *m_Background);
     }                
 }

@@ -23,6 +23,6 @@ public:
     virtual QVector<DuiAction*> viewMenuItems();
 
 private:
-    int m_widgetIndex;
+    int m_WidgetIndex;
 };
 #endif // HELLOLANGUAGE_H

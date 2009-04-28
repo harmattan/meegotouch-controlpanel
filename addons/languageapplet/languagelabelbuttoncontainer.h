@@ -11,22 +11,21 @@ class LanguageLabelButtonContainer : public DuiWidget
     Q_OBJECT
 
 public:
-    enum Type {
+    typedef enum {
             DOWNLOADED = 1,
             INSTALLED
-    };
-
+    } Type;
     LanguageLabelButtonContainer(LanguageLabelButtonContainer::Type type,
-                                DuiWidget *parent = 0);
+                                 DuiWidget *parent = 0);
     virtual ~LanguageLabelButtonContainer();
     
 protected:
     void initWidget();
 
 private:
-    LanguageLabelButtonContainer::Type  m_type;
-    DuiLayout                           *m_mainLayout;
-    QVector<RemovableListItem*>         m_itemVector;
+    LanguageLabelButtonContainer::Type m_Type;
+    DuiLayout *m_MainLayout;
+    QVector<RemovableListItem*> m_ItemVector;
 
 private slots:
     virtual void deleteItem(RemovableListItem *item);

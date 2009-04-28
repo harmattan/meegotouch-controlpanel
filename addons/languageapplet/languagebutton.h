@@ -7,7 +7,7 @@ class DuiLabel;
 
 class LanguageButton : public DuiButton 
 {
-        Q_OBJECT
+    Q_OBJECT
                 
 public:
     LanguageButton(QString upText, 
@@ -30,10 +30,10 @@ protected:
     void initWidget();
 
 private:
-    QString m_upText;
-    QString m_downText;
-    DuiLabel *m_upLabel;
-    DuiLabel *m_downLabel;
+    QString m_UpText;
+    QString m_DownText;
+    DuiLabel *m_UpLabel;
+    DuiLabel *m_DownLabel;
     // const QPixmap *m_Background;
 };
 #endif

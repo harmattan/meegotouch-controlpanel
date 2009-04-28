@@ -19,8 +19,7 @@ ServicesContainer::ServicesContainer(QGraphicsWidget *parent)
 
 ServicesContainer::~ServicesContainer()
 {
-    if (m_Background)
-    {
+    if (m_Background) {
         DuiTheme::releasePixmap(m_Background);
     }
 }
@@ -45,7 +44,7 @@ void ServicesContainer::paint(QPainter *painter,
     pen.setWidth(1);
     painter->setPen(pen);
 
-    qreal y = m_caption->y() + m_caption->size().height();
+    qreal y = m_Caption->y() + m_Caption->size().height();
     painter->drawLine(borderWidth, y, 
                       geometry().size().width() - 2 * borderWidth, y);
 }
@@ -56,8 +55,9 @@ void ServicesContainer::resizeEvent(QGraphicsSceneResizeEvent *event)
     
     QSize size = event->newSize().toSize();
     static const int border = 30;
-    if (m_Background)
+    if (m_Background) {
 	    DuiTheme::releasePixmap(m_Background);
+    }
     m_Background = DuiTheme::boxedPixmap("Mashup-container",size,
                                          border, border, border, border);
 }
@@ -65,21 +65,19 @@ void ServicesContainer::resizeEvent(QGraphicsSceneResizeEvent *event)
 void ServicesContainer::initContainer()
 {
     // m_mainLayout
-    m_mainLayout = new DuiLayout(this);
-    m_mainLayout->setAnimator(NULL);
+    m_MainLayout = new DuiLayout(this);
+    m_MainLayout->setAnimator(NULL);
 
     // captionLayout
-    DuiLayout *captionLayout = new DuiLayout(m_mainLayout);
+    DuiLayout *captionLayout = new DuiLayout(m_MainLayout);
     captionLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *captionLayoutPolicy = 
             new DuiLinearLayoutPolicy(captionLayout, Qt::Horizontal);
     captionLayout->setPolicy(captionLayoutPolicy);
 
-    m_caption = new DuiLabel(DcpLanguage::OviFeeds + " (4)", this);
-    m_caption->setObjectName("ServicesContainerCaption");
-    captionLayoutPolicy->addItemAtPosition(m_caption, 
-                    0, Qt::AlignLeft | Qt::AlignBottom);
-
+    m_Caption = new DuiLabel(DcpLanguage::OviFeeds + " (4)", this);
+    m_Caption->setObjectName("ServicesContainerCaption");
+    captionLayoutPolicy->addItemAtPosition(m_Caption, 0, Qt::AlignLeft | Qt::AlignBottom);
     captionLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Fixed),
                     1, Qt::AlignCenter);
@@ -104,9 +102,9 @@ void ServicesContainer::initContainer()
 
     // m_mainLayout->setAnimator(0);
     DuiLinearLayoutPolicy* mainLayoutPolicy = 
-            new DuiLinearLayoutPolicy(m_mainLayout, Qt::Vertical);
+            new DuiLinearLayoutPolicy(m_MainLayout, Qt::Vertical);
     
-    m_mainLayout->setPolicy(mainLayoutPolicy);
+    m_MainLayout->setPolicy(mainLayoutPolicy);
     mainLayoutPolicy->setSpacing(10);
     mainLayoutPolicy->setContentsMargins(12.0, 5.0, 5.0, 20.0);
     
@@ -121,6 +119,7 @@ void ServicesContainer::initContainer()
     mainLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 10, 12, QSizePolicy::Expanding, QSizePolicy::Fixed),
                     3, Qt::AlignCenter);
+    this->setLayout(m_MainLayout);
 }
 
 void ServicesContainer::addServices(const QString &name)

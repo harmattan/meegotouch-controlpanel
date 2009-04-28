@@ -28,7 +28,7 @@ protected slots:
    void onOrientationAngleChanged();
 
 private:
-    QString m_upText;
-    QString m_downText;
+    QString m_UpText;
+    QString m_DownText;
 };
 #endif // LANGUAGELABEL_H

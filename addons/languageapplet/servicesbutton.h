@@ -23,8 +23,8 @@ public:
     //! reimp_end
 
 private:
-    DuiLayout       *m_mainLayout;
-    const QPixmap   *m_background;
-    DuiLabel        *m_label;
+    DuiLayout *m_MainLayout;
+    const QPixmap *m_Background;
+    DuiLabel *m_Label;
 };
 #endif // SERVICESBUTTON_H

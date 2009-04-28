@@ -8,7 +8,7 @@
 #include <duilabel.h>
 
 ServicesButtonBlock::ServicesButtonBlock(const QString &title, QGraphicsWidget *parent)
-                    :DuiWidget(parent), m_title(title)
+                    :DuiWidget(parent), m_Title(title)
 {
     initWidget();
 }
@@ -19,10 +19,10 @@ ServicesButtonBlock::~ServicesButtonBlock()
 
 void ServicesButtonBlock::addServicesButton(const QString &name)
 {
-    int size = m_buttonVector.size();
+    int size = m_ButtonVector.size();
     
-    m_buttonVector.append(new ServicesButton(this, name));
-    m_buttonLayoutPolicy->addItemAtPosition(m_buttonVector[size], size / 2, size % 2);
+    m_ButtonVector.append(new ServicesButton(this, name));
+    m_ButtonLayoutPolicy->addItemAtPosition(m_ButtonVector[size], size / 2, size % 2);
 }
 
 void ServicesButtonBlock::initWidget()
@@ -33,18 +33,20 @@ void ServicesButtonBlock::initWidget()
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
     
-    m_header = new DuiLabel(m_title, this);
-    mainLayoutPolicy->addItemAtPosition(m_header, 0, Qt::AlignLeft);
+    m_Header = new DuiLabel(m_Title, this);
+    mainLayoutPolicy->addItemAtPosition(m_Header, 0, Qt::AlignLeft);
 
     DuiLayout *buttonLayout = new DuiLayout();
     buttonLayout->setAnimator(NULL);
-    m_buttonLayoutPolicy = new DuiGridLayoutPolicy(buttonLayout);
-    buttonLayout->setPolicy(m_buttonLayoutPolicy);
-    m_buttonLayoutPolicy->addItemAtPosition(
+    m_ButtonLayoutPolicy = new DuiGridLayoutPolicy(buttonLayout);
+    buttonLayout->setPolicy(m_ButtonLayoutPolicy);
+    m_ButtonLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Fixed),
                     0, 3);
 
     DuiWidget* buttonWidget = new DuiWidget(this);
     buttonWidget->setLayout(buttonLayout);
     mainLayoutPolicy->addItemAtPosition(buttonWidget, 1, Qt::AlignCenter);
+    
+    this->setLayout(mainLayout);
 }
