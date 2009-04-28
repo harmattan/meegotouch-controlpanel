@@ -5,6 +5,7 @@
 
 class LanguageButton;
 class DuiDialog;
+
 class LanguageWidget : public DcpWidget 
 {
 	Q_OBJECT
@@ -12,20 +13,23 @@ class LanguageWidget : public DcpWidget
 public:
 	LanguageWidget(QGraphicsWidget *parent = 0);
 	virtual ~LanguageWidget();
-
+    // !reimp
 	void paint(QPainter *painter,
 			   const QStyleOptionGraphicsItem *option,
                QWidget *widget = 0);
     void resizeEvent(QGraphicsSceneResizeEvent *event);
+    // !reimp_end
     virtual bool back();
+    
 protected:
 	void initWidget();
     void updateLanguageButtons();
 
 private:
-    LanguageButton *m_displayButton;
-    LanguageButton *m_keyboardButton;
+    LanguageButton *m_DisplayButton;
+    LanguageButton *m_KeyboardButton;
     DuiDialog *m_Dlg;
+    
 private slots:
     virtual void displayPage();
     virtual void keyboardPage();

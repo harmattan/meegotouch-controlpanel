@@ -21,9 +21,9 @@ protected:
     void initWidget();
 
 private:
-    QString     m_upText;
-    QString     m_downText;
-    DuiButton   *m_removeButton;
+    QString m_UpText;
+    QString m_DownText;
+    DuiButton *m_RemoveButton;
 
 private slots:
     virtual void removeClicked();

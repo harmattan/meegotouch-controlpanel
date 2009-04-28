@@ -14,7 +14,7 @@
 #include <QGraphicsSceneMouseEvent>
 
 DisplayWidget::DisplayWidget(QGraphicsWidget *parent)
-              :DcpWidget(parent), m_background(NULL)
+              :DcpWidget(parent), m_Background(NULL)
 {
     setReferer(DcpLanguage::Main);
     initWidget();
@@ -22,9 +22,8 @@ DisplayWidget::DisplayWidget(QGraphicsWidget *parent)
 
 DisplayWidget::~DisplayWidget()
 {
-    if (m_background)
-    {
-        DuiTheme::releasePixmap(m_background);
+    if (m_Background) {
+        DuiTheme::releasePixmap(m_Background);
     }
 }
 
@@ -39,11 +38,10 @@ void DisplayWidget::paint(QPainter *painter,
     painter->setBrush(QColor::fromRgb(0,0,0,128));
     painter->drawRect(rect());
 
-    if (m_background)
-    {  
+    if (m_Background) {  
         qreal left, top;
         getContentsMargins(&left, &top, NULL, NULL);
-        painter->drawPixmap(left, top, *m_background);
+        painter->drawPixmap(left, top, *m_Background);
     }
 }
 
@@ -53,14 +51,15 @@ void DisplayWidget::resizeEvent(QGraphicsSceneResizeEvent *event)
 
     QSize size = this->size().toSize();
     static const int border = 30;
-    if (m_background) {
-        DuiTheme::releasePixmap(m_background);
+    if (m_Background) {
+        DuiTheme::releasePixmap(m_Background);
     }
+    
     qreal left, top, right, bottom;
     getContentsMargins(&left, &top, &right, &bottom);
     size.setWidth(size.width()-left-right);
     size.setHeight(size.height()-top-bottom);
-    m_background = DuiTheme::boxedPixmap("Mashup-container", size,
+    m_Background = DuiTheme::boxedPixmap("Mashup-container", size,
                                          border, border, border, border);
 }
 
@@ -73,19 +72,19 @@ void DisplayWidget::mousePressEvent ( QGraphicsSceneMouseEvent * event )
 void DisplayWidget::initWidget()
 {
     // Layout
-    DuiLayout *m_mainLayout = new DuiLayout(this);
-    m_mainLayout->setAnimator(NULL);
+    DuiLayout *mainLayout = new DuiLayout(this);
+    mainLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *mainLayoutPolicy =
-            new DuiLinearLayoutPolicy(m_mainLayout, Qt::Vertical);
-    m_mainLayout->setPolicy(mainLayoutPolicy);
+            new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
+    mainLayout->setPolicy(mainLayoutPolicy);
     
     // contWidget
     DuiWidget *contWidget = new DuiWidget(this);
-    m_contLayout = new DuiLayout(contWidget);
-    m_contLayout->setAnimator(NULL);
+    m_ContLayout = new DuiLayout(contWidget);
+    m_ContLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *contLayoutPolicy =
-            new DuiLinearLayoutPolicy(m_contLayout, Qt::Vertical);
-    m_contLayout->setPolicy(contLayoutPolicy);
+            new DuiLinearLayoutPolicy(m_ContLayout, Qt::Vertical);
+    m_ContLayout->setPolicy(contLayoutPolicy);
 
     // titleLayout
     DuiLayout *titleLayout = new DuiLayout(NULL);
@@ -135,7 +134,7 @@ void DisplayWidget::initWidget()
     contLayoutPolicy->addItemAtPosition(downloadedCont, 1, Qt::AlignCenter);
     contLayoutPolicy->addItemAtPosition(installedCont, 2, Qt::AlignCenter);
     contLayoutPolicy->addItemAtPosition(selectCont, 3, Qt::AlignCenter);
-    contWidget->setLayout(m_contLayout);
+    contWidget->setLayout(m_ContLayout);
     
     DuiPannableViewport* viewport = new DuiPannableViewport(this);
     viewport->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -144,18 +143,18 @@ void DisplayWidget::initWidget()
     // TODO: remove me
     viewport->setMaximumHeight(DuiDeviceProfile::instance()->height() - 125);
 
-    mainLayoutPolicy->addItemAtPosition(viewport, 1, Qt::AlignCenter);
-                                            
+    mainLayoutPolicy->addItemAtPosition(viewport, 1, Qt::AlignCenter);               
     mainLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 10, 20, QSizePolicy::Expanding, QSizePolicy::Fixed),
                     2, Qt::AlignCenter);
     setContentsMargins(15,20,15,20);
+    this->setLayout(mainLayout);
 }
 
 void DisplayWidget::removeContainer(LanguageLabelButtonContainer *cont)
 {
     cont->hide();
-    int index = m_contLayout->findIndexForItem(static_cast<QGraphicsItem*>(cont));
+    int index = m_ContLayout->findIndexForItem(static_cast<QGraphicsItem*>(cont));
     if (index != -1)
-        m_contLayout->removeAt(index);
+        m_ContLayout->removeAt(index);
 }

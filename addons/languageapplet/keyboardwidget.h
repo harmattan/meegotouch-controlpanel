@@ -29,10 +29,10 @@ protected:
     //! reimp_end
 
 private:
-    const QPixmap   *m_background;
-    DuiLayout       *m_contLayout;
+    const QPixmap *m_Background;
+    DuiLayout *m_ContLayout;
 
 private slots:
-    virtual void    removeContainer(LanguageLabelButtonContainer*);
+    virtual void removeContainer(LanguageLabelButtonContainer*);
 };
 #endif //KEYBOARDWIDGET_H

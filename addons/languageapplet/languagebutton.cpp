@@ -8,19 +8,19 @@
 #include <duilabel.h>
 #include <duitheme.h>
 
-const QString cssDir    = "/usr/share/themes/dui/duicontrolpanel/";
-const int rowHeight     =    90;
+const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/";
+const int rowHeight = 90;
 
 LanguageButton::LanguageButton(QString upText,
                                QString downText,
                                DuiWidget *parent)
                :DuiButton(parent),
-                m_upText(upText),
-                m_downText(downText)
+                m_UpText(upText),
+                m_DownText(downText)
 		        // m_Background(NULL)
 {
-        DuiTheme::loadCSS(cssDir + "languageapplet.css");
-        initWidget();
+    DuiTheme::loadCSS(cssDir + "languageapplet.css");
+    initWidget();
 }
 
 LanguageButton::~LanguageButton()
@@ -73,12 +73,12 @@ void LanguageButton::resizeEvent(QGraphicsSceneResizeEvent *event)
 
 void LanguageButton::setUpText(const QString &text)
 {
-    m_upLabel->setText(text);
+    m_UpLabel->setText(text);
 }
 
 void LanguageButton::setDownText(const QString &text)
 {
-    m_downLabel->setText(text);
+    m_DownLabel->setText(text);
 }
 
 void LanguageButton::initWidget()
@@ -117,30 +117,29 @@ void LanguageButton::initWidget()
                     2, Qt::AlignCenter);
 
     // m_upLabel
-    m_upLabel = new DuiLabel(m_upText, this);
-    m_upLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-    m_upLabel->setObjectName("LanguageLeftLabel");
-    m_upLabel->setAcceptedMouseButtons(0);
+    m_UpLabel = new DuiLabel(m_UpText, this);
+    m_UpLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    m_UpLabel->setObjectName("LanguageLeftLabel");
+    m_UpLabel->setAcceptedMouseButtons(0);
 
     // m_downLabel
-    m_downLabel = new DuiLabel(m_downText, this);
-    m_downLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-    m_downLabel->setObjectName("LanguageRightLabel");
-    m_downLabel->setAcceptedMouseButtons(0);
+    m_DownLabel = new DuiLabel(m_DownText, this);
+    m_DownLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    m_DownLabel->setObjectName("LanguageRightLabel");
+    m_DownLabel->setAcceptedMouseButtons(0);
  
     DuiWidget* seeMoreWidget = new DuiWidget(this);
     seeMoreWidget->setLayout(seeMoreLayout);
     mainLayoutPolicy->addItemAtPosition(seeMoreWidget, 0, 0);
-    mainLayoutPolicy->addItemAtPosition(m_upLabel, 0, 1);
-    mainLayoutPolicy->addItemAtPosition(m_downLabel, 1, 1);
+    mainLayoutPolicy->addItemAtPosition(m_UpLabel, 0, 1);
+    mainLayoutPolicy->addItemAtPosition(m_DownLabel, 1, 1);
     mainLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 10, 10, QSizePolicy::Expanding, QSizePolicy::Fixed),
                     0, 2);
     
     seeMoreSmall->setZValue(1);
-    m_upLabel->setZValue(2);
-    m_downLabel->setZValue(3);
-
+    m_UpLabel->setZValue(2);
+    m_DownLabel->setZValue(3);
     this->setLayout(mainLayout);
     
     // fixed size

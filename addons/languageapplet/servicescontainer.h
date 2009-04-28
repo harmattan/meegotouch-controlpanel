@@ -30,8 +30,8 @@ protected:
     void initContainer();
 
 private:
-    const QPixmap   *m_Background;
-    DuiLabel        *m_caption;
-    DuiLayout       *m_mainLayout;
+    const QPixmap *m_Background;
+    DuiLabel *m_Caption;
+    DuiLayout *m_MainLayout;
 }; 
 #endif // SERVICESCONTAINER_H

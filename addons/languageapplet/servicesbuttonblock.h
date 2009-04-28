@@ -20,9 +20,9 @@ protected:
     void initWidget();
 
 private:
-    QString                  m_title;
-    QVector<ServicesButton*> m_buttonVector;
-    DuiLabel                *m_header;
-    DuiGridLayoutPolicy     *m_buttonLayoutPolicy;
+    QString m_Title;
+    QVector<ServicesButton*> m_ButtonVector;
+    DuiLabel *m_Header;
+    DuiGridLayoutPolicy *m_ButtonLayoutPolicy;
 };
 #endif // SERVICESBUTTONBLOCK_H

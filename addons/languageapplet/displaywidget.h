@@ -32,11 +32,11 @@ protected:
     //! reimp_end
 
 private:
-    const QPixmap   *m_background;
-    DuiLabel        *m_titleLabel;
-    DuiLayout       *m_contLayout;
+    const QPixmap *m_Background;
+    DuiLabel *m_TitleLabel;
+    DuiLayout *m_ContLayout;
 
 private slots:
-    virtual void    removeContainer(LanguageLabelButtonContainer*);
+    virtual void removeContainer(LanguageLabelButtonContainer*);
 };
 #endif //DISPLAYWIDGET_H

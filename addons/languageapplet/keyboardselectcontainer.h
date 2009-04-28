@@ -13,15 +13,15 @@ public:
     KeyboardSelectContainer(const QString &title, 
                             QStringList itemList,
                             DuiWidget *parent = 0);
-    ~KeyboardSelectContainer();
+    virtual ~KeyboardSelectContainer();
 
 protected:
     void initWidget();
 
 private:
-    QString m_titleText;
-    QStringList m_itemList;
-    QMap<QString, LanguageListItem*> m_listItems;
+    QString m_TitleText;
+    QStringList m_ItemList;
+    QMap<QString, LanguageListItem*> m_ListItems;
 
 private slots:
     virtual void itemClicked(LanguageListItem *item);

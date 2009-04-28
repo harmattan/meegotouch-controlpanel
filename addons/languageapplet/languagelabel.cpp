@@ -11,8 +11,8 @@ LanguageLabel::LanguageLabel(const QString &upText,
                             const QString &downText,
                             DuiWidget *parent)
               :DuiWidget(parent),
-               m_upText(upText),
-               m_downText(downText)
+               m_UpText(upText),
+               m_DownText(downText)
 {
     initWidget();
 }
@@ -20,8 +20,8 @@ LanguageLabel::LanguageLabel(const QString &upText,
 LanguageLabel::LanguageLabel(const QString &text,
                              DuiWidget *parent)
               :DuiWidget(parent),
-               m_upText(text),
-               m_downText(QString(""))
+               m_UpText(text),
+               m_DownText(QString(""))
 {
     initWidget();
 }
@@ -61,10 +61,9 @@ void LanguageLabel::initWidget()
     mainLayoutPolicy->setSpacing(2);
     this->setAcceptedMouseButtons(0);
 
-    if (m_downText.isEmpty()) 
-    {
+    if (m_DownText.isEmpty()) {
         // single label
-        DuiLabel *label = new DuiLabel(m_upText, this);
+        DuiLabel *label = new DuiLabel(m_UpText, this);
         label->setObjectName("LanguageLeftLabel");
         label->setAcceptedMouseButtons(0);
         mainLayoutPolicy->addItemAtPosition(
@@ -76,12 +75,12 @@ void LanguageLabel::initWidget()
                      2, Qt::AlignCenter);   
     } else {
         // upLabel
-        DuiLabel *upLabel = new DuiLabel(m_upText, this);
+        DuiLabel *upLabel = new DuiLabel(m_UpText, this);
         upLabel->setObjectName("LanguageUpLabel");
         upLabel->setAcceptedMouseButtons(0);
 
         // downLabel
-        DuiLabel *downLabel = new DuiLabel(m_downText, this);
+        DuiLabel *downLabel = new DuiLabel(m_DownText, this);
         downLabel->setObjectName("LanguageDownLabel");
         downLabel->setAcceptedMouseButtons(0);
 
@@ -112,4 +111,3 @@ void LanguageLabel::onOrientationAngleChanged()
     setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - 20);
     setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - 20);
 }
-

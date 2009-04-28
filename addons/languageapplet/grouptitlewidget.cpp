@@ -7,7 +7,7 @@
 #include <duilinearlayoutpolicy.h>
 
 GroupTitleWidget::GroupTitleWidget(const QString &text, DuiWidget *parent)
-                 :DuiWidget(parent), m_background(NULL)
+                 :DuiWidget(parent), m_Background(NULL)
 {
     // mainLayout
     DuiLayout *mainLayout = new DuiLayout(this);
@@ -16,19 +16,20 @@ GroupTitleWidget::GroupTitleWidget(const QString &text, DuiWidget *parent)
             new DuiLinearLayoutPolicy(mainLayout, Qt::Horizontal);
     mainLayout->setPolicy(mainLayoutPolicy);
 
+    // label
     DuiLabel *label = new DuiLabel(text, this);
     label->setObjectName("DisplayLanguageSelectTitle");
     mainLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 10, 10, QSizePolicy::Fixed, QSizePolicy::Fixed),
                     0, Qt::AlignLeft | Qt::AlignVCenter);
     mainLayoutPolicy->addItemAtPosition(label, 1, Qt::AlignLeft | Qt::AlignVCenter);
+    this->setLayout(mainLayout);
 }
 
 GroupTitleWidget::~GroupTitleWidget()
 {
-    if (m_background)
-    {
-        DuiTheme::releasePixmap(m_background);
+    if (m_Background) {
+        DuiTheme::releasePixmap(m_Background);
     }
 }
 
@@ -39,9 +40,8 @@ void GroupTitleWidget::paint(QPainter *painter,
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    if (m_background)
-    {
-        painter->drawPixmap(0, 0, *m_background);
+    if (m_Background) {
+        painter->drawPixmap(0, 0, *m_Background);
     }
 }
 
@@ -51,10 +51,10 @@ void GroupTitleWidget::resizeEvent(QGraphicsSceneResizeEvent *event)
 
     QSize size = this->size().toSize();
     static const int border = 10;
-    if (m_background)
-    {
-        DuiTheme::releasePixmap(m_background);
+    if (m_Background) {
+        DuiTheme::releasePixmap(m_Background);
     }
-    m_background = DuiTheme::boxedPixmap("Divider-with-label", size,
+    
+    m_Background = DuiTheme::boxedPixmap("Divider-with-label", size,
                                          border, border, border, border);
 }

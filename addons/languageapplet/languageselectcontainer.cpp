@@ -13,8 +13,8 @@ LanguageSelectContainer::LanguageSelectContainer(const QString &title,
                                                  QStringList itemList,
                                                  DuiWidget *parent)
                         :DuiWidget(parent),
-                         m_titleText(title),
-                         m_itemList(itemList)
+                         m_TitleText(title),
+                         m_ItemList(itemList)
 {
     initWidget();
     this->selectItem(DcpLanguageConf::instance()->displayLanguage());
@@ -26,11 +26,11 @@ LanguageSelectContainer::~LanguageSelectContainer()
 
 void LanguageSelectContainer::selectItem(const QString &text)
 {
-    for (int i = 0; i < m_listItemVector.size(); i++)
+    for (int i = 0; i < m_ListItemVector.size(); i++)
     {
-        if (text == m_listItemVector[i]->langCode())
+        if (text == m_ListItemVector[i]->langCode())
         {
-            m_listItemVector[i]->checked(true);
+            m_ListItemVector[i]->checked(true);
         }
     }
 }
@@ -44,7 +44,7 @@ void LanguageSelectContainer::initWidget()
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
     
-    GroupTitleWidget *titleLabel = new GroupTitleWidget(m_titleText, this);
+    GroupTitleWidget *titleLabel = new GroupTitleWidget(m_TitleText, this);
     mainLayoutPolicy->addItemAtPosition(titleLabel, 0);
 
     // gridLayout
@@ -53,22 +53,21 @@ void LanguageSelectContainer::initWidget()
     DuiGridLayoutPolicy *itemLayout = new DuiGridLayoutPolicy(gridLayout);
     gridLayout->setPolicy(itemLayout);
     
-    QStringListIterator iterator(m_itemList);
-    while (iterator.hasNext())
-    {
+    QStringListIterator iterator(m_ItemList);
+    while (iterator.hasNext()) {
         QString langCode = iterator.next();
-        m_listItemVector.append(new LanguageListItem(langCode,
+        m_ListItemVector.append(new LanguageListItem(langCode,
                                 DcpLanguageConf::fullName(langCode), this));
     }
 
-    for (int i = 0; i < m_listItemVector.size(); i++)
-    {
-        itemLayout->addItemAtPosition(m_listItemVector[i], i / 2, i % 2);
-        connect(m_listItemVector[i], SIGNAL(clicked(LanguageListItem *)), 
+    for (int i = 0; i < m_ListItemVector.size(); i++) {
+        itemLayout->addItemAtPosition(m_ListItemVector[i], i / 2, i % 2);
+        connect(m_ListItemVector[i], SIGNAL(clicked(LanguageListItem *)), 
                 this, SLOT(itemClicked(LanguageListItem *)));
     }
-
+    
     mainLayoutPolicy->addItemAtPosition(gridLayout, 1);
+    this->setLayout(mainLayout);
 }
 
 void LanguageSelectContainer::itemClicked(LanguageListItem *item)
@@ -77,4 +76,3 @@ void LanguageSelectContainer::itemClicked(LanguageListItem *item)
     DcpLanguageConf::instance()->setDisplayLanguage(item->langCode());
     emit changeBackToMain();
 }
-

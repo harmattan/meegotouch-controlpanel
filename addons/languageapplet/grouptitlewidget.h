@@ -18,6 +18,6 @@ public:
     //! reimp_end
 
 private:
-    const QPixmap *m_background;
+    const QPixmap *m_Background;
 };
 #endif // GROUPTITLEWIDGET_H
