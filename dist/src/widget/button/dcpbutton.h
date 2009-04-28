@@ -15,15 +15,15 @@ public:
     DcpButton(int buttonType, const QString &title = "", DuiWidget *parent = NULL, const QString &type = "");
     virtual ~DcpButton();
 
-		void setText(const QString& text1, const QString& text2);
+	void setText(const QString& text1, const QString& text2);
 
-		void setAlignment(Qt::Alignment alignment);
+	void setAlignment(Qt::Alignment alignment);
 
 signals:
     void clicked();
 
 protected:
-		class DcpButtonView *m_View;
+	class DcpButtonView *m_View;
 
 };
 

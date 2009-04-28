@@ -20,6 +20,7 @@ DcpLabel2ToggleComponent::DcpLabel2ToggleComponent( DcpCategory *category,
     m_Type = DCPLABEL2BUTTON;
     m_EnableSmallToggle = metadata->smallToggle();
     createContents();
+
 }
 
 

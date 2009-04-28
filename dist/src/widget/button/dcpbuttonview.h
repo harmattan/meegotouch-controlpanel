@@ -20,20 +20,19 @@ public:
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = NULL);
     virtual QRectF boundingRect() const;
 
-		virtual void paintBackground(QPainter *painter);
-		virtual void paintTriangle(QPainter *painter);
-		virtual void paintText(QPainter *painter);
+    virtual void paintBackground(QPainter *painter);
+    virtual void paintTriangle(QPainter *painter);
+    virtual void paintText(QPainter *painter);
 
+    void setText1(const QString& text);
+    void setText2(const QString& text);
 
-		void setText1(const QString& text);
-		void setText2(const QString& text);
+    Qt::Alignment stringToAlign(const QString& alignment);
 
-		Qt::Alignment stringToAlign(const QString& alignment);
+    int width();
+    int height();
 
-		int width();
-		int height();
-
-		void setAlignment(Qt::Alignment alignment);
+    void setAlignment(Qt::Alignment alignment);
 
 signals:
     void clicked();
@@ -47,72 +46,72 @@ private:
 
 protected:
 
-		QString m_Text1;
-		QString m_Text2;
+    QString m_Text1;
+    QString m_Text2;
 
     DcpButton &controller;
 
-	enum styleAttributes {
-	
-			MarginLeftAttribute,
-			MarginRightAttribute,
-			MarginTopAttribute,
-			MarginBottomAttribute,
-			MarginMiddleAttribute,
-	
-			BackgroundAttribute,
-			BackgroundSizeAttribute,
-	
-			Font1Attribute,
-			Font2Attribute,
-	
-			TextColor1Attribute,
-			TextColor2Attribute,
-	
-			TextSize1Attribute,
-			TextSize2Attribute,
-	
-			TextPos1Attribute,
-			TextPos2Attribute,
-	
-			TextAlign1Attribute,
-			TextAlign2Attribute,
-	
-			TriangleBackgroundAttribute,
-			TriangleBackgroundSizeAttribute,
-			TrianglePosAttribute,
-			MarginTriangleAttribute,
+    enum styleAttributes {
 
-			ImageNameAttribute,
-			ImageSizeAttribute,
-
-			MarginSpacerAttribute,
-
-			BackgroundBorderAttribute,
-
-			ToggleOnAttribute,
-			ToggleOffAttribute
+        MarginLeftAttribute,
+        MarginRightAttribute,
+		MarginTopAttribute,
+		MarginBottomAttribute,
+		MarginMiddleAttribute,
+		BackgroundAttribute,
+		BackgroundSizeAttribute,
 	
-	};
+		Font1Attribute,
+		Font2Attribute,
+	
+		TextColor1Attribute,
+		TextColor2Attribute,
+	
+		TextSize1Attribute,
+		TextSize2Attribute,
+	
+		TextPos1Attribute,
+		TextPos2Attribute,
+	
+		TextAlign1Attribute,
+		TextAlign2Attribute,
+	
+		TriangleBackgroundAttribute,
+		TriangleBackgroundSizeAttribute,
+		TrianglePosAttribute,
+		MarginTriangleAttribute,
+		ImageNameAttribute,
+		ImageSizeAttribute,
 
-		Qt::Alignment m_Alignment;
+		MarginSpacerAttribute,
+
+		BackgroundBorderAttribute,
+
+		ToggleOnAttribute,
+		ToggleOffAttribute
+
+    };
+
+	Qt::Alignment m_Alignment;
+
+	bool m_Bkgr;
 
 };
 
 
 inline void DcpButtonView::setAlignment(Qt::Alignment alignment)
 {
-		m_Alignment = alignment;
+	m_Alignment = alignment;
 }
 
 inline void DcpButtonView::setText1(const QString& text)
 {
-		m_Text1 = text;
+	m_Text1 = text;
 }
 
 inline void DcpButtonView::setText2(const QString& text)
 {
-		m_Text2 = text;
+	m_Text2 = text;
 }
 
 #endif

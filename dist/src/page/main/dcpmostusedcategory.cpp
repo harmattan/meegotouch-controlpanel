@@ -51,7 +51,13 @@ void DcpMostUsedCategory::createContents()
 
 void DcpMostUsedCategory::paint (QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
 {
-  DuiWidget::paint(painter, option, widget);
+	DuiWidget::paint(painter, option, widget);
+
+	painter->setPen(QColor(64, 64, 64));
+
+	for (int y=0; y<2; y++)
+		for (int x=0; x<2; x++)
+			painter->drawLine(x*420, 105 + y*100, (x+1)*405 , 105 + y*100);
 }
 
 void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata)
@@ -70,7 +76,7 @@ void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata)
           component = new DcpLabelButtonComponent(this, metadata);
       break;
       case DCPLABEL2TOGGLE :
-			case DCPLABEL2BUTTON :	//dummy
+      case DCPLABEL2BUTTON :	//dummy
           component = new DcpLabel2ToggleComponent(this, metadata);
       break;
       case DCPLABEL2IMAGE :
