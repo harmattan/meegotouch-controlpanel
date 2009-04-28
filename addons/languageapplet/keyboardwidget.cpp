@@ -126,7 +126,7 @@ void KeyboardWidget::initWidget()
     // LanguageSelectContainer
     KeyboardSelectContainer *selectCont = 
             new KeyboardSelectContainer(DcpLanguage::InDeviceText,
-                DcpLanguageConf::instance()->availableInputLanguages(), contWidget);
+                DcpLanguageConf::instance()->availableKeyboardLanguages(), contWidget);
     
     // Add items to contLayoutPolicy
     contLayoutPolicy->addItemAtPosition(titleLayout, 0, Qt::AlignCenter);

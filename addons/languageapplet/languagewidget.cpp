@@ -135,7 +135,8 @@ bool LanguageWidget::back()
 
 void LanguageWidget::updateLanguageButtons()
 {
-   m_DisplayButton->setDownText(DcpLanguageConf::instance()->displayLanguage());
+   m_DisplayButton->setDownText(
+        DcpLanguageConf::fullName(DcpLanguageConf::instance()->displayLanguage()));
    m_KeyboardButton->setUpText(DcpLanguage::KeyboardButtonTitle +
                                " (" +  
                                QString::number(DcpLanguageConf::instance()->keyboardLanguagesNumber())

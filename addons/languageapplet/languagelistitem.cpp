@@ -127,11 +127,12 @@ void LanguageListItem::initWidget()
     m_NormalLabel = new DuiLabel("<font color=#ffffff>" + m_LabelText + "</font>", this);
     m_NormalLabel->setObjectName("LanguageNormalListItem");
     m_NormalLabel->setAcceptedMouseButtons(0);
-    m_NormalLabel->setMinimumWidth(200);
+    m_NormalLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    m_NormalLabel->setMinimumWidth(300);
     m_LabelLayoutPolicy->addItemAtPosition(m_NormalLabel, 0, 1);
     
     m_LabelLayoutPolicy->addItemAtPosition(
-                    new DcpSpacerItem(this, 130, 5, QSizePolicy::Expanding, QSizePolicy::Fixed),
+                    new DcpSpacerItem(this, 30, 5, QSizePolicy::Expanding, QSizePolicy::Fixed),
                     0, 2);
 
     // checkMark
@@ -176,4 +177,3 @@ void LanguageListItem::onOrientationAngleChanged()
     setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
     setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
 }
-

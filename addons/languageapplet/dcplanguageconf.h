@@ -22,6 +22,7 @@ public:
     static QString fullName(QString lang);
 protected:
     DcpLanguageConf();
+    QStringList availableLanguages(QString key);
     QStringList defaultLanguages();
 private:
     static DcpLanguageConf *sm_Instance;

@@ -98,17 +98,35 @@ DcpLanguageConf::keyboardLanguagesNumber()
 QStringList
 DcpLanguageConf::availableInputLanguages()
 {
-    m_Settings.beginGroup(LanguageKey::Languages);
-    foreach (QString lang, m_Settings.childKeys())
-        qDebug() << "DCP: Input Language" << lang;
-    m_Settings.endGroup();
+    return availableLanguages(LanguageKey::Languages);
 
-    foreach (QString lang, defaultLanguages())
-        qDebug() << "DCP: " << fullName(lang);
-    return defaultLanguages();
-;
 }
 
+QStringList 
+DcpLanguageConf::availableKeyboardLanguages()
+{
+    return availableLanguages(LanguageKey::KeyboardLayout);
+};
+
+QStringList
+DcpLanguageConf::availableLanguages(QString key)
+{
+    m_Settings.beginGroup(key);
+    QStringList languages;
+    foreach (QString langKey, m_Settings.childKeys()) {
+        bool ok;
+        langKey.toInt(&ok);
+        if (ok)
+            languages.append(m_Settings.value(langKey).toString());
+    }
+    m_Settings.endGroup();
+    
+    if (languages.isEmpty())
+        languages = defaultLanguages();
+   
+    return languages;
+;
+}
 QString
 DcpLanguageConf::fullName(QString lang)
 {
@@ -116,35 +134,18 @@ DcpLanguageConf::fullName(QString lang)
     QString result = locale.languageEndonym();
     if (locale.language() != locale.country().toLower())
         result += " (" + locale.countryEndonym() + ")";
+    result[0]=result.at(0).toUpper();
     return result; 
 }
 
-QStringList 
-DcpLanguageConf::availableKeyboardLanguages()
-{
-    return defaultLanguages();
-};
 
 QStringList 
 DcpLanguageConf::defaultLanguages()
 {
 
- /*   QString rushian = 
-        QString("P%1cc").arg(QChar(0x0443)) + QChar(0x043A) + QChar(0x0438) + QChar(0x0439); 
-
     QStringList languageList;
-    languageList << "Dansk" << "Deutsch" << "English GB" << "English US" 
-            << QString("Fran%1ais (Canada)").arg(QChar(0x00e7)) 
-            << QString("Fran%1ais (France)").arg(QChar(0x00e7)) 
-            << "Italian"
-            << QString("LA Espa%1ol").arg(QChar(0x00f1)) 
-            << "Nederlands" << "Norks" 
-            << QString("Portugu%1s").arg(QChar(0x00ea))
-            << QString("Portugu%1s BR").arg(QChar(0x00ea)) 
-            << rushian << "Suomi";
-    */
-    QStringList languageList;
-    languageList << "dn_DN" << "de_DE" << "en_GB" << "en_US" 
-     << "fr_CA" << "fr_FR" << "it_IT" << "es_ES" << "nl_NL";
+    languageList << "da_DA" << "de_DE" << "en_GB" << "en_US" 
+     << "fr_CA" << "fr_FR" << "it_IT" << "es_ES" << "nl_NL" << "no_NO"
+     << "pt_PT" << "pt_BR" << "ru_RU" << "fi_FI";
     return languageList;
 }
