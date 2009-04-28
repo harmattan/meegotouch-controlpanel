@@ -73,18 +73,19 @@ void KeyboardSelectContainer::initWidget()
 
 void KeyboardSelectContainer::itemClicked(LanguageListItem* item)
 {
-    if (item->isChecked()) {      
+    if (item->isChecked()) {
         DcpLanguageConf::instance()->addKeyboardLanguage(item->langCode());
     } else {
         bool doKeep = false;
         if (DcpLanguageConf::instance()->keyboardLanguagesNumber() == 1) {
             DuiMessageBox mb("Keep last language?",
                              DuiMessageBox::Ok|DuiMessageBox::Cancel);
-            mb.setParent(this);                
+            mb.setParent(this);
             mb.exec();
             doKeep = mb.result() != DuiDialog::Accepted;
+            update();
         }
-        
+
         if (doKeep)
             item->checked(true);
         else
