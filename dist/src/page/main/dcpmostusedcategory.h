@@ -12,7 +12,7 @@ public:
 
     virtual void paint (QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget);
 
-    void addComponent(DcpAppletMetadata *metadata);
+    void addComponent(DcpAppletMetadata *metadata, bool line = true);
 
 protected:
     virtual void createContents();

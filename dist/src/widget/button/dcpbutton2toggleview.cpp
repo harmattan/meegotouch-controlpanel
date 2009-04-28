@@ -24,6 +24,8 @@ void DcpButton2ToggleView::paint(QPainter *painter, const QStyleOptionGraphicsIt
 
 	paintBackground(painter);
 
+	paintLine(painter);
+
 	if ( m_Alignment==Qt::AlignLeft ) {
 		paintTriangle(painter);
 		paintTextLeft(painter);

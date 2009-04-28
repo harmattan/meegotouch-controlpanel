@@ -23,10 +23,6 @@ public:
 
     virtual void createContents();
 
-protected:
-//		DuiLabel* m_DownLabel;
-		DcpButton *m_Button;
-
 };
 
 #endif // DCPLABEL2_H

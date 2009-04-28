@@ -23,7 +23,7 @@ DcpLabel2Component::DcpLabel2Component(
     m_EnableToggle = metadata->toggle();
     createContents();
 
-		m_EnableToggle = false; // dummy must delete
+	m_EnableToggle = false; // dummy must delete
 }
 
 
@@ -35,12 +35,12 @@ DcpLabel2Component::~DcpLabel2Component()
 void DcpLabel2Component::createContents()
 {
 
-		m_Button = new DcpButton(DCPLABEL2);
+	m_Button = new DcpButton(DCPLABEL2);
 
-		m_Button->setText(metadata()->text1(), metadata()->text2());
+	m_Button->setText(metadata()->text1(), metadata()->text2());
    	m_WidgetLayoutPolicy->addItemAtPosition(m_Button, 0, 0);
 
-		connect(m_Button, SIGNAL(clicked()), this, SLOT(bigClicked()));
+	connect(m_Button, SIGNAL(clicked()), this, SLOT(bigClicked()));
 
 
 /*

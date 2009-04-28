@@ -39,12 +39,9 @@ protected:
     int m_SpaceWidth;
     int m_ImageWidth;
 
-   
     int m_ImageSize;
 
     Qt::Alignment m_Alignment;
-
-		DcpButton *m_Button;
 
 };
 

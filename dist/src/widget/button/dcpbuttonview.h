@@ -21,6 +21,7 @@ public:
     virtual QRectF boundingRect() const;
 
     virtual void paintBackground(QPainter *painter);
+	void paintLine(QPainter *painter);
     virtual void paintTriangle(QPainter *painter);
     virtual void paintText(QPainter *painter);
 
@@ -33,6 +34,8 @@ public:
     int height();
 
     void setAlignment(Qt::Alignment alignment);
+
+	void setLine(bool line);
 
 signals:
     void clicked();
@@ -96,6 +99,8 @@ protected:
 
 	bool m_Bkgr;
 
+	bool m_LineBool;
+
 };
 
 
@@ -112,6 +117,11 @@ inline void DcpButtonView::setText1(const QString& text)
 inline void DcpButtonView::setText2(const QString& text)
 {
 	m_Text2 = text;
+}
+
+inline void DcpButtonView::setLine(bool line)
+{
+	m_LineBool = line;
 }
 
 #endif

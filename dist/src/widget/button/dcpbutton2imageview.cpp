@@ -60,6 +60,8 @@ void DcpButton2ImageView::paint(QPainter *painter, const QStyleOptionGraphicsIte
 
 	paintBackground(painter);
 
+	paintLine(painter);
+
 	if ( m_Alignment==Qt::AlignLeft ) {
 		paintTriangle(painter);
 		paintTextLeft(painter);

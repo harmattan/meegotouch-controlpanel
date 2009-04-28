@@ -19,6 +19,8 @@ public:
 
 	void setAlignment(Qt::Alignment alignment);
 
+	void setLine(bool line);
+
 signals:
     void clicked();
 

@@ -8,6 +8,8 @@
 #include <QString>
 #include "dcpwidgettypes.h"
 
+#include "dcpbutton.h"
+
 class DuiLabel;
 class DuiButton;
 class DuiImage;
@@ -15,6 +17,7 @@ class DuiLinearLayout;
 class DuiGridLayout;
 class DcpAppletMetadata;
 class DuiLayout;
+
 
 const QString CSS_BIGBUTTON = "BigButton";
 
@@ -57,7 +60,9 @@ public:
     virtual void createContents();
 
     int getType();
-    
+
+	void setLine(bool line);
+
 protected:
     void initLayout();
 
@@ -110,6 +115,8 @@ protected:
 
     bool m_EnableToggle;
 
+	bool m_LineBool;
+
     static const int m_LabelWidth = 186;   //2
     static const int m_LabelWidth2 = 306;   //2
 
@@ -118,6 +125,10 @@ protected:
     static const int m_Width = 392;
 
     static const int m_Height = 88;
+
+protected:
+		DcpButton *m_Button;
+
 };
 
 inline void DcpBasicComponent::setMetadata(DcpAppletMetadata* metadata)
@@ -133,6 +144,12 @@ inline DcpAppletMetadata* DcpBasicComponent::metadata() const
 inline int DcpBasicComponent::getType()
 {
     return m_Type;
+}
+
+inline void DcpBasicComponent::setLine(bool line)
+{
+	m_LineBool = line;
+	m_Button->setLine(line);
 }
 
 #endif // DCPBASICCOMPONENT_H

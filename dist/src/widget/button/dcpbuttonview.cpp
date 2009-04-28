@@ -6,11 +6,13 @@ DUI_STYLABLE_CPP(DcpButtonView, DuiWidgetView)
 #include <DuiTheme>
 #include "dcpbutton.h"
 
+const QColor LINECOLOR = QColor(64, 64, 64);
 
 DcpButtonView::DcpButtonView(DcpButton &button) :
     DuiWidgetView(&button),
     controller(button),
-    m_Bkgr(false)
+    m_Bkgr(false),
+	m_LineBool(true)
 {
     controller.setZValue(1);
 }
@@ -27,7 +29,8 @@ void DcpButtonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     Q_UNUSED(widget);
     Q_UNUSED(option);
 
-    paintBackground(painter);
+    //paintBackground(painter);
+	paintLine(painter);
     paintTriangle(painter);
     paintText(painter);
 
@@ -44,9 +47,14 @@ void DcpButtonView::paintBackground(QPainter *painter)
             painter->drawPixmap(0, 0, *bg);
     }
 
-	const QColor LINECOLOR = QColor(64, 64, 64);
-	painter->setPen(LINECOLOR);
-	painter->drawLine(0, height(), width() , height());
+}
+
+void DcpButtonView::paintLine(QPainter *painter)
+{
+	if (m_LineBool) {
+		painter->setPen(LINECOLOR);
+		painter->drawLine(0, height(), width() , height());
+	}
 }
 
 void DcpButtonView::paintTriangle(QPainter *painter)

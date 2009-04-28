@@ -42,8 +42,15 @@ void DcpMostUsedCategory::createContents()
     addComponent(DcpAppletDb::instance()->applet("DateTime"));
     addComponent(DcpAppletDb::instance()->applet("Passcode"));*/
 
-    foreach (DcpAppletMetadata *item, DcpAppletDb::instance()->listMostUsed()) {
-         addComponent(item);
+	int cnt = 0;
+	foreach (DcpAppletMetadata *item, DcpAppletDb::instance()->listMostUsed()) {
+
+		cnt++;
+		
+		if (cnt==5 || cnt==6) //last items
+			addComponent(item, false);	
+		else
+			addComponent(item);
     }
 
 }
@@ -61,35 +68,37 @@ void DcpMostUsedCategory::paint (QPainter * painter, const QStyleOptionGraphicsI
 	*/
 }
 
-void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata)
+void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata, bool line)
 {
 
-  DcpComponent *component = 0;
+	DcpComponent *component = 0;
 
-  switch (metadata->widgetTypeID()) {
-      case DCPLABEL :
-          component = new DcpLabelComponent(this, metadata);
-      break;
-      case DCPLABEL2 :
-          component = new DcpLabel2Component(this, metadata);
-      break;
-      case DCPLABELBUTTON :
-          component = new DcpLabelButtonComponent(this, metadata);
-      break;
-      case DCPLABEL2TOGGLE :
-      case DCPLABEL2BUTTON :	//dummy
-          component = new DcpLabel2ToggleComponent(this, metadata);
-      break;
-      case DCPLABEL2IMAGE :
-          component = new DcpLabel2ImageComponent(this, metadata);
-      break;
-  }
+	switch (metadata->widgetTypeID()) {
+		case DCPLABEL :
+			component = new DcpLabelComponent(this, metadata);
+		break;
+		case DCPLABEL2 :
+			component = new DcpLabel2Component(this, metadata);
+		break;
+		case DCPLABELBUTTON :
+			component = new DcpLabelButtonComponent(this, metadata);
+		break;
+		case DCPLABEL2TOGGLE :
+		case DCPLABEL2BUTTON :	//dummy
+			component = new DcpLabel2ToggleComponent(this, metadata);
+		break;
+		case DCPLABEL2IMAGE :
+			component = new DcpLabel2ImageComponent(this, metadata);
+		break;
+	}
 
 
     if (component) {
-        qDebug() << "DCP: connecting to " << metadata->name();
-        component->setSubPage(Pages::APPLETFROMMOSTUSED, metadata->name());
-        connect(component, SIGNAL(openSubPage(Pages::Handle)), this, SIGNAL(openSubPage(Pages::Handle)));
-        append(component);
+		static_cast<DcpBasicComponent*>(component)->setLine(line);
+
+		qDebug() << "DCP: connecting to " << metadata->name();
+		component->setSubPage(Pages::APPLETFROMMOSTUSED, metadata->name());
+		connect(component, SIGNAL(openSubPage(Pages::Handle)), this, SIGNAL(openSubPage(Pages::Handle)));
+		append(component);
     }
 }

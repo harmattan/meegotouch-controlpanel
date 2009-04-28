@@ -54,3 +54,8 @@ void DcpButton::setAlignment(Qt::Alignment alignment)
 {
 	m_View->setAlignment(alignment);
 }
+
+void DcpButton::setLine(bool line)
+{
+	m_View->setLine(line);
+}
