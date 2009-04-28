@@ -103,8 +103,6 @@ DcpLanguageConf::availableInputLanguages()
         qDebug() << "DCP: Input Language" << lang;
     m_Settings.endGroup();
 
-    foreach (QString lang, defaultLanguages())
-        qDebug() << "DCP: " << fullName(lang);
     return defaultLanguages();
 ;
 }
@@ -116,6 +114,7 @@ DcpLanguageConf::fullName(QString lang)
     QString result = locale.languageEndonym();
     if (locale.language() != locale.country().toLower())
         result += " (" + locale.countryEndonym() + ")";
+    result[0]=result.at(0).toUpper();
     return result; 
 }
 
@@ -144,7 +143,8 @@ DcpLanguageConf::defaultLanguages()
             << rushian << "Suomi";
     */
     QStringList languageList;
-    languageList << "dn_DN" << "de_DE" << "en_GB" << "en_US" 
-     << "fr_CA" << "fr_FR" << "it_IT" << "es_ES" << "nl_NL";
+    languageList << "da_DA" << "de_DE" << "en_GB" << "en_US" 
+     << "fr_CA" << "fr_FR" << "it_IT" << "es_ES" << "nl_NL" << "no_NO"
+     << "pt" << "pt_BR" << "ru" << "fi_FI";
     return languageList;
 }

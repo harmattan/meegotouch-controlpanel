@@ -22,9 +22,10 @@ KeyboardSelectContainer::KeyboardSelectContainer(const QString &title,
     initWidget();
     QStringList keyboardList = DcpLanguageConf::instance()->keyboardLanguages();
     QStringListIterator iterator(keyboardList);
-    while (iterator.hasNext())
-        if (m_listItems[iterator.next()])
+  /*  while (iterator.hasNext())
+        if (m_listItems.contains(iterator.next()))
             m_listItems[iterator.next()]->checked(true);
+    */
 }
 
 
