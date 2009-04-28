@@ -46,7 +46,7 @@ DcpButton2ImageView::DcpButton2ImageView(DcpButton &button) :
 
 	//QPixmap *image = new QPixmap(QPixmap(*styleAttribute<const QPixmap*>(ImageNameAttribute)).scaled(styleAttribute<const QSize>(ImageSizeAttribute)));
 
-	m_Image = new QPixmap(QPixmap(imageFile).scaled(64, 64)); //dummy
+	m_Image = new QPixmap(QPixmap(imageFile).scaled(62, 62)); //dummy
 }
 
 DcpButton2ImageView::~DcpButton2ImageView()
@@ -58,22 +58,21 @@ void DcpButton2ImageView::paint(QPainter *painter, const QStyleOptionGraphicsIte
     Q_UNUSED(widget);
     Q_UNUSED(option);
 
-		paintBackground(painter);
-		
+	paintBackground(painter);
 
-		if ( m_Alignment==Qt::AlignLeft ) {
-      	paintTriangle(painter);
-				paintTextLeft(painter);
-				paintImageLeft(painter);
+	if ( m_Alignment==Qt::AlignLeft ) {
+		paintTriangle(painter);
+		paintTextLeft(painter);
+		paintImageLeft(painter);
 
-		} else {
+	} else {
   //  if ( m_Alignment==Qt::AlignRight ) {
-      	paintTriangleRight(painter);
-				paintTextRight(painter);
-				paintImageRight(painter);
+		paintTriangleRight(painter);
+		paintTextRight(painter);
+		paintImageRight(painter);
 
-		}
-	
+	}
+
 }
 
 void DcpButton2ImageView::paintTextLeft(QPainter *painter)
@@ -86,19 +85,19 @@ void DcpButton2ImageView::paintTextLeft(QPainter *painter)
 
 	int triangleWidth = styleAttribute<const QSize>(TriangleBackgroundSizeAttribute).width() + styleAttribute<int>(MarginTriangleAttribute);
 
-	int fieldWidth = 	styleAttribute<const QSize>(BackgroundSizeAttribute).width() -
-										marginLeft -
-										marginRight -
-										triangleWidth -
-										styleAttribute<const QSize>(ImageSizeAttribute).width() -
-										styleAttribute<int>(MarginSpacerAttribute) ;
+	int fieldWidth = styleAttribute<const QSize>(BackgroundSizeAttribute).width() -
+												marginLeft -
+												marginRight -
+												triangleWidth -
+												styleAttribute<const QSize>(ImageSizeAttribute).width() -
+												styleAttribute<int>(MarginSpacerAttribute) ;
 
 		int fieldHeight = (styleAttribute<const QSize>(BackgroundSizeAttribute).height() - marginTop - marginBottom - marginMiddle) / 2;
 
-		QRectF text1Rect(	styleAttribute<QPointF>(TextPos1Attribute).x() + marginLeft + triangleWidth,
-											styleAttribute<QPointF>(TextPos1Attribute).y() + marginTop,
-											fieldWidth,
-											fieldHeight);
+		QRectF text1Rect(styleAttribute<QPointF>(TextPos1Attribute).x() + marginLeft + triangleWidth,
+												styleAttribute<QPointF>(TextPos1Attribute).y() + marginTop,
+												fieldWidth,
+												fieldHeight);
 
 
     // Draw text
@@ -106,10 +105,9 @@ void DcpButton2ImageView::paintTextLeft(QPainter *painter)
     painter->setPen(styleAttribute<QColor>(TextColor1Attribute));
     painter->drawText(text1Rect,
                       stringToAlign(styleAttribute<QString>(TextAlign1Attribute)),
-											m_Text1);
+					  m_Text1);
 
-
-		QRectF text2Rect(	styleAttribute<QPointF>(TextPos2Attribute).x() + marginLeft + triangleWidth,
+	QRectF text2Rect(styleAttribute<QPointF>(TextPos2Attribute).x() + marginLeft + triangleWidth,
 											styleAttribute<QPointF>(TextPos2Attribute).y() + marginTop,
 											fieldWidth,
 											fieldHeight);
@@ -118,56 +116,56 @@ void DcpButton2ImageView::paintTextLeft(QPainter *painter)
     painter->setPen(styleAttribute<QColor>(TextColor2Attribute));
     painter->drawText(text2Rect,
                       stringToAlign(styleAttribute<QString>(TextAlign2Attribute)),
-											m_Text2);
+					  m_Text2);
 
-		return;
+	return;
 }
 
 void DcpButton2ImageView::paintImageLeft(QPainter *painter)
 {
 
-  	int marginSpacer = styleAttribute<int>(MarginSpacerAttribute);
+	int marginSpacer = styleAttribute<int>(MarginSpacerAttribute);
 
 //		QPixmap *image = new QPixmap(QPixmap(*styleAttribute<const QPixmap*>(ImageNameAttribute)).scaled(styleAttribute<const QSize>(ImageSizeAttribute)));
 
 
     if (m_Image != NULL) {
 
-				QPointF imagePoint( width() - m_Image->width() - marginSpacer,
-										 			 (height() - m_Image->height()) / 2					);
+		QPointF imagePoint( width() - m_Image->width() + 1 - marginSpacer,
+						   (height() - m_Image->height()) / 2				);
 
         painter->drawPixmap(imagePoint, *m_Image);
-		}
+	}
 
-		
-		const QPixmap *border = DuiTheme::pixmap(	styleAttribute<const QString>(BackgroundBorderAttribute),
-																							QSize(m_Image->width(), m_Image->height())										);
+	
+	const QPixmap *border = DuiTheme::pixmap(styleAttribute<const QString>(BackgroundBorderAttribute),
+											 QSize(m_Image->width() + 2, m_Image->height() + 2)										);
 
     if (border != NULL) {
 
-				QPointF imagePoint( width() - border->width() - marginSpacer,
-										 			 (height() - border->height()) / 2					);
+		QPointF imagePoint( width() - border->width() + (border->width() - m_Image->width()) - marginSpacer,
+			 			   (height() - border->height()) / 2					);
 
         painter->drawPixmap(imagePoint, *border);
-		}
+	}
 
 }
 
 void DcpButton2ImageView::paintTriangleRight(QPainter *painter)
 {
-  	int marginLeft = styleAttribute<int>(MarginLeftAttribute);
+    int marginLeft = styleAttribute<int>(MarginLeftAttribute);
     int marginTop = styleAttribute<int>(MarginTopAttribute);
 
-		const QPixmap *triangle = DuiTheme::pixmap(	styleAttribute<const QString>(TriangleBackgroundAttribute),
-																								styleAttribute<const QSize>(TriangleBackgroundSizeAttribute));
+	const QPixmap *triangle = DuiTheme::pixmap(	styleAttribute<const QString>(TriangleBackgroundAttribute),
+																			  styleAttribute<const QSize>(TriangleBackgroundSizeAttribute));
 
     if (triangle != NULL) {
 
-				QPointF trianglePoint(	styleAttribute<QPointF>(TrianglePosAttribute).x() + styleAttribute<int>(MarginSpacerAttribute) + styleAttribute<const QSize>(ImageSizeAttribute).width() + marginLeft,
-																styleAttribute<QPointF>(TrianglePosAttribute).y() + marginTop		);
+		QPointF trianglePoint(styleAttribute<QPointF>(TrianglePosAttribute).x() + styleAttribute<int>(MarginSpacerAttribute) + styleAttribute<const QSize>(ImageSizeAttribute).width() + marginLeft,
+							  styleAttribute<QPointF>(TrianglePosAttribute).y() + marginTop		);
 
         painter->drawPixmap(trianglePoint, *triangle);
-		}
+	}
 }
 
 void DcpButton2ImageView::paintTextRight(QPainter *painter)
@@ -181,16 +179,16 @@ void DcpButton2ImageView::paintTextRight(QPainter *painter)
 	int triangleWidth = styleAttribute<const QSize>(TriangleBackgroundSizeAttribute).width() + styleAttribute<int>(MarginTriangleAttribute);
 
 
-	int fieldWidth = 	styleAttribute<const QSize>(BackgroundSizeAttribute).width() -
-										marginLeft -
-										marginRight -
-										triangleWidth -
-										styleAttribute<const QSize>(ImageSizeAttribute).width() -
-										styleAttribute<int>(MarginSpacerAttribute);
+	int fieldWidth = styleAttribute<const QSize>(BackgroundSizeAttribute).width() -
+												 marginLeft -
+												 marginRight -
+												 triangleWidth -
+												 styleAttribute<const QSize>(ImageSizeAttribute).width() -
+												 styleAttribute<int>(MarginSpacerAttribute);
 
 	int fieldHeight = (styleAttribute<const QSize>(BackgroundSizeAttribute).height() - marginTop - marginBottom - marginMiddle) / 2;
 
-		QRectF text1Rect(	styleAttribute<QPointF>(TextPos1Attribute).x() + styleAttribute<int>(MarginSpacerAttribute) + styleAttribute<const QSize>(ImageSizeAttribute).width() + marginLeft + triangleWidth,
+	QRectF text1Rect(	styleAttribute<QPointF>(TextPos1Attribute).x() + styleAttribute<int>(MarginSpacerAttribute) + styleAttribute<const QSize>(ImageSizeAttribute).width() + marginLeft + triangleWidth,
 											styleAttribute<QPointF>(TextPos1Attribute).y() + marginTop,
 											fieldWidth,
 											fieldHeight);
@@ -201,10 +199,10 @@ void DcpButton2ImageView::paintTextRight(QPainter *painter)
     painter->setPen(styleAttribute<QColor>(TextColor1Attribute));
     painter->drawText(text1Rect,
                       stringToAlign(styleAttribute<QString>(TextAlign1Attribute)),
-											m_Text1);
+					  m_Text1);
 
 
-		QRectF text2Rect(	styleAttribute<QPointF>(TextPos2Attribute).x() + styleAttribute<int>(MarginSpacerAttribute) + styleAttribute<const QSize>(ImageSizeAttribute).width() + marginLeft + triangleWidth,
+	QRectF text2Rect(styleAttribute<QPointF>(TextPos2Attribute).x() + styleAttribute<int>(MarginSpacerAttribute) + styleAttribute<const QSize>(ImageSizeAttribute).width() + marginLeft + triangleWidth,
 											styleAttribute<QPointF>(TextPos2Attribute).y() + marginTop,
 											fieldWidth,
 											fieldHeight);
@@ -213,73 +211,73 @@ void DcpButton2ImageView::paintTextRight(QPainter *painter)
     painter->setPen(styleAttribute<QColor>(TextColor2Attribute));
     painter->drawText(text2Rect,
                       stringToAlign(styleAttribute<QString>(TextAlign2Attribute)),
-											m_Text2);
+					  m_Text2);
 
 		return;
 }
 
 void DcpButton2ImageView::paintImageRight(QPainter *painter)
 {
-  	int marginSpacer = styleAttribute<int>(MarginSpacerAttribute);
+    int marginSpacer = styleAttribute<int>(MarginSpacerAttribute);
 
-	    if (m_Image != NULL) {
+    if (m_Image != NULL) {
 
-				QPointF imagePoint( marginSpacer,
-										 			 (height() - m_Image->height()) / 2					);
+        QPointF imagePoint( marginSpacer,
+                           (height() - m_Image->height()) / 2);
 
         painter->drawPixmap(imagePoint, *m_Image);
-		}
+	}
 
 		
-		const QPixmap *border = DuiTheme::pixmap(	styleAttribute<const QString>(BackgroundBorderAttribute),
-																							QSize(m_Image->width(), m_Image->height()) );
+	const QPixmap *border = DuiTheme::pixmap(styleAttribute<const QString>(BackgroundBorderAttribute),
+											 QSize(m_Image->width() + 2, m_Image->height() + 2) );
 
     if (border != NULL) {
 
-				QPointF imagePoint( marginSpacer,
-										 			 (height() - border->height()) / 2					);
+		QPointF imagePoint(marginSpacer + (border->width() - m_Image->width()),
+			 			   (height() - border->height()) / 2);
 
         painter->drawPixmap(imagePoint, *border);
-		}
+	}
 }
 
 void DcpButton2ImageView::registerStyleAttributes(DuiStyleDescription &description)
 {
 
-  	description.addAttribute(MarginLeftAttribute, "marginLeft");
+	description.addAttribute(MarginLeftAttribute, "marginLeft");
     description.addAttribute(MarginRightAttribute, "marginRight");
     description.addAttribute(MarginTopAttribute, "marginTop");
     description.addAttribute(MarginBottomAttribute, "marginBottom");
-		description.addAttribute(MarginMiddleAttribute, "marginMiddle");
+	description.addAttribute(MarginMiddleAttribute, "marginMiddle");
 
     description.addAttribute(BackgroundAttribute, "backgroundImage");
-		description.addAttribute(BackgroundSizeAttribute, "backgroundSize");
+	description.addAttribute(BackgroundSizeAttribute, "backgroundSize");
 
     description.addAttribute(Font1Attribute, "font1");
-		description.addAttribute(Font2Attribute, "font2");
+	description.addAttribute(Font2Attribute, "font2");
 
     description.addAttribute(TextColor1Attribute, "textColor1");
-		description.addAttribute(TextColor2Attribute, "textColor2");
+	description.addAttribute(TextColor2Attribute, "textColor2");
 
-		description.addAttribute(TextSize1Attribute, "textSize1");
-		description.addAttribute(TextSize2Attribute, "textSize2");
+	description.addAttribute(TextSize1Attribute, "textSize1");
+	description.addAttribute(TextSize2Attribute, "textSize2");
 
     description.addAttribute(TextPos1Attribute, "textPos1");
-		description.addAttribute(TextPos2Attribute, "textPos2");
+	description.addAttribute(TextPos2Attribute, "textPos2");
 
-		description.addAttribute(TextAlign1Attribute, "textAlign1");
-		description.addAttribute(TextAlign2Attribute, "textAlign2");
+	description.addAttribute(TextAlign1Attribute, "textAlign1");
+	description.addAttribute(TextAlign2Attribute, "textAlign2");
 		
-		description.addAttribute(TriangleBackgroundAttribute, "triangleBackground");
-		description.addAttribute(TriangleBackgroundSizeAttribute, "triangleBackgroundSize");
-		description.addAttribute(TrianglePosAttribute, "trianglePos");
+	description.addAttribute(TriangleBackgroundAttribute, "triangleBackground");
+	description.addAttribute(TriangleBackgroundSizeAttribute, "triangleBackgroundSize");
+	description.addAttribute(TrianglePosAttribute, "trianglePos");
 
-		description.addAttribute(MarginTriangleAttribute, "marginTriangle");
+	description.addAttribute(MarginTriangleAttribute, "marginTriangle");
 
-		description.addAttribute(ImageNameAttribute, "imageName");
-		description.addAttribute(ImageSizeAttribute, "imageSize");
+	description.addAttribute(ImageNameAttribute, "imageName");
+	description.addAttribute(ImageSizeAttribute, "imageSize");
 
-		description.addAttribute(MarginSpacerAttribute, "marginSpacer");
+	description.addAttribute(MarginSpacerAttribute, "marginSpacer");
 
-		description.addAttribute(BackgroundBorderAttribute, "backgroundBorder");
+	description.addAttribute(BackgroundBorderAttribute, "backgroundBorder");
 }

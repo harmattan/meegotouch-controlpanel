@@ -64,10 +64,10 @@ void DcpButton2View::paintText(QPainter *painter)
     painter->setPen(styleAttribute<QColor>(TextColor1Attribute));
     painter->drawText(text1Rect,
                       stringToAlign(styleAttribute<QString>(TextAlign1Attribute)),
-											m_Text1);
+					  m_Text1);
 
 
-		QRectF text2Rect(	styleAttribute<QPointF>(TextPos2Attribute).x() + marginLeft + triangleWidth,
+	QRectF text2Rect(styleAttribute<QPointF>(TextPos2Attribute).x() + marginLeft + triangleWidth,
 											styleAttribute<QPointF>(TextPos2Attribute).y() + marginTop,
 											fieldWidth,
 											fieldHeight);
@@ -83,7 +83,7 @@ void DcpButton2View::paintText(QPainter *painter)
     painter->setPen(styleAttribute<QColor>(TextColor2Attribute));
     painter->drawText(text2Rect,
                       stringToAlign(styleAttribute<QString>(TextAlign2Attribute)),
-											m_Text2);
+					  m_Text2);
 
 		return;
 }
@@ -95,30 +95,29 @@ void DcpButton2View::registerStyleAttributes(DuiStyleDescription &description)
     description.addAttribute(MarginRightAttribute, "marginRight");
     description.addAttribute(MarginTopAttribute, "marginTop");
     description.addAttribute(MarginBottomAttribute, "marginBottom");
-		description.addAttribute(MarginMiddleAttribute, "marginMiddle");
+	description.addAttribute(MarginMiddleAttribute, "marginMiddle");
 
     description.addAttribute(BackgroundAttribute, "backgroundImage");
-		description.addAttribute(BackgroundSizeAttribute, "backgroundSize");
+	description.addAttribute(BackgroundSizeAttribute, "backgroundSize");
 
     description.addAttribute(Font1Attribute, "font1");
-		description.addAttribute(Font2Attribute, "font2");
+	description.addAttribute(Font2Attribute, "font2");
 
     description.addAttribute(TextColor1Attribute, "textColor1");
-		description.addAttribute(TextColor2Attribute, "textColor2");
+	description.addAttribute(TextColor2Attribute, "textColor2");
 
-		description.addAttribute(TextSize1Attribute, "textSize1");
-		description.addAttribute(TextSize2Attribute, "textSize2");
+	description.addAttribute(TextSize1Attribute, "textSize1");
+	description.addAttribute(TextSize2Attribute, "textSize2");
 
     description.addAttribute(TextPos1Attribute, "textPos1");
-		description.addAttribute(TextPos2Attribute, "textPos2");
+	description.addAttribute(TextPos2Attribute, "textPos2");
 
-		description.addAttribute(TextAlign1Attribute, "textAlign1");
-		description.addAttribute(TextAlign2Attribute, "textAlign2");
+	description.addAttribute(TextAlign1Attribute, "textAlign1");
+	description.addAttribute(TextAlign2Attribute, "textAlign2");
 		
-		description.addAttribute(TriangleBackgroundAttribute, "triangleBackground");
-		description.addAttribute(TriangleBackgroundSizeAttribute, "triangleBackgroundSize");
-		description.addAttribute(TrianglePosAttribute, "trianglePos");
+	description.addAttribute(TriangleBackgroundAttribute, "triangleBackground");
+	description.addAttribute(TriangleBackgroundSizeAttribute, "triangleBackgroundSize");
+	description.addAttribute(TrianglePosAttribute, "trianglePos");
 
-		description.addAttribute(MarginTriangleAttribute, "marginTriangle");
-
+	description.addAttribute(MarginTriangleAttribute, "marginTriangle");
 }

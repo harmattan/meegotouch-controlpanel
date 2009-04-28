@@ -22,8 +22,8 @@ public:
 
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = NULL);
 
-		virtual void paintToggleLeft(QPainter *painter);
-		virtual void paintToggleRight(QPainter *painter);
+	virtual void paintToggleLeft(QPainter *painter);
+	virtual void paintToggleRight(QPainter *painter);
 
 protected:
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
@@ -33,12 +33,12 @@ private:
 
     bool m_EnableToggle;
 
-		const QPixmap *m_ToggleOn;
-		const QPixmap *m_ToggleOff;
+	const QPixmap *m_ToggleOn;
+	const QPixmap *m_ToggleOff;
 
-		enum {LEFTSIDE, RIGHTSIDE};
+	enum {LEFTSIDE, RIGHTSIDE};
 
-		int m_Side;
+	int m_Side;
 };
 
 #endif

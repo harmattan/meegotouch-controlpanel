@@ -9,9 +9,10 @@ DUI_STYLABLE_CPP(DcpButtonView, DuiWidgetView)
 
 DcpButtonView::DcpButtonView(DcpButton &button) :
     DuiWidgetView(&button),
-    controller(button)
+    controller(button),
+    m_Bkgr(false)
 {
-		controller.setZValue(1);
+    controller.setZValue(1);
 }
 
 DcpButtonView::~DcpButtonView()
@@ -26,20 +27,22 @@ void DcpButtonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     Q_UNUSED(widget);
     Q_UNUSED(option);
 
-		paintBackground(painter);
-		paintTriangle(painter);
-		paintText(painter);
+    paintBackground(painter);
+    paintTriangle(painter);
+    paintText(painter);
 
-		return;
+    return;
 }
 
 void DcpButtonView::paintBackground(QPainter *painter)
 {
- 		const QPixmap *bg = DuiTheme::pixmap(	styleAttribute<const QString>(BackgroundAttribute),
-																					styleAttribute<const QSize>(BackgroundSizeAttribute));
 
-		if (bg != NULL)
-        painter->drawPixmap(0, 0, *bg);
+    if (m_Bkgr) {
+        const QPixmap *bg = DuiTheme::pixmap(styleAttribute<const QString>(BackgroundAttribute),
+                                         styleAttribute<const QSize>(BackgroundSizeAttribute));
+        if (bg != NULL)
+            painter->drawPixmap(0, 0, *bg);
+    }
 }
 
 void DcpButtonView::paintTriangle(QPainter *painter)
@@ -82,7 +85,7 @@ void DcpButtonView::paintText(QPainter *painter)
 
 QRectF DcpButtonView::boundingRect() const
 {
-		return QRectF(QPointF(), styleAttribute<const QSize>(BackgroundSizeAttribute));
+	return QRectF(QPointF(), styleAttribute<const QSize>(BackgroundSizeAttribute));
 }
 
 void DcpButtonView::registerStyleAttributes(DuiStyleDescription &description)
@@ -96,7 +99,7 @@ void DcpButtonView::registerStyleAttributes(DuiStyleDescription &description)
 
 
     description.addAttribute(BackgroundAttribute, "backgroundImage");
-		description.addAttribute(BackgroundSizeAttribute, "backgroundSize");
+	description.addAttribute(BackgroundSizeAttribute, "backgroundSize");
 
     description.addAttribute(Font1Attribute, "font1");
 //		description.addAttribute(Font2Attribute, "font2");
@@ -104,19 +107,19 @@ void DcpButtonView::registerStyleAttributes(DuiStyleDescription &description)
     description.addAttribute(TextColor1Attribute, "textColor1");
 //		description.addAttribute(TextColor2Attribute, "textColor2");
 
-		description.addAttribute(TextSize1Attribute, "textSize1");
+	description.addAttribute(TextSize1Attribute, "textSize1");
 //		description.addAttribute(TextSize2Attribute, "textSize2");
 
-    description.addAttribute(TextPos1Attribute, "textPos1");
+	description.addAttribute(TextPos1Attribute, "textPos1");
 //		description.addAttribute(TextPos2Attribute, "textPos2");
 
-		description.addAttribute(TextAlign1Attribute, "textAlign1");
+	description.addAttribute(TextAlign1Attribute, "textAlign1");
 //		description.addAttribute(TextAlign2Attribute, "textAlign2");
 		
 
-		description.addAttribute(TriangleBackgroundAttribute, "triangleBackground");
-		description.addAttribute(TriangleBackgroundSizeAttribute, "triangleBackgroundSize");
-		description.addAttribute(TrianglePosAttribute, "trianglePos");
+	description.addAttribute(TriangleBackgroundAttribute, "triangleBackground");
+	description.addAttribute(TriangleBackgroundSizeAttribute, "triangleBackgroundSize");
+	description.addAttribute(TrianglePosAttribute, "trianglePos");
 
 }
 
@@ -129,19 +132,18 @@ void DcpButtonView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void DcpButtonView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event);
-		emit clicked();
+	emit clicked();
 }
 
 int DcpButtonView::width()
 {
-		return styleAttribute<const QSize>(BackgroundSizeAttribute).width();
+	return styleAttribute<const QSize>(BackgroundSizeAttribute).width();
 }
 
 int DcpButtonView::height()
 {
-		return styleAttribute<const QSize>(BackgroundSizeAttribute).height();
+	return styleAttribute<const QSize>(BackgroundSizeAttribute).height();
 }
-
 
 
 
@@ -151,14 +153,14 @@ typedef struct ALIGNTYPE{
 };
 
 ALIGNTYPE listAlignment[] = {   { "AlignLeft", Qt::AlignLeft },
-																{ "AlignRight", Qt::AlignRight },
-																{ "AlignHCenter", Qt::AlignHCenter },
+								{ "AlignRight", Qt::AlignRight },
+								{ "AlignHCenter", Qt::AlignHCenter },
 
-																{ "AlignTop", Qt::AlignTop },
-																{ "AlignBottom", Qt::AlignBottom },
-																{ "AlignVCenter", Qt::AlignVCenter },
+								{ "AlignTop", Qt::AlignTop },
+								{ "AlignBottom", Qt::AlignBottom },
+								{ "AlignVCenter", Qt::AlignVCenter },
 
-																{ "AlignHCenter", Qt::AlignHCenter }        };
+								{ "AlignHCenter", Qt::AlignHCenter }        };
 
 
 Qt::Alignment DcpButtonView::stringToAlign(const QString& alignment)
