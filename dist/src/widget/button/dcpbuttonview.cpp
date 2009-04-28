@@ -43,6 +43,10 @@ void DcpButtonView::paintBackground(QPainter *painter)
         if (bg != NULL)
             painter->drawPixmap(0, 0, *bg);
     }
+
+	const QColor LINECOLOR = QColor(64, 64, 64);
+	painter->setPen(LINECOLOR);
+	painter->drawLine(0, height(), width() , height());
 }
 
 void DcpButtonView::paintTriangle(QPainter *painter)
