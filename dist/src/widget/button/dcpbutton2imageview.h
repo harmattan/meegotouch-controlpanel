@@ -21,11 +21,11 @@ public:
 
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = NULL);
 
-    virtual void paintTextLeft(QPainter *painter);
+    virtual void paintTextLeft(QPainter *painter, bool textBool = true);
     virtual void paintImageLeft(QPainter *painter);
 
     virtual void paintTriangleRight(QPainter *painter);
-    virtual void paintTextRight(QPainter *painter);
+    virtual void paintTextRight(QPainter *painter, bool textBool = true);
     virtual void paintImageRight(QPainter *painter);
 
 private:

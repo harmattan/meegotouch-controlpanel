@@ -69,6 +69,7 @@ protected:
 	
 		TextColor1Attribute,
 		TextColor2Attribute,
+		TextOffColorAttribute,
 	
 		TextSize1Attribute,
 		TextSize2Attribute,

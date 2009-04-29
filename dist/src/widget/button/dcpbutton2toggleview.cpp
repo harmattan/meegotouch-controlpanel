@@ -28,12 +28,12 @@ void DcpButton2ToggleView::paint(QPainter *painter, const QStyleOptionGraphicsIt
 
 	if ( m_Alignment==Qt::AlignLeft ) {
 		paintTriangle(painter);
-		paintTextLeft(painter);
+		paintTextLeft(painter, m_EnableToggle);
 		paintToggleLeft(painter);
 	} else {
   //  if ( m_Alignment==Qt::AlignRight ) {
       	paintTriangleRight(painter);
-		paintTextRight(painter);
+		paintTextRight(painter, m_EnableToggle);
 		paintToggleRight(painter);
 	}
 
@@ -99,6 +99,7 @@ void DcpButton2ToggleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 		
 				if (rect.contains(event->pos().x(), event->pos().y())) {
 					m_EnableToggle = !m_EnableToggle;
+					update();
 					return;
 				}
 			} else {
@@ -109,6 +110,7 @@ void DcpButton2ToggleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 			
 				if (rect.contains(event->pos().x(), event->pos().y())) {
 					m_EnableToggle = !m_EnableToggle;
+					update();
 					return;
 				}
 			}
@@ -121,6 +123,7 @@ void DcpButton2ToggleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 		
 				if (rect.contains(event->pos().x(), event->pos().y())) {
 					m_EnableToggle = !m_EnableToggle;
+					update();
 					return;
 				}
 			} else {
@@ -131,6 +134,7 @@ void DcpButton2ToggleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 			
 				if (rect.contains(event->pos().x(), event->pos().y())) {
 					m_EnableToggle = !m_EnableToggle;
+					update();
 					return;
 				}
 			}
@@ -156,6 +160,7 @@ void DcpButton2ToggleView::registerStyleAttributes(DuiStyleDescription &descript
 
     description.addAttribute(TextColor1Attribute, "textColor1");
 	description.addAttribute(TextColor2Attribute, "textColor2");
+	description.addAttribute(TextOffColorAttribute, "textOffColor");
 
 	description.addAttribute(TextSize1Attribute, "textSize1");
 	description.addAttribute(TextSize2Attribute, "textSize2");
