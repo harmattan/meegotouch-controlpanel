@@ -10,7 +10,6 @@
 #include <duigridlayoutpolicy.h>
 #include <duilabel.h>
 #include <duilocale.h>
-#include <DuiMessageBox>
 
 KeyboardSelectContainer::KeyboardSelectContainer(const QString &title,
                                                  QStringList itemList,
@@ -76,19 +75,12 @@ void KeyboardSelectContainer::itemClicked(LanguageListItem* item)
     if (item->isChecked()) {
         DcpLanguageConf::instance()->addKeyboardLanguage(item->langCode());
     } else {
-        bool doKeep = false;
-        if (DcpLanguageConf::instance()->keyboardLanguagesNumber() == 1) {
-            DuiMessageBox mb("Keep last language?",
-                             DuiMessageBox::Ok|DuiMessageBox::Cancel);
-            mb.setParent(this);
-            mb.exec();
-            doKeep = mb.result() != DuiDialog::Accepted;
-            update();
-        }
-
-        if (doKeep)
-            item->checked(true);
-        else
+            m_LastRemovedLangCode = item->langCode();
             DcpLanguageConf::instance()->removeKeyboardLanguage(item->langCode());
     }
 }
+void KeyboardSelectContainer::putLastLanguageBack()
+{
+    DcpLanguageConf::instance()->addKeyboardLanguage(m_LastRemovedLangCode);
+
+};

@@ -12,6 +12,7 @@
 #include <duilinearlayoutpolicy.h>
 #include <duipannableviewport.h>
 #include <QGraphicsSceneMouseEvent>
+#include <DuiMessageBox>
 
 KeyboardWidget::KeyboardWidget(QGraphicsWidget *parent)
               :DcpWidget(parent), m_Background(NULL)
@@ -124,7 +125,7 @@ void KeyboardWidget::initWidget()
             this, SLOT(removeContainer(LanguageLabelButtonContainer*)));
 
     // LanguageSelectContainer
-    KeyboardSelectContainer *selectCont = 
+    m_SelectCont = 
             new KeyboardSelectContainer(DcpLanguage::InDeviceText,
                 DcpLanguageConf::instance()->availableKeyboardLanguages(), contWidget);
     
@@ -132,7 +133,7 @@ void KeyboardWidget::initWidget()
     contLayoutPolicy->addItemAtPosition(titleLayout, 0, Qt::AlignCenter);
     contLayoutPolicy->addItemAtPosition(downloadedCont, 1, Qt::AlignCenter);
     contLayoutPolicy->addItemAtPosition(installedCont, 2, Qt::AlignCenter);
-    contLayoutPolicy->addItemAtPosition(selectCont, 3, Qt::AlignCenter);
+    contLayoutPolicy->addItemAtPosition(m_SelectCont, 3, Qt::AlignCenter);
     contWidget->setLayout(m_ContLayout);
 
     DuiPannableViewport* viewport = new DuiPannableViewport(this);
@@ -157,4 +158,18 @@ void KeyboardWidget::removeContainer(LanguageLabelButtonContainer *cont)
     int index = m_ContLayout->findIndexForItem(static_cast<QGraphicsItem*>(cont));
     if (index != -1)
         m_ContLayout->removeAt(index);
+}
+
+bool KeyboardWidget::back()
+{
+    qDebug() << "DCP, KB number: " <<  DcpLanguageConf::instance()->keyboardLanguagesNumber();
+    if (!DcpLanguageConf::instance()->keyboardLanguagesNumber()) {
+            DuiMessageBox mb("Keep last language?",
+                             DuiMessageBox::Ok|DuiMessageBox::Cancel);
+            mb.setParent(this);
+            mb.exec();
+            if (mb.result() != DuiDialog::Accepted)
+                m_SelectCont->putLastLanguageBack();
+        }
+        
 }
