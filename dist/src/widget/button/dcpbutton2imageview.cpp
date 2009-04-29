@@ -104,12 +104,8 @@ void DcpButton2ImageView::paintTextLeft(QPainter *painter, bool textBool)
 
     // Draw text
     painter->setFont(styleAttribute<QFont>(Font1Attribute));
-
-	if (textBool)
-		painter->setPen(styleAttribute<QColor>(TextColor1Attribute));
-	else
-		painter->setPen(styleAttribute<QColor>(TextOffColorAttribute));
-
+	painter->setPen(styleAttribute<QColor>(TextColor1Attribute));
+	
     painter->drawText(text1Rect,
                       stringToAlign(styleAttribute<QString>(TextAlign1Attribute)),
 					  m_Text1);
@@ -208,12 +204,8 @@ void DcpButton2ImageView::paintTextRight(QPainter *painter, bool textBool)
 
     // Draw text
     painter->setFont(styleAttribute<QFont>(Font1Attribute));
-
-	if (textBool)
-		painter->setPen(styleAttribute<QColor>(TextColor1Attribute));
-	else
-		painter->setPen(styleAttribute<QColor>(TextOffColorAttribute));
-
+	painter->setPen(styleAttribute<QColor>(TextColor1Attribute));
+	
     painter->drawText(text1Rect,
                       stringToAlign(styleAttribute<QString>(TextAlign1Attribute)),
 					  m_Text1);
