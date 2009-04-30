@@ -45,21 +45,20 @@ void KeyboardDialog::onOrientationAngleChanged ()
 
 void KeyboardDialog::close()
 {
+    DcpDialog::close();
     if (!DcpLanguageConf::instance()->keyboardLanguagesNumber()) {
             DuiQueryDialog query("You have not selected any keyboard language,<br>"
                                  "would you like to keep the previous selection?");
-            query.setParent(this);
             DuiButton* keepPrevious = query.addButton("Keep previous");
             query.addButton("Select new");
             query.exec();
-            if (query.clickedButton() != keepPrevious) //DuiDialog::Accepted is wrong!!!
+            if (query.clickedButton() == keepPrevious) //DuiDialog::Accepted is wrong!!!
             {
                 qDebug("DCP: accepted");
                 DcpLanguageConf::instance()->setKeyboardLanguages(m_OldLanguages);
-                DcpDialog::close();
-            }
-    } else {
-        DcpDialog::close();
+            } else {
+		emit reopen();
+	    }
     }
 }
 

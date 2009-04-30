@@ -112,9 +112,14 @@ void LanguageWidget::displayPage()
     m_Dlg=NULL;
 }
 
+#include <duiapplication.h>
+#include <duiapplicationwindow.h>
+#include <duinavigationbar.h>
 void LanguageWidget::keyboardPage()
 {
+    ((DuiApplication*)DuiApplication::instance())->applicationWindow()->navigationBar()->showBackButton();
     m_Dlg = new KeyboardDialog();
+    connect (m_Dlg, SIGNAL(reopen()), this, SLOT(keyboardPage()));
     this->setEnabled(false);
     m_Dlg->exec();
     this->updateLanguageButtons();
