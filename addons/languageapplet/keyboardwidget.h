@@ -19,6 +19,8 @@ public:
     virtual void paint(QPainter *painter,
                const QStyleOptionGraphicsItem *option,
                QWidget *widget = 0);
+    
+    virtual bool back();
     //! reimp_end
 
 protected:
@@ -31,7 +33,7 @@ protected:
 private:
     const QPixmap *m_Background;
     DuiLayout *m_ContLayout;
-
+    class KeyboardSelectContainer *m_SelectCont;
 private slots:
     virtual void removeContainer(LanguageLabelButtonContainer*);
 };

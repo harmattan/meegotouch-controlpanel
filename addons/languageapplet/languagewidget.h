@@ -4,7 +4,7 @@
 #include "dcpwidget.h" 
 
 class LanguageButton;
-class DuiDialog;
+class DcpDialog;
 
 class LanguageWidget : public DcpWidget 
 {
@@ -28,7 +28,7 @@ protected:
 private:
     LanguageButton *m_DisplayButton;
     LanguageButton *m_KeyboardButton;
-    DuiDialog *m_Dlg;
+    DcpDialog *m_Dlg;
     
 private slots:
     virtual void displayPage();

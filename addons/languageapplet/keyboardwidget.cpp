@@ -124,7 +124,7 @@ void KeyboardWidget::initWidget()
             this, SLOT(removeContainer(LanguageLabelButtonContainer*)));
 
     // LanguageSelectContainer
-    KeyboardSelectContainer *selectCont = 
+    m_SelectCont = 
             new KeyboardSelectContainer(DcpLanguage::InDeviceText,
                 DcpLanguageConf::instance()->availableKeyboardLanguages(), contWidget);
     
@@ -132,7 +132,7 @@ void KeyboardWidget::initWidget()
     contLayoutPolicy->addItemAtPosition(titleLayout, 0, Qt::AlignCenter);
     contLayoutPolicy->addItemAtPosition(downloadedCont, 1, Qt::AlignCenter);
     contLayoutPolicy->addItemAtPosition(installedCont, 2, Qt::AlignCenter);
-    contLayoutPolicy->addItemAtPosition(selectCont, 3, Qt::AlignCenter);
+    contLayoutPolicy->addItemAtPosition(m_SelectCont, 3, Qt::AlignCenter);
     contWidget->setLayout(m_ContLayout);
 
     DuiPannableViewport* viewport = new DuiPannableViewport(this);
@@ -157,4 +157,9 @@ void KeyboardWidget::removeContainer(LanguageLabelButtonContainer *cont)
     int index = m_ContLayout->findIndexForItem(static_cast<QGraphicsItem*>(cont));
     if (index != -1)
         m_ContLayout->removeAt(index);
+}
+
+bool KeyboardWidget::back()
+{
+    return DcpWidget::back();        
 }
