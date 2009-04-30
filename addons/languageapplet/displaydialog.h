@@ -1,9 +1,9 @@
 #ifndef DISPLAYDIALOG_H
 #define DISPLAYDIALOG_H
 
-#include "duidialog.h"
+#include "dcpdialog.h"
 
-class DisplayDialog : public DuiDialog
+class DisplayDialog : public DcpDialog
 {
     Q_OBJECT
 

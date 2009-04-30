@@ -7,7 +7,7 @@
 #include "dcplanguage.h"
 
 DisplayDialog::DisplayDialog()
-              :DuiDialog()
+              :DcpDialog()
 {
     initWidget();
 }

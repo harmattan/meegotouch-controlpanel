@@ -12,7 +12,6 @@
 #include <duilinearlayoutpolicy.h>
 #include <duipannableviewport.h>
 #include <QGraphicsSceneMouseEvent>
-#include <DuiMessageBox>
 
 KeyboardWidget::KeyboardWidget(QGraphicsWidget *parent)
               :DcpWidget(parent), m_Background(NULL)
@@ -162,14 +161,5 @@ void KeyboardWidget::removeContainer(LanguageLabelButtonContainer *cont)
 
 bool KeyboardWidget::back()
 {
-    qDebug() << "DCP, KB number: " <<  DcpLanguageConf::instance()->keyboardLanguagesNumber();
-    if (!DcpLanguageConf::instance()->keyboardLanguagesNumber()) {
-            DuiMessageBox mb("Keep last language?",
-                             DuiMessageBox::Ok|DuiMessageBox::Cancel);
-            mb.setParent(this);
-            mb.exec();
-            if (mb.result() != DuiDialog::Accepted)
-                m_SelectCont->putLastLanguageBack();
-        }
-        
+    return DcpWidget::back();        
 }

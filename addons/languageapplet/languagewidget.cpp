@@ -126,7 +126,7 @@ void LanguageWidget::keyboardPage()
 bool LanguageWidget::back()
 {
     if (m_Dlg) {
-        m_Dlg->done(0);
+        m_Dlg->close();
         return false;
     }
     
