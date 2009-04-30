@@ -22,24 +22,6 @@ public:
   
     virtual void createContents();
 
-    virtual void setEnableButton(bool enable);
-
-public slots:
-    void smallClickedOn();
-    void smallClickedOff();
-    void disableClicked();
-
-
-protected:
-    DuiButton* m_SmallButtonOn;
-    DuiButton* m_SmallButtonOff;
-    DuiButton* m_DisableButton;
-
-    DuiLabel* m_DownLabel;
-
-    bool m_EnableSmallToggle;
-
-    Qt::Alignment m_Alignment;
 };
 
 

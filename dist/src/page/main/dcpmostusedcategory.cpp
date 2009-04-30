@@ -6,7 +6,6 @@
 #include "dcpmaincategory.h"
 #include "dcprecentlyusedcomponent.h"
 
-#include "dcplabelcomponent.h"
 #include "dcplabel2component.h"
 #include "dcplabel2togglecomponent.h"
 #include "dcplabel2imagecomponent.h"
@@ -75,7 +74,6 @@ void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata, bool line)
 
 	switch (metadata->widgetTypeID()) {
 		case DCPLABEL :
-			component = new DcpLabelComponent(this, metadata);
 		break;
 		case DCPLABEL2 :
 			component = new DcpLabel2Component(this, metadata);

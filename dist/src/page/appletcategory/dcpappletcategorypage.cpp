@@ -4,7 +4,6 @@
 #include "dcpappletdb.h"
 #include "dcpappletmetadata.h"
 
-#include "dcplabelcomponent.h"
 #include "dcplabel2component.h"
 #include "dcplabel2togglecomponent.h"
 #include "dcplabel2imagecomponent.h"

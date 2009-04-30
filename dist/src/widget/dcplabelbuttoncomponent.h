@@ -19,20 +19,6 @@ public:
 
     virtual void createContents();
 
-    virtual void setEnableButton(bool enable);
-
-    public slots:
-        void smallClickedOn();
-        void smallClickedOff();
-        void disableClicked();
-
-
-    protected:
-        DuiButton* m_SmallButtonOn;
-        DuiButton* m_SmallButtonOff;
-        DuiButton* m_DisableButton;
-
 };
-
 
 #endif // DCPLABELBUTTON_H

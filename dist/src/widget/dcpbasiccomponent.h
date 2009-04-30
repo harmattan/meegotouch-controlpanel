@@ -10,13 +10,7 @@
 
 #include "dcpbutton.h"
 
-class DuiLabel;
-class DuiButton;
-class DuiImage;
-class DuiLinearLayout;
-class DuiGridLayout;
 class DcpAppletMetadata;
-class DuiLayout;
 
 class DcpBasicComponent: public DcpComponent
 {
@@ -43,27 +37,10 @@ public:
 
     virtual void createContents();
 
-    int getType();
-
 	void setLine(bool line);
 
 protected:
     void initLayout();
-
-    void initRow(int height);
-    void initRow2(int height);
-
-    void initColumn(int s1, int s2, int s3);
-    void initColumn(int s1, int s2, int s3, int s4, int s5);
-    
-    DuiButton* newButton(int size, const QString &name);
-
-    DuiButton* newButton(int width, int height, const QString &name);
-
-    DuiLabel* newLabel(int height, const QString &text, const QString &objectName, Qt::Alignment alignment);
-
-    DuiImage* newImage(const QString &name, int size, int borderSize, const QColor &color = Qt::gray);
-
 
     void addItem ( QGraphicsLayoutItem * item );
 
@@ -82,36 +59,13 @@ protected:
     class DuiGridLayoutPolicy *m_WidgetLayoutPolicy;
 
 
-    //DuiGridLayout* m_GridLayout;
-
-    DuiButton* m_BigButton;
-
-    DuiButton* m_TriangleButton;
-
-    DuiLabel* m_UpLabel;
-
-    bool m_EnableButton;
     DcpAppletMetadata *m_Metadata; 
-
-    int m_Z;
-
-    int m_Type;
-
-    bool m_EnableToggle;
 
 	bool m_LineBool;
 
-    static const int m_LabelWidth = 186;   //2
-    static const int m_LabelWidth2 = 306;   //2
+	DcpButton *m_Button;
 
-    static const int m_TriangleSize = 16;
-
-    static const int m_Width = 392;
-
-    static const int m_Height = 88;
-
-protected:
-		DcpButton *m_Button;
+    Qt::Alignment m_Alignment;
 
 };
 
@@ -123,11 +77,6 @@ inline void DcpBasicComponent::setMetadata(DcpAppletMetadata* metadata)
 inline DcpAppletMetadata* DcpBasicComponent::metadata() const
 {
     return m_Metadata;
-}
-
-inline int DcpBasicComponent::getType()
-{
-    return m_Type;
 }
 
 inline void DcpBasicComponent::setLine(bool line)
