@@ -31,7 +31,7 @@ DcpLabelComponent::~DcpLabelComponent()
 
 void DcpLabelComponent::createContents()
 {
-
+/*
     //dummy, must modify constructor
     //dummy data
     QString upLabel = metadata()->text1();
@@ -64,4 +64,5 @@ void DcpLabelComponent::createContents()
     connect(m_BigButton, SIGNAL(clicked()), this, SLOT(bigClicked()));
 
     initLayout();
+*/
 }

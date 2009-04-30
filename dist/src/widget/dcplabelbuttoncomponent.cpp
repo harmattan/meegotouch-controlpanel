@@ -29,7 +29,7 @@ DcpLabelButtonComponent::~DcpLabelButtonComponent()
 
 void DcpLabelButtonComponent::createContents()
 {
-
+/*
     QString upLabel = metadata()->text1();
 
   //dummy, must modify constructor  
@@ -74,6 +74,7 @@ void DcpLabelButtonComponent::createContents()
     setEnableButton(true);
 
     initLayout();
+*/
 }
 
 void DcpLabelButtonComponent::setEnableButton(bool enable) {
