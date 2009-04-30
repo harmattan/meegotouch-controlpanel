@@ -17,9 +17,7 @@ HEADERS       = languageapplet.h \
                 servicesbutton.h \
                 servicesbuttonblock.h \
                 dcplanguage.h \
-                displaywidget.h \
                 displaydialog.h \
-                keyboardwidget.h \
                 keyboarddialog.h \
                 languagetranslation.h \
                 languagelistitem.h \
@@ -30,7 +28,8 @@ HEADERS       = languageapplet.h \
                 grouptitlewidget.h \
                 dcplanguageconf.h \
                 languagelabel.h \
-                removablelistitem.h
+                removablelistitem.h \
+                commondialog.h
 
 SOURCES       = languageapplet.cpp \
                 languagewidget.cpp \
@@ -38,9 +37,7 @@ SOURCES       = languageapplet.cpp \
                 servicescontainer.cpp \
                 servicesbutton.cpp \
                 servicesbuttonblock.cpp \
-                displaywidget.cpp \
                 displaydialog.cpp \
-                keyboardwidget.cpp \
                 keyboarddialog.cpp \
                 languagelistitem.cpp \
                 dcpspaceritem.cpp \
@@ -50,7 +47,8 @@ SOURCES       = languageapplet.cpp \
                 grouptitlewidget.cpp\
                 dcplanguageconf.cpp \
                 languagelabel.cpp \
-                removablelistitem.cpp
+                removablelistitem.cpp \
+                commondialog.cpp
 
 
 TARGET        = $$qtLibraryTarget(languageapplet)

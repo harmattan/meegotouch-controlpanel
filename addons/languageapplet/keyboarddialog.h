@@ -1,9 +1,12 @@
 #ifndef KEYBOARDDIALOG_H
 #define KEYBOARDDIALOG_H
 
-#include "dcpdialog.h"
-#include <QStringList>
-class KeyboardDialog : public DcpDialog
+#include "commondialog.h"
+
+class DuiLayout;
+class LanguageLabelButtonContainer;
+
+class KeyboardDialog : public CommonDialog
 {
     Q_OBJECT
 
@@ -11,13 +14,15 @@ public:
     KeyboardDialog();
     virtual ~KeyboardDialog();
     void close();
+    
 protected:
     void initWidget();
 
-protected slots:
-    void onOrientationAngleChanged();
 private:
-    class KeyboardWidget *m_Widget;
+    DuiLayout *m_WidgetLayout;
     QStringList m_OldLanguages;
+
+private slots:
+    virtual void removeContainer(LanguageLabelButtonContainer *container);
 };
 #endif //KEYBOARDWIDGET_H
