@@ -5,8 +5,8 @@
 #include <duilinearlayoutpolicy.h>
 #include "dcplanguage.h"
 #include "dcplanguageconf.h"
-#include <DuiMessageBox>
-        
+#include <duiquerydialog.h>
+
 KeyboardDialog::KeyboardDialog()
               :DcpDialog()
 {
@@ -27,7 +27,7 @@ void KeyboardDialog::initWidget()
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
     mainLayoutPolicy->addItemAtPosition(m_Widget, 0, Qt::AlignCenter);
-    
+
     connect(DuiDeviceProfile::instance(), SIGNAL(orientationAngleChanged (DuiDeviceProfile::DeviceOrientationAngle)),
             this, SLOT(onOrientationAngleChanged ()));
     onOrientationAngleChanged();
@@ -46,21 +46,20 @@ void KeyboardDialog::onOrientationAngleChanged ()
 void KeyboardDialog::close()
 {
     if (!DcpLanguageConf::instance()->keyboardLanguagesNumber()) {
-            DuiMessageBox mb("Keep last selection of languages?",
-                             DuiMessageBox::Ok|DuiMessageBox::Cancel);
-            int result = mb.exec();
-            qDebug() << "DCP: result is" << result;
-            if (result == 1) //DuiDialog::Accepted is wrong!!!
+            DuiQueryDialog query("You have not selected any keyboard language,<br>"
+                                 "would you like to keep the previous selection?");
+            query.setParent(this);
+            DuiButton* keepPrevious = query.addButton("Keep previous");
+            query.addButton("Select new");
+            query.exec();
+            if (query.clickedButton() != keepPrevious) //DuiDialog::Accepted is wrong!!!
             {
                 qDebug("DCP: accepted");
-               DcpLanguageConf::instance()->setKeyboardLanguages(m_OldLanguages);
-              DcpDialog::close();
+                DcpLanguageConf::instance()->setKeyboardLanguages(m_OldLanguages);
+                DcpDialog::close();
             }
-            else
-            {
-              mb.disappear();  
-              return; 
-            }
-        }
-    DcpDialog::close();
+    } else {
+        DcpDialog::close();
+    }
 }
+
