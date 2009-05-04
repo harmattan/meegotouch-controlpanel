@@ -19,7 +19,7 @@ public:
     void setAppletCategory(const QString &appletCategory){m_AppletCategory=appletCategory;};
 
 protected:
-    void addComponent(DcpAppletMetadata *metadata);
+    void addComponent(DcpAppletMetadata *metadata, bool odd);
 
 private:
     QString m_AppletCategory;

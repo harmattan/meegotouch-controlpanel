@@ -5,8 +5,6 @@
 
 #include "languageapplet.h"
 #include "languagewidget.h"
-#include "displaywidget.h"
-#include "keyboardwidget.h"
 #include "dcpwidget.h"
 #include "dcplanguage.h"
 #include "languagetranslation.h"
@@ -25,12 +23,6 @@ DcpWidget* LanguageApplet::constructWidget(int widgetId)
         case DcpLanguage::Main:
                 return mainPage();
                 break;
-        case DcpLanguage::Display:
-                return displayPage();
-                break;
-        case DcpLanguage::Keyboard:
-                return keyboardPage();
-                break;
         default:
                 qWarning() << "Page Unknown";
                 return NULL;
@@ -41,16 +33,6 @@ DcpWidget* LanguageApplet::constructWidget(int widgetId)
 DcpWidget* LanguageApplet::mainPage()
 {
     return new LanguageWidget();
-}
-
-DcpWidget* LanguageApplet::displayPage()
-{
-    return new DisplayWidget();
-}
-
-DcpWidget* LanguageApplet::keyboardPage()
-{
-    return new KeyboardWidget();
 }
 
 QString LanguageApplet::title() const
