@@ -7,25 +7,6 @@
         normalBackground: "See-more-indicator-small";
 }
 
-#ServicesButton {
-        normalBackground: "C2-container";
-        pressedBackground: "Toggle-btn-selected";
-}
-
-#RegionFormatButton {
-        view: DuiButtonView;
-        font: font("Nokia Sans Cn", 18);
-}
-
-#ServicesButtonLabel {
-        color: #FFFFFF;
-        font: font("Nokia Sans Cn", 20);
-}
-
-#ServicesButtonSeeMoreSmall {
-        normalBackground: "See-more-indicator-small";
-}
-
 #LanguageLeftLabel {
         color: #FFFFFF;
         font: font("Nokia Sans Cn", 18);
@@ -51,6 +32,25 @@
         font: font("Nokia Sans Cn", 18);
 }
 
+#RegionFormatButton {
+        view: DuiButtonView;
+        font: font("Nokia Sans Cn", 18);
+}
+
+#ServicesButton {
+        normalBackground: "C2-container";
+        pressedBackground: "Toggle-btn-selected";
+}
+
+#ServicesButtonLabel {
+        color: #FFFFFF;
+        font: font("Nokia Sans Cn", 20);
+}
+
+#ServicesButtonSeeMoreSmall {
+        normalBackground: "See-more-indicator-small";
+}
+
 #ServicesContainerCaption {
         color: #FFFFFF;
         font: font("Nokia Sans Cn", 20);
@@ -60,23 +60,18 @@
         normalBackground: "See-more-indicator-big";
 }
 
-#DisplayLanguageTitleLabel {
+#CommonDialogTitleLabel {
         color: #FFFFFF;
         font: font("Nokia Sans Cn", 18);
 }
 
-#DisplayLanguageSelectTitle {
+#GroupTitleLabel {
         color: #FFFFFF;
         font: font("Nokia Sans Cn", 16);
 }
 
 #LanguageNormalListItem {
         font: font("Nokia Sans Cn", 16);
-}
-
-#LanguageCrossListItem {
-        color: #E48415;
-        font: font("Sans Cn", 16);
 }
 
 #LanguageCheckMark {
@@ -88,10 +83,4 @@
         textColor: #FFFFFF;
         normalBackground: "Divider-with-label";
         horizBoxedEdgePercent: 30;
-}
-
-#LanguageViewport {
-   preferredsize: size(864, 480);                                                 
-    minsize: size(864, 480);                                                       
-    maxsize: size(864, 480);       
 }

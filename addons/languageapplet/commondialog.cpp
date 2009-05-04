@@ -74,7 +74,7 @@ void CommonDialog::initDialog()
     
     // titleLabel
     DuiLabel *titleLabel = new DuiLabel(m_TitleText, containerWidget);
-    titleLabel->setObjectName("DisplayLanguageTitleLabel");
+    titleLabel->setObjectName("CommonDialogTitleLabel");
     titleLabel->setAcceptedMouseButtons(0);
     
     // Add items to titleLayoutPolicy
