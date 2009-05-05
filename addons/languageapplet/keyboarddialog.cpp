@@ -1,14 +1,17 @@
 #include "keyboarddialog.h"
-#include "keyboardwidget.h"
+#include "keyboardselectcontainer.h"
+#include "languagelabelbuttoncontainer.h"
+#include "languagetranslation.h"
+#include "dcplanguage.h"
+#include "dcplanguageconf.h"
 
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
-#include "dcplanguage.h"
-#include "dcplanguageconf.h"
 #include <duiquerydialog.h>
 
+
 KeyboardDialog::KeyboardDialog()
-              :DcpDialog()
+              :CommonDialog(DcpLanguage::SelectKeyboardText)
 {
     initWidget();
 }
@@ -20,27 +23,44 @@ KeyboardDialog::~KeyboardDialog()
 void KeyboardDialog::initWidget()
 {
     m_OldLanguages = DcpLanguageConf::instance()->keyboardLanguages();
-    KeyboardWidget *m_Widget = new KeyboardWidget(this);
-    DuiLayout *mainLayout = new DuiLayout(this);
-    mainLayout->setAnimator(NULL);
-    DuiLinearLayoutPolicy *mainLayoutPolicy =
-            new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
-    mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayoutPolicy->addItemAtPosition(m_Widget, 0, Qt::AlignCenter);
 
-    connect(DuiDeviceProfile::instance(), SIGNAL(orientationAngleChanged (DuiDeviceProfile::DeviceOrientationAngle)),
-            this, SLOT(onOrientationAngleChanged ()));
-    onOrientationAngleChanged();
-    this->setLayout(mainLayout);
-}
+    // centralWidget
+    DuiWidget *centralWidget = new DuiWidget(this);
+    m_WidgetLayout = new DuiLayout(centralWidget);
+    m_WidgetLayout->setAnimator(NULL);
+    DuiLinearLayoutPolicy *widgetLayoutPolicy = 
+        new DuiLinearLayoutPolicy(m_WidgetLayout, Qt::Vertical);
+    m_WidgetLayout->setPolicy(widgetLayoutPolicy);
+    centralWidget->setLayout(m_WidgetLayout);
+    setContentsMargins(1.0, 1.0, 1.0, 1.0);
+    widgetLayoutPolicy->setSpacing(5);
 
+    // DownloadedLanguage
+    LanguageLabelButtonContainer *downloadedCont =
+        new LanguageLabelButtonContainer(LanguageLabelButtonContainer::DOWNLOADED,
+                                         centralWidget);
+    connect(downloadedCont, SIGNAL(removeMe(LanguageLabelButtonContainer*)),
+            this, SLOT(removeContainer(LanguageLabelButtonContainer*)));
 
-void KeyboardDialog::onOrientationAngleChanged ()
-{
-    QSizeF dialogSize = DuiDeviceProfile::instance()->resolution();
-    dialogSize.setHeight(dialogSize.height()-60);
-    layout()->itemAt(0)->setMinimumSize(dialogSize);
-    layout()->itemAt(0)->setMaximumSize(dialogSize);
+    // InstalledLanguage
+    LanguageLabelButtonContainer *installedCont =
+        new LanguageLabelButtonContainer(LanguageLabelButtonContainer::INSTALLED,
+                                         centralWidget);
+    connect(installedCont, SIGNAL(removeMe(LanguageLabelButtonContainer*)),
+            this, SLOT(removeContainer(LanguageLabelButtonContainer*)));
+
+    // KeyboardSelectContainer
+    KeyboardSelectContainer *selectCont =
+        new KeyboardSelectContainer(DcpLanguage::InDeviceText,
+                DcpLanguageConf::instance()->availableKeyboardLanguages(), centralWidget);
+
+    // Add items to widgetLayoutPolicy
+    widgetLayoutPolicy->addItemAtPosition(downloadedCont, 0, Qt::AlignCenter);
+    widgetLayoutPolicy->addItemAtPosition(installedCont, 1, Qt::AlignCenter);
+    widgetLayoutPolicy->addItemAtPosition(selectCont, 2, Qt::AlignCenter);
+
+    // setCentralWidget
+    this->setCentralWidget(centralWidget);
 }
 
 void KeyboardDialog::close()
@@ -57,8 +77,16 @@ void KeyboardDialog::close()
                 qDebug("DCP: accepted");
                 DcpLanguageConf::instance()->setKeyboardLanguages(m_OldLanguages);
             } else {
-		emit reopen();
-	    }
+		        emit reopen();
+	        }
     }
+}
+
+void KeyboardDialog::removeContainer(LanguageLabelButtonContainer *container)
+{
+    container->hide();
+    int index = m_WidgetLayout->findIndexForItem(static_cast<QGraphicsItem*>(container));
+    if (index != -1)
+        m_WidgetLayout->removeAt(index);
 }
 

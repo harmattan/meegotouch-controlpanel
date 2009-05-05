@@ -1,9 +1,12 @@
 #ifndef DISPLAYDIALOG_H
 #define DISPLAYDIALOG_H
 
-#include "dcpdialog.h"
+#include "commondialog.h"
 
-class DisplayDialog : public DcpDialog
+class DuiLayout;
+class LanguageLabelButtonContainer;
+
+class DisplayDialog : public CommonDialog
 {
     Q_OBJECT
 
@@ -14,7 +17,10 @@ public:
 protected:
     void initWidget();
 
-protected slots:
-    void onOrientationAngleChanged ();
+private:
+    DuiLayout *m_WidgetLayout;
+
+private slots:
+    virtual void removeContainer(LanguageLabelButtonContainer *container);
 };
 #endif //DISPLAYWIDGET_H

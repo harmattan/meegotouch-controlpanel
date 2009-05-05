@@ -14,11 +14,7 @@ class LanguageApplet : public QObject, public DcpAppletIf
 public:
     virtual void init();
 	virtual DcpWidget* constructWidget(int widgetId);
-
     virtual DcpWidget* mainPage();
-    virtual DcpWidget* displayPage();
-    virtual DcpWidget* keyboardPage();
-
     virtual QString title() const;
     virtual QVector<DuiAction*> viewMenuItems();
 

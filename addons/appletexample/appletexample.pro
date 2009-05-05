@@ -1,14 +1,12 @@
 TEMPLATE 	= app
 OBJECTS_DIR 	= .objects
 MOC_DIR 	= .moc
-CONFIG		+= build_all silent warn_on
+CONFIG		+= build_all silent warn_on dui
 
 # old one (has to be removed):
-INCLUDEPATH 	+= $$[QT_INSTALL_HEADERS]/dui -I ../languageapplet
-# new one:
-INCLUDEPATH += /usr/include/dui
+INCLUDEPATH 	+= ../languageapplet
 
-LIBS 		+= -L./lib -ldui
+LIBS 		+= -L./lib 
 
 
 # Input
