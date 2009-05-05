@@ -36,11 +36,11 @@ void KeyboardDialog::initWidget()
     widgetLayoutPolicy->setSpacing(5);
 
     // DownloadedLanguage
-    LanguageLabelButtonContainer *downloadedCont =
+    /* LanguageLabelButtonContainer *downloadedCont =
         new LanguageLabelButtonContainer(LanguageLabelButtonContainer::DOWNLOADED,
                                          centralWidget);
     connect(downloadedCont, SIGNAL(removeMe(LanguageLabelButtonContainer*)),
-            this, SLOT(removeContainer(LanguageLabelButtonContainer*)));
+            this, SLOT(removeContainer(LanguageLabelButtonContainer*)));*/
 
     // InstalledLanguage
     LanguageLabelButtonContainer *installedCont =
@@ -55,9 +55,9 @@ void KeyboardDialog::initWidget()
                 DcpLanguageConf::instance()->availableKeyboardLanguages(), centralWidget);
 
     // Add items to widgetLayoutPolicy
-    widgetLayoutPolicy->addItemAtPosition(downloadedCont, 0, Qt::AlignCenter);
-    widgetLayoutPolicy->addItemAtPosition(installedCont, 1, Qt::AlignCenter);
-    widgetLayoutPolicy->addItemAtPosition(selectCont, 2, Qt::AlignCenter);
+    // widgetLayoutPolicy->addItemAtPosition(downloadedCont, 0, Qt::AlignCenter);
+    widgetLayoutPolicy->addItemAtPosition(installedCont, 0, Qt::AlignCenter);
+    widgetLayoutPolicy->addItemAtPosition(selectCont, 1, Qt::AlignCenter);
 
     // setCentralWidget
     this->setCentralWidget(centralWidget);
