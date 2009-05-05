@@ -3,11 +3,6 @@ DuiLabel {
     font: font("Nokia Sans Cn", 12);
 }
 
-
-DuiLabel#ComponentCaption {
-    font: font("Nokia Sans Cn", 20px);
-}
-
 #SignButton {
     normalBackground: "See-more-indicator-big";
 }
@@ -25,6 +20,9 @@ DcpBackgroundComponent {
 	lineSkip: 2;
 }
 
+DuiLabel#DuiContainerTitle {
+    font: font("Nokia Sans Cn", 20px);
+}
 
 DuiApplicationPage {
 	background: image(starfield);
@@ -144,7 +142,6 @@ DuiImage {
 }
 
 #DcpButton {
-
     marginLeft: 25;
     marginRight: 20;
     marginTop: 12;

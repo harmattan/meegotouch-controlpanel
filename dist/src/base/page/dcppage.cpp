@@ -22,6 +22,8 @@ void DcpPage::createContent()
 {
     qDebug() << "XXX page createContent" << metaObject()->className()
              << (void*) this;
+    DuiApplicationPage::createContent();
+
     setBackButtonEnabled(true);
 
     _createLayout();
@@ -34,13 +36,14 @@ void DcpPage::_createLayout()
     m_MainLayout = new DuiLinearLayoutPolicy(layout, Qt::Vertical);
     layout->setAnimator(NULL);
     layout->setPolicy(m_MainLayout);
-    centralWidget()->setLayout(layout);
     layout->setContentsMargins(12.0,0.0,12.0,0.0);
+    centralWidget()->setLayout(layout);
 }
 
 void DcpPage::organizeContent(Dui::Orientation ori)
 {
     Q_UNUSED(ori);
+    qDebug() << "XXX organizeContent";
 }
 
 void DcpPage::onOrientationAngleChanged() {
@@ -52,18 +55,15 @@ void DcpPage::append (QGraphicsWidget* widget) {
     mainLayout()->addItemAtPosition(widget, mainLayout()->count());
 }
 
+
 void DcpPage::remove (QGraphicsWidget* widget) {
-    // FIXME dui removeItem segfaults
-    /*
     DuiLayout* layout = (DuiLayout*)centralWidget()->layout();
     Q_ASSERT(layout);
     layout->removeItem(widget);
-    */
-    Q_UNUSED(widget);
-    _createLayout();
 }
 
 void DcpPage::back()
 {
     emit openSubPage(referer());
 }
+

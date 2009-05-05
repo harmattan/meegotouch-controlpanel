@@ -31,6 +31,7 @@ void DcpRecentlyUsedComponent::createContents()
 
     DuiLayout* layout = new DuiLayout(this);
     layout->setAnimator(NULL);
+    layout->setContentsMargins(0,0,0,0);
     DuiLinearLayoutPolicy* layoutPolicy = new DuiLinearLayoutPolicy(layout,
                                                             Qt::Vertical);
     layoutPolicy->addItemAtPosition(box, 0);

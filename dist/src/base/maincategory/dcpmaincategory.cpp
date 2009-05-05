@@ -15,8 +15,9 @@ DcpMainCategory::DcpMainCategory(
         const QString& title, QGraphicsWidget *parent
 ) : DcpCategory(title, parent), m_ColCount(0), m_RowCount(0), m_ItemCount(0)
 {
-    m_Layout = new DuiLayout();
+    m_Layout = new DuiLayout(this);
     m_Layout->setAnimator(NULL);
+    m_Layout->setContentsMargins(0,0,0,0);
 
     m_LandscapeLayout = new DuiGridLayoutPolicy(m_Layout);
 
@@ -25,7 +26,7 @@ DcpMainCategory::DcpMainCategory(
 
     setLayout(m_Layout);
 
-    m_LandscapeLayout->setColumnSpacing(0, 12);
+    m_LandscapeLayout->setHorizontalSpacing(12);
     m_LandscapeLayout->setVerticalSpacing(12);
 }
 
