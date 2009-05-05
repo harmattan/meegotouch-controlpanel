@@ -39,18 +39,20 @@ void LanguageLabel::initWidget()
     DuiLinearLayoutPolicy *mainLayoutPolicy =
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayoutPolicy->setContentsMargins(20.0, 1.0, 12.0, 1.0);
+    mainLayoutPolicy->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     mainLayoutPolicy->setSpacing(2);
     this->setAcceptedMouseButtons(0);
     
     // greySeparator
     DuiSeparator *greySeparator = new DuiSeparator(this);
     greySeparator->setObjectName("GreySeparator");
-    greySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - 20);
+    greySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - 60);
+
+    QString space("    ");
 
     if (m_DownText.isEmpty()) {
         // single label
-        DuiLabel *label = new DuiLabel(m_UpText, this);
+        DuiLabel *label = new DuiLabel(space + m_UpText, this);
         label->setObjectName("LanguageLeftLabel");
         label->setAcceptedMouseButtons(0);
         mainLayoutPolicy->addItemAtPosition(
@@ -63,12 +65,12 @@ void LanguageLabel::initWidget()
         mainLayoutPolicy->addItemAtPosition(greySeparator, 3, Qt::AlignCenter);   
     } else {
         // upLabel
-        DuiLabel *upLabel = new DuiLabel(m_UpText, this);
+        DuiLabel *upLabel = new DuiLabel(space + m_UpText, this);
         upLabel->setObjectName("LanguageUpLabel");
         upLabel->setAcceptedMouseButtons(0);
 
         // downLabel
-        DuiLabel *downLabel = new DuiLabel(m_DownText, this);
+        DuiLabel *downLabel = new DuiLabel(space + m_DownText, this);
         downLabel->setObjectName("LanguageDownLabel");
         downLabel->setAcceptedMouseButtons(0);
 
@@ -96,6 +98,6 @@ void LanguageLabel::initWidget()
 
 void LanguageLabel::onOrientationAngleChanged()
 {
-    setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - 20);
-    setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - 20);
+    setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - 60);
+    setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - 60);
 }

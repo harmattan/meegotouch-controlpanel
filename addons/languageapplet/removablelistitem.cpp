@@ -41,7 +41,7 @@ void RemovableListItem::initWidget()
     DuiLinearLayoutPolicy *mainLayoutPolicy =
             new DuiLinearLayoutPolicy(mainLayout, Qt::Horizontal);
     mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayoutPolicy->setContentsMargins(1.0, 0.0, 1.0, 0.0);
+    mainLayoutPolicy->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     mainLayoutPolicy->setSpacing(1);
 
     // label
@@ -65,7 +65,7 @@ void RemovableListItem::initWidget()
 
     mainLayoutPolicy->addItemAtPosition(label, 0, Qt::AlignLeft | Qt::AlignVCenter);
     mainLayoutPolicy->addItemAtPosition(
-            new DcpSpacerItem(this, 100, 5, QSizePolicy::Fixed, QSizePolicy::Fixed),
+            new DcpSpacerItem(this, 140, 5, QSizePolicy::Fixed, QSizePolicy::Fixed),
             1, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(m_RemoveButton, 2, Qt::AlignRight | Qt::AlignVCenter);
     

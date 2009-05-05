@@ -88,7 +88,8 @@ DcpAppletPage::changeWidget(int widgetId)
 void DcpAppletPage::setUpMainWidgetSize()
 {
     if (m_MainWidget){
-        m_MainWidget->setMinimumWidth(DuiDeviceProfile::instance()->width() - 30);
+        m_MainWidget->setMinimumWidth(DuiDeviceProfile::instance()->width() - 50);
+        m_MainWidget->setMaximumWidth(DuiDeviceProfile::instance()->width() - 50);
         m_MainWidget->setMinimumHeight(DuiDeviceProfile::instance()->height() - 100);
     }
 }
