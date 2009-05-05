@@ -18,7 +18,7 @@ GroupTitleWidget::GroupTitleWidget(const QString &text, DuiWidget *parent)
 
     // label
     DuiLabel *label = new DuiLabel(text, this);
-    label->setObjectName("DisplayLanguageSelectTitle");
+    label->setObjectName("GroupTitleLabel");
     mainLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 10, 10, QSizePolicy::Fixed, QSizePolicy::Fixed),
                     0, Qt::AlignLeft | Qt::AlignVCenter);

@@ -73,7 +73,6 @@ void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata, bool odd)
 #endif
    // TODO: this is to show the new widget only (temporary)
     component = new DcpLabel2Component(0, metadata);
-    qobject_cast<DcpLabel2Component*>(component)->setBgObjectName("AppletPageDcpButton");
     component->setMaximumSize(99999, 99999);
  
     if (component) {
@@ -83,12 +82,14 @@ void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata, bool odd)
                         this, SIGNAL(openSubPage(Pages::Handle)));
         if (odd)
         {	
+    qobject_cast<DcpLabel2Component*>(component)->setBgObjectName("AppletPageDcpButton2");
             qDebug("Dcp: ADD");
             component->setMinimumWidth(size().width());
             m_Category->add(component);
         }
 	else
         {
+    qobject_cast<DcpLabel2Component*>(component)->setBgObjectName("AppletPageDcpButton");
         	m_Category->append(component);
         }
     }

@@ -1,11 +1,8 @@
 QMAKE_LIBDIR += ../../lib/lib/
 TEMPLATE      = lib
 CONFIG       += plugin gui dui silent
-LIBS         += -ldui -lduicontrolpanel
-INCLUDEPATH  += $$[QT_INSTALL_HEADERS]/dui \
-                $$system(find ../../lib/src/ -type d)
-# new one:
-INCLUDEPATH += /usr/include/dui
+LIBS         += -lduicontrolpanel
+INCLUDEPATH  += $$system(find ../../lib/src/ -type d)
 
 MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects

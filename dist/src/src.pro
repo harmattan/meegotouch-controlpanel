@@ -13,11 +13,8 @@ MOC_DIR = ../tmp
 HEADERS += $$system(find ./ -name \'*.h\')
 SOURCES += $$system(find ./ -name \'*.cpp\')
 
-CONFIG += build_all warn_on debug
-
-INCLUDEPATH += $$[QT_INSTALL_HEADERS]/dui
-INCLUDEPATH += /usr/include/dui
-LIBS += -ldui -lduicontrolpanel
+CONFIG += dui build_all warn_on debug
+LIBS += -lduicontrolpanel
 
 # a fake check target so as not to stop the testing:
 QMAKE_EXTRA_TARGETS += check
