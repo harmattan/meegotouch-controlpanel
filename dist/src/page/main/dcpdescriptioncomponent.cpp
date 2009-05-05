@@ -21,6 +21,8 @@ void
 DcpDescriptionComponent::createContents()
 {
     m_Container = new DuiContainer(this);
+    m_Container->setMaximumWidth(350);
+
     m_Container->setAcceptedMouseButtons(0);
     setTitle(title());
 
