@@ -25,6 +25,7 @@ void CommonDialog::setCentralWidget(DuiWidget *widget)
     }
 
     m_ContainerLayoutPolicy->addItemAtPosition(widget, 1, Qt::AlignCenter);
+    widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 DuiWidget* CommonDialog::centralWidget()
@@ -45,15 +46,17 @@ void CommonDialog::initDialog()
         new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
     this->setLayout(mainLayout);
-    mainLayoutPolicy->setContentsMargins(15.0, 40.0, 15.0, 20.0);
+    setContentsMargins(15.0, 20.0, 20.0, 15.0);
+    mainLayoutPolicy->setSpacing(1);
     
     // m_MainWidget
     m_MainWidget = new DuiContainer(this);
+    m_MainWidget->layout()->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     m_MainWidget->setHeaderVisible(false);
     m_MainWidget->setExpand(true);
     mainLayoutPolicy->addItemAtPosition(m_MainWidget, 0, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(
-            new DcpSpacerItem(this, 20, 20, QSizePolicy::Expanding, QSizePolicy::Expanding),
+            new DcpSpacerItem(this, 10, 10, QSizePolicy::Expanding, QSizePolicy::Fixed),
             1, Qt::AlignCenter);
 
     // containerWidget

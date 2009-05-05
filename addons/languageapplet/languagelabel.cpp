@@ -7,6 +7,7 @@
 #include <duiseparator.h>
 
 const int height = 88;
+const int devide = 40;
 
 LanguageLabel::LanguageLabel(const QString &upText,
                             const QString &downText,
@@ -46,7 +47,7 @@ void LanguageLabel::initWidget()
     // greySeparator
     DuiSeparator *greySeparator = new DuiSeparator(this);
     greySeparator->setObjectName("GreySeparator");
-    greySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - 60);
+    greySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
 
     QString space("    ");
 
@@ -98,6 +99,6 @@ void LanguageLabel::initWidget()
 
 void LanguageLabel::onOrientationAngleChanged()
 {
-    setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - 60);
-    setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - 60);
+    setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+    setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
 }

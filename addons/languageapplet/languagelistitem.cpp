@@ -12,6 +12,7 @@
 #include <qgraphicswidget.h>
 
 const int height = 70;
+const int devide = 40;
 
 LanguageListItem::LanguageListItem(const QString &langCode,
                                    const QString &text, 
@@ -117,7 +118,7 @@ void LanguageListItem::initWidget()
     // greySeparator
     DuiSeparator *greySeparator = new DuiSeparator(this);
     greySeparator->setObjectName("GreySeparator");
-    greySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - 60);
+    greySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
     
     // Add items to mainLayoutPolicy
     mainLayoutPolicy->addItemAtPosition(
@@ -157,7 +158,6 @@ void LanguageListItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 void LanguageListItem::onOrientationAngleChanged()
 {
     // set width
-    int devide = 60;
     this->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
     this->setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
     this->setMinimumHeight(height);

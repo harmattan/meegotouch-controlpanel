@@ -65,7 +65,7 @@ void RemovableListItem::initWidget()
 
     mainLayoutPolicy->addItemAtPosition(label, 0, Qt::AlignLeft | Qt::AlignVCenter);
     mainLayoutPolicy->addItemAtPosition(
-            new DcpSpacerItem(this, 140, 5, QSizePolicy::Fixed, QSizePolicy::Fixed),
+            new DcpSpacerItem(this, 160, 5, QSizePolicy::Fixed, QSizePolicy::Fixed),
             1, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(m_RemoveButton, 2, Qt::AlignRight | Qt::AlignVCenter);
     
