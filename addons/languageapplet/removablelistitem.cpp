@@ -41,7 +41,7 @@ void RemovableListItem::initWidget()
     DuiLinearLayoutPolicy *mainLayoutPolicy =
             new DuiLinearLayoutPolicy(mainLayout, Qt::Horizontal);
     mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayoutPolicy->setContentsMargins(0.0, 0.0, 0.0, 0.0);
+    mainLayoutPolicy->setContentsMargins(1.0, 0.0, 1.0, 0.0);
     mainLayoutPolicy->setSpacing(1);
 
     // label
@@ -55,6 +55,7 @@ void RemovableListItem::initWidget()
 
     // button
     m_RemoveButton = new DuiButton(DcpLanguage::RemoveButtonText, this);
+    m_RemoveButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     m_RemoveButton->setMaximumWidth(buttonWidth);
     m_RemoveButton->setMinimumWidth(buttonWidth);
     m_RemoveButton->setMaximumHeight(buttonHeight);
@@ -64,8 +65,8 @@ void RemovableListItem::initWidget()
 
     mainLayoutPolicy->addItemAtPosition(label, 0, Qt::AlignLeft | Qt::AlignVCenter);
     mainLayoutPolicy->addItemAtPosition(
-                    new DcpSpacerItem(this, 10, 10, QSizePolicy::Expanding, QSizePolicy::Fixed),
-                    1, Qt::AlignCenter);
+            new DcpSpacerItem(this, 100, 5, QSizePolicy::Fixed, QSizePolicy::Fixed),
+            1, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(m_RemoveButton, 2, Qt::AlignRight | Qt::AlignVCenter);
     
     this->setLayout(mainLayout);

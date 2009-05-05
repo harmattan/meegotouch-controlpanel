@@ -4,6 +4,7 @@
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
 #include <duilabel.h>
+#include <duiseparator.h>
 
 const int height = 88;
 
@@ -30,25 +31,6 @@ LanguageLabel::~LanguageLabel()
 {
 }
 
-void LanguageLabel::paint(QPainter *painter,
-                          const QStyleOptionGraphicsItem *option,
-                          QWidget *parent)
-{
-    Q_UNUSED(option);
-    Q_UNUSED(parent);
-
-    int borderWidth = 2;
-    QColor lineColor = QColor(80, 80, 80, 244);
-    QPen pen = painter->pen();
-    pen.setWidth(1);
-    pen.setColor(lineColor);
-    painter->setPen(pen);
-                            
-    qreal y = size().height();
-    painter->drawLine(borderWidth, y,
-                      geometry().size().width() - 2 * borderWidth, y);
-}
-
 void LanguageLabel::initWidget()
 {
     // mainLayout
@@ -60,6 +42,11 @@ void LanguageLabel::initWidget()
     mainLayoutPolicy->setContentsMargins(20.0, 1.0, 12.0, 1.0);
     mainLayoutPolicy->setSpacing(2);
     this->setAcceptedMouseButtons(0);
+    
+    // greySeparator
+    DuiSeparator *greySeparator = new DuiSeparator(this);
+    greySeparator->setObjectName("GreySeparator");
+    greySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - 20);
 
     if (m_DownText.isEmpty()) {
         // single label
@@ -72,7 +59,8 @@ void LanguageLabel::initWidget()
         mainLayoutPolicy->addItemAtPosition(label, 1, Qt::AlignLeft | Qt::AlignVCenter);
         mainLayoutPolicy->addItemAtPosition(
                      new DcpSpacerItem(this, 10, 10, QSizePolicy::Fixed, QSizePolicy::Expanding),
-                     2, Qt::AlignCenter);   
+                     2, Qt::AlignCenter);
+        mainLayoutPolicy->addItemAtPosition(greySeparator, 3, Qt::AlignCenter);   
     } else {
         // upLabel
         DuiLabel *upLabel = new DuiLabel(m_UpText, this);
@@ -92,8 +80,8 @@ void LanguageLabel::initWidget()
         mainLayoutPolicy->addItemAtPosition(
                         new DcpSpacerItem(this, 10, 10, QSizePolicy::Fixed, QSizePolicy::Expanding),
                         3, Qt::AlignCenter);
+        mainLayoutPolicy->addItemAtPosition(greySeparator, 4, Qt::AlignCenter);
     }
-
     this->setLayout(mainLayout);
 
     // fixed sizes

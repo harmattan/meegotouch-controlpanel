@@ -15,12 +15,6 @@ public:
                   DuiWidget *parent = 0);
     virtual ~LanguageLabel();
 
-    //! \reimp
-    virtual void paint(QPainter *painter,
-                       const QStyleOptionGraphicsItem *option,
-                       QWidget *widget = 0);
-    //! \reimp_end
-
 protected:
     void initWidget();
 
