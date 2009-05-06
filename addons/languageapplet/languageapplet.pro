@@ -56,7 +56,9 @@ DESTDIR       = lib
 target.path += $$(DEBIAN_DESTDIR)$$[QT_INSTALL_LIBS]/duicontrolpanel/applets
 css.path    += $$(DEBIAN_DESTDIR)/usr/share/themes/dui/duicontrolpanel
 image.path  += $$(DEBIAN_DESTDIR)/usr/share/themes/dui/duicontrolpanel/images
-
+exists(/usr/include/dui/duiquerydialog.h){
+	DEFINES += QUERY_DIALOG
+}
 message ("Plugin path will be: "$$target.path)
 message ("CSS path will be: "$$css.path)
 message ("Image path will be: "$$image.path)
