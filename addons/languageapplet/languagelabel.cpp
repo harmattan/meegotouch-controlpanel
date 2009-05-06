@@ -7,7 +7,7 @@
 #include <duiseparator.h>
 
 const int height = 88;
-const int devide = 40;
+const int devide = 35;
 
 LanguageLabel::LanguageLabel(const QString &upText,
                             const QString &downText,

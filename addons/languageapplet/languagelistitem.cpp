@@ -12,7 +12,7 @@
 #include <qgraphicswidget.h>
 
 const int height = 70;
-const int devide = 40;
+const int devide = 35;
 
 LanguageListItem::LanguageListItem(const QString &langCode,
                                    const QString &text, 

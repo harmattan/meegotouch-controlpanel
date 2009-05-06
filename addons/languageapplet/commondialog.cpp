@@ -46,12 +46,12 @@ void CommonDialog::initDialog()
         new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
     this->setLayout(mainLayout);
-    setContentsMargins(15.0, 20.0, 20.0, 15.0);
+    setContentsMargins(0.0, 0.0, 0.0, 0.0);
     mainLayoutPolicy->setSpacing(1);
     
     // m_MainWidget
     m_MainWidget = new DuiContainer(this);
-    m_MainWidget->layout()->setContentsMargins(0.0, 0.0, 0.0, 0.0);
+    m_MainWidget->layout()->setContentsMargins(0.0, 10.0, 0.0, 10.0);
     m_MainWidget->setHeaderVisible(false);
     m_MainWidget->setExpand(true);
     mainLayoutPolicy->addItemAtPosition(m_MainWidget, 0, Qt::AlignCenter);
@@ -66,6 +66,7 @@ void CommonDialog::initDialog()
     m_ContainerLayoutPolicy =
         new DuiLinearLayoutPolicy(m_ContainerLayout, Qt::Vertical);
     m_ContainerLayout->setPolicy(m_ContainerLayoutPolicy);
+    m_ContainerLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     containerWidget->setLayout(m_ContainerLayout);
 
     // titleLayout
