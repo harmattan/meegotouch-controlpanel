@@ -56,6 +56,7 @@ void LanguageButton::initWidget()
     mainMainLayout->setPolicy(mainMainLayoutPolicy);
     mainMainLayoutPolicy->setContentsMargins(1.0, 1.0, 1.0, 1.0);
     mainMainLayoutPolicy->setSpacing(1);
+    this->setLayout(mainMainLayout);
     
     // mainLayout
     DuiLayout *mainLayout = new DuiLayout(NULL);
@@ -116,13 +117,13 @@ void LanguageButton::initWidget()
     // greySeparator
     DuiSeparator *greySeparator = new DuiSeparator(this);
     greySeparator->setObjectName("GreySeparator");
+    greySeparator->setAcceptedMouseButtons(0);
 
     // Add items to mainMainLayoutPolicy
     mainMainLayoutPolicy->addItemAtPosition(mainLayout, 0, Qt::AlignCenter);
     mainMainLayoutPolicy->addItemAtPosition(greySeparator, 1, Qt::AlignCenter);
-    this->setLayout(mainMainLayout);
     
     // fixed size
-    setMinimumHeight(rowHeight);
-    setMaximumHeight(rowHeight);
+    this->setMinimumHeight(rowHeight);
+    this->setMaximumHeight(rowHeight);
 }
