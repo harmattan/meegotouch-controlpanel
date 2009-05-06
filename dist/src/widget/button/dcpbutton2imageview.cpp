@@ -62,6 +62,8 @@ void DcpButton2ImageView::paint(QPainter *painter, const QStyleOptionGraphicsIte
 
 	paintLine(painter);
 
+//qDebug() << "size()   " << size().width() << "   X   "<< size().height();
+
 	if ( m_Alignment==Qt::AlignLeft ) {
 		paintTriangle(painter);
 		paintTextLeft(painter);
@@ -94,12 +96,12 @@ void DcpButton2ImageView::paintTextLeft(QPainter *painter, bool textBool)
 												styleAttribute<const QSize>(ImageSizeAttribute).width() -
 												styleAttribute<int>(MarginSpacerAttribute) ;
 
-		int fieldHeight = (styleAttribute<const QSize>(BackgroundSizeAttribute).height() - marginTop - marginBottom - marginMiddle) / 2;
+	int fieldHeight = (styleAttribute<const QSize>(BackgroundSizeAttribute).height() - marginTop - marginBottom - marginMiddle) / 2;
 
-		QRectF text1Rect(styleAttribute<QPointF>(TextPos1Attribute).x() + marginLeft + triangleWidth,
-												styleAttribute<QPointF>(TextPos1Attribute).y() + marginTop,
-												fieldWidth,
-												fieldHeight);
+	QRectF text1Rect(styleAttribute<QPointF>(TextPos1Attribute).x() + marginLeft + triangleWidth,
+											styleAttribute<QPointF>(TextPos1Attribute).y() + marginTop,
+											fieldWidth,
+											fieldHeight);
 
 
     // Draw text
@@ -118,7 +120,7 @@ void DcpButton2ImageView::paintTextLeft(QPainter *painter, bool textBool)
     painter->setFont(styleAttribute<QFont>(Font2Attribute));
 
 	if (textBool)
-		    painter->setPen(styleAttribute<QColor>(TextColor2Attribute));
+		painter->setPen(styleAttribute<QColor>(TextColor2Attribute));
 	else
 		painter->setPen(styleAttribute<QColor>(TextOffColorAttribute));
 
@@ -139,8 +141,12 @@ void DcpButton2ImageView::paintImageLeft(QPainter *painter)
 
     if (m_Image != NULL) {
 
-		QPointF imagePoint( width() - m_Image->width() + 1 - marginSpacer,
-						   (height() - m_Image->height()) / 2				);
+		//QPointF imagePoint( width() - m_Image->width() + 1 - marginSpacer,
+		//				   (height() - m_Image->height()) / 2				);
+
+		QPointF imagePoint( size().width() - m_Image->width() + 1 - marginSpacer,
+						   (size().height() - m_Image->height()) / 2				);
+
 
         painter->drawPixmap(imagePoint, *m_Image);
 	}
@@ -151,8 +157,12 @@ void DcpButton2ImageView::paintImageLeft(QPainter *painter)
 
     if (border != NULL) {
 
-		QPointF imagePoint( width() - border->width() + (border->width() - m_Image->width()) - marginSpacer,
-			 			   (height() - border->height()) / 2					);
+	//	QPointF imagePoint( width() - border->width() + (border->width() - m_Image->width()) - marginSpacer,
+	//		 			   (height() - border->height()) / 2					);
+
+	QPointF imagePoint( size().width() - border->width() + (border->width() - m_Image->width()) - marginSpacer,
+			 		   (size().height() - border->height()) / 2					);
+
 
         painter->drawPixmap(imagePoint, *border);
 	}

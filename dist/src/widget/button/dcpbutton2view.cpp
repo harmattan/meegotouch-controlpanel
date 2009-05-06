@@ -25,6 +25,16 @@ V
 DcpButton2View::DcpButton2View(DcpButton &button) :
     DcpButtonView(button)
 {
+
+//Q_ASSERT(parent);
+
+//qDebug() << "-------------------------------------------------------------------------------";
+//qDebug() << "maximumSize:   " <<  button->maximumSize().width() << "   X   " << button->maximumSize().height();
+//qDebug() << "preferredSize:   " << button->preferredSize().width() << "   X   " << button->preferredSize().height();
+//qDebug() << "geometry:   " << button->geometry().width() << "   X   " << button->geometry().height(); 
+//qDebug() << "contentsRect:   " << button->contentsRect().width() << "   X   " << button->contentsRect().height(); 
+//qDebug() << "-------------------------------------------------------------------------------";
+
 }
 
 DcpButton2View::~DcpButton2View()
@@ -87,6 +97,12 @@ void DcpButton2View::paintText(QPainter *painter)
 
 		return;
 }
+
+QRectF DcpButton2View::boundingRect() const
+{
+	return QRectF(0, 0, size().width(), size().height());
+}
+
 
 void DcpButton2View::registerStyleAttributes(DuiStyleDescription &description)
 {

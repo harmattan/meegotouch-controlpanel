@@ -30,7 +30,7 @@ DcpLabel2Component::~DcpLabel2Component()
 void DcpLabel2Component::createContents()
 {
 
-	m_Button = new DcpButton(DCPLABEL2);
+	m_Button = new DcpButton(DCPLABEL2, "", this);
 
 	m_Button->setText(metadata()->text1(), metadata()->text2());
    	m_WidgetLayoutPolicy->addItemAtPosition(m_Button, 0, 0);

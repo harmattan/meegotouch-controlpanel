@@ -22,10 +22,10 @@ void DcpLabel2ToggleComponent::createContents()
 {
 
 	if ( m_Alignment==Qt::AlignLeft ) {
-        m_Button = new DcpButton(DCPLABEL2TOGGLE);
+        m_Button = new DcpButton(DCPLABEL2TOGGLE, "", this);
 		m_Button->setAlignment(Qt::AlignLeft);
 	} else {
-        m_Button = new DcpButton(DCPLABEL2TOGGLE);
+        m_Button = new DcpButton(DCPLABEL2TOGGLE, "", this);
 		m_Button->setAlignment(Qt::AlignRight);
 	}
 

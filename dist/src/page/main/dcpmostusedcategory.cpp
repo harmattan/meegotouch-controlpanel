@@ -19,6 +19,7 @@
 DcpMostUsedCategory::DcpMostUsedCategory(const QString& title, QGraphicsWidget *parent) :
   DcpMainCategory(title, parent)
 {
+
   	createContents();
 
     //m_LandscapeLayout->setColumnSpacing(0, 0); //dummy
@@ -44,8 +45,6 @@ void DcpMostUsedCategory::createContents()
 	int cnt = 0;
 	foreach (DcpAppletMetadata *item, DcpAppletDb::instance()->listMostUsed()) {
 
-		cnt++;
-		
 		if (cnt==5 || cnt==6) //last items
 			addComponent(item, false);	
 		else
@@ -97,6 +96,17 @@ void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata, bool line)
 		qDebug() << "DCP: connecting to " << metadata->name();
 		component->setSubPage(Pages::APPLETFROMMOSTUSED, metadata->name());
 		connect(component, SIGNAL(openSubPage(Pages::Handle)), this, SIGNAL(openSubPage(Pages::Handle)));
-		append(component);
-    }
+		//append(component);
+
+static int localCnt = 0;
+
+++localCnt;
+if (localCnt == 2 || localCnt ==6)
+	add(component);
+else
+	append(component);
+
+	}
+
+
 }

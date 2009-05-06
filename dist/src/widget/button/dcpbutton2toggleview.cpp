@@ -26,6 +26,9 @@ void DcpButton2ToggleView::paint(QPainter *painter, const QStyleOptionGraphicsIt
 
 	paintLine(painter);
 
+//qDebug() << "paint   size   " << size().width() << "   X   "<< size().height();
+
+
 	if ( m_Alignment==Qt::AlignLeft ) {
 		paintTriangle(painter);
 		paintTextLeft(painter, m_EnableToggle);
@@ -37,11 +40,17 @@ void DcpButton2ToggleView::paint(QPainter *painter, const QStyleOptionGraphicsIt
 		paintToggleRight(painter);
 	}
 
+//	painter->setPen(Qt::blue);
+//	painter->setBrush(Qt::NoBrush);
+//	painter->drawRect(boundingRect());
+
+
 	return;
 }
 
 void DcpButton2ToggleView::paintToggleLeft(QPainter *painter)
 {
+
 	int marginSpacer = styleAttribute<int>(MarginSpacerAttribute);
 
 	m_ToggleOn = DuiTheme::pixmap( styleAttribute<const QString>(ToggleOnAttribute), styleAttribute<const QSize>(ImageSizeAttribute));
@@ -50,13 +59,17 @@ void DcpButton2ToggleView::paintToggleLeft(QPainter *painter)
 	
     if (m_ToggleOn && m_ToggleOff)
 		if (m_EnableToggle) {
-			QPointF imagePoint(width() - m_ToggleOn->width() - marginSpacer,
-				 			   (height() - m_ToggleOn->height()) / 2					);
+			//QPointF imagePoint(width() - m_ToggleOn->width() - marginSpacer,
+			//	 			   (height() - m_ToggleOn->height()) / 2					);
+			QPointF imagePoint(size().width() - m_ToggleOn->width() - marginSpacer,
+				 			   (size().height() - m_ToggleOn->height()) / 2					);
 
         	painter->drawPixmap(imagePoint, *m_ToggleOn);
 		} else {
-			QPointF imagePoint(width() - m_ToggleOff->width() - marginSpacer,
-				 			   (height() - m_ToggleOff->height()) / 2					);
+			//QPointF imagePoint(width() - m_ToggleOff->width() - marginSpacer,
+			//	 			   (height() - m_ToggleOff->height()) / 2					);
+			QPointF imagePoint(size().width() - m_ToggleOff->width() - marginSpacer,
+				 			   (size().height() - m_ToggleOff->height()) / 2					);
 
         	painter->drawPixmap(imagePoint, *m_ToggleOff);
 		}
@@ -84,18 +97,56 @@ void DcpButton2ToggleView::paintToggleRight(QPainter *painter)
 		}
 }
 
+
+
+QRectF DcpButton2ToggleView::boundingRect() const
+{
+	return QRectF(0, 0, size().width(), size().height());
+}
+
+/*
+QSizeF DcpButton2ToggleView::sizeHint(Qt::SizeHint which, const QSizeF &constraint) const
+{
+    QSizeF sh(-1, -1);
+
+    switch (which) {
+        case Qt::MinimumSize:
+            qDebug() << "Qt::MinimumSize";
+            break;
+        case Qt::MaximumSize:
+            qDebug() << "Qt::MaximumSize";
+            break;
+        case Qt::PreferredSize:
+            qDebug() << "Qt::PreferredSize";
+			qDebug() << "size   " << size().width() << "   X   " << size().height();
+			return QSizeF(size().width(), size().height());
+            break;
+        default:
+			qDebug() << "default:";
+            break;
+    }
+
+    return sh;
+}*/
+
+
 void DcpButton2ToggleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
+
 	int marginSpacer = styleAttribute<int>(MarginSpacerAttribute);
 
 	if (m_ToggleOn && m_ToggleOff)
 
 		if ( m_Alignment==Qt::AlignLeft ) {
 			if (m_EnableToggle) {
-				QRect rect(	width() - m_ToggleOn->width() - marginSpacer,
-							(height() - m_ToggleOn->height()) / 2,
-							width() - marginSpacer,
-							(height() + m_ToggleOn->height()) / 2					);
+				//QRect rect(	width() - m_ToggleOn->width() - marginSpacer,
+				//			(height() - m_ToggleOn->height()) / 2,
+				//			width() - marginSpacer,
+				//			(height() + m_ToggleOn->height()) / 2					);
+				QRect rect(	size().width() - m_ToggleOn->width() - marginSpacer,
+							(size().height() - m_ToggleOn->height()) / 2,
+							size().width() - marginSpacer,
+							(size().height() + m_ToggleOn->height()) / 2					);
 		
 				if (rect.contains(event->pos().x(), event->pos().y())) {
 					m_EnableToggle = !m_EnableToggle;
@@ -103,10 +154,15 @@ void DcpButton2ToggleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 					return;
 				}
 			} else {
-				QRect rect(	width() - m_ToggleOff->width() - marginSpacer,
-							(height() - m_ToggleOff->height()) / 2,
-							width() - marginSpacer,
-							(height() + m_ToggleOff->height()) / 2					);
+
+				//QRect rect(	width() - m_ToggleOff->width() - marginSpacer,
+				//			(height() - m_ToggleOff->height()) / 2,
+				//			width() - marginSpacer,
+				//			(height() + m_ToggleOff->height()) / 2					);
+				QRect rect(	size().width() - m_ToggleOff->width() - marginSpacer,
+							(size().height() - m_ToggleOff->height()) / 2,
+							size().width() - marginSpacer,
+							(size().height() + m_ToggleOff->height()) / 2					);
 			
 				if (rect.contains(event->pos().x(), event->pos().y())) {
 					m_EnableToggle = !m_EnableToggle;

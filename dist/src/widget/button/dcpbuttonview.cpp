@@ -26,6 +26,13 @@ DcpButtonView::~DcpButtonView()
 
 void DcpButtonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+
+//qDebug() << "---------------------------------------";
+//qDebug() << "size:   " <<  controller.size().width() << "   X   " << controller.size().height();
+//qDebug() << "boundingRect:   " <<  controller.boundingRect().width() << "   X   " << controller.boundingRect().height();
+//qDebug() << "geometry:   " << controller.geometry().width() << "   X   " << controller.geometry().height(); 
+//qDebug() << "---------------------------------------";
+
     Q_UNUSED(widget);
     Q_UNUSED(option);
 
@@ -53,7 +60,8 @@ void DcpButtonView::paintLine(QPainter *painter)
 {
 	if (m_LineBool) {
 		painter->setPen(LINECOLOR);
-		painter->drawLine(0, height(), width() , height());
+		//painter->drawLine(0, height(), width() , height());
+		painter->drawLine(0, size().height(), size().width() , size().height());
 	}
 }
 
@@ -62,16 +70,16 @@ void DcpButtonView::paintTriangle(QPainter *painter)
   	int marginLeft = styleAttribute<int>(MarginLeftAttribute);
     int marginTop = styleAttribute<int>(MarginTopAttribute);
 
-		const QPixmap *triangle = DuiTheme::pixmap(	styleAttribute<const QString>(TriangleBackgroundAttribute),
-																								styleAttribute<const QSize>(TriangleBackgroundSizeAttribute));
+	const QPixmap *triangle = DuiTheme::pixmap(	styleAttribute<const QString>(TriangleBackgroundAttribute),
+																styleAttribute<const QSize>(TriangleBackgroundSizeAttribute));
 
     if (triangle != NULL) {
 
-				QPointF trianglePoint(	styleAttribute<QPointF>(TrianglePosAttribute).x() + marginLeft,
-																styleAttribute<QPointF>(TrianglePosAttribute).y() + marginTop		);
+		QPointF trianglePoint(	styleAttribute<QPointF>(TrianglePosAttribute).x() + marginLeft,
+														styleAttribute<QPointF>(TrianglePosAttribute).y() + marginTop		);
 
         painter->drawPixmap(trianglePoint, *triangle);
-		}
+	}
 }
 
 void DcpButtonView::paintText(QPainter *painter)

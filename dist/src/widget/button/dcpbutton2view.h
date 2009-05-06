@@ -21,6 +21,8 @@ public:
 
     virtual void paintText(QPainter *painter);
 
+	virtual QRectF boundingRect() const;
+
 private:
     Q_DISABLE_COPY(DcpButton2View);
 };

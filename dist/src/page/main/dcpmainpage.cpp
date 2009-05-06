@@ -26,8 +26,7 @@ void DcpMainPage::createContent()
     m_Category->setMaxColumns(2);
 
     // most recent used items:
-    DcpRecentlyUsedComponent* recentlyComp = new DcpRecentlyUsedComponent(
-                                                    m_Category);
+    DcpRecentlyUsedComponent* recentlyComp = new DcpRecentlyUsedComponent(m_Category, this);
 
     connect(recentlyComp, SIGNAL(openSubPage(Pages::Handle)),
                 this, SIGNAL(openSubPage(Pages::Handle)));

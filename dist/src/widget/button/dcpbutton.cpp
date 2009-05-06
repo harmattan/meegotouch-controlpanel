@@ -12,6 +12,15 @@
 DcpButton::DcpButton(int buttonType, const QString &title, DuiWidget *parent, const QString &type) : DuiButton(title, parent, type)
 {
 
+Q_ASSERT(parent);
+
+//qDebug() << "-------------------------------------------------------------------------------";
+//qDebug() << "maximumSize:   " <<  parent->maximumSize().width() << "   X   " << parent->maximumSize().height();
+//qDebug() << "preferredSize:   " << parent->preferredSize().width() << "   X   " << parent->preferredSize().height();
+//qDebug() << "geometry:   " << parent->geometry().width() << "   X   " << parent->geometry().height(); 
+//qDebug() << "contentsRect:   " << parent->contentsRect().width() << "   X   " << parent->contentsRect().height(); 
+//qDebug() << "-------------------------------------------------------------------------------";
+
 	switch (buttonType) {
 		case DCPLABEL :
 		break;
@@ -33,10 +42,10 @@ DcpButton::DcpButton(int buttonType, const QString &title, DuiWidget *parent, co
 	connect(m_View, SIGNAL(clicked()), this, SIGNAL(clicked()));
 
 	setMinimumWidth(m_View->width());
-    setMaximumWidth(m_View->width());
+//    setMaximumWidth(m_View->width());
 
 	setMinimumHeight(m_View->height());
-    setMaximumHeight(m_View->height());
+ //   setMaximumHeight(m_View->height());
 
 }
 

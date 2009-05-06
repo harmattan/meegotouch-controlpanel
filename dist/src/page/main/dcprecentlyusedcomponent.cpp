@@ -14,6 +14,9 @@ DcpRecentlyUsedComponent::DcpRecentlyUsedComponent(
                             QGraphicsWidget *parent)
         : DcpComponent(category, DcpMain::mostRecentUsedTitle, parent)
 {
+
+	Q_ASSERT(parent);
+
     createContents();
 }
 
@@ -22,17 +25,15 @@ void DcpRecentlyUsedComponent::createContents()
     DuiContainer *box = new DuiContainer(this);
     box->setTitle(title());
 
-    m_MostUsedCategory = new DcpMostUsedCategory("TXT");
-    connect(m_MostUsedCategory, SIGNAL(openSubPage(Pages::Handle)),
-                this, SIGNAL(openSubPage(Pages::Handle)));
+    m_MostUsedCategory = new DcpMostUsedCategory("TXT", this);
+    connect(m_MostUsedCategory, SIGNAL(openSubPage(Pages::Handle)), this, SIGNAL(openSubPage(Pages::Handle)));
 
     box->setCentralWidget(m_MostUsedCategory);
  //   box->setCentralWidget(button);
 
     DuiLayout* layout = new DuiLayout(this);
     layout->setAnimator(NULL);
-    DuiLinearLayoutPolicy* layoutPolicy = new DuiLinearLayoutPolicy(layout,
-                                                            Qt::Vertical);
+    DuiLinearLayoutPolicy* layoutPolicy = new DuiLinearLayoutPolicy(layout, Qt::Vertical);
     layoutPolicy->addItemAtPosition(box, 0);
     layout->setPolicy(layoutPolicy);
 }

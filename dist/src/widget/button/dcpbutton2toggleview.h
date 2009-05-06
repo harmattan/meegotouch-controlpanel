@@ -25,6 +25,10 @@ public:
 	virtual void paintToggleLeft(QPainter *painter);
 	virtual void paintToggleRight(QPainter *painter);
 
+//	virtual QSizeF sizeHint(Qt::SizeHint which, const QSizeF &constraint) const ;
+
+	virtual QRectF boundingRect() const;
+
 protected:
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
