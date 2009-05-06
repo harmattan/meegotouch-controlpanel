@@ -26,8 +26,6 @@ void DcpButton2ToggleView::paint(QPainter *painter, const QStyleOptionGraphicsIt
 
 	paintLine(painter);
 
-//qDebug() << "paint   size   " << size().width() << "   X   "<< size().height();
-
 
 	if ( m_Alignment==Qt::AlignLeft ) {
 		paintTriangle(painter);
@@ -39,11 +37,6 @@ void DcpButton2ToggleView::paint(QPainter *painter, const QStyleOptionGraphicsIt
 		paintTextRight(painter, m_EnableToggle);
 		paintToggleRight(painter);
 	}
-
-//	painter->setPen(Qt::blue);
-//	painter->setBrush(Qt::NoBrush);
-//	painter->drawRect(boundingRect());
-
 
 	return;
 }

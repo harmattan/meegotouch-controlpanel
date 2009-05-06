@@ -96,8 +96,9 @@ void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata, bool line)
 		qDebug() << "DCP: connecting to " << metadata->name();
 		component->setSubPage(Pages::APPLETFROMMOSTUSED, metadata->name());
 		connect(component, SIGNAL(openSubPage(Pages::Handle)), this, SIGNAL(openSubPage(Pages::Handle)));
-		//append(component);
+		append(component);
 
+/* ONLY TEST VERSION
 static int localCnt = 0;
 
 ++localCnt;
@@ -105,8 +106,6 @@ if (localCnt == 2 || localCnt ==6)
 	add(component);
 else
 	append(component);
-
+*/
 	}
-
-
 }

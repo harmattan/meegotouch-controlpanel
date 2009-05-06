@@ -51,6 +51,7 @@ DcpButton2ImageView::DcpButton2ImageView(DcpButton &button) :
 
 DcpButton2ImageView::~DcpButton2ImageView()
 {
+	delete m_Image;
 }
 
 void DcpButton2ImageView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
