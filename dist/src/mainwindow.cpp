@@ -10,7 +10,7 @@
 
 MainWindow::MainWindow()
 {
-      Pages::Handle handle = {Pages::MAIN, ""};
+   Pages::Handle handle = {Pages::MAIN, ""};
   // Pages::Handle handle = {Pages::APPLET, "Language"};
    changePage(handle);
 }
@@ -63,6 +63,7 @@ MainWindow::changePage(Pages::Handle handle)
     page->addAction(rotateAction);
 
     page->appear(DuiSceneWindow::KeepWhenDone); //TODO -> Destroy
+    qDebug() << "XXX" << DuiDeviceProfile::instance()->resolution();
 }
 
 

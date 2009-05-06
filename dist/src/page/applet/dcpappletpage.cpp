@@ -64,7 +64,7 @@ void
 DcpAppletPage::changeWidget(int widgetId)
 {
     if (m_MainWidget != NULL)
-        remove(m_MainWidget);
+        delete m_MainWidget;
 
     m_MainWidget = m_AppletLoader->applet()->constructWidget(widgetId);
     connect(m_MainWidget, SIGNAL(changeWidget(int)), this, SLOT(changeWidget(int)));
@@ -88,7 +88,8 @@ DcpAppletPage::changeWidget(int widgetId)
 void DcpAppletPage::setUpMainWidgetSize()
 {
     if (m_MainWidget){
-        m_MainWidget->setMinimumWidth(DuiDeviceProfile::instance()->width() - 30);
+        m_MainWidget->setMinimumWidth(DuiDeviceProfile::instance()->width() - 50);
+        m_MainWidget->setMaximumWidth(DuiDeviceProfile::instance()->width() - 50);
         m_MainWidget->setMinimumHeight(DuiDeviceProfile::instance()->height() - 100);
     }
 }

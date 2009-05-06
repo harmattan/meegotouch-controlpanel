@@ -4,8 +4,10 @@
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
 #include <duilabel.h>
+#include <duiseparator.h>
 
 const int height = 88;
+const int devide = 35;
 
 LanguageLabel::LanguageLabel(const QString &upText,
                             const QString &downText,
@@ -30,25 +32,6 @@ LanguageLabel::~LanguageLabel()
 {
 }
 
-void LanguageLabel::paint(QPainter *painter,
-                          const QStyleOptionGraphicsItem *option,
-                          QWidget *parent)
-{
-    Q_UNUSED(option);
-    Q_UNUSED(parent);
-
-    int borderWidth = 2;
-    QColor lineColor = QColor(80, 80, 80, 244);
-    QPen pen = painter->pen();
-    pen.setWidth(1);
-    pen.setColor(lineColor);
-    painter->setPen(pen);
-                            
-    qreal y = size().height();
-    painter->drawLine(borderWidth, y,
-                      geometry().size().width() - 2 * borderWidth, y);
-}
-
 void LanguageLabel::initWidget()
 {
     // mainLayout
@@ -57,13 +40,20 @@ void LanguageLabel::initWidget()
     DuiLinearLayoutPolicy *mainLayoutPolicy =
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayoutPolicy->setContentsMargins(20.0, 1.0, 12.0, 1.0);
+    mainLayoutPolicy->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     mainLayoutPolicy->setSpacing(2);
     this->setAcceptedMouseButtons(0);
+    
+    // greySeparator
+    DuiSeparator *greySeparator = new DuiSeparator(this);
+    greySeparator->setObjectName("GreySeparator");
+    greySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+
+    QString space("    ");
 
     if (m_DownText.isEmpty()) {
         // single label
-        DuiLabel *label = new DuiLabel(m_UpText, this);
+        DuiLabel *label = new DuiLabel(space + m_UpText, this);
         label->setObjectName("LanguageLeftLabel");
         label->setAcceptedMouseButtons(0);
         mainLayoutPolicy->addItemAtPosition(
@@ -72,15 +62,16 @@ void LanguageLabel::initWidget()
         mainLayoutPolicy->addItemAtPosition(label, 1, Qt::AlignLeft | Qt::AlignVCenter);
         mainLayoutPolicy->addItemAtPosition(
                      new DcpSpacerItem(this, 10, 10, QSizePolicy::Fixed, QSizePolicy::Expanding),
-                     2, Qt::AlignCenter);   
+                     2, Qt::AlignCenter);
+        mainLayoutPolicy->addItemAtPosition(greySeparator, 3, Qt::AlignCenter);   
     } else {
         // upLabel
-        DuiLabel *upLabel = new DuiLabel(m_UpText, this);
+        DuiLabel *upLabel = new DuiLabel(space + m_UpText, this);
         upLabel->setObjectName("LanguageUpLabel");
         upLabel->setAcceptedMouseButtons(0);
 
         // downLabel
-        DuiLabel *downLabel = new DuiLabel(m_DownText, this);
+        DuiLabel *downLabel = new DuiLabel(space + m_DownText, this);
         downLabel->setObjectName("LanguageDownLabel");
         downLabel->setAcceptedMouseButtons(0);
 
@@ -92,8 +83,8 @@ void LanguageLabel::initWidget()
         mainLayoutPolicy->addItemAtPosition(
                         new DcpSpacerItem(this, 10, 10, QSizePolicy::Fixed, QSizePolicy::Expanding),
                         3, Qt::AlignCenter);
+        mainLayoutPolicy->addItemAtPosition(greySeparator, 4, Qt::AlignCenter);
     }
-
     this->setLayout(mainLayout);
 
     // fixed sizes
@@ -108,6 +99,6 @@ void LanguageLabel::initWidget()
 
 void LanguageLabel::onOrientationAngleChanged()
 {
-    setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - 20);
-    setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - 20);
+    setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+    setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
 }

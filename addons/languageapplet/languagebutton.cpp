@@ -7,6 +7,7 @@
 #include <duibutton.h>
 #include <duilabel.h>
 #include <duitheme.h>
+#include <duiseparator.h>
 
 const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/";
 const int rowHeight = 90;
@@ -17,7 +18,6 @@ LanguageButton::LanguageButton(QString upText,
                :DuiButton(parent),
                 m_UpText(upText),
                 m_DownText(downText)
-		        // m_Background(NULL)
 {
     DuiTheme::loadCSS(cssDir + "languageapplet.css");
     initWidget();
@@ -25,50 +25,15 @@ LanguageButton::LanguageButton(QString upText,
 
 LanguageButton::~LanguageButton()
 {
-    /* if (m_Background)
-    {
-        DuiTheme::releasePixmap(m_Background);
-    }*/
 }
 
 void LanguageButton::paint(QPainter *painter,
                            const QStyleOptionGraphicsItem *option,
                            QWidget *widget)
 {
-    // Q_UNUSED(painter);
+    Q_UNUSED(painter);
     Q_UNUSED(option);
     Q_UNUSED(widget);
-
-    // if available, then draw it:
-    /* if (m_Background) 
-    {
-        painter->drawPixmap(0, 0, *m_Background);
-    }*/
-
-    int borderWidth = 2;
-    QColor lineColor = QColor(130, 130, 130, 244);
-    QPen pen = painter->pen();
-    pen.setWidth(1);
-    pen.setColor(lineColor);
-    painter->setPen(pen);
-
-    qreal y = size().height();
-    painter->drawLine(borderWidth, y,
-                      geometry().size().width() - 2 * borderWidth, y);
-}
-
-void LanguageButton::resizeEvent(QGraphicsSceneResizeEvent *event)
-{
-    Q_UNUSED(event);
-
-    /* QSize size = this->size().toSize();
-    static const int border = 10;
-    if (m_Background)
-    {
-        DuiTheme::releasePixmap(m_Background);
-    }
-    m_Background = DuiTheme::boxedPixmap("C2-container", size,
-                                         border, border, border, border);*/
 }
 
 void LanguageButton::setUpText(const QString &text)
@@ -83,10 +48,17 @@ void LanguageButton::setDownText(const QString &text)
 
 void LanguageButton::initWidget()
 {
-    this->setObjectName("LanguageButton");
+    // mainMainLayout
+    DuiLayout *mainMainLayout = new DuiLayout(this);
+    mainMainLayout->setAnimator(NULL);
+    DuiLinearLayoutPolicy *mainMainLayoutPolicy =
+        new DuiLinearLayoutPolicy(mainMainLayout, Qt::Vertical);
+    mainMainLayout->setPolicy(mainMainLayoutPolicy);
+    mainMainLayoutPolicy->setContentsMargins(1.0, 1.0, 1.0, 1.0);
+    mainMainLayoutPolicy->setSpacing(1);
     
     // mainLayout
-    DuiLayout *mainLayout = new DuiLayout(this);
+    DuiLayout *mainLayout = new DuiLayout(NULL);
     mainLayout->setAnimator(NULL);
     DuiGridLayoutPolicy *mainLayoutPolicy =
             new DuiGridLayoutPolicy(mainLayout);
@@ -140,7 +112,15 @@ void LanguageButton::initWidget()
     seeMoreSmall->setZValue(1);
     m_UpLabel->setZValue(2);
     m_DownLabel->setZValue(3);
-    this->setLayout(mainLayout);
+
+    // greySeparator
+    DuiSeparator *greySeparator = new DuiSeparator(this);
+    greySeparator->setObjectName("GreySeparator");
+
+    // Add items to mainMainLayoutPolicy
+    mainMainLayoutPolicy->addItemAtPosition(mainLayout, 0, Qt::AlignCenter);
+    mainMainLayoutPolicy->addItemAtPosition(greySeparator, 1, Qt::AlignCenter);
+    this->setLayout(mainMainLayout);
     
     // fixed size
     setMinimumHeight(rowHeight);

@@ -3,7 +3,6 @@
 
 #include <DuiButton>
 class DuiLabel;
-// class QPixmap;
 
 class LanguageButton : public DuiButton 
 {
@@ -13,16 +12,12 @@ public:
     LanguageButton(QString upText, 
                    QString downText, 
                    DuiWidget *parent = 0);
-
     virtual ~LanguageButton();
-
     //! \reimp
-    virtual void paint(QPainter *painter,
+    void paint(QPainter *painter,
                const QStyleOptionGraphicsItem *option,
-               QWidget *widget = 0);
-    virtual void resizeEvent(QGraphicsSceneResizeEvent *event);
+               QWidget *widget);
     //! \reimp_end
-
     void setUpText(const QString &text);
     void setDownText(const QString &text);
     
@@ -34,6 +29,5 @@ private:
     QString m_DownText;
     DuiLabel *m_UpLabel;
     DuiLabel *m_DownLabel;
-    // const QPixmap *m_Background;
 };
 #endif

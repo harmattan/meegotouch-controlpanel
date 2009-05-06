@@ -14,7 +14,10 @@ public:
     KeyboardDialog();
     virtual ~KeyboardDialog();
     void close();
-    
+
+signals:
+    void reopen();
+
 protected:
     void initWidget();
 

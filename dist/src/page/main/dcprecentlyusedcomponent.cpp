@@ -20,17 +20,22 @@ DcpRecentlyUsedComponent::DcpRecentlyUsedComponent(
 void DcpRecentlyUsedComponent::createContents()
 {
     DuiContainer *box = new DuiContainer(this);
+    box->setSizePolicy(QSizePolicy::Expanding,
+                                 QSizePolicy::Expanding);
     box->setTitle(title());
 
-    m_MostUsedCategory = new DcpMostUsedCategory("TXT", this);
-    connect(m_MostUsedCategory, SIGNAL(openSubPage(Pages::Handle)), this, SIGNAL(openSubPage(Pages::Handle)));
+    m_MostUsedCategory = new DcpMostUsedCategory("");
+    connect(m_MostUsedCategory, SIGNAL(openSubPage(Pages::Handle)),
+                this, SIGNAL(openSubPage(Pages::Handle)));
 
     box->setCentralWidget(m_MostUsedCategory);
  //   box->setCentralWidget(button);
 
     DuiLayout* layout = new DuiLayout(this);
     layout->setAnimator(NULL);
-    DuiLinearLayoutPolicy* layoutPolicy = new DuiLinearLayoutPolicy(layout, Qt::Vertical);
+    layout->setContentsMargins(0,0,0,0);
+    DuiLinearLayoutPolicy* layoutPolicy = new DuiLinearLayoutPolicy(layout,
+                                                            Qt::Vertical);
     layoutPolicy->addItemAtPosition(box, 0);
     layout->setPolicy(layoutPolicy);
 }
@@ -41,3 +46,4 @@ void DcpRecentlyUsedComponent::onOrientationChange
 {
     m_MostUsedCategory->onOrientationChange(orientation);
 }
+

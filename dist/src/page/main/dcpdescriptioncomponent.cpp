@@ -21,14 +21,17 @@ void
 DcpDescriptionComponent::createContents()
 {
     m_Container = new DuiContainer(this);
+
     m_Container->setAcceptedMouseButtons(0);
+    m_Container->setSizePolicy(QSizePolicy::Expanding,
+                                 QSizePolicy::Expanding);
     setTitle(title());
 
 //    m_Container->setText("More...");
 //     m_Container->setExpand(true);
 //     m_Container->setIconID("My-Icon-ID");
 
-    m_Description = new DuiLabel();
+    m_Description = new DuiLabel(m_Container);
     m_Description->setObjectName("ComponentDescription");
     m_Description->setWordWrap(true);
     m_Description->setAcceptedMouseButtons(0);
@@ -39,6 +42,7 @@ DcpDescriptionComponent::createContents()
 
     DuiLayout* layout = new DuiLayout(this);
     layout->setAnimator(NULL);
+    layout->setContentsMargins(0,0,0,0);
     DuiLinearLayoutPolicy* layoutPolicy = new DuiLinearLayoutPolicy(layout,
                                                             Qt::Vertical);
     layoutPolicy->addItemAtPosition(m_Container, 0);
