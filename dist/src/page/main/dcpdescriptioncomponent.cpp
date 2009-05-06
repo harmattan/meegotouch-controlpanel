@@ -23,6 +23,8 @@ DcpDescriptionComponent::createContents()
     m_Container = new DuiContainer(this);
 
     m_Container->setAcceptedMouseButtons(0);
+    m_Container->setSizePolicy(QSizePolicy::Expanding,
+                                 QSizePolicy::Expanding);
     setTitle(title());
 
 //    m_Container->setText("More...");
@@ -33,17 +35,9 @@ DcpDescriptionComponent::createContents()
     m_Description->setObjectName("ComponentDescription");
     m_Description->setWordWrap(true);
     m_Description->setAcceptedMouseButtons(0);
-    m_Description->setSizePolicy(QSizePolicy::Maximum,
+    m_Description->setSizePolicy(QSizePolicy::Expanding,
                                  QSizePolicy::Expanding);
-/*    m_Description->setSizePolicy(QSizePolicy::Expanding,
-                                 QSizePolicy::Expanding);*/
-    m_Container->setMinimumSize(320,250);
-    m_Container->setMaximumSize(320,250);
-    m_Container->setPreferredSize(320,250);
-    m_Description->setMinimumSize(300,250);
-    m_Description->setMaximumSize(300,250);
-    m_Description->setPreferredSize(300,250);
-    
+
     m_Container->setCentralWidget(m_Description);
 
     DuiLayout* layout = new DuiLayout(this);

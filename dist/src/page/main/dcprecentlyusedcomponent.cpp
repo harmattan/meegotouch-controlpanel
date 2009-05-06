@@ -20,9 +20,11 @@ DcpRecentlyUsedComponent::DcpRecentlyUsedComponent(
 void DcpRecentlyUsedComponent::createContents()
 {
     DuiContainer *box = new DuiContainer(this);
+    box->setSizePolicy(QSizePolicy::Expanding,
+                                 QSizePolicy::Expanding);
     box->setTitle(title());
 
-    m_MostUsedCategory = new DcpMostUsedCategory("TXT");
+    m_MostUsedCategory = new DcpMostUsedCategory("");
     connect(m_MostUsedCategory, SIGNAL(openSubPage(Pages::Handle)),
                 this, SIGNAL(openSubPage(Pages::Handle)));
 
@@ -44,3 +46,4 @@ void DcpRecentlyUsedComponent::onOrientationChange
 {
     m_MostUsedCategory->onOrientationChange(orientation);
 }
+
