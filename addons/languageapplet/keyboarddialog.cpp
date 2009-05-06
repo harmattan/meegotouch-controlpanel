@@ -7,8 +7,12 @@
 
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
-#include <duiquerydialog.h>
 
+#ifdef QUERY_DIALOG
+    #include <duiquerydialog.h>
+#else
+    #include <DuiMessageBox>
+#endif
 
 KeyboardDialog::KeyboardDialog()
               :CommonDialog(DcpLanguage::SelectKeyboardText)
@@ -63,6 +67,7 @@ void KeyboardDialog::initWidget()
     this->setCentralWidget(centralWidget);
 }
 
+#ifdef QUERY_DIALOG
 void KeyboardDialog::close()
 {
     DcpDialog::close();
@@ -72,7 +77,7 @@ void KeyboardDialog::close()
             DuiButton* keepPrevious = query.addButton("Keep previous");
             query.addButton("Select new");
             query.exec();
-            if (query.clickedButton() == keepPrevious) //DuiDialog::Accepted is wrong!!!
+            if (query.clickedButton() == keepPrevious)
             {
                 qDebug("DCP: accepted");
                 DcpLanguageConf::instance()->setKeyboardLanguages(m_OldLanguages);
@@ -81,6 +86,27 @@ void KeyboardDialog::close()
 	        }
     }
 }
+#else
+void KeyboardDialog::close()
+{
+    if (!DcpLanguageConf::instance()->keyboardLanguagesNumber()) {
+        DuiMessageBox mb("Keep last selection of languages?",
+                         DuiMessageBox::Ok|DuiMessageBox::Cancel);
+        int result = mb.exec();
+        qDebug() << "DCP: result is" << result;
+        if (result == 1) { //DuiDialog::Accepted is wrong!!!
+            qDebug("DCP: accepted");
+            DcpLanguageConf::instance()->setKeyboardLanguages(m_OldLanguages);
+            DcpDialog::close();
+        } else {
+            mb.disappear();  
+            return; 
+        }
+    }
+
+    DcpDialog::close();
+}
+#endif
 
 void KeyboardDialog::removeContainer(LanguageLabelButtonContainer *container)
 {

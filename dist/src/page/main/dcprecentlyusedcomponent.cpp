@@ -24,7 +24,7 @@ void DcpRecentlyUsedComponent::createContents()
                                  QSizePolicy::Expanding);
     box->setTitle(title());
 
-    m_MostUsedCategory = new DcpMostUsedCategory("");
+    m_MostUsedCategory = new DcpMostUsedCategory("TXT");
     connect(m_MostUsedCategory, SIGNAL(openSubPage(Pages::Handle)),
                 this, SIGNAL(openSubPage(Pages::Handle)));
 
