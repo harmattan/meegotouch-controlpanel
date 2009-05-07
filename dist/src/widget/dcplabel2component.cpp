@@ -41,8 +41,4 @@ void DcpLabel2Component::createContents()
 
 }
 
-// FIXME: move this to basiccomponent once it has the DcpButton 
-void DcpLabel2Component::setBgObjectName(const QString& objectName) {
-    m_Button->setObjectName(objectName);
-}
 
