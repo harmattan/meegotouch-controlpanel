@@ -2,6 +2,7 @@ QMAKE_LIBDIR  += ../../lib/lib/
 TEMPLATE      = lib
 CONFIG       += plugin gui dui silent
 LIBS         += -lduicontrolpanel
+
 INCLUDEPATH  += $$system(find ../../lib/src/ -type d) \
              += /usr/include/duivaluespace 
 
