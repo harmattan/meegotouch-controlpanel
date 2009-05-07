@@ -8,6 +8,8 @@ namespace LanguageKey
     const QString CurrentLanguage = Languages + "current";
     const QString KeyboardLayout = InputMethod + "keyboard-layout/";
     const QString CurrentKeyboardLayout = KeyboardLayout + "current";
+    const QString SettingsLanguage("Dui.i18n.Language");
+    const QString SettingsCountry("Dui.i18n.Country");
 };
 
 DcpLanguageConf *DcpLanguageConf::sm_Instance = NULL;
@@ -43,13 +45,20 @@ DcpLanguageConf::~DcpLanguageConf()
 QString 
 DcpLanguageConf::displayLanguage()
 {
-    return m_Settings.value(LanguageKey::CurrentLanguage).toString();
+    QVariant val;
+    QString lang = "-";
+    if (getValue(LanguageKey::SettingsLanguage, val))
+        lang = val.toString();
+    return lang;
+    //return m_Settings.value(LanguageKey::CurrentLanguage).toString();
 }
 
 void 
 DcpLanguageConf::setDisplayLanguage(QString displayLanguage)
 {
-    m_Settings.setValue(LanguageKey::CurrentLanguage, displayLanguage);
+    //m_Settings.setValue(LanguageKey::CurrentLanguage, displayLanguage);
+    if (!set(LanguageKey::SettingsLanguage, displayLanguage))
+        qDebug() << "DCP" << "Setting display language failed";
 }
 
 QStringList 

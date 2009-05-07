@@ -26,10 +26,6 @@ protected:
     QStringList defaultLanguages();
 private:
     static DcpLanguageConf *sm_Instance;
-    // This will come from GConf. 
-    // Storing in private member is for test only!
-//    QStringList m_availableInputLanguages;
-//    QStringList m_availableKeyboardLanguages;
     QSettings m_Settings;
 };
 #endif // DCPLANGUAGECONF_H
