@@ -16,14 +16,6 @@ public:
                      const QString &text, 
                      DuiWidget *parent = 0);
     virtual ~LanguageListItem();
-
-    //! reimp
-    virtual void paint(QPainter *painter,
-               const QStyleOptionGraphicsItem *option,
-               QWidget *widget = 0);
-    void resizeEvent(QGraphicsSceneResizeEvent *event);
-    //! reimp_end
-
     void checked(bool ok);
     bool isChecked();
     bool isClicked();

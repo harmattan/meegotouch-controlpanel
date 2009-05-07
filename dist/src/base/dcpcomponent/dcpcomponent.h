@@ -1,12 +1,12 @@
 #ifndef DCPCOMPONENT_H
 #define DCPCOMPONENT_H
 
-#include <duiwidgetcontroller.h>
+#include <duiwidget.h>
 #include "pages.h"
 
 class DcpCategory;
 
-class DcpComponent : public DuiWidgetController
+class DcpComponent : public DuiWidget
 {
     Q_OBJECT
 public:
@@ -17,18 +17,14 @@ public:
     virtual void setTitle(const QString& title) {m_Title = title;}
     void setSubPage(Pages::Handle subPage) {m_SubPage = subPage;}; 
     void setSubPage(Pages::Id id, const QString &param="") 
-        {m_SubPage.id = id; m_SubPage.param = param;};          
-    Pages::Handle subPage() const {return m_SubPage;};                      
+        {m_SubPage.id = id; m_SubPage.param = param;};
+    Pages::Handle subPage() const {return m_SubPage;};
     // Composite Pattern Interface	
     virtual void add(DcpComponent *component)=0;
     virtual void remove(DcpComponent *component)=0;
 
     virtual DcpComponent* child(int i) const;
     DcpCategory* category() const {return 0;}
-
-    virtual QSizeF sizeHint(Qt::SizeHint which,
-                            const QSizeF & constraint = QSizeF()) const;
-    QRectF boundingRect() const;
 
 protected:
     virtual void createContents()=0;

@@ -82,7 +82,7 @@ void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata, bool odd)
                         this, SIGNAL(openSubPage(Pages::Handle)));
         if (odd)
         {	
-    qobject_cast<DcpLabel2Component*>(component)->setBgObjectName("AppletPageDcpButton2");
+    qobject_cast<DcpLabel2Component*>(component)->setBgObjectName("AppletPageDcpButton");
             qDebug("Dcp: ADD");
             component->setMinimumWidth(size().width());
             m_Category->add(component);

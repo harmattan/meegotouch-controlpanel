@@ -8,9 +8,11 @@
 #include <duilinearlayoutpolicy.h>
 #include <duilabel.h>
 #include <duibutton.h>
+#include <duiseparator.h>
 #include <qgraphicswidget.h>
 
-const int height = 60;
+const int height = 70;
+const int devide = 35;
 
 LanguageListItem::LanguageListItem(const QString &langCode,
                                    const QString &text, 
@@ -27,31 +29,6 @@ LanguageListItem::LanguageListItem(const QString &langCode,
 
 LanguageListItem::~LanguageListItem()
 {
-}
-
-void LanguageListItem::paint(QPainter *painter,
-                             const QStyleOptionGraphicsItem *option,
-                             QWidget *widget)
-{
-    // Q_UNUSED(painter);
-    Q_UNUSED(option);
-    Q_UNUSED(widget);
-
-    int borderWidth = 2;
-    QColor lineColor = QColor(80, 80, 80, 244);
-    QPen pen = painter->pen();
-    pen.setWidth(1);
-    pen.setColor(lineColor);
-    painter->setPen(pen);
-
-    qreal y = size().height();
-    painter->drawLine(borderWidth, y,
-                      geometry().size().width() - 2 * borderWidth, y); 
-}
-
-void LanguageListItem::resizeEvent(QGraphicsSceneResizeEvent *event)
-{
-    Q_UNUSED(event);
 }
 
 void LanguageListItem::checked(bool ok)
@@ -104,16 +81,15 @@ bool LanguageListItem::isClicked()
 
 void LanguageListItem::initWidget()
 {
+    // mainLayout
     DuiLayout *mainLayout = new DuiLayout(this);
     mainLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *mainLayoutPolicy = 
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayoutPolicy->addItemAtPosition(
-                    new DcpSpacerItem(this, 5, 5, 
-                            QSizePolicy::Fixed, QSizePolicy::Expanding),
-                    0, Qt::AlignCenter);
-
+    mainLayoutPolicy->setContentsMargins(1.0, 1.0, 1.0, 1.0);
+    mainLayoutPolicy->setSpacing(1);
+    
     // label
     DuiLayout *labelLayout = new DuiLayout(NULL);
     labelLayout->setAnimator(NULL);
@@ -127,12 +103,10 @@ void LanguageListItem::initWidget()
     m_NormalLabel = new DuiLabel("<font color=#ffffff>" + m_LabelText + "</font>", this);
     m_NormalLabel->setObjectName("LanguageNormalListItem");
     m_NormalLabel->setAcceptedMouseButtons(0);
-    m_NormalLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    m_NormalLabel->setMinimumWidth(300);
-    m_LabelLayoutPolicy->addItemAtPosition(m_NormalLabel, 0, 1);
     
+    m_LabelLayoutPolicy->addItemAtPosition(m_NormalLabel, 0, 1);
     m_LabelLayoutPolicy->addItemAtPosition(
-                    new DcpSpacerItem(this, 30, 5, QSizePolicy::Expanding, QSizePolicy::Fixed),
+                    new DcpSpacerItem(this, 10, 5, QSizePolicy::Expanding, QSizePolicy::Fixed),
                     0, 2);
 
     // checkMark
@@ -140,18 +114,29 @@ void LanguageListItem::initWidget()
     
     DuiWidget* labelWidget = new DuiWidget(this);
     labelWidget->setLayout(labelLayout);
-    mainLayoutPolicy->addItemAtPosition(labelWidget, 1, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(new DcpSpacerItem(this, 5, 5,
-                                  QSizePolicy::Fixed, QSizePolicy::Expanding),
-                                  2, Qt::AlignCenter);
 
-    // set height
-    setMinimumHeight(height);
-    setMaximumHeight(height);
+    // greySeparator
+    DuiSeparator *greySeparator = new DuiSeparator(this);
+    greySeparator->setObjectName("GreySeparator");
+    greySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+    
+    // Add items to mainLayoutPolicy
+    mainLayoutPolicy->addItemAtPosition(
+            new DcpSpacerItem(this, 5, 5, QSizePolicy::Fixed, QSizePolicy::Expanding),
+            0, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(labelWidget, 1, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(
+            new DcpSpacerItem(this, 5, 5, QSizePolicy::Fixed, QSizePolicy::Expanding),
+            2, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(greySeparator, 3, Qt::AlignCenter);
 
     connect(DuiDeviceProfile::instance(), SIGNAL(orientationAngleChanged (DuiDeviceProfile::DeviceOrientationAngle)),
             this, SLOT(onOrientationAngleChanged ()));
     onOrientationAngleChanged();
+
+    // set height
+    setMinimumHeight(height);
+    setMaximumHeight(height);
 }
 
 void LanguageListItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -173,7 +158,8 @@ void LanguageListItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 void LanguageListItem::onOrientationAngleChanged()
 {
     // set width
-    int devide = 20;
-    setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
-    setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+    this->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+    this->setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+    this->setMinimumHeight(height);
+    this->setMaximumHeight(height);
 }

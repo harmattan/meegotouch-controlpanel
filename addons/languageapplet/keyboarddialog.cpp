@@ -7,8 +7,13 @@
 
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
-#include <DuiMessageBox>
-        
+
+#ifdef QUERY_DIALOG
+    #include <duiquerydialog.h>
+#else
+    #include <DuiMessageBox>
+#endif
+
 KeyboardDialog::KeyboardDialog()
               :CommonDialog(DcpLanguage::SelectKeyboardText)
 {
@@ -35,34 +40,53 @@ void KeyboardDialog::initWidget()
     widgetLayoutPolicy->setSpacing(5);
 
     // DownloadedLanguage
-    LanguageLabelButtonContainer *downloadedCont =
+    /* LanguageLabelButtonContainer *downloadedCont =
         new LanguageLabelButtonContainer(LanguageLabelButtonContainer::DOWNLOADED,
                                          centralWidget);
     connect(downloadedCont, SIGNAL(removeMe(LanguageLabelButtonContainer*)),
-            this, SLOT(removeContainer(LanguageLabelButtonContainer*)));
-    
+            this, SLOT(removeContainer(LanguageLabelButtonContainer*)));*/
+
     // InstalledLanguage
     LanguageLabelButtonContainer *installedCont =
         new LanguageLabelButtonContainer(LanguageLabelButtonContainer::INSTALLED,
                                          centralWidget);
     connect(installedCont, SIGNAL(removeMe(LanguageLabelButtonContainer*)),
             this, SLOT(removeContainer(LanguageLabelButtonContainer*)));
-    
+
     // KeyboardSelectContainer
     KeyboardSelectContainer *selectCont =
         new KeyboardSelectContainer(DcpLanguage::InDeviceText,
                 DcpLanguageConf::instance()->availableKeyboardLanguages(), centralWidget);
 
     // Add items to widgetLayoutPolicy
-    widgetLayoutPolicy->addItemAtPosition(downloadedCont, 0, Qt::AlignCenter);
-    widgetLayoutPolicy->addItemAtPosition(installedCont, 1, Qt::AlignCenter);
-    widgetLayoutPolicy->addItemAtPosition(selectCont, 2, Qt::AlignCenter);
+    // widgetLayoutPolicy->addItemAtPosition(downloadedCont, 0, Qt::AlignCenter);
+    widgetLayoutPolicy->addItemAtPosition(installedCont, 0, Qt::AlignCenter);
+    widgetLayoutPolicy->addItemAtPosition(selectCont, 1, Qt::AlignCenter);
 
     // setCentralWidget
     this->setCentralWidget(centralWidget);
-
 }
 
+#ifdef QUERY_DIALOG
+void KeyboardDialog::close()
+{
+    DcpDialog::close();
+    if (!DcpLanguageConf::instance()->keyboardLanguagesNumber()) {
+            DuiQueryDialog query("You have not selected any keyboard language,<br>"
+                                 "would you like to keep the previous selection?");
+            DuiButton* keepPrevious = query.addButton("Keep previous");
+            query.addButton("Select new");
+            query.exec();
+            if (query.clickedButton() == keepPrevious)
+            {
+                qDebug("DCP: accepted");
+                DcpLanguageConf::instance()->setKeyboardLanguages(m_OldLanguages);
+            } else {
+		        emit reopen();
+	        }
+    }
+}
+#else
 void KeyboardDialog::close()
 {
     if (!DcpLanguageConf::instance()->keyboardLanguagesNumber()) {
@@ -82,6 +106,7 @@ void KeyboardDialog::close()
 
     DcpDialog::close();
 }
+#endif
 
 void KeyboardDialog::removeContainer(LanguageLabelButtonContainer *container)
 {
@@ -90,3 +115,4 @@ void KeyboardDialog::removeContainer(LanguageLabelButtonContainer *container)
     if (index != -1)
         m_WidgetLayout->removeAt(index);
 }
+

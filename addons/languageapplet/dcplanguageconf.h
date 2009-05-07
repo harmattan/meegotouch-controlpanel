@@ -1,10 +1,9 @@
 #ifndef DCPLANGUAGECONF_H
 #define DCPLANGUAGECONF_H
-#include "duiconf.h"
 #include <QString>
 #include <QSettings>
 #include <QStringList>
-class DcpLanguageConf : public DuiConf
+class DcpLanguageConf
 {
 public:
     static DcpLanguageConf *instance();
@@ -29,3 +28,4 @@ private:
     QSettings m_Settings;
 };
 #endif // DCPLANGUAGECONF_H
+

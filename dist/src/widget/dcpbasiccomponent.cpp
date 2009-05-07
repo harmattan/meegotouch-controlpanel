@@ -26,11 +26,13 @@ DcpBasicComponent::DcpBasicComponent(
 
  
     m_MainLayout = new DuiLayout(this);
+    m_MainLayout->setContentsMargins(0,0,0,0);
     m_MainLayout->setAnimator(NULL);
     m_MainLayoutPolicy = new DuiLinearLayoutPolicy(m_MainLayout, Qt::Vertical);
     m_MainLayout->setPolicy(m_MainLayoutPolicy);
 
     m_WidgetLayout = new DuiLayout(0);
+    m_WidgetLayout->setContentsMargins(0,0,0,0);
     m_WidgetLayoutPolicy = new DuiGridLayoutPolicy(m_WidgetLayout);
     m_WidgetLayout->setPolicy(m_WidgetLayoutPolicy);
 

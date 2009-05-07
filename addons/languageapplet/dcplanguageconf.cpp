@@ -24,7 +24,7 @@ DcpLanguageConf::instance()
     return sm_Instance;
 }
 
-DcpLanguageConf::DcpLanguageConf() : DuiConf(),
+DcpLanguageConf::DcpLanguageConf() : 
                              m_Settings("Maemo", "DuiControlPanel")
 {
     if (!m_Settings.contains(LanguageKey::CurrentLanguage))

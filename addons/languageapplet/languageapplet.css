@@ -1,8 +1,3 @@
-#LanguageButton {
-        normalBackground: "C2-container";
-        pressedBackground: "Toggle-btn-selected";
-}
-
 #LanguageButtonSeeMoreSmall {
         normalBackground: "See-more-indicator-small";
 }
@@ -83,4 +78,9 @@
         textColor: #FFFFFF;
         normalBackground: "Divider-with-label";
         horizBoxedEdgePercent: 30;
+}
+
+#GreySeparator {
+        lineWidth: 1;
+        lineColor: #505050;
 }
