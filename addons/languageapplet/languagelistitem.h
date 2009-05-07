@@ -6,6 +6,7 @@
 class DuiLabel;
 class DuiButton;
 class DuiGridLayoutPolicy;
+class DuiSeparator;
 
 class LanguageListItem : public DuiWidget
 {
@@ -41,6 +42,7 @@ private:
     bool m_Checked;
     bool m_Clicked;
     bool m_First;
+    DuiSeparator *m_GreySeparator;
     
 signals:
     void clicked(LanguageListItem *item);

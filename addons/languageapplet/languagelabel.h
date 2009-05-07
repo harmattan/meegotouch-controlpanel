@@ -3,6 +3,8 @@
 
 #include <DuiWidget>
 
+class DuiSeparator;
+
 class LanguageLabel : public DuiWidget
 {
     Q_OBJECT
@@ -24,5 +26,6 @@ protected slots:
 private:
     QString m_UpText;
     QString m_DownText;
+    DuiSeparator *m_GreySeparator;
 };
 #endif // LANGUAGELABEL_H

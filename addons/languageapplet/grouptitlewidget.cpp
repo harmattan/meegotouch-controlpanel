@@ -15,6 +15,7 @@ GroupTitleWidget::GroupTitleWidget(const QString &text, DuiWidget *parent)
     DuiLinearLayoutPolicy *mainLayoutPolicy = 
             new DuiLinearLayoutPolicy(mainLayout, Qt::Horizontal);
     mainLayout->setPolicy(mainLayoutPolicy);
+    mainLayoutPolicy->setContentsMargins(0.0, 0.0, 0.0, 0.0);
 
     // label
     DuiLabel *label = new DuiLabel(text, this);

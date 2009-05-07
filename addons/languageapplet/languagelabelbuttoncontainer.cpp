@@ -28,7 +28,7 @@ void LanguageLabelButtonContainer::initWidget()
     DuiLinearLayoutPolicy *mainLayoutPolicy =
             new DuiLinearLayoutPolicy(m_MainLayout, Qt::Vertical);
     m_MainLayout->setPolicy(mainLayoutPolicy);
-    mainLayoutPolicy->setContentsMargins(1.0, 1.0, 1.0, 1.0);
+    mainLayoutPolicy->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     mainLayoutPolicy->setSpacing(1);
 
     // group title

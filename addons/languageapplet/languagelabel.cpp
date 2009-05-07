@@ -45,9 +45,9 @@ void LanguageLabel::initWidget()
     this->setAcceptedMouseButtons(0);
     
     // greySeparator
-    DuiSeparator *greySeparator = new DuiSeparator(this);
-    greySeparator->setObjectName("GreySeparator");
-    greySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+    m_GreySeparator = new DuiSeparator(this);
+    m_GreySeparator->setObjectName("GreySeparator");
+    m_GreySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
 
     QString space("    ");
 
@@ -63,7 +63,7 @@ void LanguageLabel::initWidget()
         mainLayoutPolicy->addItemAtPosition(
                      new DcpSpacerItem(this, 10, 10, QSizePolicy::Fixed, QSizePolicy::Expanding),
                      2, Qt::AlignCenter);
-        mainLayoutPolicy->addItemAtPosition(greySeparator, 3, Qt::AlignCenter);   
+        mainLayoutPolicy->addItemAtPosition(m_GreySeparator, 3, Qt::AlignCenter);   
     } else {
         // upLabel
         DuiLabel *upLabel = new DuiLabel(space + m_UpText, this);
@@ -83,7 +83,7 @@ void LanguageLabel::initWidget()
         mainLayoutPolicy->addItemAtPosition(
                         new DcpSpacerItem(this, 10, 10, QSizePolicy::Fixed, QSizePolicy::Expanding),
                         3, Qt::AlignCenter);
-        mainLayoutPolicy->addItemAtPosition(greySeparator, 4, Qt::AlignCenter);
+        mainLayoutPolicy->addItemAtPosition(m_GreySeparator, 4, Qt::AlignCenter);
     }
     this->setLayout(mainLayout);
 
@@ -99,6 +99,16 @@ void LanguageLabel::initWidget()
 
 void LanguageLabel::onOrientationAngleChanged()
 {
-    setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
-    setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+    switch(DuiDeviceProfile::instance()->orientation()) {
+        case Dui::Landscape:
+            m_GreySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+            m_GreySeparator->setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+            break;
+        case Dui::Portrait:
+            m_GreySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+            m_GreySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+            break;
+        default:
+            break;
+    }
 }

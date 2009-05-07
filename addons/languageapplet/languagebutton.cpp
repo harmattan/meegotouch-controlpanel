@@ -115,15 +115,25 @@ void LanguageButton::initWidget()
     m_DownLabel->setZValue(3);
 
     // greySeparator
-    DuiSeparator *greySeparator = new DuiSeparator(this);
-    greySeparator->setObjectName("GreySeparator");
-    greySeparator->setAcceptedMouseButtons(0);
+    m_GreySeparator = new DuiSeparator(this);
+    m_GreySeparator->setObjectName("GreySeparator");
+    m_GreySeparator->setAcceptedMouseButtons(0);
 
     // Add items to mainMainLayoutPolicy
     mainMainLayoutPolicy->addItemAtPosition(mainLayout, 0, Qt::AlignCenter);
-    mainMainLayoutPolicy->addItemAtPosition(greySeparator, 1, Qt::AlignCenter);
+    mainMainLayoutPolicy->addItemAtPosition(m_GreySeparator, 1, Qt::AlignCenter);
     
     // fixed size
     this->setMinimumHeight(rowHeight);
     this->setMaximumHeight(rowHeight);
+
+    connect(DuiDeviceProfile::instance(), SIGNAL(orientationAngleChanged(DuiDeviceProfile::DeviceOrientationAngle)),
+            this, SLOT(onOrientationAngleChange()));
+    onOrientationAngleChange();
+}
+
+void LanguageButton::onOrientationAngleChange()
+{
+    m_GreySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() - 40);
+    m_GreySeparator->setMaximumWidth(DuiDeviceProfile::instance()->width() - 40);
 }

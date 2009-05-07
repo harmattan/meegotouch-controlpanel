@@ -7,7 +7,7 @@
 #include <duilinearlayoutpolicy.h>
 #include <duibutton.h>
 
-const int buttonWidth  = 230;
+const int buttonWidth  = 190;
 const int buttonHeight =  40;
 
 RemovableListItem::RemovableListItem(const QString &upText,
@@ -65,7 +65,7 @@ void RemovableListItem::initWidget()
 
     mainLayoutPolicy->addItemAtPosition(label, 0, Qt::AlignLeft | Qt::AlignVCenter);
     mainLayoutPolicy->addItemAtPosition(
-            new DcpSpacerItem(this, 165, 5, QSizePolicy::Fixed, QSizePolicy::Fixed),
+            new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Fixed),
             1, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(m_RemoveButton, 2, Qt::AlignRight | Qt::AlignVCenter);
     

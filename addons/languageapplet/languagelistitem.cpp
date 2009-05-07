@@ -116,9 +116,9 @@ void LanguageListItem::initWidget()
     labelWidget->setLayout(labelLayout);
 
     // greySeparator
-    DuiSeparator *greySeparator = new DuiSeparator(this);
-    greySeparator->setObjectName("GreySeparator");
-    greySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+    m_GreySeparator = new DuiSeparator(this);
+    m_GreySeparator->setObjectName("GreySeparator");
+    m_GreySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
     
     // Add items to mainLayoutPolicy
     mainLayoutPolicy->addItemAtPosition(
@@ -128,7 +128,7 @@ void LanguageListItem::initWidget()
     mainLayoutPolicy->addItemAtPosition(
             new DcpSpacerItem(this, 5, 5, QSizePolicy::Fixed, QSizePolicy::Expanding),
             2, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(greySeparator, 3, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(m_GreySeparator, 3, Qt::AlignCenter);
 
     connect(DuiDeviceProfile::instance(), SIGNAL(orientationAngleChanged (DuiDeviceProfile::DeviceOrientationAngle)),
             this, SLOT(onOrientationAngleChanged ()));
@@ -157,9 +157,16 @@ void LanguageListItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void LanguageListItem::onOrientationAngleChanged()
 {
-    // set width
-    this->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
-    this->setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
-    this->setMinimumHeight(height);
-    this->setMaximumHeight(height);
+    switch(DuiDeviceProfile::instance()->orientation()) {
+        case Dui::Landscape:
+            m_GreySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+            m_GreySeparator->setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+            break;
+        case Dui::Portrait:
+            m_GreySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() - 50);
+            m_GreySeparator->setMaximumWidth(DuiDeviceProfile::instance()->width() - 50);
+            break;
+        default:
+            break;
+    }
 }

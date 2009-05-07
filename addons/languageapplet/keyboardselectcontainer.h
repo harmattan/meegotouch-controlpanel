@@ -4,6 +4,9 @@
 #include <DuiWidget>
 #include <QMap>
 class LanguageListItem;
+class DuiLayout;
+class DuiGridLayoutPolicy;
+class DuiLinearLayoutPolicy;
 
 class KeyboardSelectContainer : public DuiWidget
 {
@@ -15,6 +18,7 @@ public:
                             DuiWidget *parent = 0);
     virtual ~KeyboardSelectContainer();
     void putLastLanguageBack();
+
 protected:
     void initWidget();
 
@@ -23,7 +27,12 @@ private:
     QStringList m_ItemList;
     QMap<QString, LanguageListItem*> m_ListItems;
     QString m_LastRemovedLangCode;
+    DuiLayout *m_ItemLayout;
+    DuiGridLayoutPolicy *m_LandscapePolicy;
+    DuiLinearLayoutPolicy *m_PortraitPolicy;
+    
 private slots:
     virtual void itemClicked(LanguageListItem *item);
+    virtual void onOrientationAngleChange();
 };
 #endif  // KEYBOARDSELECTCONTAINER_H
