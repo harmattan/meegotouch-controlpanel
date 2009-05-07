@@ -19,7 +19,6 @@ public:
                        const QString& title="",
                        QGraphicsWidget *parent=0);
     ~DcpLabel2Component();
-    void setBgObjectName(const QString& objectName);
 
     virtual void createContents();
 

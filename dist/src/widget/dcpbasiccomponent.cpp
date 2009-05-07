@@ -21,7 +21,7 @@ DcpBasicComponent::DcpBasicComponent(
                             DcpAppletMetadata * metadata,
                             const QString& title,
                             QGraphicsWidget *parent):
-    DcpComponent(category, title, parent), m_Metadata(metadata)
+    DcpComponent(category, title, parent), m_Metadata(metadata), m_Button(NULL)
 {
 
  
@@ -79,3 +79,5 @@ void DcpBasicComponent::bigClicked()
 {
 	switchToSubPage();
 }
+
+

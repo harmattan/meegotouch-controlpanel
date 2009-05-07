@@ -141,7 +141,8 @@ DuiImage {
     pressedBackground: "Toggle-on";
 }
 
-#DcpButton {
+
+DcpButton {
     marginLeft: 25;
     marginRight: 20;
     marginTop: 12;
@@ -185,31 +186,6 @@ DuiImage {
     toggleOn: "Toggle-on";
     toggleOff: "Toggle-off";
 
-}
-
-#AppletPageDcpButton {
-    backgroundImage: "C2-container";
-
-    backgroundSize: size(414, 88);
-
-    textColor1: #FFFFFF;
-    font1: font("Nokia Sans Cn", 20);
-
-    textColor2: #FFA000;
-    font2: font("Nokia Sans Cn", 16);
-
-    textSize1: size(318, 40);
-    textPos1: pos(40, 15);
-
-    textSize2: size(318, 30);
-    textPos2: pos(25, 45);
-
-    textAlign1: "Left";
-    textAlign2: "Left";
-
-    triangleBackground: "See-more-indicator-small";
-    triangleBackgroundSize: size(16, 16);
-    trianglePos: pos(25, 25);
 }
 
 
