@@ -10,6 +10,7 @@ namespace LanguageKey
     const QString CurrentKeyboardLayout = KeyboardLayout + "current";
     const QString SettingsLanguage("Dui.i18n.Language");
     const QString SettingsCountry("Dui.i18n.Country");
+
 };
 
 DcpLanguageConf *DcpLanguageConf::sm_Instance = NULL;
@@ -27,6 +28,7 @@ DcpLanguageConf::instance()
 DcpLanguageConf::DcpLanguageConf() : 
                              m_Settings("Maemo", "DuiControlPanel")
 {
+    
     m_DisplayLanguageItem = new DuiConfItem(LanguageKey::SettingsLanguage);
     
     if (!m_Settings.contains(LanguageKey::CurrentKeyboardLayout))
@@ -45,6 +47,7 @@ DcpLanguageConf::~DcpLanguageConf()
 QString 
 DcpLanguageConf::displayLanguage()
 {
+    
     return m_DisplayLanguageItem->value().toString();
     //return m_Settings.value(LanguageKey::CurrentLanguage).toString();
 }
@@ -52,6 +55,7 @@ DcpLanguageConf::displayLanguage()
 void 
 DcpLanguageConf::setDisplayLanguage(QString displayLanguage)
 {
+    
     m_DisplayLanguageItem->set(displayLanguage);
     //m_Settings.setValue(LanguageKey::CurrentLanguage, displayLanguage);
 }
