@@ -3,6 +3,7 @@
 #include <QString>
 #include <QSettings>
 #include <QStringList>
+class DuiConfItem;
 class DcpLanguageConf
 {
 public:
@@ -26,6 +27,7 @@ protected:
 private:
     static DcpLanguageConf *sm_Instance;
     QSettings m_Settings;
+    DuiConfItem *m_DisplayLanguageItem;
 };
 #endif // DCPLANGUAGECONF_H
 

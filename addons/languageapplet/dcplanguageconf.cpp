@@ -1,6 +1,6 @@
 #include "dcplanguageconf.h"
 #include <duilocale.h>
-
+#include <duivaluespace.h>
 namespace LanguageKey
 {
     const QString InputMethod ="Maemo/DuiInputMethod/";
@@ -27,8 +27,7 @@ DcpLanguageConf::instance()
 DcpLanguageConf::DcpLanguageConf() : 
                              m_Settings("Maemo", "DuiControlPanel")
 {
-    if (!m_Settings.contains(LanguageKey::CurrentLanguage))
-        setDisplayLanguage("en_GB");
+    m_DisplayLanguageItem = new DuiConfItem(LanguageKey::SettingsLanguage);
     
     if (!m_Settings.contains(LanguageKey::CurrentKeyboardLayout))
       {
@@ -40,25 +39,21 @@ DcpLanguageConf::~DcpLanguageConf()
 {
     if (sm_Instance)
         delete sm_Instance;
+    delete m_DisplayLanguageItem;
 }
 
 QString 
 DcpLanguageConf::displayLanguage()
 {
-    QVariant val;
-    QString lang = "-";
-    if (getValue(LanguageKey::SettingsLanguage, val))
-        lang = val.toString();
-    return lang;
+    return m_DisplayLanguageItem->value().toString();
     //return m_Settings.value(LanguageKey::CurrentLanguage).toString();
 }
 
 void 
 DcpLanguageConf::setDisplayLanguage(QString displayLanguage)
 {
+    m_DisplayLanguageItem->set(displayLanguage);
     //m_Settings.setValue(LanguageKey::CurrentLanguage, displayLanguage);
-    if (!set(LanguageKey::SettingsLanguage, displayLanguage))
-        qDebug() << "DCP" << "Setting display language failed";
 }
 
 QStringList 
@@ -140,10 +135,12 @@ QString
 DcpLanguageConf::fullName(QString lang)
 {
     DuiLocale locale(lang);
+    if (lang.isEmpty())
+        return "";
     QString result = locale.languageEndonym();
     if (locale.language() != locale.country().toLower())
         result += " (" + locale.countryEndonym() + ")";
-    result[0]=result.at(0).toUpper();
+   	result[0]=result.at(0).toUpper();
     return result; 
 }
 

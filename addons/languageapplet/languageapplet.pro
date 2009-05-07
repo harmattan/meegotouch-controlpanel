@@ -2,7 +2,8 @@ QMAKE_LIBDIR  += ../../lib/lib/
 TEMPLATE      = lib
 CONFIG       += plugin gui dui silent
 LIBS         += -lduicontrolpanel
-INCLUDEPATH  += $$system(find ../../lib/src/ -type d) 
+INCLUDEPATH  += $$system(find ../../lib/src/ -type d) \
+             += /usr/include/duivaluespace 
 
 MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects
@@ -56,6 +57,7 @@ DESTDIR       = lib
 target.path += $$(DEBIAN_DESTDIR)$$[QT_INSTALL_LIBS]/duicontrolpanel/applets
 css.path    += $$(DEBIAN_DESTDIR)/usr/share/themes/dui/duicontrolpanel
 image.path  += $$(DEBIAN_DESTDIR)/usr/share/themes/dui/duicontrolpanel/images
+PKGCONFIG += gconf-2.0 duivaluespace-1.0 
 exists(/usr/include/dui/duiquerydialog.h){
 	DEFINES += QUERY_DIALOG
 }
