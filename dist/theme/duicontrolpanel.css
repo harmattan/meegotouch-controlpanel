@@ -142,7 +142,7 @@ DuiImageStyle {
 	
     backgroundImage: "C2-container";
 
-    backgroundSize: size(405, 88);
+    backgroundSize: size(355, 88);
 
     textColor1: #FFFFFF;
     font1: font("Nokia Sans Cn", 20);
@@ -152,10 +152,10 @@ DuiImageStyle {
 
 	textOffColor: #404040;
 
-    textSize1: size(300, 40);
+    textSize1: size(300, 40); 
     textPos1: pos(0, 0);
 
-    textSize2: size(300, 30);
+    textSize2: size(300, 30); 
     textPos2: pos(0, 30);
 
     textAlign1: "AlignLeft";

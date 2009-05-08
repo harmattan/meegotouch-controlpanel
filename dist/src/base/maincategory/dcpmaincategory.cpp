@@ -6,7 +6,7 @@
 
 #include <duiproxywidget.h>
 
-#include <duideviceprofile.h>
+#include <duiscenemanager.h>
 #include <duibasiclayoutanimator.h>
 #include <QtDebug>
 
@@ -92,6 +92,6 @@ DcpMainCategory::onOrientationChange (const Dui::Orientation &orientation)
 
 void DcpMainCategory::polishEvent ()
 {
-    onOrientationChange(DuiDeviceProfile::instance()->orientation());
+    onOrientationChange(DuiSceneManager::instance()->orientation());
 }
 
