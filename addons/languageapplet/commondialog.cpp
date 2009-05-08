@@ -53,7 +53,7 @@ void CommonDialog::initDialog()
     
     // m_MainWidget
     m_MainWidget = new DuiContainer(this);
-    m_MainWidget->layout()->setContentsMargins(0.0, 0.0, 0.0, 0.0);
+    // m_MainWidget->layout()->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     m_MainWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_MainWidget->setHeaderVisible(false);
     m_MainWidget->setExpand(true);

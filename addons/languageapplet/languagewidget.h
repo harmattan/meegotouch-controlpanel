@@ -13,12 +13,6 @@ class LanguageWidget : public DcpWidget
 public:
 	LanguageWidget(QGraphicsWidget *parent = 0);
 	virtual ~LanguageWidget();
-    // !reimp
-	void paint(QPainter *painter,
-			   const QStyleOptionGraphicsItem *option,
-               QWidget *widget = 0);
-    void resizeEvent(QGraphicsSceneResizeEvent *event);
-    // !reimp_end
     virtual bool back();
     
 protected:

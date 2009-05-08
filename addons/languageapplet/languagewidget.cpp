@@ -28,23 +28,6 @@ LanguageWidget::~LanguageWidget()
 {
 }
 
-void LanguageWidget::paint(QPainter *painter,
-			               const QStyleOptionGraphicsItem *option,
-			               QWidget *widget)
-{
-    Q_UNUSED(painter);
-	Q_UNUSED(option);
-	Q_UNUSED(widget);
-}
-
-void LanguageWidget::resizeEvent(QGraphicsSceneResizeEvent *event)
-{
-    Q_UNUSED(event);
-
-    m_DisplayButton->setMinimumWidth(size().width());
-    m_KeyboardButton->setMinimumWidth(size().width());
-}
-
 void LanguageWidget::initWidget()
 {
     // m_DisplayButton
