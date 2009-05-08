@@ -1,6 +1,9 @@
 #include "dcplanguageconf.h"
 #include <duilocale.h>
 #include <duivaluespace.h>
+
+#include <QDebug>
+#include <QDir>
 namespace LanguageKey
 {
     const QString InputMethod ="Maemo/DuiInputMethod/";
@@ -10,8 +13,11 @@ namespace LanguageKey
     const QString CurrentKeyboardLayout = KeyboardLayout + "current";
     const QString SettingsLanguage("Dui.i18n.Language");
     const QString SettingsCountry("Dui.i18n.Country");
-
+    
 };
+
+const QString l10nPath = "/usr/share/dui/l10n";
+const QString l10nFilter = "[a-z]*";
 
 DcpLanguageConf *DcpLanguageConf::sm_Instance = NULL;
 
@@ -30,11 +36,12 @@ DcpLanguageConf::DcpLanguageConf() :
 {
     
     m_DisplayLanguageItem = new DuiConfItem(LanguageKey::SettingsLanguage);
-    
+    qDebug() << "DCP: Display Language:" << displayLanguage(); 
     if (!m_Settings.contains(LanguageKey::CurrentKeyboardLayout))
       {
         addKeyboardLanguage(displayLanguage());
       }
+
 }
 
 DcpLanguageConf::~DcpLanguageConf()
@@ -119,8 +126,9 @@ DcpLanguageConf::availableKeyboardLanguages()
 QStringList
 DcpLanguageConf::availableLanguages(QString key)
 {
-    m_Settings.beginGroup(key);
     QStringList languages;
+/*
+    m_Settings.beginGroup(key);
     foreach (QString langKey, m_Settings.childKeys()) {
         bool ok;
         langKey.toInt(&ok);
@@ -131,7 +139,13 @@ DcpLanguageConf::availableLanguages(QString key)
     
     if (languages.isEmpty())
         languages = defaultLanguages();
-   
+*/  
+    QDir langDir(l10nPath, l10nFilter);
+    foreach (QString lang, langDir.entryList())
+    {
+        qDebug() << "DCP i10n" << lang;
+        languages.append(lang);
+    } 
     return languages;
 ;
 }
