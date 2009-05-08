@@ -9,9 +9,9 @@
 #include "dcpbutton2imageview.h"
 #include "dcpbutton2toggleview.h"
 
-DcpButton::DcpButton(int buttonType, const QString &title, DuiWidget *parent, const QString &type) : DuiButton(title, parent, type)
+DcpButton::DcpButton(int buttonType, const QString &title, DuiWidget *parent, const QString &type) : DuiButton(title, parent)
 {
-
+    setViewType(type);
 
 	switch (buttonType) {
 		case DCPLABEL :

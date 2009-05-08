@@ -15,6 +15,7 @@ DcpButtonView::DcpButtonView(DcpButton &button) :
 	m_LineBool(true)
 {
     controller.setZValue(1);
+    updateStyle();
 }
 
 DcpButtonView::~DcpButtonView()

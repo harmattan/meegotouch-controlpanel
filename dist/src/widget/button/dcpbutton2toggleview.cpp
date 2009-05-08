@@ -10,6 +10,7 @@ DcpButton2ToggleView::DcpButton2ToggleView(DcpButton &button) :
     DcpButton2ImageView(button),
 		m_EnableToggle(false)
 {
+    updateStyle();
 }
 
 

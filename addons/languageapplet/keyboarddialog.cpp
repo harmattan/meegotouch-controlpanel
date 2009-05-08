@@ -91,7 +91,7 @@ void KeyboardDialog::close()
 {
     if (!DcpLanguageConf::instance()->keyboardLanguagesNumber()) {
         DuiMessageBox mb("Keep last selection of languages?",
-                         DuiMessageBox::Ok|DuiMessageBox::Cancel);
+                         DuiMessageBoxModel::Ok|DuiMessageBoxModel::Cancel);
         int result = mb.exec();
         qDebug() << "DCP: result is" << result;
         if (result == 1) { //DuiDialog::Accepted is wrong!!!
