@@ -20,7 +20,10 @@ Architecture: any
 Depends: libdui0, ${shlibs:Depends}, ${misc:Depends}, libduicontrolpanel, duicontrolpanel-l10n
 Description: Control Panel
 
-                                                                                
+Package: duicontrolpanel-dbg
+Architecture: any
+Depends: duicontrolpanel (= ${binary:Version}), ${shlibs:Depends}
+Description: Control Panel - debug symbols                                                                                
 
 Package: duicontrolpanel-languageapplet
 Architecture: any
