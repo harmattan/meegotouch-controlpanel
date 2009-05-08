@@ -1,4 +1,4 @@
-DuiLabel {
+DuiLabelStyle {
     color: #dddddd;
     font: font("Nokia Sans Cn", 12);
 }
@@ -7,34 +7,25 @@ DuiLabel {
     normalBackground: "See-more-indicator-big";
 }
 
-DuiLabel#ComponentDescription {
+#ComponentDescription {
     font: font("Nokia Sans Cn", 16px);
 }
 
-
-DcpBackgroundComponent {
-	normalBackgroundName: "Mashup-container";
-	backgroundBoxEdge: 30;
-	lineWidth: 1;
-	lineColor: #FFA000;
-	lineSkip: 2;
-}
-
-DuiLabel#DuiContainerTitle {
+#DuiContainerTitle {
     font: font("Nokia Sans Cn", 20px);
 }
 
-DuiApplicationPage {
-	background: image(starfield);
+#DcpPage {
+	background: "starfield";
 }
 
 
-DuiNavigationBar {
+DuiNavigationBarStyle {
 	background: "Top-bar-landscape";
 }
 
 
-DuiImage {
+DuiImageStyle {
   leftMargin: 0.0;
   topMargin: 0.0;
   rightMargin: 0.0;
@@ -142,7 +133,7 @@ DuiImage {
 }
 
 
-DcpButton {
+#DcpButton {
     marginLeft: 25;
     marginRight: 20;
     marginTop: 12;

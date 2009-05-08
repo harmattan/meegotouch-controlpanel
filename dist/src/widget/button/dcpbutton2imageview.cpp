@@ -47,7 +47,6 @@ DcpButton2ImageView::DcpButton2ImageView(DcpButton &button) :
 	//QPixmap *image = new QPixmap(QPixmap(*styleAttribute<const QPixmap*>(ImageNameAttribute)).scaled(styleAttribute<const QSize>(ImageSizeAttribute)));
 
 	m_Image = new QPixmap(QPixmap(imageFile).scaled(62, 62)); //dummy
-    updateStyle();
 }
 
 DcpButton2ImageView::~DcpButton2ImageView()

@@ -15,7 +15,6 @@ DcpButtonView::DcpButtonView(DcpButton &button) :
 	m_LineBool(true)
 {
     controller.setZValue(1);
-    updateStyle();
 }
 
 DcpButtonView::~DcpButtonView()
@@ -195,3 +194,5 @@ Qt::Alignment DcpButtonView::stringToAlign(const QString& alignment)
 
 		return outAligment;
 }
+
+

@@ -11,7 +11,6 @@
 
 DcpButton::DcpButton(int buttonType, const QString &title, DuiWidget *parent, const QString &type) : DuiButton(title, parent)
 {
-    setViewType(type);
 
 	switch (buttonType) {
 		case DCPLABEL :
@@ -27,9 +26,9 @@ DcpButton::DcpButton(int buttonType, const QString &title, DuiWidget *parent, co
 		break;
 	}
 
-    setView(m_View);
-
     setObjectName("DcpButton");
+    setView(m_View);
+    m_View->updateStyle();
 
 	connect(m_View, SIGNAL(clicked()), this, SIGNAL(clicked()));
 
