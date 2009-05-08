@@ -78,7 +78,7 @@ binary-arch: build install
 #	dh_installinfo
 	dh_installman
 	dh_link
-#	dh_strip
+	dh_strip --dbg-package=libduicontrolpanel-dbg --dbg-package=duicontrolpanel-dbg --dbg-package=duicontrolpanel-languageapplet-dbg --dbg-package=duicontrolpanel-displayapplet-dbg
 	dh_compress
 	dh_fixperms
 #	dh_perl
