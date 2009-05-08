@@ -8,6 +8,7 @@
 #include <duilabel.h>
 #include <duitheme.h>
 #include <duiseparator.h>
+#include <duiscenemanager.h>
 
 const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/";
 const int rowHeight = 90;
@@ -134,6 +135,6 @@ void LanguageButton::initWidget()
 
 void LanguageButton::onOrientationAngleChange()
 {
-    m_GreySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() - 40);
-    m_GreySeparator->setMaximumWidth(DuiDeviceProfile::instance()->width() - 40);
+    m_GreySeparator->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width() - 40);
+    m_GreySeparator->setMaximumWidth(DuiSceneManager::instance()->visibleSceneRect().width() - 40);
 }

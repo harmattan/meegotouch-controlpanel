@@ -5,6 +5,7 @@
 #include <duilinearlayoutpolicy.h>
 #include <duilabel.h>
 #include <duiseparator.h>
+#include <duiscenemanager.h>
 
 const int height = 88;
 const int devide = 35;
@@ -47,7 +48,6 @@ void LanguageLabel::initWidget()
     // greySeparator
     m_GreySeparator = new DuiSeparator(this);
     m_GreySeparator->setObjectName("GreySeparator");
-    m_GreySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
 
     QString space("    ");
 
@@ -99,16 +99,6 @@ void LanguageLabel::initWidget()
 
 void LanguageLabel::onOrientationAngleChanged()
 {
-    switch(DuiDeviceProfile::instance()->orientation()) {
-        case Dui::Landscape:
-            m_GreySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
-            m_GreySeparator->setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
-            break;
-        case Dui::Portrait:
-            m_GreySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
-            m_GreySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
-            break;
-        default:
-            break;
-    }
+    m_GreySeparator->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width() / 2 - devide);
+    m_GreySeparator->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width() / 2 - devide);
 }

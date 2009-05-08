@@ -82,5 +82,6 @@
 
 #GreySeparator {
         lineWidth: 1;
-        lineColor: #505050;
+        startColor: #505050;
+        endColor: #505050;
 }

@@ -6,6 +6,7 @@
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
 #include <duipannableviewport.h>
+#include <duiscenemanager.h>
 
 CommonDialog::CommonDialog(const QString &text)
              :DcpDialog(),
@@ -113,7 +114,7 @@ void CommonDialog::initDialog()
 
 void CommonDialog::onOrientationAngleChanged()
 {
-    QSizeF dialogSize = DuiDeviceProfile::instance()->resolution();
+    QSizeF dialogSize = DuiSceneManager::instance()->visibleSceneRect();
     dialogSize.setHeight(dialogSize.height() - 90);
     m_Viewport->setMinimumSize(dialogSize);
     m_Viewport->setMaximumSize(dialogSize);

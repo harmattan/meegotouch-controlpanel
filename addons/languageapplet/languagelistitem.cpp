@@ -10,6 +10,7 @@
 #include <duibutton.h>
 #include <duiseparator.h>
 #include <qgraphicswidget.h>
+#include <duiscenemanager.h>
 
 const int height = 70;
 const int devide = 35;
@@ -118,7 +119,6 @@ void LanguageListItem::initWidget()
     // greySeparator
     m_GreySeparator = new DuiSeparator(this);
     m_GreySeparator->setObjectName("GreySeparator");
-    m_GreySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
     
     // Add items to mainLayoutPolicy
     mainLayoutPolicy->addItemAtPosition(
@@ -159,12 +159,16 @@ void LanguageListItem::onOrientationAngleChanged()
 {
     switch(DuiDeviceProfile::instance()->orientation()) {
         case Dui::Landscape:
-            m_GreySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
-            m_GreySeparator->setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+            m_GreySeparator->setMinimumWidth(
+                    DuiSceneManager::instance()->visibleSceneRect().width() / 2 - devide);
+            m_GreySeparator->setMaximumWidth(
+                    DuiSceneManager::instance()->visibleSceneRect().width() / 2 - devide);
             break;
         case Dui::Portrait:
-            m_GreySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() - 50);
-            m_GreySeparator->setMaximumWidth(DuiDeviceProfile::instance()->width() - 50);
+            m_GreySeparator->setMinimumWidth(
+                    DuiSceneManager::instance()->visibleSceneRect().width() - 50);
+            m_GreySeparator->setMaximumWidth(
+                    DuiSceneManager::instance()->visibleSceneRect().width() - 50);
             break;
         default:
             break;
