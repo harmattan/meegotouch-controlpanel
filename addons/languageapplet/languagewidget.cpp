@@ -10,6 +10,9 @@
 #include <duilinearlayoutpolicy.h>
 #include <duibutton.h>
 #include <duilabel.h>
+#include <duiapplication.h>
+#include <duiapplicationwindow.h>
+#include <duinavigationbar.h>
 #include <duitheme.h>
 #include "dcpwidget.h"
 #include "dcplanguage.h"
@@ -67,6 +70,7 @@ void LanguageWidget::initWidget()
 	DuiLinearLayoutPolicy *mainLayoutPolicy = 
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
+    mainLayoutPolicy->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     mainLayoutPolicy->setSpacing(15);
 
     // Add items to mainLayoutPolicy
@@ -95,9 +99,6 @@ void LanguageWidget::displayPage()
     m_Dlg=NULL;
 }
 
-#include <duiapplication.h>
-#include <duiapplicationwindow.h>
-#include <duinavigationbar.h>
 void LanguageWidget::keyboardPage()
 {
     ((DuiApplication*)DuiApplication::instance())->applicationWindow()->navigationBar()->showBackButton();

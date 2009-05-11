@@ -7,6 +7,7 @@
 #include <duilinearlayoutpolicy.h>
 #include <duipannableviewport.h>
 #include <duiscenemanager.h>
+#include <duiseparator.h>
 
 CommonDialog::CommonDialog(const QString &text)
              :DcpDialog(),
@@ -21,16 +22,16 @@ CommonDialog::~CommonDialog()
 
 void CommonDialog::setCentralWidget(DuiWidget *widget)
 {
-    if (m_ContainerLayout->count() > 1) {
-        m_ContainerLayout->removeAt(1);
+    if (m_ContainerLayout->count() > 2) {
+        m_ContainerLayout->removeAt(2);
     }
-    m_ContainerLayoutPolicy->addItemAtPosition(widget, 1, Qt::AlignCenter);
+    m_ContainerLayoutPolicy->addItemAtPosition(widget, 2, Qt::AlignCenter);
 }
 
 DuiWidget* CommonDialog::centralWidget()
 {
-    if (m_ContainerLayout->count() > 1) {
-        return static_cast<DuiWidget*>(m_ContainerLayout->itemAt(1));
+    if (m_ContainerLayout->count() > 2) {
+        return static_cast<DuiWidget*>(m_ContainerLayout->itemAt(2));
     } else {
         return NULL;
     }
@@ -45,7 +46,7 @@ void CommonDialog::initDialog()
         new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
     this->setLayout(mainLayout);
-    setContentsMargins(12.0, 12.0, 12.0, 12.0);
+    setContentsMargins(0.0, 0.0, 0.0, 0.0);
     mainLayoutPolicy->setSpacing(10);
 
     // m_Viewport 
@@ -81,6 +82,11 @@ void CommonDialog::initDialog()
     DuiLabel *titleLabel = new DuiLabel(m_TitleText, containerWidget);
     titleLabel->setObjectName("CommonDialogTitleLabel");
     titleLabel->setAcceptedMouseButtons(0);
+
+    // greySeparator
+    m_GreySeparator = new DuiSeparator(this);
+    m_GreySeparator->setObjectName("GreySeparator");
+    m_GreySeparator->setAcceptedMouseButtons(0);
     
     // Add items to titleLayoutPolicy
     titleLayoutPolicy->addItemAtPosition(
@@ -95,6 +101,7 @@ void CommonDialog::initDialog()
 
     // Add items to m_ContainerLayoutPolicy
     m_ContainerLayoutPolicy->addItemAtPosition(titleLayout, 0, Qt::AlignCenter);
+    m_ContainerLayoutPolicy->addItemAtPosition(m_GreySeparator, 1, Qt::AlignCenter);
 
     // Add viewport to DuiContainer
     m_MainWidget->setCentralWidget(containerWidget);

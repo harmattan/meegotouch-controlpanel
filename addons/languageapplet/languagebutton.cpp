@@ -135,6 +135,9 @@ void LanguageButton::initWidget()
 
 void LanguageButton::onOrientationAngleChange()
 {
-    m_GreySeparator->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width() - 40);
-    m_GreySeparator->setMaximumWidth(DuiSceneManager::instance()->visibleSceneRect().width() - 40);
+    int devide = 35;
+    m_GreySeparator->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width() - devide);
+    m_GreySeparator->setMaximumWidth(DuiSceneManager::instance()->visibleSceneRect().width() - devide);
+    m_DownLabel->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width() - devide - 60);
+    m_DownLabel->setMaximumWidth(DuiSceneManager::instance()->visibleSceneRect().width() - devide - 60);
 }

@@ -45,8 +45,8 @@ void LanguageSelectContainer::initWidget()
     mainLayout->setPolicy(mainLayoutPolicy);
     mainLayoutPolicy->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     
-    GroupTitleWidget *titleLabel = new GroupTitleWidget(m_TitleText, this);
-    mainLayoutPolicy->addItemAtPosition(titleLabel, 0, Qt::AlignCenter);
+    /* GroupTitleWidget *titleLabel = new GroupTitleWidget(m_TitleText, this);
+    mainLayoutPolicy->addItemAtPosition(titleLabel, 0, Qt::AlignCenter);*/
 
     // m_ItemLayout
     m_ItemLayout = new DuiLayout(NULL);
