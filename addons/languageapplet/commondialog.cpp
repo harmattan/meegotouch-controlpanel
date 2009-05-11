@@ -42,11 +42,11 @@ void CommonDialog::initDialog()
     DuiLayout *mainLayout = new DuiLayout(this);
     mainLayout->setAnimator(NULL);
     DuiLinearLayoutPolicy *mainLayoutPolicy = 
-        new DuiLinearLayoutPolicy(mainLayout, Qt::Horizontal);
+        new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
     this->setLayout(mainLayout);
-    setContentsMargins(0.0, 0.0, 0.0, 0.0);
-    mainLayoutPolicy->setSpacing(1);
+    setContentsMargins(12.0, 12.0, 12.0, 12.0);
+    mainLayoutPolicy->setSpacing(10);
 
     // m_Viewport 
     m_Viewport = new DuiPannableViewport(this);
@@ -102,7 +102,7 @@ void CommonDialog::initDialog()
 
     // Add items to mainLayoutPolicy
     mainLayoutPolicy->addItemAtPosition(
-            new DcpSpacerItem(this, 10, 10, QSizePolicy::Fixed, QSizePolicy::Expanding),
+            new DcpSpacerItem(this, 10, 10, QSizePolicy::Expanding, QSizePolicy::Expanding),
             0, Qt::AlignLeft | Qt::AlignVCenter);
     mainLayoutPolicy->addItemAtPosition(m_Viewport, 1, Qt::AlignCenter);
 

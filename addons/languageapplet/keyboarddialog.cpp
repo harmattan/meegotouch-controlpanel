@@ -72,10 +72,9 @@ void KeyboardDialog::close()
 {
     DcpDialog::close();
     if (!DcpLanguageConf::instance()->keyboardLanguagesNumber()) {
-            DuiQueryDialog query("You have not selected any keyboard language,<br>"
-                                 "would you like to keep the previous selection?");
-            DuiButton* keepPrevious = query.addButton("Keep previous");
-            query.addButton("Select new");
+            DuiQueryDialog query(DcpLanguage::RestoreQueryLabelText);
+            DuiButton* keepPrevious = query.addButton(DcpLanguage::RestorePreviousText);
+            query.addButton(DcpLanguage::SelectNewText);
             query.exec();
             if (query.clickedButton() == keepPrevious)
             {
@@ -90,7 +89,7 @@ void KeyboardDialog::close()
 void KeyboardDialog::close()
 {
     if (!DcpLanguageConf::instance()->keyboardLanguagesNumber()) {
-        DuiMessageBox mb("Keep last selection of languages?",
+        DuiMessageBox mb(DcpLanguage::RestoreQueryLabelText,
                          DuiMessageBoxModel::Ok|DuiMessageBoxModel::Cancel);
         int result = mb.exec();
         qDebug() << "DCP: result is" << result;
