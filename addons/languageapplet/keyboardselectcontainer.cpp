@@ -92,12 +92,21 @@ void KeyboardSelectContainer::itemClicked(LanguageListItem* item)
 
 void KeyboardSelectContainer::onOrientationAngleChange()
 {
+    int itemNum = m_ItemLayout->count();
     switch(DuiSceneManager::instance()->orientation()) {
         case Dui::Landscape:
             m_ItemLayout->setPolicy(m_LandscapePolicy);
+            if (itemNum % 2 == 0) {
+                static_cast<LanguageListItem*>(m_PortraitPolicy->itemAt(itemNum - 2))->setVisibleSeparator(false);
+                static_cast<LanguageListItem*>(m_PortraitPolicy->itemAt(itemNum - 1))->setVisibleSeparator(false);
+            } else {
+                static_cast<LanguageListItem*>(m_PortraitPolicy->itemAt(itemNum - 1))->setVisibleSeparator(false);
+            }
             break;
         case Dui::Portrait:
             m_ItemLayout->setPolicy(m_PortraitPolicy);
+            static_cast<LanguageListItem*>(m_PortraitPolicy->itemAt(itemNum - 2))->setVisibleSeparator(true);
+            static_cast<LanguageListItem*>(m_PortraitPolicy->itemAt(itemNum - 1))->setVisibleSeparator(false);
             break;
         default:
             break;

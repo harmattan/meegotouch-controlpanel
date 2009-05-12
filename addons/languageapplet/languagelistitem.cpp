@@ -81,9 +81,9 @@ bool LanguageListItem::isClicked()
     return m_Clicked;
 }
 
-void LanguageListItem::hideSeparator()
+void LanguageListItem::setVisibleSeparator(bool enable)
 {
-    m_GreySeparator->setVisible(false);
+    m_GreySeparator->setVisible(enable);
 }
 
 void LanguageListItem::initWidget()

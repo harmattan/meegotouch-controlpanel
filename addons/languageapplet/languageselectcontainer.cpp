@@ -92,13 +92,22 @@ void LanguageSelectContainer::itemClicked(LanguageListItem *item)
 
 void LanguageSelectContainer::onOrientationAngleChange()
 {
+    int itemNum = m_ListItemVector.size();
     switch(DuiSceneManager::instance()->orientation()) {
         case Dui::Landscape:
             m_ItemLayout->setPolicy(m_LandscapePolicy);
+            if (itemNum % 2 == 0) {
+                m_ListItemVector[itemNum - 2]->setVisibleSeparator(false);
+                m_ListItemVector[itemNum - 1]->setVisibleSeparator(false);
+            } else {
+                m_ListItemVector[itemNum - 1]->setVisibleSeparator(false);
+            }
             break;
 
         case Dui::Portrait:
             m_ItemLayout->setPolicy(m_PortraitPolicy);
+            m_ListItemVector[itemNum - 2]->setVisibleSeparator(true);
+            m_ListItemVector[itemNum - 1]->setVisibleSeparator(false);
             break;
         default:
             break;

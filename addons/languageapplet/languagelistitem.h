@@ -22,7 +22,7 @@ public:
     bool isClicked();
     QString text() const;
     QString langCode() const;
-    void hideSeparator();
+    void setVisibleSeparator(bool enable);
 
 protected:
     void initWidget();
