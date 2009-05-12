@@ -17,7 +17,5 @@ Category= Regional settings
 Order=3
 WidgetType= DcpLabel2
 Text2=English GB
-ButtonCSS= BigButton
-Label1CSS= LabelFont1
-Label2CSS= LabelFont2
+
 ValuePath= Maemo/DuiInputMethod/language/current

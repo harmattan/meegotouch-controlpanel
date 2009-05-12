@@ -3,12 +3,7 @@
 
 #include "dcpbasiccomponent.h"
 
-class DuiLabel;
-class DuiButton;
-class DuiLinearLayout;
-class DuiGridLayout;
 class DcpAppletMetadata;
-class DcpButton;
 
 class DcpLabel2ToggleComponent: public DcpBasicComponent
 {

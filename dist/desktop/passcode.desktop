@@ -17,12 +17,3 @@ Order=1
 WidgetType= DcpLabelButton
 Text1= Passcode
 
-ButtonCSS= BigButton
-SmallButtonOnCSS= SmallButtonOn
-SmallButtonOffCSS= SmallButtonOff
-SmallButtonDisableCSS= SmallButtonDisable
-
-
-Label1CSS= LabelFont1
-Label2CSS= LabelFont2
-

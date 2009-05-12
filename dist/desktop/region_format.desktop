@@ -17,6 +17,3 @@ Order=2
 WidgetType= DcpLabel2
 Text2= United States
 
-ButtonCSS= BigButton
-Label1CSS= LabelFont1
-Label2CSS= LabelFont2

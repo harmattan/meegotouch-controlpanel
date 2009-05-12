@@ -17,7 +17,3 @@ Order= 0
 WidgetType= DcpLabel2
 Text2= Happy.aac
 
-
-ButtonCSS= BigButton
-Label1CSS= LabelFont1
-Label2CSS= LabelFont2

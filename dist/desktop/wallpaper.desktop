@@ -20,7 +20,4 @@ Align= Left
 Text1= Wallpaper
 Text2= Name of the wallpaper
 
-ButtonCSS= BigButton
-Label1CSS= LabelFont1
-Label2CSS= LabelFont2
 Image= /usr/share/themes/dui/duicontrolpanel/images/starfield_thumb.png

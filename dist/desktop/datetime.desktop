@@ -18,9 +18,3 @@ WidgetType= DcpLabel2
 Text1= Date & Time
 Text2= "3:55 PM; 23/02/09"
 
-ButtonCSS= BigButton
-
-
-Label1CSS= LabelFont1
-Label2CSS= LabelFont2
-

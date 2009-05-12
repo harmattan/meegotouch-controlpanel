@@ -22,6 +22,3 @@ Text2=default
 
 Image= /usr/share/themes/dui/duicontrolpanel/images/starfield_thumb.png
 
-ButtonCSS= BigButton
-Label1CSS= LabelFont1
-Label2CSS= LabelFont2

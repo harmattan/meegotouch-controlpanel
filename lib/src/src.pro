@@ -19,6 +19,7 @@ install_headers.files += applet/dcpapplet.h \
     applet/dcpappletif.h \
     applet/dcpwidget.h \
     applet/dcpmetadata.h \
-    widget/dcpwidgettypes.h
+    widget/dcpwidgettypes.h \
+    scene/dcpscenelayereffectdialogview.h
 
 INSTALLS += target install_headers 

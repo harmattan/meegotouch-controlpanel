@@ -18,6 +18,3 @@ WidgetType= DcpLabel2
 Text2= Ringing
 Toggle= TRUE
 
-ButtonCSS= BigButton
-Label1CSS= LabelFont1
-Label2CSS= LabelFont2
