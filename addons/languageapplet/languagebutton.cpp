@@ -66,7 +66,7 @@ void LanguageButton::initWidget()
             new DuiGridLayoutPolicy(mainLayout);
     mainLayout->setPolicy(mainLayoutPolicy);
     mainLayoutPolicy->setContentsMargins(15.0, 0.0, 0.0, 0.0);
-    mainLayoutPolicy->setSpacing(2);
+    mainLayoutPolicy->setSpacing(1);
     
     // seeMoreLayout
     DuiLayout *seeMoreLayout = new DuiLayout(NULL);
@@ -80,8 +80,8 @@ void LanguageButton::initWidget()
     DuiButton *seeMoreSmall = new DuiButton(this);
     seeMoreSmall->setObjectName("LanguageButtonSeeMoreSmall");
     seeMoreSmall->setAcceptedMouseButtons(0);
-    seeMoreSmall->setMaximumWidth(20);
-    seeMoreSmall->setMaximumHeight(20);
+    seeMoreSmall->setMaximumWidth(25);
+    seeMoreSmall->setMaximumHeight(25);
 
     seeMoreLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 5, 5, QSizePolicy::Fixed, QSizePolicy::Expanding),
@@ -108,10 +108,7 @@ void LanguageButton::initWidget()
     mainLayoutPolicy->addItemAtPosition(seeMoreWidget, 0, 0);
     mainLayoutPolicy->addItemAtPosition(m_UpLabel, 0, 1);
     mainLayoutPolicy->addItemAtPosition(m_DownLabel, 1, 1);
-    mainLayoutPolicy->addItemAtPosition(
-                    new DcpSpacerItem(this, 10, 10, QSizePolicy::Expanding, QSizePolicy::Fixed),
-                    0, 2);
-    
+        
     seeMoreSmall->setZValue(1);
     m_UpLabel->setZValue(2);
     m_DownLabel->setZValue(3);
@@ -138,6 +135,6 @@ void LanguageButton::onOrientationAngleChange()
     int devide = 35;
     this->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width() - devide);
     this->setMaximumWidth(DuiSceneManager::instance()->visibleSceneRect().width() - devide);
-    m_DownLabel->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width() - devide - 60);
-    m_DownLabel->setMaximumWidth(DuiSceneManager::instance()->visibleSceneRect().width() - devide - 60);
+    m_DownLabel->setMinimumWidth(
+            DuiSceneManager::instance()->visibleSceneRect().width() - devide - 30);
 }
