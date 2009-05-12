@@ -21,10 +21,9 @@ void
 DcpDescriptionComponent::createContents()
 {
     m_Container = new DuiContainer(this);
-
     m_Container->setAcceptedMouseButtons(0);
-    m_Container->setSizePolicy(QSizePolicy::Expanding,
-                                 QSizePolicy::Expanding);
+/*    m_Container->setSizePolicy(QSizePolicy::Expanding,
+                                 QSizePolicy::Expanding);*/
     setTitle(title());
 
 //    m_Container->setText("More...");
@@ -35,8 +34,8 @@ DcpDescriptionComponent::createContents()
     m_Description->setObjectName("ComponentDescription");
     m_Description->setWordWrap(true);
     m_Description->setAcceptedMouseButtons(0);
-    m_Description->setSizePolicy(QSizePolicy::Expanding,
-                                 QSizePolicy::Expanding);
+/*    m_Description->setSizePolicy(QSizePolicy::Expanding,
+                                 QSizePolicy::Expanding);*/
 
     m_Container->setCentralWidget(m_Description);
 

@@ -44,9 +44,7 @@ void ServicesButtonBlock::initWidget()
                     new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Fixed),
                     0, 3);
 
-    DuiWidget* buttonWidget = new DuiWidget(this);
-    buttonWidget->setLayout(buttonLayout);
-    mainLayoutPolicy->addItemAtPosition(buttonWidget, 1, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(buttonLayout, 1, Qt::AlignCenter);
     
     this->setLayout(mainLayout);
 }

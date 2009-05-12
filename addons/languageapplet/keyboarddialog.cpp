@@ -73,10 +73,10 @@ void KeyboardDialog::close()
     DcpDialog::close();
     if (!DcpLanguageConf::instance()->keyboardLanguagesNumber()) {
             DuiQueryDialog query(DcpLanguage::RestoreQueryLabelText);
-            DuiButton* keepPrevious = query.addButton(DcpLanguage::RestorePreviousText);
-            query.addButton(DcpLanguage::SelectNewText);
+            int keepPreviousId = query.addChoice(DcpLanguage::RestorePreviousText);
+            query.addChoice(DcpLanguage::SelectNewText);
             query.exec();
-            if (query.clickedButton() == keepPrevious)
+            if (query.acceptedChoice() == keepPreviousId)
             {
                 qDebug("DCP: accepted");
                 DcpLanguageConf::instance()->setKeyboardLanguages(m_OldLanguages);

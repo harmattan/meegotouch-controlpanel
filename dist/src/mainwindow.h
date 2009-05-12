@@ -14,7 +14,6 @@ public:
     virtual ~MainWindow();
 public slots:
     void changePage(Pages::Handle handle);
-    void homeClicked();
     void backClicked();
     void onRotateClicked();
 };

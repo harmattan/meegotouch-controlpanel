@@ -24,7 +24,7 @@ DcpMostUsedCategory::DcpMostUsedCategory(const QString& title, QGraphicsWidget *
 
     //m_LandscapeLayout->setColumnSpacing(0, 0); //dummy
 
-    setContentsMargins(0, 10, 0, 10);
+//    layout()->setContentsMargins(0, 10, 0, 10);
 
    //m_Background = new QPixmap("images/backgroundP.png");
 

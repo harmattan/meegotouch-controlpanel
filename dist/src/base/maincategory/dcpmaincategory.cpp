@@ -4,8 +4,6 @@
 #include <duigridlayoutpolicy.h>
 #include <duilinearlayoutpolicy.h>
 
-#include <duiproxywidget.h>
-
 #include <duiscenemanager.h>
 #include <duibasiclayoutanimator.h>
 #include <QtDebug>
@@ -17,13 +15,14 @@ DcpMainCategory::DcpMainCategory(
 {
     m_Layout = new DuiLayout(this);
     m_Layout->setAnimator(NULL);
-    m_Layout->setContentsMargins(0,0,0,0);
 
     m_LandscapeLayout = new DuiGridLayoutPolicy(m_Layout);
 
     m_Layout->setPolicy(m_LandscapeLayout);
     m_PortraitLayout = new DuiLinearLayoutPolicy(m_Layout, Qt::Vertical);
 
+    m_Layout->setContentsMargins(0,0,0,0);
+    m_LandscapeLayout->setContentsMargins(0,0,0,0);
     setLayout(m_Layout);
 
     m_LandscapeLayout->setHorizontalSpacing(12);
