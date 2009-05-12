@@ -70,7 +70,7 @@ void LanguageWidget::initWidget()
 	DuiLinearLayoutPolicy *mainLayoutPolicy = 
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayoutPolicy->setContentsMargins(0.0, 0.0, 0.0, 0.0);
+    mainLayoutPolicy->setContentsMargins(0.0, 12.0, 0.0, 12.0);
     mainLayoutPolicy->setSpacing(15);
 
     // Add items to mainLayoutPolicy

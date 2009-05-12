@@ -91,7 +91,7 @@ void LanguageLabel::initWidget()
     setMinimumHeight(height);
     setMaximumHeight(height);
 
-    connect(DuiDeviceProfile::instance(), SIGNAL(orientationAngleChanged (DuiDeviceProfile::DeviceOrientationAngle)),
+    connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),
             this, SLOT(onOrientationAngleChanged ()));
     onOrientationAngleChanged();
 }

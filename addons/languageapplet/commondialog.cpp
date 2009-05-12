@@ -62,14 +62,13 @@ void CommonDialog::initDialog()
     
     // containerWidget
     DuiWidget *containerWidget = new DuiWidget(m_MainWidget);
-    containerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_ContainerLayout = new DuiLayout(containerWidget);
     m_ContainerLayout->setAnimator(NULL);
+    containerWidget->setLayout(m_ContainerLayout);
     m_ContainerLayoutPolicy =
         new DuiLinearLayoutPolicy(m_ContainerLayout, Qt::Vertical);
     m_ContainerLayout->setPolicy(m_ContainerLayoutPolicy);
     m_ContainerLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
-    containerWidget->setLayout(m_ContainerLayout);
 
     // titleLayout
     DuiLayout *titleLayout = new DuiLayout(NULL);
@@ -77,6 +76,7 @@ void CommonDialog::initDialog()
     DuiLinearLayoutPolicy *titleLayoutPolicy =
         new DuiLinearLayoutPolicy(titleLayout, Qt::Horizontal);
     titleLayout->setPolicy(titleLayoutPolicy);
+    titleLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     
     // titleLabel
     DuiLabel *titleLabel = new DuiLabel(m_TitleText, containerWidget);
@@ -110,11 +110,11 @@ void CommonDialog::initDialog()
     // Add items to mainLayoutPolicy
     mainLayoutPolicy->addItemAtPosition(
             new DcpSpacerItem(this, 10, 10, QSizePolicy::Expanding, QSizePolicy::Expanding),
-            0, Qt::AlignLeft | Qt::AlignVCenter);
+            0, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(m_Viewport, 1, Qt::AlignCenter);
 
     // orientation
-    connect(DuiDeviceProfile::instance(), SIGNAL(orientationAngleChanged (DuiDeviceProfile::DeviceOrientationAngle)),
+    connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),
             this, SLOT(onOrientationAngleChanged ()));
     onOrientationAngleChanged();
 }
