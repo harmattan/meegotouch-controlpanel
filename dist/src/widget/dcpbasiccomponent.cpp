@@ -24,7 +24,6 @@ DcpBasicComponent::DcpBasicComponent(
     DcpComponent(category, title, parent), m_Metadata(metadata), m_Button(NULL)
 {
 
- 
     m_MainLayout = new DuiLayout(this);
     m_MainLayout->setContentsMargins(0,0,0,0);
     m_MainLayout->setAnimator(NULL);
@@ -48,6 +47,7 @@ DcpBasicComponent::~DcpBasicComponent()
 {
 
 }
+
 
 void DcpBasicComponent::initLayout()
 {
