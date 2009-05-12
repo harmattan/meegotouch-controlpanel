@@ -48,7 +48,7 @@ MainWindow::changePage(Pages::Handle handle)
     DuiAction *quitAction = new DuiAction(DcpMain::quitMenuItemText, this);
     quitAction->setLocation(DuiAction::ViewMenu);
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
-    
+
     // Add actions to page
     if (handle.id != Pages::MAIN)
         page->addAction(quitAction);
@@ -57,19 +57,8 @@ MainWindow::changePage(Pages::Handle handle)
     page->appear(DuiSceneWindow::KeepWhenDone); //TODO -> Destroy
 }
 
-#include <DuiQueryDialog>
 void MainWindow::onRotateClicked()
 {
-    DuiQueryDialog query("You have not selected any keyboard language,<br>"
-                                 "would you like to keep the previous selection?");
-    int keepPreviousId = query.addChoice("Keep previous");
-    query.addChoice("Select new");
-    query.exec();
-    if (query.acceptedChoice() == keepPreviousId)
-    {
-        qDebug("DCP: accepted");
-    }
-/*
     DuiSceneManager *manager = DuiSceneManager::instance();
     static Dui::OrientationAngle angle = Dui::Angle0;
     if (angle == Dui::Angle270) {
@@ -82,7 +71,6 @@ void MainWindow::onRotateClicked()
 	angle = Dui::Angle270;
     }
     manager->setOrientationAngle (angle);
-*/
 }
 
 
