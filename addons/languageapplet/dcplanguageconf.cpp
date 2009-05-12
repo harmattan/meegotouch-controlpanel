@@ -54,8 +54,12 @@ DcpLanguageConf::~DcpLanguageConf()
 QString 
 DcpLanguageConf::displayLanguage()
 {
-    
-    return m_DisplayLanguageItem->value().toString();
+    QString result = m_DisplayLanguageItem->value().toString();
+    if (result.isEmpty()) {
+        return "en_GB";
+    } else {
+        return result;
+    }
     //return m_Settings.value(LanguageKey::CurrentLanguage).toString();
 }
 
