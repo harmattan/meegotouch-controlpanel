@@ -23,6 +23,7 @@ void DcpPage::createContent()
     qDebug() << "XXX page createContent" << metaObject()->className()
              << (void*) this;
     DuiApplicationPage::createContent();
+    setObjectName("DcpPage");
 
     setBackButtonEnabled(true);
 

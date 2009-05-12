@@ -8,6 +8,7 @@
 #include <duilinearlayoutpolicy.h>
 #include <duigridlayoutpolicy.h>
 #include <duilabel.h>
+#include <duiscenemanager.h>
 
 LanguageSelectContainer::LanguageSelectContainer(const QString &title,
                                                  QStringList itemList,
@@ -40,24 +41,25 @@ void LanguageSelectContainer::initWidget()
     // mainLayout
     DuiLayout *mainLayout = new DuiLayout(this);
     mainLayout->setAnimator(NULL);
+    this->setLayout(mainLayout);
     DuiLinearLayoutPolicy *mainLayoutPolicy = 
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayoutPolicy->setContentsMargins(0.0, 0.0, 0.0, 0.0);
+    mainLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
+    mainLayoutPolicy->setSpacing(1);
     
-    GroupTitleWidget *titleLabel = new GroupTitleWidget(m_TitleText, this);
-    mainLayoutPolicy->addItemAtPosition(titleLabel, 0, Qt::AlignCenter);
+    /* GroupTitleWidget *titleLabel = new GroupTitleWidget(m_TitleText, this);
+    mainLayoutPolicy->addItemAtPosition(titleLabel, 0, Qt::AlignCenter);*/
 
     // m_ItemLayout
     m_ItemLayout = new DuiLayout(NULL);
     m_ItemLayout->setAnimator(NULL);
     m_LandscapePolicy = new DuiGridLayoutPolicy(m_ItemLayout);
     m_ItemLayout->setPolicy(m_LandscapePolicy);
-    m_LandscapePolicy->setContentsMargins(0.0, 0.0, 0.0, 0.0);
+    m_ItemLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
 
     // m_PortraitPolicy
     m_PortraitPolicy = new DuiLinearLayoutPolicy(m_ItemLayout, Qt::Vertical);
-    m_PortraitPolicy->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     
     QStringListIterator iterator(m_ItemList);
     while (iterator.hasNext()) {
@@ -73,11 +75,10 @@ void LanguageSelectContainer::initWidget()
                 this, SLOT(itemClicked(LanguageListItem *)));
     }
     
-    mainLayoutPolicy->addItemAtPosition(m_ItemLayout, 1);
-    this->setLayout(mainLayout);
+    mainLayoutPolicy->addItemAtPosition(m_ItemLayout, 1, Qt::AlignCenter);
 
     // orientation
-    connect(DuiDeviceProfile::instance(), SIGNAL(orientationAngleChanged(DuiDeviceProfile::DeviceOrientationAngle)),
+    connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),
             this, SLOT(onOrientationAngleChange()));
     onOrientationAngleChange();
 }
@@ -91,7 +92,7 @@ void LanguageSelectContainer::itemClicked(LanguageListItem *item)
 
 void LanguageSelectContainer::onOrientationAngleChange()
 {
-    switch(DuiDeviceProfile::instance()->orientation()) {
+    switch(DuiSceneManager::instance()->orientation()) {
         case Dui::Landscape:
             m_ItemLayout->setPolicy(m_LandscapePolicy);
             break;

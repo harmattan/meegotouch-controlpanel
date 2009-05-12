@@ -39,11 +39,11 @@ void DisplayDialog::initWidget()
             this, SLOT(removeContainer(LanguageLabelButtonContainer*)));*/
     
     // InstalledLanguage
-    LanguageLabelButtonContainer *installedCont =
+    /* LanguageLabelButtonContainer *installedCont =
         new LanguageLabelButtonContainer(LanguageLabelButtonContainer::INSTALLED,
                                          centralWidget);
     connect(installedCont, SIGNAL(removeMe(LanguageLabelButtonContainer*)),
-            this, SLOT(removeContainer(LanguageLabelButtonContainer*)));
+            this, SLOT(removeContainer(LanguageLabelButtonContainer*)));*/
     
     // LanguageSelectContainer
     LanguageSelectContainer *selectCont =
@@ -53,8 +53,8 @@ void DisplayDialog::initWidget()
 
     // Add items to widgetLayoutPolicy
     // widgetLayoutPolicy->addItemAtPosition(downloadedCont, 0, Qt::AlignCenter);
-    widgetLayoutPolicy->addItemAtPosition(installedCont, 0, Qt::AlignCenter);
-    widgetLayoutPolicy->addItemAtPosition(selectCont, 1, Qt::AlignCenter);
+    // widgetLayoutPolicy->addItemAtPosition(installedCont, 0, Qt::AlignCenter);
+    widgetLayoutPolicy->addItemAtPosition(selectCont, 0, Qt::AlignCenter);
 
     // setCentralWidget
     this->setCentralWidget(centralWidget);

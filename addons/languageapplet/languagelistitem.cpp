@@ -10,9 +10,11 @@
 #include <duibutton.h>
 #include <duiseparator.h>
 #include <qgraphicswidget.h>
+#include <duiscenemanager.h>
+#include <duiseparator.h>
 
 const int height = 70;
-const int devide = 35;
+const int devide = 100;
 
 LanguageListItem::LanguageListItem(const QString &langCode,
                                    const QString &text, 
@@ -79,6 +81,11 @@ bool LanguageListItem::isClicked()
     return m_Clicked;
 }
 
+void LanguageListItem::hideSeparator()
+{
+    m_GreySeparator->setVisible(false);
+}
+
 void LanguageListItem::initWidget()
 {
     // mainLayout
@@ -87,7 +94,7 @@ void LanguageListItem::initWidget()
     DuiLinearLayoutPolicy *mainLayoutPolicy = 
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayoutPolicy->setContentsMargins(1.0, 1.0, 1.0, 1.0);
+    mainLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     mainLayoutPolicy->setSpacing(1);
     
     // label
@@ -95,13 +102,16 @@ void LanguageListItem::initWidget()
     labelLayout->setAnimator(NULL);
     m_LabelLayoutPolicy = new DuiGridLayoutPolicy(labelLayout);
     labelLayout->setPolicy(m_LabelLayoutPolicy);
+    labelLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
+    m_LabelLayoutPolicy->setSpacing(1);
     m_LabelLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 15, 10, QSizePolicy::Fixed, QSizePolicy::Fixed),
                     0, 0);
-    
+        
     // normalLabel
     m_NormalLabel = new DuiLabel("<font color=#ffffff>" + m_LabelText + "</font>", this);
     m_NormalLabel->setObjectName("LanguageNormalListItem");
+    m_NormalLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     m_NormalLabel->setAcceptedMouseButtons(0);
     
     m_LabelLayoutPolicy->addItemAtPosition(m_NormalLabel, 0, 1);
@@ -112,25 +122,21 @@ void LanguageListItem::initWidget()
     // checkMark
     m_CheckMark = NULL;
     
-    DuiWidget* labelWidget = new DuiWidget(this);
-    labelWidget->setLayout(labelLayout);
-
-    // greySeparator
+    // m_GreySeparator
     m_GreySeparator = new DuiSeparator(this);
     m_GreySeparator->setObjectName("GreySeparator");
-    m_GreySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
-    
+
     // Add items to mainLayoutPolicy
     mainLayoutPolicy->addItemAtPosition(
             new DcpSpacerItem(this, 5, 5, QSizePolicy::Fixed, QSizePolicy::Expanding),
             0, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(labelWidget, 1, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(labelLayout, 1, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(
             new DcpSpacerItem(this, 5, 5, QSizePolicy::Fixed, QSizePolicy::Expanding),
             2, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(m_GreySeparator, 3, Qt::AlignCenter);
 
-    connect(DuiDeviceProfile::instance(), SIGNAL(orientationAngleChanged (DuiDeviceProfile::DeviceOrientationAngle)),
+    connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),
             this, SLOT(onOrientationAngleChanged ()));
     onOrientationAngleChanged();
 
@@ -157,14 +163,18 @@ void LanguageListItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void LanguageListItem::onOrientationAngleChanged()
 {
-    switch(DuiDeviceProfile::instance()->orientation()) {
+    switch(DuiSceneManager::instance()->orientation()) {
         case Dui::Landscape:
-            m_GreySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
-            m_GreySeparator->setMaximumWidth(DuiDeviceProfile::instance()->width() / 2 - devide);
+            m_GreySeparator->setMinimumWidth(
+                    DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 45);
+            m_GreySeparator->setMaximumWidth(
+                    DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 45);
             break;
         case Dui::Portrait:
-            m_GreySeparator->setMinimumWidth(DuiDeviceProfile::instance()->width() - 50);
-            m_GreySeparator->setMaximumWidth(DuiDeviceProfile::instance()->width() - 50);
+            m_GreySeparator->setMinimumWidth(
+                    DuiSceneManager::instance()->visibleSceneRect().width() - 50);
+            m_GreySeparator->setMaximumWidth(
+                    DuiSceneManager::instance()->visibleSceneRect().width() - 50);
             break;
         default:
             break;

@@ -2,7 +2,7 @@
 #include "pagefactory.h"
 #include "dcppage.h"
 #include "maintranslations.h"
-#include <duideviceprofile.h>
+#include <duiscenemanager.h>
 #include <QtDebug>
 #include <duinavigationbar.h>
 #include <duiaction.h>
@@ -49,6 +49,7 @@ MainWindow::changePage(Pages::Handle handle)
 
     // --- temporary to test rotating the device ---
     DuiAction* rotateAction = new DuiAction("ROT", page);
+    rotateAction->setLocation(DuiAction::ToolBar);
     connect (rotateAction, SIGNAL (triggered()),
              this, SLOT(onRotateClicked()));
     // ---
@@ -63,22 +64,21 @@ MainWindow::changePage(Pages::Handle handle)
     page->addAction(rotateAction);
 
     page->appear(DuiSceneWindow::KeepWhenDone); //TODO -> Destroy
-    qDebug() << "XXX" << DuiDeviceProfile::instance()->resolution();
 }
 
 
 void MainWindow::onRotateClicked()
 {
-    DuiDeviceProfile *profile = DuiDeviceProfile::instance();
-    static DuiDeviceProfile::DeviceOrientationAngle angle = DuiDeviceProfile::Angle0;
-    if (angle == DuiDeviceProfile::Angle270) {
-	angle = DuiDeviceProfile::Angle0;
-    } else if (angle == DuiDeviceProfile::Angle0) {
-	angle = DuiDeviceProfile::Angle90;
-    } else if (angle == DuiDeviceProfile::Angle90) {
-	angle = DuiDeviceProfile::Angle180;
-    } else if (angle == DuiDeviceProfile::Angle180) {
-	angle = DuiDeviceProfile::Angle270;
+    DuiSceneManager *manager = DuiSceneManager::instance();
+    static Dui::OrientationAngle angle = Dui::Angle0;
+    if (angle == Dui::Angle270) {
+	angle = Dui::Angle0;
+    } else if (angle == Dui::Angle0) {
+	angle = Dui::Angle90;
+    } else if (angle == Dui::Angle90) {
+	angle = Dui::Angle180;
+    } else if (angle == Dui::Angle180) {
+	angle = Dui::Angle270;
     }
-    profile->setOrientationAngle (angle);
+    manager->setOrientationAngle (angle);
 }

@@ -194,3 +194,5 @@ Qt::Alignment DcpButtonView::stringToAlign(const QString& alignment)
 
 		return outAligment;
 }
+
+

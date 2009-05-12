@@ -47,11 +47,11 @@ void KeyboardDialog::initWidget()
             this, SLOT(removeContainer(LanguageLabelButtonContainer*)));*/
 
     // InstalledLanguage
-    LanguageLabelButtonContainer *installedCont =
+    /* LanguageLabelButtonContainer *installedCont =
         new LanguageLabelButtonContainer(LanguageLabelButtonContainer::INSTALLED,
                                          centralWidget);
     connect(installedCont, SIGNAL(removeMe(LanguageLabelButtonContainer*)),
-            this, SLOT(removeContainer(LanguageLabelButtonContainer*)));
+            this, SLOT(removeContainer(LanguageLabelButtonContainer*)));*/
 
     // KeyboardSelectContainer
     KeyboardSelectContainer *selectCont =
@@ -60,8 +60,8 @@ void KeyboardDialog::initWidget()
 
     // Add items to widgetLayoutPolicy
     // widgetLayoutPolicy->addItemAtPosition(downloadedCont, 0, Qt::AlignCenter);
-    widgetLayoutPolicy->addItemAtPosition(installedCont, 0, Qt::AlignCenter);
-    widgetLayoutPolicy->addItemAtPosition(selectCont, 1, Qt::AlignCenter);
+    // widgetLayoutPolicy->addItemAtPosition(installedCont, 0, Qt::AlignCenter);
+    widgetLayoutPolicy->addItemAtPosition(selectCont, 0, Qt::AlignCenter);
 
     // setCentralWidget
     this->setCentralWidget(centralWidget);
@@ -72,10 +72,9 @@ void KeyboardDialog::close()
 {
     DcpDialog::close();
     if (!DcpLanguageConf::instance()->keyboardLanguagesNumber()) {
-            DuiQueryDialog query("You have not selected any keyboard language,<br>"
-                                 "would you like to keep the previous selection?");
-            DuiButton* keepPrevious = query.addButton("Keep previous");
-            query.addButton("Select new");
+            DuiQueryDialog query(DcpLanguage::RestoreQueryLabelText);
+            DuiButton* keepPrevious = query.addButton(DcpLanguage::RestorePreviousText);
+            query.addButton(DcpLanguage::SelectNewText);
             query.exec();
             if (query.clickedButton() == keepPrevious)
             {
@@ -90,8 +89,8 @@ void KeyboardDialog::close()
 void KeyboardDialog::close()
 {
     if (!DcpLanguageConf::instance()->keyboardLanguagesNumber()) {
-        DuiMessageBox mb("Keep last selection of languages?",
-                         DuiMessageBox::Ok|DuiMessageBox::Cancel);
+        DuiMessageBox mb(DcpLanguage::RestoreQueryLabelText,
+                         DuiMessageBoxModel::Ok|DuiMessageBoxModel::Cancel);
         int result = mb.exec();
         qDebug() << "DCP: result is" << result;
         if (result == 1) { //DuiDialog::Accepted is wrong!!!

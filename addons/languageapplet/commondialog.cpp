@@ -6,6 +6,8 @@
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
 #include <duipannableviewport.h>
+#include <duiscenemanager.h>
+#include <duiseparator.h>
 
 CommonDialog::CommonDialog(const QString &text)
              :DcpDialog(),
@@ -20,18 +22,16 @@ CommonDialog::~CommonDialog()
 
 void CommonDialog::setCentralWidget(DuiWidget *widget)
 {
-    if (m_ContainerLayout->count() > 1) {
-        m_ContainerLayout->removeAt(1);
+    if (m_ContainerLayout->count() > 2) {
+        m_ContainerLayout->removeAt(2);
     }
-
-    m_ContainerLayoutPolicy->addItemAtPosition(widget, 1, Qt::AlignCenter);
-    widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_ContainerLayoutPolicy->addItemAtPosition(widget, 2, Qt::AlignCenter);
 }
 
 DuiWidget* CommonDialog::centralWidget()
 {
-    if (m_ContainerLayout->count() > 1) {
-        return static_cast<DuiWidget*>(m_ContainerLayout->itemAt(1));
+    if (m_ContainerLayout->count() > 2) {
+        return static_cast<DuiWidget*>(m_ContainerLayout->itemAt(2));
     } else {
         return NULL;
     }
@@ -42,32 +42,32 @@ void CommonDialog::initDialog()
     // mainLayout
     DuiLayout *mainLayout = new DuiLayout(this);
     mainLayout->setAnimator(NULL);
+    this->setLayout(mainLayout);
     DuiLinearLayoutPolicy *mainLayoutPolicy = 
         new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
-    this->setLayout(mainLayout);
     setContentsMargins(0.0, 0.0, 0.0, 0.0);
     mainLayoutPolicy->setSpacing(1);
+
+    // m_Viewport 
+    m_Viewport = new DuiPannableViewport(this);
+    m_Viewport->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     
     // m_MainWidget
-    m_MainWidget = new DuiContainer(this);
-    m_MainWidget->layout()->setContentsMargins(0.0, 10.0, 0.0, 10.0);
+    m_MainWidget = new DuiContainer(NULL);
+    m_MainWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_MainWidget->setHeaderVisible(false);
     m_MainWidget->setExpand(true);
-    mainLayoutPolicy->addItemAtPosition(m_MainWidget, 0, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(
-            new DcpSpacerItem(this, 10, 10, QSizePolicy::Expanding, QSizePolicy::Fixed),
-            1, Qt::AlignCenter);
-
+    
     // containerWidget
     DuiWidget *containerWidget = new DuiWidget(m_MainWidget);
     m_ContainerLayout = new DuiLayout(containerWidget);
     m_ContainerLayout->setAnimator(NULL);
+    containerWidget->setLayout(m_ContainerLayout);
     m_ContainerLayoutPolicy =
         new DuiLinearLayoutPolicy(m_ContainerLayout, Qt::Vertical);
     m_ContainerLayout->setPolicy(m_ContainerLayoutPolicy);
     m_ContainerLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
-    containerWidget->setLayout(m_ContainerLayout);
 
     // titleLayout
     DuiLayout *titleLayout = new DuiLayout(NULL);
@@ -75,11 +75,17 @@ void CommonDialog::initDialog()
     DuiLinearLayoutPolicy *titleLayoutPolicy =
         new DuiLinearLayoutPolicy(titleLayout, Qt::Horizontal);
     titleLayout->setPolicy(titleLayoutPolicy);
+    titleLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     
     // titleLabel
     DuiLabel *titleLabel = new DuiLabel(m_TitleText, containerWidget);
     titleLabel->setObjectName("CommonDialogTitleLabel");
     titleLabel->setAcceptedMouseButtons(0);
+
+    // greySeparator
+    m_GreySeparator = new DuiSeparator(containerWidget);
+    m_GreySeparator->setObjectName("GreySeparator");
+    m_GreySeparator->setAcceptedMouseButtons(0);
     
     // Add items to titleLayoutPolicy
     titleLayoutPolicy->addItemAtPosition(
@@ -94,26 +100,29 @@ void CommonDialog::initDialog()
 
     // Add items to m_ContainerLayoutPolicy
     m_ContainerLayoutPolicy->addItemAtPosition(titleLayout, 0, Qt::AlignCenter);
+    m_ContainerLayoutPolicy->addItemAtPosition(m_GreySeparator, 1, Qt::AlignCenter);
 
-    // pannable viewport
-    DuiPannableViewport* viewport = new DuiPannableViewport(m_MainWidget);
-    viewport->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    viewport->setWidget(containerWidget);
-    
     // Add viewport to DuiContainer
-    m_MainWidget->setCentralWidget(viewport);
+    m_MainWidget->setCentralWidget(containerWidget);
+    m_Viewport->setWidget(m_MainWidget);
+
+    // Add items to mainLayoutPolicy
+    mainLayoutPolicy->addItemAtPosition(
+            new DcpSpacerItem(this, 10, 10, QSizePolicy::Expanding, QSizePolicy::Expanding),
+            0, Qt::AlignLeft);
+    mainLayoutPolicy->addItemAtPosition(m_Viewport, 1, Qt::AlignCenter);
 
     // orientation
-    connect(DuiDeviceProfile::instance(), SIGNAL(orientationAngleChanged (DuiDeviceProfile::DeviceOrientationAngle)),
+    connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),
             this, SLOT(onOrientationAngleChanged ()));
     onOrientationAngleChanged();
 }
 
 void CommonDialog::onOrientationAngleChanged()
 {
-    QSizeF dialogSize = DuiDeviceProfile::instance()->resolution();
-    dialogSize.setHeight(dialogSize.height() - 100);
-    dialogSize.setWidth(dialogSize.width() - 30);
-    layout()->itemAt(0)->setMinimumSize(dialogSize);
-    layout()->itemAt(0)->setMaximumSize(dialogSize);
+    QSizeF dialogSize = DuiSceneManager::instance()->visibleSceneRect();
+    dialogSize.setHeight(dialogSize.height() - 90);
+    dialogSize.setWidth(dialogSize.width() - 20);
+    m_Viewport->setMinimumSize(dialogSize);
+    m_Viewport->setMaximumSize(dialogSize);
 }

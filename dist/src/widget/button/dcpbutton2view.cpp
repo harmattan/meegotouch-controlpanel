@@ -25,7 +25,6 @@ V
 DcpButton2View::DcpButton2View(DcpButton &button) :
     DcpButtonView(button)
 {
-
 }
 
 DcpButton2View::~DcpButton2View()

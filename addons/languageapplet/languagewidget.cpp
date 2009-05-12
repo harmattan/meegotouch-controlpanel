@@ -10,6 +10,9 @@
 #include <duilinearlayoutpolicy.h>
 #include <duibutton.h>
 #include <duilabel.h>
+#include <duiapplication.h>
+#include <duiapplicationwindow.h>
+#include <duinavigationbar.h>
 #include <duitheme.h>
 #include "dcpwidget.h"
 #include "dcplanguage.h"
@@ -26,23 +29,6 @@ LanguageWidget::LanguageWidget(QGraphicsWidget *parent)
 
 LanguageWidget::~LanguageWidget()
 {
-}
-
-void LanguageWidget::paint(QPainter *painter,
-			               const QStyleOptionGraphicsItem *option,
-			               QWidget *widget)
-{
-    Q_UNUSED(painter);
-	Q_UNUSED(option);
-	Q_UNUSED(widget);
-}
-
-void LanguageWidget::resizeEvent(QGraphicsSceneResizeEvent *event)
-{
-    Q_UNUSED(event);
-
-    m_DisplayButton->setMinimumWidth(size().width());
-    m_KeyboardButton->setMinimumWidth(size().width());
 }
 
 void LanguageWidget::initWidget()
@@ -84,6 +70,7 @@ void LanguageWidget::initWidget()
 	DuiLinearLayoutPolicy *mainLayoutPolicy = 
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
+    mainLayoutPolicy->setContentsMargins(0.0, 12.0, 0.0, 12.0);
     mainLayoutPolicy->setSpacing(15);
 
     // Add items to mainLayoutPolicy
@@ -112,9 +99,6 @@ void LanguageWidget::displayPage()
     m_Dlg=NULL;
 }
 
-#include <duiapplication.h>
-#include <duiapplicationwindow.h>
-#include <duinavigationbar.h>
 void LanguageWidget::keyboardPage()
 {
     ((DuiApplication*)DuiApplication::instance())->applicationWindow()->navigationBar()->showBackButton();

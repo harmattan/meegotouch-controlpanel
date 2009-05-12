@@ -10,6 +10,7 @@
 #include <duigridlayoutpolicy.h>
 #include <duilabel.h>
 #include <duilocale.h>
+#include <duiscenemanager.h>
 
 KeyboardSelectContainer::KeyboardSelectContainer(const QString &title,
                                                  QStringList itemList,
@@ -43,8 +44,8 @@ void KeyboardSelectContainer::initWidget()
     mainLayout->setPolicy(mainLayoutPolicy);
     mainLayoutPolicy->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     
-    GroupTitleWidget *titleLabel = new GroupTitleWidget(m_TitleText, this);
-    mainLayoutPolicy->addItemAtPosition(titleLabel, 0, Qt::AlignCenter);
+    /* GroupTitleWidget *titleLabel = new GroupTitleWidget(m_TitleText, this);
+    mainLayoutPolicy->addItemAtPosition(titleLabel, 0, Qt::AlignCenter);*/
 
     // m_ItemLayout
     m_ItemLayout = new DuiLayout(NULL);
@@ -74,7 +75,7 @@ void KeyboardSelectContainer::initWidget()
     mainLayoutPolicy->addItemAtPosition(m_ItemLayout, 1, Qt::AlignCenter);
     this->setLayout(mainLayout);
 
-    connect(DuiDeviceProfile::instance(), SIGNAL(orientationAngleChanged(DuiDeviceProfile::DeviceOrientationAngle)),
+    connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),
             this, SLOT(onOrientationAngleChange()));
     onOrientationAngleChange();
 }
@@ -91,7 +92,7 @@ void KeyboardSelectContainer::itemClicked(LanguageListItem* item)
 
 void KeyboardSelectContainer::onOrientationAngleChange()
 {
-    switch(DuiDeviceProfile::instance()->orientation()) {
+    switch(DuiSceneManager::instance()->orientation()) {
         case Dui::Landscape:
             m_ItemLayout->setPolicy(m_LandscapePolicy);
             break;
