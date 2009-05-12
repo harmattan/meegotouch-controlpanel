@@ -1,4 +1,4 @@
-[Desktop Entry]
+Desktop Entry]
 Type=DUIApplet
 Name=Positioning
 Icon=
@@ -18,13 +18,4 @@ Text1= Positioning
 Text2= GPS+WLAN
 SmallToggle= TRUE
 Align= Left
-
-ButtonCSS= BigButton
-SmallButtonOnCSS= SmallButtonOn
-SmallButtonOffCSS= SmallButtonOff
-SmallButtonDisableCSS= SmallButtonDisable
-
-
-Label1CSS= LabelFont1
-Label2CSS= LabelFont2
 

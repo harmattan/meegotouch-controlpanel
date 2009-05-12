@@ -16,6 +16,3 @@ Order=1
 WidgetType= DcpLabel2
 Text2= firefox
 
-ButtonCSS= BigButton
-Label1CSS= LabelFont1
-

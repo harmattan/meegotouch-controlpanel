@@ -3,9 +3,11 @@ DuiLabel {
     font: font("Nokia Sans Cn", 12);
 }
 
+
 #SignButton {
     normalBackground: "See-more-indicator-big";
 }
+
 
 DuiLabel#ComponentDescription {
     font: font("Nokia Sans Cn", 16px);
@@ -20,9 +22,11 @@ DcpBackgroundComponent {
 	lineSkip: 2;
 }
 
+
 DuiLabel#DuiContainerTitle {
     font: font("Nokia Sans Cn", 20px);
 }
+
 
 DuiApplicationPage {
 	background: image(starfield);
@@ -40,106 +44,6 @@ DuiImage {
   rightMargin: 0.0;
   bottomMargin: 0.0;
 }	
-
-#LabelFont1 {
-    color: #FFFFFF;
-    font: font("Nokia Sans Cn", 24);
-}
-
-#LabelFont2 {
-    color: #FFA000;
-    font: font("Nokia Sans Cn", 18);
-}
-
-
-#BigButton {
-    text: Next;
-    font: font(sans, 15);
-    textColor: #FFFFFF;
-    preferredsize: size(350, 100);
-    minsize: size(350, 100);
-    maxsize: size(350, 100);
-
-    normalBackground: "C2-container";
-    pressedBackground: "Toggle-on";
-    horizontalBoxEdgePercent: 30;
-}
-
-#SmallButtonOn {
-    text: Next;
-    font: font(sans, 15);
-    textColor: #FF0000;
-    preferredsize: size(350, 100);
-    minsize: size(350, 100);
-    maxsize: size(350, 100);
-
-    normalBackground: "W-Icon-weather";
-    pressedBackground: "W-Icon-favourites";
-}
-
-#SmallButtonOff {
-    text: Next;
-    font: font(sans, 15);
-    textColor: #FF0000;
-    preferredsize: size(350, 100);
-    minsize: size(350, 100);
-    maxsize: size(350, 100);
-
-    normalBackground: "Icon-new-SMS";
-    pressedBackground: "Icon-maps";
-}
-
-#SmallButtonDisable {
-    text: Next;
-    font: font(sans, 15);
-    textColor: #FF0000;
-    preferredsize: size(350, 100);
-    minsize: size(350, 100);
-    maxsize: size(350, 100);
-
-    normalBackground: "Media-control-pause";
-    pressedBackground: "Media-control-play";
-}
-
-#LabelButton {
-    text: Next;
-    font: font(sans, 15);
-    textColor: #FFFFFF;
-    preferredsize: size(350, 100);
-    minsize: size(350, 100);
-    maxsize: size(350, 100);
-
-    normalBackground: "C2-container";
-    pressedBackground: "Toggle-btn-selected";
-    horizontalBoxEdgePercent: 30;
-}
-
-#UpLabel {
-    color: #FFFFFF;
-    font: font("Nokia Sans Cn", 20);
-}
-
-#DownLabel {
-    color: #FFA000;
-    font: font("Nokia Sans Cn", 16);
-}
-
-
-#TriangleButton {
-    normalBackground: "See-more-indicator-small";
-    pressedBackground: "See-more-indicator-small";
-}
-
-
-#SpacerButton {
-	normalBackground: "Single-line-input-field";
-	pressedBackground: "Single-line-input-field";
-}
-
-#SmallToggle {
-    normalBackground: "Toggle-off";
-    pressedBackground: "Toggle-on";
-}
 
 
 DcpButton {
@@ -187,5 +91,3 @@ DcpButton {
     toggleOff: "Toggle-off";
 
 }
-
-
