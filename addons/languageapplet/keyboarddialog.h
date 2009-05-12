@@ -5,6 +5,7 @@
 
 class DuiLayout;
 class LanguageLabelButtonContainer;
+class KeyboardSelectContainer;
 
 class KeyboardDialog : public CommonDialog
 {
@@ -13,19 +14,17 @@ class KeyboardDialog : public CommonDialog
 public:
     KeyboardDialog();
     virtual ~KeyboardDialog();
-    void close();
-
-signals:
-    void reopen();
+    QStringList selectedLanguages();
 
 protected:
     void initWidget();
 
 private:
     DuiLayout *m_WidgetLayout;
-    QStringList m_OldLanguages;
+    KeyboardSelectContainer* m_SelectContainer;
 
 private slots:
     virtual void removeContainer(LanguageLabelButtonContainer *container);
+
 };
 #endif //KEYBOARDWIDGET_H

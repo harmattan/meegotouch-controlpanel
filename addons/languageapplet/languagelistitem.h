@@ -44,8 +44,9 @@ private:
     bool m_Clicked;
     bool m_First;
     DuiSeparator *m_GreySeparator;
-    
+
 signals:
     void clicked(LanguageListItem *item);
 };
 #endif // LANGUAGELISTITEM_H
+

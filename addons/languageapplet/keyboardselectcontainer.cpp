@@ -43,7 +43,7 @@ void KeyboardSelectContainer::initWidget()
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
     mainLayoutPolicy->setContentsMargins(0.0, 0.0, 0.0, 0.0);
-    
+
     /* GroupTitleWidget *titleLabel = new GroupTitleWidget(m_TitleText, this);
     mainLayoutPolicy->addItemAtPosition(titleLabel, 0, Qt::AlignCenter);*/
 
@@ -57,18 +57,16 @@ void KeyboardSelectContainer::initWidget()
     // m_PortraitPolicy
     m_PortraitPolicy = new DuiLinearLayoutPolicy(m_ItemLayout, Qt::Vertical);
     m_PortraitPolicy->setContentsMargins(0.0, 0.0, 0.0, 0.0);
-    
+
     QStringListIterator iterator(m_ItemList);
     int i = 0;
     while (iterator.hasNext()) {
         QString langCode = iterator.next();
-        LanguageListItem *item = new LanguageListItem(langCode, 
+        LanguageListItem *item = new LanguageListItem(langCode,
             DcpLanguageConf::fullName(langCode), this);
         m_ListItems[langCode] = item;
         m_LandscapePolicy->addItemAtPosition(item, i / 2, i % 2);
         m_PortraitPolicy->addItemAtPosition(item, i, Qt::AlignCenter);
-        connect(item, SIGNAL(clicked(LanguageListItem*)), this,
-                SLOT(itemClicked(LanguageListItem*)));
         i++;
     }
 
@@ -80,14 +78,16 @@ void KeyboardSelectContainer::initWidget()
     onOrientationAngleChange();
 }
 
-void KeyboardSelectContainer::itemClicked(LanguageListItem* item)
-{
-    if (item->isChecked()) {
-        DcpLanguageConf::instance()->addKeyboardLanguage(item->langCode());
-    } else {
-            m_LastRemovedLangCode = item->langCode();
-            DcpLanguageConf::instance()->removeKeyboardLanguage(item->langCode());
+QStringList KeyboardSelectContainer::selectedLanguages() {
+    QStringList result;
+    for (int i=0; i<m_ItemLayout->count(); i++) {
+        LanguageListItem* item = static_cast<LanguageListItem*>(m_ItemLayout->itemAt(i));
+        Q_ASSERT (item != NULL);
+        if (item->isChecked()){
+            result.append(item->langCode());
+        }
     }
+    return result;
 }
 
 void KeyboardSelectContainer::onOrientationAngleChange()
@@ -113,8 +113,3 @@ void KeyboardSelectContainer::onOrientationAngleChange()
     }
 }
 
-void KeyboardSelectContainer::putLastLanguageBack()
-{
-    DcpLanguageConf::instance()->addKeyboardLanguage(m_LastRemovedLangCode);
-
-};

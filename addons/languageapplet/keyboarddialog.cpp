@@ -8,14 +8,10 @@
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
 
-#ifdef QUERY_DIALOG
-    #include <duiquerydialog.h>
-#else
-    #include <DuiMessageBox>
-#endif
 
 KeyboardDialog::KeyboardDialog()
-              :CommonDialog(DcpLanguage::SelectKeyboardText)
+              :CommonDialog(DcpLanguage::SelectKeyboardText),
+               m_SelectContainer(NULL)
 {
     initWidget();
 }
@@ -26,8 +22,6 @@ KeyboardDialog::~KeyboardDialog()
 
 void KeyboardDialog::initWidget()
 {
-    m_OldLanguages = DcpLanguageConf::instance()->keyboardLanguages();
-
     // centralWidget
     DuiWidget *centralWidget = new DuiWidget(this);
     m_WidgetLayout = new DuiLayout(centralWidget);
@@ -54,58 +48,17 @@ void KeyboardDialog::initWidget()
             this, SLOT(removeContainer(LanguageLabelButtonContainer*)));*/
 
     // KeyboardSelectContainer
-    KeyboardSelectContainer *selectCont =
-        new KeyboardSelectContainer(DcpLanguage::InDeviceText,
+    m_SelectContainer = new KeyboardSelectContainer(DcpLanguage::InDeviceText,
                 DcpLanguageConf::instance()->availableKeyboardLanguages(), centralWidget);
 
     // Add items to widgetLayoutPolicy
     // widgetLayoutPolicy->addItemAtPosition(downloadedCont, 0, Qt::AlignCenter);
     // widgetLayoutPolicy->addItemAtPosition(installedCont, 0, Qt::AlignCenter);
-    widgetLayoutPolicy->addItemAtPosition(selectCont, 0, Qt::AlignCenter);
+    widgetLayoutPolicy->addItemAtPosition(m_SelectContainer, 0, Qt::AlignCenter);
 
     // setCentralWidget
     this->setCentralWidget(centralWidget);
 }
-
-#ifdef QUERY_DIALOG
-void KeyboardDialog::close()
-{
-    DcpDialog::close();
-    if (!DcpLanguageConf::instance()->keyboardLanguagesNumber()) {
-            DuiQueryDialog query(DcpLanguage::RestoreQueryLabelText);
-            int keepPreviousId = query.addChoice(DcpLanguage::RestorePreviousText);
-            query.addChoice(DcpLanguage::SelectNewText);
-            query.exec();
-            if (query.acceptedChoice() == keepPreviousId)
-            {
-                qDebug("DCP: accepted");
-                DcpLanguageConf::instance()->setKeyboardLanguages(m_OldLanguages);
-            } else {
-		        emit reopen();
-	        }
-    }
-}
-#else
-void KeyboardDialog::close()
-{
-    if (!DcpLanguageConf::instance()->keyboardLanguagesNumber()) {
-        DuiMessageBox mb(DcpLanguage::RestoreQueryLabelText,
-                         DuiMessageBoxModel::Ok|DuiMessageBoxModel::Cancel);
-        int result = mb.exec();
-        qDebug() << "DCP: result is" << result;
-        if (result == 1) { //DuiDialog::Accepted is wrong!!!
-            qDebug("DCP: accepted");
-            DcpLanguageConf::instance()->setKeyboardLanguages(m_OldLanguages);
-            DcpDialog::close();
-        } else {
-            mb.disappear();  
-            return; 
-        }
-    }
-
-    DcpDialog::close();
-}
-#endif
 
 void KeyboardDialog::removeContainer(LanguageLabelButtonContainer *container)
 {
@@ -113,5 +66,12 @@ void KeyboardDialog::removeContainer(LanguageLabelButtonContainer *container)
     int index = m_WidgetLayout->findIndexForItem(static_cast<QGraphicsItem*>(container));
     if (index != -1)
         m_WidgetLayout->removeAt(index);
+}
+
+
+QStringList KeyboardDialog::selectedLanguages()
+{
+    Q_ASSERT(m_SelectContainer);
+    return m_SelectContainer->selectedLanguages();
 }
 

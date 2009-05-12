@@ -1,11 +1,8 @@
 #include "languagewidget.h"
 #include "languagebutton.h"
-#include "servicescontainer.h"
 #include "languagetranslation.h"
 #include "dcpspaceritem.h"
 
-#include <QPen>
-#include <duideviceprofile.h>
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
 #include <duibutton.h>
@@ -13,12 +10,16 @@
 #include <duiapplication.h>
 #include <duiapplicationwindow.h>
 #include <duinavigationbar.h>
-#include <duitheme.h>
-#include "dcpwidget.h"
 #include "dcplanguage.h"
 #include "dcplanguageconf.h"
 #include "displaydialog.h"
 #include "keyboarddialog.h"
+
+#ifdef QUERY_DIALOG
+    #include <DuiQueryDialog>
+#else
+    #include <DuiMessageBox>
+#endif
 
 LanguageWidget::LanguageWidget(QGraphicsWidget *parent)
 	    :DcpWidget(parent), m_Dlg(0)
@@ -39,7 +40,7 @@ void LanguageWidget::initWidget()
      this);
     m_DisplayButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     connect(m_DisplayButton, SIGNAL(clicked()), this, SLOT(displayPage()));
-    
+
     // m_KeyboardButton
     m_KeyboardButton = new LanguageButton(DcpLanguage::KeyboardButtonTitle + 
     " (" +  QString::number(DcpLanguageConf::instance()->keyboardLanguagesNumber())
@@ -93,7 +94,7 @@ void LanguageWidget::displayPage()
     m_Dlg = new DisplayDialog();
     this->setEnabled(false);
     m_Dlg->exec();
-    this->updateLanguageButtons();        
+    this->updateLanguageButtons();
     this->setEnabled(true);
     m_Dlg->deleteLater();
     m_Dlg=NULL;
@@ -101,11 +102,42 @@ void LanguageWidget::displayPage()
 
 void LanguageWidget::keyboardPage()
 {
-    ((DuiApplication*)DuiApplication::instance())->applicationWindow()->navigationBar()->showBackButton();
-    m_Dlg = new KeyboardDialog();
-    connect (m_Dlg, SIGNAL(reopen()), this, SLOT(keyboardPage()));
-    this->setEnabled(false);
-    m_Dlg->exec();
+    forever {
+        // TODO: workaround for dui bug, please remove
+        ((DuiApplication*)DuiApplication::instance())->applicationWindow()->navigationBar()->showBackButton();
+
+        m_Dlg = new KeyboardDialog();
+        this->setEnabled(false);
+        m_Dlg->exec();
+
+        QStringList selectedLanguages = 
+            ((KeyboardDialog*)(m_Dlg))->selectedLanguages();
+        if (selectedLanguages.count() > 0) {
+            // update the keyboard languages:
+            DcpLanguageConf::instance()->setKeyboardLanguages (selectedLanguages);
+            break;
+
+        } else {
+            // user selected no languages:
+#ifdef QUERY_DIALOG
+            DuiQueryDialog query(DcpLanguage::RestoreQueryLabelText);
+            int keepPreviousId = query.addChoice(DcpLanguage::RestorePreviousText);
+            query.addChoice(DcpLanguage::SelectNewText);
+            query.exec();
+            if (query.acceptedChoice() == keepPreviousId)
+                break;
+#else
+            DuiMessageBox mb(DcpLanguage::RestoreQueryLabelText,
+                             DuiMessageBoxModel::Ok|DuiMessageBoxModel::Cancel);
+            int result = mb.exec();
+            mb.disappear();
+            if (result == 1) { //DuiDialog::Accepted is wrong!!!
+                break;
+            }
+#endif
+        }
+    }
+
     this->updateLanguageButtons();
     this->setEnabled(true);
     m_Dlg->deleteLater();
@@ -118,7 +150,7 @@ bool LanguageWidget::back()
         m_Dlg->close();
         return false;
     }
-    
+
     return DcpWidget::back();
 }
 
@@ -127,8 +159,9 @@ void LanguageWidget::updateLanguageButtons()
    m_DisplayButton->setDownText(
         DcpLanguageConf::fullName(DcpLanguageConf::instance()->displayLanguage()));
    m_KeyboardButton->setUpText(DcpLanguage::KeyboardButtonTitle +
-                               " (" +  
+                               " (" +
                                QString::number(DcpLanguageConf::instance()->keyboardLanguagesNumber())
                                 + ")");
    m_KeyboardButton->setDownText(DcpLanguageConf::instance()->keyboardLanguagesAsText());
 }
+
