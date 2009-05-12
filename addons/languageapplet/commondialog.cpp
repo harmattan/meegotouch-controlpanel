@@ -42,20 +42,19 @@ void CommonDialog::initDialog()
     // mainLayout
     DuiLayout *mainLayout = new DuiLayout(this);
     mainLayout->setAnimator(NULL);
+    this->setLayout(mainLayout);
     DuiLinearLayoutPolicy *mainLayoutPolicy = 
         new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
-    this->setLayout(mainLayout);
     setContentsMargins(0.0, 0.0, 0.0, 0.0);
-    mainLayoutPolicy->setSpacing(10);
+    mainLayoutPolicy->setSpacing(1);
 
     // m_Viewport 
     m_Viewport = new DuiPannableViewport(this);
     m_Viewport->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     
     // m_MainWidget
-    m_MainWidget = new DuiContainer(this);
-    // m_MainWidget->layout()->setContentsMargins(0.0, 0.0, 0.0, 0.0);
+    m_MainWidget = new DuiContainer(NULL);
     m_MainWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_MainWidget->setHeaderVisible(false);
     m_MainWidget->setExpand(true);
@@ -84,7 +83,7 @@ void CommonDialog::initDialog()
     titleLabel->setAcceptedMouseButtons(0);
 
     // greySeparator
-    m_GreySeparator = new DuiSeparator(this);
+    m_GreySeparator = new DuiSeparator(containerWidget);
     m_GreySeparator->setObjectName("GreySeparator");
     m_GreySeparator->setAcceptedMouseButtons(0);
     
@@ -110,7 +109,7 @@ void CommonDialog::initDialog()
     // Add items to mainLayoutPolicy
     mainLayoutPolicy->addItemAtPosition(
             new DcpSpacerItem(this, 10, 10, QSizePolicy::Expanding, QSizePolicy::Expanding),
-            0, Qt::AlignCenter);
+            0, Qt::AlignLeft);
     mainLayoutPolicy->addItemAtPosition(m_Viewport, 1, Qt::AlignCenter);
 
     // orientation
@@ -123,6 +122,7 @@ void CommonDialog::onOrientationAngleChanged()
 {
     QSizeF dialogSize = DuiSceneManager::instance()->visibleSceneRect();
     dialogSize.setHeight(dialogSize.height() - 90);
+    dialogSize.setWidth(dialogSize.width() - 20);
     m_Viewport->setMinimumSize(dialogSize);
     m_Viewport->setMaximumSize(dialogSize);
 }
