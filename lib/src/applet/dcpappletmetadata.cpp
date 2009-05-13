@@ -67,6 +67,7 @@ DcpAppletMetadata::DcpAppletMetadata(const QString& filename)
 
 DcpAppletMetadata::~DcpAppletMetadata()
 {
+    delete d;
 }
 
 bool

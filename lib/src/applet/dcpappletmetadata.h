@@ -35,6 +35,7 @@ public:
     QString settingsValue();
 private:
     DcpAppletMetadataPrivate * const d;
-//    Q_DISABLE_COPY(DcpAppletMetadata);
+    Q_DISABLE_COPY(DcpAppletMetadata);
 };
 #endif // DCPAPP LETMETADATA_H
+
