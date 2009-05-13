@@ -84,7 +84,7 @@ void DcpLanguageSelectContainer::initWidget()
     }
 
     // orientation change
-    connect(DuiSceneManager::instance(), SIGNAL(oreintationChanged(const Dui::Orientation &)),
+    connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),
             this, SLOT(orientationChanged()));
     orientationChanged();
 }
@@ -119,17 +119,23 @@ void DcpLanguageSelectContainer::orientationChanged()
     switch (DuiSceneManager::instance()->orientation()) {
         case Dui::Landscape:
             m_ItemLayout->setPolicy(m_LandscapePolicy);
-            if (itemNum % 2 == 0) {
-                static_cast<LanguageListItem*>(m_PortraitPolicy->itemAt(itemNum - 2))->setVisibleSeparator(false);
-                static_cast<LanguageListItem*>(m_PortraitPolicy->itemAt(itemNum - 1))->setVisibleSeparator(false);
-            } else {
-                static_cast<LanguageListItem*>(m_PortraitPolicy->itemAt(itemNum - 1))->setVisibleSeparator(false);
+            if (itemNum > 0) {
+                if (itemNum % 2 == 0) {
+                    static_cast<LanguageListItem*>(m_PortraitPolicy->itemAt(itemNum - 2))->setVisibleSeparator(false);
+                    static_cast<LanguageListItem*>(m_PortraitPolicy->itemAt(itemNum - 1))->setVisibleSeparator(false);
+                } else {
+                    static_cast<LanguageListItem*>(m_PortraitPolicy->itemAt(itemNum - 1))->setVisibleSeparator(false);
+                }
             }
             break;
         case Dui::Portrait:
             m_ItemLayout->setPolicy(m_PortraitPolicy);
-            static_cast<LanguageListItem*>(m_PortraitPolicy->itemAt(itemNum - 2))->setVisibleSeparator(true);
-            static_cast<LanguageListItem*>(m_PortraitPolicy->itemAt(itemNum - 1))->setVisibleSeparator(false);
+            if (itemNum > 1) {
+                static_cast<LanguageListItem*>(m_PortraitPolicy->itemAt(itemNum - 2))->setVisibleSeparator(true);
+            }
+            if (itemNum > 0) {
+                static_cast<LanguageListItem*>(m_PortraitPolicy->itemAt(itemNum - 1))->setVisibleSeparator(false);
+            }
             break;
         default:
             break;
