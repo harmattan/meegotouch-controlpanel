@@ -166,9 +166,9 @@ void LanguageListItem::onOrientationAngleChanged()
     switch(DuiSceneManager::instance()->orientation()) {
         case Dui::Landscape:
             m_GreySeparator->setMinimumWidth(
-                    DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 45);
+                    DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 50);
             m_GreySeparator->setMaximumWidth(
-                    DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 45);
+                    DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 50);
             break;
         case Dui::Portrait:
             m_GreySeparator->setMinimumWidth(

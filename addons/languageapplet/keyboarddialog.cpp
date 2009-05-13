@@ -1,13 +1,12 @@
 #include "keyboarddialog.h"
-#include "keyboardselectcontainer.h"
-#include "languagelabelbuttoncontainer.h"
+#include "dcplanguageselectcontainer.h"
+// #include "languagelabelbuttoncontainer.h"
 #include "languagetranslation.h"
 #include "dcplanguage.h"
 #include "dcplanguageconf.h"
 
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
-
 
 KeyboardDialog::KeyboardDialog()
               :CommonDialog(DcpLanguage::SelectKeyboardText),
@@ -48,8 +47,8 @@ void KeyboardDialog::initWidget()
             this, SLOT(removeContainer(LanguageLabelButtonContainer*)));*/
 
     // KeyboardSelectContainer
-    m_SelectContainer = new KeyboardSelectContainer(DcpLanguage::InDeviceText,
-                DcpLanguageConf::instance()->availableKeyboardLanguages(), centralWidget);
+    m_SelectContainer = 
+        new DcpLanguageSelectContainer(DcpLanguageSelectContainer::MultiSelect, centralWidget);
 
     // Add items to widgetLayoutPolicy
     // widgetLayoutPolicy->addItemAtPosition(downloadedCont, 0, Qt::AlignCenter);
@@ -60,18 +59,16 @@ void KeyboardDialog::initWidget()
     this->setCentralWidget(centralWidget);
 }
 
-void KeyboardDialog::removeContainer(LanguageLabelButtonContainer *container)
+/* void KeyboardDialog::removeContainer(LanguageLabelButtonContainer *container)
 {
     container->hide();
     int index = m_WidgetLayout->findIndexForItem(static_cast<QGraphicsItem*>(container));
     if (index != -1)
         m_WidgetLayout->removeAt(index);
-}
-
+}*/
 
 QStringList KeyboardDialog::selectedLanguages()
 {
     Q_ASSERT(m_SelectContainer);
     return m_SelectContainer->selectedLanguages();
 }
-

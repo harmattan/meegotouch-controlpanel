@@ -21,8 +21,7 @@ HEADERS       = languageapplet.h \
                 languagetranslation.h \
                 languagelistitem.h \
                 dcpspaceritem.h \
-                languageselectcontainer.h \
-                keyboardselectcontainer.h \
+                dcplanguageselectcontainer.h \
                 languagelabelbuttoncontainer.h \
                 grouptitlewidget.h \
                 dcplanguageconf.h \
@@ -40,8 +39,7 @@ SOURCES       = languageapplet.cpp \
                 keyboarddialog.cpp \
                 languagelistitem.cpp \
                 dcpspaceritem.cpp \
-                languageselectcontainer.cpp \
-                keyboardselectcontainer.cpp \
+                dcplanguageselectcontainer.cpp \
                 languagelabelbuttoncontainer.cpp \
                 grouptitlewidget.cpp\
                 dcplanguageconf.cpp \

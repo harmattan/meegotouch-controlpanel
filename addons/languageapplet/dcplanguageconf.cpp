@@ -130,6 +130,7 @@ DcpLanguageConf::availableKeyboardLanguages()
 QStringList
 DcpLanguageConf::availableLanguages(QString key)
 {
+    Q_UNUSED(key);
     QStringList languages;
 /*
     m_Settings.beginGroup(key);

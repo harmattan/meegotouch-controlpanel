@@ -1,7 +1,7 @@
 #include "displaydialog.h"
 #include "languagetranslation.h"
-#include "languageselectcontainer.h"
-#include "languagelabelbuttoncontainer.h"
+#include "dcplanguageselectcontainer.h"
+// #include "languagelabelbuttoncontainer.h"
 #include "dcplanguage.h"
 #include "dcplanguageconf.h"
 
@@ -46,10 +46,9 @@ void DisplayDialog::initWidget()
             this, SLOT(removeContainer(LanguageLabelButtonContainer*)));*/
     
     // LanguageSelectContainer
-    LanguageSelectContainer *selectCont =
-        new LanguageSelectContainer(DcpLanguage::InDeviceText,
-                DcpLanguageConf::instance()->availableInputLanguages(), centralWidget);
-    connect(selectCont, SIGNAL(changeBackToMain()), this, SLOT(accept()));
+    DcpLanguageSelectContainer *selectCont =
+        new DcpLanguageSelectContainer(DcpLanguageSelectContainer::SingleSelect, centralWidget);
+    connect(selectCont, SIGNAL(closing()), this, SLOT(accept()));
 
     // Add items to widgetLayoutPolicy
     // widgetLayoutPolicy->addItemAtPosition(downloadedCont, 0, Qt::AlignCenter);
@@ -60,10 +59,10 @@ void DisplayDialog::initWidget()
     this->setCentralWidget(centralWidget);
 }
 
-void DisplayDialog::removeContainer(LanguageLabelButtonContainer *container)
+/* void DisplayDialog::removeContainer(LanguageLabelButtonContainer *container)
 {
     container->hide();
     int index = m_WidgetLayout->findIndexForItem(static_cast<QGraphicsItem*>(container));
     if (index != -1)
         m_WidgetLayout->removeAt(index);
-}
+}*/

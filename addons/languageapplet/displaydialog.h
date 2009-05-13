@@ -4,7 +4,7 @@
 #include "commondialog.h"
 
 class DuiLayout;
-class LanguageLabelButtonContainer;
+// class LanguageLabelButtonContainer;
 
 class DisplayDialog : public CommonDialog
 {
@@ -20,7 +20,7 @@ protected:
 private:
     DuiLayout *m_WidgetLayout;
 
-private slots:
-    virtual void removeContainer(LanguageLabelButtonContainer *container);
+/*private slots:
+    virtual void removeContainer(LanguageLabelButtonContainer *container);*/
 };
 #endif //DISPLAYWIDGET_H
