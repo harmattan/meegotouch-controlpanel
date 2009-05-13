@@ -45,7 +45,7 @@ void DcpLanguageSelectContainer::initWidget()
     // m_LandscapePolicy
     m_LandscapePolicy = new DuiGridLayoutPolicy(m_ItemLayout);
     m_LandscapePolicy->setContentsMargins(0.0, 0.0, 0.0, 0.0);
-    m_LandscapePolicy->setSpacing(1);
+    m_LandscapePolicy->setSpacing(10);
 
     // m_PortraitPolicy
     m_PortraitPolicy = new DuiLinearLayoutPolicy(m_ItemLayout, Qt::Vertical);
