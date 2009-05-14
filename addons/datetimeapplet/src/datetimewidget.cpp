@@ -74,5 +74,11 @@ void DateTimeWidget::initWidget()
     mainLayoutPolicy->addItemAtPosition(dateTimeLayout, 0, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(m_TimeZoneButton, 1, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(m_RegionFormatButton, 2, Qt::AlignCenter);
+
+    DuiWidget* spacer = new DuiWidget(this);
+    spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    mainLayoutPolicy->addItemAtPosition(spacer, 3, Qt::AlignCenter);
+    
     this->setLayout(mainLayout);
 }
+
