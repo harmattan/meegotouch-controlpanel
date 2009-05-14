@@ -35,3 +35,8 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel, libduicontrolpanel
 Description: Display applet for the control panel application
 
+Package: duicontrolpanel-datetimeapplet
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel, libduicontrolpanel
+Description: Date & Time Applet for the control panel application
+
