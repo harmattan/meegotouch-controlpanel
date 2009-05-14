@@ -121,7 +121,6 @@ void CommonDialog::initDialog()
 void CommonDialog::onOrientationAngleChanged()
 {
     QSizeF dialogSize = DuiSceneManager::instance()->visibleSceneRect();
-    dialogSize.setHeight(dialogSize.height() - 90);
     dialogSize.setWidth(dialogSize.width() - 35);
     m_Viewport->setMinimumSize(dialogSize);
     m_Viewport->setMaximumSize(dialogSize);
