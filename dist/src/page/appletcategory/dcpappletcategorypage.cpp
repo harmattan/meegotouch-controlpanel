@@ -43,7 +43,7 @@ void DcpAppletCategoryPage::createContent()
 
 void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata, bool odd)
 {
-    DcpComponent *component = 0;
+    DcpBasicComponent *component = 0;
 
      switch(metadata->widgetTypeID()) {
 /*         case DCPLABEL:
@@ -74,6 +74,7 @@ void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata, bool odd)
         {	
             qDebug("Dcp: ADD");
 //            component->setMinimumWidth(size().width());
+		component->setLine(false);
             m_Category->add(component);
         }
 	else
