@@ -6,6 +6,7 @@
 #include <duilinearlayoutpolicy.h>
 #include <duilabel.h>
 #include <duibutton.h>
+#include <duiscenemanager.h>
 const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/";
 const int widgetWidth = 100;
 
@@ -41,26 +42,32 @@ void DateTimeWidget::paint(QPainter *painter,
 void DateTimeWidget::initWidget()
 {
     DuiLayout *mainLayout = new DuiLayout(this);
-    mainLayout->setAnimator(NULL);
+    mainLayout->setAnimator(0);
+    this->setLayout(mainLayout);
     DuiLinearLayoutPolicy *mainLayoutPolicy =
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
+    mainLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
+    mainLayoutPolicy->setSpacing(1);
     
-    DuiLayout *dateTimeLayout = new DuiLayout(NULL);
-    dateTimeLayout->setAnimator(NULL);
+    DuiLayout *dateTimeLayout = new DuiLayout(0);
+    dateTimeLayout->setAnimator(0);
     DuiLinearLayoutPolicy *dateTimeLayoutPolicy =
             new DuiLinearLayoutPolicy(dateTimeLayout, Qt::Horizontal);
     dateTimeLayout->setPolicy(dateTimeLayoutPolicy);
     dateTimeLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
+    dateTimeLayoutPolicy->setSpacing(1);
     m_DateButton = new DcpButton(DCPLABEL2);
     m_DateButton->setText("Date", "Monday, 14 May 2009");   
-    m_DateButton->setLine(true);   
+    m_DateButton->setLine(true);
+    m_DateButton->setMaximumHeight(90);  
     m_TimeButton = new DcpButton(DCPLABEL2);
     m_TimeButton->setText("Current Time", "9:44 AM");   
     m_TimeButton->setLine(true);   
     m_TimeZoneButton = new DcpButton(DCPLABEL2);
     m_TimeZoneButton->setText("Current Time Zone", "+ 1 GMT London");   
-    m_TimeZoneButton->setLine(true);   
+    m_TimeZoneButton->setLine(true);
+    m_TimeZoneButton->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width());
 // regionFormatButton                                                       
     DuiButton *m_RegionFormatButton = new DuiButton("Region Format"
      , this);
@@ -68,8 +75,8 @@ void DateTimeWidget::initWidget()
     m_RegionFormatButton->setMaximumWidth(380);                               
     m_RegionFormatButton->setMaximumHeight(60);
     m_RegionFormatButton->setMinimumHeight(60);
-    dateTimeLayoutPolicy->addItemAtPosition(m_DateButton, 0, Qt::AlignCenter);
-    dateTimeLayoutPolicy->addItemAtPosition(m_TimeButton, 1, Qt::AlignCenter);
+    dateTimeLayoutPolicy->addItemAtPosition(m_DateButton, 0, Qt::AlignLeft | Qt::AlignVCenter);
+    dateTimeLayoutPolicy->addItemAtPosition(m_TimeButton, 1, Qt::AlignRight | Qt::AlignVCenter);
   
     mainLayoutPolicy->addItemAtPosition(dateTimeLayout, 0, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(m_TimeZoneButton, 1, Qt::AlignCenter);
@@ -78,7 +85,5 @@ void DateTimeWidget::initWidget()
     DuiWidget* spacer = new DuiWidget(this);
     spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     mainLayoutPolicy->addItemAtPosition(spacer, 3, Qt::AlignCenter);
-    
-    this->setLayout(mainLayout);
 }
 
