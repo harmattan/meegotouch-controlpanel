@@ -10,13 +10,11 @@ OBJECTS_DIR   = .objects
 HEADERS       = displayapplet.h \
 		        displaywidget.h \
                 displaytranslation.h \
-                dummywidget.h \
-                dcpspaceritem.h
+                dummywidget.h 
 
 SOURCES       = displayapplet.cpp \
 		        displaywidget.cpp \
-                dummywidget.cpp \
-                dcpspaceritem.cpp 
+                dummywidget.cpp 
 
 
 TARGET        = $$qtLibraryTarget(displayapplet)

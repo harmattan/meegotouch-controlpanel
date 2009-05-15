@@ -25,7 +25,7 @@ QStringList DcpLanguageSelectContainer::selectedLanguages()
     QStringList resultList;
     for (int i = 0; i < m_ItemLayout->count(); i++) {
         LanguageListItem *item = static_cast<LanguageListItem*>(m_PortraitPolicy->itemAt(i));
-        Q_ASSERT(item != NULL);
+        Q_ASSERT(item != 0);
         if (item->isChecked()) {
             resultList << item->langCode();
         }
@@ -38,7 +38,7 @@ void DcpLanguageSelectContainer::initWidget()
 {
     // m_ItemLayout
     m_ItemLayout = new DuiLayout(this);
-    m_ItemLayout->setAnimator(NULL);
+    m_ItemLayout->setAnimator(0);
     setLayout(m_ItemLayout);
     m_ItemLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
 

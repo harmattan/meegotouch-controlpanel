@@ -3,7 +3,7 @@
 
 #include "dcpwidget.h" 
 
-class LanguageButton;
+class DcpButton;
 class DcpDialog;
 
 class LanguageWidget : public DcpWidget 
@@ -20,8 +20,8 @@ protected:
     void updateLanguageButtons();
 
 private:
-    LanguageButton *m_DisplayButton;
-    LanguageButton *m_KeyboardButton;
+    DcpButton *m_DisplayButton;
+    DcpButton *m_KeyboardButton;
     DcpDialog *m_Dlg;
     
 private slots:

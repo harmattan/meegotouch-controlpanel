@@ -4,7 +4,6 @@
 #include "commondialog.h"
 
 class DuiLayout;
-// class LanguageLabelButtonContainer;
 class DcpLanguageSelectContainer;
 
 class KeyboardDialog : public CommonDialog
@@ -22,8 +21,5 @@ protected:
 private:
     DuiLayout *m_WidgetLayout;
     DcpLanguageSelectContainer* m_SelectContainer;
-
-/* private slots:
-    virtual void removeContainer(LanguageLabelButtonContainer *container);*/
 };
 #endif //KEYBOARDWIDGET_H
