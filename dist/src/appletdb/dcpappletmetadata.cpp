@@ -5,6 +5,11 @@
 #include <QDebug>
 #include "dcpappletmetadata_p.h"
 #include "dcpwidgettypes.h"
+#include <DuiDesktopEntry>
+#include "dcpappletloader.h"
+#include "dcpbrief.h"
+#include "dcpappletif.h"
+
 enum  {
     KeyCategory = 0,
     KeyOrder,
@@ -59,10 +64,26 @@ const QString Keys[KeyCount] = {
     "DCP/ValuePath"
 };
 
-DcpAppletMetadata::DcpAppletMetadata(const QString& filename) 
-    : DuiDesktopEntry(filename), d (new DcpAppletMetadataPrivate)
+
+DcpAppletMetadataPrivate::DcpAppletMetadataPrivate()
+    : m_AppletLoader(NULL),
+      m_Brief(NULL),
+      m_DesktopEntry(NULL)
 {
-   
+}
+
+DcpAppletMetadataPrivate::~DcpAppletMetadataPrivate()
+{
+    if (m_AppletLoader) delete m_AppletLoader;
+    if (m_Brief) delete m_Brief;
+    if (m_DesktopEntry) delete m_DesktopEntry;
+}
+
+
+DcpAppletMetadata::DcpAppletMetadata(const QString& filename)
+    : d (new DcpAppletMetadataPrivate)
+{
+    d->m_DesktopEntry = new DuiDesktopEntry(filename);
 }
 
 DcpAppletMetadata::~DcpAppletMetadata()
@@ -71,13 +92,14 @@ DcpAppletMetadata::~DcpAppletMetadata()
 }
 
 bool
-DcpAppletMetadata::isValid()
+DcpAppletMetadata::isValid() const
 {
-    return DuiDesktopEntry::isValid();
+    return desktopEntry()->isValid();
 }
 
+// TODO solve reloading XXX
 bool
-DcpAppletMetadata::isModified()
+DcpAppletMetadata::isModified() const
 {
     QFileInfo info(d->m_FileInfo.fileName());
     bool modified = info.lastModified() >  d->m_FileInfo.lastModified();
@@ -88,19 +110,21 @@ DcpAppletMetadata::isModified()
 QString
 DcpAppletMetadata::category() const
 {
-    return value(Keys[KeyCategory]).toString();
+    return desktopEntry()->value(Keys[KeyCategory]).toString();
 }
 
+/*
 QString
 DcpAppletMetadata::icon() const
 {
-    return "";
+    return brief()->icon();
 }
+*/
 
 QString
 DcpAppletMetadata::binary() const
 {
-    return value(Keys[KeyBinary]).toString();
+    return desktopEntry()->value(Keys[KeyBinary]).toString();
 }
 
 QString
@@ -109,39 +133,48 @@ DcpAppletMetadata::fullBinary() const
     return DcpApplet::Lib + binary();
 }
 
+/*
 QString DcpAppletMetadata::widgetType()
 {
-    return value(Keys[KeyWidgetType]).toString();
-}
 
-int DcpAppletMetadata::widgetTypeID()
+    return desktopEntry()->value(Keys[KeyWidgetType]).toString();
+}
+*/
+
+
+int DcpAppletMetadata::widgetTypeID() const
 {
-  QString type = value(Keys[KeyWidgetType]).toString();
-  
-  for(int i=0; i<WIDGETN; i++) 
+    int btypeid = brief()->widgetTypeID();
+    if (btypeid != -1) return btypeid;
+
+  // old way, TODO consider removing it and forcing the applets to supply a widgettype
+  QString type = desktopEntry()->value(Keys[KeyWidgetType]).toString();
+
+  for(int i=0; i<WIDGETN; i++)
     if (WIDGETNAME[i]==type)
       return i;
-  
+
   return -1;  //error
 
 }
 
-Qt::Alignment DcpAppletMetadata::align()
+Qt::Alignment DcpAppletMetadata::align() const
 {
-  if (value(Keys[KeyAlign]).toString().toUpper() == "LEFT")
-    return Qt::AlignLeft;
+    QString align = desktopEntry()->value(Keys[KeyAlign]).toString().toUpper();
+    if (align == "LEFT")
+        return Qt::AlignLeft;
+    if (align == "RIGHT")
+        return Qt::AlignRight;
 
-  return Qt::AlignRight;
+    return brief()->align();
 }
 
-bool DcpAppletMetadata::toggle()
+bool DcpAppletMetadata::toggle() const
 {
-  if (value(Keys[KeyToggle]).toString() == "TRUE")
-    return true;
-
-  return false;
+    return brief()->toggle();
 }
 
+/*
 bool DcpAppletMetadata::smallToggle()
 {
   if (value(Keys[KeySmallToggle]).toString() == "TRUE")
@@ -149,54 +182,38 @@ bool DcpAppletMetadata::smallToggle()
 
   return false;
 }
+*/
 
-QString DcpAppletMetadata::text1()
+QString DcpAppletMetadata::text1() const
 {
-    QString id = value(Keys[KeyNameId]).toString();
-    QString name = value(Keys[KeyName]).toString();
+    QString id = desktopEntry()->value(Keys[KeyNameId]).toString();
+    QString name = desktopEntry()->value(Keys[KeyName]).toString();
 //    QString catalog = value(Keys[KeyNameCatalog]).toString();
     return DuiLocale::trid(qPrintable(id), qPrintable(name));
 }
 
-QString DcpAppletMetadata::text2()
+QString DcpAppletMetadata::text2() const
 {
-    QString val = settingsValue();
-    if (val.isEmpty())
-        val = value(Keys[KeyText2]).toString();
-    return val;
+    return brief()->valueText();
 }
 
-QString DcpAppletMetadata::image()
+QString DcpAppletMetadata::image() const
 {
-    return value(Keys[KeyImage]).toString();
+    return brief()->image();
 }
 
-QString DcpAppletMetadata::buttonCSS()
+int DcpAppletMetadata::usage() const
 {
-    return value(Keys[KeyButtonCSS]).toString();
-}
-
-QString DcpAppletMetadata::label1CSS()
-{
-    return value(Keys[KeyLabel1CSS]).toString();
-}
-
-QString DcpAppletMetadata::label2CSS()
-{
-    return value(Keys[KeyLabel2CSS]).toString();
-}
-
-int DcpAppletMetadata::usage()
-{
-    return value(Keys[KeyUsage]).toInt();
+    // TODO implement
+    return desktopEntry()->value(Keys[KeyUsage]).toInt();
 }
 
 
-int DcpAppletMetadata::order()
+int DcpAppletMetadata::order() const
 {
-    return value(Keys[KeyOrder]).toInt();
+    return desktopEntry()->value(Keys[KeyOrder]).toInt();
 }
-
+/*
 QString DcpAppletMetadata::settingsValue()
 {
     QSettings settings("Maemo", "DuiControlPanel");
@@ -211,5 +228,45 @@ QString DcpAppletMetadata::settingsValue()
     qDebug() << "DCP" << key << confKey << val;
     return val;
 }
+*/
 
+DcpAppletIf* DcpAppletMetadata::applet() const
+{
+    if (d->m_AppletLoader == NULL){
+        d->m_AppletLoader = new DcpAppletLoader(this);
+    }
+    return d->m_AppletLoader->applet();
+}
+
+
+DuiDesktopEntry* DcpAppletMetadata::desktopEntry() const
+{
+    Q_ASSERT (d->m_DesktopEntry);
+    return d->m_DesktopEntry;
+}
+
+DcpBrief* DcpAppletMetadata::brief() const
+{
+    if (d->m_Brief == NULL) {
+        if (applet() != NULL) {
+            d->m_Brief = applet()->constructBrief();
+        } else {
+            qWarning() << "Failed to load brief for applet:" << name();
+            d->m_Brief = new DcpBrief();
+        }
+    }
+    return d->m_Brief;
+}
+
+// TODO XXX rename
+QString DcpAppletMetadata::name() const
+{
+    return desktopEntry()->name();
+}
+
+// TODO XXX rename
+QString DcpAppletMetadata::fileName() const
+{
+    return desktopEntry()->fileName();
+}
 

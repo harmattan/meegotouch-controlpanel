@@ -3,7 +3,7 @@
 #include "dcpappletmetadata.h"
 #include <QPluginLoader>
 
-DcpAppletLoader::DcpAppletLoader(DcpAppletMetadata *metadata):
+DcpAppletLoader::DcpAppletLoader(const DcpAppletMetadata *metadata):
     m_Metadata(metadata)
 {
     load();

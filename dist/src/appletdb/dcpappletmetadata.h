@@ -1,38 +1,50 @@
 #ifndef DCPAPPLETMETADATA_H
 #define DCPAPPLETMETADATA_H
-#include <duidesktopentry.h>
+
+#include <QString>
+class DuiDesktopEntry;
+class DcpAppletIf;
+class DcpBrief;
+
 class DcpAppletMetadataPrivate;
-class DcpAppletMetadata : public DuiDesktopEntry
+class DcpAppletMetadata
 {
 public:
     DcpAppletMetadata(const QString& filename);
     virtual ~DcpAppletMetadata();
-    virtual bool isValid();
-    virtual bool isModified();
+    virtual bool isValid() const;
+    virtual bool isModified() const;
+
+    QString name() const;
+    QString fileName() const;
     QString category() const;
-    QString icon() const;
+//    QString icon() const;
     QString binary() const;
     QString fullBinary() const;
 
-    QString widgetType();
+    QString widgetType() const;
 
-    int widgetTypeID();
+    int widgetTypeID() const;
 
-    Qt::Alignment align();
-    bool toggle();
-    bool smallToggle();
+    Qt::Alignment align() const;
+    bool toggle() const;
+//    bool smallToggle();
 
-    QString text1();
-    QString text2();
+    QString text1() const;
+    QString text2() const;
 
-    QString image();
+    QString image() const;
 
-    QString buttonCSS();
-    QString label1CSS();
-    QString label2CSS();
-    int order();
-    int usage();
-    QString settingsValue();
+    int order() const;
+    int usage() const;
+//    QString settingsValue();
+
+    DcpAppletIf* applet() const;
+
+protected:
+    DuiDesktopEntry* desktopEntry() const;
+    DcpBrief* brief() const;
+
 private:
     DcpAppletMetadataPrivate * const d;
     Q_DISABLE_COPY(DcpAppletMetadata);
