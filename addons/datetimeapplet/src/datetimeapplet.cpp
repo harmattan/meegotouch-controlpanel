@@ -5,6 +5,8 @@
 #include "dcpwidget.h"
 #include "duilocale.h"
 #include <DuiAction>
+#include "datetimebrief.h"
+
 namespace {
     const QString AppletTitle = trid("qn_datetime", "Date & Time");
 };
@@ -30,3 +32,9 @@ QVector<DuiAction*> DateTimeApplet::viewMenuItems()
     QVector<DuiAction*> vector;
     return vector;
 }
+
+DcpBrief* DateTimeApplet::constructBrief()
+{
+    return new DateTimeBrief();
+}
+
