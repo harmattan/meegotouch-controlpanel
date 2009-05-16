@@ -1,27 +1,3 @@
-#LanguageButtonSeeMoreSmall {
-        normalBackground: "See-more-indicator-small";
-}
-
-#LanguageLeftLabel {
-        color: #FFFFFF;
-        font: font("Nokia Sans Cn", 18);
-}
-
-#LanguageRightLabel {
-        color: #FFA000;
-        font: font("Nokia Sans Cn", 15);
-}
-
-#LanguageUpLabel {
-        color: #FFFFFF;
-        font: font("Nokia Sans Cn", 16);
-}
-
-#LanguageDownLabel {
-        color: #FFFFFF;
-        font: font("Nokia Sans Cn", 15);
-}
-
 #LanguageSimpleText {
         color: #FFFFFF;
         font: font("Nokia Sans Cn", 18);
@@ -32,37 +8,9 @@
         font: font("Nokia Sans Cn", 18);
 }
 
-#ServicesButton {
-        normalBackground: "C2-container";
-        pressedBackground: "Toggle-btn-selected";
-}
-
-#ServicesButtonLabel {
-        color: #FFFFFF;
-        font: font("Nokia Sans Cn", 20);
-}
-
-#ServicesButtonSeeMoreSmall {
-        normalBackground: "See-more-indicator-small";
-}
-
-#ServicesContainerCaption {
-        color: #FFFFFF;
-        font: font("Nokia Sans Cn", 20);
-}
-
-#ServicesContainerSignButton {
-        normalBackground: "See-more-indicator-big";
-}
-
 #CommonDialogTitleLabel {
         color: #FFFFFF;
         font: font("Nokia Sans Cn", 18);
-}
-
-#GroupTitleLabel {
-        color: #FFFFFF;
-        font: font("Nokia Sans Cn", 16);
 }
 
 #LanguageNormalListItem {
@@ -71,13 +19,6 @@
 
 #LanguageCheckMark {
         normalBackground: "Check-mark";
-}
-
-#RemoveButton {
-        font: font("Nokia Sans Cn", 16);
-        textColor: #FFFFFF;
-        normalBackground: "Divider-with-label";
-        horizBoxedEdgePercent: 30;
 }
 
 #GreySeparator {

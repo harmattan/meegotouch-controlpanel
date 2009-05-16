@@ -1,8 +1,13 @@
 #include "languagewidget.h"
-#include "languagebutton.h"
 #include "languagetranslation.h"
+#include "dcpbutton.h"
 #include "dcpspaceritem.h"
+#include "dcplanguage.h"
+#include "dcplanguageconf.h"
+#include "displaydialog.h"
+#include "keyboarddialog.h"
 
+#include <duitheme.h>
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
 #include <duibutton.h>
@@ -10,10 +15,7 @@
 #include <duiapplication.h>
 #include <duiapplicationwindow.h>
 #include <duinavigationbar.h>
-#include "dcplanguage.h"
-#include "dcplanguageconf.h"
-#include "displaydialog.h"
-#include "keyboarddialog.h"
+#include <duiscenemanager.h>
 
 #ifdef QUERY_DIALOG
     #include <DuiQueryDialog>
@@ -21,10 +23,13 @@
     #include <DuiMessageBox>
 #endif
 
+const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/";
+
 LanguageWidget::LanguageWidget(QGraphicsWidget *parent)
 	    :DcpWidget(parent), m_Dlg(0)
 {
     setReferer(DcpLanguage::NoReferer);
+    DuiTheme::loadCSS(cssDir + "languageapplet.css");
 	initWidget();
 }
 
@@ -35,21 +40,22 @@ LanguageWidget::~LanguageWidget()
 void LanguageWidget::initWidget()
 {
     // m_DisplayButton
-    m_DisplayButton = new LanguageButton(DcpLanguage::DisplayButtonTitle,
-    DcpLanguageConf::fullName(DcpLanguageConf::instance()->displayLanguage()),
-     this);
+    m_DisplayButton = new DcpButton(DCPLABEL2);
+    m_DisplayButton->setText(DcpLanguage::DisplayButtonTitle,
+    DcpLanguageConf::fullName(DcpLanguageConf::instance()->displayLanguage()));
+    m_DisplayButton->setLine(true);
+    m_DisplayButton->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width());
     m_DisplayButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     connect(m_DisplayButton, SIGNAL(clicked()), this, SLOT(displayPage()));
 
     // m_KeyboardButton
-    m_KeyboardButton = new LanguageButton(DcpLanguage::KeyboardButtonTitle + 
+    m_KeyboardButton = new DcpButton(DCPLABEL2);
+    m_KeyboardButton->setText(DcpLanguage::KeyboardButtonTitle + 
     " (" +  QString::number(DcpLanguageConf::instance()->keyboardLanguagesNumber())
-     + ")",
-              DcpLanguageConf::instance()->keyboardLanguagesAsText(), this);
+     + ")", DcpLanguageConf::instance()->keyboardLanguagesAsText());
+    m_KeyboardButton->setLine(true);
     m_KeyboardButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     connect(m_KeyboardButton, SIGNAL(clicked()), this, SLOT(keyboardPage()));
-
-    // ServicesContainer *servicesContainer = new ServicesContainer(this);
 
     // simpleText
     DuiLabel *simpleText = new DuiLabel(DcpLanguage::SetLanguageText, 
@@ -67,7 +73,7 @@ void LanguageWidget::initWidget()
 
     // Layout
     DuiLayout *mainLayout = new DuiLayout(this);
-    mainLayout->setAnimator(NULL);
+    mainLayout->setAnimator(0);
 	DuiLinearLayoutPolicy *mainLayoutPolicy = 
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
@@ -77,7 +83,6 @@ void LanguageWidget::initWidget()
     // Add items to mainLayoutPolicy
     mainLayoutPolicy->addItemAtPosition(m_DisplayButton, 0, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(m_KeyboardButton, 1, Qt::AlignCenter);
-    // mainLayoutPolicy->addItemAtPosition(servicesContainer, 2, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 10, 30, QSizePolicy::Expanding, QSizePolicy::Fixed),
                     2, Qt::AlignCenter);
@@ -97,7 +102,7 @@ void LanguageWidget::displayPage()
     this->updateLanguageButtons();
     this->setEnabled(true);
     m_Dlg->deleteLater();
-    m_Dlg=NULL;
+    m_Dlg = 0;
 }
 
 void LanguageWidget::keyboardPage()
@@ -156,12 +161,11 @@ bool LanguageWidget::back()
 
 void LanguageWidget::updateLanguageButtons()
 {
-   m_DisplayButton->setDownText(
+   m_DisplayButton->setText(DcpLanguage::DisplayButtonTitle,
         DcpLanguageConf::fullName(DcpLanguageConf::instance()->displayLanguage()));
-   m_KeyboardButton->setUpText(DcpLanguage::KeyboardButtonTitle +
-                               " (" +
-                               QString::number(DcpLanguageConf::instance()->keyboardLanguagesNumber())
-                                + ")");
-   m_KeyboardButton->setDownText(DcpLanguageConf::instance()->keyboardLanguagesAsText());
+   
+   m_KeyboardButton->setText(DcpLanguage::KeyboardButtonTitle +
+        " (" + QString::number(DcpLanguageConf::instance()->keyboardLanguagesNumber())
+        + ")", DcpLanguageConf::instance()->keyboardLanguagesAsText());
 }
 

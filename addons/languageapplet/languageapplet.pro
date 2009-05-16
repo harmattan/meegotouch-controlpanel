@@ -11,40 +11,22 @@ OBJECTS_DIR   = .objects
 
 HEADERS       = languageapplet.h \
                 languagewidget.h \
-                languagebutton.h \
-                servicescontainer.h \
-                servicesbutton.h \
-                servicesbuttonblock.h \
                 dcplanguage.h \
                 displaydialog.h \
                 keyboarddialog.h \
                 languagetranslation.h \
                 languagelistitem.h \
-                dcpspaceritem.h \
                 dcplanguageselectcontainer.h \
-                languagelabelbuttoncontainer.h \
-                grouptitlewidget.h \
                 dcplanguageconf.h \
-                languagelabel.h \
-                removablelistitem.h \
                 commondialog.h
 
 SOURCES       = languageapplet.cpp \
                 languagewidget.cpp \
-                languagebutton.cpp \
-                servicescontainer.cpp \
-                servicesbutton.cpp \
-                servicesbuttonblock.cpp \
                 displaydialog.cpp \
                 keyboarddialog.cpp \
                 languagelistitem.cpp \
-                dcpspaceritem.cpp \
                 dcplanguageselectcontainer.cpp \
-                languagelabelbuttoncontainer.cpp \
-                grouptitlewidget.cpp\
                 dcplanguageconf.cpp \
-                languagelabel.cpp \
-                removablelistitem.cpp \
                 commondialog.cpp
 
 

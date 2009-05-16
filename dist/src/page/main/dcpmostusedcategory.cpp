@@ -24,7 +24,7 @@ DcpMostUsedCategory::DcpMostUsedCategory(const QString& title, QGraphicsWidget *
 
     //m_LandscapeLayout->setColumnSpacing(0, 0); //dummy
 
-//    layout()->setContentsMargins(0, 10, 0, 10);
+    layout()->setContentsMargins(30, 300, 30, 30);
 
    //m_Background = new QPixmap("images/backgroundP.png");
 
@@ -44,11 +44,11 @@ void DcpMostUsedCategory::createContents()
 
 	int cnt = 0;
 	foreach (DcpAppletMetadata *item, DcpAppletDb::instance()->listMostUsed()) {
-
+		cnt++;
 		if (cnt==5 || cnt==6) //last items
 			addComponent(item, false);	
 		else
-			addComponent(item);
+			addComponent(item, true);
     }
 
 }

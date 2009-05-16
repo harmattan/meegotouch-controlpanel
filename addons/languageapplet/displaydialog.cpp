@@ -1,7 +1,6 @@
 #include "displaydialog.h"
 #include "languagetranslation.h"
 #include "dcplanguageselectcontainer.h"
-// #include "languagelabelbuttoncontainer.h"
 #include "dcplanguage.h"
 #include "dcplanguageconf.h"
 
@@ -23,46 +22,22 @@ void DisplayDialog::initWidget()
     // centralWidget
     DuiWidget *centralWidget = new DuiWidget(this);
     m_WidgetLayout = new DuiLayout(centralWidget);
-    m_WidgetLayout->setAnimator(NULL);
+    m_WidgetLayout->setAnimator(0);
     DuiLinearLayoutPolicy *widgetLayoutPolicy = 
         new DuiLinearLayoutPolicy(m_WidgetLayout, Qt::Vertical);
     m_WidgetLayout->setPolicy(widgetLayoutPolicy);
     centralWidget->setLayout(m_WidgetLayout);
-    setContentsMargins(1.0, 1.0, 1.0, 1.0);
+    setContentsMargins(0.0, 0.0, 0.0, 0.0);
     widgetLayoutPolicy->setSpacing(5);
 
-    // DownloadedLanguage
-    /* LanguageLabelButtonContainer *downloadedCont =
-        new LanguageLabelButtonContainer(LanguageLabelButtonContainer::DOWNLOADED,
-                                         centralWidget);
-    connect(downloadedCont, SIGNAL(removeMe(LanguageLabelButtonContainer*)),
-            this, SLOT(removeContainer(LanguageLabelButtonContainer*)));*/
-    
-    // InstalledLanguage
-    /* LanguageLabelButtonContainer *installedCont =
-        new LanguageLabelButtonContainer(LanguageLabelButtonContainer::INSTALLED,
-                                         centralWidget);
-    connect(installedCont, SIGNAL(removeMe(LanguageLabelButtonContainer*)),
-            this, SLOT(removeContainer(LanguageLabelButtonContainer*)));*/
-    
     // LanguageSelectContainer
     DcpLanguageSelectContainer *selectCont =
         new DcpLanguageSelectContainer(DcpLanguageSelectContainer::SingleSelect, centralWidget);
     connect(selectCont, SIGNAL(closing()), this, SLOT(accept()));
 
-    // Add items to widgetLayoutPolicy
-    // widgetLayoutPolicy->addItemAtPosition(downloadedCont, 0, Qt::AlignCenter);
-    // widgetLayoutPolicy->addItemAtPosition(installedCont, 0, Qt::AlignCenter);
+    // Add item to widgetLayoutPolicy
     widgetLayoutPolicy->addItemAtPosition(selectCont, 0, Qt::AlignCenter);
 
     // setCentralWidget
     this->setCentralWidget(centralWidget);
 }
-
-/* void DisplayDialog::removeContainer(LanguageLabelButtonContainer *container)
-{
-    container->hide();
-    int index = m_WidgetLayout->findIndexForItem(static_cast<QGraphicsItem*>(container));
-    if (index != -1)
-        m_WidgetLayout->removeAt(index);
-}*/

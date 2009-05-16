@@ -62,8 +62,8 @@ void DcpButtonView::paintLine(QPainter *painter)
 {
 	if (m_LineBool) {
 		painter->setPen(LINECOLOR);
-		//painter->drawLine(0, height(), width() , height());
-		painter->drawLine(0, size().height(), size().width() , size().height());
+		//painter->drawLine(0, height() + 15, width() , height());
+		painter->drawLine(0, size().height() + 15, size().width() , size().height() + 15);
 	}
 }
 
