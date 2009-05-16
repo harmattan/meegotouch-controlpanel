@@ -15,7 +15,7 @@ class DcpButton2ImageView : public DcpButton2View
     DUI_STYLABLE
 
 public:
-    DcpButton2ImageView(DcpButton &controller);
+    DcpButton2ImageView(DcpButton *controller);
 
     virtual ~DcpButton2ImageView();
 

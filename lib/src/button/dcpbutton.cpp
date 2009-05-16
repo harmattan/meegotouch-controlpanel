@@ -16,13 +16,13 @@ DcpButton::DcpButton(int buttonType, const QString &title, DuiWidget *parent, co
 		case DCPLABEL :
 		break;
 		case DCPLABEL2 :
-			m_View = new DcpButton2View(*this);
+			m_View = new DcpButton2View(this);
 		break;
 		case DCPLABEL2IMAGE :
-			m_View = new DcpButton2ImageView(*this);
+			m_View = new DcpButton2ImageView(this);
 		break;
 		case DCPLABEL2TOGGLE :
-			m_View = new DcpButton2ToggleView(*this);
+			m_View = new DcpButton2ToggleView(this);
 		break;
 	}
 

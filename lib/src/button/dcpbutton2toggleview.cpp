@@ -1,17 +1,16 @@
 
 #include "dcpbutton2toggleview.h"
-DUI_STYLABLE_CPP(DcpButton2ToggleView, DuiWidgetView)
+//DUI_STYLABLE_CPP(DcpButton2ToggleView, DuiWidgetView)
 
 #include <QPainter>
 #include <DuiTheme>
 #include "dcpbutton.h"
 
-DcpButton2ToggleView::DcpButton2ToggleView(DcpButton &button) :
+DcpButton2ToggleView::DcpButton2ToggleView(DcpButton *button) :
     DcpButton2ImageView(button),
 		m_EnableToggle(false)
 {
 }
-
 
 DcpButton2ToggleView::~DcpButton2ToggleView()
 {
@@ -192,7 +191,7 @@ void DcpButton2ToggleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 	emit clicked();
 }
 
-void DcpButton2ToggleView::registerStyleAttributes(DuiStyleDescription &description)
+/*void DcpButton2ToggleView::registerStyleAttributes(DuiStyleDescription &description)
 {
 
   	description.addAttribute(MarginLeftAttribute, "marginLeft");
@@ -232,4 +231,6 @@ void DcpButton2ToggleView::registerStyleAttributes(DuiStyleDescription &descript
 
 	description.addAttribute(ToggleOnAttribute, "toggleOn");
 	description.addAttribute(ToggleOffAttribute, "toggleOff");
-}
+}*/
+
+DUI_REGISTER_VIEW("DcpButton2ToggleView", DcpButton2ToggleView, DcpButton)

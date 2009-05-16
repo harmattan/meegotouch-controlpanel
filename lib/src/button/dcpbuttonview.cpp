@@ -1,6 +1,6 @@
 
 #include "dcpbuttonview.h"
-DUI_STYLABLE_CPP(DcpButtonView, DuiWidgetView)
+//DUI_STYLABLE_CPP(DcpButtonView, DuiWidgetView)
 
 #include <QPainter>
 #include <DuiTheme>
@@ -8,13 +8,15 @@ DUI_STYLABLE_CPP(DcpButtonView, DuiWidgetView)
 
 const QColor LINECOLOR = QColor(64, 64, 64);
 
-DcpButtonView::DcpButtonView(DcpButton &button) :
-    DuiWidgetView(&button),
-    controller(button),
+DcpButtonView::DcpButtonView(DcpButton *button) :
+    DuiWidgetView(button),
+//    controller(*button),
     m_Bkgr(false),
 	m_LineBool(true)
 {
-    controller.setZValue(1);
+//    controller.setZValue(1);
+
+	style()->fieldMarginLeft();
 }
 
 DcpButtonView::~DcpButtonView()
@@ -108,6 +110,8 @@ QRectF DcpButtonView::boundingRect() const
 	return QRectF(QPointF(), styleAttribute<const QSize>(BackgroundSizeAttribute));
 }
 
+
+/*
 void DcpButtonView::registerStyleAttributes(DuiStyleDescription &description)
 {
 
@@ -142,6 +146,7 @@ void DcpButtonView::registerStyleAttributes(DuiStyleDescription &description)
 	description.addAttribute(TrianglePosAttribute, "trianglePos");
 
 }
+*/
 
 void DcpButtonView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
@@ -195,4 +200,4 @@ Qt::Alignment DcpButtonView::stringToAlign(const QString& alignment)
 		return outAligment;
 }
 
-
+DUI_REGISTER_VIEW("DcpButtonView", DcpButtonView, DcpButton)

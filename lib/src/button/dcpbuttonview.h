@@ -2,18 +2,26 @@
 #ifndef DCPBUTTONVIEW_H
 #define DCPBUTTONVIEW_H
 
+#include "dcpbuttonstyle.h"
+
 #include <DuiWidgetView>
+
 #include "dcpbutton.h"
+
+#include "dcpbuttonmodel.h"
+
+
 
 class QPainter;
 
 class DcpButtonView : public DuiWidgetView
 {
     Q_OBJECT
-    DUI_STYLABLE
+	DUI_VIEW(DcpButtonModel, DcpButtonStyle)
+//    DUI_STYLABLE
 
 public:
-    DcpButtonView(DcpButton &controller);
+    DcpButtonView(DcpButton *controller);
 
     virtual ~DcpButtonView();
 
@@ -52,7 +60,7 @@ protected:
     QString m_Text1;
     QString m_Text2;
 
-    DcpButton &controller;
+//    DcpButton &controller;
 
     enum styleAttributes {
 

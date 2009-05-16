@@ -1,6 +1,6 @@
 
 #include "dcpbutton2view.h"
-DUI_STYLABLE_CPP(DcpButton2View, DuiWidgetView)
+//DUI_STYLABLE_CPP(DcpButton2View, DuiWidgetView)
 
 #include <QPainter>
 #include <DuiTheme>
@@ -22,9 +22,11 @@ V
 */
 
 
-DcpButton2View::DcpButton2View(DcpButton &button) :
+DcpButton2View::DcpButton2View(DcpButton *button) :
     DcpButtonView(button)
 {
+	style()->fieldMarginLeft();
+Q_ASSERT(0);
 }
 
 DcpButton2View::~DcpButton2View()
@@ -93,7 +95,7 @@ QRectF DcpButton2View::boundingRect() const
 	return QRectF(0, 0, size().width(), size().height());
 }
 
-
+/*
 void DcpButton2View::registerStyleAttributes(DuiStyleDescription &description)
 {
 
@@ -126,4 +128,6 @@ void DcpButton2View::registerStyleAttributes(DuiStyleDescription &description)
 	description.addAttribute(TrianglePosAttribute, "trianglePos");
 
 	description.addAttribute(MarginTriangleAttribute, "marginTriangle");
-}
+}*/
+
+DUI_REGISTER_VIEW("DcpButton2View", DcpButton2View, DcpButton)

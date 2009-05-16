@@ -40,7 +40,7 @@ marginMiddle >  +   Image   +----------------+
 */
 
 
-DcpButton2ImageView::DcpButton2ImageView(DcpButton &button) :
+DcpButton2ImageView::DcpButton2ImageView(DcpButton *button) :
     DcpButton2View(button)
 {
 

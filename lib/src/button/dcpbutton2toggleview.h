@@ -3,20 +3,26 @@
 #define DCPBUTTON2TOGGLEIEW_H
 
 #include <DuiWidgetView>
+
 #include <QGraphicsSceneMouseEvent>
 #include "dcpbutton.h"
 
 #include "dcpbutton2imageview.h"
+
+#include "dcpbuttonmodel.h"
+#include "dcpbuttonstyle.h"
 
 class QPainter;
 
 class DcpButton2ToggleView : public DcpButton2ImageView
 {
     Q_OBJECT
-    DUI_STYLABLE
+//    DUI_STYLABLE
+	
+	DUI_VIEW(DcpButtonModel, DcpButtonStyle)
 
 public:
-    DcpButton2ToggleView(DcpButton &controller);
+    DcpButton2ToggleView(DcpButton *controller);
 
     virtual ~DcpButton2ToggleView();
 
