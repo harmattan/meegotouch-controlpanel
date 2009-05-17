@@ -18,7 +18,8 @@ HEADERS       = languageapplet.h \
                 languagelistitem.h \
                 dcplanguageselectcontainer.h \
                 dcplanguageconf.h \
-                commondialog.h
+                commondialog.h \
+                languagebrief.h
 
 SOURCES       = languageapplet.cpp \
                 languagewidget.cpp \
@@ -27,7 +28,8 @@ SOURCES       = languageapplet.cpp \
                 languagelistitem.cpp \
                 dcplanguageselectcontainer.cpp \
                 dcplanguageconf.cpp \
-                commondialog.cpp
+                commondialog.cpp \
+                languagebrief.cpp
 
 
 TARGET        = $$qtLibraryTarget(languageapplet)

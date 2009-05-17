@@ -133,19 +133,11 @@ DcpAppletMetadata::fullBinary() const
     return DcpApplet::Lib + binary();
 }
 
-/*
-QString DcpAppletMetadata::widgetType()
-{
-
-    return desktopEntry()->value(Keys[KeyWidgetType]).toString();
-}
-*/
-
-
 int DcpAppletMetadata::widgetTypeID() const
 {
-    int btypeid = brief()->widgetTypeID();
-    if (btypeid != -1) return btypeid;
+    if (brief() != NULL) {
+        return brief()->widgetTypeID();
+    }
 
   // old way, TODO consider removing it and forcing the applets to supply a widgettype
   QString type = desktopEntry()->value(Keys[KeyWidgetType]).toString();
@@ -154,35 +146,36 @@ int DcpAppletMetadata::widgetTypeID() const
     if (WIDGETNAME[i]==type)
       return i;
 
-  return -1;  //error
+  return DCPLABEL2;  //default
 
 }
 
 Qt::Alignment DcpAppletMetadata::align() const
 {
+    if (brief()){
+        return brief()->align();
+    }
+
+    // old way, try desktop file
     QString align = desktopEntry()->value(Keys[KeyAlign]).toString().toUpper();
     if (align == "LEFT")
         return Qt::AlignLeft;
     if (align == "RIGHT")
         return Qt::AlignRight;
 
-    return brief()->align();
+    qWarning() << Q_FUNC_INFO << "no data"; // default
+    return Qt::AlignLeft; 
 }
 
 bool DcpAppletMetadata::toggle() const
 {
-    return brief()->toggle();
-}
+    if (brief()){
+        return brief()->toggle();
+    }
 
-/*
-bool DcpAppletMetadata::smallToggle()
-{
-  if (value(Keys[KeySmallToggle]).toString() == "TRUE")
-    return true;
-
-  return false;
+    qWarning() << Q_FUNC_INFO << "no brief"; // default
+    return false;
 }
-*/
 
 QString DcpAppletMetadata::text1() const
 {
@@ -194,12 +187,20 @@ QString DcpAppletMetadata::text1() const
 
 QString DcpAppletMetadata::text2() const
 {
-    return brief()->valueText();
+    if (brief())
+        return brief()->valueText();
+
+    // old way, TODO change it to return QString() if test data is not needed
+    return desktopEntry()->value(Keys[KeyText2]).toString();
 }
 
 QString DcpAppletMetadata::image() const
 {
-    return brief()->image();
+    if (brief())
+        return brief()->image();
+
+    // old way
+    return desktopEntry()->value(Keys[KeyImage]).toString();
 }
 
 int DcpAppletMetadata::usage() const
@@ -208,36 +209,19 @@ int DcpAppletMetadata::usage() const
     return desktopEntry()->value(Keys[KeyUsage]).toInt();
 }
 
-
 int DcpAppletMetadata::order() const
 {
     return desktopEntry()->value(Keys[KeyOrder]).toInt();
 }
-/*
-QString DcpAppletMetadata::settingsValue()
-{
-    QSettings settings("Maemo", "DuiControlPanel");
-    QString val = "";
-    QString confKey = "";
-    QString key = Keys[KeyValuePath];
-    if (contains(key))
-     {
-        confKey = value(key).toString();
-        val = settings.value(confKey).toString();
-     }
-    qDebug() << "DCP" << key << confKey << val;
-    return val;
-}
-*/
 
 DcpAppletIf* DcpAppletMetadata::applet() const
 {
     if (d->m_AppletLoader == NULL){
         d->m_AppletLoader = new DcpAppletLoader(this);
     }
+    qDebug() << "XXX" << d->m_AppletLoader->errorMsg() << fullBinary();
     return d->m_AppletLoader->applet();
 }
-
 
 DuiDesktopEntry* DcpAppletMetadata::desktopEntry() const
 {
@@ -250,9 +234,6 @@ DcpBrief* DcpAppletMetadata::brief() const
     if (d->m_Brief == NULL) {
         if (applet() != NULL) {
             d->m_Brief = applet()->constructBrief();
-        } else {
-            qWarning() << "Failed to load brief for applet:" << name();
-            d->m_Brief = new DcpBrief();
         }
     }
     return d->m_Brief;

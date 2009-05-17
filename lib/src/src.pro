@@ -7,7 +7,6 @@ OBJECTS_DIR   = .objects
 
 # Input
 HEADERS += $$system(find ./ -name \'*.h\')
-message(HEADERS)
 SOURCES += $$system(find ./ -name \'*.cpp\')
 
 TARGET        = $$qtLibraryTarget(duicontrolpanel)
@@ -19,9 +18,11 @@ install_headers.files += applet/dcpapplet.h \
     applet/dcpappletif.h \
     applet/dcpwidget.h \
     applet/dcpmetadata.h \
+    applet/dcpbrief.h \
     button/dcpbutton.h \
     widget/dcpwidgettypes.h \
     widget/dcpspaceritem.h \
     scene/dcpscenelayereffectdialogview.h
 
-INSTALLS += target install_headers 
+INSTALLS += target install_headers
+

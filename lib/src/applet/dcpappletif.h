@@ -11,7 +11,7 @@ class DcpAppletIf {
 public:
     virtual ~DcpAppletIf() {}
     virtual void init() = 0;
-	virtual DcpWidget* constructWidget(int widgetId) = 0;
+    virtual DcpWidget* constructWidget(int widgetId) = 0;
     virtual QString title() const = 0;
     virtual QVector<DuiAction *> viewMenuItems() = 0;
     virtual DcpBrief* constructBrief() = 0;

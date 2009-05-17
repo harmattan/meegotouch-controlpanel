@@ -8,10 +8,12 @@ MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects
 
 HEADERS       = datetimeapplet.h \
-		        datetimewidget.h 
+		        datetimewidget.h \
+                datetimebrief.h
 
 SOURCES       = datetimeapplet.cpp \
-		        datetimewidget.cpp 
+		        datetimewidget.cpp \
+                datetimebrief.cpp
 
 
 TARGET        = $$qtLibraryTarget(datetimeapplet)
