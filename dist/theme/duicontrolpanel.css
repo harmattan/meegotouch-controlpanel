@@ -68,7 +68,7 @@ DcpButtonStyle {
 
     backgroundImage: "C2-container";
 
-    backgroundSize: size(385, 88);
+    backgroundSize: size(355, 88);
 
     textColor1: #FFFFFF;
     font1: font("Nokia Sans Cn", 20);

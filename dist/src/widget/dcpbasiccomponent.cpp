@@ -21,7 +21,7 @@ DcpBasicComponent::DcpBasicComponent(
                             DcpAppletMetadata * metadata,
                             const QString& title,
                             QGraphicsWidget *parent):
-    DcpComponent(category, title, parent), m_Metadata(metadata), m_Button(NULL)
+    DcpComponent(category, title, parent), m_Metadata(NULL), m_Button(NULL)
 {
 
     m_MainLayout = new DuiLayout(this);
@@ -36,10 +36,11 @@ DcpBasicComponent::DcpBasicComponent(
     m_WidgetLayout->setPolicy(m_WidgetLayoutPolicy);
 
    // DuiBasicLayoutAnimator* animator = new DuiBasicLayoutAnimator();
-   
+
     //animator->setAnimationSpeed(1000);
     m_WidgetLayout->setAnimator(0);
 
+    setMetadata(metadata);
 }
 
 
@@ -80,4 +81,22 @@ void DcpBasicComponent::bigClicked()
 	switchToSubPage();
 }
 
+void DcpBasicComponent::setMetadata(DcpAppletMetadata* metadata)
+{
+    if (m_Metadata) {
+        disconnect (m_Metadata, SIGNAL(briefChanged()),
+                    this, SLOT(onMetadataChanged()));
+    }
+    m_Metadata = metadata;
+    connect (m_Metadata, SIGNAL(briefChanged()),
+             this, SLOT(onMetadataChanged()));
+}
+
+void DcpBasicComponent::onMetadataChanged()
+{
+    Q_ASSERT(m_Metadata);
+    Q_ASSERT(m_Button);
+
+	m_Button->setText(metadata()->text1(), metadata()->text2());
+}
 

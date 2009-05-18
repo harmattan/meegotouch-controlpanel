@@ -1,24 +1,20 @@
-#LabelBrightness {
-        color: #FFFFFF;
-        font: font("Nokia Sans Cn", 16);
+#SimpleLabel {
+    color: #FFFFFF;
+    font: font("Nokia Sans Cn", 16);
 }
 
-#LabelScreen {
-        color: #FFFFFF;
-        font: font("Nokia Sans Cn", 16);
+#AutomaticLabel {
+    color: #FFFFFF;
+    font: font("Nokia Sans Cn", 18);
 }
 
-#LabelScreenLight {
-        color: #FFFFFF;
-        font: font("Nokia Sans Cn", 16);
+#ToggleButton {
+    normalBackground: "Toggle-on";
+    pressedBackground: "Toggle-off";
 }
 
-#ScreenToggleButton {
-        preferredSize: size(35, 35);
-
-        minsize: size(35, 35);
-        maxsize: size(35, 35);
-
-        normalBackground: "Toggle-on";
-        pressedBackground: "Toggle-off";
+#GraySeparator {
+    lineWidth: 1;
+    startColor: #505050;
+    stopColor: #505050;
 }

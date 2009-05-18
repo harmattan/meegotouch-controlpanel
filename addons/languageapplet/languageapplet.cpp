@@ -9,6 +9,8 @@
 #include "dcplanguage.h"
 #include "languagetranslation.h"
 
+#include "languagebrief.h"
+
 Q_EXPORT_PLUGIN2(languageapplet, LanguageApplet)
 
 void LanguageApplet::init()
@@ -52,3 +54,9 @@ QVector<DuiAction*> LanguageApplet::viewMenuItems()
 
     return vector;    
 }
+
+DcpBrief* LanguageApplet::constructBrief()
+{
+    return new LanguageBrief();
+}
+

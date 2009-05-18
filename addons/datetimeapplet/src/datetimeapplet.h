@@ -16,5 +16,7 @@ public:
 	virtual DcpWidget* constructWidget(int widgetId);
     virtual QString title() const;
     virtual QVector<DuiAction *> viewMenuItems();
+    virtual DcpBrief* constructBrief();
 };
 #endif // DATETIMEAPPLET_H
+
