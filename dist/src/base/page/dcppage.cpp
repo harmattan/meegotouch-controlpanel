@@ -9,18 +9,18 @@ DcpPage::DcpPage() : DuiApplicationPage()
     connect(DuiDeviceProfile::instance(), SIGNAL(orientationAngleChanged
                             (DuiDeviceProfile::DeviceOrientationAngle)),
             this, SLOT(onOrientationAngleChanged()));
-    qDebug() << "XXX page alloc";
+    qDebug() << "page alloc";
     setBackButtonEnabled(true);
 }
 
-DcpPage::~DcpPage() 
+DcpPage::~DcpPage()
 {
-    qDebug() << "XXX page destroyal" << title() << (void*) this;
+    qDebug() << "page destroyal" << title() << (void*) this;
 }
 
 void DcpPage::createContent()
 {
-    qDebug() << "XXX page createContent" << metaObject()->className()
+    qDebug() << "page createContent" << metaObject()->className()
              << (void*) this;
     DuiApplicationPage::createContent();
     setObjectName("DcpPage");
@@ -44,7 +44,7 @@ void DcpPage::_createLayout()
 void DcpPage::organizeContent(Dui::Orientation ori)
 {
     Q_UNUSED(ori);
-    qDebug() << "XXX organizeContent";
+    qDebug() << "page organizeContent";
 }
 
 void DcpPage::onOrientationAngleChanged() {

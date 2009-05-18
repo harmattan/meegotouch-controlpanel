@@ -21,6 +21,7 @@ public:
 
     virtual QString title() const;
     virtual QVector<DuiAction *> viewMenuItems();
+    virtual DcpBrief* constructBrief();
 private:
     int m_WidgetIndex;
 };

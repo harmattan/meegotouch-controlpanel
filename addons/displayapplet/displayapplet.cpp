@@ -7,6 +7,7 @@
 #include "dcpwidget.h"
 #include "dcpdisplay.h"
 #include <DuiAction>
+#include "displaybrief.h"
 
 Q_EXPORT_PLUGIN2(displayapplet, DisplayApplet)
 
@@ -62,3 +63,9 @@ QVector<DuiAction*> DisplayApplet::viewMenuItems()
     QVector<DuiAction*> vector;
     return vector;
 }
+
+DcpBrief* DisplayApplet::constructBrief()
+{
+    return new DisplayBrief();
+}
+

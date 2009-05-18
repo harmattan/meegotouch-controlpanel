@@ -67,12 +67,10 @@ protected:
 
     Qt::Alignment m_Alignment;
 
-};
+protected slots:
+    void onMetadataChanged();
 
-inline void DcpBasicComponent::setMetadata(DcpAppletMetadata* metadata)
-{
-    m_Metadata = metadata;
-}
+};
 
 inline DcpAppletMetadata* DcpBasicComponent::metadata() const
 {

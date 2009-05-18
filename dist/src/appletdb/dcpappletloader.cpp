@@ -3,7 +3,7 @@
 #include "dcpappletmetadata.h"
 #include <QPluginLoader>
 
-DcpAppletLoader::DcpAppletLoader(DcpAppletMetadata *metadata):
+DcpAppletLoader::DcpAppletLoader(const DcpAppletMetadata *metadata):
     m_Metadata(metadata)
 {
     load();
@@ -14,7 +14,7 @@ DcpAppletLoader::~DcpAppletLoader()
     if (m_Applet)
         delete m_Applet;
 }
- 
+
 void DcpAppletLoader::load()
 {
     QPluginLoader loader(m_Metadata->fullBinary());
@@ -28,8 +28,6 @@ void DcpAppletLoader::load()
         m_Applet = qobject_cast<DcpAppletIf*>(object);
         if (m_Applet)
             m_ErrorMsg = "Can't convert object to ExampleAppletInterface.";
-       
     }
-
 }
 
