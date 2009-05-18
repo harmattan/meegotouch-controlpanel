@@ -6,6 +6,7 @@
 class DateTimeBrief: public DcpBrief{
     Q_OBJECT
 public:
+    DateTimeBrief();
     virtual QString valueText() const;
 
 };
