@@ -25,8 +25,6 @@ V
 DcpButton2View::DcpButton2View(DcpButton *button) :
     DcpButtonView(button)
 {
-	style()->fieldMarginLeft();
-Q_ASSERT(0);
 }
 
 DcpButton2View::~DcpButton2View()
@@ -35,24 +33,25 @@ DcpButton2View::~DcpButton2View()
 
 void DcpButton2View::paintText(QPainter *painter)
 {
-	int marginLeft = styleAttribute<int>(MarginLeftAttribute);
-	int marginRight = styleAttribute<int>(MarginRightAttribute);
-	int marginTop = styleAttribute<int>(MarginTopAttribute);
-	int marginBottom = styleAttribute<int>(MarginBottomAttribute);
-	int marginMiddle = styleAttribute<int>(MarginMiddleAttribute);
+
+  	int marginLeft = style()->fieldMarginLeft();
+    int marginRight = style()->fieldMarginRight();
+    int marginTop = style()->fieldMarginTop();
+    int marginBottom = style()->fieldMarginBottom();
+	int marginMiddle = style()->fieldMarginMiddle();
 
 	//int marginTriangle = styleAttribute<int>(MarginTriangleAttribute);
 
-	int triangleWidth = styleAttribute<const QSize>(TriangleBackgroundSizeAttribute).width() + styleAttribute<int>(MarginTriangleAttribute);
+	int triangleWidth = style()->triangleBackgroundSize().width() + style()->marginTriangle();
 
 
-	int fieldWidth = styleAttribute<const QSize>(BackgroundSizeAttribute).width() - marginLeft - marginRight - triangleWidth;
-	int fieldHeight = (styleAttribute<const QSize>(BackgroundSizeAttribute).height() - marginTop - marginBottom - marginMiddle) / 2;
+	int fieldWidth = style()->backgroundSize().width() - marginLeft - marginRight - triangleWidth;
+	int fieldHeight = (style()->backgroundSize().height() - marginTop - marginBottom - marginMiddle) / 2;
 
-	QRectF text1Rect(	styleAttribute<QPointF>(TextPos1Attribute).x() + marginLeft + triangleWidth,
-										styleAttribute<QPointF>(TextPos1Attribute).y() + marginTop,
-										fieldWidth,
-										fieldHeight);
+	QRectF text1Rect(	style()->textPos1().x() + marginLeft + triangleWidth,
+						style()->textPos1().y() + marginTop,
+						fieldWidth,
+						fieldHeight);
 
 /*
 		QRectF text1Rect(	styleAttribute<QPointF>(TextPos1Attribute).x() + marginLeft,
@@ -62,17 +61,15 @@ void DcpButton2View::paintText(QPainter *painter)
 */
 
     // Draw text
-    painter->setFont(styleAttribute<QFont>(Font1Attribute));
-    painter->setPen(styleAttribute<QColor>(TextColor1Attribute));
-    painter->drawText(text1Rect,
-                      stringToAlign(styleAttribute<QString>(TextAlign1Attribute)),
-					  m_Text1);
+    painter->setFont(style()->font1());
+    painter->setPen(style()->textColor1());
+    painter->drawText(text1Rect, style()->textAlign1(), m_Text1);
 
 
-	QRectF text2Rect(styleAttribute<QPointF>(TextPos2Attribute).x() + marginLeft + triangleWidth,
-											styleAttribute<QPointF>(TextPos2Attribute).y() + marginTop,
-											fieldWidth,
-											fieldHeight);
+	QRectF text2Rect(style()->textPos2().x() + marginLeft + triangleWidth,
+					 style()->textPos2().y() + marginTop,
+					 fieldWidth,
+					 fieldHeight);
 
 /*
 		QRectF text2Rect(	styleAttribute<QPointF>(TextPos2Attribute).x() + marginLeft,
@@ -81,13 +78,11 @@ void DcpButton2View::paintText(QPainter *painter)
 											styleAttribute<QSize>(TextSize2Attribute).height()); // ??? -marginTop - marginBottom
 */
 
-    painter->setFont(styleAttribute<QFont>(Font2Attribute));
-    painter->setPen(styleAttribute<QColor>(TextColor2Attribute));
-    painter->drawText(text2Rect,
-                      stringToAlign(styleAttribute<QString>(TextAlign2Attribute)),
-					  m_Text2);
+    painter->setFont(style()->font2());
+    painter->setPen(style()->textColor2());
+    painter->drawText(text2Rect, style()->textAlign2(), m_Text2);
 
-		return;
+	return;
 }
 
 QRectF DcpButton2View::boundingRect() const

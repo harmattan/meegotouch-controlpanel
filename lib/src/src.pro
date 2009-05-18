@@ -25,3 +25,7 @@ install_headers.files += applet/dcpapplet.h \
     scene/dcpscenelayereffectdialogview.h
 
 INSTALLS += target install_headers 
+
+#install_prf.path = $$[QT_INSTALL_DATA]/mkspecs/features
+#install_prf.files = lib.prf
+

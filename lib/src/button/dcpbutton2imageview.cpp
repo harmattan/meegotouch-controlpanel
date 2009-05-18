@@ -1,6 +1,6 @@
 
 #include "dcpbutton2imageview.h"
-DUI_STYLABLE_CPP(DcpButton2ImageView, DuiWidgetView)
+//DUI_STYLABLE_CPP(DcpButton2ImageView, DuiWidgetView)
 
 #include <QPainter>
 #include <DuiTheme>
@@ -82,52 +82,49 @@ void DcpButton2ImageView::paint(QPainter *painter, const QStyleOptionGraphicsIte
 
 void DcpButton2ImageView::paintTextLeft(QPainter *painter, bool textBool)
 {
-	int marginLeft = styleAttribute<int>(MarginLeftAttribute);
-	int marginRight = styleAttribute<int>(MarginRightAttribute);
-	int marginTop = styleAttribute<int>(MarginTopAttribute);
-	int marginBottom = styleAttribute<int>(MarginBottomAttribute);
-	int marginMiddle = styleAttribute<int>(MarginMiddleAttribute);
+  	int marginLeft = style()->fieldMarginLeft();
+    int marginRight = style()->fieldMarginRight();
+    int marginTop = style()->fieldMarginTop();
+    int marginBottom = style()->fieldMarginBottom();
+	int marginMiddle = style()->fieldMarginMiddle();
 
-	int triangleWidth = styleAttribute<const QSize>(TriangleBackgroundSizeAttribute).width() + styleAttribute<int>(MarginTriangleAttribute);
 
-	int fieldWidth = styleAttribute<const QSize>(BackgroundSizeAttribute).width() -
-												marginLeft -
-												marginRight -
-												triangleWidth -
-												styleAttribute<const QSize>(ImageSizeAttribute).width() -
-												styleAttribute<int>(MarginSpacerAttribute) ;
+	int triangleWidth = style()->triangleBackgroundSize().width() + style()->marginTriangle();
 
-	int fieldHeight = (styleAttribute<const QSize>(BackgroundSizeAttribute).height() - marginTop - marginBottom - marginMiddle) / 2;
+	int fieldWidth = style()->backgroundSize().width() -
+					 marginLeft -
+					 marginRight -
+					 triangleWidth -
+					 style()->imageSize().width() -
+					 style()->marginSpacer() ;
 
-	QRectF text1Rect(styleAttribute<QPointF>(TextPos1Attribute).x() + marginLeft + triangleWidth,
-											styleAttribute<QPointF>(TextPos1Attribute).y() + marginTop,
-											fieldWidth,
-											fieldHeight);
+	int fieldHeight = (style()->backgroundSize().height() - marginTop - marginBottom - marginMiddle) / 2;
+
+	QRectF text1Rect(style()->textPos1().x() + marginLeft + triangleWidth,
+					 style()->textPos1().y() + marginTop,
+					 fieldWidth,
+					 fieldHeight);
 
 
     // Draw text
-    painter->setFont(styleAttribute<QFont>(Font1Attribute));
-	painter->setPen(styleAttribute<QColor>(TextColor1Attribute));
+    painter->setFont(style()->font1());
+	painter->setPen(style()->textColor1());
 	
-    painter->drawText(text1Rect,
-                      stringToAlign(styleAttribute<QString>(TextAlign1Attribute)),
-					  m_Text1);
+    painter->drawText(text1Rect, style()->textAlign1(), m_Text1);
 
-	QRectF text2Rect(styleAttribute<QPointF>(TextPos2Attribute).x() + marginLeft + triangleWidth,
-											styleAttribute<QPointF>(TextPos2Attribute).y() + marginTop,
-											fieldWidth,
-											fieldHeight);
+	QRectF text2Rect(style()->textPos2().x() + marginLeft + triangleWidth,
+					 style()->textPos2().y() + marginTop,
+					 fieldWidth,
+					 fieldHeight);
 
-    painter->setFont(styleAttribute<QFont>(Font2Attribute));
+    painter->setFont(style()->font2());
 
 	if (textBool)
-		painter->setPen(styleAttribute<QColor>(TextColor2Attribute));
+		painter->setPen(style()->textColor2());
 	else
-		painter->setPen(styleAttribute<QColor>(TextOffColorAttribute));
+		painter->setPen(style()->textOffColor());
 
-    painter->drawText(text2Rect,
-                      stringToAlign(styleAttribute<QString>(TextAlign2Attribute)),
-					  m_Text2);
+    painter->drawText(text2Rect, style()->textAlign2(), m_Text2);
 
 	return;
 }
@@ -135,7 +132,7 @@ void DcpButton2ImageView::paintTextLeft(QPainter *painter, bool textBool)
 void DcpButton2ImageView::paintImageLeft(QPainter *painter)
 {
 
-	int marginSpacer = styleAttribute<int>(MarginSpacerAttribute);
+	int marginSpacer = style()->marginSpacer();
 
 //		QPixmap *image = new QPixmap(QPixmap(*styleAttribute<const QPixmap*>(ImageNameAttribute)).scaled(styleAttribute<const QSize>(ImageSizeAttribute)));
 
@@ -153,8 +150,8 @@ void DcpButton2ImageView::paintImageLeft(QPainter *painter)
 	}
 
 	
-	const QPixmap *border = DuiTheme::pixmap(styleAttribute<const QString>(BackgroundBorderAttribute),
-											 QSize(m_Image->width() + 2, m_Image->height() + 2)										);
+	const QPixmap *border = DuiTheme::pixmap(style()->backgroundBorder(),
+											 QSize(m_Image->width() + 2, m_Image->height() + 2)	);
 
     if (border != NULL) {
 
@@ -172,16 +169,15 @@ void DcpButton2ImageView::paintImageLeft(QPainter *painter)
 
 void DcpButton2ImageView::paintTriangleRight(QPainter *painter)
 {
-    int marginLeft = styleAttribute<int>(MarginLeftAttribute);
-    int marginTop = styleAttribute<int>(MarginTopAttribute);
+    int marginLeft = style()->fieldMarginLeft();
+    int marginTop = style()->fieldMarginTop();
 
-	const QPixmap *triangle = DuiTheme::pixmap(	styleAttribute<const QString>(TriangleBackgroundAttribute),
-																			  styleAttribute<const QSize>(TriangleBackgroundSizeAttribute));
+	const QPixmap *triangle = DuiTheme::pixmap(	style()->triangleBackground(), style()->triangleBackgroundSize());
 
     if (triangle != NULL) {
 
-		QPointF trianglePoint(styleAttribute<QPointF>(TrianglePosAttribute).x() + styleAttribute<int>(MarginSpacerAttribute) + styleAttribute<const QSize>(ImageSizeAttribute).width() + marginLeft,
-							  styleAttribute<QPointF>(TrianglePosAttribute).y() + marginTop		);
+		QPointF trianglePoint(style()->trianglePos().x() + style()->marginSpacer() + style()->imageSize().width() + marginLeft,
+							  style()->trianglePos().y() + marginTop		);
 
         painter->drawPixmap(trianglePoint, *triangle);
 	}
@@ -189,61 +185,57 @@ void DcpButton2ImageView::paintTriangleRight(QPainter *painter)
 
 void DcpButton2ImageView::paintTextRight(QPainter *painter, bool textBool)
 {
-	int marginLeft = styleAttribute<int>(MarginLeftAttribute);
-	int marginRight = styleAttribute<int>(MarginRightAttribute);
-	int marginTop = styleAttribute<int>(MarginTopAttribute);
-	int marginBottom = styleAttribute<int>(MarginBottomAttribute);
-	int marginMiddle = styleAttribute<int>(MarginMiddleAttribute);
+  	int marginLeft = style()->fieldMarginLeft();
+    int marginRight = style()->fieldMarginRight();
+    int marginTop = style()->fieldMarginTop();
+    int marginBottom = style()->fieldMarginBottom();
+	int marginMiddle = style()->fieldMarginMiddle();
 
-	int triangleWidth = styleAttribute<const QSize>(TriangleBackgroundSizeAttribute).width() + styleAttribute<int>(MarginTriangleAttribute);
+	int triangleWidth = style()->triangleBackgroundSize().width() + style()->marginTriangle();
 
 
-	int fieldWidth = styleAttribute<const QSize>(BackgroundSizeAttribute).width() -
-												 marginLeft -
-												 marginRight -
-												 triangleWidth -
-												 styleAttribute<const QSize>(ImageSizeAttribute).width() -
-												 styleAttribute<int>(MarginSpacerAttribute);
+	int fieldWidth = style()->backgroundSize().width() -
+					 marginLeft -
+					 marginRight -
+					 triangleWidth -
+					 style()->imageSize().width() -
+					 style()->marginSpacer();
 
-	int fieldHeight = (styleAttribute<const QSize>(BackgroundSizeAttribute).height() - marginTop - marginBottom - marginMiddle) / 2;
+	int fieldHeight = (style()->backgroundSize().height() - marginTop - marginBottom - marginMiddle) / 2;
 
-	QRectF text1Rect(	styleAttribute<QPointF>(TextPos1Attribute).x() + styleAttribute<int>(MarginSpacerAttribute) + styleAttribute<const QSize>(ImageSizeAttribute).width() + marginLeft + triangleWidth,
-											styleAttribute<QPointF>(TextPos1Attribute).y() + marginTop,
-											fieldWidth,
-											fieldHeight);
+	QRectF text1Rect(style()->textPos1().x() + style()->marginSpacer() + style()->imageSize().width() + marginLeft + triangleWidth,
+					 style()->textPos1().y() + marginTop,
+					 fieldWidth,
+					 fieldHeight);
 
 
     // Draw text
-    painter->setFont(styleAttribute<QFont>(Font1Attribute));
-	painter->setPen(styleAttribute<QColor>(TextColor1Attribute));
+    painter->setFont(style()->font1());
+	painter->setPen(style()->textColor1());
 	
-    painter->drawText(text1Rect,
-                      stringToAlign(styleAttribute<QString>(TextAlign1Attribute)),
-					  m_Text1);
+    painter->drawText(text1Rect, style()->textAlign1(), m_Text1);
 
 
-	QRectF text2Rect(styleAttribute<QPointF>(TextPos2Attribute).x() + styleAttribute<int>(MarginSpacerAttribute) + styleAttribute<const QSize>(ImageSizeAttribute).width() + marginLeft + triangleWidth,
-											styleAttribute<QPointF>(TextPos2Attribute).y() + marginTop,
-											fieldWidth,
-											fieldHeight);
+	QRectF text2Rect(style()->textPos2().x() + style()->marginSpacer() + style()->imageSize().width() + marginLeft + triangleWidth,
+					 style()->textPos2().y() + marginTop,
+					 fieldWidth,
+					 fieldHeight);
 
-    painter->setFont(styleAttribute<QFont>(Font2Attribute));
+    painter->setFont(style()->font2());
 
 	if (textBool)
-    	painter->setPen(styleAttribute<QColor>(TextColor2Attribute));
+    	painter->setPen(style()->textColor2());
 	else
-		painter->setPen(styleAttribute<QColor>(TextOffColorAttribute));
+		painter->setPen(style()->textOffColor());
 
-    painter->drawText(text2Rect,
-                      stringToAlign(styleAttribute<QString>(TextAlign2Attribute)),
-					  m_Text2);
+    painter->drawText(text2Rect, style()->textAlign2(), m_Text2);
 
-		return;
+	return;
 }
 
 void DcpButton2ImageView::paintImageRight(QPainter *painter)
 {
-    int marginSpacer = styleAttribute<int>(MarginSpacerAttribute);
+    int marginSpacer = style()->marginSpacer();
 
     if (m_Image != NULL) {
 
@@ -254,7 +246,7 @@ void DcpButton2ImageView::paintImageRight(QPainter *painter)
 	}
 
 		
-	const QPixmap *border = DuiTheme::pixmap(styleAttribute<const QString>(BackgroundBorderAttribute),
+	const QPixmap *border = DuiTheme::pixmap(style()->backgroundBorder(),
 											 QSize(m_Image->width() + 2, m_Image->height() + 2) );
 
     if (border != NULL) {
@@ -266,6 +258,7 @@ void DcpButton2ImageView::paintImageRight(QPainter *painter)
 	}
 }
 
+/*
 void DcpButton2ImageView::registerStyleAttributes(DuiStyleDescription &description)
 {
 
@@ -307,3 +300,6 @@ void DcpButton2ImageView::registerStyleAttributes(DuiStyleDescription &descripti
 
 	description.addAttribute(BackgroundBorderAttribute, "backgroundBorder");
 }
+*/
+
+DUI_REGISTER_VIEW("DcpButton2ImageView", DcpButton2ImageView, DcpButton)

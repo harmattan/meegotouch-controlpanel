@@ -16,7 +16,7 @@ DcpButtonView::DcpButtonView(DcpButton *button) :
 {
 //    controller.setZValue(1);
 
-	style()->fieldMarginLeft();
+	//style()->fieldMarginLeft();
 }
 
 DcpButtonView::~DcpButtonView()
@@ -50,8 +50,10 @@ void DcpButtonView::paintBackground(QPainter *painter)
 {
 
     if (m_Bkgr) {
-        const QPixmap *bg = DuiTheme::pixmap(styleAttribute<const QString>(BackgroundAttribute),
-                                         styleAttribute<const QSize>(BackgroundSizeAttribute));
+        //const QPixmap *bg = DuiTheme::pixmap(styleAttribute<const QString>(BackgroundAttribute),                                         styleAttribute<const QSize>(BackgroundSizeAttribute));
+
+		const QPixmap *bg = DuiTheme::pixmap(style()->background(), style()->backgroundSize());
+
         if (bg != NULL)
             painter->drawPixmap(0, 0, *bg);
     }
@@ -69,16 +71,20 @@ void DcpButtonView::paintLine(QPainter *painter)
 
 void DcpButtonView::paintTriangle(QPainter *painter)
 {
-  	int marginLeft = styleAttribute<int>(MarginLeftAttribute);
-    int marginTop = styleAttribute<int>(MarginTopAttribute);
 
-	const QPixmap *triangle = DuiTheme::pixmap(	styleAttribute<const QString>(TriangleBackgroundAttribute),
-																styleAttribute<const QSize>(TriangleBackgroundSizeAttribute));
+	int marginLeft = style()->fieldMarginLeft();
+	int marginTop = style()->fieldMarginTop();
+
+
+	//const QPixmap *triangle = DuiTheme::pixmap(	styleAttribute<const QString>(TriangleBackgroundAttribute), 																styleAttribute<const QSize>(TriangleBackgroundSizeAttribute));
+
+	const QPixmap *triangle = DuiTheme::pixmap(style()->triangleBackground(), style()->triangleBackgroundSize());
 
     if (triangle != NULL) {
 
-		QPointF trianglePoint(	styleAttribute<QPointF>(TrianglePosAttribute).x() + marginLeft,
-														styleAttribute<QPointF>(TrianglePosAttribute).y() + marginTop		);
+		//QPointF trianglePoint(	styleAttribute<QPointF>(TrianglePosAttribute).x() + marginLeft,														styleAttribute<QPointF>(TrianglePosAttribute).y() + marginTop		);
+
+		QPointF trianglePoint(style()->trianglePos().x() + marginLeft, style()->trianglePos().y() + marginTop);
 
         painter->drawPixmap(trianglePoint, *triangle);
 	}
@@ -86,28 +92,26 @@ void DcpButtonView::paintTriangle(QPainter *painter)
 
 void DcpButtonView::paintText(QPainter *painter)
 {
-  	int marginLeft = styleAttribute<int>(MarginLeftAttribute);
-    int marginRight = styleAttribute<int>(MarginRightAttribute);
-    int marginTop = styleAttribute<int>(MarginTopAttribute);
-    int marginBottom = styleAttribute<int>(MarginBottomAttribute);
+  	int marginLeft = style()->fieldMarginLeft();
+    int marginRight = style()->fieldMarginRight();
+    int marginTop = style()->fieldMarginTop();
+    int marginBottom = style()->fieldMarginBottom();
 
-		QRectF text1Rect(	styleAttribute<QPointF>(TextPos1Attribute).x() + marginLeft,
-											styleAttribute<QPointF>(TextPos1Attribute).y() + marginTop,
-											width() - marginLeft - marginRight,
-											height() - marginTop - marginBottom);
+	QRectF text1Rect(	style()->textPos1().x() + marginLeft,
+						style()->textPos1().y() + marginTop,
+						width() - marginLeft - marginRight,
+						height() - marginTop - marginBottom);
 
     // Draw text
-    painter->setFont(styleAttribute<QFont>(Font1Attribute));
-    painter->setPen(styleAttribute<QColor>(TextColor1Attribute));
-    painter->drawText(text1Rect,
-                      stringToAlign(styleAttribute<QString>(TextAlign1Attribute)),
-											m_Text1);
+    painter->setFont(style()->font1());
+    painter->setPen(style()->textColor1());
+    painter->drawText(text1Rect, style()->textAlign1(), m_Text1);
 
 }
 
 QRectF DcpButtonView::boundingRect() const
 {
-	return QRectF(QPointF(), styleAttribute<const QSize>(BackgroundSizeAttribute));
+	return QRectF(QPointF(), style()->backgroundSize());
 }
 
 
@@ -162,12 +166,12 @@ void DcpButtonView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 int DcpButtonView::width()
 {
-	return styleAttribute<const QSize>(BackgroundSizeAttribute).width();
+	return style()->backgroundSize().width();
 }
 
 int DcpButtonView::height()
 {
-	return styleAttribute<const QSize>(BackgroundSizeAttribute).height();
+	return style()->backgroundSize().height();
 }
 
 

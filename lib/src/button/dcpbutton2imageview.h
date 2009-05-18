@@ -7,12 +7,17 @@
 
 #include "dcpbutton2view.h"
 
+#include "dcpbuttonmodel.h"
+#include "dcpbuttonstyle.h"
+
+
 class QPainter;
 
 class DcpButton2ImageView : public DcpButton2View
 {
     Q_OBJECT
-    DUI_STYLABLE
+    //DUI_STYLABLE
+	DUI_VIEW(DcpButtonModel, DcpButtonStyle)
 
 public:
     DcpButton2ImageView(DcpButton *controller);

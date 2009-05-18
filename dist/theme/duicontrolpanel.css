@@ -58,13 +58,14 @@ DuiImageStyle {
 }	
 
 
-#DcpButton {
-    marginLeft: 25;
-    marginRight: 20;
-    marginTop: 12;
-    marginBottom: 6;
-    marginMiddle: 4;
-	
+DcpButtonStyle {
+    
+    fieldMarginLeft: 25;
+    fieldMarginRight: 20;
+    fieldMarginTop: 12;
+    fieldMarginBottom: 6;
+    fieldMarginMiddle: 4;
+
     backgroundImage: "C2-container";
 
     backgroundSize: size(385, 88);
@@ -83,8 +84,8 @@ DuiImageStyle {
     textSize2: size(300, 30); 
     textPos2: pos(0, 30);
 
-    textAlign1: "AlignLeft";
-    textAlign2: "AlignLeft";
+//    textAlign1: "AlignLeft";
+//    textAlign2: "AlignLeft";
 
     triangleBackground: "See-more-indicator-small";
     triangleBackgroundSize: size(16, 16);
