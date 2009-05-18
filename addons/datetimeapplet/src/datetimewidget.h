@@ -2,7 +2,10 @@
 #define DATETIMEWIDGET_H
 
 #include "dcpwidget.h" 
+
 class DcpButton;
+class UpdateButton;
+
 class DateTimeWidget : public DcpWidget 
 {
 	Q_OBJECT
@@ -21,6 +24,7 @@ private:
 	DcpButton *m_DateButton;
 	DcpButton *m_TimeButton;
 	DcpButton *m_TimeZoneButton;
+    UpdateButton *m_AutomaticUpdateButton;
     DcpButton *m_RegionFormatButton;
 };
 #endif // DATETIMEWIDGET_H
