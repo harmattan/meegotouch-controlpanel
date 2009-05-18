@@ -91,13 +91,14 @@ DcpAppletMetadata::~DcpAppletMetadata()
     delete d;
 }
 
+// TODO XXX rename
 bool
 DcpAppletMetadata::isValid() const
 {
     return desktopEntry()->isValid();
 }
 
-// TODO solve reloading XXX
+// TODO XXX rename
 bool
 DcpAppletMetadata::isModified() const
 {
@@ -219,7 +220,7 @@ DcpAppletIf* DcpAppletMetadata::applet() const
     if (d->m_AppletLoader == NULL){
         d->m_AppletLoader = new DcpAppletLoader(this);
     }
-    qDebug() << "XXX" << d->m_AppletLoader->errorMsg() << fullBinary();
+//    qDebug() << Q_FUNC_INFO << d->m_AppletLoader->errorMsg() << fullBinary();
     return d->m_AppletLoader->applet();
 }
 
@@ -234,6 +235,10 @@ DcpBrief* DcpAppletMetadata::brief() const
     if (d->m_Brief == NULL) {
         if (applet() != NULL) {
             d->m_Brief = applet()->constructBrief();
+            if (d->m_Brief != NULL){
+                connect (d->m_Brief, SIGNAL(valuesChanged()),
+                         this, SIGNAL(briefChanged()));
+            }
         }
     }
     return d->m_Brief;

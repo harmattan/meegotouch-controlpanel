@@ -44,6 +44,7 @@ void DcpButton::setText(const QString& text1, const QString& text2)
 {
 	m_View->setText1(text1);
 	m_View->setText2(text2);
+    update();
 }
 
 DcpButton::~DcpButton()

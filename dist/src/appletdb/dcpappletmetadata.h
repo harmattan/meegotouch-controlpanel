@@ -1,14 +1,16 @@
 #ifndef DCPAPPLETMETADATA_H
 #define DCPAPPLETMETADATA_H
 
+#include <QObject>
 #include <QString>
 class DuiDesktopEntry;
 class DcpAppletIf;
 class DcpBrief;
 
 class DcpAppletMetadataPrivate;
-class DcpAppletMetadata
+class DcpAppletMetadata : public QObject
 {
+    Q_OBJECT
 public:
     DcpAppletMetadata(const QString& filename);
     virtual ~DcpAppletMetadata();
@@ -37,9 +39,11 @@ public:
 
     int order() const;
     int usage() const;
-//    QString settingsValue();
 
     DcpAppletIf* applet() const;
+
+signals:
+    void briefChanged();
 
 protected:
     DuiDesktopEntry* desktopEntry() const;
