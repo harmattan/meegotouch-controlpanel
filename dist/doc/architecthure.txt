@@ -1,0 +1,64 @@
+DuiControlPanel displays settings applets by categories.
+These applets are shared objects with common interface called
+DcpAppletIf.
+This interface provides:
+    - constructWidget() that creates the applet GUI
+    - title() returns the title of the applet
+    - viewMenuItems() that returns menu items can be appended to main menu of 
+      the application which has loaded the applet
+    - constructBrief() returns DcpBrief class that contains all the
+      properly formatted information about the applet 
+      needed to construct applet "mini" views 
+      aka applet buttons in category page of DuiControlPanel.
+
+Applet metadata
+
+  DcpAppletMetadata class provides common informations of an applet itself.
+It is constructed from desktop file. It has
+several virtual functions like name(), fileName(), fullBinary(),
+category() can come directly from desktop file but it has functions like 
+text1(), text2() /the first and second row of applet mini view/,
+widgetTypeID() /simple label, double label, image, etc/ that can come from 
+the Brief of the applet. The mini view can be easily construced from these data
+using DcpButtons.
+
+DcpButton is a screen element that represents the applet mini view:
+It has a widget type (one label, two rows, two rows with image, etc)
+There are views for each type so the button is fully stylable
+it has methods like:
+- void setText(QString text1, QString text2) for the two rows
+- void setLine(bool line) - sets/unsets separator line on the bottof
+- void setAlignment(Qt::Alignment alignment) 
+- it has a clicked() signal
+
+DcpAppletDb:
+
+
+DcpAppletDb is a singleton class for handles applets come from .desktop files at specific paths
+Its constructor takes a pathName parameter to look for desktop files and more paths can be added
+with addPath(const QString &pathName); (you also can add individual files by addFile(..))
+It builds then a database of DcpAppletMetadata objects.
+
+Database can be queried three ways now:
+
+- By name of the applet: DcpAppletMetadata *applet(name)    
+  It returns one applet with that name, or 0 if applet does not exists in db.
+
+- By category: DcpAppletMetadataList listByCategory(const QString& category);
+  It returns a list of DcpAppletMetadata objects that match the category name.
+
+- By usage: DcpAppletMetadataList listMostUsed();
+  It returns the first six most used applet
+
+DB can be refreshed: it looks through the applet paths for modified files and "reloads" them only.
+(DcpDesktopEntry cannot be reloaded so it means destroying and re-creating them)
+It also looks for invalid files (for ex.: deleted ones) and erase them from the db.
+
+So with this technique, you can manipulate .desktop files on-the-fly, and if you visit a specific
+category page again after modifying, you can see the changes.
+
+These classes are all in libduicontrolpanel so they are usable not for
+duicontrolpanel only, but duistartup, status indicator or any applicatios
+that needs to manipulat with settings applets.
+
+

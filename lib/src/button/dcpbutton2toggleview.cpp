@@ -43,11 +43,11 @@ void DcpButton2ToggleView::paint(QPainter *painter, const QStyleOptionGraphicsIt
 void DcpButton2ToggleView::paintToggleLeft(QPainter *painter)
 {
 
-	int marginSpacer = styleAttribute<int>(MarginSpacerAttribute);
+	int marginSpacer = style()->marginSpacer();
 
-	m_ToggleOn = DuiTheme::pixmap( styleAttribute<const QString>(ToggleOnAttribute), styleAttribute<const QSize>(ImageSizeAttribute));
+	m_ToggleOn = DuiTheme::pixmap(style()->toggleOn(), style()->imageSize());
 
-	m_ToggleOff = DuiTheme::pixmap( styleAttribute<const QString>(ToggleOffAttribute), styleAttribute<const QSize>(ImageSizeAttribute));
+	m_ToggleOff = DuiTheme::pixmap(style()->toggleOff(), style()->imageSize());
 	
     if (m_ToggleOn && m_ToggleOff)
 		if (m_EnableToggle) {
@@ -69,26 +69,23 @@ void DcpButton2ToggleView::paintToggleLeft(QPainter *painter)
 
 void DcpButton2ToggleView::paintToggleRight(QPainter *painter)
 {
- 	int marginSpacer = styleAttribute<int>(MarginSpacerAttribute);
+ 	int marginSpacer = style()->marginSpacer();
 
-	m_ToggleOn = DuiTheme::pixmap( styleAttribute<const QString>(ToggleOnAttribute), styleAttribute<const QSize>(ImageSizeAttribute));
+	m_ToggleOn = DuiTheme::pixmap(style()->toggleOn(), style()->imageSize());
 
-	m_ToggleOff = DuiTheme::pixmap( styleAttribute<const QString>(ToggleOffAttribute), styleAttribute<const QSize>(ImageSizeAttribute));
+	m_ToggleOff = DuiTheme::pixmap(style()->toggleOff(), style()->imageSize());
 
     if (m_ToggleOn && m_ToggleOff)
 		if (m_EnableToggle) {
-			QPointF imagePoint(marginSpacer,
-				 			   (height() - m_ToggleOn->height()) / 2					);
+			QPointF imagePoint(marginSpacer, (height() - m_ToggleOn->height()) / 2 );
 
         	painter->drawPixmap(imagePoint, *m_ToggleOn);
 		} else {
-			QPointF imagePoint(marginSpacer,
-				 			   (height() - m_ToggleOff->height()) / 2					);
+			QPointF imagePoint(marginSpacer, (height() - m_ToggleOff->height()) / 2 );
 
         	painter->drawPixmap(imagePoint, *m_ToggleOff);
 		}
 }
-
 
 
 QRectF DcpButton2ToggleView::boundingRect() const
@@ -125,7 +122,7 @@ QSizeF DcpButton2ToggleView::sizeHint(Qt::SizeHint which, const QSizeF &constrai
 void DcpButton2ToggleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
 
-	int marginSpacer = styleAttribute<int>(MarginSpacerAttribute);
+	int marginSpacer = style()->marginSpacer();
 
 	if (m_ToggleOn && m_ToggleOff)
 
