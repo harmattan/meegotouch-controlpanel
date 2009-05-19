@@ -1,0 +1,36 @@
+DuiControlPanel displays settings applets by categories.
+These applets are shared objects with common interface called
+DcpAppletIf.
+This interface provides:
+    - constructWidget() that creates the applet GUI
+    - title() returns the title of the applet
+    - viewMenuItems() that returns menu items can be appended to main menu of 
+      the application which has loaded the applet
+    - constructBrief() returns DcpBrief class that contains all the
+      properly formatted information about the applet 
+      needed to construct applet "mini" views 
+      aka applet buttons in category page of DuiControlPanel.
+
+Applet metadata
+
+  DcpAppletMetadata class provides common informations of an applet itself.
+It is constructed from desktop file. It has
+several virtual functions like name(), fileName(), fullBinary(),
+category() can come directly from desktop file but it has functions like 
+text1(), text2() /the first and second row of applet mini view/,
+widgetTypeID() /simple label, double label, image, etc/ that can come from 
+the Brief of the applet. The mini view can be easily construced from these data
+using DcpButtons.
+
+DcpButton is a screen element that represents the applet mini view:
+It has a widget type (one label, two rows, two rows with image, etc)
+it has methods like:
+- void setText(QString text1, QString text2) for the two rows
+- void setLine(bool line) - sets/unsets separator line on the bottof
+- void setAlignment(Qt::Alignment alignment) 
+- it has a clicked() signal
+
+
+
+
+
