@@ -17,12 +17,14 @@ install_headers.path    += $$(DEBIAN_DESTDIR)/usr/include/qt4/dui/
 install_headers.files += applet/dcpapplet.h \
     applet/dcpappletif.h \
     applet/dcpwidget.h \
-    applet/dcpmetadata.h \
     applet/dcpbrief.h \
     button/dcpbutton.h \
     widget/dcpwidgettypes.h \
     widget/dcpspaceritem.h \
-    scene/dcpscenelayereffectdialogview.h
+    scene/dcpscenelayereffectdialogview.h \
+    appletdb/dcpappletdb.h \
+    appletdb/dcpappletloader.h \
+    appletdb/dcpappletmetadata.h
 
 INSTALLS += target install_headers
 
