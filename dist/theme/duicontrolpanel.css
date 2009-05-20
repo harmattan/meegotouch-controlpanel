@@ -60,8 +60,8 @@ DuiImageStyle {
 
 DcpButtonStyle {
     
-    fieldMarginLeft: 25;
-    fieldMarginRight: 20;
+    fieldMarginLeft: 0;
+    fieldMarginRight: 0;
     fieldMarginTop: 12;
     fieldMarginBottom: 6;
     fieldMarginMiddle: 4;
