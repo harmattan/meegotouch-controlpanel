@@ -28,7 +28,7 @@ DcpButton::DcpButton(int buttonType, const QString &title, DuiWidget *parent, co
 
     setObjectName("DcpButton");
     setView(m_View);
-    m_View->updateStyle();
+    // m_View->updateStyle();
 
 	connect(m_View, SIGNAL(clicked()), this, SIGNAL(clicked()));
 

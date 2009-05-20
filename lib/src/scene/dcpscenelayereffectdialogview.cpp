@@ -1,5 +1,5 @@
 #include "dcpscenelayereffectdialogview.h"
-DUI_STYLABLE_CPP(DcpSceneLayerEffectDialogView, DuiWidgetView)
+// DUI_STYLABLE_CPP(DcpSceneLayerEffectDialogView, DuiWidgetView)
 
 #include <duiscenelayereffect.h>
 #include <duiviewfactory.h>
@@ -34,10 +34,10 @@ QRectF DcpSceneLayerEffectDialogView::boundingRect() const
     return QRectF(QPoint(0, value), controllerSize);
 }
 
-void DcpSceneLayerEffectDialogView::styleUpdated()
+/* void DcpSceneLayerEffectDialogView::styleUpdated()
 {
     DuiWidgetView::styleUpdated();
-}
+}*/
 
 void DcpSceneLayerEffectDialogView::startEffect()
 {
@@ -52,9 +52,9 @@ void DcpSceneLayerEffectDialogView::stopEffect()
     m_TimeLine.stop();
 }
 
-void DcpSceneLayerEffectDialogView::registerStyleAttributes(DuiStyleDescription &description)
+/* void DcpSceneLayerEffectDialogView::registerStyleAttributes(DuiStyleDescription &description)
 {
     Q_UNUSED(description);
-}
+}*/
 
 DUI_REGISTER_VIEW("DcpSceneLayerEffectDialogView", DcpSceneLayerEffectDialogView, DuiSceneLayerEffect)
