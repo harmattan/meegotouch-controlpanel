@@ -111,7 +111,7 @@ DcpAppletMetadata::isModified() const
 QString
 DcpAppletMetadata::category() const
 {
-    return desktopEntry()->value(Keys[KeyCategory]).toString();
+    return desktopEntryStr(KeyCategory);
 }
 
 /*
@@ -125,7 +125,7 @@ DcpAppletMetadata::icon() const
 QString
 DcpAppletMetadata::binary() const
 {
-    return desktopEntry()->value(Keys[KeyBinary]).toString();
+    return desktopEntryStr(KeyBinary);
 }
 
 QString
@@ -141,14 +141,13 @@ int DcpAppletMetadata::widgetTypeID() const
     }
 
   // old way, TODO consider removing it and forcing the applets to supply a widgettype
-  QString type = desktopEntry()->value(Keys[KeyWidgetType]).toString();
+  QString type = desktopEntryStr(KeyWidgetType).toUpper();
 
   for(int i=0; i<WIDGETN; i++)
     if (WIDGETNAME[i]==type)
       return i;
 
   return DCPLABEL2;  //default
-
 }
 
 Qt::Alignment DcpAppletMetadata::align() const
@@ -158,7 +157,7 @@ Qt::Alignment DcpAppletMetadata::align() const
     }
 
     // old way, try desktop file
-    QString align = desktopEntry()->value(Keys[KeyAlign]).toString().toUpper();
+    QString align = desktopEntryStr(KeyAlign).toUpper();
     if (align == "LEFT")
         return Qt::AlignLeft;
     if (align == "RIGHT")
@@ -180,8 +179,8 @@ bool DcpAppletMetadata::toggle() const
 
 QString DcpAppletMetadata::text1() const
 {
-    QString id = desktopEntry()->value(Keys[KeyNameId]).toString();
-    QString name = desktopEntry()->value(Keys[KeyName]).toString();
+    QString id = desktopEntryStr(KeyNameId);
+    QString name = desktopEntryStr(KeyName);
 //    QString catalog = value(Keys[KeyNameCatalog]).toString();
     return DuiLocale::trid(qPrintable(id), qPrintable(name));
 }
@@ -192,7 +191,7 @@ QString DcpAppletMetadata::text2() const
         return brief()->valueText();
 
     // old way, TODO change it to return QString() if test data is not needed
-    return desktopEntry()->value(Keys[KeyText2]).toString();
+    return desktopEntryStr(KeyText2);
 }
 
 QString DcpAppletMetadata::image() const
@@ -201,7 +200,7 @@ QString DcpAppletMetadata::image() const
         return brief()->image();
 
     // old way
-    return desktopEntry()->value(Keys[KeyImage]).toString();
+    return desktopEntryStr(KeyImage);
 }
 
 int DcpAppletMetadata::usage() const
@@ -255,4 +254,10 @@ QString DcpAppletMetadata::fileName() const
 {
     return desktopEntry()->fileName();
 }
+
+QString DcpAppletMetadata::desktopEntryStr(int id) const
+{
+    return desktopEntry()->value(Keys[id]).toString().trimmed();
+}
+
 

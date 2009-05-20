@@ -30,6 +30,7 @@ void DcpAppletCategoryPage::createContent()
 
     if (!list.isEmpty())
     {
+    qDebug() << "XXX category page";
         bool odd =list.size() % 2 == 1;
     	DcpAppletMetadataList::const_iterator i;  
         for (i = list.begin(); i != list.end(); ++i)
@@ -43,6 +44,7 @@ void DcpAppletCategoryPage::createContent()
 
 void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata, bool odd)
 {
+    qDebug() << "XXX addComponent" << metadata->name();
     DcpBasicComponent *component = 0;
 
      switch(metadata->widgetTypeID()) {
@@ -50,16 +52,16 @@ void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata, bool odd)
              component = new DcpLabelComponent(0, metadata);
          break;*/
          case DCPLABEL2:
-             component = new DcpLabel2Component(0, metadata);
+             component = new DcpLabel2Component(m_Category, metadata);
          break;
          case DCPLABELBUTTON:
-             component = new DcpLabelButtonComponent(0, metadata);
+             component = new DcpLabelButtonComponent(m_Category, metadata);
          break;
 /*         case DCPLABEL2BUTTON:
-             component = new DcpLabel2ButtonComponent(0, metadata);
+             component = new DcpLabel2ButtonComponent(m_Category, metadata);
          break;*/
          case DCPLABEL2IMAGE :
-             component = new DcpLabel2ImageComponent(0, metadata);
+             component = new DcpLabel2ImageComponent(m_Category, metadata);
          break;
          default:
          break;
@@ -74,7 +76,7 @@ void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata, bool odd)
         {	
             qDebug("Dcp: ADD");
 //            component->setMinimumWidth(size().width());
-		component->setLine(false);
+		    component->setLine(false);
             m_Category->add(component);
         }
 	else

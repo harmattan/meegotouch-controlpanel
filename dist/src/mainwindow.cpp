@@ -10,8 +10,8 @@
 
 MainWindow::MainWindow()
 {
-   // Pages::Handle handle = {Pages::MAIN, ""};
-   Pages::Handle handle = {Pages::APPLET, "DateTime"};
+   Pages::Handle handle = {Pages::MAIN, ""};
+//   Pages::Handle handle = {Pages::APPLET, "DateTime"};
    changePage(handle);
 }
 

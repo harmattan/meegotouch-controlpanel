@@ -47,6 +47,7 @@ signals:
 
 protected:
     DuiDesktopEntry* desktopEntry() const;
+    QString desktopEntryStr(int id) const;
     DcpBrief* brief() const;
 
 private:
