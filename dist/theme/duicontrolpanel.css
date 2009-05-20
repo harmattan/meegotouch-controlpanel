@@ -9,29 +9,6 @@ DuiLabelStyle {
 }
 
 
-DuiLabel#ComponentDescription {
-    font: font("Nokia Sans Cn", 16px);
-}
-
-
-DcpBackgroundComponent {
-	normalBackgroundName: "Mashup-container";
-	backgroundBoxEdge: 30;
-	lineWidth: 1;
-	lineColor: #FFA000;
-	lineSkip: 2;
-}
-
-
-DuiLabel#DuiContainerTitle {
-    font: font("Nokia Sans Cn", 20px);
-}
-
-
-DuiApplicationPage {
-	background: image(starfield);
-}
-
 #ComponentDescription {
     font: font("Nokia Sans Cn", 16px);
 }
@@ -60,7 +37,7 @@ DuiImageStyle {
 
 DcpButtonStyle {
     
-    fieldMarginLeft: 0;
+    fieldMarginLeft: 12;
     fieldMarginRight: 0;
     fieldMarginTop: 12;
     fieldMarginBottom: 6;
@@ -96,7 +73,7 @@ DcpButtonStyle {
     imageName: image(starfield);
     imageSize: size(64, 64);
 
-    marginSpacer: 20;
+    marginSpacer: 12;
 
     backgroundBorder: "Thumbnail-frame";
 
@@ -104,3 +81,4 @@ DcpButtonStyle {
     toggleOff: "Toggle-off";
 
 }
+

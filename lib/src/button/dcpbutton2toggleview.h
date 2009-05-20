@@ -33,8 +33,6 @@ public:
 
 //	virtual QSizeF sizeHint(Qt::SizeHint which, const QSizeF &constraint) const ;
 
-	virtual QRectF boundingRect() const;
-
 protected:
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 

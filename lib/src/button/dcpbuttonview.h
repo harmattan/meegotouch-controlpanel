@@ -26,8 +26,6 @@ public:
     virtual ~DcpButtonView();
 
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = NULL);
-    virtual QRectF boundingRect() const;
-
     virtual void paintBackground(QPainter *painter);
 	void paintLine(QPainter *painter);
     virtual void paintTriangle(QPainter *painter);

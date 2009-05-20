@@ -72,10 +72,10 @@ void DateTimeWidget::initWidget()
     m_TimeZoneButton = new DcpButton(DCPLABEL2);
     m_TimeZoneButton->setText(DcpDateTime::CurrentTimeZoneText, "+ 1 GMT London");   
     m_TimeZoneButton->setLine(true);
-    m_TimeZoneButton->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width());
+    m_TimeZoneButton->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width()-30);
     
     // m_AutomaticUpdateButton
-    m_AutomaticUpdateButton = new UpdateButton(this);   
+    m_AutomaticUpdateButton = new UpdateButton(this);
     
     // simpleLabel
     DuiLabel *simpleLabel = new DuiLabel(DcpDateTime::SetDateTimeText, this);

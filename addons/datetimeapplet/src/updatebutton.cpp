@@ -35,7 +35,7 @@ void UpdateButton::initWidget()
     // mainLayout
     DuiLayout *mainLayout = new DuiLayout(this);
     mainLayout->setAnimator(0);
-    mainLayout->setContentsMargins(0.0, 0.0, 30.0, 0.0);
+    mainLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     this->setLayout(mainLayout);
     DuiLinearLayoutPolicy *mainLayoutPolicy = 
         new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
@@ -72,8 +72,8 @@ void UpdateButton::initWidget()
     // graySeparator
     DuiSeparator *graySeparator = new DuiSeparator(this);
     graySeparator->setObjectName("GraySeparator");
-    graySeparator->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width() - 40);
-    graySeparator->setMaximumWidth(DuiSceneManager::instance()->visibleSceneRect().width() - 40);
+    graySeparator->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width() - 30);
+    graySeparator->setMaximumWidth(DuiSceneManager::instance()->visibleSceneRect().width() - 30);
 
     // add items to mainLayoutPolicy
     mainLayoutPolicy->addItemAtPosition(

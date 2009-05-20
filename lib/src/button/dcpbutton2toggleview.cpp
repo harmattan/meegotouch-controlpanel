@@ -87,11 +87,12 @@ void DcpButton2ToggleView::paintToggleRight(QPainter *painter)
 		}
 }
 
-
+#if 0
 QRectF DcpButton2ToggleView::boundingRect() const
 {
 	return QRectF(0, 0, size().width(), size().height());
 }
+#endif
 
 /*
 QSizeF DcpButton2ToggleView::sizeHint(Qt::SizeHint which, const QSizeF &constraint) const

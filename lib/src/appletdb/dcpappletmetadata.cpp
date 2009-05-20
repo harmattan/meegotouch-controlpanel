@@ -141,7 +141,7 @@ int DcpAppletMetadata::widgetTypeID() const
     }
 
   // old way, TODO consider removing it and forcing the applets to supply a widgettype
-  QString type = desktopEntryStr(KeyWidgetType).toUpper();
+  QString type = desktopEntryStr(KeyWidgetType);
 
   for(int i=0; i<WIDGETN; i++)
     if (WIDGETNAME[i]==type)

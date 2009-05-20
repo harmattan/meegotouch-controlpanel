@@ -1,10 +1,10 @@
 #include "languagebrief.h"
-#include "dcpwidgettypes.h"
 
+#include "dcplanguageconf.h"
 
 QString LanguageBrief::valueText() const
 {
-    return "not implemented";
+    return DcpLanguageConf::fullName(DcpLanguageConf::instance()->displayLanguage());
 }
 
 

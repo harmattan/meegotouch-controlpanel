@@ -108,12 +108,12 @@ void DcpButtonView::paintText(QPainter *painter)
     painter->drawText(text1Rect, style()->textAlign1(), m_Text1);
 
 }
-
+#if 0
 QRectF DcpButtonView::boundingRect() const
 {
 	return QRectF(QPointF(), style()->backgroundSize());
 }
-
+#endif
 
 /*
 void DcpButtonView::registerStyleAttributes(DuiStyleDescription &description)

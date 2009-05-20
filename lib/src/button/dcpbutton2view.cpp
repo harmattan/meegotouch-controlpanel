@@ -85,10 +85,12 @@ void DcpButton2View::paintText(QPainter *painter)
 	return;
 }
 
+#if 0 
 QRectF DcpButton2View::boundingRect() const
 {
 	return QRectF(0, 0, size().width(), size().height());
 }
+#endif
 
 /*
 void DcpButton2View::registerStyleAttributes(DuiStyleDescription &description)
