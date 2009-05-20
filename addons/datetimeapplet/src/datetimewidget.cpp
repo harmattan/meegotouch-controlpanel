@@ -3,6 +3,8 @@
 #include "dcpwidgettypes.h"
 #include "dcpspaceritem.h"
 #include "updatebutton.h"
+#include "datetimetranslation.h"
+
 #include <duitheme.h>
 #include <duilayout.h>
 #include <duilabel.h>
@@ -10,6 +12,7 @@
 #include <duilabel.h>
 #include <duibutton.h>
 #include <duiscenemanager.h>
+
 const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/";
 const int widgetWidth = 100;
 
@@ -56,18 +59,18 @@ void DateTimeWidget::initWidget()
     
     // m_DateButton
     m_DateButton = new DcpButton(DCPLABEL2);
-    m_DateButton->setText("Date", "Monday, 14 May 2009");   
+    m_DateButton->setText(DcpDateTime::DateButtonText, "Monday, 14 May 2009");   
     m_DateButton->setLine(true);
     m_DateButton->setMaximumHeight(90);  
     
     // m_TimeButton
     m_TimeButton = new DcpButton(DCPLABEL2);
-    m_TimeButton->setText("Current Time", "9:44 AM");   
+    m_TimeButton->setText(DcpDateTime::CurrentTimeButtonText, "9:44 AM");   
     m_TimeButton->setLine(true);   
     
     // m_TimeZoneButton
     m_TimeZoneButton = new DcpButton(DCPLABEL2);
-    m_TimeZoneButton->setText("Current Time Zone", "+ 1 GMT London");   
+    m_TimeZoneButton->setText(DcpDateTime::CurrentTimeZoneText, "+ 1 GMT London");   
     m_TimeZoneButton->setLine(true);
     m_TimeZoneButton->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width());
     
@@ -75,12 +78,12 @@ void DateTimeWidget::initWidget()
     m_AutomaticUpdateButton = new UpdateButton(this);   
     
     // simpleLabel
-    DuiLabel *simpleLabel = new DuiLabel("To set date and time display formats, go to", this);
+    DuiLabel *simpleLabel = new DuiLabel(DcpDateTime::SetDateTimeText, this);
     simpleLabel->setObjectName("SimpleLabel");
     simpleLabel->setAlignment(Qt::AlignCenter);
     
     // regionFormatButton                                                       
-    DuiButton *m_RegionFormatButton = new DuiButton("Region Format"
+    DuiButton *m_RegionFormatButton = new DuiButton(DcpDateTime::RegionButtonText
      , this);
     m_RegionFormatButton->setObjectName("RegionFormatButton");
     m_RegionFormatButton->setMaximumWidth(310);                               

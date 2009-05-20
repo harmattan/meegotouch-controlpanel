@@ -1,5 +1,6 @@
 #include "updatebutton.h"
 #include "dcpspaceritem.h"
+#include "datetimetranslation.h"
 
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
@@ -49,7 +50,7 @@ void UpdateButton::initWidget()
     lineLayout->setPolicy(lineLayoutPolicy);
 
     // automaticLabel
-    DuiLabel *automaticLabel = new DuiLabel("Automatic time update:", this);
+    DuiLabel *automaticLabel = new DuiLabel(DcpDateTime::AutomaticUpdateText, this);
     automaticLabel->setObjectName("AutomaticLabel");
     automaticLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     automaticLabel->setAcceptedMouseButtons(0);

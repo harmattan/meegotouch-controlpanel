@@ -10,7 +10,8 @@ OBJECTS_DIR   = .objects
 HEADERS       = datetimeapplet.h \
 		        datetimewidget.h \
                 updatebutton.h \
-                datetimebrief.h
+                datetimebrief.h \
+                datetimetranslation.h
 
 SOURCES       = datetimeapplet.cpp \
 		        datetimewidget.cpp \

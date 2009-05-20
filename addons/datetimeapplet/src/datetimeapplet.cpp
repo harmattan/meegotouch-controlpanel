@@ -6,10 +6,8 @@
 #include "duilocale.h"
 #include <DuiAction>
 #include "datetimebrief.h"
+#include "datetimetranslation.h"
 
-namespace {
-    const QString AppletTitle = trid("qn_datetime", "Date & Time");
-};
 Q_EXPORT_PLUGIN2(displayapplet, DateTimeApplet)
 
 void DateTimeApplet::init()
@@ -24,7 +22,7 @@ DcpWidget* DateTimeApplet::constructWidget(int widgetId)
 
 QString DateTimeApplet::title() const
 {
-        return AppletTitle;
+        return DcpDateTime::AppletTitle;
 }
 
 QVector<DuiAction*> DateTimeApplet::viewMenuItems()
