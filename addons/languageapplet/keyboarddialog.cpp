@@ -8,7 +8,7 @@
 #include <duilinearlayoutpolicy.h>
 
 KeyboardDialog::KeyboardDialog()
-              :CommonDialog(DcpLanguage::SelectKeyboardText),
+              :DcpCommonDialog(DcpLanguage::SelectKeyboardText),
                m_SelectContainer(NULL)
 {
     initWidget();

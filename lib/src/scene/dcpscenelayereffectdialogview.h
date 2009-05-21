@@ -9,7 +9,6 @@ class DuiSceneLayerEffect;
 class DcpSceneLayerEffectDialogView : public DuiWidgetView
 {
     Q_OBJECT
-    // DUI_STYLABLE
     
 public:
     DcpSceneLayerEffectDialogView(DuiSceneLayerEffect *controller);
@@ -19,7 +18,6 @@ public:
                        const QStyleOptionGraphicsItem *option,
                        QWidget *widget = 0);
     virtual QRectF boundingRect() const;
-    // virtual void styleUpdated();
     //! \reimp_end
 
 protected:

@@ -58,8 +58,8 @@ void UpdateButton::initWidget()
     // toggleButton
     DuiButton *toggleButton = new DuiButton(this);
     toggleButton->setObjectName("ToggleButton");
-    toggleButton->setMinimumSize(QSize(50, 50));
-    toggleButton->setMaximumSize(QSize(50, 50));
+    toggleButton->setMinimumSize(QSize(48, 48));
+    toggleButton->setMaximumSize(QSize(48, 48));
     toggleButton->setCheckable(true);
     
     // add items to lineLayoutPolicy

@@ -1,11 +1,11 @@
 #ifndef DISPLAYDIALOG_H
 #define DISPLAYDIALOG_H
 
-#include "commondialog.h"
+#include "dcpcommondialog.h"
 
 class DuiLayout;
 
-class DisplayDialog : public CommonDialog
+class DisplayDialog : public DcpCommonDialog
 {
     Q_OBJECT
 

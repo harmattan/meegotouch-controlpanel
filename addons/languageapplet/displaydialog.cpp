@@ -8,7 +8,7 @@
 #include <duilinearlayoutpolicy.h>
 
 DisplayDialog::DisplayDialog()
-              :CommonDialog(DcpLanguage::SelectDisplayText)
+              :DcpCommonDialog(DcpLanguage::SelectDisplayText)
 {
     initWidget();
 }

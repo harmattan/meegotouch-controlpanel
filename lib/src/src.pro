@@ -23,7 +23,7 @@ install_headers.files += applet/dcpapplet.h \
     button/dcpbutton.h \
     widget/dcpwidgettypes.h \
     widget/dcpspaceritem.h \
-    scene/dcpscenelayereffectdialogview.h \
+    widget/dcpcommondialog.h \
     appletdb/dcpappletdb.h \
     appletdb/dcpappletloader.h \
     appletdb/dcpappletmetadata.h

@@ -1,12 +1,12 @@
 #ifndef KEYBOARDDIALOG_H
 #define KEYBOARDDIALOG_H
 
-#include "commondialog.h"
+#include "dcpcommondialog.h"
 
 class DuiLayout;
 class DcpLanguageSelectContainer;
 
-class KeyboardDialog : public CommonDialog
+class KeyboardDialog : public DcpCommonDialog
 {
     Q_OBJECT
 

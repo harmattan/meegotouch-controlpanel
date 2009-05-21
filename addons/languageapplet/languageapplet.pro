@@ -18,7 +18,6 @@ HEADERS       = languageapplet.h \
                 languagelistitem.h \
                 dcplanguageselectcontainer.h \
                 dcplanguageconf.h \
-                commondialog.h \
                 languagebrief.h
 
 SOURCES       = languageapplet.cpp \
@@ -28,7 +27,6 @@ SOURCES       = languageapplet.cpp \
                 languagelistitem.cpp \
                 dcplanguageselectcontainer.cpp \
                 dcplanguageconf.cpp \
-                commondialog.cpp \
                 languagebrief.cpp
 
 
