@@ -9,7 +9,7 @@
 
 KeyboardDialog::KeyboardDialog()
               :DcpCommonDialog(DcpLanguage::SelectKeyboardText),
-               m_SelectContainer(NULL)
+               m_SelectContainer(0)
 {
     initWidget();
 }

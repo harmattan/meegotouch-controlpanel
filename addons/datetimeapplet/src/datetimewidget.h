@@ -5,6 +5,7 @@
 
 class DcpButton;
 class UpdateButton;
+class TimeZoneDialog;
 
 class DateTimeWidget : public DcpWidget 
 {
@@ -13,18 +14,26 @@ class DateTimeWidget : public DcpWidget
 public:
 	DateTimeWidget(QGraphicsWidget *parent = 0);
 	virtual ~DateTimeWidget();
-
-	void paint(QPainter *painter,
+    //! \reimp
+	virtual void paint(QPainter *painter,
 			   const QStyleOptionGraphicsItem *option,
 			   QWidget *widget);
+    virtual bool back();
+    //! \reimp_end
 
 protected:
 	void initWidget();
+    
 private:
-	DcpButton *m_DateButton;
+	TimeZoneDialog *m_Dlg;
+    DcpButton *m_DateButton;
 	DcpButton *m_TimeButton;
 	DcpButton *m_TimeZoneButton;
     UpdateButton *m_AutomaticUpdateButton;
     DcpButton *m_RegionFormatButton;
+
+private slots:
+    virtual void showTimeZoneDialog();
 };
 #endif // DATETIMEWIDGET_H
+

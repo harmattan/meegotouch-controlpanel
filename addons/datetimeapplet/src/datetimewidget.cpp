@@ -4,6 +4,8 @@
 #include "dcpspaceritem.h"
 #include "updatebutton.h"
 #include "datetimetranslation.h"
+#include "timezonedialog.h"
+
 
 #include <duitheme.h>
 #include <duilayout.h>
@@ -17,7 +19,8 @@ const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/";
 const int widgetWidth = 100;
 
 DateTimeWidget::DateTimeWidget(QGraphicsWidget *parent)
-	    :DcpWidget(parent)
+	    :DcpWidget(parent),
+         m_Dlg(0)
 {
     DuiTheme::loadCSS(cssDir + "datetimeapplet.css");
     initWidget();
@@ -34,6 +37,16 @@ void DateTimeWidget::paint(QPainter *painter,
 	Q_UNUSED(painter);
 	Q_UNUSED(option);
 	Q_UNUSED(widget);
+}
+
+bool DateTimeWidget::back()
+{
+    if (m_Dlg) {
+        m_Dlg->close();
+        return false;
+    } else {
+        return DcpWidget::back();
+    }
 }
 
 void DateTimeWidget::initWidget()
@@ -73,6 +86,7 @@ void DateTimeWidget::initWidget()
     m_TimeZoneButton->setText(DcpDateTime::CurrentTimeZoneText, "+ 1 GMT London");   
     m_TimeZoneButton->setLine(true);
     m_TimeZoneButton->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width()-30);
+    connect(m_TimeZoneButton, SIGNAL(clicked()), this, SLOT(showTimeZoneDialog()));
     
     // m_AutomaticUpdateButton
     m_AutomaticUpdateButton = new UpdateButton(this);
@@ -106,5 +120,15 @@ void DateTimeWidget::initWidget()
     mainLayoutPolicy->addItemAtPosition(
             new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Expanding),
             6, Qt::AlignCenter);
+}
+
+void DateTimeWidget::showTimeZoneDialog()
+{
+    m_Dlg = new TimeZoneDialog();
+    this->setEnabled(false);
+    m_Dlg->exec();
+    this->setEnabled(true);
+    m_Dlg->deleteLater();
+    m_Dlg = 0;
 }
 

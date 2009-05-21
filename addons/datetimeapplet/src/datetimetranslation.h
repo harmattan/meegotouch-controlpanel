@@ -17,6 +17,10 @@ namespace DcpDateTime {
             "Region Format");
     const QString AutomaticUpdateText = trid("qtn_datetime_automatic_update",
             "Automatic time update:");
+    const QString TimeZoneTitle = trid("qtn_datetime_timezone_title",
+            "Time zone");
+    const QString InputCountryText = trid("qtn_datetome_input_country",
+            "Input country/region name to filter the selection list");
 };
 #endif // DATETIMETRANSLATION_H
 

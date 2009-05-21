@@ -18,3 +18,7 @@
     startColor: #505050;
     stopColor: #505050;
 }
+
+#InputTextEdit {
+    font: font("Nokia Sans Cn", 16);
+}
