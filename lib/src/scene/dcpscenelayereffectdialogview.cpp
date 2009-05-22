@@ -1,6 +1,7 @@
 #include "dcpscenelayereffectdialogview.h"
 
 #include <duiscenelayereffect.h>
+#include <duiscenemanager.h>
 #include <duiviewfactory.h>
 
 DcpSceneLayerEffectDialogView::DcpSceneLayerEffectDialogView(DuiSceneLayerEffect *controller)
@@ -20,9 +21,11 @@ void DcpSceneLayerEffectDialogView::paint(QPainter *painter,
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    qreal opacity = 0.75;
+    qreal opacity = 0.90;
+    int width = DuiSceneManager::instance()->visibleSceneRect().width() - 120;
     painter->setOpacity(m_Controller->effectiveOpacity() * opacity);
     painter->fillRect(boundingRect(), QColor(0, 0, 0));
+    painter->fillRect(QRectF(QPoint(60, 0), QSizeF(width, 62)), QColor(0, 0, 0));
 }
 
 QRectF DcpSceneLayerEffectDialogView::boundingRect() const
