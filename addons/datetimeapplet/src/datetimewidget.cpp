@@ -6,7 +6,6 @@
 #include "datetimetranslation.h"
 #include "timezonedialog.h"
 
-
 #include <duitheme.h>
 #include <duilayout.h>
 #include <duilabel.h>
@@ -14,6 +13,8 @@
 #include <duilabel.h>
 #include <duibutton.h>
 #include <duiscenemanager.h>
+#include <QDateTime>
+#include <QTimer>
 
 const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/";
 const int widgetWidth = 100;
@@ -72,14 +73,18 @@ void DateTimeWidget::initWidget()
     
     // m_DateButton
     m_DateButton = new DcpButton(DCPLABEL2);
-    m_DateButton->setText(DcpDateTime::DateButtonText, "Monday, 14 May 2009");   
+    this->updateDateText();
     m_DateButton->setLine(true);
     m_DateButton->setMaximumHeight(90);  
     
     // m_TimeButton
     m_TimeButton = new DcpButton(DCPLABEL2);
-    m_TimeButton->setText(DcpDateTime::CurrentTimeButtonText, "9:44 AM");   
-    m_TimeButton->setLine(true);   
+    this->updateTimeText();
+    m_TimeButton->setLine(true);
+    QTimer *timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(updateTimeText()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(updateDateText()));
+    timer->start(1000);   
     
     // m_TimeZoneButton
     m_TimeZoneButton = new DcpButton(DCPLABEL2);
@@ -130,5 +135,19 @@ void DateTimeWidget::showTimeZoneDialog()
     this->setEnabled(true);
     m_Dlg->deleteLater();
     m_Dlg = 0;
+}
+
+void DateTimeWidget::updateTimeText()
+{
+    QTime time = QTime::currentTime();
+    QString text = time.toString("h:mm A");
+    m_TimeButton->setText(DcpDateTime::CurrentTimeButtonText, text);
+}
+
+void DateTimeWidget::updateDateText()
+{
+    QDateTime date = QDateTime::currentDateTime();
+    QString text = date.toString("dddd, dd MMMM yyyy");
+    m_DateButton->setText(DcpDateTime::DateButtonText, text);        
 }
 

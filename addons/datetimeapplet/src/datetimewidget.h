@@ -34,6 +34,8 @@ private:
 
 private slots:
     virtual void showTimeZoneDialog();
+    virtual void updateTimeText();
+    virtual void updateDateText();
 };
 #endif // DATETIMEWIDGET_H
 
