@@ -12,13 +12,17 @@ HEADERS       = datetimeapplet.h \
                 updatebutton.h \
                 datetimebrief.h \
                 datetimetranslation.h \
-                timezonedialog.h
+                timezonedialog.h \
+                timezonelistitem.h \
+                timezonecontainer.h
 
 SOURCES       = datetimeapplet.cpp \
 		        datetimewidget.cpp \
                 updatebutton.cpp \
                 datetimebrief.cpp \
-                timezonedialog.cpp
+                timezonedialog.cpp \
+                timezonelistitem.cpp \
+                timezonecontainer.cpp
 
 
 TARGET        = $$qtLibraryTarget(datetimeapplet)

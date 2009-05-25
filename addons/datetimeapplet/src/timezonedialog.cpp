@@ -1,6 +1,7 @@
 #include "timezonedialog.h"
 #include "datetimetranslation.h"
 #include "dcpspaceritem.h"
+#include "timezonecontainer.h"
 
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
@@ -34,12 +35,16 @@ void TimeZoneDialog::initWidget()
             DcpDateTime::InputCountryText, centralWidget);
     textEdit->setObjectName("InputTextEdit");
     textEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+    // timeZoneContainer
+    TimeZoneContainer *timeZoneContainer = new TimeZoneContainer(this);
     
     // Add items to mainLayoutPolicy
     mainLayoutPolicy->addItemAtPosition(textEdit, 0, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(timeZoneContainer, 1, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(
             new DcpSpacerItem(centralWidget, 5, 5, QSizePolicy::Expanding, QSizePolicy::Expanding),
-            1, Qt::AlignCenter);
+            2, Qt::AlignCenter);
     
     // setCentralWidget
     this->setCentralWidget(centralWidget);

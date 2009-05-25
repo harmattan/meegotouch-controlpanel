@@ -120,7 +120,7 @@ void LanguageListItem::initWidget()
                     0, 2);
 
     // checkMark
-    m_CheckMark = NULL;
+    m_CheckMark = 0;
     
     // m_GreySeparator
     m_GreySeparator = new DuiSeparator(this);

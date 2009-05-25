@@ -5,7 +5,7 @@
 
 #AutomaticLabel {
     color: #FFFFFF;
-    font: font("Nokia Sans Cn", 18);
+    font: font("Nokia Sans Cn", 20);
 }
 
 #ToggleButton {
@@ -21,4 +21,16 @@
 
 #InputTextEdit {
     font: font("Nokia Sans Cn", 16);
+}
+
+#CountryLabel {
+    font: font("Nokia Sans Cn", 18);
+}
+
+#GmtCityLabel {
+    font: font("Nokia Sans Cn", 16);
+}
+
+#TimeZoneCheckMark {
+    normalBackground: "Check-mark";
 }
