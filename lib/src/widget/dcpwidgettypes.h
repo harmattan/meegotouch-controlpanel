@@ -11,7 +11,7 @@ static const QString  WIDGETNAME[] = {
 };
 
 enum WIDGETTYPEID {
-    DCPLABEL,           //"DcpLabel"
+    DCPLABEL = 0,           //"DcpLabel"
     DCPLABEL2,          //"DcpLabel2"
     DCPLABELBUTTON,     //"DcpLabelButton"
     DCPLABEL2BUTTON,    //"DcpLabel2Button"

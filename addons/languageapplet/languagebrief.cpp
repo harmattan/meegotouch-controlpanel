@@ -4,7 +4,8 @@
 
 QString LanguageBrief::valueText() const
 {
-    return DcpLanguageConf::fullName(DcpLanguageConf::instance()->displayLanguage());
+//    return DcpLanguageConf::fullName(DcpLanguageConf::instance()->displayLanguage());
+    return QString();
 }
 
 

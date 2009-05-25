@@ -144,9 +144,11 @@ int DcpAppletMetadata::widgetTypeID() const
   QString type = desktopEntryStr(KeyWidgetType);
 
   for(int i=0; i<WIDGETN; i++)
-    if (WIDGETNAME[i]==type)
+    if (WIDGETNAME[i]==type) {
       return i;
+    }
 
+  qWarning() << "widgettype unspecified for " << name();
   return DCPLABEL2;  //default
 }
 
