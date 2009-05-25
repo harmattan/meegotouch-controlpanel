@@ -49,6 +49,9 @@ void TimeZoneContainer::initWidget()
         mainLayoutPolicy->addItemAtPosition(iter.value(), iter.key() / 2, iter.key() % 2);
         connect(iter.value(), SIGNAL(clicked(TimeZoneListItem*)), 
                 this, SLOT(itemClicked(TimeZoneListItem*)));
+        if (iter.key() == 14) {
+            iter.value()->setVisibleSeparator(false);
+        }
     }    
 }
 

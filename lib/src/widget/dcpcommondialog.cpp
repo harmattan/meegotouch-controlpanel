@@ -47,7 +47,7 @@ void DcpCommonDialog::initDialog()
         new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
     setContentsMargins(0.0, 0.0, 0.0, 0.0);
-    mainLayoutPolicy->setSpacing(1);
+    mainLayoutPolicy->setSpacing(10);
 
     // m_Viewport 
     m_Viewport = new DuiPannableViewport(this);
@@ -68,6 +68,7 @@ void DcpCommonDialog::initDialog()
         new DuiLinearLayoutPolicy(m_ContainerLayout, Qt::Vertical);
     m_ContainerLayout->setPolicy(m_ContainerLayoutPolicy);
     m_ContainerLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
+    m_ContainerLayoutPolicy->setSpacing(10);
 
     // titleLayout
     DuiLayout *titleLayout = new DuiLayout(NULL);
@@ -109,7 +110,7 @@ void DcpCommonDialog::initDialog()
     // Add items to mainLayoutPolicy
     mainLayoutPolicy->addItemAtPosition(
             new DcpSpacerItem(this, 10, 10, QSizePolicy::Expanding, QSizePolicy::Expanding),
-            0, Qt::AlignLeft);
+            0, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(m_Viewport, 1, Qt::AlignCenter);
 
     // orientation
@@ -122,6 +123,7 @@ void DcpCommonDialog::onOrientationAngleChanged()
 {
     QSizeF dialogSize = DuiSceneManager::instance()->visibleSceneRect();
     dialogSize.setWidth(dialogSize.width() - 35);
+    dialogSize.setHeight(dialogSize.height() - 70);
     m_Viewport->setMinimumSize(dialogSize);
     m_Viewport->setMaximumSize(dialogSize);
 }

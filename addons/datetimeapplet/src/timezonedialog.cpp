@@ -28,7 +28,7 @@ void TimeZoneDialog::initWidget()
     DuiLinearLayoutPolicy *mainLayoutPolicy =
         new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayoutPolicy->setSpacing(3);
+    mainLayoutPolicy->setSpacing(10);
 
     // textEdit
     DuiTextEdit *textEdit = new DuiTextEdit(DuiTextEditModel::SingleLine, 
@@ -43,7 +43,7 @@ void TimeZoneDialog::initWidget()
     mainLayoutPolicy->addItemAtPosition(textEdit, 0, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(timeZoneContainer, 1, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(
-            new DcpSpacerItem(centralWidget, 5, 5, QSizePolicy::Expanding, QSizePolicy::Expanding),
+            new DcpSpacerItem(centralWidget, 5, 1, QSizePolicy::Expanding, QSizePolicy::Fixed),
             2, Qt::AlignCenter);
     
     // setCentralWidget
