@@ -38,6 +38,7 @@ void TimeZoneDialog::initWidget()
 
     // timeZoneContainer
     TimeZoneContainer *timeZoneContainer = new TimeZoneContainer(this);
+    connect(timeZoneContainer, SIGNAL(closing()), this, SLOT(accept()));
     
     // Add items to mainLayoutPolicy
     mainLayoutPolicy->addItemAtPosition(textEdit, 0, Qt::AlignCenter);

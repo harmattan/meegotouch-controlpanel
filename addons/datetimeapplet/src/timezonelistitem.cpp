@@ -157,7 +157,7 @@ void TimeZoneListItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     DuiWidget::mousePressEvent(event);
     event->accept();
-    checked(!m_Checked);
+    // checked(!m_Checked);
     emit clicked(this);
 }
 
