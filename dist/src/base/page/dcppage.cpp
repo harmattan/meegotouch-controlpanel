@@ -3,12 +3,13 @@
 #include "dcppage.h"
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
+#include <DuiSceneManager>
 
-DcpPage::DcpPage() : DuiApplicationPage() 
+DcpPage::DcpPage() : DuiApplicationPage()
 {
-    connect(DuiDeviceProfile::instance(), SIGNAL(orientationAngleChanged
-                            (DuiDeviceProfile::DeviceOrientationAngle)),
-            this, SLOT(onOrientationAngleChanged()));
+    connect(DuiSceneManager::instance(),
+            SIGNAL(orientationChanged (const Dui::Orientation &)),
+            this, SLOT(organizeContent(const Dui::Orientation &)));
     qDebug() << "page alloc";
     setBackButtonEnabled(true);
 }
@@ -41,14 +42,10 @@ void DcpPage::_createLayout()
     centralWidget()->setLayout(layout);
 }
 
-void DcpPage::organizeContent(Dui::Orientation ori)
+void DcpPage::organizeContent(const Dui::Orientation& ori)
 {
     Q_UNUSED(ori);
     qDebug() << "page organizeContent";
-}
-
-void DcpPage::onOrientationAngleChanged() {
-    organizeContent(DuiDeviceProfile::instance()->orientation());
 }
 
 void DcpPage::append (QGraphicsWidget* widget) {

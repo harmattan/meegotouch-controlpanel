@@ -15,23 +15,23 @@ public:
     DcpPage();
     virtual ~DcpPage();
     virtual void createContent();
-    virtual void organizeContent(Dui::Orientation ori);
     Pages::Handle handle() const {return m_Handle;};
-    virtual void setHandle(Pages::Handle handle) {m_Handle = handle;}; 
-    virtual void setHandle(Pages::Id id, const QString &param="") 
+    virtual void setHandle(Pages::Handle handle) {m_Handle = handle;};
+    virtual void setHandle(Pages::Id id, const QString &param="")
         {m_Handle.id = id; m_Handle.param = param;};
     Pages::Handle referer() const {return m_Referer;};
-   
-    void setReferer(Pages::Handle referer) {m_Referer = referer;}; 
-    virtual void setReferer(Pages::Id id, const QString &param="") 
+
+    void setReferer(Pages::Handle referer) {m_Referer = referer;};
+    virtual void setReferer(Pages::Id id, const QString &param="")
         {m_Referer.id = id; m_Referer.param = param;};
     DuiLinearLayoutPolicy *mainLayout() { return m_MainLayout; }
     virtual void back();
+
+public slots:
+    virtual void organizeContent(const Dui::Orientation& ori);
+
 signals:
     void openSubPage(Pages::Handle handle);
-
-protected slots:
-    void onOrientationAngleChanged();
 
 protected:
     void append (QGraphicsWidget* widget);

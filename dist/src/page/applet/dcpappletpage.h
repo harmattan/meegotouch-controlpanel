@@ -14,11 +14,14 @@ public:
     virtual ~DcpAppletPage();
     virtual void createContent();
     virtual void back();
+
 protected slots:
     void changeWidget(int widgetId);
-protected:
+
+protected slots:
     bool loadApplet();
-    virtual void organizeContent(Dui::Orientation ori);
+    virtual void organizeContent(const Dui::Orientation& ori);
+
 private:
     void setUpMainWidgetSize();
 

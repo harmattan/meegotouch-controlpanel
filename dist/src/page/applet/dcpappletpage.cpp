@@ -7,6 +7,7 @@
 #include "duilabel.h"
 #include "duilocale.h"
 #include <DuiAction>
+#include <DuiSceneManager>
 
 DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
     DcpPage(), m_Metadata(metadata)
@@ -18,7 +19,7 @@ DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
 DcpAppletPage::~DcpAppletPage()
 {
     delete m_AppletLoader;
-} 
+}
 
 void DcpAppletPage::createContent()
 {
@@ -37,7 +38,7 @@ void DcpAppletPage::createContent()
       }
 }
 
-bool 
+bool
 DcpAppletPage::loadApplet()
 {
     m_AppletLoader = new DcpAppletLoader(m_Metadata);
@@ -57,10 +58,9 @@ void DcpAppletPage::back()
     else
     if (m_MainWidget->back())
         DcpPage::back();
-    
 }
 
-void 
+void
 DcpAppletPage::changeWidget(int widgetId)
 {
     if (m_MainWidget != NULL)
@@ -69,7 +69,7 @@ DcpAppletPage::changeWidget(int widgetId)
     m_MainWidget = m_AppletLoader->applet()->constructWidget(widgetId);
     connect(m_MainWidget, SIGNAL(changeWidget(int)), this, SLOT(changeWidget(int)));
     append(m_MainWidget);
-  
+
     setTitle(m_AppletLoader->applet()->title());
 
     QVector<DuiAction*> vector = m_AppletLoader->applet()->viewMenuItems();
@@ -77,7 +77,7 @@ DcpAppletPage::changeWidget(int widgetId)
     {
         for (int i = 0; i < vector.size(); i++)
         {
-            addAction(vector[i]);        
+            addAction(vector[i]);
         }
     }
 
@@ -88,13 +88,15 @@ DcpAppletPage::changeWidget(int widgetId)
 void DcpAppletPage::setUpMainWidgetSize()
 {
     if (m_MainWidget){
-        m_MainWidget->setMinimumWidth(DuiDeviceProfile::instance()->width() - 50);
-        m_MainWidget->setMaximumWidth(DuiDeviceProfile::instance()->width() - 50);
-        m_MainWidget->setMinimumHeight(DuiDeviceProfile::instance()->height() - 100);
+        int width = DuiSceneManager::instance()->visibleSceneRect().width() - 50;
+        int height = DuiSceneManager::instance()->visibleSceneRect().height() - 100;
+        m_MainWidget->setMinimumWidth(width);
+        m_MainWidget->setMaximumWidth(width);
+        m_MainWidget->setMinimumHeight(height);
     }
 }
 
-void DcpAppletPage::organizeContent(Dui::Orientation ori)
+void DcpAppletPage::organizeContent(const Dui::Orientation& ori)
 {
     DcpPage::organizeContent(ori);
     setUpMainWidgetSize();
