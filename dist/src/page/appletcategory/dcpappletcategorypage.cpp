@@ -19,20 +19,21 @@ DcpAppletCategoryPage::DcpAppletCategoryPage(const QString &appletCategory)
 
 DcpAppletCategoryPage::~DcpAppletCategoryPage()
 {
-} 
+}
 
 void DcpAppletCategoryPage::createContent()
 {
     DcpCategoryPage::createContent();
     m_Category->setMaxColumns(2);
+    m_Category->setVerticalSpacing(0);
+
     DcpAppletDb::instance()->refresh();
     DcpAppletMetadataList list = DcpAppletDb::instance()->listByCategory(appletCategory());
 
     if (!list.isEmpty())
     {
-    qDebug() << "XXX category page";
         bool odd =list.size() % 2 == 1;
-    	DcpAppletMetadataList::const_iterator i;  
+    	DcpAppletMetadataList::const_iterator i;
         for (i = list.begin(); i != list.end(); ++i)
         {
             addComponent(*i, i == list.end() - 1 && odd);
@@ -44,7 +45,6 @@ void DcpAppletCategoryPage::createContent()
 
 void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata, bool odd)
 {
-    qDebug() << "XXX addComponent" << metadata->name();
     DcpBasicComponent *component = 0;
 
      switch(metadata->widgetTypeID()) {
@@ -75,7 +75,6 @@ void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata, bool odd)
                         this, SIGNAL(openSubPage(Pages::Handle)));
         if (odd)
         {	
-		    component->setLine(false);
             m_Category->add(component);
         }
 	else

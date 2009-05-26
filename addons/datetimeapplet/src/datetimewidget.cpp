@@ -60,7 +60,7 @@ void DateTimeWidget::initWidget()
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
     mainLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
-    mainLayoutPolicy->setSpacing(5);
+    mainLayoutPolicy->setSpacing(0);
     
     // dateTimeLayout
     DuiLayout *dateTimeLayout = new DuiLayout(0);

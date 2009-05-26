@@ -56,17 +56,17 @@ DcpButtonStyle {
     textOffColor: #404040;
 
     textSize1: size(300, 40); 
-    textPos1: pos(0, 0);
+    textPos1: pos(0, 3);
 
     textSize2: size(300, 30); 
-    textPos2: pos(0, 30);
+    textPos2: pos(0, 33);
 
 //    textAlign1: "AlignLeft";
 //    textAlign2: "AlignLeft";
 
     triangleBackground: "See-more-indicator-small";
     triangleBackgroundSize: size(16, 16);
-    trianglePos: pos(0, 10);
+    trianglePos: pos(0, 13);
 
     marginTriangle: 4;
 
