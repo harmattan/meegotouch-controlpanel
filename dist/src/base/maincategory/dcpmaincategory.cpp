@@ -36,7 +36,6 @@ void DcpMainCategory::add(DcpComponent *component)
         m_ColCount = 0;
         m_RowCount++;
     }
-    component->setParent(this);
     m_LandscapeLayout->addItemAtPosition(component,
                                          m_RowCount, 0 /* column */,
               1 /* rowspan */, m_MaxColumns /* columnspan */);
@@ -56,7 +55,6 @@ void DcpMainCategory::append(DcpComponent *component)
         m_ColCount = 0;
         m_RowCount++;
     }
-    component->setParent(this);
 
     m_LandscapeLayout->addItemAtPosition(component,
                                          m_RowCount, m_ColCount);

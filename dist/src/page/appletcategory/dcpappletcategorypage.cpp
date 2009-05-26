@@ -48,8 +48,8 @@ void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata, bool odd)
     DcpBasicComponent *component = 0;
 
      switch(metadata->widgetTypeID()) {
-/*         case DCPLABEL:
-             component = new DcpLabelComponent(0, metadata);
+         case DCPLABEL:
+/*             component = new DcpLabelComponent(0, metadata);
          break;*/
          case DCPLABEL2:
              component = new DcpLabel2Component(m_Category, metadata);
@@ -57,7 +57,8 @@ void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata, bool odd)
          case DCPLABELBUTTON:
              component = new DcpLabelButtonComponent(m_Category, metadata);
          break;
-/*         case DCPLABEL2BUTTON:
+         case DCPLABEL2BUTTON:
+         /*
              component = new DcpLabel2ButtonComponent(m_Category, metadata);
          break;*/
          case DCPLABEL2IMAGE :
@@ -74,8 +75,6 @@ void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata, bool odd)
                         this, SIGNAL(openSubPage(Pages::Handle)));
         if (odd)
         {	
-            qDebug("Dcp: ADD");
-//            component->setMinimumWidth(size().width());
 		    component->setLine(false);
             m_Category->add(component);
         }

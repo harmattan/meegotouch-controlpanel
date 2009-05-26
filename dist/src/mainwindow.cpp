@@ -30,6 +30,7 @@ MainWindow::~MainWindow()
 {
 }
 
+
 void
 MainWindow::changePage(Pages::Handle handle)
 {

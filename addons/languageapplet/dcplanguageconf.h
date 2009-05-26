@@ -25,6 +25,7 @@ protected:
     QStringList availableLanguages(QString key);
     QStringList defaultLanguages();
 private:
+    Q_DISABLE_COPY(DcpLanguageConf)
     static DcpLanguageConf *sm_Instance;
     QSettings m_Settings;
     DuiConfItem *m_DisplayLanguageItem;
