@@ -30,7 +30,7 @@ DcpAppletDb::DcpAppletDb(const QString &pathName)
 
 DcpAppletDb::~DcpAppletDb()
 {
-    m_AppletsByName.clear();
+    sm_Instance = NULL;
 }
 
 void 
@@ -59,7 +59,7 @@ DcpAppletDb::listByCategory(const QString& category)
 
     foreach (DcpAppletMetadata *item, m_AppletsByName)
     {
-        qDebug() << item->category() << "==" << category << (item->category() == category);
+//        qDebug() << item->category() << "==" << category << (item->category() == category);
         if (item->category() == category)
             filtered.append(item);
     }

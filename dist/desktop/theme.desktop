@@ -14,6 +14,7 @@ X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 [DCP]
 Category= Seeing & Touching
 Order=2
+Usage=1000
 WidgetType= DcpLabel2Image
 Align= Left
 
