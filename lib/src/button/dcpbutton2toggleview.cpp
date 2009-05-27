@@ -14,6 +14,13 @@ DcpButton2ToggleView::DcpButton2ToggleView(DcpButton *button) :
 
 DcpButton2ToggleView::~DcpButton2ToggleView()
 {
+
+    if (m_ToggleOff)
+	DuiTheme::releasePixmap(m_ToggleOff);
+
+    if (m_ToggleOn)
+	DuiTheme::releasePixmap(m_ToggleOn);
+
 }
 
 void DcpButton2ToggleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -72,7 +79,6 @@ void DcpButton2ToggleView::paintToggleRight(QPainter *painter)
  	int marginSpacer = style()->marginSpacer();
 
 	m_ToggleOn = DuiTheme::pixmap(style()->toggleOn(), style()->imageSize());
-
 	m_ToggleOff = DuiTheme::pixmap(style()->toggleOff(), style()->imageSize());
 
     if (m_ToggleOn && m_ToggleOff)
@@ -119,7 +125,7 @@ QSizeF DcpButton2ToggleView::sizeHint(Qt::SizeHint which, const QSizeF &constrai
     return sh;
 }*/
 
-
+#if 0
 void DcpButton2ToggleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
 
@@ -188,6 +194,36 @@ void DcpButton2ToggleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 	emit clicked();
 }
+#else
+void DcpButton2ToggleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+
+	int marginSpacer = style()->marginSpacer();
+
+    const QPixmap* pixmap = m_EnableToggle ? m_ToggleOn : m_ToggleOff;
+    QRect rect;
+	if ( m_Alignment==Qt::AlignLeft ) {
+	    rect = QRect(size().width() - pixmap->width() - marginSpacer,
+							(size().height() - pixmap->height()) / 2,
+							size().width() - marginSpacer,
+							(size().height() + pixmap->height()) / 2);
+    } else {
+	    rect = QRect (marginSpacer,
+				 	(height() - pixmap->height()) / 2,
+					marginSpacer + pixmap->width(),
+					(height() + pixmap->height()) / 2);
+	}
+
+	if (rect.contains(event->pos().x(), event->pos().y())) {
+		m_EnableToggle = !m_EnableToggle;
+		update();
+		return;
+	}
+
+	emit clicked();
+}
+#endif
+
 
 /*void DcpButton2ToggleView::registerStyleAttributes(DuiStyleDescription &description)
 {

@@ -3,7 +3,6 @@
 #include <QtDebug>
 
 #include "dcpappletdb.h"
-#include "dcpmaincategory.h"
 #include "dcprecentlyusedcomponent.h"
 
 #include "dcplabel2component.h"
@@ -15,6 +14,7 @@
 
 #include "dcpappletmetadata.h"
 #include "dcpapplet.h"
+#include <DuiSceneManager>
 
 DcpMostUsedCategory::DcpMostUsedCategory(const QString& title, QGraphicsWidget *parent) :
   DcpMainCategory(title, parent)
@@ -23,6 +23,7 @@ DcpMostUsedCategory::DcpMostUsedCategory(const QString& title, QGraphicsWidget *
   	createContents();
 
     m_LandscapeLayout->setContentsMargins(12, 0, 12, 0);
+    setVerticalSpacing(0);
 
 //    layout()->setContentsMargins(30, 0, 30, 0);
 
@@ -42,31 +43,20 @@ void DcpMostUsedCategory::createContents()
     addComponent(DcpAppletDb::instance()->applet("DateTime"));
     addComponent(DcpAppletDb::instance()->applet("Passcode"));*/
 
+    DcpAppletMetadataList list = DcpAppletDb::instance()->listMostUsed();
 	int cnt = 0;
-	foreach (DcpAppletMetadata *item, DcpAppletDb::instance()->listMostUsed()) {
+	foreach (DcpAppletMetadata *item, list) {
 		cnt++;
-		if (cnt==5 || cnt==6) //last items
-			addComponent(item, false);	
+		if (cnt == list.count() && cnt % 2 == 1) //last item is impaired
+			addComponent(item, true);	
 		else
-			addComponent(item, true);
+			addComponent(item, false);
     }
-
+    correctLines();
 }
 
-void DcpMostUsedCategory::paint (QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
-{
-	DuiWidget::paint(painter, option, widget);
 
-	/*//dummy
-	const QColor LINECOLOR = QColor(64, 64, 64);
-	painter->setPen(LINECOLOR);
-	for (int y=0; y<2; y++)
-		for (int x=0; x<2; x++)
-			painter->drawLine(x*420, 105 + y*100, (x+1)*405 , 105 + y*100);
-	*/
-}
-
-void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata, bool line)
+void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata, bool fullLine)
 {
 
 	DcpComponent *component = 0;
@@ -89,23 +79,41 @@ void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata, bool line)
 		break;
 	}
 
-
     if (component) {
-		static_cast<DcpBasicComponent*>(component)->setLine(line);
-
 		qDebug() << "DCP: connecting to " << metadata->name();
 		component->setSubPage(Pages::APPLETFROMMOSTUSED, metadata->name());
 		connect(component, SIGNAL(openSubPage(Pages::Handle)), this, SIGNAL(openSubPage(Pages::Handle)));
-		append(component);
-
-/* ONLY TEST VERSION
-static int localCnt = 0;
-
-++localCnt;
-if (localCnt == 2 || localCnt ==6)
-	add(component);
-else
-	append(component);
-*/
+        if (fullLine) {
+            add(component);
+        } else {
+		    append(component);
+        }
 	}
 }
+
+
+void DcpMostUsedCategory::onOrientationChange(const Dui::Orientation& orientation)
+{
+    DcpMainCategory::onOrientationChange(orientation);
+
+    // set correct lines
+    correctLines();
+}
+
+void DcpMostUsedCategory::correctLines()
+{
+    int itemCount = layout()->count();
+    if (itemCount > 0) {
+        DcpBasicComponent* lastWidget = 
+            static_cast<DcpBasicComponent*>(layout()->itemAt(itemCount-1));
+        lastWidget->setLine(false);
+        if (itemCount > 1) {
+            DcpBasicComponent* lastLastWidget = 
+                static_cast<DcpBasicComponent*>(layout()->itemAt(itemCount-2));
+            bool isLandscape = (DuiSceneManager::instance()->orientation() == Dui::Landscape);
+            bool isPaired = (itemCount % 2 == 0);
+            lastLastWidget->setLine(!(isPaired && isLandscape));
+        }
+    }
+}
+

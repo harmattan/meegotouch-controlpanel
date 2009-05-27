@@ -78,7 +78,7 @@ void LanguageWidget::initWidget()
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
     mainLayoutPolicy->setContentsMargins(0.0, 12.0, 0.0, 12.0);
-    mainLayoutPolicy->setSpacing(15);
+    mainLayoutPolicy->setSpacing(0);
 
     // Add items to mainLayoutPolicy
     mainLayoutPolicy->addItemAtPosition(m_DisplayButton, 0, Qt::AlignCenter);

@@ -1,21 +1,23 @@
 #ifndef MCPMOSTUSEDCATEGORY_H
 #define MCPMOSTUSEDCATEGORY_H
+
 #include "dcpmaincategory.h"
 
 class DcpAppletMetadata;
 
 class DcpMostUsedCategory  : public DcpMainCategory
 {
-
+    Q_OBJECT
 public:
     DcpMostUsedCategory(const QString& title, QGraphicsWidget *parent=0);
 
-    virtual void paint (QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget);
+    void addComponent(DcpAppletMetadata *metadata, bool fullLine = false);
 
-    void addComponent(DcpAppletMetadata *metadata, bool line = true);
+    virtual void onOrientationChange(const Dui::Orientation& orientation);
 
 protected:
     virtual void createContents();
+    void correctLines();
 
 };
 

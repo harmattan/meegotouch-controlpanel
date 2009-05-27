@@ -25,10 +25,21 @@ DcpMainCategory::DcpMainCategory(
     m_LandscapeLayout->setContentsMargins(0,0,0,0);
     setLayout(m_Layout);
 
-    m_LandscapeLayout->setHorizontalSpacing(12);
-    m_LandscapeLayout->setVerticalSpacing(12);
+    // some defaults
+    setHorizontalSpacing(12);
+    setVerticalSpacing(12);
 }
 
+void DcpMainCategory::setHorizontalSpacing(int space)
+{
+    m_LandscapeLayout->setHorizontalSpacing(space);
+}
+
+void DcpMainCategory::setVerticalSpacing(int space)
+{
+    m_LandscapeLayout->setVerticalSpacing(space);
+    m_PortraitLayout->setSpacing(space);
+}
 
 void DcpMainCategory::add(DcpComponent *component)
 {
@@ -36,7 +47,6 @@ void DcpMainCategory::add(DcpComponent *component)
         m_ColCount = 0;
         m_RowCount++;
     }
-    component->setParent(this);
     m_LandscapeLayout->addItemAtPosition(component,
                                          m_RowCount, 0 /* column */,
               1 /* rowspan */, m_MaxColumns /* columnspan */);
@@ -56,7 +66,6 @@ void DcpMainCategory::append(DcpComponent *component)
         m_ColCount = 0;
         m_RowCount++;
     }
-    component->setParent(this);
 
     m_LandscapeLayout->addItemAtPosition(component,
                                          m_RowCount, m_ColCount);

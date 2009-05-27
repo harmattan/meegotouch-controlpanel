@@ -30,6 +30,7 @@ MainWindow::~MainWindow()
 {
 }
 
+
 void
 MainWindow::changePage(Pages::Handle handle)
 {
@@ -57,18 +58,21 @@ MainWindow::changePage(Pages::Handle handle)
     page->appear(DuiSceneWindow::KeepWhenDone); //TODO -> Destroy
 }
 
+/*
+ *  only for testing the orientation changei without a device,
+ *  not meant to be in final app */
 void MainWindow::onRotateClicked()
 {
     DuiSceneManager *manager = DuiSceneManager::instance();
-    static Dui::OrientationAngle angle = Dui::Angle0;
+    Dui::OrientationAngle angle = manager->orientationAngle();
     if (angle == Dui::Angle270) {
-	angle = Dui::Angle0;
+	    angle = Dui::Angle0;
     } else if (angle == Dui::Angle0) {
-	angle = Dui::Angle90;
+	    angle = Dui::Angle90;
     } else if (angle == Dui::Angle90) {
-	angle = Dui::Angle180;
+	    angle = Dui::Angle180;
     } else if (angle == Dui::Angle180) {
-	angle = Dui::Angle270;
+	    angle = Dui::Angle270;
     }
     manager->setOrientationAngle (angle);
 }

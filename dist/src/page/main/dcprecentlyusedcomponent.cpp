@@ -14,7 +14,7 @@ DcpRecentlyUsedComponent::DcpRecentlyUsedComponent(
                             QGraphicsWidget *parent)
         : DcpComponent(category, DcpMain::mostRecentUsedTitle, parent)
 {
-   createContents();
+    createContents();
 }
 
 void DcpRecentlyUsedComponent::createContents()
