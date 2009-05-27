@@ -119,13 +119,11 @@ void DcpButton2ImageView::paintTextLeft(QPainter *painter, bool textBool)
 
     painter->setFont(style()->font2());
 
-	if (textBool)
+	if (textBool) {
 		painter->setPen(style()->textColor2());
-	else
-		painter->setPen(style()->textOffColor());
-
-    painter->drawText(text2Rect, style()->textAlign2(), m_Text2);
-
+		painter->drawText(text2Rect, style()->textAlign2(), m_Text2);
+	}
+	
 	return;
 }
 
@@ -223,12 +221,10 @@ void DcpButton2ImageView::paintTextRight(QPainter *painter, bool textBool)
 
     painter->setFont(style()->font2());
 
-	if (textBool)
+	if (textBool) {
     	painter->setPen(style()->textColor2());
-	else
-		painter->setPen(style()->textOffColor());
-
-    painter->drawText(text2Rect, style()->textAlign2(), m_Text2);
+		painter->drawText(text2Rect, style()->textAlign2(), m_Text2);
+	}
 
 	return;
 }
