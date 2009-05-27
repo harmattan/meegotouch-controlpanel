@@ -9,6 +9,14 @@
 #include <duilinearlayoutpolicy.h>
 
 
+/*!
+ * \class DcpRecentlyUsedComponent
+ * \brief A component for the recently used applets
+ *
+ * It is supplies the background and title for around DcpMostUsedCategory,
+ * which contains the buttons. (Actually uses DuiContainer for that.)
+ */
+
 DcpRecentlyUsedComponent::DcpRecentlyUsedComponent(
                             DcpCategory *category,
                             QGraphicsWidget *parent)

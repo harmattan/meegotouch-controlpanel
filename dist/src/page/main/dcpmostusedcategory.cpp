@@ -16,6 +16,14 @@
 #include "dcpapplet.h"
 #include <DuiSceneManager>
 
+/*!
+ * \class DcpMostUsedCategory
+ * \brief A container which contains buttons that represents the
+ * most frequent used applets.
+ *
+ * Using it on the top of main page inside DcpRecentlyUsedComponent
+ */
+
 DcpMostUsedCategory::DcpMostUsedCategory(const QString& title, QGraphicsWidget *parent) :
   DcpMainCategory(title, parent)
 {
