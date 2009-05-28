@@ -35,6 +35,7 @@ void TimeZoneDialog::initWidget()
             DcpDateTime::InputCountryText, centralWidget);
     textEdit->setObjectName("InputTextEdit");
     textEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    connect(textEdit, SIGNAL(gainedFocus(DuiTextEdit *)), this, SLOT(clearTextEdit(DuiTextEdit *)));
 
     // timeZoneContainer
     TimeZoneContainer *timeZoneContainer = new TimeZoneContainer(this);
@@ -51,3 +52,9 @@ void TimeZoneDialog::initWidget()
     this->setCentralWidget(centralWidget);
 }
 
+void TimeZoneDialog::clearTextEdit(DuiTextEdit *textEdit)
+{
+    if (textEdit->text() == DcpDateTime::InputCountryText) {
+        textEdit->setText("");
+    }
+}

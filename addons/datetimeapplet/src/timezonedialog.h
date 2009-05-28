@@ -3,16 +3,21 @@
 
 #include "dcpcommondialog.h"
 
+class DuiTextEdit;
+
 class TimeZoneDialog : public DcpCommonDialog
 {
     Q_OBJECT
 
 public:
-        TimeZoneDialog();
-        virtual ~TimeZoneDialog();
+    TimeZoneDialog();
+    virtual ~TimeZoneDialog();
 
 protected:
-        void initWidget();
+    void initWidget();
+
+private slots:
+    virtual void clearTextEdit(DuiTextEdit *textEdit);    
 };
 #endif //TIMEZONEDIALOG_H
 
