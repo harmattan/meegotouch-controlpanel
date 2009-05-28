@@ -15,6 +15,11 @@ TimeZoneContainer::~TimeZoneContainer()
 {
 }
 
+QMap<int, TimeZoneListItem*> TimeZoneContainer::getMap()
+{
+    return m_ItemMap;
+}
+
 void TimeZoneContainer::initWidget()
 {
     // mainLayout

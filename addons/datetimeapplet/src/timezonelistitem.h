@@ -19,6 +19,9 @@ public:
                      QString city = "",
                      DuiWidget *parent = 0);
     virtual ~TimeZoneListItem();
+    QString country();
+    QString gmt();
+    QString city();
     void checked(bool ok);
     bool isChecked();
     void setVisibleSeparator(bool enable);

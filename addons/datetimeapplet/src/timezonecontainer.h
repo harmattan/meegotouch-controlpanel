@@ -13,6 +13,7 @@ class TimeZoneContainer : public DuiWidget
 public:
     TimeZoneContainer(DuiWidget *parent = 0);
     virtual ~TimeZoneContainer();
+    QMap<int, TimeZoneListItem*> getMap();
 
 protected:
     void initWidget();
@@ -26,5 +27,5 @@ private slots:
 signals:
     void closing();
 };
-
 #endif // TIMEZONECONTAINER_H
+
