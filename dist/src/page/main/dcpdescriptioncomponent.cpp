@@ -7,6 +7,15 @@
 
 #include <QGraphicsSceneMouseEvent>
 
+/*!
+ * \class DcpDescriptionComponent
+ * \brief DcpDescriptionComponent is a DcpComponent which is meant for
+ * the main screen to providethe button that describes an an applet category.
+ *
+ * It displays a title and description about the category, and requests
+ * the page switching if the user clicked on it.
+ * Currently uses DuiContainer for all rendering stuff. */
+
 DcpDescriptionComponent::DcpDescriptionComponent(DcpCategory *category,
                                                  const QString& title,
                                                  QGraphicsWidget *parent) :

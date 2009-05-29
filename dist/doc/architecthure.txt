@@ -22,6 +22,10 @@ widgetTypeID() /simple label, double label, image, etc/ that can come from
 the Brief of the applet. The mini view can be easily construced from these data
 using DcpButtons.
 
+This approach gives the user the same look everywhere. Although we must load
+shared object for the mini views we are displaying, that can be a performance
+penalty.
+
 DcpButton is a screen element that represents the applet mini view:
 It has a widget type (one label, two rows, two rows with image, etc)
 There are views for each type so the button is fully stylable
@@ -34,7 +38,7 @@ it has methods like:
 DcpAppletDb:
 
 
-DcpAppletDb is a singleton class for handles applets come from .desktop files at specific paths
+DcpAppletDb is a singleton class for handling applets come from .desktop files at specific paths
 Its constructor takes a pathName parameter to look for desktop files and more paths can be added
 with addPath(const QString &pathName); (you also can add individual files by addFile(..))
 It builds then a database of DcpAppletMetadata objects.

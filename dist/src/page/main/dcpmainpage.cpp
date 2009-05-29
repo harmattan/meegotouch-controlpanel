@@ -8,6 +8,16 @@
 #include "pages.h"
 #include "maintranslations.h"
 
+/*!
+ * \class DcpMainPage
+ * \brief The main page of duicontrolpanel.
+ *
+ * Displays a list of the applet
+ * categories and emits a signal if one of them is to be opened.
+ * Also has a recent used items list at the top, which contains buttons
+ * to directly access the most commonly used applets (without searching
+ * for them in the categories.
+ */
 
 DcpMainPage::DcpMainPage() :
 	DcpCategoryPage()

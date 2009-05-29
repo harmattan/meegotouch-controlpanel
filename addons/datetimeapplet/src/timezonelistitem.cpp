@@ -27,6 +27,21 @@ TimeZoneListItem::~TimeZoneListItem()
 {
 }
 
+QString TimeZoneListItem::country()
+{
+    return m_Country;
+}
+
+QString TimeZoneListItem::gmt()
+{
+    return m_Gmt;
+}
+
+QString TimeZoneListItem::city()
+{
+    return m_City;
+}
+
 void TimeZoneListItem::checked(bool ok)
 {
     m_Checked = ok;
