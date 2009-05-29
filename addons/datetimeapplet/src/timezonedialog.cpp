@@ -3,10 +3,12 @@
 #include "dcpspaceritem.h"
 #include "timezonecontainer.h"
 #include "timezonelistitem.h"
+#include "dcptimezoneconf.h"
 
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
 #include <duitextedit.h>
+#include <QDebug>
 
 TimeZoneDialog::TimeZoneDialog()
                :DcpCommonDialog(DcpDateTime::TimeZoneTitle)
@@ -54,6 +56,13 @@ void TimeZoneDialog::initWidget()
     
     // setCentralWidget
     this->setCentralWidget(centralWidget);
+
+    // print out timezones
+    QStringList list = DcpTimeZoneConf::instance()->supportedTimeZones();
+    QStringListIterator iter(list);
+    while (iter.hasNext()) {
+        qDebug() << iter.next().toLocal8Bit().constData();
+    }
 }
 
 void TimeZoneDialog::clearTextEdit(DuiTextEdit *textEdit)

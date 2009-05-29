@@ -22,7 +22,7 @@ void MainWindow::backClicked()
     /* overrides dui behaviour that it changes to close when switching
        inside a page TODO remove */
     if (PageFactory::instance()->currentPage()->handle().id == Pages::APPLET) {
-        navigationBar()->showBackButton();
+        // navigationBar()->showBackButton();
     }
 }
 

@@ -109,7 +109,7 @@ void LanguageWidget::keyboardPage()
 {
     forever {
         // TODO: workaround for dui bug, please remove
-        ((DuiApplication*)DuiApplication::instance())->applicationWindow()->navigationBar()->showBackButton();
+        // ((DuiApplication*)DuiApplication::instance())->applicationWindow()->navigationBar()->showBackButton();
 
         m_Dlg = new KeyboardDialog();
         this->setEnabled(false);

@@ -8,6 +8,7 @@
 
 #include <duitheme.h>
 #include <duilayout.h>
+#include <duilocale.h>
 #include <duilabel.h>
 #include <duilinearlayoutpolicy.h>
 #include <duilabel.h>
@@ -87,8 +88,9 @@ void DateTimeWidget::initWidget()
     timer->start(1000);   
     
     // m_TimeZoneButton
+    DuiLocale locale;
     m_TimeZoneButton = new DcpButton(DCPLABEL2);
-    m_TimeZoneButton->setText(DcpDateTime::CurrentTimeZoneText, "+ 1 GMT London");   
+    m_TimeZoneButton->setText(DcpDateTime::CurrentTimeZoneText, locale.countryEndonym());   
     m_TimeZoneButton->setLine(true);
     m_TimeZoneButton->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width()-30);
     connect(m_TimeZoneButton, SIGNAL(clicked()), this, SLOT(showTimeZoneDialog()));

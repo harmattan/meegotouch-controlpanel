@@ -14,7 +14,8 @@ HEADERS       = datetimeapplet.h \
                 datetimetranslation.h \
                 timezonedialog.h \
                 timezonelistitem.h \
-                timezonecontainer.h
+                timezonecontainer.h \
+                dcptimezoneconf.h
 
 SOURCES       = datetimeapplet.cpp \
 		        datetimewidget.cpp \
@@ -22,7 +23,8 @@ SOURCES       = datetimeapplet.cpp \
                 datetimebrief.cpp \
                 timezonedialog.cpp \
                 timezonelistitem.cpp \
-                timezonecontainer.cpp
+                timezonecontainer.cpp \
+                dcptimezoneconf.cpp
 
 
 TARGET        = $$qtLibraryTarget(datetimeapplet)
