@@ -5,7 +5,7 @@
 #include <DuiWidgetView>
 #include "dcpbutton.h"
 
-#include "dcpbutton2view.h"
+#include "dcpbuttonview.h"
 
 #include "dcpbuttonmodel.h"
 #include "dcpbuttonstyle.h"
@@ -13,7 +13,7 @@
 
 class QPainter;
 
-class DcpButton2ImageView : public DcpButton2View
+class DcpButton2ImageView : public DcpButtonView
 {
     Q_OBJECT
     //DUI_STYLABLE

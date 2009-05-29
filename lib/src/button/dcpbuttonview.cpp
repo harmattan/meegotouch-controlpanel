@@ -8,6 +8,21 @@
 
 const QColor LINECOLOR = QColor(64, 64, 64);
 
+
+/* 
+Margins:
+
+marginLeft
+V
++----------------+    < marginTop
+|Text1           |
++----------------+    < marginMiddle
+|           Text2|
++----------------+    < marginBotton
+                 A
+                marginRight
+*/
+
 DcpButtonView::DcpButtonView(DcpButton *button) :
     DuiWidgetView(button),
 //    controller(*button),
@@ -15,8 +30,6 @@ DcpButtonView::DcpButtonView(DcpButton *button) :
 	m_LineBool(true)
 {
 //    controller.setZValue(1);
-
-	//style()->fieldMarginLeft();
 }
 
 DcpButtonView::~DcpButtonView()
@@ -28,15 +41,10 @@ DcpButtonView::~DcpButtonView()
 
 void DcpButtonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-
-//qDebug() << "---------------------------------------";
-//qDebug() << "size:   " <<  controller.size().width() << "   X   " << controller.size().height();
-//qDebug() << "boundingRect:   " <<  controller.boundingRect().width() << "   X   " << controller.boundingRect().height();
-//qDebug() << "geometry:   " << controller.geometry().width() << "   X   " << controller.geometry().height(); 
-//qDebug() << "---------------------------------------";
-
     Q_UNUSED(widget);
     Q_UNUSED(option);
+
+	initMargins();
 
     //paintBackground(painter);
 	paintLine(painter);
@@ -50,8 +58,6 @@ void DcpButtonView::paintBackground(QPainter *painter)
 {
 
     if (m_Bkgr) {
-        //const QPixmap *bg = DuiTheme::pixmap(styleAttribute<const QString>(BackgroundAttribute),                                         styleAttribute<const QSize>(BackgroundSizeAttribute));
-
 		const QPixmap *bg = DuiTheme::pixmap(style()->background(), style()->backgroundSize());
 
         if (bg != NULL)
@@ -72,42 +78,86 @@ void DcpButtonView::paintLine(QPainter *painter)
 void DcpButtonView::paintTriangle(QPainter *painter)
 {
 
-	int marginLeft = style()->fieldMarginLeft();
-	int marginTop = style()->fieldMarginTop();
-
-
-	//const QPixmap *triangle = DuiTheme::pixmap(	styleAttribute<const QString>(TriangleBackgroundAttribute), 																styleAttribute<const QSize>(TriangleBackgroundSizeAttribute));
-
 	const QPixmap *triangle = DuiTheme::pixmap(style()->triangleBackground(), style()->triangleBackgroundSize());
 
-    if (triangle != NULL) {
-
-		//QPointF trianglePoint(	styleAttribute<QPointF>(TrianglePosAttribute).x() + marginLeft,														styleAttribute<QPointF>(TrianglePosAttribute).y() + marginTop		);
-
-		QPointF trianglePoint(style()->trianglePos().x() + marginLeft, style()->trianglePos().y() + marginTop);
-
-        painter->drawPixmap(trianglePoint, *triangle);
+	if (m_Text1.size() && m_Text2.size()) {
+		QPointF trianglePoint(style()->trianglePos().x() + m_MarginLeft, style()->trianglePos().y() + m_MarginTop);
+		painter->drawPixmap(trianglePoint, *triangle);
+	} else {
+		QPointF trianglePoint(style()->trianglePos().x() + m_MarginLeft,
+								height()/2 - triangle->height()/2); //not use margins
+		painter->drawPixmap(trianglePoint, *triangle);
 	}
+
 }
 
 void DcpButtonView::paintText(QPainter *painter)
 {
-  	int marginLeft = style()->fieldMarginLeft();
-    int marginRight = style()->fieldMarginRight();
-    int marginTop = style()->fieldMarginTop();
-    int marginBottom = style()->fieldMarginBottom();
 
-	QRectF text1Rect(	style()->textPos1().x() + marginLeft,
-						style()->textPos1().y() + marginTop,
-						width() - marginLeft - marginRight,
-						height() - marginTop - marginBottom);
+	if (m_Text1.size() && m_Text2.size())
+		paintText2(painter);
+	else
+		paintText1(painter);
 
-    // Draw text
-    painter->setFont(style()->font1());
-    painter->setPen(style()->textColor1());
-    painter->drawText(text1Rect, style()->textAlign1(), m_Text1);
-
+	return;
 }
+
+void DcpButtonView::paintText2(QPainter *painter)
+{
+	int fieldHeight = (style()->backgroundSize().height() - m_MarginTop - m_MarginBottom - m_MarginMiddle) / 2;
+	int triangleWidth = style()->triangleBackgroundSize().width() + style()->marginTriangle();
+	int fieldWidth = style()->backgroundSize().width() - m_MarginLeft - m_MarginRight - triangleWidth;
+
+	QRectF text1Rect(	style()->textPos1().x() + m_MarginLeft + triangleWidth,
+						style()->textPos1().y() + m_MarginTop,
+						fieldWidth,
+						fieldHeight);
+
+	// Draw text
+	painter->setFont(style()->font1());
+	painter->setPen(style()->textColor1());
+	painter->drawText(text1Rect, style()->textAlign1(), m_Text1);
+
+
+	QRectF text2Rect(style()->textPos2().x() + m_MarginLeft + triangleWidth,
+						style()->textPos2().y() + m_MarginTop,
+						fieldWidth,
+						fieldHeight);
+
+	painter->setFont(style()->font2());
+	painter->setPen(style()->textColor2());
+	painter->drawText(text2Rect, style()->textAlign2(), m_Text2);
+}
+
+
+void DcpButtonView::paintText1(QPainter *painter)
+{
+	int fieldHeight = (style()->backgroundSize().height() - m_MarginTop - m_MarginBottom);
+	int triangleWidth = style()->triangleBackgroundSize().width() + style()->marginTriangle();
+	int fieldWidth = style()->backgroundSize().width() - m_MarginLeft - m_MarginRight - triangleWidth;
+
+	
+	QRectF text1Rect(	style()->textPos1().x() + m_MarginLeft + triangleWidth,
+						0,
+						fieldWidth,
+						height());
+
+	// Draw text
+	painter->setFont(style()->font0());
+	painter->setPen(style()->textColor0());
+	painter->drawText(text1Rect, style()->textAlign0() | Qt::AlignVCenter, m_Text1);
+}
+
+void DcpButtonView::initMargins()
+{
+	m_MarginLeft = style()->fieldMarginLeft();
+    m_MarginRight = style()->fieldMarginRight();
+    m_MarginTop = style()->fieldMarginTop();
+    m_MarginBottom = style()->fieldMarginBottom();
+	m_MarginMiddle = style()->fieldMarginMiddle();
+}
+
+
 #if 0
 QRectF DcpButtonView::boundingRect() const
 {
@@ -115,42 +165,6 @@ QRectF DcpButtonView::boundingRect() const
 }
 #endif
 
-/*
-void DcpButtonView::registerStyleAttributes(DuiStyleDescription &description)
-{
-
-  	description.addAttribute(MarginLeftAttribute, "marginLeft");
-    description.addAttribute(MarginRightAttribute, "marginRight");
-    description.addAttribute(MarginTopAttribute, "marginTop");
-    description.addAttribute(MarginBottomAttribute, "marginBottom");
-//		description.addAttribute(MarginMiddleAttribute, "marginMiddle");
-
-
-    description.addAttribute(BackgroundAttribute, "backgroundImage");
-	description.addAttribute(BackgroundSizeAttribute, "backgroundSize");
-
-    description.addAttribute(Font1Attribute, "font1");
-//		description.addAttribute(Font2Attribute, "font2");
-
-    description.addAttribute(TextColor1Attribute, "textColor1");
-//		description.addAttribute(TextColor2Attribute, "textColor2");
-
-	description.addAttribute(TextSize1Attribute, "textSize1");
-//		description.addAttribute(TextSize2Attribute, "textSize2");
-
-	description.addAttribute(TextPos1Attribute, "textPos1");
-//		description.addAttribute(TextPos2Attribute, "textPos2");
-
-	description.addAttribute(TextAlign1Attribute, "textAlign1");
-//		description.addAttribute(TextAlign2Attribute, "textAlign2");
-		
-
-	description.addAttribute(TriangleBackgroundAttribute, "triangleBackground");
-	description.addAttribute(TriangleBackgroundSizeAttribute, "triangleBackgroundSize");
-	description.addAttribute(TrianglePosAttribute, "trianglePos");
-
-}
-*/
 
 void DcpButtonView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
@@ -172,36 +186,6 @@ int DcpButtonView::width()
 int DcpButtonView::height()
 {
 	return style()->backgroundSize().height();
-}
-
-
-
-typedef struct ALIGNTYPE{
-	QString m_Name;
-	Qt::Alignment m_Flag;
-};
-
-ALIGNTYPE listAlignment[] = {   { "AlignLeft", Qt::AlignLeft },
-								{ "AlignRight", Qt::AlignRight },
-								{ "AlignHCenter", Qt::AlignHCenter },
-
-								{ "AlignTop", Qt::AlignTop },
-								{ "AlignBottom", Qt::AlignBottom },
-								{ "AlignVCenter", Qt::AlignVCenter },
-
-								{ "AlignHCenter", Qt::AlignHCenter }        };
-
-
-Qt::Alignment DcpButtonView::stringToAlign(const QString& alignment)
-{
-
-	Qt::Alignment outAligment;
-
-	for (int i = 0; i < sizeof(listAlignment)/sizeof(ALIGNTYPE); i++)
-			if (alignment.indexOf(listAlignment[i].m_Name) != -1)
-				outAligment |= listAlignment[i].m_Flag;
-
-		return outAligment;
 }
 
 DUI_REGISTER_VIEW("DcpButtonView", DcpButtonView, DcpButton)

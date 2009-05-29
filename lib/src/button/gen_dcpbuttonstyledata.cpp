@@ -5,6 +5,10 @@
 
 DUI_REGISTER_STYLE(DcpButtonStyle)
 
+DcpButtonStyleData::DcpButtonStyleData()
+{
+}
+
 DcpButtonStyle::DcpButtonStyle() :
     DuiWidgetStyle(),
     data(new DcpButtonStyleData)
@@ -106,6 +110,18 @@ void DcpButtonStyle::setBackgroundSize(const QSize& backgroundSize)
     }
 }
 
+const QColor& DcpButtonStyle::textColor0() const
+{
+    return static_cast<const DcpButtonStyleData*>(data)->textColor0;
+}
+
+void DcpButtonStyle::setTextColor0(const QColor& textColor0)
+{
+    if(static_cast<DcpButtonStyleData*>(data)->textColor0 != textColor0) {
+        static_cast<DcpButtonStyleData*>(data)->textColor0 = textColor0;
+    }
+}
+
 const QColor& DcpButtonStyle::textColor1() const
 {
     return static_cast<const DcpButtonStyleData*>(data)->textColor1;
@@ -118,18 +134,6 @@ void DcpButtonStyle::setTextColor1(const QColor& textColor1)
     }
 }
 
-const QFont& DcpButtonStyle::font1() const
-{
-    return static_cast<const DcpButtonStyleData*>(data)->font1;
-}
-
-void DcpButtonStyle::setFont1(const QFont& font1)
-{
-    if(static_cast<DcpButtonStyleData*>(data)->font1 != font1) {
-        static_cast<DcpButtonStyleData*>(data)->font1 = font1;
-    }
-}
-
 const QColor& DcpButtonStyle::textColor2() const
 {
     return static_cast<const DcpButtonStyleData*>(data)->textColor2;
@@ -139,6 +143,30 @@ void DcpButtonStyle::setTextColor2(const QColor& textColor2)
 {
     if(static_cast<DcpButtonStyleData*>(data)->textColor2 != textColor2) {
         static_cast<DcpButtonStyleData*>(data)->textColor2 = textColor2;
+    }
+}
+
+const QFont& DcpButtonStyle::font0() const
+{
+    return static_cast<const DcpButtonStyleData*>(data)->font0;
+}
+
+void DcpButtonStyle::setFont0(const QFont& font0)
+{
+    if(static_cast<DcpButtonStyleData*>(data)->font0 != font0) {
+        static_cast<DcpButtonStyleData*>(data)->font0 = font0;
+    }
+}
+
+const QFont& DcpButtonStyle::font1() const
+{
+    return static_cast<const DcpButtonStyleData*>(data)->font1;
+}
+
+void DcpButtonStyle::setFont1(const QFont& font1)
+{
+    if(static_cast<DcpButtonStyleData*>(data)->font1 != font1) {
+        static_cast<DcpButtonStyleData*>(data)->font1 = font1;
     }
 }
 
@@ -211,6 +239,18 @@ void DcpButtonStyle::setTextPos2(const QPointF& textPos2)
 {
     if(static_cast<DcpButtonStyleData*>(data)->textPos2 != textPos2) {
         static_cast<DcpButtonStyleData*>(data)->textPos2 = textPos2;
+    }
+}
+
+const Qt::Alignment& DcpButtonStyle::textAlign0() const
+{
+    return static_cast<const DcpButtonStyleData*>(data)->textAlign0;
+}
+
+void DcpButtonStyle::setTextAlign0(const Qt::Alignment& textAlign0)
+{
+    if(static_cast<DcpButtonStyleData*>(data)->textAlign0 != textAlign0) {
+        static_cast<DcpButtonStyleData*>(data)->textAlign0 = textAlign0;
     }
 }
 

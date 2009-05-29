@@ -7,6 +7,7 @@ class DcpButtonStyleData
 {
     friend class DcpButtonStyle;
 public:
+    DcpButtonStyleData();
     virtual ~DcpButtonStyleData() {}
 private:
     int fieldMarginLeft;
@@ -16,15 +17,18 @@ private:
     int fieldMarginMiddle;
     QString backgroundImage;
     QSize backgroundSize;
+    QColor textColor0;
     QColor textColor1;
-    QFont font1;
     QColor textColor2;
+    QFont font0;
+    QFont font1;
     QFont font2;
     QColor textOffColor;
     QSize textSize1;
     QPointF textPos1;
     QSize textSize2;
     QPointF textPos2;
+    Qt::Alignment textAlign0;
     Qt::Alignment textAlign1;
     Qt::Alignment textAlign2;
     QString triangleBackground;

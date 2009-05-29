@@ -24,10 +24,13 @@ class DcpButtonStyle : public DuiWidgetStyle
 
 	DUI_STYLE_ATTRIBUTE(QSize,			backgroundSize,      		BackgroundSize)
 
+	DUI_STYLE_ATTRIBUTE(QColor,         textColor0,      			TextColor0)
 	DUI_STYLE_ATTRIBUTE(QColor,         textColor1,      			TextColor1)
-	DUI_STYLE_ATTRIBUTE(QFont,          font1,      				Font1)
-
 	DUI_STYLE_ATTRIBUTE(QColor,         textColor2,      			TextColor2)
+	
+
+	DUI_STYLE_ATTRIBUTE(QFont,          font0,      				Font0)
+	DUI_STYLE_ATTRIBUTE(QFont,          font1,      				Font1)
 	DUI_STYLE_ATTRIBUTE(QFont,          font2,      				Font2)
 
 	DUI_STYLE_ATTRIBUTE(QColor,         textOffColor,      			TextOffColor)
@@ -38,8 +41,9 @@ class DcpButtonStyle : public DuiWidgetStyle
 	DUI_STYLE_ATTRIBUTE(QSize,          textSize2,      			TextSize2)
 	DUI_STYLE_ATTRIBUTE(QPointF,		textPos2,      				TextPos2)
 
-	DUI_STYLE_ATTRIBUTE(Qt::Alignment,	textAlign1,      		TextAlign1)
-	DUI_STYLE_ATTRIBUTE(Qt::Alignment,	textAlign2,      		TextAlign2)
+	DUI_STYLE_ATTRIBUTE(Qt::Alignment,	textAlign0,      			TextAlign0)
+	DUI_STYLE_ATTRIBUTE(Qt::Alignment,	textAlign1,      			TextAlign1)
+	DUI_STYLE_ATTRIBUTE(Qt::Alignment,	textAlign2,      			TextAlign2)
 
   	DUI_STYLE_ATTRIBUTE(QString,		triangleBackground,			TriangleBackground)
     DUI_STYLE_ATTRIBUTE(QSize,          triangleBackgroundSize,		TriangleBackgroundSize)

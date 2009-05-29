@@ -29,12 +29,13 @@ public:
     virtual void paintBackground(QPainter *painter);
 	void paintLine(QPainter *painter);
     virtual void paintTriangle(QPainter *painter);
-    virtual void paintText(QPainter *painter);
+
+	virtual void paintText(QPainter *painter);
+	virtual void paintText2(QPainter *painter);		//2 line
+	virtual void paintText1(QPainter *painter);		//1 line, empty second line
 
     void setText1(const QString& text);
     void setText2(const QString& text);
-
-    Qt::Alignment stringToAlign(const QString& alignment);
 
     int width();
     int height();
@@ -42,6 +43,8 @@ public:
     void setAlignment(Qt::Alignment alignment);
 
 	void setLine(bool line);
+
+	void initMargins();
 
 signals:
     void clicked();
@@ -59,57 +62,19 @@ protected:
     QString m_Text2;
 
 //    DcpButton &controller;
-
-    enum styleAttributes {
-
-        MarginLeftAttribute,
-        MarginRightAttribute,
-		MarginTopAttribute,
-		MarginBottomAttribute,
-		MarginMiddleAttribute,
-		BackgroundAttribute,
-		BackgroundSizeAttribute,
-	
-		Font1Attribute,
-		Font2Attribute,
-	
-		TextColor1Attribute,
-		TextColor2Attribute,
-		TextOffColorAttribute,
-	
-		TextSize1Attribute,
-		TextSize2Attribute,
-	
-		TextPos1Attribute,
-		TextPos2Attribute,
-	
-		TextAlign1Attribute,
-		TextAlign2Attribute,
-	
-		TriangleBackgroundAttribute,
-		TriangleBackgroundSizeAttribute,
-		TrianglePosAttribute,
-		MarginTriangleAttribute,
-		ImageNameAttribute,
-		ImageSizeAttribute,
-
-		MarginSpacerAttribute,
-
-		BackgroundBorderAttribute,
-
-		ToggleOnAttribute,
-		ToggleOffAttribute
-
-    };
-
 	Qt::Alignment m_Alignment;
 
 	bool m_Bkgr;
 
 	bool m_LineBool;
 
-};
+	int m_MarginLeft;
+    int m_MarginRight;
+    int m_MarginTop;
+    int m_MarginBottom;
+	int m_MarginMiddle;
 
+};
 
 inline void DcpButtonView::setAlignment(Qt::Alignment alignment)
 {
@@ -130,5 +95,12 @@ inline void DcpButtonView::setLine(bool line)
 {
 	m_LineBool = line;
 }
+
+/*
+QRectF DcpButtonView::boundingRect() const
+{
+	return QRectF(0, 0, size().width(), size().height());
+}
+*/
 
 #endif

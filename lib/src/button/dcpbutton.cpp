@@ -2,21 +2,19 @@
 #include "dcpbutton.h"
 
 #include "dcpbuttonview.h"
-#include "dcpbutton2view.h"
-
-#include "dcpbutton2imageview.h"
-
 #include "dcpbutton2imageview.h"
 #include "dcpbutton2toggleview.h"
+
+
+static const QString OBJECTNAME = "DcpButton";
 
 DcpButton::DcpButton(int buttonType, const QString &title, DuiWidget *parent, const QString &type) : DuiButton(title, parent)
 {
 
 	switch (buttonType) {
 		case DCPLABEL :
-		break;
 		case DCPLABEL2 :
-			m_View = new DcpButton2View(this);
+			m_View = new DcpButtonView(this);
 		break;
 		case DCPLABEL2IMAGE :
 			m_View = new DcpButton2ImageView(this);
@@ -26,7 +24,7 @@ DcpButton::DcpButton(int buttonType, const QString &title, DuiWidget *parent, co
 		break;
 	}
 
-    setObjectName("DcpButton");
+    setObjectName(OBJECTNAME);
     setView(m_View);
     // m_View->updateStyle();
 

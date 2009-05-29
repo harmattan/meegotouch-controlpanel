@@ -1,6 +1,5 @@
 
 #include "dcpbutton2imageview.h"
-//DUI_STYLABLE_CPP(DcpButton2ImageView, DuiWidgetView)
 
 #include <QPainter>
 #include <DuiTheme>
@@ -41,7 +40,7 @@ marginMiddle >  +   Image   +----------------+
 
 
 DcpButton2ImageView::DcpButton2ImageView(DcpButton *button) :
-    DcpButton2View(button)
+    DcpButtonView(button)
 {
 
 	//QPixmap *image = new QPixmap(QPixmap(*styleAttribute<const QPixmap*>(ImageNameAttribute)).scaled(styleAttribute<const QSize>(ImageSizeAttribute)));
@@ -59,15 +58,19 @@ void DcpButton2ImageView::paint(QPainter *painter, const QStyleOptionGraphicsIte
     Q_UNUSED(widget);
     Q_UNUSED(option);
 
+	initMargins();
+
 	paintBackground(painter);
-
 	paintLine(painter);
-
-//qDebug() << "size()   " << size().width() << "   X   "<< size().height();
 
 	if ( m_Alignment==Qt::AlignLeft ) {
 		paintTriangle(painter);
-		paintTextLeft(painter);
+
+		if (m_Text1.size() && m_Text2.size())
+			paintText2(painter);
+		else
+			paintText1(painter);
+
 		paintImageLeft(painter);
 
 	} else {
@@ -82,26 +85,19 @@ void DcpButton2ImageView::paint(QPainter *painter, const QStyleOptionGraphicsIte
 
 void DcpButton2ImageView::paintTextLeft(QPainter *painter, bool textBool)
 {
-  	int marginLeft = style()->fieldMarginLeft();
-    int marginRight = style()->fieldMarginRight();
-    int marginTop = style()->fieldMarginTop();
-    int marginBottom = style()->fieldMarginBottom();
-	int marginMiddle = style()->fieldMarginMiddle();
-
-
 	int triangleWidth = style()->triangleBackgroundSize().width() + style()->marginTriangle();
 
 	int fieldWidth = style()->backgroundSize().width() -
-					 marginLeft -
-					 marginRight -
+					 m_MarginLeft -
+					 m_MarginRight -
 					 triangleWidth -
 					 style()->imageSize().width() -
 					 style()->marginSpacer() ;
 
-	int fieldHeight = (style()->backgroundSize().height() - marginTop - marginBottom - marginMiddle) / 2;
+	int fieldHeight = (style()->backgroundSize().height() - m_MarginTop - m_MarginBottom - m_MarginMiddle) / 2;
 
-	QRectF text1Rect(style()->textPos1().x() + marginLeft + triangleWidth,
-					 style()->textPos1().y() + marginTop,
+	QRectF text1Rect(style()->textPos1().x() + m_MarginLeft + triangleWidth,
+					 style()->textPos1().y() + m_MarginTop,
 					 fieldWidth,
 					 fieldHeight);
 
@@ -112,8 +108,8 @@ void DcpButton2ImageView::paintTextLeft(QPainter *painter, bool textBool)
 	
     painter->drawText(text1Rect, style()->textAlign1(), m_Text1);
 
-	QRectF text2Rect(style()->textPos2().x() + marginLeft + triangleWidth,
-					 style()->textPos2().y() + marginTop,
+	QRectF text2Rect(style()->textPos2().x() + m_MarginLeft + triangleWidth,
+					 style()->textPos2().y() + m_MarginTop,
 					 fieldWidth,
 					 fieldHeight);
 
@@ -123,7 +119,7 @@ void DcpButton2ImageView::paintTextLeft(QPainter *painter, bool textBool)
 		painter->setPen(style()->textColor2());
 		painter->drawText(text2Rect, style()->textAlign2(), m_Text2);
 	}
-	
+
 	return;
 }
 
@@ -132,33 +128,18 @@ void DcpButton2ImageView::paintImageLeft(QPainter *painter)
 
 	int marginSpacer = style()->marginSpacer();
 
-//		QPixmap *image = new QPixmap(QPixmap(*styleAttribute<const QPixmap*>(ImageNameAttribute)).scaled(styleAttribute<const QSize>(ImageSizeAttribute)));
-
-
-    if (m_Image != NULL) {
-
-		//QPointF imagePoint( width() - m_Image->width() + 1 - marginSpacer,
-		//				   (height() - m_Image->height()) / 2				);
-
+    if (m_Image) {
 		QPointF imagePoint( size().width() - m_Image->width() + 1 - marginSpacer,
 						   (size().height() - m_Image->height()) / 2				);
-
 
         painter->drawPixmap(imagePoint, *m_Image);
 	}
 
-	
-	const QPixmap *border = DuiTheme::pixmap(style()->backgroundBorder(),
-											 QSize(m_Image->width() + 2, m_Image->height() + 2)	);
+	const QPixmap *border = DuiTheme::pixmap(style()->backgroundBorder(), QSize(m_Image->width() + 2, m_Image->height() + 2)	);
 
-    if (border != NULL) {
-
-	//	QPointF imagePoint( width() - border->width() + (border->width() - m_Image->width()) - marginSpacer,
-	//		 			   (height() - border->height()) / 2					);
-
-	QPointF imagePoint( size().width() - border->width() + (border->width() - m_Image->width()) - marginSpacer,
+    if (border) {
+		QPointF imagePoint( size().width() - border->width() + (border->width() - m_Image->width()) - marginSpacer,
 			 		   (size().height() - border->height()) / 2					);
-
 
         painter->drawPixmap(imagePoint, *border);
 	}
@@ -167,15 +148,11 @@ void DcpButton2ImageView::paintImageLeft(QPainter *painter)
 
 void DcpButton2ImageView::paintTriangleRight(QPainter *painter)
 {
-    int marginLeft = style()->fieldMarginLeft();
-    int marginTop = style()->fieldMarginTop();
-
 	const QPixmap *triangle = DuiTheme::pixmap(	style()->triangleBackground(), style()->triangleBackgroundSize());
 
-    if (triangle != NULL) {
-
-		QPointF trianglePoint(style()->trianglePos().x() + style()->marginSpacer() + style()->imageSize().width() + marginLeft,
-							  style()->trianglePos().y() + marginTop		);
+    if (triangle) {
+		QPointF trianglePoint(style()->trianglePos().x() + style()->marginSpacer() + style()->imageSize().width() + m_MarginLeft,
+							  style()->trianglePos().y() + m_MarginTop	);
 
         painter->drawPixmap(trianglePoint, *triangle);
 	}
@@ -183,29 +160,21 @@ void DcpButton2ImageView::paintTriangleRight(QPainter *painter)
 
 void DcpButton2ImageView::paintTextRight(QPainter *painter, bool textBool)
 {
-  	int marginLeft = style()->fieldMarginLeft();
-    int marginRight = style()->fieldMarginRight();
-    int marginTop = style()->fieldMarginTop();
-    int marginBottom = style()->fieldMarginBottom();
-	int marginMiddle = style()->fieldMarginMiddle();
-
 	int triangleWidth = style()->triangleBackgroundSize().width() + style()->marginTriangle();
 
-
 	int fieldWidth = style()->backgroundSize().width() -
-					 marginLeft -
-					 marginRight -
+					 m_MarginLeft -
+					 m_MarginRight -
 					 triangleWidth -
 					 style()->imageSize().width() -
 					 style()->marginSpacer();
 
-	int fieldHeight = (style()->backgroundSize().height() - marginTop - marginBottom - marginMiddle) / 2;
+	int fieldHeight = (style()->backgroundSize().height() - m_MarginTop - m_MarginBottom - m_MarginMiddle) / 2;
 
-	QRectF text1Rect(style()->textPos1().x() + style()->marginSpacer() + style()->imageSize().width() + marginLeft + triangleWidth,
-					 style()->textPos1().y() + marginTop,
+	QRectF text1Rect(style()->textPos1().x() + style()->marginSpacer() + style()->imageSize().width() + m_MarginLeft + triangleWidth,
+					 style()->textPos1().y() + m_MarginTop,
 					 fieldWidth,
 					 fieldHeight);
-
 
     // Draw text
     painter->setFont(style()->font1());
@@ -214,8 +183,8 @@ void DcpButton2ImageView::paintTextRight(QPainter *painter, bool textBool)
     painter->drawText(text1Rect, style()->textAlign1(), m_Text1);
 
 
-	QRectF text2Rect(style()->textPos2().x() + style()->marginSpacer() + style()->imageSize().width() + marginLeft + triangleWidth,
-					 style()->textPos2().y() + marginTop,
+	QRectF text2Rect(style()->textPos2().x() + style()->marginSpacer() + style()->imageSize().width() + m_MarginLeft + triangleWidth,
+					 style()->textPos2().y() + m_MarginTop,
 					 fieldWidth,
 					 fieldHeight);
 
@@ -241,61 +210,12 @@ void DcpButton2ImageView::paintImageRight(QPainter *painter)
         painter->drawPixmap(imagePoint, *m_Image);
 	}
 
-		
-	const QPixmap *border = DuiTheme::pixmap(style()->backgroundBorder(),
-											 QSize(m_Image->width() + 2, m_Image->height() + 2) );
+	const QPixmap *border = DuiTheme::pixmap(style()->backgroundBorder(), QSize(m_Image->width() + 2, m_Image->height() + 2) );
 
     if (border != NULL) {
-
-		QPointF imagePoint(marginSpacer + (border->width() - m_Image->width()),
-			 			   (height() - border->height()) / 2);
-
+		QPointF imagePoint(marginSpacer + (border->width() - m_Image->width()), (height() - border->height()) / 2);
         painter->drawPixmap(imagePoint, *border);
 	}
 }
-
-/*
-void DcpButton2ImageView::registerStyleAttributes(DuiStyleDescription &description)
-{
-
-	description.addAttribute(MarginLeftAttribute, "marginLeft");
-    description.addAttribute(MarginRightAttribute, "marginRight");
-    description.addAttribute(MarginTopAttribute, "marginTop");
-    description.addAttribute(MarginBottomAttribute, "marginBottom");
-	description.addAttribute(MarginMiddleAttribute, "marginMiddle");
-
-    description.addAttribute(BackgroundAttribute, "backgroundImage");
-	description.addAttribute(BackgroundSizeAttribute, "backgroundSize");
-
-    description.addAttribute(Font1Attribute, "font1");
-	description.addAttribute(Font2Attribute, "font2");
-
-    description.addAttribute(TextColor1Attribute, "textColor1");
-	description.addAttribute(TextColor2Attribute, "textColor2");
-	description.addAttribute(TextOffColorAttribute, "textOffColor");
-
-	description.addAttribute(TextSize1Attribute, "textSize1");
-	description.addAttribute(TextSize2Attribute, "textSize2");
-
-    description.addAttribute(TextPos1Attribute, "textPos1");
-	description.addAttribute(TextPos2Attribute, "textPos2");
-
-	description.addAttribute(TextAlign1Attribute, "textAlign1");
-	description.addAttribute(TextAlign2Attribute, "textAlign2");
-		
-	description.addAttribute(TriangleBackgroundAttribute, "triangleBackground");
-	description.addAttribute(TriangleBackgroundSizeAttribute, "triangleBackgroundSize");
-	description.addAttribute(TrianglePosAttribute, "trianglePos");
-
-	description.addAttribute(MarginTriangleAttribute, "marginTriangle");
-
-	description.addAttribute(ImageNameAttribute, "imageName");
-	description.addAttribute(ImageSizeAttribute, "imageSize");
-
-	description.addAttribute(MarginSpacerAttribute, "marginSpacer");
-
-	description.addAttribute(BackgroundBorderAttribute, "backgroundBorder");
-}
-*/
 
 DUI_REGISTER_VIEW("DcpButton2ImageView", DcpButton2ImageView, DcpButton)

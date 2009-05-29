@@ -47,8 +47,11 @@ DcpButtonStyle {
 
     backgroundSize: size(355, 88);
 
+    textColor0: #FFFFFF;
+    font0: font("Nokia Sans Cn", 20);
+
     textColor1: #FFFFFF;
-    font1: font("Nokia Sans Cn", 20);
+    font1: font("Nokia Sans Cn", 18);
 
     textColor2: #FFA000;
     font2: font("Nokia Sans Cn", 16);
@@ -61,8 +64,9 @@ DcpButtonStyle {
     textSize2: size(300, 30); 
     textPos2: pos(0, 33);
 
-//    textAlign1: "AlignLeft";
-//    textAlign2: "AlignLeft";
+    textAlign0: left;
+    textAlign1: left;
+    textAlign2: left;
 
     triangleBackground: "See-more-indicator-small";
     triangleBackgroundSize: size(16, 16);
