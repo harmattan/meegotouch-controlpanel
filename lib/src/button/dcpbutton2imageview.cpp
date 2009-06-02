@@ -202,7 +202,7 @@ void DcpButton2ImageView::paintImageRight(QPainter *painter)
 {
     int marginSpacer = style()->marginSpacer();
 
-    if (m_Image != NULL) {
+    if (m_Image != 0) {
 
         QPointF imagePoint( marginSpacer,
                            (height() - m_Image->height()) / 2);
@@ -212,7 +212,7 @@ void DcpButton2ImageView::paintImageRight(QPainter *painter)
 
 	const QPixmap *border = DuiTheme::pixmap(style()->backgroundBorder(), QSize(m_Image->width() + 2, m_Image->height() + 2) );
 
-    if (border != NULL) {
+    if (border != 0) {
 		QPointF imagePoint(marginSpacer + (border->width() - m_Image->width()), (height() - border->height()) / 2);
         painter->drawPixmap(imagePoint, *border);
 	}

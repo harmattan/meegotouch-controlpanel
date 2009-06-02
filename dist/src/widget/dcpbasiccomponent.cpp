@@ -14,19 +14,19 @@
 #include <duilinearlayoutpolicy.h>
 #include <duibasiclayoutanimator.h>
 
-//DuiButton* DcpBasicComponent::m_TriangleButtonOriginal = NULL;
+//DuiButton* DcpBasicComponent::m_TriangleButtonOriginal = 0;
 
 DcpBasicComponent::DcpBasicComponent(
                             DcpCategory *category,
                             DcpAppletMetadata * metadata,
                             const QString& title,
                             QGraphicsWidget *parent):
-    DcpComponent(category, title, parent), m_Metadata(NULL), m_Button(NULL)
+    DcpComponent(category, title, parent), m_Metadata(0), m_Button(0)
 {
 
     m_MainLayout = new DuiLayout(this);
     m_MainLayout->setContentsMargins(0,0,0,0);
-    m_MainLayout->setAnimator(NULL);
+    m_MainLayout->setAnimator(0);
     m_MainLayoutPolicy = new DuiLinearLayoutPolicy(m_MainLayout, Qt::Vertical);
     m_MainLayout->setPolicy(m_MainLayoutPolicy);
 

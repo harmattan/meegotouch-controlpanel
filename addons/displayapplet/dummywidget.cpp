@@ -41,7 +41,7 @@ void DummyWidget::paint(QPainter *painter,
 void DummyWidget::initWidget()
 {
     DuiLayout *mainLayout = new DuiLayout(this);
-    mainLayout->setAnimator(NULL);
+    mainLayout->setAnimator(0);
     DuiLinearLayoutPolicy *mainLayoutPolicy =
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);

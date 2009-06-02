@@ -19,7 +19,7 @@ namespace LanguageKey
 const QString l10nPath = "/usr/share/dui/l10n";
 const QString l10nFilter = "[a-z]*";
 
-DcpLanguageConf *DcpLanguageConf::sm_Instance = NULL;
+DcpLanguageConf *DcpLanguageConf::sm_Instance = 0;
 
 
 DcpLanguageConf*

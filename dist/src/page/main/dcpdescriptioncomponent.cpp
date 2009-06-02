@@ -20,7 +20,7 @@ DcpDescriptionComponent::DcpDescriptionComponent(DcpCategory *category,
                                                  const QString& title,
                                                  QGraphicsWidget *parent) :
     DcpComponent(category, title, parent),
-    m_Container(NULL)
+    m_Container(0)
 {
     createContents();
 }
@@ -49,7 +49,7 @@ DcpDescriptionComponent::createContents()
     m_Container->setCentralWidget(m_Description);
 
     DuiLayout* layout = new DuiLayout(this);
-    layout->setAnimator(NULL);
+    layout->setAnimator(0);
     layout->setContentsMargins(0,0,0,0);
     DuiLinearLayoutPolicy* layoutPolicy = new DuiLinearLayoutPolicy(layout,
                                                             Qt::Vertical);

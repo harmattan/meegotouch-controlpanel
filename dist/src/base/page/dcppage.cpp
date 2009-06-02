@@ -34,9 +34,9 @@ void DcpPage::createContent()
 void DcpPage::_createLayout()
 {
     DuiLayout* layout = new DuiLayout();
-    layout->setAnimator(NULL);
+    layout->setAnimator(0);
     m_MainLayout = new DuiLinearLayoutPolicy(layout, Qt::Vertical);
-    layout->setAnimator(NULL);
+    layout->setAnimator(0);
     layout->setPolicy(m_MainLayout);
     layout->setContentsMargins(12.0,0.0,12.0,0.0);
     centralWidget()->setLayout(layout);

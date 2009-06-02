@@ -33,7 +33,7 @@ DuiWidget* DcpCommonDialog::centralWidget()
     if (m_ContainerLayout->count() > 2) {
         return static_cast<DuiWidget*>(m_ContainerLayout->itemAt(2));
     } else {
-        return NULL;
+        return 0;
     }
 }
 
@@ -41,7 +41,7 @@ void DcpCommonDialog::initDialog()
 {
     // mainLayout
     DuiLayout *mainLayout = new DuiLayout(this);
-    mainLayout->setAnimator(NULL);
+    mainLayout->setAnimator(0);
     this->setLayout(mainLayout);
     DuiLinearLayoutPolicy *mainLayoutPolicy = 
         new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
@@ -54,7 +54,7 @@ void DcpCommonDialog::initDialog()
     m_Viewport->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     
     // m_MainWidget
-    m_MainWidget = new DuiContainer(NULL);
+    m_MainWidget = new DuiContainer(0);
     m_MainWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_MainWidget->setHeaderVisible(false);
     m_MainWidget->setExpand(true);
@@ -62,7 +62,7 @@ void DcpCommonDialog::initDialog()
     // containerWidget
     DuiWidget *containerWidget = new DuiWidget(m_MainWidget);
     m_ContainerLayout = new DuiLayout(containerWidget);
-    m_ContainerLayout->setAnimator(NULL);
+    m_ContainerLayout->setAnimator(0);
     containerWidget->setLayout(m_ContainerLayout);
     m_ContainerLayoutPolicy =
         new DuiLinearLayoutPolicy(m_ContainerLayout, Qt::Vertical);
@@ -71,8 +71,8 @@ void DcpCommonDialog::initDialog()
     m_ContainerLayoutPolicy->setSpacing(10);
 
     // titleLayout
-    DuiLayout *titleLayout = new DuiLayout(NULL);
-    titleLayout->setAnimator(NULL);
+    DuiLayout *titleLayout = new DuiLayout(0);
+    titleLayout->setAnimator(0);
     DuiLinearLayoutPolicy *titleLayoutPolicy =
         new DuiLinearLayoutPolicy(titleLayout, Qt::Horizontal);
     titleLayout->setPolicy(titleLayoutPolicy);

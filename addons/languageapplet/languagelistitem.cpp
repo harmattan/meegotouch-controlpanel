@@ -90,7 +90,7 @@ void LanguageListItem::initWidget()
 {
     // mainLayout
     DuiLayout *mainLayout = new DuiLayout(this);
-    mainLayout->setAnimator(NULL);
+    mainLayout->setAnimator(0);
     DuiLinearLayoutPolicy *mainLayoutPolicy = 
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
@@ -98,8 +98,8 @@ void LanguageListItem::initWidget()
     mainLayoutPolicy->setSpacing(1);
     
     // label
-    DuiLayout *labelLayout = new DuiLayout(NULL);
-    labelLayout->setAnimator(NULL);
+    DuiLayout *labelLayout = new DuiLayout(0);
+    labelLayout->setAnimator(0);
     m_LabelLayoutPolicy = new DuiGridLayoutPolicy(labelLayout);
     labelLayout->setPolicy(m_LabelLayoutPolicy);
     labelLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);

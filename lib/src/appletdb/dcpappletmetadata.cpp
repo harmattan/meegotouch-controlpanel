@@ -66,9 +66,9 @@ const QString Keys[KeyCount] = {
 
 
 DcpAppletMetadataPrivate::DcpAppletMetadataPrivate()
-    : m_AppletLoader(NULL),
-      m_Brief(NULL),
-      m_DesktopEntry(NULL)
+    : m_AppletLoader(0),
+      m_Brief(0),
+      m_DesktopEntry(0)
 {
 }
 
@@ -136,7 +136,7 @@ DcpAppletMetadata::fullBinary() const
 
 int DcpAppletMetadata::widgetTypeID() const
 {
-    if (brief() != NULL) {
+    if (brief() != 0) {
         return brief()->widgetTypeID();
     }
 
@@ -218,7 +218,7 @@ int DcpAppletMetadata::order() const
 
 DcpAppletIf* DcpAppletMetadata::applet() const
 {
-    if (d->m_AppletLoader == NULL){
+    if (d->m_AppletLoader == 0){
         d->m_AppletLoader = new DcpAppletLoader(this);
     }
 //    qDebug() << Q_FUNC_INFO << d->m_AppletLoader->errorMsg() << fullBinary();
@@ -233,10 +233,10 @@ DuiDesktopEntry* DcpAppletMetadata::desktopEntry() const
 
 DcpBrief* DcpAppletMetadata::brief() const
 {
-    if (d->m_Brief == NULL) {
-        if (applet() != NULL) {
+    if (d->m_Brief == 0) {
+        if (applet() != 0) {
             d->m_Brief = applet()->constructBrief();
-            if (d->m_Brief != NULL){
+            if (d->m_Brief != 0){
                 connect (d->m_Brief, SIGNAL(valuesChanged()),
                          this, SIGNAL(briefChanged()));
             }

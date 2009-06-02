@@ -21,7 +21,7 @@ void DcpAppletLoader::load()
     if (!loader.load())
     {
         m_ErrorMsg = "Loading applet failed: " + loader.errorString();
-        m_Applet = NULL;
+        m_Applet = 0;
     } else
     {
         QObject *object = loader.instance();

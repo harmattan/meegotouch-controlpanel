@@ -30,7 +30,7 @@ DcpAppletDb::DcpAppletDb(const QString &pathName)
 
 DcpAppletDb::~DcpAppletDb()
 {
-    sm_Instance = NULL;
+    sm_Instance = 0;
 }
 
 void 

@@ -23,7 +23,7 @@ void Ut_BackgroundComponent::cleanupTestCase(){
 }
 
 void Ut_BackgroundComponent::init(){
-    bgCompo = new DcpBackgroundComponent(NULL, QString());
+    bgCompo = new DcpBackgroundComponent(0, QString());
     bgCompo->createContents();
 }
 

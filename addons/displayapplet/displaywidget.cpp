@@ -44,14 +44,14 @@ void DisplayWidget::paint(QPainter *painter,
 void DisplayWidget::initWidget()
 {
     DuiLayout *mainLayout = new DuiLayout(this);
-    mainLayout->setAnimator(NULL);
+    mainLayout->setAnimator(0);
     DuiLinearLayoutPolicy *mainLayoutPolicy = 
             new DuiLinearLayoutPolicy(mainLayout, Qt::Horizontal);
     mainLayout->setPolicy(mainLayoutPolicy);
 	
     // centralLayout
-    DuiLayout *centralLayout = new DuiLayout(NULL);
-    centralLayout->setAnimator(NULL);
+    DuiLayout *centralLayout = new DuiLayout(0);
+    centralLayout->setAnimator(0);
     DuiLinearLayoutPolicy *centralLayoutPolicy =
             new DuiLinearLayoutPolicy(centralLayout, Qt::Vertical);
     centralLayout->setPolicy(centralLayoutPolicy);
@@ -87,8 +87,8 @@ void DisplayWidget::initWidget()
 	 	    this, SLOT(setScreenLabel(int )));
 	
     // screenHLayout
-    DuiLayout *screenHLayout = new DuiLayout(NULL);
-    screenHLayout->setAnimator(NULL);
+    DuiLayout *screenHLayout = new DuiLayout(0);
+    screenHLayout->setAnimator(0);
     DuiLinearLayoutPolicy *screenHLayoutPolicy =
             new DuiLinearLayoutPolicy(screenHLayout, Qt::Horizontal);
     screenHLayout->setPolicy(screenHLayoutPolicy);
