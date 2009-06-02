@@ -8,6 +8,7 @@ DcpButton2::DcpButton2(DuiWidget* parent)
 {
     setObjectName("DcpButton");
     DuiLayout* layout = new DuiLayout(this);
+    layout->setAnimator(0);
     m_LayoutPolicy = new DuiLinearLayoutPolicy(layout, Qt::Vertical);
     this->setLayout(layout);
 }

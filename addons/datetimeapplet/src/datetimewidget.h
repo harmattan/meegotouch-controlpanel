@@ -3,7 +3,8 @@
 
 #include "dcpwidget.h" 
 
-class DcpButton;
+class DcpButton2;
+class DuiButton;
 class UpdateButton;
 class TimeZoneDialog;
 
@@ -26,11 +27,11 @@ protected:
     
 private:
 	TimeZoneDialog *m_Dlg;
-    DcpButton *m_DateButton;
-	DcpButton *m_TimeButton;
-	DcpButton *m_TimeZoneButton;
+    DcpButton2 *m_DateButton;
+	DcpButton2 *m_TimeButton;
+	DcpButton2 *m_TimeZoneButton;
     UpdateButton *m_AutomaticUpdateButton;
-    DcpButton *m_RegionFormatButton;
+    DuiButton *m_RegionFormatButton;
 
 private slots:
     virtual void showTimeZoneDialog();

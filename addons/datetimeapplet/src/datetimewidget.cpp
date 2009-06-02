@@ -1,7 +1,6 @@
 #include "datetimewidget.h"
-#include "dcpbutton.h"
-#include "dcpwidgettypes.h"
 #include "dcpspaceritem.h"
+#include "dcpbutton2.h"
 #include "updatebutton.h"
 #include "datetimetranslation.h"
 #include "timezonedialog.h"
@@ -73,15 +72,14 @@ void DateTimeWidget::initWidget()
     dateTimeLayoutPolicy->setSpacing(1);
     
     // m_DateButton
-    m_DateButton = new DcpButton(DCPLABEL2);
+    m_DateButton = new DcpButton2(this);
     this->updateDateText();
-    m_DateButton->setLine(true);
-    m_DateButton->setMaximumHeight(90);  
+//    m_DateButton->setLine(true); XXX TODO
     
     // m_TimeButton
-    m_TimeButton = new DcpButton(DCPLABEL2);
+    m_TimeButton = new DcpButton2(this);
     this->updateTimeText();
-    m_TimeButton->setLine(true);
+//    m_TimeButton->setLine(true); XXX TODO
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateTimeText()));
     connect(timer, SIGNAL(timeout()), this, SLOT(updateDateText()));
@@ -89,9 +87,10 @@ void DateTimeWidget::initWidget()
     
     // m_TimeZoneButton
     DuiLocale locale;
-    m_TimeZoneButton = new DcpButton(DCPLABEL2);
-    m_TimeZoneButton->setText(DcpDateTime::CurrentTimeZoneText, locale.countryEndonym());   
-    m_TimeZoneButton->setLine(true);
+    m_TimeZoneButton = new DcpButton2(this);
+    m_TimeZoneButton->setText1(DcpDateTime::CurrentTimeZoneText);
+    m_TimeZoneButton->setText2(locale.countryEndonym());   
+//    m_TimeZoneButton->setLine(true); XXX TODO
     m_TimeZoneButton->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width()-30);
     connect(m_TimeZoneButton, SIGNAL(clicked()), this, SLOT(showTimeZoneDialog()));
     
@@ -104,8 +103,7 @@ void DateTimeWidget::initWidget()
     simpleLabel->setAlignment(Qt::AlignCenter);
     
     // regionFormatButton                                                       
-    DuiButton *m_RegionFormatButton = new DuiButton(DcpDateTime::RegionButtonText
-     , this);
+    m_RegionFormatButton = new DuiButton(DcpDateTime::RegionButtonText, this);
     m_RegionFormatButton->setObjectName("RegionFormatButton");
     m_RegionFormatButton->setMaximumWidth(310);                               
     m_RegionFormatButton->setMaximumHeight(60);
@@ -143,13 +141,15 @@ void DateTimeWidget::updateTimeText()
 {
     QTime time = QTime::currentTime();
     QString text = time.toString("h:mm A");
-    m_TimeButton->setText(DcpDateTime::CurrentTimeButtonText, text);
+    m_TimeButton->setText1(DcpDateTime::CurrentTimeButtonText);
+    m_TimeButton->setText2(text);
 }
 
 void DateTimeWidget::updateDateText()
 {
     QDateTime date = QDateTime::currentDateTime();
     QString text = date.toString("dddd, dd MMMM yyyy");
-    m_DateButton->setText(DcpDateTime::DateButtonText, text);        
+    m_DateButton->setText1(DcpDateTime::DateButtonText);
+    m_DateButton->setText2(text);        
 }
 
