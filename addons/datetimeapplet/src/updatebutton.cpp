@@ -64,8 +64,7 @@ void UpdateButton::initWidget()
     toggleButton->setMinimumSize(QSize(48, 48));
     toggleButton->setMaximumSize(QSize(48, 48));
     toggleButton->setCheckable(true);
-    toggleButton->setIconID("Toggle-on");
-    toggleButton->setToggledIconID("Toggle-off");
+    toggleButton->setTextVisible(false);
     
     // add items to lineLayoutPolicy
     lineLayoutPolicy->addItemAtPosition(automaticLabel, 0, 0);
