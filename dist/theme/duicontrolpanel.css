@@ -35,56 +35,39 @@ DuiImageStyle {
 }	
 
 
-DcpButtonStyle {
-    
-    fieldMarginLeft: 12;
-    fieldMarginRight: 0;
-    fieldMarginTop: 12;
-    fieldMarginBottom: 6;
-    fieldMarginMiddle: 4;
+DuiButtonStyle#DcpButton {
+    normalBackground: "C2-container";
+}
 
-    backgroundImage: "C2-container";
+DuiLabelStyle#DcpButtonMain {
+    font: font("Nokia Sans Cn", 20);
+    textColor: #FFFFFF;
+}
 
-    backgroundSize: size(355, 88);
+DuiLabelStyle#DcpButtonLine1 {
+    font: font("Nokia Sans Cn", 18);
+    textColor: #FFFFFF;
+}
 
-    textColor0: #FFFFFF;
-    font0: font("Nokia Sans Cn", 20);
+DuiLabelStyle#DcpButtonLine2 {
+    font: font("Nokia Sans Cn", 16);
+    textColor: #FFFFFF;
+}
 
-    textColor1: #FFFFFF;
-    font1: font("Nokia Sans Cn", 18);
+/*    triangleBackground: "See-more-indicator-small"; 
+    triangleBackgroundSize: size(16, 16); */
 
-    textColor2: #FFA000;
-    font2: font("Nokia Sans Cn", 16);
-
-    textOffColor: #404040;
-
-    textSize1: size(300, 40); 
-    textPos1: pos(0, 3);
-
-    textSize2: size(300, 30); 
-    textPos2: pos(0, 33);
-
-    textAlign0: left;
-    textAlign1: left;
-    textAlign2: left;
-
-    triangleBackground: "See-more-indicator-small";
-    triangleBackgroundSize: size(16, 16);
-    trianglePos: pos(0, 13);
-
-    marginTriangle: 4;
-
+/*
+    TODO XXX for DcpButton2Image
     imageName: image(starfield);
     imageSize: size(64, 64);
-
-    marginSpacer: 12;
-
     backgroundBorder: "Thumbnail-frame";
+*/
 
+/* TODO XXX for DcpButton2Toggle
     toggleOn: "Toggle-on";
     toggleOff: "Toggle-off";
-
-}
+ */
 
 #DcpCommonDialogTitleLabel {
     color: #FFFFFF;

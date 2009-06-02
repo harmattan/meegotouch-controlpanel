@@ -18,6 +18,7 @@ protected:
 
 private:
     void _setLabelText(DuiLabel*& label, int position, const QString& text);
+    void _updateLabelSizes();
     DuiLabel* m_Label1;
     DuiLabel* m_Label2;
 };
