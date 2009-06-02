@@ -1,9 +1,9 @@
 #ifndef UPDATEBUTTON_H
 #define UPDATEBUTTON_H
 
-#include <duibutton.h>
+#include <DuiWidget>
 
-class UpdateButton : public DuiButton
+class UpdateButton : public DuiWidget
 {
     Q_OBJECT
 
@@ -18,6 +18,9 @@ public:
 
 protected:
     void initWidget();
+
+protected slots:
+    virtual void onOrientationChanged();
 };
 #endif // UPDATEBUTTON_H
 

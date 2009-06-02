@@ -101,6 +101,8 @@ void DisplayWidget::initWidget()
     // m_screenToggleButton
     m_screenToggleButton = new DuiButton(this);
     m_screenToggleButton->setObjectName("ScreenToggleButton");
+    m_screenToggleButton->setMinimumSize(QSize(35, 35));
+    m_screenToggleButton->setMaximumSize(QSize(35, 35));
     m_screenToggleButton->setCheckable(true);
     connect(m_screenToggleButton, SIGNAL(clicked()), this, SLOT(nextPage()));
     

@@ -32,13 +32,15 @@ protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event);
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     //! \reimp_end
-    
+ 
+protected slots:
+    virtual void onOrientationChanged();
+
 private:
     QString m_Country;
     QString m_City;
     QString m_Gmt;
     bool m_Checked;
-    bool m_First;
     DuiLayout *m_LabelLayout;
     DuiGridLayoutPolicy *m_LabelLayoutPolicy;
     DuiLabel *m_CountryLabel;
