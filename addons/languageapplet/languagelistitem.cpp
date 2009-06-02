@@ -52,6 +52,7 @@ void LanguageListItem::checked(bool ok)
             // checkMark
             m_CheckMark = new DuiButton(this);
             m_CheckMark->setObjectName("LanguageCheckMark");
+            m_CheckMark->setTextVisible(false);
             m_CheckMark->setAcceptedMouseButtons(0);
             m_CheckMark->setMinimumSize(QSize(32, 32));
             m_CheckMark->setMaximumSize(QSize(32, 32));
@@ -119,7 +120,7 @@ void LanguageListItem::initWidget()
     m_LabelLayout->setAnimator(0);
     m_LabelLayoutPolicy = new DuiGridLayoutPolicy(m_LabelLayout);
     m_LabelLayout->setPolicy(m_LabelLayoutPolicy);
-    m_LabelLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
+    m_LabelLayout->setContentsMargins(20.0, 0.0, 0.0, 0.0);
     m_LabelLayoutPolicy->setSpacing(3);
         
     // normalLabel

@@ -19,6 +19,6 @@
         minsize: size(35, 35);
         maxsize: size(35, 35);
 
-        normalBackground: "Toggle-on";
-        pressedBackground: "Toggle-off";
+        normal-background: "Toggle-on";
+        pressed-background: "Toggle-off";
 }
