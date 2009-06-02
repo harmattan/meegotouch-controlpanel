@@ -20,7 +20,8 @@ install_headers.files += applet/dcpapplet.h \
     applet/dcpwidget.h \
     applet/dcpmetadata.h \
     applet/dcpbrief.h \
-    button/dcpbutton.h \
+    button/dcpbutton2.h \
+    button/dcpbriefwidget.h \
     widget/dcpwidgettypes.h \
     widget/dcpspaceritem.h \
     widget/dcpcommondialog.h \
@@ -28,4 +29,5 @@ install_headers.files += applet/dcpapplet.h \
     appletdb/dcpappletloader.h \
     appletdb/dcpappletmetadata.h
 
-INSTALLS += target install_headers 
+INSTALLS += target install_headers
+

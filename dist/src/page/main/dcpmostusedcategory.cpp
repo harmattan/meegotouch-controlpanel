@@ -1,20 +1,14 @@
-#include "pages.h"
-
-#include <QtDebug>
-
-#include "dcpappletdb.h"
-#include "dcprecentlyusedcomponent.h"
-
-#include "dcplabel2component.h"
-#include "dcplabel2togglecomponent.h"
-#include "dcplabel2imagecomponent.h"
-#include "dcplabelbuttoncomponent.h"
-
 #include "dcpmostusedcategory.h"
 
+#include "pages.h"
+#include "dcpappletdb.h"
+#include "dcpbriefcomponent.h"
 #include "dcpappletmetadata.h"
 #include "dcpapplet.h"
+
+#include <QtDebug>
 #include <DuiSceneManager>
+#include <DuiGridLayoutPolicy>
 
 /*!
  * \class DcpMostUsedCategory
@@ -43,14 +37,6 @@ void DcpMostUsedCategory::createContents()
 {
     setMaxColumns(2);
 
-    //dummy code
-  /*  addComponent(DcpAppletDb::instance()->applet("Browser"));
-    addComponent(DcpAppletDb::instance()->applet("Wallpaper"));
-    addComponent(DcpAppletDb::instance()->applet("Positioning"));
-    addComponent(DcpAppletDb::instance()->applet("Display"));
-    addComponent(DcpAppletDb::instance()->applet("DateTime"));
-    addComponent(DcpAppletDb::instance()->applet("Passcode"));*/
-
     DcpAppletMetadataList list = DcpAppletDb::instance()->listMostUsed();
 	int cnt = 0;
 	foreach (DcpAppletMetadata *item, list) {
@@ -67,36 +53,15 @@ void DcpMostUsedCategory::createContents()
 void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata, bool fullLine)
 {
 
-	DcpComponent *component = 0;
+	DcpBriefComponent *component = new DcpBriefComponent(metadata, this);
 
-	switch (metadata->widgetTypeID()) {
-		case DCPLABEL :
-		break;
-		case DCPLABEL2 :
-			component = new DcpLabel2Component(this, metadata);
-		break;
-		case DCPLABELBUTTON :
-			component = new DcpLabelButtonComponent(this, metadata);
-		break;
-		case DCPLABEL2TOGGLE :
-		case DCPLABEL2BUTTON :	//dummy
-			component = new DcpLabel2ToggleComponent(this, metadata);
-		break;
-		case DCPLABEL2IMAGE :
-			component = new DcpLabel2ImageComponent(this, metadata);
-		break;
-	}
-
-    if (component) {
-		qDebug() << "DCP: connecting to " << metadata->name();
-		component->setSubPage(Pages::APPLETFROMMOSTUSED, metadata->name());
-		connect(component, SIGNAL(openSubPage(Pages::Handle)), this, SIGNAL(openSubPage(Pages::Handle)));
-        if (fullLine) {
-            add(component);
-        } else {
-		    append(component);
-        }
-	}
+	component->setSubPage(Pages::APPLETFROMMOSTUSED, metadata->name());
+	connect(component, SIGNAL(openSubPage(Pages::Handle)), this, SIGNAL(openSubPage(Pages::Handle)));
+    if (fullLine) {
+        add(component);
+    } else {
+        append(component);
+    }
 }
 
 
@@ -110,6 +75,7 @@ void DcpMostUsedCategory::onOrientationChange(const Dui::Orientation& orientatio
 
 void DcpMostUsedCategory::correctLines()
 {
+    /* TODO XXX
     int itemCount = layout()->count();
     if (itemCount > 0) {
         DcpBasicComponent* lastWidget = 
@@ -123,5 +89,6 @@ void DcpMostUsedCategory::correctLines()
             lastLastWidget->setLine(!(isPaired && isLandscape));
         }
     }
+    */
 }
 
