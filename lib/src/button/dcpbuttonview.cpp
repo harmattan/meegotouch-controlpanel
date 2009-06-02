@@ -60,7 +60,7 @@ void DcpButtonView::paintBackground(QPainter *painter)
     if (m_Bkgr) {
 		const QPixmap *bg = DuiTheme::pixmap(style()->background(), style()->backgroundSize());
 
-        if (bg != NULL)
+        if (bg != 0)
             painter->drawPixmap(0, 0, *bg);
     }
 

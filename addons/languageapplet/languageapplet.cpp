@@ -27,7 +27,7 @@ DcpWidget* LanguageApplet::constructWidget(int widgetId)
                 break;
         default:
                 qWarning() << "Page Unknown";
-                return NULL;
+                return 0;
                 break;
     }
 }

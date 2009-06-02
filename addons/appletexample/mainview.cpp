@@ -65,7 +65,7 @@ void MainView::createContent()
 			}
 
 			delete applet;
-			applet = NULL;
+			applet = 0;
 		} else {
 			qWarning() << "Can't get instance from plugin loader.";
 		}

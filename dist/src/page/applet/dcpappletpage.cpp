@@ -13,7 +13,7 @@ DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
     DcpPage(), m_Metadata(metadata)
 {
     setHandle(Pages::APPLET);
-    m_MainWidget = NULL;
+    m_MainWidget = 0;
 }
 
 DcpAppletPage::~DcpAppletPage()
@@ -63,7 +63,7 @@ void DcpAppletPage::back()
 void
 DcpAppletPage::changeWidget(int widgetId)
 {
-    if (m_MainWidget != NULL)
+    if (m_MainWidget != 0)
         delete m_MainWidget;
 
     m_MainWidget = m_AppletLoader->applet()->constructWidget(widgetId);

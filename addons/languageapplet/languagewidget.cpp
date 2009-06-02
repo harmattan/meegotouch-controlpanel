@@ -146,7 +146,7 @@ void LanguageWidget::keyboardPage()
     this->updateLanguageButtons();
     this->setEnabled(true);
     m_Dlg->deleteLater();
-    m_Dlg=NULL;
+    m_Dlg=0;
 }
 
 bool LanguageWidget::back()
