@@ -56,7 +56,8 @@ void UpdateButton::initWidget()
     automaticLabel->setObjectName("AutomaticLabel");
     automaticLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     automaticLabel->setAcceptedMouseButtons(0);
-    automaticLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    automaticLabel->setMinimumWidth(
+            DuiSceneManager::instance()->visibleSceneRect().width() - 130);
 
     // toggleButton
     DuiButton *toggleButton = new DuiButton(this);
