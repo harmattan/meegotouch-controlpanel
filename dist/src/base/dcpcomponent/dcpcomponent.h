@@ -28,7 +28,8 @@ public:
 
 protected:
     virtual void createContents()=0;
-    virtual void switchToSubPage(); 
+protected slots:
+    virtual void switchToSubPage();
 
 signals:
     void openSubPage(Pages::Handle);

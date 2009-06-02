@@ -16,6 +16,8 @@ DcpBriefComponent::DcpBriefComponent(DcpAppletMetadata* metadata,
                                                                Qt::Vertical);
     policy->addItemAtPosition(m_BriefWidget,0);
     this->setLayout(layout);
+
+    connect (m_BriefWidget, SIGNAL(clicked()), this, SLOT(switchToSubPage()));
 }
 
 

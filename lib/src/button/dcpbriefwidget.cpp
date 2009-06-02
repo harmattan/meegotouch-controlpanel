@@ -37,6 +37,7 @@ void DcpBriefWidget::setMetadata(DcpAppletMetadata* metadata)
 
     m_RealWidget->setText1(metadata->text1());
     m_RealWidget->setText2(metadata->text2());
+    connect (m_RealWidget, SIGNAL(clicked()), this, SIGNAL(clicked()));
 
     m_Policy->addItemAtPosition(m_RealWidget, 0);
 }
