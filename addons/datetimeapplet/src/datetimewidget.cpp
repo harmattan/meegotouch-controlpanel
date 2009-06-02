@@ -97,6 +97,8 @@ void DateTimeWidget::initWidget()
     
     // m_AutomaticUpdateButton
     m_AutomaticUpdateButton = new UpdateButton(this);
+    m_AutomaticUpdateButton->setMinimumWidth(
+            DuiSceneManager::instance()->visibleSceneRect().width() - 30);
     
     // simpleLabel
     DuiLabel *simpleLabel = new DuiLabel(DcpDateTime::SetDateTimeText, this);

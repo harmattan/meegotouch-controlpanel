@@ -22,7 +22,5 @@
 }
 
 #GreySeparator {
-        lineWidth: 1;
-        startColor: #505050;
-        endColor: #505050;
+        imageHorizontal: "Dialog-header";
 }

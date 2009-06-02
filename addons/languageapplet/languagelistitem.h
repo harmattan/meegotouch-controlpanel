@@ -5,6 +5,7 @@
 
 class DuiLabel;
 class DuiButton;
+class DuiLayout;
 class DuiGridLayoutPolicy;
 class DuiSeparator;
 
@@ -37,6 +38,7 @@ protected slots:
 private:
     QString m_LangCode;
     QString m_LabelText;
+    DuiLayout *m_LabelLayout;
     DuiGridLayoutPolicy *m_LabelLayoutPolicy;
     DuiLabel *m_NormalLabel;
     DuiButton *m_CheckMark;
