@@ -4,11 +4,6 @@ DuiLabelStyle {
 }
 
 
-#SignButton {
-    normalBackground: "See-more-indicator-big";
-}
-
-
 #ComponentDescription {
     font: font("Nokia Sans Cn", 16px);
 }
@@ -27,31 +22,24 @@ DuiNavigationBarStyle {
 }
 
 
-DuiImageStyle {
-  leftMargin: 0.0;
-  topMargin: 0.0;
-  rightMargin: 0.0;
-  bottomMargin: 0.0;
-}	
-
-
 DuiButtonStyle#DcpButton {
-    normalBackground: "C2-container";
+    normal-background: "C2-container";
+    minimum-size: size(1,80);
 }
 
 DuiLabelStyle#DcpButtonMain {
     font: font("Nokia Sans Cn", 20);
-    textColor: #FFFFFF;
+    /* color: #FFFFFF; */
 }
 
 DuiLabelStyle#DcpButtonLine1 {
     font: font("Nokia Sans Cn", 18);
-    textColor: #FFFFFF;
+    /* color: #FFFFFF; */
 }
 
 DuiLabelStyle#DcpButtonLine2 {
     font: font("Nokia Sans Cn", 16);
-    textColor: #FFFFFF;
+    /* color: #FFFFFF; */
 }
 
 /*    triangleBackground: "See-more-indicator-small"; 
