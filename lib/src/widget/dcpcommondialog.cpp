@@ -8,6 +8,7 @@
 #include <duipannableviewport.h>
 #include <duiscenemanager.h>
 #include <duiseparator.h>
+#include <duibutton.h>
 
 DcpCommonDialog::DcpCommonDialog(const QString &text)
              :DcpDialog(),
@@ -43,22 +44,41 @@ void DcpCommonDialog::initDialog()
     DuiLayout *mainLayout = new DuiLayout(this);
     mainLayout->setAnimator(0);
     this->setLayout(mainLayout);
-    DuiLinearLayoutPolicy *mainLayoutPolicy = 
+    DuiLinearLayoutPolicy *mainLayoutPolicy =
         new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
-    setContentsMargins(0.0, 0.0, 0.0, 0.0);
+    mainLayout->setContentsMargins(25.0, 9.0, 8.0, 8.0);
     mainLayoutPolicy->setSpacing(10);
 
-    // m_Viewport 
+    // FIXME -- backbutton temporary solution until it is getting possible
+    // in libdui to do not cover the backbutton with the scenelayereffect
+    DuiButton* backButton = new DuiButton(this);
+    backButton->setViewType("icon");
+    backButton->setIconID("Icon-back");
+    backButton->setObjectName("NavigationBarBackButton");
+    connect (backButton, SIGNAL(clicked()), this, SLOT(accept()));
+
+    DuiLayout* backButtonLayout = new DuiLayout(0);
+    backButtonLayout->setContentsMargins(0,0,30,0);
+    backButtonLayout->setAnimator(0);
+    DuiLinearLayoutPolicy* backButtonLayoutPolicy = new DuiLinearLayoutPolicy(backButtonLayout,
+            Qt::Horizontal);
+    backButtonLayoutPolicy->addItemAtPosition(
+            new DcpSpacerItem(this, 10, 10, QSizePolicy::Expanding, QSizePolicy::Expanding),
+            0, Qt::AlignLeft);
+    backButtonLayoutPolicy->addItemAtPosition(backButton, 1, Qt::AlignRight | Qt::AlignTop);
+    // -- FIXME ends
+
+    // m_Viewport
     m_Viewport = new DuiPannableViewport(this);
     m_Viewport->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    
+
     // m_MainWidget
     m_MainWidget = new DuiContainer(0);
     m_MainWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_MainWidget->setHeaderVisible(false);
     m_MainWidget->setExpand(true);
-    
+
     // containerWidget
     DuiWidget *containerWidget = new DuiWidget(m_MainWidget);
     m_ContainerLayout = new DuiLayout(containerWidget);
@@ -108,9 +128,7 @@ void DcpCommonDialog::initDialog()
     m_Viewport->setWidget(m_MainWidget);
 
     // Add items to mainLayoutPolicy
-    mainLayoutPolicy->addItemAtPosition(
-            new DcpSpacerItem(this, 10, 10, QSizePolicy::Expanding, QSizePolicy::Expanding),
-            0, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(backButtonLayout, 0);
     mainLayoutPolicy->addItemAtPosition(m_Viewport, 1, Qt::AlignCenter);
 
     // orientation
@@ -122,8 +140,10 @@ void DcpCommonDialog::initDialog()
 void DcpCommonDialog::onOrientationAngleChanged()
 {
     QSizeF dialogSize = DuiSceneManager::instance()->visibleSceneRect();
-    dialogSize.setWidth(dialogSize.width() - 35);
+    dialogSize.setWidth(dialogSize.width());
     dialogSize.setHeight(dialogSize.height() - 70);
     m_Viewport->setMinimumSize(dialogSize);
     m_Viewport->setMaximumSize(dialogSize);
 }
+
+
