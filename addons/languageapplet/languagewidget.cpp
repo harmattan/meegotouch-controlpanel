@@ -18,7 +18,7 @@
 #include <duiscenemanager.h>
 
 #ifdef QUERY_DIALOG
-    #include <DuiQueryDialog>
+    #include <duiquerydialog.h>
 #else
     #include <DuiMessageBox>
 #endif
@@ -126,10 +126,10 @@ void LanguageWidget::keyboardPage()
             // user selected no languages:
 #ifdef QUERY_DIALOG
             DuiQueryDialog query(DcpLanguage::RestoreQueryLabelText);
-            int keepPreviousId = query.addChoice(DcpLanguage::RestorePreviousText);
-            query.addChoice(DcpLanguage::SelectNewText);
+            DuiButton* keepPreviousId = query.addButton(DcpLanguage::RestorePreviousText);
+            query.addButton(DcpLanguage::SelectNewText);
             query.exec();
-            if (query.acceptedChoice() == keepPreviousId)
+            if (query.clickedButton() == keepPreviousId)
                 break;
 #else
             DuiMessageBox mb(DcpLanguage::RestoreQueryLabelText,
