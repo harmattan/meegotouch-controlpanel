@@ -74,10 +74,12 @@ void TimeZoneDialog::filteringListItems()
         iter.next();
         if (iter.value()->country().startsWith(sample, Qt::CaseInsensitive) ||
             iter.value()->city().startsWith(sample, Qt::CaseInsensitive)) {
-            iter.value()->setVisible(true);
+            iter.value()->filtered(true);
         } else {
-            iter.value()->setVisible(false);
+            iter.value()->filtered(false);
         }
     }
+    
+    m_TimeZoneContainer->updateLayout();
 }
 

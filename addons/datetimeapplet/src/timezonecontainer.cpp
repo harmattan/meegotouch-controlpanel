@@ -6,6 +6,7 @@
 #include <duilayout.h>
 #include <duigridlayoutpolicy.h>
 #include <qtimer.h>
+#include <QDebug>
 
 TimeZoneContainer::TimeZoneContainer(DuiWidget *parent)
                   :DuiWidget(parent)
@@ -23,16 +24,43 @@ QMap<int, TimeZoneListItem*> TimeZoneContainer::getMap()
     return m_ItemMap;
 }
 
+void TimeZoneContainer::updateLayout()
+{
+    for (int i = m_MainLayout->count() - 1; i >= 0; i--) {
+        static_cast<TimeZoneListItem*>(m_MainLayout->itemAt(i))->hide();
+        m_MainLayout->removeAt(i);
+    }
+    delete m_MainLayoutPolicy;
+    m_MainLayoutPolicy = new DuiGridLayoutPolicy(m_MainLayout);
+    m_MainLayout->setPolicy(m_MainLayoutPolicy);
+    m_MainLayoutPolicy->setSpacing(10);
+
+    // add Items to m_MainLayoutPolicy
+    int count = 0;
+    QMapIterator<int, TimeZoneListItem*> iter(m_ItemMap);
+    while (iter.hasNext()) {
+        iter.next();
+        if (iter.value()->isFiltered()) {
+            m_MainLayoutPolicy->addItemAtPosition(iter.value(), count / 2, count % 2);
+            iter.value()->setVisible(true);
+            count++;
+        }
+    }
+
+    qDebug() << "Info Row: " << m_MainLayoutPolicy->rowCount() 
+        << ", Info Column: " << m_MainLayoutPolicy->columnCount();
+}
+
 void TimeZoneContainer::initWidget()
 {
-    // mainLayout
-    DuiLayout *mainLayout = new DuiLayout(this);
-    mainLayout->setAnimator(0);
-    mainLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
-    this->setLayout(mainLayout);
-    DuiGridLayoutPolicy *mainLayoutPolicy =
-        new DuiGridLayoutPolicy(mainLayout);
-    mainLayoutPolicy->setSpacing(10);
+    // m_MainLayout
+    m_MainLayout = new DuiLayout(this);
+    m_MainLayout->setAnimator(0);
+    m_MainLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
+    this->setLayout(m_MainLayout);
+    m_MainLayoutPolicy = new DuiGridLayoutPolicy(m_MainLayout);
+    m_MainLayoutPolicy->setSpacing(10);
+    m_MainLayout->setPolicy(m_MainLayoutPolicy);
 
     // add items to m_ItemMap
     QMap<int, DcpTimeZoneData*> zoneMap = DcpTimeZoneConf::instance()->getMap();
@@ -53,7 +81,7 @@ void TimeZoneContainer::initWidget()
     QMapIterator<int, TimeZoneListItem*> iter(m_ItemMap);
     while (iter.hasNext()) {
         iter.next();
-        mainLayoutPolicy->addItemAtPosition(iter.value(), iter.key() / 2, iter.key() % 2);
+        m_MainLayoutPolicy->addItemAtPosition(iter.value(), iter.key() / 2, iter.key() % 2);
         connect(iter.value(), SIGNAL(clicked(TimeZoneListItem*)), 
                 this, SLOT(itemClicked(TimeZoneListItem*)));
     }
