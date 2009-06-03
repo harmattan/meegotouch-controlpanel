@@ -2,7 +2,7 @@ Source: duicontrolpanel
 Section: unknown
 Priority: extra
 Maintainer: Robert Manner <robert.manner@blumsoft.eu>
-Build-Depends: debhelper (>= 5), libdui-dev
+Build-Depends: debhelper (>= 5), libdui-dev, libicu-dev
 Standards-Version: 3.7.2
 
 Package: libduicontrolpanel
@@ -23,7 +23,7 @@ Description: Control Panel
 Package: duicontrolpanel-dbg
 Architecture: any
 Depends: duicontrolpanel (= ${binary:Version}), ${shlibs:Depends}
-Description: Control Panel - debug symbols                                                                                
+Description: Control Panel - debug symbols
 
 Package: duicontrolpanel-languageapplet
 Architecture: any
@@ -37,6 +37,6 @@ Description: Display applet for the control panel application
 
 Package: duicontrolpanel-datetimeapplet
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel, libduicontrolpanel
+Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel, libduicontrolpanel, libicu40
 Description: Date & Time Applet for the control panel application
 
