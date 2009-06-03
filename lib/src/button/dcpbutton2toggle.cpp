@@ -13,16 +13,21 @@ DuiLayout* DcpButton2Toggle::createLayout()
 {
     // text
     DuiLayout* textLayout = DcpButton2::createLayout();
+    qreal left, right, top, bottom;
+    textLayout->getContentsMargins(&left, &top, &right, &bottom);
+    textLayout->setContentsMargins(0,0,right,0);
 
     // toggle
     m_ToggleButton = new DuiButton(this);
+    m_ToggleButton->setObjectName("DcpButtonToggle");
     m_ToggleButton->setCheckable(true);
     connect (m_ToggleButton, SIGNAL(toggled(bool)),
              this, SLOT(onSmallToggled(bool)));
 
     // putting them together on the layout:
     DuiLayout* layout = new DuiLayout(0);
-    layout->setContentsMargins(0,0,0,0); // TODO XXX
+    layout->setAnimator(0);
+    layout->setContentsMargins(left,top,right,bottom);
     DuiLinearLayoutPolicy* vertLayoutPolicy = new DuiLinearLayoutPolicy(layout,
             Qt::Horizontal);
     vertLayoutPolicy->addItemAtPosition(textLayout, 0);
@@ -45,8 +50,10 @@ void DcpButton2Toggle::onSmallToggled (bool isOn)
 {
     // do not show second line in case it is off:
     if (isOn){
+        qDebug() << "XXX small on" << m_Text2;
         DcpButton2::setText2(m_Text2);
     } else {
+        qDebug() << "XXX small off";
         DcpButton2::setText2(QString());
     }
 

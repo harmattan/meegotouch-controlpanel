@@ -23,6 +23,8 @@ DuiLayout* DcpButton2::createLayout()
     DuiLayout* layout = new DuiLayout(0);
     layout->setAnimator(0);
     m_TextLayoutPolicy = new DuiLinearLayoutPolicy(layout, Qt::Vertical);
+    layout->setContentsMargins(9,9,9,9);
+    layout->setPolicy(m_TextLayoutPolicy);
     return layout;
 }
 
@@ -65,7 +67,5 @@ void DcpButton2::_updateLabelSizes()
     if (m_Label2) {
         m_Label2->setObjectName("DcpButtonLine2");
     }
-    layout()->invalidate();
-    layout()->activate();
 }
 

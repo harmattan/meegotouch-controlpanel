@@ -24,7 +24,8 @@ DuiNavigationBarStyle {
 
 DuiButtonStyle#DcpButton {
     normal-background: "C2-container";
-    minimum-size: size(1,80);
+    minimum-size: size(1,86);
+    maximum-size: size(999,86);
 }
 
 DuiLabelStyle#DcpButtonMain {
@@ -52,10 +53,12 @@ DuiLabelStyle#DcpButtonLine2 {
     backgroundBorder: "Thumbnail-frame";
 */
 
-/* TODO XXX for DcpButton2Toggle
-    toggleOn: "Toggle-on";
-    toggleOff: "Toggle-off";
- */
+DuiButtonStyle#DcpButtonToggle {
+    normal-background: "Toggle-off";
+    pressed-background: "Toggle-on";
+    maximum-size: size(64, 64);
+    minimum-size: size(64, 64);
+}
 
 #DcpCommonDialogTitleLabel {
     color: #FFFFFF;
@@ -67,3 +70,4 @@ DuiLabelStyle#DcpButtonLine2 {
     startColor: #505050;
     endColor: #505050;
 }
+
