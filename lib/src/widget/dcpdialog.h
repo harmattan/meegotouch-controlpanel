@@ -5,8 +5,8 @@
 class DcpDialog : public DuiDialog
 {
 public:
-    DcpDialog(); 
-    virtual ~DcpDialog(); 
+    DcpDialog();
+    virtual ~DcpDialog();
     virtual void close();
 };
 

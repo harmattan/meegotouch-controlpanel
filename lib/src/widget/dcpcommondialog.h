@@ -21,7 +21,7 @@ public:
 
 protected:
     void initDialog();
-    
+
 private:
     QString m_TitleText;
     DuiPannableViewport *m_Viewport;
