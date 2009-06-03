@@ -14,9 +14,7 @@ class TimeZoneListItem : public DuiWidget
     Q_OBJECT
 
 public:
-    TimeZoneListItem(QString country = "", 
-                     QString gmt = "",
-                     QString city = "",
+    TimeZoneListItem(QString country, QString gmt, QString city,
                      DuiWidget *parent = 0);
     virtual ~TimeZoneListItem();
     QString country();
@@ -38,8 +36,8 @@ protected slots:
 
 private:
     QString m_Country;
-    QString m_City;
     QString m_Gmt;
+    QString m_City;
     bool m_Checked;
     DuiLayout *m_LabelLayout;
     DuiGridLayoutPolicy *m_LabelLayoutPolicy;

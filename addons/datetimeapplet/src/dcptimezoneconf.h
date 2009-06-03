@@ -3,6 +3,9 @@
 
 #include <QObject>
 #include <QStringList>
+#include <QMap>
+
+class DcpTimeZoneData;
 
 class DcpTimeZoneConf : public QObject
 {
@@ -11,14 +14,16 @@ class DcpTimeZoneConf : public QObject
 public:
     static DcpTimeZoneConf* instance();
     virtual ~DcpTimeZoneConf();
-    QStringList supportedTimeZones();
+    QMap<int, DcpTimeZoneData*> getMap() const;
 
 protected:
     DcpTimeZoneConf();
+    QStringList supportedTimeZones();
 
 private:
     Q_DISABLE_COPY(DcpTimeZoneConf);
     static DcpTimeZoneConf *sm_Instance;
+    QMap<int, DcpTimeZoneData*> m_ItemMap;
 };
 #endif // DCPTIMEZONECONF_H
 
