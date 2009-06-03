@@ -6,7 +6,7 @@
 #include <DuiLinearLayoutPolicy>
 
 DcpBriefWidget::DcpBriefWidget(DcpAppletMetadata* metadata, DuiWidget* parent)
-    : DuiWidget(parent), m_RealWidget(0)
+    : DuiWidget(parent), m_RealWidget(0), m_Metadata(0)
 {
     DuiLayout* layout = new DuiLayout(this);
     layout->setAnimator(0);
@@ -22,7 +22,12 @@ void DcpBriefWidget::setMetadata(DcpAppletMetadata* metadata)
     // can be optimized if necessery (not recreating the widget, just updating its contents)
     if (m_RealWidget) delete m_RealWidget;
 
-    switch(metadata->widgetTypeID()) {
+    if (m_Metadata) {
+        disconnect (m_Metadata, SIGNAL(briefChanged()), this, SLOT(updateContents()));
+    }
+    m_Metadata = metadata;
+
+    switch(m_Metadata->widgetTypeID()) {
         case DCPLABELBUTTON:
         case DCPLABEL2BUTTON:
             // TODO
@@ -35,11 +40,19 @@ void DcpBriefWidget::setMetadata(DcpAppletMetadata* metadata)
         break;
     }
 
-    m_RealWidget->setText1(metadata->text1());
-    m_RealWidget->setText2(metadata->text2());
     connect (m_RealWidget, SIGNAL(clicked()), this, SIGNAL(clicked()));
+    connect (m_Metadata, SIGNAL(briefChanged()), this, SLOT(updateContents()));
+
+    // this currently cannot change:
+    m_RealWidget->setText1(m_Metadata->text1());
+    updateContents();
 
     m_Policy->addItemAtPosition(m_RealWidget, 0);
 }
 
+
+void DcpBriefWidget::updateContents()
+{
+    m_RealWidget->setText2(m_Metadata->text2());
+}
 

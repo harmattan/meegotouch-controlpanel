@@ -12,12 +12,16 @@ public:
 	DcpBriefWidget(DcpAppletMetadata* metadata, DuiWidget* parent = 0);
     void setMetadata(DcpAppletMetadata* metadata);
 
+public slots:
+    void updateContents();
+
 signals:
     void clicked();
 
 protected:
     DuiLinearLayoutPolicy* m_Policy;
     DcpButton2* m_RealWidget;
+    DcpAppletMetadata* m_Metadata;
 };
 
 
