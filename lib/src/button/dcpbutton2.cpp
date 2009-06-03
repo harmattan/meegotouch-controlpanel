@@ -3,14 +3,27 @@
 #include <DuiLayout>
 #include <DuiLinearLayoutPolicy>
 
+// main constructor
 DcpButton2::DcpButton2(DuiWidget* parent)
     : DuiButton(parent), m_Label1(0), m_Label2(0)
 {
     setObjectName("DcpButton");
-    DuiLayout* layout = new DuiLayout(this);
+    this->setLayout(createLayout());
+}
+
+// protected constructor which avoids creating its layout
+DcpButton2::DcpButton2(DuiWidget* parent, bool)
+    : DuiButton(parent), m_Label1(0), m_Label2(0)
+{
+    setObjectName("DcpButton");
+}
+
+DuiLayout* DcpButton2::createLayout()
+{
+    DuiLayout* layout = new DuiLayout(0);
     layout->setAnimator(0);
-    m_LayoutPolicy = new DuiLinearLayoutPolicy(layout, Qt::Vertical);
-    this->setLayout(layout);
+    m_TextLayoutPolicy = new DuiLinearLayoutPolicy(layout, Qt::Vertical);
+    return layout;
 }
 
 void DcpButton2::setText1(const QString& text)
@@ -39,7 +52,7 @@ void DcpButton2::_setLabelText(DuiLabel*& label, int position,
     if (!label) {
         label = new DuiLabel (this);
         label->setAcceptedMouseButtons(0);
-        m_LayoutPolicy->addItemAtPosition(label, position);
+        m_TextLayoutPolicy->addItemAtPosition(label, position);
     }
     label->setText(text);
 }
@@ -52,5 +65,7 @@ void DcpButton2::_updateLabelSizes()
     if (m_Label2) {
         m_Label2->setObjectName("DcpButtonLine2");
     }
+    layout()->invalidate();
+    layout()->activate();
 }
 
