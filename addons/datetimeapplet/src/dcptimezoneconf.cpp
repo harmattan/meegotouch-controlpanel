@@ -1,4 +1,5 @@
 #include "dcptimezoneconf.h"
+#include "dcptimezonedata.h"
 
 #include <duiicuconversions.h>
 
@@ -18,12 +19,26 @@ DcpTimeZoneConf::~DcpTimeZoneConf()
     if (sm_Instance) {
         delete sm_Instance;
     }
+
+    m_ItemMap.clear();
+}
+
+QMap<int, DcpTimeZoneData*> DcpTimeZoneConf::getMap() const
+{
+    return m_ItemMap;
 }
 
 //! protected constructor
 DcpTimeZoneConf::DcpTimeZoneConf()
                 :QObject()
 {
+    // fill up m_ItemMap
+    QStringList list = this->supportedTimeZones();
+    QStringListIterator iter(list);
+    int count = 1;
+    while (iter.hasNext()) {
+        m_ItemMap[count++] = new DcpTimeZoneData(iter.next());
+    }
 }
 
 QStringList DcpTimeZoneConf::supportedTimeZones()

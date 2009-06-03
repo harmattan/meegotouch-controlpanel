@@ -1,5 +1,6 @@
 #include "timezonelistitem.h"
 #include "dcpspaceritem.h"
+#include "dcptimezonedata.h"
 
 #include <duilayout.h>
 #include <duigridlayoutpolicy.h>
@@ -12,12 +13,11 @@
 
 const int height = 75;
 
-TimeZoneListItem::TimeZoneListItem(QString country, QString gmt,
-                                   QString city, DuiWidget *parent)
+TimeZoneListItem::TimeZoneListItem(QString country, QString gmt, QString city, DuiWidget *parent)
                  :DuiWidget(parent),
                   m_Country(country),
-                  m_City(city),
                   m_Gmt(gmt),
+                  m_City(city),
                   m_Checked(false)
 {
     initWidget();
