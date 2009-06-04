@@ -22,6 +22,8 @@ public:
     QString city();
     void checked(bool ok);
     bool isChecked();
+    void filtered(bool ok);
+    bool isFiltered();
     void setVisibleSeparator(bool enable);
 
 protected:
@@ -39,6 +41,7 @@ private:
     QString m_Gmt;
     QString m_City;
     bool m_Checked;
+    bool m_Filtered;
     DuiLayout *m_LabelLayout;
     DuiGridLayoutPolicy *m_LabelLayoutPolicy;
     DuiLabel *m_CountryLabel;

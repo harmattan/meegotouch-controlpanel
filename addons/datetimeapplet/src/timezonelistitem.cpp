@@ -18,7 +18,8 @@ TimeZoneListItem::TimeZoneListItem(QString country, QString gmt, QString city, D
                   m_Country(country),
                   m_Gmt(gmt),
                   m_City(city),
-                  m_Checked(false)
+                  m_Checked(false),
+                  m_Filtered(true)
 {
     initWidget();
 }
@@ -64,6 +65,16 @@ void TimeZoneListItem::checked(bool ok)
 bool TimeZoneListItem::isChecked()
 {
     return m_Checked;
+}
+
+void TimeZoneListItem::filtered(bool ok)
+{
+    m_Filtered = ok;
+}
+
+bool TimeZoneListItem::isFiltered()
+{
+    return m_Filtered;
 }
 
 void TimeZoneListItem::setVisibleSeparator(bool enable)

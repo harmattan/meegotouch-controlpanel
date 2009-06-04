@@ -35,11 +35,11 @@ void TimeZoneDialog::initWidget()
     mainLayoutPolicy->setSpacing(10);
 
     // m_TextEdit
-    m_TextEdit = new DuiTextEdit(DuiTextEditModel::SingleLine, 
-            DcpDateTime::InputCountryText, centralWidget);
+    m_TextEdit = new DuiTextEdit(DuiTextEditModel::MultiLine, 
+                                 DcpDateTime::InputCountryText, centralWidget);
     m_TextEdit->setObjectName("InputTextEdit");
     m_TextEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    connect(m_TextEdit, SIGNAL(gainedFocus(DuiTextEdit *)), 
+    connect(m_TextEdit, SIGNAL(gainedFocus(DuiTextEdit *, Qt::FocusReason)), 
             this, SLOT(clearTextEdit(DuiTextEdit *)));
     connect(m_TextEdit, SIGNAL(textChanged()),
             this, SLOT(filteringListItems()));
@@ -74,10 +74,12 @@ void TimeZoneDialog::filteringListItems()
         iter.next();
         if (iter.value()->country().startsWith(sample, Qt::CaseInsensitive) ||
             iter.value()->city().startsWith(sample, Qt::CaseInsensitive)) {
-            iter.value()->setVisible(true);
+            iter.value()->filtered(true);
         } else {
-            iter.value()->setVisible(false);
+            iter.value()->filtered(false);
         }
     }
+    
+    m_TimeZoneContainer->updateLayout();
 }
 
