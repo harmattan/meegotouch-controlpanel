@@ -97,7 +97,8 @@ void TimeZoneContainer::initWidget()
     int count = 0;
     while (zoneIter.hasNext()) {
         zoneIter.next();
-        if (zoneIter.value()->country() == "Europe") {
+        if (zoneIter.value()->country() == "Europe" || 
+            zoneIter.value()->country() == "Asia") {
             m_ItemMap[count++] = new TimeZoneListItem(zoneIter.value()->country(),
                                                       zoneIter.value()->gmt(),
                                                       zoneIter.value()->city(), 
