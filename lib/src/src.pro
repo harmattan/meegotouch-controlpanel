@@ -22,6 +22,7 @@ install_headers.files += applet/dcpapplet.h \
     applet/dcpbrief.h \
     button/dcpbutton2.h \
     button/dcpbutton2toggle.h \
+    button/dcpbutton2image.h \
     button/dcpbriefwidget.h \
     widget/dcpwidgettypes.h \
     widget/dcpspaceritem.h \

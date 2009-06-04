@@ -24,8 +24,8 @@ DuiNavigationBarStyle {
 
 DuiButtonStyle#DcpButton {
     normal-background: "C2-container";
-    minimum-size: size(1,86);
-    maximum-size: size(999,86);
+    minimum-size: size(1,84);
+    maximum-size: size(999,84);
 }
 
 DuiLabelStyle#DcpButtonMain {
@@ -54,13 +54,12 @@ DuiLabelStyle#DcpButtonLine2 {
     margin-right: 0; */
 }
 
-
-/*
-    TODO XXX for DcpButton2Image
-    imageName: image(starfield);
-    imageSize: size(64, 64);
-    backgroundBorder: "Thumbnail-frame";
-*/
+#DcpButtonImage {
+/*    imageName: image(starfield); */
+    maximum-size: size(64, 64);
+    minimum-size: size(64, 64);
+/*    backgroundBorder: "Thumbnail-frame"; */
+}
 
 DuiButtonStyle#DcpButtonToggle {
     normal-background: "Toggle-off";

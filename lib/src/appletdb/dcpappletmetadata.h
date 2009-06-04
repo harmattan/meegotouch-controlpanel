@@ -30,7 +30,6 @@ public:
 
     Qt::Alignment align() const;
     bool toggle() const;
-//    bool smallToggle();
 
     QString text1() const;
     QString text2() const;
