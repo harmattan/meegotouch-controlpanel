@@ -35,11 +35,11 @@ void TimeZoneDialog::initWidget()
     mainLayoutPolicy->setSpacing(10);
 
     // m_TextEdit
-    m_TextEdit = new DuiTextEdit(DuiTextEditModel::SingleLine, 
-            DcpDateTime::InputCountryText, centralWidget);
+    m_TextEdit = new DuiTextEdit(DuiTextEditModel::MultiLine, 
+                                 DcpDateTime::InputCountryText, centralWidget);
     m_TextEdit->setObjectName("InputTextEdit");
     m_TextEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    connect(m_TextEdit, SIGNAL(gainedFocus(DuiTextEdit *)), 
+    connect(m_TextEdit, SIGNAL(gainedFocus(DuiTextEdit *, Qt::FocusReason)), 
             this, SLOT(clearTextEdit(DuiTextEdit *)));
     connect(m_TextEdit, SIGNAL(textChanged()),
             this, SLOT(filteringListItems()));
