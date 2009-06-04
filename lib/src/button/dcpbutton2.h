@@ -3,7 +3,7 @@
 
 #include <DuiButton>
 class DuiLabel;
-class DuiLinearLayoutPolicy;
+class DuiGridLayoutPolicy;
 class DuiLayout;
 
 class DcpButton2: public DuiButton{
@@ -23,8 +23,9 @@ private:
     void updateLabelSizes();
     DuiLabel* m_Label1;
     DuiLabel* m_Label2;
+    DuiWidget* m_Triangle;
     DuiLayout* m_TextLayout;
-    DuiLinearLayoutPolicy* m_TextLayoutPolicy1;
+    DuiGridLayoutPolicy* m_TextLayoutPolicy1;
 };
 
 

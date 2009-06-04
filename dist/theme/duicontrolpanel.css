@@ -44,8 +44,16 @@ DuiLabelStyle#DcpButtonLine2 {
     /* color: #FFFFFF; */
 }
 
-/*    triangleBackground: "See-more-indicator-small"; 
-    triangleBackgroundSize: size(16, 16); */
+#DcpSeeMoreIndicator {
+    normal-background: "See-more-indicator-small";
+    minimum-size: size(16, 16);
+    maximum-size: size(16, 16);
+    margin-left: 8;
+/*    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 0; */
+}
+
 
 /*
     TODO XXX for DcpButton2Image
