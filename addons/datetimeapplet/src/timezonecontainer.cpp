@@ -8,6 +8,8 @@
 #include <duigridlayoutpolicy.h>
 #include <qtimer.h>
 #include <duiscenemanager.h>
+#include <duiicuconversions.h>
+#include <QDebug>
 
 TimeZoneContainer::TimeZoneContainer(DuiWidget *parent)
                   :DuiWidget(parent)
@@ -95,7 +97,8 @@ void TimeZoneContainer::initWidget()
     int count = 0;
     while (zoneIter.hasNext()) {
         zoneIter.next();
-        if (zoneIter.value()->country() == "Europe") {
+        if (zoneIter.value()->country() == "Europe" || 
+            zoneIter.value()->country() == "Asia") {
             m_ItemMap[count++] = new TimeZoneListItem(zoneIter.value()->country(),
                                                       zoneIter.value()->gmt(),
                                                       zoneIter.value()->city(), 
@@ -129,5 +132,13 @@ void TimeZoneContainer::itemClicked(TimeZoneListItem *item)
         iter.value()->checked(false);
     }
     item->checked(true);
+
+    // set default time zone
+    UnicodeString zoneName =
+        DuiIcuConversions::qStringToUnicodeString(item->country() + "/" + item->city());
+    qDebug() << "TimeZone Name: " << DuiIcuConversions::unicodeStringToQString(zoneName);
+    icu::TimeZone *zone = icu::TimeZone::createTimeZone(zoneName);
+    icu::TimeZone::setDefault(*zone);
+    
     emit closing();
 }

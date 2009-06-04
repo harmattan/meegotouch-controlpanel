@@ -105,7 +105,6 @@ void DcpCommonDialog::initDialog()
 
     // greySeparator
     m_GreySeparator = new DuiSeparator(containerWidget);
-    m_GreySeparator->setObjectName("DcpGreySeparator");
     m_GreySeparator->setAcceptedMouseButtons(0);
     
     // Add items to titleLayoutPolicy

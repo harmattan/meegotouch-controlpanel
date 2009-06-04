@@ -4,6 +4,11 @@ DuiLabelStyle {
 }
 
 
+#SignButton {
+    normal-background: "See-more-indicator-big";
+}
+
+
 #ComponentDescription {
     font: font("Nokia Sans Cn", 16px);
 }
@@ -73,9 +78,11 @@ DuiButtonStyle#DcpButtonToggle {
     font: font("Nokia Sans Cn", 18);
 }
 
+/* TODO for manni XXX
 #DcpGreySeparator {
     lineWidth: 1;
     startColor: #505050;
     endColor: #505050;
 }
+*/
 

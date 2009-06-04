@@ -15,6 +15,7 @@ public:
     static DcpTimeZoneConf* instance();
     virtual ~DcpTimeZoneConf();
     QMap<int, DcpTimeZoneData*> getMap() const;
+    DcpTimeZoneData defaultTimeZone() const;
 
 protected:
     DcpTimeZoneConf();

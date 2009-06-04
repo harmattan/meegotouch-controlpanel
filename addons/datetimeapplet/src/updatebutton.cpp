@@ -22,15 +22,6 @@ UpdateButton::~UpdateButton()
 {
 }
 
-void UpdateButton::paint(QPainter *painter,
-                         const QStyleOptionGraphicsItem *option,
-                         QWidget *widget)
-{
-    Q_UNUSED(painter);
-    Q_UNUSED(option);
-    Q_UNUSED(widget);
-}
-
 void UpdateButton::initWidget()
 {
     // mainLayout
@@ -74,10 +65,6 @@ void UpdateButton::initWidget()
             0, 1);
     lineLayoutPolicy->addItemAtPosition(toggleButton, 0, 2);
 
-    // graySeparator
-    DuiSeparator *graySeparator = new DuiSeparator(this);
-    graySeparator->setObjectName("GraySeparator");
-    
     // add items to mainLayoutPolicy
     mainLayoutPolicy->addItemAtPosition(
             new DcpSpacerItem(this, 5, 5, QSizePolicy::Fixed, QSizePolicy::Expanding),
@@ -86,7 +73,7 @@ void UpdateButton::initWidget()
     mainLayoutPolicy->addItemAtPosition(
             new DcpSpacerItem(this, 5, 5, QSizePolicy::Fixed, QSizePolicy::Expanding),
             2, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(graySeparator, 3, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(new DuiSeparator(this), 3, Qt::AlignCenter);
 
     // set fixed height
     this->setMinimumHeight(height);

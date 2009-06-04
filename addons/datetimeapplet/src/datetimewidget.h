@@ -16,10 +16,7 @@ public:
 	DateTimeWidget(QGraphicsWidget *parent = 0);
 	virtual ~DateTimeWidget();
     //! \reimp
-	virtual void paint(QPainter *painter,
-			   const QStyleOptionGraphicsItem *option,
-			   QWidget *widget);
-    virtual bool back();
+	virtual bool back();
     //! \reimp_end
 
 protected:
@@ -37,6 +34,7 @@ private slots:
     virtual void showTimeZoneDialog();
     virtual void updateTimeText();
     virtual void updateDateText();
+    virtual void updateTimeZoneText();
 };
 #endif // DATETIMEWIDGET_H
 

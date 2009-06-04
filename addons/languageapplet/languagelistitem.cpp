@@ -142,7 +142,6 @@ void LanguageListItem::initWidget()
     
     // m_GreySeparator
     m_GreySeparator = new DuiSeparator(this);
-    m_GreySeparator->setObjectName("GreySeparator");
 
     // Add items to mainLayoutPolicy
     mainLayoutPolicy->addItemAtPosition(
