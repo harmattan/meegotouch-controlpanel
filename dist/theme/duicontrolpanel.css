@@ -40,6 +40,7 @@ DuiLabelStyle#DcpButtonLine1 {
 
 DuiLabelStyle#DcpButtonLine2 {
     font: font("Nokia Sans Cn", 16);
+    minimum-size: size(200,12);
     /* color: #FFFFFF; */
 }
 

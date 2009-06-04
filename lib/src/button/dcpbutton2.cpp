@@ -11,7 +11,7 @@ DcpButton2::DcpButton2(DuiWidget* parent)
     this->setLayout(createLayout());
 }
 
-// protected constructor which avoids creating its layout
+// protected constructor which avoids creating the layout
 DcpButton2::DcpButton2(DuiWidget* parent, bool)
     : DuiButton(parent), m_Label1(0), m_Label2(0)
 {
@@ -20,52 +20,48 @@ DcpButton2::DcpButton2(DuiWidget* parent, bool)
 
 DuiLayout* DcpButton2::createLayout()
 {
-    DuiLayout* layout = new DuiLayout(0);
-    layout->setAnimator(0);
-    m_TextLayoutPolicy = new DuiLinearLayoutPolicy(layout, Qt::Vertical);
-    layout->setContentsMargins(9,9,9,9);
-    layout->setPolicy(m_TextLayoutPolicy);
-    return layout;
+    // create the labels:
+    m_Label1 = new DuiLabel (this);
+    m_Label1->setAcceptedMouseButtons(0);
+//    m_Label1->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
+
+    m_Label2 = new DuiLabel (this);
+    m_Label2->setObjectName("DcpButtonLine2");
+//    m_Label2->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
+
+    // create the layout:
+    m_TextLayout = new DuiLayout(0);
+    m_TextLayout->setAnimator(0);
+    m_TextLayoutPolicy1 = new DuiLinearLayoutPolicy(m_TextLayout, Qt::Vertical);
+    m_TextLayout->setPolicy(m_TextLayoutPolicy1);
+    m_TextLayoutPolicy1->addItemAtPosition(m_Label1,0);
+    m_TextLayoutPolicy1->addItemAtPosition(m_Label2,1);
+
+    m_TextLayout->setContentsMargins(9,9,9,9);
+    return m_TextLayout;
 }
 
 void DcpButton2::setText1(const QString& text)
 {
-    _setLabelText(m_Label1, 0, text);
-    _updateLabelSizes();
+    m_Label1->setText(text);
 }
 
 void DcpButton2::setText2(const QString& text)
 {
-    _setLabelText(m_Label2, 1, text);
-    _updateLabelSizes();
+    m_Label2->setText(text);
+    updateLabelSizes();
 }
 
-void DcpButton2::_setLabelText(DuiLabel*& label, int position,
-                                      const QString& text)
+void DcpButton2::updateLabelSizes()
 {
-    if (text.isEmpty()){
-        if (label){
-            delete label;
-            label = NULL;
-        }
-        return;
+    if (m_Label2->text().isEmpty()) {
+        m_Label2->setMaximumHeight(0.001); // this magic is to avoid a layout issue
+        m_Label1->setObjectName("DcpButtonMain");
+    } else {
+        m_Label2->setMaximumSize(QSize());
+        m_Label1->setObjectName("DcpButtonLine1");
     }
-
-    if (!label) {
-        label = new DuiLabel (this);
-        label->setAcceptedMouseButtons(0);
-        m_TextLayoutPolicy->addItemAtPosition(label, position);
-    }
-    label->setText(text);
-}
-
-void DcpButton2::_updateLabelSizes()
-{
-    if (m_Label1) {
-        m_Label1->setObjectName(m_Label2 ? "DcpButtonLine1" : "DcpButtonMain");
-    }
-    if (m_Label2) {
-        m_Label2->setObjectName("DcpButtonLine2");
-    }
+    m_TextLayout->invalidate();
+    m_TextLayout->activate();
 }
 

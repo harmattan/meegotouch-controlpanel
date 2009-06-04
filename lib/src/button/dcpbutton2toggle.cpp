@@ -50,10 +50,8 @@ void DcpButton2Toggle::onSmallToggled (bool isOn)
 {
     // do not show second line in case it is off:
     if (isOn){
-        qDebug() << "XXX small on" << m_Text2;
         DcpButton2::setText2(m_Text2);
     } else {
-        qDebug() << "XXX small off";
         DcpButton2::setText2(QString());
     }
 
@@ -64,6 +62,6 @@ void DcpButton2Toggle::onSmallToggled (bool isOn)
 
 void DcpButton2Toggle::setSmallToggle(bool isOn)
 {
-    m_ToggleButton->setChecked(isOn);
+    m_ToggleButton->setChecked(true);
 }
 

@@ -20,11 +20,11 @@ protected:
     DcpButton2(DuiWidget* parent, bool);
 
 private:
-    void _setLabelText(DuiLabel*& label, int position, const QString& text);
-    void _updateLabelSizes();
+    void updateLabelSizes();
     DuiLabel* m_Label1;
     DuiLabel* m_Label2;
-    DuiLinearLayoutPolicy* m_TextLayoutPolicy;
+    DuiLayout* m_TextLayout;
+    DuiLinearLayoutPolicy* m_TextLayoutPolicy1;
 };
 
 
