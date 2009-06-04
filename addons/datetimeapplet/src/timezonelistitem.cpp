@@ -163,7 +163,6 @@ void TimeZoneListItem::initWidget()
 
     // m_GreySeparator
     m_GraySeparator = new DuiSeparator(this);
-    m_GraySeparator->setObjectName("GraySeparator");
 
     // Add items to mainLayoutPolicy
     mainLayoutPolicy->addItemAtPosition(m_LabelLayout, 0, Qt::AlignCenter);

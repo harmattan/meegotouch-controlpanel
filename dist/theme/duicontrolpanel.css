@@ -5,7 +5,7 @@ DuiLabelStyle {
 
 
 #SignButton {
-    normalBackground: "See-more-indicator-big";
+    normal-background: "See-more-indicator-big";
 }
 
 
@@ -89,10 +89,4 @@ DcpButtonStyle {
 #DcpCommonDialogTitleLabel {
     color: #FFFFFF;
     font: font("Nokia Sans Cn", 18);
-}
-
-#DcpGreySeparator {
-    lineWidth: 1;
-    startColor: #505050;
-    endColor: #505050;
 }

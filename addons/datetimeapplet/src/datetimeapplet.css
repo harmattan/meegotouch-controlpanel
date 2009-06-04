@@ -13,12 +13,6 @@
     pressed-background: "Toggle-off";
 }
 
-#GraySeparator {
-    lineWidth: 1;
-    startColor: #505050;
-    stopColor: #505050;
-}
-
 #InputTextEdit {
     font: font("Nokia Sans Cn", 16);
 }

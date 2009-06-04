@@ -5,6 +5,8 @@
 #include "updatebutton.h"
 #include "datetimetranslation.h"
 #include "timezonedialog.h"
+#include "dcptimezoneconf.h"
+#include "dcptimezonedata.h"
 
 #include <duitheme.h>
 #include <duilayout.h>
@@ -30,15 +32,6 @@ DateTimeWidget::DateTimeWidget(QGraphicsWidget *parent)
 
 DateTimeWidget::~DateTimeWidget()
 {
-}
-
-void DateTimeWidget::paint(QPainter *painter,
-			const QStyleOptionGraphicsItem *option,
-			QWidget *widget)
-{
-	Q_UNUSED(painter);
-	Q_UNUSED(option);
-	Q_UNUSED(widget);
 }
 
 bool DateTimeWidget::back()
@@ -88,12 +81,11 @@ void DateTimeWidget::initWidget()
     timer->start(1000);   
     
     // m_TimeZoneButton
-    DuiLocale locale;
     m_TimeZoneButton = new DcpButton(DCPLABEL2);
-    m_TimeZoneButton->setText(DcpDateTime::CurrentTimeZoneText, locale.countryEndonym());   
     m_TimeZoneButton->setLine(true);
     m_TimeZoneButton->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width()-30);
     connect(m_TimeZoneButton, SIGNAL(clicked()), this, SLOT(showTimeZoneDialog()));
+    updateTimeZoneText();
     
     // m_AutomaticUpdateButton
     m_AutomaticUpdateButton = new UpdateButton(this);
@@ -137,6 +129,7 @@ void DateTimeWidget::showTimeZoneDialog()
     this->setEnabled(true);
     m_Dlg->deleteLater();
     m_Dlg = 0;
+    updateTimeZoneText();
 }
 
 void DateTimeWidget::updateTimeText()
@@ -153,3 +146,11 @@ void DateTimeWidget::updateDateText()
     m_DateButton->setText(DcpDateTime::DateButtonText, text);        
 }
 
+void DateTimeWidget::updateTimeZoneText()
+{
+    /* m_TimeZoneButton->setText(DcpDateTime::CurrentTimeZoneText, 
+            DcpTimeZoneConf::instance()->defaultTimeZone().city() + " " +
+            DcpTimeZoneConf::instance()->defaultTimeZone().gmt());*/
+    m_TimeZoneButton->setText(DcpDateTime::CurrentTimeZoneText,
+                              "GMT+1:00 London");
+}

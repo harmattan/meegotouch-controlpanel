@@ -2,6 +2,7 @@
 #include "dcptimezonedata.h"
 
 #include <duiicuconversions.h>
+#include <QDebug>
 
 DcpTimeZoneConf *DcpTimeZoneConf::sm_Instance = 0;
 
@@ -26,6 +27,16 @@ DcpTimeZoneConf::~DcpTimeZoneConf()
 QMap<int, DcpTimeZoneData*> DcpTimeZoneConf::getMap() const
 {
     return m_ItemMap;
+}
+
+DcpTimeZoneData DcpTimeZoneConf::defaultTimeZone() const
+{
+    UnicodeString defaultZone;
+    icu::TimeZone::createDefault()->getDisplayName(defaultZone);
+    QString zoneId = DuiIcuConversions::unicodeStringToQString(defaultZone);
+    qDebug() << "DEFAULT TIME ZONE : " << zoneId;
+    DcpTimeZoneData timeZone(zoneId);
+    return timeZone;
 }
 
 //! protected constructor
