@@ -11,6 +11,7 @@ class DcpButton2: public DuiButton{
 public:
 	explicit DcpButton2(DuiWidget* parent = 0);
 
+    void setText(const QString& text1, const QString& text2);
     virtual void setText1(const QString& text);
     virtual void setText2(const QString& text);
 

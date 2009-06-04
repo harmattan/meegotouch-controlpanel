@@ -79,3 +79,10 @@ void DcpButton2::updateLabelSizes()
     m_TextLayout->activate();
 }
 
+// convenience function
+void DcpButton2::setText(const QString& text1, const QString& text2)
+{
+    setText1(text1);
+    setText2(text2);
+}
+
