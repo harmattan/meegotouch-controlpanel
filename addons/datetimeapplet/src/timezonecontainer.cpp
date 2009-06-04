@@ -41,6 +41,7 @@ void TimeZoneContainer::updateLayout()
     QMapIterator<int, TimeZoneListItem*> iter(m_ItemMap);
     while (iter.hasNext()) {
         iter.next();
+        iter.value()->setVisibleSeparator(true);
         if (iter.value()->isFiltered()) {
             m_MainLayoutPolicy->addItemAtPosition(iter.value(), count / 2, count % 2);
             iter.value()->setVisible(true);
@@ -48,13 +49,7 @@ void TimeZoneContainer::updateLayout()
         }
     }
 
-    if (m_MainLayout->count() == 1) {
-        m_MainLayoutPolicy->addItemAtPosition(
-                new DcpSpacerItem(this, 
-                    DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 35, 
-                    10, QSizePolicy::Fixed, QSizePolicy::Expanding),
-                0, 1);
-    } else if (m_MainLayout->count() == 0) {
+    if (m_MainLayout->count() == 0) {
         m_MainLayoutPolicy->addItemAtPosition(
                 new DcpSpacerItem(this, 
                     DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 35, 
@@ -65,7 +60,23 @@ void TimeZoneContainer::updateLayout()
                     DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 35, 
                     10, QSizePolicy::Fixed, QSizePolicy::Expanding),
                 0, 1);
+    } else {
+        int count = m_MainLayout->count();
+        if (count % 2 == 0) {
+            static_cast<TimeZoneListItem*>(m_MainLayout->itemAt(count - 1))->setVisibleSeparator(false);
+            static_cast<TimeZoneListItem*>(m_MainLayout->itemAt(count - 2))->setVisibleSeparator(false);
+        } else {
+            static_cast<TimeZoneListItem*>(m_MainLayout->itemAt(count - 1))->setVisibleSeparator(false);
+        }
     }
+
+    if (m_MainLayout->count() == 1) {
+        m_MainLayoutPolicy->addItemAtPosition(
+                new DcpSpacerItem(this, 
+                    DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 35, 
+                    10, QSizePolicy::Fixed, QSizePolicy::Expanding),
+                0, 1);
+    } 
 }
 
 void TimeZoneContainer::initWidget()
