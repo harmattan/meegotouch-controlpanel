@@ -152,5 +152,5 @@ void DateTimeWidget::updateTimeZoneText()
             DcpTimeZoneConf::instance()->defaultTimeZone().city() + " " +
             DcpTimeZoneConf::instance()->defaultTimeZone().gmt());*/
     m_TimeZoneButton->setText(DcpDateTime::CurrentTimeZoneText,
-                              "GMT+1:00 London");
+                              "GMT+0:00 London");
 }

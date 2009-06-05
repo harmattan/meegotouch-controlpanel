@@ -48,7 +48,14 @@ DcpTimeZoneConf::DcpTimeZoneConf()
     QStringListIterator iter(list);
     int count = 1;
     while (iter.hasNext()) {
-        m_ItemMap[count++] = new DcpTimeZoneData(iter.next());
+        QString item = iter.next();
+        if (item.contains("Europe") || item.contains("America") || 
+            item.contains("Asia") || item.contains("Australia") ||
+            item.contains("Indian") || item.contains("Africa") ||
+            item.contains("Pacific") || item.contains("Mideast") ||
+            item.contains("Brazil") || item.contains("Atlantic") ||
+            item.contains("Arctic") || item.contains("Antarctica"))
+            m_ItemMap[count++] = new DcpTimeZoneData(iter.next());
     }
 }
 
