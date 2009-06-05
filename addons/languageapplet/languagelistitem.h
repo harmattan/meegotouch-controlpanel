@@ -44,7 +44,6 @@ private:
     DuiButton *m_CheckMark;
     bool m_Checked;
     bool m_Clicked;
-    bool m_First;
     DuiSeparator *m_GreySeparator;
 
 signals:

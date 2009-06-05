@@ -23,8 +23,7 @@ LanguageListItem::LanguageListItem(const QString &langCode,
                   m_LangCode(langCode),   
                   m_LabelText(text),
                   m_Checked(false),
-                  m_Clicked(false),
-                  m_First(true)
+                  m_Clicked(false)
 {
     initWidget();
 }
@@ -39,39 +38,11 @@ void LanguageListItem::checked(bool ok)
     if (m_Checked) {
         m_NormalLabel->setText("<font color=#e48415>" + m_LabelText
                                + "</font>");
-        if (m_First) 
-        {
-            // checkMarkLayout
-            DuiLayout *checkMarkLayout = new DuiLayout(0);
-            checkMarkLayout->setAnimator(0);
-            checkMarkLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
-            DuiLinearLayoutPolicy *checkMarkLayoutPolicy =
-                new DuiLinearLayoutPolicy(checkMarkLayout, Qt::Vertical);
-            checkMarkLayout->setPolicy(checkMarkLayoutPolicy);
-            
-            // checkMark
-            m_CheckMark = new DuiButton(this);
-            m_CheckMark->setObjectName("LanguageCheckMark");
-            m_CheckMark->setTextVisible(false);
-            m_CheckMark->setAcceptedMouseButtons(0);
-            m_CheckMark->setMinimumSize(QSize(32, 32));
-            m_CheckMark->setMaximumSize(QSize(32, 32));
-
-            // add items to checkMarkLayoutPolicy
-            checkMarkLayoutPolicy->addItemAtPosition(m_CheckMark, 1, Qt::AlignCenter);
-            
-            m_LabelLayout->removeItem(m_LabelLayoutPolicy->itemAt(0, 2));
-            m_LabelLayoutPolicy->addItemAtPosition(checkMarkLayout, 0, 2);
-            m_First = false;
-        }
         m_CheckMark->setVisible(true);
     } else {
         m_NormalLabel->setText("<font color=#ffffff>" + m_LabelText
                                + "</font>");
-        if (!m_First)
-        {
-            m_CheckMark->setVisible(false);
-        }
+        m_CheckMark->setVisible(false);
     }
 }
 
@@ -120,7 +91,7 @@ void LanguageListItem::initWidget()
     m_LabelLayout->setAnimator(0);
     m_LabelLayoutPolicy = new DuiGridLayoutPolicy(m_LabelLayout);
     m_LabelLayout->setPolicy(m_LabelLayoutPolicy);
-    m_LabelLayout->setContentsMargins(20.0, 0.0, 0.0, 0.0);
+    m_LabelLayout->setContentsMargins(20.0, 0.0, 20.0, 0.0);
     m_LabelLayoutPolicy->setSpacing(3);
         
     // normalLabel
@@ -129,17 +100,20 @@ void LanguageListItem::initWidget()
     m_NormalLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     m_NormalLabel->setAcceptedMouseButtons(0);
     
+    // m_CheckMark
+    m_CheckMark = new DuiButton(this);
+    m_CheckMark->setObjectName("LanguageCheckMark");
+    m_CheckMark->setAcceptedMouseButtons(0);
+    m_CheckMark->setMinimumSize(QSize(32, 32));
+    m_CheckMark->setMaximumSize(QSize(32, 32));
+    m_CheckMark->setVisible(false);
+ 
     m_LabelLayoutPolicy->addItemAtPosition(m_NormalLabel, 0, 0);
     m_LabelLayoutPolicy->addItemAtPosition(
                     new DcpSpacerItem(this, 10, 10, QSizePolicy::Expanding, QSizePolicy::Expanding),
                     0, 1);
-    m_LabelLayoutPolicy->addItemAtPosition(
-                    new DcpSpacerItem(this, 32, 10, QSizePolicy::Fixed, QSizePolicy::Expanding),
-                    0, 2);
-
-    // checkMark
-    m_CheckMark = 0;
-    
+    m_LabelLayoutPolicy->addItemAtPosition(m_CheckMark, 0, 2);
+   
     // m_GreySeparator
     m_GreySeparator = new DuiSeparator(this);
 
