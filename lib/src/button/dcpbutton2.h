@@ -15,10 +15,10 @@ public:
     virtual void setText1(const QString& text);
     virtual void setText2(const QString& text);
 
-    virtual DuiLayout* createLayout();
-
 protected:
     DcpButton2(DuiWidget* parent, bool);
+    virtual DuiLayout* createLayout();
+    DuiLayout* textLayout();
 
 private:
     void updateLabelSizes();

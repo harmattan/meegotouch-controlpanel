@@ -1,15 +1,14 @@
 #ifndef DCPBUTTON2TOGGLE_H
 #define DCPBUTTON2TOGGLE_H
 
-#include "dcpbutton2.h"
+#include "dcpbutton2align.h"
 
-class DcpButton2Toggle: public DcpButton2 {
+class DcpButton2Toggle: public DcpButton2Align {
     Q_OBJECT
 public:
     explicit DcpButton2Toggle(DuiWidget* parent = 0);
 
     virtual void setText2(const QString& text);
-    virtual DuiLayout* createLayout();
     virtual void setSmallToggle(bool isOn);
 
 signals:
@@ -18,8 +17,11 @@ signals:
 protected slots:
     void onSmallToggled (bool isOn);
 
+protected:
+    virtual DuiLayout* createLayout();
+    DuiButton* toggleButton();
+
 private:
-    DuiButton* m_ToggleButton;
     QString m_Text2;
 };
 

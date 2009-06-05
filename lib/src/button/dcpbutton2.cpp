@@ -13,7 +13,8 @@ DcpButton2::DcpButton2(DuiWidget* parent)
 
 // protected constructor which avoids creating the layout
 DcpButton2::DcpButton2(DuiWidget* parent, bool)
-    : DuiButton(parent), m_Label1(0), m_Label2(0)
+    : DuiButton(parent), m_Label1(0), m_Label2(0),
+      m_Triangle(0), m_TextLayout(0), m_TextLayoutPolicy1(0)
 {
     setObjectName("DcpButton");
 }
@@ -84,5 +85,10 @@ void DcpButton2::setText(const QString& text1, const QString& text2)
 {
     setText1(text1);
     setText2(text2);
+}
+
+DuiLayout* DcpButton2::textLayout()
+{
+    return m_TextLayout;
 }
 
