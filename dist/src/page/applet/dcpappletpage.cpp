@@ -87,9 +87,10 @@ DcpAppletPage::changeWidget(int widgetId)
 
 void DcpAppletPage::setUpMainWidgetSize()
 {
-    if (m_MainWidget){
-        int width = DuiSceneManager::instance()->visibleSceneRect().width() - 50;
-        int height = DuiSceneManager::instance()->visibleSceneRect().height() - 100;
+    DuiSceneManager* manager = DuiSceneManager::instance();
+    if (m_MainWidget && manager){
+        int width = manager->visibleSceneRect().width() - 50;
+        int height = manager->visibleSceneRect().height() - 100;
         m_MainWidget->setMinimumWidth(width);
         m_MainWidget->setMaximumWidth(width);
         m_MainWidget->setMinimumHeight(height);

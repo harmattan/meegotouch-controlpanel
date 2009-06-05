@@ -86,16 +86,20 @@ void UpdateButton::initWidget()
 
 void UpdateButton::onOrientationChanged()
 {
-    switch (DuiSceneManager::instance()->orientation()) {
+    DuiSceneManager* manager = DuiSceneManager::instance();
+    if (manager == 0) return;
+
+    switch (manager->orientation()) {
         case Dui::Landscape:
-            this->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width() - 30);
-            this->setMaximumWidth(DuiSceneManager::instance()->visibleSceneRect().width() - 30);
+            this->setMinimumWidth(manager->visibleSceneRect().width() - 30);
+            this->setMaximumWidth(manager->visibleSceneRect().width() - 30);
             break;
         case Dui::Portrait:
-            this->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 30);
-            this->setMaximumWidth(DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 30);
+            this->setMinimumWidth(manager->visibleSceneRect().width() / 2 - 30);
+            this->setMaximumWidth(manager->visibleSceneRect().width() / 2 - 30);
             break;
         default:
             break;
     }
 }
+

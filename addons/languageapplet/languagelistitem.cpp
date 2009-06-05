@@ -150,18 +150,17 @@ void LanguageListItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void LanguageListItem::onOrientationAngleChanged()
 {
-    switch(DuiSceneManager::instance()->orientation()) {
+    DuiSceneManager* manager = DuiSceneManager::instance();
+    if (manager == 0) return;
+
+    switch(manager->orientation()) {
         case Dui::Landscape:
-            this->setMinimumWidth(
-                    DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 50);
-            this->setMaximumWidth(
-                    DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 50);
+            this->setMinimumWidth(manager->visibleSceneRect().width() / 2 - 50);
+            this->setMaximumWidth(manager->visibleSceneRect().width() / 2 - 50);
             break;
         case Dui::Portrait:
-            this->setMinimumWidth(
-                    DuiSceneManager::instance()->visibleSceneRect().width() - 50);
-            this->setMaximumWidth(
-                    DuiSceneManager::instance()->visibleSceneRect().width() - 50);
+            this->setMinimumWidth(manager->visibleSceneRect().width() - 50);
+            this->setMaximumWidth(manager->visibleSceneRect().width() - 50);
             break;
         default:
             break;

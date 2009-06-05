@@ -83,7 +83,7 @@ void DcpMainCategory::createContents()
 }
 
 
-void 
+void
 DcpMainCategory::onOrientationChange (const Dui::Orientation &orientation)
 {
     if (orientation == Dui::Portrait) {
@@ -93,11 +93,13 @@ DcpMainCategory::onOrientationChange (const Dui::Orientation &orientation)
     }
 
     DcpCategory::onOrientationChange(orientation);
-}   
+}
 
 
 void DcpMainCategory::polishEvent ()
 {
-    onOrientationChange(DuiSceneManager::instance()->orientation());
+    if (DuiSceneManager::instance()){
+        onOrientationChange(DuiSceneManager::instance()->orientation());
+    }
 }
 

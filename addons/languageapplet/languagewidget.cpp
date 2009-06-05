@@ -166,7 +166,7 @@ void LanguageWidget::updateLanguageButtons()
    m_DisplayButton->setText1(DcpLanguage::DisplayButtonTitle);
    m_DisplayButton->setText2(DcpLanguageConf::fullName(
                DcpLanguageConf::instance()->displayLanguage()));
-   
+
    m_KeyboardButton->setText1(DcpLanguage::KeyboardButtonTitle +
         " (" + QString::number(DcpLanguageConf::instance()->keyboardLanguagesNumber())
         + ")");
