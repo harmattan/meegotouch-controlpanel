@@ -97,13 +97,10 @@ void TimeZoneContainer::initWidget()
     int count = 0;
     while (zoneIter.hasNext()) {
         zoneIter.next();
-        if (zoneIter.value()->country() == "Europe" || 
-            zoneIter.value()->country() == "Asia") {
-            m_ItemMap[count++] = new TimeZoneListItem(zoneIter.value()->country(),
-                                                      zoneIter.value()->gmt(),
-                                                      zoneIter.value()->city(), 
-                                                      this);
-        }
+        m_ItemMap[count++] = new TimeZoneListItem(zoneIter.value()->country(),
+                                                  zoneIter.value()->gmt(),
+                                                  zoneIter.value()->city(), 
+                                                  this);
     }
     zoneMap.clear();
     
@@ -114,6 +111,8 @@ void TimeZoneContainer::initWidget()
         m_MainLayoutPolicy->addItemAtPosition(iter.value(), iter.key() / 2, iter.key() % 2);
         connect(iter.value(), SIGNAL(clicked(TimeZoneListItem*)), 
                 this, SLOT(itemClicked(TimeZoneListItem*)));
+        if (iter.value()->city() == "London")
+            iter.value()->checked(true);
     }
     
     if (m_ItemMap.size() % 2 == 0) {
