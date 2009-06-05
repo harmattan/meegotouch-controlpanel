@@ -23,6 +23,7 @@ void DcpAppletCategoryPage::createContent()
     DcpCategoryPage::createContent();
     m_Category->setMaxColumns(2);
     m_Category->setVerticalSpacing(0);
+    m_Category->setCreateSeparators(true);
 
     DcpAppletDb::instance()->refresh();
     DcpAppletMetadataList list = DcpAppletDb::instance()->listByCategory(appletCategory());

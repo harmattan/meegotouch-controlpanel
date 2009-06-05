@@ -7,7 +7,6 @@
 #include <duigridlayoutpolicy.h>
 #include <duilabel.h>
 #include <duibutton.h>
-#include <duiseparator.h>
 #include <duiscenemanager.h>
 
 int height = 88;
@@ -73,7 +72,6 @@ void UpdateButton::initWidget()
     mainLayoutPolicy->addItemAtPosition(
             new DcpSpacerItem(this, 5, 5, QSizePolicy::Fixed, QSizePolicy::Expanding),
             2, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(new DuiSeparator(this), 3, Qt::AlignCenter);
 
     // set fixed height
     this->setMinimumHeight(height);

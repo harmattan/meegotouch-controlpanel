@@ -15,6 +15,7 @@ DuiLabelStyle {
 
 #DuiContainerTitle {
     font: font("Nokia Sans Cn", 20px);
+/*    titlebar-background: "";  TODO */
 }
 
 #DcpPage {
@@ -28,7 +29,10 @@ DuiNavigationBarStyle {
 
 
 DuiButtonStyle#DcpButton {
-    normal-background: "C2-container";
+/*    normal-background: "C2-container"; */
+    normal-background-image: image();
+    normal-color: #000000;
+    normal-opacity: 0.0;
     minimum-size: size(1,84);
     maximum-size: size(999,84);
 }
@@ -63,6 +67,11 @@ DuiLabelStyle#DcpButtonLine2 {
 /*    imageName: image(starfield); */
     maximum-size: size(64, 64);
     minimum-size: size(64, 64);
+    border-top: 0;
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+
 /*    backgroundBorder: "Thumbnail-frame"; */
 }
 
@@ -78,11 +87,11 @@ DuiButtonStyle#DcpButtonToggle {
     font: font("Nokia Sans Cn", 18);
 }
 
-/* TODO for manni XXX
-#DcpGreySeparator {
-    lineWidth: 1;
-    startColor: #505050;
-    endColor: #505050;
+DuiSeparatorStyle {
+    image-horizontal: "Task-switcher-background-bottom-lines";
+}
+
+/*
+DuiSeparatorStyle#DcpSmallSeparator {
 }
 */
-

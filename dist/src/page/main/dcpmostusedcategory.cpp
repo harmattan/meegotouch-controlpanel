@@ -21,7 +21,6 @@
 DcpMostUsedCategory::DcpMostUsedCategory(const QString& title, QGraphicsWidget *parent) :
   DcpMainCategory(title, parent)
 {
-
   	createContents();
 
     m_LandscapeLayout->setContentsMargins(12, 0, 12, 0);
@@ -35,6 +34,7 @@ DcpMostUsedCategory::DcpMostUsedCategory(const QString& title, QGraphicsWidget *
 
 void DcpMostUsedCategory::createContents()
 {
+    setCreateSeparators(true);
     setMaxColumns(2);
 
     DcpAppletMetadataList list = DcpAppletDb::instance()->listMostUsed();
@@ -46,7 +46,7 @@ void DcpMostUsedCategory::createContents()
 		else
 			addComponent(item, false);
     }
-    correctLines();
+    removeLastSeparators();
 }
 
 
@@ -68,27 +68,6 @@ void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata, bool fullLin
 void DcpMostUsedCategory::onOrientationChange(const Dui::Orientation& orientation)
 {
     DcpMainCategory::onOrientationChange(orientation);
-
-    // set correct lines
-    correctLines();
 }
 
-void DcpMostUsedCategory::correctLines()
-{
-    /* TODO XXX
-    int itemCount = layout()->count();
-    if (itemCount > 0) {
-        DcpBasicComponent* lastWidget = 
-            static_cast<DcpBasicComponent*>(layout()->itemAt(itemCount-1));
-        lastWidget->setLine(false);
-        if (itemCount > 1) {
-            DcpBasicComponent* lastLastWidget = 
-                static_cast<DcpBasicComponent*>(layout()->itemAt(itemCount-2));
-            bool isLandscape = (DuiSceneManager::instance()->orientation() == Dui::Landscape);
-            bool isPaired = (itemCount % 2 == 0);
-            lastLastWidget->setLine(!(isPaired && isLandscape));
-        }
-    }
-    */
-}
 

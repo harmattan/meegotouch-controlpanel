@@ -5,13 +5,16 @@
 #include <duilinearlayoutpolicy.h>
 
 #include <duiscenemanager.h>
-#include <duibasiclayoutanimator.h>
 #include <QtDebug>
+#include <DuiSeparator>
 
+
+static const QString SEPARATOR_OBJECTNAME = "DcpSmallSeparator";
 
 DcpMainCategory::DcpMainCategory(
         const QString& title, QGraphicsWidget *parent
-) : DcpCategory(title, parent), m_ColCount(0), m_RowCount(0), m_ItemCount(0)
+) : DcpCategory(title, parent), m_ColCount(0), m_RowCount(0), m_ItemCount(0),
+    m_CreateSeparators(false)
 {
     m_Layout = new DuiLayout(this);
     m_Layout->setAnimator(0);
@@ -41,12 +44,25 @@ void DcpMainCategory::setVerticalSpacing(int space)
     m_PortraitLayout->setSpacing(space);
 }
 
+// adds a full line item
 void DcpMainCategory::add(DcpComponent *component)
 {
     if (m_ColCount > 0) {
         m_ColCount = 0;
         m_RowCount++;
+        if (m_CreateSeparators) m_RowCount++;
     }
+
+    // add separators:
+    if (m_CreateSeparators) {
+        DuiSeparator* separator = new DuiSeparator(this);
+        separator->setObjectName(SEPARATOR_OBJECTNAME);
+        m_LandscapeLayout->addItemAtPosition(separator, m_RowCount+1, 0, 1,
+                                             m_MaxColumns);
+        m_PortraitLayout->addItemAtPosition(separator, m_ItemCount+1);
+    }
+
+    // add the component:
     m_LandscapeLayout->addItemAtPosition(component,
                                          m_RowCount, 0 /* column */,
               1 /* rowspan */, m_MaxColumns /* columnspan */);
@@ -56,16 +72,29 @@ void DcpMainCategory::add(DcpComponent *component)
     DcpCategory::add(component);
     m_RowCount++;
     m_ItemCount++;
+    if (m_CreateSeparators) m_ItemCount++;
 }
 
 
+// adds a normal item (not full line)
 void DcpMainCategory::append(DcpComponent *component)
 {
     if (m_ColCount >= m_MaxColumns)
     {
         m_ColCount = 0;
         m_RowCount++;
+        if (m_CreateSeparators) m_RowCount++;
     }
+
+    // add separators:
+    if (m_CreateSeparators) {
+        DuiSeparator* separator = new DuiSeparator(this);
+        separator->setObjectName(SEPARATOR_OBJECTNAME);
+        m_LandscapeLayout->addItemAtPosition(separator, m_RowCount+1,
+                                             m_ColCount);
+        m_PortraitLayout->addItemAtPosition(separator, m_ItemCount+1);
+    }
+
 
     m_LandscapeLayout->addItemAtPosition(component,
                                          m_RowCount, m_ColCount);
@@ -75,6 +104,7 @@ void DcpMainCategory::append(DcpComponent *component)
     DcpCategory::add(component);
     m_ColCount++;
     m_ItemCount++;
+    if (m_CreateSeparators) m_ItemCount++;
 }
 
 
@@ -102,4 +132,28 @@ void DcpMainCategory::polishEvent ()
         onOrientationChange(DuiSceneManager::instance()->orientation());
     }
 }
+
+void DcpMainCategory::setCreateSeparators (bool create)
+{
+    m_CreateSeparators = create;
+}
+
+void DcpMainCategory::removeLastSeparators()
+{
+    Q_ASSERT(m_CreateSeparators);
+    if (m_RowCount > 1){
+        QGraphicsLayoutItem* item1 = m_LandscapeLayout->itemAt(m_RowCount+1, 0);
+        Q_ASSERT(item1);
+        for (int col=1; col<m_MaxColumns; col++){
+            QGraphicsLayoutItem* item2 = m_LandscapeLayout->itemAt(m_RowCount+1, col);
+            if (item1 != item2 && item2 != 0) {
+                item2->graphicsItem()->hide();
+            }
+        }
+        item1->graphicsItem()->hide();
+    }
+    // TODO it is possible that this will remove the last before separator of
+    // m_PortraitLayout
+}
+
 
