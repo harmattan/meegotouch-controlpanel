@@ -16,6 +16,7 @@ public:
 protected:
     virtual DuiLayout* createLayout();
     DuiImage* imageWidget();
+    DuiImage* m_BorderWidget;
 };
 
 

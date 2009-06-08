@@ -53,6 +53,13 @@ DuiLabelStyle#DcpButtonLine2 {
     /* color: #FFFFFF; */
 }
 
+DuiImageStyle {
+    border-top: 0;
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
 #DcpSeeMoreIndicator {
     normal-background: "See-more-indicator-small";
     minimum-size: size(16, 16);
@@ -63,17 +70,24 @@ DuiLabelStyle#DcpButtonLine2 {
     margin-right: 0; */
 }
 
-#DcpButtonImage {
+DuiImageStyle#DcpButtonImage {
 /*    imageName: image(starfield); */
     maximum-size: size(64, 64);
     minimum-size: size(64, 64);
-    border-top: 0;
-    border-bottom: 0;
-    border-left: 0;
-    border-right: 0;
 
-/*    backgroundBorder: "Thumbnail-frame"; */
+    border-top: 1;
+    border-bottom: 1;
+    border-left: 1;
+    border-right: 1;
 }
+
+/*
+DuiImageStyle#DcpButtonImageBorder {
+    backgroundBorder: "Thumbnail-frame";  TODO 
+    maximum-size: size(70, 70);
+    minimum-size: size(70, 70);
+}
+*/
 
 DuiButtonStyle#DcpButtonToggle {
     normal-background: "Toggle-off";
@@ -91,7 +105,3 @@ DuiSeparatorStyle {
     image-horizontal: "Task-switcher-background-bottom-lines";
 }
 
-/*
-DuiSeparatorStyle#DcpSmallSeparator {
-}
-*/
