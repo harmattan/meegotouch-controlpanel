@@ -29,10 +29,13 @@ DuiNavigationBarStyle {
 
 
 DuiButtonStyle#DcpButton {
-/*    normal-background: "C2-container"; */
+/*    normal-background: "C2-container";
+ *    in current design the button has no background: */
     normal-background-image: image();
     normal-color: #000000;
     normal-opacity: 0.0;
+
+    /* this sets the height of the button fixed: */
     minimum-size: size(1,84);
     maximum-size: size(999,84);
 }
@@ -70,24 +73,12 @@ DuiImageStyle {
     margin-right: 0; */
 }
 
-DuiImageStyle#DcpButtonImage {
-/*    imageName: image(starfield); */
+DuiButtonStyle#DcpButtonImage {
     maximum-size: size(64, 64);
     minimum-size: size(64, 64);
-
-    border-top: 1;
-    border-bottom: 1;
-    border-left: 1;
-    border-right: 1;
+    icon-size: size(62, 62);
+    normal-background-image: scalable(Thumbnail-frame, 10, 10, 10, 10);
 }
-
-/*
-DuiImageStyle#DcpButtonImageBorder {
-    backgroundBorder: "Thumbnail-frame";  TODO 
-    maximum-size: size(70, 70);
-    minimum-size: size(70, 70);
-}
-*/
 
 DuiButtonStyle#DcpButtonToggle {
     normal-background: "Toggle-off";

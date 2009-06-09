@@ -1,9 +1,7 @@
 #include "dcpbutton2image.h"
 
-#include <DuiImage>
+#include <DuiButton>
 #include <DuiLayout>
-#include <DuiLinearLayoutPolicy>
-
 
 DcpButton2Image::DcpButton2Image(DuiWidget* parent)
     : DcpButton2Align(parent, false)
@@ -11,53 +9,30 @@ DcpButton2Image::DcpButton2Image(DuiWidget* parent)
     this->setLayout(this->createLayout());
 }
 
-void DcpButton2Image::setPixmap (const QPixmap* pixmap)
-{
-    Q_ASSERT(imageWidget());
-//    imageWidget()->setPixmap(*pixmap);
-}
-
 void DcpButton2Image::setImageName (const QString& imageName)
 {
     Q_ASSERT(imageWidget());
-    imageWidget()->setImageName(imageName);
+    imageWidget()->setIconID(imageName);
 }
 
-void DcpButton2Image::setBorderPixmap (const QPixmap* pixmap)
-{
-    Q_UNUSED (pixmap);
-    // TODO
-}
-
-#include <DuiTheme>
 DuiLayout* DcpButton2Image::createLayout()
 {
     // image:
-    DuiImage* image = new DuiImage(this);
+    DuiButton* image = new DuiButton(this); // we use button here because
+                                            // DuiImage not yet supports the 
+                                            // features we would need:
+                                            // setting the image from css etc
     image->setObjectName("DcpButtonImage");
-#if 0
-    // border
-    m_BorderWidget = new DuiImage(this);
-    m_BorderWidget->setObjectName("DcpButtonImageBorder");
-    // TODO: make this work
-//    m_BorderWidget->setImageName("Thumbnail-frame");
-
-    // put border on image:
-    DuiLayout* imageLayout = new DuiLayout(0);
-    DuiLinearLayoutPolicy* imagePolicy = new DuiLinearLayoutPolicy (imageLayout,
-                                                               Qt::Vertical);
-    imagePolicy->addItemAtPosition(m_BorderWidget, 0, Qt::AlignCenter);
-    image->setLayout(imageLayout);
-#endif
+    image->setAcceptedMouseButtons(0);
 
     setAlignedWidget(image);
     return DcpButton2Align::createLayout();
 }
 
 
-DuiImage* DcpButton2Image::imageWidget()
+DuiButton* DcpButton2Image::imageWidget()
 {
-    return qobject_cast<DuiImage*>(alignedWidget());
+    return qobject_cast<DuiButton*>(alignedWidget());
 }
 
 
