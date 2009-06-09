@@ -4,10 +4,7 @@
 #include "dcpappletdb.h"
 #include "dcpappletmetadata.h"
 
-#include "dcplabel2component.h"
-#include "dcplabel2togglecomponent.h"
-#include "dcplabel2imagecomponent.h"
-#include "dcplabelbuttoncomponent.h"
+#include "dcpbriefcomponent.h"
 
 DcpAppletCategoryPage::DcpAppletCategoryPage(const QString &appletCategory) 
                       : DcpCategoryPage(),
@@ -26,6 +23,7 @@ void DcpAppletCategoryPage::createContent()
     DcpCategoryPage::createContent();
     m_Category->setMaxColumns(2);
     m_Category->setVerticalSpacing(0);
+    m_Category->setCreateSeparators(true);
 
     DcpAppletDb::instance()->refresh();
     DcpAppletMetadataList list = DcpAppletDb::instance()->listByCategory(appletCategory());
@@ -45,42 +43,16 @@ void DcpAppletCategoryPage::createContent()
 
 void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata, bool odd)
 {
-    DcpBasicComponent *component = 0;
+    DcpBriefComponent *component = new DcpBriefComponent(metadata, m_Category);
 
-     switch(metadata->widgetTypeID()) {
-         case DCPLABEL:
-/*             component = new DcpLabelComponent(0, metadata);
-         break;*/
-         case DCPLABEL2:
-             component = new DcpLabel2Component(m_Category, metadata);
-         break;
-         case DCPLABELBUTTON:
-             component = new DcpLabelButtonComponent(m_Category, metadata);
-         break;
-         case DCPLABEL2BUTTON:
-         /*
-             component = new DcpLabel2ButtonComponent(m_Category, metadata);
-         break;*/
-         case DCPLABEL2IMAGE :
-             component = new DcpLabel2ImageComponent(m_Category, metadata);
-         break;
-         default:
-         break;
-     }
-
-    if (component) {
-
-        component->setSubPage(Pages::APPLET, metadata->name());
-        connect(component, SIGNAL(openSubPage(Pages::Handle)),
-                        this, SIGNAL(openSubPage(Pages::Handle)));
-        if (odd)
-        {	
-            m_Category->add(component);
-        }
-	else
-        {
-        	m_Category->append(component);
-        }
+    component->setSubPage(Pages::APPLET, metadata->name());
+    connect(component, SIGNAL(openSubPage(Pages::Handle)),
+            this, SIGNAL(openSubPage(Pages::Handle)));
+    if (odd)
+    {	
+        m_Category->add(component);
+    } else {
+        m_Category->append(component);
     }
 }
 

@@ -115,6 +115,8 @@ void DcpLanguageSelectContainer::initCheckedItems()
 
 void DcpLanguageSelectContainer::orientationChanged()
 {
+    if (DuiSceneManager::instance()==0) return;
+
     int itemNum = m_ItemLayout->count();
     switch (DuiSceneManager::instance()->orientation()) {
         case Dui::Landscape:

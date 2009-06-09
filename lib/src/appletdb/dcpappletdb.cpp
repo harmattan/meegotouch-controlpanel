@@ -67,7 +67,7 @@ DcpAppletDb::listByCategory(const QString& category)
     return filtered;
 }
 
-DcpAppletMetadataList 
+DcpAppletMetadataList
 DcpAppletDb::listMostUsed()
 {
    DcpAppletMetadataList mostUsed = m_AppletsByName.values();

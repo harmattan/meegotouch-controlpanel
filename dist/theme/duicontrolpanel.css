@@ -15,6 +15,7 @@ DuiLabelStyle {
 
 #DuiContainerTitle {
     font: font("Nokia Sans Cn", 20px);
+/*    titlebar-background: "";  TODO */
 }
 
 #DcpPage {
@@ -27,66 +28,71 @@ DuiNavigationBarStyle {
 }
 
 
+DuiButtonStyle#DcpButton {
+/*    normal-background: "C2-container";
+ *    in current design the button has no background: */
+    normal-background-image: image();
+    normal-color: #000000;
+    normal-opacity: 0.0;
+
+    /* this sets the height of the button fixed: */
+    minimum-size: size(1,84);
+    maximum-size: size(999,84);
+}
+
+DuiLabelStyle#DcpButtonMain {
+    font: font("Nokia Sans Cn", 20);
+    /* color: #FFFFFF; */
+}
+
+DuiLabelStyle#DcpButtonLine1 {
+    font: font("Nokia Sans Cn", 18);
+    /* color: #FFFFFF; */
+}
+
+DuiLabelStyle#DcpButtonLine2 {
+    font: font("Nokia Sans Cn", 16);
+    minimum-size: size(200,12);
+    /* color: #FFFFFF; */
+}
+
 DuiImageStyle {
-  leftMargin: 0.0;
-  topMargin: 0.0;
-  rightMargin: 0.0;
-  bottomMargin: 0.0;
-}	
+    border-top: 0;
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+}
 
+#DcpSeeMoreIndicator {
+    normal-background: "See-more-indicator-small";
+    minimum-size: size(16, 16);
+    maximum-size: size(16, 16);
+    margin-left: 8;
+/*    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 0; */
+}
 
-DcpButtonStyle {
-    
-    fieldMarginLeft: 12;
-    fieldMarginRight: 0;
-    fieldMarginTop: 12;
-    fieldMarginBottom: 6;
-    fieldMarginMiddle: 4;
+DuiButtonStyle#DcpButtonImage {
+    maximum-size: size(64, 64);
+    minimum-size: size(64, 64);
+    icon-size: size(62, 62);
+    normal-background-image: scalable(Thumbnail-frame, 10, 10, 10, 10);
+}
 
-    backgroundImage: "C2-container";
-
-    backgroundSize: size(355, 88);
-
-    textColor0: #FFFFFF;
-    font0: font("Nokia Sans Cn", 20);
-
-    textColor1: #FFFFFF;
-    font1: font("Nokia Sans Cn", 18);
-
-    textColor2: #FFA000;
-    font2: font("Nokia Sans Cn", 16);
-
-    textOffColor: #404040;
-
-    textSize1: size(300, 40); 
-    textPos1: pos(0, 3);
-
-    textSize2: size(300, 30); 
-    textPos2: pos(0, 33);
-
-    textAlign0: left;
-    textAlign1: left;
-    textAlign2: left;
-
-    triangleBackground: "See-more-indicator-small";
-    triangleBackgroundSize: size(16, 16);
-    trianglePos: pos(0, 13);
-
-    marginTriangle: 4;
-
-    imageName: image(starfield);
-    imageSize: size(64, 64);
-
-    marginSpacer: 12;
-
-    backgroundBorder: "Thumbnail-frame";
-
-    toggleOn: "Toggle-on";
-    toggleOff: "Toggle-off";
-
+DuiButtonStyle#DcpButtonToggle {
+    normal-background: "Toggle-off";
+    pressed-background: "Toggle-on";
+    maximum-size: size(64, 64);
+    minimum-size: size(64, 64);
 }
 
 #DcpCommonDialogTitleLabel {
     color: #FFFFFF;
     font: font("Nokia Sans Cn", 18);
 }
+
+DuiSeparatorStyle {
+    image-horizontal: "Task-switcher-background-bottom-lines";
+}
+

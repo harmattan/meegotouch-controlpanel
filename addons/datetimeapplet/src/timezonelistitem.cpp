@@ -189,14 +189,17 @@ void TimeZoneListItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void TimeZoneListItem::onOrientationChanged()
 {
-    switch (DuiSceneManager::instance()->orientation()) {
+    DuiSceneManager* manager = DuiSceneManager::instance();
+    if (manager == 0) return;
+
+    switch (manager->orientation()) {
         case Dui::Landscape:
-            this->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 40);
-            this->setMaximumWidth(DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 40);
+            this->setMinimumWidth(manager->visibleSceneRect().width() / 2 - 40);
+            this->setMaximumWidth(manager->visibleSceneRect().width() / 2 - 40);
             break;
         case Dui::Portrait:
-            this->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width() - 40);
-            this->setMaximumWidth(DuiSceneManager::instance()->visibleSceneRect().width() - 40);
+            this->setMinimumWidth(manager->visibleSceneRect().width() - 40);
+            this->setMaximumWidth(manager->visibleSceneRect().width() - 40);
             break;
         default:
             break;

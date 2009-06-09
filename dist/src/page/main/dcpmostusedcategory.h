@@ -17,7 +17,6 @@ public:
 
 protected:
     virtual void createContents();
-    void correctLines();
 
 };
 

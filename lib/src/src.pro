@@ -8,7 +8,7 @@ OBJECTS_DIR   = .objects
 # Input
 HEADERS += $$system(find ./ -name \'*.h\')
 message(HEADERS)
-SOURCES += $$system(find ./ -name \'*.cpp\')
+SOURCES += $$system(find ./ -name \'*.cpp\' -not -name \'moc_*\')
 
 TARGET        = $$qtLibraryTarget(duicontrolpanel)
 DESTDIR       = ../lib
@@ -20,7 +20,11 @@ install_headers.files += applet/dcpapplet.h \
     applet/dcpwidget.h \
     applet/dcpmetadata.h \
     applet/dcpbrief.h \
-    button/dcpbutton.h \
+    button/dcpbutton2.h \
+    button/dcpbutton2align.h \
+    button/dcpbutton2toggle.h \
+    button/dcpbutton2image.h \
+    button/dcpbriefwidget.h \
     widget/dcpwidgettypes.h \
     widget/dcpspaceritem.h \
     widget/dcpcommondialog.h \
@@ -28,4 +32,5 @@ install_headers.files += applet/dcpapplet.h \
     appletdb/dcpappletloader.h \
     appletdb/dcpappletmetadata.h
 
-INSTALLS += target install_headers 
+INSTALLS += target install_headers
+

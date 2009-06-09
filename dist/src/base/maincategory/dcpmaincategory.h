@@ -19,6 +19,8 @@ public:
 
     void setHorizontalSpacing(int space);
     void setVerticalSpacing(int space);
+    void setCreateSeparators (bool create);
+    void removeLastSeparators();
 
 public slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation);
@@ -36,6 +38,8 @@ protected:
     int m_ColCount;
     int m_RowCount;
     int m_ItemCount;
+
+    bool m_CreateSeparators;
 };
 
 #endif // DCPMAINCATEGORY_H
