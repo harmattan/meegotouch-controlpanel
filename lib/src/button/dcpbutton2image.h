@@ -2,7 +2,7 @@
 #define DCPBUTTON2IMAGE_H
 
 #include "dcpbutton2align.h"
-class DuiButton;
+class DuiImage;
 
 class DcpButton2Image: public DcpButton2Align {
     Q_OBJECT
@@ -13,7 +13,8 @@ public:
 
 protected:
     virtual DuiLayout* createLayout();
-    DuiButton* imageWidget();
+    DuiImage* imageWidget();
+    DuiImage* m_Image;
 };
 
 

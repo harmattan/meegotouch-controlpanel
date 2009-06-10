@@ -19,7 +19,7 @@ DuiLabelStyle {
 }
 
 #DcpPage {
-	background: "starfield";
+    background: "starfield";
 }
 
 
@@ -73,11 +73,27 @@ DuiImageStyle {
     margin-right: 0; */
 }
 
-DuiButtonStyle#DcpButtonImage {
+DuiButtonStyle#DcpButtonImageBorder {
     maximum-size: size(64, 64);
     minimum-size: size(64, 64);
-    icon-size: size(62, 62);
+/*    icon-size: size(62, 62); */
     normal-background-image: scalable(Thumbnail-frame, 10, 10, 10, 10);
+
+    padding-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+}
+
+DuiImageStyle#DcpButtonImage {
+    maximum-size: size(62, 62);
+    minimum-size: size(62, 62);
+
+    /* TODO remove this once AlignCenter of the layoutpolicy works correctly */
+    margin-left: 1;
+    margin-top: 1;
+    margin-right: 0;
+    margin-bottom: 0;
 }
 
 DuiButtonStyle#DcpButtonToggle {

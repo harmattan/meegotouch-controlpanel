@@ -21,6 +21,6 @@ Align= Left
 Text1= Theme
 Text2=default
 
-# Image= /usr/share/themes/dui/duicontrolpanel/images/starfield_thumb.png
-Image= starfield
+Image= /usr/share/duicontrolpanel/themes/images/starfield.png
+# Image= starfield
 
