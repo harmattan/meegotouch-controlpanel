@@ -21,4 +21,5 @@ Text1= Wallpaper
 Text2= Name of the wallpaper
 
 # Image= /usr/share/themes/dui/duicontrolpanel/images/starfield_thumb.png
-Image= starfield
+Image=starfield_thumb.png
+

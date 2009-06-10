@@ -1,13 +1,14 @@
-theme.files += theme/*.svg \
-		theme/*.conf \
-		theme/*.css
-images.files += theme/images/*.svg \
-		theme/images/*.png
+themedir = $${PREFIX}/share/duicontrolpanel/themes
 
-theme.path = $${PREFIX}/share/themes/dui/duicontrolpanel
-images.path = $${theme.path}/images
+images.files += theme/images/*
+images.path = $$themedir/images
 
-message ("Theme path will be: "$$theme.path)
-# message ("Files are: "$$theme.files)
-INSTALLS += theme images
+style.files += theme/style/*
+style.path = $$themedir/style
+
+svg.files += theme/svg/*
+svg.path = $$themedir/svg
+
+message ("Theme path will be: "$$themedir)
+INSTALLS += images svg style
 
