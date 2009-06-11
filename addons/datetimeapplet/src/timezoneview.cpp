@@ -9,8 +9,6 @@
 #include <duilinearlayoutpolicy.h>
 #include <duitextedit.h>
 #include <duiscenemanager.h>
-#include <QDebug>
-
 
 TimeZoneView::TimeZoneView(QGraphicsWidget *parent)
              :DcpWidget(parent)
@@ -52,7 +50,7 @@ void TimeZoneView::initWidget()
     m_TextEdit->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width() - 40);
     connect(m_TextEdit, SIGNAL(gainedFocus(DuiTextEdit *, Qt::FocusReason)),
             this, SLOT(clearTextEdit(DuiTextEdit *)));
-    // connect(m_TextEdit, SIGNAL(textChanged()), this, SLOT(filteringListItems()));
+    connect(m_TextEdit, SIGNAL(textChanged()), this, SLOT(filteringListItems()));
 
     // add items to textEditLayoutPolicy
     textEditLayoutPolicy->addItemAtPosition(
@@ -64,14 +62,11 @@ void TimeZoneView::initWidget()
             2, Qt::AlignRight | Qt::AlignVCenter);
      
     // m_TimeZoneContainer
-    // m_TimeZoneContainer = new TimeZoneContainer(this);
-
-    TimeZoneListItem *item = new TimeZoneListItem("Haha", "ha", "Ha", this);
+    m_TimeZoneContainer = new TimeZoneContainer(this);
 
     // add items to mainLayoutPolicy
     mainLayoutPolicy->addItemAtPosition(textEditLayout, 0, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(item, 1, Qt::AlignCenter);
-    qDebug() << "TimeZoneView init is finished";
+    mainLayoutPolicy->addItemAtPosition(m_TimeZoneContainer, 1, Qt::AlignCenter);
 }
 
 void TimeZoneView::clearTextEdit(DuiTextEdit *textEdit)
@@ -81,7 +76,6 @@ void TimeZoneView::clearTextEdit(DuiTextEdit *textEdit)
     }
 }
 
-/*
 void TimeZoneView::filteringListItems()
 {
     QString sample = m_TextEdit->text();
@@ -97,4 +91,5 @@ void TimeZoneView::filteringListItems()
     }
     
     m_TimeZoneContainer->updateLayout();
-}*/
+}
+

@@ -19,11 +19,11 @@ protected:
 
 private:
     DuiTextEdit *m_TextEdit;
-//    TimeZoneContainer *m_TimeZoneContainer;
+    TimeZoneContainer *m_TimeZoneContainer;
 
 private slots:
     virtual void clearTextEdit(DuiTextEdit *textEdit);
-  /*  virtual void filteringListItems();*/
+    virtual void filteringListItems();
 };
 #endif // TIMEZONEVIEW_H
 

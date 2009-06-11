@@ -29,8 +29,8 @@ private:
 private slots:
     virtual void itemClicked(TimeZoneListItem* item);
 
-signals:
-    void closing();
+// signals:
+//    void closing();
 };
 #endif // TIMEZONECONTAINER_H
 
