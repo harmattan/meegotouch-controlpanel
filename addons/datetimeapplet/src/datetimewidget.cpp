@@ -1,4 +1,5 @@
 #include "datetimewidget.h"
+#include "dcpdatetime.h"
 #include "dcpspaceritem.h"
 #include "dcpbutton2.h"
 #include "updatebutton.h"
@@ -27,6 +28,7 @@ DateTimeWidget::DateTimeWidget(QGraphicsWidget *parent)
          m_Dlg(0)
 {
     DuiTheme::loadCSS(cssDir + "datetimeapplet.css");
+    setReferer(DcpDateTime::NoReferer);
     initWidget();
 }
 
@@ -127,13 +129,14 @@ void DateTimeWidget::initWidget()
 
 void DateTimeWidget::showTimeZoneDialog()
 {
-    m_Dlg = new TimeZoneDialog();
+    /* m_Dlg = new TimeZoneDialog();
     this->setEnabled(false);
     m_Dlg->exec();
     this->setEnabled(true);
     m_Dlg->deleteLater();
     m_Dlg = 0;
-    updateTimeZoneText();
+    updateTimeZoneText();*/
+    emit changeWidget(DcpDateTime::TimeZone);
 }
 
 void DateTimeWidget::updateTimeText()

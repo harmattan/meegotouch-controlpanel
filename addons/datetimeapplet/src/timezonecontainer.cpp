@@ -29,6 +29,7 @@ QMap<int, TimeZoneListItem*> TimeZoneContainer::getMap()
 
 void TimeZoneContainer::updateLayout()
 {
+    /*
     for (int i = m_MainLayout->count() - 1; i >= 0; i--) {
         static_cast<TimeZoneListItem*>(m_MainLayout->itemAt(i))->setVisible(false);
         m_MainLayout->removeAt(i);
@@ -78,13 +79,14 @@ void TimeZoneContainer::updateLayout()
                     DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 40, 
                     10, QSizePolicy::Fixed, QSizePolicy::Expanding),
                 0, 1);
-    } 
+    } */
 }
 
 void TimeZoneContainer::initWidget()
 {
     // m_MainLayout
     m_MainLayout = new DuiLayout(this);
+    m_MainLayout->setAnimator(0);
     m_MainLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     this->setLayout(m_MainLayout);
     m_MainLayoutPolicy = new DuiGridLayoutPolicy(m_MainLayout);
@@ -92,6 +94,7 @@ void TimeZoneContainer::initWidget()
     m_MainLayout->setPolicy(m_MainLayoutPolicy);
 
     // add items to m_ItemMap
+    qDebug() << "ADD ITEMS TO ZONE ITEMMAP";
     QMap<int, DcpTimeZoneData*> zoneMap = DcpTimeZoneConf::instance()->getMap();
     QMapIterator<int, DcpTimeZoneData*> zoneIter(zoneMap);
     int count = 0;
@@ -105,6 +108,7 @@ void TimeZoneContainer::initWidget()
     zoneMap.clear();
     
     // add items to mainLayoutPolicy
+    qDebug() << "ADD ITEMS TO LAYOUT";
     QMapIterator<int, TimeZoneListItem*> iter(m_ItemMap);
     while (iter.hasNext()) {
         iter.next();
@@ -121,6 +125,8 @@ void TimeZoneContainer::initWidget()
     } else {
         m_ItemMap[m_ItemMap.size() - 1]->setVisibleSeparator(false);
     }
+
+    qDebug() << "FINISHED Add";
 }
 
 void TimeZoneContainer::itemClicked(TimeZoneListItem *item)

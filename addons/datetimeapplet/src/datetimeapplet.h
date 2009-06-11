@@ -14,9 +14,14 @@ class DateTimeApplet : public QObject, public DcpAppletIf
 public:
     virtual void init();
 	virtual DcpWidget* constructWidget(int widgetId);
+    virtual DcpWidget* pageMain();
+    virtual DcpWidget* pageTimeZone();
     virtual QString title() const;
     virtual QVector<DuiAction *> viewMenuItems();
     virtual DcpBrief* constructBrief();
+
+private:
+    int m_WidgetIndex;
 };
 #endif // DATETIMEAPPLET_H
 

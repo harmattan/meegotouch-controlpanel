@@ -12,17 +12,18 @@ HEADERS       = datetimeapplet.h \
                 updatebutton.h \
                 datetimebrief.h \
                 datetimetranslation.h \
-                timezonedialog.h \
+                timezoneview.h \
                 timezonelistitem.h \
                 timezonecontainer.h \
                 dcptimezoneconf.h \
-                dcptimezonedata.h
+                dcptimezonedata.h \
+                dcpdatetime.h
 
 SOURCES       = datetimeapplet.cpp \
 		        datetimewidget.cpp \
                 updatebutton.cpp \
                 datetimebrief.cpp \
-                timezonedialog.cpp \
+                timezoneview.cpp \
                 timezonelistitem.cpp \
                 timezonecontainer.cpp \
                 dcptimezoneconf.cpp \
