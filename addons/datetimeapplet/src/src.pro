@@ -1,4 +1,4 @@
-QMAKE_LIBDIR += ../../../lib/lib/
+QMAKE_LIBDIR  += ../../../lib/lib/
 TEMPLATE      = lib
 CONFIG       += plugin gui dui silent
 LIBS         += -lduicontrolpanel
@@ -35,7 +35,7 @@ css.files     = datetimeapplet.css
 DESTDIR       = ../lib
 
 target.path += $$(DEBIAN_DESTDIR)$$[QT_INSTALL_LIBS]/duicontrolpanel/applets
-css.path    += $$(DEBIAN_DESTDIR)/usr/share/themes/dui/duicontrolpanel
+css.path    += $$(DEBIAN_DESTDIR)/usr/share/duicontrolpanel/themes/style
 
 message("The plugin will be installed to: " $$target.path)
 message("CSS path will be: " $$css.path)

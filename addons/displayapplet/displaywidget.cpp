@@ -9,7 +9,7 @@
 #include <duilabel.h>
 #include <duislider.h>
 
-const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/";
+const QString cssDir = "/usr/share/duicontrolpanel/themes/style/";
 const int widgetWidth = 100;
 
 DisplayWidget::DisplayWidget(QGraphicsWidget *parent)

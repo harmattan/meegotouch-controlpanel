@@ -24,7 +24,7 @@
     #include <DuiMessageBox>
 #endif
 
-const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/";
+const QString cssDir = "/usr/share/duicontrolpanel/themes/style/";
 
 LanguageWidget::LanguageWidget(QGraphicsWidget *parent)
 	    :DcpWidget(parent), m_Dlg(0)
