@@ -57,7 +57,7 @@ void DcpPage::append (QGraphicsWidget* widget) {
 void DcpPage::remove (QGraphicsWidget* widget) {
     DuiLayout* layout = (DuiLayout*)centralWidget()->layout();
     Q_ASSERT(layout);
-    layout->removeItem(widget);
+    widget->deleteLater();
 }
 
 void DcpPage::back()

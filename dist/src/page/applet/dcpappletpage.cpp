@@ -63,8 +63,9 @@ void DcpAppletPage::back()
 void
 DcpAppletPage::changeWidget(int widgetId)
 {
-    if (m_MainWidget != 0)
-        m_MainWidget->hide();
+    if (m_MainWidget != 0) {
+        remove (m_MainWidget);
+    }
 
     m_MainWidget = m_AppletLoader->applet()->constructWidget(widgetId);
     connect(m_MainWidget, SIGNAL(changeWidget(int)), this, SLOT(changeWidget(int)));
