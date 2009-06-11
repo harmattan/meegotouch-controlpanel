@@ -9,6 +9,7 @@
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
 #include <duitextedit.h>
+#include <duiscenemanager.h>
 #include <QDebug>
 
 TimeZoneDialog::TimeZoneDialog()
@@ -38,6 +39,7 @@ void TimeZoneDialog::initWidget()
     m_TextEdit = new DuiTextEdit(DuiTextEditModel::MultiLine, 
                                  DcpDateTime::InputCountryText, centralWidget);
     m_TextEdit->setObjectName("InputTextEdit");
+    m_TextEdit->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width() - 80);
     m_TextEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     connect(m_TextEdit, SIGNAL(gainedFocus(DuiTextEdit *, Qt::FocusReason)), 
             this, SLOT(clearTextEdit(DuiTextEdit *)));
