@@ -15,16 +15,19 @@ Q_EXPORT_PLUGIN2(displayapplet, DateTimeApplet)
 void DateTimeApplet::init()
 {
     m_WidgetIndex = DcpDateTime::Main;
+    m_Title = DcpDateTime::AppletTitle;
 };
 
 DcpWidget* DateTimeApplet::constructWidget(int widgetId)
 {
     switch (widgetId) {
         case DcpDateTime::TimeZone:
+            m_Title = DcpDateTime::TimeZoneTitle;
             return pageTimeZone();
             break;
         case DcpDateTime::Main:
         default:
+            m_Title = DcpDateTime::AppletTitle;
             return pageMain();
             break;
     }
@@ -42,7 +45,7 @@ DcpWidget* DateTimeApplet::pageTimeZone()
 
 QString DateTimeApplet::title() const
 {
-        return DcpDateTime::AppletTitle;
+        return m_Title;
 }
 
 QVector<DuiAction*> DateTimeApplet::viewMenuItems()

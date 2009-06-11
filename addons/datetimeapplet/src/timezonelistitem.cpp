@@ -189,7 +189,7 @@ void TimeZoneListItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void TimeZoneListItem::onOrientationChanged()
 {
-    /* DuiSceneManager* manager = DuiSceneManager::instance();
+    DuiSceneManager* manager = DuiSceneManager::instance();
     if (manager == 0) return;
 
     switch (manager->orientation()) {
@@ -203,6 +203,6 @@ void TimeZoneListItem::onOrientationChanged()
             break;
         default:
             break;
-    }*/
+    }
 }
 

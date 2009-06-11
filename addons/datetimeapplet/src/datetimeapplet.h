@@ -22,6 +22,7 @@ public:
 
 private:
     int m_WidgetIndex;
+    QString m_Title;
 };
 #endif // DATETIMEAPPLET_H
 
