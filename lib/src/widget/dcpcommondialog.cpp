@@ -47,7 +47,7 @@ void DcpCommonDialog::initDialog()
     DuiLinearLayoutPolicy *mainLayoutPolicy =
         new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayout->setContentsMargins(25.0, 9.0, 8.0, 8.0);
+    mainLayout->setContentsMargins(17.0, 0.0, 7.0, 8.0);
     mainLayoutPolicy->setSpacing(10);
 
     // FIXME -- backbutton temporary solution until it is getting possible
@@ -59,7 +59,7 @@ void DcpCommonDialog::initDialog()
     connect (backButton, SIGNAL(clicked()), this, SLOT(accept()));
 
     DuiLayout* backButtonLayout = new DuiLayout(0);
-    backButtonLayout->setContentsMargins(0,0,30,0);
+    backButtonLayout->setContentsMargins(0.0, 0.0, 36.0, 0.0);
     backButtonLayout->setAnimator(0);
     DuiLinearLayoutPolicy* backButtonLayoutPolicy = new DuiLinearLayoutPolicy(backButtonLayout,
             Qt::Horizontal);
