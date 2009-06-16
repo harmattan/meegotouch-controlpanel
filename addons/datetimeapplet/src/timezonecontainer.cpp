@@ -3,12 +3,13 @@
 #include "dcptimezoneconf.h"
 #include "dcptimezonedata.h"
 #include "dcpspaceritem.h"
+#include "dcpicuconversions.h"
 
+#include <unicode/timezone.h>
 #include <duilayout.h>
 #include <duigridlayoutpolicy.h>
 #include <qtimer.h>
 #include <duiscenemanager.h>
-#include <duiicuconversions.h>
 #include <QDebug>
 
 TimeZoneContainer::TimeZoneContainer(DuiWidget *parent)
@@ -134,8 +135,8 @@ void TimeZoneContainer::itemClicked(TimeZoneListItem *item)
 
     // set default time zone
     UnicodeString zoneName =
-        DuiIcuConversions::qStringToUnicodeString(item->country() + "/" + item->city());
-    qDebug() << "TimeZone Name: " << DuiIcuConversions::unicodeStringToQString(zoneName);
+        qStringToUnicodeString(item->country() + "/" + item->city());
+    qDebug() << "TimeZone Name: " << unicodeStringToQString(zoneName);
     icu::TimeZone *zone = icu::TimeZone::createTimeZone(zoneName);
     icu::TimeZone::setDefault(*zone);
     // emit closing();

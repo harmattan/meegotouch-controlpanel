@@ -1,7 +1,8 @@
 #include "dcptimezoneconf.h"
 #include "dcptimezonedata.h"
 
-#include <duiicuconversions.h>
+#include <unicode/timezone.h>
+#include "dcpicuconversions.h"
 #include <QDebug>
 
 DcpTimeZoneConf *DcpTimeZoneConf::sm_Instance = 0;
@@ -33,7 +34,7 @@ DcpTimeZoneData DcpTimeZoneConf::defaultTimeZone() const
 {
     UnicodeString defaultZone;
     icu::TimeZone::createDefault()->getDisplayName(defaultZone);
-    QString zoneId = DuiIcuConversions::unicodeStringToQString(defaultZone);
+    QString zoneId = unicodeStringToQString(defaultZone);
     qDebug() << "DEFAULT TIME ZONE : " << zoneId;
     DcpTimeZoneData timeZone(zoneId);
     return timeZone;
@@ -66,7 +67,7 @@ QStringList DcpTimeZoneConf::supportedTimeZones()
     UErrorCode status = U_ZERO_ERROR;
     const UnicodeString *next = stringEnum->snext(status);
     while (next != 0) {
-        result << DuiIcuConversions::unicodeStringToQString(*next);
+        result << unicodeStringToQString(*next);
         next = stringEnum->snext(status);
     }
 
