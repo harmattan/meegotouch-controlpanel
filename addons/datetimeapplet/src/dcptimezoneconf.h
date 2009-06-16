@@ -14,17 +14,19 @@ class DcpTimeZoneConf : public QObject
 public:
     static DcpTimeZoneConf* instance();
     virtual ~DcpTimeZoneConf();
-    QMap<int, DcpTimeZoneData*> getMap() const;
+    QMultiMap<QString, DcpTimeZoneData*> getMap() const;
     DcpTimeZoneData defaultTimeZone() const;
 
 protected:
     DcpTimeZoneConf();
     QStringList supportedTimeZones();
+    void initCountry();
 
 private:
     Q_DISABLE_COPY(DcpTimeZoneConf);
     static DcpTimeZoneConf *sm_Instance;
-    QMap<int, DcpTimeZoneData*> m_ItemMap;
+    QMultiMap<QString, QString> m_CountryMap;
+    QMultiMap<QString, DcpTimeZoneData*> m_ItemMap;
 };
 #endif // DCPTIMEZONECONF_H
 

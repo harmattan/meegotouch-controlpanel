@@ -100,7 +100,7 @@ void TimeZoneListItem::initWidget()
     // LabelLayout
     m_LabelLayout = new DuiLayout(0);
     m_LabelLayout->setAnimator(0);
-    m_LabelLayout->setContentsMargins(20.0, 0.0, 20.0, 0.0);
+    m_LabelLayout->setContentsMargins(12.0, 0.0, 12.0, 0.0);
     m_LabelLayoutPolicy = new DuiGridLayoutPolicy(m_LabelLayout);
     m_LabelLayout->setPolicy(m_LabelLayoutPolicy);
     m_LabelLayoutPolicy->setSpacing(3);
@@ -118,6 +118,8 @@ void TimeZoneListItem::initWidget()
     m_CountryLabel = new DuiLabel("<font color=#ffffff>" + m_Country +
                                   "</font>", this);
     m_CountryLabel->setObjectName("CountryLabel");
+    m_CountryLabel->setMinimumWidth(
+            DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 110);
 
     // m_GmtCityLabel
     m_GmtCityLabel = new DuiLabel("<font color=#ffffff>" + m_Gmt + " " 
@@ -157,7 +159,7 @@ void TimeZoneListItem::initWidget()
     // Add items to m_LabelLayoutPolicy
     m_LabelLayoutPolicy->addItemAtPosition(textLayout, 0, 0);
     m_LabelLayoutPolicy->addItemAtPosition(
-            new DcpSpacerItem(this, 10, 10, QSizePolicy::Expanding, QSizePolicy::Expanding),
+            new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Expanding),
             0, 1);
     m_LabelLayoutPolicy->addItemAtPosition(checkMarkLayout, 0, 2);
 

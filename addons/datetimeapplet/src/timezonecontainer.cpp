@@ -92,8 +92,8 @@ void TimeZoneContainer::initWidget()
     m_MainLayout->setPolicy(m_MainLayoutPolicy);
 
     // add items to m_ItemMap
-    QMap<int, DcpTimeZoneData*> zoneMap = DcpTimeZoneConf::instance()->getMap();
-    QMapIterator<int, DcpTimeZoneData*> zoneIter(zoneMap);
+    QMultiMap<QString, DcpTimeZoneData*> zoneMap = DcpTimeZoneConf::instance()->getMap();
+    QMapIterator<QString, DcpTimeZoneData*> zoneIter(zoneMap);
     int count = 0;
     while (zoneIter.hasNext()) {
         zoneIter.next();

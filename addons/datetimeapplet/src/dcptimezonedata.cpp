@@ -26,6 +26,11 @@ QString DcpTimeZoneData::country() const
     return m_Country;
 }
 
+void DcpTimeZoneData::setCountry(QString country) 
+{
+    m_Country = country;
+}
+
 QString DcpTimeZoneData::city() const
 {
     return m_City;
@@ -64,7 +69,7 @@ void DcpTimeZoneData::init()
             break;
         case 3:
             m_Country = item.at(0) + "/" + item.at(1);
-            m_City = item.at(1);
+            m_City = item.at(2);
             break;
         default:
             break;
