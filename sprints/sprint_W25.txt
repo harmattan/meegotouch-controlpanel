@@ -25,8 +25,8 @@ ID:40
 NAME:        Make Virtual Keboard usable 
 Responsible: Manner
 Estimation:  4 hours
-Status:      In Progress 
-Progress:    4 4 4 4
+Status:      Completed
+Progress:    2 0 0 0
 
 
 ID:          50     
@@ -40,8 +40,8 @@ ID:          60
 NAME:        Fix icu linking issue on desktop 
 Responsible: Manner
 Estimation:  4 hours
-Status:      In Progress 
-Progress:    4 4 4 4
+Status:      Completed
+Progress:    2 0 0 0
 
 ID:          70     
 NAME:        Move hardcoded margin etc. settings to css 
