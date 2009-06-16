@@ -1,6 +1,7 @@
 #include "dcptimezonedata.h"
 
-#include <duiicuconversions.h>
+#include "dcpicuconversions.h"
+#include <unicode/timezone.h>
 #include <QStringList>
 
 DcpTimeZoneData::DcpTimeZoneData(QString timezone)
@@ -44,7 +45,7 @@ QString DcpTimeZoneData::gmt() const
 void DcpTimeZoneData::init()
 {
     // set GMT offset
-    icu::UnicodeString uZone = DuiIcuConversions::qStringToUnicodeString(m_TimeZone);
+    icu::UnicodeString uZone = qStringToUnicodeString(m_TimeZone);
     int32_t offset = icu::TimeZone::createTimeZone(uZone)->getRawOffset();
     double value = offset / 3600000;
     if (value != 0) {
