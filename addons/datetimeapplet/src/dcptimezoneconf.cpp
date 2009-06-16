@@ -2,6 +2,7 @@
 #include "dcptimezonedata.h"
 
 #include <unicode/timezone.h>
+#include <unicode/strenum.h>
 #include "dcpicuconversions.h"
 #include <QDebug>
 
