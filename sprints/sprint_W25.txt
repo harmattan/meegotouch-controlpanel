@@ -64,7 +64,7 @@ NAME:        Move hardcoded margin etc. settings to css
 Responsible: Manner
 Estimation:  4 hours
 Status:      In Progress
-Progress:    4 4 4 4
+Progress:    4 3 3 3
 
 DuiStartup:
 
