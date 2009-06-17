@@ -75,4 +75,8 @@ void DcpTimeZoneData::init()
         default:
             break;
     }
+
+    if (m_City.contains("_")) {
+        m_City.replace('_', ' ');
+    }
 }
