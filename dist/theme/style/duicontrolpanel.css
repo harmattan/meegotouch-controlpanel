@@ -1,6 +1,10 @@
 DuiLabelStyle {
-    color: #dddddd;
     font: font("Nokia Sans Cn", 12);
+}
+
+DuiAbstractLayoutPolicyStyle#Page {
+    margin-left: 15.0;
+    margin-right: 15.0;
 }
 
 
@@ -11,16 +15,39 @@ DuiLabelStyle {
 
 #ComponentDescription {
     font: font("Nokia Sans Cn", 16px);
-    margin-left: 15;
-    margin-right: 15;
-    margin-top: 15;
-    margin-bottom: 20;
+    margin-left: 20;
+    margin-right: 20;
+    margin-top: 12;
+    margin-bottom: 15;
 }
 
 #DuiContainerTitle {
     font: font("Nokia Sans Cn", 20px);
+    margin-left: 19;
+    margin-right: 19;
+    margin-bottom: 6;
+    margin-top: 6;
+}
+
+DuiAbstractLayoutPolicyStyle#MostUsedItems {
+    margin-left: 10.0;
+    margin-right: 10.0;
+    margin-bottom: 6.0;
+    margin-top: 6.0;
+
+    horizontal-spacing: 12.0;
+    vertical-spacing: 10.0;
+}
+
+DuiContainerStyle {
+    margin-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 0;
+    icon-size: size(1,1);
 /*    titlebar-background: "";  TODO */
 }
+
 
 #DcpPage {
     background: "starfield";
@@ -40,24 +67,27 @@ DuiButtonStyle#DcpButton {
     normal-opacity: 0.0;
 
     /* this sets the height of the button fixed: */
-    minimum-size: size(1,84);
-    maximum-size: size(999,84);
+    minimum-size: size(1,93);
+    maximum-size: size(999,93);
+
+    padding-top: 12;
+    padding-bottom: 12;
+    padding-left: 4;
+    padding-right: 8;
 }
 
 DuiLabelStyle#DcpButtonMain {
     font: font("Nokia Sans Cn", 20);
-    /* color: #FFFFFF; */
 }
 
 DuiLabelStyle#DcpButtonLine1 {
     font: font("Nokia Sans Cn", 18);
-    /* color: #FFFFFF; */
 }
 
 DuiLabelStyle#DcpButtonLine2 {
     font: font("Nokia Sans Cn", 16);
     minimum-size: size(200,12);
-    /* color: #FFFFFF; */
+    color: #FFA000;
 }
 
 DuiImageStyle {
