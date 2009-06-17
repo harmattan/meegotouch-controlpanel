@@ -4,27 +4,43 @@ ID: 10
 NAME:        Collect Contry Code info from zone.tab and names from iso3166.tab
 Responsible: Rinyu
 Estimation:  6 hours
-Status:      In progress
-Progress:    6 6 6 6
+Status:      Completed
+Progress:    6 4 0 0 
 
 ID: 20     
 NAME:        Integrate it into dcptimezoneconf and dcptimezonedata 
 Responsible: Rinyu
 Estimation:  6 hours
-Status:      Not started 
-Progress:    6 6 6 6
+Status:      Completed 
+Progress:    6 2 2 0
+
+ID: 25     
+NAME:       DuiConf into dcptimezoneconf 
+Responsible: Rinyu
+Estimation:  4 hours
+Status:      In Progres
+Progress:    4 4 4 4
 
 ID:30     
 NAME:        DuiGrid implementation: main screen 
 Responsible: Retsoft
 Estimation:  12 hours
 Status:      In Progress 
-Progress:    12 12 12 12
+Progress:    12 8 8 8
 
 ID:40     
 NAME:        Make Virtual Keboard usable 
 Responsible: Manner
 Estimation:  4 hours
+Status:      Completed 
+Progress:    4 4 0 0
+
+ID:45     
+NAME:        CSS for duistartup 
+Responsible: Manner
+Estimation:  2 hours
+Status:      In Progress
+Progress:    2 2 2 2
 Status:      Completed
 Progress:    2 0 0 0
 
@@ -40,8 +56,8 @@ ID:          60
 NAME:        Fix icu linking issue on desktop 
 Responsible: Manner
 Estimation:  4 hours
-Status:      Completed
-Progress:    2 0 0 0
+Status:      Completed 
+Progress:    4 4 0 0
 
 ID:          70     
 NAME:        Move hardcoded margin etc. settings to css 
@@ -65,8 +81,8 @@ ID:          1010
 NAME:        Debianize duistartup
 Responsible: latzko
 Estimation:  2 hours
-Status:      In Progress 
-Progress:    2 2 2 2
+Status:      Completed 
+Progress:    2 2 0 0
 
 ID:          1015
 NAME:        Boot sequence
@@ -79,14 +95,14 @@ ID:          1020
 NAME:        'Startup' category page for DuiStartup
 Responsible: latzko
 Estimation:  4 hours
-Status:      Not started 
-Progress:    4 4 4 4
+Status:      Completed 
+Progress:    4 4 0 0
 
 ID:          1040
 NAME:        Make 'Startup' buttons launchable
 Responsible: latzko
 Estimation:  4 hours
-Status:      Not started 
+Status:      In progress 
 Progress:    4 4 4 4
 
 ID:          1050

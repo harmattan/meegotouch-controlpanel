@@ -98,7 +98,8 @@ void TimeZoneContainer::initWidget()
     int count = 0;
     while (zoneIter.hasNext()) {
         zoneIter.next();
-        m_ItemMap[count++] = new TimeZoneListItem(zoneIter.value()->country(),
+        m_ItemMap[count++] = new TimeZoneListItem(zoneIter.value()->timeZone(),
+                                                  zoneIter.value()->country(),
                                                   zoneIter.value()->gmt(),
                                                   zoneIter.value()->city(), 
                                                   this);
@@ -112,7 +113,8 @@ void TimeZoneContainer::initWidget()
         m_MainLayoutPolicy->addItemAtPosition(iter.value(), iter.key() / 2, iter.key() % 2);
         connect(iter.value(), SIGNAL(clicked(TimeZoneListItem*)), 
                 this, SLOT(itemClicked(TimeZoneListItem*)));
-        if (iter.value()->city() == "London")
+        QString current = DcpTimeZoneConf::instance()->defaultTimeZone().city();
+        if (iter.value()->city() == current)
             iter.value()->checked(true);
     }
     
@@ -134,11 +136,6 @@ void TimeZoneContainer::itemClicked(TimeZoneListItem *item)
     item->checked(true);
 
     // set default time zone
-    UnicodeString zoneName =
-        qStringToUnicodeString(item->country() + "/" + item->city());
-    qDebug() << "TimeZone Name: " << unicodeStringToQString(zoneName);
-    icu::TimeZone *zone = icu::TimeZone::createTimeZone(zoneName);
-    icu::TimeZone::setDefault(*zone);
-    // emit closing();
+    DcpTimeZoneConf::instance()->setDefaultTimeZone(item->timeZone());
 }
 

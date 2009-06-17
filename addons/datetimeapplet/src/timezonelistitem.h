@@ -14,9 +14,10 @@ class TimeZoneListItem : public DuiWidget
     Q_OBJECT
 
 public:
-    TimeZoneListItem(QString country, QString gmt, QString city,
+    TimeZoneListItem(QString timezone, QString country, QString gmt, QString city,
                      DuiWidget *parent = 0);
     virtual ~TimeZoneListItem();
+    QString timeZone();
     QString country();
     QString gmt();
     QString city();
@@ -37,6 +38,7 @@ protected slots:
     virtual void onOrientationChanged();
 
 private:
+    QString m_TimeZone;
     QString m_Country;
     QString m_Gmt;
     QString m_City;
