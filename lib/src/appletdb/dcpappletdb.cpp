@@ -132,5 +132,6 @@ void DcpAppletDb::eraseEntry(DcpAppletMetadata *metadata)
 {
     m_AppletsByName.remove(metadata->name());
     m_AppletsByFile.remove(metadata->fileName());
-    delete metadata;
+    metadata->deleteLater();
 }
+

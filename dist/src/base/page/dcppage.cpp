@@ -16,6 +16,8 @@ DcpPage::DcpPage() : DuiApplicationPage()
 
 DcpPage::~DcpPage()
 {
+    disconnect(this, SLOT(organizeContent(const Dui::Orientation &)));
+
     qDebug() << "page destroyal" << title() << (void*) this;
 }
 
