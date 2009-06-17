@@ -41,6 +41,8 @@ Responsible: Manner
 Estimation:  2 hours
 Status:      In Progress
 Progress:    2 2 2 2
+Status:      Completed
+Progress:    2 0 0 0
 
 
 ID:          50     

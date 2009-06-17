@@ -1,6 +1,7 @@
 #include "dcptimezonedata.h"
 
-#include <duiicuconversions.h>
+#include "dcpicuconversions.h"
+#include <unicode/timezone.h>
 #include <QStringList>
 
 DcpTimeZoneData::DcpTimeZoneData(QString timezone)
@@ -26,6 +27,11 @@ QString DcpTimeZoneData::country() const
     return m_Country;
 }
 
+void DcpTimeZoneData::setCountry(QString country) 
+{
+    m_Country = country;
+}
+
 QString DcpTimeZoneData::city() const
 {
     return m_City;
@@ -39,7 +45,7 @@ QString DcpTimeZoneData::gmt() const
 void DcpTimeZoneData::init()
 {
     // set GMT offset
-    icu::UnicodeString uZone = DuiIcuConversions::qStringToUnicodeString(m_TimeZone);
+    icu::UnicodeString uZone = qStringToUnicodeString(m_TimeZone);
     int32_t offset = icu::TimeZone::createTimeZone(uZone)->getRawOffset();
     double value = offset / 3600000;
     if (value != 0) {
@@ -64,9 +70,13 @@ void DcpTimeZoneData::init()
             break;
         case 3:
             m_Country = item.at(0) + "/" + item.at(1);
-            m_City = item.at(1);
+            m_City = item.at(2);
             break;
         default:
             break;
+    }
+
+    if (m_City.contains("_")) {
+        m_City.replace('_', ' ');
     }
 }

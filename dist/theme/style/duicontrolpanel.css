@@ -11,6 +11,10 @@ DuiLabelStyle {
 
 #ComponentDescription {
     font: font("Nokia Sans Cn", 16px);
+    margin-left: 15;
+    margin-right: 15;
+    margin-top: 15;
+    margin-bottom: 20;
 }
 
 #DuiContainerTitle {

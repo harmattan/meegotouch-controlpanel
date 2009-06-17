@@ -10,6 +10,7 @@ public:
     virtual ~DcpTimeZoneData();
     QString timeZone() const;
     QString country() const;
+    void setCountry(QString country);
     QString city() const;
     QString gmt() const;
 
