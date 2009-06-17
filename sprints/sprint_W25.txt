@@ -18,8 +18,8 @@ ID: 25
 NAME:       DuiConf into dcptimezoneconf 
 Responsible: Rinyu
 Estimation:  4 hours
-Status:      In Progres
-Progress:    4 4 4 4
+Status:      Completed
+Progress:    4 0 2 0
 
 ID:30     
 NAME:        DuiGrid implementation: main screen 
