@@ -13,8 +13,10 @@
 
 const int height = 75;
 
-TimeZoneListItem::TimeZoneListItem(QString country, QString gmt, QString city, DuiWidget *parent)
+TimeZoneListItem::TimeZoneListItem(QString timezone, QString country, QString gmt, 
+                                   QString city, DuiWidget *parent)
                  :DuiWidget(parent),
+                  m_TimeZone(timezone),
                   m_Country(country),
                   m_Gmt(gmt),
                   m_City(city),
@@ -26,6 +28,11 @@ TimeZoneListItem::TimeZoneListItem(QString country, QString gmt, QString city, D
 
 TimeZoneListItem::~TimeZoneListItem()
 {
+}
+
+QString TimeZoneListItem::timeZone()
+{
+    return m_TimeZone;
 }
 
 QString TimeZoneListItem::country()

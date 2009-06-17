@@ -5,6 +5,8 @@
 #include <unicode/timezone.h>
 #include <unicode/strenum.h>
 #include "dcpicuconversions.h"
+// #include <duiconf.h>
+#include <QSettings>
 #include <QDebug>
 
 DcpTimeZoneConf *DcpTimeZoneConf::sm_Instance = 0;
@@ -35,12 +37,26 @@ QMultiMap<QString, DcpTimeZoneData*> DcpTimeZoneConf::getMap() const
 
 DcpTimeZoneData DcpTimeZoneConf::defaultTimeZone() const
 {
-    UnicodeString defaultZone;
-    icu::TimeZone::createDefault()->getDisplayName(defaultZone);
-    QString zoneId = unicodeStringToQString(defaultZone);
-    qDebug() << "DEFAULT TIME ZONE : " << zoneId;
-    DcpTimeZoneData timeZone(zoneId);
+    /* QVariant zoneId;
+    QString zone;
+    m_Conf->getValue("/system/timezone", zoneId);
+    if (zoneId.toString().isEmpty()) {
+        zone = "Europe/London";
+    } else {
+        zone = zoneId.toString();
+    }*/
+    QSettings settings("Nokia", "DuiControlPanel");
+    QString zone = settings.value("system/timezone", "Europe/London").toString();
+    
+    DcpTimeZoneData timeZone(zone);
     return timeZone;
+}
+
+void DcpTimeZoneConf::setDefaultTimeZone(QString zoneId)
+{
+    // m_Conf->set("/system/timezone", zoneId);
+    QSettings settings("Nokia", "DuiControlPanel");
+    settings.setValue("system/timezone", zoneId);
 }
 
 void DcpTimeZoneConf::initCountry()
@@ -93,6 +109,10 @@ void DcpTimeZoneConf::initCountry()
 DcpTimeZoneConf::DcpTimeZoneConf()
                 :QObject()
 {
+    // create m_Conf and cache keys under /system
+    // m_Conf = new DuiConf();
+    // m_Conf->addDir("/system", true);
+    
     // fill up m_CountryMap
     this->initCountry();
     
