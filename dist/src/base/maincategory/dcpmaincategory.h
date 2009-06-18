@@ -14,7 +14,7 @@ public:
 
     virtual void add(DcpComponent *component);
     virtual void append(DcpComponent *component);
-    virtual void setMaxColumns(int columns){m_MaxColumns = columns;};
+    virtual void setMaxColumns(int columns);
     DuiLayout* duiLayout() const {return m_Layout;};
 
     void setHorizontalSpacing(int space);

@@ -7,7 +7,6 @@ OBJECTS_DIR   = .objects
 
 # Input
 HEADERS += $$system(find ./ -name \'*.h\')
-message(HEADERS)
 SOURCES += $$system(find ./ -name \'*.cpp\' -not -name \'moc_*\')
 
 TARGET        = $$qtLibraryTarget(duicontrolpanel)

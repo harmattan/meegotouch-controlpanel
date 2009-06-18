@@ -155,4 +155,11 @@ void DcpMainCategory::removeLastSeparators()
     // m_PortraitLayout
 }
 
+void DcpMainCategory::setMaxColumns(int columns){
+    m_MaxColumns = columns;
 
+    // force same size of columns:
+    for (int i=0; i<columns; i++){
+        m_LandscapeLayout->setColumnStretchFactor(i, 1);
+    }
+}
