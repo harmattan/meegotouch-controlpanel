@@ -18,15 +18,22 @@ ID: 25
 NAME:       DuiConf into dcptimezoneconf 
 Responsible: Rinyu
 Estimation:  4 hours
-Status:      In Progres
-Progress:    4 4 4 4
+Status:      Completed
+Progress:    4 4 4 0 
 
 ID:30     
 NAME:        DuiGrid implementation: main screen 
 Responsible: Retsoft
 Estimation:  12 hours
 Status:      In Progress 
-Progress:    12 8 8 8
+Progress:    12 8 4 4
+
+ID:35     
+NAME:        DuiGrid in applets 
+Responsible: Retsoft
+Estimation:  12 hours
+Status:      In Progress
+Progress:    4 4 4 4
 
 ID:40     
 NAME:        Make Virtual Keboard usable 
@@ -39,8 +46,6 @@ ID:45
 NAME:        CSS for duistartup 
 Responsible: Manner
 Estimation:  2 hours
-Status:      In Progress
-Progress:    2 2 2 2
 Status:      Completed
 Progress:    2 0 0 0
 
@@ -50,7 +55,8 @@ NAME:        Check if deleteLater would solve the segfault on quit
 Responsible: Manner
 Estimation:  4 hours
 Status:      In Progress 
-Progress:    4 4 4 4
+Progress:    4 4 0 0
+Result:     It does not solve it 
 
 ID:          60     
 NAME:        Fix icu linking issue on desktop 

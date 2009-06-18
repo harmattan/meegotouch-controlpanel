@@ -13,7 +13,7 @@ class DcpBriefWidget: public DuiWidget {
 public:
 	DcpBriefWidget(DcpAppletMetadata* metadata, DuiWidget* parent = 0);
     void setMetadata(DcpAppletMetadata* metadata);
-
+    DcpAppletMetadata* metadata() const {return m_Metadata;}
 public slots:
     void updateContents();
 
