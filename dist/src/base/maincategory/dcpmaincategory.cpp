@@ -14,7 +14,7 @@ static const QString SEPARATOR_OBJECTNAME = "DcpSmallSeparator";
 DcpMainCategory::DcpMainCategory(
         const QString& title, QGraphicsWidget *parent
 ) : DcpCategory(title, parent), m_ColCount(0), m_RowCount(0), m_ItemCount(0),
-    m_CreateSeparators(false)
+    m_CreateSeparators(false), m_HasLastSeparator(false)
 {
     m_Layout = new DuiLayout(this);
     m_Layout->setAnimator(0);
@@ -52,15 +52,6 @@ void DcpMainCategory::add(DcpComponent *component)
         if (m_CreateSeparators) m_RowCount++;
     }
 
-    // add separators:
-    if (m_CreateSeparators) {
-        DuiSeparator* separator = new DuiSeparator(this);
-        separator->setObjectName(SEPARATOR_OBJECTNAME);
-        m_LandscapeLayout->addItemAtPosition(separator, m_RowCount+1, 0, 1,
-                                             m_MaxColumns);
-        m_PortraitLayout->addItemAtPosition(separator, m_ItemCount+1);
-    }
-
     // add the component:
     m_LandscapeLayout->addItemAtPosition(component,
                                          m_RowCount, 0 /* column */,
@@ -68,10 +59,20 @@ void DcpMainCategory::add(DcpComponent *component)
     m_PortraitLayout->addItemAtPosition(component,
                                         m_ItemCount);
 
+    // add separators:
+    if (m_CreateSeparators) {
+        DuiSeparator* separator = new DuiSeparator(this);
+        separator->setObjectName(SEPARATOR_OBJECTNAME);
+        m_LandscapeLayout->addItemAtPosition(separator, m_RowCount+1, 0, 1,
+                                             m_MaxColumns);
+        m_PortraitLayout->addItemAtPosition(separator, m_ItemCount+1);
+        m_ItemCount++;
+    }
+
+
     DcpCategory::add(component);
     m_RowCount++;
     m_ItemCount++;
-    if (m_CreateSeparators) m_ItemCount++;
 }
 
 
@@ -85,6 +86,13 @@ void DcpMainCategory::append(DcpComponent *component)
         if (m_CreateSeparators) m_RowCount++;
     }
 
+
+    m_LandscapeLayout->addItemAtPosition(component,
+                                         m_RowCount, m_ColCount);
+    qDebug() << "XXX portraitlayout:" << m_ItemCount;
+    m_PortraitLayout->addItemAtPosition(component,
+                                        m_ItemCount);
+
     // add separators:
     if (m_CreateSeparators) {
         DuiSeparator* separator = new DuiSeparator(this);
@@ -92,18 +100,12 @@ void DcpMainCategory::append(DcpComponent *component)
         m_LandscapeLayout->addItemAtPosition(separator, m_RowCount+1,
                                              m_ColCount);
         m_PortraitLayout->addItemAtPosition(separator, m_ItemCount+1);
+        m_ItemCount++;
     }
-
-
-    m_LandscapeLayout->addItemAtPosition(component,
-                                         m_RowCount, m_ColCount);
-    m_PortraitLayout->addItemAtPosition(component,
-                                        m_ItemCount);
 
     DcpCategory::add(component);
     m_ColCount++;
     m_ItemCount++;
-    if (m_CreateSeparators) m_ItemCount++;
 }
 
 
@@ -115,6 +117,10 @@ void DcpMainCategory::createContents()
 void
 DcpMainCategory::onOrientationChange (const Dui::Orientation &orientation)
 {
+    if (m_CreateSeparators) {
+        fixSeparators(orientation);
+    }
+
     if (orientation == Dui::Portrait) {
         m_Layout->setPolicy(m_PortraitLayout);
     } else {
@@ -137,22 +143,27 @@ void DcpMainCategory::setCreateSeparators (bool create)
     m_CreateSeparators = create;
 }
 
-void DcpMainCategory::removeLastSeparators()
+void DcpMainCategory::fixSeparators(const Dui::Orientation &orientation)
 {
     Q_ASSERT(m_CreateSeparators);
-    if (m_RowCount > 1){
-        QGraphicsLayoutItem* item1 = m_LandscapeLayout->itemAt(m_RowCount+1, 0);
-        Q_ASSERT(item1);
-        for (int col=1; col<m_MaxColumns; col++){
-            QGraphicsLayoutItem* item2 = m_LandscapeLayout->itemAt(m_RowCount+1, col);
-            if (item1 != item2 && item2 != 0) {
-                item2->graphicsItem()->hide();
-            }
+
+    // in landscape mode all items from the last line has to be hidden,
+    // in portrait only the last one
+    bool isLandscape = (orientation == Dui::Landscape);
+    for (int col=0; col<m_MaxColumns-1; col++){
+        QGraphicsLayoutItem* item = m_LandscapeLayout->itemAt(m_RowCount+1, col);
+        if (item != 0) {
+            item->graphicsItem()->setVisible(!isLandscape);
         }
-        item1->graphicsItem()->hide();
     }
-    // TODO it is possible that this will remove the last before separator of
-    // m_PortraitLayout
+    QGraphicsLayoutItem* lastItem = m_LandscapeLayout->itemAt(m_RowCount+1, m_MaxColumns-1);
+    if (!lastItem) {
+        // last item is single
+        lastItem = m_LandscapeLayout->itemAt(m_RowCount, 0);
+    }
+    if (lastItem) {
+        lastItem->graphicsItem()->setVisible(m_HasLastSeparator);
+    }
 }
 
 void DcpMainCategory::setMaxColumns(int columns){
@@ -163,3 +174,8 @@ void DcpMainCategory::setMaxColumns(int columns){
         m_LandscapeLayout->setColumnStretchFactor(i, 1);
     }
 }
+
+void DcpMainCategory::setDoNotRemoveLastSeparator(bool remove) {
+    m_HasLastSeparator = remove;
+}
+

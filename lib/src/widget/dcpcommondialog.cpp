@@ -97,7 +97,7 @@ void DcpCommonDialog::initDialog()
         new DuiLinearLayoutPolicy(titleLayout, Qt::Horizontal);
     titleLayout->setPolicy(titleLayoutPolicy);
     titleLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
-    
+
     // titleLabel
     DuiLabel *titleLabel = new DuiLabel(m_TitleText, containerWidget);
     titleLabel->setObjectName("DcpCommonDialogTitleLabel");
@@ -106,7 +106,7 @@ void DcpCommonDialog::initDialog()
     // greySeparator
     m_GreySeparator = new DuiSeparator(containerWidget);
     m_GreySeparator->setAcceptedMouseButtons(0);
-    
+
     // Add items to titleLayoutPolicy
     titleLayoutPolicy->addItemAtPosition(
         new DcpSpacerItem(containerWidget, 5, 5,
@@ -141,8 +141,7 @@ void DcpCommonDialog::onOrientationAngleChanged()
     if (DuiSceneManager::instance() == 0) return;
 
     QSizeF dialogSize = DuiSceneManager::instance()->visibleSceneRect();
-    dialogSize.setWidth(dialogSize.width());
-    dialogSize.setHeight(dialogSize.height() - 100);
+    //dialogSize.setHeight(dialogSize.height());
     m_Viewport->setMinimumSize(dialogSize);
     m_Viewport->setMaximumSize(dialogSize);
 }

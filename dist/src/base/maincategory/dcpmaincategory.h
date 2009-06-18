@@ -19,8 +19,8 @@ public:
 
     void setHorizontalSpacing(int space);
     void setVerticalSpacing(int space);
-    void setCreateSeparators (bool create);
-    void removeLastSeparators();
+    void setCreateSeparators (bool create = true);
+    void setDoNotRemoveLastSeparator(bool remove = true);
 
 public slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation);
@@ -28,6 +28,7 @@ public slots:
 protected:
     virtual void createContents();
     virtual void polishEvent ();
+    void fixSeparators(const Dui::Orientation &orientation);
 
     DuiLayout* m_Layout;
     class DuiGridLayoutPolicy* m_LandscapeLayout;
@@ -40,6 +41,7 @@ protected:
     int m_ItemCount;
 
     bool m_CreateSeparators;
+    bool m_HasLastSeparator;
 };
 
 #endif // DCPMAINCATEGORY_H
