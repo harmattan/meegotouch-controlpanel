@@ -25,7 +25,6 @@ DcpMainCategory::DcpMainCategory(
     m_PortraitLayout = new DuiLinearLayoutPolicy(m_Layout, Qt::Vertical);
 
     m_Layout->setContentsMargins(0,0,0,0);
-    m_LandscapeLayout->setContentsMargins(0,0,0,0);
     setLayout(m_Layout);
 
     // some defaults

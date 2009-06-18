@@ -9,6 +9,7 @@
 #include <QtDebug>
 #include <DuiSceneManager>
 #include <DuiGridLayoutPolicy>
+#include <DuiLinearLayoutPolicy>
 
 /*!
  * \class DcpMostUsedCategory
@@ -23,13 +24,9 @@ DcpMostUsedCategory::DcpMostUsedCategory(const QString& title, QGraphicsWidget *
 {
   	createContents();
 
-    m_LandscapeLayout->setContentsMargins(12, 0, 12, 12);
+    m_PortraitLayout->setObjectName("MostUsedItems");
+    m_LandscapeLayout->setObjectName("MostUsedItems");
     setVerticalSpacing(0);
-
-//    layout()->setContentsMargins(30, 0, 30, 0);
-
-   //m_Background = new QPixmap("images/backgroundP.png");
-
 }
 
 void DcpMostUsedCategory::createContents()

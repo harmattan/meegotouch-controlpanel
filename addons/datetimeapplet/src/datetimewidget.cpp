@@ -157,10 +157,8 @@ void DateTimeWidget::updateDateText()
 
 void DateTimeWidget::updateTimeZoneText()
 {
-    /* m_TimeZoneButton->setText(DcpDateTime::CurrentTimeZoneText, 
-            DcpTimeZoneConf::instance()->defaultTimeZone().city() + " " +
-            DcpTimeZoneConf::instance()->defaultTimeZone().gmt());*/
-    m_TimeZoneButton->setText(DcpDateTime::CurrentTimeZoneText,
-                              "GMT+0:00 London");
+    QString timezone = DcpTimeZoneConf::instance()->defaultTimeZone().gmt() + " " +
+                       DcpTimeZoneConf::instance()->defaultTimeZone().city();
+    m_TimeZoneButton->setText(DcpDateTime::CurrentTimeZoneText, timezone);
 }
 

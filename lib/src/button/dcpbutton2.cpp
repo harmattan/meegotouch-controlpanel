@@ -45,7 +45,7 @@ DuiLayout* DcpButton2::createLayout()
     m_TextLayoutPolicy1->addItemAtPosition(m_Label1,0,1);
     m_TextLayoutPolicy1->addItemAtPosition(m_Label2,1,1);
 
-    m_TextLayout->setContentsMargins(9,9,9,9);
+    m_TextLayout->setContentsMargins(0,0,0,0);
     updateLabelSizes();
     return m_TextLayout;
 }

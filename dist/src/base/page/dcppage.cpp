@@ -16,6 +16,8 @@ DcpPage::DcpPage() : DuiApplicationPage()
 
 DcpPage::~DcpPage()
 {
+    disconnect(this, SLOT(organizeContent(const Dui::Orientation &)));
+
     qDebug() << "page destroyal" << title() << (void*) this;
 }
 
@@ -36,9 +38,10 @@ void DcpPage::_createLayout()
     DuiLayout* layout = new DuiLayout();
     layout->setAnimator(0);
     m_MainLayout = new DuiLinearLayoutPolicy(layout, Qt::Vertical);
+    m_MainLayout->setObjectName("Page");
     layout->setAnimator(0);
     layout->setPolicy(m_MainLayout);
-    layout->setContentsMargins(12.0,0.0,12.0,0.0);
+    layout->setContentsMargins(0.0,0.0,0.0,0.0);
     centralWidget()->setLayout(layout);
 }
 

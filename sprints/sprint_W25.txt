@@ -35,19 +35,19 @@ Estimation:  12 hours
 Status:      In Progress
 Progress:    4 4 4 4
 
-ID:40     
+ID:          40
 NAME:        Make Virtual Keboard usable 
 Responsible: Manner
 Estimation:  4 hours
 Status:      Completed 
-Progress:    4 4 0 0
+Progress:    2 0 0 0
 
-ID:45     
+ID:          45
 NAME:        CSS for duistartup 
 Responsible: Manner
 Estimation:  2 hours
 Status:      Completed
-Progress:    2 0 0 0
+Progress:    4 2 0 0
 
 
 ID:          50     
@@ -63,14 +63,14 @@ NAME:        Fix icu linking issue on desktop
 Responsible: Manner
 Estimation:  4 hours
 Status:      Completed 
-Progress:    4 4 0 0
+Progress:    2 0 0 0
 
 ID:          70     
 NAME:        Move hardcoded margin etc. settings to css 
 Responsible: Manner
 Estimation:  4 hours
-Status:      In Progress 
-Progress:    4 4 4 4
+Status:      In Progress
+Progress:    4 3 3 3
 
 DuiStartup:
 
@@ -92,9 +92,9 @@ Progress:    2 2 0 0
 
 ID:          1015
 NAME:        Boot sequence
-Responsible: latzko
+Responsible: manner
 Estimation:  4 hours
-Status:      Not started 
+Status:      In Progress 
 Progress:    4 4 4 4
 
 ID:          1020

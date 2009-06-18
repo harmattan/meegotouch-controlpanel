@@ -5,7 +5,7 @@
 #include <QString>
 class DcpAppletMetadata;
 class DcpAppletIf;
-class DcpAppletLoader : QObject
+class DcpAppletLoader : public QObject
 {
     Q_OBJECT
 public:

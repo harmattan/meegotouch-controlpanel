@@ -37,7 +37,6 @@ void DcpRecentlyUsedComponent::createContents()
                 this, SIGNAL(openSubPage(Pages::Handle)));
 
     box->setCentralWidget(m_MostUsedCategory);
- //   box->setCentralWidget(button);
 
     DuiLayout* layout = new DuiLayout(this);
     layout->setAnimator(0);

@@ -18,7 +18,7 @@ DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
 
 DcpAppletPage::~DcpAppletPage()
 {
-    delete m_AppletLoader;
+    m_AppletLoader->deleteLater();
 }
 
 void DcpAppletPage::createContent()

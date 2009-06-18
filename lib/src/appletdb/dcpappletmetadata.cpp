@@ -74,8 +74,8 @@ DcpAppletMetadataPrivate::DcpAppletMetadataPrivate()
 
 DcpAppletMetadataPrivate::~DcpAppletMetadataPrivate()
 {
-    if (m_AppletLoader) delete m_AppletLoader;
-    if (m_Brief) delete m_Brief;
+    if (m_AppletLoader) m_AppletLoader->deleteLater();
+    if (m_Brief) m_Brief->deleteLater();
     if (m_DesktopEntry) delete m_DesktopEntry;
 }
 

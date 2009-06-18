@@ -35,10 +35,6 @@ DcpDescriptionComponent::createContents()
                                  QSizePolicy::Expanding);*/
     setTitle(title());
 
-//    m_Container->setText("More...");
-//     m_Container->setExpand(true);
-//     m_Container->setIconID("My-Icon-ID");
-
     m_Description = new DuiLabel(m_Container);
     m_Description->setObjectName("ComponentDescription");
     m_Description->setWordWrap(true);

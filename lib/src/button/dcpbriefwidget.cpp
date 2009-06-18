@@ -22,7 +22,7 @@ DcpBriefWidget::DcpBriefWidget(DcpAppletMetadata* metadata, DuiWidget* parent)
 void DcpBriefWidget::setMetadata(DcpAppletMetadata* metadata)
 {
     // can be optimized if necessery (not recreating the widget, just updating its contents)
-    if (m_RealWidget) delete m_RealWidget;
+    if (m_RealWidget) m_RealWidget->deleteLater();
 
     if (m_Metadata) {
         disconnect (m_Metadata, SIGNAL(briefChanged()), this, SLOT(updateContents()));
