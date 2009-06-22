@@ -26,14 +26,14 @@ NAME:        DuiGrid implementation: main screen
 Responsible: Retsoft
 Estimation:  12 hours
 Status:      In Progress 
-Progress:    12 8 4 4
+Progress:    12 8 4 0 
 
 ID:35     
 NAME:        DuiGrid in applets 
-Responsible: Retsoft
+Responsible: Rinyu
 Estimation:  12 hours
 Status:      In Progress
-Progress:    4 4 4 4
+Progress:    12 8 4 4
 
 ID:          40
 NAME:        Make Virtual Keboard usable 
@@ -108,9 +108,15 @@ ID:          1040
 NAME:        Make 'Startup' buttons launchable
 Responsible: latzko
 Estimation:  4 hours
-Status:      In progress 
-Progress:    4 4 4 4
+Status:      Completed  
+Progress:    4 4 0 0 
 
+ID:          1045
+NAME:        Preparing for demo 
+Responsible: latzko
+Estimation:  4 hours
+Status:      In Progress  
+Progress:    4 4 4 4 
 ID:          1050
 NAME:        First-Run check
 Responsible: latzko
