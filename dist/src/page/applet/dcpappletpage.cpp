@@ -85,17 +85,18 @@ DcpAppletPage::changeWidget(int widgetId)
     setUpMainWidgetSize();
 }
 
-
 void DcpAppletPage::setUpMainWidgetSize()
 {
+        /* TODO, not working, fix rotation somehow
     DuiSceneManager* manager = DuiSceneManager::instance();
     if (m_MainWidget && manager){
-        int width = manager->visibleSceneRect().width() - 50;
-        int height = manager->visibleSceneRect().height() - 100;
+        int height = manager->visibleSceneRect().height();
+        int width = manager->visibleSceneRect().width();
         m_MainWidget->setMinimumWidth(width);
         m_MainWidget->setMaximumWidth(width);
         m_MainWidget->setMinimumHeight(height);
     }
+        */
 }
 
 void DcpAppletPage::organizeContent(const Dui::Orientation& ori)

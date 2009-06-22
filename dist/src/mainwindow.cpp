@@ -4,7 +4,6 @@
 #include "maintranslations.h"
 #include <duiscenemanager.h>
 #include <QtDebug>
-#include <duinavigationbar.h>
 #include <duiaction.h>
 #include <duiapplication.h>
 
@@ -18,12 +17,6 @@ MainWindow::MainWindow()
 void MainWindow::backClicked()
 {
     PageFactory::instance()->back();
-
-    /* overrides dui behaviour that it changes to close when switching
-       inside a page TODO remove */
-    if (PageFactory::instance()->currentPage()->handle().id == Pages::APPLET) {
-        // navigationBar()->showBackButton();
-    }
 }
 
 MainWindow::~MainWindow()

@@ -19,6 +19,8 @@ DuiAbstractLayoutPolicyStyle#Page {
     margin-right: 20;
     margin-top: 12;
     margin-bottom: 15;
+
+/*    minimum-size: size(200, 300); TODO */
 }
 
 #DuiContainerTitle {
@@ -45,6 +47,7 @@ DuiContainerStyle {
     margin-bottom: 0;
     margin-right: 0;
     icon-size: size(1,1);
+
 /*    titlebar-background: "";  TODO */
 }
 
@@ -86,7 +89,7 @@ DuiLabelStyle#DcpButtonLine1 {
 
 DuiLabelStyle#DcpButtonLine2 {
     font: font("Nokia Sans Cn", 16);
-    minimum-size: size(200,12);
+/*    minimum-size: size(200,12); */
     color: #FFA000;
 }
 

@@ -43,7 +43,6 @@ void DcpMostUsedCategory::createContents()
 		else
 			addComponent(item, false);
     }
-    removeLastSeparators();
 }
 
 
