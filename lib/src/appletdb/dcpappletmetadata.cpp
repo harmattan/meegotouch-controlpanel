@@ -259,8 +259,8 @@ QString DcpAppletMetadata::fileName() const
 
 QString DcpAppletMetadata::desktopEntryStr(int id) const
 {
-//    return desktopEntry()->value(Keys[id]).toString().trimmed(); -> for dui <=0.7.5
-    return desktopEntry()->value(Keys[id]).trimmed();
+    return desktopEntry()->value(Keys[id]).toString().trimmed(); // -> for dui <=0.7.5
+//    return desktopEntry()->value(Keys[id]).trimmed(); // -> for dui >=0.8
 }
 
 
