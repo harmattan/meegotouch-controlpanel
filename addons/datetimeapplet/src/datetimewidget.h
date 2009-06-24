@@ -6,7 +6,6 @@
 class DcpButton2;
 class DuiButton;
 class UpdateButton;
-class TimeZoneDialog;
 
 class DateTimeWidget : public DcpWidget 
 {
@@ -23,7 +22,6 @@ protected:
 	void initWidget();
     
 private:
-	TimeZoneDialog *m_Dlg;
     DcpButton2 *m_DateButton;
 	DcpButton2 *m_TimeButton;
 	DcpButton2 *m_TimeZoneButton;

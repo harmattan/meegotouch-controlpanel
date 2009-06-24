@@ -150,8 +150,6 @@ void TimeZoneListItem::initWidget()
     m_CheckMark = new DuiButton(this);
     m_CheckMark->setObjectName("TimeZoneCheckMark");
     m_CheckMark->setAcceptedMouseButtons(0);
-    m_CheckMark->setMinimumSize(QSize(32, 32));
-    m_CheckMark->setMaximumSize(QSize(32, 32));
     m_CheckMark->setVisible(false);
 
     // Add items to checkMarkLayoutPolicy

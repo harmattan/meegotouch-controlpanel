@@ -11,6 +11,8 @@
 #ToggleButton {
     normal-background-image: scalable(Toggle-on,0,0,0,0);
     pressed-background-image: scalable(Toggle-off,0,0,0,0);
+    minimum-size: size(48, 48);
+    maximum-size: size(48, 48);
 }
 
 #InputTextEdit {
@@ -27,4 +29,11 @@
 
 #TimeZoneCheckMark {
     normal-background-image: scalable(Check-mark,0,0,0,0);
+    minimum-size: size(32, 32);
+    maximum-size: size(32, 32);
+}
+
+#RegionFormatButton {
+    maximum-size: size(310, 60);
+    minimum-size: size(310, 60);
 }
