@@ -9,8 +9,8 @@
 }
 
 #ToggleButton {
-    normal-background: "Toggle-on";
-    pressed-background: "Toggle-off";
+    normal-background-image: scalable(Toggle-on,0,0,0,0);
+    pressed-background-image: scalable(Toggle-off,0,0,0,0);
 }
 
 #InputTextEdit {
@@ -26,5 +26,5 @@
 }
 
 #TimeZoneCheckMark {
-    normal-background: "Check-mark";
+    normal-background-image: scalable(Check-mark,0,0,0,0);
 }
