@@ -14,7 +14,6 @@
 #include <duiseparator.h>
 
 const int height = 65;
-const int devide = 100;
 
 LanguageListItem::LanguageListItem(const QString &langCode,
                                    const QString &text, 
@@ -81,11 +80,11 @@ void LanguageListItem::initWidget()
     mainLayout->setPolicy(mainLayoutPolicy);
     mainLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     mainLayoutPolicy->setSpacing(1);
-    
-    // set height
+
+    // height
     this->setMinimumHeight(height);
     this->setMaximumHeight(height);
-
+    
     // m_LabelLayout
     m_LabelLayout = new DuiLayout(0);
     m_LabelLayout->setAnimator(0);
@@ -104,8 +103,6 @@ void LanguageListItem::initWidget()
     m_CheckMark = new DuiButton(this);
     m_CheckMark->setObjectName("LanguageCheckMark");
     m_CheckMark->setAcceptedMouseButtons(0);
-    m_CheckMark->setMinimumSize(QSize(32, 32));
-    m_CheckMark->setMaximumSize(QSize(32, 32));
     m_CheckMark->setVisible(false);
  
     m_LabelLayoutPolicy->addItemAtPosition(m_NormalLabel, 0, 0);
@@ -155,12 +152,12 @@ void LanguageListItem::onOrientationAngleChanged()
 
     switch(manager->orientation()) {
         case Dui::Landscape:
-            this->setMinimumWidth(manager->visibleSceneRect().width() / 2 - 50);
-            this->setMaximumWidth(manager->visibleSceneRect().width() / 2 - 50);
+            this->setMinimumWidth(manager->visibleSceneRect().width() / 2 - 40);
+            this->setMaximumWidth(manager->visibleSceneRect().width() / 2 - 40);
             break;
         case Dui::Portrait:
-            this->setMinimumWidth(manager->visibleSceneRect().width() - 50);
-            this->setMaximumWidth(manager->visibleSceneRect().width() - 50);
+            this->setMinimumWidth(manager->visibleSceneRect().width() - 40);
+            this->setMaximumWidth(manager->visibleSceneRect().width() - 40);
             break;
         default:
             break;

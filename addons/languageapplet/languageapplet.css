@@ -1,11 +1,14 @@
 #LanguageSimpleText {
         color: #FFFFFF;
         font: font("Nokia Sans Cn", 18);
+        maximum-height: 60;
 }
 
 #RegionFormatButton {
         view: DuiButtonView;
         font: font("Nokia Sans Cn", 18);
+        minimum-size: size(380, 60);
+        maximum-size: size(380, 60);
 }
 
 #CommonDialogTitleLabel {
@@ -19,5 +22,7 @@
 
 #LanguageCheckMark {
         normal-background-image: scalable(Check-mark,0,0,0,0);
+        minimum-size: size(32, 32);
+        maximum-size: size(32, 32);
 }
 
