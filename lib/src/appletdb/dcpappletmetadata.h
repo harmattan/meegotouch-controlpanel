@@ -38,6 +38,8 @@ public:
 
     int order() const;
     int usage() const;
+    
+    QString part() const;
 
     DcpAppletIf* applet() const;
 

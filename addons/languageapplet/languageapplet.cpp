@@ -13,7 +13,7 @@
 
 Q_EXPORT_PLUGIN2(languageapplet, LanguageApplet)
 
-void LanguageApplet::init()
+void LanguageApplet::init(QString part)
 {
     m_WidgetIndex = DcpLanguage::Main;
 } 

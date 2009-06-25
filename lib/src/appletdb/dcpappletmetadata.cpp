@@ -34,7 +34,7 @@ enum  {
     KeyNameId,
     KeyNameCatalog,
 
-    KeyValuePath,
+    KeyPart,
     KeyCount,
 };
 
@@ -61,7 +61,7 @@ const QString Keys[KeyCount] = {
     "Desktop Entry/Name",
     "Desktop Entry/X-logical-id",
     "Desktop Entry/X-translation-catalog",
-    "DCP/ValuePath"
+    "DCP/Part"
 };
 
 
@@ -205,6 +205,11 @@ QString DcpAppletMetadata::image() const
     return desktopEntryStr(KeyImage);
 }
 
+QString DcpAppletMetadata::part() const
+{
+    return desktopEntryStr(KeyPart);
+}
+
 int DcpAppletMetadata::usage() const
 {
     // TODO implement
@@ -259,7 +264,7 @@ QString DcpAppletMetadata::fileName() const
 
 QString DcpAppletMetadata::desktopEntryStr(int id) const
 {
-    return desktopEntry()->value(Keys[id]).toString().trimmed(); // -> for dui <=0.7.5
+    return desktopEntry()->value(Keys[id], "").toString().trimmed(); // -> for dui <=0.7.5
 //    return desktopEntry()->value(Keys[id]).trimmed(); // -> for dui >=0.8
 }
 

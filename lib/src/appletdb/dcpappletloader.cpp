@@ -26,8 +26,10 @@ void DcpAppletLoader::load()
     {
         QObject *object = loader.instance();
         m_Applet = qobject_cast<DcpAppletIf*>(object);
-        if (m_Applet)
+        if (!m_Applet)
             m_ErrorMsg = "Can't convert object to ExampleAppletInterface.";
+        else
+            m_Applet->init(m_Metadata->part());
     }
 }
 

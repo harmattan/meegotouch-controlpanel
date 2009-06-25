@@ -11,7 +11,7 @@
 
 Q_EXPORT_PLUGIN2(displayapplet, DisplayApplet)
 
-void DisplayApplet::init()
+void DisplayApplet::init(QString part)
 {
     m_WidgetIndex = DcpDisplay::Main;
 };
