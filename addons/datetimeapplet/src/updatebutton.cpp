@@ -52,8 +52,6 @@ void UpdateButton::initWidget()
     // toggleButton
     DuiButton *toggleButton = new DuiButton(this);
     toggleButton->setObjectName("ToggleButton");
-    toggleButton->setMinimumSize(QSize(48, 48));
-    toggleButton->setMaximumSize(QSize(48, 48));
     toggleButton->setCheckable(true);
     toggleButton->setTextVisible(false);
     

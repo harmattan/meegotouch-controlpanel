@@ -7,12 +7,6 @@ DuiAbstractLayoutPolicyStyle#Page {
     margin-right: 15.0;
 }
 
-
-#SignButton {
-    normal-background: "See-more-indicator-big";
-}
-
-
 #ComponentDescription {
     font: font("Nokia Sans Cn", 16px);
     margin-left: 20;
@@ -52,14 +46,15 @@ DuiContainerStyle {
 }
 
 
-#DcpPage {
-    background: "starfield";
+DuiApplicationPageStyle {
+    background-image: scalable(starfield, 0, 0, 0, 0);
 }
 
-
+/*
 DuiNavigationBarStyle {
-	background: "Top-bar-landscape";
+	background-image: scalable(Top-bar-landscape, 0,0,0,0);
 }
+*/
 
 
 DuiButtonStyle#DcpButton {
@@ -101,7 +96,7 @@ DuiImageStyle {
 }
 
 #DcpSeeMoreIndicator {
-    normal-background: "See-more-indicator-small";
+    normal-background-image: scalable(See-more-indicator-small,0,0,0,0);
     minimum-size: size(16, 16);
     maximum-size: size(16, 16);
     margin-left: 8;
@@ -134,8 +129,8 @@ DuiImageStyle#DcpButtonImage {
 }
 
 DuiButtonStyle#DcpButtonToggle {
-    normal-background: "Toggle-off";
-    pressed-background: "Toggle-on";
+    normal-background-image: scalable(Toggle-off, 0,0,0,0);
+    pressed-background-image: scalable(Toggle-on, 0,0,0,0);
     maximum-size: size(64, 64);
     minimum-size: size(64, 64);
 }

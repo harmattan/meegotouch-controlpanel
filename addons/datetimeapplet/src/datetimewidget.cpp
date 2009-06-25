@@ -4,7 +4,6 @@
 #include "dcpbutton2.h"
 #include "updatebutton.h"
 #include "datetimetranslation.h"
-#include "timezonedialog.h"
 #include "dcptimezoneconf.h"
 #include "dcptimezonedata.h"
 
@@ -22,11 +21,9 @@
 
 // const QString cssDir = "/usr/share/duicontrolpanel/themes/style/"; // -> for dui>=0.8
 const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/"; // -> for dui<=0.7.5
-const int widgetWidth = 100;
 
 DateTimeWidget::DateTimeWidget(QGraphicsWidget *parent)
-	    :DcpWidget(parent),
-         m_Dlg(0)
+	    :DcpWidget(parent)
 {
     DuiTheme::loadCSS(cssDir + "datetimeapplet.css");
     setReferer(DcpDateTime::NoReferer);
@@ -39,12 +36,7 @@ DateTimeWidget::~DateTimeWidget()
 
 bool DateTimeWidget::back()
 {
-    if (m_Dlg) {
-        m_Dlg->close();
-        return false;
-    } else {
-        return DcpWidget::back();
-    }
+    return DcpWidget::back();
 }
 
 void DateTimeWidget::initWidget()
@@ -103,9 +95,6 @@ void DateTimeWidget::initWidget()
     // regionFormatButton
     m_RegionFormatButton = new DuiButton(DcpDateTime::RegionButtonText, this);
     m_RegionFormatButton->setObjectName("RegionFormatButton");
-    m_RegionFormatButton->setMaximumWidth(310);
-    m_RegionFormatButton->setMaximumHeight(60);
-    m_RegionFormatButton->setMinimumHeight(60);
 
     // Add items to dateTimeLayoutPolicy
     dateTimeLayoutPolicy->addItemAtPosition(m_DateButton, 0, Qt::AlignLeft | Qt::AlignVCenter);
@@ -130,13 +119,6 @@ void DateTimeWidget::initWidget()
 
 void DateTimeWidget::showTimeZoneDialog()
 {
-    /* m_Dlg = new TimeZoneDialog();
-    this->setEnabled(false);
-    m_Dlg->exec();
-    this->setEnabled(true);
-    m_Dlg->deleteLater();
-    m_Dlg = 0;
-    updateTimeZoneText();*/
     emit changeWidget(DcpDateTime::TimeZone);
 }
 

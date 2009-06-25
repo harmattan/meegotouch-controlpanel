@@ -64,14 +64,10 @@ void LanguageWidget::initWidget()
                     this);
     simpleText->setObjectName("LanguageSimpleText");
     simpleText->setAlignment(Qt::AlignCenter);
-    simpleText->setMaximumHeight(60);
 
     // regionFormatButton
     DuiButton *regionFormatButton = new DuiButton(DcpLanguage::RegionButtonTitle, this);
     regionFormatButton->setObjectName("RegionFormatButton");
-    regionFormatButton->setMaximumWidth(380);
-    regionFormatButton->setMaximumHeight(60);
-    regionFormatButton->setMinimumHeight(60);
 
     // separators
     DuiSeparator* separator1 = new DuiSeparator(this);
