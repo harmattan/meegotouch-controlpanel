@@ -136,8 +136,9 @@ DuiButtonStyle#DcpButtonToggle {
 }
 
 #DcpCommonDialogTitleLabel {
-    color: #FFFFFF;
-    font: font("Nokia Sans Cn", 18);
+   color: #FFFFFF;
+   margin-top: 10;
+   font: font("Nokia Sans Cn", 18);
 }
 
 DuiSeparatorStyle {
