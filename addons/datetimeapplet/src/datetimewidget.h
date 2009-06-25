@@ -29,10 +29,12 @@ private:
     DuiButton *m_RegionFormatButton;
 
 private slots:
-    virtual void showTimeZoneDialog();
+    virtual void showTimeZoneView();
     virtual void updateTimeText();
     virtual void updateDateText();
     virtual void updateTimeZoneText();
+    virtual void showDateView();
+    virtual void showTimeView();
 };
 #endif // DATETIMEWIDGET_H
 

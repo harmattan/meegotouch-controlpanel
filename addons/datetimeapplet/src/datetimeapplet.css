@@ -37,3 +37,11 @@
     maximum-size: size(310, 60);
     minimum-size: size(310, 60);
 }
+
+#DateDialogLabel {
+    font: font("Nokia Sans Cn", 20);
+}
+
+#WeekDialogLabel {
+    font: font("Nokia Sans Cn", 16);
+}

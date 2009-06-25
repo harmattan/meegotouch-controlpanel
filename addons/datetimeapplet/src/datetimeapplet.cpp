@@ -4,6 +4,8 @@
 #include "dcpdatetime.h"
 #include "datetimewidget.h"
 #include "timezoneview.h"
+#include "dateview.h"
+#include "timeview.h"
 #include "dcpwidget.h"
 #include "duilocale.h"
 #include <DuiAction>
@@ -33,6 +35,14 @@ DcpWidget* DateTimeApplet::constructWidget(int widgetId)
             m_Title = DcpDateTime::TimeZoneTitle;
             return pageTimeZone();
             break;
+        case DcpDateTime::Date:
+            m_Title = DcpDateTime::DateDialogTitle;
+            return pageDate();
+            break;
+        case DcpDateTime::Time:
+            m_Title = DcpDateTime::TimeDialogTitle;
+            return pageTime();
+            break;
         case DcpDateTime::Main:
         default:
             m_Title = DcpDateTime::AppletTitle;
@@ -49,6 +59,16 @@ DcpWidget* DateTimeApplet::pageMain()
 DcpWidget* DateTimeApplet::pageTimeZone()
 {
     return new TimeZoneView();
+}
+
+DcpWidget* DateTimeApplet::pageDate()
+{
+    return new DateView();
+}
+
+DcpWidget* DateTimeApplet::pageTime()
+{
+    return new TimeView();
 }
 
 QString DateTimeApplet::title() const
