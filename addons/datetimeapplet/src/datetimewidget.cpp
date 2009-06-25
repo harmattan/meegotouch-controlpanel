@@ -63,10 +63,12 @@ void DateTimeWidget::initWidget()
     // m_DateButton
     m_DateButton = new DcpButton2(this);
     this->updateDateText();
+    connect(m_DateButton, SIGNAL(clicked()), this, SLOT(showDateView()));
 
     // m_TimeButton
     m_TimeButton = new DcpButton2(this);
     this->updateTimeText();
+    connect(m_TimeButton, SIGNAL(clicked()), this, SLOT(showTimeView()));
 
     // separator lines
     DuiSeparator* separator1 = new DuiSeparator(this);
@@ -81,7 +83,7 @@ void DateTimeWidget::initWidget()
     // m_TimeZoneButton
     m_TimeZoneButton = new DcpButton2(this);
     m_TimeZoneButton->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width()-30);
-    connect(m_TimeZoneButton, SIGNAL(clicked()), this, SLOT(showTimeZoneDialog()));
+    connect(m_TimeZoneButton, SIGNAL(clicked()), this, SLOT(showTimeZoneView()));
     updateTimeZoneText();
 
     // m_AutomaticUpdateButton
@@ -117,7 +119,7 @@ void DateTimeWidget::initWidget()
             9, Qt::AlignCenter);
 }
 
-void DateTimeWidget::showTimeZoneDialog()
+void DateTimeWidget::showTimeZoneView()
 {
     emit changeWidget(DcpDateTime::TimeZone);
 }
@@ -143,5 +145,15 @@ void DateTimeWidget::updateTimeZoneText()
     QString timezone = DcpTimeZoneConf::instance()->defaultTimeZone().gmt() + " " +
                        DcpTimeZoneConf::instance()->defaultTimeZone().city();
     m_TimeZoneButton->setText(DcpDateTime::CurrentTimeZoneText, timezone);
+}
+
+void DateTimeWidget::showDateView()
+{
+    emit changeWidget(DcpDateTime::Date);
+}
+
+void DateTimeWidget::showTimeView()
+{
+    emit changeWidget(DcpDateTime::Time);
 }
 

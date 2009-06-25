@@ -21,6 +21,10 @@ namespace DcpDateTime {
             "Time zone");
     const QString InputCountryText = trid("qtn_datetome_input_country",
             "Input country/region name to filter the selection list");
+    const QString DateDialogTitle = trid("qtn_date_dialog_title",
+            "Select date");
+    const QString TimeDialogTitle = trid("qtn_time_dialog_title",
+            "Adjust time");
 };
 #endif // DATETIMETRANSLATION_H
 

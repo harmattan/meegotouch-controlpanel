@@ -17,6 +17,8 @@ public:
 	virtual DcpWidget* constructWidget(int widgetId);
     virtual DcpWidget* pageMain();
     virtual DcpWidget* pageTimeZone();
+    virtual DcpWidget* pageDate();
+    virtual DcpWidget* pageTime();
     virtual QString title() const;
     virtual QVector<DuiAction *> viewMenuItems();
     virtual DcpBrief* constructBrief();
