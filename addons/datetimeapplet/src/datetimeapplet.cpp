@@ -64,6 +64,6 @@ QVector<DuiAction*> DateTimeApplet::viewMenuItems()
 
 DcpBrief* DateTimeApplet::constructBrief()
 {
-    return new DateTimeBrief();
+    return new DateTimeBrief(m_PartIndex);
 }
 

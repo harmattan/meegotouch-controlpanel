@@ -2,13 +2,15 @@
 #define DATETIMEBRIEF_H
 
 #include "dcpbrief.h"
+#include "dcpdatetime.h"
 
 class DateTimeBrief: public DcpBrief{
     Q_OBJECT
 public:
-    DateTimeBrief();
+    explicit DateTimeBrief(int partId = DcpDateTime::Main);
     virtual QString valueText() const;
-
+private:
+    int m_PartId;
 };
 
 
