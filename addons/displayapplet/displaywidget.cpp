@@ -2,21 +2,17 @@
 #include "displaytranslation.h"
 #include "dcpdisplay.h"
 #include "dcpspaceritem.h"
-#include <duitheme.h>
 #include <duibutton.h>
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
 #include <duilabel.h>
 #include <duislider.h>
 
-// const QString cssDir = "/usr/share/duicontrolpanel/themes/style/"; // -> for dui>=0.8
-const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/"; // -> for dui<=0.7.5
 const int widgetWidth = 100;
 
 DisplayWidget::DisplayWidget(QGraphicsWidget *parent)
 	    :DcpWidget(parent)
 {
-    DuiTheme::loadCSS(cssDir + "displayapplet.css");
     setReferer(DcpDisplay::NoReferer);
     initWidget();
 }

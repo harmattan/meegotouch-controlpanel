@@ -1,5 +1,6 @@
 #include <QtGui>
 #include <QDebug>
+#include <duitheme.h>
 #include "displayapplet.h"
 #include "displaywidget.h"
 #include "displaytranslation.h"
@@ -11,8 +12,13 @@
 
 Q_EXPORT_PLUGIN2(displayapplet, DisplayApplet)
 
+// const QString cssDir = "/usr/share/duicontrolpanel/themes/style/"; // -> for dui>=0.8
+const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/"; // -> for dui<=0.7.5
+
 void DisplayApplet::init(QString part)
 {
+    Q_UNUSED(part);
+    DuiTheme::loadCSS(cssDir + "displayapplet.css");
     m_WidgetIndex = DcpDisplay::Main;
 };
 

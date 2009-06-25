@@ -1,7 +1,7 @@
 #include <QtGui>
 #include <QDebug>
 #include <DuiAction>
-// #include <duiapplication.h>
+#include <duitheme.h>
 
 #include "languageapplet.h"
 #include "languagewidget.h"
@@ -13,10 +13,14 @@
 
 Q_EXPORT_PLUGIN2(languageapplet, LanguageApplet)
 
+// const QString cssDir = "/usr/share/duicontrolpanel/themes/style/"; // -> for dui>=0.8
+const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/"; // -> for dui<=0.7.5
+
 void LanguageApplet::init(QString part)
 {
+    DuiTheme::loadCSS(cssDir + "languageapplet.css");
     m_WidgetIndex = DcpLanguage::Main;
-} 
+}
 
 DcpWidget* LanguageApplet::constructWidget(int widgetId)
 {

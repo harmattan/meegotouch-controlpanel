@@ -1,5 +1,6 @@
 #include <QtGui>
 #include <QDebug>
+#include <duitheme.h>
 #include "datetimeapplet.h"
 #include "dcpdatetime.h"
 #include "datetimewidget.h"
@@ -12,10 +13,14 @@
 #include "datetimebrief.h"
 #include "datetimetranslation.h"
 
+// const QString cssDir = "/usr/share/duicontrolpanel/themes/style/"; // -> for dui>=0.8
+const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/"; // -> for dui<=0.7.5
+
 Q_EXPORT_PLUGIN2(displayapplet, DateTimeApplet)
 
 void DateTimeApplet::init(QString part)
 {
+    DuiTheme::loadCSS(cssDir + "datetimeapplet.css");
     m_WidgetIndex = DcpDateTime::Main;
     m_Title = DcpDateTime::AppletTitle;
     m_Parts.insert(DcpDateTime::KeyNone, DcpDateTime::None);

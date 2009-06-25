@@ -7,7 +7,6 @@
 #include "displaydialog.h"
 #include "keyboarddialog.h"
 
-#include <duitheme.h>
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
 #include <duibutton.h>
@@ -18,20 +17,12 @@
 #include <duiscenemanager.h>
 #include <duiseparator.h>
 
-#ifdef QUERY_DIALOG
-    #include <duiquerydialog.h>
-#else
-    #include <DuiMessageBox>
-#endif
-
-// const QString cssDir = "/usr/share/duicontrolpanel/themes/style/"; // -> for dui>=0.8
-const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/"; // -> for dui<=0.7.5
+#include <duiquerydialog.h>
 
 LanguageWidget::LanguageWidget(QGraphicsWidget *parent)
 	    :DcpWidget(parent), m_Dlg(0)
 {
     setReferer(DcpLanguage::NoReferer);
-    DuiTheme::loadCSS(cssDir + "languageapplet.css");
 	initWidget();
 }
 
@@ -128,22 +119,12 @@ void LanguageWidget::keyboardPage()
 
         } else {
             // user selected no languages:
-#ifdef QUERY_DIALOG
             DuiQueryDialog query(DcpLanguage::RestoreQueryLabelText);
             DuiButton* keepPreviousId = query.addButton(DcpLanguage::RestorePreviousText);
             query.addButton(DcpLanguage::SelectNewText);
             query.exec();
             if (query.clickedButton() == keepPreviousId)
                 break;
-#else
-            DuiMessageBox mb(DcpLanguage::RestoreQueryLabelText,
-                             DuiMessageBoxModel::Ok|DuiMessageBoxModel::Cancel);
-            int result = mb.exec();
-            mb.disappear();
-            if (result == 1) { //DuiDialog::Accepted is wrong!!!
-                break;
-            }
-#endif
         }
     }
 
