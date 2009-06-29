@@ -89,7 +89,6 @@ void DcpMainCategory::append(DcpComponent *component)
 
     m_LandscapeLayout->addItemAtPosition(component,
                                          m_RowCount, m_ColCount);
-    qDebug() << "XXX portraitlayout:" << m_ItemCount;
     m_PortraitLayout->addItemAtPosition(component,
                                         m_ItemCount);
 

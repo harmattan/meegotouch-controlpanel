@@ -45,7 +45,7 @@ void
 DcpAppletDb::addPath(const QString &pathName)
 {
     QDir appDir(pathName); 
-    foreach(QString appFile, appDir.entryList())
+    foreach(QString appFile, appDir.entryList(QStringList("*.desktop")))
     {
         addFile(appDir.absoluteFilePath(appFile));
     }
@@ -57,9 +57,8 @@ DcpAppletDb::listByCategory(const QString& category)
 {
     QList<DcpAppletMetadata*> filtered;
 
-    foreach (DcpAppletMetadata *item, m_AppletsByName)
+    foreach (DcpAppletMetadata *item, m_AppletsByFile)
     {
-//        qDebug() << item->category() << "==" << category << (item->category() == category);
         if (item->category() == category)
             filtered.append(item);
     }

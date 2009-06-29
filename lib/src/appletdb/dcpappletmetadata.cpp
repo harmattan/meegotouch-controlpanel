@@ -253,7 +253,7 @@ DcpBrief* DcpAppletMetadata::brief() const
 // TODO XXX rename
 QString DcpAppletMetadata::name() const
 {
-    return desktopEntry()->name();
+    return desktopEntry()->name().trimmed();
 }
 
 // TODO XXX rename
