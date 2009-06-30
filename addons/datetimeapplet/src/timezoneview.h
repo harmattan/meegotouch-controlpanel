@@ -22,6 +22,7 @@ private:
     TimeZoneContainer *m_TimeZoneContainer;
 
 private slots:
+    virtual void orientationChanged();
     virtual void clearTextEdit(DuiTextEdit *textEdit);
     virtual void filteringListItems();
 };

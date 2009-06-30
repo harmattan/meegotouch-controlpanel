@@ -125,9 +125,7 @@ void TimeZoneListItem::initWidget()
     m_CountryLabel = new DuiLabel("<font color=#ffffff>" + m_Country +
                                   "</font>", this);
     m_CountryLabel->setObjectName("CountryLabel");
-    m_CountryLabel->setMinimumWidth(
-            DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 110);
-
+    
     // m_GmtCityLabel
     m_GmtCityLabel = new DuiLabel("<font color=#ffffff>" + m_Gmt + " " 
                                   + m_City + "</font>", this);
@@ -203,10 +201,14 @@ void TimeZoneListItem::onOrientationChanged()
         case Dui::Landscape:
             this->setMinimumWidth(manager->visibleSceneRect().width() / 2 - 40);
             this->setMaximumWidth(manager->visibleSceneRect().width() / 2 - 40);
+            m_CountryLabel->setMinimumWidth(
+                DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 110);
             break;
         case Dui::Portrait:
             this->setMinimumWidth(manager->visibleSceneRect().width() - 40);
             this->setMaximumWidth(manager->visibleSceneRect().width() - 40);
+            m_CountryLabel->setMinimumWidth(
+                DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 110);
             break;
         default:
             break;
