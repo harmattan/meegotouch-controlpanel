@@ -44,16 +44,24 @@ void DateTimeWidget::initWidget()
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
     mainLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
-    mainLayoutPolicy->setSpacing(0);
+    mainLayoutPolicy->setSpacing(1);
 
-    // dateTimeLayout
-    DuiLayout *dateTimeLayout = new DuiLayout(0);
-    dateTimeLayout->setAnimator(0);
-    DuiLinearLayoutPolicy *dateTimeLayoutPolicy =
-            new DuiLinearLayoutPolicy(dateTimeLayout, Qt::Horizontal);
-    dateTimeLayout->setPolicy(dateTimeLayoutPolicy);
-    dateTimeLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
-    dateTimeLayoutPolicy->setSpacing(1);
+    // m_DateTimeLayout
+    m_DateTimeLayout = new DuiLayout(0);
+    m_DateTimeLayout->setAnimator(0);
+    m_DateTimeLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
+
+    // m_DateTimeHLayoutPolicy
+    m_DateTimeHLayoutPolicy =
+            new DuiLinearLayoutPolicy(m_DateTimeLayout, Qt::Horizontal);
+    m_DateTimeHLayoutPolicy->setSpacing(3);
+
+    // m_DateTimeVLayoutPolicy
+    m_DateTimeVLayoutPolicy = 
+            new DuiLinearLayoutPolicy(m_DateTimeLayout, Qt::Vertical);
+    m_DateTimeVLayoutPolicy->setSpacing(3);
+    
+    m_DateTimeLayout->setPolicy(m_DateTimeHLayoutPolicy);
 
     // m_DateButton
     m_DateButton = new DcpButton2(this);
@@ -77,7 +85,6 @@ void DateTimeWidget::initWidget()
 
     // m_TimeZoneButton
     m_TimeZoneButton = new DcpButton2(this);
-    m_TimeZoneButton->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width()-30);
     connect(m_TimeZoneButton, SIGNAL(clicked()), this, SLOT(showTimeZoneView()));
     updateTimeZoneText();
 
@@ -93,12 +100,17 @@ void DateTimeWidget::initWidget()
     m_RegionFormatButton = new DuiButton(DcpDateTime::RegionButtonText, this);
     m_RegionFormatButton->setObjectName("RegionFormatButton");
 
-    // Add items to dateTimeLayoutPolicy
-    dateTimeLayoutPolicy->addItemAtPosition(m_DateButton, 0, Qt::AlignLeft | Qt::AlignVCenter);
-    dateTimeLayoutPolicy->addItemAtPosition(m_TimeButton, 1, Qt::AlignRight | Qt::AlignVCenter);
+    // Add items to m_DateTimeHLayoutPolicy
+    m_DateTimeHLayoutPolicy->addItemAtPosition(m_DateButton, 0, Qt::AlignLeft | Qt::AlignVCenter);
+    m_DateTimeHLayoutPolicy->addItemAtPosition(m_TimeButton, 1, Qt::AlignRight | Qt::AlignVCenter);
 
+    // Add items to m_DateTimeVLayoutPlicy
+    m_DateTimeVLayoutPolicy->addItemAtPosition(m_DateButton, 0, Qt::AlignCenter);
+    m_DateTimeVLayoutPolicy->addItemAtPosition(new DuiSeparator(this), 1, Qt::AlignCenter);
+    m_DateTimeVLayoutPolicy->addItemAtPosition(m_TimeButton, 2, Qt::AlignCenter);
+    
     // Add items to mainLayoutPolicy
-    mainLayoutPolicy->addItemAtPosition(dateTimeLayout, 0, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(m_DateTimeLayout, 0, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(separator1, 1);
     mainLayoutPolicy->addItemAtPosition(m_TimeZoneButton, 2, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(separator2, 3);
@@ -112,7 +124,35 @@ void DateTimeWidget::initWidget()
     mainLayoutPolicy->addItemAtPosition(
             new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Expanding),
             9, Qt::AlignCenter);
+    
+    // orientation change
+    connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),
+            this, SLOT(orientationChanged()));
+    orientationChanged();
 }
+
+
+void DateTimeWidget::orientationChanged()
+{
+    if (DuiSceneManager::instance() == 0)
+        return;
+    
+    switch (DuiSceneManager::instance()->orientation()) {
+        case Dui::Landscape:
+            m_TimeZoneButton->setMinimumWidth(
+                    DuiSceneManager::instance()->visibleSceneRect().width() - 30);
+            m_DateTimeLayout->setPolicy(m_DateTimeHLayoutPolicy);
+            break;
+        case Dui::Portrait:
+            m_TimeZoneButton->setMinimumWidth(
+                    DuiSceneManager::instance()->visibleSceneRect().width() - 30);
+            m_DateTimeLayout->setPolicy(m_DateTimeVLayoutPolicy);
+            break;
+        default:
+            break;
+    }
+}
+
 
 void DateTimeWidget::showTimeZoneView()
 {

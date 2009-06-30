@@ -6,6 +6,8 @@
 class DcpButton2;
 class DuiButton;
 class UpdateButton;
+class DuiLayout;
+class DuiLinearLayoutPolicy;
 
 class DateTimeWidget : public DcpWidget 
 {
@@ -22,6 +24,9 @@ protected:
 	void initWidget();
     
 private:
+    DuiLayout *m_DateTimeLayout;
+    DuiLinearLayoutPolicy *m_DateTimeHLayoutPolicy;
+    DuiLinearLayoutPolicy *m_DateTimeVLayoutPolicy;
     DcpButton2 *m_DateButton;
 	DcpButton2 *m_TimeButton;
 	DcpButton2 *m_TimeZoneButton;
@@ -29,6 +34,7 @@ private:
     DuiButton *m_RegionFormatButton;
 
 private slots:
+    virtual void orientationChanged();
     virtual void showTimeZoneView();
     virtual void updateTimeText();
     virtual void updateDateText();

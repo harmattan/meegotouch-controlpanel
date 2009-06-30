@@ -26,29 +26,27 @@ void UpdateButton::initWidget()
     // mainLayout
     DuiLayout *mainLayout = new DuiLayout(this);
     mainLayout->setAnimator(0);
-    mainLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
+    mainLayout->setContentsMargins(12.0, 0.0, 12.0, 0.0);
     this->setLayout(mainLayout);
     DuiLinearLayoutPolicy *mainLayoutPolicy = 
         new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayoutPolicy->setSpacing(5);
+    mainLayoutPolicy->setSpacing(10);
 
     // lineLayout
     DuiLayout *lineLayout = new DuiLayout(0);
     lineLayout->setAnimator(0);
-    lineLayout->setContentsMargins(20.0, 0.0, 20.0, 0.0);
+    lineLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     DuiGridLayoutPolicy *lineLayoutPolicy = new DuiGridLayoutPolicy(lineLayout);
     lineLayout->setPolicy(lineLayoutPolicy);
-    lineLayoutPolicy->setSpacing(3);
+    lineLayoutPolicy->setSpacing(5);
 
     // automaticLabel
-    DuiLabel *automaticLabel = new DuiLabel(DcpDateTime::AutomaticUpdateText, this);
-    automaticLabel->setObjectName("AutomaticLabel");
-    automaticLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-    automaticLabel->setAcceptedMouseButtons(0);
-    automaticLabel->setMinimumWidth(
-            DuiSceneManager::instance()->visibleSceneRect().width() - 130);
-
+    m_AutomaticLabel = new DuiLabel(DcpDateTime::AutomaticUpdateText, this);
+    m_AutomaticLabel->setObjectName("AutomaticLabel");
+    m_AutomaticLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    m_AutomaticLabel->setAcceptedMouseButtons(0);
+    
     // toggleButton
     DuiButton *toggleButton = new DuiButton(this);
     toggleButton->setObjectName("ToggleButton");
@@ -56,7 +54,7 @@ void UpdateButton::initWidget()
     toggleButton->setTextVisible(false);
     
     // add items to lineLayoutPolicy
-    lineLayoutPolicy->addItemAtPosition(automaticLabel, 0, 0);
+    lineLayoutPolicy->addItemAtPosition(m_AutomaticLabel, 0, 0);
     lineLayoutPolicy->addItemAtPosition(
             new DcpSpacerItem(this, 10, 10, QSizePolicy::Expanding, QSizePolicy::Expanding),
             0, 1);
@@ -89,10 +87,14 @@ void UpdateButton::onOrientationChanged()
         case Dui::Landscape:
             this->setMinimumWidth(manager->visibleSceneRect().width() - 30);
             this->setMaximumWidth(manager->visibleSceneRect().width() - 30);
+            m_AutomaticLabel->setMinimumWidth(
+                DuiSceneManager::instance()->visibleSceneRect().width() - 130);
             break;
         case Dui::Portrait:
-            this->setMinimumWidth(manager->visibleSceneRect().width() / 2 - 30);
-            this->setMaximumWidth(manager->visibleSceneRect().width() / 2 - 30);
+            this->setMinimumWidth(manager->visibleSceneRect().width() - 30);
+            this->setMaximumWidth(manager->visibleSceneRect().width() - 30);
+            m_AutomaticLabel->setMinimumWidth(
+                DuiSceneManager::instance()->visibleSceneRect().width() - 130);
             break;
         default:
             break;
