@@ -3,6 +3,8 @@
 
 #include <DuiWidget>
 
+class DuiLabel;
+
 class UpdateButton : public DuiWidget
 {
     Q_OBJECT
@@ -16,6 +18,9 @@ protected:
 
 protected slots:
     virtual void onOrientationChanged();
+
+private:
+    DuiLabel *m_AutomaticLabel;
 };
 #endif // UPDATEBUTTON_H
 
