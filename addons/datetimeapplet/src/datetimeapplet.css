@@ -38,10 +38,10 @@
     minimum-size: size(310, 60);
 }
 
-#DateDialogLabel {
+#DateViewLabel {
     font: font("Nokia Sans Cn", 20);
 }
 
-#WeekDialogLabel {
+#WeekViewLabel {
     font: font("Nokia Sans Cn", 16);
 }

@@ -18,6 +18,9 @@ protected:
 
 private:
     DuiContainer *m_Container;
+
+private slots:
+    virtual void orientationChanged();
 };
 #endif // TIMEVIEW_H
 
