@@ -25,17 +25,17 @@ Progress:    12 12 12 12
 ID: 30     
 NAME:        Orientation change fix 
 Responsible: Rinyu
-Estimation:  2 hours
+Estimation:  3 hours
 Status:      In progress
-Progress:    2 2 2 2
+Progress:    4 4 4 4 
 
 ID: 40     
 NAME:   Tapping the Display language item on the wizard view should open
         the Select Display language dialog window 
-Responsible: Rinyu
-Estimation:  2 hours
+Responsible: Manner
+Estimation:  4 hours
 Status:      In progress
-Progress:    2 2 2 2
+Progress:    4 4 4 4
 
 ID 50
 NAME: Increasing Usage parameter when launching an applet
