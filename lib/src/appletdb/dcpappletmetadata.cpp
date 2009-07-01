@@ -221,7 +221,7 @@ QString DcpAppletMetadata::part() const
 int DcpAppletMetadata::usage() const
 {
     // TODO implement
-    return desktopEntry()->value(Keys[KeyUsage]).toInt();
+    return desktopEntry()->value(Keys[KeyUsage]).toInt() + d->m_Counter;
 }
 
 int DcpAppletMetadata::order() const
@@ -283,7 +283,8 @@ void DcpAppletMetadata::save()
 	if (d->m_Counter>0) {
 		QString group = "";
 	
-		QFile file(desktopEntry()->fileName()+"_tmp");
+		//QFile file(desktopEntry()->fileName()+"_tmp");
+		QFile file(desktopEntry()->fileName());
 	
 		if(file.open(QIODevice::WriteOnly))
 	

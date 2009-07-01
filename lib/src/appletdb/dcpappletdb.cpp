@@ -31,9 +31,6 @@ DcpAppletDb::DcpAppletDb(const QString &pathName)
 DcpAppletDb::~DcpAppletDb()
 {
     sm_Instance = 0;
-
-	qDebug() << "DcpAppletDb::~DcpAppletDb()";
-	sleep(5);
 }
 
 void 
@@ -139,14 +136,8 @@ void DcpAppletDb::eraseEntry(DcpAppletMetadata *metadata)
 
 void DcpAppletDb::destroy()
 {
-
- foreach(DcpAppletMetadata *metadata, m_AppletsByName)
-      {
-        //if (!metadata->isValid())
-            //eraseEntry(metadata);
-			delete metadata;
-      }
-
-	Q_ASSERT(0);
+	foreach(DcpAppletMetadata *metadata, m_AppletsByName) {
+		delete metadata;
+	}
 }
 

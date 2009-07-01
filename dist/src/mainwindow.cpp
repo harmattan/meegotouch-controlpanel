@@ -24,12 +24,9 @@ void MainWindow::backClicked()
 MainWindow::~MainWindow()
 {
 	DcpAppletDb::instance()->destroy();
-	Q_ASSERT(0);
 }
 
-
-void
-MainWindow::changePage(Pages::Handle handle)
+void MainWindow::changePage(Pages::Handle handle)
 {
 
     DcpPage *page = PageFactory::instance()->create(handle);
