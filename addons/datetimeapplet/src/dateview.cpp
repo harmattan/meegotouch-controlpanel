@@ -91,11 +91,7 @@ void DateView::initWidget()
     
     // add items to widgetLayoutPolicy
     widgetLayoutPolicy->addItemAtPosition(labelLayout, 0, Qt::AlignCenter);
-    widgetLayoutPolicy->addItemAtPosition(
-            new DcpSpacerItem(this, 
-                DuiSceneManager::instance()->visibleSceneRect().width() - 35, 
-                5, QSizePolicy::Fixed, QSizePolicy::Expanding), 1, Qt::AlignCenter);
-
+    
     // setCentralWidget
     m_Container->setCentralWidget(centralWidget);
 

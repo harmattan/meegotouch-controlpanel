@@ -47,7 +47,6 @@ void TimeZoneView::initWidget()
                                  DcpDateTime::InputCountryText,
                                  this);
     m_TextEdit->setObjectName("InputTextEdit");
-    m_TextEdit->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width() - 40);
     connect(m_TextEdit, SIGNAL(gainedFocus(DuiTextEdit *, Qt::FocusReason)),
             this, SLOT(clearTextEdit(DuiTextEdit *)));
     connect(m_TextEdit, SIGNAL(textChanged()), this, SLOT(filteringListItems()));
@@ -67,6 +66,35 @@ void TimeZoneView::initWidget()
     // add items to mainLayoutPolicy
     mainLayoutPolicy->addItemAtPosition(textEditLayout, 0, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(m_TimeZoneContainer, 1, Qt::AlignCenter);
+
+    // orientation change
+    connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),
+            this, SLOT(orientationChanged()));
+    orientationChanged();
+}
+
+void TimeZoneView::orientationChanged()
+{
+    DuiSceneManager *manager = DuiSceneManager::instance();
+    if (manager == 0)
+        return;
+
+    switch (manager->orientation()) {
+        case Dui::Landscape:
+            m_TextEdit->setMinimumWidth(
+                    DuiSceneManager::instance()->visibleSceneRect().width() - 40);
+            m_TextEdit->setMaximumWidth(
+                    DuiSceneManager::instance()->visibleSceneRect().width() - 40);
+            break;
+        case Dui::Portrait:
+            m_TextEdit->setMinimumWidth(
+                    DuiSceneManager::instance()->visibleSceneRect().width() - 40);
+            m_TextEdit->setMaximumWidth(
+                    DuiSceneManager::instance()->visibleSceneRect().width() - 40);
+            break;
+        default:
+            break;
+    }
 }
 
 void TimeZoneView::clearTextEdit(DuiTextEdit *textEdit)

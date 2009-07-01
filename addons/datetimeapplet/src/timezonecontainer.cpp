@@ -7,6 +7,7 @@
 
 #include <unicode/timezone.h>
 #include <duilayout.h>
+#include <duilinearlayoutpolicy.h>
 #include <duigridlayoutpolicy.h>
 #include <qtimer.h>
 #include <duiscenemanager.h>
@@ -34,10 +35,14 @@ void TimeZoneContainer::updateLayout()
         static_cast<TimeZoneListItem*>(m_MainLayout->itemAt(i))->setVisible(false);
         m_MainLayout->removeAt(i);
     }
+    // delete policies
     delete m_MainLayoutPolicy;
+    delete m_MainVLayoutPolicy;
+    
     m_MainLayoutPolicy = new DuiGridLayoutPolicy(m_MainLayout);
-    m_MainLayout->setPolicy(m_MainLayoutPolicy);
     m_MainLayoutPolicy->setSpacing(10);
+    m_MainVLayoutPolicy = new DuiLinearLayoutPolicy(m_MainLayout, Qt::Vertical);
+    m_MainVLayoutPolicy->setSpacing(5);
 
     // add Items to m_MainLayoutPolicy
     int count = 0;
@@ -47,8 +52,9 @@ void TimeZoneContainer::updateLayout()
         iter.value()->setVisibleSeparator(true);
         if (iter.value()->isFiltered()) {
             m_MainLayoutPolicy->addItemAtPosition(iter.value(), count / 2, count % 2);
+            m_MainVLayoutPolicy->addItemAtPosition(iter.value(), count++, 
+                                                   Qt::AlignLeft | Qt::AlignVCenter);
             iter.value()->setVisible(true);
-            count++;
         }
     }
 
@@ -66,10 +72,13 @@ void TimeZoneContainer::updateLayout()
     } else {
         int count = m_MainLayout->count();
         if (count % 2 == 0) {
-            static_cast<TimeZoneListItem*>(m_MainLayout->itemAt(count - 1))->setVisibleSeparator(false);
-            static_cast<TimeZoneListItem*>(m_MainLayout->itemAt(count - 2))->setVisibleSeparator(false);
+            static_cast<TimeZoneListItem*>(
+                            m_MainLayout->itemAt(count - 1))->setVisibleSeparator(false);
+            static_cast<TimeZoneListItem*>(
+                            m_MainLayout->itemAt(count - 2))->setVisibleSeparator(false);
         } else {
-            static_cast<TimeZoneListItem*>(m_MainLayout->itemAt(count - 1))->setVisibleSeparator(false);
+            static_cast<TimeZoneListItem*>(
+                            m_MainLayout->itemAt(count - 1))->setVisibleSeparator(false);
         }
     }
 
@@ -80,6 +89,8 @@ void TimeZoneContainer::updateLayout()
                     10, QSizePolicy::Fixed, QSizePolicy::Expanding),
                 0, 1);
     }
+
+    orientationChanged();
 }
 
 void TimeZoneContainer::initWidget()
@@ -88,8 +99,15 @@ void TimeZoneContainer::initWidget()
     m_MainLayout = new DuiLayout(this);
     m_MainLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     this->setLayout(m_MainLayout);
+
+    // m_MainLayoutPolicy
     m_MainLayoutPolicy = new DuiGridLayoutPolicy(m_MainLayout);
     m_MainLayoutPolicy->setSpacing(10);
+
+    // m_MainVLayoutPolicy
+    m_MainVLayoutPolicy = new DuiLinearLayoutPolicy(m_MainLayout, Qt::Vertical);
+    m_MainVLayoutPolicy->setSpacing(5);
+    
     m_MainLayout->setPolicy(m_MainLayoutPolicy);
 
     // add items to m_ItemMap
@@ -108,9 +126,11 @@ void TimeZoneContainer::initWidget()
     
     // add items to mainLayoutPolicy
     QMapIterator<int, TimeZoneListItem*> iter(m_ItemMap);
+    count = 0;
     while (iter.hasNext()) {
         iter.next();
         m_MainLayoutPolicy->addItemAtPosition(iter.value(), iter.key() / 2, iter.key() % 2);
+        m_MainVLayoutPolicy->addItemAtPosition(iter.value(), count++, Qt::AlignLeft | Qt::AlignVCenter);
         connect(iter.value(), SIGNAL(clicked(TimeZoneListItem*)), 
                 this, SLOT(itemClicked(TimeZoneListItem*)));
         QString current = DcpTimeZoneConf::instance()->defaultTimeZone().city();
@@ -123,6 +143,31 @@ void TimeZoneContainer::initWidget()
         m_ItemMap[m_ItemMap.size() - 2]->setVisibleSeparator(false);
     } else {
         m_ItemMap[m_ItemMap.size() - 1]->setVisibleSeparator(false);
+    }
+
+    // orientation change
+    connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),
+            this, SLOT(orientationChanged()));
+    orientationChanged();
+}
+
+void TimeZoneContainer::orientationChanged()
+{
+    DuiSceneManager *manager = DuiSceneManager::instance();
+    if (manager == 0)
+        return;
+
+    switch (manager->orientation()) {
+        case Dui::Landscape:
+            m_MainLayout->setPolicy(m_MainLayoutPolicy);
+            updateGridSeparator();
+            break;
+        case Dui::Portrait:
+            m_MainLayout->setPolicy(m_MainVLayoutPolicy);
+            updateHSeparator();
+            break;
+        default:
+            break;
     }
 }
 
@@ -137,5 +182,23 @@ void TimeZoneContainer::itemClicked(TimeZoneListItem *item)
 
     // set default time zone
     DcpTimeZoneConf::instance()->setDefaultTimeZone(item->timeZone());
+}
+
+void TimeZoneContainer::updateGridSeparator()
+{
+    if (m_MainLayout->count() > 2) {
+        if (m_MainLayout->count() % 2 == 0) {
+            static_cast<TimeZoneListItem*>(
+                    m_MainLayout->itemAt(m_MainLayout->count() - 2))->setVisibleSeparator(false);
+        }
+    }
+}
+
+void TimeZoneContainer::updateHSeparator()
+{
+    if (m_MainLayout->count() > 2) {
+        static_cast<TimeZoneListItem*>(
+                m_MainLayout->itemAt(m_MainLayout->count() - 2))->setVisibleSeparator(true);
+    }
 }
 

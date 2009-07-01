@@ -7,6 +7,7 @@
 class TimeZoneListItem;
 class DuiLayout;
 class DuiGridLayoutPolicy;
+class DuiLinearLayoutPolicy;
 
 class TimeZoneContainer : public DuiWidget
 {
@@ -20,17 +21,18 @@ public:
 
 protected:
     void initWidget();
+    void updateGridSeparator();
+    void updateHSeparator();
 
 private:
     QMap<int, TimeZoneListItem*> m_ItemMap;
     DuiLayout *m_MainLayout;
     DuiGridLayoutPolicy *m_MainLayoutPolicy;
+    DuiLinearLayoutPolicy *m_MainVLayoutPolicy;
 
 private slots:
+    virtual void orientationChanged();
     virtual void itemClicked(TimeZoneListItem* item);
-
-// signals:
-//    void closing();
 };
 #endif // TIMEZONECONTAINER_H
 

@@ -1,0 +1,53 @@
+Sprint 30/06/09 - 03/07/09
+Estimations are in Ideal Working Hours (pure coding), 4h / day
+
+Total avaiable hours:
+
+Latzko: 16h
+Manner: 16h
+Retsoft: 16h
+Rinyu: 4h - holiday on the rest
+
+ID: 10     
+NAME:        Profile applications, make graphs 
+Responsible: Manner
+Estimation:  8 hours
+Status:      In progress
+Progress:    8 4 4 4 
+
+ID: 20     
+NAME:        Optimizing code for performance (Startup)
+Responsible: Latzko
+Estimation:  8 hours
+Status:      In progress
+Progress:    12 8 8 8 8 
+ 
+ID: 25     
+NAME:        Optimizing code for performance (Dcp)
+Responsible: Manner
+Estimation:  4 hours
+Status:      In progress
+Progress:    4 4 4 4 
+
+ID: 30     
+NAME:        Orientation change fix 
+Responsible: Rinyu
+Estimation:  4 hours
+Status:      Completed
+Progress:    4 0 0 0 
+
+ID: 40     
+NAME:   Tapping the Display language item on the wizard view should open
+        the Select Display language dialog window 
+Responsible: Manner
+Estimation:  4 hours
+Status:      In progress
+Progress:    4 4 4 4
+
+ID 50
+NAME: Increasing Usage parameter when launching an applet
+Responsible: Retsoft
+Estimation:  4 hours (8)
+Status:      In progress
+Progress:    8 4 4 4  
+

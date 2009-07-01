@@ -23,8 +23,9 @@ int main(int argc, char *argv[])
 
     MainWindow* win = new MainWindow();
     win->show();
-	int ret = app->exec();
-	delete win;
+    int ret = app->exec();
+    delete win;
+    win = 0;
     return ret;
 }
 

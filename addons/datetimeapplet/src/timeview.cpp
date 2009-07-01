@@ -47,16 +47,22 @@ void TimeView::initWidget()
     widgetLayout->setPolicy(widgetLayoutPolicy);
     centralWidget->setLayout(widgetLayout);
 
-    // add items to widgetLayoutPolicy
-    widgetLayoutPolicy->addItemAtPosition(
-            new DcpSpacerItem(this, 
-                DuiSceneManager::instance()->visibleSceneRect().width() - 35, 
-                5, QSizePolicy::Fixed, QSizePolicy::Expanding), 0, Qt::AlignCenter);
-
     // setCentralWidget
     m_Container->setCentralWidget(centralWidget);
 
     // add items to mainLayoutPolicy
     mainLayoutPolicy->addItemAtPosition(m_Container, 0, Qt::AlignCenter);
+
+    // orientation change
+    connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),
+            this, SLOT(orientationChnaged()));
+    orientationChanged();
+}
+
+void TimeView::orientationChanged()
+{
+    DuiSceneManager *manager = DuiSceneManager::instance();
+    if (manager == 0)
+        return;
 }
 
