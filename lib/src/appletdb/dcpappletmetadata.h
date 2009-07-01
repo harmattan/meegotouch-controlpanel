@@ -43,6 +43,8 @@ public:
 
     DcpAppletIf* applet() const;
 
+	void save();
+
 signals:
     void briefChanged();
 

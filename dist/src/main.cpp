@@ -22,9 +22,9 @@ int main(int argc, char *argv[])
     qDebug() << trid("dcp_test", "Teesttt");
 
     MainWindow* win = new MainWindow();
-
     win->show();
-
-    return app->exec();
+	int ret = app->exec();
+	delete win;
+    return ret;
 }
 

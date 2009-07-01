@@ -45,7 +45,6 @@ void DcpMostUsedCategory::createContents()
     }
 }
 
-
 void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata, bool fullLine)
 {
 

@@ -17,6 +17,8 @@ public:
     DcpAppletLoader* m_AppletLoader;
     DcpBrief* m_Brief;
     DuiDesktopEntry* m_DesktopEntry;
+
+	int m_Counter;
 };
 
 #endif // DCPAPPLETMETADATA_P_H

@@ -7,6 +7,8 @@
 #include <duiaction.h>
 #include <duiapplication.h>
 
+#include "dcpappletdb.h"
+
 MainWindow::MainWindow()
 {
    Pages::Handle handle = {Pages::MAIN, ""};
@@ -21,22 +23,23 @@ void MainWindow::backClicked()
 
 MainWindow::~MainWindow()
 {
+	DcpAppletDb::instance()->destroy();
+	Q_ASSERT(0);
 }
 
 
 void
 MainWindow::changePage(Pages::Handle handle)
 {
+
     DcpPage *page = PageFactory::instance()->create(handle);
-    connect (page, SIGNAL(openSubPage(Pages::Handle)), this,
-        SLOT(changePage(Pages::Handle)));
+    connect (page, SIGNAL(openSubPage(Pages::Handle)), this, SLOT(changePage(Pages::Handle)));
     connect(page, SIGNAL(backButtonClicked()), this, SLOT(backClicked()));
 
     // --- temporary to test rotating the device ---
     DuiAction* rotateAction = new DuiAction("ROT", page);
     rotateAction->setLocation(DuiAction::ToolBar);
-    connect (rotateAction, SIGNAL (triggered()),
-             this, SLOT(onRotateClicked()));
+    connect (rotateAction, SIGNAL (triggered()), this, SLOT(onRotateClicked()));
     // ---
     // closeAction
     DuiAction *quitAction = new DuiAction(DcpMain::quitMenuItemText, this);

@@ -12,7 +12,6 @@ DcpCategoryPage::DcpCategoryPage() :
 {
 }
 
-
 void DcpCategoryPage::createContent()
 {
     DcpPage::createContent();
