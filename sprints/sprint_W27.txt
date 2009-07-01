@@ -13,21 +13,28 @@ NAME:        Profile applications, make graphs
 Responsible: Manner
 Estimation:  8 hours
 Status:      In progress
-Progress:    8 8 8 8 
+Progress:    8 4 4 4 
 
 ID: 20     
-NAME:        Optimizing code for performance 
+NAME:        Optimizing code for performance (Startup)
 Responsible: Latzko
 Estimation:  8 hours
 Status:      In progress
-Progress:    12 12 12 12
+Progress:    12 8 8 8 8 
  
+ID: 25     
+NAME:        Optimizing code for performance (Dcp)
+Responsible: Manner
+Estimation:  4 hours
+Status:      In progress
+Progress:    4 4 4 4 
+
 ID: 30     
 NAME:        Orientation change fix 
 Responsible: Rinyu
-Estimation:  3 hours
-Status:      In progress
-Progress:    4 4 4 4 
+Estimation:  4 hours
+Status:      Completed
+Progress:    4 0 0 0 
 
 ID: 40     
 NAME:   Tapping the Display language item on the wizard view should open
@@ -40,7 +47,7 @@ Progress:    4 4 4 4
 ID 50
 NAME: Increasing Usage parameter when launching an applet
 Responsible: Retsoft
-Estimation:  4 hours
+Estimation:  4 hours (8)
 Status:      In progress
-Progress:    4 4 4 4
+Progress:    8 4 4 4  
 
