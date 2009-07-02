@@ -1,20 +1,20 @@
 #include "dcpspaceritem.h"
 
-DcpSpacerItem::DcpSpacerItem(DuiWidget *parent, 
+DcpSpacerItem::DcpSpacerItem(DuiWidget *parent,
                              int width, int height,
                              QSizePolicy::Policy hPolicy,
                              QSizePolicy::Policy vPolicy)
-              :DuiWidget(parent)
+              :QGraphicsWidget(parent)
 {
     setSizePolicy(hPolicy, vPolicy);
     setMinimumHeight(height);
     setMinimumWidth(width);
-    
-    if (hPolicy == QSizePolicy::Maximum || 
+
+    if (hPolicy == QSizePolicy::Maximum ||
         hPolicy == QSizePolicy::Fixed)
     {
         setMaximumWidth(width);
-    } 
+    }
 
     if (vPolicy == QSizePolicy::Maximum ||
         vPolicy == QSizePolicy::Fixed)
@@ -37,3 +37,5 @@ void DcpSpacerItem::changeSize(int width, int height,
     setMaximumWidth(width);
     setSizePolicy(hPolicy, vPolicy);
 }
+
+
