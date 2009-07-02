@@ -37,7 +37,7 @@ void LanguageWidget::initWidget()
     m_DisplayButton->setText1(DcpLanguage::DisplayButtonTitle);
     m_DisplayButton->setText2(DcpLanguageConf::fullName(
                 DcpLanguageConf::instance()->displayLanguage()));
-    m_DisplayButton->setMinimumWidth(DuiSceneManager::instance()->visibleSceneRect().width()-24);
+    m_DisplayButton->setMinimumWidth(DuiSceneManager::instance()->visibleSceneSize().width()-24);
     m_DisplayButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     connect(m_DisplayButton, SIGNAL(clicked()), this, SLOT(displayPage()));
 

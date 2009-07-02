@@ -85,16 +85,16 @@ void UpdateButton::onOrientationChanged()
 
     switch (manager->orientation()) {
         case Dui::Landscape:
-            this->setMinimumWidth(manager->visibleSceneRect().width() - 30);
-            this->setMaximumWidth(manager->visibleSceneRect().width() - 30);
+            this->setMinimumWidth(manager->visibleSceneSize().width() - 30);
+            this->setMaximumWidth(manager->visibleSceneSize().width() - 30);
             m_AutomaticLabel->setMinimumWidth(
-                DuiSceneManager::instance()->visibleSceneRect().width() - 130);
+                DuiSceneManager::instance()->visibleSceneSize().width() - 130);
             break;
         case Dui::Portrait:
-            this->setMinimumWidth(manager->visibleSceneRect().width() - 30);
-            this->setMaximumWidth(manager->visibleSceneRect().width() - 30);
+            this->setMinimumWidth(manager->visibleSceneSize().width() - 30);
+            this->setMaximumWidth(manager->visibleSceneSize().width() - 30);
             m_AutomaticLabel->setMinimumWidth(
-                DuiSceneManager::instance()->visibleSceneRect().width() - 130);
+                DuiSceneManager::instance()->visibleSceneSize().width() - 130);
             break;
         default:
             break;

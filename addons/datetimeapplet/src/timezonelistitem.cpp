@@ -199,16 +199,16 @@ void TimeZoneListItem::onOrientationChanged()
 
     switch (manager->orientation()) {
         case Dui::Landscape:
-            this->setMinimumWidth(manager->visibleSceneRect().width() / 2 - 40);
-            this->setMaximumWidth(manager->visibleSceneRect().width() / 2 - 40);
+            this->setMinimumWidth(manager->visibleSceneSize().width() / 2 - 40);
+            this->setMaximumWidth(manager->visibleSceneSize().width() / 2 - 40);
             m_CountryLabel->setMinimumWidth(
-                DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 110);
+                DuiSceneManager::instance()->visibleSceneSize().width() / 2 - 110);
             break;
         case Dui::Portrait:
-            this->setMinimumWidth(manager->visibleSceneRect().width() - 40);
-            this->setMaximumWidth(manager->visibleSceneRect().width() - 40);
+            this->setMinimumWidth(manager->visibleSceneSize().width() - 40);
+            this->setMaximumWidth(manager->visibleSceneSize().width() - 40);
             m_CountryLabel->setMinimumWidth(
-                DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 110);
+                DuiSceneManager::instance()->visibleSceneSize().width() / 2 - 110);
             break;
         default:
             break;

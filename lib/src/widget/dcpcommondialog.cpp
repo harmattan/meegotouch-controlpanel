@@ -140,7 +140,7 @@ void DcpCommonDialog::onOrientationAngleChanged()
 {
     if (DuiSceneManager::instance() == 0) return;
 
-    QSizeF dialogSize = DuiSceneManager::instance()->visibleSceneRect();
+    QSizeF dialogSize = DuiSceneManager::instance()->visibleSceneSize();
     //dialogSize.setHeight(dialogSize.height());
     m_Viewport->setMinimumSize(dialogSize);
     m_Viewport->setMaximumSize(dialogSize);

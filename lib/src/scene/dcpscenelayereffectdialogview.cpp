@@ -22,7 +22,7 @@ void DcpSceneLayerEffectDialogView::paint(QPainter *painter,
     Q_UNUSED(widget);
 
     qreal opacity = 0.90;
-    int width = DuiSceneManager::instance()->visibleSceneRect().width() - 120;
+    int width = DuiSceneManager::instance()->visibleSceneSize().width() - 120;
     painter->setOpacity(m_Controller->effectiveOpacity() * opacity);
     painter->fillRect(boundingRect(), QColor(0, 0, 0));
     painter->fillRect(QRectF(QPoint(60, 0), QSizeF(width, 62)), QColor(0, 0, 0));

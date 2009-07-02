@@ -82,15 +82,15 @@ void TimeZoneView::orientationChanged()
     switch (manager->orientation()) {
         case Dui::Landscape:
             m_TextEdit->setMinimumWidth(
-                    DuiSceneManager::instance()->visibleSceneRect().width() - 40);
+                    DuiSceneManager::instance()->visibleSceneSize().width() - 40);
             m_TextEdit->setMaximumWidth(
-                    DuiSceneManager::instance()->visibleSceneRect().width() - 40);
+                    DuiSceneManager::instance()->visibleSceneSize().width() - 40);
             break;
         case Dui::Portrait:
             m_TextEdit->setMinimumWidth(
-                    DuiSceneManager::instance()->visibleSceneRect().width() - 40);
+                    DuiSceneManager::instance()->visibleSceneSize().width() - 40);
             m_TextEdit->setMaximumWidth(
-                    DuiSceneManager::instance()->visibleSceneRect().width() - 40);
+                    DuiSceneManager::instance()->visibleSceneSize().width() - 40);
             break;
         default:
             break;
