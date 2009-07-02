@@ -48,7 +48,8 @@ void MainWindow::changePage(Pages::Handle handle)
         page->addAction(quitAction);
     page->addAction(rotateAction);
 
-    page->appear(DuiSceneWindow::DestroyWhenDone); //TODO -> Destroy
+//    page->appear(DuiSceneWindow::DestroyWhenDone); 
+    page->appear(DuiSceneWindow::KeepWhenDone); // FIXME
 }
 
 /*
