@@ -58,12 +58,12 @@ void TimeZoneContainer::updateLayout()
     if (m_MainLayout->count() == 0) {
         m_MainLayoutPolicy->addItemAtPosition(
                 new DcpSpacerItem(this, 
-                    DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 40, 
+                    DuiSceneManager::instance()->visibleSceneSize().width() / 2 - 40, 
                     10, QSizePolicy::Fixed, QSizePolicy::Expanding),
                 0, 0);
         m_MainLayoutPolicy->addItemAtPosition(
                 new DcpSpacerItem(this, 
-                    DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 40, 
+                    DuiSceneManager::instance()->visibleSceneSize().width() / 2 - 40, 
                     10, QSizePolicy::Fixed, QSizePolicy::Expanding),
                 0, 1);
     } else {
@@ -82,7 +82,7 @@ void TimeZoneContainer::updateLayout()
     if (m_MainLayout->count() == 1) {
         m_MainLayoutPolicy->addItemAtPosition(
                 new DcpSpacerItem(this, 
-                    DuiSceneManager::instance()->visibleSceneRect().width() / 2 - 40, 
+                    DuiSceneManager::instance()->visibleSceneSize().width() / 2 - 40, 
                     10, QSizePolicy::Fixed, QSizePolicy::Expanding),
                 0, 1);
     }

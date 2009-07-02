@@ -140,12 +140,12 @@ void DateTimeWidget::orientationChanged()
     switch (DuiSceneManager::instance()->orientation()) {
         case Dui::Landscape:
             m_TimeZoneButton->setMinimumWidth(
-                    DuiSceneManager::instance()->visibleSceneRect().width() - 30);
+                    DuiSceneManager::instance()->visibleSceneSize().width() - 30);
             m_DateTimeLayout->setPolicy(m_DateTimeHLayoutPolicy);
             break;
         case Dui::Portrait:
             m_TimeZoneButton->setMinimumWidth(
-                    DuiSceneManager::instance()->visibleSceneRect().width() - 30);
+                    DuiSceneManager::instance()->visibleSceneSize().width() - 30);
             m_DateTimeLayout->setPolicy(m_DateTimeVLayoutPolicy);
             break;
         default:

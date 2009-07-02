@@ -152,12 +152,12 @@ void LanguageListItem::onOrientationAngleChanged()
 
     switch(manager->orientation()) {
         case Dui::Landscape:
-            this->setMinimumWidth(manager->visibleSceneRect().width() / 2 - 40);
-            this->setMaximumWidth(manager->visibleSceneRect().width() / 2 - 40);
+            this->setMinimumWidth(manager->visibleSceneSize().width() / 2 - 40);
+            this->setMaximumWidth(manager->visibleSceneSize().width() / 2 - 40);
             break;
         case Dui::Portrait:
-            this->setMinimumWidth(manager->visibleSceneRect().width() - 40);
-            this->setMaximumWidth(manager->visibleSceneRect().width() - 40);
+            this->setMinimumWidth(manager->visibleSceneSize().width() - 40);
+            this->setMaximumWidth(manager->visibleSceneSize().width() - 40);
             break;
         default:
             break;

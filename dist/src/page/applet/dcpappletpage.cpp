@@ -90,8 +90,8 @@ void DcpAppletPage::setUpMainWidgetSize()
         /* TODO, not working, fix rotation somehow
     DuiSceneManager* manager = DuiSceneManager::instance();
     if (m_MainWidget && manager){
-        int height = manager->visibleSceneRect().height();
-        int width = manager->visibleSceneRect().width();
+        int height = manager->visibleSceneSize().height();
+        int width = manager->visibleSceneSize().width();
         m_MainWidget->setMinimumWidth(width);
         m_MainWidget->setMaximumWidth(width);
         m_MainWidget->setMinimumHeight(height);
