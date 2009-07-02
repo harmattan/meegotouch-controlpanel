@@ -12,8 +12,7 @@
 
 Q_EXPORT_PLUGIN2(displayapplet, DisplayApplet)
 
-// const QString cssDir = "/usr/share/duicontrolpanel/themes/style/"; // -> for dui>=0.8
-const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/"; // -> for dui<=0.7.5
+const QString cssDir = "/usr/share/duicontrolpanel/themes/style/";
 
 void DisplayApplet::init(QString part)
 {

@@ -272,8 +272,7 @@ QString DcpAppletMetadata::fileName() const
 
 QString DcpAppletMetadata::desktopEntryStr(int id) const
 {
-    return desktopEntry()->value(Keys[id], "").toString().trimmed(); // -> for dui <=0.7.5
-//    return desktopEntry()->value(Keys[id]).trimmed(); // -> for dui >=0.8
+    return desktopEntry()->value(Keys[id]).trimmed();
 }
 
 
@@ -296,7 +295,7 @@ void DcpAppletMetadata::save()
 				tmpKey = Keys[i];
 				QString tmpSecond = tmpKey.remove(QRegExp(tmpFirst + "/"));
 					
-				QString tmpValue = desktopEntry()->value(Keys[i], "").toString();
+				QString tmpValue = desktopEntry()->value(Keys[i], "");
 
 				int tmpUsage = desktopEntry()->value(Keys[KeyUsage]).toInt();
 				
