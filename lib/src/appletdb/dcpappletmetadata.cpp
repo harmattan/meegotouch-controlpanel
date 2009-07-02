@@ -10,6 +10,8 @@
 #include "dcpbrief.h"
 #include "dcpappletif.h"
 
+#include <QRegExp>
+
 enum  {
     KeyCategory = 0,
     KeyOrder,
@@ -68,7 +70,8 @@ const QString Keys[KeyCount] = {
 DcpAppletMetadataPrivate::DcpAppletMetadataPrivate()
     : m_AppletLoader(0),
       m_Brief(0),
-      m_DesktopEntry(0)
+      m_DesktopEntry(0),
+      m_Counter(-1)
 {
 }
 
@@ -88,6 +91,7 @@ DcpAppletMetadata::DcpAppletMetadata(const QString& filename)
 
 DcpAppletMetadata::~DcpAppletMetadata()
 {
+	save();
     delete d;
 }
 
@@ -125,12 +129,16 @@ DcpAppletMetadata::icon() const
 QString
 DcpAppletMetadata::binary() const
 {
+
     return desktopEntryStr(KeyBinary);
 }
 
 QString
 DcpAppletMetadata::fullBinary() const
 {
+	//add
+	d->m_Counter++;	
+
     return DcpApplet::Lib + binary();
 }
 
@@ -213,7 +221,7 @@ QString DcpAppletMetadata::part() const
 int DcpAppletMetadata::usage() const
 {
     // TODO implement
-    return desktopEntry()->value(Keys[KeyUsage]).toInt();
+    return desktopEntry()->value(Keys[KeyUsage]).toInt() + d->m_Counter;
 }
 
 int DcpAppletMetadata::order() const
@@ -264,8 +272,55 @@ QString DcpAppletMetadata::fileName() const
 
 QString DcpAppletMetadata::desktopEntryStr(int id) const
 {
-    return desktopEntry()->value(Keys[id], "").toString().trimmed(); // -> for dui <=0.7.5
-//    return desktopEntry()->value(Keys[id]).trimmed(); // -> for dui >=0.8
+    return desktopEntry()->value(Keys[id]).trimmed();
 }
 
 
+void DcpAppletMetadata::save() 
+{
+
+	if (d->m_Counter>0) {
+		QString group = "";
+	
+		//QFile file(desktopEntry()->fileName()+"_tmp");
+		QFile file(desktopEntry()->fileName());
+	
+		if(file.open(QIODevice::WriteOnly))
+	
+			for (int i=0;i<KeyCount; i++) {
+				
+				QString tmpKey(Keys[i]);
+				QString tmpFirst = tmpKey.remove(QRegExp("/[a-zA-Z0-9 -]*"));
+	
+				tmpKey = Keys[i];
+				QString tmpSecond = tmpKey.remove(QRegExp(tmpFirst + "/"));
+					
+				QString tmpValue = desktopEntry()->value(Keys[i], "");
+
+				int tmpUsage = desktopEntry()->value(Keys[KeyUsage]).toInt();
+				
+				if (!tmpValue.isEmpty() || i==KeyUsage) {
+	
+					if(group!=tmpFirst) {
+						group=tmpFirst;
+						QString tmp1("[" + tmpFirst + "]");
+						file.write(qPrintable(tmp1), tmp1.size());
+						file.write("\n", 1);
+					}
+
+					if (i==KeyUsage) {
+						QString tmp2(tmpSecond + "=" + QString::number(tmpUsage + d->m_Counter)); 
+						file.write(qPrintable(tmp2), tmp2.size());
+						file.write("\n", 1);
+					} else {
+						QString tmp2(tmpSecond + "=" + tmpValue); 
+						file.write(qPrintable(tmp2), tmp2.size());
+						file.write("\n", 1);
+					}
+				}
+				
+			}
+	
+		file.close();
+	}
+}

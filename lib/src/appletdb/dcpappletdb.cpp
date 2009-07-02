@@ -134,3 +134,10 @@ void DcpAppletDb::eraseEntry(DcpAppletMetadata *metadata)
     metadata->deleteLater();
 }
 
+void DcpAppletDb::destroy()
+{
+	foreach(DcpAppletMetadata *metadata, m_AppletsByName) {
+		delete metadata;
+	}
+}
+

@@ -22,6 +22,8 @@ public:
     void addFile(const QString& filename);
     void eraseEntry(DcpAppletMetadata *metadata);
     void refresh();
+
+	void destroy(void);
 protected:
     DcpAppletDb(const QString &pathName);
     void refreshPath(const QString &pathName);

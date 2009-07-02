@@ -22,7 +22,6 @@ int main(int argc, char *argv[])
     qDebug() << trid("dcp_test", "Teesttt");
 
     MainWindow* win = new MainWindow();
-
     win->show();
     int ret = app->exec();
     delete win;
