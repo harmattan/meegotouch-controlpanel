@@ -19,7 +19,7 @@ public:
     virtual DcpBrief* constructBrief();
 
 private:
-    DcpWidget* mainPage(int widgetId);
+    DcpWidget* mainPage();
 
     int m_PartIndex;
 };

@@ -38,24 +38,29 @@ DcpWidget* LanguageApplet::constructWidget(int widgetId)
     if (m_PartIndex != DcpLanguage::None && !widgetId) {
         widgetId = m_PartIndex;
     }
-    return mainPage(widgetId);
-}
-
-DcpWidget* LanguageApplet::mainPage(int widgetId)
-{
-    LanguageWidget* widget = new LanguageWidget();
     switch (widgetId) {
-        case DcpLanguage::Keyboard:
-            widget->keyboardPage();
+        case DcpLanguage::Display: {
+            DisplayDialog* dialog = new DisplayDialog();
+            dialog->exec();
             break;
-         case DcpLanguage::Display:
-            widget->displayPage();
-            return NULL;
+        }
+        case DcpLanguage::Keyboard: {
+            KeyboardDialog* dialog = new KeyboardDialog();
+            dialog->exec();
             break;
+        }
+        case DcpLanguage::None:
+        case DcpLanguage::Main:
+            return mainPage();
         default:
             break;
     }
-    return widget;
+    return NULL;
+}
+
+DcpWidget* LanguageApplet::mainPage()
+{
+    return new LanguageWidget();
 }
 
 QString LanguageApplet::title() const
