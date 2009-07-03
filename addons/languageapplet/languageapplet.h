@@ -14,12 +14,13 @@ class LanguageApplet : public QObject, public DcpAppletIf
 public:
     virtual void init(QString part="");
 	virtual DcpWidget* constructWidget(int widgetId);
-    virtual DcpWidget* mainPage();
     virtual QString title() const;
     virtual QVector<DuiAction*> viewMenuItems();
     virtual DcpBrief* constructBrief();
 
 private:
-    int m_WidgetIndex;
+    DcpWidget* mainPage();
+
+    int m_PartIndex;
 };
 #endif // HELLOLANGUAGE_H
