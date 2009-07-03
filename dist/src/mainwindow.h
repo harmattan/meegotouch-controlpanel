@@ -15,7 +15,6 @@ public:
 public slots:
     void changePage(Pages::Handle handle);
     void backClicked();
-    void onRotateClicked();
 };
 
 #endif // MAINWINDOW_H
