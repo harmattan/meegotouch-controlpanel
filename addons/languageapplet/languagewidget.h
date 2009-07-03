@@ -24,7 +24,7 @@ private:
     DcpButton2 *m_KeyboardButton;
     DcpDialog *m_Dlg;
     
-private slots:
+public slots:
     virtual void displayPage();
     virtual void keyboardPage();
 };

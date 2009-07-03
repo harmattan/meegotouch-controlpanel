@@ -10,15 +10,16 @@
 #include <DuiSceneManager>
 
 DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
-    DcpPage(), m_Metadata(metadata)
+    DcpPage(), m_Metadata(metadata),
+    m_MainWidget(0), m_AppletLoader(0)
 {
     setHandle(Pages::APPLET);
-    m_MainWidget = 0;
 }
 
 DcpAppletPage::~DcpAppletPage()
 {
-    m_AppletLoader->deleteLater();
+    if (m_AppletLoader)
+        m_AppletLoader->deleteLater();
 }
 
 void DcpAppletPage::createContent()
@@ -68,6 +69,13 @@ DcpAppletPage::changeWidget(int widgetId)
     }
 
     m_MainWidget = m_AppletLoader->applet()->constructWidget(widgetId);
+
+    // checks if applet does provide the widget
+    if (!m_MainWidget) {
+        emit backButtonClicked();
+        return;
+    }
+
     connect(m_MainWidget, SIGNAL(changeWidget(int)), this, SLOT(changeWidget(int)));
     append(m_MainWidget);
 

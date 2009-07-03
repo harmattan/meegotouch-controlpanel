@@ -11,6 +11,9 @@
 
 #include "languagebrief.h"
 
+#include "keyboarddialog.h"
+#include "displaydialog.h"
+
 Q_EXPORT_PLUGIN2(languageapplet, LanguageApplet)
 
 const QString cssDir = "/usr/share/duicontrolpanel/themes/style/";
@@ -18,26 +21,41 @@ const QString cssDir = "/usr/share/duicontrolpanel/themes/style/";
 void LanguageApplet::init(QString part)
 {
     DuiTheme::loadCSS(cssDir + "languageapplet.css");
-    m_WidgetIndex = DcpLanguage::Main;
+
+    if (part == DcpLanguage::KeyDisplay) {
+        m_PartIndex = DcpLanguage::Display;
+    } else if (part == DcpLanguage::KeyKeyboard) {
+        m_PartIndex = DcpLanguage::Keyboard;
+    } else if (part == DcpLanguage::KeyMain) {
+        m_PartIndex = DcpLanguage::Main;
+    } else {
+        m_PartIndex = DcpLanguage::None;
+    }
 }
 
 DcpWidget* LanguageApplet::constructWidget(int widgetId)
 {
-	switch (widgetId)
-    {
-        case DcpLanguage::Main:
-                return mainPage();
-                break;
-        default:
-                qWarning() << "Page Unknown";
-                return 0;
-                break;
+    if (m_PartIndex != DcpLanguage::None && !widgetId) {
+        widgetId = m_PartIndex;
     }
+    return mainPage(widgetId);
 }
 
-DcpWidget* LanguageApplet::mainPage()
+DcpWidget* LanguageApplet::mainPage(int widgetId)
 {
-    return new LanguageWidget();
+    LanguageWidget* widget = new LanguageWidget();
+    switch (widgetId) {
+        case DcpLanguage::Keyboard:
+            widget->keyboardPage();
+            break;
+         case DcpLanguage::Display:
+            widget->displayPage();
+            return NULL;
+            break;
+        default:
+            break;
+    }
+    return widget;
 }
 
 QString LanguageApplet::title() const
@@ -48,14 +66,14 @@ QString LanguageApplet::title() const
 QVector<DuiAction*> LanguageApplet::viewMenuItems()
 {
     QVector<DuiAction*> vector;
-    
+
     // closeAction
     /* DuiAction *closeAction = new DuiAction(DcpLanguage::QuitSettingsMenuText, this);
     closeAction->setPossibleLocations(DuiAction::ViewMenu);
     connect(closeAction, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
     vector.push_back(closeAction);*/
 
-    return vector;    
+    return vector;
 }
 
 DcpBrief* LanguageApplet::constructBrief()
