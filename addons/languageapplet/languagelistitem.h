@@ -34,6 +34,7 @@ protected:
 
 protected slots:
     void onOrientationAngleChanged();
+    virtual void polishEvent ();
 
 private:
     QString m_LangCode;
