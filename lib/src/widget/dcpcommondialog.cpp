@@ -47,7 +47,7 @@ void DcpCommonDialog::initDialog()
     DuiLinearLayoutPolicy *mainLayoutPolicy =
         new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayout->setContentsMargins(17.0, 0.0, 7.0, 8.0);
+    mainLayout->setContentsMargins(10.0, 0.0, 0.0, 0.0);
     mainLayoutPolicy->setSpacing(10);
 
     // FIXME -- backbutton temporary solution until it is getting possible
@@ -59,7 +59,7 @@ void DcpCommonDialog::initDialog()
     connect (backButton, SIGNAL(clicked()), this, SLOT(accept()));
 
     DuiLayout* backButtonLayout = new DuiLayout(0);
-    backButtonLayout->setContentsMargins(0.0, 0.0, 36.0, 0.0);
+    backButtonLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     backButtonLayout->setAnimator(0);
     DuiLinearLayoutPolicy* backButtonLayoutPolicy = new DuiLinearLayoutPolicy(backButtonLayout,
             Qt::Horizontal);
@@ -77,6 +77,11 @@ void DcpCommonDialog::initDialog()
     m_MainWidget = new DuiContainer(0);
     m_MainWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_MainWidget->setHeaderVisible(false);
+
+    // FIXME temporary workaround for setHeaderVisible not working (layout bug?)
+    delete m_MainWidget->layout()->itemAt(0);
+    delete m_MainWidget->layout()->itemAt(0);
+
     m_MainWidget->setExpand(true);
 
     // containerWidget
@@ -141,9 +146,11 @@ void DcpCommonDialog::onOrientationAngleChanged()
     if (DuiSceneManager::instance() == 0) return;
 
     QSizeF dialogSize = DuiSceneManager::instance()->visibleSceneSize();
+    dialogSize.setWidth(dialogSize.width()-30);
     //dialogSize.setHeight(dialogSize.height());
     m_Viewport->setMinimumSize(dialogSize);
-    m_Viewport->setMaximumSize(dialogSize);
+//    m_Viewport->setMaximumSize(dialogSize);
+
 }
 
 
