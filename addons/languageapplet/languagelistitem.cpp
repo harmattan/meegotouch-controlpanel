@@ -163,3 +163,7 @@ void LanguageListItem::onOrientationAngleChanged()
             break;
     }
 }
+
+void LanguageListItem::polishEvent (){
+    checked(m_Checked);
+}
