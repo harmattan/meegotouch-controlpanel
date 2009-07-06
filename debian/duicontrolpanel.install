@@ -3,4 +3,4 @@ usr/lib/duicontrolpanel/*desktop
 usr/share/duicontrolpanel/themes/style/duicontrolpanel.*
 usr/share/duicontrolpanel/themes/images/*
 usr/share/duicontrolpanel/themes/svg/*
-usr/share/applications/dui/duicontrolpanel.desktop
+usr/share/applications/duicontrolpanel.desktop
