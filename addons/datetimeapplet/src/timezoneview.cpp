@@ -5,6 +5,7 @@
 #include "datetimetranslation.h"
 #include "dcpspaceritem.h"
 
+#include <QSizePolicy>
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
 #include <duitextedit.h>
@@ -41,7 +42,7 @@ void TimeZoneView::initWidget()
         new DuiLinearLayoutPolicy(textEditLayout, Qt::Horizontal);
     textEditLayout->setPolicy(textEditLayoutPolicy);
     textEditLayoutPolicy->setSpacing(1);
-    
+
     // m_TextEdit
     m_TextEdit = new DuiTextEdit(DuiTextEditModel::MultiLine,
                                  DcpDateTime::InputCountryText,
@@ -59,7 +60,7 @@ void TimeZoneView::initWidget()
     textEditLayoutPolicy->addItemAtPosition(
             new DcpSpacerItem(this, 5, 10, QSizePolicy::Expanding, QSizePolicy::Fixed),
             2, Qt::AlignRight | Qt::AlignVCenter);
-     
+
     // m_TimeZoneContainer
     m_TimeZoneContainer = new TimeZoneContainer(this);
 
@@ -78,7 +79,6 @@ void TimeZoneView::orientationChanged()
     DuiSceneManager *manager = DuiSceneManager::instance();
     if (manager == 0)
         return;
-
     switch (manager->orientation()) {
         case Dui::Landscape:
             m_TextEdit->setMinimumWidth(
@@ -107,17 +107,6 @@ void TimeZoneView::clearTextEdit(DuiTextEdit *textEdit)
 void TimeZoneView::filteringListItems()
 {
     QString sample = m_TextEdit->text();
-    QMapIterator<int, TimeZoneListItem*> iter(m_TimeZoneContainer->getMap());
-    while (iter.hasNext()) {
-        iter.next();
-        if (iter.value()->country().startsWith(sample, Qt::CaseInsensitive) ||
-            iter.value()->city().startsWith(sample, Qt::CaseInsensitive)) {
-            iter.value()->filtered(true);
-        } else {
-            iter.value()->filtered(false);
-        }
-    }
-    
-    m_TimeZoneContainer->updateLayout();
+    m_TimeZoneContainer->filter(sample);
 }
 

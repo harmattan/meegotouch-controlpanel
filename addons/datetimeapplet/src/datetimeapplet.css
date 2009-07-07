@@ -21,16 +21,35 @@
 
 #CountryLabel {
     font: font("Nokia Sans Cn", 18);
+    margin-left: 16;
+    color: #ffffff;
+}
+
+#CountryLabelSelected {
+    font: font("Nokia Sans Cn", 18);
+    margin-left: 16;
+    color: #e48415;
 }
 
 #GmtCityLabel {
     font: font("Nokia Sans Cn", 16);
+    margin-left: 16;
+    margin-bottom: 10;
+    color: #ffffff;
+}
+
+#GmtCityLabelSelected {
+    font: font("Nokia Sans Cn", 16);
+    margin-left: 16;
+    margin-bottom: 10;
+    color: #e48415;
 }
 
 #TimeZoneCheckMark {
     normal-background-image: scalable(Check-mark,0,0,0,0);
     minimum-size: size(32, 32);
     maximum-size: size(32, 32);
+    margin-right: 20;
 }
 
 #RegionFormatButton {

@@ -1,14 +1,11 @@
 #include "timezonelistitem.h"
-#include "dcpspaceritem.h"
 #include "dcptimezonedata.h"
 
-#include <duilayout.h>
-#include <duigridlayoutpolicy.h>
-#include <duilinearlayoutpolicy.h>
+#include <QGraphicsGridLayout>
+#include <QSizePolicy>
 #include <duibutton.h>
 #include <duilabel.h>
 #include <duiseparator.h>
-#include <duiscenemanager.h>
 #include <QGraphicsSceneMouseEvent>
 
 const int height = 75;
@@ -53,19 +50,13 @@ QString TimeZoneListItem::city()
 void TimeZoneListItem::checked(bool ok)
 {
     m_Checked = ok;
-
+    m_CheckMark->setVisible(m_Checked);
     if (m_Checked) {
-        m_CountryLabel->setText("<font color=#e48415>" + m_Country +
-                                "</font>");
-        m_GmtCityLabel->setText("<font color=#e48415>" + m_Gmt + " "
-                                + m_City + "</font>");
-        m_CheckMark->setVisible(true);
+        m_CountryLabel->setObjectName("CountryLabelSelected");
+        m_GmtCityLabel->setObjectName("GmtCityLabelSelected");
     } else {
-        m_CountryLabel->setText("<font color=#ffffff>" + m_Country +
-                                "</font>");
-        m_GmtCityLabel->setText("<font color=#ffffff>" + m_Gmt + " "
-                                + m_City + "</font>");
-        m_CheckMark->setVisible(false);
+        m_CountryLabel->setObjectName("CountryLabel");
+        m_GmtCityLabel->setObjectName("GmtCityLabel");
     }
 }
 
@@ -92,57 +83,26 @@ void TimeZoneListItem::setVisibleSeparator(bool enable)
 void TimeZoneListItem::initWidget()
 {
     // mainLayout
-    DuiLayout *mainLayout = new DuiLayout(this);
-    mainLayout->setAnimator(0);
+    QGraphicsGridLayout *mainLayout = new QGraphicsGridLayout(this);
     mainLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
-    DuiLinearLayoutPolicy *mainLayoutPolicy =
-        new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
-    mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayoutPolicy->setSpacing(5);
+    mainLayout->setSpacing(0);
 
     // set height
     this->setMinimumHeight(height);
     this->setMaximumHeight(height);
 
-    // LabelLayout
-    m_LabelLayout = new DuiLayout(0);
-    m_LabelLayout->setAnimator(0);
-    m_LabelLayout->setContentsMargins(12.0, 0.0, 12.0, 0.0);
-    m_LabelLayoutPolicy = new DuiGridLayoutPolicy(m_LabelLayout);
-    m_LabelLayout->setPolicy(m_LabelLayoutPolicy);
-    m_LabelLayoutPolicy->setSpacing(3);
-
-    // textLayout
-    DuiLayout *textLayout = new DuiLayout(0);
-    textLayout->setAnimator(0);
-    textLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
-    DuiLinearLayoutPolicy *textLayoutPolicy =
-        new DuiLinearLayoutPolicy(textLayout, Qt::Vertical);
-    textLayout->setPolicy(textLayoutPolicy);
-    textLayoutPolicy->setSpacing(1);
-
     // m_CountryLabel
-    m_CountryLabel = new DuiLabel("<font color=#ffffff>" + m_Country +
-                                  "</font>", this);
+    m_CountryLabel = new DuiLabel(m_Country, this);
     m_CountryLabel->setObjectName("CountryLabel");
+    m_CountryLabel->setAlignment(Qt::AlignBottom);
 
     // m_GmtCityLabel
-    m_GmtCityLabel = new DuiLabel("<font color=#ffffff>" + m_Gmt + " "
-                                  + m_City + "</font>", this);
+    m_GmtCityLabel = new DuiLabel(m_Gmt + " " + m_City, this);
     m_GmtCityLabel->setObjectName("GmtCityLabel");
+    m_GmtCityLabel->setAlignment(Qt::AlignTop);
 
-    // Add items to textLayoutPolicy
-    textLayoutPolicy->addItemAtPosition(m_CountryLabel, 0, Qt::AlignLeft | Qt::AlignVCenter);
-    textLayoutPolicy->addItemAtPosition(m_GmtCityLabel, 1, Qt::AlignLeft | Qt::AlignVCenter);
-
-    // checkMarkLayout
-    DuiLayout *checkMarkLayout = new DuiLayout(0);
-    checkMarkLayout->setAnimator(0);
-    checkMarkLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
-    DuiLinearLayoutPolicy *checkMarkLayoutPolicy =
-        new DuiLinearLayoutPolicy(checkMarkLayout, Qt::Vertical);
-    checkMarkLayout->setPolicy(checkMarkLayoutPolicy);
-    checkMarkLayoutPolicy->setSpacing(1);
+    mainLayout->addItem(m_CountryLabel, 0,0, 1,2); // FIXME: what to do with long names
+    mainLayout->addItem(m_GmtCityLabel, 1,0);
 
     // m_CheckMark
     m_CheckMark = new DuiButton(this);
@@ -150,31 +110,11 @@ void TimeZoneListItem::initWidget()
     m_CheckMark->setAcceptedMouseButtons(0);
     m_CheckMark->setVisible(false);
 
-    // Add items to checkMarkLayoutPolicy
-    checkMarkLayoutPolicy->addItemAtPosition(
-            new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Expanding),
-            0, Qt::AlignCenter);
-    checkMarkLayoutPolicy->addItemAtPosition(m_CheckMark, 1, Qt::AlignCenter);
-    checkMarkLayoutPolicy->addItemAtPosition(
-            new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding ,QSizePolicy::Expanding),
-            2, Qt::AlignCenter);
-
-    // Add items to m_LabelLayoutPolicy
-    m_LabelLayoutPolicy->addItemAtPosition(textLayout, 0, 0);
-    m_LabelLayoutPolicy->addItemAtPosition(
-            new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Expanding),
-            0, 1);
-    m_LabelLayoutPolicy->addItemAtPosition(checkMarkLayout, 0, 2);
-
     // m_GreySeparator
     m_GraySeparator = new DuiSeparator(this);
 
-    // Add items to mainLayoutPolicy
-    mainLayoutPolicy->addItemAtPosition(m_LabelLayout, 0, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(m_GraySeparator, 1, Qt::AlignCenter);
-
-    connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),
-            this, SLOT(onOrientationChanged()));
+    mainLayout->addItem(m_CheckMark, 0,1, 2,1, Qt::AlignCenter);
+    mainLayout->addItem(m_GraySeparator, 2,0, 1,2, Qt::AlignRight);
 }
 
 void TimeZoneListItem::mousePressEvent(QGraphicsSceneMouseEvent *event)

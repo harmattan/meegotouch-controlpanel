@@ -3,8 +3,6 @@
 
 #include <DuiWidget>
 
-class DuiLayout;
-class DuiGridLayoutPolicy;
 class DuiLabel;
 class DuiButton;
 class DuiSeparator;
@@ -41,13 +39,11 @@ private:
     QString m_City;
     bool m_Checked;
     bool m_Filtered;
-    DuiLayout *m_LabelLayout;
-    DuiGridLayoutPolicy *m_LabelLayoutPolicy;
     DuiLabel *m_CountryLabel;
     DuiLabel *m_GmtCityLabel;
     DuiButton *m_CheckMark;
     DuiSeparator *m_GraySeparator;
-    
+
 signals:
     void clicked(TimeZoneListItem *item);
 };
