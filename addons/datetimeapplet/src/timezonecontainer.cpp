@@ -14,19 +14,13 @@
 #include <QDebug>
 
 TimeZoneContainer::TimeZoneContainer(DuiWidget *parent)
-                  :DuiWidget(parent)
+                  :DuiWidget(parent), m_CheckedItem(0)
 {
     initWidget();
 }
 
 TimeZoneContainer::~TimeZoneContainer()
 {
-    m_ItemMap.clear();
-}
-
-QMap<int, TimeZoneListItem*> TimeZoneContainer::getMap()
-{
-    return m_ItemMap;
 }
 
 void TimeZoneContainer::updateLayout()
@@ -38,9 +32,12 @@ void TimeZoneContainer::updateLayout()
     // delete policies
     delete m_MainLayoutPolicy;
     delete m_MainVLayoutPolicy;
-    
+
     m_MainLayoutPolicy = new DuiGridLayoutPolicy(m_MainLayout);
     m_MainLayoutPolicy->setSpacing(10);
+    int columnwidth = DuiSceneManager::instance()->visibleSceneRect(
+                                              Dui::Landscape).width() / 2 - 20;
+    m_MainLayoutPolicy->setColumnFixedWidth(0,columnwidth);
     m_MainVLayoutPolicy = new DuiLinearLayoutPolicy(m_MainLayout, Qt::Vertical);
     m_MainVLayoutPolicy->setSpacing(5);
 
@@ -98,6 +95,7 @@ void TimeZoneContainer::initWidget()
     // m_MainLayout
     m_MainLayout = new DuiLayout(this);
     m_MainLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
+    m_MainLayout->setAnimator(0);
     this->setLayout(m_MainLayout);
 
     // m_MainLayoutPolicy
@@ -107,7 +105,7 @@ void TimeZoneContainer::initWidget()
     // m_MainVLayoutPolicy
     m_MainVLayoutPolicy = new DuiLinearLayoutPolicy(m_MainLayout, Qt::Vertical);
     m_MainVLayoutPolicy->setSpacing(5);
-    
+
     m_MainLayout->setPolicy(m_MainLayoutPolicy);
 
     // add items to m_ItemMap
@@ -116,28 +114,30 @@ void TimeZoneContainer::initWidget()
     int count = 0;
     while (zoneIter.hasNext()) {
         zoneIter.next();
-        m_ItemMap[count++] = new TimeZoneListItem(zoneIter.value()->timeZone(),
+        TimeZoneListItem *item = new TimeZoneListItem(zoneIter.value()->timeZone(),
                                                   zoneIter.value()->country(),
                                                   zoneIter.value()->gmt(),
                                                   zoneIter.value()->city(), 
                                                   this);
+        m_ItemMap[count] = item;
+
+        // add item to the layout:
+        m_MainLayoutPolicy->addItemAtPosition(item, count / 2, count % 2);
+        m_MainVLayoutPolicy->addItemAtPosition(item, count, Qt::AlignLeft | Qt::AlignVCenter);
+        connect(item, SIGNAL(clicked(TimeZoneListItem*)),
+                this, SLOT(itemClicked(TimeZoneListItem*)));
+
+        if (!m_CheckedItem) {
+            QString current = DcpTimeZoneConf::instance()->defaultTimeZone().city();
+            if (item->city() == current) {
+                item->checked(true);
+                m_CheckedItem = item;
+            }
+        }
+        count++;
     }
     zoneMap.clear();
-    
-    // add items to mainLayoutPolicy
-    QMapIterator<int, TimeZoneListItem*> iter(m_ItemMap);
-    count = 0;
-    while (iter.hasNext()) {
-        iter.next();
-        m_MainLayoutPolicy->addItemAtPosition(iter.value(), iter.key() / 2, iter.key() % 2);
-        m_MainVLayoutPolicy->addItemAtPosition(iter.value(), count++, Qt::AlignLeft | Qt::AlignVCenter);
-        connect(iter.value(), SIGNAL(clicked(TimeZoneListItem*)), 
-                this, SLOT(itemClicked(TimeZoneListItem*)));
-        QString current = DcpTimeZoneConf::instance()->defaultTimeZone().city();
-        if (iter.value()->city() == current)
-            iter.value()->checked(true);
-    }
-    
+
     if (m_ItemMap.size() % 2 == 0) {
         m_ItemMap[m_ItemMap.size() - 1]->setVisibleSeparator(false);
         m_ItemMap[m_ItemMap.size() - 2]->setVisibleSeparator(false);
@@ -148,6 +148,10 @@ void TimeZoneContainer::initWidget()
     // orientation change
     connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),
             this, SLOT(orientationChanged()));
+
+    int columnwidth = DuiSceneManager::instance()->visibleSceneRect(
+                                              Dui::Landscape).width() / 2 - 20;
+    m_MainLayoutPolicy->setColumnFixedWidth(0,columnwidth);
     orientationChanged();
 }
 
@@ -173,12 +177,9 @@ void TimeZoneContainer::orientationChanged()
 
 void TimeZoneContainer::itemClicked(TimeZoneListItem *item)
 {
-    QMapIterator<int, TimeZoneListItem*> iter(m_ItemMap);
-    while (iter.hasNext()) {
-        iter.next();
-        iter.value()->checked(false);
-    }
+    if (m_CheckedItem) m_CheckedItem->checked(false);
     item->checked(true);
+    m_CheckedItem = item;
 
     // set default time zone
     DcpTimeZoneConf::instance()->setDefaultTimeZone(item->timeZone());

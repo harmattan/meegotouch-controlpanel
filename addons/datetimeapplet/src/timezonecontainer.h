@@ -29,6 +29,7 @@ private:
     DuiLayout *m_MainLayout;
     DuiGridLayoutPolicy *m_MainLayoutPolicy;
     DuiLinearLayoutPolicy *m_MainVLayoutPolicy;
+    TimeZoneListItem *m_CheckedItem;
 
 private slots:
     virtual void orientationChanged();

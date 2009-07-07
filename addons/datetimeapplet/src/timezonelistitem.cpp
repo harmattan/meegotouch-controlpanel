@@ -95,11 +95,11 @@ void TimeZoneListItem::initWidget()
     DuiLayout *mainLayout = new DuiLayout(this);
     mainLayout->setAnimator(0);
     mainLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
-    DuiLinearLayoutPolicy *mainLayoutPolicy = 
+    DuiLinearLayoutPolicy *mainLayoutPolicy =
         new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
     mainLayoutPolicy->setSpacing(5);
-    
+
     // set height
     this->setMinimumHeight(height);
     this->setMaximumHeight(height);
@@ -125,16 +125,16 @@ void TimeZoneListItem::initWidget()
     m_CountryLabel = new DuiLabel("<font color=#ffffff>" + m_Country +
                                   "</font>", this);
     m_CountryLabel->setObjectName("CountryLabel");
-    
+
     // m_GmtCityLabel
-    m_GmtCityLabel = new DuiLabel("<font color=#ffffff>" + m_Gmt + " " 
+    m_GmtCityLabel = new DuiLabel("<font color=#ffffff>" + m_Gmt + " "
                                   + m_City + "</font>", this);
     m_GmtCityLabel->setObjectName("GmtCityLabel");
 
     // Add items to textLayoutPolicy
     textLayoutPolicy->addItemAtPosition(m_CountryLabel, 0, Qt::AlignLeft | Qt::AlignVCenter);
     textLayoutPolicy->addItemAtPosition(m_GmtCityLabel, 1, Qt::AlignLeft | Qt::AlignVCenter);
-    
+
     // checkMarkLayout
     DuiLayout *checkMarkLayout = new DuiLayout(0);
     checkMarkLayout->setAnimator(0);
@@ -143,7 +143,7 @@ void TimeZoneListItem::initWidget()
         new DuiLinearLayoutPolicy(checkMarkLayout, Qt::Vertical);
     checkMarkLayout->setPolicy(checkMarkLayoutPolicy);
     checkMarkLayoutPolicy->setSpacing(1);
-    
+
     // m_CheckMark
     m_CheckMark = new DuiButton(this);
     m_CheckMark->setObjectName("TimeZoneCheckMark");
@@ -173,10 +173,8 @@ void TimeZoneListItem::initWidget()
     mainLayoutPolicy->addItemAtPosition(m_LabelLayout, 0, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(m_GraySeparator, 1, Qt::AlignCenter);
 
-    
     connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),
             this, SLOT(onOrientationChanged()));
-    onOrientationChanged();
 }
 
 void TimeZoneListItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -192,26 +190,4 @@ void TimeZoneListItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     event->accept();
 }
 
-void TimeZoneListItem::onOrientationChanged()
-{
-    DuiSceneManager* manager = DuiSceneManager::instance();
-    if (manager == 0) return;
-
-    switch (manager->orientation()) {
-        case Dui::Landscape:
-            this->setMinimumWidth(manager->visibleSceneSize().width() / 2 - 40);
-            this->setMaximumWidth(manager->visibleSceneSize().width() / 2 - 40);
-            m_CountryLabel->setMinimumWidth(
-                DuiSceneManager::instance()->visibleSceneSize().width() / 2 - 110);
-            break;
-        case Dui::Portrait:
-            this->setMinimumWidth(manager->visibleSceneSize().width() - 40);
-            this->setMaximumWidth(manager->visibleSceneSize().width() - 40);
-            m_CountryLabel->setMinimumWidth(
-                DuiSceneManager::instance()->visibleSceneSize().width() / 2 - 110);
-            break;
-        default:
-            break;
-    }
-}
 

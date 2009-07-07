@@ -29,7 +29,8 @@ install_headers.files += applet/dcpapplet.h \
     widget/dcpcommondialog.h \
     appletdb/dcpappletdb.h \
     appletdb/dcpappletloader.h \
-    appletdb/dcpappletmetadata.h
+    appletdb/dcpappletmetadata.h \
+    dcpdebug.h
 
 INSTALLS += target install_headers
 

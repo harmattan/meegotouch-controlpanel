@@ -33,9 +33,6 @@ protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event);
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     //! \reimp_end
- 
-protected slots:
-    virtual void onOrientationChanged();
 
 private:
     QString m_TimeZone;
