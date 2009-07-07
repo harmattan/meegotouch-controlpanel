@@ -27,8 +27,8 @@ public slots:
 
 protected:
     virtual void createContents();
-    virtual void polishEvent ();
-    void fixSeparators(const Dui::Orientation &orientation);
+    virtual void polishEvent();
+    void fixSeparators();
 
     DuiLayout* m_Layout;
     class DuiGridLayoutPolicy* m_LandscapeLayout;

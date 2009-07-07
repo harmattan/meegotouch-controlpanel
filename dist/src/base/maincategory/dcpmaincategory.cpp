@@ -116,10 +116,6 @@ void DcpMainCategory::createContents()
 void
 DcpMainCategory::onOrientationChange (const Dui::Orientation &orientation)
 {
-    if (m_CreateSeparators) {
-        fixSeparators(orientation);
-    }
-
     if (orientation == Dui::Portrait) {
         m_Layout->setPolicy(m_PortraitLayout);
     } else {
@@ -133,6 +129,9 @@ DcpMainCategory::onOrientationChange (const Dui::Orientation &orientation)
 void DcpMainCategory::polishEvent ()
 {
     if (DuiSceneManager::instance()){
+        if (m_CreateSeparators && !m_HasLastSeparator) {
+            fixSeparators();
+        }
         onOrientationChange(DuiSceneManager::instance()->orientation());
     }
 }
@@ -142,27 +141,20 @@ void DcpMainCategory::setCreateSeparators (bool create)
     m_CreateSeparators = create;
 }
 
-void DcpMainCategory::fixSeparators(const Dui::Orientation &orientation)
-{
-    Q_ASSERT(m_CreateSeparators);
 
-    // in landscape mode all items from the last line has to be hidden,
+void DcpMainCategory::fixSeparators()
+{
+    // in landscape mode all items from the last line has to be removed
+    int landpos = m_LandscapeLayout->count()-1;
+    for (int col=0; col<m_MaxColumns; col++){
+        m_LandscapeLayout->removeAt(landpos);
+        landpos-=2;
+    }
     // in portrait only the last one
-    bool isLandscape = (orientation == Dui::Landscape);
-    for (int col=0; col<m_MaxColumns-1; col++){
-        QGraphicsLayoutItem* item = m_LandscapeLayout->itemAt(m_RowCount+1, col);
-        if (item != 0) {
-            item->graphicsItem()->setVisible(!isLandscape);
-        }
-    }
-    QGraphicsLayoutItem* lastItem = m_LandscapeLayout->itemAt(m_RowCount+1, m_MaxColumns-1);
-    if (!lastItem) {
-        // last item is single
-        lastItem = m_LandscapeLayout->itemAt(m_RowCount, 0);
-    }
-    if (lastItem) {
-        lastItem->graphicsItem()->setVisible(m_HasLastSeparator);
-    }
+    QGraphicsWidget* widget = (QGraphicsWidget*)(
+                       m_PortraitLayout->itemAt(m_PortraitLayout->count()-1));
+    Q_ASSERT(widget);
+    widget->deleteLater();
 }
 
 void DcpMainCategory::setMaxColumns(int columns){
