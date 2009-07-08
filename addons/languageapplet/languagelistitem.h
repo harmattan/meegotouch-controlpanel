@@ -32,15 +32,9 @@ protected:
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     //! reimp_end
 
-protected slots:
-    void onOrientationAngleChanged();
-    virtual void polishEvent ();
-
 private:
     QString m_LangCode;
     QString m_LabelText;
-    DuiLayout *m_LabelLayout;
-    DuiGridLayoutPolicy *m_LabelLayoutPolicy;
     DuiLabel *m_NormalLabel;
     DuiButton *m_CheckMark;
     bool m_Checked;

@@ -18,11 +18,20 @@
 
 #LanguageNormalListItem {
         font: font("Nokia Sans Cn", 16);
+        color: #ffffff;
+        margin-left: 16;
+}
+
+#LanguageSelectedListItem {
+        font: font("Nokia Sans Cn", 16);
+        color: #e48415;
+        margin-left: 16;
 }
 
 #LanguageCheckMark {
         normal-background-image: scalable(Check-mark,0,0,0,0);
         minimum-size: size(32, 32);
         maximum-size: size(32, 32);
+        margin-right: 16;
 }
 

@@ -46,6 +46,8 @@ void DcpLanguageSelectContainer::initWidget()
     m_LandscapePolicy = new DuiGridLayoutPolicy(m_ItemLayout);
     m_LandscapePolicy->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     m_LandscapePolicy->setSpacing(10);
+    m_LandscapePolicy->setColumnStretchFactor(0, 1); // forces same size
+    m_LandscapePolicy->setColumnStretchFactor(1, 1);
 
     // m_PortraitPolicy
     m_PortraitPolicy = new DuiLinearLayoutPolicy(m_ItemLayout, Qt::Vertical);
@@ -75,8 +77,8 @@ void DcpLanguageSelectContainer::initWidget()
             connect(item, SIGNAL(clicked(LanguageListItem*)), 
                     this, SLOT(itemClicked(LanguageListItem*)));
         }
-        
-        // add item to map. 
+
+        // add item to map.
         m_ItemMap[langCode] = item;
         m_LandscapePolicy->addItemAtPosition(item, index / 2, index % 2);
         m_PortraitPolicy->addItemAtPosition(item, index, Qt::AlignCenter);
