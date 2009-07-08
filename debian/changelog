@@ -1,8 +1,14 @@
+duicontrolpanel (0.2.6-1) unstable; urgency=low
+
+  * Fixes deprecated libduivaluespace dependency
+
+ -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Wed,  8 Jul 2009 13:24:29 +0200
+
 duicontrolpanel (0.2.6) unstable; urgency=low
 
   * Fixes NB#110534, Missing desktop file in Settings
 
- -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Wed,  8 Jul 2009 11:02:45 +0200
+ -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Wed,  8 Jul 2009 13:24:04 +0200
 
 duicontrolpanel (0.2.5) unstable; urgency=low
 

@@ -11,9 +11,8 @@ namespace LanguageKey
     const QString CurrentLanguage = Languages + "current";
     const QString KeyboardLayout = InputMethod + "keyboard-layout/";
     const QString CurrentKeyboardLayout = KeyboardLayout + "current";
-    const QString SettingsLanguage("Dui.i18n.Language");
-    const QString SettingsCountry("Dui.i18n.Country");
-    
+    const QString SettingsLanguage("/Dui/i18n/Language");
+    const QString SettingsCountry("/Dui/i18n/Country");
 };
 
 const QString l10nPath = "/usr/share/dui/l10n";
