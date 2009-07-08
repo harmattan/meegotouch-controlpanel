@@ -1,9 +1,11 @@
 #ifndef DCPLANGUAGECONF_H
 #define DCPLANGUAGECONF_H
+
 #include <QString>
 #include <QSettings>
 #include <QStringList>
-class DuiConfItem;
+class DuiGConfItem;
+
 class DcpLanguageConf
 {
 public:
@@ -28,7 +30,7 @@ private:
     Q_DISABLE_COPY(DcpLanguageConf)
     static DcpLanguageConf *sm_Instance;
     QSettings m_Settings;
-    DuiConfItem *m_DisplayLanguageItem;
+    DuiGConfItem *m_DisplayLanguageItem;
 };
 #endif // DCPLANGUAGECONF_H
 

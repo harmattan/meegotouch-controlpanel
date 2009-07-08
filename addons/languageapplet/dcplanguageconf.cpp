@@ -1,6 +1,6 @@
 #include "dcplanguageconf.h"
 #include <duilocale.h>
-#include <duivaluespace.h>
+#include <duigconfitem.h>
 
 #include <QDebug>
 #include <QDir>
@@ -34,14 +34,12 @@ DcpLanguageConf::instance()
 DcpLanguageConf::DcpLanguageConf() : 
                              m_Settings("Maemo", "DuiControlPanel")
 {
-    
-    m_DisplayLanguageItem = new DuiConfItem(LanguageKey::SettingsLanguage);
+    m_DisplayLanguageItem = new DuiGConfItem(LanguageKey::SettingsLanguage);
     qDebug() << "DCP: Display Language:" << displayLanguage(); 
     if (!m_Settings.contains(LanguageKey::CurrentKeyboardLayout))
-      {
+    {
         addKeyboardLanguage(displayLanguage());
-      }
-
+    }
 }
 
 DcpLanguageConf::~DcpLanguageConf()
