@@ -1,21 +1,16 @@
 #include "dcpbriefcomponent.h"
 
 #include "dcpbriefwidget.h"
-#include <DuiLayout>
-#include <DuiLinearLayoutPolicy>
+#include <QGraphicsLinearLayout>
 
 DcpBriefComponent::DcpBriefComponent(DcpAppletMetadata* metadata,
                                      DcpCategory *category)
     : DcpComponent(category),
       m_BriefWidget(new DcpBriefWidget(metadata, this))
 {
-	DuiLayout* layout = new DuiLayout(this);
-    layout->setAnimator(0);
+    QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(this);
     layout->setContentsMargins(0,0,0,0);
-    DuiLinearLayoutPolicy* policy = new DuiLinearLayoutPolicy (layout,
-                                                               Qt::Vertical);
-    policy->addItemAtPosition(m_BriefWidget,0);
-    this->setLayout(layout);
+    layout->addItem(m_BriefWidget);
 
     connect (m_BriefWidget, SIGNAL(clicked()), this, SLOT(switchToSubPage()));
 }
