@@ -2,8 +2,7 @@
 
 #include <DuiButton>
 #include <DuiImage>
-#include <DuiLayout>
-#include <DuiLinearLayoutPolicy>
+#include <QGraphicsLinearLayout>
 
 DcpButton2Image::DcpButton2Image(DuiWidget* parent)
     : DcpButton2Align(parent, false)
@@ -17,7 +16,7 @@ void DcpButton2Image::setImageName (const QString& imageName)
     imageWidget()->setImageName(imageName);
 }
 
-DuiLayout* DcpButton2Image::createLayout()
+QGraphicsLayout* DcpButton2Image::createLayout()
 {
     // border:
     DuiButton* border = new DuiButton(this); // we use button here because
@@ -34,12 +33,9 @@ DuiLayout* DcpButton2Image::createLayout()
     m_Image->setObjectName("DcpButtonImage");
     m_Image->setZoomRatioMode(Qt::IgnoreAspectRatio);
 
-    DuiLayout* borderLayout = new DuiLayout(border);
-    borderLayout->setAnimator(0);
+    QGraphicsLinearLayout* borderLayout = new QGraphicsLinearLayout(border);
     borderLayout->setContentsMargins(0,0,0,0);
-    DuiLinearLayoutPolicy* borderLayoutPolicy = new DuiLinearLayoutPolicy(
-                                                    borderLayout, Qt::Vertical);
-    borderLayoutPolicy->addItemAtPosition(m_Image, 0);
+    borderLayout->addItem(m_Image);
 
     setAlignedWidget(border);
     return DcpButton2Align::createLayout();

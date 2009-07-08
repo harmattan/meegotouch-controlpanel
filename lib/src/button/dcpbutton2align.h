@@ -2,8 +2,8 @@
 #define DCPBUTTON2ALIGN_H
 
 #include "dcpbutton2.h"
-class DuiLayout;
-class DuiLinearLayoutPolicy;
+class QGraphicsLayout;
+class QGraphicsLinearLayout;
 
 class DcpButton2Align: public DcpButton2 {
     Q_OBJECT
@@ -13,7 +13,7 @@ public:
     void setWidgetAlignment(Qt::Alignment align);
 
 protected:
-    virtual DuiLayout* createLayout();
+    virtual QGraphicsLayout* createLayout();
     void setAlignment(Qt::Alignment align);
 
     DuiWidget* alignedWidget();
@@ -21,11 +21,11 @@ protected:
 
 private:
     void putupWidgets();
-    DuiLayout* m_VertLayout;
-    DuiLinearLayoutPolicy* m_VertLayoutPolicy;
     DuiWidget* m_AlignedWidget;
+    QGraphicsLinearLayout* m_VertLayout;
     Qt::Alignment m_Alignment;
 };
 
 
 #endif // DCPBUTTON2ALIGN_H
+

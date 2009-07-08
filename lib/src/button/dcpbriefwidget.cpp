@@ -5,16 +5,13 @@
 #include "dcpbutton2image.h"
 #include "dcpwidgettypes.h"
 
-#include <DuiLinearLayoutPolicy>
+#include <QGraphicsLinearLayout>
 
 DcpBriefWidget::DcpBriefWidget(DcpAppletMetadata* metadata, DuiWidget* parent)
     : DuiWidget(parent), m_RealWidget(0), m_Metadata(0)
 {
-    DuiLayout* layout = new DuiLayout(this);
-    layout->setAnimator(0);
+    QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(this);
     layout->setContentsMargins(0,0,0,0);
-    m_Policy = new DuiLinearLayoutPolicy (layout, Qt::Vertical);
-    this->setLayout(layout);
 
     setMetadata(metadata);
 }
@@ -50,7 +47,7 @@ void DcpBriefWidget::setMetadata(DcpAppletMetadata* metadata)
     // this sets the changeAble attributes:
     updateContents();
 
-    m_Policy->addItemAtPosition(m_RealWidget, 0);
+    ((QGraphicsLinearLayout*)(layout()))->addItem(m_RealWidget);
 }
 
 DcpButton2Image* DcpBriefWidget::constructImage(

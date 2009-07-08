@@ -3,8 +3,8 @@
 
 #include <DuiButton>
 class DuiLabel;
-class DuiGridLayoutPolicy;
-class DuiLayout;
+class QGraphicsLayout;
+class QGraphicsGridLayout;
 
 class DcpButton2: public DuiButton{
     Q_OBJECT
@@ -17,17 +17,16 @@ public:
 
 protected:
     DcpButton2(DuiWidget* parent, bool);
-    virtual DuiLayout* createLayout();
-    DuiLayout* textLayout();
+    virtual QGraphicsLayout* createLayout();
+    QGraphicsGridLayout* textLayout();
 
 private:
     void updateLabelSizes();
+    QGraphicsGridLayout* m_TextLayout;
     DuiLabel* m_Label1;
     DuiLabel* m_Label2;
     DuiWidget* m_Triangle;
-    DuiLayout* m_TextLayout;
-    DuiGridLayoutPolicy* m_TextLayoutPolicy1;
 };
 
-
 #endif // DCPBUTTON2_H
+
