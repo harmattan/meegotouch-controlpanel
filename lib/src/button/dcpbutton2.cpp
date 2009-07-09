@@ -2,6 +2,8 @@
 #include <DuiLabel>
 #include <QGraphicsGridLayout>
 
+#define DISABLE_BACKGROUND 1
+
 // main constructor
 DcpButton2::DcpButton2(DuiWidget* parent)
     : DuiButton(parent), m_TextLayout(0), m_Label1(0), m_Label2(0),
@@ -66,11 +68,13 @@ void DcpButton2::updateLabelSizes()
         if (textLayout()->count() > 2) {
             textLayout()->removeAt(2);
         }
+        m_Label2->hide();
     } else {
         m_Label1->setObjectName("DcpButtonLine1");
         if (textLayout()->count() <= 2) {
             textLayout()->addItem(m_Label2, 1,1);
         }
+        m_Label2->show();
     }
 }
 
@@ -85,4 +89,16 @@ QGraphicsGridLayout* DcpButton2::textLayout()
 {
     return m_TextLayout;
 }
+
+#if DISABLE_BACKGROUND
+    void DcpButton2::paintWindowFrame (QPainter *, const QStyleOptionGraphicsItem *, QWidget *) {}
+    void DcpButton2::paint (QPainter *, const QStyleOptionGraphicsItem *, QWidget *) {}
+#else // DISABLE_BACKGROUND
+    void DcpButton2::paintWindowFrame (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+        DuiButton::paintWindowFrame(painter, option, widget);
+    }
+    void DcpButton2::paint (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+        DuiButton::paint(painter, option, widget);
+    }
+#endif // DISABLE_BACKGROUND
 

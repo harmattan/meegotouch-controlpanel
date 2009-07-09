@@ -57,12 +57,12 @@ DuiNavigationBarStyle {
 */
 
 
-DuiButtonStyle#DcpButton {
-/*    normal-background: "C2-container";
- *    in current design the button has no background: */
-    normal-background-image: image();
+#DcpButton {
+    normal-background-image: scalable(C2-container,0,0,0,0);
+/*    in current design the button has no background: */
+/*    normal-background-image: ;
     normal-color: #000000;
-    normal-opacity: 0.0;
+    normal-opacity: 0.0; */
 
     /* this sets the height of the button fixed: */
     minimum-size: size(1,93);
