@@ -101,7 +101,7 @@ void TimeZoneListItem::initWidget()
     m_GmtCityLabel->setObjectName("GmtCityLabel");
     m_GmtCityLabel->setAlignment(Qt::AlignTop);
 
-    mainLayout->addItem(m_CountryLabel, 0,0, 1,2); // FIXME: what to do with long names
+    mainLayout->addItem(m_CountryLabel, 0,0);
     mainLayout->addItem(m_GmtCityLabel, 1,0);
 
     // m_CheckMark
