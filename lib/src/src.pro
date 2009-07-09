@@ -1,5 +1,5 @@
 TEMPLATE      = lib
-CONFIG       += plugin gui dui
+CONFIG       += plugin gui dui debug
 INCLUDEPATH  += $$system(find ./ -type d)
 MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects

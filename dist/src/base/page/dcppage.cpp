@@ -10,6 +10,7 @@ DcpPage::DcpPage() : DuiApplicationPage()
     connect(DuiSceneManager::instance(),
             SIGNAL(orientationChanged (const Dui::Orientation &)),
             this, SLOT(organizeContent(const Dui::Orientation &)));
+    connect(this, SIGNAL(backButtonClicked()), this, SLOT(back()));
     qDebug() << "page alloc";
     setBackButtonEnabled(true);
 }
@@ -67,4 +68,13 @@ void DcpPage::back()
 {
     emit openSubPage(referer());
 }
+
+/* this is where pages optimize their open up times
+ * default implementation drops fatal error */
+void DcpPage::reload()
+{
+    Q_ASSERT_X(!isContentCreated(), Q_FUNC_INFO,
+            qPrintable(QString("not implemented for ")+metaObject()->className()));
+}
+
 

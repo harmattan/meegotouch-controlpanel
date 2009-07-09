@@ -11,6 +11,27 @@
 
 static const QString SEPARATOR_OBJECTNAME = "DcpSmallSeparator";
 
+void DcpMainCategory::deleteItems()
+{
+    qDebug() << "XXX" << Q_FUNC_INFO;
+    if (!m_Layout) return;
+    m_ItemCount = m_RowCount = m_ColCount = 0;
+
+    // delete all items in all policies:
+    foreach (DuiAbstractLayoutPolicy* policy, m_Layout->registeredPolicies()){
+        qDebug() << "XXX --- removing from policy";
+        for (int i=policy->count()-1; i >= 0; i--){
+            QGraphicsWidget* widget = (QGraphicsWidget*)
+                                      (policy->itemAt(i)->graphicsItem());
+            Q_ASSERT(widget);
+            qDebug() << "XXX removing widget" << i<< widget->metaObject()->className();
+            m_Layout->removeItem(widget);
+            widget->deleteLater();
+        }
+    }
+    qDebug() << "XXX" << Q_FUNC_INFO << "end";
+}
+
 DcpMainCategory::DcpMainCategory(
         const QString& title, QGraphicsWidget *parent
 ) : DcpCategory(title, parent), m_ColCount(0), m_RowCount(0), m_ItemCount(0),

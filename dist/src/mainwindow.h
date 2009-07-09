@@ -12,9 +12,6 @@ class MainWindow : public DuiApplicationWindow
 public:
     MainWindow();
     virtual ~MainWindow();
-public slots:
-    void changePage(Pages::Handle handle);
-    void backClicked();
 };
 
 #endif // MAINWINDOW_H

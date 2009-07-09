@@ -22,6 +22,8 @@ public:
     void setCreateSeparators (bool create = true);
     void setDoNotRemoveLastSeparator(bool remove = true);
 
+    void deleteItems();
+
 public slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation);
 

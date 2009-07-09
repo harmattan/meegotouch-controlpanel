@@ -13,10 +13,10 @@ public:
     DcpAppletPage(DcpAppletMetadata *metadata);
     virtual ~DcpAppletPage();
     virtual void createContent();
-    virtual void back();
 
 protected slots:
     void changeWidget(int widgetId);
+    virtual void back();
 
 protected slots:
     bool loadApplet();

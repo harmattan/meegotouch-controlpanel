@@ -1,21 +1,29 @@
 #ifndef PAGEFACTORY_H
 #define PAGEFACTORY_H
 
-#include "dcppage.h"
 #include "pages.h"
+#include <QObject>
+
 class DcpPage;
 class DcpAppletMetadata;
 class DcpAppletLoader;
 class DcpWidget;
+class DcpMainPage;
+class DcpAppletPage;
+class DcpAppletCategoryPage;
+
 class PageFactory : public QObject
 {
     Q_OBJECT
 public:
     static PageFactory *instance();
-    static DcpPage* page(DuiApplicationPage *page);
     DcpPage* create (Pages::Handle &handle);
     DcpPage* currentPage(){return m_CurrentPage;}
-    void back();
+    void initPage(DcpPage* page);
+
+public slots:
+    void changePage(Pages::Handle handle);
+
 protected:
     PageFactory();
     DcpPage* createMainPage();	
@@ -23,9 +31,16 @@ protected:
     DcpPage* createAppletPageFromCategory(DcpAppletMetadata *metadata);
     DcpPage* createAppletPageFromMostUsed(DcpAppletMetadata *metadata);
     DcpPage* createAppletCategoryPage(const QString& appletCategory);
+
 private:
-    DcpPage *m_CurrentPage;
     static PageFactory* sm_Instance;
+
+    DcpPage *m_CurrentPage;
+
+    DcpMainPage *m_MainPage;
+    DcpAppletPage *m_AppletPage;
+    DcpAppletCategoryPage *m_AppletCategoryPage;
 };
 
 #endif // PAGEFACTORY_H
+

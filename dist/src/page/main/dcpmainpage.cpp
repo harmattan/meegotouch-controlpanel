@@ -60,5 +60,12 @@ void DcpMainPage::createContent()
     setBackButtonEnabled(false);
 }
 
+void DcpMainPage::reload()
+{
+    // TODO XXX
+    // the most recent items sequence have to be reloaded
+    // DcpBriefWidget takes care of all the other things
+    // + handle if language changes
+}
 
 

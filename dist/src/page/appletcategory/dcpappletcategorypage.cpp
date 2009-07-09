@@ -8,7 +8,7 @@
 
 DcpAppletCategoryPage::DcpAppletCategoryPage(const QString &appletCategory) 
                       : DcpCategoryPage(),
-                        m_AppletCategory(appletCategory) 
+                        m_AppletCategory(appletCategory)
 {
     setHandle(Pages::APPLETCATEGORY);
     setReferer(Pages::MAIN);
@@ -26,6 +26,11 @@ void DcpAppletCategoryPage::createContent()
     m_Category->setCreateSeparators();
     m_Category->setDoNotRemoveLastSeparator();
 
+    loadContent();
+}
+
+void DcpAppletCategoryPage::loadContent()
+{
     DcpAppletDb::instance()->refresh();
     DcpAppletMetadataList list = DcpAppletDb::instance()->listByCategory(appletCategory());
 
@@ -40,6 +45,7 @@ void DcpAppletCategoryPage::createContent()
     }
 
     setTitle(appletCategory());
+    m_LoadedAppletCategory = appletCategory();
 }
 
 void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata, bool odd)
@@ -54,6 +60,14 @@ void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata, bool odd)
         m_Category->add(component);
     } else {
         m_Category->append(component);
+    }
+}
+
+void DcpAppletCategoryPage::reload()
+{
+    if (m_LoadedAppletCategory != appletCategory()) {
+        m_Category->deleteItems();
+        loadContent();
     }
 }
 
