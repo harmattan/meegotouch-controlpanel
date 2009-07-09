@@ -44,7 +44,7 @@ void TimeZoneView::initWidget()
     textEditLayoutPolicy->setSpacing(1);
 
     // m_TextEdit
-    m_TextEdit = new DuiTextEdit(DuiTextEditModel::MultiLine,
+    m_TextEdit = new DuiTextEdit(DuiTextEditModel::SingleLine,
                                  DcpDateTime::InputCountryText,
                                  this);
     m_TextEdit->setObjectName("InputTextEdit");

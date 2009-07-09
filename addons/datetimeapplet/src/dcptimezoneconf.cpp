@@ -23,11 +23,8 @@ DcpTimeZoneConf* DcpTimeZoneConf::instance()
 
 DcpTimeZoneConf::~DcpTimeZoneConf()
 {
-    if (sm_Instance) {
-        delete sm_Instance;
-    }
-
     m_ItemMap.clear();
+    sm_Instance = 0;
 }
 
 QMultiMap<QString, DcpTimeZoneData*> DcpTimeZoneConf::getMap() const
@@ -96,6 +93,10 @@ void DcpTimeZoneConf::initCountry()
                         country += item.at(i);
                     }
                 }
+                
+                if (country == "South Georgia & the South Sandwich Islands")
+                    country = "South Georgia & the South Sandw...";
+
                 m_CountryMap.insert(iter.value(), country);
                 ++iter;
             }
