@@ -43,15 +43,15 @@ void TimeZoneContainer::updateLayout()
 
     // add Items to m_MainLayoutPolicy
     int count = 0;
-    QMapIterator<int, TimeZoneListItem*> iter(m_ItemMap);
+    QListIterator<TimeZoneListItem*> iter(m_ItemList);
     while (iter.hasNext()) {
-        iter.next();
-        iter.value()->setVisibleSeparator(true);
-        if (iter.value()->isFiltered()) {
-            m_MainLayoutPolicy->addItemAtPosition(iter.value(), count / 2, count % 2);
-            m_MainVLayoutPolicy->addItemAtPosition(iter.value(), count++, 
+        TimeZoneListItem *item = iter.next();
+        item->setVisibleSeparator(true);
+        if (item->isFiltered()) {
+            m_MainLayoutPolicy->addItemAtPosition(item, count / 2, count % 2);
+            m_MainVLayoutPolicy->addItemAtPosition(item, count++, 
                                                    Qt::AlignLeft | Qt::AlignVCenter);
-            iter.value()->setVisible(true);
+            item->setVisible(true);
         }
     }
 
@@ -119,7 +119,7 @@ void TimeZoneContainer::initWidget()
                                                   zoneIter.value()->gmt(),
                                                   zoneIter.value()->city(), 
                                                   this);
-        m_ItemMap[count] = item;
+        m_ItemList << item;
 
         // add item to the layout:
         m_MainLayoutPolicy->addItemAtPosition(item, count / 2, count % 2);
@@ -138,20 +138,13 @@ void TimeZoneContainer::initWidget()
     }
     zoneMap.clear();
 
-    if (m_ItemMap.size() % 2 == 0) {
-        m_ItemMap[m_ItemMap.size() - 1]->setVisibleSeparator(false);
-        m_ItemMap[m_ItemMap.size() - 2]->setVisibleSeparator(false);
-    } else {
-        m_ItemMap[m_ItemMap.size() - 1]->setVisibleSeparator(false);
-    }
-
     // orientation change
     connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),
             this, SLOT(orientationChanged()));
 
     int columnwidth = DuiSceneManager::instance()->visibleSceneSize(
-                                              Dui::Landscape).width() / 2 - 20;
-    m_MainLayoutPolicy->setColumnFixedWidth(0,columnwidth);
+                                              Dui::Landscape).width() / 2 - 25;
+    m_MainLayoutPolicy->setColumnFixedWidth(0, columnwidth);
     orientationChanged();
 }
 
@@ -205,14 +198,14 @@ void TimeZoneContainer::updateHSeparator()
 
 void TimeZoneContainer::filter(const QString& sample)
 {
-    QMapIterator<int, TimeZoneListItem*> iter(m_ItemMap);
+    QListIterator<TimeZoneListItem*> iter(m_ItemList);
     while (iter.hasNext()) {
-        iter.next();
-        if (iter.value()->country().startsWith(sample, Qt::CaseInsensitive) ||
-            iter.value()->city().startsWith(sample, Qt::CaseInsensitive)) {
-            iter.value()->filtered(true);
+        TimeZoneListItem *item = iter.next();
+        if (item->country().startsWith(sample, Qt::CaseInsensitive) ||
+            item->city().startsWith(sample, Qt::CaseInsensitive)) {
+            item->filtered(true);
         } else {
-            iter.value()->filtered(false);
+            item->filtered(false);
         }
     }
 
