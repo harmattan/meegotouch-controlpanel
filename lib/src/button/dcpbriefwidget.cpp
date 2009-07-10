@@ -39,13 +39,8 @@ void DcpBriefWidget::setMetadata(DcpAppletMetadata* metadata)
             break;
     }
 
-    connect (m_RealWidget, SIGNAL(clicked()), this, SIGNAL(clicked()));
-    connect (m_Metadata, SIGNAL(briefChanged()), this, SLOT(updateContents()));
-
     // this currently cannot change:
     m_RealWidget->setText1(m_Metadata->text1());
-    // this sets the changeAble attributes:
-    updateContents();
 
     ((QGraphicsLinearLayout*)(layout()))->addItem(m_RealWidget);
 }
@@ -71,5 +66,22 @@ DcpButton2Toggle* DcpBriefWidget::constructToggle(
 void DcpBriefWidget::updateContents()
 {
     m_RealWidget->setText2(m_Metadata->text2());
+}
+
+void DcpBriefWidget::showEvent ( QShowEvent * event )
+{
+    Q_UNUSED (event);
+    connect (m_RealWidget, SIGNAL(clicked()), this, SIGNAL(clicked()));
+    connect (m_Metadata, SIGNAL(briefChanged()), this, SLOT(updateContents()));
+
+    updateContents();
+}
+
+void DcpBriefWidget::hideEvent ( QHideEvent * event )
+{
+    Q_UNUSED (event);
+    disconnect (m_RealWidget, SIGNAL(clicked()), this, SIGNAL(clicked()));
+    disconnect (m_Metadata, SIGNAL(briefChanged()),
+                this, SLOT(updateContents()));
 }
 

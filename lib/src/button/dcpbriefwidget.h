@@ -6,6 +6,8 @@ class DcpAppletMetadata;
 class DcpButton2;
 class DcpButton2Image;
 class DcpButton2Toggle;
+class QShowEvent;
+class QHideEvent;
 
 class DcpBriefWidget: public DuiWidget {
     Q_OBJECT
@@ -20,6 +22,8 @@ signals:
     void clicked();
 
 protected:
+    virtual void showEvent ( QShowEvent * event );
+    virtual void hideEvent ( QHideEvent * event );
     DcpButton2Image* constructImage(const DcpAppletMetadata* metadata);
     DcpButton2Toggle* constructToggle(const DcpAppletMetadata* metadata);
 

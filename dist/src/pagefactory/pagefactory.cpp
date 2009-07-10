@@ -1,5 +1,5 @@
-// TODO XXX is this all needed??
 #include "pagefactory.h"
+
 #include "dcppage.h"
 #include "dcpmainpage.h"
 #include "dcpappletpage.h"
@@ -7,18 +7,13 @@
 #include "dcpappletif.h"
 #include "dcpappletmetadata.h"
 #include "dcpappletcategorypage.h"
-#include "dcpwidget.h"
-#include "dcpappletloader.h"
 #include "maintranslations.h"
-#include <QtDebug>
-#include <DuiLabel>
-#include <duilocale.h>
 
 #include <DuiApplication>
 #include <DuiAction>
 
-// TODO XXX remove this dependency, it is only because of quit text
-#include "maintranslations.h"
+
+// TODO handle if language changes
 
 PageFactory *PageFactory::sm_Instance = 0;
 
@@ -39,7 +34,6 @@ DcpPage*
 PageFactory::create(Pages::Handle &handle)
 {
     DcpPage *page=0;
-    qDebug() << "XXX pagefactory page request" << handle.id << handle.param;
     switch (handle.id)
       {
 	case Pages::MAIN:
