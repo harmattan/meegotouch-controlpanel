@@ -35,15 +35,6 @@ PageFactory::instance()
     return sm_Instance;
 }
 
-/*
-DcpPage*
-PageFactory::page(DuiApplicationPage *page)
-{
-    return qobject_cast<DcpPage*>(page);
-}
-*/
-
-
 DcpPage*
 PageFactory::create(Pages::Handle &handle)
 {
@@ -138,6 +129,8 @@ PageFactory::createAppletPage(DcpAppletMetadata *metadata)
     if (!m_AppletPage) {
         m_AppletPage = new DcpAppletPage(metadata);
         initPage(m_AppletPage);
+    } else {
+        m_AppletPage->setMetadata(metadata);
     }
     return m_AppletPage;
 }

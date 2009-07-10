@@ -1,47 +1,74 @@
 //#include <duilinearlayoutpolicy.h>
-#include "dcpwidget.h"
 #include "dcpappletpage.h"
+#include "dcpwidget.h"
 #include "dcpappletif.h"
 #include "dcpappletmetadata.h"
 #include "dcpappletloader.h"
 #include "duilabel.h"
 #include "duilocale.h"
 #include <DuiAction>
-#include <DuiSceneManager>
 
 DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
     DcpPage(), m_Metadata(metadata),
-    m_MainWidget(0), m_AppletLoader(0)
+    m_MainWidget(0), m_AppletLoader(0), m_MissingLabel(0)
 {
     setHandle(Pages::APPLET);
 }
 
 DcpAppletPage::~DcpAppletPage()
 {
-    if (m_AppletLoader)
-        m_AppletLoader->deleteLater();
+    clearup();
 }
+
 
 void DcpAppletPage::createContent()
 {
     DcpPage::createContent();
-    if (loadApplet())
-       {
-          changeWidget(0);
-       }
-     else
-      {
-          DuiLabel *missingLabel = new DuiLabel(trid("dcp_no_applet_name",
-                                     "Plugin not available"));
-          missingLabel->setAlignment(Qt::AlignCenter);
-          append(missingLabel);
-          setTitle(trid("dcp_no_applet_title", "Missing plugin"));
-      }
+    load();
+}
+
+void DcpAppletPage::load()
+{
+   m_LoadedMetadata = m_Metadata;
+   if (loadApplet()) {
+       changeWidget(0);
+   } else {
+       Q_ASSERT (!m_MissingLabel);
+       m_MissingLabel = new DuiLabel(trid("dcp_no_applet_name",
+                                    "Plugin not available"));
+       m_MissingLabel->setAlignment(Qt::AlignCenter);
+       append(m_MissingLabel);
+       setTitle(trid("dcp_no_applet_title", "Missing plugin"));
+   }
+}
+
+void DcpAppletPage::clearup()
+{
+    if (m_AppletLoader) {
+        m_AppletLoader->deleteLater();
+        m_AppletLoader = 0;
+    }
+    if (m_MainWidget) {
+        m_MainWidget->deleteLater();
+        m_MainWidget = 0;
+    }
+    if (m_MissingLabel) {
+        m_MissingLabel->deleteLater();
+        m_MissingLabel = 0;
+    }
+}
+
+void DcpAppletPage::reload() {
+    if (m_Metadata != m_LoadedMetadata) {
+        clearup();
+        load();
+    }
 }
 
 bool
 DcpAppletPage::loadApplet()
 {
+    Q_ASSERT (!m_AppletLoader);
     m_AppletLoader = new DcpAppletLoader(m_Metadata);
     bool result = true;
     if (!m_AppletLoader->applet())
@@ -54,11 +81,9 @@ DcpAppletPage::loadApplet()
 
 void DcpAppletPage::back()
 {
-    if (!m_MainWidget)
+    if (!m_MainWidget || m_MainWidget->back()) {
         DcpPage::back();
-    else
-    if (m_MainWidget->back())
-        DcpPage::back();
+    }
 }
 
 void
@@ -89,27 +114,10 @@ DcpAppletPage::changeWidget(int widgetId)
             addAction(vector[i]);
         }
     }
-
-    setUpMainWidgetSize();
 }
 
-void DcpAppletPage::setUpMainWidgetSize()
+void DcpAppletPage::setMetadata (DcpAppletMetadata *metadata)
 {
-        /* TODO, not working, fix rotation somehow
-    DuiSceneManager* manager = DuiSceneManager::instance();
-    if (m_MainWidget && manager){
-        int height = manager->visibleSceneSize().height();
-        int width = manager->visibleSceneSize().width();
-        m_MainWidget->setMinimumWidth(width);
-        m_MainWidget->setMaximumWidth(width);
-        m_MainWidget->setMinimumHeight(height);
-    }
-        */
-}
-
-void DcpAppletPage::organizeContent(const Dui::Orientation& ori)
-{
-    DcpPage::organizeContent(ori);
-    setUpMainWidgetSize();
+    m_Metadata = metadata;
 }
 
