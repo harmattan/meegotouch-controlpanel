@@ -33,7 +33,7 @@ QGraphicsLayout* DcpButton2::createLayout()
     m_Label1->setAcceptedMouseButtons(0);
 //    m_Label1->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
 
-    m_Label2 = new DuiLabel (this);
+    m_Label2 = new DuiLabel();
     m_Label2->setAcceptedMouseButtons(0);
     m_Label2->setObjectName("DcpButtonLine2");
 //    m_Label2->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
