@@ -3,9 +3,8 @@
 
 #include <DuiApplicationPage>
 #include "pages.h"
-class DuiPannableViewport;
-class DuiLabel;
-class DuiLinearLayoutPolicy;
+
+class QGraphicsLinearLayout;
 
 class DcpPage : public DuiApplicationPage
 {
@@ -24,7 +23,7 @@ public:
     void setReferer(Pages::Handle referer) {m_Referer = referer;};
     virtual void setReferer(Pages::Id id, const QString &param="")
         {m_Referer.id = id; m_Referer.param = param;};
-    DuiLinearLayoutPolicy *mainLayout() { return m_MainLayout; }
+    QGraphicsLinearLayout *mainLayout();
 
     virtual void reload();
 
@@ -38,8 +37,6 @@ signals:
 protected:
     void append (QGraphicsWidget* widget);
     void remove (QGraphicsWidget* widget);
-
-   DuiLinearLayoutPolicy *m_MainLayout;
 
    Pages::Handle m_Handle;
    Pages::Handle m_Referer;

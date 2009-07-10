@@ -2,11 +2,6 @@ DuiLabelStyle {
     font: font("Nokia Sans Cn", 12);
 }
 
-DuiAbstractLayoutPolicyStyle#Page {
-    margin-left: 15.0;
-    margin-right: 15.0;
-}
-
 #ComponentDescription {
     font: font("Nokia Sans Cn", 16px);
     margin-left: 20;
@@ -48,6 +43,8 @@ DuiContainerStyle {
 
 DuiApplicationPageStyle {
     background-image: scalable(starfield, 0, 0, 0, 0);
+    padding-left: 12;
+    padding-right: 12;
 }
 
 /*

@@ -1,9 +1,8 @@
 #include <QtDebug>
 
 #include "dcppage.h"
-#include <duilayout.h>
-#include <duilinearlayoutpolicy.h>
 #include <DuiSceneManager>
+#include <QGraphicsLinearLayout>
 
 DcpPage::DcpPage() : DuiApplicationPage()
 {
@@ -36,14 +35,8 @@ void DcpPage::createContent()
 
 void DcpPage::_createLayout()
 {
-    DuiLayout* layout = new DuiLayout();
-    layout->setAnimator(0);
-    m_MainLayout = new DuiLinearLayoutPolicy(layout, Qt::Vertical);
-    m_MainLayout->setObjectName("Page");
-    layout->setAnimator(0);
-    layout->setPolicy(m_MainLayout);
+    QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(centralWidget());
     layout->setContentsMargins(0.0,0.0,0.0,0.0);
-    centralWidget()->setLayout(layout);
 }
 
 void DcpPage::organizeContent(const Dui::Orientation& ori)
@@ -54,13 +47,11 @@ void DcpPage::organizeContent(const Dui::Orientation& ori)
 
 void DcpPage::append (QGraphicsWidget* widget) {
     Q_ASSERT(mainLayout());
-    mainLayout()->addItemAtPosition(widget, mainLayout()->count());
+    mainLayout()->addItem(widget);
 }
 
 
 void DcpPage::remove (QGraphicsWidget* widget) {
-    DuiLayout* layout = (DuiLayout*)centralWidget()->layout();
-    Q_ASSERT(layout);
     widget->deleteLater();
 }
 
@@ -77,4 +68,8 @@ void DcpPage::reload()
             qPrintable(QString("not implemented for ")+metaObject()->className()));
 }
 
+QGraphicsLinearLayout* DcpPage::mainLayout()
+{
+    return (QGraphicsLinearLayout*)(centralWidget()->layout());
+}
 
