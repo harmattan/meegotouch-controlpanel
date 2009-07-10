@@ -90,6 +90,43 @@ void TimeZoneContainer::updateLayout()
     orientationChanged();
 }
 
+void TimeZoneContainer::addMoreItems()
+{
+    // add items to m_ItemMap
+    QMultiMap<QString, DcpTimeZoneData*> zoneMap = DcpTimeZoneConf::instance()->getMap();
+    QMapIterator<QString, DcpTimeZoneData*> zoneIter(zoneMap);
+    int count = -1;
+    while (zoneIter.hasNext()) {
+        zoneIter.next();
+        count++;
+        if (count < 40) {
+            continue;
+        }
+        
+        TimeZoneListItem *item = new TimeZoneListItem(zoneIter.value()->timeZone(),
+                                                  zoneIter.value()->country(),
+                                                  zoneIter.value()->gmt(),
+                                                  zoneIter.value()->city(), 
+                                                  this);
+        m_ItemList << item;
+
+        // add item to the layout:
+        m_MainLayoutPolicy->addItemAtPosition(item, count / 2, count % 2);
+        m_MainVLayoutPolicy->addItemAtPosition(item, count, Qt::AlignLeft | Qt::AlignVCenter);
+        connect(item, SIGNAL(clicked(TimeZoneListItem*)),
+                this, SLOT(itemClicked(TimeZoneListItem*)));
+
+        if (!m_CheckedItem) {
+            QString current = DcpTimeZoneConf::instance()->defaultTimeZone().city();
+            if (item->city() == current) {
+                item->checked(true);
+                m_CheckedItem = item;
+            }
+        }
+    }
+    orientationChanged();
+}
+
 void TimeZoneContainer::initWidget()
 {
     // m_MainLayout
@@ -135,8 +172,11 @@ void TimeZoneContainer::initWidget()
             }
         }
         count++;
+        if (count == 40) {
+            qApp->processEvents();
+            break;
+        }
     }
-    zoneMap.clear();
 
     // orientation change
     connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),
@@ -145,7 +185,7 @@ void TimeZoneContainer::initWidget()
     int columnwidth = DuiSceneManager::instance()->visibleSceneSize(
                                               Dui::Landscape).width() / 2 - 25;
     m_MainLayoutPolicy->setColumnFixedWidth(0, columnwidth);
-    orientationChanged();
+    // orientationChanged();
 }
 
 void TimeZoneContainer::orientationChanged()

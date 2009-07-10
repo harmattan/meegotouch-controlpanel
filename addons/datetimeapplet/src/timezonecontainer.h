@@ -16,6 +16,7 @@ class TimeZoneContainer : public DuiWidget
 public:
     TimeZoneContainer(DuiWidget *parent = 0);
     virtual ~TimeZoneContainer();
+    void addMoreItems();
     void filter(const QString& sample);
     void updateLayout();
 
