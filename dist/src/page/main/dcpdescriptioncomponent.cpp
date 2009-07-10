@@ -2,10 +2,9 @@
 
 #include <duilabel.h>
 #include <duicontainer.h>
-#include <duilayout.h>
-#include <duilinearlayoutpolicy.h>
 
 #include <QGraphicsSceneMouseEvent>
+#include <QGraphicsLinearLayout>
 
 /*!
  * \class DcpDescriptionComponent
@@ -46,20 +45,16 @@ DcpDescriptionComponent::createContents()
 
     m_Container->setCentralWidget(m_Description);
 
-    DuiLayout* layout = new DuiLayout(this);
-    layout->setAnimator(0);
+    QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(this);
     layout->setContentsMargins(0,0,0,0);
-    DuiLinearLayoutPolicy* layoutPolicy = new DuiLinearLayoutPolicy(layout,
-                                                            Qt::Vertical);
-    layoutPolicy->addItemAtPosition(m_Container, 0);
-    layout->setPolicy(layoutPolicy);
+    layout->addItem(m_Container);
 }
 
 void DcpDescriptionComponent::setTitle (const QString& title)
 {
     Q_ASSERT(m_Container);
     m_Container->setTitle(title);
-    DcpComponent::setTitle(title);
+//    DcpComponent::setTitle(title);
 }
 
 
