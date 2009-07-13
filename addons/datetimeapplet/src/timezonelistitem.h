@@ -24,6 +24,7 @@ public:
     void filtered(bool ok);
     bool isFiltered();
     void setVisibleSeparator(bool enable);
+    void activate();
 
 protected:
     void initWidget();

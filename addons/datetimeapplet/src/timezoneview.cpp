@@ -67,6 +67,7 @@ void TimeZoneView::initWidget()
     QTimer *addTimer = new QTimer(this);
     addTimer->setSingleShot(true);
     connect(addTimer, SIGNAL(timeout()), this, SLOT(addMoreListItems()));
+    connect(m_TimeZoneContainer, SIGNAL(listItemAdded()), this, SLOT(filteringListItems()));
     addTimer->start(1000);
 
     // add items to mainLayoutPolicy
@@ -112,6 +113,8 @@ void TimeZoneView::clearTextEdit(DuiTextEdit *textEdit)
 void TimeZoneView::filteringListItems()
 {
     QString sample = m_TextEdit->text();
+    if (sample == DcpDateTime::InputCountryText)
+        sample = "";
     m_TimeZoneContainer->filter(sample);
 }
 

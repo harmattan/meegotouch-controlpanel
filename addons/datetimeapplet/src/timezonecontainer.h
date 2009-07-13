@@ -35,6 +35,9 @@ private:
 private slots:
     virtual void orientationChanged();
     virtual void itemClicked(TimeZoneListItem* item);
+
+signals:
+    void listItemAdded();
 };
 #endif // TIMEZONECONTAINER_H
 

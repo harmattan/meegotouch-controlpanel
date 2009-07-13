@@ -51,6 +51,7 @@ void TimeZoneContainer::updateLayout()
             m_MainLayoutPolicy->addItemAtPosition(item, count / 2, count % 2);
             m_MainVLayoutPolicy->addItemAtPosition(item, count++, 
                                                    Qt::AlignLeft | Qt::AlignVCenter);
+            item->activate();
             item->setVisible(true);
         }
     }
@@ -111,10 +112,12 @@ void TimeZoneContainer::addMoreItems()
         m_ItemList << item;
 
         // add item to the layout:
-        m_MainLayoutPolicy->addItemAtPosition(item, count / 2, count % 2);
-        m_MainVLayoutPolicy->addItemAtPosition(item, count, Qt::AlignLeft | Qt::AlignVCenter);
+        // m_MainLayoutPolicy->addItemAtPosition(item, count / 2, count % 2);
+        // m_MainVLayoutPolicy->addItemAtPosition(item, count, Qt::AlignLeft | Qt::AlignVCenter);
         connect(item, SIGNAL(clicked(TimeZoneListItem*)),
                 this, SLOT(itemClicked(TimeZoneListItem*)));
+        qApp->processEvents();
+        item->setVisible(false);
 
         if (!m_CheckedItem) {
             QString current = DcpTimeZoneConf::instance()->defaultTimeZone().city();
@@ -123,7 +126,10 @@ void TimeZoneContainer::addMoreItems()
                 m_CheckedItem = item;
             }
         }
+        
+        emit listItemAdded();
     }
+    zoneMap.clear();
     orientationChanged();
 }
 
@@ -156,6 +162,7 @@ void TimeZoneContainer::initWidget()
                                                   zoneIter.value()->gmt(),
                                                   zoneIter.value()->city(), 
                                                   this);
+        item->activate();
         m_ItemList << item;
 
         // add item to the layout:
@@ -163,6 +170,7 @@ void TimeZoneContainer::initWidget()
         m_MainVLayoutPolicy->addItemAtPosition(item, count, Qt::AlignLeft | Qt::AlignVCenter);
         connect(item, SIGNAL(clicked(TimeZoneListItem*)),
                 this, SLOT(itemClicked(TimeZoneListItem*)));
+        qApp->processEvents();
 
         if (!m_CheckedItem) {
             QString current = DcpTimeZoneConf::instance()->defaultTimeZone().city();
