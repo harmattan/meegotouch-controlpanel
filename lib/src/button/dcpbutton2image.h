@@ -12,7 +12,7 @@ public:
     void setImageName (const QString& imageName);
 
 protected:
-    virtual DuiLayout* createLayout();
+    virtual QGraphicsLayout* createLayout();
     DuiImage* imageWidget();
     DuiImage* m_Image;
 };

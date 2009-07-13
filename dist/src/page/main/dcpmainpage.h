@@ -9,6 +9,7 @@ class DcpMainPage : public DcpCategoryPage
 public:
     DcpMainPage();
     virtual void createContent();
+    virtual void reload();
 };
 
 #endif // DUISETTINGSMAINPAGE_H

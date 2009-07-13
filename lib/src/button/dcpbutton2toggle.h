@@ -18,7 +18,7 @@ protected slots:
     void onSmallToggled (bool isOn);
 
 protected:
-    virtual DuiLayout* createLayout();
+    virtual QGraphicsLayout* createLayout();
     DuiButton* toggleButton();
 
 private:

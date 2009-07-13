@@ -1,7 +1,6 @@
 TEMPLATE = subdirs
 
-# CONFIG += debug
-CONFIG += build_all silent warn_on
+CONFIG += build_all silent warn_on debug
 
 SUBDIRS += src 
 

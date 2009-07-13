@@ -1,11 +1,13 @@
 #include "dcpbutton2.h"
 #include <DuiLabel>
-#include <DuiLayout>
-#include <DuiGridLayoutPolicy>
+#include <QGraphicsGridLayout>
+
+#define DISABLE_BACKGROUND 1
 
 // main constructor
 DcpButton2::DcpButton2(DuiWidget* parent)
-    : DuiButton(parent), m_Label1(0), m_Label2(0)
+    : DuiButton(parent), m_TextLayout(0), m_Label1(0), m_Label2(0),
+      m_Triangle(0)
 {
     setObjectName("DcpButton");
     this->setLayout(createLayout());
@@ -13,13 +15,13 @@ DcpButton2::DcpButton2(DuiWidget* parent)
 
 // protected constructor which avoids creating the layout
 DcpButton2::DcpButton2(DuiWidget* parent, bool)
-    : DuiButton(parent), m_Label1(0), m_Label2(0),
-      m_Triangle(0), m_TextLayout(0), m_TextLayoutPolicy1(0)
+    : DuiButton(parent), m_TextLayout(0), m_Label1(0), m_Label2(0),
+      m_Triangle(0)
 {
     setObjectName("DcpButton");
 }
 
-DuiLayout* DcpButton2::createLayout()
+QGraphicsLayout* DcpButton2::createLayout()
 {
     // triangle
     m_Triangle = new DuiButton(this);
@@ -31,21 +33,18 @@ DuiLayout* DcpButton2::createLayout()
     m_Label1->setAcceptedMouseButtons(0);
 //    m_Label1->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
 
-    m_Label2 = new DuiLabel (this);
+    m_Label2 = new DuiLabel();
     m_Label2->setAcceptedMouseButtons(0);
     m_Label2->setObjectName("DcpButtonLine2");
 //    m_Label2->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
 
     // create the layout:
-    m_TextLayout = new DuiLayout(0);
-    m_TextLayout->setAnimator(0);
-    m_TextLayoutPolicy1 = new DuiGridLayoutPolicy(m_TextLayout);
-    m_TextLayout->setPolicy(m_TextLayoutPolicy1);
-    m_TextLayoutPolicy1->addItemAtPosition(m_Triangle,0,0);
-    m_TextLayoutPolicy1->addItemAtPosition(m_Label1,0,1);
-    m_TextLayoutPolicy1->addItemAtPosition(m_Label2,1,1);
-
+    m_TextLayout = new QGraphicsGridLayout();
     m_TextLayout->setContentsMargins(0,0,0,0);
+    m_TextLayout->addItem(m_Triangle,0,0, Qt::AlignCenter);
+    m_TextLayout->addItem(m_Label1,0,1);
+    m_TextLayout->addItem(m_Label2,1,1);
+
     updateLabelSizes();
     return m_TextLayout;
 }
@@ -64,20 +63,19 @@ void DcpButton2::setText2(const QString& text)
 
 void DcpButton2::updateLabelSizes()
 {
-    m_TextLayout->removeItem(m_Triangle);
     if (m_Label2->text().isEmpty()) {
-        m_Label2->setMaximumHeight(0.001); // this magic is to avoid a layout issue
-        m_TextLayoutPolicy1->addItemAtPosition(m_Triangle, 0,0, 2,1,
-                                               Qt::AlignCenter);
         m_Label1->setObjectName("DcpButtonMain");
+        if (textLayout()->count() > 2) {
+            textLayout()->removeAt(2);
+        }
+        m_Label2->hide();
     } else {
-        m_Label2->setMaximumSize(QSize());
-        m_TextLayoutPolicy1->addItemAtPosition(m_Triangle, 0,0, 1,1,
-                                               Qt::AlignCenter);
         m_Label1->setObjectName("DcpButtonLine1");
+        if (textLayout()->count() <= 2) {
+            textLayout()->addItem(m_Label2, 1,1);
+        }
+        m_Label2->show();
     }
-    m_TextLayout->invalidate();
-    m_TextLayout->activate();
 }
 
 // convenience function
@@ -87,8 +85,20 @@ void DcpButton2::setText(const QString& text1, const QString& text2)
     setText2(text2);
 }
 
-DuiLayout* DcpButton2::textLayout()
+QGraphicsGridLayout* DcpButton2::textLayout()
 {
     return m_TextLayout;
 }
+
+#if DISABLE_BACKGROUND
+    void DcpButton2::paintWindowFrame (QPainter *, const QStyleOptionGraphicsItem *, QWidget *) {}
+    void DcpButton2::paint (QPainter *, const QStyleOptionGraphicsItem *, QWidget *) {}
+#else // DISABLE_BACKGROUND
+    void DcpButton2::paintWindowFrame (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+        DuiButton::paintWindowFrame(painter, option, widget);
+    }
+    void DcpButton2::paint (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+        DuiButton::paint(painter, option, widget);
+    }
+#endif // DISABLE_BACKGROUND
 

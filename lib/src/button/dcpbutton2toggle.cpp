@@ -7,7 +7,7 @@ DcpButton2Toggle::DcpButton2Toggle(DuiWidget* parent)
     this->setLayout(createLayout());
 }
 
-DuiLayout* DcpButton2Toggle::createLayout()
+QGraphicsLayout* DcpButton2Toggle::createLayout()
 {
     // toggle
     DuiButton* toggleButton = new DuiButton(this);
@@ -43,7 +43,6 @@ void DcpButton2Toggle::onSmallToggled (bool isOn)
     // emit signal
     emit smallToggled(isOn);
 }
-
 
 void DcpButton2Toggle::setSmallToggle(bool isOn)
 {

@@ -1,22 +1,25 @@
 #include "pagefactory.h"
+
+#include "dcppage.h"
 #include "dcpmainpage.h"
 #include "dcpappletpage.h"
 #include "dcpappletdb.h"
 #include "dcpappletif.h"
 #include "dcpappletmetadata.h"
 #include "dcpappletcategorypage.h"
-#include "dcpwidget.h"
-#include "dcpappletloader.h"
 #include "maintranslations.h"
-#include <QtDebug>
-#include <DuiLabel>
-#include <duilocale.h>
 
-PageFactory *PageFactory::sm_Instance =0;
+#include <DuiApplication>
+#include <DuiAction>
 
-PageFactory::PageFactory()
+
+// TODO handle if language changes
+
+PageFactory *PageFactory::sm_Instance = 0;
+
+PageFactory::PageFactory(): QObject(),
+    m_CurrentPage(0), m_MainPage(0), m_AppletPage(0), m_AppletCategoryPage(0)
 {
-    m_CurrentPage = 0;
 }
 
 PageFactory*
@@ -28,13 +31,6 @@ PageFactory::instance()
 }
 
 DcpPage*
-PageFactory::page(DuiApplicationPage *page)
-{
-    return qobject_cast<DcpPage*>(page);
-}
-
-
-DcpPage* 
 PageFactory::create(Pages::Handle &handle)
 {
     DcpPage *page=0;
@@ -80,52 +76,87 @@ PageFactory::create(Pages::Handle &handle)
     default:
             qWarning() << "DCP" << "Bad page ID: " << handle.id;
     }
-    if (page && m_CurrentPage) {
-        if (page->referer().id == Pages::NOPAGE)
-            page->setReferer(m_CurrentPage->handle());
+    if (page) {
+        if (page->isContentCreated()) {
+            page->reload();
+        }
+        if (m_CurrentPage && page->referer().id == Pages::NOPAGE) {
+                page->setReferer(m_CurrentPage->handle());
+        }
     }
     m_CurrentPage = page;
     return page;
 }
 
-DcpPage* 
+DcpPage*
 PageFactory::createMainPage()
 {
-    return new DcpMainPage();
+    if (!m_MainPage) {
+        m_MainPage = new DcpMainPage();
+        initPage(m_MainPage);
+    }
+    return m_MainPage;
 }
 
 DcpPage*
 PageFactory::createAppletPageFromCategory(DcpAppletMetadata *metadata)
 {
-    DcpPage *page = createAppletPage(metadata);
-    page->setReferer(Pages::APPLETCATEGORY, metadata->category());
-    return page;
+    createAppletPage(metadata);
+    Q_ASSERT(m_AppletPage);
+    m_AppletPage->setReferer(Pages::APPLETCATEGORY, metadata->category());
+    return m_AppletPage;
 }
 
 
-DcpPage* 
+DcpPage*
 PageFactory::createAppletPageFromMostUsed(DcpAppletMetadata *metadata)
 {
-    DcpPage *page = createAppletPage(metadata);
-    page->setReferer(Pages::MAIN);
-    return page;
+    createAppletPage(metadata);
+    Q_ASSERT(m_AppletPage);
+    m_AppletPage->setReferer(Pages::MAIN);
+    return m_AppletPage;
 }
 
 DcpPage*
 PageFactory::createAppletPage(DcpAppletMetadata *metadata)
 {
-    DcpPage *page = new DcpAppletPage(metadata);
-    return page;
+    if (!m_AppletPage) {
+        m_AppletPage = new DcpAppletPage(metadata);
+        initPage(m_AppletPage);
+    } else {
+        m_AppletPage->setMetadata(metadata);
+    }
+    return m_AppletPage;
 }
 
-DcpPage* 
+DcpPage*
 PageFactory::createAppletCategoryPage(const QString& appletCategory)
 {
-    return new DcpAppletCategoryPage(appletCategory);
+    if (!m_AppletCategoryPage){
+        m_AppletCategoryPage = new DcpAppletCategoryPage(appletCategory);
+        initPage(m_AppletCategoryPage);
+    } else {
+        m_AppletCategoryPage->setAppletCategory(appletCategory);
+    }
+    return m_AppletCategoryPage;
 }
 
-void
-PageFactory::back()
+void PageFactory::changePage(Pages::Handle handle)
 {
-   m_CurrentPage->back(); 
-};
+    DcpPage *page = create(handle);
+    page->appear(DuiSceneWindow::KeepWhenDone);
+}
+
+void PageFactory::initPage(DcpPage* page) {
+    connect(page, SIGNAL(openSubPage(Pages::Handle)), this, SLOT(changePage(Pages::Handle)));
+
+    // closeAction
+    DuiAction *quitAction = new DuiAction(DcpMain::quitMenuItemText, this);
+    quitAction->setLocation(DuiAction::ViewMenu);
+    connect(quitAction, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
+
+    // Add actions to page
+    if (page != m_MainPage)
+        page->addAction(quitAction);
+}
+

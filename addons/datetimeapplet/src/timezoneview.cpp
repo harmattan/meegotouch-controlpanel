@@ -10,6 +10,7 @@
 #include <duilinearlayoutpolicy.h>
 #include <duitextedit.h>
 #include <duiscenemanager.h>
+#include <qtimer.h>
 
 TimeZoneView::TimeZoneView(QGraphicsWidget *parent)
              :DcpWidget(parent)
@@ -63,6 +64,10 @@ void TimeZoneView::initWidget()
 
     // m_TimeZoneContainer
     m_TimeZoneContainer = new TimeZoneContainer(this);
+    QTimer *addTimer = new QTimer(this);
+    addTimer->setSingleShot(true);
+    connect(addTimer, SIGNAL(timeout()), this, SLOT(addMoreListItems()));
+    addTimer->start(1000);
 
     // add items to mainLayoutPolicy
     mainLayoutPolicy->addItemAtPosition(textEditLayout, 0, Qt::AlignCenter);
@@ -108,5 +113,10 @@ void TimeZoneView::filteringListItems()
 {
     QString sample = m_TextEdit->text();
     m_TimeZoneContainer->filter(sample);
+}
+
+void TimeZoneView::addMoreListItems()
+{
+    m_TimeZoneContainer->addMoreItems();
 }
 

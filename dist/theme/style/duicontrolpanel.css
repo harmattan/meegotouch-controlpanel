@@ -2,11 +2,6 @@ DuiLabelStyle {
     font: font("Nokia Sans Cn", 12);
 }
 
-DuiAbstractLayoutPolicyStyle#Page {
-    margin-left: 15.0;
-    margin-right: 15.0;
-}
-
 #ComponentDescription {
     font: font("Nokia Sans Cn", 16px);
     margin-left: 20;
@@ -48,6 +43,8 @@ DuiContainerStyle {
 
 DuiApplicationPageStyle {
     background-image: scalable(starfield, 0, 0, 0, 0);
+    padding-left: 12;
+    padding-right: 12;
 }
 
 /*
@@ -57,12 +54,12 @@ DuiNavigationBarStyle {
 */
 
 
-DuiButtonStyle#DcpButton {
-/*    normal-background: "C2-container";
- *    in current design the button has no background: */
-    normal-background-image: image();
+#DcpButton {
+    normal-background-image: scalable(C2-container,0,0,0,0);
+/*    in current design the button has no background: */
+/*    normal-background-image: ;
     normal-color: #000000;
-    normal-opacity: 0.0;
+    normal-opacity: 0.0; */
 
     /* this sets the height of the button fixed: */
     minimum-size: size(1,93);

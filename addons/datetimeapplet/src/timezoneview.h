@@ -25,6 +25,7 @@ private slots:
     virtual void orientationChanged();
     virtual void clearTextEdit(DuiTextEdit *textEdit);
     virtual void filteringListItems();
+    virtual void addMoreListItems();
 };
 #endif // TIMEZONEVIEW_H
 

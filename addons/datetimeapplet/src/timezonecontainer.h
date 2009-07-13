@@ -2,7 +2,7 @@
 #define TIMEZONECONTAINER_H
 
 #include <DuiWidget>
-#include <QMap>
+#include <QList>
 
 class TimeZoneListItem;
 class DuiLayout;
@@ -16,6 +16,7 @@ class TimeZoneContainer : public DuiWidget
 public:
     TimeZoneContainer(DuiWidget *parent = 0);
     virtual ~TimeZoneContainer();
+    void addMoreItems();
     void filter(const QString& sample);
     void updateLayout();
 
@@ -25,7 +26,7 @@ protected:
     void updateHSeparator();
 
 private:
-    QMap<int, TimeZoneListItem*> m_ItemMap;
+    QList<TimeZoneListItem*> m_ItemList;
     DuiLayout *m_MainLayout;
     DuiGridLayoutPolicy *m_MainLayoutPolicy;
     DuiLinearLayoutPolicy *m_MainVLayoutPolicy;

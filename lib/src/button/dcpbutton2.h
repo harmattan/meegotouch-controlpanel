@@ -3,9 +3,11 @@
 
 #include <DuiButton>
 class DuiLabel;
-class DuiGridLayoutPolicy;
-class DuiLayout;
+class QGraphicsLayout;
+class QGraphicsGridLayout;
 
+// TODO if design stays the way it is we could use here an empty WidgetController
+// which supports margins set by css
 class DcpButton2: public DuiButton{
     Q_OBJECT
 public:
@@ -15,19 +17,22 @@ public:
     virtual void setText1(const QString& text);
     virtual void setText2(const QString& text);
 
+    // optimization, remove this if you want background:
+    virtual void paintWindowFrame (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget=0);
+    virtual void paint (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget=0);
+
 protected:
     DcpButton2(DuiWidget* parent, bool);
-    virtual DuiLayout* createLayout();
-    DuiLayout* textLayout();
+    virtual QGraphicsLayout* createLayout();
+    QGraphicsGridLayout* textLayout();
 
 private:
     void updateLabelSizes();
+    QGraphicsGridLayout* m_TextLayout;
     DuiLabel* m_Label1;
     DuiLabel* m_Label2;
     DuiWidget* m_Triangle;
-    DuiLayout* m_TextLayout;
-    DuiGridLayoutPolicy* m_TextLayoutPolicy1;
 };
 
-
 #endif // DCPBUTTON2_H
+

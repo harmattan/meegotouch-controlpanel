@@ -1,6 +1,6 @@
 QMAKE_LIBDIR  += ../../lib/lib/
 TEMPLATE      = lib
-CONFIG       += plugin gui dui silent
+CONFIG       += plugin gui dui silent debug
 LIBS         += -lduicontrolpanel
 
 INCLUDEPATH  += $$system(find ../../lib/src/ -type d)
@@ -29,15 +29,15 @@ SOURCES       = languageapplet.cpp \
                 languagebrief.cpp
 
 
-TARGET        = $$qtLibraryTarget(languageapplet)
-css.files     = languageapplet.css
-image.files   = images/*.png
-DESTDIR       = lib
+                TARGET        = $$qtLibraryTarget(languageapplet)
+                css.files     = languageapplet.css
+                image.files   = images/*.png
+                DESTDIR       = lib
 
-target.path += $$(DEBIAN_DESTDIR)$$[QT_INSTALL_LIBS]/duicontrolpanel/applets
-css.path    += $$(DEBIAN_DESTDIR)/usr/share/duicontrolpanel/themes/style
-image.path  += $$(DEBIAN_DESTDIR)/usr/share/duicontrolpanel/themes/images
-PKGCONFIG += gconf-2.0 duivaluespace-1.0 
+                target.path += $$(DEBIAN_DESTDIR)$$[QT_INSTALL_LIBS]/duicontrolpanel/applets
+                css.path    += $$(DEBIAN_DESTDIR)/usr/share/duicontrolpanel/themes/style
+                image.path  += $$(DEBIAN_DESTDIR)/usr/share/duicontrolpanel/themes/images
+                PKGCONFIG += gconf-2.0 duivaluespace-1.0 
 # message ("Plugin path will be: "$$target.path)
 # message ("CSS path will be: "$$css.path)
 # message ("Image path will be: "$$image.path)
