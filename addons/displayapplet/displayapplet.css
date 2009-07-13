@@ -20,5 +20,5 @@
         maxsize: size(35, 35);
 
         normal-background-image: scalable(Toggle-on,0,0,0,0);
-        pressed-background: scalable(Toggle-off,0,0,0,0);
+        pressed-background-image: scalable(Toggle-off,0,0,0,0);
 }
