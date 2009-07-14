@@ -49,18 +49,11 @@ void TimeZoneContainer::updateLayout()
     m_MainVLayoutPolicy->setSpacing(5);
 
     // add Items to m_MainLayoutPolicy
-    int count = 0;
     QListIterator<TimeZoneListItem*> iter(m_ItemList);
     while (iter.hasNext()) {
         TimeZoneListItem *item = iter.next();
         item->setVisibleSeparator(true);
-        if (item->isFiltered()) {
-            m_MainLayoutPolicy->addItemAtPosition(item, count / 2, count % 2);
-            m_MainVLayoutPolicy->addItemAtPosition(item, count++, 
-                                                   Qt::AlignLeft | Qt::AlignVCenter);
-            item->activate();
-            item->setVisible(true);
-        }
+        addItemToPolicies(item);
     }
 
     if (m_MainLayout->count() == 0) {
@@ -98,6 +91,18 @@ void TimeZoneContainer::updateLayout()
     orientationChanged();
 }
 
+void TimeZoneContainer::addItemToPolicies(TimeZoneListItem* item)
+{
+    if (item->isFiltered()) {
+        int count = m_MainLayoutPolicy->count();
+        m_MainLayoutPolicy->addItemAtPosition(item, count / 2, count % 2);
+        m_MainVLayoutPolicy->addItemAtPosition(item, count++,
+                                               Qt::AlignLeft | Qt::AlignVCenter);
+        item->activate();
+        item->setVisible(true);
+    }
+}
+
 void TimeZoneContainer::addMoreItems()
 {
     // add items to m_ItemMap
@@ -113,7 +118,7 @@ void TimeZoneContainer::addMoreItems()
         if (count < 40) {
             continue;
         }
-        
+
         TimeZoneListItem *item = new TimeZoneListItem(zoneIter.value()->timeZone(),
                                                   zoneIter.value()->country(),
                                                   zoneIter.value()->gmt(),
@@ -124,8 +129,6 @@ void TimeZoneContainer::addMoreItems()
         connect(item, SIGNAL(clicked(TimeZoneListItem*)),
                 this, SLOT(itemClicked(TimeZoneListItem*)));
         item->setVisible(false);
-        if (count % 10 == 0)
-            qApp->processEvents();
 
         if (!m_CheckedItem) {
             QString current = DcpTimeZoneConf::instance()->defaultTimeZone().city();
@@ -134,26 +137,34 @@ void TimeZoneContainer::addMoreItems()
                 m_CheckedItem = item;
             }
         }
-        
-        emit listItemAdded();
+
+        // if (count % 10 == 0)
+        checkIfFiltered(item);
+        addItemToPolicies(item);
+        qApp->processEvents();
     }
     zoneMap.clear();
     orientationChanged();
 }
 
+void TimeZoneContainer::checkIfFiltered(TimeZoneListItem* item)
+{
+     if (item->country().startsWith(m_FilterSample, Qt::CaseInsensitive) ||
+         item->city().startsWith(m_FilterSample, Qt::CaseInsensitive)) {
+         item->filtered(true);
+     } else {
+         item->filtered(false);
+     }
+}
+
 void TimeZoneContainer::filter(const QString& sample)
 {
+    m_FilterSample = sample;
     QListIterator<TimeZoneListItem*> iter(m_ItemList);
     while (iter.hasNext()) {
         TimeZoneListItem *item = iter.next();
-        if (item->country().startsWith(sample, Qt::CaseInsensitive) ||
-            item->city().startsWith(sample, Qt::CaseInsensitive)) {
-            item->filtered(true);
-        } else {
-            item->filtered(false);
-        }
+        checkIfFiltered(item);
     }
-
     updateLayout();
 }
 

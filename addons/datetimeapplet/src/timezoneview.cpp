@@ -73,8 +73,7 @@ void TimeZoneView::initWidget()
     QTimer *addTimer = new QTimer(this);
     addTimer->setSingleShot(true);
     connect(addTimer, SIGNAL(timeout()), this, SLOT(addMoreListItems()));
-    connect(m_TimeZoneContainer, SIGNAL(listItemAdded()), this, SLOT(filteringListItems()));
-    addTimer->start(1000);
+    addTimer->start(0);
 
     // add items to mainLayoutPolicy
     mainLayoutPolicy->addItemAtPosition(textEditLayout, 0, Qt::AlignCenter);

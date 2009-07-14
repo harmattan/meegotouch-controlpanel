@@ -33,6 +33,9 @@ private:
     DuiLinearLayoutPolicy *m_MainVLayoutPolicy;
     TimeZoneListItem *m_CheckedItem;
     bool m_BackPushed;
+    QString m_FilterSample;
+    void checkIfFiltered(TimeZoneListItem* item);
+    void addItemToPolicies(TimeZoneListItem* item);
 
 private slots:
     virtual void orientationChanged();
