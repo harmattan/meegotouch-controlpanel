@@ -58,39 +58,6 @@ void TimeZoneContainer::updateLayout()
         item->setVisibleSeparator(true);
         addItemToPolicies(item);
     }
-#if 0
-    if (m_MainLayout->count() == 0) {
-        m_MainLayoutPolicy->addItemAtPosition(
-                new DcpSpacerItem(this, 
-                    DuiSceneManager::instance()->visibleSceneSize().width() / 2 - 40, 
-                    10, QSizePolicy::Fixed, QSizePolicy::Expanding),
-                0, 0);
-        m_MainLayoutPolicy->addItemAtPosition(
-                new DcpSpacerItem(this, 
-                    DuiSceneManager::instance()->visibleSceneSize().width() / 2 - 40, 
-                    10, QSizePolicy::Fixed, QSizePolicy::Expanding),
-                0, 1);
-    } else {
-        int count = m_MainLayout->count();
-        if (count % 2 == 0) {
-            static_cast<TimeZoneListItem*>(
-                            m_MainLayout->itemAt(count - 1))->setVisibleSeparator(false);
-            static_cast<TimeZoneListItem*>(
-                            m_MainLayout->itemAt(count - 2))->setVisibleSeparator(false);
-        } else {
-            static_cast<TimeZoneListItem*>(
-                            m_MainLayout->itemAt(count - 1))->setVisibleSeparator(false);
-        }
-    }
-
-    if (m_MainLayout->count() == 1) {
-        m_MainLayoutPolicy->addItemAtPosition(
-                new DcpSpacerItem(this, 
-                    DuiSceneManager::instance()->visibleSceneSize().width() / 2 - 40, 
-                    10, QSizePolicy::Fixed, QSizePolicy::Expanding),
-                0, 1);
-    }
-#endif
     orientationChanged();
 }
 
@@ -99,10 +66,19 @@ void TimeZoneContainer::addItemToPolicies(TimeZoneListItem* item)
     if (item->isFiltered()) {
         int count = m_MainLayoutPolicy->count();
         m_MainLayoutPolicy->addItemAtPosition(item, count / 2, count % 2);
-        m_MainVLayoutPolicy->addItemAtPosition(item, count,
+        m_MainVLayoutPolicy->addItemAtPosition(item, count++,
                                                Qt::AlignLeft | Qt::AlignVCenter);
         item->activate();
         item->setVisible(true);
+        item->setVisibleSeparator(false);
+
+        if (count % 2 == 1 && count > 2) {
+            // makes separators of previous line visible:
+            static_cast<TimeZoneListItem*>(
+                    m_MainLayout->itemAt(count-2))->setVisibleSeparator(true);
+            static_cast<TimeZoneListItem*>(
+                    m_MainLayout->itemAt(count-3))->setVisibleSeparator(true);
+        }
     }
 }
 

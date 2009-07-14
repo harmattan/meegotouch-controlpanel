@@ -23,6 +23,7 @@ public:
 
 protected:
     void initWidget();
+    void updateSeparators();
     void updateGridSeparator();
     void updateHSeparator();
 
