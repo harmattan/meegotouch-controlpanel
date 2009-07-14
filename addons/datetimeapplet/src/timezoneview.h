@@ -13,6 +13,7 @@ class TimeZoneView : public DcpWidget
 public:
     TimeZoneView(QGraphicsWidget *parent = 0);
     virtual ~TimeZoneView();
+    virtual bool back();
 
 protected:
     void initWidget();

@@ -23,6 +23,12 @@ TimeZoneView::~TimeZoneView()
 {
 }
 
+bool TimeZoneView::back()
+{
+    m_TimeZoneContainer->backPushed(true);   
+    return DcpWidget::back();
+}
+
 void TimeZoneView::initWidget()
 {
     // mainLayout
