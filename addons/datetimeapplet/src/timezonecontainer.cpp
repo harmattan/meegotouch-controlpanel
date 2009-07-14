@@ -13,6 +13,9 @@
 #include <duiscenemanager.h>
 #include <QDebug>
 
+static const int FIRST_LOAD_COUNT = 40;
+static const int COUNT_AFTER_PROCESSEVENTS = 1;
+
 TimeZoneContainer::TimeZoneContainer(DuiWidget *parent)
                   :DuiWidget(parent), 
                    m_CheckedItem(0), 
@@ -115,10 +118,6 @@ void TimeZoneContainer::addMoreItems()
         }
         zoneIter.next();
         count++;
-        if (count < 40) {
-            continue;
-        }
-
         TimeZoneListItem *item = new TimeZoneListItem(zoneIter.value()->timeZone(),
                                                   zoneIter.value()->country(),
                                                   zoneIter.value()->gmt(),
@@ -141,7 +140,9 @@ void TimeZoneContainer::addMoreItems()
         // if (count % 10 == 0)
         checkIfFiltered(item);
         addItemToPolicies(item);
-        qApp->processEvents();
+        if (count > FIRST_LOAD_COUNT && (count % COUNT_AFTER_PROCESSEVENTS == 0)) {
+            qApp->processEvents();
+        }
     }
     zoneMap.clear();
     orientationChanged();
@@ -185,40 +186,6 @@ void TimeZoneContainer::initWidget()
     m_MainVLayoutPolicy->setSpacing(5);
 
     m_MainLayout->setPolicy(m_MainLayoutPolicy);
-
-    // add items to m_ItemMap
-    QMultiMap<QString, DcpTimeZoneData*> zoneMap = DcpTimeZoneConf::instance()->getMap();
-    QMapIterator<QString, DcpTimeZoneData*> zoneIter(zoneMap);
-    int count = 0;
-    while (zoneIter.hasNext()) {
-        zoneIter.next();
-        TimeZoneListItem *item = new TimeZoneListItem(zoneIter.value()->timeZone(),
-                                                  zoneIter.value()->country(),
-                                                  zoneIter.value()->gmt(),
-                                                  zoneIter.value()->city(), 
-                                                  this);
-        item->activate();
-        m_ItemList << item;
-
-        // add item to the layout:
-        m_MainLayoutPolicy->addItemAtPosition(item, count / 2, count % 2);
-        m_MainVLayoutPolicy->addItemAtPosition(item, count, Qt::AlignLeft | Qt::AlignVCenter);
-        connect(item, SIGNAL(clicked(TimeZoneListItem*)),
-                this, SLOT(itemClicked(TimeZoneListItem*)));
-
-        if (!m_CheckedItem) {
-            QString current = DcpTimeZoneConf::instance()->defaultTimeZone().city();
-            if (item->city() == current) {
-                item->checked(true);
-                m_CheckedItem = item;
-            }
-        }
-        count++;
-        if (count == 40) {
-            qApp->processEvents();
-            break;
-        }
-    }
 
     // orientation change
     connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),
