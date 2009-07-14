@@ -136,7 +136,7 @@ void DateTimeWidget::orientationChanged()
 {
     if (DuiSceneManager::instance() == 0)
         return;
-    
+
     switch (DuiSceneManager::instance()->orientation()) {
         case Dui::Landscape:
             m_DateTimeLayout->setPolicy(m_DateTimeHLayoutPolicy);

@@ -123,7 +123,6 @@ void TimeZoneContainer::addMoreItems()
 
         connect(item, SIGNAL(clicked(TimeZoneListItem*)),
                 this, SLOT(itemClicked(TimeZoneListItem*)));
-        qApp->processEvents();
         item->setVisible(false);
 
         if (!m_CheckedItem) {
@@ -134,6 +133,7 @@ void TimeZoneContainer::addMoreItems()
             }
         }
         
+        qApp->processEvents();
         emit listItemAdded();
     }
     zoneMap.clear();
