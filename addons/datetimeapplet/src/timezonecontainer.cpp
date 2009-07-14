@@ -124,6 +124,8 @@ void TimeZoneContainer::addMoreItems()
         connect(item, SIGNAL(clicked(TimeZoneListItem*)),
                 this, SLOT(itemClicked(TimeZoneListItem*)));
         item->setVisible(false);
+        if (count % 10 == 0)
+            qApp->processEvents();
 
         if (!m_CheckedItem) {
             QString current = DcpTimeZoneConf::instance()->defaultTimeZone().city();
@@ -133,7 +135,6 @@ void TimeZoneContainer::addMoreItems()
             }
         }
         
-        qApp->processEvents();
         emit listItemAdded();
     }
     zoneMap.clear();
@@ -193,7 +194,6 @@ void TimeZoneContainer::initWidget()
         m_MainVLayoutPolicy->addItemAtPosition(item, count, Qt::AlignLeft | Qt::AlignVCenter);
         connect(item, SIGNAL(clicked(TimeZoneListItem*)),
                 this, SLOT(itemClicked(TimeZoneListItem*)));
-        qApp->processEvents();
 
         if (!m_CheckedItem) {
             QString current = DcpTimeZoneConf::instance()->defaultTimeZone().city();
