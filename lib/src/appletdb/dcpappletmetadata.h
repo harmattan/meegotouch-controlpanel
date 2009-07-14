@@ -42,7 +42,7 @@ public:
     QString part() const;
 
     DcpAppletIf* applet() const;
-
+    void setParent(DcpAppletMetadata *parent);
 	void save();
     void cleanup();
 signals:

@@ -5,6 +5,7 @@
 class DcpBrief;
 class DcpAppletLoader;
 class DuiDesktopEntry;
+class DcpAppletMetadata;
 
 class DcpAppletMetadataPrivate
 {
@@ -17,7 +18,7 @@ public:
     DcpAppletLoader* m_AppletLoader;
     DcpBrief* m_Brief;
     DuiDesktopEntry* m_DesktopEntry;
-
+    DcpAppletMetadata *m_Parent;
 	int m_Counter;
 };
 

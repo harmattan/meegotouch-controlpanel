@@ -71,6 +71,7 @@ DcpAppletMetadataPrivate::DcpAppletMetadataPrivate()
     : m_AppletLoader(0),
       m_Brief(0),
       m_DesktopEntry(0),
+      m_Parent(0),
       m_Counter(-1)
 {
 }
@@ -231,8 +232,12 @@ int DcpAppletMetadata::order() const
 
 DcpAppletIf* DcpAppletMetadata::applet() const
 {
+    if (d->m_Parent)
+        return d->m_Parent->applet();
+
     if (d->m_AppletLoader == 0){
         d->m_AppletLoader = new DcpAppletLoader(this);
+        qDebug() << "APPLET loaded" << fullBinary();
     }
 //    qDebug() << Q_FUNC_INFO << d->m_AppletLoader->errorMsg() << fullBinary();
     return d->m_AppletLoader->applet();
@@ -330,5 +335,9 @@ void DcpAppletMetadata::cleanup()
     if (d->m_AppletLoader) 
         delete d->m_AppletLoader;
     d->m_AppletLoader = 0;
+}
+void DcpAppletMetadata::setParent(DcpAppletMetadata *parent)
+{
+    d->m_Parent = parent;
 }
 
