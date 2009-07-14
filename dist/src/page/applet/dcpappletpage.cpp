@@ -10,7 +10,7 @@
 
 DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
     DcpPage(), m_Metadata(metadata),
-    m_MainWidget(0), m_AppletLoader(0), m_MissingLabel(0)
+    m_MainWidget(0), m_MissingLabel(0)
 {
     setHandle(Pages::APPLET);
 }
@@ -30,7 +30,7 @@ void DcpAppletPage::createContent()
 void DcpAppletPage::load()
 {
    m_LoadedMetadata = m_Metadata;
-   if (loadApplet()) {
+   if (m_Metadata->applet()) {
        changeWidget(0);
    } else {
        Q_ASSERT (!m_MissingLabel);
@@ -44,10 +44,6 @@ void DcpAppletPage::load()
 
 void DcpAppletPage::clearup()
 {
-    if (m_AppletLoader) {
-        m_AppletLoader->deleteLater();
-        m_AppletLoader = 0;
-    }
     if (m_MainWidget) {
         m_MainWidget->deleteLater();
         m_MainWidget = 0;
@@ -65,19 +61,7 @@ void DcpAppletPage::reload() {
     }
 }
 
-bool
-DcpAppletPage::loadApplet()
-{
-    Q_ASSERT (!m_AppletLoader);
-    m_AppletLoader = new DcpAppletLoader(m_Metadata);
-    bool result = true;
-    if (!m_AppletLoader->applet())
-    {
-        qWarning() << m_AppletLoader->errorMsg();
-        result = false;
-    }
-    return result;
-}
+
 
 void DcpAppletPage::back()
 {
@@ -93,7 +77,7 @@ DcpAppletPage::changeWidget(int widgetId)
         remove (m_MainWidget);
     }
 
-    m_MainWidget = m_AppletLoader->applet()->constructWidget(widgetId);
+    m_MainWidget = m_Metadata->applet()->constructWidget(widgetId);
 
     // checks if applet does provide the widget
     if (!m_MainWidget) {
@@ -104,9 +88,9 @@ DcpAppletPage::changeWidget(int widgetId)
     connect(m_MainWidget, SIGNAL(changeWidget(int)), this, SLOT(changeWidget(int)));
     append(m_MainWidget);
 
-    setTitle(m_AppletLoader->applet()->title());
+    setTitle(m_Metadata->applet()->title());
 
-    QVector<DuiAction*> vector = m_AppletLoader->applet()->viewMenuItems();
+    QVector<DuiAction*> vector = m_Metadata->applet()->viewMenuItems();
     if (!vector.isEmpty())
     {
         for (int i = 0; i < vector.size(); i++)

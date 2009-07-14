@@ -13,6 +13,7 @@ DcpAppletLoader::~DcpAppletLoader()
 {
     if (m_Applet)
         delete m_Applet;
+    m_Applet = 0;
 }
 
 void DcpAppletLoader::load()

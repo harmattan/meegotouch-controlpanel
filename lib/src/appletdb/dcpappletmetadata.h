@@ -44,7 +44,7 @@ public:
     DcpAppletIf* applet() const;
 
 	void save();
-
+    void cleanup();
 signals:
     void briefChanged();
 

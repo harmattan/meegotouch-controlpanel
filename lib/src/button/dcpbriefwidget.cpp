@@ -24,6 +24,7 @@ void DcpBriefWidget::setMetadata(DcpAppletMetadata* metadata)
     if (m_Metadata) {
         disconnect (m_Metadata, SIGNAL(briefChanged()), this, SLOT(updateContents()));
     }
+    Q_ASSERT(metadata);
     m_Metadata = metadata;
 
     switch(m_Metadata->widgetTypeID()) {

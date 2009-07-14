@@ -71,3 +71,26 @@ void DcpAppletCategoryPage::reload()
     }
 }
 
+void DcpAppletCategoryPage::back()
+{
+    cleanup();
+    DcpCategoryPage::back();
+}
+
+void DcpAppletCategoryPage::cleanup()
+{
+
+    DcpAppletMetadataList list = DcpAppletDb::instance()->listByCategory(appletCategory());
+
+    if (!list.isEmpty())
+    {
+    	DcpAppletMetadataList::const_iterator i;
+        for (i = list.begin(); i != list.end(); ++i)
+        {
+            DcpAppletMetadata *metadata = *i;
+            qDebug() << "Cleaning up metadata" << metadata->name();
+            metadata->cleanup();
+        }
+    }
+   
+}

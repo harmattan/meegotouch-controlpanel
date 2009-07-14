@@ -324,3 +324,11 @@ void DcpAppletMetadata::save()
 		file.close();
 	}
 }
+
+void DcpAppletMetadata::cleanup() 
+{
+    if (d->m_AppletLoader) 
+        delete d->m_AppletLoader;
+    d->m_AppletLoader = 0;
+}
+

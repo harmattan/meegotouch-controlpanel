@@ -6,7 +6,6 @@
 
 class DcpWidget;
 class DcpAppletMetadata;
-class DcpAppletLoader;
 class DuiLabel;
 
 class DcpAppletPage : public DcpPage
@@ -31,7 +30,6 @@ private:
     DcpAppletMetadata *m_Metadata;
     DcpAppletMetadata *m_LoadedMetadata;
     DcpWidget *m_MainWidget;
-    DcpAppletLoader* m_AppletLoader;
     DuiLabel *m_MissingLabel;
 };
 
