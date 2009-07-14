@@ -58,7 +58,7 @@ void TimeZoneContainer::updateLayout()
         item->setVisibleSeparator(true);
         addItemToPolicies(item);
     }
-
+#if 0
     if (m_MainLayout->count() == 0) {
         m_MainLayoutPolicy->addItemAtPosition(
                 new DcpSpacerItem(this, 
@@ -90,7 +90,7 @@ void TimeZoneContainer::updateLayout()
                     10, QSizePolicy::Fixed, QSizePolicy::Expanding),
                 0, 1);
     }
-
+#endif
     orientationChanged();
 }
 
@@ -99,7 +99,7 @@ void TimeZoneContainer::addItemToPolicies(TimeZoneListItem* item)
     if (item->isFiltered()) {
         int count = m_MainLayoutPolicy->count();
         m_MainLayoutPolicy->addItemAtPosition(item, count / 2, count % 2);
-        m_MainVLayoutPolicy->addItemAtPosition(item, count++,
+        m_MainVLayoutPolicy->addItemAtPosition(item, count,
                                                Qt::AlignLeft | Qt::AlignVCenter);
         item->activate();
         item->setVisible(true);
@@ -121,7 +121,7 @@ void TimeZoneContainer::addMoreItems()
         TimeZoneListItem *item = new TimeZoneListItem(zoneIter.value()->timeZone(),
                                                   zoneIter.value()->country(),
                                                   zoneIter.value()->gmt(),
-                                                  zoneIter.value()->city(), 
+                                                  zoneIter.value()->city(),
                                                   this);
         m_ItemList << item;
 
@@ -144,7 +144,6 @@ void TimeZoneContainer::addMoreItems()
             qApp->processEvents();
         }
     }
-    zoneMap.clear();
     orientationChanged();
 }
 
@@ -204,10 +203,12 @@ void TimeZoneContainer::orientationChanged()
 
     switch (manager->orientation()) {
         case Dui::Landscape:
+            setMinimumWidth(manager->visibleSceneSize().width()-24);
             m_MainLayout->setPolicy(m_MainLayoutPolicy);
             updateGridSeparator();
             break;
         case Dui::Portrait:
+            setMinimumWidth(manager->visibleSceneSize().width()-24);
             m_MainLayout->setPolicy(m_MainVLayoutPolicy);
             updateHSeparator();
             break;
