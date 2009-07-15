@@ -29,3 +29,4 @@ public slots:
     virtual void keyboardPage();
 };
 #endif // LANGUAGEWIDGET_H
+

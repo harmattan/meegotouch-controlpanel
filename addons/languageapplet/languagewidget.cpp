@@ -7,8 +7,6 @@
 #include "displaydialog.h"
 #include "keyboarddialog.h"
 
-#include <duilayout.h>
-#include <duilinearlayoutpolicy.h>
 #include <duibutton.h>
 #include <duilabel.h>
 #include <duiapplication.h>
@@ -16,8 +14,8 @@
 #include <duinavigationbar.h>
 #include <duiscenemanager.h>
 #include <duiseparator.h>
-
 #include <duiquerydialog.h>
+#include <QGraphicsLinearLayout>
 
 LanguageWidget::LanguageWidget(QGraphicsWidget *parent)
 	    :DcpWidget(parent), m_Dlg(0)
@@ -37,7 +35,6 @@ void LanguageWidget::initWidget()
     m_DisplayButton->setText1(DcpLanguage::DisplayButtonTitle);
     m_DisplayButton->setText2(DcpLanguageConf::fullName(
                 DcpLanguageConf::instance()->displayLanguage()));
-    m_DisplayButton->setMinimumWidth(DuiSceneManager::instance()->visibleSceneSize().width()-24);
     m_DisplayButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     connect(m_DisplayButton, SIGNAL(clicked()), this, SLOT(displayPage()));
 
@@ -55,38 +52,27 @@ void LanguageWidget::initWidget()
                     this);
     simpleText->setObjectName("LanguageSimpleText");
     simpleText->setAlignment(Qt::AlignCenter);
-
+    
     // regionFormatButton
     DuiButton *regionFormatButton = new DuiButton(DcpLanguage::RegionButtonTitle, this);
     regionFormatButton->setObjectName("RegionFormatButton");
 
-    // separators
-    DuiSeparator* separator1 = new DuiSeparator(this);
-    DuiSeparator* separator2 = new DuiSeparator(this);
-
     // Layout
-    DuiLayout *mainLayout = new DuiLayout(this);
-    mainLayout->setAnimator(0);
-	DuiLinearLayoutPolicy *mainLayoutPolicy =
-            new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
-    mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayoutPolicy->setContentsMargins(0.0, 12.0, 0.0, 12.0);
-    mainLayoutPolicy->setSpacing(0);
+    QGraphicsLinearLayout *mainLayout = new QGraphicsLinearLayout(Qt::Vertical, this);
+    mainLayout->setContentsMargins(0.0, 12.0, 0.0, 12.0);
+    mainLayout->setSpacing(0);
 
     // Add items to mainLayoutPolicy
-    mainLayoutPolicy->addItemAtPosition(m_DisplayButton, 0, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(separator1, 1);
-    mainLayoutPolicy->addItemAtPosition(m_KeyboardButton, 2, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(separator2, 3);
-    mainLayoutPolicy->addItemAtPosition(
-                    new DcpSpacerItem(this, 10, 30, QSizePolicy::Expanding, QSizePolicy::Fixed),
-                    4, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(simpleText, 5, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(regionFormatButton, 6, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(
-                    new DcpSpacerItem(this, 10, 20, QSizePolicy::Expanding, QSizePolicy::Fixed), 
-                    7, Qt::AlignCenter);
-    this->setLayout(mainLayout);
+    mainLayout->addItem(m_DisplayButton);
+    mainLayout->addItem(new DuiSeparator(this));
+    mainLayout->addItem(m_KeyboardButton);
+    mainLayout->addItem(new DuiSeparator(this));
+    mainLayout->addItem(new DcpSpacerItem(this, 10, 30, QSizePolicy::Expanding, QSizePolicy::Fixed));
+    mainLayout->addItem(simpleText);
+    mainLayout->setAlignment(simpleText, Qt::AlignCenter);
+    mainLayout->addItem(regionFormatButton);
+    mainLayout->setAlignment(regionFormatButton, Qt::AlignCenter);
+    mainLayout->addItem(new DcpSpacerItem(this, 10, 20, QSizePolicy::Expanding, QSizePolicy::Fixed));
 }
 
 void LanguageWidget::displayPage()
