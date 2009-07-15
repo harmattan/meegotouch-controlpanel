@@ -55,18 +55,13 @@ void TimeZoneView::initWidget()
                                  DcpDateTime::InputCountryText,
                                  this);
     m_TextEdit->setObjectName("InputTextEdit");
+    m_TextEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     connect(m_TextEdit, SIGNAL(gainedFocus(DuiTextEdit *, Qt::FocusReason)),
             this, SLOT(clearTextEdit(DuiTextEdit *)));
     connect(m_TextEdit, SIGNAL(textChanged()), this, SLOT(filteringListItems()));
 
     // add items to textEditLayoutPolicy
-    textEditLayoutPolicy->addItemAtPosition(
-            new DcpSpacerItem(this, 5, 10, QSizePolicy::Expanding, QSizePolicy::Fixed),
-            0, Qt::AlignLeft | Qt::AlignVCenter);
-    textEditLayoutPolicy->addItemAtPosition(m_TextEdit, 1, Qt::AlignCenter);
-    textEditLayoutPolicy->addItemAtPosition(
-            new DcpSpacerItem(this, 5, 10, QSizePolicy::Expanding, QSizePolicy::Fixed),
-            2, Qt::AlignRight | Qt::AlignVCenter);
+    textEditLayoutPolicy->addItemAtPosition(m_TextEdit, 0, Qt::AlignCenter);
 
     // m_TimeZoneContainer
     m_TimeZoneContainer = new TimeZoneContainer(this);
@@ -87,25 +82,6 @@ void TimeZoneView::initWidget()
 
 void TimeZoneView::orientationChanged()
 {
-    DuiSceneManager *manager = DuiSceneManager::instance();
-    if (manager == 0)
-        return;
-    switch (manager->orientation()) {
-        case Dui::Landscape:
-            m_TextEdit->setMinimumWidth(
-                    DuiSceneManager::instance()->visibleSceneSize().width() - 40);
-            m_TextEdit->setMaximumWidth(
-                    DuiSceneManager::instance()->visibleSceneSize().width() - 40);
-            break;
-        case Dui::Portrait:
-            m_TextEdit->setMinimumWidth(
-                    DuiSceneManager::instance()->visibleSceneSize().width() - 40);
-            m_TextEdit->setMaximumWidth(
-                    DuiSceneManager::instance()->visibleSceneSize().width() - 40);
-            break;
-        default:
-            break;
-    }
 }
 
 void TimeZoneView::clearTextEdit(DuiTextEdit *textEdit)
