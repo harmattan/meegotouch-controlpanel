@@ -13,12 +13,12 @@
 #include <duiscenemanager.h>
 #include <QDebug>
 
-static const int FIRST_LOAD_COUNT = 40;
-static const int COUNT_AFTER_PROCESSEVENTS = 1;
+static const int FIRST_LOAD_COUNT = 20;
+static const int COUNT_AFTER_PROCESSEVENTS = 5;
 
 TimeZoneContainer::TimeZoneContainer(DuiWidget *parent)
-                  :DuiWidget(parent), 
-                   m_CheckedItem(0), 
+                  :DuiWidget(parent),
+                   m_CheckedItem(0),
                    m_BackPushed(false)
 {
     initWidget();
@@ -113,9 +113,9 @@ void TimeZoneContainer::addMoreItems()
             }
         }
 
-        // if (count % 10 == 0)
         checkIfFiltered(item);
         addItemToPolicies(item);
+
         if (count > FIRST_LOAD_COUNT && (count % COUNT_AFTER_PROCESSEVENTS == 0)) {
             qApp->processEvents();
         }
@@ -135,6 +135,7 @@ void TimeZoneContainer::checkIfFiltered(TimeZoneListItem* item)
 
 void TimeZoneContainer::filter(const QString& sample)
 {
+    if (m_FilterSample == sample) return;
     m_FilterSample = sample;
     QListIterator<TimeZoneListItem*> iter(m_ItemList);
     while (iter.hasNext()) {
