@@ -7,6 +7,7 @@
 #include "dcprecentlyusedcomponent.h"
 #include "pages.h"
 #include "maintranslations.h"
+#include <duiapplication.h>
 
 /*!
  * \class DcpMainPage
@@ -67,4 +68,9 @@ void DcpMainPage::reload()
     // DcpBriefWidget takes care of all the other things
 }
 
+// if clicked fast, back button can be pressed instead of close
+void DcpMainPage::back()
+{
+    qApp->quit();
+}
 

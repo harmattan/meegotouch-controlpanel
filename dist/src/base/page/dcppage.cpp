@@ -6,18 +6,12 @@
 
 DcpPage::DcpPage() : DuiApplicationPage()
 {
-    connect(DuiSceneManager::instance(),
-            SIGNAL(orientationChanged (const Dui::Orientation &)),
-            this, SLOT(organizeContent(const Dui::Orientation &)));
-    connect(this, SIGNAL(backButtonClicked()), this, SLOT(back()));
     qDebug() << "page alloc";
     setBackButtonEnabled(true);
 }
 
 DcpPage::~DcpPage()
 {
-    disconnect(this, SLOT(organizeContent(const Dui::Orientation &)));
-
     qDebug() << "page destroyal" << title() << (void*) this;
 }
 
@@ -53,6 +47,22 @@ void DcpPage::append (QGraphicsWidget* widget) {
 
 void DcpPage::remove (QGraphicsWidget* widget) {
     widget->deleteLater();
+}
+
+void DcpPage::connectSignals()
+{
+    connect(DuiSceneManager::instance(),
+            SIGNAL(orientationChanged (const Dui::Orientation &)),
+            this, SLOT(organizeContent(const Dui::Orientation &)));
+    connect(this, SIGNAL(backButtonClicked()), this, SLOT(back()));
+}
+
+void DcpPage::disconnectSignals()
+{
+    disconnect(DuiSceneManager::instance(),
+            SIGNAL(orientationChanged (const Dui::Orientation &)),
+            this, SLOT(organizeContent(const Dui::Orientation &)));
+    disconnect(this, SIGNAL(backButtonClicked()), this, SLOT(back()));
 }
 
 void DcpPage::back()

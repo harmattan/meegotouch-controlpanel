@@ -33,10 +33,10 @@ PageFactory::instance()
 DcpPage*
 PageFactory::create(Pages::Handle &handle)
 {
+    qDebug() << "XXX create page: " << handle.id << handle.param;
     DcpPage *page=0;
-    switch (handle.id)
-      {
-	case Pages::MAIN:
+    switch (handle.id) {
+	    case Pages::MAIN:
             page = createMainPage();
             break;
         case Pages::ACCOUNTS:
@@ -73,19 +73,23 @@ PageFactory::create(Pages::Handle &handle)
             qWarning ("Reset settings page is not implemented yet.");
             page = createAppletCategoryPage("not implemented");
             break;
-    default:
+        default:
             qWarning() << "DCP" << "Bad page ID: " << handle.id;
     }
     if (page) {
+        if (m_CurrentPage) {
+            m_CurrentPage->disconnectSignals();
+        }
+        page->connectSignals();
         if (page->isContentCreated()) {
             page->reload();
         }
         if (m_CurrentPage && page->referer().id == Pages::NOPAGE) {
                 page->setReferer(m_CurrentPage->handle());
         }
+        m_CurrentPage = page;
     }
-    m_CurrentPage = page;
-    return page;
+    return m_CurrentPage;
 }
 
 DcpPage*

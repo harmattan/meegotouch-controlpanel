@@ -10,6 +10,8 @@ public:
     DcpMainPage();
     virtual void createContent();
     virtual void reload();
+public slots:
+    void back();
 };
 
 #endif // DUISETTINGSMAINPAGE_H

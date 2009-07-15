@@ -14,6 +14,8 @@ public:
     DcpPage();
     virtual ~DcpPage();
     virtual void createContent();
+    virtual void connectSignals();
+    virtual void disconnectSignals();
     Pages::Handle handle() const {return m_Handle;};
     virtual void setHandle(Pages::Handle handle) {m_Handle = handle;};
     virtual void setHandle(Pages::Id id, const QString &param="")
