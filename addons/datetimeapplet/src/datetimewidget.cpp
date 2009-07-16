@@ -110,11 +110,11 @@ void DateTimeWidget::initWidget()
     m_DateTimeVLayoutPolicy->addItemAtPosition(m_TimeButton, 2, Qt::AlignCenter);
     
     // Add items to mainLayoutPolicy
-    mainLayoutPolicy->addItemAtPosition(m_DateTimeLayout, 0, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(m_AutomaticUpdateButton, 0, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(separator1, 1);
-    mainLayoutPolicy->addItemAtPosition(m_TimeZoneButton, 2, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(m_DateTimeLayout, 2, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(separator2, 3);
-    mainLayoutPolicy->addItemAtPosition(m_AutomaticUpdateButton, 4, Qt::AlignCenter);
+    mainLayoutPolicy->addItemAtPosition(m_TimeZoneButton, 4, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(separator3, 5);
     mainLayoutPolicy->addItemAtPosition(
             new DcpSpacerItem(this, 5, 20, QSizePolicy::Expanding, QSizePolicy::Fixed),
