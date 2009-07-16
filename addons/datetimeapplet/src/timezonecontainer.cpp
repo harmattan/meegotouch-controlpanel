@@ -68,8 +68,8 @@ void TimeZoneContainer::addItemToPolicies(TimeZoneListItem* item)
         m_MainLayoutPolicy->addItemAtPosition(item, count / 2, count % 2);
         m_MainVLayoutPolicy->addItemAtPosition(item, count++,
                                                Qt::AlignLeft | Qt::AlignVCenter);
-        item->activate();
-        item->setVisible(true);
+        // item->activate();
+        // item->setVisible(true);
         item->setVisibleSeparator(false);
 
         if (count % 2 == 1 && count > 2) {
