@@ -48,8 +48,8 @@ PageFactory::create(Pages::Handle &handle)
         case Pages::CONNECTIVITY:
             page = createAppletCategoryPage("Connectivity");
             break;
-        case Pages::SEEINGTOUCHING:
-            page = createAppletCategoryPage("Seeing & Touching");
+        case Pages::LOOKANDFEEL:
+            page = createAppletCategoryPage("Look & Feel");
             break;
         case Pages::APPLICATION:
             page = createAppletCategoryPage("Application");
@@ -57,8 +57,8 @@ PageFactory::create(Pages::Handle &handle)
         case Pages::SOUND:
             page = createAppletCategoryPage("Sound");
             break;
-        case Pages::DEVICESYSTEM:
-            page = createAppletCategoryPage("Device system");
+        case Pages::DEVICEUTILITIES:
+            page = createAppletCategoryPage("Device utilities");
             break;
         case Pages::APPLETCATEGORY:
             page = createAppletCategoryPage(handle.param);
@@ -69,7 +69,7 @@ PageFactory::create(Pages::Handle &handle)
         case Pages::APPLETFROMMOSTUSED:
             page = createAppletPageFromMostUsed(DcpAppletDb::instance()->applet(handle.param));
             break;
-        case Pages::RESETSETTINGS:
+        case Pages::DEVICESYSTEM:
             qWarning ("Reset settings page is not implemented yet.");
             page = createAppletCategoryPage("not implemented");
             break;

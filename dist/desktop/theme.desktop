@@ -12,7 +12,7 @@ X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
 X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
-Category= Seeing & Touching
+Category= Look & Feel
 Order=2
 Usage=1000
 WidgetType= DcpLabel2Image

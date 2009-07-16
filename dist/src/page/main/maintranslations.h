@@ -16,20 +16,18 @@ struct _DcpCategoryInfo
 namespace DcpMain {
 static const DcpCategoryInfo CategoryInfos[] = {
     {
-        trid("qtn_sett_main_seeing", "Seeing & Touching"),
+        trid("qtn_sett_main_seeing", "Look & Feel"),
         trid("qtn_sett_main_seeing_info",
-             "Adjust settings for e.g. <font color=#FFA000>"
-             "Wallpaper, Theme, Brightness, Touch feedback, etc."
+             "Wallpaper, Theme, Touch feedback,<br>Display, LED light."
             ),
-        "Seeing & Touching",
-        Pages::SEEINGTOUCHING
+        "Look & Feel",
+        Pages::LOOKANDFEEL
     },
     {
         trid("qtn_sett_main_connectivity", "Connectivity"),
         trid("qtn_sett_main_connectivity_info",
-             "Adjust connections of e.g. "
-             "<font color=#FFA000>"
-             "Internet connection, Bluetooth, GPS etc.</font>"
+             "Offline mode, Internet connection,<br>"
+             "Bluetooth, Positioning, Phone network."
             ),
         "Connectivity",
         Pages::CONNECTIVITY
@@ -37,10 +35,8 @@ static const DcpCategoryInfo CategoryInfos[] = {
     {
         trid("qtn_sett_main_sound", "Sound"),
         trid("qtn_sett_main_sound_info",
-             "Adjust settings for e.g. "
-             "<font color=#FFA000>"
-             "Ringtone, profile, volume control, system sound"
-             " etc.</font>"
+             "Ringtone, Profile, Sound feedback,<br>"
+             "Volume control."
             ),
         "Sound",
         Pages::SOUND
@@ -48,8 +44,7 @@ static const DcpCategoryInfo CategoryInfos[] = {
     {
         trid("qtn_sett_main_regional", "Regional settings"),
         trid("qtn_sett_main_regional_info",
-             "Adjust Language & Time setting with e.g. "
-             "<font color=#FFA000>region format and timezone, etc.</font>"
+             "Date & Time, Region format, Language."
             ),
         "RegionalSettings",
         Pages::REGIONALSETTING
@@ -57,44 +52,35 @@ static const DcpCategoryInfo CategoryInfos[] = {
     {
         trid("qtn_sett_main_account", "Service accounts"),
         trid("qtn_sett_main_account_info",
-             "Create your own service accounts in e.g. "
-             "<font color=#FFA000>Ovi, Google, Yahooo "
-             "etc. </font>and adjust settings for "
-             "existing accounts,"
+             "Ovi and other service accounts."
             ),
         "Account",
         Pages::ACCOUNTS
     },
     {
-        trid("qtn_sett_main_device", "Device system"),
+        trid("qtn_sett_main_device", "Device utilities"),
         trid("qtn_sett_main_device_info",
-             "Adjust system settings with e.g. <font color=#FFA000>"
-             "Battery, Call & SIM, passcode, Sync, </font> and "
-             "<font color=#FFA000>Backup / restore "
-             "</font>"
+             "Synchronization, Backup/restore."
             ),
         "System",
-        Pages::DEVICESYSTEM
+        Pages::DEVICEUTILITIES
     },
     {
         trid("qtn_sett_application", "Application"),
         trid("qtn_sett_application_info",
-             "Adjust settings for each application e.g. "
-             "<font color=#FFA000>Browser, Messaging, "
-             "Calendar etc.</font>"
+             "Browser, Calendar, Messaging..."
             ),
         "Application",
         Pages::APPLICATION
     },
     {
-        trid("qtn_sett_resetsettings", "Reset settings"),
+        trid("qtn_sett_resetsettings", "Device system"),
         trid("qtn_sett_resetsettings_info",
-             "Delete all media "
-             "and data or reset all settings without "
-             "deleting media and data."
+             "Battery, Call & SIM, Passcode, "
+             "Reset<br>settings, About."
             ),
-        "Reset settings",
-        Pages::RESETSETTINGS
+        "Device system",
+        Pages::DEVICESYSTEM
     },
     {"", "", "", Pages::NOPAGE}
 	};
