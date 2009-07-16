@@ -1,3 +1,9 @@
+duicontrolpanel (0.2.6-2) unstable; urgency=low
+
+  * Removed explicit dependency on libicu40 from control file
+
+ -- Tobias Koch <ext-tobias.koch@nokia.com>  Thu, 16 Jul 2009 10:58:00 +0300
+
 duicontrolpanel (0.2.6-1) unstable; urgency=low
 
   * Fixes deprecated libduivaluespace dependency
