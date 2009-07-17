@@ -117,7 +117,7 @@ void DateTimeWidget::initWidget()
     mainLayoutPolicy->addItemAtPosition(m_TimeZoneButton, 4, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(separator3, 5);
     mainLayoutPolicy->addItemAtPosition(
-            new DcpSpacerItem(this, 5, 20, QSizePolicy::Expanding, QSizePolicy::Fixed),
+            new DcpSpacerItem(this, 5, 10, QSizePolicy::Expanding, QSizePolicy::Fixed),
             6, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(simpleLabel, 7, Qt::AlignCenter);
     mainLayoutPolicy->addItemAtPosition(m_RegionFormatButton, 8, Qt::AlignCenter);
@@ -139,13 +139,9 @@ void DateTimeWidget::orientationChanged()
     
     switch (DuiSceneManager::instance()->orientation()) {
         case Dui::Landscape:
-            m_TimeZoneButton->setMinimumWidth(
-                    DuiSceneManager::instance()->visibleSceneSize().width() - 30);
             m_DateTimeLayout->setPolicy(m_DateTimeHLayoutPolicy);
             break;
         case Dui::Portrait:
-            m_TimeZoneButton->setMinimumWidth(
-                    DuiSceneManager::instance()->visibleSceneSize().width() - 30);
             m_DateTimeLayout->setPolicy(m_DateTimeVLayoutPolicy);
             break;
         default:
