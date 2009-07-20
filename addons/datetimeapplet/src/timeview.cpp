@@ -2,12 +2,14 @@
 #include "dcpdatetime.h"
 #include "datetimetranslation.h"
 #include "dcpspaceritem.h"
+#include "analogclock.h"
 
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
 #include <DuiWidget>
 #include <duiscenemanager.h>
 #include <duicontainer.h>
+#include <QGraphicsLinearLayout>
 
 TimeView::TimeView(QGraphicsWidget *parent)
            :DcpWidget(parent)
@@ -38,14 +40,18 @@ void TimeView::initWidget()
     DuiWidget *centralWidget = new DuiWidget(0);
     
     // widgetLayout
-    DuiLayout *widgetLayout = new DuiLayout(centralWidget);
-    widgetLayout->setAnimator(0);
+    QGraphicsLinearLayout *widgetLayout = new QGraphicsLinearLayout(Qt::Horizontal, centralWidget);
     widgetLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
-    DuiLinearLayoutPolicy *widgetLayoutPolicy = 
-        new DuiLinearLayoutPolicy(widgetLayout, Qt::Vertical);
-    widgetLayoutPolicy->setSpacing(10);
-    widgetLayout->setPolicy(widgetLayoutPolicy);
-    centralWidget->setLayout(widgetLayout);
+    widgetLayout->setSpacing(2);
+
+    // analogClock
+    AnalogClock *analogClock = new AnalogClock(centralWidget);
+    analogClock->setMinimumSize(QSize(300, 300));
+    analogClock->setMaximumSize(QSize(300, 300));
+    widgetLayout->addItem(new DcpSpacerItem(centralWidget, 10, 10, QSizePolicy::Expanding, QSizePolicy::Preferred));
+    widgetLayout->addItem(analogClock);
+    widgetLayout->setAlignment(analogClock, Qt::AlignCenter);
+    widgetLayout->addItem(new DcpSpacerItem(centralWidget, 10, 10, QSizePolicy::Expanding, QSizePolicy::Preferred));
 
     // setCentralWidget
     m_Container->setCentralWidget(centralWidget);

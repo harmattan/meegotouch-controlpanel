@@ -20,7 +20,8 @@ HEADERS       = datetimeapplet.h \
                 dcpdatetime.h \
                 dcpicuconversions.h \
                 dateview.h \
-                timeview.h
+                timeview.h \
+                analogclock.h 
 
 SOURCES       = datetimeapplet.cpp \
 		        datetimewidget.cpp \
@@ -33,7 +34,8 @@ SOURCES       = datetimeapplet.cpp \
                 dcptimezonedata.cpp \
                 dcpicuconversions.cpp \
                 dateview.cpp \
-                timeview.cpp
+                timeview.cpp \
+                analogclock.cpp
 
 
 TARGET        = $$qtLibraryTarget(datetimeapplet)
