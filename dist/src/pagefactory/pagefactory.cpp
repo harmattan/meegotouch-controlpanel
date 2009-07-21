@@ -31,7 +31,7 @@ PageFactory* PageFactory::instance()
 
 DcpPage* PageFactory::create(Pages::Handle &handle)
 {
-    qDebug() << "XXX create page: " << handle.id << handle.param;
+//    qDebug() << "create page: " << handle.id << handle.param;
     DcpPage *page=0;
 
     switch (handle.id) {

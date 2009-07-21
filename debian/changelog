@@ -1,5 +1,16 @@
-duicontrolpanel (0.2.6-2) unstable; urgency=low
+duicontrolpanel (0.2.7) unstable; urgency=low
 
+  * Fixes NB#125325 Phone goes out of memory on launching two
+    applications
+  * Replaced DuiLayout with QGraphicsLayout where possible
+  * Usability and performance improvements on timezone page of
+    DateTimeApplet
+  * Made pages reload themselves instead of destroy and recreate them
+  * Fixes issue with clicking fast on backButton
+  * Fixes segfault when displayapplet loaded
+  * Fixes rotation issues with language applet
+  * Updates to modified design
+  * Temporary clock for datetime applet
   * Removed explicit dependency on libicu40 from control file
 
  -- Tobias Koch <ext-tobias.koch@nokia.com>  Thu, 16 Jul 2009 10:58:00 +0300
