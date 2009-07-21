@@ -1,6 +1,6 @@
 QMAKE_LIBDIR  += ../../../lib/lib/
 TEMPLATE      = lib
-CONFIG       += plugin gui dui silent
+CONFIG       += plugin gui dui silent debug
 LIBS         += -lduicontrolpanel
 INCLUDEPATH  += $$system(find ../../../lib/src/ -type d)
 

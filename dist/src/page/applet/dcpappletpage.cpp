@@ -59,6 +59,7 @@ void DcpAppletPage::reload() {
         clearup();
         load();
     }
+    DcpPage::reload();
 }
 
 

@@ -69,6 +69,7 @@ void DcpAppletCategoryPage::reload()
         m_Category->deleteItems();
         loadContent();
     }
+    DcpCategoryPage::reload();
 }
 
 void DcpAppletCategoryPage::back()

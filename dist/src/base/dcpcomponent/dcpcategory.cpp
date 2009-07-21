@@ -13,24 +13,26 @@ DcpCategory::add(DcpComponent *component)
     m_Children.append(component);
 }
 
-void 
+void
 DcpCategory::remove(DcpComponent *component)
 {
     m_Children.remove(m_Children.indexOf(component));
 }
 
-DcpComponent* 
+DcpComponent*
 DcpCategory::child(int i) const
 {
    return m_Children.at(i);
 }
 
-void 
+void
 DcpCategory::onOrientationChange (const Dui::Orientation &orientation)
 {
-    DcpComponent::onOrientationChange(orientation);
+/*  disabled because of optimization
+ *  DcpComponent::onOrientationChange(orientation);
     foreach (DcpComponent* component, m_Children) {
         component->onOrientationChange(orientation);
     }
+ */
 }
 

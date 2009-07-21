@@ -7,6 +7,7 @@
 #include <duicontainer.h>
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
+#include <duiscenemanager.h>
 
 
 /*!
@@ -45,6 +46,9 @@ void DcpRecentlyUsedComponent::createContents()
                                                             Qt::Vertical);
     layoutPolicy->addItemAtPosition(box, 0);
     layout->setPolicy(layoutPolicy);
+    connect (DuiSceneManager::instance(),
+             SIGNAL(orientationChanged(const Dui::Orientation&)),
+             this, SLOT(onOrientationChange(const Dui::Orientation &)));
 }
 
 

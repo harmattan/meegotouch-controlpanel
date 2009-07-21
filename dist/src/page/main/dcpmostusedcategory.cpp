@@ -47,7 +47,6 @@ void DcpMostUsedCategory::createContents()
 
 void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata, bool fullLine)
 {
-
 	DcpBriefComponent *component = new DcpBriefComponent(metadata, this);
 
 	component->setSubPage(Pages::APPLETFROMMOSTUSED, metadata->name());
