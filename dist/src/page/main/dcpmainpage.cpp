@@ -7,7 +7,8 @@
 #include "dcprecentlyusedcomponent.h"
 #include "pages.h"
 #include "maintranslations.h"
-#include <duiapplication.h>
+
+#include <DuiApplication>
 
 /*!
  * \class DcpMainPage
@@ -28,7 +29,6 @@ DcpMainPage::DcpMainPage() :
     setBackButtonEnabled(false);
 }
 
-
 void DcpMainPage::createContent()
 {
     DcpCategoryPage::createContent();
@@ -40,12 +40,11 @@ void DcpMainPage::createContent()
     DcpRecentlyUsedComponent* recentlyComp = new DcpRecentlyUsedComponent(m_Category, this);
 
     connect(recentlyComp, SIGNAL(openSubPage(Pages::Handle)),
-                this, SIGNAL(openSubPage(Pages::Handle)));
+            this, SIGNAL(openSubPage(Pages::Handle)));
     m_Category->add(recentlyComp);
 
     // category descriptions:
-    for (int i=0; true; i++)
-       {
+    for (int i=0; true; i++) {
         DcpCategoryInfo info = DcpMain::CategoryInfos[i];
         if (info.title == "")
              break;
@@ -58,6 +57,7 @@ void DcpMainPage::createContent()
                 this, SIGNAL(openSubPage(Pages::Handle)));
         m_Category->append(component);
     }
+
     setBackButtonEnabled(false);
 }
 
@@ -74,4 +74,3 @@ void DcpMainPage::back()
 {
     qApp->quit();
 }
-

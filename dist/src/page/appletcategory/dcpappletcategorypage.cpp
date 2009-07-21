@@ -6,9 +6,9 @@
 
 #include "dcpbriefcomponent.h"
 
-DcpAppletCategoryPage::DcpAppletCategoryPage(const QString &appletCategory) 
-                      : DcpCategoryPage(),
-                        m_AppletCategory(appletCategory)
+DcpAppletCategoryPage::DcpAppletCategoryPage(const QString &appletCategory) :
+		DcpCategoryPage(),
+        m_AppletCategory(appletCategory)
 {
     setHandle(Pages::APPLETCATEGORY);
     setReferer(Pages::MAIN);
@@ -34,14 +34,11 @@ void DcpAppletCategoryPage::loadContent()
     DcpAppletDb::instance()->refresh();
     DcpAppletMetadataList list = DcpAppletDb::instance()->listByCategory(appletCategory());
 
-    if (!list.isEmpty())
-    {
+    if (!list.isEmpty()) {
         bool odd =list.size() % 2 == 1;
     	DcpAppletMetadataList::const_iterator i;
         for (i = list.begin(); i != list.end(); ++i)
-        {
             addComponent(*i, i == list.end() - 1 && odd);
-        }
     }
 
     setTitle(appletCategory());
@@ -56,11 +53,9 @@ void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata, bool odd)
     connect(component, SIGNAL(openSubPage(Pages::Handle)),
             this, SIGNAL(openSubPage(Pages::Handle)));
     if (odd)
-    {	
         m_Category->add(component);
-    } else {
+    else
         m_Category->append(component);
-    }
 }
 
 void DcpAppletCategoryPage::reload()
@@ -80,18 +75,14 @@ void DcpAppletCategoryPage::back()
 
 void DcpAppletCategoryPage::cleanup()
 {
-
     DcpAppletMetadataList list = DcpAppletDb::instance()->listByCategory(appletCategory());
 
-    if (!list.isEmpty())
-    {
+    if (!list.isEmpty()) {
     	DcpAppletMetadataList::const_iterator i;
-        for (i = list.begin(); i != list.end(); ++i)
-        {
+        for (i = list.begin(); i != list.end(); ++i) {
             DcpAppletMetadata *metadata = *i;
             qDebug() << "Cleaning up metadata" << metadata->name();
             metadata->cleanup();
         }
     }
-   
 }

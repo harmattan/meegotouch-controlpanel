@@ -1,7 +1,7 @@
 #include "dcpdescriptioncomponent.h"
 
-#include <duilabel.h>
-#include <duicontainer.h>
+#include <DuiLabel>
+#include <DuiContainer>
 
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsLinearLayout>
@@ -25,8 +25,7 @@ DcpDescriptionComponent::DcpDescriptionComponent(DcpCategory *category,
 }
 
 
-void
-DcpDescriptionComponent::createContents()
+void DcpDescriptionComponent::createContents()
 {
     m_Container = new DuiContainer(this);
     m_Container->setAcceptedMouseButtons(0);
@@ -57,18 +56,15 @@ void DcpDescriptionComponent::setTitle (const QString& title)
 //    DcpComponent::setTitle(title);
 }
 
-
 void DcpDescriptionComponent::setDescription(const QString& desc)
 {
     m_Description->setText(desc);
 }
 
-
 void DcpDescriptionComponent::setTextAlignment(Qt::Alignment align)
 {
     m_Description->setAlignment(align);
 }
-
 
 void DcpDescriptionComponent::mousePressEvent (QGraphicsSceneMouseEvent *event)
 {
@@ -77,11 +73,8 @@ void DcpDescriptionComponent::mousePressEvent (QGraphicsSceneMouseEvent *event)
     switchToSubPage();
 }
 
-
 void DcpDescriptionComponent::mouseReleaseEvent (QGraphicsSceneMouseEvent * event)
 {
     DcpComponent::mouseReleaseEvent(event);
     event->accept();
 }
-
-

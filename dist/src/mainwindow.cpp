@@ -1,10 +1,5 @@
 #include "mainwindow.h"
 #include "pagefactory.h"
-#include <duiscenemanager.h>
-#include <QtDebug>
-#include <duiaction.h>
-#include <duiapplication.h>
-
 #include "dcpappletdb.h"
 
 MainWindow::MainWindow()
@@ -18,5 +13,3 @@ MainWindow::~MainWindow()
 {
 	DcpAppletDb::instance()->destroy();
 }
-
-

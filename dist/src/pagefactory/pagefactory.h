@@ -6,8 +6,6 @@
 
 class DcpPage;
 class DcpAppletMetadata;
-class DcpAppletLoader;
-class DcpWidget;
 class DcpMainPage;
 class DcpAppletPage;
 class DcpAppletCategoryPage;
@@ -34,7 +32,6 @@ protected:
 
 private:
     static PageFactory* sm_Instance;
-
     DcpPage *m_CurrentPage;
 
     DcpMainPage *m_MainPage;
@@ -43,4 +40,3 @@ private:
 };
 
 #endif // PAGEFACTORY_H
-

@@ -1,10 +1,10 @@
 #include "dcpmaincategory.h"
 
-#include <duilayout.h>
-#include <duigridlayoutpolicy.h>
-#include <duilinearlayoutpolicy.h>
+#include <DuiLayout>
+#include <DuiGridLayoutPolicy>
+#include <DuiLinearLayoutPolicy>
 
-#include <duiscenemanager.h>
+#include <DuiSceneManager>
 #include <QtDebug>
 #include <DuiSeparator>
 
@@ -28,10 +28,13 @@ void DcpMainCategory::deleteItems()
     }
 }
 
-DcpMainCategory::DcpMainCategory(
-        const QString& title, QGraphicsWidget *parent
-) : DcpCategory(title, parent), m_ColCount(0), m_RowCount(0), m_ItemCount(0),
-    m_CreateSeparators(false), m_HasLastSeparator(false)
+DcpMainCategory::DcpMainCategory(const QString& title, QGraphicsWidget *parent) : 
+	DcpCategory(title, parent),
+	m_ColCount(0),
+	m_RowCount(0),
+	m_ItemCount(0),
+    m_CreateSeparators(false),
+	m_HasLastSeparator(false)
 {
     m_Layout = new DuiLayout(this);
     m_Layout->setAnimator(0);
@@ -92,15 +95,14 @@ void DcpMainCategory::add(DcpComponent *component)
     m_ItemCount++;
 }
 
-
 // adds a normal item (not full line)
 void DcpMainCategory::append(DcpComponent *component)
 {
-    if (m_ColCount >= m_MaxColumns)
-    {
+    if (m_ColCount >= m_MaxColumns) {
         m_ColCount = 0;
         m_RowCount++;
-        if (m_CreateSeparators) m_RowCount++;
+        if (m_CreateSeparators)
+			m_RowCount++;
     }
 
 
@@ -124,14 +126,11 @@ void DcpMainCategory::append(DcpComponent *component)
     m_ItemCount++;
 }
 
-
 void DcpMainCategory::createContents()
 {
 }
 
-
-void
-DcpMainCategory::onOrientationChange (const Dui::Orientation &orientation)
+void DcpMainCategory::onOrientationChange (const Dui::Orientation &orientation)
 {
     if (orientation == Dui::Portrait) {
         m_Layout->setPolicy(m_PortraitLayout);
@@ -142,10 +141,9 @@ DcpMainCategory::onOrientationChange (const Dui::Orientation &orientation)
     DcpCategory::onOrientationChange(orientation);
 }
 
-
 void DcpMainCategory::polishEvent ()
 {
-    if (DuiSceneManager::instance()){
+    if (DuiSceneManager::instance()) {
         if (m_CreateSeparators && !m_HasLastSeparator) {
             fixSeparators();
         }
@@ -158,12 +156,11 @@ void DcpMainCategory::setCreateSeparators (bool create)
     m_CreateSeparators = create;
 }
 
-
 void DcpMainCategory::fixSeparators()
 {
     // in landscape mode all items from the last line has to be removed
     int landpos = m_LandscapeLayout->count()-1;
-    for (int col=0; col<m_MaxColumns; col++){
+    for (int col=0; col<m_MaxColumns; col++) {
         m_LandscapeLayout->removeAt(landpos);
         landpos-=2;
     }
@@ -174,16 +171,17 @@ void DcpMainCategory::fixSeparators()
     widget->deleteLater();
 }
 
-void DcpMainCategory::setMaxColumns(int columns){
+void DcpMainCategory::setMaxColumns(int columns)
+{
     m_MaxColumns = columns;
 
     // force same size of columns:
-    for (int i=0; i<columns; i++){
+    for (int i=0; i<columns; i++) {
         m_LandscapeLayout->setColumnStretchFactor(i, 1);
     }
 }
 
-void DcpMainCategory::setDoNotRemoveLastSeparator(bool remove) {
+void DcpMainCategory::setDoNotRemoveLastSeparator(bool remove)
+{
     m_HasLastSeparator = remove;
 }
-

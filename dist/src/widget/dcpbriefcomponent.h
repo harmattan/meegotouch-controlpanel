@@ -5,7 +5,7 @@
 class DcpAppletMetadata;
 class DcpBriefWidget;
 
-class DcpBriefComponent: public DcpComponent{
+class DcpBriefComponent: public DcpComponent {
     Q_OBJECT
 public:
     DcpBriefComponent(DcpAppletMetadata* metadata, DcpCategory *category);
@@ -19,6 +19,5 @@ public:
 private:
 	DcpBriefWidget* m_BriefWidget;
 };
-
 
 #endif // DCPBRIEFCOMPONENT_H

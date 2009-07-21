@@ -39,13 +39,14 @@ void DcpPage::organizeContent(const Dui::Orientation& ori)
     qDebug() << "page organizeContent";
 }
 
-void DcpPage::append (QGraphicsWidget* widget) {
+void DcpPage::append (QGraphicsWidget* widget)
+{
     Q_ASSERT(mainLayout());
     mainLayout()->addItem(widget);
 }
 
-
-void DcpPage::remove (QGraphicsWidget* widget) {
+void DcpPage::remove (QGraphicsWidget* widget)
+{
     widget->deleteLater();
 }
 
@@ -55,17 +56,20 @@ void DcpPage::connectSignals()
 
    Q_ASSERT (DuiSceneManager::instance());
    // handle orientation change:
-   connect(DuiSceneManager::instance(),
+   connect(	DuiSceneManager::instance(),
             SIGNAL(orientationChanged (const Dui::Orientation &)),
-            this, SLOT(organizeContent(const Dui::Orientation &)));
+            this, 
+			SLOT(organizeContent(const Dui::Orientation &)));
 }
 
 void DcpPage::disconnectSignals()
 {
-    disconnect(DuiSceneManager::instance(),
-            SIGNAL(orientationChanged (const Dui::Orientation &)),
-            this, SLOT(organizeContent(const Dui::Orientation &)));
-    disconnect(this, SIGNAL(backButtonClicked()), this, SLOT(back()));
+    disconnect(	DuiSceneManager::instance(),
+            	SIGNAL(orientationChanged (const Dui::Orientation &)),
+            	this,
+				SLOT(organizeContent(const Dui::Orientation &)));
+
+	disconnect(this, SIGNAL(backButtonClicked()), this, SLOT(back()));
 }
 
 void DcpPage::back()
@@ -84,4 +88,3 @@ QGraphicsLinearLayout* DcpPage::mainLayout()
 {
     return (QGraphicsLinearLayout*)(centralWidget()->layout());
 }
-

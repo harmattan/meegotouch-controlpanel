@@ -1,6 +1,7 @@
 #ifndef PAGES_H
 #define PAGES_H
 #include <QString>
+
 namespace Pages {
     typedef enum {
       NOPAGE = -1,

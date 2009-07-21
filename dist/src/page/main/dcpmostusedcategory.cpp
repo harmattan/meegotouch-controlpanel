@@ -51,17 +51,14 @@ void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata, bool fullLin
 
 	component->setSubPage(Pages::APPLETFROMMOSTUSED, metadata->name());
 	connect(component, SIGNAL(openSubPage(Pages::Handle)), this, SIGNAL(openSubPage(Pages::Handle)));
-    if (fullLine) {
-        add(component);
-    } else {
-        append(component);
-    }
-}
 
+    if (fullLine)
+        add(component);
+    else
+        append(component);
+}
 
 void DcpMostUsedCategory::onOrientationChange(const Dui::Orientation& orientation)
 {
     DcpMainCategory::onOrientationChange(orientation);
 }
-
-

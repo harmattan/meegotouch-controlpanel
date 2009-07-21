@@ -1,8 +1,6 @@
 #include "dcpcategorypage.h"
 
-#include <QtDebug>
-
-#include <duilinearlayoutpolicy.h>
+#include <DuiLinearLayoutPolicy>
 
 #include "dcpmaincategory.h"
 
@@ -19,10 +17,8 @@ void DcpCategoryPage::createContent()
     append(m_Category);
 }
 
-
 void DcpCategoryPage::organizeContent(const Dui::Orientation& ori)
 {
     DcpPage::organizeContent(ori);
     m_Category->onOrientationChange(ori);
 }
-

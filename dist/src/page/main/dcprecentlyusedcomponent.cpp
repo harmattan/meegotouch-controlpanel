@@ -35,7 +35,7 @@ void DcpRecentlyUsedComponent::createContents()
 
     m_MostUsedCategory = new DcpMostUsedCategory("TXT");
     connect(m_MostUsedCategory, SIGNAL(openSubPage(Pages::Handle)),
-                this, SIGNAL(openSubPage(Pages::Handle)));
+            this, SIGNAL(openSubPage(Pages::Handle)));
 
     box->setCentralWidget(m_MostUsedCategory);
 
@@ -48,13 +48,12 @@ void DcpRecentlyUsedComponent::createContents()
     layout->setPolicy(layoutPolicy);
     connect (DuiSceneManager::instance(),
              SIGNAL(orientationChanged(const Dui::Orientation&)),
-             this, SLOT(onOrientationChange(const Dui::Orientation &)));
+             this, 
+             SLOT(onOrientationChange(const Dui::Orientation &)));
 }
-
 
 void DcpRecentlyUsedComponent::onOrientationChange
                             (const Dui::Orientation &orientation)
 {
     m_MostUsedCategory->onOrientationChange(orientation);
 }
-

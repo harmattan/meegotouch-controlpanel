@@ -3,7 +3,7 @@
 #include <DuiApplication>
 #include <DuiLocale>
 #include <QtDebug>
-#include <duitheme.h>
+#include <DuiTheme>
 
 
 int main(int argc, char *argv[])
@@ -28,4 +28,3 @@ int main(int argc, char *argv[])
     win = 0;
     return ret;
 }
-

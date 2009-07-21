@@ -22,19 +22,18 @@ PageFactory::PageFactory(): QObject(),
 {
 }
 
-PageFactory*
-PageFactory::instance()
+PageFactory* PageFactory::instance()
 {
     if (!sm_Instance)
         sm_Instance = new PageFactory();
     return sm_Instance;
 }
 
-DcpPage*
-PageFactory::create(Pages::Handle &handle)
+DcpPage* PageFactory::create(Pages::Handle &handle)
 {
     qDebug() << "XXX create page: " << handle.id << handle.param;
     DcpPage *page=0;
+
     switch (handle.id) {
 	    case Pages::MAIN:
             page = createMainPage();
@@ -76,24 +75,27 @@ PageFactory::create(Pages::Handle &handle)
         default:
             qWarning() << "DCP" << "Bad page ID: " << handle.id;
     }
+
     if (page) {
-        if (m_CurrentPage) {
+
+		if (m_CurrentPage)
             m_CurrentPage->disconnectSignals();
-        }
+
         page->connectSignals();
-        if (page->isContentCreated()) {
+
+		if (page->isContentCreated())
             page->reload();
-        }
-        if (m_CurrentPage && page->referer().id == Pages::NOPAGE) {
+
+        if (m_CurrentPage && page->referer().id == Pages::NOPAGE)
                 page->setReferer(m_CurrentPage->handle());
-        }
+
         m_CurrentPage = page;
     }
+
     return m_CurrentPage;
 }
 
-DcpPage*
-PageFactory::createMainPage()
+DcpPage* PageFactory::createMainPage()
 {
     if (!m_MainPage) {
         m_MainPage = new DcpMainPage();
@@ -102,8 +104,7 @@ PageFactory::createMainPage()
     return m_MainPage;
 }
 
-DcpPage*
-PageFactory::createAppletPageFromCategory(DcpAppletMetadata *metadata)
+DcpPage* PageFactory::createAppletPageFromCategory(DcpAppletMetadata *metadata)
 {
     createAppletPage(metadata);
     Q_ASSERT(m_AppletPage);
@@ -111,9 +112,7 @@ PageFactory::createAppletPageFromCategory(DcpAppletMetadata *metadata)
     return m_AppletPage;
 }
 
-
-DcpPage*
-PageFactory::createAppletPageFromMostUsed(DcpAppletMetadata *metadata)
+DcpPage* PageFactory::createAppletPageFromMostUsed(DcpAppletMetadata *metadata)
 {
     createAppletPage(metadata);
     Q_ASSERT(m_AppletPage);
@@ -121,8 +120,7 @@ PageFactory::createAppletPageFromMostUsed(DcpAppletMetadata *metadata)
     return m_AppletPage;
 }
 
-DcpPage*
-PageFactory::createAppletPage(DcpAppletMetadata *metadata)
+DcpPage* PageFactory::createAppletPage(DcpAppletMetadata *metadata)
 {
     if (!m_AppletPage) {
         m_AppletPage = new DcpAppletPage(metadata);
@@ -133,15 +131,14 @@ PageFactory::createAppletPage(DcpAppletMetadata *metadata)
     return m_AppletPage;
 }
 
-DcpPage*
-PageFactory::createAppletCategoryPage(const QString& appletCategory)
+DcpPage* PageFactory::createAppletCategoryPage(const QString& appletCategory)
 {
     if (!m_AppletCategoryPage){
         m_AppletCategoryPage = new DcpAppletCategoryPage(appletCategory);
         initPage(m_AppletCategoryPage);
-    } else {
+    } else
         m_AppletCategoryPage->setAppletCategory(appletCategory);
-    }
+
     return m_AppletCategoryPage;
 }
 
@@ -151,7 +148,8 @@ void PageFactory::changePage(Pages::Handle handle)
     page->appear(DuiSceneWindow::KeepWhenDone);
 }
 
-void PageFactory::initPage(DcpPage* page) {
+void PageFactory::initPage(DcpPage* page)
+{
     connect(page, SIGNAL(openSubPage(Pages::Handle)), this, SLOT(changePage(Pages::Handle)));
 
     // closeAction
@@ -163,4 +161,3 @@ void PageFactory::initPage(DcpPage* page) {
     if (page != m_MainPage)
         page->addAction(quitAction);
 }
-

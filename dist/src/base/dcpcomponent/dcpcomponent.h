@@ -13,6 +13,7 @@ public:
     explicit DcpComponent(DcpCategory *category,
                                   const QString& title="",
                                   QGraphicsWidget *parent=0);
+
     QString title() const {return m_Title;}
     virtual void setTitle(const QString& title) {m_Title = title;}
     void setSubPage(Pages::Handle subPage) {m_SubPage = subPage;}; 
