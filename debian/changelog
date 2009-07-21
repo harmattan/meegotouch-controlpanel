@@ -11,8 +11,9 @@ duicontrolpanel (0.2.7) unstable; urgency=low
   * Fixes rotation issues with language applet
   * Updates to modified design
   * Temporary clock for datetime applet
+  * Removed explicit dependency on libicu40 from control file
 
- -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Tue, 21 Jul 2009 13:20:59 +0200
+ -- Tobias Koch <ext-tobias.koch@nokia.com>  Thu, 16 Jul 2009 10:58:00 +0300
 
 duicontrolpanel (0.2.6-1) unstable; urgency=low
 
