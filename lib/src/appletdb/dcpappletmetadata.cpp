@@ -92,7 +92,7 @@ DcpAppletMetadata::DcpAppletMetadata(const QString& filename)
 
 DcpAppletMetadata::~DcpAppletMetadata()
 {
-	save();
+//	save();
     delete d;
 }
 
