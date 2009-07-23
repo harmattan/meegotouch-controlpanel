@@ -140,6 +140,10 @@ DuiButtonStyle#DcpButtonToggle {
 }
 
 DuiSeparatorStyle {
+    image-horizontal: "Mashup-cont-header-line";
+}
+
+DuiSeparatorStyle#DcpSmallSeparator {
     image-horizontal: "Task-switcher-background-bottom-lines";
 }
 

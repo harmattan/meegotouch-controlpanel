@@ -120,6 +120,7 @@ void TimeZoneListItem::initWidget()
 
     // m_GreySeparator
     m_GraySeparator = new DuiSeparator(this);
+    m_GraySeparator->setObjectName("DcpSmallSeparator");
 
     mainLayout->addItem(m_CheckMark, 0,1, 2,1, Qt::AlignCenter);
     mainLayout->addItem(m_GraySeparator, 2,0, 1,2, Qt::AlignRight);

@@ -75,13 +75,16 @@ void DateTimeWidget::initWidget()
 
     // separator lines
     DuiSeparator* separator1 = new DuiSeparator(this);
+    separator1->setObjectName("DcpSmallSeparator");
     DuiSeparator* separator2 = new DuiSeparator(this);
+    separator2->setObjectName("DcpSmallSeparator");
     DuiSeparator* separator3 = new DuiSeparator(this);
+    separator3->setObjectName("DcpSmallSeparator");
 
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateTimeText()));
     connect(timer, SIGNAL(timeout()), this, SLOT(updateDateText()));
-    timer->start(1000);
+    timer->start(0);
 
     // m_TimeZoneButton
     m_TimeZoneButton = new DcpButton2(this);

@@ -57,6 +57,12 @@ void LanguageWidget::initWidget()
     DuiButton *regionFormatButton = new DuiButton(DcpLanguage::RegionButtonTitle, this);
     regionFormatButton->setObjectName("RegionFormatButton");
 
+    // separators:
+    DuiSeparator* sep1 = new DuiSeparator(this);
+    sep1->setObjectName("DcpSmallSeparator");
+    DuiSeparator* sep2 = new DuiSeparator(this);
+    sep2->setObjectName("DcpSmallSeparator");
+
     // Layout
     QGraphicsLinearLayout *mainLayout = new QGraphicsLinearLayout(Qt::Vertical, this);
     mainLayout->setContentsMargins(0.0, 12.0, 0.0, 12.0);
@@ -64,9 +70,9 @@ void LanguageWidget::initWidget()
 
     // Add items to mainLayoutPolicy
     mainLayout->addItem(m_DisplayButton);
-    mainLayout->addItem(new DuiSeparator(this));
+    mainLayout->addItem(sep1);
     mainLayout->addItem(m_KeyboardButton);
-    mainLayout->addItem(new DuiSeparator(this));
+    mainLayout->addItem(sep2);
     mainLayout->addItem(new DcpSpacerItem(this, 10, 30, QSizePolicy::Expanding, QSizePolicy::Fixed));
     mainLayout->addItem(simpleText);
     mainLayout->setAlignment(simpleText, Qt::AlignCenter);

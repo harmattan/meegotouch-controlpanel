@@ -84,6 +84,7 @@ void LanguageListItem::initWidget()
 
     // m_GreySeparator
     m_GreySeparator = new DuiSeparator(this);
+    m_GreySeparator->setObjectName("DcpSmallSeparator");
 
     mainLayout->addItem (m_NormalLabel, 0,0, Qt::AlignLeft);
     mainLayout->addItem (m_CheckMark, 0, 1, Qt::AlignRight);
