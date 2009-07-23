@@ -2,6 +2,7 @@
 #include "dcpdatetime.h"
 #include "datetimetranslation.h"
 #include "dcpspaceritem.h"
+#include "stepbutton.h"
 
 #include <DuiWidget>
 #include <duicontainer.h>
@@ -49,6 +50,16 @@ void DateView::initWidget()
     labelVLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     labelVLayout->setSpacing(1);
 
+    // leftStepButton
+    StepButton *leftStepButton = new StepButton(StepButton::Left, this);
+    leftStepButton->setMinimumSize(QSize(20, 40));
+    leftStepButton->setMaximumSize(QSize(20, 40));
+
+    // rightStepButton
+    StepButton *rightStepButton = new StepButton(StepButton::Right, this);
+    rightStepButton->setMinimumSize(QSize(20, 40));
+    rightStepButton->setMaximumSize(QSize(20, 40));
+
     // m_DateLabel
     m_DateLabel = new DuiLabel(QDateTime::currentDateTime().toString("MMM dd"), this);
     m_DateLabel->setObjectName("DateViewLabel");
@@ -70,7 +81,11 @@ void DateView::initWidget()
 
     // add items to labelLayoutPolicy
     labelLayout->addItem(new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Fixed));
+    labelLayout->addItem(leftStepButton);
+    labelLayout->setAlignment(leftStepButton, Qt::AlignCenter);
     labelLayout->addItem(labelVLayout);
+    labelLayout->addItem(rightStepButton);
+    labelLayout->setAlignment(rightStepButton, Qt::AlignCenter);
     labelLayout->addItem(new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding ,QSizePolicy::Fixed));
     
     // add items to widgetLayoutPolicy
