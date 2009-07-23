@@ -152,12 +152,14 @@ void PageFactory::initPage(DcpPage* page)
 {
     connect(page, SIGNAL(openSubPage(Pages::Handle)), this, SLOT(changePage(Pages::Handle)));
 
-    // closeAction
-    DuiAction *quitAction = new DuiAction(DcpMain::quitMenuItemText, this);
-    quitAction->setLocation(DuiAction::ViewMenu);
-    connect(quitAction, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
+    if (page != m_MainPage) {
+        // closeAction
+        DuiAction *quitAction = new DuiAction(DcpMain::quitMenuItemText, page);
+        quitAction->setLocation(DuiAction::ViewMenu);
+        connect(quitAction, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
 
-    // Add actions to page
-    if (page != m_MainPage)
+        // Add actions to page
         page->addAction(quitAction);
+    }
 }
+
