@@ -22,9 +22,9 @@ DatePicker::DatePicker(DuiWidget *parent)
     m_MainLayout->setContentsMargins(12.0, 0.0, 12.0, 0.0);
     m_MainLayout->setSpacing(1);
 
-	setDate(QDate::currentDate().year(), QDate::currentDate().month(), QDate::currentDate().day());
 	m_NewYear = QDate::currentDate().year();
 	m_NewMonth = QDate::currentDate().month();
+	setDate(m_NewYear, m_NewMonth);
 }
 
 DatePicker::~DatePicker()
