@@ -1,3 +1,11 @@
+duicontrolpanel (0.2.7-1) unstable; urgency=low
+
+  * Fixes: applets disappear after second run (Disables desktop entry
+    save)
+  * Simplifications in svg files for faster boot time
+
+ -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Fri, 24 Jul 2009 11:33:18 +0200
+
 duicontrolpanel (0.2.7) unstable; urgency=low
 
   * Fixes NB#125325 Phone goes out of memory on launching two
