@@ -1,4 +1,4 @@
-duicontrolpanel (0.2.7-1) unstable; urgency=low
+duicontrolpanel (0.2.8-1) unstable; urgency=low
 
   * Fixes: applets disappear after second run (Disables desktop entry
     save)
