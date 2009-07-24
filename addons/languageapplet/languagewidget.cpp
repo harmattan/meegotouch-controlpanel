@@ -17,6 +17,8 @@
 #include <duiquerydialog.h>
 #include <QGraphicsLinearLayout>
 
+static const QString separatorObjectName = "DcpSmallSeparator";
+
 LanguageWidget::LanguageWidget(QGraphicsWidget *parent)
 	    :DcpWidget(parent), m_Dlg(0)
 {
@@ -59,9 +61,9 @@ void LanguageWidget::initWidget()
 
     // separators:
     DuiSeparator* sep1 = new DuiSeparator(this);
-    sep1->setObjectName("DcpSmallSeparator");
+    sep1->setObjectName(separatorObjectName);
     DuiSeparator* sep2 = new DuiSeparator(this);
-    sep2->setObjectName("DcpSmallSeparator");
+    sep2->setObjectName(separatorObjectName);
 
     // Layout
     QGraphicsLinearLayout *mainLayout = new QGraphicsLinearLayout(Qt::Vertical, this);

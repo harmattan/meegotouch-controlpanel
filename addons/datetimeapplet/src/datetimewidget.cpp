@@ -18,6 +18,8 @@
 #include <QDateTime>
 #include <QTimer>
 
+static const QString separatorObjectName = "DcpSmallSeparator";
+
 DateTimeWidget::DateTimeWidget(QGraphicsWidget *parent)
 	    :DcpWidget(parent)
 {
@@ -75,11 +77,11 @@ void DateTimeWidget::initWidget()
 
     // separator lines
     DuiSeparator* separator1 = new DuiSeparator(this);
-    separator1->setObjectName("DcpSmallSeparator");
+    separator1->setObjectName(separatorObjectName);
     DuiSeparator* separator2 = new DuiSeparator(this);
-    separator2->setObjectName("DcpSmallSeparator");
+    separator2->setObjectName(separatorObjectName);
     DuiSeparator* separator3 = new DuiSeparator(this);
-    separator3->setObjectName("DcpSmallSeparator");
+    separator3->setObjectName(separatorObjectName);
 
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateTimeText()));

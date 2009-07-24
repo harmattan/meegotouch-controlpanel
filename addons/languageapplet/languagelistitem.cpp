@@ -10,6 +10,7 @@
 const int height = 65;
 static const QString normalLabelObjectName = "LanguageNormalListItem";
 static const QString selectedLabelObjectName = "LanguageSelectedListItem";
+static const QString separatorObjectName = "DcpSmallSeparator";
 
 LanguageListItem::LanguageListItem(const QString &langCode,
                                    const QString &text, 
@@ -84,7 +85,7 @@ void LanguageListItem::initWidget()
 
     // m_GreySeparator
     m_GreySeparator = new DuiSeparator(this);
-    m_GreySeparator->setObjectName("DcpSmallSeparator");
+    m_GreySeparator->setObjectName(separatorObjectName);
 
     mainLayout->addItem (m_NormalLabel, 0,0, Qt::AlignLeft);
     mainLayout->addItem (m_CheckMark, 0, 1, Qt::AlignRight);
