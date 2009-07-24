@@ -3,6 +3,7 @@
 #include "datetimetranslation.h"
 #include "dcpspaceritem.h"
 #include "stepbutton.h"
+#include "datepicker.h"
 
 #include <DuiWidget>
 #include <duicontainer.h>
@@ -36,7 +37,7 @@ void DateView::initWidget()
     DuiWidget *centralWidget = new DuiWidget(0);
     
     // widgetLayout
-    QGraphicsLinearLayout *widgetLayout = new QGraphicsLinearLayout(Qt::Vertical, centralWidget);
+    QGraphicsLinearLayout *widgetLayout = new QGraphicsLinearLayout(Qt::Horizontal, centralWidget);
     widgetLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     widgetLayout->setSpacing(1);
 
@@ -49,6 +50,11 @@ void DateView::initWidget()
     QGraphicsLinearLayout *labelVLayout = new QGraphicsLinearLayout(Qt::Vertical, 0);
     labelVLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     labelVLayout->setSpacing(1);
+
+    // pickerLayout
+    QGraphicsLinearLayout *pickerLayout = new QGraphicsLinearLayout(Qt::Vertical, 0);
+    pickerLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
+    pickerLayout->setSpacing(1);
 
     // leftStepButton
     StepButton *leftStepButton = new StepButton(StepButton::Left, this);
@@ -73,6 +79,11 @@ void DateView::initWidget()
     m_WeekLabel->setObjectName("WeekViewLabel");
     m_WeekLabel->setAlignment(Qt::AlignCenter);
 
+    // datePicker
+    DatePicker *datePicker = new DatePicker(this);
+    connect(leftStepButton, SIGNAL(clicked()), datePicker, SLOT(left()));
+    connect(rightStepButton, SIGNAL(clicked()), datePicker, SLOT(right()));
+    
     // add items to labelVLayoutPolicy
     labelVLayout->addItem(m_DateLabel);
     labelVLayout->setAlignment(m_DateLabel, Qt::AlignCenter);
@@ -80,16 +91,22 @@ void DateView::initWidget()
     labelVLayout->setAlignment(m_WeekLabel, Qt::AlignCenter);
 
     // add items to labelLayoutPolicy
-    labelLayout->addItem(new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Fixed));
     labelLayout->addItem(leftStepButton);
     labelLayout->setAlignment(leftStepButton, Qt::AlignCenter);
+    labelLayout->addItem(new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Fixed));
     labelLayout->addItem(labelVLayout);
+    labelLayout->addItem(new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding ,QSizePolicy::Fixed));
     labelLayout->addItem(rightStepButton);
     labelLayout->setAlignment(rightStepButton, Qt::AlignCenter);
-    labelLayout->addItem(new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding ,QSizePolicy::Fixed));
+    
+    // add items to pickerLayout
+    pickerLayout->addItem(labelLayout);
+    pickerLayout->addItem(datePicker);
     
     // add items to widgetLayoutPolicy
-    widgetLayout->addItem(labelLayout);
+    widgetLayout->addItem(new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Preferred));
+    widgetLayout->addItem(pickerLayout);
+    widgetLayout->addItem(new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Preferred));
     
     // setCentralWidget
     m_Container->setCentralWidget(centralWidget);
