@@ -2,13 +2,13 @@
 #include <DuiWidgetFactory>
 #include <DuiWidgetFactoryPlugins>
 
-
 #include "daymodel.h"
 #include "daybutton.h"
 
 #include <QtDebug>
 #include <DuiButton>
 #include <DuiGridItem>
+#include <QList>
 
 int DayModel::rowCount(const QModelIndex &parent) const
 {
@@ -16,6 +16,19 @@ int DayModel::rowCount(const QModelIndex &parent) const
     Q_UNUSED(parent);
 
     return m_MaxDay + m_FirstDay;
+}
+
+void DayModel::toggle(QString txt)
+{
+    QList<DuiButton*> buttonList = m_ButtonGroup->buttons();
+    QListIterator<DuiButton*> iter(buttonList);
+    while (iter.hasNext()) {
+        DuiButton *item = iter.next();
+        if (item->text() == txt) {
+                item->setChecked(true);
+                break;
+        } 
+    }
 }
 
 QVariant DayModel::data(const QModelIndex &index, int role) const
@@ -27,7 +40,7 @@ QVariant DayModel::data(const QModelIndex &index, int role) const
 		tmp->setText(QString::number(index.row()-m_FirstDay+1));
 
 		if(index.row()<=(m_FirstDay-1)){
-			tmp->setText("-");
+			tmp->setText("");
 			tmp->setState(DuiButtonModel::Released);
 			tmp->setCheckable(true);
 			tmp->setEnabled(false);
@@ -74,6 +87,7 @@ QVariant DayModel::data(const QModelIndex &index, int role) const
 		w = tmp;
 //		w = item;
 		v.setValue(w);
+        m_ButtonGroup->addButton(tmp);
 
 		return v;
 	}

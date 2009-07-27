@@ -67,4 +67,5 @@
 
 #DayButton {
     normal-background-image: image();
+    pressed-text-color: #E48415;
 }

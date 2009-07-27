@@ -4,6 +4,7 @@
 #include <QAbstractListModel>
 
 #include <DuiButton>
+#include <duibuttongroup.h>
 
 class DuiGrid;
 
@@ -20,10 +21,14 @@ class DayModel : public QAbstractListModel
 		m_MaxDay(count),
 		m_Actual(actual),
 		m_FirstDay(firstday)
-			{}
+	    {
+            m_ButtonGroup = new DuiButtonGroup(this);
+            m_ButtonGroup->setExclusive(true);
+        }
 	
 		int rowCount(const QModelIndex &parent = QModelIndex()) const;
 		QVariant data(const QModelIndex &index, int role) const;
+        void toggle(QString);
 
 	public Q_SLOTS:
 		
@@ -36,7 +41,7 @@ class DayModel : public QAbstractListModel
 		int m_MaxDay;
 		int m_Actual;
 		int m_FirstDay;
-
+        DuiButtonGroup *m_ButtonGroup;
 };
 
 #endif // MAINPAGE_H

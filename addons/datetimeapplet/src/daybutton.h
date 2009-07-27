@@ -15,6 +15,7 @@ class DayButton : public DuiButton {
 		{
 			connect(this, SIGNAL(pressed()), this, SLOT(clicked()));
             this->setObjectName("DayButton");
+            this->setCheckable(true);
 		}
 	
 	public Q_SLOTS:

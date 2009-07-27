@@ -24,7 +24,7 @@ DatePicker::DatePicker(DuiWidget *parent)
 
 	m_NewYear = QDate::currentDate().year();
 	m_NewMonth = QDate::currentDate().month();
-	setDate(m_NewYear, m_NewMonth);
+	setDate(m_NewYear, m_NewMonth, QDate::currentDate().day());
 }
 
 DatePicker::~DatePicker()
@@ -76,7 +76,6 @@ void DatePicker::setDate(int year, int month, int day)
 {
     Q_UNUSED(year);
     Q_UNUSED(month);
-    Q_UNUSED(day);
     
     if (m_DayGrid)
 		delete m_DayGrid;
@@ -98,6 +97,7 @@ void DatePicker::setDate(int year, int month, int day)
 
 	m_DayGrid->setItemModel(0);
 	m_DayGrid->setItemModel(m_Model);
+    m_Model->toggle(QString::number(day));
 
     for (int i = m_MainLayout->count(); i >= 0; i--) {
             m_MainLayout->removeAt(i);
