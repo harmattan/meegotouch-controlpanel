@@ -64,3 +64,8 @@
 #WeekViewLabel {
     font: font("Nokia Sans Cn", 16);
 }
+
+#DayButton {
+    normal-background-image: image();
+    pressed-text-color: #E48415;
+}

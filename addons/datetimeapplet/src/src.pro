@@ -22,7 +22,10 @@ HEADERS       = datetimeapplet.h \
                 dateview.h \
                 timeview.h \
                 analogclock.h \
-                stepbutton.h
+                stepbutton.h \
+                daybutton.h \
+                daymodel.h \
+                datepicker.h
 
 SOURCES       = datetimeapplet.cpp \
 		        datetimewidget.cpp \
@@ -37,7 +40,9 @@ SOURCES       = datetimeapplet.cpp \
                 dateview.cpp \
                 timeview.cpp \
                 analogclock.cpp \
-                stepbutton.cpp
+                stepbutton.cpp \
+                daymodel.cpp \
+                datepicker.cpp
 
 
 TARGET        = $$qtLibraryTarget(datetimeapplet)
