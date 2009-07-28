@@ -1,3 +1,9 @@
+duicontrolpanel (0.2.9) unstable; urgency=low
+
+  * tag 0.2.9
+
+ -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Tue, 28 Jul 2009 14:35:03 +0200
+
 duicontrolpanel (0.2.8-1) unstable; urgency=low
 
   * Fixes: applets disappear after second run (Disables desktop entry
