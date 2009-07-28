@@ -16,6 +16,4 @@ X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 Category= Regional settings
 Order=3
 WidgetType= DcpLabel2
-Text2=English GB
 
-ValuePath= Maemo/DuiInputMethod/language/current

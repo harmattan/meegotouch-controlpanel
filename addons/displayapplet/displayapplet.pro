@@ -23,6 +23,8 @@ SOURCES       = displayapplet.cpp \
 css.files     = displayapplet.css 
 DESTDIR       = lib
 
+desktop.files += *.desktop
+desktop.path = $$(DEBIAN_DESTDIR)/usr/lib/duicontrolpanel
 target.path += $$(DEBIAN_DESTDIR)$$[QT_INSTALL_LIBS]/duicontrolpanel/applets
 css.path    += $$(DEBIAN_DESTDIR)/usr/share/duicontrolpanel/themes/style
 
@@ -31,4 +33,6 @@ message("CSS path will be: " $$css.path)
 
 INSTALLS += \
 	    target \
-        css
+        css \
+        desktop
+
