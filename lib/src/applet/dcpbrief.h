@@ -11,7 +11,7 @@
         These buttons are displaying the applet name and the current value. 
         Value must be provided and formatted by the applet implementation. 
         Clicking on this widget displays the applet itself   
-        This class provides all the information that a widget describing above can be constructed.                                                                                   
+        This class provides all the information from which a widget describing above can be constructed.                                                                                   
     */               
 class DcpBrief: public QObject{
     Q_OBJECT
@@ -21,26 +21,36 @@ public:
     /*! \brief This method tell what kind of Brief Widget we need */
     virtual int widgetTypeID() const;
 
-    /*! \brief This method returns the value formatted properly of the applet
-        \details For example language code must be formatted with DuiLocale but
-         current time comes from the system */ 
+    /*! \brief returns the value that is to be displayed on second line
+     *  \details Value should be formatted properly as the user should see it.
+     *  For example language code can be formatted with DuiLocale or
+         the current time that comes from the system */
     virtual QString valueText() const;
     /*! \return the current icon of the widget */
     virtual QString icon() const;
 
-    /*! \return the alignb of the text in the brief widget*/
+    /*! \return the alignment of the text in the brief widget. if AlignLeft
+     * (default), then the text will be on the left side, the button/picture
+     * on the right. */
     virtual Qt::Alignment align() const;
 
-    /*! \brief Tells if the value can be toggled*/
+    /*! \brief If the widget type is toggle, then this function returns
+     * the initial state of the toggle button. */
     virtual bool toggle() const;
 
-    /*! \brief Sets the toggle state if widget should be a toggle*/
+    /*! \brief Gets called when toggle state changes
+     *  \details If the widget type is toggle, and the user changes the toggle
+     * button state, this function will be called, so that the applet can
+     * handle the setting change.
+     * \param toggle The new state
+     */
     virtual void setToggle (bool toggle);
 
     virtual QString image() const;
 
 signals:
-    /*! emitted when some of the values changed */
+    /*! Should be emitted when some of the values changed. Causes the
+     * widget to be refreshed with current values. */
     void valuesChanged();
 };
 

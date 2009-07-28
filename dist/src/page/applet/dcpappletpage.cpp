@@ -64,6 +64,7 @@ void DcpAppletPage::reload()
         load();
     }
     DcpPage::reload();
+    setReferer(Pages::NOPAGE);
 }
 
 void DcpAppletPage::back()

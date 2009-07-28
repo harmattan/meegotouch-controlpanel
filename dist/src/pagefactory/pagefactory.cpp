@@ -100,7 +100,6 @@ DcpPage* PageFactory::createAppletCategoryPage(Pages::Id id)
     const DcpCategoryInfo& info = DcpMain::CategoryInfos[
                                 id - Pages::CATEGORY_PAGEID_START - 1];
     Q_ASSERT(info.subPageId == id);
-    qDebug() << "XXX" << info.subPageId << info.appletCategory;
 
     if (!m_AppletCategoryPage){
         m_AppletCategoryPage = new DcpAppletCategoryPage(info.appletCategory);
