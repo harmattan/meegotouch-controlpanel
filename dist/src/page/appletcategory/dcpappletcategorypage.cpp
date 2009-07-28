@@ -31,6 +31,8 @@ void DcpAppletCategoryPage::createContent()
 
 void DcpAppletCategoryPage::loadContent()
 {
+    Q_ASSERT(!appletCategory().isEmpty());
+
     DcpAppletDb::instance()->refresh();
     DcpAppletMetadataList list = DcpAppletDb::instance()->listByCategory(appletCategory());
 
@@ -43,7 +45,6 @@ void DcpAppletCategoryPage::loadContent()
             addComponent(*i, i == list.end() - 1 && odd);
     }
 
-    setTitle(appletCategory());
     m_LoadedAppletCategory = appletCategory();
 }
 

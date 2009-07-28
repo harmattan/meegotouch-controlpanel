@@ -38,42 +38,22 @@ DcpPage* PageFactory::create(Pages::Handle &handle)
 	    case Pages::MAIN:
             page = createMainPage();
             break;
-        case Pages::ACCOUNTS:
-            page = createAppletCategoryPage("Account");
+
+        case Pages::APPLETCATEGORY: // when coming back
+            Q_ASSERT(m_AppletCategoryPage);
+            page = m_AppletCategoryPage;
             break;
-        case Pages::REGIONALSETTING:
-            page = createAppletCategoryPage("Regional settings");
-            break;
-        case Pages::CONNECTIVITY:
-            page = createAppletCategoryPage("Connectivity");
-            break;
-        case Pages::LOOKANDFEEL:
-            page = createAppletCategoryPage("Look & Feel");
-            break;
-        case Pages::APPLICATION:
-            page = createAppletCategoryPage("Application");
-            break;
-        case Pages::SOUND:
-            page = createAppletCategoryPage("Sound");
-            break;
-        case Pages::DEVICEUTILITIES:
-            page = createAppletCategoryPage("Device utilities");
-            break;
-        case Pages::APPLETCATEGORY:
-            page = createAppletCategoryPage(handle.param);
-            break;
+
         case Pages::APPLET:
-            page = createAppletPageFromCategory(DcpAppletDb::instance()->applet(handle.param));
+            page = createAppletPage(DcpAppletDb::instance()->applet(handle.param));
             break;
-        case Pages::APPLETFROMMOSTUSED:
-            page = createAppletPageFromMostUsed(DcpAppletDb::instance()->applet(handle.param));
-            break;
-        case Pages::DEVICESYSTEM:
-            qWarning ("Reset settings page is not implemented yet.");
-            page = createAppletCategoryPage("not implemented");
-            break;
+
         default:
-            qWarning() << "DCP" << "Bad page ID: " << handle.id;
+        {
+            Q_ASSERT(handle.id > Pages::CATEGORY_PAGEID_START
+                     && handle.id < Pages::CATEGORY_PAGEID_END);
+            page = createAppletCategoryPage(handle.id);
+        }
     }
 
     if (page) {
@@ -104,22 +84,6 @@ DcpPage* PageFactory::createMainPage()
     return m_MainPage;
 }
 
-DcpPage* PageFactory::createAppletPageFromCategory(DcpAppletMetadata *metadata)
-{
-    createAppletPage(metadata);
-    Q_ASSERT(m_AppletPage);
-    m_AppletPage->setReferer(Pages::APPLETCATEGORY, metadata->category());
-    return m_AppletPage;
-}
-
-DcpPage* PageFactory::createAppletPageFromMostUsed(DcpAppletMetadata *metadata)
-{
-    createAppletPage(metadata);
-    Q_ASSERT(m_AppletPage);
-    m_AppletPage->setReferer(Pages::MAIN);
-    return m_AppletPage;
-}
-
 DcpPage* PageFactory::createAppletPage(DcpAppletMetadata *metadata)
 {
     if (!m_AppletPage) {
@@ -131,13 +95,20 @@ DcpPage* PageFactory::createAppletPage(DcpAppletMetadata *metadata)
     return m_AppletPage;
 }
 
-DcpPage* PageFactory::createAppletCategoryPage(const QString& appletCategory)
+DcpPage* PageFactory::createAppletCategoryPage(Pages::Id id)
 {
+    const DcpCategoryInfo& info = DcpMain::CategoryInfos[
+                                id - Pages::CATEGORY_PAGEID_START - 1];
+    Q_ASSERT(info.subPageId == id);
+    qDebug() << "XXX" << info.subPageId << info.appletCategory;
+
     if (!m_AppletCategoryPage){
-        m_AppletCategoryPage = new DcpAppletCategoryPage(appletCategory);
+        m_AppletCategoryPage = new DcpAppletCategoryPage(info.appletCategory);
         initPage(m_AppletCategoryPage);
-    } else
-        m_AppletCategoryPage->setAppletCategory(appletCategory);
+    } else {
+        m_AppletCategoryPage->setAppletCategory(info.appletCategory);
+    }
+    m_AppletCategoryPage->setTitle(info.title);
 
     return m_AppletCategoryPage;
 }
@@ -162,4 +133,5 @@ void PageFactory::initPage(DcpPage* page)
         page->addAction(quitAction);
     }
 }
+
 

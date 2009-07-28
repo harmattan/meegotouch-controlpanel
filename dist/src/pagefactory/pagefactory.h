@@ -28,7 +28,7 @@ protected:
     DcpPage* createAppletPage(DcpAppletMetadata *metadata);
     DcpPage* createAppletPageFromCategory(DcpAppletMetadata *metadata);
     DcpPage* createAppletPageFromMostUsed(DcpAppletMetadata *metadata);
-    DcpPage* createAppletCategoryPage(const QString& appletCategory);
+    DcpPage* createAppletCategoryPage(Pages::Id pageId);
 
 private:
     static PageFactory* sm_Instance;

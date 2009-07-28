@@ -49,7 +49,7 @@ void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata, bool fullLin
 {
 	DcpBriefComponent *component = new DcpBriefComponent(metadata, this);
 
-	component->setSubPage(Pages::APPLETFROMMOSTUSED, metadata->name());
+	component->setSubPage(Pages::APPLET, metadata->name());
 	connect(component, SIGNAL(openSubPage(Pages::Handle)), this, SIGNAL(openSubPage(Pages::Handle)));
 
     if (fullLine)

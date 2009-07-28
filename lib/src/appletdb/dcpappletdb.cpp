@@ -59,7 +59,7 @@ DcpAppletDb::listByCategory(const QString& category)
 
     foreach (DcpAppletMetadata *item, m_AppletsByFile)
     {
-        if (item->category() == category)
+        if (category.compare(item->category(),Qt::CaseInsensitive) == 0)
             filtered.append(item);
     }
     qSort(filtered.begin(), filtered.end(), orderLessThan);
