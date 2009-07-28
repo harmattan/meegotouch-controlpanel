@@ -35,7 +35,9 @@ void DcpAppletCategoryPage::loadContent()
     DcpAppletMetadataList list = DcpAppletDb::instance()->listByCategory(appletCategory());
 
     if (!list.isEmpty()) {
-        bool odd =list.size() % 2 == 1;
+        // we do not treat 1 item as odd,
+        // because it does not have to be spanned in two columns
+        bool odd = list.size() % 2 == 1 && list.size() > 1;
     	DcpAppletMetadataList::const_iterator i;
         for (i = list.begin(); i != list.end(); ++i)
             addComponent(*i, i == list.end() - 1 && odd);
