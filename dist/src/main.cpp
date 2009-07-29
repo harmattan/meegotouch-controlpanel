@@ -5,7 +5,6 @@
 #include <QtDebug>
 #include <DuiTheme>
 
-
 int main(int argc, char *argv[])
 {
     DuiApplication* app = new DuiApplication(argc, argv);

@@ -3,6 +3,8 @@
 
 #include "dcpwidget.h"
 
+#include <clock/settingalarm.h>
+
 class DuiContainer;
 
 class TimeView : public DcpWidget
@@ -18,6 +20,9 @@ protected:
 
 private:
     DuiContainer *m_Container;
+
+	SettingAlarm *m_TimePicker;
+
 
 private slots:
     virtual void orientationChanged();

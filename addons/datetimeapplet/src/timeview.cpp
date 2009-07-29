@@ -11,6 +11,7 @@
 #include <duicontainer.h>
 #include <QGraphicsLinearLayout>
 
+
 TimeView::TimeView(QGraphicsWidget *parent)
            :DcpWidget(parent)
 {
@@ -20,6 +21,8 @@ TimeView::TimeView(QGraphicsWidget *parent)
 
 TimeView::~TimeView()
 {
+	delete m_TimePicker;
+	m_TimePicker = NULL;
 }
 
 void TimeView::initWidget()
@@ -45,13 +48,26 @@ void TimeView::initWidget()
     widgetLayout->setSpacing(2);
 
     // analogClock
-    AnalogClock *analogClock = new AnalogClock(centralWidget);
+/*    AnalogClock *analogClock = new AnalogClock(centralWidget);
     analogClock->setMinimumSize(QSize(300, 300));
     analogClock->setMaximumSize(QSize(300, 300));
-    widgetLayout->addItem(new DcpSpacerItem(centralWidget, 10, 10, QSizePolicy::Expanding, QSizePolicy::Preferred));
+
+	widgetLayout->addItem(new DcpSpacerItem(centralWidget, 10, 10, QSizePolicy::Expanding, QSizePolicy::Preferred));
     widgetLayout->addItem(analogClock);
     widgetLayout->setAlignment(analogClock, Qt::AlignCenter);
     widgetLayout->addItem(new DcpSpacerItem(centralWidget, 10, 10, QSizePolicy::Expanding, QSizePolicy::Preferred));
+*/
+
+	m_TimePicker = new SettingAlarm;
+    //AnalogClock *analogClock = new AnalogClock(centralWidget);
+    m_TimePicker->setMinimumSize(QSize(400, 400));
+    m_TimePicker->setMaximumSize(QSize(400, 400));
+
+	widgetLayout->addItem(new DcpSpacerItem(centralWidget, 10, 10, QSizePolicy::Expanding, QSizePolicy::Preferred));
+    widgetLayout->addItem(m_TimePicker);
+    widgetLayout->setAlignment(m_TimePicker, Qt::AlignCenter);
+    widgetLayout->addItem(new DcpSpacerItem(centralWidget, 10, 10, QSizePolicy::Expanding, QSizePolicy::Preferred));
+
 
     // setCentralWidget
     m_Container->setCentralWidget(centralWidget);

@@ -69,3 +69,270 @@
     normal-background-image: image();
     pressed-text-color: #E48415;
 }
+
+
+
+
+
+
+.DuiDeviceProfile 
+{
+    name: generic;
+    width: 864;
+    height: 480;
+    ppi: 225;
+}
+
+.DuiScene 
+{
+    fpsRefreshInterval: 500;
+    fpsBoxSize: size(60, 30);
+    fpsTextColor: #FFFF00;
+    fpsBackgroundColor: #000000;
+    fpsBackgroundOpacity: 0.35;
+    boundingRectLineColor: #00F000;
+    boundingRectLineOpacity: 0.3;
+    boundingRectFillColor: #00F000;
+    boundingRectFillOpacity: 0.2;
+}
+
+.DuiButton 
+{
+	view: DuiButtonView;
+	iconID: ;
+	text: ;
+}
+
+AnalogClockStyle 
+{
+	clockdial: "clock-circle";
+	hourhand: "hour-hand";
+	minutehand: "minute-hand";	
+	preferredsize: size(200px, 200px);
+	minsize: size(200px, 200px);
+	maxsize: size(200px, 200px);
+}
+
+AnalogClockStyle#LargeAnalogClock
+{
+	preferredsize: size(200px, 200px);
+	minsize: size(200px, 200px);
+	maxsize: size(200px, 200px);
+}
+
+AnalogClockStyle#SmallAnalogClock.Landscape
+{
+	preferredsize: size(100, 100);
+	minsize: size(100, 100);
+	maxsize: size(100, 100);
+}
+
+AnalogClockStyle#SmallAnalogClock.Portrait
+{
+	preferredsize: size(75, 75);
+	minsize: size(75, 75);
+	maxsize: size(75, 75);
+}
+
+SettingAlarmStyle
+{
+	alarm-hour: "alarm-hour";
+	alarm-minute: "alarm-minute";
+	alarm-clock-bg: "alarm-clock-bg";
+	minsize: size(408px, 408px);
+	preferredsize: size(408px,408px);
+	maxsize: size(408px, 408px);
+}
+
+WorldClockStyle{
+	gradient1: #A9A9A9;
+	gradient2: #000000;
+}
+
+WorldClockStyle#LargeDial
+{
+	preferredsize: size(272, 356);
+	minsize: size(272, 356);
+	maxsize: size(272, 356);
+}
+
+WorldClockStyle#SmallDial.Landscape
+{
+	preferredsize: size(124, 260);
+	minsize: size(124, 260);
+	maxsize: size(124, 260);
+}
+
+WorldClockStyle#SmallDial.Portrait
+{
+	preferredsize: size(100, 260);
+	minsize: size(100, 260);
+	maxsize: size(100, 260);
+}
+
+DuiLabelStyle#LargeClockDate
+{
+	font: font(Nokia Sans, 20px);
+	color: #FFFFFF;
+}
+
+DuiLabelStyle#SmallClockDate
+{
+	font: font(Nokia Sans, 16px);
+	color: #FFFFFF;
+}
+
+DuiLabelStyle#LargeClockTime
+{
+	font: font(Nokia Sans, 20px);
+	color: #FFFFFF;
+}
+
+DuiLabelStyle#SmallClockTime
+{
+	font: font(Nokia Sans, 16px);
+	color: #FFFFFF;
+}
+
+DuiLabelStyle#LargeClockCity
+{
+	font: font(Nokia Sans, 22px);
+	color: #FFFFFF;
+}
+
+DuiLabelStyle#SmallClockCity
+{
+	font: font(Nokia Sans, 16px);
+	color: #FFFFFF;
+}
+
+DuiLinearLayoutStyle#WorldClock
+{
+	padding: 6;
+}
+
+DuiButtonStyle#aeButtonBell{
+    icon-size: size(64px, 64px);
+	
+    preferred-size: size(64px, 64px);
+    minimum-size: size(64px, 64px);
+    maximum-size: size(64px, 64px);
+}
+
+DuiTextEditStyle#aeAlarmTextEdit{
+	color: #FFA000;
+	font: font(Nokia Sans, 28px);
+
+	minsize: size(356px, 56px);
+	preferredsize: size(356px, 56px);
+	maxsize: size(356px, 56px);
+}
+
+DuiButtonStyle#aePushButton
+{
+	minimum-size: size(432px, 88px);
+	preferred-size: size(432px, 88px);
+	maximum-size: size(432px, 88px);
+
+	normal-background-image: Toggle-btn-normal;
+	pressed-background-image: Toggle-btn-selected;
+
+	font: font(Nokia Sans, 24px);
+
+	cloud-duration: 0;
+}
+
+DuiLabelStyle#aeBigLabel{
+	font: font(Nokia Sans, 24);
+}
+
+DuiLabelStyle#aeSmallLabel{
+	font: font(Nokia Sans, 20);
+}
+
+AlarmStyle {
+	big-bell: image(big-bell);
+	showTimeTo: true;
+	showSmallBell: true;
+    alarmtimefont: font(sans, 8);
+    alarmtimecolor: #000000;
+    alarmtextfont: font(sans, 12);
+    alarmtextfont: #000000;
+    timetocolor: #000000;
+    timetofont: font(sans, 12);
+	
+    bgcolor: #FFFFFF;
+	bgcolorgradient1: #A9A9A9;
+	bgcolorgradient2: #000000;
+}
+
+AlarmStyle#MainAlarm {
+	minimum-size: size(402px,198px);
+	preferred-size: size(402px,198px);
+	maximum-size: size(402px,198px);
+}
+
+AlarmStyle#BasicAlarm {
+	minimum-size: size(402px,98px);
+	preferred-size: size(402px,98px);
+	maximum-size: size(402px,98px);
+}
+
+DuiLabelStyle#MainAlarmTime{
+    color: #FFA000;
+	font: font(Nokia Sans, 32);
+}
+
+DuiLabelStyle#MainAlarmText{
+	font: font(Nokia Sans, 22);
+}
+
+DuiLabelStyle#BasicAlarmTime{
+    color: #FFA000;
+	font: font(Nokia Sans, 24);
+}
+
+DuiLabelStyle#BasicTimeTo{
+    color: #FFFFFF;
+	font: font(Nokia Sans, 20);
+}
+
+DuiImageStyle#BigBell {
+    leftMargin: 12;
+    topMargin: 12;
+    rightMargin: 12;
+    bottomMargin: 12;
+	margin: 12;
+    backgroundColor: #000000;
+    backgroundOpacity: 0;
+}
+
+DuiLinearLayout#MainAlarm.Landscape
+{
+	padding: 0;
+	margin: 12;
+}
+
+DuiLinearLayout#MainAlarm.Portrait
+{
+	padding: 0;
+	margin: 12;
+}
+
+DuiLinearLayout#BasicAlarm.Landscape
+{
+	padding: 0;
+	margin: 12;
+	preferredsize: size(402, 76);
+}
+
+DuiLinearLayout#BasicAlarm.Portrait
+{
+	padding: 0;
+	margin: 12;
+}
+
+.DuiEditAlarmView{
+size: size(400px, 400px);
+}
+
