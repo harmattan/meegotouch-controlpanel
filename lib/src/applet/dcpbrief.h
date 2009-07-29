@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QString>
  /*!
-        \class DcpBief                                                                                   
+        \class DcpBrief                                                                                   
         \brief The Brief of the applet                                                                   
         \detais Brief is the descriptor of an applet for constructing the buttons that
         launches the applet.                 
