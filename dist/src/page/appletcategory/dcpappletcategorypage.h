@@ -10,7 +10,7 @@ class DcpAppletCategoryPage : public DcpCategoryPage
     Q_OBJECT
 
 public:
-    DcpAppletCategoryPage(const QString &appletCategory);
+    DcpAppletCategoryPage(const QString &appletCategory = QString());
     virtual ~DcpAppletCategoryPage();
     virtual void createContent();
     const QString appletCategory() const {return m_AppletCategory;};

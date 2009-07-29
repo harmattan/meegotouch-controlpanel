@@ -46,12 +46,12 @@ void DcpMainPage::createContent()
     // category descriptions:
     for (int i=0; true; i++) {
         DcpCategoryInfo info = DcpMain::CategoryInfos[i];
-        if (info.title == "")
+        if (info.title.isNull())
              break;
 
         DcpDescriptionComponent *component = new DcpDescriptionComponent(
                 m_Category, info.title);
-        component->setDescription("<span>" + info.description + "</span>");
+        component->setDescription(info.description);
         component->setSubPage(info.subPageId);
         connect(component, SIGNAL(openSubPage(Pages::Handle)),
                 this, SIGNAL(openSubPage(Pages::Handle)));

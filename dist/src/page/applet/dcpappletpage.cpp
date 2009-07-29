@@ -16,6 +16,7 @@ DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
 	m_MissingLabel(0)
 {
     setHandle(Pages::APPLET);
+    setReferer(Pages::NOPAGE);
 }
 
 DcpAppletPage::~DcpAppletPage()
@@ -63,6 +64,7 @@ void DcpAppletPage::reload()
         load();
     }
     DcpPage::reload();
+    setReferer(Pages::NOPAGE);
 }
 
 void DcpAppletPage::back()

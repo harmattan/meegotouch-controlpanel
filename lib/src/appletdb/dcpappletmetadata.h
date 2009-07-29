@@ -8,6 +8,11 @@ class DcpAppletIf;
 class DcpBrief;
 
 class DcpAppletMetadataPrivate;
+
+/*!
+    \brief DcpAppletMetadata contains all the information of the applet
+    \details This class provides all the info
+*/
 class DcpAppletMetadata : public QObject
 {
     Q_OBJECT

@@ -237,7 +237,11 @@ DcpAppletIf* DcpAppletMetadata::applet() const
 
     if (d->m_AppletLoader == 0){
         d->m_AppletLoader = new DcpAppletLoader(this);
-        qDebug() << "APPLET loaded" << fullBinary();
+        if (d->m_AppletLoader->applet() == NULL) {
+            qDebug() << d->m_AppletLoader->errorMsg() << "for" << binary();
+        } else {
+            qDebug() << "APPLET loaded" << fullBinary();
+        }
     }
 //    qDebug() << Q_FUNC_INFO << d->m_AppletLoader->errorMsg() << fullBinary();
     return d->m_AppletLoader->applet();

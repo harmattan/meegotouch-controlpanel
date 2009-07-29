@@ -44,4 +44,8 @@ Package: duicontrolpanel-datetimeapplet
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel, libduicontrolpanel
 Description: Date & Time Applet for the control panel application
-
+                                                     
+Package: libduicontrolpanel-doc
+Section: doc
+Architecture: all                                     
+Description: API documentation for libduicontrolpanel      
