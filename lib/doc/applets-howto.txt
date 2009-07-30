@@ -1,0 +1,53 @@
+How to write applets for DuiControlPanel
+
+Table of Contents
+
+1. What is a Dcp Applet?
+2. Requirements of developing DcpApplet
+3. 
+4. Multiple Views, Dialogs
+5. Implementing settings 
+6. Desktop file
+7. Installing
+
+1. What is a Dcp Applet?
+
+    A DuiControlPanel (Dcp) applet is a library that can be launched from
+the cotrol panel and can set some things, like language, display settings, etc.
+It has a category specified in its desktop file (see 6.) and according this
+category, the control panel puts launch widget to it on its corresponding page.
+For example the category of Language Applet is "Region settings"
+
+2. Requirements of developing DcpApplet
+
+   You need to install libduicontrolpanel-dev to develop Dcp Applets
+
+3. Architecture
+
+3.1 
+    When launching an applet, DuiControlpanel displays it on one special page,
+    that provides title, menu, and back-mechanism which is handled internally,
+    so applet developers has nothing to do with it.
+    Thus, applet has not pages but widgets. Each widget is displayed on this
+    special page as the main widget, so it looks like that each widget is a
+    new "page view" of an applet.  
+    Changing widgets ("page view" of an applet) can be done with requesting it
+    with a signal, and going back can be provided by setting a referer.
+    To provide this mechanism, widgets must be inherited by DcpWidget, which is
+    a DuiWidget descendant with a few services:
+
+    - it can request changing to another widget by emitting
+      changeWidget(int widgetId), where widgetId is the id of another widget, 
+      defined by the applet itself (see later)
+    - it can set a widget as a referer, eg. where to go back, when user presses
+      'Back' button on the control panel page. When the referer is -1, it means 
+      that you are on the main view of the applet, and 'Back' buttos should close 
+      the applet and go back to the applet category page of the DuiControlPanel.
+ 
+    Each applet must implement DcpAppletIf interface, which provide 
+
+4. Multiple Windows
+5. Implementing settings 
+6. Desktop file
+7. Installing
+
