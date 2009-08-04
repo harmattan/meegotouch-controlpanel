@@ -2,7 +2,7 @@ Source: duicontrolpanel
 Section: unknown
 Priority: extra
 Maintainer: Robert Manner <robert.manner@blumsoft.eu>
-Build-Depends: debhelper (>= 5), libdui-dev, libicu-dev
+Build-Depends: debhelper (>= 5), libdui-dev, libicu-dev, libclockwidgets-dev (>= 0.4.4), libtime-dev
 Standards-Version: 3.7.2
 
 Package: libduicontrolpanel
@@ -37,7 +37,7 @@ Description: Language applet for the control panel application
 
 Package: duicontrolpanel-displayapplet
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel, libduicontrolpanel
+Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel, libduicontrolpanel, libclockwidgets (>= 0.4.4), clock (>= 0.4.4), libtime0
 Description: Display applet for the control panel application
 
 Package: duicontrolpanel-datetimeapplet
