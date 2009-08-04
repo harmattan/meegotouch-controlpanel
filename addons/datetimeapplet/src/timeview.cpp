@@ -12,6 +12,7 @@
 #include <QGraphicsLinearLayout>
 
 
+
 TimeView::TimeView(QGraphicsWidget *parent)
            :DcpWidget(parent)
 {
@@ -21,6 +22,11 @@ TimeView::TimeView(QGraphicsWidget *parent)
 
 TimeView::~TimeView()
 {
+
+	//qDebug() << m_TimePicker->hours() << ":" <<m_TimePicker->minutes() ;
+
+	m_Clock.setTime(m_TimePicker->hours(), m_TimePicker->minutes());
+
 	delete m_TimePicker;
 	m_TimePicker = NULL;
 }
@@ -57,7 +63,9 @@ void TimeView::initWidget()
     widgetLayout->addItem(new DcpSpacerItem(centralWidget, 10, 10, QSizePolicy::Expanding, QSizePolicy::Preferred));
 */
 
-	m_TimePicker = new SettingAlarm;
+	m_Clock.setSystemTime();
+
+	m_TimePicker = new SettingAlarm(m_Clock.hour(), m_Clock.min());
 
     //AnalogClock *analogClock = new AnalogClock(centralWidget);
     m_TimePicker->setMinimumSize(QSize(400, 400));
