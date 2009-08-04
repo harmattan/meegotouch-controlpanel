@@ -23,7 +23,6 @@ private:
 
 	SettingAlarm *m_TimePicker;
 
-
 private slots:
     virtual void orientationChanged();
 };

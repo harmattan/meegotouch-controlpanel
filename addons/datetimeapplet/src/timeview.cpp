@@ -31,8 +31,7 @@ void TimeView::initWidget()
     DuiLayout *mainLayout = new DuiLayout(this);
     mainLayout->setAnimator(0);
     mainLayout->setContentsMargins(0.0, 12.0, 0.0, 12.0);
-    DuiLinearLayoutPolicy *mainLayoutPolicy =
-        new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
+    DuiLinearLayoutPolicy *mainLayoutPolicy = new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayoutPolicy->setSpacing(10);
     mainLayout->setPolicy(mainLayoutPolicy);
     this->setLayout(mainLayout);
@@ -59,6 +58,7 @@ void TimeView::initWidget()
 */
 
 	m_TimePicker = new SettingAlarm;
+
     //AnalogClock *analogClock = new AnalogClock(centralWidget);
     m_TimePicker->setMinimumSize(QSize(400, 400));
     m_TimePicker->setMaximumSize(QSize(400, 400));
@@ -66,8 +66,7 @@ void TimeView::initWidget()
 	widgetLayout->addItem(new DcpSpacerItem(centralWidget, 10, 10, QSizePolicy::Expanding, QSizePolicy::Preferred));
     widgetLayout->addItem(m_TimePicker);
     widgetLayout->setAlignment(m_TimePicker, Qt::AlignCenter);
-    widgetLayout->addItem(new DcpSpacerItem(centralWidget, 10, 10, QSizePolicy::Expanding, QSizePolicy::Preferred));
-
+	widgetLayout->addItem(new DcpSpacerItem(centralWidget, 10, 10, QSizePolicy::Expanding, QSizePolicy::Preferred));
 
     // setCentralWidget
     m_Container->setCentralWidget(centralWidget);
@@ -87,4 +86,3 @@ void TimeView::orientationChanged()
     if (manager == 0)
         return;
 }
-
