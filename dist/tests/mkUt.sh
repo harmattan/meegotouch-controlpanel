@@ -1,5 +1,7 @@
 #! /bin/bash
 
+# TEST
+
 dcp_src=../src
 
 findPath() {
