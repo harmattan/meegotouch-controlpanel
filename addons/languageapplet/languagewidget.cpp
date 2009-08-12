@@ -14,8 +14,8 @@
 #include <duinavigationbar.h>
 #include <duiscenemanager.h>
 #include <duiseparator.h>
-#include <duiquerydialog.h>
 #include <QGraphicsLinearLayout>
+#include <duidialog.h>
 
 static const QString separatorObjectName = "DcpSmallSeparator";
 
@@ -113,7 +113,11 @@ void LanguageWidget::keyboardPage()
 
         } else {
             // user selected no languages:
-            DuiQueryDialog query(DcpLanguage::RestoreQueryLabelText);
+            DuiDialog query;
+            query.setTitleBarVisible(false);
+            DuiLabel* questionLabel = new DuiLabel(DcpLanguage::RestoreQueryLabelText);
+            questionLabel->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
+            query.setCentralWidget(questionLabel);
             DuiButton* keepPreviousId = query.addButton(DcpLanguage::RestorePreviousText);
             query.addButton(DcpLanguage::SelectNewText);
             query.exec();
