@@ -37,6 +37,7 @@ enum  {
     KeyNameCatalog,
 
     KeyPart,
+    KeyParent,
     KeyCount,
 };
 
@@ -63,7 +64,8 @@ const QString Keys[KeyCount] = {
     "Desktop Entry/Name",
     "Desktop Entry/X-logical-id",
     "Desktop Entry/X-translation-catalog",
-    "DCP/Part"
+    "DCP/Part",
+    "DCP/Parent"
 };
 
 
@@ -119,13 +121,6 @@ DcpAppletMetadata::category() const
     return desktopEntryStr(KeyCategory);
 }
 
-/*
-QString
-DcpAppletMetadata::icon() const
-{
-    return brief()->icon();
-}
-*/
 
 QString
 DcpAppletMetadata::binary() const
@@ -141,6 +136,13 @@ DcpAppletMetadata::fullBinary() const
 	d->m_Counter++;	
 
     return DcpApplet::Lib + binary();
+}
+
+QString
+DcpAppletMetadata::parentName() const
+{
+
+    return desktopEntryStr(KeyParent);
 }
 
 int DcpAppletMetadata::widgetTypeID() const
@@ -176,6 +178,11 @@ Qt::Alignment DcpAppletMetadata::align() const
 
     qWarning() << Q_FUNC_INFO << "no data"; // default
     return Qt::AlignLeft; 
+}
+
+DcpAppletMetadata* DcpAppletMetadata::parent() const
+{   
+    return d->m_Parent;
 }
 
 bool DcpAppletMetadata::toggle() const

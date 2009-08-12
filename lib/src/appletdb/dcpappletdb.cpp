@@ -61,6 +61,13 @@ DcpAppletDb::listByCategory(const QString& category)
     {
         if (item->category() == category)
             filtered.append(item);
+        QString parentName = item->parentName();
+        if (parentName == "" && !item->parent())
+          {
+            item->setParent(applet(parentName));  
+            qDebug() << "IIII parent of" << item->name() << "is" << parentName; 
+          }
+        
     }
     qSort(filtered.begin(), filtered.end(), orderLessThan);
     return filtered;

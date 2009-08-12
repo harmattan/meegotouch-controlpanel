@@ -43,6 +43,8 @@ public:
 
     DcpAppletIf* applet() const;
     void setParent(DcpAppletMetadata *parent);
+    DcpAppletMetadata* parent() const;
+    QString parentName() const;
 	void save();
     void cleanup();
 signals:
