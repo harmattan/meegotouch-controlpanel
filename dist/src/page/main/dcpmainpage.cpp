@@ -7,7 +7,8 @@
 #include "dcprecentlyusedcomponent.h"
 #include "pages.h"
 #include "maintranslations.h"
-#include <duiapplication.h>
+
+#include <DuiApplication>
 
 /*!
  * \class DcpMainPage
@@ -28,7 +29,6 @@ DcpMainPage::DcpMainPage() :
     setBackButtonEnabled(false);
 }
 
-
 void DcpMainPage::createContent()
 {
     DcpCategoryPage::createContent();
@@ -40,24 +40,24 @@ void DcpMainPage::createContent()
     DcpRecentlyUsedComponent* recentlyComp = new DcpRecentlyUsedComponent(m_Category, this);
 
     connect(recentlyComp, SIGNAL(openSubPage(Pages::Handle)),
-                this, SIGNAL(openSubPage(Pages::Handle)));
+            this, SIGNAL(openSubPage(Pages::Handle)));
     m_Category->add(recentlyComp);
 
     // category descriptions:
-    for (int i=0; true; i++)
-       {
+    for (int i=0; true; i++) {
         DcpCategoryInfo info = DcpMain::CategoryInfos[i];
-        if (info.title == "")
+        if (info.title.isNull())
              break;
 
         DcpDescriptionComponent *component = new DcpDescriptionComponent(
                 m_Category, info.title);
-        component->setDescription("<span>" + info.description + "</span>");
+        component->setDescription(info.description);
         component->setSubPage(info.subPageId);
         connect(component, SIGNAL(openSubPage(Pages::Handle)),
                 this, SIGNAL(openSubPage(Pages::Handle)));
         m_Category->append(component);
     }
+
     setBackButtonEnabled(false);
 }
 
@@ -66,6 +66,7 @@ void DcpMainPage::reload()
     // TODO
     // the most recent items sequence have to be reloaded
     // DcpBriefWidget takes care of all the other things
+    DcpCategoryPage::reload();
 }
 
 // if clicked fast, back button can be pressed instead of close
@@ -73,4 +74,3 @@ void DcpMainPage::back()
 {
     qApp->quit();
 }
-

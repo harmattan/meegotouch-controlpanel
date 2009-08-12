@@ -1,21 +1,24 @@
 #ifndef PAGES_H
 #define PAGES_H
 #include <QString>
+
 namespace Pages {
     typedef enum {
       NOPAGE = -1,
       MAIN,
+      CATEGORY_PAGEID_START,  // ---
       LOOKANDFEEL,
       CONNECTIVITY,
       SOUND,
-      APPLICATION,
       REGIONALSETTING,
       ACCOUNTS,
       DEVICEUTILITIES,
+      APPLICATION,
+      DEVICESYSTEM,
+      CATEGORY_PAGEID_END,    // ---
       APPLET,
-      APPLETFROMMOSTUSED,
       APPLETCATEGORY,
-      DEVICESYSTEM
+      PAGEID_COUNT
    } Id;
 
    class Handle {

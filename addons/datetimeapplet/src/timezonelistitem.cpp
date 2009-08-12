@@ -9,6 +9,7 @@
 #include <QGraphicsSceneMouseEvent>
 
 const int height = 75;
+static const QString separatorObjectName = "DcpSmallSeparator";
 
 TimeZoneListItem::TimeZoneListItem(QString timezone, QString country, QString gmt, 
                                    QString city, DuiWidget *parent)
@@ -80,6 +81,12 @@ void TimeZoneListItem::setVisibleSeparator(bool enable)
     m_GraySeparator->setVisible(enable);
 }
 
+void TimeZoneListItem::activate()
+{
+    m_CountryLabel->setVisible(true);
+    m_GmtCityLabel->setVisible(true);
+}
+
 void TimeZoneListItem::initWidget()
 {
     // mainLayout
@@ -95,11 +102,13 @@ void TimeZoneListItem::initWidget()
     m_CountryLabel = new DuiLabel(m_Country, this);
     m_CountryLabel->setObjectName("CountryLabel");
     m_CountryLabel->setAlignment(Qt::AlignBottom);
+    m_CountryLabel->setVisible(false);
 
     // m_GmtCityLabel
     m_GmtCityLabel = new DuiLabel(m_Gmt + " " + m_City, this);
     m_GmtCityLabel->setObjectName("GmtCityLabel");
     m_GmtCityLabel->setAlignment(Qt::AlignTop);
+    m_GmtCityLabel->setVisible(false);
 
     mainLayout->addItem(m_CountryLabel, 0,0);
     mainLayout->addItem(m_GmtCityLabel, 1,0);
@@ -112,6 +121,7 @@ void TimeZoneListItem::initWidget()
 
     // m_GreySeparator
     m_GraySeparator = new DuiSeparator(this);
+    m_GraySeparator->setObjectName(separatorObjectName);
 
     mainLayout->addItem(m_CheckMark, 0,1, 2,1, Qt::AlignCenter);
     mainLayout->addItem(m_GraySeparator, 2,0, 1,2, Qt::AlignRight);

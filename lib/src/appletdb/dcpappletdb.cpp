@@ -59,7 +59,7 @@ DcpAppletDb::listByCategory(const QString& category)
 
     foreach (DcpAppletMetadata *item, m_AppletsByFile)
     {
-        if (item->category() == category)
+        if (category.compare(item->category(),Qt::CaseInsensitive) == 0)
             filtered.append(item);
         QString parentName = item->parentName();
         if (parentName == "" && !item->parent())

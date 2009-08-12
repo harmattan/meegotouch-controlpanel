@@ -1,3 +1,46 @@
+duicontrolpanel (0.3.1) unstable; urgency=low
+
+  * tag 0.3.1
+
+ -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Tue,  4 Aug 2009 17:38:14 +0200
+
+duicontrolpanel (0.3.0) unstable; urgency=low
+
+  * tag 0.3.0
+
+ -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Tue,  4 Aug 2009 17:25:51 +0200
+
+duicontrolpanel (0.2.9) unstable; urgency=low
+
+  * tag 0.2.9
+
+ -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Tue, 28 Jul 2009 14:35:03 +0200
+
+duicontrolpanel (0.2.8-1) unstable; urgency=low
+
+  * Fixes: applets disappear after second run (Disables desktop entry
+    save)
+  * Simplifications in svg files for faster boot time
+
+ -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Fri, 24 Jul 2009 11:33:18 +0200
+
+duicontrolpanel (0.2.7) unstable; urgency=low
+
+  * Fixes NB#125325 Phone goes out of memory on launching two
+    applications
+  * Replaced DuiLayout with QGraphicsLayout where possible
+  * Usability and performance improvements on timezone page of
+    DateTimeApplet
+  * Made pages reload themselves instead of destroy and recreate them
+  * Fixes issue with clicking fast on backButton
+  * Fixes segfault when displayapplet loaded
+  * Fixes rotation issues with language applet
+  * Updates to modified design
+  * Temporary clock for datetime applet
+  * Removed explicit dependency on libicu40 from control file
+
+ -- Tobias Koch <ext-tobias.koch@nokia.com>  Thu, 16 Jul 2009 10:58:00 +0300
+
 duicontrolpanel (0.2.6-1) unstable; urgency=low
 
   * Fixes deprecated libduivaluespace dependency

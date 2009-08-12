@@ -1,12 +1,13 @@
 #ifndef DCPCATEGORY_H
 #define DCPCATEGORY_H
+
 #include "dcpcomponent.h"
+
 class DcpCategory : public DcpComponent
 {
     Q_OBJECT
 public:
-    explicit DcpCategory(const QString& title,
-                                 QGraphicsWidget *parent=0);
+    explicit DcpCategory(const QString& title, QGraphicsWidget *parent = 0);
 
     // Composite Pattern Interface	
     virtual void add(DcpComponent *component);

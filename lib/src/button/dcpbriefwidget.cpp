@@ -5,6 +5,8 @@
 #include "dcpbutton2image.h"
 #include "dcpwidgettypes.h"
 
+#include <duiscenemanager.h>
+
 #include <QGraphicsLinearLayout>
 
 DcpBriefWidget::DcpBriefWidget(DcpAppletMetadata* metadata, DuiWidget* parent)
@@ -74,7 +76,10 @@ void DcpBriefWidget::showEvent ( QShowEvent * event )
     Q_UNUSED (event);
     connect (m_RealWidget, SIGNAL(clicked()), this, SIGNAL(clicked()));
     connect (m_Metadata, SIGNAL(briefChanged()), this, SLOT(updateContents()));
-
+ /*   connect(DuiSceneManager::instance(),
+            SIGNAL(orientationChanged (const Dui::Orientation &)),
+            this, SLOT(onOrientationChange(const Dui::Orientation &)));
+            */
     updateContents();
 }
 
@@ -84,5 +89,14 @@ void DcpBriefWidget::hideEvent ( QHideEvent * event )
     disconnect (m_RealWidget, SIGNAL(clicked()), this, SIGNAL(clicked()));
     disconnect (m_Metadata, SIGNAL(briefChanged()),
                 this, SLOT(updateContents()));
+ /*   disconnect(DuiSceneManager::instance(),
+            SIGNAL(orientationChanged (const Dui::Orientation &)),
+            this, SLOT(onOrientationChange(const Dui::Orientation &)));
+            */
 }
-
+/*
+void DcpBriefWidget::onOrientationChange (const Dui::Orientation &orientation)
+{
+    layout()->invalidate();
+}
+*/

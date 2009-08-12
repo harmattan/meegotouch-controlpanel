@@ -65,6 +65,7 @@ DuiNavigationBarStyle {
     /* this sets the height of the button fixed: */
     minimum-size: size(1,93);
     maximum-size: size(999,93);
+    preferred-size: size(840,93);
 
     padding-top: 12;
     padding-bottom: 12;
@@ -140,6 +141,10 @@ DuiButtonStyle#DcpButtonToggle {
 }
 
 DuiSeparatorStyle {
+    image-horizontal: "Mashup-cont-header-line";
+}
+
+DuiSeparatorStyle#DcpSmallSeparator {
     image-horizontal: "Task-switcher-background-bottom-lines";
 }
 

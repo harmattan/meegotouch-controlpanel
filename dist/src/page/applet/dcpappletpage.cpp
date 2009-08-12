@@ -4,22 +4,25 @@
 #include "dcpappletif.h"
 #include "dcpappletmetadata.h"
 #include "dcpappletloader.h"
-#include "duilabel.h"
-#include "duilocale.h"
+
+#include <DuiLabel>
+#include <DuiLocale>
 #include <DuiAction>
 
 DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
-    DcpPage(), m_Metadata(metadata),
-    m_MainWidget(0), m_MissingLabel(0)
+    DcpPage(), 
+	m_Metadata(metadata),
+    m_MainWidget(0), 
+	m_MissingLabel(0)
 {
     setHandle(Pages::APPLET);
+    setReferer(Pages::NOPAGE);
 }
 
 DcpAppletPage::~DcpAppletPage()
 {
     clearup();
 }
-
 
 void DcpAppletPage::createContent()
 {
@@ -54,24 +57,23 @@ void DcpAppletPage::clearup()
     }
 }
 
-void DcpAppletPage::reload() {
+void DcpAppletPage::reload()
+{
     if (m_Metadata != m_LoadedMetadata) {
         clearup();
         load();
     }
+    DcpPage::reload();
+    setReferer(Pages::NOPAGE);
 }
-
-
 
 void DcpAppletPage::back()
 {
-    if (!m_MainWidget || m_MainWidget->back()) {
+    if (!m_MainWidget || m_MainWidget->back())
         DcpPage::back();
-    }
 }
 
-void
-DcpAppletPage::changeWidget(int widgetId)
+void DcpAppletPage::changeWidget(int widgetId)
 {
     if (m_MainWidget != 0) {
         remove (m_MainWidget);
@@ -92,16 +94,11 @@ DcpAppletPage::changeWidget(int widgetId)
 
     QVector<DuiAction*> vector = m_Metadata->applet()->viewMenuItems();
     if (!vector.isEmpty())
-    {
         for (int i = 0; i < vector.size(); i++)
-        {
             addAction(vector[i]);
-        }
-    }
 }
 
 void DcpAppletPage::setMetadata (DcpAppletMetadata *metadata)
 {
     m_Metadata = metadata;
 }
-

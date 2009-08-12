@@ -16,12 +16,14 @@ class TimeZoneContainer : public DuiWidget
 public:
     TimeZoneContainer(DuiWidget *parent = 0);
     virtual ~TimeZoneContainer();
+    void backPushed(bool pushed);
+    void updateLayout();
     void addMoreItems();
     void filter(const QString& sample);
-    void updateLayout();
 
 protected:
     void initWidget();
+    void updateSeparators();
     void updateGridSeparator();
     void updateHSeparator();
 
@@ -31,10 +33,17 @@ private:
     DuiGridLayoutPolicy *m_MainLayoutPolicy;
     DuiLinearLayoutPolicy *m_MainVLayoutPolicy;
     TimeZoneListItem *m_CheckedItem;
+    bool m_BackPushed;
+    QString m_FilterSample;
+    void checkIfFiltered(TimeZoneListItem* item);
+    void addItemToPolicies(TimeZoneListItem* item);
 
 private slots:
     virtual void orientationChanged();
     virtual void itemClicked(TimeZoneListItem* item);
+
+signals:
+    void listItemAdded();
 };
 #endif // TIMEZONECONTAINER_H
 

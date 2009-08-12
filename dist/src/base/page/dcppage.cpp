@@ -39,30 +39,37 @@ void DcpPage::organizeContent(const Dui::Orientation& ori)
     qDebug() << "page organizeContent";
 }
 
-void DcpPage::append (QGraphicsWidget* widget) {
+void DcpPage::append (QGraphicsWidget* widget)
+{
     Q_ASSERT(mainLayout());
     mainLayout()->addItem(widget);
 }
 
-
-void DcpPage::remove (QGraphicsWidget* widget) {
+void DcpPage::remove (QGraphicsWidget* widget)
+{
     widget->deleteLater();
 }
 
 void DcpPage::connectSignals()
 {
-    connect(DuiSceneManager::instance(),
+   connect(this, SIGNAL(backButtonClicked()), this, SLOT(back()));
+
+   Q_ASSERT (DuiSceneManager::instance());
+   // handle orientation change:
+   connect(	DuiSceneManager::instance(),
             SIGNAL(orientationChanged (const Dui::Orientation &)),
-            this, SLOT(organizeContent(const Dui::Orientation &)));
-    connect(this, SIGNAL(backButtonClicked()), this, SLOT(back()));
+            this, 
+			SLOT(organizeContent(const Dui::Orientation &)));
 }
 
 void DcpPage::disconnectSignals()
 {
-    disconnect(DuiSceneManager::instance(),
-            SIGNAL(orientationChanged (const Dui::Orientation &)),
-            this, SLOT(organizeContent(const Dui::Orientation &)));
-    disconnect(this, SIGNAL(backButtonClicked()), this, SLOT(back()));
+    disconnect(	DuiSceneManager::instance(),
+            	SIGNAL(orientationChanged (const Dui::Orientation &)),
+            	this,
+				SLOT(organizeContent(const Dui::Orientation &)));
+
+	disconnect(this, SIGNAL(backButtonClicked()), this, SLOT(back()));
 }
 
 void DcpPage::back()
@@ -71,15 +78,13 @@ void DcpPage::back()
 }
 
 /* this is where pages optimize their open up times
- * default implementation drops fatal error */
+ * default implementation sets the correct orientation */
 void DcpPage::reload()
 {
-    Q_ASSERT_X(!isContentCreated(), Q_FUNC_INFO,
-            qPrintable(QString("not implemented for ")+metaObject()->className()));
+    organizeContent(DuiSceneManager::instance()->orientation());
 }
 
 QGraphicsLinearLayout* DcpPage::mainLayout()
 {
     return (QGraphicsLinearLayout*)(centralWidget()->layout());
 }
-

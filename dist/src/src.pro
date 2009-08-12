@@ -14,7 +14,7 @@ HEADERS += $$system(find ./ -name \'*.h\')
 SOURCES += $$system(find ./ -name \'*.cpp\')
 
 CONFIG += dui build_all warn_on debug
-LIBS += -lduicontrolpanel
+LIBS += -lduicontrolpanel -ltime
 
 # a fake check target so as not to stop the testing:
 QMAKE_EXTRA_TARGETS += check

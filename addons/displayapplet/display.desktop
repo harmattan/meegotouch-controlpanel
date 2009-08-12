@@ -1,20 +1,18 @@
 [Desktop Entry]
 Type=DUIApplet
-Name=DateTime
+Name=Display
 Icon=
 Exec=
-X-logical-id=qtn_sett_main_date_time
+X-logical-id=qtn_sett_main_display
 X-translation-catalog=duisettings
 
 [DUI]
-X-DUIApplet-Applet=libdatetimeapplet.so
+X-DUIApplet-Applet=libdisplayapplet.so
 X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
 X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
-Category= Regional settings
+Category= Look & Feel
 Order=1
 WidgetType= DcpLabel2
-Text1= Date & Time
-Text2= "3:55 PM; 23/02/09"
 

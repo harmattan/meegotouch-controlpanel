@@ -30,6 +30,4 @@ private:
     DuiContainer *m_Container;
 };
 
-
 #endif // DCPDESCRIPTIONCOMPONENT_H
-

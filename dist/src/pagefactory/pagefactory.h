@@ -6,8 +6,6 @@
 
 class DcpPage;
 class DcpAppletMetadata;
-class DcpAppletLoader;
-class DcpWidget;
 class DcpMainPage;
 class DcpAppletPage;
 class DcpAppletCategoryPage;
@@ -30,11 +28,10 @@ protected:
     DcpPage* createAppletPage(DcpAppletMetadata *metadata);
     DcpPage* createAppletPageFromCategory(DcpAppletMetadata *metadata);
     DcpPage* createAppletPageFromMostUsed(DcpAppletMetadata *metadata);
-    DcpPage* createAppletCategoryPage(const QString& appletCategory);
+    DcpPage* createAppletCategoryPage(Pages::Id pageId);
 
 private:
     static PageFactory* sm_Instance;
-
     DcpPage *m_CurrentPage;
 
     DcpMainPage *m_MainPage;
@@ -43,4 +40,3 @@ private:
 };
 
 #endif // PAGEFACTORY_H
-

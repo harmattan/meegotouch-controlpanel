@@ -1,7 +1,7 @@
 QMAKE_LIBDIR  += ../../../lib/lib/
 TEMPLATE      = lib
-CONFIG       += plugin gui dui silent
-LIBS         += -lduicontrolpanel
+CONFIG       += plugin gui dui silent debug
+LIBS         += -lduicontrolpanel -lclockwidgets
 INCLUDEPATH  += $$system(find ../../../lib/src/ -type d)
 
 MOC_DIR	      = .moc
@@ -20,7 +20,12 @@ HEADERS       = datetimeapplet.h \
                 dcpdatetime.h \
                 dcpicuconversions.h \
                 dateview.h \
-                timeview.h
+                timeview.h \
+                analogclock.h \
+                stepbutton.h \
+                daybutton.h \
+                daymodel.h \
+                datepicker.h
 
 SOURCES       = datetimeapplet.cpp \
 		        datetimewidget.cpp \
@@ -33,20 +38,29 @@ SOURCES       = datetimeapplet.cpp \
                 dcptimezonedata.cpp \
                 dcpicuconversions.cpp \
                 dateview.cpp \
-                timeview.cpp
+                timeview.cpp \
+                analogclock.cpp \
+                stepbutton.cpp \
+                daymodel.cpp \
+                datepicker.cpp
 
 
 TARGET        = $$qtLibraryTarget(datetimeapplet)
-css.files     = datetimeapplet.css 
+css.files     = datetimeapplet.css
 DESTDIR       = ../lib
 
 target.path += $$(DEBIAN_DESTDIR)$$[QT_INSTALL_LIBS]/duicontrolpanel/applets
 css.path    += $$(DEBIAN_DESTDIR)/usr/share/duicontrolpanel/themes/style
+desktop.files += *.desktop
+desktop.path = $$(DEBIAN_DESTDIR)/usr/lib/duicontrolpanel
 
 message("The plugin will be installed to: " $$target.path)
 message("CSS path will be: " $$css.path)
+message ("Desktop path will be: "$$desktop.path)
+
 
 INSTALLS += \
 	    target \
-        css
+        css \
+        desktop
 

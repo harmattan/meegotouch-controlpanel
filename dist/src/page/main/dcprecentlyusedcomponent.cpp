@@ -7,6 +7,7 @@
 #include <duicontainer.h>
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
+#include <duiscenemanager.h>
 
 
 /*!
@@ -34,7 +35,7 @@ void DcpRecentlyUsedComponent::createContents()
 
     m_MostUsedCategory = new DcpMostUsedCategory("TXT");
     connect(m_MostUsedCategory, SIGNAL(openSubPage(Pages::Handle)),
-                this, SIGNAL(openSubPage(Pages::Handle)));
+            this, SIGNAL(openSubPage(Pages::Handle)));
 
     box->setCentralWidget(m_MostUsedCategory);
 
@@ -45,12 +46,14 @@ void DcpRecentlyUsedComponent::createContents()
                                                             Qt::Vertical);
     layoutPolicy->addItemAtPosition(box, 0);
     layout->setPolicy(layoutPolicy);
+    connect (DuiSceneManager::instance(),
+             SIGNAL(orientationChanged(const Dui::Orientation&)),
+             this, 
+             SLOT(onOrientationChange(const Dui::Orientation &)));
 }
-
 
 void DcpRecentlyUsedComponent::onOrientationChange
                             (const Dui::Orientation &orientation)
 {
     m_MostUsedCategory->onOrientationChange(orientation);
 }
-

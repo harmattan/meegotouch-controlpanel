@@ -34,4 +34,3 @@ private:
 };
 
 #endif // DCPAPPLETPAGE_H
-

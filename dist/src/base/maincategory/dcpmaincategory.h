@@ -2,8 +2,9 @@
 #define DCPMAINCATEGORY_H
 
 #include "dcpcategory.h"
-#include <QMap>
+
 class DuiLayout;
+
 class DcpMainCategory : public DcpCategory
 {
     Q_OBJECT
@@ -15,7 +16,7 @@ public:
     virtual void add(DcpComponent *component);
     virtual void append(DcpComponent *component);
     virtual void setMaxColumns(int columns);
-    DuiLayout* duiLayout() const {return m_Layout;};
+    DuiLayout* duiLayout() const {return m_Layout;}
 
     void setHorizontalSpacing(int space);
     void setVerticalSpacing(int space);
