@@ -97,6 +97,6 @@ QVariant DayModel::data(const QModelIndex &index, int role) const
 
 void DayModel::keySlot(QString text)
 {
-	keySignal(text);
+	emit keySignal(text);
 }
 

@@ -25,6 +25,7 @@ DatePicker::DatePicker(DuiWidget *parent)
 	m_NewYear = QDate::currentDate().year();
 	m_NewMonth = QDate::currentDate().month();
 	setDate(m_NewYear, m_NewMonth, QDate::currentDate().day());
+
 }
 
 DatePicker::~DatePicker()
@@ -88,12 +89,15 @@ void DatePicker::setDate(int year, int month, int day)
 	QDate tmpDate = QDate(m_NewYear, m_NewMonth, 1);
 
 	if (m_Model) {
+		disconnect(m_Model, SIGNAL(keySignal(QString)), this, SLOT(keySlot(QString)));
 		delete m_Model;
 	}
 
 	m_Model = new DayModel(	tmpDate.daysInMonth(),
 							-1,
 							tmpDate.dayOfWeek() );
+
+	connect(m_Model, SIGNAL(keySignal(QString)), this, SLOT(keySlot(QString)));
 
 	m_DayGrid->setItemModel(0);
 	m_DayGrid->setItemModel(m_Model);
@@ -108,3 +112,21 @@ void DatePicker::setDate(int year, int month, int day)
     m_MainLayout->addItem(new DcpSpacerItem(this, 5, 5, QSizePolicy::Preferred, QSizePolicy::Expanding));
 }
 
+QString DatePicker::day()
+{
+ 	QDate date(m_NewYear, m_NewMonth, 1);
+	//return date.toString("dd.MMM.yyyy");
+	return date.toString("MMM.   yyyy");
+}
+
+void DatePicker::keySlot(QString in)
+{
+	QDate date(m_NewYear, m_NewMonth, in.toInt());
+	QString day = date.toString("dd.MMM.yyyy");
+
+ 	int tmpWeek = 1 + (date.dayOfYear() + QDate(date.year(), 1, 1).dayOfWeek() - 1 - 1)/7;
+    QString week = "Week " + QString::number(tmpWeek);
+
+	emit keySignal(day, week);
+
+}

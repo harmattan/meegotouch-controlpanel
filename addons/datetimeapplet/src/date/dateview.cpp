@@ -80,10 +80,16 @@ void DateView::initWidget()
     m_WeekLabel->setAlignment(Qt::AlignCenter);
 
     // datePicker
-    DatePicker *datePicker = new DatePicker(this);
+    datePicker = new DatePicker(this);
     connect(leftStepButton, SIGNAL(clicked()), datePicker, SLOT(left()));
     connect(rightStepButton, SIGNAL(clicked()), datePicker, SLOT(right()));
-    
+
+
+	connect(leftStepButton, SIGNAL(clicked()), this, SLOT(modifyDate()));
+    connect(rightStepButton, SIGNAL(clicked()), this, SLOT(modifyDate()));
+
+	connect(datePicker, SIGNAL(keySignal(QString, QString)), this, SLOT(keySlot(QString, QString)));
+
     // add items to labelVLayoutPolicy
     labelVLayout->addItem(m_DateLabel);
     labelVLayout->setAlignment(m_DateLabel, Qt::AlignCenter);
@@ -114,5 +120,17 @@ void DateView::initWidget()
     // add items to mainLayoutPolicy
     mainLayout->addItem(m_Container);
     mainLayout->setAlignment(m_Container, Qt::AlignCenter);
+}
+
+void DateView::modifyDate()
+{
+	m_DateLabel->setText(datePicker->day());
+	m_WeekLabel->setText(" ----- ");
+}
+
+void DateView::keySlot(QString day, QString week)
+{
+	m_DateLabel->setText(day);
+	m_WeekLabel->setText(week);
 }
 
