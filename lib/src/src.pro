@@ -26,6 +26,7 @@ install_headers.files += applet/dcpapplet.h \
     button/dcpbriefwidget.h \
     widget/dcpwidgettypes.h \
     widget/dcpspaceritem.h \
+    widget/dcpdialog.h \
     widget/dcpcommondialog.h \
     appletdb/dcpappletdb.h \
     appletdb/dcpappletloader.h \
