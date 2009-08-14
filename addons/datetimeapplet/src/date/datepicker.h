@@ -19,9 +19,16 @@ public:
     //!reimp_end
 	void setDate(int year, int month, int day = -1);
 
+	QString day();
+	QString week();
+
 public slots:
 	virtual void left();
 	virtual void right();
+	void keySlot(QString);
+
+signals:
+	void keySignal(QString, QString);
 
 private:
 	class DayModel *m_Model;

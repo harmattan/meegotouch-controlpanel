@@ -1,11 +1,13 @@
 
 #include "dcptime.h"
 
-#include <clockd/libtime.h>
-#include <linux/types.h>
 #include <time.h>
+#include <linux/types.h>
+#include <clockd/libtime.h>
 
-void DcpTime::setTime(int hour, int min = 0, int sec = 0) {
+
+
+void DcpTime::setTime(int hour, int min, int sec) {
 
 	int tmpHour = hour * (60*60);
 	int tmpMin = min * 60 ;

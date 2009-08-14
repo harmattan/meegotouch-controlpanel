@@ -4,6 +4,8 @@
 #include "dcpspaceritem.h"
 #include "analogclock.h"
 
+#include "dcptime.h"
+
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
 #include <DuiWidget>

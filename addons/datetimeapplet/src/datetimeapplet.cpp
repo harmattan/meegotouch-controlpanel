@@ -5,8 +5,10 @@
 #include "dcpdatetime.h"
 #include "datetimewidget.h"
 #include "timezoneview.h"
-#include "dateview.h"
-#include "timeview.h"
+
+#include "date/dateview.h"
+#include "time/timeview.h"
+
 #include "dcpwidget.h"
 #include "duilocale.h"
 #include <DuiAction>
