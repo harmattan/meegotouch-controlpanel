@@ -1,41 +1,48 @@
 Source: duicontrolpanel
-Section: unknown
+Section: devel
 Priority: extra
 Maintainer: Robert Manner <robert.manner@blumsoft.eu>
 Build-Depends: debhelper (>= 5), libdui-dev, libicu-dev, libclockwidgets-dev (>= 0.4.4), libtime-dev
 Standards-Version: 3.7.2
 
 Package: libduicontrolpanel
+Section: libs
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: library for the control panel application and its applets
 
 Package: libduicontrolpanel-dev
+Section: devel
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libduicontrolpanel
 Description: Development files for the control panel application and its applets
 
 Package: duicontrolpanel
+Section: x11
 Architecture: any
 Depends: libdui0, ${shlibs:Depends}, ${misc:Depends}, libduicontrolpanel, duicontrolpanel-l10n
 Description: Control Panel
 
 Package: duicontrolpanel-dbg
+Section: devel
 Architecture: any
 Depends: duicontrolpanel (= ${binary:Version}), ${shlibs:Depends}
 Description: Control Panel - debug symbols
 
 Package: duicontrolpanel-applets
+Section: x11
 Architecture: any
 Depends: duicontrolpanel-languageapplet, duicontrolpanel-displayapplet, duicontrolpanel-datetimeapplet
 Description: Meta package depending on all available plugins
 
 Package: duicontrolpanel-displayapplet
+Section: x11
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel, libduicontrolpanel, libclockwidgets (>= 0.4.4), clock (>= 0.4.4), libtime0
 Description: Display applet for the control panel application
 
 Package: duicontrolpanel-datetimeapplet
+Section: x11
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel, libduicontrolpanel
 Description: Date & Time Applet for the control panel application
