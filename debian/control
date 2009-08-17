@@ -30,11 +30,6 @@ Architecture: any
 Depends: duicontrolpanel-languageapplet, duicontrolpanel-displayapplet, duicontrolpanel-datetimeapplet
 Description: Meta package depending on all available plugins
 
-Package: duicontrolpanel-languageapplet
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel, libduicontrolpanel
-Description: Language applet for the control panel application
-
 Package: duicontrolpanel-displayapplet
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel, libduicontrolpanel, libclockwidgets (>= 0.4.4), clock (>= 0.4.4), libtime0
