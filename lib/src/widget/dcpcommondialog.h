@@ -34,3 +34,4 @@ private slots:
     virtual void onOrientationAngleChanged();
 };
 #endif // DCPCOMMONDIALOG_H
+

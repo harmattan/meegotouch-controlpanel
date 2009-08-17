@@ -14,6 +14,7 @@ DcpCommonDialog::DcpCommonDialog(const QString &text)
              :DcpDialog(),
               m_TitleText(text)
 {
+    setObjectName("DcpCommonDialog");
     initDialog();
 }
 
@@ -47,7 +48,7 @@ void DcpCommonDialog::initDialog()
     DuiLinearLayoutPolicy *mainLayoutPolicy =
         new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayout->setContentsMargins(10.0, 0.0, 0.0, 0.0);
+    mainLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     mainLayoutPolicy->setSpacing(10);
 
     // FIXME -- backbutton temporary solution until it is getting possible
@@ -75,6 +76,7 @@ void DcpCommonDialog::initDialog()
 
     // m_MainWidget
     m_MainWidget = new DuiContainer(0);
+    m_MainWidget->setObjectName("DcpCommonDialogContainer");
     m_MainWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_MainWidget->setHeaderVisible(false);
 
@@ -146,11 +148,11 @@ void DcpCommonDialog::onOrientationAngleChanged()
     if (DuiSceneManager::instance() == 0) return;
 
     QSizeF dialogSize = DuiSceneManager::instance()->visibleSceneSize();
-    dialogSize.setWidth(dialogSize.width()-30);
-    //dialogSize.setHeight(dialogSize.height());
+    dialogSize.setWidth(dialogSize.width());
+    dialogSize.setHeight(dialogSize.height());
     m_Viewport->setMinimumSize(dialogSize);
-//    m_Viewport->setMaximumSize(dialogSize);
-
+    m_Viewport->setPreferredSize(dialogSize);
+    m_Viewport->setMaximumSize(dialogSize);
 }
 
 
