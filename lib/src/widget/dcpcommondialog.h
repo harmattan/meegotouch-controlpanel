@@ -14,7 +14,7 @@ class DcpCommonDialog : public DcpDialog
     Q_OBJECT
 
 public:
-    DcpCommonDialog(const QString &text);
+    DcpCommonDialog(const QString &text, DuiWidget* parent = 0);
     virtual ~DcpCommonDialog();
     void setCentralWidget(DuiWidget *widget);
     DuiWidget* centralWidget();
@@ -30,8 +30,7 @@ private:
     DuiLinearLayoutPolicy *m_ContainerLayoutPolicy;
     DuiSeparator *m_GreySeparator;
 
-private slots:
-    virtual void onOrientationAngleChanged();
 };
+
 #endif // DCPCOMMONDIALOG_H
 

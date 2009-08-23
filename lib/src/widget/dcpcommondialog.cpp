@@ -10,8 +10,8 @@
 #include <duiseparator.h>
 #include <duibutton.h>
 
-DcpCommonDialog::DcpCommonDialog(const QString &text)
-             :DcpDialog(),
+DcpCommonDialog::DcpCommonDialog(const QString &text, DuiWidget* parent)
+             :DcpDialog(parent),
               m_TitleText(text)
 {
     setObjectName("DcpCommonDialog");
@@ -136,23 +136,7 @@ void DcpCommonDialog::initDialog()
     // Add items to mainLayoutPolicy
     mainLayoutPolicy->addItemAtPosition(backButtonLayout, 0);
     mainLayoutPolicy->addItemAtPosition(m_Viewport, 1, Qt::AlignCenter);
-
-    // orientation
-    connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),
-            this, SLOT(onOrientationAngleChanged ()));
-    onOrientationAngleChanged();
 }
 
-void DcpCommonDialog::onOrientationAngleChanged()
-{
-    if (DuiSceneManager::instance() == 0) return;
-
-    QSizeF dialogSize = DuiSceneManager::instance()->visibleSceneSize();
-    dialogSize.setWidth(dialogSize.width());
-    dialogSize.setHeight(dialogSize.height());
-    m_Viewport->setMinimumSize(dialogSize);
-    m_Viewport->setPreferredSize(dialogSize);
-    m_Viewport->setMaximumSize(dialogSize);
-}
 
 
