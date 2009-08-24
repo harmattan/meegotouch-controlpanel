@@ -23,7 +23,7 @@ DcpDialog::exec()
     Q_ASSERT(!m_Loop);
     connect (DuiSceneManager::instance(),
              SIGNAL(orientationChanged (const Dui::Orientation &)),
-             this, SLOT(onOrientationChanged()));
+             this, SLOT(onOrientationChange()));
     m_Loop = new QEventLoop(this);
     onOrientationChange();
     if (scene() == 0) {
