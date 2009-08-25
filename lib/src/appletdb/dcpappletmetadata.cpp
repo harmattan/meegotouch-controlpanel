@@ -132,7 +132,7 @@ QString DcpAppletMetadata::binary() const
 QString DcpAppletMetadata::fullBinary() const
 {
 	//add
-	d->m_Counter++;
+	//d->m_Counter++;
 	MostUsedCounter::instance()->add(d->m_FileName);
 
     return DcpApplet::Lib + binary();
