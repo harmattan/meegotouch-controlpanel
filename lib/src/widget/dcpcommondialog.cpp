@@ -10,10 +10,11 @@
 #include <duiseparator.h>
 #include <duibutton.h>
 
-DcpCommonDialog::DcpCommonDialog(const QString &text)
-             :DcpDialog(),
+DcpCommonDialog::DcpCommonDialog(const QString &text, DuiWidget* parent)
+             :DcpDialog(parent),
               m_TitleText(text)
 {
+    setObjectName("DcpCommonDialog");
     initDialog();
 }
 
@@ -47,7 +48,7 @@ void DcpCommonDialog::initDialog()
     DuiLinearLayoutPolicy *mainLayoutPolicy =
         new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayout->setContentsMargins(10.0, 0.0, 0.0, 0.0);
+    mainLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     mainLayoutPolicy->setSpacing(10);
 
     // FIXME -- backbutton temporary solution until it is getting possible
@@ -75,6 +76,7 @@ void DcpCommonDialog::initDialog()
 
     // m_MainWidget
     m_MainWidget = new DuiContainer(0);
+    m_MainWidget->setObjectName("DcpCommonDialogContainer");
     m_MainWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_MainWidget->setHeaderVisible(false);
 
@@ -134,23 +136,7 @@ void DcpCommonDialog::initDialog()
     // Add items to mainLayoutPolicy
     mainLayoutPolicy->addItemAtPosition(backButtonLayout, 0);
     mainLayoutPolicy->addItemAtPosition(m_Viewport, 1, Qt::AlignCenter);
-
-    // orientation
-    connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),
-            this, SLOT(onOrientationAngleChanged ()));
-    onOrientationAngleChanged();
 }
 
-void DcpCommonDialog::onOrientationAngleChanged()
-{
-    if (DuiSceneManager::instance() == 0) return;
-
-    QSizeF dialogSize = DuiSceneManager::instance()->visibleSceneSize();
-    dialogSize.setWidth(dialogSize.width()-30);
-    //dialogSize.setHeight(dialogSize.height());
-    m_Viewport->setMinimumSize(dialogSize);
-//    m_Viewport->setMaximumSize(dialogSize);
-
-}
 
 
