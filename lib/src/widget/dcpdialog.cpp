@@ -35,7 +35,7 @@ DcpDialog::exec()
     this->hide();
     disconnect (DuiSceneManager::instance(),
              SIGNAL(orientationChanged (const Dui::Orientation &)),
-             this, SLOT(onOrientationChanged()));
+             this, SLOT(onOrientationChange()));
     m_Loop->deleteLater();
     m_Loop = 0;
     return result;
