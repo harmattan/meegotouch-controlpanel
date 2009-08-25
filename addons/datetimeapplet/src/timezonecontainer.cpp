@@ -170,6 +170,7 @@ void TimeZoneContainer::initWidget()
     int columnwidth = DuiSceneManager::instance()->visibleSceneSize(
                                               Dui::Landscape).width() / 2 - 25;
     m_MainLayoutPolicy->setColumnFixedWidth(0, columnwidth);
+    orientationChanged();
 }
 
 void TimeZoneContainer::orientationChanged()
