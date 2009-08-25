@@ -12,6 +12,8 @@
 
 #include <QRegExp>
 
+#include "dcpmostusedcounter.h"
+
 enum  {
     KeyCategory = 0,
     KeyOrder,
@@ -74,7 +76,8 @@ DcpAppletMetadataPrivate::DcpAppletMetadataPrivate()
       m_Brief(0),
       m_DesktopEntry(0),
       m_Parent(0),
-      m_Counter(-1)
+      m_Counter(-1),
+      m_FileName("")
 {
 }
 
@@ -90,6 +93,7 @@ DcpAppletMetadata::DcpAppletMetadata(const QString& filename)
     : d (new DcpAppletMetadataPrivate)
 {
     d->m_DesktopEntry = new DuiDesktopEntry(filename);
+
 }
 
 DcpAppletMetadata::~DcpAppletMetadata()
@@ -99,15 +103,13 @@ DcpAppletMetadata::~DcpAppletMetadata()
 }
 
 // TODO XXX rename
-bool
-DcpAppletMetadata::isValid() const
+bool DcpAppletMetadata::isValid() const
 {
     return desktopEntry()->isValid();
 }
 
 // TODO XXX rename
-bool
-DcpAppletMetadata::isModified() const
+bool DcpAppletMetadata::isModified() const
 {
     QFileInfo info(d->m_FileInfo.fileName());
     bool modified = info.lastModified() >  d->m_FileInfo.lastModified();
@@ -115,31 +117,28 @@ DcpAppletMetadata::isModified() const
     return modified;
 }
 
-QString
-DcpAppletMetadata::category() const
+QString DcpAppletMetadata::category() const
 {
     return desktopEntryStr(KeyCategory);
 }
 
 
-QString
-DcpAppletMetadata::binary() const
+QString DcpAppletMetadata::binary() const
 {
 
     return desktopEntryStr(KeyBinary);
 }
 
-QString
-DcpAppletMetadata::fullBinary() const
+QString DcpAppletMetadata::fullBinary() const
 {
 	//add
-	d->m_Counter++;	
+	d->m_Counter++;
+	MostUsedCounter::instance()->add(d->m_FileName);
 
     return DcpApplet::Lib + binary();
 }
 
-QString
-DcpAppletMetadata::parentName() const
+QString DcpAppletMetadata::parentName() const
 {
 
     return desktopEntryStr(KeyParent);
@@ -229,7 +228,8 @@ QString DcpAppletMetadata::part() const
 int DcpAppletMetadata::usage() const
 {
     // TODO implement
-    return desktopEntry()->value(Keys[KeyUsage]).toInt() + d->m_Counter;
+    //return desktopEntry()->value(Keys[KeyUsage]).toInt() + d->m_Counter;
+	return MostUsedCounter::instance()->add(d->m_FileName);
 }
 
 int DcpAppletMetadata::order() const

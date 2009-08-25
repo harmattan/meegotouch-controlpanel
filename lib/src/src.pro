@@ -30,7 +30,8 @@ install_headers.files += applet/dcpapplet.h \
     appletdb/dcpappletdb.h \
     appletdb/dcpappletloader.h \
     appletdb/dcpappletmetadata.h \
-    dcpdebug.h
+    dcpdebug.h \
+    appletdb/dcpmostusedcounter.h
 
 INSTALLS += target install_headers
 

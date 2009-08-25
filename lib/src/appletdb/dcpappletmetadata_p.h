@@ -6,6 +6,7 @@ class DcpBrief;
 class DcpAppletLoader;
 class DuiDesktopEntry;
 class DcpAppletMetadata;
+class QString;
 
 class DcpAppletMetadataPrivate
 {
@@ -20,6 +21,7 @@ public:
     DuiDesktopEntry* m_DesktopEntry;
     DcpAppletMetadata *m_Parent;
 	int m_Counter;
+	QString m_FileName;
 };
 
 #endif // DCPAPPLETMETADATA_P_H

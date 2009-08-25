@@ -1,12 +1,12 @@
-#include "mainwindow.h"
 
 #include <DuiApplication>
 #include <DuiLocale>
 #include <QtDebug>
 
+#include "mainwindow.h"
+
 int main(int argc, char *argv[])
 {
-
     DuiApplication app(argc, argv);
 
     DuiLocale locale;
