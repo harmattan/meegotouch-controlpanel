@@ -121,5 +121,5 @@ void DcpBriefWidget::onOrientationChange (const Dui::Orientation &orientation)
 void DcpBriefWidget::slotClicked()
 {
 
-	qDebug() << Q_FUNC_INFO;
+//	qDebug() << Q_FUNC_INFO;
 }
