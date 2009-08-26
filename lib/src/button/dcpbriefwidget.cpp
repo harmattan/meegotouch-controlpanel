@@ -18,6 +18,10 @@ DcpBriefWidget::DcpBriefWidget(DcpAppletMetadata* metadata, DuiWidget* parent)
     setMetadata(metadata);
 }
 
+DcpBriefWidget::~DcpBriefWidget()
+{
+}
+
 void DcpBriefWidget::setMetadata(DcpAppletMetadata* metadata)
 {
     // can be optimized if necessery (not recreating the widget, just updating its contents)
@@ -76,6 +80,15 @@ void DcpBriefWidget::showEvent ( QShowEvent * event )
     Q_UNUSED (event);
     connect (m_RealWidget, SIGNAL(clicked()), this, SIGNAL(clicked()));
     connect (m_Metadata, SIGNAL(briefChanged()), this, SLOT(updateContents()));
+
+    disconnect (this, SIGNAL(clicked()), m_Metadata, SLOT(slotClicked()));
+    connect (this, SIGNAL(clicked()), m_Metadata, SLOT(slotClicked()));
+    
+
+//	disconnect (m_RealWidget, SIGNAL(clicked()), this, SLOT(slotClicked()));
+ //   connect (m_RealWidget, SIGNAL(clicked()), this, SLOT(slotClicked()));
+
+
  /*   connect(DuiSceneManager::instance(),
             SIGNAL(orientationChanged (const Dui::Orientation &)),
             this, SLOT(onOrientationChange(const Dui::Orientation &)));
@@ -87,8 +100,12 @@ void DcpBriefWidget::hideEvent ( QHideEvent * event )
 {
     Q_UNUSED (event);
     disconnect (m_RealWidget, SIGNAL(clicked()), this, SIGNAL(clicked()));
-    disconnect (m_Metadata, SIGNAL(briefChanged()),
-                this, SLOT(updateContents()));
+    disconnect (m_Metadata, SIGNAL(briefChanged()), this, SLOT(updateContents()));
+
+//	disconnect (this, SIGNAL(clicked()), m_Metadata, SLOT(slotClicked()));	
+
+//	disconnect (m_RealWidget, SIGNAL(clicked()), this, SLOT(slotClicked()));
+
  /*   disconnect(DuiSceneManager::instance(),
             SIGNAL(orientationChanged (const Dui::Orientation &)),
             this, SLOT(onOrientationChange(const Dui::Orientation &)));
@@ -100,3 +117,9 @@ void DcpBriefWidget::onOrientationChange (const Dui::Orientation &orientation)
     layout()->invalidate();
 }
 */
+
+void DcpBriefWidget::slotClicked()
+{
+
+	qDebug() << Q_FUNC_INFO;
+}

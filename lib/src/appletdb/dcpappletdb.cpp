@@ -52,45 +52,52 @@ DcpAppletDb::addPath(const QString &pathName)
     m_Paths.append(pathName);
 }
 
-DcpAppletMetadataList 
-DcpAppletDb::listByCategory(const QString& category)
+DcpAppletMetadataList DcpAppletDb::listByCategory(const QString& category)
 {
     QList<DcpAppletMetadata*> filtered;
 
-    foreach (DcpAppletMetadata *item, m_AppletsByFile)
-    {
+    foreach (DcpAppletMetadata *item, m_AppletsByFile) {
+
         if (category.compare(item->category(),Qt::CaseInsensitive) == 0)
             filtered.append(item);
         QString parentName = item->parentName();
-        if (parentName == "" && !item->parent())
-          {
+
+        if (parentName == "" && !item->parent()) {
             item->setParent(applet(parentName));  
             qDebug() << "IIII parent of" << item->name() << "is" << parentName; 
-          }
-        
+        }
     }
     qSort(filtered.begin(), filtered.end(), orderLessThan);
     return filtered;
 }
 
-DcpAppletMetadataList
-DcpAppletDb::listMostUsed()
+DcpAppletMetadataList DcpAppletDb::listMostUsed()
 {
-   DcpAppletMetadataList mostUsed = m_AppletsByName.values();
+
+//typedef QList<DcpAppletMetadata*> DcpAppletMetadataList;
+//typedef QMap<QString, DcpAppletMetadata*> DcpAppletMetadataMap;
+
+	DcpAppletMetadataList mostUsed;
+
+	for (QMap<QString, DcpAppletMetadata*>::iterator iter = m_AppletsByName.begin(); iter != m_AppletsByName.end(); iter++)
+		if (iter.value()->usage())
+			mostUsed.push_back(iter.value());
+	
+ //  DcpAppletMetadataList mostUsed = m_AppletsByName.values();
+
    qSort(mostUsed.begin(), mostUsed.end(), usageGreatherThan); 
    return mostUsed.mid(0, MAXMOSTUSED);
 }
 
-DcpAppletMetadata*
-DcpAppletDb::applet(const QString& name)
+DcpAppletMetadata* DcpAppletDb::applet(const QString& name)
 {
     DcpAppletMetadata *metadata = m_AppletsByName.value(name, 0);
     if (!metadata)
         qWarning() << "No such applet:" << name;
     return metadata;
 };
-void 
-DcpAppletDb::refresh()
+
+void DcpAppletDb::refresh()
 {
     foreach(QString pathName, m_Paths)
         refreshPath(pathName);

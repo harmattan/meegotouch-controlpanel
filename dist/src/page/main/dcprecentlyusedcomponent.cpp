@@ -34,6 +34,8 @@ void DcpRecentlyUsedComponent::createContents()
     box->setTitle(title());
 
     m_MostUsedCategory = new DcpMostUsedCategory("TXT");
+
+	
     connect(m_MostUsedCategory, SIGNAL(openSubPage(Pages::Handle)),
             this, SIGNAL(openSubPage(Pages::Handle)));
 
@@ -42,8 +44,7 @@ void DcpRecentlyUsedComponent::createContents()
     DuiLayout* layout = new DuiLayout(this);
     layout->setAnimator(0);
     layout->setContentsMargins(0,0,0,0);
-    DuiLinearLayoutPolicy* layoutPolicy = new DuiLinearLayoutPolicy(layout,
-                                                            Qt::Vertical);
+    DuiLinearLayoutPolicy* layoutPolicy = new DuiLinearLayoutPolicy(layout, Qt::Vertical);
     layoutPolicy->addItemAtPosition(box, 0);
     layout->setPolicy(layoutPolicy);
     connect (DuiSceneManager::instance(),

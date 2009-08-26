@@ -14,9 +14,9 @@ class MostUsedCounter {
 
 		~MostUsedCounter();
 
-		int add(QString name);
-		
-		int get(QString name);
+		int add(const QString& name);
+		int get(const QString& name);
+		void clear(const QString& name);
 	
 	private:
 

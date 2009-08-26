@@ -92,8 +92,12 @@ DcpAppletMetadataPrivate::~DcpAppletMetadataPrivate()
 DcpAppletMetadata::DcpAppletMetadata(const QString& filename)
     : d (new DcpAppletMetadataPrivate)
 {
+	d->m_FileName = filename;
     d->m_DesktopEntry = new DuiDesktopEntry(filename);
 
+//	qDebug() << MostUsedCounter::instance()->get(d->m_FileName);
+//	MostUsedCounter::instance()->clear(d->m_FileName);
+//	qDebug() << MostUsedCounter::instance()->get(d->m_FileName);
 }
 
 DcpAppletMetadata::~DcpAppletMetadata()
@@ -125,22 +129,16 @@ QString DcpAppletMetadata::category() const
 
 QString DcpAppletMetadata::binary() const
 {
-
     return desktopEntryStr(KeyBinary);
 }
 
 QString DcpAppletMetadata::fullBinary() const
 {
-	//add
-	//d->m_Counter++;
-	MostUsedCounter::instance()->add(d->m_FileName);
-
     return DcpApplet::Lib + binary();
 }
 
 QString DcpAppletMetadata::parentName() const
 {
-
     return desktopEntryStr(KeyParent);
 }
 
@@ -180,12 +178,13 @@ Qt::Alignment DcpAppletMetadata::align() const
 }
 
 DcpAppletMetadata* DcpAppletMetadata::parent() const
-{   
+{
     return d->m_Parent;
 }
 
 bool DcpAppletMetadata::toggle() const
 {
+
     if (brief()){
         return brief()->toggle();
     }
@@ -229,7 +228,7 @@ int DcpAppletMetadata::usage() const
 {
     // TODO implement
     //return desktopEntry()->value(Keys[KeyUsage]).toInt() + d->m_Counter;
-	return MostUsedCounter::instance()->add(d->m_FileName);
+	return MostUsedCounter::instance()->get(d->m_FileName);
 }
 
 int DcpAppletMetadata::order() const
@@ -262,17 +261,18 @@ DuiDesktopEntry* DcpAppletMetadata::desktopEntry() const
 
 DcpBrief* DcpAppletMetadata::brief() const
 {
+
     if (d->m_Brief == 0) {
         if (applet() != 0) {
             d->m_Brief = applet()->constructBrief();
             if (d->m_Brief != 0){
-                connect (d->m_Brief, SIGNAL(valuesChanged()),
-                         this, SIGNAL(briefChanged()));
+                connect (d->m_Brief, SIGNAL(valuesChanged()), this, SIGNAL(briefChanged()));
             }
         }
     }
     return d->m_Brief;
 }
+
 
 // TODO XXX rename
 QString DcpAppletMetadata::name() const
@@ -352,3 +352,11 @@ void DcpAppletMetadata::setParent(DcpAppletMetadata *parent)
     d->m_Parent = parent;
 }
 
+void DcpAppletMetadata::slotClicked()
+{
+//Q_ASSERT(0);
+		//add
+	//d->m_Counter++;
+	MostUsedCounter::instance()->add(d->m_FileName);
+
+}

@@ -35,6 +35,7 @@ void DcpMostUsedCategory::createContents()
     setMaxColumns(2);
 
     DcpAppletMetadataList list = DcpAppletDb::instance()->listMostUsed();
+
 	int cnt = 0;
 	foreach (DcpAppletMetadata *item, list) {
 		cnt++;

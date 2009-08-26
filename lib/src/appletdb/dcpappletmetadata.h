@@ -55,6 +55,9 @@ public:
 signals:
     void briefChanged();
 
+protected slots:
+	void slotClicked();
+
 protected:
     DuiDesktopEntry* desktopEntry() const;
     QString desktopEntryStr(int id) const;

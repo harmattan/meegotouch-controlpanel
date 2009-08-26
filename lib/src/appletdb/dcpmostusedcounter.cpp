@@ -7,7 +7,7 @@
 
 MostUsedCounter* MostUsedCounter::sm_Instance = NULL;
 
-static const QString& MOSTUSEDPATH = "/duicontrolpanel/";
+//static const QString& MOSTUSEDPATH = "duicontrolpanel/";
 
 MostUsedCounter* MostUsedCounter::instance()
 {
@@ -32,46 +32,74 @@ MostUsedCounter::~MostUsedCounter()
 	}
 }
 
-int MostUsedCounter::add(QString name)
+int MostUsedCounter::add(const QString& name)
 {
 
-	QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(name);
+	if (name != "") {
+
+		QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(name);
+		
+		if (i== m_Data.end()) { 
+			DuiGConfItem* item = new DuiGConfItem(name);
+			m_Data[name] = item;
+			int tmp = item->value().toInt();
+			item->set(++tmp);
+			
+//			qDebug() << "  ADD  " <<name << "  :  " << item->value().toInt();
+			
+			return item->value().toInt();
+		}
 	
-	if (i== m_Data.end()) { 
-		DuiGConfItem* item = new DuiGConfItem(MOSTUSEDPATH + name);
-		m_Data[name] = item;
-		int tmp = item->value().toInt();
-		item->set(++tmp);
-		
-		qDebug() << qPrintable(MOSTUSEDPATH + name) << "  :  " << item->value().toInt();
-		
-		return item->value().toInt();
+		int tmp = i.value()->value().toInt();
+		i.value()->set(++tmp);
+	
+//		qDebug() << "  ADD  "  << name << "  :  " << i.value()->value().toInt();
+	
+		return i.value()->value().toInt();
 	}
 
-	int tmp = i.value()->value().toInt();
-	i.value()->set(++tmp);
-
-	qDebug() << qPrintable(MOSTUSEDPATH + name) << "  :  " << i.value()->value().toInt();
-
-	return i.value()->value().toInt();
+	return 0;
 }
 
-int MostUsedCounter::get(QString name)
+int MostUsedCounter::get(const QString& name)
 {
 
-	QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(name);
+	if (name != "") {
+
+		QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(name);
+		
+		if (i== m_Data.end()) { 
+			DuiGConfItem* item = new DuiGConfItem(name);
+			m_Data[name] = item;
 	
-	if (i== m_Data.end()) { 
-		DuiGConfItem* item = new DuiGConfItem(MOSTUSEDPATH + name);
-		m_Data[name] = item;
-
-		qDebug() << (MOSTUSEDPATH + name) << "  :  " << item->value().toInt();
-
-		return item->value().toInt();
+//			qDebug() << "  GET  " << name << "  :  " << item->value().toInt();
+	
+			return item->value().toInt();
+		}
+	
+//		qDebug() <<  "  GET  "  << name << "  :  " << i.value()->value().toInt();
+	
+		return i.value()->value().toInt();
 	}
 
-	qDebug() << (MOSTUSEDPATH + name) << "  :  " << i.value()->value().toInt();
+	return 0;
 
-	return i.value()->value().toInt();
+}
 
+void MostUsedCounter::clear(const QString& name)
+{
+
+	if (name != "") {
+
+		QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(name);
+		
+		if (i== m_Data.end()) { 
+			//DuiGConfItem* item = new DuiGConfItem(name);
+			//m_Data[name] = 0;
+		
+			return;
+		}
+	
+		i.value()->unset();
+	}
 }

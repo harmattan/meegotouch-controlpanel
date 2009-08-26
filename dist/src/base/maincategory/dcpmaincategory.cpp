@@ -145,7 +145,7 @@ void DcpMainCategory::polishEvent ()
 {
     if (DuiSceneManager::instance()) {
         if (m_CreateSeparators && !m_HasLastSeparator) {
-            fixSeparators();
+            //MUST BACK fixSeparators();
         }
         onOrientationChange(DuiSceneManager::instance()->orientation());
     }
