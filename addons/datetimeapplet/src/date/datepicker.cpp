@@ -77,6 +77,8 @@ void DatePicker::setDate(int year, int month, int day)
 {
     Q_UNUSED(year);
     Q_UNUSED(month);
+
+
     
     if (m_DayGrid)
 		delete m_DayGrid;

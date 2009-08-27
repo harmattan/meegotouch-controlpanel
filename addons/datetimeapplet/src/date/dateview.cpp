@@ -96,6 +96,7 @@ void DateView::initWidget()
     labelVLayout->addItem(m_WeekLabel);
     labelVLayout->setAlignment(m_WeekLabel, Qt::AlignCenter);
 
+
     // add items to labelLayoutPolicy
     labelLayout->addItem(leftStepButton);
     labelLayout->setAlignment(leftStepButton, Qt::AlignCenter);
@@ -120,6 +121,7 @@ void DateView::initWidget()
     // add items to mainLayoutPolicy
     mainLayout->addItem(m_Container);
     mainLayout->setAlignment(m_Container, Qt::AlignCenter);
+
 }
 
 void DateView::modifyDate()

@@ -60,8 +60,11 @@ QVariant DayModel::data(const QModelIndex &index, int role) const
 			tmp->setEnabled(false);
 		}
 
-		if(index.row()==1)
+		if(index.row()==1) {
+			tmp->setMinimumSize(0, 0);
+			tmp->setMaximumSize(0, 0);
 			tmp->setVisible(false);
+		}
 /*
 		tmp->setPreferredSize(80, 80);
 		tmp->setMaximumSize(80, 80);
@@ -92,7 +95,22 @@ QVariant DayModel::data(const QModelIndex &index, int role) const
 		return v;
 	}
 
-    return QVariant();
+
+	//bugfix
+	DayButton *tmp = new DayButton("");
+	tmp->setMinimumSize(0, 0);
+	tmp->setMaximumSize(0, 0);
+	tmp->setVisible(false);
+	DuiWidgetPtr w;
+	
+	QVariant v;
+	w = tmp;
+	v.setValue(w);
+	m_ButtonGroup->addButton(tmp);
+
+	return v;
+
+   //return QVariant();
 }
 
 void DayModel::keySlot(QString text)
