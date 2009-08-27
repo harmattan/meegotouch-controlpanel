@@ -4,6 +4,7 @@
 #include "dcpcategory.h"
 
 class DuiLayout;
+class QShowEvent;
 
 class DcpMainCategory : public DcpCategory
 {
@@ -30,7 +31,7 @@ public slots:
 
 protected:
     virtual void createContents();
-    virtual void polishEvent();
+    virtual void showEvent(QShowEvent*);
     void fixSeparators();
 
     DuiLayout* m_Layout;

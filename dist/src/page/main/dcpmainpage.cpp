@@ -22,7 +22,7 @@
  */
 
 DcpMainPage::DcpMainPage() :
-	DcpCategoryPage()
+	DcpCategoryPage(), m_RecentlyComp(0)
 {
     setHandle(Pages::MAIN);
     setReferer(Pages::NOPAGE);
@@ -37,11 +37,11 @@ void DcpMainPage::createContent()
     m_Category->setMaxColumns(2);
 
     // most recent used items:
-    DcpRecentlyUsedComponent* recentlyComp = new DcpRecentlyUsedComponent(m_Category, this);
+    m_RecentlyComp = new DcpRecentlyUsedComponent(m_Category, this);
 
-    connect(recentlyComp, SIGNAL(openSubPage(Pages::Handle)),
+    connect(m_RecentlyComp, SIGNAL(openSubPage(Pages::Handle)),
             this, SIGNAL(openSubPage(Pages::Handle)));
-    m_Category->add(recentlyComp);
+    m_Category->add(m_RecentlyComp);
 
     // category descriptions:
     for (int i=0; true; i++) {
@@ -63,8 +63,11 @@ void DcpMainPage::createContent()
 
 void DcpMainPage::reload()
 {
-    // TODO
-    // the most recent items sequence have to be reloaded
+    // refresh the most recent items sequence:
+    if (m_RecentlyComp){
+        m_RecentlyComp->reload();
+    }
+
     // DcpBriefWidget takes care of all the other things
     DcpCategoryPage::reload();
 }
