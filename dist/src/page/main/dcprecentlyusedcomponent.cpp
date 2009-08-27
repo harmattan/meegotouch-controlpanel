@@ -1,6 +1,4 @@
 #include "dcprecentlyusedcomponent.h"
-
-#include "dcpappletdb.h"
 #include "maintranslations.h"
 
 #include "dcpmostusedcategory.h"
@@ -49,8 +47,7 @@ void DcpRecentlyUsedComponent::createContents()
     layout->setPolicy(layoutPolicy);
     connect (DuiSceneManager::instance(),
              SIGNAL(orientationChanged(const Dui::Orientation&)),
-             this, 
-             SLOT(onOrientationChange(const Dui::Orientation &)));
+             this, SLOT(onOrientationChange(const Dui::Orientation &)));
 }
 
 void DcpRecentlyUsedComponent::onOrientationChange
@@ -58,3 +55,10 @@ void DcpRecentlyUsedComponent::onOrientationChange
 {
     m_MostUsedCategory->onOrientationChange(orientation);
 }
+
+
+void DcpRecentlyUsedComponent::reload()
+{
+    m_MostUsedCategory->reload();
+}
+

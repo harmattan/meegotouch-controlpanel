@@ -3,9 +3,9 @@
 #include "dcppage.h"
 #include "dcpmainpage.h"
 #include "dcpappletpage.h"
-#include "dcpappletdb.h"
-#include "dcpappletif.h"
-#include "dcpappletmetadata.h"
+#include <DcpAppletDb>
+#include <DcpAppletIf>
+#include <DcpAppletMetadata>
 #include "dcpappletcategorypage.h"
 #include "maintranslations.h"
 

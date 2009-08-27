@@ -14,7 +14,8 @@ DESTDIR       = ../lib
 
 target.path    += $$(DEBIAN_DESTDIR)/usr/lib/
 install_headers.path    += $$(DEBIAN_DESTDIR)/usr/include/qt4/dui/
-install_headers.files += applet/dcpapplet.h \
+install_headers.files += include/Dcp* \
+    applet/dcpapplet.h \
     applet/dcpappletif.h \
     applet/dcpwidget.h \
     applet/dcpmetadata.h \
