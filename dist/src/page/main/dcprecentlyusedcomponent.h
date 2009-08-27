@@ -15,11 +15,14 @@ public:
     virtual void add(DcpComponent*){}
     virtual void remove(DcpComponent*){}
 
+    void reload();
+
 public slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation);
 
 private:
     DcpMostUsedCategory *m_MostUsedCategory;
 };
+
 
 #endif // DCPRECENTLYUSEDCOMPONENT_H

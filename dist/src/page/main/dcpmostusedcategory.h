@@ -14,6 +14,7 @@ public:
     void addComponent(DcpAppletMetadata *metadata, bool fullLine = false);
 
     virtual void onOrientationChange(const Dui::Orientation& orientation);
+    virtual void reload();
 
 protected:
     virtual void createContents();

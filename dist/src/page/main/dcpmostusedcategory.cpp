@@ -22,18 +22,14 @@
 DcpMostUsedCategory::DcpMostUsedCategory(const QString& title, QGraphicsWidget *parent) :
   DcpMainCategory(title, parent)
 {
-  	createContents();
+    setCreateSeparators(true);
+    setMaxColumns(2);
 
-    m_PortraitLayout->setObjectName("MostUsedItems");
-    m_LandscapeLayout->setObjectName("MostUsedItems");
-    setVerticalSpacing(0);
+  	createContents();
 }
 
 void DcpMostUsedCategory::createContents()
 {
-    setCreateSeparators(true);
-    setMaxColumns(2);
-
     DcpAppletMetadataList list = DcpAppletDb::instance()->listMostUsed();
 
 	int cnt = 0;
@@ -44,6 +40,10 @@ void DcpMostUsedCategory::createContents()
 		else
 			addComponent(item, false);
     }
+
+    m_PortraitLayout->setObjectName("MostUsedItems");
+    m_LandscapeLayout->setObjectName("MostUsedItems");
+    setVerticalSpacing(0);
 }
 
 void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata, bool fullLine)
@@ -63,3 +63,10 @@ void DcpMostUsedCategory::onOrientationChange(const Dui::Orientation& orientatio
 {
     DcpMainCategory::onOrientationChange(orientation);
 }
+
+void DcpMostUsedCategory::reload()
+{
+    deleteItems();
+    createContents();
+}
+

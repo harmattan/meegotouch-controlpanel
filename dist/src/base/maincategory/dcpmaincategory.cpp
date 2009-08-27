@@ -141,11 +141,11 @@ void DcpMainCategory::onOrientationChange (const Dui::Orientation &orientation)
     DcpCategory::onOrientationChange(orientation);
 }
 
-void DcpMainCategory::polishEvent ()
+void DcpMainCategory::showEvent (QShowEvent*)
 {
     if (DuiSceneManager::instance()) {
         if (m_CreateSeparators && !m_HasLastSeparator) {
-            //MUST BACK fixSeparators();
+            fixSeparators();
         }
         onOrientationChange(DuiSceneManager::instance()->orientation());
     }
@@ -159,16 +159,19 @@ void DcpMainCategory::setCreateSeparators (bool create)
 void DcpMainCategory::fixSeparators()
 {
     // in landscape mode all items from the last line has to be removed
-    int landpos = m_LandscapeLayout->count()-1;
+    int row = m_LandscapeLayout->rowCount()-1;
     for (int col=0; col<m_MaxColumns; col++) {
-        m_LandscapeLayout->removeAt(landpos);
-        landpos-=2;
+        QGraphicsLayoutItem* item = m_LandscapeLayout->itemAt(row, col);
+        if (item) {
+            m_LandscapeLayout->removeItem(item);
+        }
     }
     // in portrait only the last one
     QGraphicsWidget* widget = (QGraphicsWidget*)(
                        m_PortraitLayout->itemAt(m_PortraitLayout->count()-1));
-    Q_ASSERT(widget);
-    widget->deleteLater();
+    if (widget){
+        widget->deleteLater();
+    }
 }
 
 void DcpMainCategory::setMaxColumns(int columns)
