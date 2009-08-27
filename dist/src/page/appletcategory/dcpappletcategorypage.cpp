@@ -1,10 +1,11 @@
 #include "dcpappletcategorypage.h"
-#include <QDebug>
 #include "dcpmaincategory.h"
-#include "dcpappletdb.h"
-#include "dcpappletmetadata.h"
-
+#include <QDebug>
 #include "dcpbriefcomponent.h"
+
+#include <DcpAppletDb>
+#include <DcpAppletMetadata>
+
 
 DcpAppletCategoryPage::DcpAppletCategoryPage(const QString &appletCategory) :
 		DcpCategoryPage(),

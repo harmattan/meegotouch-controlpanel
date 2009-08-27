@@ -1,9 +1,9 @@
-//#include <duilinearlayoutpolicy.h>
 #include "dcpappletpage.h"
-#include "dcpwidget.h"
-#include "dcpappletif.h"
-#include "dcpappletmetadata.h"
-#include "dcpappletloader.h"
+
+#include <DcpWidget>
+#include <DcpAppletIf>
+#include <DcpAppletMetadata>
+#include <DcpAppletLoader>
 
 #include <DuiLabel>
 #include <DuiLocale>

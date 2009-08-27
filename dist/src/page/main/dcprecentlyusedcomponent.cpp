@@ -1,6 +1,4 @@
 #include "dcprecentlyusedcomponent.h"
-
-#include "dcpappletdb.h"
 #include "maintranslations.h"
 
 #include "dcpmostusedcategory.h"

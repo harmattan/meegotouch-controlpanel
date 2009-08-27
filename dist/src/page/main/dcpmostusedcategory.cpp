@@ -1,10 +1,10 @@
 #include "dcpmostusedcategory.h"
 
 #include "pages.h"
-#include "dcpappletdb.h"
+#include <DcpAppletDb>
 #include "dcpbriefcomponent.h"
-#include "dcpappletmetadata.h"
-#include "dcpapplet.h"
+#include <DcpAppletMetadata>
+#include <DcpApplet>
 
 #include <QtDebug>
 #include <DuiSceneManager>
