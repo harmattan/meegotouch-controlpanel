@@ -1,6 +1,10 @@
 TEMPLATE      = lib
 CONFIG       += plugin gui dui debug
-INCLUDEPATH  += $$system(find ./ -type d)
+INCLUDEPATH  += applet \
+                appletdb \
+                button \
+                widget
+
 MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects
 
