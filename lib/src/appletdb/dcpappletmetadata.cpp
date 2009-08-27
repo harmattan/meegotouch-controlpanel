@@ -115,7 +115,7 @@ bool DcpAppletMetadata::isValid() const
 // TODO XXX rename
 bool DcpAppletMetadata::isModified() const
 {
-    QFileInfo info(d->m_FileInfo.fileName());
+    QFileInfo info(d->m_FileName);
     bool modified = info.lastModified() >  d->m_FileInfo.lastModified();
     d->m_FileInfo = info;
     return modified;
