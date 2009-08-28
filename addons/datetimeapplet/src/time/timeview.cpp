@@ -2,7 +2,6 @@
 #include "dcpdatetime.h"
 #include "datetimetranslation.h"
 #include "dcpspaceritem.h"
-#include "analogclock.h"
 
 #include "dcptime.h"
 
@@ -55,21 +54,11 @@ void TimeView::initWidget()
     widgetLayout->setSpacing(2);
 
     // analogClock
-/*    AnalogClock *analogClock = new AnalogClock(centralWidget);
-    analogClock->setMinimumSize(QSize(300, 300));
-    analogClock->setMaximumSize(QSize(300, 300));
-
-	widgetLayout->addItem(new DcpSpacerItem(centralWidget, 10, 10, QSizePolicy::Expanding, QSizePolicy::Preferred));
-    widgetLayout->addItem(analogClock);
-    widgetLayout->setAlignment(analogClock, Qt::AlignCenter);
-    widgetLayout->addItem(new DcpSpacerItem(centralWidget, 10, 10, QSizePolicy::Expanding, QSizePolicy::Preferred));
-*/
 
 	m_Clock.setSystemTime();
 
 	m_TimePicker = new SettingAlarm(m_Clock.hour(), m_Clock.min());
 
-    //AnalogClock *analogClock = new AnalogClock(centralWidget);
     m_TimePicker->setMinimumSize(QSize(400, 400));
     m_TimePicker->setMaximumSize(QSize(400, 400));
 
