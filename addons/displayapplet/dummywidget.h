@@ -1,7 +1,8 @@
 #ifndef DUMMYWIDGET_H
 #define DUMMYWIDGET_H
 
-#include "dcpwidget.h" 
+#include <DcpWidget>
+ 
 class DuiLabel;
 class DuiButton;
 class DummyWidget : public DcpWidget 

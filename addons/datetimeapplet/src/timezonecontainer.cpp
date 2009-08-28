@@ -2,7 +2,7 @@
 #include "timezonelistitem.h"
 #include "dcptimezoneconf.h"
 #include "dcptimezonedata.h"
-#include "dcpspaceritem.h"
+#include <DcpSpacerItem>
 #include "dcpicuconversions.h"
 
 #include <unicode/timezone.h>

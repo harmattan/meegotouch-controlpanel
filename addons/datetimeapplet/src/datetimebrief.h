@@ -1,7 +1,7 @@
 #ifndef DATETIMEBRIEF_H
 #define DATETIMEBRIEF_H
 
-#include "dcpbrief.h"
+#include <DcpBrief>
 #include "dcpdatetime.h"
 
 class DateTimeBrief: public DcpBrief{

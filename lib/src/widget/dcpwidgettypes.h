@@ -1,5 +1,6 @@
 #ifndef DCPWIDGETTYPES_H
 #define DCPWIDGETTYPES_H
+#include <QString>
 
 static const QString  WIDGETNAME[] = {
     "DcpLabel",

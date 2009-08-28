@@ -1,5 +1,5 @@
 #include "updatebutton.h"
-#include "dcpspaceritem.h"
+#include <DcpSpacerItem>
 #include "datetimetranslation.h"
 
 #include <duigridlayoutpolicy.h>

@@ -1,7 +1,7 @@
 #ifndef DATETIMEWIDGET_H
 #define DATETIMEWIDGET_H
 
-#include "dcpwidget.h" 
+#include <DcpWidget> 
 
 class DcpButton2;
 class DuiButton;

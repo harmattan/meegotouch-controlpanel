@@ -1,7 +1,7 @@
 #include "datetimewidget.h"
 #include "dcpdatetime.h"
-#include "dcpspaceritem.h"
-#include "dcpbutton2.h"
+#include <DcpSpacerItem>
+#include <DcpButton2>
 #include "updatebutton.h"
 #include "datetimetranslation.h"
 #include "dcptimezoneconf.h"

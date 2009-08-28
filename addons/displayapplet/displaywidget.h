@@ -1,7 +1,8 @@
 #ifndef DISPLAYWIDGET_H
 #define DISPLAYWIDGET_H
 
-#include "dcpwidget.h" 
+#include <DcpWidget>
+ 
 class DuiLabel;
 class DuiButton;
 

@@ -1,7 +1,7 @@
 #ifndef DISPLAYBRIEF_H
 #define DISPLAYBRIEF_H
 
-#include "dcpbrief.h"
+#include <DcpBrief>
 
 class DisplayBrief: public DcpBrief{
     Q_OBJECT

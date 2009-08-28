@@ -1,7 +1,7 @@
 #ifndef DISPLAYAPPLET_H
 #define DISPLAYAPPLET_H
 
-#include "dcpappletif.h"
+#include <DcpAppletIf>
 #include <QObject>
 class DcpWidget;
 class DuiAction;

@@ -3,7 +3,7 @@
 #include "timezonecontainer.h"
 #include "timezonelistitem.h"
 #include "datetimetranslation.h"
-#include "dcpspaceritem.h"
+#include <DcpSpacerItem>
 
 #include <QSizePolicy>
 #include <duilayout.h>

@@ -9,7 +9,7 @@
 #include "date/dateview.h"
 #include "time/timeview.h"
 
-#include "dcpwidget.h"
+#include <DcpWidget>
 #include "duilocale.h"
 #include <DuiAction>
 #include "datetimebrief.h"

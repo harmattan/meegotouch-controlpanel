@@ -1,5 +1,5 @@
 #include "dcpbrief.h"
-#include "dcpwidgettypes.h"
+#include <DcpWidgetTypes>
 
 
 DcpBrief::~DcpBrief()

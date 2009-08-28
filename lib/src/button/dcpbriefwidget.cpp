@@ -1,12 +1,12 @@
-#include "dcpbriefwidget.h"
-#include "dcpappletmetadata.h"
+#include <DcpBriefWidget>
+#include <DcpAppletMetadata>
+#include <DcpWidgetTypes>
+
 #include "dcpbutton2.h"
 #include "dcpbutton2toggle.h"
 #include "dcpbutton2image.h"
-#include "dcpwidgettypes.h"
 
-#include <duiscenemanager.h>
-
+#include <DuiSceneManager>
 #include <QGraphicsLinearLayout>
 
 DcpBriefWidget::DcpBriefWidget(DcpAppletMetadata* metadata, DuiWidget* parent)

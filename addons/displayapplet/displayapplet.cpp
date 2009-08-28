@@ -1,13 +1,13 @@
 #include <QtGui>
 #include <QDebug>
-#include <duitheme.h>
+#include <DuiAction>
+#include <DuiTheme>
+#include <DcpWidget>
 #include "displayapplet.h"
 #include "displaywidget.h"
 #include "displaytranslation.h"
 #include "dummywidget.h"
-#include "dcpwidget.h"
 #include "dcpdisplay.h"
-#include <DuiAction>
 #include "displaybrief.h"
 
 Q_EXPORT_PLUGIN2(displayapplet, DisplayApplet)

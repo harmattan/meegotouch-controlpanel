@@ -2,7 +2,7 @@ QMAKE_LIBDIR += ../../lib/lib/
 TEMPLATE      = lib
 CONFIG       += plugin gui dui silent debug
 LIBS         += -lduicontrolpanel
-INCLUDEPATH  += $$system(find ../../lib/src/ -type d)
+INCLUDEPATH  += ../../lib/src/include
 
 MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects

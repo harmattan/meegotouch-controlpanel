@@ -1,5 +1,5 @@
 #include "datetimebrief.h"
-#include "dcpwidgettypes.h"
+#include <DcpWidgetTypes>
 #include "dcptimezoneconf.h"
 #include "dcptimezonedata.h"
 

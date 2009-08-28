@@ -1,7 +1,7 @@
 #ifndef DATETIMEAPPLET_H
 #define DATETIMEAPPLET_H
 
-#include "dcpappletif.h"
+#include <DcpAppletIf>
 #include <QObject>
 #include <QMap>
 class DcpWidget;

@@ -4,7 +4,7 @@
 #include <duilocale.h>
 #include <QDebug>
 #include "dcpappletmetadata_p.h"
-#include "dcpwidgettypes.h"
+#include <DcpWidgetTypes>
 #include <DuiDesktopEntry>
 #include "dcpappletloader.h"
 #include "dcpbrief.h"

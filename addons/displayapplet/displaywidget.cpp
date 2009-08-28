@@ -1,7 +1,7 @@
 #include "displaywidget.h"
 #include "displaytranslation.h"
 #include "dcpdisplay.h"
-#include "dcpspaceritem.h"
+#include <DcpSpacerItem>
 #include <duibutton.h>
 #include <duilayout.h>
 #include <duilinearlayoutpolicy.h>
