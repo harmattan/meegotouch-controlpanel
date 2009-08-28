@@ -1,6 +1,6 @@
 #include "dcpbriefcomponent.h"
 
-#include "dcpbriefwidget.h"
+#include <DcpBriefWidget>
 #include <QGraphicsLinearLayout>
 
 DcpBriefComponent::DcpBriefComponent(DcpAppletMetadata* metadata,

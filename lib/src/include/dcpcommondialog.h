@@ -1,1 +1,1 @@
-#include "../button/dcpcommondialog.h"
+#include "../widget/dcpcommondialog.h"
