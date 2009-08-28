@@ -3,7 +3,7 @@ include (../common.pri)
 TEMPLATE = app
 TARGET = ../duicontrolpanel
 DEPENDPATH += $$system(find ./ -type d)
-INCLUDEPATH += $$DEPENDPATH $$system(find ../../lib/src -type d)
+INCLUDEPATH += $$DEPENDPATH ../../lib/src/include
 message($$INCLUDEPATH)
 OBJECTS_DIR = ../tmp
 MOC_DIR = ../tmp

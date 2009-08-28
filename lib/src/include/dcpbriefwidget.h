@@ -1,1 +1,1 @@
-#include "../widget/dcpbriefwidget.h"
+#include "../button/dcpbriefwidget.h"
