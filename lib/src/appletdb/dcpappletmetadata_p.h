@@ -22,6 +22,7 @@ public:
     DcpAppletMetadata *m_Parent;
 	int m_Counter;
 	QString m_FileName;
+    QString m_BinaryDir;
 };
 
 #endif // DCPAPPLETMETADATA_P_H

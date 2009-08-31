@@ -28,6 +28,8 @@ public:
 //    QString icon() const;
     QString binary() const;
     QString fullBinary() const;
+    QString binaryDir() const;
+    void setBinaryDir(const QString& dir);
 
     QString widgetType() const;
 
@@ -50,7 +52,7 @@ public:
     void setParent(DcpAppletMetadata *parent);
     DcpAppletMetadata* parent() const;
     QString parentName() const;
-	void save();
+//	void save();
     void cleanup();
 signals:
     void briefChanged();

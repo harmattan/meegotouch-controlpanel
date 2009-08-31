@@ -77,7 +77,8 @@ DcpAppletMetadataPrivate::DcpAppletMetadataPrivate()
       m_DesktopEntry(0),
       m_Parent(0),
       m_Counter(-1),
-      m_FileName("")
+      m_FileName(""),
+      m_BinaryDir(DcpApplet::Lib)
 {
 }
 
@@ -126,6 +127,16 @@ QString DcpAppletMetadata::category() const
     return desktopEntryStr(KeyCategory);
 }
 
+QString DcpAppletMetadata::binaryDir() const
+{
+    return d->m_BinaryDir;
+}
+
+void DcpAppletMetadata::setBinaryDir(const QString& dir)
+{
+    d->m_BinaryDir = dir;
+}
+
 
 QString DcpAppletMetadata::binary() const
 {
@@ -134,7 +145,7 @@ QString DcpAppletMetadata::binary() const
 
 QString DcpAppletMetadata::fullBinary() const
 {
-    return DcpApplet::Lib + binary();
+    return binaryDir() + binary();
 }
 
 QString DcpAppletMetadata::parentName() const
@@ -289,56 +300,6 @@ QString DcpAppletMetadata::fileName() const
 QString DcpAppletMetadata::desktopEntryStr(int id) const
 {
     return desktopEntry()->value(Keys[id]).trimmed();
-}
-
-
-void DcpAppletMetadata::save() 
-{
-
-	if (d->m_Counter>0) {
-		QString group = "";
-	
-		//QFile file(desktopEntry()->fileName()+"_tmp");
-		QFile file(desktopEntry()->fileName());
-	
-		if(file.open(QIODevice::WriteOnly))
-	
-			for (int i=0;i<KeyCount; i++) {
-				
-				QString tmpKey(Keys[i]);
-				QString tmpFirst = tmpKey.remove(QRegExp("/[a-zA-Z0-9 -]*"));
-	
-				tmpKey = Keys[i];
-				QString tmpSecond = tmpKey.remove(QRegExp(tmpFirst + "/"));
-					
-				QString tmpValue = desktopEntry()->value(Keys[i], "");
-
-				int tmpUsage = desktopEntry()->value(Keys[KeyUsage]).toInt();
-				
-				if (!tmpValue.isEmpty() || i==KeyUsage) {
-	
-					if(group!=tmpFirst) {
-						group=tmpFirst;
-						QString tmp1("[" + tmpFirst + "]");
-						file.write(qPrintable(tmp1), tmp1.size());
-						file.write("\n", 1);
-					}
-
-					if (i==KeyUsage) {
-						QString tmp2(tmpSecond + "=" + QString::number(tmpUsage + d->m_Counter)); 
-						file.write(qPrintable(tmp2), tmp2.size());
-						file.write("\n", 1);
-					} else {
-						QString tmp2(tmpSecond + "=" + tmpValue); 
-						file.write(qPrintable(tmp2), tmp2.size());
-						file.write("\n", 1);
-					}
-				}
-				
-			}
-	
-		file.close();
-	}
 }
 
 void DcpAppletMetadata::cleanup() 
