@@ -1,10 +1,9 @@
 DuiLabelStyle {
-    font: font(Nokia Sans Cn, 12);
-    color: #FFFFFF;
+    font: font("Nokia Sans Cn", 12);
 }
 
 #ComponentDescription {
-    font: font(Nokia Sans Cn, 16);
+    font: font("Nokia Sans Cn", 16px);
     margin-left: 20;
     margin-right: 20;
     margin-top: 12;
@@ -15,7 +14,7 @@ DuiLabelStyle {
 }
 
 #DuiContainerTitle {
-    font: font(Nokia Sans Cn, 20);
+    font: font("Nokia Sans Cn", 20px);
     margin-left: 19;
     margin-right: 19;
     margin-bottom: 6;
@@ -75,15 +74,15 @@ DuiNavigationBarStyle {
 }
 
 DuiLabelStyle#DcpButtonMain {
-    font: font(Nokia Sans Cn, 20);
+    font: font("Nokia Sans Cn", 20);
 }
 
 DuiLabelStyle#DcpButtonLine1 {
-    font: font(Nokia Sans Cn, 18);
+    font: font("Nokia Sans Cn", 18);
 }
 
 DuiLabelStyle#DcpButtonLine2 {
-    font: font(Nokia Sans Cn, 16);
+    font: font("Nokia Sans Cn", 16);
 /*    minimum-size: size(200,12); */
     color: #FFA000;
 }
@@ -138,7 +137,7 @@ DuiButtonStyle#DcpButtonToggle {
 #DcpCommonDialogTitleLabel {
    color: #FFFFFF;
    margin-top: 0;
-   font: font(Nokia Sans Cn, 18);
+   font: font("Nokia Sans Cn", 18);
 }
 
 #DcpCommonDialogContainer {
