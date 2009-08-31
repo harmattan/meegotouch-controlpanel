@@ -1,0 +1,1 @@
+#include "../base/dcpbriefcomponent.h"

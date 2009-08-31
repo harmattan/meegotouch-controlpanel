@@ -1,0 +1,1 @@
+#include "../base/dcpcategorypage.h"
