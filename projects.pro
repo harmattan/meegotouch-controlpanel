@@ -8,3 +8,4 @@ SUBDIRS += lib \
            addons
 
 include(debian/deb.pri)
+
