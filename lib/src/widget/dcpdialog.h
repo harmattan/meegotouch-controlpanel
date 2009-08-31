@@ -1,11 +1,11 @@
 #ifndef DCPDIALOG_H
 #define DCPDIALOG_H
 
-#include <duiwidget.h>
+#include <duiscenewindow.h>
 #include <QMessageBox>
 class QEventLoop;
 
-class DcpDialog : public DuiWidget
+class DcpDialog : public DuiSceneWindow
 {
     Q_OBJECT
 public:

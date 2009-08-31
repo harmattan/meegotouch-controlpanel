@@ -4,7 +4,8 @@
 #include <duiscene.h>
 #include <QEventLoop>
 
-DcpDialog::DcpDialog(DuiWidget* parent) : DuiWidget(parent), m_Loop(0)
+DcpDialog::DcpDialog(DuiWidget* parent) :
+    DuiSceneWindow(DuiSceneWindow::Dialog,QString(), parent), m_Loop(0)
 {
 }
 
@@ -26,13 +27,13 @@ DcpDialog::exec()
              this, SLOT(onOrientationChange()));
     m_Loop = new QEventLoop(this);
     onOrientationChange();
-    if (scene() == 0) {
+/*    if (scene() == 0) {
         setZValue(1001);
         DuiSceneManager::instance()->scene()->addItem(this);
-    }
-    this->show();
+    } */
+    this->appear();
     int result = m_Loop->exec();
-    this->hide();
+    this->disappear();
     disconnect (DuiSceneManager::instance(),
              SIGNAL(orientationChanged (const Dui::Orientation &)),
              this, SLOT(onOrientationChange()));
