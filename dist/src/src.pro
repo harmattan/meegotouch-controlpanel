@@ -2,7 +2,7 @@ QMAKE_LIBDIR += ../../lib/lib/
 include (../common.pri)
 TEMPLATE = app
 TARGET = ../duicontrolpanel
-DEPENDPATH += $$system(find ./ -type d)
+DEPENDPATH += include 
 INCLUDEPATH += $$DEPENDPATH ../../lib/src/include
 message($$INCLUDEPATH)
 OBJECTS_DIR = ../tmp
@@ -10,7 +10,8 @@ MOC_DIR = ../tmp
 
 
 # Input
-HEADERS += $$system(find ./ -name \'*.h\')
+#HEADERS += $$system(find ./ -name \'*.h\')
+HEADERS += include/*
 SOURCES += $$system(find ./ -name \'*.cpp\')
 
 CONFIG += dui build_all warn_on debug

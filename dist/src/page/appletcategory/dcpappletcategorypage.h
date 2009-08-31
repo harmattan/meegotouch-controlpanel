@@ -1,8 +1,8 @@
 #ifndef DCPAPPLETCATEGORYPAGE_H
 #define DCPAPPLETCATEGORYPAGE_H
 
-#include "dcpcategorypage.h"
-#include "pages.h"
+#include <DcpCategoryPage>
+#include <Pages>
 
 class DcpAppletMetadata;
 class DcpAppletCategoryPage : public DcpCategoryPage

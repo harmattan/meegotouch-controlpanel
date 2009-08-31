@@ -2,10 +2,11 @@
 
 #include <QtDebug>
 
-#include "dcpmaincategory.h"
+#include <DcpMainCategory>
+#include <Pages>
+
 #include "dcpdescriptioncomponent.h"
 #include "dcprecentlyusedcomponent.h"
-#include "pages.h"
 #include "maintranslations.h"
 
 #include <DuiApplication>
@@ -28,6 +29,9 @@ DcpMainPage::DcpMainPage() :
     setReferer(Pages::NOPAGE);
     setBackButtonEnabled(false);
 }
+
+DcpMainPage::~DcpMainPage() 
+{}
 
 void DcpMainPage::createContent()
 {

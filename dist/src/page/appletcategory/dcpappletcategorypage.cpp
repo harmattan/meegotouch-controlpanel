@@ -1,7 +1,7 @@
 #include "dcpappletcategorypage.h"
-#include "dcpmaincategory.h"
+#include <DcpMainCategory>
 #include <QDebug>
-#include "dcpbriefcomponent.h"
+#include <DcpBriefComponent>
 
 #include <DcpAppletDb>
 #include <DcpAppletMetadata>

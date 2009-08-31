@@ -1,3 +1,9 @@
+duicontrolpanel (0.3.4) unstable; urgency=low
+
+  * dui-like headers in dist/
+
+ -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Mon, 31 Aug 2009 12:42:37 +0200
+
 duicontrolpanel (0.3.3) unstable; urgency=low
 
   * Tag for 0.3.3

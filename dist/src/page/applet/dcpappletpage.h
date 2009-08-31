@@ -1,8 +1,8 @@
 #ifndef DCPAPPLETPAGE_H
 #define DCPAPPLETPAGE_H
 
-#include "dcppage.h"
-#include "pages.h"
+#include <DcpPage>
+#include <Pages>
 
 class DcpWidget;
 class DcpAppletMetadata;

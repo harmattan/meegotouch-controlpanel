@@ -52,6 +52,9 @@ DcpMainCategory::DcpMainCategory(const QString& title, QGraphicsWidget *parent) 
     setVerticalSpacing(12);
 }
 
+DcpMainCategory::~DcpMainCategory()
+{}
+
 void DcpMainCategory::setHorizontalSpacing(int space)
 {
     m_LandscapeLayout->setHorizontalSpacing(space);

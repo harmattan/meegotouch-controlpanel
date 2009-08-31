@@ -1,7 +1,7 @@
 #ifndef DCPRECENTLYUSEDCOMPONENT_H
 #define DCPRECENTLYUSEDCOMPONENT_H
 
-#include "dcpcomponent.h"
+#include <DcpComponent>
 
 class DcpMostUsedCategory;
 

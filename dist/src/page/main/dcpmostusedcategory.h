@@ -1,7 +1,7 @@
 #ifndef MCPMOSTUSEDCATEGORY_H
 #define MCPMOSTUSEDCATEGORY_H
 
-#include "dcpmaincategory.h"
+#include <DcpMainCategory>
 
 class DcpAppletMetadata;
 

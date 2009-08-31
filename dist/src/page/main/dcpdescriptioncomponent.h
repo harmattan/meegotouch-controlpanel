@@ -1,7 +1,7 @@
 #ifndef DCPDESCRIPTIONCOMPONENT_H
 #define DCPDESCRIPTIONCOMPONENT_H
 
-#include "dcpcomponent.h"
+#include <DcpComponent>
 class DuiContainer;
 
 class DcpDescriptionComponent:public DcpComponent

@@ -14,6 +14,7 @@ public:
     DcpMainCategory(const QString& title,
                     QGraphicsWidget *parent=0);
 
+    virtual ~DcpMainCategory();
     virtual void add(DcpComponent *component);
     virtual void append(DcpComponent *component);
     virtual void setMaxColumns(int columns);

@@ -1,7 +1,7 @@
 #ifndef DCPMAINPAGE_H
 #define DCPMAINPAGE_H
 
-#include "dcpcategorypage.h"
+#include <DcpCategoryPage>
 
 class DcpMainCategory;
 class DcpRecentlyUsedComponent;
@@ -11,6 +11,7 @@ class DcpMainPage : public DcpCategoryPage
     Q_OBJECT
 public:
     DcpMainPage();
+    virtual ~DcpMainPage();
     virtual void createContent();
     virtual void reload();
 public slots:
@@ -20,4 +21,4 @@ private:
     DcpRecentlyUsedComponent* m_RecentlyComp;
 };
 
-#endif // DUISETTINGSMAINPAGE_H
+#endif // DCPMAINPAGE_H

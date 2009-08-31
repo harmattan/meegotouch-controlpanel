@@ -1,13 +1,13 @@
 #include "pagefactory.h"
 
-#include "dcppage.h"
-#include "dcpmainpage.h"
-#include "dcpappletpage.h"
+#include <DcpPage>
+#include <DcpMainPage>
+#include <DcpAppletPage>
 #include <DcpAppletDb>
 #include <DcpAppletIf>
 #include <DcpAppletMetadata>
-#include "dcpappletcategorypage.h"
-#include "maintranslations.h"
+#include <DcpAppletCategoryPage>
+#include <MainTranslations>
 
 #include <DuiApplication>
 #include <DuiAction>

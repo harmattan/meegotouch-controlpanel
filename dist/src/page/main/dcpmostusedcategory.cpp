@@ -1,8 +1,8 @@
 #include "dcpmostusedcategory.h"
 
-#include "pages.h"
+#include <Pages>
 #include <DcpAppletDb>
-#include "dcpbriefcomponent.h"
+#include <DcpBriefComponent>
 #include <DcpAppletMetadata>
 #include <DcpApplet>
 

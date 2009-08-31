@@ -2,10 +2,10 @@
 #include "maintranslations.h"
 
 #include "dcpmostusedcategory.h"
-#include <duicontainer.h>
-#include <duilayout.h>
-#include <duilinearlayoutpolicy.h>
-#include <duiscenemanager.h>
+#include <DuiContainer>
+#include <DuiLayout>
+#include <DuiLinearLayoutPolicy>
+#include <DuiSceneManager>
 
 
 /*!

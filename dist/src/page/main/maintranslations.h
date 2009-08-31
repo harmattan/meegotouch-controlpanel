@@ -2,7 +2,7 @@
 #define MAINTRANSLATIONS_H
 
 typedef struct _DcpCategoryInfo DcpCategoryInfo;
-#include "pages.h"
+#include <Pages>
 
 struct _DcpCategoryInfo
 {

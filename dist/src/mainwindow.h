@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <DuiApplicationWindow>
-#include "pages.h"
+//#include "pages.h"
 
 class DcpPage;
 class MainWindow : public DuiApplicationWindow
