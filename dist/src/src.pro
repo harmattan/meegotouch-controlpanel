@@ -10,7 +10,7 @@ MOC_DIR = ../tmp
 
 
 # Input
-#HEADERS += $$system(find ./ -name \'*.h\')
+HEADERS += $$system(find ./ -name \'*.h\')
 HEADERS += include/*
 SOURCES += $$system(find ./ -name \'*.cpp\')
 
