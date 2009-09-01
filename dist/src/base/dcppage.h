@@ -2,7 +2,7 @@
 #define DCPPAGE_H
 
 #include <DuiApplicationPage>
-#include "pages.h"
+#include <Pages>
 
 class QGraphicsLinearLayout;
 
@@ -40,10 +40,10 @@ protected:
     void append (QGraphicsWidget* widget);
     void remove (QGraphicsWidget* widget);
 
-   Pages::Handle m_Handle;
-   Pages::Handle m_Referer;
 private:
-   void _createLayout();
+    Pages::Handle m_Handle;
+    Pages::Handle m_Referer;
+    void createLayout();
 };
 
 #endif // DCPPAGE_H

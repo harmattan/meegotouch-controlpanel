@@ -10,5 +10,5 @@ MainWindow::MainWindow()
 
 MainWindow::~MainWindow()
 {
-	DcpAppletDb::instance()->destroy();
+    DcpAppletDb::instance()->destroy();
 }

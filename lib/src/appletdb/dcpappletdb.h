@@ -53,7 +53,9 @@ public:
     void refresh();
 
     /*! \brief destroys all the contents (metadata) of the db */
-	void destroy(void);
+	void destroyData(void);
+    static void destroy(void);
+
 protected:
     /*! \brief protected constructor for singleton*/
     DcpAppletDb(const QString &pathName);

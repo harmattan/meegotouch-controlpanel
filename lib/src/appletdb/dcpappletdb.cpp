@@ -6,15 +6,6 @@ const QString APPLETFILTER = "*.desktop";
 const int MAXMOSTUSED = 6;
 DcpAppletDb *DcpAppletDb::sm_Instance=0;
 
-static bool orderLessThan(DcpAppletMetadata *meta1, DcpAppletMetadata *meta2)
-{
-    return meta1->order() < meta2->order();
-}
-
-static bool usageGreatherThan(DcpAppletMetadata *meta1, DcpAppletMetadata *meta2)
-{
-    return meta1->usage() > meta2->usage();
-}
 DcpAppletDb*
 DcpAppletDb::instance(const QString &pathName)
 {
@@ -30,7 +21,12 @@ DcpAppletDb::DcpAppletDb(const QString &pathName)
 
 DcpAppletDb::~DcpAppletDb()
 {
-    sm_Instance = 0;
+}
+
+void DcpAppletDb::destroy()
+{
+     delete sm_Instance;
+     sm_Instance = 0;
 }
 
 void 
@@ -64,28 +60,20 @@ DcpAppletMetadataList DcpAppletDb::listByCategory(const QString& category)
 
         if (parentName == "" && !item->parent()) {
             item->setParent(applet(parentName));  
-            qDebug() << "IIII parent of" << item->name() << "is" << parentName; 
         }
     }
-    qSort(filtered.begin(), filtered.end(), orderLessThan);
+    qSort(filtered.begin(), filtered.end(), DcpAppletMetadata::orderLessThan);
     return filtered;
 }
 
 DcpAppletMetadataList DcpAppletDb::listMostUsed()
 {
-
-//typedef QList<DcpAppletMetadata*> DcpAppletMetadataList;
-//typedef QMap<QString, DcpAppletMetadata*> DcpAppletMetadataMap;
-
 	DcpAppletMetadataList mostUsed;
-
 	for (QMap<QString, DcpAppletMetadata*>::iterator iter = m_AppletsByName.begin(); iter != m_AppletsByName.end(); iter++)
 		if (iter.value()->usage())
 			mostUsed.push_back(iter.value());
-	
- //  DcpAppletMetadataList mostUsed = m_AppletsByName.values();
 
-   qSort(mostUsed.begin(), mostUsed.end(), usageGreatherThan); 
+   qSort(mostUsed.begin(), mostUsed.end(), DcpAppletMetadata::usageGreatherThan); 
    return mostUsed.mid(0, MAXMOSTUSED);
 }
 
@@ -138,7 +126,6 @@ void DcpAppletDb::refreshPath(const QString &pathName)
              modified++;
          } 
       }
-    qDebug() << added << "files added" << modified << "modified";
 }
 
 void DcpAppletDb::eraseEntry(DcpAppletMetadata *metadata)
@@ -148,7 +135,7 @@ void DcpAppletDb::eraseEntry(DcpAppletMetadata *metadata)
     metadata->deleteLater();
 }
 
-void DcpAppletDb::destroy()
+void DcpAppletDb::destroyData()
 {
 	foreach(DcpAppletMetadata *metadata, m_AppletsByName) {
 		delete metadata;

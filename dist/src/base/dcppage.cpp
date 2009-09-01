@@ -6,28 +6,24 @@
 
 DcpPage::DcpPage() : DuiApplicationPage()
 {
-    qDebug() << "page alloc";
     setBackButtonEnabled(true);
 }
 
 DcpPage::~DcpPage()
 {
-    qDebug() << "page destroyal" << title() << (void*) this;
 }
 
 void DcpPage::createContent()
 {
-    qDebug() << "page createContent" << metaObject()->className()
-             << (void*) this;
     DuiApplicationPage::createContent();
     setObjectName("DcpPage");
 
     setBackButtonEnabled(true);
 
-    _createLayout();
+    createLayout();
 }
 
-void DcpPage::_createLayout()
+void DcpPage::createLayout()
 {
     QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(centralWidget());
     layout->setContentsMargins(0.0,0.0,0.0,0.0);
@@ -36,7 +32,6 @@ void DcpPage::_createLayout()
 void DcpPage::organizeContent(const Dui::Orientation& ori)
 {
     Q_UNUSED(ori);
-    qDebug() << "page organizeContent";
 }
 
 void DcpPage::append (QGraphicsWidget* widget)

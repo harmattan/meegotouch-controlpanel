@@ -13,6 +13,7 @@ class DcpAppletMetadataPrivate;
     \brief DcpAppletMetadata contains all the information of the applet
     \details This class provides all the info
 */
+//class DcpAppletMetadata;
 class DcpAppletMetadata : public QObject
 {
     Q_OBJECT
@@ -30,8 +31,6 @@ public:
     QString fullBinary() const;
     QString binaryDir() const;
     void setBinaryDir(const QString& dir);
-
-    QString widgetType() const;
 
     int widgetTypeID() const;
 
@@ -54,6 +53,11 @@ public:
     QString parentName() const;
 //	void save();
     void cleanup();
+    static bool usageGreatherThan(DcpAppletMetadata *meta1,
+                                  DcpAppletMetadata *meta2);
+
+    static bool orderLessThan(DcpAppletMetadata *meta1,
+                              DcpAppletMetadata *meta2);
 signals:
     void briefChanged();
 

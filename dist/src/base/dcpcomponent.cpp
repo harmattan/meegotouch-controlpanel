@@ -12,7 +12,6 @@ DcpComponent::DcpComponent(DcpCategory *category, const QString& title, QGraphic
 DcpComponent* DcpComponent::child(int i) const
 {
     Q_UNUSED(i);
-    qDebug() << "No child handling";
     return 0;
 }
 
@@ -24,6 +23,4 @@ void DcpComponent::switchToSubPage()
 void DcpComponent::onOrientationChange(const Dui::Orientation& orientation)
 {
     Q_UNUSED(orientation);
-
-//    updateGeometry();
 }

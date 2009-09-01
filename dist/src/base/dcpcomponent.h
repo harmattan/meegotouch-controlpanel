@@ -2,7 +2,7 @@
 #define DCPCOMPONENT_H
 
 #include <duiwidget.h>
-#include "pages.h"
+#include <Pages>
 
 class DcpCategory;
 

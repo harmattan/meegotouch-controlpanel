@@ -321,3 +321,14 @@ void DcpAppletMetadata::slotClicked()
 	MostUsedCounter::instance()->add(d->m_FileName);
 
 }
+bool DcpAppletMetadata::orderLessThan(DcpAppletMetadata *meta1,
+                                      DcpAppletMetadata *meta2)
+{
+    return meta1->order() < meta2->order();
+}
+
+bool DcpAppletMetadata::usageGreatherThan(DcpAppletMetadata *meta1,
+                                          DcpAppletMetadata *meta2)
+{
+    return meta1->usage() > meta2->usage();
+}
