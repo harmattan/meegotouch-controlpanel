@@ -11,9 +11,10 @@ void Ut_DcpAppletMetadata::initTestCase()
 {
     desktopTestFile=desktopBadTestFile="desktops/";
     //desktopTestFile=desktopBadTestFile="/home/gabor/duicontrolpanel/lib/tests/ut_dcpappletmetadata/desktops/";
-
     desktopTestFile   +="test.desktop";
     desktopBadTestFile+="testBad.desktop";
+
+    appletDir="so.applet/";appletSo="testapplet.so";
 }
 
 void Ut_DcpAppletMetadata::cleanupTestCase()
@@ -66,7 +67,6 @@ void Ut_DcpAppletMetadata::testName()
 
     QVERIFY(m_subject->name()=="Browser");
 }
-
 void Ut_DcpAppletMetadata::testFileName()
 {
     if (QTest::currentTestFailed()) return;
@@ -81,18 +81,29 @@ void Ut_DcpAppletMetadata::testCategory()
     QCOMPARE(m_subject->category(),QString("Application"));
 }
 
+void Ut_DcpAppletMetadata::testGetSetBinaryDir()
+{
+    if (QTest::currentTestFailed()) return;
+
+    m_subject->setBinaryDir(appletDir);
+
+    QCOMPARE(m_subject->binaryDir(),appletDir);
+}
+
 void Ut_DcpAppletMetadata::testBinary()
 {
     if (QTest::currentTestFailed()) return;
 
-    QCOMPARE(m_subject->binary(),QString("libexampleapplet.so"));
+    QCOMPARE(m_subject->binary(),QString("testapplet.so"));
 }
 
 void Ut_DcpAppletMetadata::testFullBinary()
 {
     if (QTest::currentTestFailed()) return;
 
-    QCOMPARE(m_subject->fullBinary(),DcpApplet::Lib+QString("libexampleapplet.so"));
+    testGetSetBinaryDir();
+
+    QCOMPARE(m_subject->fullBinary(),appletDir+appletSo);
 }
 
 void Ut_DcpAppletMetadata::testWidgetTypeID()
@@ -107,18 +118,19 @@ void Ut_DcpAppletMetadata::testAlign()
     if (QTest::currentTestFailed()) return;
 
     QCOMPARE(m_subject->align(),Qt::AlignRight);
+
 }
 
 void Ut_DcpAppletMetadata::testToggle()
 {
-    QSKIP("!!!! OnlyDefaultPath bug under fixxing by Lgal !!!!",SkipSingle);
+    QSKIP("!!!! UnableToLoadAnyApplet bug under fixxing by Lgal !!!!",SkipSingle);
 
     if (QTest::currentTestFailed()) return;
 }
 
 void Ut_DcpAppletMetadata::testText2()
 {
-    QSKIP("!!!! OnlyDefaultPath bug under fixxing by Lgal !!!!",SkipSingle);
+    QSKIP("!!!! UnableToLoadAnyApplet bug under fixxing by Lgal !!!!",SkipSingle);
 
     if (QTest::currentTestFailed()) return;
 }
@@ -155,11 +167,13 @@ void Ut_DcpAppletMetadata::testPart()
 
 void Ut_DcpAppletMetadata::testApplet()
 {
-    QSKIP("!!!! OnlyDefaultPath bug under fixxing by Lgal !!!!",SkipSingle);
+    QSKIP("!!!! UnableToLoadAnyApplet bug under fixxing by Lgal !!!!",SkipSingle);
 
     if (QTest::currentTestFailed()) return;
 
-    //QVERIFY(m_subject->applet(true));
+    testGetSetBinaryDir();
+
+    QVERIFY(m_subject->applet());
 }
 
 void Ut_DcpAppletMetadata::testSetGetParent()
@@ -189,7 +203,7 @@ void Ut_DcpAppletMetadata::testCleanup()
 
 void Ut_DcpAppletMetadata::testBriefChanged()
 {
-    QSKIP("!!!! OnlyDefaultPath bug under fixxing by Lgal !!!!",SkipSingle);
+    QSKIP("!!!! UnableToLoadAnyApplet bug under fixxing by Lgal !!!!",SkipSingle);
 
     if (QTest::currentTestFailed()) return;
 }

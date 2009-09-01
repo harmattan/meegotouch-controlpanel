@@ -25,6 +25,7 @@ private slots:
     void testName();
     void testFileName();
     void testCategory();
+    void testGetSetBinaryDir();
     void testBinary();
     void testFullBinary();
     void testWidgetTypeID();
@@ -46,7 +47,7 @@ private slots:
 private:
     DcpAppletMetadata* m_subject;
     QString            desktopOrigFile,desktopTestFile,desktopBadTestFile;
-
+    QString            appletDir,appletSo;
 };
 
 #endif
