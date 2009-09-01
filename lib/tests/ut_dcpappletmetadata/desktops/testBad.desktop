@@ -1,0 +1,19 @@
+[Desktop Entry]
+Type=DUIApplet
+Name=Browser
+Icon=
+Exec=
+X-logical-id=qtn_sett_main_browser                                             
+X-translation-catalog=duisettings
+[DUI]
+X-DUIApplet-Applet=libexampleapplet.so
+X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
+X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
+[DUI]
+
+[DCP]
+Category= Application 
+Order=1
+WidgetType= DcpLabel2
+Text2= firefox
+
