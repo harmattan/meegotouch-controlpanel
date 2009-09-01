@@ -25,6 +25,7 @@ DcpAppletDb::~DcpAppletDb()
 
 void DcpAppletDb::destroy()
 {
+     sm_Instance->destroyData();
      delete sm_Instance;
      sm_Instance = 0;
 }
@@ -33,8 +34,13 @@ void
 DcpAppletDb::addFile(const QString& filename)
 {
   DcpAppletMetadata *metadata = new DcpAppletMetadata(filename);
-  m_AppletsByName[metadata->name()] = metadata;
-  m_AppletsByFile[filename] = metadata;
+  if (metadata->isValid())
+    {
+        m_AppletsByName[metadata->name()] = metadata;
+        m_AppletsByFile[filename] = metadata;
+    }
+  else
+    delete metadata;
 }
 
 void
