@@ -4,9 +4,10 @@
 
 #include <DcpMainCategory>
 #include <Pages>
+#include <DcpApplet>
 
 #include "dcpdescriptioncomponent.h"
-#include "dcprecentlyusedcomponent.h"
+#include "dcpcategorycomponent.h"
 #include "maintranslations.h"
 
 #include <DuiApplication>
@@ -41,7 +42,8 @@ void DcpMainPage::createContent()
     m_Category->setMaxColumns(2);
 
     // most recent used items:
-    m_RecentlyComp = new DcpRecentlyUsedComponent(m_Category, this);
+    m_RecentlyComp = new DcpCategoryComponent(m_Category,
+                                 DcpApplet::MostUsedCategory, this);
 
     connect(m_RecentlyComp, SIGNAL(openSubPage(Pages::Handle)),
             this, SIGNAL(openSubPage(Pages::Handle)));

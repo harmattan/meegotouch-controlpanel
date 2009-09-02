@@ -1,4 +1,4 @@
-#include "dcpmostusedcategory.h"
+#include "dcpappletbuttons.h"
 
 #include <Pages>
 #include <DcpAppletDb>
@@ -12,15 +12,15 @@
 #include <DuiLinearLayoutPolicy>
 
 /*!
- * \class DcpMostUsedCategory
+ * \class DcpAppletButtons
  * \brief A container which contains buttons that represents the
- * most frequent used applets.
- *
- * Using it on the top of main page inside DcpRecentlyUsedComponent
+ * applets.
  */
 
-DcpMostUsedCategory::DcpMostUsedCategory(const QString& title, QGraphicsWidget *parent) :
-  DcpMainCategory(title, parent)
+DcpAppletButtons::DcpAppletButtons(const QString& categoryName,
+                                         const QString& title, 
+                                         QGraphicsWidget *parent) :
+  DcpMainCategory(title, parent), m_CategoryName(categoryName)
 {
     setCreateSeparators(true);
     setMaxColumns(2);
@@ -28,9 +28,13 @@ DcpMostUsedCategory::DcpMostUsedCategory(const QString& title, QGraphicsWidget *
   	createContents();
 }
 
-void DcpMostUsedCategory::createContents()
+void DcpAppletButtons::createContents()
 {
-    DcpAppletMetadataList list = DcpAppletDb::instance()->listMostUsed();
+    DcpAppletMetadataList list;
+    if (m_CategoryName == DcpApplet::MostUsedCategory)
+        list = DcpAppletDb::instance()->listMostUsed();
+    else
+        list = DcpAppletDb::instance()->listByCategory(m_CategoryName);
 
 	int cnt = 0;
 	foreach (DcpAppletMetadata *item, list) {
@@ -46,7 +50,7 @@ void DcpMostUsedCategory::createContents()
     setVerticalSpacing(0);
 }
 
-void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata, bool fullLine)
+void DcpAppletButtons::addComponent(DcpAppletMetadata *metadata, bool fullLine)
 {
 	DcpBriefComponent *component = new DcpBriefComponent(metadata, this);
 
@@ -59,12 +63,12 @@ void DcpMostUsedCategory::addComponent(DcpAppletMetadata *metadata, bool fullLin
         append(component);
 }
 
-void DcpMostUsedCategory::onOrientationChange(const Dui::Orientation& orientation)
+void DcpAppletButtons::onOrientationChange(const Dui::Orientation& orientation)
 {
     DcpMainCategory::onOrientationChange(orientation);
 }
 
-void DcpMostUsedCategory::reload()
+void DcpAppletButtons::reload()
 {
     deleteItems();
     createContents();

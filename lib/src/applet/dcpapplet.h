@@ -3,5 +3,6 @@
 namespace DcpApplet {
     const QString DefaultPath = "/usr/lib/duicontrolpanel/";
     const QString Lib = DefaultPath + "applets/";
+    const QString MostUsedCategory = "MostUsedCategory";
 };
 #endif // DCPAPPLET_H

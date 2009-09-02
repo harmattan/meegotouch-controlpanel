@@ -5,11 +5,12 @@
 
 class DcpAppletMetadata;
 
-class DcpMostUsedCategory  : public DcpMainCategory
+class DcpAppletButtons  : public DcpMainCategory
 {
     Q_OBJECT
 public:
-    DcpMostUsedCategory(const QString& title, QGraphicsWidget *parent=0);
+    DcpAppletButtons(const QString& categoryName, const QString& title,
+                     QGraphicsWidget *parent=0);
 
     void addComponent(DcpAppletMetadata *metadata, bool fullLine = false);
 
@@ -18,6 +19,8 @@ public:
 
 protected:
     virtual void createContents();
+private:
+    QString m_CategoryName;
 
 };
 

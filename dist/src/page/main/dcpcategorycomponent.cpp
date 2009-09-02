@@ -1,7 +1,7 @@
-#include "dcprecentlyusedcomponent.h"
+#include "dcpcategorycomponent.h"
+#include "dcpappletbuttons.h"
 #include "maintranslations.h"
 
-#include "dcpmostusedcategory.h"
 #include <DuiContainer>
 #include <DuiLayout>
 #include <DuiLinearLayoutPolicy>
@@ -9,35 +9,40 @@
 
 
 /*!
- * \class DcpRecentlyUsedComponent
+ * \class DcpCategoryComponent
  * \brief A component for the recently used applets
  *
- * It is supplies the background and title for around DcpMostUsedCategory,
+ * It is supplies the background and title for around DcpAppletButtons,
  * which contains the buttons. (Actually uses DuiContainer for that.)
  */
 
-DcpRecentlyUsedComponent::DcpRecentlyUsedComponent(
+DcpCategoryComponent::DcpCategoryComponent(
                             DcpCategory *category,
+                            const QString& categoryName,
                             QGraphicsWidget *parent)
-        : DcpComponent(category, DcpMain::mostRecentUsedTitle, parent)
+        : DcpComponent(category, categoryName, parent),
+         m_CategoryName(categoryName)
 {
     createContents();
 }
 
-void DcpRecentlyUsedComponent::createContents()
+DcpCategoryComponent::~DcpCategoryComponent()
+{}
+
+void DcpCategoryComponent::createContents()
 {
     DuiContainer *box = new DuiContainer(this);
     box->setSizePolicy(QSizePolicy::Expanding,
                                  QSizePolicy::Expanding);
     box->setTitle(title());
 
-    m_MostUsedCategory = new DcpMostUsedCategory("TXT");
+    m_AppletButtons = new DcpAppletButtons("TXT", m_CategoryName);
 
 	
-    connect(m_MostUsedCategory, SIGNAL(openSubPage(Pages::Handle)),
+    connect(m_AppletButtons, SIGNAL(openSubPage(Pages::Handle)),
             this, SIGNAL(openSubPage(Pages::Handle)));
 
-    box->setCentralWidget(m_MostUsedCategory);
+    box->setCentralWidget(m_AppletButtons);
 
     DuiLayout* layout = new DuiLayout(this);
     layout->setAnimator(0);
@@ -50,15 +55,15 @@ void DcpRecentlyUsedComponent::createContents()
              this, SLOT(onOrientationChange(const Dui::Orientation &)));
 }
 
-void DcpRecentlyUsedComponent::onOrientationChange
+void DcpCategoryComponent::onOrientationChange
                             (const Dui::Orientation &orientation)
 {
-    m_MostUsedCategory->onOrientationChange(orientation);
+    m_AppletButtons->onOrientationChange(orientation);
 }
 
 
-void DcpRecentlyUsedComponent::reload()
+void DcpCategoryComponent::reload()
 {
-    m_MostUsedCategory->reload();
+    m_AppletButtons->reload();
 }
 

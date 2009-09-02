@@ -4,7 +4,7 @@
 #include <DcpCategoryPage>
 
 class DcpMainCategory;
-class DcpRecentlyUsedComponent;
+class DcpCategoryComponent;
 
 class DcpMainPage : public DcpCategoryPage
 {
@@ -18,7 +18,7 @@ public slots:
     void back();
 
 private:
-    DcpRecentlyUsedComponent* m_RecentlyComp;
+    DcpCategoryComponent* m_RecentlyComp;
 };
 
 #endif // DCPMAINPAGE_H
