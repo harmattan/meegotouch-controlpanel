@@ -54,13 +54,21 @@ void DcpMainPage::createContent()
         DcpCategoryInfo info = DcpMain::CategoryInfos[i];
         if (info.title.isNull())
              break;
-
+/*
         DcpDescriptionComponent *component = new DcpDescriptionComponent(
                 m_Category, info.title);
         component->setDescription(info.description);
+
         component->setSubPage(info.subPageId);
         connect(component, SIGNAL(openSubPage(Pages::Handle)),
                 this, SIGNAL(openSubPage(Pages::Handle)));
+*/
+    DcpCategoryComponent *component = new DcpCategoryComponent(m_Category,
+                                 info.appletCategory, this);
+
+    connect(m_RecentlyComp, SIGNAL(openSubPage(Pages::Handle)),
+            this, SIGNAL(openSubPage(Pages::Handle)));
+
         m_Category->append(component);
     }
 

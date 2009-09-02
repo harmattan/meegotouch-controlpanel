@@ -36,7 +36,7 @@ void DcpCategoryComponent::createContents()
                                  QSizePolicy::Expanding);
     box->setTitle(title());
 
-    m_AppletButtons = new DcpAppletButtons("TXT", m_CategoryName);
+    m_AppletButtons = new DcpAppletButtons(m_CategoryName, title());
 
 	
     connect(m_AppletButtons, SIGNAL(openSubPage(Pages::Handle)),
