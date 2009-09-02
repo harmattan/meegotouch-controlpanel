@@ -25,7 +25,7 @@ public:
          needed only first time*/
     static DcpAppletDb *instance(const QString &pathName=DcpApplet::DefaultPath);
     /*! \brief adds files at a specified path pathName to the db */
-    void addPath(const QString &pathName);
+    bool addPath(const QString &pathName);
  
     /*! \brief Database destructor */
     virtual ~DcpAppletDb();
@@ -44,13 +44,23 @@ public:
     DcpAppletMetadata *applet(const QString& name);
 
     /*! \brief add one file to the db */
-    void addFile(const QString& filename);
+    bool addFile(const QString& filename);
 
     /*! \brief erase metadata from the db */
     void eraseEntry(DcpAppletMetadata *metadata);
 
     /*! \brief checks all the deskop files and reloads or erases them if needed*/
     void refresh();
+
+
+    /*! \brief returns all applet names of the db */
+    QStringList appletNames() const;
+
+    /*! \brief checks if fileName has already added to the db */
+    bool containsFile(const QString& fileName);
+
+    /*! \brief checks if an applet with given name is already in the db */
+    bool containsName(const QString& name);
 
     /*! \brief destroys all the contents (metadata) of the db */
 	void destroyData(void);

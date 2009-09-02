@@ -30,28 +30,59 @@ void DcpAppletDb::destroy()
      sm_Instance = 0;
 }
 
-void 
+bool
 DcpAppletDb::addFile(const QString& filename)
 {
+ if (containsFile(filename))
+    return false;
+
   DcpAppletMetadata *metadata = new DcpAppletMetadata(filename);
   if (metadata->isValid())
     {
+        if (containsName(metadata->name()))
+        {
+            qDebug() << "applet name conflict" << metadata->name();
+            return false;
+            
+        }
         m_AppletsByName[metadata->name()] = metadata;
         m_AppletsByFile[filename] = metadata;
+        return true;
     }
   else
     delete metadata;
+  return false;
 }
 
-void
+QStringList
+DcpAppletDb::appletNames() const
+{
+    return m_AppletsByName.keys();
+}
+
+bool
+DcpAppletDb::containsFile(const QString& fileName)
+{
+    return m_AppletsByFile.contains(fileName);
+}
+
+bool
+DcpAppletDb::containsName(const QString& name)
+{
+    return m_AppletsByName.contains(name);
+}
+
+bool
 DcpAppletDb::addPath(const QString &pathName)
 {
     QDir appDir(pathName); 
     foreach(QString appFile, appDir.entryList(QStringList("*.desktop")))
     {
-        addFile(appDir.absoluteFilePath(appFile));
+        if (!addFile(appDir.absoluteFilePath(appFile)))
+            return false;
     }
     m_Paths.append(pathName);
+    return true;
 }
 
 DcpAppletMetadataList DcpAppletDb::listByCategory(const QString& category)
