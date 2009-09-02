@@ -39,7 +39,7 @@ void DcpMainPage::createContent()
     DcpCategoryPage::createContent();
     setTitle(DcpMain::settingsTitle);
 
-    m_Category->setMaxColumns(2);
+    m_Category->setMaxColumns(1);
 
     // most recent used items:
     m_RecentlyComp = new DcpCategoryComponent(m_Category,
@@ -66,7 +66,7 @@ void DcpMainPage::createContent()
     DcpCategoryComponent *component = new DcpCategoryComponent(m_Category,
                                  info.appletCategory, this);
 
-    connect(m_RecentlyComp, SIGNAL(openSubPage(Pages::Handle)),
+    connect(component, SIGNAL(openSubPage(Pages::Handle)),
             this, SIGNAL(openSubPage(Pages::Handle)));
 
         m_Category->append(component);
