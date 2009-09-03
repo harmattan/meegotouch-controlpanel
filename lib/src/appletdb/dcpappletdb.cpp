@@ -42,6 +42,7 @@ DcpAppletDb::addFile(const QString& filename)
         if (containsName(metadata->name()))
         {
             qDebug() << "applet name conflict" << metadata->name();
+            delete metadata;
             return false;
             
         }
@@ -79,7 +80,7 @@ DcpAppletDb::addPath(const QString &pathName)
     foreach(QString appFile, appDir.entryList(QStringList("*.desktop")))
     {
         if (!addFile(appDir.absoluteFilePath(appFile)))
-            return false;
+              return false;
     }
     m_Paths.append(pathName);
     return true;
@@ -95,7 +96,7 @@ DcpAppletMetadataList DcpAppletDb::listByCategory(const QString& category)
             filtered.append(item);
         QString parentName = item->parentName();
 
-        if (parentName == "" && !item->parent()) {
+        if (parentName != "" && !item->parent()) {
             item->setParent(applet(parentName));  
         }
     }
