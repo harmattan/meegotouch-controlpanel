@@ -305,7 +305,7 @@ QString DcpAppletMetadata::desktopEntryStr(int id) const
 void DcpAppletMetadata::cleanup() 
 {
     if (d->m_AppletLoader) 
-        delete d->m_AppletLoader;
+        d->m_AppletLoader->deleteLater();
     d->m_AppletLoader = 0;
 }
 void DcpAppletMetadata::setParent(DcpAppletMetadata *parent)

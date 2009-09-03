@@ -42,7 +42,7 @@ DcpAppletDb::addFile(const QString& filename)
         if (containsName(metadata->name()))
         {
             qDebug() << "applet name conflict" << metadata->name();
-            delete metadata;
+            metadata->deleteLater();
             return false;
             
         }
@@ -51,7 +51,7 @@ DcpAppletDb::addFile(const QString& filename)
         return true;
     }
   else
-    delete metadata;
+    metadata->deleteLater();
   return false;
 }
 
@@ -176,7 +176,7 @@ void DcpAppletDb::eraseEntry(DcpAppletMetadata *metadata)
 void DcpAppletDb::destroyData()
 {
 	foreach(DcpAppletMetadata *metadata, m_AppletsByName) {
-		delete metadata;
+		metadata->deleteLater();
 	}
 }
 
