@@ -13,7 +13,7 @@ DcpButton2Image::DcpButton2Image(DuiWidget* parent)
 void DcpButton2Image::setImageName (const QString& imageName)
 {
     Q_ASSERT(imageWidget());
-    imageWidget()->setImageName(imageName);
+    imageWidget()->setImage(imageName);
 }
 
 QGraphicsLayout* DcpButton2Image::createLayout()
