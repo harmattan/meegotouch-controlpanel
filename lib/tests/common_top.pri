@@ -18,6 +18,7 @@ DEFINES += UNIT_TEST
 target.path = $$(DEBIAN_DESTDIR)/usr/lib/libduicontrolpanel-tests                                  
 INSTALLS += target                                                              
 include(check.pri)
-LIBS += ./../../lib/libduicontrolpanel.so 
+#LIBS += ./../../lib/libduicontrolpanel.so -lduicontrolpanel 
+LIBS += -lduicontrolpanel 
 QMAKE_CXXFLAGS += -Werror
 
