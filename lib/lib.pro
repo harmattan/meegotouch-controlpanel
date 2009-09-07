@@ -1,9 +1,9 @@
 TEMPLATE = subdirs
 
-CONFIG += debug
+CONFIG += ordered debug
 CONFIG += build_all silent warn_on
 
-SUBDIRS += src
+SUBDIRS += src tests
 include(doc/doc.pri)
 # for check:
 check.target = check
