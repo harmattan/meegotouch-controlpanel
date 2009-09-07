@@ -55,6 +55,6 @@ Description: API documentation for libduicontrolpanel
 Package: libduicontrolpanel-tests
 Section: extra
 Architecture: any                                                               
-Depends: libdui0 (= ${Source-Version}), libduicontrolpanel, libqtgui4, testrunner                   
+Depends: libduicontrolpanel, libqtgui4, testrunner                   
 Description: libduicontrolpanel unit tests                                                  
  Unit testing binaries and shellscripts for testing libduicontrolpanel library   
