@@ -11,16 +11,7 @@ DcpTable::DcpTable(DuiWidget* parent):
     m_Delegate(0),
     m_Model(0)
 {
-/*    connect (this, SIGNAL(orientationChanged (Dui::Orientation)),
-             this, SLOT(onOrientationChange())); */
-/*
-rowsInserted ( const QModelIndex & parent, int start, int end )
-rowsRemoved ( const QModelIndex & parent, int start, int end )
-columnsInserted ( const QModelIndex & parent, int start, int end )
-columnsRemoved ( const QModelIndex & parent, int start, int end )
-dataChanged ( const QModelIndex & topLeft, const QModelIndex & bottomRight )
-*/
-
+    setAcceptedMouseButtons(Qt::LeftButton);
 }
 
 DcpTable::~DcpTable()
@@ -137,5 +128,27 @@ void
 DcpTable::updateGeometry()
 {
     DuiWidget::updateGeometry();
+}
+
+QModelIndex
+DcpTable::itemAt(const QPoint& point)
+{
+    int row = point.y() / m_Delegate->height();
+    int column = point.x() / m_Delegate->width();
+    if (DuiSceneManager::instance()->orientation() == Dui::Portrait) {
+        return m_Model->index(row,0);
+    } else {
+        return m_Model->index(row*2+column, 0);
+    }
+}
+
+void
+DcpTable::mousePressEvent ( QMouseEvent * event )
+{
+    QModelIndex clickedItem = itemAt(event->pos());
+    qDebug() << "XXX" << event->pos() << clickedItem;
+    if (clickedItem.isValid()) {
+        emit clicked(clickedItem);
+    }
 }
 

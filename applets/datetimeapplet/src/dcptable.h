@@ -5,6 +5,7 @@
 class DcpTableDelegate;
 class QAbstractItemModel;
 class QGraphicsSceneResizeEvent;
+class QModelIndex;
 
 class DcpTable: public DuiWidget
 {
@@ -19,12 +20,19 @@ public:
     QAbstractItemModel* model();
     QSizeF sizeHint ( Qt::SizeHint which, const QSizeF & constraint = QSizeF() ) const;
     void paint ( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0 );
+    QModelIndex itemAt(const QPoint& point);
+
+signals:
+    void clicked ( const QModelIndex & index );
 
 public slots:
     void changeVisibleArea(const QSizeF & viewportSize,
                            const QRectF & pannedRange,
                            const QPointF & pannedPos);
     void updateGeometry();
+
+protected:
+    virtual void mousePressEvent ( QMouseEvent * event );
 
 private:
     void refreshDelegateWidth();
@@ -40,3 +48,4 @@ DcpTable::model()
 }
 
 #endif // DCPTABLE_H
+

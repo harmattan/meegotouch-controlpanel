@@ -13,9 +13,11 @@
 #include <QStandardItemModel>
 #include <QSortFilterProxyModel>
 #include <DuiSceneManager>
+#include <QModelIndex>
 
 TimeZoneView::TimeZoneView(QGraphicsWidget *parent)
-             :DcpWidget(parent)
+             :DcpWidget(parent),
+              m_SelectedItem(-1)
 {
     setReferer(DcpDateTime::Main);
     initWidget();
@@ -46,7 +48,7 @@ void TimeZoneView::initWidget()
     layout->addItem(pannable);
 
     // model:
-    QStandardItemModel* model = new QStandardItemModel(this);
+    m_FullModel = new QStandardItemModel(this);
     // TODO XXX: this has to be optimized, a lot of copying
     QMultiMap<QString, DcpTimeZoneData*> zoneMap =
                                          DcpTimeZoneConf::instance()->getMap();
@@ -63,11 +65,11 @@ void TimeZoneView::initWidget()
         if (tz->city() == defaultCity){
             item->setData(false, DcpTimeZoneDelegate::NotCheckedRole);
         }
-        model->appendRow(item);
+        m_FullModel->appendRow(item);
         zoneIter++;
     }
     QSortFilterProxyModel* filterModel = new QSortFilterProxyModel(this);
-    filterModel->setSourceModel(model);
+    filterModel->setSourceModel(m_FullModel);
     filterModel->setFilterRole(DcpTimeZoneDelegate::TextRole1);
 
     // Table:
@@ -75,11 +77,14 @@ void TimeZoneView::initWidget()
     m_Table->setDelegate(new DcpTimeZoneDelegate());
     m_Table->setModel(filterModel);
     pannable->setWidget(m_Table);
-    QObject::connect (pannable,
+    connect (pannable,
            SIGNAL(sizePosChanged(const QSizeF&, const QRectF&, const QPointF&)),
            m_Table, SLOT(changeVisibleArea(const QSizeF&, const QRectF&,
                                            const QPointF&)));
+    connect (m_Table, SIGNAL(clicked ( const QModelIndex &)),
+             this, SLOT(onItemClicked( const QModelIndex &)));
 
+    // handle orientation
     connect(DuiSceneManager::instance(),
             SIGNAL(orientationChanged(const Dui::Orientation &)),
             this, SLOT(orientationChanged()));
@@ -99,11 +104,17 @@ void TimeZoneView::filteringListItems()
     QString sample = m_TextEdit->text();
     if (sample == DcpDateTime::InputCountryText)
         sample = "";
+    proxyModel()->setFilterRegExp(QRegExp(sample, Qt::CaseInsensitive,
+                                             QRegExp::FixedString));
+}
+
+QSortFilterProxyModel*
+TimeZoneView::proxyModel()
+{
     QSortFilterProxyModel* proxyModel =
         qobject_cast<QSortFilterProxyModel*>(m_Table->model());
     Q_ASSERT(proxyModel);
-    proxyModel->setFilterRegExp(QRegExp(sample, Qt::CaseInsensitive,
-                                             QRegExp::FixedString));
+    return proxyModel;
 }
 
 void TimeZoneView::orientationChanged()
@@ -112,4 +123,24 @@ void TimeZoneView::orientationChanged()
     setMinimumHeight(size.height()-60);
 }
 
+
+void
+TimeZoneView::onItemClicked( const QModelIndex &index)
+{
+    if (m_SelectedItem != -1) {
+        selectItem(m_SelectedItem, false);
+    }
+    m_SelectedItem = proxyModel()->mapToSource(index).row();
+    if (m_SelectedItem != -1) {
+        selectItem(m_SelectedItem);
+    }
+}
+
+void
+TimeZoneView::selectItem(int item, bool selected)
+{
+    qDebug("select item: %d",item);
+    m_FullModel->setData( m_FullModel->index(item, 0),
+                          !selected, DcpTimeZoneDelegate::NotCheckedRole);
+}
 
