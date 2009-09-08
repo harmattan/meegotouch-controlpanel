@@ -14,7 +14,6 @@ DcpTable::DcpTable(DuiWidget* parent):
 /*    connect (this, SIGNAL(orientationChanged (Dui::Orientation)),
              this, SLOT(onOrientationChange())); */
 /*
-    m_Model, SIGNAL(layoutChanged ())
 rowsInserted ( const QModelIndex & parent, int start, int end )
 rowsRemoved ( const QModelIndex & parent, int start, int end )
 columnsInserted ( const QModelIndex & parent, int start, int end )
@@ -48,6 +47,18 @@ DcpTable::setModel(QAbstractItemModel* model)
 
     if (m_Model) m_Model->deleteLater();
     m_Model = model;
+/*    connect (m_Model, SIGNAL(layoutChanged ()), this, SLOT(update()));
+    connect (m_Model, SIGNAL(columnsInserted ( const QModelIndex &, int, int)),
+    connect (m_Model, SIGNAL(columnsRemoved ( const QModelIndex &, int , int )),
+    connect (m_Model, SIGNAL(dataChanged ( const QModelIndex &, const QModelIndex & )),
+    */
+
+    // update the widget size when model changes itemcount:
+    connect (m_Model, SIGNAL(rowsInserted ( const QModelIndex &, int, int)),
+             this, SLOT(updateGeometry()));
+    connect (m_Model, SIGNAL(rowsRemoved ( const QModelIndex &, int, int)),
+             this, SLOT(updateGeometry()));
+
     updateGeometry(); // updates size
 }
 
@@ -82,7 +93,6 @@ QSizeF DcpTable::sizeHint ( Qt::SizeHint which, const QSizeF & constraint ) cons
     if (m_Model && m_Delegate){
         size = QSizeF(-1, m_Model->rowCount()*m_Delegate->height());
     }
-    qDebug() << size;
     return size;
 }
 
@@ -95,8 +105,8 @@ DcpTable::paint ( QPainter * painter, const QStyleOptionGraphicsItem * option, Q
 
     qreal itemHeight = m_Delegate->height();
 
-    int min = m_VisibleArea.y() / itemHeight;
-    int count = m_VisibleArea.height() / itemHeight + 1;
+    int min = qMax<int>(m_VisibleArea.y() / itemHeight, 0);
+    int max = qMin<int>(m_VisibleArea.bottom() / itemHeight + 1, m_Model->rowCount());
 
     Dui::Orientation orientation = DuiSceneManager::instance()->orientation();
 
@@ -105,12 +115,10 @@ DcpTable::paint ( QPainter * painter, const QStyleOptionGraphicsItem * option, Q
 
     if (orientation == Dui::Landscape) {
         min *= 2;
-        count *= 2;
+        max = qMin(2*max, m_Model->rowCount());
     }
 
     // paint the items until they are visible:
-    int max = min + count;
-    qDebug() << "painting from" << min << "to" << max;
     for (int row = min; row<max; row++){
         m_Delegate->paint(painter, m_Model->index(row,0));
 
@@ -124,4 +132,10 @@ DcpTable::paint ( QPainter * painter, const QStyleOptionGraphicsItem * option, Q
     }
 }
 
+
+void
+DcpTable::updateGeometry()
+{
+    DuiWidget::updateGeometry();
+}
 

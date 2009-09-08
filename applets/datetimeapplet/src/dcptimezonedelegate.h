@@ -10,7 +10,9 @@ class DcpTimeZoneDelegate: public DcpTableDelegate
     Q_OBJECT
 public:
     DcpTimeZoneDelegate();
+    virtual ~DcpTimeZoneDelegate();
 
+    virtual void setWidth (int width);
     enum {
         TextRole1,
         TextRole2,
@@ -23,6 +25,7 @@ private:
     int m_FontAscent;
     int m_FontDescent;
     const QPixmap* m_OkPic;
+    const QPixmap* m_LinePic;
 };
 
 

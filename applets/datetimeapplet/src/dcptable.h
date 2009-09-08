@@ -24,6 +24,7 @@ public slots:
     void changeVisibleArea(const QSizeF & viewportSize,
                            const QRectF & pannedRange,
                            const QPointF & pannedPos);
+    void updateGeometry();
 
 private:
     void refreshDelegateWidth();
