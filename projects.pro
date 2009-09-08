@@ -4,8 +4,8 @@ CONFIG += debug ordered
 CONFIG += build_all silent warn_on
 
 SUBDIRS += lib \
-           dist \
-           addons
+           controlpanel \
+           applets
 
 include(debian/deb.pri)
 
