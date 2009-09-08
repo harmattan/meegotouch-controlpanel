@@ -50,4 +50,11 @@ Description: Date & Time Applet for the control panel application
 Package: libduicontrolpanel-doc
 Section: doc
 Architecture: all                                     
-Description: API documentation for libduicontrolpanel      
+Description: API documentation for libduicontrolpanel   
+
+Package: libduicontrolpanel-tests
+Section: extra
+Architecture: any                                                               
+Depends: libduicontrolpanel, libqtgui4, testrunner                   
+Description: libduicontrolpanel unit tests                                                  
+ Unit testing binaries and shellscripts for testing libduicontrolpanel library   
