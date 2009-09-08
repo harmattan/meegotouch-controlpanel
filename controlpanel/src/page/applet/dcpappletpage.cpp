@@ -87,6 +87,8 @@ void DcpAppletPage::changeWidget(int widgetId)
         return;
     }
 
+    setPannableAreaInteractive(m_MainWidget->pagePans());
+
     connect(m_MainWidget, SIGNAL(changeWidget(int)), this, SLOT(changeWidget(int)));
     append(m_MainWidget);
 

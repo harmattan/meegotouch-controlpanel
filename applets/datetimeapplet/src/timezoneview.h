@@ -4,7 +4,7 @@
 #include "dcpwidget.h"
 
 class DuiTextEdit;
-class TimeZoneContainer;
+class DcpTable;
 
 class TimeZoneView : public DcpWidget
 {
@@ -13,20 +13,20 @@ class TimeZoneView : public DcpWidget
 public:
     TimeZoneView(QGraphicsWidget *parent = 0);
     virtual ~TimeZoneView();
-    virtual bool back();
+    virtual bool pagePans() const { return false; }
 
 protected:
     void initWidget();
 
 private:
     DuiTextEdit *m_TextEdit;
-    TimeZoneContainer *m_TimeZoneContainer;
+    DcpTable *m_Table;
 
 private slots:
     virtual void orientationChanged();
     virtual void clearTextEdit(DuiTextEdit *textEdit);
     virtual void filteringListItems();
-    virtual void addMoreListItems();
 };
+
 #endif // TIMEZONEVIEW_H
 

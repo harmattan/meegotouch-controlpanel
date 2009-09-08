@@ -12,6 +12,7 @@
 #include <qtimer.h>
 #include <duiscenemanager.h>
 #include <QDebug>
+#include <DuiApplication>
 
 static const int FIRST_LOAD_COUNT = 20;
 static const int COUNT_AFTER_PROCESSEVENTS = 5;

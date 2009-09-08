@@ -1,0 +1,29 @@
+#ifndef DCPTIMEZONEDELEGATE_H
+#define DCPTIMEZONEDELEGATE_H
+
+#include "dcptabledelegate.h"
+
+class QPixmap;
+
+class DcpTimeZoneDelegate: public DcpTableDelegate
+{
+    Q_OBJECT
+public:
+    DcpTimeZoneDelegate();
+
+    enum {
+        TextRole1,
+        TextRole2,
+        NotCheckedRole
+    };
+
+    virtual void paint ( QPainter * painter, const QModelIndex & index ) const;
+
+private:
+    int m_FontAscent;
+    int m_FontDescent;
+    const QPixmap* m_OkPic;
+};
+
+
+#endif // DCPTIMEZONEDELEGATE_H

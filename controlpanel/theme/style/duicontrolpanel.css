@@ -44,10 +44,18 @@ DuiContainerStyle {
 
 
 DuiApplicationPageStyle {
-    background-image: scalable(starfield, 0, 0, 0, 0);
     padding-left: 12;
     padding-right: 12;
 }
+
+DuiApplicationPageStyle.Landscape {
+    background-image: scalable(starfield, 0, 0, 0, 0);
+}
+
+DuiApplicationPageStyle.Portrait {
+    background-image: scalable(starfield, 0, 0, 0, 0);
+}
+
 
 /*
 DuiNavigationBarStyle {
