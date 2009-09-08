@@ -52,7 +52,7 @@ install: build
 	dh_installdirs
     
 	DEBIAN_DESTDIR=$(PWD)/debian/tmp $(MAKE) install
-	cd lib/tests && ./gen-tests-xml.sh > tests.xml    
+#	cd lib/tests && ./gen-tests-xml.sh > tests.xml    
 	(cd lib;make  $(PARALLEL_MAKEFLAGS) doc; cd ..)
 	mkdir -p $(PWD)/debian/tmp/usr/share/doc/libduicontrolpanel/api
 	cp -r lib/doc/html/*  $(PWD)/debian/tmp/usr/share/doc/libduicontrolpanel/api/

@@ -1,4 +1,4 @@
-shell_scripts.commands += $$system(touch tests.xml)
+shell_scripts.commands += $$system(./gen-tests-xml.sh > tests.xml)
 shell_scripts.files += runtests.sh tests.xml
 
 # fixed path required by TATAM
