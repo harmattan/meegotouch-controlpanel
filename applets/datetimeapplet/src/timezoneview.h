@@ -16,7 +16,7 @@ class TimeZoneView : public DcpWidget
 public:
     TimeZoneView(QGraphicsWidget *parent = 0);
     virtual ~TimeZoneView();
-    virtual bool pagePans() const { return false; }
+    virtual bool pagePans() const { return true; }
 
 protected:
     void initWidget();

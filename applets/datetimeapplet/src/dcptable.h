@@ -25,7 +25,7 @@ public:
 signals:
     void clicked ( const QModelIndex & index );
 
-public slots:
+protected slots:
     void changeVisibleArea(const QSizeF & viewportSize,
                            const QRectF & pannedRange,
                            const QPointF & pannedPos);
@@ -33,6 +33,7 @@ public slots:
 
 protected:
     virtual void mousePressEvent ( QMouseEvent * event );
+    virtual void polishEvent ();
 
 private:
     void refreshDelegateWidth();

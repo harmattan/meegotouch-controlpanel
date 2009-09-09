@@ -9,7 +9,6 @@
 
 #include <duitextedit.h>
 #include <QGraphicsLinearLayout>
-#include <duipannableviewport.h>
 #include <QStandardItemModel>
 #include <QSortFilterProxyModel>
 #include <DuiSceneManager>
@@ -43,10 +42,6 @@ void TimeZoneView::initWidget()
     connect(m_TextEdit, SIGNAL(textChanged()), this, SLOT(filteringListItems()));
     layout->addItem(m_TextEdit);
 
-    // pannable area:
-    DuiPannableViewport* pannable = new DuiPannableViewport();
-    layout->addItem(pannable);
-
     // model:
     m_FullModel = new QStandardItemModel(this);
     // TODO XXX: this has to be optimized, a lot of copying
@@ -76,13 +71,9 @@ void TimeZoneView::initWidget()
     m_Table = new DcpTable();
     m_Table->setDelegate(new DcpTimeZoneDelegate());
     m_Table->setModel(filterModel);
-    pannable->setWidget(m_Table);
-    connect (pannable,
-           SIGNAL(sizePosChanged(const QSizeF&, const QRectF&, const QPointF&)),
-           m_Table, SLOT(changeVisibleArea(const QSizeF&, const QRectF&,
-                                           const QPointF&)));
     connect (m_Table, SIGNAL(clicked ( const QModelIndex &)),
              this, SLOT(onItemClicked( const QModelIndex &)));
+    layout->addItem(m_Table);
 
     // handle orientation
     connect(DuiSceneManager::instance(),

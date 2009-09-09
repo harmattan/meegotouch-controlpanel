@@ -5,6 +5,7 @@
 #include <QtDebug>
 
 #include <DuiSceneManager>
+#include <DuiPannableViewport>
 
 DcpTable::DcpTable(DuiWidget* parent):
     DuiWidget(parent),
@@ -149,6 +150,30 @@ DcpTable::mousePressEvent ( QMouseEvent * event )
     qDebug() << "XXX" << event->pos() << clickedItem;
     if (clickedItem.isValid()) {
         emit clicked(clickedItem);
+    }
+}
+
+
+void
+DcpTable::polishEvent ()
+{
+    // find the pannableviewport and connect to it, so that the currently
+    // visible area of the widget can be tracked correctly
+    // only works if the innermost pannable area is the pannable one,
+    // which is the case in most situations
+    DuiPannableViewport* pannable = 0;
+    QGraphicsWidget* widget = this;
+    while (!pannable && widget) {
+        widget = widget->parentWidget();
+        pannable = qobject_cast<DuiPannableViewport*>(widget);
+    }
+    if (pannable) {
+        connect (pannable,
+          SIGNAL(sizePosChanged(const QSizeF&, const QRectF&, const QPointF&)),
+          this, SLOT(changeVisibleArea(const QSizeF&, const QRectF&,
+                                       const QPointF&)));
+    } else {
+        qWarning() << "DcpTable: No pannable parent found, table will not work";
     }
 }
 
