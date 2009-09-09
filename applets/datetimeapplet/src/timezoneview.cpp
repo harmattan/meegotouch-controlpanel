@@ -67,6 +67,8 @@ void TimeZoneView::initWidget()
         }
         item->setData(selected, DcpTimeZoneDelegate::CheckedRole);
 
+        item->setData(tz->timeZone(), DcpTimeZoneDelegate::ZoneIdRole);
+
         m_FullModel->appendRow(item);
         zoneIter++;
     }
@@ -145,5 +147,15 @@ TimeZoneView::selectItem(int item, bool selected)
 {
     m_FullModel->setData( m_FullModel->index(item, 0),
                           selected, DcpTimeZoneDelegate::CheckedRole);
+}
+
+bool TimeZoneView::back()
+{
+    QString zoneId = m_FullModel->index(m_SelectedItem,0).data(
+                                    DcpTimeZoneDelegate::ZoneIdRole).toString();
+    if (!zoneId.isEmpty()) {
+        DcpTimeZoneConf::instance()->setDefaultTimeZone(zoneId);
+    }
+    return DcpWidget::back();
 }
 

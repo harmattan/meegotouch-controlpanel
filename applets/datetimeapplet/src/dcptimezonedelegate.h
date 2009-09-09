@@ -16,7 +16,8 @@ public:
     enum {
         TextRole1 = 1000,
         TextRole2,
-        CheckedRole
+        CheckedRole,
+        ZoneIdRole
     };
 
     virtual void paint ( QPainter * painter, const QModelIndex & index ) const;
