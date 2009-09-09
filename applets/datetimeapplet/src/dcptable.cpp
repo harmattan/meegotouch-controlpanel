@@ -60,7 +60,9 @@ DcpTable::changeVisibleArea(const QSizeF & viewportSize,
                            const QPointF & pannedPos)
 {
     Q_UNUSED(pannedRange);
-    m_VisibleArea = QRectF(pannedPos, viewportSize);
+    DuiPannableViewport* pannable = qobject_cast<DuiPannableViewport*>(sender());
+    m_VisibleArea = QRectF(mapFromItem (pannable->widget(), pannedPos), viewportSize);
+    m_VisibleArea = m_VisibleArea.intersected(rect());
     refreshDelegateWidth();
 }
 
@@ -110,6 +112,7 @@ DcpTable::paint ( QPainter * painter, const QStyleOptionGraphicsItem * option, Q
         max = qMin(2*max, m_Model->rowCount());
     }
 
+//    qDebug() << "painting from the item" << min << "to" << max;
     // paint the items until they are visible:
     for (int row = min; row<max; row++){
         m_Delegate->paint(painter, m_Model->index(row,0));
