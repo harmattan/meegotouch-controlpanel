@@ -15,13 +15,12 @@
 #include "datetimebrief.h"
 #include "datetimetranslation.h"
 
-const QString cssDir = "/usr/share/duicontrolpanel/themes/style/";
 
 Q_EXPORT_PLUGIN2(displayapplet, DateTimeApplet)
 
 void DateTimeApplet::init(QString part)
 {
-    DuiTheme::loadCSS(cssDir + "datetimeapplet.css");
+    DuiTheme::loadCSS(QString(CSSDIR) + "datetimeapplet.css");
     m_WidgetIndex = DcpDateTime::Main;
     m_Title = DcpDateTime::AppletTitle;
     m_Parts.insert(DcpDateTime::KeyNone, DcpDateTime::None);

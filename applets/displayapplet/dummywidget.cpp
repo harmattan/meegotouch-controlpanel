@@ -6,13 +6,12 @@
 #include <duilinearlayoutpolicy.h>
 #include <duilabel.h>
 #include <duibutton.h>
-const QString cssDir = "/usr/share/themes/dui/duicontrolpanel/";
 const int widgetWidth = 100;
 
 DummyWidget::DummyWidget(const QString& text, QGraphicsWidget *parent)
 	    :DcpWidget(parent)
 {
-    DuiTheme::loadCSS(cssDir + "displayapplet.css");
+    DuiTheme::loadCSS(QString(CSSDIR) + "displayapplet.css");
 	m_Label = new DuiLabel(text, this);
     initWidget();
     setReferer(DcpDisplay::Main);

@@ -78,7 +78,7 @@ DcpAppletMetadataPrivate::DcpAppletMetadataPrivate()
       m_Parent(0),
       m_Counter(-1),
       m_FileName(""),
-      m_BinaryDir(DcpApplet::Lib)
+      m_BinaryDir(APPLET_LIBS)
 {
 }
 
@@ -145,7 +145,7 @@ QString DcpAppletMetadata::binary() const
 
 QString DcpAppletMetadata::fullBinary() const
 {
-    return binaryDir() + binary();
+    return binaryDir() + "/" + binary();
 }
 
 QString DcpAppletMetadata::parentName() const
