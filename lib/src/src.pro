@@ -4,7 +4,7 @@ INCLUDEPATH  += $$system(find ./ -type d)
 MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects
 
-
+include(../../dcpconfig.pri)
 # Input
 HEADERS += $$system(find ./ -name \'*.h\')
 SOURCES += $$system(find ./ -name \'*.cpp\' -not -name \'moc_*\')
@@ -12,8 +12,8 @@ SOURCES += $$system(find ./ -name \'*.cpp\' -not -name \'moc_*\')
 TARGET        = $$qtLibraryTarget(duicontrolpanel)
 DESTDIR       = ../lib
 
-target.path    += $$(DEBIAN_DESTDIR)/usr/lib/
-install_headers.path    += $$(DEBIAN_DESTDIR)/usr/include/qt4/dui/
+target.path    += $$DCP_INSTALL_LIB
+install_headers.path    += $$DCP_INSTALL_HEADERS
 install_headers.files += include/Dcp* \
     applet/dcpapplet.h \
     applet/dcpappletif.h \
@@ -34,6 +34,5 @@ install_headers.files += include/Dcp* \
     appletdb/dcpappletmetadata.h \
     dcpdebug.h \
     appletdb/dcpmostusedcounter.h
-
 INSTALLS += target install_headers
 

@@ -1,3 +1,4 @@
+include(../../../dcpconfig.pri)
 QMAKE_LIBDIR  += ../../../lib/lib/
 TEMPLATE      = lib
 CONFIG       += plugin gui dui silent debug
@@ -16,10 +17,10 @@ TARGET        = $$qtLibraryTarget(datetimeapplet)
 css.files     = datetimeapplet.css
 DESTDIR       = ../lib
 
-target.path += $$(DEBIAN_DESTDIR)$$[QT_INSTALL_LIBS]/duicontrolpanel/applets
-css.path    += $$(DEBIAN_DESTDIR)/usr/share/duicontrolpanel/themes/style
+target.path += $$DCP_APPLET_DIR
+css.path    += $$DCP_THEME_DIR/style
 desktop.files += *.desktop
-desktop.path = $$(DEBIAN_DESTDIR)/usr/lib/duicontrolpanel
+desktop.path = $$DCP_DESKTOP_DIR
 
 message("The plugin will be installed to: " $$target.path)
 message("CSS path will be: " $$css.path)
