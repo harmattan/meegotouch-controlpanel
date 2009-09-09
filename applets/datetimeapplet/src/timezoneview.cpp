@@ -1,19 +1,22 @@
 #include "timezoneview.h"
-#include "dcpdatetime.h"
-#include "timezonecontainer.h"
-#include "timezonelistitem.h"
-#include "datetimetranslation.h"
-#include <DcpSpacerItem>
 
-#include <QSizePolicy>
-#include <duilayout.h>
-#include <duilinearlayoutpolicy.h>
+#include "dcpdatetime.h"
+#include "datetimetranslation.h"
+#include "dcptable.h"
+#include "dcptimezonedelegate.h"
+#include "dcptimezonedata.h"
+#include "dcptimezoneconf.h"
+
 #include <duitextedit.h>
-#include <duiscenemanager.h>
-#include <qtimer.h>
+#include <QGraphicsLinearLayout>
+#include <QStandardItemModel>
+#include <QSortFilterProxyModel>
+#include <DuiSceneManager>
+#include <QModelIndex>
 
 TimeZoneView::TimeZoneView(QGraphicsWidget *parent)
-             :DcpWidget(parent)
+             :DcpWidget(parent),
+              m_SelectedItem(-1)
 {
     setReferer(DcpDateTime::Main);
     initWidget();
@@ -23,32 +26,11 @@ TimeZoneView::~TimeZoneView()
 {
 }
 
-bool TimeZoneView::back()
-{
-    m_TimeZoneContainer->backPushed(true);   
-    return DcpWidget::back();
-}
-
 void TimeZoneView::initWidget()
 {
     // mainLayout
-    DuiLayout *mainLayout = new DuiLayout(this);
-    mainLayout->setAnimator(0);
-    mainLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
-    this->setLayout(mainLayout);
-    DuiLinearLayoutPolicy *mainLayoutPolicy =
-        new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
-    mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayoutPolicy->setSpacing(10);
+    QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(Qt::Vertical, this);
 
-    // textEditLayout
-    DuiLayout *textEditLayout = new DuiLayout(0);
-    textEditLayout->setAnimator(0);
-    textEditLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
-    DuiLinearLayoutPolicy *textEditLayoutPolicy =
-        new DuiLinearLayoutPolicy(textEditLayout, Qt::Horizontal);
-    textEditLayout->setPolicy(textEditLayoutPolicy);
-    textEditLayoutPolicy->setSpacing(1);
 
     // m_TextEdit
     m_TextEdit = new DuiTextEdit(DuiTextEditModel::SingleLine,
@@ -59,30 +41,62 @@ void TimeZoneView::initWidget()
     connect(m_TextEdit, SIGNAL(gainedFocus(DuiTextEdit *, Qt::FocusReason)),
             this, SLOT(clearTextEdit(DuiTextEdit *)));
     connect(m_TextEdit, SIGNAL(textChanged()), this, SLOT(filteringListItems()));
+    layout->addItem(m_TextEdit);
 
-    // add items to textEditLayoutPolicy
-    textEditLayoutPolicy->addItemAtPosition(m_TextEdit, 0, Qt::AlignCenter);
 
-    // m_TimeZoneContainer
-    m_TimeZoneContainer = new TimeZoneContainer(this);
-    QTimer *addTimer = new QTimer(this);
-    addTimer->setSingleShot(true);
-    connect(addTimer, SIGNAL(timeout()), this, SLOT(addMoreListItems()));
-    addTimer->start(0);
+    // model:
+    m_FullModel = new QStandardItemModel(this);
+    // TODO XXX: this has to be optimized, a lot of copying
+    QMultiMap<QString, DcpTimeZoneData*> zoneMap =
+                                         DcpTimeZoneConf::instance()->getMap();
+    QMultiMap<QString, DcpTimeZoneData*>::ConstIterator zoneIter =
+                                         zoneMap.constBegin();
+    QString defaultCity = DcpTimeZoneConf::instance()->defaultTimeZone().city();
+    while (zoneIter != zoneMap.constEnd()) {
+        DcpTimeZoneData* tz = zoneIter.value();
 
-    // add items to mainLayoutPolicy
-    mainLayoutPolicy->addItemAtPosition(textEditLayout, 0, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(m_TimeZoneContainer, 1, Qt::AlignCenter);
+        QStandardItem* item = new QStandardItem();
+        item->setData(tz->city(), DcpTimeZoneDelegate::TextRole1);
+        item->setData(tz->gmt() + " " + tz->city(),
+                      DcpTimeZoneDelegate::TextRole2);
 
-    // orientation change
-    connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),
+        bool selected = false;
+        if (m_SelectedItem == -1 && tz->city() == defaultCity) {
+            m_SelectedItem = m_FullModel->rowCount();
+            selected = true;
+        }
+        item->setData(selected, DcpTimeZoneDelegate::CheckedRole);
+
+        item->setData(tz->timeZone(), DcpTimeZoneDelegate::ZoneIdRole);
+
+        m_FullModel->appendRow(item);
+        zoneIter++;
+    }
+
+
+    QSortFilterProxyModel* filterModel = new QSortFilterProxyModel(this);
+    filterModel->setSourceModel(m_FullModel);
+    filterModel->setFilterRole(DcpTimeZoneDelegate::TextRole1);
+    filterModel->setSortRole(DcpTimeZoneDelegate::TextRole1);
+    filterModel->sort(0);
+
+
+    // Table:
+    m_Table = new DcpTable();
+    m_Table->setDelegate(new DcpTimeZoneDelegate());
+    m_Table->setModel(filterModel);
+    connect (m_Table, SIGNAL(clicked ( const QModelIndex &)),
+             this, SLOT(onItemClicked( const QModelIndex &)));
+    layout->addItem(m_Table);
+
+
+    // handle orientation
+    connect(DuiSceneManager::instance(),
+            SIGNAL(orientationChanged(const Dui::Orientation &)),
             this, SLOT(orientationChanged()));
     orientationChanged();
 }
 
-void TimeZoneView::orientationChanged()
-{
-}
 
 void TimeZoneView::clearTextEdit(DuiTextEdit *textEdit)
 {
@@ -96,11 +110,52 @@ void TimeZoneView::filteringListItems()
     QString sample = m_TextEdit->text();
     if (sample == DcpDateTime::InputCountryText)
         sample = "";
-    m_TimeZoneContainer->filter(sample);
+    proxyModel()->setFilterRegExp(QRegExp(sample, Qt::CaseInsensitive,
+                                             QRegExp::FixedString));
 }
 
-void TimeZoneView::addMoreListItems()
+QSortFilterProxyModel*
+TimeZoneView::proxyModel()
 {
-    m_TimeZoneContainer->addMoreItems();
+    QSortFilterProxyModel* proxyModel =
+        qobject_cast<QSortFilterProxyModel*>(m_Table->model());
+    Q_ASSERT(proxyModel);
+    return proxyModel;
+}
+
+void TimeZoneView::orientationChanged()
+{
+    QSize size = DuiSceneManager::instance()->visibleSceneSize();
+    setMinimumHeight(size.height()-60);
+}
+
+
+void
+TimeZoneView::onItemClicked( const QModelIndex &index)
+{
+    if (m_SelectedItem != -1) {
+        selectItem(m_SelectedItem, false);
+    }
+    m_SelectedItem = proxyModel()->mapToSource(index).row();
+    if (m_SelectedItem != -1) {
+        selectItem(m_SelectedItem);
+    }
+}
+
+void
+TimeZoneView::selectItem(int item, bool selected)
+{
+    m_FullModel->setData( m_FullModel->index(item, 0),
+                          selected, DcpTimeZoneDelegate::CheckedRole);
+}
+
+bool TimeZoneView::back()
+{
+    QString zoneId = m_FullModel->index(m_SelectedItem,0).data(
+                                    DcpTimeZoneDelegate::ZoneIdRole).toString();
+    if (!zoneId.isEmpty()) {
+        DcpTimeZoneConf::instance()->setDefaultTimeZone(zoneId);
+    }
+    return DcpWidget::back();
 }
 

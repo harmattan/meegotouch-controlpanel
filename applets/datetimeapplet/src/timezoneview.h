@@ -4,7 +4,10 @@
 #include "dcpwidget.h"
 
 class DuiTextEdit;
-class TimeZoneContainer;
+class DcpTable;
+class QModelIndex;
+class QStandardItemModel;
+class QSortFilterProxyModel;
 
 class TimeZoneView : public DcpWidget
 {
@@ -13,6 +16,7 @@ class TimeZoneView : public DcpWidget
 public:
     TimeZoneView(QGraphicsWidget *parent = 0);
     virtual ~TimeZoneView();
+
     virtual bool back();
 
 protected:
@@ -20,13 +24,18 @@ protected:
 
 private:
     DuiTextEdit *m_TextEdit;
-    TimeZoneContainer *m_TimeZoneContainer;
+    DcpTable *m_Table;
+    int m_SelectedItem;
+    void selectItem(int item, bool selected = true);
+    QStandardItemModel* m_FullModel;
+    QSortFilterProxyModel* proxyModel();
 
 private slots:
-    virtual void orientationChanged();
-    virtual void clearTextEdit(DuiTextEdit *textEdit);
-    virtual void filteringListItems();
-    virtual void addMoreListItems();
+    void orientationChanged();
+    void clearTextEdit(DuiTextEdit *textEdit);
+    void filteringListItems();
+    void onItemClicked( const QModelIndex &index);
 };
+
 #endif // TIMEZONEVIEW_H
 

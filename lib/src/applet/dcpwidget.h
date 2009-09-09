@@ -39,6 +39,8 @@ public:
 	}
     }
 
+    virtual bool pagePans() const { return true; }
+
 signals:
     /*! \brief Emitted when the windget change is requested
         \pagam widgetId the id of the requested widget instead of this one.
