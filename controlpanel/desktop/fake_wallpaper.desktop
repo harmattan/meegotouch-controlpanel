@@ -20,6 +20,6 @@ Align= Left
 Text1= Wallpaper
 Text2= Name of the wallpaper
 
-Image= /usr/share/duicontrolpanel/themes/images/starfield.png
+Image= starfield
 # Image=starfield_thumb.png
 

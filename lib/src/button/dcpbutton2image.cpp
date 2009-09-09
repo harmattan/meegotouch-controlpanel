@@ -3,6 +3,7 @@
 #include <DuiButton>
 #include <DuiImage>
 #include <QGraphicsLinearLayout>
+#include <QtDebug>
 
 DcpButton2Image::DcpButton2Image(DuiWidget* parent)
     : DcpButton2Align(parent, false)
@@ -13,6 +14,7 @@ DcpButton2Image::DcpButton2Image(DuiWidget* parent)
 void DcpButton2Image::setImageName (const QString& imageName)
 {
     Q_ASSERT(imageWidget());
+    qDebug() << "XXX imageName" << imageName;
     imageWidget()->setImage(imageName);
 }
 
