@@ -6,6 +6,7 @@
 
 #include <DuiSceneManager>
 #include <DuiPannableViewport>
+#include <QGraphicsSceneMouseEvent> 
 
 DcpTable::DcpTable(DuiWidget* parent):
     DuiWidget(parent),
@@ -135,7 +136,7 @@ DcpTable::updateGeometry()
 }
 
 QModelIndex
-DcpTable::itemAt(const QPoint& point)
+DcpTable::itemAt(const QPointF& point)
 {
     int row = point.y() / m_Delegate->height();
     int column = point.x() / m_Delegate->width();
@@ -147,13 +148,14 @@ DcpTable::itemAt(const QPoint& point)
 }
 
 void
-DcpTable::mousePressEvent ( QMouseEvent * event )
+DcpTable::mousePressEvent ( QGraphicsSceneMouseEvent * event )
 {
     QModelIndex clickedItem = itemAt(event->pos());
-    qDebug() << "XXX" << event->pos() << clickedItem;
     if (clickedItem.isValid()) {
+        event->accept();
         emit clicked(clickedItem);
     }
+    update();
 }
 
 

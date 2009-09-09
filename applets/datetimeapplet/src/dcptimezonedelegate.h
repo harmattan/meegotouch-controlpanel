@@ -14,9 +14,9 @@ public:
 
     virtual void setWidth (int width);
     enum {
-        TextRole1,
+        TextRole1 = 1000,
         TextRole2,
-        NotCheckedRole
+        CheckedRole
     };
 
     virtual void paint ( QPainter * painter, const QModelIndex & index ) const;

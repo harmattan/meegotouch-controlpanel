@@ -31,6 +31,7 @@ void TimeZoneView::initWidget()
     // mainLayout
     QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(Qt::Vertical, this);
 
+
     // m_TextEdit
     m_TextEdit = new DuiTextEdit(DuiTextEditModel::SingleLine,
                                  DcpDateTime::InputCountryText,
@@ -41,6 +42,7 @@ void TimeZoneView::initWidget()
             this, SLOT(clearTextEdit(DuiTextEdit *)));
     connect(m_TextEdit, SIGNAL(textChanged()), this, SLOT(filteringListItems()));
     layout->addItem(m_TextEdit);
+
 
     // model:
     m_FullModel = new QStandardItemModel(this);
@@ -57,15 +59,25 @@ void TimeZoneView::initWidget()
         item->setData(tz->city(), DcpTimeZoneDelegate::TextRole1);
         item->setData(tz->gmt() + " " + tz->city(),
                       DcpTimeZoneDelegate::TextRole2);
-        if (tz->city() == defaultCity){
-            item->setData(false, DcpTimeZoneDelegate::NotCheckedRole);
+
+        bool selected = false;
+        if (m_SelectedItem == -1 && tz->city() == defaultCity) {
+            m_SelectedItem = m_FullModel->rowCount();
+            selected = true;
         }
+        item->setData(selected, DcpTimeZoneDelegate::CheckedRole);
+
         m_FullModel->appendRow(item);
         zoneIter++;
     }
+
+
     QSortFilterProxyModel* filterModel = new QSortFilterProxyModel(this);
     filterModel->setSourceModel(m_FullModel);
     filterModel->setFilterRole(DcpTimeZoneDelegate::TextRole1);
+    filterModel->setSortRole(DcpTimeZoneDelegate::TextRole1);
+    filterModel->sort(0);
+
 
     // Table:
     m_Table = new DcpTable();
@@ -74,6 +86,7 @@ void TimeZoneView::initWidget()
     connect (m_Table, SIGNAL(clicked ( const QModelIndex &)),
              this, SLOT(onItemClicked( const QModelIndex &)));
     layout->addItem(m_Table);
+
 
     // handle orientation
     connect(DuiSceneManager::instance(),
@@ -130,8 +143,7 @@ TimeZoneView::onItemClicked( const QModelIndex &index)
 void
 TimeZoneView::selectItem(int item, bool selected)
 {
-    qDebug("select item: %d",item);
     m_FullModel->setData( m_FullModel->index(item, 0),
-                          !selected, DcpTimeZoneDelegate::NotCheckedRole);
+                          selected, DcpTimeZoneDelegate::CheckedRole);
 }
 

@@ -32,11 +32,11 @@ DcpTimeZoneDelegate::~DcpTimeZoneDelegate()
 void
 DcpTimeZoneDelegate::paint ( QPainter * painter, const QModelIndex & index ) const
 {
-    Q_UNUSED (index);
+    if (!index.isValid()) return;
 
     QString line1 = index.data(TextRole1).toString();
     QString line2 = index.data(TextRole2).toString();
-    bool isChecked = !index.data(NotCheckedRole).toBool();
+    bool isChecked = index.data(CheckedRole).toBool();
 
     painter->setPen(textColor);
     painter->setFont(font1);

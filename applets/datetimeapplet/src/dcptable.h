@@ -20,7 +20,7 @@ public:
     QAbstractItemModel* model();
     QSizeF sizeHint ( Qt::SizeHint which, const QSizeF & constraint = QSizeF() ) const;
     void paint ( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0 );
-    QModelIndex itemAt(const QPoint& point);
+    QModelIndex itemAt(const QPointF& point);
 
 signals:
     void clicked ( const QModelIndex & index );
@@ -32,7 +32,7 @@ protected slots:
     void updateGeometry();
 
 protected:
-    virtual void mousePressEvent ( QMouseEvent * event );
+    virtual void mousePressEvent ( QGraphicsSceneMouseEvent * event );
     virtual void polishEvent ();
 
 private:
