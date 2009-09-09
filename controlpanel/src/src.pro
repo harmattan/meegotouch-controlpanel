@@ -1,5 +1,5 @@
+include(../../dcpconfig.pri)
 QMAKE_LIBDIR += ../../lib/lib/ 
-include (../common.pri)
 TEMPLATE = app
 TARGET = ../duicontrolpanel
 DEPENDPATH += include 
@@ -20,11 +20,11 @@ LIBS += -lduicontrolpanel -ltime
 # a fake check target so as not to stop the testing:
 QMAKE_EXTRA_TARGETS += check
 
-target.path += $${PREFIX}/bin
+target.path += $$DCP_PREFIX/bin
 
 message("The install path for the executable will be: "$$target.path)
 
-desktop_entry.path = $${PREFIX}/share/applications
+desktop_entry.path = $$DCP_PREFIX/share/applications
 desktop_entry.files = duicontrolpanel.desktop
 
 INSTALLS += target \

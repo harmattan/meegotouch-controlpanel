@@ -1,14 +1,14 @@
-themedir = $${PREFIX}/share/duicontrolpanel/themes
+include(../../dcpconfig.pri)
 
 images.files += theme/images/*
-images.path = $$themedir/images
+images.path = $$DCP_THEME_DIR/images
 
 style.files += theme/style/*
-style.path = $$themedir/style
+style.path = $$DCP_THEME_DIR/style
 
 svg.files += theme/svg/*
-svg.path = $$themedir/svg
+svg.path = $$DCP_THEME_DIR/svg
 
-message ("Theme path will be: "$$themedir)
+message ("Theme path will be: "$$DCP_THEME_DIR)
 INSTALLS += images svg style
 

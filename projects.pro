@@ -7,5 +7,6 @@ SUBDIRS += lib \
            controlpanel \
            applets
 
+include(dcpconfig.pri)
 include(debian/deb.pri)
 
