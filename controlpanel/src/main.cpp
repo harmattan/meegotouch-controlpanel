@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 
     DuiLocale locale;
     locale.addTranslationPath("./ts");
-    locale.addTranslationPath("/usr/share/dui/l10n");
+    locale.addTranslationPath(TRANSLATIONS_DIR);
     locale.installCategoryCatalog(DuiLocale::DuiLcMessages, "duicontrolpanel");
 
     MainWindow win;

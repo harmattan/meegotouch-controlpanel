@@ -10,7 +10,7 @@
 #include <QDebug>
 
 DcpTimeZoneConf *DcpTimeZoneConf::sm_Instance = 0;
-const QString zonePath = "/usr/share/zoneinfo/";
+const QString zonePath = QString(PREFIX) + "/share/zoneinfo/";
 
 DcpTimeZoneConf* DcpTimeZoneConf::instance()
 {

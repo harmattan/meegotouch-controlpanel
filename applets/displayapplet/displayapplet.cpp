@@ -12,12 +12,10 @@
 
 Q_EXPORT_PLUGIN2(displayapplet, DisplayApplet)
 
-const QString cssDir = "/usr/share/duicontrolpanel/themes/style/";
-
 void DisplayApplet::init(QString part)
 {
     Q_UNUSED(part);
-    DuiTheme::loadCSS(cssDir + "displayapplet.css");
+    DuiTheme::loadCSS(QString(CSSDIR) + "displayapplet.css");
     m_WidgetIndex = DcpDisplay::Main;
 };
 
