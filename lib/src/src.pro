@@ -34,5 +34,8 @@ install_headers.files += include/Dcp* \
     appletdb/dcpappletmetadata.h \
     dcpdebug.h \
     appletdb/dcpmostusedcounter.h
-INSTALLS += target install_headers
+install_prf.path = $$[QT_INSTALL_DATA]/mkspecs/features                         
+install_prf.files = duicontrolpanel.prf
+
+INSTALLS += target install_headers install_prf
 
