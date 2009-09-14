@@ -8,6 +8,7 @@
 #include <DuiLabel>
 #include <DuiLocale>
 #include <DuiAction>
+#include <QtDebug>
 
 DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
     DcpPage(), 
@@ -34,7 +35,7 @@ void DcpAppletPage::load()
 {
    m_LoadedMetadata = m_Metadata;
    if (m_Metadata->applet()) {
-       changeWidget(0);
+       changeWidget(m_Metadata->partID());
    } else {
        Q_ASSERT (!m_MissingLabel);
        m_MissingLabel = new DuiLabel(trid("dcp_no_applet_name",

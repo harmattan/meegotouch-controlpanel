@@ -13,7 +13,7 @@ class DateTimeApplet : public QObject, public DcpAppletIf
 	Q_INTERFACES(DcpAppletIf)
 
 public:
-    virtual void init(QString part="");
+    virtual void init();
 	virtual DcpWidget* constructWidget(int widgetId);
     virtual DcpWidget* pageMain();
     virtual DcpWidget* pageTimeZone();
@@ -21,11 +21,11 @@ public:
     virtual DcpWidget* pageTime();
     virtual QString title() const;
     virtual QVector<DuiAction *> viewMenuItems();
-    virtual DcpBrief* constructBrief();
+    virtual DcpBrief* constructBrief(int partID = 0);
+
+    virtual int partID(const QString& part);
 
 private:
-    int m_WidgetIndex;
-    int m_PartIndex;
     QString m_Title;
     QMap<QString, int> m_Parts;
 };

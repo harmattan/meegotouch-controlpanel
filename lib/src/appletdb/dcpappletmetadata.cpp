@@ -235,6 +235,11 @@ QString DcpAppletMetadata::part() const
     return desktopEntryStr(KeyPart);
 }
 
+int DcpAppletMetadata::partID() const
+{
+    return applet()->partID(part());
+}
+
 int DcpAppletMetadata::usage() const
 {
     // TODO implement
@@ -275,7 +280,7 @@ DcpBrief* DcpAppletMetadata::brief() const
 
     if (d->m_Brief == 0) {
         if (applet() != 0) {
-            d->m_Brief = applet()->constructBrief();
+            d->m_Brief = applet()->constructBrief(partID());
             if (d->m_Brief != 0){
                 connect (d->m_Brief, SIGNAL(valuesChanged()), this, SIGNAL(briefChanged()));
             }

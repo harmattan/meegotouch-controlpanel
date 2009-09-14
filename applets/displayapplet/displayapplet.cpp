@@ -12,9 +12,8 @@
 
 Q_EXPORT_PLUGIN2(displayapplet, DisplayApplet)
 
-void DisplayApplet::init(QString part)
+void DisplayApplet::init()
 {
-    Q_UNUSED(part);
     DuiTheme::loadCSS(QString(CSSDIR) + "displayapplet.css");
     m_WidgetIndex = DcpDisplay::Main;
 };
@@ -67,7 +66,7 @@ QVector<DuiAction*> DisplayApplet::viewMenuItems()
     return vector;
 }
 
-DcpBrief* DisplayApplet::constructBrief()
+DcpBrief* DisplayApplet::constructBrief(int)
 {
     return new DisplayBrief();
 }

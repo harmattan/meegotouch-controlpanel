@@ -12,7 +12,7 @@ class DisplayApplet : public QObject, public DcpAppletIf
 	Q_INTERFACES(DcpAppletIf)
 
 public:
-    virtual void init(QString part="");
+    virtual void init();
 	virtual DcpWidget* constructWidget(int widgetId);
 
 	virtual DcpWidget* pageMain();
@@ -21,7 +21,7 @@ public:
 
     virtual QString title() const;
     virtual QVector<DuiAction *> viewMenuItems();
-    virtual DcpBrief* constructBrief();
+    virtual DcpBrief* constructBrief(int);
 private:
     int m_WidgetIndex;
 };
