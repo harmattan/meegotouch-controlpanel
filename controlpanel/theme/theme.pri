@@ -1,4 +1,4 @@
-include(../../dcpconfig.pri)
+include(../../lib/dcpconfig.pri)
 
 images.files += theme/images/*
 images.path = $$DCP_THEME_DIR/images

@@ -1,4 +1,4 @@
-include(../../dcpconfig.pri)
+include(../../lib/dcpconfig.pri)
 QMAKE_LIBDIR += ../../lib/lib/ 
 TEMPLATE = app
 TARGET = ../duicontrolpanel

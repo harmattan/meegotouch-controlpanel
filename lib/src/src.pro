@@ -4,7 +4,7 @@ INCLUDEPATH  += $$system(find ./ -type d)
 MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects
 
-include(../../dcpconfig.pri)
+include(../dcpconfig.pri)
 # Input
 HEADERS += $$system(find ./ -name \'*.h\')
 SOURCES += $$system(find ./ -name \'*.cpp\' -not -name \'moc_*\')

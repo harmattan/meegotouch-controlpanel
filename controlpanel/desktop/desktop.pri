@@ -1,4 +1,4 @@
-include(../../dcpconfig.pri)
+include(../../lib/dcpconfig.pri)
 QMAKE_EXTRA_TARGET += desktop
 
 desktop.files += desktop/*.desktop

@@ -1,4 +1,4 @@
-include(../../../dcpconfig.pri)
+include(../../../lib/dcpconfig.pri)
 QMAKE_LIBDIR  += ../../../lib/lib/
 TEMPLATE      = lib
 CONFIG       += plugin gui dui silent debug

@@ -1,4 +1,4 @@
-include(../../dcpconfig.pri)
+include(../dcpconfig.pri)
 shell_scripts.commands += $$system(./gen-tests-xml.sh > tests.xml)
 shell_scripts.files += runtests.sh tests.xml
 
