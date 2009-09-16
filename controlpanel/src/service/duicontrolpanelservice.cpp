@@ -11,7 +11,7 @@ DuiControlPanelService::DuiControlPanelService()
     // memory owned by QDBusAbstractAdaptor instance and must be on the heap
     new DuiControlPanelIfAdaptor(this);
 
-    QDBusConnection connection(QDBusConnection::sessionBus());
+    QDBusConnection connection = QDBusConnection::sessionBus();
 
     bool ret = connection.registerService(serviceName);
     qDebug() << "Registering service" << serviceName
