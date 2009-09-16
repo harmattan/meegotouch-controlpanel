@@ -29,3 +29,6 @@ desktop_entry.files = duicontrolpanel.desktop
 
 INSTALLS += target \
             desktop_entry
+
+include (service/service.pri)
+
