@@ -145,7 +145,7 @@ QString DcpAppletMetadata::binary() const
 
 QString DcpAppletMetadata::fullBinary() const
 {
-    return binaryDir() + "/" + binary();
+    return binaryDir() + binary();
 }
 
 QString DcpAppletMetadata::parentName() const
