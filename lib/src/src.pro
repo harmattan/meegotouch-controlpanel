@@ -44,3 +44,9 @@ INSTALLS += target install_headers install_prf
 
 include(service_interface/service_interface.pri)
 
+QMAKE_EXTRA_TARGETS += check
+check.commands = $$system(true)
+
+QMAKE_EXTRA_TARGETS += check-xml
+check-xml.commands = $$system(true)
+
