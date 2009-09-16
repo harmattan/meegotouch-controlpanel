@@ -39,3 +39,8 @@ install_prf.files = duicontrolpanel.prf
 
 INSTALLS += target install_headers install_prf
 
+QMAKE_EXTRA_TARGETS += check
+check.commands = $$system(true)
+
+QMAKE_EXTRA_TARGETS += check-xml
+check-xml.commands = $$system(true)
