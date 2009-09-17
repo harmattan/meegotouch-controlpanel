@@ -80,6 +80,7 @@ DcpAppletMetadataPrivate::DcpAppletMetadataPrivate()
       m_FileName(""),
       m_BinaryDir(APPLET_LIBS)
 {
+    if (!m_BinaryDir.endsWith('/')) m_BinaryDir += '/';
 }
 
 DcpAppletMetadataPrivate::~DcpAppletMetadataPrivate()
@@ -94,7 +95,7 @@ DcpAppletMetadata::DcpAppletMetadata(const QString& filename)
     : d (new DcpAppletMetadataPrivate)
 {
 	d->m_FileName = filename;
-    d->m_DesktopEntry = new DuiDesktopEntry(filename);
+    d->m_DesktopEntry = new DuiDesktopEntry(d->m_FileName);
 
 //	qDebug() << MostUsedCounter::instance()->get(d->m_FileName);
 //	MostUsedCounter::instance()->clear(d->m_FileName);
