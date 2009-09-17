@@ -2,18 +2,24 @@
 #define DUICONTROLPANELSERVICE_H
 
 #include <QObject>
+#include "pages.h"
 
 class DuiControlPanelService: public QObject
 {
     Q_OBJECT
 public:
     DuiControlPanelService();
+    void createStartPage();
 
 public Q_SLOTS:
     void appletPage(const QString& appletName);
     void categoryPage(const QString& category);
     void mainPage();
 
+private:
+    void sheduleStart(const Pages::Handle& handle);
+    Pages::Handle* m_StartPage; // stores the startpage until the app is not started,
+                                // after that it is 0
 };
 
 

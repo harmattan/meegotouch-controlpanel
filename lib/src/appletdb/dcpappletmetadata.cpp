@@ -80,6 +80,7 @@ DcpAppletMetadataPrivate::DcpAppletMetadataPrivate()
       m_FileName(""),
       m_BinaryDir(APPLET_LIBS)
 {
+    if (!m_BinaryDir.endsWith('/')) m_BinaryDir += '/';
 }
 
 DcpAppletMetadataPrivate::~DcpAppletMetadataPrivate()

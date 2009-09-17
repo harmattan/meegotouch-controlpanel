@@ -8,6 +8,7 @@
 
 int main(int argc, char *argv[])
 {
+    DuiControlPanelService* service = new DuiControlPanelService();
     DuiApplication app(argc, argv);
 
     DuiLocale locale;
@@ -16,9 +17,7 @@ int main(int argc, char *argv[])
     locale.installCategoryCatalog(DuiLocale::DuiLcMessages, "duicontrolpanel");
 
     MainWindow win;
-
-    new DuiControlPanelService();
-
+    service->createStartPage();
     win.show();
 
     return app.exec();
