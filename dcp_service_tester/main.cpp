@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     if (argc>1){
         QString page = argv[1];
         qDebug() << "Starting applet page" << page;
-        m_DcpIf->appletPage(page);
+        qDebug() << m_DcpIf->appletPage(page);
     } else {
         qDebug() << "Starting main page";
         m_DcpIf->mainPage();

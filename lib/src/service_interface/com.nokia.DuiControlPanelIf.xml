@@ -8,6 +8,7 @@
         </method>
         <method name="appletPage">
             <arg name="appletName" type="s" direction="in"/>
+            <arg name="" type="b" direction="out"/>
         </method>
     </interface>
 </node>

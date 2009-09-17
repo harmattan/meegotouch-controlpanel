@@ -26,12 +26,16 @@ DuiControlPanelService::DuiControlPanelService()
              << (ret ? "successfully" : "failed");
 }
 
-void
+bool
 DuiControlPanelService::appletPage(const QString& appletName)
 {
 
     Pages::Handle handle = {Pages::APPLET, appletName};
     sheduleStart(handle);
+
+    return true; // TODO this hack prevents a servicefw issue,
+                 // that the app does not get the first query
+                 // Result means nothing...
 }
 
 void
@@ -40,7 +44,8 @@ DuiControlPanelService::sheduleStart(const Pages::Handle& handle)
     if (m_StartPage == 0) {
         PageFactory::instance()->changePage(handle);
     } else {
-        *m_StartPage = handle;
+        m_StartPage->id = handle.id;
+        m_StartPage->param = handle.param;
     }
 }
 

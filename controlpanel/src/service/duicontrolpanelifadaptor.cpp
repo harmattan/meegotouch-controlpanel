@@ -33,10 +33,12 @@ DuiControlPanelIfAdaptor::~DuiControlPanelIfAdaptor()
     // destructor
 }
 
-void DuiControlPanelIfAdaptor::appletPage(const QString &appletName)
+bool DuiControlPanelIfAdaptor::appletPage(const QString &appletName)
 {
     // handle method call com.nokia.DuiControlPanelIf.appletPage
-    QMetaObject::invokeMethod(parent(), "appletPage", Q_ARG(QString, appletName));
+    bool out0;
+    QMetaObject::invokeMethod(parent(), "appletPage", Q_RETURN_ARG(bool, out0), Q_ARG(QString, appletName));
+    return out0;
 }
 
 void DuiControlPanelIfAdaptor::categoryPage(const QString &category)

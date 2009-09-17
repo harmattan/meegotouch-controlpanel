@@ -9,8 +9,8 @@
  * before re-generating it.
  */
 
-#ifndef DUICONTROLPANELIFADAPTOR_H_1253107540
-#define DUICONTROLPANELIFADAPTOR_H_1253107540
+#ifndef DUICONTROLPANELIFADAPTOR_H_1253200741
+#define DUICONTROLPANELIFADAPTOR_H_1253200741
 
 #include <QtCore/QObject>
 #include <QtDBus/QtDBus>
@@ -36,6 +36,7 @@ class DuiControlPanelIfAdaptor: public QDBusAbstractAdaptor
 "    </method>\n"
 "    <method name=\"appletPage\" >\n"
 "      <arg direction=\"in\" type=\"s\" name=\"appletName\" />\n"
+"      <arg direction=\"out\" type=\"b\" name=\"\" />\n"
 "    </method>\n"
 "  </interface>\n"
         "")
@@ -45,7 +46,7 @@ public:
 
 public: // PROPERTIES
 public Q_SLOTS: // METHODS
-    void appletPage(const QString &appletName);
+    bool appletPage(const QString &appletName);
     void categoryPage(const QString &category);
     void mainPage();
 Q_SIGNALS: // SIGNALS

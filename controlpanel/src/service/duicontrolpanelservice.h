@@ -12,7 +12,7 @@ public:
     void createStartPage();
 
 public Q_SLOTS:
-    void appletPage(const QString& appletName);
+    bool appletPage(const QString& appletName);
     void categoryPage(const QString& category);
     void mainPage();
 
