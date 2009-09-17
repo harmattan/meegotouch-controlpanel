@@ -1,3 +1,4 @@
 usr/include/duicontrolpanel/*
 usr/share/qt4/mkspecs/*
 usr/share/qt4/mkspecs/features/*
+usr/share/dbus-1/*

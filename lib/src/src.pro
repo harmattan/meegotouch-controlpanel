@@ -12,6 +12,7 @@ SOURCES += $$system(find ./ -name \'*.cpp\' -not -name \'moc_*\')
 TARGET        = $$qtLibraryTarget(duicontrolpanel)
 DESTDIR       = ../lib
 
+include(service_interface/service_interface.pri)
 target.path    += $$DCP_INSTALL_LIB
 install_headers.path    += $$DCP_INSTALL_HEADERS
 install_headers.files += include/Dcp* \
@@ -42,7 +43,6 @@ install_prf.files = duicontrolpanel.prf
 
 INSTALLS += target install_headers install_prf
 
-include(service_interface/service_interface.pri)
 
 QMAKE_EXTRA_TARGETS += check
 check.commands = $$system(true)
