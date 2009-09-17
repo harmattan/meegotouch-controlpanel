@@ -33,14 +33,20 @@ install_headers.files += include/Dcp* \
     appletdb/dcpappletloader.h \
     appletdb/dcpappletmetadata.h \
     dcpdebug.h \
-    appletdb/dcpmostusedcounter.h
-install_prf.path = $$[QT_INSTALL_DATA]/mkspecs/features                         
+    appletdb/dcpmostusedcounter.h \
+    service_interface/duicontrolpanelif.h \
+    service_interface/duicontrolpanelifproxy.h
+
+install_prf.path = $$[QT_INSTALL_DATA]/mkspecs/features
 install_prf.files = duicontrolpanel.prf
 
 INSTALLS += target install_headers install_prf
+
+include(service_interface/service_interface.pri)
 
 QMAKE_EXTRA_TARGETS += check
 check.commands = $$system(true)
 
 QMAKE_EXTRA_TARGETS += check-xml
 check-xml.commands = $$system(true)
+

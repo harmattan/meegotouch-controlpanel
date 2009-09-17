@@ -4,9 +4,11 @@
 #include <QtDebug>
 
 #include "mainwindow.h"
+#include "service/duicontrolpanelservice.h"
 
 int main(int argc, char *argv[])
 {
+    DuiControlPanelService* service = new DuiControlPanelService();
     DuiApplication app(argc, argv);
 
     DuiLocale locale;
@@ -15,7 +17,9 @@ int main(int argc, char *argv[])
     locale.installCategoryCatalog(DuiLocale::DuiLcMessages, "duicontrolpanel");
 
     MainWindow win;
+    service->createStartPage();
     win.show();
+
     return app.exec();
 }
 

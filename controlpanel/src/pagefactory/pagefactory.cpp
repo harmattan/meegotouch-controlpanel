@@ -57,8 +57,7 @@ DcpPage* PageFactory::create(Pages::Handle &handle)
     }
 
     if (page) {
-
-		if (m_CurrentPage)
+        if (m_CurrentPage)
             m_CurrentPage->disconnectSignals();
 
         page->connectSignals();

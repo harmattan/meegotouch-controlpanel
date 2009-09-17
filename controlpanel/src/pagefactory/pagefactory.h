@@ -37,6 +37,7 @@ private:
     DcpMainPage *m_MainPage;
     DcpAppletPage *m_AppletPage;
     DcpAppletCategoryPage *m_AppletCategoryPage;
+
 };
 
 #endif // PAGEFACTORY_H

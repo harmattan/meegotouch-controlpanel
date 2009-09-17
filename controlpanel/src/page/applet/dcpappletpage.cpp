@@ -34,7 +34,7 @@ void DcpAppletPage::createContent()
 void DcpAppletPage::load()
 {
    m_LoadedMetadata = m_Metadata;
-   if (m_Metadata->applet()) {
+   if (m_Metadata && m_Metadata->isValid() && m_Metadata->applet()) {
        changeWidget(m_Metadata->partID());
    } else {
        Q_ASSERT (!m_MissingLabel);
@@ -105,3 +105,4 @@ void DcpAppletPage::setMetadata (DcpAppletMetadata *metadata)
 {
     m_Metadata = metadata;
 }
+
