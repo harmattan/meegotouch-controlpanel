@@ -15,7 +15,7 @@ DESTDIR       = ../lib
 include(service_interface/service_interface.pri)
 target.path    += $$DCP_INSTALL_LIB
 install_headers.path    += $$DCP_INSTALL_HEADERS
-install_headers.files += include/Dcp* \
+install_headers.files += include/D* \
     applet/dcpapplet.h \
     applet/dcpappletif.h \
     applet/dcpwidget.h \
