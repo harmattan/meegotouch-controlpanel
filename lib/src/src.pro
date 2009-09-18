@@ -5,6 +5,10 @@ MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects
 
 include(../dcpconfig.pri)
+
+# this has to be above finds, because it generates .h .cpp files
+include(service_interface/service_interface.pri)
+
 # Input
 HEADERS += $$system(find ./ -name \'*.h\')
 SOURCES += $$system(find ./ -name \'*.cpp\' -not -name \'moc_*\')
@@ -12,7 +16,6 @@ SOURCES += $$system(find ./ -name \'*.cpp\' -not -name \'moc_*\')
 TARGET        = $$qtLibraryTarget(duicontrolpanel)
 DESTDIR       = ../lib
 
-include(service_interface/service_interface.pri)
 target.path    += $$DCP_INSTALL_LIB
 install_headers.path    += $$DCP_INSTALL_HEADERS
 install_headers.files += include/D* \

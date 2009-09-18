@@ -8,6 +8,8 @@ message($$INCLUDEPATH)
 OBJECTS_DIR = ../tmp
 MOC_DIR = ../tmp
 
+# this has to be above finds, because it generates .h .cpp files
+include (service/service.pri)
 
 # Input
 HEADERS += $$system(find ./ -name \'*.h\')
@@ -30,5 +32,4 @@ desktop_entry.files = duicontrolpanel.desktop
 INSTALLS += target \
             desktop_entry
 
-include (service/service.pri)
 
