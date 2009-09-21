@@ -1,0 +1,21 @@
+[Desktop Entry]
+Type=DUIApplet
+Name=Date
+Icon=
+Exec=
+X-logical-id=qtn_sett_main_date_time
+X-translation-catalog=duisettings
+
+[DUI]
+X-DUIApplet-Applet=libdatetimeapplet.so
+X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
+X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
+
+[DCP]
+Category= Startup
+Part=Date
+Order=1
+WidgetType= DcpLabel2
+Text1= Date
+Text2= Monday, 12 January 2009
+

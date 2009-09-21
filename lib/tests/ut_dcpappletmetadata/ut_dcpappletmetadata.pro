@@ -2,7 +2,6 @@ include(../common_top.pri)
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
 TARGET = ut_dcpappletmetadata
 TEST_SOURCES = $$SRCDIR/appletdb/dcpappletmetadata.cpp
-
 # unit test and unit
 SOURCES += ut_dcpappletmetadata.cpp \
     $$TEST_SOURCES

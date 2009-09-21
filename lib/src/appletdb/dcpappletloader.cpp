@@ -30,7 +30,7 @@ void DcpAppletLoader::load()
         if (!m_Applet)
             m_ErrorMsg = "Can't convert object to ExampleAppletInterface.";
         else
-            m_Applet->init(m_Metadata->part());
+            m_Applet->init();
     }
 }
 

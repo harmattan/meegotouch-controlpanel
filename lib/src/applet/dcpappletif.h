@@ -17,7 +17,7 @@ public:
         \param part The part name of the applet, if it implements more dialogs or views (parts)
                and it needs only one part
     */ 
-    virtual void init(QString part="") = 0;
+    virtual void init() = 0;
     
     /*! 
         \brief Contstructs the widget specified by widgetId that the applet provides
@@ -47,7 +47,11 @@ public:
         and formatted by the applet implementation. Clicking on the widget displays
         the applet itself.
     */
-    virtual DcpBrief* constructBrief() = 0;
+    virtual DcpBrief* constructBrief(int partId = 0) = 0;
+
+    /* Translates Part strings which are present in the desktop file of the applet
+     * into part ids, which are used when requesting a page from the applet. */
+    virtual int partID(const QString& partStr) { Q_UNUSED(partStr); return 0; }
 };
 
 Q_DECLARE_INTERFACE(DcpAppletIf, "com.nokia.dui.core.DcpAppletIf/1.0")

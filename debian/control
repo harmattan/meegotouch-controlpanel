@@ -38,16 +38,24 @@ Description: Meta package depending on all available plugins
 Package: duicontrolpanel-displayapplet
 Section: x11
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel, libduicontrolpanel, libclockwidgets (>= 0.4.4), clock (>= 0.4.4), libtime0
+Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel, libduicontrolpanel
 Description: Display applet for the control panel application
 
 Package: duicontrolpanel-datetimeapplet
 Section: x11
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel, libduicontrolpanel
+Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel, libduicontrolpanel, libclockwidgets (>= 0.4.4), clock (>= 0.4.4), libtime0
 Description: Date & Time Applet for the control panel application
                                                      
 Package: libduicontrolpanel-doc
 Section: doc
 Architecture: all                                     
-Description: API documentation for libduicontrolpanel      
+Description: API documentation for libduicontrolpanel   
+
+Package: libduicontrolpanel-tests
+Section: extra
+Architecture: any                                                               
+Depends: libduicontrolpanel, libqtgui4, testrunner                   
+Description: libduicontrolpanel unit tests                                                  
+ Unit testing binaries and shellscripts for testing libduicontrolpanel library   
+

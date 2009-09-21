@@ -78,8 +78,9 @@ DcpAppletMetadataPrivate::DcpAppletMetadataPrivate()
       m_Parent(0),
       m_Counter(-1),
       m_FileName(""),
-      m_BinaryDir(DcpApplet::Lib)
+      m_BinaryDir(APPLET_LIBS)
 {
+    if (!m_BinaryDir.endsWith('/')) m_BinaryDir += '/';
 }
 
 DcpAppletMetadataPrivate::~DcpAppletMetadataPrivate()
@@ -94,7 +95,7 @@ DcpAppletMetadata::DcpAppletMetadata(const QString& filename)
     : d (new DcpAppletMetadataPrivate)
 {
 	d->m_FileName = filename;
-    d->m_DesktopEntry = new DuiDesktopEntry(filename);
+    d->m_DesktopEntry = new DuiDesktopEntry(d->m_FileName);
 
 //	qDebug() << MostUsedCounter::instance()->get(d->m_FileName);
 //	MostUsedCounter::instance()->clear(d->m_FileName);
@@ -235,6 +236,11 @@ QString DcpAppletMetadata::part() const
     return desktopEntryStr(KeyPart);
 }
 
+int DcpAppletMetadata::partID() const
+{
+    return applet()->partID(part());
+}
+
 int DcpAppletMetadata::usage() const
 {
     // TODO implement
@@ -275,7 +281,7 @@ DcpBrief* DcpAppletMetadata::brief() const
 
     if (d->m_Brief == 0) {
         if (applet() != 0) {
-            d->m_Brief = applet()->constructBrief();
+            d->m_Brief = applet()->constructBrief(partID());
             if (d->m_Brief != 0){
                 connect (d->m_Brief, SIGNAL(valuesChanged()), this, SIGNAL(briefChanged()));
             }
@@ -305,7 +311,7 @@ QString DcpAppletMetadata::desktopEntryStr(int id) const
 void DcpAppletMetadata::cleanup() 
 {
     if (d->m_AppletLoader) 
-        delete d->m_AppletLoader;
+        d->m_AppletLoader->deleteLater();
     d->m_AppletLoader = 0;
 }
 void DcpAppletMetadata::setParent(DcpAppletMetadata *parent)
