@@ -27,7 +27,8 @@ DcpCategoryComponent::DcpCategoryComponent(
 }
 
 DcpCategoryComponent::~DcpCategoryComponent()
-{}
+{
+}
 
 void DcpCategoryComponent::createContents()
 {

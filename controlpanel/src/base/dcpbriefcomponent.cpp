@@ -15,6 +15,10 @@ DcpBriefComponent::DcpBriefComponent(DcpAppletMetadata* metadata,
     connect (m_BriefWidget, SIGNAL(clicked()), this, SLOT(switchToSubPage()));
 }
 
+DcpBriefComponent::~DcpBriefComponent()
+{
+}
+
 void DcpBriefComponent::setMetadata(DcpAppletMetadata* metadata)
 {
     m_BriefWidget->setMetadata(metadata);

@@ -20,8 +20,6 @@ public:
 public slots:
     void updateContents();
 
-	void slotClicked();
-
 signals:
     void clicked();
 
@@ -33,6 +31,7 @@ protected:
 
     DcpButton2* m_RealWidget;
     DcpAppletMetadata* m_Metadata;
+    bool m_Hidden;
 };
 
 

@@ -32,6 +32,7 @@ public slots:
 
 protected:
     virtual void createContents();
+    virtual void polishEvent();
     virtual void showEvent(QShowEvent*);
     void fixSeparators();
 

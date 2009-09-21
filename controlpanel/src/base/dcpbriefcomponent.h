@@ -9,6 +9,7 @@ class DcpBriefComponent: public DcpComponent {
     Q_OBJECT
 public:
     DcpBriefComponent(DcpAppletMetadata* metadata, DcpCategory *category);
+    ~DcpBriefComponent();
     void setMetadata(DcpAppletMetadata* metadata);
 
     // Composite Pattern Interface, do nothing

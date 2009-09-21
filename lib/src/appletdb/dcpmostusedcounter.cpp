@@ -34,7 +34,6 @@ MostUsedCounter::~MostUsedCounter()
 
 int MostUsedCounter::add(const QString& name)
 {
-
 	if (name != "") {
 
 		QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(name);

@@ -8,9 +8,10 @@
 
 #include <DuiSceneManager>
 #include <QGraphicsLinearLayout>
+#include <QtDebug>
 
 DcpBriefWidget::DcpBriefWidget(DcpAppletMetadata* metadata, DuiWidget* parent)
-    : DuiWidget(parent), m_RealWidget(0), m_Metadata(0)
+    : DuiWidget(parent), m_RealWidget(0), m_Metadata(0), m_Hidden(true)
 {
     QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(this);
     layout->setContentsMargins(0,0,0,0);
@@ -27,8 +28,9 @@ void DcpBriefWidget::setMetadata(DcpAppletMetadata* metadata)
     // can be optimized if necessery (not recreating the widget, just updating its contents)
     if (m_RealWidget) m_RealWidget->deleteLater();
 
-    if (m_Metadata) {
+    if (m_Metadata) { // metadata is owned by the appletdb, so not removed, only disconnected
         disconnect (m_Metadata, SIGNAL(briefChanged()), this, SLOT(updateContents()));
+        disconnect (this, SIGNAL(clicked()), m_Metadata, SLOT(slotClicked()));
     }
     Q_ASSERT(metadata);
     m_Metadata = metadata;
@@ -78,48 +80,30 @@ void DcpBriefWidget::updateContents()
 void DcpBriefWidget::showEvent ( QShowEvent * event )
 {
     Q_UNUSED (event);
-    connect (m_RealWidget, SIGNAL(clicked()), this, SIGNAL(clicked()));
-    connect (m_Metadata, SIGNAL(briefChanged()), this, SLOT(updateContents()));
+    Q_ASSERT(m_RealWidget && m_Metadata);
 
-    disconnect (this, SIGNAL(clicked()), m_Metadata, SLOT(slotClicked()));
-    connect (this, SIGNAL(clicked()), m_Metadata, SLOT(slotClicked()));
-    
+    if (m_Hidden) { // prevents multiple showEvents coming
+        m_Hidden = false;
 
-//	disconnect (m_RealWidget, SIGNAL(clicked()), this, SLOT(slotClicked()));
- //   connect (m_RealWidget, SIGNAL(clicked()), this, SLOT(slotClicked()));
+        connect (m_RealWidget, SIGNAL(clicked()), this, SIGNAL(clicked()));
+        connect (m_Metadata, SIGNAL(briefChanged()), this, SLOT(updateContents()));
+        connect (this, SIGNAL(clicked()), m_Metadata, SLOT(slotClicked()));
 
-
- /*   connect(DuiSceneManager::instance(),
-            SIGNAL(orientationChanged (const Dui::Orientation &)),
-            this, SLOT(onOrientationChange(const Dui::Orientation &)));
-            */
-    updateContents();
+        updateContents();
+    } 
 }
 
 void DcpBriefWidget::hideEvent ( QHideEvent * event )
 {
     Q_UNUSED (event);
-    disconnect (m_RealWidget, SIGNAL(clicked()), this, SIGNAL(clicked()));
-    disconnect (m_Metadata, SIGNAL(briefChanged()), this, SLOT(updateContents()));
+    Q_ASSERT(m_RealWidget && m_Metadata);
 
-//	disconnect (this, SIGNAL(clicked()), m_Metadata, SLOT(slotClicked()));	
+    if (!m_Hidden) {// prevents multiple hideEvents coming
+        m_Hidden = true;
 
-//	disconnect (m_RealWidget, SIGNAL(clicked()), this, SLOT(slotClicked()));
-
- /*   disconnect(DuiSceneManager::instance(),
-            SIGNAL(orientationChanged (const Dui::Orientation &)),
-            this, SLOT(onOrientationChange(const Dui::Orientation &)));
-            */
+        disconnect (m_RealWidget, SIGNAL(clicked()), this, SIGNAL(clicked()));
+        disconnect (m_Metadata, SIGNAL(briefChanged()), this, SLOT(updateContents()));
+        disconnect (this, SIGNAL(clicked()), m_Metadata, SLOT(slotClicked()));
+    }
 }
-/*
-void DcpBriefWidget::onOrientationChange (const Dui::Orientation &orientation)
-{
-    layout()->invalidate();
-}
-*/
 
-void DcpBriefWidget::slotClicked()
-{
-
-//	qDebug() << Q_FUNC_INFO;
-}

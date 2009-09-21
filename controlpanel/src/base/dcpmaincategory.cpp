@@ -142,12 +142,16 @@ void DcpMainCategory::onOrientationChange (const Dui::Orientation &orientation)
     DcpCategory::onOrientationChange(orientation);
 }
 
+void DcpMainCategory::polishEvent()
+{
+    if (m_CreateSeparators && !m_HasLastSeparator) {
+        fixSeparators();
+    }
+}
+
 void DcpMainCategory::showEvent (QShowEvent*)
 {
     if (DuiSceneManager::instance()) {
-        if (m_CreateSeparators && !m_HasLastSeparator) {
-            fixSeparators();
-        }
         onOrientationChange(DuiSceneManager::instance()->orientation());
     }
 }
