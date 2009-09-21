@@ -51,6 +51,7 @@ void DcpBriefWidget::setMetadata(DcpAppletMetadata* metadata)
     // this currently cannot change:
     m_RealWidget->setText1(m_Metadata->text1());
 
+    connect (this, SIGNAL(clicked()), m_Metadata, SLOT(slotClicked()));
     ((QGraphicsLinearLayout*)(layout()))->addItem(m_RealWidget);
 }
 
@@ -87,7 +88,6 @@ void DcpBriefWidget::showEvent ( QShowEvent * event )
 
         connect (m_RealWidget, SIGNAL(clicked()), this, SIGNAL(clicked()));
         connect (m_Metadata, SIGNAL(briefChanged()), this, SLOT(updateContents()));
-        connect (this, SIGNAL(clicked()), m_Metadata, SLOT(slotClicked()));
 
         updateContents();
     } 
@@ -103,7 +103,6 @@ void DcpBriefWidget::hideEvent ( QHideEvent * event )
 
         disconnect (m_RealWidget, SIGNAL(clicked()), this, SIGNAL(clicked()));
         disconnect (m_Metadata, SIGNAL(briefChanged()), this, SLOT(updateContents()));
-        disconnect (this, SIGNAL(clicked()), m_Metadata, SLOT(slotClicked()));
     }
 }
 
