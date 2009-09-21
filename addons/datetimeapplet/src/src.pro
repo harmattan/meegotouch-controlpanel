@@ -2,6 +2,9 @@ QMAKE_LIBDIR  += ../../../lib/lib/
 TEMPLATE      = lib
 CONFIG       += plugin gui dui silent debug
 LIBS         += -lduicontrolpanel -lclockwidgets -ltime
+
+LIBS += /usr/lib/libdatepicker.so
+
 INCLUDEPATH  += ../../../lib/src/include
 
 MOC_DIR	      = .moc
@@ -31,3 +34,4 @@ INSTALLS += \
         css \
         desktop
 
+INSTALLS +=     conf

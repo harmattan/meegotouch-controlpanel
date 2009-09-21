@@ -13,6 +13,11 @@
 #include <QDateTime>
 #include <QGraphicsLinearLayout>
 
+
+#include "datepicker/monthwidget.h"
+#include "datepicker/monthwidgetview.h"
+#include "datepicker/monthwidgetfullview.h"
+
 DateView::DateView(QGraphicsWidget *parent)
            :DcpWidget(parent)
 {
@@ -41,6 +46,7 @@ void DateView::initWidget()
     widgetLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     widgetLayout->setSpacing(1);
 
+/*
     // labelLayout
     QGraphicsLinearLayout *labelLayout = new QGraphicsLinearLayout(Qt::Horizontal, 0);
     labelLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
@@ -100,7 +106,7 @@ void DateView::initWidget()
     // add items to labelLayoutPolicy
     labelLayout->addItem(leftStepButton);
     labelLayout->setAlignment(leftStepButton, Qt::AlignCenter);
-    labelLayout->addItem(new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Fixed));
+    labelLayout->addItQPushButtonem(new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Fixed));
     labelLayout->addItem(labelVLayout);
     labelLayout->addItem(new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding ,QSizePolicy::Fixed));
     labelLayout->addItem(rightStepButton);
@@ -114,9 +120,20 @@ void DateView::initWidget()
     widgetLayout->addItem(new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Preferred));
     widgetLayout->addItem(pickerLayout);
     widgetLayout->addItem(new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Preferred));
-    
+*/  
+
+
+  	//widgetLayout->addItem(pickerLayout);
+
     // setCentralWidget
-    m_Container->setCentralWidget(centralWidget);
+
+	MonthWidget* tmp = new MonthWidget();
+
+	MonthWidgetFullView* tmpView = new MonthWidgetFullView(tmp);
+
+	tmp->setView(tmpView);
+
+    m_Container->setCentralWidget(tmp);
 
     // add items to mainLayoutPolicy
     mainLayout->addItem(m_Container);

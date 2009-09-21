@@ -8,7 +8,7 @@ const DcpCategoryInfo DcpMain::CategoryInfos[] = {
         trid("qtn_sett_main_seeing_info",
              "Wallpaper, Theme, Touch feedback,<br>Display, LED light."
             ),
-        "Look & Feel",
+        "???????????????? Look & Feel ????????????????",
         Pages::LOOKANDFEEL
     },
     {

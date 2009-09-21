@@ -1,10 +1,26 @@
+
+
+.MonthWidget {
+	view: MonthWidgetFullView;
+}
+
+
+DayLabelStyle {
+    today-image: scalable(icon-s-gps, 0, 0, 0, 0);
+    note-image: scalable(note-indication, 0, 0, 0, 0);
+    highlight-image: scalable(selection-visual-feedback, 0, 0, 0, 0);
+}
+
+
+
 #SimpleLabel {
     color: #FFFFFF;
     font: font("Nokia Sans Cn", 16);
 }
 
 #AutomaticLabel {
-    color: #FFFFFF;
+    color: #FFFFFF;[MonthWidget]
+default = MonthWidgetView
     font: font("Nokia Sans Cn", 20);
 }
 

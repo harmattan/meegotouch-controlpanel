@@ -3,6 +3,8 @@ TEMPLATE = subdirs
 CONFIG += debug
 CONFIG += build_all silent warn_on
 
+CONFIG += conf
+
 SUBDIRS += src \
 #	   tests \
 #	   examples
