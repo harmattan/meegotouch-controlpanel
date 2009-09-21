@@ -18,15 +18,11 @@ protected:
     void initWidget();
 
 public slots:
-	void modifyDate();
-	void keySlot(QString, QString);
 
 private:
     DuiContainer *m_Container;
-    DuiLabel *m_DateLabel;
-    DuiLabel *m_WeekLabel;
 
-	class DatePicker *datePicker;
+	class MonthWidget* m_MonthWidget;
 };
 #endif // DATEVIEW_H
 

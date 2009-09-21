@@ -1,3 +1,9 @@
+
+.MonthWidget {
+	view: MonthWidgetFullView;
+}
+
+
 DuiLabelStyle {
     font: font(Nokia Sans Cn, 12);
     color: #FFFFFF;
