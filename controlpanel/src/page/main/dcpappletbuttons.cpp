@@ -31,7 +31,6 @@ DcpAppletButtons::DcpAppletButtons(const QString& categoryName,
 void DcpAppletButtons::createContents()
 {
     DcpAppletMetadataList list;
-    qDebug() << "XXXXXXXXX" <<  m_CategoryName;
     if (m_CategoryName == DcpApplet::MostUsedCategory)
         list = DcpAppletDb::instance()->listMostUsed();
     else

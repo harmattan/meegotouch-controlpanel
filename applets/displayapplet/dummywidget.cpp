@@ -44,6 +44,6 @@ void DummyWidget::initWidget()
     DuiLinearLayoutPolicy *mainLayoutPolicy =
             new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayout->setPolicy(mainLayoutPolicy);
-    mainLayoutPolicy->addItemAtPosition(m_Label, 0, Qt::AlignCenter);
+    mainLayoutPolicy->addItem(m_Label, Qt::AlignCenter);
     this->setLayout(mainLayout);
 }

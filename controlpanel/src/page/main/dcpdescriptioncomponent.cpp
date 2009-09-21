@@ -78,3 +78,4 @@ void DcpDescriptionComponent::mouseReleaseEvent (QGraphicsSceneMouseEvent * even
     DcpComponent::mouseReleaseEvent(event);
     event->accept();
 }
+

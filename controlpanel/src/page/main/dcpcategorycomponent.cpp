@@ -48,7 +48,7 @@ void DcpCategoryComponent::createContents()
     layout->setAnimator(0);
     layout->setContentsMargins(0,0,0,0);
     DuiLinearLayoutPolicy* layoutPolicy = new DuiLinearLayoutPolicy(layout, Qt::Vertical);
-    layoutPolicy->addItemAtPosition(box, 0);
+    layoutPolicy->addItem(box);
     layout->setPolicy(layoutPolicy);
     connect (DuiSceneManager::instance(),
              SIGNAL(orientationChanged(const Dui::Orientation&)),

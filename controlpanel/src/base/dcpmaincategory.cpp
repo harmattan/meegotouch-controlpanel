@@ -79,8 +79,7 @@ void DcpMainCategory::add(DcpComponent *component)
     m_LandscapeLayout->addItemAtPosition(component,
                                          m_RowCount, 0 /* column */,
               1 /* rowspan */, m_MaxColumns /* columnspan */);
-    m_PortraitLayout->addItemAtPosition(component,
-                                        m_ItemCount);
+    m_PortraitLayout->addItem(component);
 
     // add separators:
     if (m_CreateSeparators) {
@@ -88,7 +87,7 @@ void DcpMainCategory::add(DcpComponent *component)
         separator->setObjectName(SEPARATOR_OBJECTNAME);
         m_LandscapeLayout->addItemAtPosition(separator, m_RowCount+1, 0, 1,
                                              m_MaxColumns);
-        m_PortraitLayout->addItemAtPosition(separator, m_ItemCount+1);
+        m_PortraitLayout->addItem(separator);
         m_ItemCount++;
     }
 
@@ -111,8 +110,7 @@ void DcpMainCategory::append(DcpComponent *component)
 
     m_LandscapeLayout->addItemAtPosition(component,
                                          m_RowCount, m_ColCount);
-    m_PortraitLayout->addItemAtPosition(component,
-                                        m_ItemCount);
+    m_PortraitLayout->addItem(component);
 
     // add separators:
     if (m_CreateSeparators) {
@@ -120,7 +118,7 @@ void DcpMainCategory::append(DcpComponent *component)
         separator->setObjectName(SEPARATOR_OBJECTNAME);
         m_LandscapeLayout->addItemAtPosition(separator, m_RowCount+1,
                                              m_ColCount);
-        m_PortraitLayout->addItemAtPosition(separator, m_ItemCount+1);
+        m_PortraitLayout->addItem(separator);
         m_ItemCount++;
     }
 

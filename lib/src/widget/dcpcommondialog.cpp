@@ -27,6 +27,7 @@ void DcpCommonDialog::setCentralWidget(DuiWidget *widget)
     if (m_ContainerLayout->count() > 2) {
         m_ContainerLayout->removeAt(2);
     }
+//    m_ContainerLayoutPolicy->insertItem(widget, 2, Qt::AlignCenter); TODO for dui >0.11
     m_ContainerLayoutPolicy->addItemAtPosition(widget, 2, Qt::AlignCenter);
 }
 
@@ -64,10 +65,10 @@ void DcpCommonDialog::initDialog()
     backButtonLayout->setAnimator(0);
     DuiLinearLayoutPolicy* backButtonLayoutPolicy = new DuiLinearLayoutPolicy(backButtonLayout,
             Qt::Horizontal);
-    backButtonLayoutPolicy->addItemAtPosition(
+    backButtonLayoutPolicy->addItem(
             new DcpSpacerItem(this, 10, 10, QSizePolicy::Expanding, QSizePolicy::Expanding),
-            0, Qt::AlignLeft);
-    backButtonLayoutPolicy->addItemAtPosition(backButton, 1, Qt::AlignRight | Qt::AlignTop);
+            Qt::AlignLeft);
+    backButtonLayoutPolicy->addItem(backButton, Qt::AlignRight | Qt::AlignTop);
     // -- FIXME ends
 
     // m_Viewport
@@ -115,27 +116,27 @@ void DcpCommonDialog::initDialog()
     m_GreySeparator->setAcceptedMouseButtons(0);
 
     // Add items to titleLayoutPolicy
-    titleLayoutPolicy->addItemAtPosition(
+    titleLayoutPolicy->addItem(
         new DcpSpacerItem(containerWidget, 5, 5,
         QSizePolicy::Expanding, QSizePolicy::Fixed),
-        0, Qt::AlignLeft);
-    titleLayoutPolicy->addItemAtPosition(titleLabel, 1, Qt::AlignCenter);
-    titleLayoutPolicy->addItemAtPosition(
+        Qt::AlignLeft);
+    titleLayoutPolicy->addItem(titleLabel, Qt::AlignCenter);
+    titleLayoutPolicy->addItem(
                         new DcpSpacerItem(containerWidget, 5, 5,
                         QSizePolicy::Expanding, QSizePolicy::Fixed),
-                        2, Qt::AlignRight);
+                        Qt::AlignRight);
 
     // Add items to m_ContainerLayoutPolicy
-    m_ContainerLayoutPolicy->addItemAtPosition(titleLayout, 0, Qt::AlignCenter);
-    m_ContainerLayoutPolicy->addItemAtPosition(m_GreySeparator, 1, Qt::AlignCenter);
+    m_ContainerLayoutPolicy->addItem(titleLayout, Qt::AlignCenter);
+    m_ContainerLayoutPolicy->addItem(m_GreySeparator, Qt::AlignCenter);
 
     // Add viewport to DuiContainer
     m_MainWidget->setCentralWidget(containerWidget);
     m_Viewport->setWidget(m_MainWidget);
 
     // Add items to mainLayoutPolicy
-    mainLayoutPolicy->addItemAtPosition(backButtonLayout, 0);
-    mainLayoutPolicy->addItemAtPosition(m_Viewport, 1, Qt::AlignCenter);
+    mainLayoutPolicy->addItem(backButtonLayout);
+    mainLayoutPolicy->addItem(m_Viewport, Qt::AlignCenter);
 }
 
 

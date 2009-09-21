@@ -86,7 +86,7 @@ void DateTimeWidget::initWidget()
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateTimeText()));
     connect(timer, SIGNAL(timeout()), this, SLOT(updateDateText()));
-    timer->start(0);
+    timer->start(1000);
 
     // m_TimeZoneButton
     m_TimeZoneButton = new DcpButton2(this);
@@ -106,30 +106,32 @@ void DateTimeWidget::initWidget()
     m_RegionFormatButton->setObjectName("RegionFormatButton");
 
     // Add items to m_DateTimeHLayoutPolicy
-    m_DateTimeHLayoutPolicy->addItemAtPosition(m_DateButton, 0, Qt::AlignLeft | Qt::AlignVCenter);
-    m_DateTimeHLayoutPolicy->addItemAtPosition(m_TimeButton, 1, Qt::AlignRight | Qt::AlignVCenter);
+    m_DateTimeHLayoutPolicy->addItem(m_DateButton, Qt::AlignLeft | Qt::AlignVCenter);
+    m_DateTimeHLayoutPolicy->addItem(m_TimeButton, Qt::AlignRight | Qt::AlignVCenter);
 
     // Add items to m_DateTimeVLayoutPlicy
-    m_DateTimeVLayoutPolicy->addItemAtPosition(m_DateButton, 0, Qt::AlignCenter);
-    m_DateTimeVLayoutPolicy->addItemAtPosition(new DuiSeparator(this), 1, Qt::AlignCenter);
-    m_DateTimeVLayoutPolicy->addItemAtPosition(m_TimeButton, 2, Qt::AlignCenter);
-    
+    m_DateTimeVLayoutPolicy->addItem(m_DateButton, Qt::AlignCenter);
+    DuiSeparator* separator4 = new DuiSeparator(this);
+    separator4->setObjectName(separatorObjectName);
+    m_DateTimeVLayoutPolicy->addItem(separator4);
+    m_DateTimeVLayoutPolicy->addItem(m_TimeButton, Qt::AlignCenter);
+
     // Add items to mainLayoutPolicy
-    mainLayoutPolicy->addItemAtPosition(m_AutomaticUpdateButton, 0, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(separator1, 1);
-    mainLayoutPolicy->addItemAtPosition(m_DateTimeLayout, 2, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(separator2, 3);
-    mainLayoutPolicy->addItemAtPosition(m_TimeZoneButton, 4, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(separator3, 5);
-    mainLayoutPolicy->addItemAtPosition(
+    mainLayoutPolicy->addItem(m_AutomaticUpdateButton, Qt::AlignCenter);
+    mainLayoutPolicy->addItem(separator1);
+    mainLayoutPolicy->addItem(m_DateTimeLayout, Qt::AlignCenter);
+    mainLayoutPolicy->addItem(separator2);
+    mainLayoutPolicy->addItem(m_TimeZoneButton, Qt::AlignCenter);
+    mainLayoutPolicy->addItem(separator3);
+    mainLayoutPolicy->addItem(
             new DcpSpacerItem(this, 5, 10, QSizePolicy::Expanding, QSizePolicy::Fixed),
-            6, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(simpleLabel, 7, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(m_RegionFormatButton, 8, Qt::AlignCenter);
-    mainLayoutPolicy->addItemAtPosition(
+            Qt::AlignCenter);
+    mainLayoutPolicy->addItem(simpleLabel, Qt::AlignCenter);
+    mainLayoutPolicy->addItem(m_RegionFormatButton, Qt::AlignCenter);
+    mainLayoutPolicy->addItem(
             new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Expanding),
-            9, Qt::AlignCenter);
-    
+            Qt::AlignCenter);
+
     // orientation change
     connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),
             this, SLOT(orientationChanged()));

@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
 {
     DuiControlPanelService* service = new DuiControlPanelService();
     DuiApplication app(argc, argv);
+    app.setAnimator(0);
 
     DuiLocale locale;
     locale.addTranslationPath("./ts");

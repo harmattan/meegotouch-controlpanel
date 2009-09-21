@@ -71,7 +71,7 @@ void TimeView::initWidget()
     m_Container->setCentralWidget(centralWidget);
 
     // add items to mainLayoutPolicy
-    mainLayoutPolicy->addItemAtPosition(m_Container, 0, Qt::AlignCenter);
+    mainLayoutPolicy->addItem(m_Container, Qt::AlignCenter);
 
     // orientation change
     connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),

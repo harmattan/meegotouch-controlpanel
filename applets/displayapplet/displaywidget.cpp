@@ -104,38 +104,38 @@ void DisplayWidget::initWidget()
     connect(m_screenToggleButton, SIGNAL(clicked()), this, SLOT(nextPage()));
     
     // Add items to screenHLayoutPolicy
-	screenHLayoutPolicy->addItemAtPosition(screenLightLabel, 0, Qt::AlignLeft);
-    screenHLayoutPolicy->addItemAtPosition(m_screenToggleButton, 1, Qt::AlignLeft);
-    screenHLayoutPolicy->addItemAtPosition(
+	screenHLayoutPolicy->addItem(screenLightLabel, Qt::AlignLeft);
+    screenHLayoutPolicy->addItem(m_screenToggleButton, Qt::AlignLeft);
+    screenHLayoutPolicy->addItem(
                     new DcpSpacerItem(this, 20, 20, QSizePolicy::Expanding, 
-                    QSizePolicy::Fixed), 2, Qt::AlignLeft);
+                    QSizePolicy::Fixed), Qt::AlignLeft);
 
     // Add items to centralLayoutPolicy
-	centralLayoutPolicy->addItemAtPosition(m_brightnessLabel, 0, Qt::AlignLeft);
-	centralLayoutPolicy->addItemAtPosition(sliderBrightness, 1, Qt::AlignLeft);
-	centralLayoutPolicy->addItemAtPosition(m_screenLabel, 2, Qt::AlignLeft);
-	centralLayoutPolicy->addItemAtPosition(sliderScreen, 3, Qt::AlignLeft);
-    centralLayoutPolicy->addItemAtPosition(
+	centralLayoutPolicy->addItem(m_brightnessLabel, Qt::AlignLeft);
+	centralLayoutPolicy->addItem(sliderBrightness, Qt::AlignLeft);
+	centralLayoutPolicy->addItem(m_screenLabel, Qt::AlignLeft);
+	centralLayoutPolicy->addItem(sliderScreen, Qt::AlignLeft);
+    centralLayoutPolicy->addItem(
                     new DcpSpacerItem(this, 10, 20, QSizePolicy::Expanding, 
-                     QSizePolicy::Fixed), 4, Qt::AlignCenter);
-    centralLayoutPolicy->addItemAtPosition(screenHLayout, 5, Qt::AlignLeft);
-	centralLayoutPolicy->addItemAtPosition(
+                     QSizePolicy::Fixed), Qt::AlignCenter);
+    centralLayoutPolicy->addItem(screenHLayout, Qt::AlignLeft);
+	centralLayoutPolicy->addItem(
                     new DcpSpacerItem(this, 10, 10, QSizePolicy::Expanding, 
-                    QSizePolicy::Fixed), 6, Qt::AlignCenter);
-	centralLayoutPolicy->addItemAtPosition(new DuiLabel(DcpDisplay::NoteText, this),
-                                           7, Qt::AlignLeft);
-    centralLayoutPolicy->addItemAtPosition(
+                    QSizePolicy::Fixed), Qt::AlignCenter);
+	centralLayoutPolicy->addItem(new DuiLabel(DcpDisplay::NoteText, this),
+                                           Qt::AlignLeft);
+    centralLayoutPolicy->addItem(
                     new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding,
-                    QSizePolicy::Expanding), 8, Qt::AlignCenter);
+                    QSizePolicy::Expanding), Qt::AlignCenter);
 
     // Add items to mainLayoutPolicy
-    mainLayoutPolicy->addItemAtPosition(
+    mainLayoutPolicy->addItem(
                     new DcpSpacerItem(this, widgetWidth, 10, QSizePolicy::Expanding, 
-                    QSizePolicy::Expanding), 0, Qt::AlignLeft);
-    mainLayoutPolicy->addItemAtPosition(centralLayout, 1, Qt::AlignHCenter);
-    mainLayoutPolicy->addItemAtPosition(
+                    QSizePolicy::Expanding), Qt::AlignLeft);
+    mainLayoutPolicy->addItem(centralLayout, Qt::AlignHCenter);
+    mainLayoutPolicy->addItem(
                     new DcpSpacerItem(this, widgetWidth, 10, QSizePolicy::Expanding,
-                    QSizePolicy::Expanding), 2, Qt::AlignRight);
+                    QSizePolicy::Expanding), Qt::AlignRight);
 
     this->setLayout(mainLayout);
 }

@@ -91,3 +91,4 @@ void DcpMainPage::back()
 {
     qApp->quit();
 }
+

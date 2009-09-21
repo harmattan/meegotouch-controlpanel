@@ -14,7 +14,6 @@ DcpButton2Image::DcpButton2Image(DuiWidget* parent)
 void DcpButton2Image::setImageName (const QString& imageName)
 {
     Q_ASSERT(imageWidget());
-    qDebug() << "XXX imageName" << imageName;
     imageWidget()->setImage(imageName);
 }
 
