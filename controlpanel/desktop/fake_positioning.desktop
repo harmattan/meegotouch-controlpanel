@@ -1,23 +1,21 @@
 [Desktop Entry]
 Type=DUIApplet
 Name=Positioning
+X-logical-id=qtn_sett_main_wallpaper
+X-translation-catalog=duisettings
 Icon=
 Exec=
-X-logical-id=qtn_sett_main_position
-X-translation-catalog=duisettings
 
 [DUI]
-X-DUIApplet-Applet=libexampleapplet.so
+X-DUIApplet-Applet=
 X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
 X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
 Category= Connectivity
-Order=1
-Usage=16
-WidgetType= DcpLabel2Button
-Text1= Positioning
-Text2= GPS+WLAN
-SmallToggle= TRUE
+Order=2
+WidgetType= DcpLabel2Image
 Align= Left
+
+Image= starfield_thumb
 

@@ -1,18 +1,20 @@
 [Desktop Entry]
 Type=DUIApplet
-Name=Display
+Name=Reset settings
+X-logical-id=
+X-translation-catalog=duisettings
 Icon=
 Exec=
-X-logical-id=qtn_sett_main_display
-X-translation-catalog=duisettings
 
 [DUI]
-X-DUIApplet-Applet=libdisplayapplet.so
+X-DUIApplet-Applet=
 X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
 X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
-Category= Look & Feel
+Category= Device system
 Order=3
 WidgetType= DcpLabel2
+Align= Left
+
 

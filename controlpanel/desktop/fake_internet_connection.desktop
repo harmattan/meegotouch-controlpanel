@@ -1,24 +1,23 @@
 [Desktop Entry]
 Type=DUIApplet
-Name=Wallpaper
+Name=Internet connection
 X-logical-id=qtn_sett_main_wallpaper
 X-translation-catalog=duisettings
 Icon=
 Exec=
 
 [DUI]
-X-DUIApplet-Applet=libexampleapplet.so
+X-DUIApplet-Applet=
 X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
 X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
-Category= Look & Feel
+Category= Connectivity
 Order=0
 WidgetType= DcpLabel2Image
 Align= Left
 
-Text1= Wallpaper
-Text2= Name of the wallpaper
+Text2= Home
 
 Image= starfield_thumb
 

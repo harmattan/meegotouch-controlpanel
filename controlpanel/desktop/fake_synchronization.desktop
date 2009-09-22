@@ -1,18 +1,19 @@
 [Desktop Entry]
 Type=DUIApplet
-Name=Display
+Name=Syncronization
 Icon=
 Exec=
-X-logical-id=qtn_sett_main_display
+X-logical-id=qtn_sett_main_passcode                                         
 X-translation-catalog=duisettings
 
 [DUI]
-X-DUIApplet-Applet=libdisplayapplet.so
+X-DUIApplet-Applet=
 X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
 X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
-Category= Look & Feel
-Order=3
-WidgetType= DcpLabel2
+Category= Device utilities
+Order=0
+WidgetType= DcpLabel2Button
+
 
