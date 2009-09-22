@@ -6,83 +6,82 @@
 
 
 DayLabelStyle {
-    today-image: scalable(icon-s-gps, 0, 0, 0, 0);
-    note-image: scalable(note-indication, 0, 0, 0, 0);
-    highlight-image: scalable(selection-visual-feedback, 0, 0, 0, 0);
+    today-image: "icon-s-gps" 0 0 0 0;
+    note-image: "note-indication" 0 0 0 0;
+    highlight-image: "selection-visual-feedback" 0 0 0 0;
 }
 
 
 
 #SimpleLabel {
     color: #FFFFFF;
-    font: font("Nokia Sans Cn", 16);
+    font: "Nokia Sans Cn" 16;
 }
 
 #AutomaticLabel {
-    color: #FFFFFF;[MonthWidget]
-default = MonthWidgetView
-    font: font("Nokia Sans Cn", 20);
+    color: #FFFFFF;
+    font: "Nokia Sans Cn" 20;
 }
 
 #ToggleButton {
-    normal-background-image: scalable(Toggle-on,0,0,0,0);
-    pressed-background-image: scalable(Toggle-off,0,0,0,0);
-    minimum-size: size(48, 48);
-    maximum-size: size(48, 48);
+    normal-background-image: "Toggle-on" 0 0 0 0;
+    pressed-background-image: "Toggle-off" 0 0 0 0;
+    minimum-size: 48 48;
+    maximum-size: 48 48;
 }
 
 #InputTextEdit {
-    font: font("Nokia Sans Cn", 16);
+    font: "Nokia Sans Cn" 16;
 }
 
 #CountryLabel {
-    font: font("Nokia Sans Cn", 18);
+    font: "Nokia Sans Cn" 18;
     margin-left: 16;
     color: #ffffff;
 }
 
 #CountryLabelSelected {
-    font: font("Nokia Sans Cn", 18);
+    font: "Nokia Sans Cn" 18;
     margin-left: 16;
     color: #e48415;
 }
 
 #GmtCityLabel {
-    font: font("Nokia Sans Cn", 16);
+    font: "Nokia Sans Cn" 16;
     margin-left: 16;
     margin-bottom: 10;
     color: #ffffff;
 }
 
 #GmtCityLabelSelected {
-    font: font("Nokia Sans Cn", 16);
+    font: "Nokia Sans Cn" 16;
     margin-left: 16;
     margin-bottom: 10;
     color: #e48415;
 }
 
 #TimeZoneCheckMark {
-    normal-background-image: scalable(Check-mark,0,0,0,0);
-    minimum-size: size(32, 32);
-    maximum-size: size(32, 32);
+    normal-background-image: "Check-mark" 0 0 0 0;
+    minimum-size: 32 32;
+    maximum-size: 32 32;
     margin-right: 20;
 }
 
 #RegionFormatButton {
-    maximum-size: size(310, 60);
-    minimum-size: size(310, 60);
+    maximum-size: 310 60;
+    minimum-size: 310 60;
 }
 
 #DateViewLabel {
-    font: font("Nokia Sans Cn", 20);
+    font: "Nokia Sans Cn" 20;
 }
 
 #WeekViewLabel {
-    font: font("Nokia Sans Cn", 16);
+    font: "Nokia Sans Cn" 16;
 }
 
 #DayButton {
-    normal-background-image: image();
+    normal-background-image: ;
     pressed-text-color: #E48415;
 }
 
@@ -102,7 +101,7 @@ default = MonthWidgetView
 .DuiScene 
 {
     fpsRefreshInterval: 500;
-    fpsBoxSize: size(60, 30);
+    fpsBoxSize: 60 30;
     fpsTextColor: #FFFF00;
     fpsBackgroundColor: #000000;
     fpsBackgroundOpacity: 0.35;
@@ -124,30 +123,30 @@ AnalogClockStyle
 	clockdial: "clock-circle";
 	hourhand: "hour-hand";
 	minutehand: "minute-hand";	
-	preferredsize: size(200px, 200px);
-	minsize: size(200px, 200px);
-	maxsize: size(200px, 200px);
+	preferredsize: 200px 200px;
+	minsize: 200px 200px;
+	maxsize: 200px 200px;
 }
 
 AnalogClockStyle#LargeAnalogClock
 {
-	preferredsize: size(200px, 200px);
-	minsize: size(200px, 200px);
-	maxsize: size(200px, 200px);
+	preferredsize: 200px 200px;
+	minsize: 200px 200px;
+	maxsize: 200px 200px;
 }
 
 AnalogClockStyle#SmallAnalogClock.Landscape
 {
-	preferredsize: size(100, 100);
-	minsize: size(100, 100);
-	maxsize: size(100, 100);
+	preferredsize: 100 100;
+	minsize: 100 100;
+	maxsize: 100 100;
 }
 
 AnalogClockStyle#SmallAnalogClock.Portrait
 {
-	preferredsize: size(75, 75);
-	minsize: size(75, 75);
-	maxsize: size(75, 75);
+	preferredsize: 75 75;
+	minsize: 75 75;
+	maxsize: 75 75;
 }
 
 SettingAlarmStyle
@@ -155,9 +154,9 @@ SettingAlarmStyle
 	alarm-hour: "alarm-hour";
 	alarm-minute: "alarm-minute";
 	alarm-clock-bg: "alarm-clock-bg";
-	minsize: size(408px, 408px);
-	preferredsize: size(408px,408px);
-	maxsize: size(408px, 408px);
+	minsize: 408px 408px;
+	preferredsize: 408px 408px;
+	maxsize: 408px 408px;
 }
 
 WorldClockStyle{
@@ -167,58 +166,58 @@ WorldClockStyle{
 
 WorldClockStyle#LargeDial
 {
-	preferredsize: size(272, 356);
-	minsize: size(272, 356);
-	maxsize: size(272, 356);
+	preferredsize: 272 356;
+	minsize: 272 356;
+	maxsize: 272 356;
 }
 
 WorldClockStyle#SmallDial.Landscape
 {
-	preferredsize: size(124, 260);
-	minsize: size(124, 260);
-	maxsize: size(124, 260);
+	preferredsize: 124 260;
+	minsize: 124 260;
+	maxsize: 124 260;
 }
 
 WorldClockStyle#SmallDial.Portrait
 {
-	preferredsize: size(100, 260);
-	minsize: size(100, 260);
-	maxsize: size(100, 260);
+	preferredsize: 100 260;
+	minsize: 100 260;
+	maxsize: 100 260;
 }
 
 DuiLabelStyle#LargeClockDate
 {
-	font: font(Nokia Sans, 20px);
+	font: "Nokia Sans" 20px;
 	color: #FFFFFF;
 }
 
 DuiLabelStyle#SmallClockDate
 {
-	font: font(Nokia Sans, 16px);
+	font: "Nokia Sans" 16px;
 	color: #FFFFFF;
 }
 
 DuiLabelStyle#LargeClockTime
 {
-	font: font(Nokia Sans, 20px);
+	font: "Nokia Sans" 20px;
 	color: #FFFFFF;
 }
 
 DuiLabelStyle#SmallClockTime
 {
-	font: font(Nokia Sans, 16px);
+	font: "Nokia Sans" 16px;
 	color: #FFFFFF;
 }
 
 DuiLabelStyle#LargeClockCity
 {
-	font: font(Nokia Sans, 22px);
+	font: "Nokia Sans" 22px;
 	color: #FFFFFF;
 }
 
 DuiLabelStyle#SmallClockCity
 {
-	font: font(Nokia Sans, 16px);
+	font: "Nokia Sans" 16px;
 	color: #FFFFFF;
 }
 
@@ -228,54 +227,54 @@ DuiLinearLayoutStyle#WorldClock
 }
 
 DuiButtonStyle#aeButtonBell{
-    icon-size: size(64px, 64px);
+    icon-size: 64px 64px;
 	
-    preferred-size: size(64px, 64px);
-    minimum-size: size(64px, 64px);
-    maximum-size: size(64px, 64px);
+    preferred-size: 64px 64px;
+    minimum-size: 64px 64px;
+    maximum-size: 64px 64px;
 }
 
 DuiTextEditStyle#aeAlarmTextEdit{
 	color: #FFA000;
-	font: font(Nokia Sans, 28px);
+	font: "Nokia Sans" 28px;
 
-	minsize: size(356px, 56px);
-	preferredsize: size(356px, 56px);
-	maxsize: size(356px, 56px);
+	minsize: 356px 56px;
+	preferredsize: 356px 56px;
+	maxsize: 356px 56px;
 }
 
 DuiButtonStyle#aePushButton
 {
-	minimum-size: size(432px, 88px);
-	preferred-size: size(432px, 88px);
-	maximum-size: size(432px, 88px);
+	minimum-size: 432px 88px;
+	preferred-size: 432px 88px;
+	maximum-size: 432px 88px;
 
 	normal-background-image: Toggle-btn-normal;
 	pressed-background-image: Toggle-btn-selected;
 
-	font: font(Nokia Sans, 24px);
+	font: "Nokia Sans" 24px;
 
 	cloud-duration: 0;
 }
 
 DuiLabelStyle#aeBigLabel{
-	font: font(Nokia Sans, 24);
+	font: "Nokia Sans" 24;
 }
 
 DuiLabelStyle#aeSmallLabel{
-	font: font(Nokia Sans, 20);
+	font: "Nokia Sans" 20;
 }
 
 AlarmStyle {
-	big-bell: image(big-bell);
+	big-bell: "big-bell";
 	showTimeTo: true;
 	showSmallBell: true;
-    alarmtimefont: font(sans, 8);
+    alarmtimefont: "sans" 8;
     alarmtimecolor: #000000;
-    alarmtextfont: font(sans, 12);
+    alarmtextfont: "sans" 12;
     alarmtextfont: #000000;
     timetocolor: #000000;
-    timetofont: font(sans, 12);
+    timetofont: "sans" 12;
 	
     bgcolor: #FFFFFF;
 	bgcolorgradient1: #A9A9A9;
@@ -283,34 +282,34 @@ AlarmStyle {
 }
 
 AlarmStyle#MainAlarm {
-	minimum-size: size(402px,198px);
-	preferred-size: size(402px,198px);
-	maximum-size: size(402px,198px);
+	minimum-size: 402px 198px;
+	preferred-size: 402px 198px;
+	maximum-size: 402px 198px;
 }
 
 AlarmStyle#BasicAlarm {
-	minimum-size: size(402px,98px);
-	preferred-size: size(402px,98px);
-	maximum-size: size(402px,98px);
+	minimum-size: 402px 98px;
+	preferred-size: 402px 98px;
+	maximum-size: 402px 98px;
 }
 
 DuiLabelStyle#MainAlarmTime{
     color: #FFA000;
-	font: font(Nokia Sans, 32);
+	font: "Nokia Sans" 32;
 }
 
 DuiLabelStyle#MainAlarmText{
-	font: font(Nokia Sans, 22);
+	font: "Nokia Sans" 22;
 }
 
 DuiLabelStyle#BasicAlarmTime{
     color: #FFA000;
-	font: font(Nokia Sans, 24);
+	font: "Nokia Sans" 24;
 }
 
 DuiLabelStyle#BasicTimeTo{
     color: #FFFFFF;
-	font: font(Nokia Sans, 20);
+	font: "Nokia Sans" 20;
 }
 
 DuiImageStyle#BigBell {
@@ -339,7 +338,7 @@ DuiLinearLayout#BasicAlarm.Landscape
 {
 	padding: 0;
 	margin: 12;
-	preferredsize: size(402, 76);
+	preferredsize: 402 76;
 }
 
 DuiLinearLayout#BasicAlarm.Portrait
@@ -349,6 +348,6 @@ DuiLinearLayout#BasicAlarm.Portrait
 }
 
 .DuiEditAlarmView{
-size: size(400px, 400px);
+size: 400px 400px;
 }
 
