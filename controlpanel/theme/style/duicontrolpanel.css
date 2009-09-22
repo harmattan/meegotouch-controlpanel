@@ -5,12 +5,12 @@
 
 
 DuiLabelStyle {
-    font: font(Nokia Sans Cn, 16);
+    font: "Nokia Sans Cn" 16;
     color: #FFFFFF;
 }
 
 #ComponentDescription {
-    font: font(Nokia Sans Cn, 16);
+    font: "Nokia Sans Cn" 16;
     margin-left: 20;
     margin-right: 20;
     margin-top: 12;
@@ -21,7 +21,7 @@ DuiLabelStyle {
 }
 
 #DuiContainerTitle {
-    font: font(Nokia Sans Cn, 20);
+    font: "Nokia Sans Cn" 20;
     margin-left: 19;
     margin-right: 19;
     margin-bottom: 6;
@@ -43,7 +43,7 @@ DuiContainerStyle {
     margin-top: 0;
     margin-bottom: 0;
     margin-right: 0;
-    icon-size: size(1,1);
+    icon-size: 1 1;
 
 /*    titlebar-background: "";  TODO */
 }
@@ -55,11 +55,11 @@ DuiApplicationPageStyle {
 }
 
 DuiApplicationPageStyle.Landscape {
-    background-image: scalable(starfield, 0, 0, 0, 0);
+    background-image: "starfield" 0 0 0 0;
 }
 
 DuiApplicationPageStyle.Portrait {
-    background-image: scalable(starfield, 0, 0, 0, 0);
+    background-image: "starfield" 0 0 0 0;
 }
 
 
@@ -71,16 +71,16 @@ DuiNavigationBarStyle {
 
 
 #DcpButton {
-    normal-background-image: scalable(C2-container,0,0,0,0);
+    normal-background-image: "C2-container" 0 0 0 0;
 /*    in current design the button has no background: */
 /*    normal-background-image: ;
     normal-color: #000000;
     normal-opacity: 0.0; */
 
     /* this sets the height of the button fixed: */
-    minimum-size: size(1,93);
-    maximum-size: size(999,93);
-    preferred-size: size(840,93);
+    minimum-size: 1 93;
+    maximum-size: 999 93;
+    preferred-size: 840 93;
 
     padding-top: 12;
     padding-bottom: 12;
@@ -89,15 +89,15 @@ DuiNavigationBarStyle {
 }
 
 DuiLabelStyle#DcpButtonMain {
-    font: font(Nokia Sans Cn, 20);
+    font: "Nokia Sans Cn" 20;
 }
 
 DuiLabelStyle#DcpButtonLine1 {
-    font: font(Nokia Sans Cn, 18);
+    font: "Nokia Sans Cn" 18;
 }
 
 DuiLabelStyle#DcpButtonLine2 {
-    font: font(Nokia Sans Cn, 16);
+    font: "Nokia Sans Cn" 16;
 /*    minimum-size: size(200,12); */
     color: #FFA000;
 }
@@ -110,9 +110,9 @@ DuiImageStyle {
 }
 
 #DcpSeeMoreIndicator {
-    normal-background-image: scalable(See-more-indicator-small,0,0,0,0);
-    minimum-size: size(16, 16);
-    maximum-size: size(16, 16);
+    normal-background-image: "See-more-indicator-small" 0 0 0 0;
+    minimum-size: 16 16;
+    maximum-size: 16 16;
     margin-left: 8;
 /*    margin-top: 0;
     margin-bottom: 0;
@@ -120,10 +120,10 @@ DuiImageStyle {
 }
 
 DuiButtonStyle#DcpButtonImageBorder {
-    maximum-size: size(64, 64);
-    minimum-size: size(64, 64);
+    maximum-size: 64 64;
+    minimum-size: 64 64;
 /*    icon-size: size(62, 62); */
-    normal-background-image: scalable(Thumbnail-frame, 10, 10, 10, 10);
+    normal-background-image: "Thumbnail-frame" 10 10 10 10;
 
     padding-left: 0;
     padding-top: 0;
@@ -132,8 +132,8 @@ DuiButtonStyle#DcpButtonImageBorder {
 }
 
 DuiImageStyle#DcpButtonImage {
-    maximum-size: size(62, 62);
-    minimum-size: size(62, 62);
+    maximum-size: 62 62;
+    minimum-size: 62 62;
 
     /* TODO remove this once AlignCenter of the layoutpolicy works correctly */
     margin-left: 1;
@@ -143,16 +143,16 @@ DuiImageStyle#DcpButtonImage {
 }
 
 DuiButtonStyle#DcpButtonToggle {
-    normal-background-image: scalable(Toggle-off, 0,0,0,0);
-    pressed-background-image: scalable(Toggle-on, 0,0,0,0);
-    maximum-size: size(64, 64);
-    minimum-size: size(64, 64);
+    normal-background-image: "Toggle-off" 0 0 0 0;
+    pressed-background-image: "Toggle-on" 0 0 0 0;
+    maximum-size: 64 64;
+    minimum-size: 64 64;
 }
 
 #DcpCommonDialogTitleLabel {
    color: #FFFFFF;
    margin-top: 0;
-   font: font(Nokia Sans Cn, 18);
+   font: "Nokia Sans Cn" 18;
 }
 
 #DcpCommonDialogContainer {
