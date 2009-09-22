@@ -13,7 +13,7 @@ X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
 Category= Accounts & Applications
-Order=0
+Order=1
 WidgetType= DcpLabel
 
 
