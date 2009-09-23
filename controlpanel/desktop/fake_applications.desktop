@@ -1,19 +1,19 @@
 [Desktop Entry]
 Type=DUIApplet
-Name=Region format
-X-logical-id=qtn_sett_main_region
+Name=Applications
+X-logical-id=
 X-translation-catalog=duisettings
 Icon=
 Exec=
 
 [DUI]
-X-DUIApplet-Applet=libexampleapplet.so
+X-DUIApplet-Applet=
 X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
 X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
-Category= Regional settings
+Category= Accounts & Applications
 Order=1
-WidgetType= DcpLabel2
-Text2= United States
+WidgetType= DcpLabel
+
 

@@ -1,10 +1,10 @@
 [Desktop Entry]
 Type=DUIApplet
 Name=Passcode
+X-logical-id=qtn_sett_main_wallpaper
+X-translation-catalog=duisettings
 Icon=
 Exec=
-X-logical-id=qtn_sett_main_passcode                                         
-X-translation-catalog=duisettings
 
 [DUI]
 X-DUIApplet-Applet=libexampleapplet.so
@@ -12,8 +12,10 @@ X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
 X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
-Category= Device utilities
+Category= Device system
 Order=1
-WidgetType= DcpLabel2Button
-Text1= Passcode
+WidgetType= DcpLabel2Image
+Align= Left
+
+Image= starfield_thumb
 

@@ -11,9 +11,8 @@ namespace Pages {
       CONNECTIVITY,
       SOUND,
       REGIONALSETTING,
-      ACCOUNTS,
       DEVICEUTILITIES,
-      APPLICATION,
+      ACCOUNTSANDAPPLICATIONS,
       DEVICESYSTEM,
       CATEGORY_PAGEID_END,    // ---
       APPLET,

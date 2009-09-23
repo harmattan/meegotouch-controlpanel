@@ -13,8 +13,7 @@ X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
 Category= Look & Feel
-Order=2
-Usage=1000
+Order=1
 WidgetType= DcpLabel2Image
 Align= Left
 

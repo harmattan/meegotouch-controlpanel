@@ -13,6 +13,7 @@ X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
 Category= Sound
-Order= 0
+Order= 1
 WidgetType= DcpLabel2
+Text2= Name of the ringtone
 
