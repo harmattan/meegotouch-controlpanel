@@ -11,7 +11,7 @@ INCLUDEPATH  += ../../../lib/src/include
 MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects
 
-
+INCLUDEPATH += $$system(find . -type d)
 HEADERS += $$system(find ./ -name \'*.h\')
 SOURCES += $$system(find ./ -name \'*.cpp\')
 
@@ -34,6 +34,4 @@ INSTALLS += \
 	    target \
         css \
         desktop
-
-INSTALLS +=     conf
 
