@@ -12,6 +12,7 @@
 #include <duicontainer.h>
 #include <QGraphicsLinearLayout>
 
+#include <clock/settingalarm.h>
 
 
 TimeView::TimeView(QGraphicsWidget *parent)
@@ -21,15 +22,13 @@ TimeView::TimeView(QGraphicsWidget *parent)
     initWidget();
 }
 
-TimeView::~TimeView()
+bool TimeView::back()
 {
+    //qDebug() << m_TimePicker->hours() << ":" <<m_TimePicker->minutes() ;
 
-	//qDebug() << m_TimePicker->hours() << ":" <<m_TimePicker->minutes() ;
+    DcpTime::setTime(m_TimePicker->hours(), m_TimePicker->minutes());
 
-	m_Clock.setTime(m_TimePicker->hours(), m_TimePicker->minutes());
-
-	delete m_TimePicker;
-	m_TimePicker = NULL;
+    return DcpWidget::back();
 }
 
 void TimeView::initWidget()
@@ -54,10 +53,8 @@ void TimeView::initWidget()
     widgetLayout->setSpacing(2);
 
     // analogClock
-
-	m_Clock.setSystemTime();
-
-	m_TimePicker = new SettingAlarm(m_Clock.hour(), m_Clock.min());
+    QTime now = QTime::currentTime();
+    m_TimePicker = new SettingAlarm(now.hour(), now.minute());
 
     m_TimePicker->setMinimumSize(QSize(400, 400));
     m_TimePicker->setMaximumSize(QSize(400, 400));
@@ -72,16 +69,6 @@ void TimeView::initWidget()
 
     // add items to mainLayoutPolicy
     mainLayoutPolicy->addItem(m_Container, Qt::AlignCenter);
-
-    // orientation change
-    connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),
-            this, SLOT(orientationChnaged()));
-    orientationChanged();
 }
 
-void TimeView::orientationChanged()
-{
-    DuiSceneManager *manager = DuiSceneManager::instance();
-    if (manager == 0)
-        return;
-}
+

@@ -1,4 +1,3 @@
-
 #include "dcptime.h"
 
 #include <time.h>
@@ -6,8 +5,8 @@
 #include <clockd/libtime.h>
 
 
-
-void DcpTime::setTime(int hour, int min, int sec) {
+void DcpTime::setTime(int hour, int min, int sec)
+{
 
 	int tmpHour = hour * (60*60);
 	int tmpMin = min * 60 ;
@@ -16,14 +15,5 @@ void DcpTime::setTime(int hour, int min, int sec) {
 	int fullTime = tmpHour + tmpMin + tmpSec;
 
 	time_set_time(fullTime);
-
 }
 
-void DcpTime::setSystemTime() {
-
-	int tmpTime = time_get_time();//time(NULL);
-
-	m_Hour = tmpTime % (24*60*60) / (60*60);
-	m_Min = tmpTime % (60*60) / 60 ;
-	m_Sec = tmpTime % 60;
-}

@@ -3,10 +3,7 @@
 
 #include "dcpwidget.h"
 
-#include <clock/settingalarm.h>
-
-#include "dcptime.h"
-
+class SettingAlarm;
 class DuiContainer;
 
 class TimeView : public DcpWidget
@@ -15,7 +12,8 @@ class TimeView : public DcpWidget
 
 public:
     TimeView(QGraphicsWidget *parent = 0);
-    virtual ~TimeView();
+    virtual bool back();
+    virtual bool pagePans() { return false; }
 
 protected:
     void initWidget();
@@ -24,11 +22,7 @@ private:
     DuiContainer *m_Container;
 
 	SettingAlarm *m_TimePicker;
-
-	DcpTime m_Clock;
-
-private slots:
-    virtual void orientationChanged();
 };
+
 #endif // TIMEVIEW_H
 

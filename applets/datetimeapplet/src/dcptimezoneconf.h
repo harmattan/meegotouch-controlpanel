@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QStringList>
 #include <QMap>
+#include <QSettings>
 
 // class DuiConf;
 class DcpTimeZoneData;
@@ -29,6 +30,7 @@ private:
     static DcpTimeZoneConf *sm_Instance;
     QMultiMap<QString, QString> m_CountryMap;
     QMultiMap<QString, DcpTimeZoneData*> m_ItemMap;
+    QSettings m_Settings;
     // DuiConf *m_Conf;
 };
 #endif // DCPTIMEZONECONF_H

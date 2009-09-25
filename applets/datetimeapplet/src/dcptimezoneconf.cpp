@@ -6,11 +6,11 @@
 #include <unicode/strenum.h>
 #include "dcpicuconversions.h"
 // #include <duiconf.h>
-#include <QSettings>
 #include <QDebug>
 
 DcpTimeZoneConf *DcpTimeZoneConf::sm_Instance = 0;
-const QString zonePath = QString(PREFIX) + "/share/zoneinfo/";
+static const QString zonePath = QString(PREFIX) + "/share/zoneinfo/";
+static const QString defaultZoneKey = "system/timezone";
 
 DcpTimeZoneConf* DcpTimeZoneConf::instance()
 {
@@ -32,6 +32,7 @@ QMultiMap<QString, DcpTimeZoneData*> DcpTimeZoneConf::getMap() const
     return m_ItemMap;
 }
 
+
 DcpTimeZoneData DcpTimeZoneConf::defaultTimeZone() const
 {
     /* QVariant zoneId;
@@ -42,9 +43,8 @@ DcpTimeZoneData DcpTimeZoneConf::defaultTimeZone() const
     } else {
         zone = zoneId.toString();
     }*/
-    QSettings settings("Nokia", "DuiControlPanel");
-    QString zone = settings.value("system/timezone", "Europe/London").toString();
-    
+    QString zone = m_Settings.value(defaultZoneKey, "Europe/London").toString();
+
     DcpTimeZoneData timeZone(zone);
     return timeZone;
 }
@@ -53,7 +53,7 @@ void DcpTimeZoneConf::setDefaultTimeZone(QString zoneId)
 {
     // m_Conf->set("/system/timezone", zoneId);
     QSettings settings("Nokia", "DuiControlPanel");
-    settings.setValue("system/timezone", zoneId);
+    m_Settings.setValue(defaultZoneKey, zoneId);
 }
 
 void DcpTimeZoneConf::initCountry()
@@ -73,7 +73,7 @@ void DcpTimeZoneConf::initCountry()
     }
     file->close();
     delete file;
-        
+
     // collect informations from iso3166.tab
     file = new QFile(zonePath + "iso3166.tab");
     if (!file->open(QIODevice::ReadOnly | QIODevice::Text))
@@ -93,7 +93,7 @@ void DcpTimeZoneConf::initCountry()
                         country += item.at(i);
                     }
                 }
-                
+
                 if (country == "South Georgia & the South Sandwich Islands")
                     country = "South Georgia & the South Sandw...";
 
@@ -108,15 +108,15 @@ void DcpTimeZoneConf::initCountry()
 
 //! protected constructor
 DcpTimeZoneConf::DcpTimeZoneConf()
-                :QObject()
+                :QObject(), m_Settings("Nokia","DuiControlPanel")
 {
     // create m_Conf and cache keys under /system
     // m_Conf = new DuiConf();
     // m_Conf->addDir("/system", true);
-    
+
     // fill up m_CountryMap
     this->initCountry();
-    
+
     // fill up itemMap
     QMap<int, DcpTimeZoneData*> itemMap;
     QStringList list = this->supportedTimeZones();
