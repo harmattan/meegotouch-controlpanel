@@ -61,6 +61,16 @@ void DcpButton2::setText2(const QString& text)
     updateLabelSizes();
 }
 
+QString DcpButton2::text1() const
+{
+    return m_Label1->text();
+}
+
+QString DcpButton2::text2() const
+{
+    return m_Label2->text();
+}
+
 void DcpButton2::updateLabelSizes()
 {
     if (m_Label2->text().isEmpty()) {

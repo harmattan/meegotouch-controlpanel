@@ -10,12 +10,16 @@ class QGraphicsGridLayout;
 // which supports margins set by css
 class DcpButton2: public DuiButton{
     Q_OBJECT
+    Q_PROPERTY(QString text1 READ text1 WRITE setText1)
+    Q_PROPERTY(QString text2 READ text2 WRITE setText2)
 public:
 	explicit DcpButton2(DuiWidget* parent = 0);
 
     void setText(const QString& text1, const QString& text2);
     virtual void setText1(const QString& text);
     virtual void setText2(const QString& text);
+    virtual QString text1() const;
+    virtual QString text2() const;
 
     // optimization, remove this if you want background:
     virtual void paintWindowFrame (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget=0);
