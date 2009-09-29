@@ -39,19 +39,20 @@ DcpAppletDb::addFile(const QString& filename)
   DcpAppletMetadata *metadata = new DcpAppletMetadata(filename);
   if (metadata->isValid())
     {
-        if (containsName(metadata->name()))
+/*        if (containsName(metadata->name()))
         {
             qDebug() << "applet name conflict" << metadata->name();
             metadata->deleteLater();
             return false;
             
-        }
+        }*/
         m_AppletsByName[metadata->name()] = metadata;
         m_AppletsByFile[filename] = metadata;
         return true;
     }
-  else
+  else {
     metadata->deleteLater();
+  }
   return false;
 }
 
@@ -91,7 +92,6 @@ DcpAppletMetadataList DcpAppletDb::listByCategory(const QString& category)
     QList<DcpAppletMetadata*> filtered;
 
     foreach (DcpAppletMetadata *item, m_AppletsByFile) {
-
         if (category.compare(item->category(),Qt::CaseInsensitive) == 0)
             filtered.append(item);
         QString parentName = item->parentName();
