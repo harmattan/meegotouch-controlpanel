@@ -1,0 +1,4 @@
+QMAKE_TARGET_COMPANY = Nokia
+QMAKE_TARGET_PRODUCT = DirectUI Test Applications
+QMAKE_TARGET_DESCRIPTION = Test application framework
+QMAKE_TARGET_COPYRIGHT = Copyright (C) 2009 Nokia

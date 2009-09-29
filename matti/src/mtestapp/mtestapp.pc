@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include/
+
+Name: mtestapp
+Description: DirectUI Framework Functional test app skeleton
+Version: 0.1.0
+Cflags: -I${includedir}
+Libs: -L${libdir} -lmtestapp
+
