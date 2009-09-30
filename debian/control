@@ -32,14 +32,8 @@ Description: Control Panel - debug symbols
 Package: duicontrolpanel-applets
 Section: x11
 Architecture: any
-Depends: duicontrolpanel-languageapplet, duicontrolpanel-displayapplet, duicontrolpanel-datetimeapplet
+Depends: duicontrolpanel-languageapplet, duicontrolpanel-datetimeapplet
 Description: Meta package depending on all available plugins
-
-Package: duicontrolpanel-displayapplet
-Section: x11
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel, libduicontrolpanel
-Description: Display applet for the control panel application
 
 Package: duicontrolpanel-datetimeapplet
 Section: x11
