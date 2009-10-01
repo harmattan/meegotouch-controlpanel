@@ -1,0 +1,14 @@
+Source: duicontrolpanel-ui-tests
+Section: misc
+Priority: standard
+Maintainer: Viktor Nagy <viktor.nagy@blumsoft.eu>
+Build-Depends: debhelper (>= 5), libdui-dev (>= 0.7.0~), ruby, ruby1.8, libqt4-dev (>= 4.5.2~), rdoc1.8, ri1.8, rdoc, ri, libmatti-ruby, libmatti-ruby1.8
+Standards-Version: 3.7.2
+
+Package: duicontrolpanel-ui-tests
+Section: misc
+Architecture: all
+Depends: ruby, ruby1.8, rubygems, matti, libnokogiri-ruby, libnokogiri-ruby1.8
+Suggests: duitestrunner
+Description: Matti test scripts for duicontrolpanel ui functional tests
+

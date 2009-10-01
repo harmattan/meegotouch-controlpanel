@@ -58,4 +58,12 @@ Architecture: any
 Depends: libduicontrolpanel, libqtgui4, testrunner                   
 Description: libduicontrolpanel unit tests                                                  
  Unit testing binaries and shellscripts for testing libduicontrolpanel library   
+Package: duicontrolpanel-ui-tests
+Section: misc
+Architecture: all
+Depends: ruby, ruby1.8, rubygems, matti, libnokogiri-ruby, libnokogiri-ruby1.8, duitestrunner, duifw-tests-lib
+Suggests: duitestrunner
+Description: Matti test suites for duicontrolpanel ui functional tests
+ Test suites for libduicontrolpanel, duicontrolpanel, and control panel 
+ applets.
 
