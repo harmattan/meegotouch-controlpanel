@@ -94,6 +94,8 @@ void DcpTimeZoneConf::initCountry()
                     }
                 }
 
+		/* TODO find better slution for long names or file a bug to the
+		 * proper component */
                 if (country == "South Georgia & the South Sandwich Islands")
                     country = "South Georgia & the South Sandw...";
 
