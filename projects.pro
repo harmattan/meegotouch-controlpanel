@@ -8,7 +8,7 @@ SUBDIRS += lib \
            applets \
            uitests
 
-include(dcpconfig.pri)
+include(lib/dcpconfig.pri)
 include(debian/deb.pri)
 
 check.target = check 

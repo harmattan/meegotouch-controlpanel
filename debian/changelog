@@ -1,3 +1,13 @@
+duicontrolpanel (0.3.8) unstable; urgency=low
+
+  * Bugfix release
+  * Fixes bug: if two applets had the same name, only one of them were
+    added
+  * Added matti tests
+  * Replaces the role of displayapplet to serve just as an example
+
+ -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Wed, 30 Sep 2009 14:59:33 +0200
+
 duicontrolpanel (0.3.7) unstable; urgency=low
 
   * initial service framework api for controlpanel
