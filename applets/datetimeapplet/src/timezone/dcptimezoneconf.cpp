@@ -52,7 +52,6 @@ DcpTimeZoneData DcpTimeZoneConf::defaultTimeZone() const
 void DcpTimeZoneConf::setDefaultTimeZone(QString zoneId)
 {
     // m_Conf->set("/system/timezone", zoneId);
-    QSettings settings("Nokia", "DuiControlPanel");
     m_Settings.setValue(defaultZoneKey, zoneId);
 }
 
