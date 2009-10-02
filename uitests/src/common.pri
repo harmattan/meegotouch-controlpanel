@@ -3,10 +3,11 @@ OBJECTS_DIR = .obj
 MOC_DIR = .moc
 TEMPLATE = app
 CONFIG += dui link_pkgconfig
+LIBS += -L../../../lib/lib/ -lduicontrolpanel
+INCLUDEPATH += ../../../lib/src/include
 PKGCONFIG += mtestapp
 target.path=$$APP_INSTALL_LOCATION
 INSTALLS += target
-#QMAKE_LIBDIR += ../../lib 
 support_files.files =
 support_files.path = $$APP_INSTALL_LOCATION
 
