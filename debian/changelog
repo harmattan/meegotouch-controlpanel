@@ -1,3 +1,9 @@
+duicontrolpanel (0.3.9) unstable; urgency=low
+
+  * fixed crash
+
+ -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Mon,  5 Oct 2009 15:20:57 +0200
+
 duicontrolpanel (0.3.8) unstable; urgency=low
 
   * Bugfix release
