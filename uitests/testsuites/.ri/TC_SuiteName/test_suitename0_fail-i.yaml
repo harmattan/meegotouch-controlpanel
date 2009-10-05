@@ -1,0 +1,54 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Test case documentation one liner to include objectives
+- !ruby/object:SM::Flow::LIST 
+  contents: 
+  - !ruby/struct:SM::Flow::LI 
+    label: "*"
+    body: Pre-conditions
+  - !ruby/object:SM::Flow::LIST 
+    contents: 
+    - !ruby/struct:SM::Flow::LI 
+      label: "*"
+      body: ta_suitename started
+    type: :BULLET
+  - !ruby/struct:SM::Flow::LI 
+    label: "*"
+    body: Test steps
+  - !ruby/object:SM::Flow::LIST 
+    contents: 
+    - !ruby/struct:SM::Flow::LI 
+      label: "*"
+      body: tap on xxx then zzzz has changed to AAA
+    - !ruby/struct:SM::Flow::LI 
+      label: "*"
+      body: tap on xxx then ssss has changed to BBB
+    type: :BULLET
+  - !ruby/struct:SM::Flow::LI 
+    label: "*"
+    body: Post-conditions
+  - !ruby/object:SM::Flow::LIST 
+    contents: 
+    - !ruby/struct:SM::Flow::LI 
+      label: "*"
+      body: None
+    type: :BULLET
+  - !ruby/struct:SM::Flow::LI 
+    label: "*"
+    body: References
+  - !ruby/object:SM::Flow::LIST 
+    contents: 
+    - !ruby/struct:SM::Flow::LI 
+      label: "*"
+      body: DUI-123
+    type: :BULLET
+  type: :BULLET
+full_name: TC_SuiteName#test_suitename0_fail
+is_singleton: false
+name: test_suitename0_fail
+params: ()
+visibility: public

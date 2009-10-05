@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: method called before any test case
+full_name: TC_SuiteName#setup
+is_singleton: false
+name: setup
+params: ()
+visibility: public
