@@ -53,8 +53,9 @@ void TimeView::initWidget()
     widgetLayout->setSpacing(2);
 
     // analogClock
-    QTime now = QTime::currentTime();
-    m_TimePicker = new SettingAlarm(now.hour(), now.minute());
+    int hour, min;
+    DcpTime::getTime(hour, min);
+    m_TimePicker = new SettingAlarm(hour, min);
 
     m_TimePicker->setMinimumSize(QSize(400, 400));
     m_TimePicker->setMaximumSize(QSize(400, 400));

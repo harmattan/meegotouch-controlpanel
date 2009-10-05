@@ -4,7 +4,8 @@
 #include <QTime>
 
 namespace DcpTime {
-    void setTime(int hour, int min = 0, int sec = 0);
+    void getTime(int &hour, int &min);
+    void setTime(int hour, int min);
 };
 
 #endif // DCPTIME_H
