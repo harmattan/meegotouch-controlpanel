@@ -4,6 +4,7 @@
 #include <QFile>
 #include <unicode/timezone.h>
 #include <unicode/strenum.h>
+#include <qmtime.h>
 #include "dcpicuconversions.h"
 // #include <duiconf.h>
 #include <QDebug>
@@ -43,6 +44,10 @@ DcpTimeZoneData DcpTimeZoneConf::defaultTimeZone() const
     } else {
         zone = zoneId.toString();
     }*/
+    Maemo::QmTime time;
+    QString z;
+    bool st = time.getTimezone(z);
+    qDebug() << "getTimezone status:" << st << "value:" << z;
     QString zone = m_Settings.value(defaultZoneKey, "Europe/London").toString();
 
     DcpTimeZoneData timeZone(zone);

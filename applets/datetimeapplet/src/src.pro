@@ -1,7 +1,7 @@
 include(../../../lib/dcpconfig.pri)
 QMAKE_LIBDIR  += ../../../lib/lib/
 TEMPLATE      = lib
-CONFIG       += plugin gui dui silent debug cellular-qt
+CONFIG       += plugin gui dui silent debug cellular-qt qmsystem
 LIBS         += -lduicontrolpanel -lclockwidgets -ltime
 
 LIBS += /usr/lib/libdatepicker.so
