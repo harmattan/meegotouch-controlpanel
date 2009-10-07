@@ -1,10 +1,6 @@
-#include "dcptime.h"
-
-/*#include <time.h>*/
-/*#include <linux/types.h>*/
-
 #include <qmtime.h>
 
+#include "dcptime.h"
 
 DcpTime::DcpTime(QObject *parent) : QObject(parent)
 {
@@ -16,11 +12,6 @@ DcpTime::~DcpTime()
 
 void DcpTime::getTime(int &hour, int &min)
 {
-/*
-    QDateTime datetime;
-    QString timeZone;
-    mTime.getNetTime(datetime, timeZone);
-*/
     Maemo::QmTime mTime;
     QTime time;
 
@@ -36,6 +27,7 @@ void DcpTime::setTime(int hour, int min)
 	Maemo::QmTime mTime;
 	QDateTime newTime;
 	newTime.setTime(QTime(hour, min, 0));
+	newTime.setDate(QDate::currentDate());
 
 	if(mTime.getAutosync()){
 		if(!mTime.setAutosync(false)){
@@ -46,21 +38,13 @@ void DcpTime::setTime(int hour, int min)
 	if(!mTime.setTime(newTime)){
 		qCritical("Could not set time to %s", mTime.toString().toUtf8().data());
 	}
-
-/*    clock_enable_autosync(false);
-    time_get_local(&currentTime);
-	time_set_time(fullTime);
-	*/
 }
 
 void DcpTime::getDate(int &year, int &month, int &day)
 {
     Maemo::QmTime mTime;
-/*    QDateTime datetime;
-    QString timeZone;*/
     QDate date;
 
-/*    mTime.getNetTime(datetime, timeZone);*/
     date = mTime.date();
     date = QDate::currentDate();
 
@@ -73,6 +57,8 @@ void DcpTime::setDate(int year, int month, int day)
 {
 	Maemo::QmTime mTime;
 	QDateTime newDate;
+	newDate.setDate(QTime(year, month, day));
+	newDate.setTime(QTime::currentTime());
 
 	if(mTime.getAutosync()){
 		if(!mTime.setAutosync(false)){
@@ -80,17 +66,21 @@ void DcpTime::setDate(int year, int month, int day)
 		}
 	}
 
-	newDate.setDate(QDate(year, month, day));
 	if(!mTime.setTime(newDate)){
 		qCritical("Could not set time to %s", mTime.toString().toUtf8().data());
 	}
 
 }
 
-/*void DcpTime::timeOrSettingsChanged(Maemo::QmTime::WhatChanged what)*/
+/* Original declaration of the slot:
+ * void DcpTime::timeOrSettingsChanged(Maemo::QmTime::WhatChanged what)
+ * Some settings may affect time and date. Let treat it as if all may have affect,
+ * for now.
+ */
 void DcpTime::timeOrSettingsChanged(int what)
 {
 	(void)what;
+
 	timeOrDateChanged();
 }
 
