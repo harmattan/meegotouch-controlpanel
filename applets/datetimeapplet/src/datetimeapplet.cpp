@@ -16,6 +16,7 @@
 #include "datetimetranslation.h"
 
 
+
 Q_EXPORT_PLUGIN2(displayapplet, DateTimeApplet)
 
 void DateTimeApplet::init()

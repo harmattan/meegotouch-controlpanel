@@ -1,9 +1,13 @@
 #include <qmtime.h>
 
 #include "dcptime.h"
+#include <QTime>
 
-DcpTime::DcpTime(QObject *parent) : QObject(parent)
+DcpTime::DcpTime(QObject *parent) : QObject(parent),
+    m_Time(new Maemo::QmTime::QmTime(this))
 {
+    connect (m_Time, SIGNAL(timeOrSettingsChanged (QmTime::WhatChanged)),
+             this, SIGNAL(timeOrDateChanged()));
 }
 
 DcpTime::~DcpTime()
@@ -12,10 +16,8 @@ DcpTime::~DcpTime()
 
 void DcpTime::getTime(int &hour, int &min)
 {
-    Maemo::QmTime mTime;
     QTime time;
 
-    time = mTime.time();
     time = QTime::currentTime();
 
     hour = time.hour();
@@ -24,29 +26,26 @@ void DcpTime::getTime(int &hour, int &min)
 
 void DcpTime::setTime(int hour, int min)
 {
-	Maemo::QmTime mTime;
 	QDateTime newTime;
 	newTime.setTime(QTime(hour, min, 0));
 	newTime.setDate(QDate::currentDate());
 
-	if(mTime.getAutosync()){
-		if(!mTime.setAutosync(false)){
+	if(m_Time->getAutosync()){
+		if(!m_Time->setAutosync(false)){
 			qCritical("Could not turn off network time autosync");
 		}
 	}
 
-	if(!mTime.setTime(newTime)){
-		qCritical("Could not set time to %s", mTime.toString().toUtf8().data());
+	if(!m_Time->setTime(newTime)){
+		qCritical("Could not set time to %s", newTime.toString().toUtf8().data());
 	}
 }
 
 void DcpTime::getDate(int &year, int &month, int &day)
 {
-    Maemo::QmTime mTime;
     QDate date;
 
-    date = mTime.date();
-    date = QDate::currentDate();
+    date = m_Time->date();
 
     year = date.year();
     month = date.month();
@@ -55,32 +54,22 @@ void DcpTime::getDate(int &year, int &month, int &day)
 
 void DcpTime::setDate(int year, int month, int day)
 {
-	Maemo::QmTime mTime;
 	QDateTime newDate;
 	newDate.setDate(QDate(year, month, day));
 	newDate.setTime(QTime::currentTime());
+    setDateTime (newDate);
+}
 
-	if(mTime.getAutosync()){
-		if(!mTime.setAutosync(false)){
+void DcpTime::setDateTime(const QDateTime& newDate)
+{
+    if(m_Time->getAutosync()){
+		if(!m_Time->setAutosync(false)){
 			qCritical("Could not turn off network time autosync");
 		}
 	}
 
-	if(!mTime.setTime(newDate)){
-		qCritical("Could not set time to %s", mTime.toString().toUtf8().data());
+	if(!m_Time->setTime(newDate)){
+		qCritical("Could not set time to %s", newDate.toString().toUtf8().data());
 	}
-
-}
-
-/* Original declaration of the slot:
- * void DcpTime::timeOrSettingsChanged(Maemo::QmTime::WhatChanged what)
- * Some settings may affect time and date. Let treat it as if all may have affect,
- * for now.
- */
-void DcpTime::timeOrSettingsChanged(int what)
-{
-	(void)what;
-
-	timeOrDateChanged();
 }
 
