@@ -60,7 +60,6 @@ DcpTimeZoneData DcpTimeZoneConf::defaultTimeZone() const
 void DcpTimeZoneConf::setDefaultTimeZone(QString zoneId)
 {
     // m_Conf->set("/system/timezone", zoneId);
-    QSettings settings("Nokia", "DuiControlPanel");
     m_Settings.setValue(defaultZoneKey, zoneId);
 
     Maemo::QmTime time;
@@ -108,6 +107,8 @@ void DcpTimeZoneConf::initCountry()
                     }
                 }
 
+		/* TODO find better slution for long names or file a bug to the
+		 * proper component */
                 if (country == "South Georgia & the South Sandwich Islands")
                     country = "South Georgia & the South Sandw...";
 

@@ -5,6 +5,7 @@
 
 class SettingAlarm;
 class DuiContainer;
+class DcpTime;
 
 class TimeView : public DcpWidget
 {
@@ -18,10 +19,14 @@ public:
 protected:
     void initWidget();
 
+private slots:
+    void timeOrDateChanged();
+
 private:
     DuiContainer *m_Container;
 
-	SettingAlarm *m_TimePicker;
+    SettingAlarm *m_TimePicker;
+    DcpTime *dcpTime;
 };
 
 #endif // TIMEVIEW_H

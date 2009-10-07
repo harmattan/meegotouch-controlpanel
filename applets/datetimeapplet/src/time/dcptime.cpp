@@ -1,19 +1,86 @@
+#include <qmtime.h>
+
 #include "dcptime.h"
 
-#include <time.h>
-#include <linux/types.h>
-#include <clockd/libtime.h>
-
-
-void DcpTime::setTime(int hour, int min, int sec)
+DcpTime::DcpTime(QObject *parent) : QObject(parent)
 {
+}
 
-	int tmpHour = hour * (60*60);
-	int tmpMin = min * 60 ;
-	int tmpSec = sec % 60;
+DcpTime::~DcpTime()
+{
+}
 
-	int fullTime = tmpHour + tmpMin + tmpSec;
+void DcpTime::getTime(int &hour, int &min)
+{
+    Maemo::QmTime mTime;
+    QTime time;
 
-	time_set_time(fullTime);
+    time = mTime.time();
+    time = QTime::currentTime();
+
+    hour = time.hour();
+    min = time.minute();
+}
+
+void DcpTime::setTime(int hour, int min)
+{
+	Maemo::QmTime mTime;
+	QDateTime newTime;
+	newTime.setTime(QTime(hour, min, 0));
+	newTime.setDate(QDate::currentDate());
+
+	if(mTime.getAutosync()){
+		if(!mTime.setAutosync(false)){
+			qCritical("Could not turn off network time autosync");
+		}
+	}
+
+	if(!mTime.setTime(newTime)){
+		qCritical("Could not set time to %s", mTime.toString().toUtf8().data());
+	}
+}
+
+void DcpTime::getDate(int &year, int &month, int &day)
+{
+    Maemo::QmTime mTime;
+    QDate date;
+
+    date = mTime.date();
+    date = QDate::currentDate();
+
+    year = date.year();
+    month = date.month();
+    day = date.day();
+}
+
+void DcpTime::setDate(int year, int month, int day)
+{
+	Maemo::QmTime mTime;
+	QDateTime newDate;
+	newDate.setDate(QTime(year, month, day));
+	newDate.setTime(QTime::currentTime());
+
+	if(mTime.getAutosync()){
+		if(!mTime.setAutosync(false)){
+			qCritical("Could not turn off network time autosync");
+		}
+	}
+
+	if(!mTime.setTime(newDate)){
+		qCritical("Could not set time to %s", mTime.toString().toUtf8().data());
+	}
+
+}
+
+/* Original declaration of the slot:
+ * void DcpTime::timeOrSettingsChanged(Maemo::QmTime::WhatChanged what)
+ * Some settings may affect time and date. Let treat it as if all may have affect,
+ * for now.
+ */
+void DcpTime::timeOrSettingsChanged(int what)
+{
+	(void)what;
+
+	timeOrDateChanged();
 }
 

@@ -19,6 +19,7 @@ TimeView::TimeView(QGraphicsWidget *parent)
            :DcpWidget(parent)
 {
     setReferer(DcpDateTime::Main);
+    dcpTime = new DcpTime(this);
     initWidget();
 }
 
@@ -26,7 +27,7 @@ bool TimeView::back()
 {
     //qDebug() << m_TimePicker->hours() << ":" <<m_TimePicker->minutes() ;
 
-    DcpTime::setTime(m_TimePicker->hours(), m_TimePicker->minutes());
+    dcpTime->setTime(m_TimePicker->hours(), m_TimePicker->minutes());
 
     return DcpWidget::back();
 }
@@ -53,11 +54,10 @@ void TimeView::initWidget()
     widgetLayout->setSpacing(2);
 
     // analogClock
-    QTime now = QTime::currentTime();
-    m_TimePicker = new SettingAlarm(now.hour(), now.minute());
-
+    m_TimePicker = new SettingAlarm();
     m_TimePicker->setMinimumSize(QSize(400, 400));
     m_TimePicker->setMaximumSize(QSize(400, 400));
+    timeOrDateChanged();
 
 	widgetLayout->addItem(new DcpSpacerItem(centralWidget, 10, 10, QSizePolicy::Expanding, QSizePolicy::Preferred));
     widgetLayout->addItem(m_TimePicker);
@@ -71,4 +71,11 @@ void TimeView::initWidget()
     mainLayoutPolicy->addItem(m_Container, Qt::AlignCenter);
 }
 
+void TimeView::timeOrDateChanged()
+{
+    int hour, min;
+    dcpTime->getTime(hour, min);
+    m_TimePicker->setHours(hour);
+    m_TimePicker->setMinutes(min);
+}
 
