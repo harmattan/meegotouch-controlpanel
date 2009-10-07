@@ -57,7 +57,7 @@ void DcpTime::setDate(int year, int month, int day)
 {
 	Maemo::QmTime mTime;
 	QDateTime newDate;
-	newDate.setDate(QTime(year, month, day));
+	newDate.setDate(QDate(year, month, day));
 	newDate.setTime(QTime::currentTime());
 
 	if(mTime.getAutosync()){
