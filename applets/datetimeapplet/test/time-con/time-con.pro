@@ -3,9 +3,10 @@ TARGET = time-test
 OBJECTS_DIR = ./tmp
 MOC_DIR = ./tmp
 
-CONFIG += build_all warn_on debug gui qmsystem
+CONFIG += build_all warn_on debug qmsystem
 
-SOURCES +=	time.cpp
+SOURCES +=	time.cpp \
+                ../../src/time/dcptime.cpp
 
-INCLUDEPATH += /usr/include/clock
+HEADERS +=      ../../src/time/dcptime.h
 
