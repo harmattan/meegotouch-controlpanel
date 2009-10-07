@@ -36,7 +36,7 @@ void DcpTime::setTime(int hour, int min)
 	}
 
 	if(!mTime.setTime(newTime)){
-		qCritical("Could not set time to %s", mTime.toString().toUtf8().data());
+		qCritical("Could not set time to %s", newTime.toString().toUtf8().data());
 	}
 }
 
@@ -67,7 +67,7 @@ void DcpTime::setDate(int year, int month, int day)
 	}
 
 	if(!mTime.setTime(newDate)){
-		qCritical("Could not set time to %s", mTime.toString().toUtf8().data());
+		qCritical("Could not set date to %s", newDate.toString().toUtf8().data());
 	}
 
 }
