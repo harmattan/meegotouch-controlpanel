@@ -57,7 +57,7 @@ void TimeZoneView::initWidget()
 
         QStandardItem* item = new QStandardItem();
         item->setData(tz->city(), DcpTimeZoneDelegate::TextRole1);
-        item->setData(tz->gmt() + " " + tz->city(),
+        item->setData(tz->gmt() + " " + tz->country(),
                       DcpTimeZoneDelegate::TextRole2);
 
         bool selected = false;

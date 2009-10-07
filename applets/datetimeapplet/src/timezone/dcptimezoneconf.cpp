@@ -4,6 +4,7 @@
 #include <QFile>
 #include <unicode/timezone.h>
 #include <unicode/strenum.h>
+#include <qmtime.h>
 #include "dcpicuconversions.h"
 // #include <duiconf.h>
 #include <QDebug>
@@ -43,9 +44,16 @@ DcpTimeZoneData DcpTimeZoneConf::defaultTimeZone() const
     } else {
         zone = zoneId.toString();
     }*/
-    QString zone = m_Settings.value(defaultZoneKey, "Europe/London").toString();
+    Maemo::QmTime time;
+    QString z;
+    bool st = time.getTimezone(z);
+    qDebug() << "getTimezone status:" << st << "value:" << z;
+    if (z.startsWith(':')) {
+        z.remove(0, 1);
+    }
+//    QString zone = m_Settings.value(defaultZoneKey, "Europe/London").toString();
 
-    DcpTimeZoneData timeZone(zone);
+    DcpTimeZoneData timeZone(z);
     return timeZone;
 }
 
@@ -53,6 +61,12 @@ void DcpTimeZoneConf::setDefaultTimeZone(QString zoneId)
 {
     // m_Conf->set("/system/timezone", zoneId);
     m_Settings.setValue(defaultZoneKey, zoneId);
+
+    Maemo::QmTime time;
+    bool st = time.setTimezone(":" + zoneId);
+    if (!st) {
+        qCritical() << "Could not save timezone:" << zoneId;
+    }
 }
 
 void DcpTimeZoneConf::initCountry()
