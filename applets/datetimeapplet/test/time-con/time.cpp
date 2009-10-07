@@ -15,7 +15,6 @@ int main(int argc, char *argv[])
 	int hour, min;
 
 	qDebug("Get current time");
-/*	time = mTime.time();*/
 	time = QTime::currentTime();
 
 	hour = time.hour();
@@ -28,6 +27,7 @@ int main(int argc, char *argv[])
 
 	qDebug("Assemble new time");
 	newTimeDate.setTime(QTime(hour, min, 0));
+	newTimeDate.setDate(QDate::currentDate());
 
 	qDebug("Check autosync");
 	if(mTime.getAutosync()){
@@ -39,7 +39,6 @@ int main(int argc, char *argv[])
 	time = newTimeDate.time();
 	qDebug(QString("Set time to %1:%2").arg(time.hour()).arg(time.minute()).toUtf8().data());
 	if(!mTime.setTime(newTimeDate)){
-/*		qCritical("Could not set time");*/
 		qCritical(QString("Could not set time to %1").arg(newTimeDate.toString()).toUtf8().data());
 	}
 }
