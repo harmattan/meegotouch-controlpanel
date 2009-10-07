@@ -48,9 +48,12 @@ DcpTimeZoneData DcpTimeZoneConf::defaultTimeZone() const
     QString z;
     bool st = time.getTimezone(z);
     qDebug() << "getTimezone status:" << st << "value:" << z;
-    QString zone = m_Settings.value(defaultZoneKey, "Europe/London").toString();
+    if (z.startsWith(':')) {
+        z.remove(0, 1);
+    }
+//    QString zone = m_Settings.value(defaultZoneKey, "Europe/London").toString();
 
-    DcpTimeZoneData timeZone(zone);
+    DcpTimeZoneData timeZone(z);
     return timeZone;
 }
 
@@ -59,6 +62,12 @@ void DcpTimeZoneConf::setDefaultTimeZone(QString zoneId)
     // m_Conf->set("/system/timezone", zoneId);
     QSettings settings("Nokia", "DuiControlPanel");
     m_Settings.setValue(defaultZoneKey, zoneId);
+
+    Maemo::QmTime time;
+    bool st = time.setTimezone(":" + zoneId);
+    if (!st) {
+        qCritical() << "Could not save timezone:" << zoneId;
+    }
 }
 
 void DcpTimeZoneConf::initCountry()
