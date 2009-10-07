@@ -69,6 +69,8 @@ void TimeView::initWidget()
 
     // add items to mainLayoutPolicy
     mainLayoutPolicy->addItem(m_Container, Qt::AlignCenter);
+
+    connect(dcpTime, SIGNAL(timeOrDateChanged()), this, SLOT(timeOrDateChanged()));
 }
 
 void TimeView::timeOrDateChanged()
