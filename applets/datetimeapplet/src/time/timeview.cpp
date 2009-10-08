@@ -1,3 +1,6 @@
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
+
 #include "timeview.h"
 #include "dcpdatetime.h"
 #include "datetimetranslation.h"
@@ -15,8 +18,7 @@
 #include <clock/settingalarm.h>
 
 
-TimeView::TimeView(QGraphicsWidget *parent)
-           :DcpWidget(parent)
+TimeView::TimeView(QGraphicsWidget *parent) : DcpWidget(parent)
 {
     setReferer(DcpDateTime::Main);
     dcpTime = new DcpTime(this);
@@ -44,10 +46,10 @@ void TimeView::initWidget()
     this->setLayout(mainLayout);
 
     m_Container = new DuiContainer(DcpDateTime::TimeDialogTitle, this);
-    
+
     // centralWidget
     DuiWidget *centralWidget = new DuiWidget(0);
-    
+
     // widgetLayout
     QGraphicsLinearLayout *widgetLayout = new QGraphicsLinearLayout(Qt::Horizontal, centralWidget);
     widgetLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
@@ -59,10 +61,10 @@ void TimeView::initWidget()
     m_TimePicker->setMaximumSize(QSize(400, 400));
     timeOrDateChanged();
 
-	widgetLayout->addItem(new DcpSpacerItem(centralWidget, 10, 10, QSizePolicy::Expanding, QSizePolicy::Preferred));
+    widgetLayout->addItem(new DcpSpacerItem(centralWidget, 10, 10, QSizePolicy::Expanding, QSizePolicy::Preferred));
     widgetLayout->addItem(m_TimePicker);
     widgetLayout->setAlignment(m_TimePicker, Qt::AlignCenter);
-	widgetLayout->addItem(new DcpSpacerItem(centralWidget, 10, 10, QSizePolicy::Expanding, QSizePolicy::Preferred));
+    widgetLayout->addItem(new DcpSpacerItem(centralWidget, 10, 10, QSizePolicy::Expanding, QSizePolicy::Preferred));
 
     // setCentralWidget
     m_Container->setCentralWidget(centralWidget);

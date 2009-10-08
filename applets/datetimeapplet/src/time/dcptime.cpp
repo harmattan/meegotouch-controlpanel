@@ -1,3 +1,6 @@
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
+
 #include <qmtime.h>
 
 #include "dcptime.h"
@@ -7,7 +10,7 @@ DcpTime::DcpTime(QObject *parent) : QObject(parent),
     m_Time(new Maemo::QmTime::QmTime(this))
 {
     connect (m_Time, SIGNAL(timeOrSettingsChanged (QmTime::WhatChanged)),
-             this, SIGNAL(timeOrDateChanged()));
+            this, SIGNAL(timeOrDateChanged()));
 }
 
 DcpTime::~DcpTime()
@@ -26,19 +29,19 @@ void DcpTime::getTime(int &hour, int &min)
 
 void DcpTime::setTime(int hour, int min)
 {
-	QDateTime newTime;
-	newTime.setTime(QTime(hour, min, 0));
-	newTime.setDate(QDate::currentDate());
+    QDateTime newTime;
+    newTime.setTime(QTime(hour, min, 0));
+    newTime.setDate(QDate::currentDate());
 
-	if(m_Time->getAutosync()){
-		if(!m_Time->setAutosync(false)){
-			qCritical("Could not turn off network time autosync");
-		}
-	}
+    if(m_Time->getAutosync()){
+        if(!m_Time->setAutosync(false)){
+            qCritical("Could not turn off network time autosync");
+        }
+    }
 
-	if(!m_Time->setTime(newTime)){
-		qCritical("Could not set time to %s", newTime.toString().toUtf8().data());
-	}
+    if(!m_Time->setTime(newTime)){
+        qCritical("Could not set time to %s", newTime.toString().toUtf8().data());
+    }
 }
 
 void DcpTime::getDate(int &year, int &month, int &day)
@@ -54,23 +57,23 @@ void DcpTime::getDate(int &year, int &month, int &day)
 
 void DcpTime::setDate(int year, int month, int day)
 {
-	QDateTime newDate;
-	newDate.setDate(QDate(year, month, day));
-	newDate.setTime(QTime::currentTime());
+    QDateTime newDate;
+    newDate.setDate(QDate(year, month, day));
+    newDate.setTime(QTime::currentTime());
     setDateTime (newDate);
 }
 
 void DcpTime::setDateTime(const QDateTime& newDate)
 {
     if(m_Time->getAutosync()){
-		if(!m_Time->setAutosync(false)){
-			qCritical("Could not turn off network time autosync");
-		}
-	}
+        if(!m_Time->setAutosync(false)){
+            qCritical("Could not turn off network time autosync");
+        }
+    }
 
-	if(!m_Time->setTime(newDate)){
-		qCritical("Could not set date to %s", newDate.toString().toUtf8().data());
-	}
+    if(!m_Time->setTime(newDate)){
+        qCritical("Could not set date to %s", newDate.toString().toUtf8().data());
+    }
 }
 
 /* Original declaration of the slot:

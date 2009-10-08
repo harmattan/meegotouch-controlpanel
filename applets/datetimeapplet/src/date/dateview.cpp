@@ -1,3 +1,6 @@
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
+
 #include "dateview.h"
 #include "dcpdatetime.h"
 #include "datetimetranslation.h"
@@ -14,8 +17,7 @@
 #include "datepicker/monthwidgetview.h"
 #include "datepicker/monthwidgetfullview.h"
 
-DateView::DateView(QGraphicsWidget *parent)
-           :DcpWidget(parent)
+DateView::DateView(QGraphicsWidget *parent) : DcpWidget(parent)
 {
     setReferer(DcpDateTime::Main);
     dcpTime = new DcpTime(this);
@@ -44,27 +46,27 @@ void DateView::initWidget()
     mainLayout->setSpacing(1);
 
     m_Container = new DuiContainer(DcpDateTime::DateDialogTitle, this);
-    
+
     // centralWidget
     DuiWidget *centralWidget = new DuiWidget(0);
-    
+
     // widgetLayout
     QGraphicsLinearLayout *widgetLayout = new QGraphicsLinearLayout(Qt::Horizontal, centralWidget);
     widgetLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     widgetLayout->setSpacing(1);
 
-  	//widgetLayout->addItem(pickerLayout);
+    //widgetLayout->addItem(pickerLayout);
 
     // setCentralWidget
 
-	m_MonthWidget = new MonthWidget();
+    m_MonthWidget = new MonthWidget();
 
-	MonthWidgetFullView* tmpView = new MonthWidgetFullView(m_MonthWidget);
+    MonthWidgetFullView* tmpView = new MonthWidgetFullView(m_MonthWidget);
 
-	m_MonthWidget->setView(tmpView);
-	m_MonthWidget->setSelectionSupported(true);
-	m_MonthWidget->setSelectedDay(year, month, day);
-	m_MonthWidget->updateContent();
+    m_MonthWidget->setView(tmpView);
+    m_MonthWidget->setSelectionSupported(true);
+    m_MonthWidget->setSelectedDay(year, month, day);
+    m_MonthWidget->updateContent();
 
     m_Container->setCentralWidget(m_MonthWidget);
 
@@ -78,9 +80,9 @@ void DateView::initWidget()
 
 void DateView::daySelected(int year, int month, int day)
 {
-	qDebug("Selected date: %d-%d-%d", year, month, day);
-	this->year = year;
-	this->month = month;
-	this->day = day;
+    qDebug("Selected date: %d-%d-%d", year, month, day);
+    this->year = year;
+    this->month = month;
+    this->day = day;
 }
 
