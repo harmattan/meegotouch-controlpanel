@@ -48,7 +48,7 @@ void DcpTime::getDate(int &year, int &month, int &day)
 {
     QDate date;
 
-    date = m_Time->date();
+    date = QDate::currentDate();
 
     year = date.year();
     month = date.month();
