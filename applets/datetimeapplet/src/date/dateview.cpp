@@ -70,7 +70,7 @@ void DateView::initWidget()
 
     m_Container->setCentralWidget(m_MonthWidget);
 
-    connect(m_MonthWidget, SIGNAL(daySelected()), this, SLOT(daySelected));
+    connect(m_MonthWidget, SIGNAL(daySelected(int,int,int)), this, SLOT(daySelected(int,int,int)));
 
     // add items to mainLayoutPolicy
     mainLayout->addItem(m_Container);
