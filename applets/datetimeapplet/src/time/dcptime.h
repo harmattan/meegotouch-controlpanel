@@ -28,6 +28,9 @@ public:
 signals:
     void timeOrDateChanged();
 
+private slots:
+    void timeOrSettingsChanged(int what);
+
 private:
     Maemo::QmTime::QmTime* m_Time;
 };
