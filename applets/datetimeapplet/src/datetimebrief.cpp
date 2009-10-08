@@ -2,13 +2,17 @@
 #include <DcpWidgetTypes>
 #include "dcptimezoneconf.h"
 #include "dcptimezonedata.h"
+#include "datehint.h"
+#include "dcptime.h"
 
 #include <DuiLocale>
 #include <QDateTime>
 #include <QTimer>
+#include <QtDebug>
+
 
 DateTimeBrief::DateTimeBrief(int partId)
-    : m_PartId(partId), m_Locale(new DuiLocale())
+    : m_PartId(partId), m_Locale(new DuiLocale()), m_Time(new DcpTime(this))
 {
     if (partId == DcpDateTime::Time || partId == DcpDateTime::Main
            || partId == DcpDateTime::None)
@@ -21,6 +25,9 @@ DateTimeBrief::DateTimeBrief(int partId)
 //        }
         timer->start(durationMs);
     }
+    DateHint::startHintIfNeeded();
+    connect (m_Time, SIGNAL(timeOrDateChanged()),
+             this, SIGNAL(valuesChanged()));
 }
 
 DateTimeBrief::~DateTimeBrief()

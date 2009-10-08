@@ -10,7 +10,7 @@
 #include <QDebug>
 
 DcpTimeZoneConf *DcpTimeZoneConf::sm_Instance = 0;
-static const QString zonePath = QString(PREFIX) + "/share/zoneinfo/";
+static const QString zonePath = "/usr/share/zoneinfo/";
 static const QString defaultZoneKey = "system/timezone";
 
 DcpTimeZoneConf* DcpTimeZoneConf::instance()

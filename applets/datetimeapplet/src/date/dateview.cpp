@@ -18,11 +18,22 @@ DateView::DateView(QGraphicsWidget *parent)
            :DcpWidget(parent)
 {
     setReferer(DcpDateTime::Main);
+    dcpTime = new DcpTime(this);
+    dcpTime->getDate(year, month, day);
     initWidget();
 }
 
 DateView::~DateView()
 {
+}
+
+bool DateView::back()
+{
+    //qDebug() << m_TimePicker->hours() << ":" <<m_TimePicker->minutes() ;
+
+    dcpTime->setDate(year, month, day);
+
+    return DcpWidget::back();
 }
 
 void DateView::initWidget()
@@ -51,8 +62,13 @@ void DateView::initWidget()
 	MonthWidgetFullView* tmpView = new MonthWidgetFullView(m_MonthWidget);
 
 	m_MonthWidget->setView(tmpView);
+	m_MonthWidget->setSelectionSupported(true);
+	m_MonthWidget->setSelectedDay(year, month, day);
+	m_MonthWidget->updateContent();
 
     m_Container->setCentralWidget(m_MonthWidget);
+
+    connect(m_MonthWidget, SIGNAL(daySelected()), this, SLOT(daySelected));
 
     // add items to mainLayoutPolicy
     mainLayout->addItem(m_Container);
@@ -60,4 +76,11 @@ void DateView::initWidget()
 
 }
 
+void DateView::daySelected(int year, int month, int day)
+{
+	qDebug("Selected date: %d-%d-%d", year, month, day);
+	this->year = year;
+	this->month = month;
+	this->day = day;
+}
 

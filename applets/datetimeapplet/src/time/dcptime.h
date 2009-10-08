@@ -1,11 +1,17 @@
 #ifndef DCPTIME_H
 #define DCPTIME_H
 
-#include <QTime>
+class QDateTime;
+#include <QObject>
+namespace Maemo {
+    namespace QmTime {
+        class QmTime;
+    };
+};
 
 class DcpTime : public QObject
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
     DcpTime(QObject *parent = 0);
@@ -17,10 +23,13 @@ public:
     void getDate(int &year, int &month, int &day);
     void setDate(int year, int month, int day);
 
-private slots:
-    void timeOrSettingsChanged(int what);
+    void setDateTime(const QDateTime& newDate);
+
 signals:
     void timeOrDateChanged();
+
+private:
+    Maemo::QmTime::QmTime* m_Time;
 };
 
 #endif // DCPTIME_H
