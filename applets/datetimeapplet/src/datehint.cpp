@@ -1,5 +1,5 @@
 #include "datehint.h"
-#include "dcptime.h"
+#include "qmtime.h"
 
 #include <QDateTime>
 #include <networktime.h>
@@ -20,13 +20,12 @@ DateHint::DateHint(QObject* parent):
 void
 DateHint::startHintIfNeeded()
 {
-    if (!isDateValid() && !sm_Instance)
+    if (!isDateValid() && !sm_Instance && Maemo::QmTime().getAutosync() <= 0)
     {
         QDateTime proposal = Cellular::NetworkTime().dateTime();
         qDebug() << "XXX date proposal:" << proposal;
         if (isDateValid(proposal)) {
-            DcpTime time;
-            time.setDateTime(proposal);
+            Maemo::QmTime::QmTime().setTime(proposal);
             qDebug() << "XXX immediate date hint was applied";
         } else {
             sm_Instance = new DateHint();
@@ -55,8 +54,7 @@ DateHint::onDateTimeChanged (QDateTime dateTime, int timezone, int dst)
 
     qDebug() << "XXX Proposed date hint:" << dateTime;
     if (!isDateValid() && isDateValid(dateTime)){
-        DcpTime time;
-        time.setDateTime(dateTime);
+        Maemo::QmTime::QmTime().setTime(dateTime);
         qDebug() << "XXX date hint was applied";
     } else {
         qDebug() << "XXX date hint was dropped";
