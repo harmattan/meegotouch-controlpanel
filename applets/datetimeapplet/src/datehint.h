@@ -17,7 +17,8 @@ public:
     static bool isDateValid(const QDateTime&);
 
 protected slots:
-    void onDateTimeChanged (QDateTime dateTime, int timezone, int dst);
+    bool check();
+    void suicide();
 
 protected:
     DateHint(QObject* parent = 0);

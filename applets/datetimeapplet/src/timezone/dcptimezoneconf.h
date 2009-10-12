@@ -18,7 +18,8 @@ public:
     virtual ~DcpTimeZoneConf();
     QMultiMap<QString, DcpTimeZoneData*> getMap() const;
     DcpTimeZoneData defaultTimeZone() const;
-    void setDefaultTimeZone(QString zoneId);
+    void setDefaultTimeZone(const QString& zoneId);
+    QString approxZoneId(int timezone, const QString& countryCode);
 
 protected:
     DcpTimeZoneConf();
@@ -28,8 +29,9 @@ protected:
 private:
     Q_DISABLE_COPY(DcpTimeZoneConf);
     static DcpTimeZoneConf *sm_Instance;
-    QMultiMap<QString, QString> m_CountryMap;
-    QMultiMap<QString, DcpTimeZoneData*> m_ItemMap;
+    QMultiMap<QString, QString> m_ZoneMap;      // US -> America/Denver, America/Indiana/Vevay etc.
+    QMultiMap<QString, QString> m_CountryMap;   // Europe/Berlin -> Germany etc.
+    QMultiMap<QString, DcpTimeZoneData*> m_ItemMap; // Germany -> data etc.
     QSettings m_Settings;
     // DuiConf *m_Conf;
 };

@@ -8,6 +8,7 @@
 #include "dcpicuconversions.h"
 // #include <duiconf.h>
 #include <QDebug>
+#include <qmtime.h>
 
 DcpTimeZoneConf *DcpTimeZoneConf::sm_Instance = 0;
 static const QString zonePath = "/usr/share/zoneinfo/";
@@ -57,7 +58,7 @@ DcpTimeZoneData DcpTimeZoneConf::defaultTimeZone() const
     return timeZone;
 }
 
-void DcpTimeZoneConf::setDefaultTimeZone(QString zoneId)
+void DcpTimeZoneConf::setDefaultTimeZone(const QString& zoneId)
 {
     // m_Conf->set("/system/timezone", zoneId);
     m_Settings.setValue(defaultZoneKey, zoneId);
@@ -76,12 +77,12 @@ void DcpTimeZoneConf::initCountry()
     if (!file->open(QIODevice::ReadOnly | QIODevice::Text))
         return;
 
-    QMultiMap<QString, QString> zoneMap;
+    m_ZoneMap.clear();
     while (!file->atEnd()) {
         QString line = file->readLine();
         if (!line.startsWith("#")) {
             QStringList item = line.split(QRegExp("\\s"), QString::SkipEmptyParts);
-            zoneMap.insert(item.at(0), item.at(2));
+            m_ZoneMap.insert(item.at(0), item.at(2));
         }
     }
     file->close();
@@ -96,8 +97,8 @@ void DcpTimeZoneConf::initCountry()
         QString line = file->readLine();
         if (!line.startsWith("#")) {
             QStringList item = line.split(QRegExp("\\s"), QString::SkipEmptyParts);
-            QMultiMap<QString, QString>::const_iterator iter = zoneMap.find(item.at(0));
-            while (iter != zoneMap.end() && iter.key() == item.at(0)) {
+            QMultiMap<QString, QString>::const_iterator iter = m_ZoneMap.find(item.at(0));
+            while (iter != m_ZoneMap.end() && iter.key() == item.at(0)) {
                 QString country;
                 for (int i = 1; i < item.size(); i++) {
                     if (i != item.size() - 1) {
@@ -173,5 +174,39 @@ QStringList DcpTimeZoneConf::supportedTimeZones()
     }
     delete stringEnum;
     return result;
+}
+
+QString
+DcpTimeZoneConf::approxZoneId(int timezone, const QString& countryCode)
+{
+    Maemo::QmTime mTime;
+    timezone *= -60*60; // convert to secs
+    qDebug() << "XXX guessing" << timezone << countryCode;
+
+    // search for zones for the given countryCode:
+    QMultiMap<QString, QString>::const_iterator iter = m_ZoneMap.find(countryCode);
+    while (iter != m_ZoneMap.end() && iter.key() == countryCode) {
+        QString tzId = iter.value();
+        int offset = mTime.getUTCOffset(tzId);
+        qDebug() << "XXX match for countryCode:" << tzId << "offset:" << offset;
+        if (offset == timezone) {
+            qDebug() << "XXX matched";
+            return tzId;
+        }
+        iter++;
+    }
+    qWarning() << "XXX no correct timezone match for countrycode, matching timezone only";
+
+    // search in all zones:
+    foreach (QString tzId, m_ZoneMap.values()) {
+        if (mTime.getUTCOffset(tzId) == timezone) {
+            qDebug() << "XXX first match:" << tzId;
+            return tzId;
+        }
+        iter++;
+    }
+
+    qDebug() << "XXX matching failed";
+    return QString();
 }
 
