@@ -71,7 +71,7 @@ DuiNavigationBarStyle {
 
 
 #DcpButton {
-    normal-background-image: "C2-container" 0 0 0 0;
+    background-image: "C2-container" 0 0 0 0;
 /*    in current design the button has no background: */
 /*    normal-background-image: ;
     normal-color: #000000;
@@ -110,7 +110,7 @@ DuiImageStyle {
 }
 
 #DcpSeeMoreIndicator {
-    normal-background-image: "See-more-indicator-small" 0 0 0 0;
+    background-image: "See-more-indicator-small" 0 0 0 0;
     minimum-size: 16 16;
     maximum-size: 16 16;
     margin-left: 8;
@@ -123,7 +123,7 @@ DuiButtonStyle#DcpButtonImageBorder {
     maximum-size: 64 64;
     minimum-size: 64 64;
 /*    icon-size: size(62, 62); */
-    normal-background-image: "Thumbnail-frame" 10 10 10 10;
+    background-image: "Thumbnail-frame" 10 10 10 10;
 
     padding-left: 0;
     padding-top: 0;
@@ -143,8 +143,8 @@ DuiImageStyle#DcpButtonImage {
 }
 
 DuiButtonStyle#DcpButtonToggle {
-    normal-background-image: "Toggle-off" 0 0 0 0;
-    pressed-background-image: "Toggle-on" 0 0 0 0;
+//    normal-background-image: "Toggle-off" 0 0 0 0;
+//    pressed-background-image: "Toggle-on" 0 0 0 0;
     maximum-size: 64 64;
     minimum-size: 64 64;
 }
