@@ -39,13 +39,6 @@ DcpAppletDb::addFile(const QString& filename)
   DcpAppletMetadata *metadata = new DcpAppletMetadata(filename);
   if (metadata->isValid())
     {
-        if (containsName(metadata->name()))
-        {
-            qDebug() << "applet name conflict" << metadata->name();
-            metadata->deleteLater();
-            return false;
-            
-        }
         m_AppletsByName[metadata->name()] = metadata;
         m_AppletsByFile[filename] = metadata;
         return true;
