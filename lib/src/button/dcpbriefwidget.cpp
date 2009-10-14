@@ -9,6 +9,7 @@
 #include <DuiSceneManager>
 #include <QGraphicsLinearLayout>
 #include <QtDebug>
+#include <DuiApplication>
 
 DcpBriefWidget::DcpBriefWidget(DcpAppletMetadata* metadata, DuiWidget* parent)
     : DuiWidget(parent), m_RealWidget(0), m_Metadata(0), m_Hidden(true)
@@ -48,10 +49,8 @@ void DcpBriefWidget::setMetadata(DcpAppletMetadata* metadata)
             break;
     }
 
-    // this currently cannot change:
-    m_RealWidget->setText1(m_Metadata->text1());
-
     connect (this, SIGNAL(clicked()), m_Metadata, SLOT(slotClicked()));
+    connect (qApp, SIGNAL(localeSettingsChanged()), this, SLOT(updateContents()));
     ((QGraphicsLinearLayout*)(layout()))->addItem(m_RealWidget);
 }
 
@@ -75,6 +74,7 @@ DcpButton2Toggle* DcpBriefWidget::constructToggle(
 
 void DcpBriefWidget::updateContents()
 {
+    m_RealWidget->setText1(m_Metadata->text1());
     m_RealWidget->setText2(m_Metadata->text2());
 }
 

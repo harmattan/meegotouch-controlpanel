@@ -3,6 +3,7 @@
 
 #include <DcpWidget>
  
+class DuiSlider;
 class DuiLabel;
 class DuiButton;
 
@@ -23,11 +24,18 @@ protected:
 private:
 	DuiLabel    *m_brightnessLabel;
 	DuiLabel    *m_screenLabel;
+	DuiLabel    *m_screenLightLabel;
+	DuiLabel    *m_noteText;
     DuiButton   *m_screenToggleButton;
+    DuiSlider   *m_sliderScreen;
+    DuiSlider   *m_sliderBrightness;
 		
 private slots:
 	virtual void setBrightnessLabel(int value);
 	virtual void setScreenLabel(int value);
+    virtual void onLocaleChanged();
     void nextPage();
 };
+
 #endif // DISPLAYWIDGET_H
+

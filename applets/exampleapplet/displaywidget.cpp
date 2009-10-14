@@ -38,6 +38,15 @@ void DisplayWidget::paint(QPainter *painter,
 
 }
 
+void DisplayWidget::onLocaleChanged()
+{
+    setScreenLabel(m_sliderScreen->value());
+    setBrightnessLabel(m_sliderBrightness->value());
+    m_screenLightLabel->setText(trid(DcpDisplay::chargingTextId,
+                                     DcpDisplay::chargingTextDefault));
+    m_noteText->setText(trid(DcpDisplay::noteTextId, DcpDisplay::noteTextDefault));
+}
+
 void DisplayWidget::initWidget()
 {
     DuiLayout *mainLayout = new DuiLayout(this);
@@ -56,31 +65,29 @@ void DisplayWidget::initWidget()
     centralLayoutPolicy->setSpacing(20);
 	
     // m_brightnessLabel
-	m_brightnessLabel = new DuiLabel(DcpDisplay::BrightnessText 
-                    + QString(" %1 %").arg(50), this);
+	m_brightnessLabel = new DuiLabel(this);
 	m_brightnessLabel->setObjectName("LabelBrightness");
 	
     // sliderBrightness
-	DuiSlider *sliderBrightness = new DuiSlider(this, "continuous");
-	sliderBrightness->setOrientation(Qt::Horizontal);
-	sliderBrightness->setRange(0, 100);
-	sliderBrightness->setValue(50);
-	sliderBrightness->setMaximumHeight(20);
-	connect(sliderBrightness, SIGNAL(valueChanged(int )), 
+	m_sliderBrightness = new DuiSlider(this, "continuous");
+	m_sliderBrightness->setOrientation(Qt::Horizontal);
+	m_sliderBrightness->setRange(0, 100);
+	m_sliderBrightness->setValue(50);
+	m_sliderBrightness->setMaximumHeight(20);
+	connect(m_sliderBrightness, SIGNAL(valueChanged(int )), 
 		    this, SLOT(setBrightnessLabel(int)));
 
     // m_screenLabel
-	m_screenLabel = new DuiLabel(DcpDisplay::ScreenLightsText 
-                    + QString(" %1 sec").arg(50), this);
+	m_screenLabel = new DuiLabel(this);
     m_screenLabel->setObjectName("LabelScreen");
 
     // sliderScreen
-	DuiSlider *sliderScreen = new DuiSlider(this, "continuous");
-	sliderScreen->setOrientation(Qt::Horizontal);
-	sliderScreen->setRange(0, 100);
-	sliderScreen->setValue(50);
-	sliderScreen->setMaximumHeight(20);
-	connect(sliderScreen, SIGNAL(valueChanged(int )),
+	m_sliderScreen = new DuiSlider(this, "continuous");
+	m_sliderScreen->setOrientation(Qt::Horizontal);
+	m_sliderScreen->setRange(0, 100);
+	m_sliderScreen->setValue(50);
+	m_sliderScreen->setMaximumHeight(20);
+	connect(m_sliderScreen, SIGNAL(valueChanged(int )),
 	 	    this, SLOT(setScreenLabel(int )));
 	
     // screenHLayout
@@ -92,7 +99,7 @@ void DisplayWidget::initWidget()
     screenHLayoutPolicy->setSpacing(20);
 
     // screenLightLabel
-	DuiLabel *screenLightLabel = new DuiLabel(DcpDisplay::ChargingText, this);
+	DuiLabel *screenLightLabel = new DuiLabel(this);
     screenLightLabel->setObjectName("LabelScreenLight");
 
     // m_screenToggleButton
@@ -112,9 +119,9 @@ void DisplayWidget::initWidget()
 
     // Add items to centralLayoutPolicy
 	centralLayoutPolicy->addItem(m_brightnessLabel, Qt::AlignLeft);
-	centralLayoutPolicy->addItem(sliderBrightness, Qt::AlignLeft);
+	centralLayoutPolicy->addItem(m_sliderBrightness, Qt::AlignLeft);
 	centralLayoutPolicy->addItem(m_screenLabel, Qt::AlignLeft);
-	centralLayoutPolicy->addItem(sliderScreen, Qt::AlignLeft);
+	centralLayoutPolicy->addItem(m_sliderScreen, Qt::AlignLeft);
     centralLayoutPolicy->addItem(
                     new DcpSpacerItem(this, 10, 20, QSizePolicy::Expanding, 
                      QSizePolicy::Fixed), Qt::AlignCenter);
@@ -122,8 +129,8 @@ void DisplayWidget::initWidget()
 	centralLayoutPolicy->addItem(
                     new DcpSpacerItem(this, 10, 10, QSizePolicy::Expanding, 
                     QSizePolicy::Fixed), Qt::AlignCenter);
-	centralLayoutPolicy->addItem(new DuiLabel(DcpDisplay::NoteText, this),
-                                           Qt::AlignLeft);
+    m_noteText = new DuiLabel(this);
+    centralLayoutPolicy->addItem(m_noteText, Qt::AlignLeft);
     centralLayoutPolicy->addItem(
                     new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding,
                     QSizePolicy::Expanding), Qt::AlignCenter);
@@ -138,17 +145,20 @@ void DisplayWidget::initWidget()
                     QSizePolicy::Expanding), Qt::AlignRight);
 
     this->setLayout(mainLayout);
+    onLocaleChanged();
 }
 
 void DisplayWidget::setBrightnessLabel(int value)
 {
-	m_brightnessLabel->setText(DcpDisplay::BrightnessText 
+	m_brightnessLabel->setText(trid(DcpDisplay::brightnessTextId,
+                               DcpDisplay::brightnessTextDefault)
                     + QString(" %1 %").arg(value));
 }
 
 void DisplayWidget::setScreenLabel(int value)
 {
-	m_screenLabel->setText(DcpDisplay::ScreenLightsText 
+	m_screenLabel->setText(trid(DcpDisplay::screenLightsTextId,
+                                DcpDisplay::screenLightsTextDefault)
                     + QString(" %1 sec").arg(value));
 }
 

@@ -57,7 +57,7 @@ DcpWidget* DisplayApplet::page2()
 
 QString DisplayApplet::title() const
 {
-        return DcpDisplay::AppletTitle;
+        return trid(DcpDisplay::appletTitleId, DcpDisplay::appletTitleDefault);
 }
 
 QVector<DuiAction*> DisplayApplet::viewMenuItems()
