@@ -16,7 +16,9 @@ DcpAppletDb::instance(const QString &pathName)
 
 DcpAppletDb::DcpAppletDb(const QString &pathName)
 {
-    addPath(pathName);
+    if (!pathName.isEmpty()){
+        addPath(pathName);
+    }
 }
 
 DcpAppletDb::~DcpAppletDb()
@@ -39,13 +41,6 @@ DcpAppletDb::addFile(const QString& filename)
   DcpAppletMetadata *metadata = new DcpAppletMetadata(filename);
   if (metadata->isValid())
     {
-        if (containsName(metadata->name()))
-        {
-            qDebug() << "applet name conflict" << metadata->name();
-            metadata->deleteLater();
-            return false;
-            
-        }
         m_AppletsByName[metadata->name()] = metadata;
         m_AppletsByFile[filename] = metadata;
         return true;
@@ -77,13 +72,23 @@ DcpAppletDb::containsName(const QString& name)
 bool
 DcpAppletDb::addPath(const QString &pathName)
 {
+    if (addFiles (pathName, "*.desktop")) {
+        m_Paths.append(pathName);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool
+DcpAppletDb::addFiles(const QString& pathName, const QString& filter)
+{
     QDir appDir(pathName); 
-    foreach(QString appFile, appDir.entryList(QStringList("*.desktop")))
+    foreach(QString appFile, appDir.entryList(QStringList(filter)))
     {
         if (!addFile(appDir.absoluteFilePath(appFile)))
               return false;
     }
-    m_Paths.append(pathName);
     return true;
 }
 
@@ -127,43 +132,33 @@ void DcpAppletDb::refresh()
 {
     foreach(QString pathName, m_Paths)
         refreshPath(pathName);
+
+    foreach(DcpAppletMetadata *metadata, m_AppletsByName) {
+        if (!metadata->isValid()) {
+            eraseEntry(metadata);
+        } else if (metadata->isModified()) {
+             QString fileName = metadata->fileName();
+             eraseEntry(metadata);
+             addFile(fileName);
+        } 
+    }
 }
 
 void DcpAppletDb::refreshPath(const QString &pathName)
 {
 
     QDir appDir(pathName, APPLETFILTER);
-    if (!appDir.exists())
-    {
+    if (!appDir.exists()) {
         qWarning() << "Applet dir" << pathName << "does not exists";
         return;
     }
     
-    int added = 0;
-    int modified = 0;
-    
-    foreach(QString appFile, appDir.entryList())
-    {
+    foreach(QString appFile, appDir.entryList()) {
         QString fileName = appDir.absoluteFilePath(appFile);
-        if (!m_AppletsByFile.contains(appFile))
-          {
+        if (!m_AppletsByFile.contains(appFile)) {
             addFile(fileName);
-            added++;
-          }
+        }
     }
-    foreach(DcpAppletMetadata *metadata, m_AppletsByName)
-      {
-        if (!metadata->isValid())
-            eraseEntry(metadata);
-        else
-        if (metadata->isModified())
-         {
-             QString fileName = metadata->fileName();
-             eraseEntry(metadata);
-             addFile(fileName);
-             modified++;
-         } 
-      }
 }
 
 void DcpAppletDb::eraseEntry(DcpAppletMetadata *metadata)

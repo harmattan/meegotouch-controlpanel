@@ -50,7 +50,10 @@ void Ut_DcpAppletDb::testAddContainNameFile()
     QVERIFY(m_subject->containsFile(desktopTestFile));
 
     QVERIFY(!m_subject->addFile(desktopTestFile));
-    QVERIFY(!m_subject->addFile(desktopTestFile2));
+    /* this test was commented out because current implementation
+     * requires that two applets with same name can be loaded.
+     * eg. display language for controlpanel and for suw */
+//    QVERIFY(!m_subject->addFile(desktopTestFile2));
 
     QVERIFY(m_subject->containsName(browserEntryName));
     QVERIFY(!m_subject->containsName(browserEntryName)+"x");
