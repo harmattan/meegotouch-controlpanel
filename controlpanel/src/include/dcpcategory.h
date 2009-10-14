@@ -1,1 +1,1 @@
-#include "../base/dcpcategory.h"
+#include "../component/dcpcategory.h"
