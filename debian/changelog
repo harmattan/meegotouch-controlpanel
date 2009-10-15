@@ -1,3 +1,14 @@
+duicontrolpanel (0.4.2) unstable; urgency=low
+
+  * new tag
+  * Implements timezone guessing from sim network (untested,
+    experimental)
+  * Fixes bug with duistartup applets were not loaded
+  * Follows dui 0.12 changes in button background styling
+  * Datetime applet is able to change language on the fly
+
+ -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Thu, 15 Oct 2009 18:01:02 +0200
+
 duicontrolpanel (0.4.1) unstable; urgency=low
 
   * applet db addFile fix
