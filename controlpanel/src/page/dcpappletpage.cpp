@@ -35,7 +35,10 @@ void DcpAppletPage::load()
 {
    m_LoadedMetadata = m_Metadata;
    if (m_Metadata && m_Metadata->isValid() && m_Metadata->applet()) {
-       changeWidget(m_Metadata->partID());
+       if (m_Metadata->partID() != -1)
+          changeWidget(m_Metadata->partID());
+       else
+          changeWidget(0);
    } else {
        Q_ASSERT (!m_MissingLabel);
        m_MissingLabel = new DuiLabel(trid("dcp_no_applet_name",
