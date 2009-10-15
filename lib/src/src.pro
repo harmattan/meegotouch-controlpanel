@@ -19,25 +19,26 @@ DESTDIR       = ../lib
 target.path    += $$DCP_INSTALL_LIB
 install_headers.path    += $$DCP_INSTALL_HEADERS
 install_headers.files += include/D* \
-    applet/dcpapplet.h \
-    applet/dcpappletif.h \
-    applet/dcpwidget.h \
-    applet/dcpmetadata.h \
-    applet/dcpbrief.h \
-    button/dcpbutton2.h \
-    button/dcpbutton2align.h \
-    button/dcpbutton2toggle.h \
-    button/dcpbutton2image.h \
-    button/dcpbriefwidget.h \
+    appletdb/dcpapplet.h \
+    appletdb/dcpappletif.h \
+    appletdb/dcpwidget.h \
+    appletdb/dcpmetadata.h \
+    appletdb/dcpbrief.h \
+    appletdb/dcpappletdb.h \
+    appletdb/dcpappletloader.h \
+    appletdb/dcpappletmetadata.h \
+    appletdb/dcpmostusedcounter.h \
+    appletdb/dcpmostusedcounter.h \
+    widget/dcpbutton2.h \
+    widget/dcpbutton2align.h \
+    widget/dcpbutton2toggle.h \
+    widget/dcpbutton2image.h \
+    widget/dcpbriefwidget.h \
     widget/dcpwidgettypes.h \
     widget/dcpspaceritem.h \
     widget/dcpdialog.h \
     widget/dcpcommondialog.h \
-    appletdb/dcpappletdb.h \
-    appletdb/dcpappletloader.h \
-    appletdb/dcpappletmetadata.h \
     dcpdebug.h \
-    appletdb/dcpmostusedcounter.h \
     service_interface/duicontrolpanelif.h \
     service_interface/duicontrolpanelifproxy.h
 
