@@ -16,6 +16,7 @@ DcpAppletDb::instance(const QString &pathName)
 
 DcpAppletDb::DcpAppletDb(const QString &pathName)
 {
+    m_HasUniqueMetadata = false;
     if (!pathName.isEmpty()){
         addPath(pathName);
     }
@@ -35,12 +36,19 @@ void DcpAppletDb::destroy()
 bool
 DcpAppletDb::addFile(const QString& filename)
 {
- if (containsFile(filename))
+ if (containsFile(filename) || m_HasUniqueMetadata)
     return false;
 
   DcpAppletMetadata *metadata = new DcpAppletMetadata(filename);
   if (metadata->isValid())
     {
+        if (metadata->isUnique())
+        {
+             m_AppletsByName.clear();   
+             m_AppletsByFile.clear();   
+             m_HasUniqueMetadata = true;
+
+        }
         m_AppletsByName[metadata->name()] = metadata;
         m_AppletsByFile[filename] = metadata;
         return true;

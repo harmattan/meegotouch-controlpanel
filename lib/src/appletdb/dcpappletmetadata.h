@@ -21,6 +21,7 @@ public:
     DcpAppletMetadata(const QString& filename);
     virtual ~DcpAppletMetadata();
     virtual bool isValid() const;
+    virtual bool isUnique() const;
     virtual bool isModified() const;
 
     QString name() const;

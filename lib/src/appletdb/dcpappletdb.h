@@ -78,6 +78,7 @@ private:
     DcpAppletMetadataMap m_AppletsByName;  
     DcpAppletMetadataMap m_AppletsByFile; 
     QList<QString> m_Paths;
+    bool m_HasUniqueMetadata;
     static DcpAppletDb *sm_Instance;
 };
 #endif // DCPAPPLETDB_H

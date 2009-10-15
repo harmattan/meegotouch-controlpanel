@@ -39,6 +39,7 @@ enum  {
     KeyNameCatalog,
 
     KeyPart,
+    KeyUnique,
     KeyParent,
     KeyCount,
 };
@@ -67,6 +68,7 @@ const QString Keys[KeyCount] = {
     "Desktop Entry/X-logical-id",
     "Desktop Entry/X-translation-catalog",
     "DCP/Part",
+    "DCP/Unique",
     "DCP/Parent"
 };
 
@@ -229,6 +231,11 @@ QString DcpAppletMetadata::image() const
 
     // old way
     return desktopEntryStr(KeyImage);
+}
+
+bool DcpAppletMetadata::isUnique() const
+{
+    return !desktopEntryStr(KeyUnique).isEmpty();
 }
 
 QString DcpAppletMetadata::part() const
