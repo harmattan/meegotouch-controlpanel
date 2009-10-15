@@ -24,10 +24,13 @@ DayLabelStyle {
 }
 
 #ToggleButton {
-    normal-background-image: "Toggle-on" 0 0 0 0;
-    pressed-background-image: "Toggle-off" 0 0 0 0;
+    background-image: "Toggle-on" 0 0 0 0;
     minimum-size: 48 48;
     maximum-size: 48 48;
+}
+
+#ToggleButton:pressed {
+    background-image: "Toggle-off" 0 0 0 0;
 }
 
 #InputTextEdit {
@@ -61,7 +64,7 @@ DayLabelStyle {
 }
 
 #TimeZoneCheckMark {
-    normal-background-image: "Check-mark" 0 0 0 0;
+    background-image: "Check-mark" 0 0 0 0;
     minimum-size: 32 32;
     maximum-size: 32 32;
     margin-right: 20;
@@ -81,10 +84,12 @@ DayLabelStyle {
 }
 
 #DayButton {
-    normal-background-image: ;
-    pressed-text-color: #E48415;
+    background-image: ;
 }
 
+#DayButton:pressed {
+    text-color: #E48415;
+}
 
 
 
@@ -249,12 +254,15 @@ DuiButtonStyle#aePushButton
 	preferred-size: 432px 88px;
 	maximum-size: 432px 88px;
 
-	normal-background-image: Toggle-btn-normal;
-	pressed-background-image: Toggle-btn-selected;
+	background-image: Toggle-btn-normal;
 
 	font: "Nokia Sans" 24px;
 
 	cloud-duration: 0;
+}
+
+DuiButtonStyle#aePushButton:pressed {
+	background-image: Toggle-btn-selected;
 }
 
 DuiLabelStyle#aeBigLabel{
