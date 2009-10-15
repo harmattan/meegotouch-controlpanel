@@ -13,6 +13,7 @@
 #include <QSortFilterProxyModel>
 #include <DuiSceneManager>
 #include <QModelIndex>
+#include <DuiApplication>
 
 TimeZoneView::TimeZoneView(QGraphicsWidget *parent)
              :DcpWidget(parent),
@@ -31,10 +32,11 @@ void TimeZoneView::initWidget()
     // mainLayout
     QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(Qt::Vertical, this);
 
-
     // m_TextEdit
+    m_TextEditShowsHint = true;
     m_TextEdit = new DuiTextEdit(DuiTextEditModel::SingleLine,
-                                 DcpDateTime::InputCountryText,
+                                 trid(DcpDateTime::inputCountryTextId,
+                                      DcpDateTime::inputCountryTextDefault),
                                  this);
     m_TextEdit->setObjectName("InputTextEdit");
     m_TextEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
@@ -94,22 +96,23 @@ void TimeZoneView::initWidget()
     connect(DuiSceneManager::instance(),
             SIGNAL(orientationChanged(const Dui::Orientation &)),
             this, SLOT(orientationChanged()));
+    connect(qApp, SIGNAL(localeSettingsChanged()),
+            this, SLOT(onLocaleChanged()));
     orientationChanged();
 }
 
 
 void TimeZoneView::clearTextEdit(DuiTextEdit *textEdit)
 {
-    if (textEdit->text() == DcpDateTime::InputCountryText) {
+    if (m_TextEditShowsHint) {
+        m_TextEditShowsHint = false;
         textEdit->setText("");
     }
 }
 
 void TimeZoneView::filteringListItems()
 {
-    QString sample = m_TextEdit->text();
-    if (sample == DcpDateTime::InputCountryText)
-        sample = "";
+    QString sample = m_TextEditShowsHint ? "" : m_TextEdit->text();
     proxyModel()->setFilterRegExp(QRegExp(sample, Qt::CaseInsensitive,
                                              QRegExp::FixedString));
 }
@@ -157,5 +160,13 @@ bool TimeZoneView::back()
         DcpTimeZoneConf::instance()->setDefaultTimeZone(zoneId);
     }
     return DcpWidget::back();
+}
+
+void TimeZoneView::onLocaleChanged()
+{
+    if (m_TextEditShowsHint) {
+        m_TextEdit->setText(trid(DcpDateTime::inputCountryTextId,
+                            DcpDateTime::inputCountryTextDefault));
+    }
 }
 

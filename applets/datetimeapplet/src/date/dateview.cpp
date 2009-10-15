@@ -11,6 +11,7 @@
 #include <duilabel.h>
 #include <duiscenemanager.h>
 #include <QGraphicsLinearLayout>
+#include <DuiApplication>
 
 
 #include "datepicker/monthwidget.h"
@@ -38,6 +39,12 @@ bool DateView::back()
     return DcpWidget::back();
 }
 
+void DateView::onLocaleChanged()
+{
+    m_Container->setTitle(trid(DcpDateTime::dateDialogTitleId,
+                               DcpDateTime::dateDialogTitleDefault));
+}
+
 void DateView::initWidget()
 {
     // mainLayout
@@ -45,7 +52,7 @@ void DateView::initWidget()
     mainLayout->setContentsMargins(0.0, 12.0, 0.0, 12.0);
     mainLayout->setSpacing(1);
 
-    m_Container = new DuiContainer(DcpDateTime::DateDialogTitle, this);
+    m_Container = new DuiContainer(this);
 
     // centralWidget
     DuiWidget *centralWidget = new DuiWidget(0);
@@ -76,6 +83,9 @@ void DateView::initWidget()
     mainLayout->addItem(m_Container);
     mainLayout->setAlignment(m_Container, Qt::AlignCenter);
 
+    connect (qApp, SIGNAL(localeSettingsChanged()),
+             this, SLOT(onLocaleChanged()));
+    onLocaleChanged();
 }
 
 void DateView::daySelected(int year, int month, int day)

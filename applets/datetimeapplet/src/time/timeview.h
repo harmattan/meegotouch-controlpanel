@@ -24,6 +24,7 @@ protected:
 
 private slots:
     void timeOrDateChanged();
+    void onLocaleChanged();
 
 private:
     DuiContainer *m_Container;

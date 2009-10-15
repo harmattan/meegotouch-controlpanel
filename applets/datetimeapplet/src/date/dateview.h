@@ -27,6 +27,7 @@ public slots:
 
 private slots:
     void daySelected(int year, int month, int day);
+    void onLocaleChanged();
 
 private:
     int year, month, day;

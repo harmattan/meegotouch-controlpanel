@@ -96,13 +96,13 @@ void DateTimeWidget::initWidget()
     // m_AutomaticUpdateButton
     m_AutomaticUpdateButton = new UpdateButton(this);
 
-    // simpleLabel
-    DuiLabel *simpleLabel = new DuiLabel(DcpDateTime::SetDateTimeText, this);
-    simpleLabel->setObjectName("SimpleLabel");
-    simpleLabel->setAlignment(Qt::AlignCenter);
+    // m_SimpleLabel
+    m_SimpleLabel = new DuiLabel(this);
+    m_SimpleLabel->setObjectName("SimpleLabel");
+    m_SimpleLabel->setAlignment(Qt::AlignCenter);
 
     // regionFormatButton
-    m_RegionFormatButton = new DuiButton(DcpDateTime::RegionButtonText, this);
+    m_RegionFormatButton = new DuiButton(this);
     m_RegionFormatButton->setObjectName("RegionFormatButton");
 
     // Add items to m_DateTimeHLayoutPolicy
@@ -126,7 +126,7 @@ void DateTimeWidget::initWidget()
     mainLayoutPolicy->addItem(
             new DcpSpacerItem(this, 5, 10, QSizePolicy::Expanding, QSizePolicy::Fixed),
             Qt::AlignCenter);
-    mainLayoutPolicy->addItem(simpleLabel, Qt::AlignCenter);
+    mainLayoutPolicy->addItem(m_SimpleLabel, Qt::AlignCenter);
     mainLayoutPolicy->addItem(m_RegionFormatButton, Qt::AlignCenter);
     mainLayoutPolicy->addItem(
             new DcpSpacerItem(this, 5, 5, QSizePolicy::Expanding, QSizePolicy::Expanding),
@@ -136,6 +136,11 @@ void DateTimeWidget::initWidget()
     connect(DuiSceneManager::instance(), SIGNAL(orientationChanged(const Dui::Orientation &)),
             this, SLOT(orientationChanged()));
     orientationChanged();
+
+    // "on the fly" language change
+    connect (qApp, SIGNAL(localeSettingsChanged()),
+             this, SLOT(onLocaleChanged()));
+    onLocaleChanged();
 }
 
 
@@ -162,11 +167,25 @@ void DateTimeWidget::showTimeZoneView()
     emit changeWidget(DcpDateTime::TimeZone);
 }
 
+void DateTimeWidget::onLocaleChanged()
+{
+    m_SimpleLabel->setText(trid(DcpDateTime::setDateTimeTextId,
+                                DcpDateTime::setDateTimeTextDefault));
+    m_RegionFormatButton->setText(trid(DcpDateTime::regionButtonTextId,
+                                       DcpDateTime::regionButtonTextDefault));
+    m_AutomaticUpdateButton->setText(trid(DcpDateTime::automaticUpdateTextId,
+                                 DcpDateTime::automaticUpdateTextDefault));
+    updateTimeText();
+    updateDateText();
+    updateTimeZoneText();
+}
+
 void DateTimeWidget::updateTimeText()
 {
     QTime time = QTime::currentTime();
     QString text = time.toString("h:mm A");
-    m_TimeButton->setText1(DcpDateTime::CurrentTimeButtonText);
+    m_TimeButton->setText1(trid(DcpDateTime::currentTimeButtonTextId,
+                                DcpDateTime::currentTimeButtonTextDefault));
     m_TimeButton->setText2(text);
 }
 
@@ -174,7 +193,8 @@ void DateTimeWidget::updateDateText()
 {
     QDateTime date = QDateTime::currentDateTime();
     QString text = date.toString("dddd, dd MMMM yyyy");
-    m_DateButton->setText1(DcpDateTime::DateButtonText);
+    m_DateButton->setText1(trid(DcpDateTime::dateButtonTextId,
+                                DcpDateTime::dateButtonTextDefault));
     m_DateButton->setText2(text);
 }
 
@@ -182,7 +202,9 @@ void DateTimeWidget::updateTimeZoneText()
 {
     QString timezone = DcpTimeZoneConf::instance()->defaultTimeZone().gmt() + " " +
                        DcpTimeZoneConf::instance()->defaultTimeZone().city();
-    m_TimeZoneButton->setText(DcpDateTime::CurrentTimeZoneText, timezone);
+    m_TimeZoneButton->setText(trid(DcpDateTime::currentTimeZoneTextId,
+                                   DcpDateTime::currentTimeZoneTextDefault)
+                              , timezone);
 }
 
 void DateTimeWidget::showDateView()

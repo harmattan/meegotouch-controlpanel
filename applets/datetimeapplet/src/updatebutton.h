@@ -12,6 +12,7 @@ class UpdateButton : public DuiWidget
 public:
     UpdateButton(DuiWidget *parent = 0);
     virtual ~UpdateButton();
+    void setText(const QString& text);
 
 protected:
     void initWidget();

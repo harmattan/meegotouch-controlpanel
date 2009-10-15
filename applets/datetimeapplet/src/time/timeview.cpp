@@ -14,6 +14,7 @@
 #include <duiscenemanager.h>
 #include <duicontainer.h>
 #include <QGraphicsLinearLayout>
+#include <DuiApplication>
 
 #include <clock/settingalarm.h>
 
@@ -40,18 +41,20 @@ void TimeView::initWidget()
     DuiLayout *mainLayout = new DuiLayout(this);
     mainLayout->setAnimator(0);
     mainLayout->setContentsMargins(0.0, 12.0, 0.0, 12.0);
-    DuiLinearLayoutPolicy *mainLayoutPolicy = new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
+    DuiLinearLayoutPolicy *mainLayoutPolicy =
+        new DuiLinearLayoutPolicy(mainLayout, Qt::Vertical);
     mainLayoutPolicy->setSpacing(10);
     mainLayout->setPolicy(mainLayoutPolicy);
     this->setLayout(mainLayout);
 
-    m_Container = new DuiContainer(DcpDateTime::TimeDialogTitle, this);
+    m_Container = new DuiContainer(this);
 
     // centralWidget
     DuiWidget *centralWidget = new DuiWidget(0);
 
     // widgetLayout
-    QGraphicsLinearLayout *widgetLayout = new QGraphicsLinearLayout(Qt::Horizontal, centralWidget);
+    QGraphicsLinearLayout *widgetLayout =
+        new QGraphicsLinearLayout(Qt::Horizontal, centralWidget);
     widgetLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
     widgetLayout->setSpacing(2);
 
@@ -61,10 +64,12 @@ void TimeView::initWidget()
     m_TimePicker->setMaximumSize(QSize(400, 400));
     timeOrDateChanged();
 
-    widgetLayout->addItem(new DcpSpacerItem(centralWidget, 10, 10, QSizePolicy::Expanding, QSizePolicy::Preferred));
+    widgetLayout->addItem(new DcpSpacerItem(centralWidget, 10, 10,
+                          QSizePolicy::Expanding, QSizePolicy::Preferred));
     widgetLayout->addItem(m_TimePicker);
     widgetLayout->setAlignment(m_TimePicker, Qt::AlignCenter);
-    widgetLayout->addItem(new DcpSpacerItem(centralWidget, 10, 10, QSizePolicy::Expanding, QSizePolicy::Preferred));
+    widgetLayout->addItem(new DcpSpacerItem(centralWidget, 10, 10,
+                          QSizePolicy::Expanding, QSizePolicy::Preferred));
 
     // setCentralWidget
     m_Container->setCentralWidget(centralWidget);
@@ -72,7 +77,18 @@ void TimeView::initWidget()
     // add items to mainLayoutPolicy
     mainLayoutPolicy->addItem(m_Container, Qt::AlignCenter);
 
-    connect(dcpTime, SIGNAL(timeOrDateChanged()), this, SLOT(timeOrDateChanged()));
+    connect(dcpTime, SIGNAL(timeOrDateChanged()),
+            this, SLOT(timeOrDateChanged()));
+
+    connect (qApp, SIGNAL(localeSettingsChanged()),
+             this, SLOT(onLocaleChanged()));
+    onLocaleChanged();
+}
+
+void TimeView::onLocaleChanged()
+{
+    m_Container->setTitle(trid(DcpDateTime::timeDialogTitleId,
+                               DcpDateTime::timeDialogTitleDefault));
 }
 
 void TimeView::timeOrDateChanged()
