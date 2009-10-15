@@ -1,1 +1,1 @@
-#include "../page/main/dcpmainpage.h"
+#include "../page/dcpmainpage.h"

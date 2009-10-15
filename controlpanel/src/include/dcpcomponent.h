@@ -1,1 +1,1 @@
-#include "../base/dcpcomponent.h"
+#include "../component/dcpcomponent.h"

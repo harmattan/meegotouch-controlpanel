@@ -1,1 +1,1 @@
-#include "../page/appletcategory/dcpappletcategorypage.h"
+#include "../page/dcpappletcategorypage.h"

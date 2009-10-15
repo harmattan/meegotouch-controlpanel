@@ -1,1 +1,1 @@
-#include "../page/main/maintranslations.h"
+#include "../page/maintranslations.h"
