@@ -26,8 +26,9 @@ public:
     virtual int partID(const QString& part);
 
 private:
-    QString m_Title;
+    int m_LastWidgetId;
     QMap<QString, int> m_Parts;
 };
+
 #endif // DATETIMEAPPLET_H
 

@@ -8,6 +8,7 @@ class DuiButton;
 class UpdateButton;
 class DuiLayout;
 class DuiLinearLayoutPolicy;
+class DuiLabel;
 
 class DateTimeWidget : public DcpWidget 
 {
@@ -32,6 +33,7 @@ private:
 	DcpButton2 *m_TimeZoneButton;
     UpdateButton *m_AutomaticUpdateButton;
     DuiButton *m_RegionFormatButton;
+    DuiLabel *m_SimpleLabel;
 
 private slots:
     virtual void orientationChanged();
@@ -41,6 +43,7 @@ private slots:
     virtual void updateTimeZoneText();
     virtual void showDateView();
     virtual void showTimeView();
+    void onLocaleChanged();
 };
 #endif // DATETIMEWIDGET_H
 

@@ -24,6 +24,7 @@ protected:
 
 private:
     DuiTextEdit *m_TextEdit;
+    bool m_TextEditShowsHint;
     DcpTable *m_Table;
     int m_SelectedItem;
     void selectItem(int item, bool selected = true);
@@ -31,6 +32,7 @@ private:
     QSortFilterProxyModel* proxyModel();
 
 private slots:
+    void onLocaleChanged();
     void orientationChanged();
     void clearTextEdit(DuiTextEdit *textEdit);
     void filteringListItems();

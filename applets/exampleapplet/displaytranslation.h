@@ -4,14 +4,19 @@
 #include <DuiLocale>
 
 namespace DcpDisplay {
-    const QString AppletTitle = trid("applet_title", "Display");
-    const QString BrightnessText = trid("brightness_text", "Brightness:");
-    const QString ScreenLightsText = 
-            trid("screen_lights_text", "Screen lights on:");
+    extern const char* appletTitleId;
+    extern const char* appletTitleDefault;
+    extern const char* brightnessTextId;
+    extern const char* brightnessTextDefault;
+    extern const char* screenLightsTextId;
+    extern const char* screenLightsTextDefault;
 
-    const QString ChargingText = trid("charging_text",
-            "While charging keep screen lights");
-    const QString NoteText = trid("note_text",
-            "Note! Display settings depend on the user power profile.");
+    extern const char* chargingTextId;
+    extern const char* chargingTextDefault;
+
+    extern const char* noteTextId;
+    extern const char* noteTextDefault;
 };
+
 #endif // DISPLAYTRANSLATION_H
+

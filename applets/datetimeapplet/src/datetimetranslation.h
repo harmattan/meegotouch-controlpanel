@@ -4,27 +4,38 @@
 #include <DuiLocale>
 
 namespace DcpDateTime {
-    const QString AppletTitle = trid("qtn_datetime_title", "Date & Time");
-    const QString DateButtonText = trid("qtn_datetime_date",
-            "Date");
-    const QString CurrentTimeButtonText = trid("qtn_datetime_current_time",
-            "Current time");
-    const QString CurrentTimeZoneText = trid("qtn_datetime_current_time_zone",
-            "Current Time Zone");
-    const QString SetDateTimeText = trid("qtn_datetime_info_text",
-            "To set date and time display formats, go to");
-    const QString RegionButtonText = trid("qtn_datetime_region_format",
-            "Region Format");
-    const QString AutomaticUpdateText = trid("qtn_datetime_automatic_update",
-            "Automatic time update:");
-    const QString TimeZoneTitle = trid("qtn_datetime_timezone_title",
-            "Time zone");
-    const QString InputCountryText = trid("qtn_datetome_input_country",
-            "Input country/region name to filter the selection list");
-    const QString DateDialogTitle = trid("qtn_date_dialog_title",
-            "Select date");
-    const QString TimeDialogTitle = trid("qtn_time_dialog_title",
-            "Adjust time");
+    extern const char* appletTitleId;
+    extern const char* appletTitleDefault;
+
+    extern const char* dateButtonTextId;
+    extern const char* dateButtonTextDefault;
+
+    extern const char* currentTimeButtonTextId;
+    extern const char* currentTimeButtonTextDefault;
+
+    extern const char* currentTimeZoneTextId;
+    extern const char* currentTimeZoneTextDefault;
+
+    extern const char* setDateTimeTextId;
+    extern const char* setDateTimeTextDefault;
+
+    extern const char* regionButtonTextId;
+    extern const char* regionButtonTextDefault;
+
+    extern const char* automaticUpdateTextId;
+    extern const char* automaticUpdateTextDefault;
+
+    extern const char* timeZoneTitleId;
+    extern const char* timeZoneTitleDefault;
+
+    extern const char* inputCountryTextId;
+    extern const char* inputCountryTextDefault;
+
+    extern const char* dateDialogTitleId;
+    extern const char* dateDialogTitleDefault;
+
+    extern const char* timeDialogTitleId;
+    extern const char* timeDialogTitleDefault;
 };
 #endif // DATETIMETRANSLATION_H
 

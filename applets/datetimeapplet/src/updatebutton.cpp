@@ -1,6 +1,5 @@
 #include "updatebutton.h"
 #include <DcpSpacerItem>
-#include "datetimetranslation.h"
 
 #include <duigridlayoutpolicy.h>
 #include <duilabel.h>
@@ -20,6 +19,11 @@ UpdateButton::~UpdateButton()
 {
 }
 
+void UpdateButton::setText(const QString& text)
+{
+    m_AutomaticLabel->setText(text);
+}
+
 void UpdateButton::initWidget()
 {
     // mainLayout
@@ -28,7 +32,7 @@ void UpdateButton::initWidget()
     mainLayout->setSpacing(10);
 
     // automaticLabel
-    m_AutomaticLabel = new DuiLabel(DcpDateTime::AutomaticUpdateText, this);
+    m_AutomaticLabel = new DuiLabel(this);
     m_AutomaticLabel->setObjectName("AutomaticLabel");
     m_AutomaticLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     m_AutomaticLabel->setAcceptedMouseButtons(0);

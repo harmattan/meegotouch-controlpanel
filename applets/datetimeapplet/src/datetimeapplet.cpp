@@ -21,28 +21,25 @@ Q_EXPORT_PLUGIN2(displayapplet, DateTimeApplet)
 
 void DateTimeApplet::init()
 {
+    m_LastWidgetId = -1;
     DuiTheme::loadCSS(QString(CSSDIR) + "datetimeapplet.css");
-    m_Title = DcpDateTime::AppletTitle;
 };
 
 DcpWidget* DateTimeApplet::constructWidget(int widgetId)
 {
+    m_LastWidgetId = widgetId;
     switch (widgetId) {
         case DcpDateTime::TimeZone:
-            m_Title = DcpDateTime::TimeZoneTitle;
             return pageTimeZone();
             break;
         case DcpDateTime::Date:
-            m_Title = DcpDateTime::DateDialogTitle;
             return pageDate();
             break;
         case DcpDateTime::Time:
-            m_Title = DcpDateTime::TimeDialogTitle;
             return pageTime();
             break;
         case DcpDateTime::Main:
         default:
-            m_Title = DcpDateTime::AppletTitle;
             return pageMain();
             break;
     }
@@ -70,7 +67,28 @@ DcpWidget* DateTimeApplet::pageTime()
 
 QString DateTimeApplet::title() const
 {
-        return m_Title;
+    const char* msgid;
+    const char* msgdefault;
+    switch (m_LastWidgetId) {
+        case DcpDateTime::TimeZone:
+            msgid = DcpDateTime::timeZoneTitleId;
+            msgdefault = DcpDateTime::timeZoneTitleDefault;
+            break;
+        case DcpDateTime::Date:
+            msgid = DcpDateTime::dateDialogTitleId;
+            msgdefault = DcpDateTime::dateDialogTitleDefault;
+            break;
+        case DcpDateTime::Time:
+            msgid = DcpDateTime::timeDialogTitleId;
+            msgdefault = DcpDateTime::timeDialogTitleDefault;
+            break;
+        case DcpDateTime::Main:
+        default:
+            msgid = DcpDateTime::appletTitleId;
+            msgdefault = DcpDateTime::appletTitleDefault;
+            break;
+    }
+    return trid(msgid, msgdefault);
 }
 
 QVector<DuiAction*> DateTimeApplet::viewMenuItems()
