@@ -1,3 +1,10 @@
+duicontrolpanel (0.4.3) unstable; urgency=low
+
+  * tag 0.4.3
+  * resolves NB#142865: no fake desktop files are installed from now
+
+ -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Fri, 16 Oct 2009 08:50:08 +0200
+
 duicontrolpanel (0.4.2) unstable; urgency=low
 
   * new tag
