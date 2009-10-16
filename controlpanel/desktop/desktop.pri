@@ -5,5 +5,5 @@ desktop.files += desktop/*.desktop
 desktop.path = $$DCP_DESKTOP_DIR
 message ("Desktop path will be: "$$desktop.path)
 # message ("Desktop files are: "$$desktop.files)
-INSTALLS += desktop
+#INSTALLS += desktop
 

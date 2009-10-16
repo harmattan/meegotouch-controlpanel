@@ -1,5 +1,4 @@
 usr/bin/duicontrolpanel
-usr/lib/duicontrolpanel/fake*desktop
 usr/share/duicontrolpanel/themes/style/duicontrolpanel.*
 usr/share/duicontrolpanel/themes/images/*
 usr/share/duicontrolpanel/themes/svg/*
