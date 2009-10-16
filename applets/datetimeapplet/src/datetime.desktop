@@ -3,7 +3,7 @@ Type=DUIApplet
 Name=Date & Time
 Icon=
 Exec=
-X-logical-id=qtn_sett_main_date_time
+X-logical-id=qtn_date_time_title
 X-translation-catalog=duisettings
 
 [DUI]

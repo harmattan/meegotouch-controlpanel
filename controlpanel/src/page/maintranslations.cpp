@@ -2,12 +2,12 @@
 
 const DcpCategoryInfo DcpMain::CategoryInfos[] = {
     {
-		"qtn_sett_main_seeing", "Look & Feel",
+		"qtn_sett_main_look", "Look & Feel",
     	"Look & Feel",
     	Pages::LOOKANDFEEL
     },
     {
-        "qtn_sett_main_sound", "Sound",
+        "qtn_sett_main_sound", "Sounds",
 		"Sound",
 		Pages::SOUND
     },
@@ -17,7 +17,7 @@ const DcpCategoryInfo DcpMain::CategoryInfos[] = {
         Pages::CONNECTIVITY
     },
     {
-        "qtn_sett_main_regional", "Regional settings",
+        "qtn_sett_main_region", "Regional settings",
 		"Regional settings",
 		Pages::REGIONALSETTING
 	},
@@ -27,12 +27,12 @@ const DcpCategoryInfo DcpMain::CategoryInfos[] = {
 		Pages::DEVICEUTILITIES
 	},
 	{
-	    "qtn_sett_resetsettings", "Device system",
+	    "qtn_sett_main_data", "Device system",
 		"Device system",
 		Pages::DEVICESYSTEM
 	},
 	{
-	    "qtn_sett_main_accountandaplication", "Accounts & Applications",
+	    "qtn_sett_main_combined", "Accounts & Applications",
 		"Accounts & Applications",
 		Pages::ACCOUNTSANDAPPLICATIONS
 	},
@@ -40,13 +40,13 @@ const DcpCategoryInfo DcpMain::CategoryInfos[] = {
 };
 
 
-const char* DcpMain::settingsTitleId = "qtn_sett_title";
+const char* DcpMain::settingsTitleId = "qtn_sett_main_title";
 const char* DcpMain::settingsTitleDefault = "Settings";
 
 const char* DcpMain::mostRecentUsedTitleId = "qtn_sett_main_most";
-const char* DcpMain::mostRecentUsedTitleDefault = "Most recent used";
+const char* DcpMain::mostRecentUsedTitleDefault = "Most recently used";
 
-const char* DcpMain::quitMenuItemTextId = "qtn_quit_main_text";
+const char* DcpMain::quitMenuItemTextId = "qtn_comm_exit";
 const char* DcpMain::quitMenuItemTextDefault = "Exit";
 
 
