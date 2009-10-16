@@ -4,6 +4,7 @@
 #include <DcpComponent>
 
 class DcpAppletButtons;
+class DuiContainer;
 
 class DcpCategoryComponent: public DcpComponent
 {
@@ -16,6 +17,8 @@ public:
     virtual void add(DcpComponent*){}
     virtual void remove(DcpComponent*){}
 
+    void setTitleText(const QString& text);
+
     void reload();
 
 public slots:
@@ -24,6 +27,7 @@ public slots:
 private:
     DcpAppletButtons *m_AppletButtons;
     QString m_CategoryName;
+    DuiContainer *m_Container;
 };
 
 

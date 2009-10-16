@@ -12,6 +12,7 @@ public:
     // Composite Pattern Interface	
     virtual void add(DcpComponent *component);
     virtual void remove(DcpComponent *component);
+    int childCount() { return m_Children.count(); }
     virtual DcpComponent* child(int i) const;
     DcpCategory* category() const {return 0;}
 

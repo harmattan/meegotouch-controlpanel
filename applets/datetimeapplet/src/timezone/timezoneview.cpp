@@ -34,9 +34,7 @@ void TimeZoneView::initWidget()
 
     // m_TextEdit
     m_TextEditShowsHint = true;
-    m_TextEdit = new DuiTextEdit(DuiTextEditModel::SingleLine,
-                                 trid(DcpDateTime::inputCountryTextId,
-                                      DcpDateTime::inputCountryTextDefault),
+    m_TextEdit = new DuiTextEdit(DuiTextEditModel::SingleLine, "",
                                  this);
     m_TextEdit->setObjectName("InputTextEdit");
     m_TextEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
@@ -96,9 +94,12 @@ void TimeZoneView::initWidget()
     connect(DuiSceneManager::instance(),
             SIGNAL(orientationChanged(const Dui::Orientation &)),
             this, SLOT(orientationChanged()));
+    orientationChanged();
+
+    // handle on the fly language change:
     connect(qApp, SIGNAL(localeSettingsChanged()),
             this, SLOT(onLocaleChanged()));
-    orientationChanged();
+    onLocaleChanged();
 }
 
 

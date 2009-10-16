@@ -106,7 +106,7 @@ DcpPage* PageFactory::createAppletCategoryPage(Pages::Id id)
     } else {
         m_AppletCategoryPage->setAppletCategory(info.appletCategory);
     }
-    m_AppletCategoryPage->setTitle(info.title);
+//    m_AppletCategoryPage->setTitle(info.title); TODO XXX language change
 
     return m_AppletCategoryPage;
 }
@@ -122,8 +122,9 @@ void PageFactory::initPage(DcpPage* page)
     connect(page, SIGNAL(openSubPage(Pages::Handle)), this, SLOT(changePage(Pages::Handle)));
 
     if (page != m_MainPage) {
-        // closeAction
-        DuiAction *quitAction = new DuiAction(DcpMain::quitMenuItemText, page);
+        // closeAction TODO XXX on language change, move into to the page?
+        DuiAction *quitAction = new DuiAction(trid(DcpMain::quitMenuItemTextId,
+                                                   DcpMain::quitMenuItemTextDefault), page);
         quitAction->setLocation(DuiAction::ViewMenu);
         connect(quitAction, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
 

@@ -34,10 +34,11 @@ DcpMainPage::DcpMainPage() :
 DcpMainPage::~DcpMainPage() 
 {}
 
+
+
 void DcpMainPage::createContent()
 {
     DcpCategoryPage::createContent();
-    setTitle(DcpMain::settingsTitle);
 
     m_Category->setMaxColumns(1);
 
@@ -52,27 +53,37 @@ void DcpMainPage::createContent()
     // category descriptions:
     for (int i=0; true; i++) {
         DcpCategoryInfo info = DcpMain::CategoryInfos[i];
-        if (info.title.isNull())
+        if (info.titleId == 0)
              break;
-/*
-        DcpDescriptionComponent *component = new DcpDescriptionComponent(
-                m_Category, info.title);
-        component->setDescription(info.description);
-
-        component->setSubPage(info.subPageId);
-        connect(component, SIGNAL(openSubPage(Pages::Handle)),
-                this, SIGNAL(openSubPage(Pages::Handle)));
-*/
-    DcpCategoryComponent *component = new DcpCategoryComponent(m_Category,
+        DcpCategoryComponent *component = new DcpCategoryComponent(m_Category,
                                  info.appletCategory, this);
 
-    connect(component, SIGNAL(openSubPage(Pages::Handle)),
+        connect(component, SIGNAL(openSubPage(Pages::Handle)),
             this, SIGNAL(openSubPage(Pages::Handle)));
 
         m_Category->append(component);
     }
 
     setBackButtonEnabled(false);
+
+    // handle on the fly language change:
+    connect(qApp, SIGNAL(localeSettingsChanged()),
+            this, SLOT(onLocaleChanged()));
+    onLocaleChanged();
+}
+
+void DcpMainPage::onLocaleChanged()
+{
+    setTitle(trid(DcpMain::settingsTitleId, DcpMain::settingsTitleDefault));
+    m_RecentlyComp->setTitleText(trid(DcpMain::mostRecentUsedTitleId,
+                                      DcpMain::mostRecentUsedTitleDefault));
+    for (int i=m_Category->childCount()-1; i>=1; i--) {
+        DcpCategoryComponent* comp =
+            qobject_cast<DcpCategoryComponent*>(m_Category->child(i));
+        comp->setTitleText(trid(DcpMain::CategoryInfos[i-1].titleId,
+                                       DcpMain::CategoryInfos[i-1].titleDefault));
+    }
+    // no need to update briefs, they take care of themselves
 }
 
 void DcpMainPage::reload()
