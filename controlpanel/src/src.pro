@@ -17,7 +17,7 @@ HEADERS += include/*
 SOURCES += $$system(find ./ -name \'*.cpp\')
 
 CONFIG += dui build_all warn_on debug
-LIBS += -lduicontrolpanel -ltime
+LIBS += -lduicontrolpanel
 
 # a fake check target so as not to stop the testing:
 QMAKE_EXTRA_TARGETS += check
