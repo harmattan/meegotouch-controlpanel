@@ -6,6 +6,7 @@
 #include <QtDebug>
 #include <stdio.h>
 #include <stdlib.h>
+#include <DuiGConfItem>
 
 static const char* DEBUG_PREFIX = "(DCP) ";
 
@@ -27,6 +28,25 @@ void dcpMsg(QtMsgType type, const char *msg)
     }
 }
 
+
+// copied from widgetsgallery, makes translation reload automatically
+class Retranslator : public QObject
+{
+    Q_OBJECT
+
+public slots:
+   void retranslate()
+   {
+        qDebug() << __PRETTY_FUNCTION__;
+        DuiGConfItem languageItem("/Dui/i18n/Language");
+        QString language = languageItem.value().toString();
+        DuiLocale locale(language);
+        locale.installCategoryCatalog(DuiLocale::DuiLcMessages, "duicontrolpanel");
+        DuiLocale::setDefault(locale);
+   }
+};
+
+
 int main(int argc, char *argv[])
 {
     qInstallMsgHandler(dcpMsg);
@@ -36,14 +56,9 @@ int main(int argc, char *argv[])
     DuiApplication app(argc, argv);
     app.setAnimator(0);
 
-    /*
-    DuiLocale locale("en","US");
-    locale.addTranslationPath("./ts");
-    locale.addTranslationPath(TRANSLATIONS_DIR);
-    locale.installCategoryCatalog(DuiLocale::DuiLcMessages, "duicontrolpanel");
-     */
-    qDebug() << "YYY" << TRANSLATIONS_DIR << trid("qtn_sett_title", "nemmegy");
-//    DuiLocale::setDefault(locale);
+    Retranslator retranslator;
+    QObject::connect(&app, SIGNAL(localeSettingsChanged()),
+                     &retranslator, SLOT(retranslate()));
  
     MainWindow win;
     service->createStartPage();
@@ -51,4 +66,6 @@ int main(int argc, char *argv[])
 
     return app.exec();
 }
+
+#include "main.moc"
 
