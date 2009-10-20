@@ -3,7 +3,6 @@ TEMPLATE = subdirs
 CONFIG += debug
 CONFIG += build_all silent warn_on
 
-SUBDIRS += datetimeapplet \
 
 include(debian/deb.pri)
 

@@ -5,7 +5,7 @@ CONFIG += build_all silent warn_on
 
 SUBDIRS += lib \
            controlpanel \
-           applets
+#          applets
 
 include(lib/dcpconfig.pri)
 include(debian/deb.pri)
