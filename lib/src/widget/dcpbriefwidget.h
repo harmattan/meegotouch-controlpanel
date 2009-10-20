@@ -24,6 +24,7 @@ signals:
     void clicked();
 
 protected:
+    virtual void retranslateUi();
     virtual void showEvent ( QShowEvent * event );
     virtual void hideEvent ( QHideEvent * event );
     DcpButton2Image* constructImage(const DcpAppletMetadata* metadata);

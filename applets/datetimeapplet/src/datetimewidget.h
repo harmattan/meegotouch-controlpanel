@@ -23,6 +23,7 @@ public:
 
 protected:
 	void initWidget();
+    virtual void retranslateUi();
     
 private:
     DuiLayout *m_DateTimeLayout;
@@ -43,7 +44,6 @@ private slots:
     virtual void updateTimeZoneText();
     virtual void showDateView();
     virtual void showTimeView();
-    void onLocaleChanged();
 };
 #endif // DATETIMEWIDGET_H
 

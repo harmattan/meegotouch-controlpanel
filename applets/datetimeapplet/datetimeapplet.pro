@@ -6,4 +6,3 @@ CONFIG += conf
 
 SUBDIRS += src 
 
-include(debian/deb.pri)

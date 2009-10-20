@@ -20,6 +20,7 @@ public:
 			   QWidget *widget);
 protected:
 	void initWidget();
+    virtual void retranslateUi();
 		
 private:
 	DuiLabel    *m_brightnessLabel;
@@ -33,7 +34,6 @@ private:
 private slots:
 	virtual void setBrightnessLabel(int value);
 	virtual void setScreenLabel(int value);
-    virtual void onLocaleChanged();
     void nextPage();
 };
 

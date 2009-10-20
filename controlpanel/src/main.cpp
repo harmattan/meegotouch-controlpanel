@@ -36,11 +36,15 @@ int main(int argc, char *argv[])
     DuiApplication app(argc, argv);
     app.setAnimator(0);
 
-    DuiLocale locale;
+    /*
+    DuiLocale locale("en","US");
     locale.addTranslationPath("./ts");
     locale.addTranslationPath(TRANSLATIONS_DIR);
     locale.installCategoryCatalog(DuiLocale::DuiLcMessages, "duicontrolpanel");
-
+     */
+    qDebug() << "YYY" << TRANSLATIONS_DIR << trid("qtn_sett_title", "nemmegy");
+//    DuiLocale::setDefault(locale);
+ 
     MainWindow win;
     service->createStartPage();
     win.show();

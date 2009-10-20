@@ -23,3 +23,4 @@ void DcpBriefComponent::setMetadata(DcpAppletMetadata* metadata)
 {
     m_BriefWidget->setMetadata(metadata);
 }
+

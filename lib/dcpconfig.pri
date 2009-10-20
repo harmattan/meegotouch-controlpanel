@@ -13,7 +13,7 @@ QMAKE_CXXFLAGS_RELEASE += -g
      DCP_CSS_DIR = $$DCP_THEME_DIR/style/
      DCP_DESKTOP_DIR = $$DCP_PREFIX/lib/duicontrolpanel
      DCP_APPLET_DIR = $$DCP_PREFIX/lib/duicontrolpanel/applets
-     DCP_TRANSLATIONS_DIR = $$DCP_PREFIX/share/dui/l10n
+     DCP_TRANSLATIONS_DIR = $$DCP_PREFIX/share/l10n/dui
 
 # defines for directories, they work cross-platform like this
 {

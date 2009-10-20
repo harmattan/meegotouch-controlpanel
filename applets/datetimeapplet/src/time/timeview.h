@@ -21,10 +21,10 @@ public:
 
 protected:
     void initWidget();
+    virtual void retranslateUi();
 
 private slots:
     void timeOrDateChanged();
-    void onLocaleChanged();
 
 private:
     DuiContainer *m_Container;

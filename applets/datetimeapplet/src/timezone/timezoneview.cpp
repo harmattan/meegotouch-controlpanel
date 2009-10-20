@@ -13,7 +13,6 @@
 #include <QSortFilterProxyModel>
 #include <DuiSceneManager>
 #include <QModelIndex>
-#include <DuiApplication>
 
 TimeZoneView::TimeZoneView(QGraphicsWidget *parent)
              :DcpWidget(parent),
@@ -96,10 +95,7 @@ void TimeZoneView::initWidget()
             this, SLOT(orientationChanged()));
     orientationChanged();
 
-    // handle on the fly language change:
-    connect(qApp, SIGNAL(localeSettingsChanged()),
-            this, SLOT(onLocaleChanged()));
-    onLocaleChanged();
+    retranslateUi();
 }
 
 
@@ -163,7 +159,7 @@ bool TimeZoneView::back()
     return DcpWidget::back();
 }
 
-void TimeZoneView::onLocaleChanged()
+void TimeZoneView::retranslateUi()
 {
     if (m_TextEditShowsHint) {
         m_TextEdit->setText(trid(DcpDateTime::inputCountryTextId,

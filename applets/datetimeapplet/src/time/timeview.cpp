@@ -14,7 +14,6 @@
 #include <duiscenemanager.h>
 #include <duicontainer.h>
 #include <QGraphicsLinearLayout>
-#include <DuiApplication>
 
 #include <clock/settingalarm.h>
 
@@ -80,12 +79,10 @@ void TimeView::initWidget()
     connect(dcpTime, SIGNAL(timeOrDateChanged()),
             this, SLOT(timeOrDateChanged()));
 
-    connect (qApp, SIGNAL(localeSettingsChanged()),
-             this, SLOT(onLocaleChanged()));
-    onLocaleChanged();
+    retranslateUi();
 }
 
-void TimeView::onLocaleChanged()
+void TimeView::retranslateUi()
 {
     m_Container->setTitle(trid(DcpDateTime::timeDialogTitleId,
                                DcpDateTime::timeDialogTitleDefault));

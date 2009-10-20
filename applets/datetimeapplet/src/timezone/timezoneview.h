@@ -21,6 +21,7 @@ public:
 
 protected:
     void initWidget();
+    virtual void retranslateUi();
 
 private:
     DuiTextEdit *m_TextEdit;
@@ -32,7 +33,6 @@ private:
     QSortFilterProxyModel* proxyModel();
 
 private slots:
-    void onLocaleChanged();
     void orientationChanged();
     void clearTextEdit(DuiTextEdit *textEdit);
     void filteringListItems();

@@ -1,5 +1,4 @@
 
-#include <DuiApplication>
 #include <DuiLocale>
 #include <DuiLabel>
 #include <DuiButton>

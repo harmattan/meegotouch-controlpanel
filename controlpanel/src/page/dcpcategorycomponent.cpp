@@ -2,8 +2,7 @@
 #include "dcpappletbuttons.h"
 
 #include <DuiContainer>
-#include <DuiLayout>
-#include <DuiLinearLayoutPolicy>
+#include <QGraphicsLinearLayout>
 #include <DuiSceneManager>
 
 
@@ -29,9 +28,10 @@ DcpCategoryComponent::~DcpCategoryComponent()
 {
 }
 
-void DcpCategoryComponent::setTitleText(const QString& title)
+void DcpCategoryComponent::setTitle(const QString& title)
 {
     m_Container->setTitle(title);
+    DcpComponent::setTitle(title);
 }
 
 void DcpCategoryComponent::createContents()
@@ -42,31 +42,24 @@ void DcpCategoryComponent::createContents()
 
     m_AppletButtons = new DcpAppletButtons(m_CategoryName, title());
 
-	
     connect(m_AppletButtons, SIGNAL(openSubPage(Pages::Handle)),
             this, SIGNAL(openSubPage(Pages::Handle)));
 
     m_Container->setCentralWidget(m_AppletButtons);
 
-    DuiLayout* layout = new DuiLayout(this);
-    layout->setAnimator(0);
-    layout->setContentsMargins(0,0,0,0);
-    DuiLinearLayoutPolicy* layoutPolicy = new DuiLinearLayoutPolicy(layout, Qt::Vertical);
-    layoutPolicy->addItem(m_Container);
-    layout->setPolicy(layoutPolicy);
-    connect (DuiSceneManager::instance(),
-             SIGNAL(orientationChanged(const Dui::Orientation&)),
-             this, SLOT(onOrientationChange(const Dui::Orientation &)));
+    QGraphicsLinearLayout* layout =
+        new QGraphicsLinearLayout(Qt::Vertical,this);
+    layout->addItem(m_Container);
+}
+
+void DcpCategoryComponent::reload()
+{
+    m_AppletButtons->reload();
 }
 
 void DcpCategoryComponent::onOrientationChange
                             (const Dui::Orientation &orientation)
 {
     m_AppletButtons->onOrientationChange(orientation);
-}
-
-void DcpCategoryComponent::reload()
-{
-    m_AppletButtons->reload();
 }
 

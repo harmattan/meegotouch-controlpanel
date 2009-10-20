@@ -1,6 +1,7 @@
 #include "dcpmainpage.h"
 
 #include <QtDebug>
+#include <DuiApplication>
 
 #include <DcpMainCategory>
 #include <Pages>
@@ -9,8 +10,6 @@
 #include "dcpdescriptioncomponent.h"
 #include "dcpcategorycomponent.h"
 #include "maintranslations.h"
-
-#include <DuiApplication>
 
 /*!
  * \class DcpMainPage
@@ -66,21 +65,18 @@ void DcpMainPage::createContent()
 
     setBackButtonEnabled(false);
 
-    // handle on the fly language change:
-    connect(qApp, SIGNAL(localeSettingsChanged()),
-            this, SLOT(onLocaleChanged()));
-    onLocaleChanged();
+    retranslateUi();
 }
 
-void DcpMainPage::onLocaleChanged()
+void DcpMainPage::retranslateUi()
 {
     setTitle(trid(DcpMain::settingsTitleId, DcpMain::settingsTitleDefault));
-    m_RecentlyComp->setTitleText(trid(DcpMain::mostRecentUsedTitleId,
+    m_RecentlyComp->setTitle(trid(DcpMain::mostRecentUsedTitleId,
                                       DcpMain::mostRecentUsedTitleDefault));
     for (int i=m_Category->childCount()-1; i>=1; i--) {
         DcpCategoryComponent* comp =
             qobject_cast<DcpCategoryComponent*>(m_Category->child(i));
-        comp->setTitleText(trid(DcpMain::CategoryInfos[i-1].titleId,
+        comp->setTitle(trid(DcpMain::CategoryInfos[i-1].titleId,
                                        DcpMain::CategoryInfos[i-1].titleDefault));
     }
     // no need to update briefs, they take care of themselves

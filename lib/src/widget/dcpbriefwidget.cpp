@@ -9,7 +9,6 @@
 #include <DuiSceneManager>
 #include <QGraphicsLinearLayout>
 #include <QtDebug>
-#include <DuiApplication>
 
 DcpBriefWidget::DcpBriefWidget(DcpAppletMetadata* metadata, DuiWidget* parent)
     : DuiWidget(parent), m_RealWidget(0), m_Metadata(0), m_Hidden(true)
@@ -19,6 +18,7 @@ DcpBriefWidget::DcpBriefWidget(DcpAppletMetadata* metadata, DuiWidget* parent)
 
     setMetadata(metadata);
 }
+
 
 DcpBriefWidget::~DcpBriefWidget()
 {
@@ -50,8 +50,17 @@ void DcpBriefWidget::setMetadata(DcpAppletMetadata* metadata)
     }
 
     connect (this, SIGNAL(clicked()), m_Metadata, SLOT(slotClicked()));
-    connect (qApp, SIGNAL(localeSettingsChanged()), this, SLOT(updateContents()));
-    ((QGraphicsLinearLayout*)(layout()))->addItem(m_RealWidget);
+
+    if (m_RealWidget) {
+        retranslateUi();
+        ((QGraphicsLinearLayout*)layout())->addItem(m_RealWidget);
+    }
+}
+
+void DcpBriefWidget::retranslateUi()
+{
+    m_RealWidget->setText1(m_Metadata->text1());
+    updateContents();
 }
 
 DcpButton2Image* DcpBriefWidget::constructImage(
@@ -74,7 +83,6 @@ DcpButton2Toggle* DcpBriefWidget::constructToggle(
 
 void DcpBriefWidget::updateContents()
 {
-    m_RealWidget->setText1(m_Metadata->text1());
     m_RealWidget->setText2(m_Metadata->text2());
 }
 

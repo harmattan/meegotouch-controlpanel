@@ -17,7 +17,7 @@ public:
     virtual void add(DcpComponent*){}
     virtual void remove(DcpComponent*){}
 
-    void setTitleText(const QString& text);
+    void setTitle(const QString& text);
 
     void reload();
 

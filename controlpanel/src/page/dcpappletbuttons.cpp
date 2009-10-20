@@ -52,7 +52,7 @@ void DcpAppletButtons::createContents()
 
 void DcpAppletButtons::addComponent(DcpAppletMetadata *metadata, bool fullLine)
 {
-	DcpBriefComponent *component = new DcpBriefComponent(metadata, this);
+    DcpBriefComponent *component = new DcpBriefComponent(metadata, this);
 
 	component->setSubPage(Pages::APPLET, metadata->name());
 	connect(component, SIGNAL(openSubPage(Pages::Handle)), this, SIGNAL(openSubPage(Pages::Handle)));
@@ -61,11 +61,6 @@ void DcpAppletButtons::addComponent(DcpAppletMetadata *metadata, bool fullLine)
         add(component);
     else
         append(component);
-}
-
-void DcpAppletButtons::onOrientationChange(const Dui::Orientation& orientation)
-{
-    DcpMainCategory::onOrientationChange(orientation);
 }
 
 void DcpAppletButtons::reload()

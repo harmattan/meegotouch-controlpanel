@@ -137,10 +137,7 @@ void DateTimeWidget::initWidget()
             this, SLOT(orientationChanged()));
     orientationChanged();
 
-    // "on the fly" language change
-    connect (qApp, SIGNAL(localeSettingsChanged()),
-             this, SLOT(onLocaleChanged()));
-    onLocaleChanged();
+    retranslateUi();
 }
 
 
@@ -167,7 +164,7 @@ void DateTimeWidget::showTimeZoneView()
     emit changeWidget(DcpDateTime::TimeZone);
 }
 
-void DateTimeWidget::onLocaleChanged()
+void DateTimeWidget::retranslateUi()
 {
     m_SimpleLabel->setText(trid(DcpDateTime::setDateTimeTextId,
                                 DcpDateTime::setDateTimeTextDefault));

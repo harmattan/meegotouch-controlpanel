@@ -38,7 +38,7 @@ void DisplayWidget::paint(QPainter *painter,
 
 }
 
-void DisplayWidget::onLocaleChanged()
+void DisplayWidget::retranslateUi()
 {
     setScreenLabel(m_sliderScreen->value());
     setBrightnessLabel(m_sliderBrightness->value());
@@ -145,7 +145,7 @@ void DisplayWidget::initWidget()
                     QSizePolicy::Expanding), Qt::AlignRight);
 
     this->setLayout(mainLayout);
-    onLocaleChanged();
+    retranslateUi();
 }
 
 void DisplayWidget::setBrightnessLabel(int value)

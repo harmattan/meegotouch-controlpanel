@@ -16,9 +16,8 @@ public:
     virtual void reload();
 public slots:
     void back();
-protected slots:
-    void onLocaleChanged();
-
+protected:
+    virtual void retranslateUi();
 private:
     DcpCategoryComponent* m_RecentlyComp;
 };
