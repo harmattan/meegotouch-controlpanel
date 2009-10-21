@@ -1,3 +1,9 @@
+duicontrolpanel (0.4.5) unstable; urgency=low
+
+  * tag 0.4.5
+
+ -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Wed, 21 Oct 2009 16:30:53 +0200
+
 duicontrolpanel (0.4.4) unstable; urgency=low
 
   * removing datetime applet from here
