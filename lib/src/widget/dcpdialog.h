@@ -5,6 +5,7 @@
 #include <QMessageBox>
 class QEventLoop;
 
+#warning DcpDialog, DcpCommonDialog is DEPRECATED and will be removed, switch to DuiDialog if you can, or implement your own
 class DcpDialog : public DuiSceneWindow
 {
     Q_OBJECT
