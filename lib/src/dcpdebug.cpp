@@ -5,7 +5,7 @@
 #include <QTime>
 #include <QHash>
 
-static const QString& DEBUG_PREFIX = "(DCP)";
+static const char* DEBUG_PREFIX = "(DCP)";
 static QHash<QString, QTime> starttimes;
 
 void DcpDebug::time(const QString& msg) {

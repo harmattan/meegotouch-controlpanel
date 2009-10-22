@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[])
 {
-//    qInstallMsgHandler(DcpDebug::dcpMsg);
+    qInstallMsgHandler(DcpDebug::dcpMsg);
 
     DuiControlPanelService* service = new DuiControlPanelService();
 
