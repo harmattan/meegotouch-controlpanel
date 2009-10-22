@@ -7,6 +7,7 @@ namespace DcpDebug {
     void time(const QString& msg = "");
     void start(const QString& msg = "");
     void end(const QString& msg = "");
+    void dcpMsg(QtMsgType type, const char *msg);
 };
 
 #if 0
