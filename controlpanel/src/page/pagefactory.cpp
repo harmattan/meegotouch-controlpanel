@@ -71,7 +71,7 @@ DcpPage* PageFactory::create(Pages::Handle &handle)
         m_CurrentPage = page;
     }
 
-    return m_CurrentPage;
+    return page;
 }
 
 DcpPage* PageFactory::createMainPage()
@@ -91,7 +91,20 @@ DcpPage* PageFactory::createAppletPage(DcpAppletMetadata *metadata)
     } else {
         m_AppletPage->setMetadata(metadata);
     }
-    return m_AppletPage;
+
+    // page has to be loaded to know if the applet provides page or not
+    if (m_AppletPage->isContentCreated()){
+        m_AppletPage->reload();
+    } else {
+        m_AppletPage->createContent();
+    }
+
+    if (!m_AppletPage->hasWidget() && !m_AppletPage->hasError()) {
+        // the applet does not provide a page (eg. just a dialog)
+        return 0;
+    } else {
+        return m_AppletPage;
+    }
 }
 
 DcpPage* PageFactory::createAppletCategoryPage(Pages::Id id)
@@ -114,7 +127,9 @@ DcpPage* PageFactory::createAppletCategoryPage(Pages::Id id)
 void PageFactory::changePage(Pages::Handle handle)
 {
     DcpPage *page = create(handle);
-    page->appear(DuiSceneWindow::KeepWhenDone);
+    if (page) {
+        page->appear(DuiSceneWindow::KeepWhenDone);
+    }
 }
 
 void PageFactory::initPage(DcpPage* page)

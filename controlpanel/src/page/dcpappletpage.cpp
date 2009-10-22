@@ -31,6 +31,14 @@ void DcpAppletPage::createContent()
     load();
 }
 
+bool DcpAppletPage::hasWidget() {
+    return m_MainWidget;
+}
+
+bool DcpAppletPage::hasError() {
+    return m_MissingLabel; 
+}
+
 void DcpAppletPage::load()
 {
    m_LoadedMetadata = m_Metadata;
@@ -68,7 +76,7 @@ void DcpAppletPage::reload()
         load();
     }
     DcpPage::reload();
-    setReferer(Pages::NOPAGE);
+    setReferer(Pages::NOPAGE); // means: referer should be set by pagefactory to the last page
 }
 
 void DcpAppletPage::back()
@@ -86,11 +94,10 @@ void DcpAppletPage::changeWidget(int widgetId)
     m_MainWidget = m_Metadata->applet()->constructWidget(widgetId);
 
     // checks if applet does provide the widget
+
     if (!m_MainWidget) {
-        emit backButtonClicked();
         return;
     }
-
     setPannableAreaInteractive(m_MainWidget->pagePans());
 
     connect(m_MainWidget, SIGNAL(changeWidget(int)), this, SLOT(changeWidget(int)));

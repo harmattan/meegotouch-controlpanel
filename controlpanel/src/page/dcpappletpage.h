@@ -17,6 +17,8 @@ public:
     virtual void createContent();
     void setMetadata (DcpAppletMetadata *metadata);
     virtual void reload();
+    bool hasWidget();
+    bool hasError();
 
 protected slots:
     void changeWidget(int widgetId);
