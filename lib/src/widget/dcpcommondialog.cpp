@@ -11,11 +11,11 @@
 #include <duibutton.h>
 
 DcpCommonDialog::DcpCommonDialog(const QString &text, DuiWidget* parent)
-             :DcpDialog(parent),
-              m_TitleText(text)
+             :DcpDialog(parent)
 {
     setObjectName("DcpCommonDialog");
     initDialog();
+    setTitle(text);
 }
 
 DcpCommonDialog::~DcpCommonDialog()
@@ -106,10 +106,10 @@ void DcpCommonDialog::initDialog()
     titleLayout->setPolicy(titleLayoutPolicy);
     titleLayout->setContentsMargins(0.0, 0.0, 0.0, 0.0);
 
-    // titleLabel
-    DuiLabel *titleLabel = new DuiLabel(m_TitleText, containerWidget);
-    titleLabel->setObjectName("DcpCommonDialogTitleLabel");
-    titleLabel->setAcceptedMouseButtons(0);
+    // m_TitleLabel
+    m_TitleLabel = new DuiLabel(containerWidget);
+    m_TitleLabel->setObjectName("DcpCommonDialogTitleLabel");
+    m_TitleLabel->setAcceptedMouseButtons(0);
 
     // greySeparator
     m_GreySeparator = new DuiSeparator(containerWidget);
@@ -120,7 +120,7 @@ void DcpCommonDialog::initDialog()
         new DcpSpacerItem(containerWidget, 5, 5,
         QSizePolicy::Expanding, QSizePolicy::Fixed),
         Qt::AlignLeft);
-    titleLayoutPolicy->addItem(titleLabel, Qt::AlignCenter);
+    titleLayoutPolicy->addItem(m_TitleLabel, Qt::AlignCenter);
     titleLayoutPolicy->addItem(
                         new DcpSpacerItem(containerWidget, 5, 5,
                         QSizePolicy::Expanding, QSizePolicy::Fixed),
@@ -139,5 +139,8 @@ void DcpCommonDialog::initDialog()
     mainLayoutPolicy->addItem(m_Viewport, Qt::AlignCenter);
 }
 
-
+void DcpCommonDialog::setTitle(const QString& title)
+{
+    m_TitleLabel->setText(title);
+}
 
