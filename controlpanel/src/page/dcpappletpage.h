@@ -20,6 +20,9 @@ public:
     bool hasWidget();
     bool hasError();
 
+protected:
+    virtual void retranslateUi();
+    
 protected slots:
     void changeWidget(int widgetId);
     virtual void back();

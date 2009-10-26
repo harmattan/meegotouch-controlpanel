@@ -103,16 +103,23 @@ void DcpAppletPage::changeWidget(int widgetId)
     connect(m_MainWidget, SIGNAL(changeWidget(int)), this, SLOT(changeWidget(int)));
     append(m_MainWidget);
 
-    setTitle(m_Metadata->applet()->title());
-
     QVector<DuiAction*> vector = m_Metadata->applet()->viewMenuItems();
     if (!vector.isEmpty())
         for (int i = 0; i < vector.size(); i++)
             addAction(vector[i]);
+
+    retranslateUi();
 }
 
 void DcpAppletPage::setMetadata (DcpAppletMetadata *metadata)
 {
     m_Metadata = metadata;
+}
+
+void DcpAppletPage::retranslateUi()
+{
+    if (m_Metadata && m_Metadata->applet()) {
+        setTitle(m_Metadata->applet()->title());
+    }
 }
 
