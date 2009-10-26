@@ -1,1 +1,1 @@
-#include "dcpretranslator.h"
+#include "../dcpretranslator.h"

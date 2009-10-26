@@ -39,7 +39,7 @@ install_headers.files += include/D* \
     widget/dcpdialog.h \
     widget/dcpcommondialog.h \
     dcpdebug.h \
-    dcpretlanslator.h \
+    dcpretranslator.h \
     service_interface/duicontrolpanelif.h \
     service_interface/duicontrolpanelifproxy.h
 
