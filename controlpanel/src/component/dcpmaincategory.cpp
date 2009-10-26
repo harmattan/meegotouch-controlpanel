@@ -44,12 +44,12 @@ DcpMainCategory::DcpMainCategory(const QString& title, QGraphicsWidget *parent) 
     m_Layout->setPolicy(m_LandscapeLayout);
     m_PortraitLayout = new DuiLinearLayoutPolicy(m_Layout, Qt::Vertical);
 
-    m_Layout->setContentsMargins(0,0,0,0);
+//    m_Layout->setContentsMargins(0,0,0,0);
     setLayout(m_Layout);
 
     // some defaults
-    setHorizontalSpacing(12);
-    setVerticalSpacing(12);
+  //  setHorizontalSpacing(12);
+  //  setVerticalSpacing(12);
 }
 
 DcpMainCategory::~DcpMainCategory()

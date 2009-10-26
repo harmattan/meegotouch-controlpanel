@@ -35,9 +35,9 @@ void DcpDescriptionComponent::createContents()
 
     m_Description = new DuiLabel(m_Container);
     m_Description->setObjectName("ComponentDescription");
-    m_Description->setWordWrap(true);
-    m_Description->setAlignment(Qt::AlignTop);
-    m_Description->setMinimumSize(10,115); // TODO move this to css when it becomes possible to do so
+//    m_Description->setWordWrap(true);
+//    m_Description->setAlignment(Qt::AlignTop);
+  //  m_Description->setMinimumSize(10,115); // TODO move this to css when it becomes possible to do so
     m_Description->setAcceptedMouseButtons(0);
     m_Description->setSizePolicy(QSizePolicy::Expanding,
                                  QSizePolicy::Expanding);
@@ -45,7 +45,7 @@ void DcpDescriptionComponent::createContents()
     m_Container->setCentralWidget(m_Description);
 
     QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(this);
-    layout->setContentsMargins(0,0,0,0);
+//    layout->setContentsMargins(0,0,0,0);
     layout->addItem(m_Container);
 }
 

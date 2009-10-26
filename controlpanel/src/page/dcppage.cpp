@@ -26,7 +26,7 @@ void DcpPage::createContent()
 void DcpPage::createLayout()
 {
     QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(centralWidget());
-    layout->setContentsMargins(0.0,0.0,0.0,0.0);
+//    layout->setContentsMargins(0.0,0.0,0.0,0.0);
 }
 
 void DcpPage::organizeContent(const Dui::Orientation& ori)
