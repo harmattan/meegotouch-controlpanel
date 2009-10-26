@@ -1,3 +1,12 @@
+duicontrolpanel (0.4.6) unstable; urgency=low
+
+  * New tag
+  * Added: Changing language on the fly
+  * Deprecation: DcpCommonDialog, use DuiDialog instead
+  * Implements: support for applets without page (eg. only dialog)
+
+ -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Mon, 26 Oct 2009 11:56:57 +0100
+
 duicontrolpanel (0.4.5) unstable; urgency=low
 
   * tag 0.4.5
