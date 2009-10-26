@@ -1,7 +1,7 @@
 #include <QObject>
 
 // copied from widgetsgallery, makes translation reload automatically
-class Retranslator : public QObject
+class DcpRetranslator : public QObject
 {
     Q_OBJECT
 

@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "service/duicontrolpanelservice.h"
 #include <DcpDebug>
-#include <Retranslator>
+#include <DcpRetranslator>
 #include <DuiApplication>
 
 int main(int argc, char *argv[])
@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     DuiApplication app(argc, argv);
     app.setAnimator(0);
 
-    Retranslator retranslator;
+    DcpRetranslator retranslator;
     QObject::connect(&app, SIGNAL(localeSettingsChanged()),
                      &retranslator, SLOT(retranslate()));
  

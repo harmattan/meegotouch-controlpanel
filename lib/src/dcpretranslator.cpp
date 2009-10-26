@@ -1,4 +1,4 @@
-#include "retranslator.h"
+#include "dcpretranslator.h"
 #include <DuiLocale>
 #include <QtDebug>
 #include <DuiGConfItem>
@@ -6,13 +6,14 @@
 
 // copied from widgetsgallery, makes translation reload automatically
 void 
-Retranslator::retranslate()
+DcpRetranslator::retranslate()
 {
-    qDebug() << __PRETTY_FUNCTION__;
+    DuiApplication* duiApp = DuiApplication::instance();
+    qDebug() << __PRETTY_FUNCTION__ << duiApp->binaryName();
     DuiGConfItem languageItem("/Dui/i18n/Language");
     QString language = languageItem.value().toString();
     DuiLocale locale(language);
-    locale.installCategoryCatalog(DuiLocale::DuiLcMessages, qApp->applicationName());
+    locale.installCategoryCatalog(DuiLocale::DuiLcMessages, duiApp->binaryName());
     DuiLocale::setDefault(locale);
 }
 
