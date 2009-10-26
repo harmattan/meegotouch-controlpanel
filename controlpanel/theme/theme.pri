@@ -3,7 +3,7 @@ include(../../lib/dcpconfig.pri)
 images.files += theme/images/*
 images.path = $$DCP_THEME_DIR/images
 
-style.files += theme/style/*
+style.files += theme/style/*css
 style.path = $$DCP_THEME_DIR/style
 
 svg.files += theme/svg/*
