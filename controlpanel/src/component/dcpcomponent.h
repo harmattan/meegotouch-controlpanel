@@ -25,7 +25,7 @@ public:
     virtual void remove(DcpComponent *component)=0;
 
     virtual DcpComponent* child(int i) const;
-    DcpCategory* category() const {return 0;}
+    DcpCategory* category() const {return m_Category;}
 
 protected:
     virtual void createContents()=0;

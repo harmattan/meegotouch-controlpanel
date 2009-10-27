@@ -14,7 +14,7 @@ public:
     virtual void remove(DcpComponent *component);
     int childCount() { return m_Children.count(); }
     virtual DcpComponent* child(int i) const;
-    DcpCategory* category() const {return 0;}
+    virtual DcpCategory* category() const {return 0;}
 
 public slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation);
