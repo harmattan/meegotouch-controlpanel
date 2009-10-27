@@ -13,10 +13,10 @@ MonthWidget {
     maximum-size: 100% $SIZE_BUTTON;
 //    preferred-size: 100% $SIZE_BUTTON;
 
-    padding-top: $MARGIN_LARGE;
-    padding-bottom: $MARGIN_LARGE;
-    padding-left: $MARGIN_SMALL;
-    padding-right: $MARGIN_SMALL;
+    padding-top: $PADDING_LARGE;
+    padding-bottom: $PADDING_LARGE;
+    padding-left: $PADDING_SMALL;
+    padding-right: $PADDING_SMALL;
 }
 
 DuiLabelStyle#DcpButtonMain {
@@ -36,7 +36,7 @@ DuiLabelStyle#DcpButtonLine2 {
     background-image: "See-more-indicator-small" 0 0 0 0;
     minimum-size: 16 16;
     maximum-size: 16 16;
-    margin-left: 8;
+    margin-left: $MARGIN_MEDIUM;
 }
 
 
