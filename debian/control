@@ -29,13 +29,6 @@ Architecture: any
 Depends: duicontrolpanel (= ${binary:Version}), ${shlibs:Depends}
 Description: Control Panel - debug symbols
 
-Package: duicontrolpanel-applets
-Section: x11
-Architecture: any
-Depends: duicontrolpanel-languageapplet, duicontrolpanel-datetimeapplet
-Description: Meta package depending on all available plugins
-
-                                                     
 Package: libduicontrolpanel-doc
 Section: doc
 Architecture: all                                     
