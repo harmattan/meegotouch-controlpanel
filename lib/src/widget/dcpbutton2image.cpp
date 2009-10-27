@@ -19,26 +19,13 @@ void DcpButton2Image::setImageName (const QString& imageName)
 
 QGraphicsLayout* DcpButton2Image::createLayout()
 {
-    // border:
-    DuiButton* border = new DuiButton(this); // we use button here because
-                                            // DuiImage not yet supports the
-                                            // features we would need:
-                                            // setting the image from css etc
-    border->setContentsMargins(0,0,0,0);
-    border->setObjectName("DcpButtonImageBorder");
-    border->setAcceptedMouseButtons(0);
-
     // image:
     // we could use the icon of the button here, if it could be set to a custom file
     m_Image = new DuiImage (this);
     m_Image->setObjectName("DcpButtonImage");
     m_Image->setZoomRatioMode(Qt::IgnoreAspectRatio);
 
-    QGraphicsLinearLayout* borderLayout = new QGraphicsLinearLayout(border);
-    borderLayout->setContentsMargins(0,0,0,0);
-    borderLayout->addItem(m_Image);
-
-    setAlignedWidget(border);
+    setAlignedWidget(m_Image);
     return DcpButton2Align::createLayout();
 }
 

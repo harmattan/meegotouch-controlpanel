@@ -40,18 +40,6 @@ DuiLabelStyle#DcpButtonLine2 {
 }
 
 
-// TODO: image border button must be removed
-DuiButtonStyle#DcpButtonImageBorder {
-    maximum-size: 64 64;
-    minimum-size: 64 64;
-    background-image: "Thumbnail-frame" 10 10 10 10;
-
-    padding-left: 0;
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-}
-
 DuiImageStyle#DcpButtonImage {
     maximum-size: $SIZE_ICON_DEFAULT $SIZE_ICON_DEFAULT;
     minimum-size: $SIZE_ICON_DEFAULT $SIZE_ICON_DEFAULT;
