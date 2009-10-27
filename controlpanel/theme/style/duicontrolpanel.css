@@ -1,34 +1,9 @@
+@import "../../../themes/base/dui/libdui/style/fonts.css";
+@import "../../../themes/base/dui/libdui/style/sizes.css";
 
-.MonthWidget {
+MonthWidget {
 	view: MonthWidgetFullView;
 }
-/*
-#DuiContainerTitle {
-    font: "Nokia Sans Cn" 20;
-    margin-left: 19;
-    margin-right: 19;
-    margin-bottom: 6;
-    margin-top: 6;
-}
-DuiAbstractLayoutPolicyStyle#MostUsedItems {
-    margin-left: 10.0;
-    margin-right: 10.0;
-    margin-bottom: 6.0;
-    margin-top: 6.0;
-
-    horizontal-spacing: 12.0;
-    vertical-spacing: 10.0;
-}
-
-DuiContainerStyle {
-    margin-left: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-right: 0;
-    icon-size: 1 1;
-
-}
-*/
 
 #DcpButton {
     background-image: "C2-container" 0 0 0 0;
@@ -43,19 +18,17 @@ DuiContainerStyle {
 }
 
 DuiLabelStyle#DcpButtonMain {
-    font: "Nokia Sans Cn" 20;
+    font: $FONT_LARGE;
 }
 
 DuiLabelStyle#DcpButtonLine1 {
-    font: "Nokia Sans Cn" 18;
+    font: $FONT_DEFAULT;
 }
 
 DuiLabelStyle#DcpButtonLine2 {
-    font: "Nokia Sans Cn" 16;
-/*    minimum-size: size(200,12); */
+    font: $FONT_SMALL;
     color: #FFA000;
 }
-
 DuiImageStyle {
     border-top: 0;
     border-bottom: 0;
