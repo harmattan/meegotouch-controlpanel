@@ -17,10 +17,12 @@
 DcpCategoryComponent::DcpCategoryComponent(
                             DcpCategory *category,
                             const QString& categoryName,
+                            const QString& logicalId, 
                             QGraphicsWidget *parent)
-        : DcpComponent(category, categoryName, parent),
+         : DcpComponent(category, categoryName, parent),
          m_CategoryName(categoryName)
 {
+    setLogicalId(logicalId);
     createContents();
 }
 
@@ -40,7 +42,7 @@ void DcpCategoryComponent::createContents()
     m_Container->setSizePolicy(QSizePolicy::Expanding,
                                  QSizePolicy::Expanding);
 
-    m_AppletButtons = new DcpAppletButtons(m_CategoryName, title());
+    m_AppletButtons = new DcpAppletButtons(logicalId(), m_CategoryName, title());
 
     connect(m_AppletButtons, SIGNAL(openSubPage(Pages::Handle)),
             this, SIGNAL(openSubPage(Pages::Handle)));

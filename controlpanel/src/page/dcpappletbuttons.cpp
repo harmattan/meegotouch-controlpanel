@@ -10,28 +10,29 @@
 #include <DuiSceneManager>
 #include <DuiGridLayoutPolicy>
 #include <DuiLinearLayoutPolicy>
-
+#include "maintranslations.h"
 /*!
  * \class DcpAppletButtons
  * \brief A container which contains buttons that represents the
  * applets.
  */
 
-DcpAppletButtons::DcpAppletButtons(const QString& categoryName,
+DcpAppletButtons::DcpAppletButtons(const QString& logicalId,
+                                   const QString& categoryName,
                                          const QString& title, 
                                          QGraphicsWidget *parent) :
   DcpMainCategory(title, parent), m_CategoryName(categoryName)
 {
     setCreateSeparators(true);
     setMaxColumns(2);
-
+    setLogicalId(logicalId);
   	createContents();
 }
 
 void DcpAppletButtons::createContents()
 {
     DcpAppletMetadataList list;
-    if (m_CategoryName == DcpApplet::MostUsedCategory)
+    if (logicalId() == DcpMain::mostRecentUsedTitleId)
         list = DcpAppletDb::instance()->listMostUsed();
     else
         list = DcpAppletDb::instance()->listByCategory(m_CategoryName);
@@ -55,7 +56,9 @@ void DcpAppletButtons::addComponent(DcpAppletMetadata *metadata, bool fullLine)
     DcpBriefComponent *component = new DcpBriefComponent(metadata, this);
 
 	component->setSubPage(Pages::APPLET, metadata->name());
-	connect(component, SIGNAL(openSubPage(Pages::Handle)), this, SIGNAL(openSubPage(Pages::Handle)));
+	component->setLogicalId(logicalId());
+    qDebug() << "logical:" << logicalId();
+    connect(component, SIGNAL(openSubPage(Pages::Handle)), this, SIGNAL(openSubPage(Pages::Handle)));
 
     if (fullLine)
         add(component);

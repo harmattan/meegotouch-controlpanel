@@ -43,8 +43,7 @@ void DcpMainPage::createContent()
 
     // most recent used items:
     m_RecentlyComp = new DcpCategoryComponent(m_Category,
-                                 DcpApplet::MostUsedCategory, this);
-    m_RecentlyComp->setLogicalId(DcpMain::mostRecentUsedTitleId);
+                                 DcpApplet::MostUsedCategory, DcpMain::mostRecentUsedTitleId, this);
     connect(m_RecentlyComp, SIGNAL(openSubPage(Pages::Handle)),
             this, SIGNAL(openSubPage(Pages::Handle)));
     m_Category->add(m_RecentlyComp);
@@ -55,9 +54,8 @@ void DcpMainPage::createContent()
         if (info.titleId == 0)
              break;
         DcpCategoryComponent *component = new DcpCategoryComponent(m_Category,
-                                 info.appletCategory, this);
+                                 info.appletCategory, info.titleId, this);
 
-        component->setLogicalId(info.titleId);
         connect(component, SIGNAL(openSubPage(Pages::Handle)),
             this, SIGNAL(openSubPage(Pages::Handle)));
 

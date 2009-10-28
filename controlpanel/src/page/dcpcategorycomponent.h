@@ -11,6 +11,7 @@ class DcpCategoryComponent: public DcpComponent
     Q_OBJECT
 public:
     DcpCategoryComponent(DcpCategory *category, const QString& categoryName,
+                         const QString& logicalId,
                          QGraphicsWidget *parent=0);
     virtual ~DcpCategoryComponent();
     virtual void createContents();
