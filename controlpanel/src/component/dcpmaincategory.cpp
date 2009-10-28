@@ -28,8 +28,9 @@ void DcpMainCategory::deleteItems()
     }
 }
 
-DcpMainCategory::DcpMainCategory(const QString& title, QGraphicsWidget *parent) : 
-	DcpCategory(title, parent),
+DcpMainCategory::DcpMainCategory(const QString& title, QGraphicsWidget *parent,
+                                 const QString& logicalId) : 
+	DcpCategory(title, parent, logicalId),
 	m_ColCount(0),
 	m_RowCount(0),
 	m_ItemCount(0),

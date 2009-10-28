@@ -12,7 +12,8 @@ class DcpMainCategory : public DcpCategory
 
 public:
     DcpMainCategory(const QString& title,
-                    QGraphicsWidget *parent=0);
+                    QGraphicsWidget *parent=0,
+                    const QString& logicalId="");
 
     virtual ~DcpMainCategory();
     virtual void add(DcpComponent *component);

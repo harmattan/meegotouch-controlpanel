@@ -1,8 +1,9 @@
 #include "dcpcategory.h"
 #include <QGraphicsLayout>
 
-DcpCategory::DcpCategory(const QString& title, QGraphicsWidget *parent) :
-    DcpComponent(0, title, parent)
+DcpCategory::DcpCategory(const QString& title, QGraphicsWidget *parent,
+                         const QString& logicalId) :
+    DcpComponent(0, title, parent, logicalId)
 {
 }
 

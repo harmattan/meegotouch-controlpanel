@@ -21,11 +21,10 @@ DcpAppletButtons::DcpAppletButtons(const QString& logicalId,
                                    const QString& categoryName,
                                          const QString& title, 
                                          QGraphicsWidget *parent) :
-  DcpMainCategory(title, parent), m_CategoryName(categoryName)
+  DcpMainCategory(title, parent, logicalId), m_CategoryName(categoryName)
 {
     setCreateSeparators(true);
     setMaxColumns(2);
-    setLogicalId(logicalId);
   	createContents();
 }
 
@@ -53,11 +52,9 @@ void DcpAppletButtons::createContents()
 
 void DcpAppletButtons::addComponent(DcpAppletMetadata *metadata, bool fullLine)
 {
-    DcpBriefComponent *component = new DcpBriefComponent(metadata, this);
+    DcpBriefComponent *component = new DcpBriefComponent(metadata, this, logicalId());
 
 	component->setSubPage(Pages::APPLET, metadata->name());
-	component->setLogicalId(logicalId());
-    qDebug() << "logical:" << logicalId();
     connect(component, SIGNAL(openSubPage(Pages::Handle)), this, SIGNAL(openSubPage(Pages::Handle)));
 
     if (fullLine)

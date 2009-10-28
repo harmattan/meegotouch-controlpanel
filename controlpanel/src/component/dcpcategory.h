@@ -7,7 +7,8 @@ class DcpCategory : public DcpComponent
 {
     Q_OBJECT
 public:
-    explicit DcpCategory(const QString& title, QGraphicsWidget *parent = 0);
+    explicit DcpCategory(const QString& title, QGraphicsWidget *parent = 0,
+                         const QString& logicalId="");
 
     // Composite Pattern Interface	
     virtual void add(DcpComponent *component);

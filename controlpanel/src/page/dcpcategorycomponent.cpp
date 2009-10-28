@@ -19,10 +19,9 @@ DcpCategoryComponent::DcpCategoryComponent(
                             const QString& categoryName,
                             const QString& logicalId, 
                             QGraphicsWidget *parent)
-         : DcpComponent(category, categoryName, parent),
+         : DcpComponent(category, categoryName, parent, logicalId),
          m_CategoryName(categoryName)
 {
-    setLogicalId(logicalId);
     createContents();
 }
 

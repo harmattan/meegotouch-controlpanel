@@ -8,7 +8,8 @@ class DcpBriefWidget;
 class DcpBriefComponent: public DcpComponent {
     Q_OBJECT
 public:
-    DcpBriefComponent(DcpAppletMetadata* metadata, DcpCategory *category);
+    DcpBriefComponent(DcpAppletMetadata* metadata, DcpCategory *category,
+                      const QString& logicalId="");
     ~DcpBriefComponent();
     void setMetadata(DcpAppletMetadata* metadata);
 

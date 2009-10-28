@@ -12,7 +12,8 @@ class DcpComponent : public DuiWidget
 public:
     explicit DcpComponent(DcpCategory *category,
                                   const QString& title="",
-                                  QGraphicsWidget *parent=0);
+                                  QGraphicsWidget *parent=0,
+                                  const QString& logicalId="");
 
     QString title() const {return m_Title;}
     virtual void setTitle(const QString& title) {m_Title = title;}

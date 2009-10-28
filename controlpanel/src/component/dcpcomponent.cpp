@@ -2,9 +2,12 @@
 #include <QtDebug>
 #include <QGraphicsLayout>
 
-DcpComponent::DcpComponent(DcpCategory *category, const QString& title, QGraphicsWidget *parent) : 
+DcpComponent::DcpComponent(DcpCategory *category, const QString& title, 
+                           QGraphicsWidget *parent,
+                           const QString& logicalId) : 
 				DuiWidget(parent),
                 m_Title(title),
+                m_LogicalId(logicalId),
                 m_Category(category)
 {
 }

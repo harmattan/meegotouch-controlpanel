@@ -2,10 +2,11 @@
 
 #include <DcpBriefWidget>
 #include <QGraphicsLinearLayout>
-
+#include <QDebug>
 DcpBriefComponent::DcpBriefComponent(DcpAppletMetadata* metadata,
-                                     DcpCategory *category)
-    : DcpComponent(category),
+                                     DcpCategory *category,
+                                     const QString& logicalId)
+    : DcpComponent(category,"", 0, logicalId),
       m_BriefWidget(new DcpBriefWidget(metadata, this))
 {
     QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(this);
@@ -13,6 +14,7 @@ DcpBriefComponent::DcpBriefComponent(DcpAppletMetadata* metadata,
     layout->addItem(m_BriefWidget);
 
     connect (m_BriefWidget, SIGNAL(clicked()), this, SLOT(switchToSubPage()));
+    qDebug() << "@@@@@@" << this->logicalId();
 }
 
 DcpBriefComponent::~DcpBriefComponent()
