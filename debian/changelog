@@ -1,3 +1,9 @@
+duicontrolpanel (0.4.8) unstable; urgency=low
+
+  * using common css constants
+
+ -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Wed, 28 Oct 2009 10:04:39 +0100
+
 duicontrolpanel (0.4.7) unstable; urgency=low
 
   * removing duicontrolpanel-applets metapackage from here
