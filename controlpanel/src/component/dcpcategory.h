@@ -15,11 +15,11 @@ public:
     int childCount() { return m_Children.count(); }
     virtual DcpComponent* child(int i) const;
     virtual DcpCategory* category() const {return 0;}
-
 public slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation);
 
 protected:
+    QString m_LogicalId;
     QVector<DcpComponent*> m_Children; 
 };
 #endif //DCPCATEGORY_H

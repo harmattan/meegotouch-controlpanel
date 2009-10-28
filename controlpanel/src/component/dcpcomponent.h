@@ -27,6 +27,8 @@ public:
     virtual DcpComponent* child(int i) const;
     DcpCategory* category() const {return m_Category;}
 
+    const QString logicalId() {return m_LogicalId;};
+    void setLogicalId(const QString& logicalId) {m_LogicalId = logicalId;}
 protected:
     virtual void createContents()=0;
 protected slots:
@@ -40,6 +42,7 @@ public slots:
 
 private:
     QString m_Title; 
+    QString m_LogicalId; 
     DcpCategory* m_Category; 
     Pages::Handle m_SubPage;
 };
