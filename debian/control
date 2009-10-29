@@ -14,13 +14,13 @@ Description: library for the control panel application and its applets
 Package: libduicontrolpanel-dev
 Section: devel
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libduicontrolpanel
+Depends: libduicontrolpanel (= ${Source-Version})
 Description: Development files for the control panel application and its applets
 
 Package: duicontrolpanel
 Section: x11
 Architecture: any
-Depends: libdui0, ${shlibs:Depends}, ${misc:Depends}, libduicontrolpanel, duicontrolpanel-l10n
+Depends: libdui0, ${shlibs:Depends}, ${misc:Depends}, libduicontrolpanel (= ${Source-Version}), duicontrolpanel-l10n
 Description: Control Panel
 
 Package: duicontrolpanel-dbg
@@ -37,7 +37,7 @@ Description: API documentation for libduicontrolpanel
 Package: libduicontrolpanel-tests
 Section: extra
 Architecture: any                                                               
-Depends: libduicontrolpanel, libqtgui4, testrunner                   
+Depends: libduicontrolpanel (= ${Source-Version}), libqtgui4, testrunner                   
 Description: libduicontrolpanel unit tests                                                  
  Unit testing binaries and shellscripts for testing libduicontrolpanel library   
 
