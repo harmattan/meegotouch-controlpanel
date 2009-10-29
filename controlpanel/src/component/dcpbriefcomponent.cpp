@@ -2,7 +2,8 @@
 
 #include <DcpBriefWidget>
 #include <QGraphicsLinearLayout>
-#include <QDebug>
+#include <DcpAppletMetadata>
+
 DcpBriefComponent::DcpBriefComponent(DcpAppletMetadata* metadata,
                                      DcpCategory *category,
                                      const QString& logicalId)
@@ -13,8 +14,8 @@ DcpBriefComponent::DcpBriefComponent(DcpAppletMetadata* metadata,
 //    layout->setContentsMargins(0,0,0,0);
     layout->addItem(m_BriefWidget);
 
+    setMattiID(logicalId+"::"+metadata->category()+"::"+metadata->name());
     connect (m_BriefWidget, SIGNAL(clicked()), this, SLOT(switchToSubPage()));
-    qDebug() << "@@@@@@" << this->logicalId();
 }
 
 DcpBriefComponent::~DcpBriefComponent()
@@ -24,5 +25,15 @@ DcpBriefComponent::~DcpBriefComponent()
 void DcpBriefComponent::setMetadata(DcpAppletMetadata* metadata)
 {
     m_BriefWidget->setMetadata(metadata);
+}
+
+QString DcpBriefComponent::mattiID()
+{
+    return m_mattiID;
+}
+
+void DcpBriefComponent::setMattiID(const QString &mattiID)
+{
+    m_mattiID=mattiID;
 }
 
