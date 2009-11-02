@@ -9,6 +9,7 @@ class QShowEvent;
 class DcpMainCategory : public DcpCategory
 {
     Q_OBJECT
+    Q_PROPERTY(int MaxColumns READ MaxColumns WRITE setMaxColumns)
 
 public:
     DcpMainCategory(const QString& title,
@@ -18,6 +19,7 @@ public:
     virtual ~DcpMainCategory();
     virtual void add(DcpComponent *component);
     virtual void append(DcpComponent *component);
+    virtual int  MaxColumns();
     virtual void setMaxColumns(int columns);
     DuiLayout* duiLayout() const {return m_Layout;}
 

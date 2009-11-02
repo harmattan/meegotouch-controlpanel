@@ -29,7 +29,7 @@ void DcpMainCategory::deleteItems()
 }
 
 DcpMainCategory::DcpMainCategory(const QString& title, QGraphicsWidget *parent,
-                                 const QString& logicalId) : 
+                                 const QString& logicalId) :
 	DcpCategory(title, parent, logicalId),
 	m_ColCount(0),
 	m_RowCount(0),
@@ -188,6 +188,11 @@ void DcpMainCategory::setMaxColumns(int columns)
     for (int i=0; i<columns; i++) {
         m_LandscapeLayout->setColumnStretchFactor(i, 1);
     }
+}
+
+int DcpMainCategory::MaxColumns(void)
+{
+    return m_MaxColumns;
 }
 
 void DcpMainCategory::setDoNotRemoveLastSeparator(bool remove)

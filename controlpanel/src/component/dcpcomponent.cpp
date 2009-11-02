@@ -1,10 +1,10 @@
-#include "dcpcomponent.h" 
+#include "dcpcomponent.h"
 #include <QtDebug>
 #include <QGraphicsLayout>
 
-DcpComponent::DcpComponent(DcpCategory *category, const QString& title, 
+DcpComponent::DcpComponent(DcpCategory *category, const QString& title,
                            QGraphicsWidget *parent,
-                           const QString& logicalId) : 
+                           const QString& logicalId) :
 				DuiWidget(parent),
                 m_Title(title),
                 m_LogicalId(logicalId),

@@ -9,8 +9,7 @@ class DcpCategory : public DcpComponent
 public:
     explicit DcpCategory(const QString& title, QGraphicsWidget *parent = 0,
                          const QString& logicalId="");
-
-    // Composite Pattern Interface	
+    // Composite Pattern Interface
     virtual void add(DcpComponent *component);
     virtual void remove(DcpComponent *component);
     int childCount() { return m_Children.count(); }
@@ -21,6 +20,6 @@ public slots:
 
 protected:
     QString m_LogicalId;
-    QVector<DcpComponent*> m_Children; 
+    QVector<DcpComponent*> m_Children;
 };
 #endif //DCPCATEGORY_H
