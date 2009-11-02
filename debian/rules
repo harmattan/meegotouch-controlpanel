@@ -31,8 +31,8 @@ build: build-stamp
 build-stamp: configure-stamp 
 	dh_testdir
 
-	DEBIAN_DESTDIR=$(PWD)/debian/tmp qmake
-	DEBIAN_DESTDIR=$(PWD)/debian/tmp $(MAKE)
+	DEBIAN_DESTDIR=$(CURDIR)/debian/tmp qmake
+	DEBIAN_DESTDIR=$(CURDIR)/debian/tmp $(MAKE)
 	touch $@
 
 clean:
@@ -51,11 +51,11 @@ install: build
 	dh_clean -k 
 	dh_installdirs
     
-	INSTALL_ROOT=$(PWD)/debian/tmp $(MAKE) install
+	INSTALL_ROOT=$(CURDIR)/debian/tmp $(MAKE) install
 #	cd lib/tests && ./gen-tests-xml.sh > tests.xml    
 	(cd lib;make  $(PARALLEL_MAKEFLAGS) doc; cd ..)
-	mkdir -p $(PWD)/debian/tmp/usr/share/doc/libduicontrolpanel/api
-	cp -r lib/doc/html/*  $(PWD)/debian/tmp/usr/share/doc/libduicontrolpanel/api/
+	mkdir -p $(CURDIR)/debian/tmp/usr/share/doc/libduicontrolpanel/api
+	cp -r lib/doc/html/*  $(CURDIR)/debian/tmp/usr/share/doc/libduicontrolpanel/api/
 
 # Build architecture-independent files here.
 binary-indep: build install

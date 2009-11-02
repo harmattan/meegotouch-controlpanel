@@ -2,4 +2,5 @@ usr/bin/duicontrolpanel
 usr/share/duicontrolpanel/themes/style/duicontrolpanel.*
 usr/share/duicontrolpanel/themes/images/*
 usr/share/duicontrolpanel/themes/svg/*
+usr/share/duicontrolpanel/themes/duicontrolpanel.conf
 usr/share/applications/duicontrolpanel.desktop
