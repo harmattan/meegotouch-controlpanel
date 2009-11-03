@@ -1,3 +1,9 @@
+duicontrolpanel (0.5.2) unstable; urgency=low
+
+  * re-add check target to projects.pro
+
+ -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Tue,  3 Nov 2009 10:14:42 +0100
+
 duicontrolpanel (0.5.1) unstable; urgency=low
 
   * tag 0.5.1
