@@ -1,5 +1,7 @@
 include(../../lib/dcpconfig.pri)
 QMAKE_LIBDIR += ../../lib/lib/ 
+QMAKE_RPATH = -Wl
+message($$QMAKE_RPATH)
 TEMPLATE = app
 TARGET = ../duicontrolpanel
 DEPENDPATH += include 

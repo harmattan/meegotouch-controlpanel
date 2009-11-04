@@ -12,7 +12,7 @@
 
 
 
-CFLAGS = -Wall -g
+CFLAGS = -Wall -g --disable-rpath
 
 ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
 	CFLAGS += -O0

@@ -13,7 +13,8 @@
 INCLUDEPATH += $$DCP_INSTALL_HEADERS
 DEPENDPATH += $$DCP_INSTALL_HEADERS
 
-LIBS += -L$${DCP_INSTALL_LIB} -lduicontrolpanel
+#LIBS += -L$${DCP_INSTALL_LIB} -lduicontrolpanel
+LIBS += -lduicontrolpanel
 
 # defines for directories, they work cross-platform like this
 {

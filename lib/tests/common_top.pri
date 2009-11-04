@@ -1,4 +1,5 @@
 include(./../../dcpconfig.pri)
+
 INCLUDEPATH +=/usr/include/dui
 
 SRCDIR = ./../../src
@@ -18,6 +19,7 @@ DEFINES += UNIT_TEST
 target.path = $${DCP_INSTALL_LIB}/libduicontrolpanel-tests                                  
 INSTALLS += target                                                              
 include(check.pri)
-LIBS += ./../../lib/libduicontrolpanel.so 
+QMAKE_LIBSDIR += ./../../lib/ 
+LIBS += -lduicontrolpanel 
 QMAKE_CXXFLAGS += -Werror
 message($$target.path)
