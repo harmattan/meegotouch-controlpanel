@@ -14,7 +14,7 @@ DcpBriefComponent::DcpBriefComponent(DcpAppletMetadata* metadata,
 //    layout->setContentsMargins(0,0,0,0);
     layout->addItem(m_BriefWidget);
 
-    setMattiID(logicalId+"::"+metadata->category()+"::"+metadata->name());
+    setMattiID("DcpBriefComponent::"+logicalId+"::"+metadata->category()+"::"+metadata->name());
     connect (m_BriefWidget, SIGNAL(clicked()), this, SLOT(switchToSubPage()));
 }
 
