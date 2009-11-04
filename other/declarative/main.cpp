@@ -9,6 +9,7 @@
 #include <DuiDeclarativeSettingsBinary>
 #include <DuiDeclarativeSettings>
 #include <DuiDeclarativeSettingsFactory>
+#include <DuiGConfDataStore>
 
 int main(int argc, char** argv)
 {
@@ -33,8 +34,11 @@ int main(int argc, char** argv)
     }
     DuiDeclarativeSettingsBinary* binary = parser.createSettingsBinary();
     Q_ASSERT(binary);
-    
-    DuiDeclarativeSettings* widget = DuiDeclarativeSettingsFactory::createWidget(*binary /*, datastore */);
+    DuiGConfDataStore* datastore = new DuiGConfDataStore();
+    foreach (QString key, binary->keys()) {
+        datastore->addGConfKey(key, key);
+    }
+    DuiDeclarativeSettings* widget = DuiDeclarativeSettingsFactory::createWidget(*binary, datastore );
     Q_ASSERT(widget);
     layout->addItem(widget);
     /* -- */

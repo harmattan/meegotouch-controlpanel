@@ -1,11 +1,12 @@
 <item title = "exampleTitle" group="true" >
-    <text key="textKey" title="Please specify a text:" >
+    <text key="/valami2/x2" title="Please specify a text:" >
         Example text
     </text>
-    <enum key="enumKey">
+    <enum key="/valami2/x1">
         <value title="first value" >1</value>
-        <value title="second value" >2 </value>
-        <value title="third value" >3 </value>
+        <value title="second value" >2</value>
+        <value title="third value" >3</value>
         <value title="fourth value" >4</value>
     </enum>
 </item>
+
