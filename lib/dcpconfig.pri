@@ -1,7 +1,7 @@
 # Build configuration
 
 QMAKE_CXXFLAGS_RELEASE += -g
-
+QMAKE_RPATH = -Wl
     DCP_BUILD_PARTS = lib controlpanel tests
     DCP_BUILD_FEATURES = debug
 

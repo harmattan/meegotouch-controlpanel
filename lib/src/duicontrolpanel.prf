@@ -1,3 +1,4 @@
+QMAKE_RPATH = -Wl 
 # Directories
      DCP_PREFIX = /usr
      DCP_INSTALL_LIB = $$DCP_PREFIX/lib
