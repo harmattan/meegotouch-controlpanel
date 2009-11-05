@@ -19,7 +19,6 @@ DEFINES += UNIT_TEST
 target.path = $${DCP_INSTALL_LIB}/libduicontrolpanel-tests                                  
 INSTALLS += target                                                              
 include(check.pri)
-QMAKE_LIBSDIR += ./../../lib/ 
-LIBS += -lduicontrolpanel 
+LIBS += ../../lib/libduicontrolpanel.so 
 QMAKE_CXXFLAGS += -Werror
 message($$target.path)
