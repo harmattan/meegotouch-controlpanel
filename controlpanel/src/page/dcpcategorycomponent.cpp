@@ -17,12 +17,13 @@
 DcpCategoryComponent::DcpCategoryComponent(
                             DcpCategory *category,
                             const QString& categoryName,
-                            const QString& logicalId, 
+                            const QString& logicalId,
                             QGraphicsWidget *parent)
          : DcpComponent(category, categoryName, parent, logicalId),
          m_CategoryName(categoryName)
 {
     createContents();
+    setMattiID("DcpCategoryComponent::"+logicalId);
 }
 
 DcpCategoryComponent::~DcpCategoryComponent()
@@ -64,3 +65,12 @@ void DcpCategoryComponent::onOrientationChange
     m_AppletButtons->onOrientationChange(orientation);
 }
 
+QString DcpCategoryComponent::mattiID()
+{
+    return m_mattiID;
+}
+
+void DcpCategoryComponent::setMattiID(const QString &mattiID)
+{
+    m_mattiID=mattiID;
+}

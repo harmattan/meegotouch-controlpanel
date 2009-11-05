@@ -9,6 +9,7 @@ class DuiContainer;
 class DcpCategoryComponent: public DcpComponent
 {
     Q_OBJECT
+    Q_PROPERTY(QString mattiID READ mattiID WRITE setMattiID)
 public:
     DcpCategoryComponent(DcpCategory *category, const QString& categoryName,
                          const QString& logicalId,
@@ -22,6 +23,9 @@ public:
 
     void reload();
 
+    QString mattiID();
+    void setMattiID(const QString &mattiID);
+
 public slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation);
 
@@ -29,6 +33,7 @@ private:
     DcpAppletButtons *m_AppletButtons;
     QString m_CategoryName;
     DuiContainer *m_Container;
+    QString m_mattiID;
 };
 
 
