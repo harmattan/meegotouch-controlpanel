@@ -2,7 +2,7 @@ include(../lib/dcpconfig.pri)
 TEMPLATE = app
 TARGET = ./dcp_service_tester
 DEPENDPATH += .
-INCLUDEPATH += $$DEPENDPATH ../lib/src/include
+INCLUDEPATH += $$DEPENDPATH ../../lib/src/include
 
 OBJECTS_DIR = tmp
 MOC_DIR = tmp
