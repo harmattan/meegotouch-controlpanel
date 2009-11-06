@@ -1,1 +1,1 @@
-#include "../widget/dcpbutton2.h"
+#include "../deprecated/dcpbutton2.h"

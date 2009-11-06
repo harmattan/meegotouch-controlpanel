@@ -2,9 +2,9 @@
 #include <DcpAppletMetadata>
 #include <DcpWidgetTypes>
 
-#include "dcpbutton2.h"
-#include "dcpbutton2toggle.h"
-#include "dcpbutton2image.h"
+#include "dcpbutton.h"
+#include "dcpbuttontoggle.h"
+#include "dcpbuttonimage.h"
 
 #include <DuiSceneManager>
 #include <QGraphicsLinearLayout>
@@ -45,7 +45,7 @@ void DcpBriefWidget::setMetadata(DcpAppletMetadata* metadata)
             m_RealWidget = constructImage(metadata);
             break;
         default:
-            m_RealWidget = new DcpButton2(this);
+            m_RealWidget = new DcpButton(this);
             break;
     }
 
@@ -63,18 +63,18 @@ void DcpBriefWidget::retranslateUi()
     updateContents();
 }
 
-DcpButton2Image* DcpBriefWidget::constructImage(
+DcpButtonImage* DcpBriefWidget::constructImage(
         const DcpAppletMetadata* metadata)
 {
-    DcpButton2Image* image = new DcpButton2Image(this);
+    DcpButtonImage* image = new DcpButtonImage(this);
     image->setImageName(metadata->image());
     return image;
 }
 
-DcpButton2Toggle* DcpBriefWidget::constructToggle(
+DcpButtonToggle* DcpBriefWidget::constructToggle(
         const DcpAppletMetadata* metadata)
 {
-    DcpButton2Toggle* toggle = new DcpButton2Toggle(this);
+    DcpButtonToggle* toggle = new DcpButtonToggle(this);
     toggle->setSmallToggle(metadata->toggle());
 /*  connect (m_RealWidget, SIGNAL(smallToggled(bool)),
              m_Metadata, SLOT(setToggle(bool))); TODO XXX */

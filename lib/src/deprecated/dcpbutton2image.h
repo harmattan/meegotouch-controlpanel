@@ -1,5 +1,6 @@
 #ifndef DCPBUTTON2IMAGE_H
 #define DCPBUTTON2IMAGE_H
+#warning "DcpButton2Image is DEPRECATED, and will be removed soon! Use DcpButtonImage instead."
 
 #include "dcpbutton2align.h"
 class DuiImage;

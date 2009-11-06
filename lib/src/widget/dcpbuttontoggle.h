@@ -1,12 +1,12 @@
-#ifndef DCPBUTTON2TOGGLE_H
-#define DCPBUTTON2TOGGLE_H
+#ifndef DCPBUTTONTOGGLE_H
+#define DCPBUTTONTOGGLE_H
 
-#include "dcpbutton2align.h"
+#include "dcpbuttonalign.h"
 
-class DcpButton2Toggle: public DcpButton2Align {
+class DcpButtonToggle: public DcpButtonAlign {
     Q_OBJECT
 public:
-    explicit DcpButton2Toggle(DuiWidget* parent = 0);
+    explicit DcpButtonToggle(DuiWidget* parent = 0);
 
     virtual void setText2(const QString& text);
     virtual void setSmallToggle(bool isOn);
@@ -26,4 +26,4 @@ private:
 };
 
 
-#endif // DCPBUTTON2TOGGLE_H
+#endif // DCPBUTTONTOGGLE_H

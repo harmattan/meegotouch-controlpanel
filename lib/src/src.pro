@@ -29,15 +29,19 @@ install_headers.files += include/D* \
     appletdb/dcpappletmetadata.h \
     appletdb/dcpmostusedcounter.h \
     appletdb/dcpmostusedcounter.h \
-    widget/dcpbutton2.h \
-    widget/dcpbutton2align.h \
-    widget/dcpbutton2toggle.h \
-    widget/dcpbutton2image.h \
+    widget/dcpbutton.h \
+    widget/dcpbuttonalign.h \
+    widget/dcpbuttontoggle.h \
+    widget/dcpbuttonimage.h \
     widget/dcpbriefwidget.h \
     widget/dcpwidgettypes.h \
     widget/dcpspaceritem.h \
-    widget/dcpdialog.h \
-    widget/dcpcommondialog.h \
+    deprecated/dcpbutton2.h \
+    deprecated/dcpbutton2align.h \
+    deprecated/dcpbutton2toggle.h \
+    deprecated/dcpbutton2image.h \
+    deprecated/dcpdialog.h \
+    deprecated/dcpcommondialog.h \
     dcpdebug.h \
     dcpretranslator.h \
     service_interface/duicontrolpanelif.h \

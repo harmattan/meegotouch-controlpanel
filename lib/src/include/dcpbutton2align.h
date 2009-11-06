@@ -1,1 +1,1 @@
-#include "../widget/dcpbutton2align.h"
+#include "../deprecated/dcpbutton2align.h"

@@ -1,1 +1,1 @@
-#include "../widget/dcpdialog.h"
+#include "../deprecated/dcpdialog.h"

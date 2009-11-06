@@ -3,9 +3,9 @@
 
 #include <DuiWidget>
 class DcpAppletMetadata;
-class DcpButton2;
-class DcpButton2Image;
-class DcpButton2Toggle;
+class DcpButton;
+class DcpButtonImage;
+class DcpButtonToggle;
 class QShowEvent;
 class QHideEvent;
 
@@ -27,10 +27,10 @@ protected:
     virtual void retranslateUi();
     virtual void showEvent ( QShowEvent * event );
     virtual void hideEvent ( QHideEvent * event );
-    DcpButton2Image* constructImage(const DcpAppletMetadata* metadata);
-    DcpButton2Toggle* constructToggle(const DcpAppletMetadata* metadata);
+    DcpButtonImage* constructImage(const DcpAppletMetadata* metadata);
+    DcpButtonToggle* constructToggle(const DcpAppletMetadata* metadata);
 
-    DcpButton2* m_RealWidget;
+    DcpButton* m_RealWidget;
     DcpAppletMetadata* m_Metadata;
     bool m_Hidden;
 };

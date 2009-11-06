@@ -1,14 +1,14 @@
-#ifndef DCPBUTTON2ALIGN_H
-#define DCPBUTTON2ALIGN_H
+#ifndef DCPBUTTONALIGN_H
+#define DCPBUTTONALIGN_H
 
-#include "dcpbutton2.h"
+#include "dcpbutton.h"
 class QGraphicsLayout;
 class QGraphicsLinearLayout;
 
-class DcpButton2Align: public DcpButton2 {
+class DcpButtonAlign: public DcpButton {
     Q_OBJECT
 public:
-    DcpButton2Align(DuiWidget* parent, bool);
+    DcpButtonAlign(DuiWidget* parent, bool);
 
     void setWidgetAlignment(Qt::Alignment align);
 
@@ -27,5 +27,5 @@ private:
 };
 
 
-#endif // DCPBUTTON2ALIGN_H
+#endif // DCPBUTTONALIGN_H
 
