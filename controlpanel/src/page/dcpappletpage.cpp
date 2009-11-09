@@ -71,7 +71,7 @@ void DcpAppletPage::clearup()
 
 void DcpAppletPage::reload()
 {
-    if (m_Metadata != m_LoadedMetadata) {
+    if (m_Metadata != m_LoadedMetadata || !hasWidget()) {
         clearup();
         load();
     }
