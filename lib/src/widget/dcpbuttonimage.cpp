@@ -32,7 +32,6 @@ QGraphicsLayout* DcpButtonImage::createLayout()
 
 DuiImage* DcpButtonImage::imageWidget()
 {
-//    return qobject_cast<DuiButton*>(alignedWidget());
     return m_Image;
 }
 

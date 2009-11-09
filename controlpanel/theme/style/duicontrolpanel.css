@@ -7,17 +7,18 @@ MonthWidget {
 	view: MonthWidgetFullView;
 }
 
+/*
+ * Disabling custom layout
 #DcpButton {
-//    background-image: "C2-container" 0 0 0 0;
     minimum-size: $SIZE_ONE $SIZE_BUTTON;
     maximum-size: 100% $SIZE_BUTTON;
-//    preferred-size: 100% $SIZE_BUTTON;
 
-    padding-top: $PADDING_LARGE;
+    padding-top: $PADDING_LARGE;    
     padding-bottom: $PADDING_LARGE;
     padding-left: $PADDING_SMALL;
     padding-right: $PADDING_SMALL;
 }
+
 
 DuiLabelStyle#DcpButtonMain {
     font: $FONT_LARGE;
@@ -26,6 +27,7 @@ DuiLabelStyle#DcpButtonMain {
 DuiLabelStyle#DcpButtonLine1 {
     font: $FONT_DEFAULT;
 }
+*/
 
 DuiLabelStyle#DcpButtonLine2 {
     font: $FONT_SMALL;

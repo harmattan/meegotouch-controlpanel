@@ -35,7 +35,6 @@ private:
     QGraphicsGridLayout* m_TextLayout;
     DuiLabel* m_Label1;
     DuiLabel* m_Label2;
-    DuiWidget* m_Triangle;
 };
 
 #endif // DCPBUTTON_H

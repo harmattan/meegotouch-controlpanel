@@ -22,7 +22,7 @@ protected:
 private:
     void putupWidgets();
     DuiWidget* m_AlignedWidget;
-    QGraphicsLinearLayout* m_VertLayout;
+    QGraphicsLinearLayout* m_AlignLayout;
     Qt::Alignment m_Alignment;
 };
 

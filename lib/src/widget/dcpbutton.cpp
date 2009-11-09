@@ -6,8 +6,7 @@
 
 // main constructor
 DcpButton::DcpButton(DuiWidget* parent)
-    : DuiButton(parent), m_TextLayout(0), m_Label1(0), m_Label2(0),
-      m_Triangle(0)
+    : DuiButton(parent), m_TextLayout(0), m_Label1(0), m_Label2(0)
 {
     setObjectName("DcpButton");
     this->setLayout(createLayout());
@@ -15,19 +14,13 @@ DcpButton::DcpButton(DuiWidget* parent)
 
 // protected constructor which avoids creating the layout
 DcpButton::DcpButton(DuiWidget* parent, bool)
-    : DuiButton(parent), m_TextLayout(0), m_Label1(0), m_Label2(0),
-      m_Triangle(0)
+    : DuiButton(parent), m_TextLayout(0), m_Label1(0), m_Label2(0)
 {
     setObjectName("DcpButton");
 }
 
 QGraphicsLayout* DcpButton::createLayout()
 {
-    // triangle
-    m_Triangle = new DuiButton(this);
-    m_Triangle->setObjectName("DcpSeeMoreIndicator");
-    m_Triangle->setAcceptedMouseButtons(0);
-
     // create the labels:
     m_Label1 = new DuiLabel (this);
     m_Label1->setAcceptedMouseButtons(0);
@@ -40,8 +33,7 @@ QGraphicsLayout* DcpButton::createLayout()
 
     // create the layout:
     m_TextLayout = new QGraphicsGridLayout();
-    m_TextLayout->setContentsMargins(0,0,0,0);
-    m_TextLayout->addItem(m_Triangle,0,0, Qt::AlignCenter);
+//    m_TextLayout->setContentsMargins(0,0,0,0);
     m_TextLayout->addItem(m_Label1,0,1);
     m_TextLayout->addItem(m_Label2,1,1);
 

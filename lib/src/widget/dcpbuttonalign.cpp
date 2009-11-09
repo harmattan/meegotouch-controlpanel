@@ -20,11 +20,11 @@ QGraphicsLayout* DcpButtonAlign::createLayout()
     textLayout()->setContentsMargins(0,0,right,0);
 
     // putting the widget next to the text
-    m_VertLayout = new QGraphicsLinearLayout(Qt::Horizontal);
-    m_VertLayout->setContentsMargins(left,top,right,bottom);
+    m_AlignLayout = new QGraphicsLinearLayout(Qt::Horizontal);
+    m_AlignLayout->setContentsMargins(left,top,right,bottom);
 
     putupWidgets();
-    return m_VertLayout;
+    return m_AlignLayout;
 }
 
 void DcpButtonAlign::setAlignment(Qt::Alignment align)
@@ -32,11 +32,11 @@ void DcpButtonAlign::setAlignment(Qt::Alignment align)
     if (m_Alignment != align)
     m_Alignment = align;
 
-    if (m_VertLayout != NULL) {
+    if (m_AlignLayout != NULL) {
         /* if the layout has already been created, remove and readd the items
          * in the correct order */
-        m_VertLayout->removeAt (0);
-        m_VertLayout->removeAt (1);
+        m_AlignLayout->removeAt (0);
+        m_AlignLayout->removeAt (1);
         putupWidgets();
     }
 }
@@ -48,12 +48,12 @@ void DcpButtonAlign::putupWidgets()
 
     switch (m_Alignment) {
         case Qt::AlignRight:
-            m_VertLayout->addItem(textLayout());
-            m_VertLayout->addItem(alignedWidget());
+            m_AlignLayout->addItem(textLayout());
+            m_AlignLayout->addItem(alignedWidget());
             break;
         case Qt::AlignLeft:
-            m_VertLayout->addItem(alignedWidget());
-            m_VertLayout->addItem(textLayout());
+            m_AlignLayout->addItem(alignedWidget());
+            m_AlignLayout->addItem(textLayout());
             break;
         default:
             qFatal("DcpButtonAlign unsupported alignment");
