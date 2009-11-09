@@ -3,7 +3,6 @@
 #include <QDir>
 #include <QDebug>
 const QString APPLETFILTER = "*.desktop";
-const int MAXMOSTUSED = 6;
 DcpAppletDb *DcpAppletDb::sm_Instance=0;
 
 DcpAppletDb*
@@ -125,7 +124,7 @@ DcpAppletMetadataList DcpAppletDb::listMostUsed()
 			mostUsed.push_back(iter.value());
 
    qSort(mostUsed.begin(), mostUsed.end(), DcpAppletMetadata::usageGreatherThan); 
-   return mostUsed.mid(0, MAXMOSTUSED);
+   return mostUsed.mid(0, DcpApplet::MaxMostUsed);
 }
 
 DcpAppletMetadata* DcpAppletDb::applet(const QString& name)
