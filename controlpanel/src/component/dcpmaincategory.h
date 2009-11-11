@@ -9,7 +9,6 @@ class QShowEvent;
 class DcpMainCategory : public DcpCategory
 {
     Q_OBJECT
-    Q_PROPERTY(int MaxColumns READ MaxColumns WRITE setMaxColumns)
 
 public:
     DcpMainCategory(const QString& title,

@@ -6,4 +6,5 @@ namespace DcpApplet {
     const QString MostUsedCategory = "MostUsedCategory";
     const int MaxMostUsed = 6;
 };
+
 #endif // DCPAPPLET_H
