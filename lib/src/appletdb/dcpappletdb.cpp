@@ -6,10 +6,21 @@ const QString APPLETFILTER = "*.desktop";
 DcpAppletDb *DcpAppletDb::sm_Instance=0;
 
 DcpAppletDb*
-DcpAppletDb::instance(const QString &pathName)
+DcpAppletDb::initInstance(const QString &pathName)
+{
+    if (sm_Instance) {
+        qWarning() << "ignoring reinitialization of DcpAppletDb instance";
+    } else {
+        sm_Instance = new DcpAppletDb(pathName);
+    }
+    return sm_Instance;
+}
+
+DcpAppletDb*
+DcpAppletDb::instance()
 {
     if (!sm_Instance)
-        sm_Instance = new DcpAppletDb(pathName);
+        return initInstance();
     return sm_Instance;
 }
 

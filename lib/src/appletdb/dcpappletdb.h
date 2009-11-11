@@ -20,10 +20,18 @@ typedef QMap<QString, DcpAppletMetadata*> DcpAppletMetadataMap;
 class DcpAppletDb
 {
 public:
+    /*! \brief Initializes and returns the singleton instance.
+
+        It only can be called once and only before instance() gets called.
+        Calling this function is not mandatory. When it's not called,
+        the instance will be initialized by DcpApplet::DefaultPath.
+
+        \param pathName the initial path where the desktop files are found.
+    */
+    static DcpAppletDb *initInstance(const QString &pathName=DcpApplet::DefaultPath);
     /*! \brief Gives back the db instance
-        \param pathName the initial path where the desktop files are found, 
-         needed only first time*/
-    static DcpAppletDb *instance(const QString &pathName=DcpApplet::DefaultPath);
+      */
+    static DcpAppletDb *instance();
     /*! \brief adds files at a specified path pathName to the db */
     bool addPath(const QString &pathName);
 

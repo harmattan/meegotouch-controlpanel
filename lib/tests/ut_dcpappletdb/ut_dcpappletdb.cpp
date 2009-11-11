@@ -20,7 +20,7 @@ void Ut_DcpAppletDb::cleanupTestCase()
 
 void Ut_DcpAppletDb::init()
 {
-    QVERIFY((m_subject=DcpAppletDb::instance(emptyDesktopDir)));
+    QVERIFY((m_subject=DcpAppletDb::initInstance(emptyDesktopDir)));
 }
 
 void Ut_DcpAppletDb::cleanup()
@@ -37,7 +37,7 @@ void Ut_DcpAppletDb::testInstance()
 {
     if (QTest::currentTestFailed()) return;
 
-    QVERIFY((m_subject==DcpAppletDb::instance(emptyDesktopDir)));
+    QVERIFY((m_subject==DcpAppletDb::initInstance(emptyDesktopDir)));
 }
 
 void Ut_DcpAppletDb::testAddContainNameFile()
