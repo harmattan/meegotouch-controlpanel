@@ -3,8 +3,8 @@
 #include <DuiLayout>
 #include <DuiGridLayoutPolicy>
 #include <DuiLinearLayoutPolicy>
-
 #include <DuiSceneManager>
+
 #include <QtDebug>
 #include <DuiSeparator>
 
@@ -152,8 +152,8 @@ void DcpMainCategory::polishEvent()
 
 void DcpMainCategory::showEvent (QShowEvent*)
 {
-    if (DuiSceneManager::instance()) {
-        onOrientationChange(DuiSceneManager::instance()->orientation());
+    if (sceneManager()) {
+        onOrientationChange(sceneManager()->orientation());
     }
 }
 

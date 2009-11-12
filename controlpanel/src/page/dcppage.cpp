@@ -1,8 +1,8 @@
 #include <QtDebug>
 
 #include "dcppage.h"
-#include <DuiSceneManager>
 #include <QGraphicsLinearLayout>
+#include <DuiSceneManager>
 
 DcpPage::DcpPage() : DuiApplicationPage()
 {
@@ -49,22 +49,23 @@ void DcpPage::connectSignals()
 {
    connect(this, SIGNAL(backButtonClicked()), this, SLOT(back()));
 
-   Q_ASSERT (DuiSceneManager::instance());
-   // handle orientation change:
-   connect(	DuiSceneManager::instance(),
-            SIGNAL(orientationChanged (const Dui::Orientation &)),
-            this, 
-			SLOT(organizeContent(const Dui::Orientation &)));
+   DuiSceneManager* manager = sceneManager();
+   if (manager) {
+       // handle orientation change:
+       connect(manager, SIGNAL(orientationChanged (const Dui::Orientation &)),
+               this, SLOT(organizeContent(const Dui::Orientation &)));
+   }
 }
 
 void DcpPage::disconnectSignals()
 {
-    disconnect(	DuiSceneManager::instance(),
-            	SIGNAL(orientationChanged (const Dui::Orientation &)),
-            	this,
-				SLOT(organizeContent(const Dui::Orientation &)));
+    DuiSceneManager* manager = sceneManager();
+    if (manager) {
+        disconnect(manager, SIGNAL(orientationChanged (const Dui::Orientation &)),
+                this, SLOT(organizeContent(const Dui::Orientation &)));
+    }
 
-	disconnect(this, SIGNAL(backButtonClicked()), this, SLOT(back()));
+    disconnect(this, SIGNAL(backButtonClicked()), this, SLOT(back()));
 }
 
 void DcpPage::back()
@@ -76,7 +77,9 @@ void DcpPage::back()
  * default implementation sets the correct orientation */
 void DcpPage::reload()
 {
-    organizeContent(DuiSceneManager::instance()->orientation());
+    if (sceneManager()) {
+        organizeContent(sceneManager()->orientation());
+    }
 }
 
 QGraphicsLinearLayout* DcpPage::mainLayout()
