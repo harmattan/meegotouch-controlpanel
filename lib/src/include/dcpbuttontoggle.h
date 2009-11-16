@@ -1,1 +1,1 @@
-#include "../widget/dcpbutton2toggle.h"
+#include "../widget/dcpbuttontoggle.h"
