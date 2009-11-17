@@ -27,7 +27,7 @@ public:
     QString name() const;
     QString fileName() const;
     QString category() const;
-//    QString icon() const;
+    QString toggleIconId() const;
     QString binary() const;
     QString fullBinary() const;
     QString binaryDir() const;

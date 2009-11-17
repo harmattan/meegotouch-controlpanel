@@ -29,6 +29,9 @@ public:
     /*! \return the current icon of the widget */
     virtual QString icon() const;
 
+    /*! \return the current icon for the toggle button */
+    virtual QString toggleIconId() const;
+
     /*! \return the alignment of the text in the brief widget. if AlignLeft
      * (default), then the text will be on the left side, the button/picture
      * on the right. */

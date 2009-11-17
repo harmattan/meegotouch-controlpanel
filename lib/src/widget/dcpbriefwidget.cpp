@@ -76,14 +76,31 @@ DcpButtonToggle* DcpBriefWidget::constructToggle(
 {
     DcpButtonToggle* toggle = new DcpButtonToggle(this);
     toggle->setSmallToggle(metadata->toggle());
-/*  connect (m_RealWidget, SIGNAL(smallToggled(bool)),
-             m_Metadata, SLOT(setToggle(bool))); TODO XXX */
+    toggle->setIconId(metadata->toggleIconId());
+    connect (m_RealWidget, SIGNAL(smallToggled(bool)),
+             m_Metadata, SLOT(setToggle(bool)));
     return toggle;
 }
 
 void DcpBriefWidget::updateContents()
 {
+    // for all:
     m_RealWidget->setText2(m_Metadata->text2());
+
+    // toggle specific:
+    DcpButtonToggle* toggle = qobject_cast<DcpButtonToggle*>(m_RealWidget);
+    if (toggle) {
+        toggle->setSmallToggle(m_Metadata->toggle());
+        toggle->setIconId(m_Metadata->toggleIconId());
+        return;
+    }
+
+    // image specific:
+    DcpButtonImage* image = qobject_cast<DcpButtonImage*>(m_RealWidget);
+    if (image) {
+        image->setImageName(m_Metadata->image());
+        return;
+    }
 }
 
 void DcpBriefWidget::showEvent ( QShowEvent * event )
@@ -98,7 +115,7 @@ void DcpBriefWidget::showEvent ( QShowEvent * event )
         connect (m_Metadata, SIGNAL(briefChanged()), this, SLOT(updateContents()));
 
         updateContents();
-    } 
+    }
 }
 
 void DcpBriefWidget::hideEvent ( QHideEvent * event )

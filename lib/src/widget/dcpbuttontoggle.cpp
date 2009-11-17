@@ -46,11 +46,25 @@ void DcpButtonToggle::onSmallToggled (bool isOn)
 
 void DcpButtonToggle::setSmallToggle(bool isOn)
 {
-    toggleButton()->setChecked(isOn);
+    if (toggleButton()->isChecked() != isOn) {
+        toggleButton()->setChecked(isOn);
+    }
 }
 
 DuiButton* DcpButtonToggle::toggleButton()
 {
     return qobject_cast<DuiButton*>(alignedWidget());
+}
+
+void DcpButtonToggle::setIconId(const QString& iconId)
+{
+    if (iconId != this->iconId()) {
+        toggleButton()->setIconID(iconId);
+    }
+}
+
+QString DcpButtonToggle::iconId()
+{
+    return toggleButton()->iconID();
 }
 

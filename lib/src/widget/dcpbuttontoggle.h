@@ -9,6 +9,8 @@ public:
     explicit DcpButtonToggle(DuiWidget* parent = 0);
 
     virtual void setText2(const QString& text);
+    virtual void setIconId(const QString& iconId);
+    QString iconId();
     virtual void setSmallToggle(bool isOn);
 
 signals:

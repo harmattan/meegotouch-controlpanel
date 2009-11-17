@@ -16,6 +16,11 @@ QString DcpBrief::icon() const
     return QString();
 }
 
+QString DcpBrief::toggleIconId() const
+{
+    return QString();
+}
+
 QString DcpBrief::valueText() const
 {
     return QString();

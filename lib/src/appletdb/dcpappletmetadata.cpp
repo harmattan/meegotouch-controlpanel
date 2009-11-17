@@ -23,14 +23,10 @@ enum  {
 
     KeyWidgetType,
     KeyAlign,
-    KeyToggle,
-    KeySmallToggle,
+    KeyToggleIconId,
 
     KeyText2,
     KeyImage,
-    KeyButtonCSS,
-    KeyLabel1CSS,
-    KeyLabel2CSS,
     KeyUsage,
     KeyBinary,
 
@@ -53,14 +49,10 @@ const QString Keys[KeyCount] = {
 
     "DCP/WidgetType",
     "DCP/Align",
-    "DCP/Toggle",
-    "DCP/SmallToggle",
+    "DCP/ToggleIconId",
 
     "DCP/Text2",
     "DCP/Image",
-    "DCP/ButtonCSS",
-    "DCP/Label1CSS",
-    "DCP/Label2CSS",
     "DCP/Usage",
     "DUI/X-DUIApplet-Applet",
 
@@ -220,7 +212,7 @@ QString DcpAppletMetadata::text2() const
     if (brief())
         return brief()->valueText();
 
-    // old way, TODO change it to return QString() if test data is not needed
+    // static way
     return desktopEntryStr(KeyText2);
 }
 
@@ -229,8 +221,17 @@ QString DcpAppletMetadata::image() const
     if (brief())
         return brief()->image();
 
-    // old way
+    // static way
     return desktopEntryStr(KeyImage);
+}
+
+QString DcpAppletMetadata::toggleIconId() const
+{
+    if (brief())
+        return brief()->toggleIconId();
+
+    // static way
+    return desktopEntryStr(KeyToggleIconId);
 }
 
 bool DcpAppletMetadata::isUnique() const
