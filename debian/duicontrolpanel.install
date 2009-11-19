@@ -4,3 +4,4 @@ usr/share/duicontrolpanel/themes/images/*
 usr/share/duicontrolpanel/themes/svg/*
 usr/share/duicontrolpanel/themes/duicontrolpanel.conf
 usr/share/applications/duicontrolpanel.desktop
+usr/lib/duicontrolpanel/applets/libdeclarative.so

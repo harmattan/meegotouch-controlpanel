@@ -5,6 +5,7 @@ CONFIG += build_all silent warn_on
 
 SUBDIRS += lib \
            controlpanel \
+           declapplet
 
 include(dcpconfig.pri)
 include(debian/deb.pri)
