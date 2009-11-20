@@ -3,65 +3,50 @@
 @import "../../../themes/base/dui/libdui/style/colors.css";
 @import "../../../themes/base/dui/libdui/style/margins.css";
 
-MonthWidget {
-	view: MonthWidgetFullView;
-}
-
-/*
- * Disabling custom layout
+/* brief's button should be able to grow if common theme changes,
+ * and its content size requires that */
 #DcpButton {
-    minimum-size: $SIZE_ONE $SIZE_BUTTON;
-    maximum-size: 100% $SIZE_BUTTON;
-
-    padding-top: $PADDING_LARGE;    
-    padding-bottom: $PADDING_LARGE;
-    padding-left: $PADDING_SMALL;
-    padding-right: $PADDING_SMALL;
+    minimum-size: -1 -1;
+    maximum-size: -1 -1;
 }
 
-
+/* this is specified that briefwidget's first line text must
+ * have bigger font if there is no second line (for ex.: toggle off) */
 DuiLabelStyle#DcpButtonMain {
     font: $FONT_LARGE;
 }
-
 DuiLabelStyle#DcpButtonLine1 {
     font: $FONT_DEFAULT;
 }
-*/
 
 DuiLabelStyle#DcpButtonLine2 {
     font: $FONT_SMALL;
     color: $COLOR_SECONDARY_FOREGROUND;
 }
 
+/* See more indicator is not used anymore
 #DcpSeeMoreIndicator {
     background-image: "See-more-indicator-small" 0 0 0 0;
     minimum-size: 16 16;
     maximum-size: 16 16;
     margin-left: $MARGIN_MEDIUM;
 }
-
+*/
 
 DuiImageStyle#DcpButtonImage {
+/*
     maximum-size: $SIZE_ICON_DEFAULT $SIZE_ICON_DEFAULT;
     minimum-size: $SIZE_ICON_DEFAULT $SIZE_ICON_DEFAULT;
 
-    /* TODO remove this once AlignCenter of the layoutpolicy works correctly */
-    margin-left: 1;
-    margin-top: 1;
-    margin-right: 0;
-    margin-bottom: 0;
-
-    border-top: 0;
-    border-bottom: 0;
-    border-left: 0;
-    border-right: 0;
+    Image should have same size as the toggle:
+ */
+    maximum-size: $SIZE_BUTTON $SIZE_BUTTON;
+    minimum-size: $SIZE_BUTTON $SIZE_BUTTON;
 }
 
+/*
 DuiButtonStyle#DcpButtonToggle {
-/*   
     maximum-size: 64 64;
     minimum-size: 64 64;
-*/
 }
-
+*/

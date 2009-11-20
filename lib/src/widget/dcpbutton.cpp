@@ -33,9 +33,9 @@ QGraphicsLayout* DcpButton::createLayout()
 
     // create the layout:
     m_TextLayout = new QGraphicsGridLayout();
-//    m_TextLayout->setContentsMargins(0,0,0,0);
-    m_TextLayout->addItem(m_Label1,0,1);
-    m_TextLayout->addItem(m_Label2,1,1);
+    m_TextLayout->setContentsMargins(0,0,0,0);
+    m_TextLayout->addItem(m_Label1,0,0);
+    m_TextLayout->addItem(m_Label2,1,0);
 
     updateLabelSizes();
     return m_TextLayout;
@@ -65,16 +65,17 @@ QString DcpButton::text2() const
 
 void DcpButton::updateLabelSizes()
 {
+    qDebug("XXX c: %d", textLayout()->count());
     if (m_Label2->text().isEmpty()) {
         m_Label1->setObjectName("DcpButtonMain");
-        if (textLayout()->count() > 2) {
-            textLayout()->removeAt(2);
+        if (textLayout()->count() > 1) {
+            textLayout()->removeAt(1);
         }
         m_Label2->hide();
     } else {
         m_Label1->setObjectName("DcpButtonLine1");
-        if (textLayout()->count() <= 2) {
-            textLayout()->addItem(m_Label2, 1,1);
+        if (textLayout()->count() <= 1) {
+            textLayout()->addItem(m_Label2, 1,0);
         }
         m_Label2->show();
     }

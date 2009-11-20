@@ -59,6 +59,7 @@ void DcpButtonAlign::putupWidgets()
             qFatal("DcpButtonAlign unsupported alignment");
             break;
     }
+    m_AlignLayout->setAlignment(alignedWidget(), Qt::AlignVCenter);
 }
 
 DuiWidget* DcpButtonAlign::alignedWidget()
