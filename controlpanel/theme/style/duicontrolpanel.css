@@ -7,7 +7,8 @@
  * and its content size requires that */
 #DcpButton {
     minimum-size: -1 -1;
-    maximum-size: -1 -1;
+    preferred-size: -1 -1;
+    maximum-size: 999 999;
 }
 
 /* this is specified that briefwidget's first line text must
