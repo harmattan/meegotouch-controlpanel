@@ -9,7 +9,8 @@ class DcpButtonToggle;
 class QShowEvent;
 class QHideEvent;
 
-class DcpBriefWidget: public DuiWidget {
+class DcpBriefWidget: public DuiWidget
+{
     Q_OBJECT
 public:
 	DcpBriefWidget(DcpAppletMetadata* metadata, DuiWidget* parent = 0);

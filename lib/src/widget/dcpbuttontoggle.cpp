@@ -1,5 +1,6 @@
 #include "dcpbuttontoggle.h"
 #include <DuiLayout>
+#include <DuiButton>
 
 DcpButtonToggle::DcpButtonToggle(DuiWidget* parent)
     : DcpButtonAlign(parent, false)

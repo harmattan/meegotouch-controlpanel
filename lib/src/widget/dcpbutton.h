@@ -1,14 +1,16 @@
 #ifndef DCPBUTTON_H
 #define DCPBUTTON_H
 
-#include <DuiButton>
+#include <DuiStylableWidget>
 class DuiLabel;
 class QGraphicsLayout;
 class QGraphicsGridLayout;
+class QGraphicsSceneMouseEvent;
 
 // TODO if design stays the way it is we could use here an empty WidgetController
 // which supports margins set by css
-class DcpButton: public DuiButton{
+class DcpButton: public DuiStylableWidget
+{
     Q_OBJECT
     Q_PROPERTY(QString text1 READ text1 WRITE setText1)
     Q_PROPERTY(QString text2 READ text2 WRITE setText2)
@@ -21,14 +23,15 @@ public:
     virtual QString text1() const;
     virtual QString text2() const;
 
-    // optimization, remove this if you want background:
-    virtual void paintWindowFrame (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget=0);
-    virtual void paint (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget=0);
+signals:
+    void clicked();
 
 protected:
     DcpButton(DuiWidget* parent, bool);
     virtual QGraphicsLayout* createLayout();
     QGraphicsGridLayout* textLayout();
+    virtual void mousePressEvent ( QGraphicsSceneMouseEvent * event );
+    virtual void mouseReleaseEvent ( QGraphicsSceneMouseEvent * event );
 
 private:
     void updateLabelSizes();

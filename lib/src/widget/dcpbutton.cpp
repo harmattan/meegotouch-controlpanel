@@ -1,20 +1,20 @@
 #include "dcpbutton.h"
 #include <DuiLabel>
 #include <QGraphicsGridLayout>
-
-#define DISABLE_BACKGROUND 1
+#include <QGraphicsSceneMouseEvent>
 
 // main constructor
 DcpButton::DcpButton(DuiWidget* parent)
-    : DuiButton(parent), m_TextLayout(0), m_Label1(0), m_Label2(0)
+    : DuiStylableWidget(parent), m_TextLayout(0), m_Label1(0), m_Label2(0)
 {
+    setMaximumSize(999,999); // TODO remove me, it is only a hack, seems to prevent baddrawable error
     setObjectName("DcpButton");
     this->setLayout(createLayout());
 }
 
 // protected constructor which avoids creating the layout
 DcpButton::DcpButton(DuiWidget* parent, bool)
-    : DuiButton(parent), m_TextLayout(0), m_Label1(0), m_Label2(0)
+    : DuiStylableWidget(parent), m_TextLayout(0), m_Label1(0), m_Label2(0)
 {
     setObjectName("DcpButton");
 }
@@ -24,12 +24,12 @@ QGraphicsLayout* DcpButton::createLayout()
     // create the labels:
     m_Label1 = new DuiLabel (this);
     m_Label1->setAcceptedMouseButtons(0);
-//    m_Label1->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
+    m_Label1->setTextElide(true);
 
     m_Label2 = new DuiLabel();
+    m_Label2->setTextElide(true);
     m_Label2->setAcceptedMouseButtons(0);
     m_Label2->setObjectName("DcpButtonLine2");
-//    m_Label2->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
 
     // create the layout:
     m_TextLayout = new QGraphicsGridLayout();
@@ -93,15 +93,19 @@ QGraphicsGridLayout* DcpButton::textLayout()
     return m_TextLayout;
 }
 
-#if DISABLE_BACKGROUND
-    void DcpButton::paintWindowFrame (QPainter *, const QStyleOptionGraphicsItem *, QWidget *) {}
-    void DcpButton::paint (QPainter *, const QStyleOptionGraphicsItem *, QWidget *) {}
-#else // DISABLE_BACKGROUND
-    void DcpButton::paintWindowFrame (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
-        DuiButton::paintWindowFrame(painter, option, widget);
+void DcpButton::mousePressEvent ( QGraphicsSceneMouseEvent * event )
+{
+    Q_UNUSED(event);
+    // this function is only for becoming the mouse grabber item
+    // so that release event is working
+    //
+    // visual feedback for user can be implemented here
+}
+
+void DcpButton::mouseReleaseEvent ( QGraphicsSceneMouseEvent * event )
+{
+    if (QRectF(QPointF(),size()).contains(event->pos())) {
+        emit clicked();
     }
-    void DcpButton::paint (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
-        DuiButton::paint(painter, option, widget);
-    }
-#endif // DISABLE_BACKGROUND
+}
 

@@ -18,7 +18,7 @@ public:
     virtual ~DcpMainCategory();
     virtual void add(DcpComponent *component);
     virtual void append(DcpComponent *component);
-    virtual int  MaxColumns();
+    virtual int  maxColumns();
     virtual void setMaxColumns(int columns);
     DuiLayout* duiLayout() const {return m_Layout;}
 
@@ -36,6 +36,7 @@ protected:
     virtual void createContents();
     virtual void polishEvent();
     virtual void showEvent(QShowEvent*);
+
     void fixSeparators();
 
     DuiLayout* m_Layout;

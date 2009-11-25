@@ -3,14 +3,6 @@
 @import "../../../themes/base/dui/libdui/style/colors.css";
 @import "../../../themes/base/dui/libdui/style/margins.css";
 
-/* brief's button should be able to grow if common theme changes,
- * and its content size requires that */
-#DcpButton {
-    minimum-size: -1 -1;
-    preferred-size: -1 -1;
-    maximum-size: 999 999;
-}
-
 /* this is specified that briefwidget's first line text must
  * have bigger font if there is no second line (for ex.: toggle off) */
 DuiLabelStyle#DcpButtonMain {

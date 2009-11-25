@@ -2,6 +2,7 @@
 #define DCPBUTTONTOGGLE_H
 
 #include "dcpbuttonalign.h"
+class DuiButton;
 
 class DcpButtonToggle: public DcpButtonAlign {
     Q_OBJECT

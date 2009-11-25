@@ -11,27 +11,10 @@
 
 static const QString SEPARATOR_OBJECTNAME = "DcpSmallSeparator";
 
-void DcpMainCategory::deleteItems()
-{
-    if (!m_Layout) return;
-    m_ItemCount = m_RowCount = m_ColCount = 0;
-
-    // delete all items in all policies:
-    foreach (DuiAbstractLayoutPolicy* policy, m_Layout->registeredPolicies()){
-        for (int i=policy->count()-1; i >= 0; i--){
-            QGraphicsWidget* widget = (QGraphicsWidget*)
-                                      (policy->itemAt(i)->graphicsItem());
-            Q_ASSERT(widget);
-            m_Layout->removeItem(widget);
-            widget->deleteLater();
-        }
-    }
-}
-
 DcpMainCategory::DcpMainCategory(const QString& title, QGraphicsWidget *parent,
                                  const QString& logicalId) :
-	DcpCategory(title, parent, logicalId),
-	m_ColCount(0),
+    DcpCategory(title, parent, logicalId),
+    m_ColCount(0),
 	m_RowCount(0),
 	m_ItemCount(0),
     m_CreateSeparators(false),
@@ -55,6 +38,23 @@ DcpMainCategory::DcpMainCategory(const QString& title, QGraphicsWidget *parent,
 
 DcpMainCategory::~DcpMainCategory()
 {}
+
+void DcpMainCategory::deleteItems()
+{
+    if (!m_Layout) return;
+    m_ItemCount = m_RowCount = m_ColCount = 0;
+
+    // delete all items in all policies:
+    foreach (DuiAbstractLayoutPolicy* policy, m_Layout->registeredPolicies()){
+        for (int i=policy->count()-1; i >= 0; i--){
+            QGraphicsWidget* widget = (QGraphicsWidget*)
+                                      (policy->itemAt(i)->graphicsItem());
+            Q_ASSERT(widget);
+            m_Layout->removeItem(widget);
+            widget->deleteLater();
+        }
+    }
+}
 
 void DcpMainCategory::setHorizontalSpacing(int space)
 {
@@ -108,10 +108,17 @@ void DcpMainCategory::append(DcpComponent *component)
 			m_RowCount++;
     }
 
-
     m_LandscapeLayout->addItemAtPosition(component,
                                          m_RowCount, m_ColCount);
     m_PortraitLayout->addItem(component);
+
+    /*
+    // force same size of columns:
+    if (m_RowCount == 0) {
+        m_LandscapeLayout->setColumnStretchFactor(m_ColCount, 1);
+    }
+    component->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+    */
 
     // add separators:
     if (m_CreateSeparators) {
@@ -183,14 +190,12 @@ void DcpMainCategory::fixSeparators()
 void DcpMainCategory::setMaxColumns(int columns)
 {
     m_MaxColumns = columns;
-
-    // force same size of columns:
-    for (int i=0; i<columns; i++) {
-        m_LandscapeLayout->setColumnStretchFactor(i, 1);
+    for (int col=0; col<m_MaxColumns; col++) {
+        m_LandscapeLayout->setColumnStretchFactor(col, 1);
     }
 }
 
-int DcpMainCategory::MaxColumns(void)
+int DcpMainCategory::maxColumns(void)
 {
     return m_MaxColumns;
 }
@@ -199,3 +204,5 @@ void DcpMainCategory::setDoNotRemoveLastSeparator(bool remove)
 {
     m_HasLastSeparator = remove;
 }
+
+
