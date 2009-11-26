@@ -65,7 +65,6 @@ QString DcpButton::text2() const
 
 void DcpButton::updateLabelSizes()
 {
-    qDebug("XXX c: %d", textLayout()->count());
     if (m_Label2->text().isEmpty()) {
         m_Label1->setObjectName("DcpButtonMain");
         if (textLayout()->count() > 1) {

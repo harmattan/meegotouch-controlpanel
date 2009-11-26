@@ -3,6 +3,8 @@
 #include "dcppage.h"
 #include <QGraphicsLinearLayout>
 #include <DuiSceneManager>
+#include <DuiApplication>
+#include <DuiApplicationWindow>
 
 DcpPage::DcpPage() : DuiApplicationPage()
 {
@@ -25,7 +27,7 @@ void DcpPage::createContent()
 
 void DcpPage::createLayout()
 {
-    QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(centralWidget());
+    new QGraphicsLinearLayout(Qt::Vertical, centralWidget());
 //    layout->setContentsMargins(0.0,0.0,0.0,0.0);
 }
 
@@ -48,12 +50,20 @@ void DcpPage::remove (QGraphicsWidget* widget)
 void DcpPage::connectSignals()
 {
    connect(this, SIGNAL(backButtonClicked()), this, SLOT(back()));
+   connectOrientation();
+}
 
-   DuiSceneManager* manager = sceneManager();
+void DcpPage::connectOrientation()
+{
+//   DuiSceneManager* manager = sceneManager();
+   DuiSceneManager* manager =
+       DuiApplication::activeApplicationWindow()->sceneManager();
    if (manager) {
        // handle orientation change:
-       connect(manager, SIGNAL(orientationChanged (const Dui::Orientation &)),
-               this, SLOT(organizeContent(const Dui::Orientation &)));
+       connect(manager, SIGNAL(orientationChanged (Dui::Orientation)),
+               this, SLOT(organizeContent(Dui::Orientation)));
+   } else {
+       qWarning("orientation connect fails");
    }
 }
 
@@ -61,8 +71,8 @@ void DcpPage::disconnectSignals()
 {
     DuiSceneManager* manager = sceneManager();
     if (manager) {
-        disconnect(manager, SIGNAL(orientationChanged (const Dui::Orientation &)),
-                this, SLOT(organizeContent(const Dui::Orientation &)));
+        disconnect(manager, SIGNAL(orientationChanged (Dui::Orientation)),
+                this, SLOT(organizeContent(Dui::Orientation)));
     }
 
     disconnect(this, SIGNAL(backButtonClicked()), this, SLOT(back()));
@@ -86,3 +96,4 @@ QGraphicsLinearLayout* DcpPage::mainLayout()
 {
     return (QGraphicsLinearLayout*)(centralWidget()->layout());
 }
+

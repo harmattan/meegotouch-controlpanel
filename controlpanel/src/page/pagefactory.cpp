@@ -13,8 +13,6 @@
 #include <DuiAction>
 
 
-// TODO handle if language changes
-
 PageFactory *PageFactory::sm_Instance = 0;
 
 PageFactory::PageFactory(): QObject(),
@@ -119,7 +117,6 @@ DcpPage* PageFactory::createAppletCategoryPage(Pages::Id id)
     } else {
         m_AppletCategoryPage->setAppletCategory(info.appletCategory);
     }
-//    m_AppletCategoryPage->setTitle(info.title); TODO XXX language change
 
     return m_AppletCategoryPage;
 }

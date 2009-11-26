@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include <DcpAppletDb>
 
-MainWindow::MainWindow()
+MainWindow::MainWindow(): DuiApplicationWindow()
 {
 }
 

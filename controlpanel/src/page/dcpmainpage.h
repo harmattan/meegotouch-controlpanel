@@ -6,7 +6,7 @@
 class DcpMainCategory;
 class DcpCategoryComponent;
 
-class DcpMainPage : public DcpCategoryPage
+class DcpMainPage : public DcpPage
 {
     Q_OBJECT
 public:
@@ -18,6 +18,7 @@ public slots:
     void back();
 protected:
     virtual void retranslateUi();
+    virtual void organizeContent(const Dui::Orientation& ori);
 private:
     DcpCategoryComponent* m_RecentlyComp;
 };

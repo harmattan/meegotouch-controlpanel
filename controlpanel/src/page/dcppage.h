@@ -30,8 +30,8 @@ public:
     virtual void reload();
 
 public slots:
-    virtual void organizeContent(const Dui::Orientation& ori);
     virtual void back();
+    virtual void organizeContent(const Dui::Orientation& ori);
 
 signals:
     void openSubPage(Pages::Handle handle);
@@ -41,6 +41,7 @@ protected:
     void remove (QGraphicsWidget* widget);
 
 private:
+    void connectOrientation();
     Pages::Handle m_Handle;
     Pages::Handle m_Referer;
     void createLayout();

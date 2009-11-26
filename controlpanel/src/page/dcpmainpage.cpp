@@ -6,6 +6,7 @@
 #include <DcpMainCategory>
 #include <Pages>
 #include <DcpApplet>
+#include <QGraphicsLinearLayout>
 
 #include "dcpdescriptioncomponent.h"
 #include "dcpcategorycomponent.h"
@@ -23,7 +24,7 @@
  */
 
 DcpMainPage::DcpMainPage() :
-	DcpCategoryPage(), m_RecentlyComp(0)
+	DcpPage(), m_RecentlyComp(0)
 {
     setHandle(Pages::MAIN);
     setReferer(Pages::NOPAGE);
@@ -37,29 +38,30 @@ DcpMainPage::~DcpMainPage()
 
 void DcpMainPage::createContent()
 {
-    DcpCategoryPage::createContent();
+    DcpPage::createContent();
 
-    m_Category->setMaxColumns(1);
+    QGraphicsLinearLayout* layout = mainLayout();
 
     // most recent used items:
-    m_RecentlyComp = new DcpCategoryComponent(m_Category,
-                                 DcpApplet::MostUsedCategory, DcpMain::mostRecentUsedTitleId);
+    m_RecentlyComp = new DcpCategoryComponent(0,
+                                 DcpApplet::MostUsedCategory,
+                                 DcpMain::mostRecentUsedTitleId);
     connect(m_RecentlyComp, SIGNAL(openSubPage(Pages::Handle)),
             this, SIGNAL(openSubPage(Pages::Handle)));
-    m_Category->add(m_RecentlyComp);
+    layout->addItem(m_RecentlyComp);
 
     // category descriptions:
     for (int i=0; true; i++) {
         DcpCategoryInfo info = DcpMain::CategoryInfos[i];
         if (info.titleId == 0)
              break;
-        DcpCategoryComponent *component = new DcpCategoryComponent(m_Category,
+        DcpCategoryComponent *component = new DcpCategoryComponent(0,
                                  info.appletCategory, info.titleId);
 
         connect(component, SIGNAL(openSubPage(Pages::Handle)),
             this, SIGNAL(openSubPage(Pages::Handle)));
 
-        m_Category->append(component);
+        layout->addItem(component);
     }
 
     setBackButtonEnabled(false);
@@ -69,16 +71,28 @@ void DcpMainPage::createContent()
 
 void DcpMainPage::retranslateUi()
 {
+    QGraphicsLinearLayout* layout = mainLayout();
     setTitle(trid(DcpMain::settingsTitleId, DcpMain::settingsTitleDefault));
     m_RecentlyComp->setTitle(trid(DcpMain::mostRecentUsedTitleId,
-                                      DcpMain::mostRecentUsedTitleDefault));
-    for (int i=m_Category->childCount()-1; i>=1; i--) {
+                                  DcpMain::mostRecentUsedTitleDefault));
+    for (int i=layout->count()-1; i>=1; i--) {
         DcpCategoryComponent* comp =
-            qobject_cast<DcpCategoryComponent*>(m_Category->child(i));
+            dynamic_cast<DcpCategoryComponent*>(layout->itemAt(i));
         comp->setTitle(trid(DcpMain::CategoryInfos[i-1].titleId,
-                                       DcpMain::CategoryInfos[i-1].titleDefault));
+                            DcpMain::CategoryInfos[i-1].titleDefault));
     }
     // no need to update briefs, they take care of themselves
+}
+
+void DcpMainPage::organizeContent(const Dui::Orientation& ori)
+{
+    QGraphicsLayout* layout = mainLayout();
+    for (int i=layout->count()-1; i>=0; i--) {
+        DcpCategoryComponent* comp =
+            dynamic_cast<DcpCategoryComponent*>(layout->itemAt(i));
+        comp->onOrientationChange(ori);
+    }
+    DcpPage::organizeContent(ori);
 }
 
 void DcpMainPage::reload()
@@ -89,7 +103,7 @@ void DcpMainPage::reload()
     }
 
     // DcpBriefWidget takes care of all the other things
-    DcpCategoryPage::reload();
+    DcpPage::reload();
 }
 
 // if clicked fast, back button can be pressed instead of close

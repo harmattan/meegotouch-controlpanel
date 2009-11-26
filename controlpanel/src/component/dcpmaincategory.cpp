@@ -21,7 +21,7 @@ DcpMainCategory::DcpMainCategory(const QString& title, QGraphicsWidget *parent,
 	m_HasLastSeparator(false)
 {
     m_Layout = new DuiLayout(this);
-    m_Layout->setAnimator(0);
+//    m_Layout->setAnimator(0);
 
     m_LandscapeLayout = new DuiGridLayoutPolicy(m_Layout);
 
