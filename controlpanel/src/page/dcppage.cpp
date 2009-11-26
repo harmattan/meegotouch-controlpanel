@@ -8,7 +8,7 @@
 
 DcpPage::DcpPage() : DuiApplicationPage()
 {
-    setBackButtonEnabled(true);
+    setEscapeButtonMode(DuiEscapeButtonPanelModel::BackMode);
 }
 
 DcpPage::~DcpPage()
@@ -20,8 +20,7 @@ void DcpPage::createContent()
     DuiApplicationPage::createContent();
     setObjectName("DcpPage");
 
-    setBackButtonEnabled(true);
-
+    setEscapeButtonMode(DuiEscapeButtonPanelModel::BackMode);
     createLayout();
 }
 

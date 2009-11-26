@@ -28,7 +28,7 @@ DcpMainPage::DcpMainPage() :
 {
     setHandle(Pages::MAIN);
     setReferer(Pages::NOPAGE);
-    setBackButtonEnabled(false);
+    setEscapeButtonMode(DuiEscapeButtonPanelModel::CloseMode);
 }
 
 DcpMainPage::~DcpMainPage() 
@@ -64,7 +64,7 @@ void DcpMainPage::createContent()
         layout->addItem(component);
     }
 
-    setBackButtonEnabled(false);
+    setEscapeButtonMode(DuiEscapeButtonPanelModel::CloseMode);
 
     retranslateUi();
 }
