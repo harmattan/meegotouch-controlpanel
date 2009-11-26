@@ -1,3 +1,12 @@
+duicontrolpanel (0.5.6) unstable; urgency=low
+
+  * new tag
+  * Supports dui 0.16
+  * Implements the ability to write declarative applets
+  * Fixes orientation change regression on main page
+
+ -- Manner Robert <manni@manni-ubu.chello.hu>  Thu, 26 Nov 2009 17:32:12 +0100
+
 duicontrolpanel (0.5.5) unstable; urgency=low
 
   * retag
