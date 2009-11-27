@@ -52,7 +52,7 @@ void Ut_DcpAppletDb::testInstance()
 {
     if (QTest::currentTestFailed()) return;
 
-    QVERIFY((m_subject==DcpAppletDb::initInstance(emptyDesktopDir)));
+    QVERIFY((m_subject==DcpAppletDb::instance()));
 }
 
 void Ut_DcpAppletDb::testAddContainNameFile()
