@@ -19,11 +19,12 @@ TESTCASE_TEMPLATE="<case name=\"$TEST\" description=\"$TEST\" requirement=\"\" t
 	fi
 done
 
-TESTSUITE_TEMPLATE="<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>
+echo "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>
 <testdefinition version=\"0.1\">
-  <suite name=\"libduicontrolpanel-tests\"> 
-    <set name=\"unit_tests\" description=\"Unit Tests\">
+  <suite name=\"libduicontrolpanel-tests\">"
 
+if [ -n "$UT_TESTCASES" ]; then
+    echo "    <set name=\"unit_tests\" description=\"Unit Tests\">
       $UT_TESTCASES
 
       <environments>
@@ -31,9 +32,10 @@ TESTSUITE_TEMPLATE="<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>
         <hardware>true</hardware>    
       </environments> 
 
-    </set>
-    <set name=\"functional_tests\" description=\"Functional Tests\">
-
+    </set>"
+fi
+if [ -n "$FT_TESTCASES" ]; then
+    echo "    <set name=\"functional_tests\" description=\"Functional Tests\">
       $FT_TESTCASES
 
       <environments>
@@ -41,9 +43,8 @@ TESTSUITE_TEMPLATE="<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>
         <hardware>true</hardware>    
       </environments> 
 
-    </set>
-  </suite>
+    </set>"
+fi
+echo "  </suite>
 </testdefinition>"
-
-echo "$TESTSUITE_TEMPLATE"
 
