@@ -18,4 +18,10 @@ HEADERS +=
 
 # service classes
 HEADERS += 
-OTHER_FILES += ../../../../../../../../../home/gabor/asdf.txt
+
+DATADIR = $${DCP_PREFIX}/share/libduicontrolpanel-tests/ut_dcpappletmetadata
+DEFINES += DATADIR=\\\"$${DATADIR}\\\"
+desktops.files = desktops/*.desktop
+desktops.path = $${DATADIR}/desktops
+
+INSTALLS += desktops

@@ -9,10 +9,8 @@
 
 void Ut_DcpAppletMetadata::initTestCase()
 {
-    desktopTestFile=desktopBadTestFile="desktops/";
-    //desktopTestFile=desktopBadTestFile="/home/gabor/duicontrolpanel/lib/tests/ut_dcpappletmetadata/desktops/";
-    desktopTestFile   +="test.desktop";
-    desktopBadTestFile+="testBad.desktop";
+    desktopTestFile = DATADIR "/desktops/test.desktop";
+    desktopBadTestFile = DATADIR "/desktops/testBad.desktop";
 
     appletDir="so.applet/";appletSo="testapplet.so";
 }
