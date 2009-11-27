@@ -8,10 +8,17 @@
 
 void Ut_DcpAppletDb::initTestCase()
 {
-    emptyDesktopDir = DATADIR "/emptyDesktopDir/";
-    testDesktopDir = DATADIR "/desktops/";
-    testDesktopDir2 = DATADIR "/desktops2/";
-    testDesktopDir3 = DATADIR "/desktops3/";
+    static int c = 0;
+    static QByteArray arg("dummyarg");
+    char *argp = arg.data();
+    qap = new QCoreApplication(c, &argp);
+    QString dataDir(qApp->applicationDirPath() + 
+                       "/ut_dcpappletdb-data/");
+
+    emptyDesktopDir = dataDir + "emptyDesktopDir/"; // a non-existent dir
+    testDesktopDir = dataDir + "desktops/";
+    testDesktopDir2 = dataDir + "desktops2/";
+    testDesktopDir3 = dataDir + "desktops3/";
     desktopTestFile = testDesktopDir+"test.desktop";
     desktopTestFile2 = testDesktopDir+"test2.desktop";
     desktopDateTimeFile = testDesktopDir2+"datetime.desktop";
@@ -23,6 +30,7 @@ void Ut_DcpAppletDb::initTestCase()
 
 void Ut_DcpAppletDb::cleanupTestCase()
 {
+    delete qap;
 }
 
 void Ut_DcpAppletDb::init()

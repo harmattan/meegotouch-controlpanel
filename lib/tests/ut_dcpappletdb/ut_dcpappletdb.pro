@@ -29,13 +29,12 @@ HEADERS += \
 # service classes
 HEADERS += \
 
-DATADIR = $${DCP_PREFIX}/share/libduicontrolpanel-tests/ut_dcpappletdb
-DEFINES += DATADIR=\\\"$${DATADIR}\\\"
-desktops1.files += desktops/*.desktop
+DATADIR = $${DCP_INSTALL_LIB}/libduicontrolpanel-tests/ut_dcpappletdb-data/
+desktops1.files += ut_dcpappletdb-data/desktops/*.desktop
 desktops1.path = $${DATADIR}/desktops
-desktops2.files += desktops2/*.desktop
+desktops2.files += ut_dcpappletdb-data/desktops2/*.desktop
 desktops2.path = $${DATADIR}/desktops2
-desktops3.files += desktops3/*.desktop
+desktops3.files += ut_dcpappletdb-data/desktops3/*.desktop
 desktops3.path = $${DATADIR}/desktops3
 
 INSTALLS += desktops1 desktops2 desktops3

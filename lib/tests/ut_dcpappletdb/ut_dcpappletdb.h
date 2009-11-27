@@ -35,6 +35,7 @@ private:
     QString      emptyDesktopDir,testDesktopDir,testDesktopDir2,testDesktopDir3;
     QString      desktopTestFile,desktopTestFile2,desktopDateTimeFile,desktopDisplayFile;
     QString      browserEntryName,datetimeEntryName,displayEntryName;
+    QCoreApplication* qap;
 };
 
 #endif
