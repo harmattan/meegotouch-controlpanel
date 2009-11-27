@@ -8,10 +8,17 @@
 
 void Ut_DcpAppletDb::initTestCase()
 {
-    emptyDesktopDir="emptyDesktopDir/";testDesktopDir="desktops/";testDesktopDir2="desktops2/";testDesktopDir3="desktops3/";
-    desktopTestFile=testDesktopDir+"test.desktop";desktopTestFile2=testDesktopDir+"test2.desktop";
-    desktopDateTimeFile=testDesktopDir2+"datetime.desktop",desktopDisplayFile=testDesktopDir2+"display.desktop";
-    browserEntryName="Browser";datetimeEntryName="Date & Time",displayEntryName="Display";
+    emptyDesktopDir = DATADIR "/emptyDesktopDir/";
+    testDesktopDir = DATADIR "/desktops/";
+    testDesktopDir2 = DATADIR "/desktops2/";
+    testDesktopDir3 = DATADIR "/desktops3/";
+    desktopTestFile = testDesktopDir+"test.desktop";
+    desktopTestFile2 = testDesktopDir+"test2.desktop";
+    desktopDateTimeFile = testDesktopDir2+"datetime.desktop";
+    desktopDisplayFile = testDesktopDir2+"display.desktop";
+    browserEntryName="Browser";
+    datetimeEntryName="Date & Time";
+    displayEntryName="Display";
 }
 
 void Ut_DcpAppletDb::cleanupTestCase()
@@ -66,8 +73,8 @@ void Ut_DcpAppletDb::testAddPath()
     QWARN("!!!! lgal is going to do better addPath [addPath!=constructor] !!!!");
 
     QVERIFY(m_subject->addPath(testDesktopDir2));
-    QVERIFY(m_subject->containsFile(QDir::currentPath()+"/"+desktopDateTimeFile));
-    QVERIFY(m_subject->containsFile(QDir::currentPath()+"/"+desktopDisplayFile));
+    QVERIFY(m_subject->containsFile(desktopDateTimeFile));
+    QVERIFY(m_subject->containsFile(desktopDisplayFile));
 }
 
 void Ut_DcpAppletDb::testAppletNames()
