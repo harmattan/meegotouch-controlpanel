@@ -48,6 +48,7 @@ private:
     DcpAppletMetadata* m_subject;
     QString            desktopOrigFile,desktopTestFile,desktopBadTestFile;
     QString            appletDir,appletSo;
+    QCoreApplication*  qap;
 };
 
 #endif

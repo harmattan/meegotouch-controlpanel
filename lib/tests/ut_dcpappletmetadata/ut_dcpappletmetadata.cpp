@@ -1,4 +1,5 @@
 #include <QObject>
+#include <QByteArray>
 
 #include <DcpApplet>
 #include <DcpWidgetTypes>
@@ -9,14 +10,21 @@
 
 void Ut_DcpAppletMetadata::initTestCase()
 {
-    desktopTestFile = DATADIR "/desktops/test.desktop";
-    desktopBadTestFile = DATADIR "/desktops/testBad.desktop";
+    static int c = 0;
+    static QByteArray arg("dummyarg");
+    char *argp = arg.data();
+    qap = new QCoreApplication(c, &argp);
+    QString desktopDir(qApp->applicationDirPath() + 
+                       "/ut_dcpappletmetadata-data/desktops/");
+    desktopTestFile =  desktopDir + "test.desktop";
+    desktopBadTestFile = desktopDir + "testBad.desktop";
 
     appletDir="so.applet/";appletSo="testapplet.so";
 }
 
 void Ut_DcpAppletMetadata::cleanupTestCase()
 {
+    delete qap;
 }
 
 void Ut_DcpAppletMetadata::init()

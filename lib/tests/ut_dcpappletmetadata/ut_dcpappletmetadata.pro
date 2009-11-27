@@ -19,9 +19,7 @@ HEADERS +=
 # service classes
 HEADERS += 
 
-DATADIR = $${DCP_PREFIX}/share/libduicontrolpanel-tests/ut_dcpappletmetadata
-DEFINES += DATADIR=\\\"$${DATADIR}\\\"
-desktops.files = desktops/*.desktop
-desktops.path = $${DATADIR}/desktops
+desktops.files = ut_dcpappletmetadata-data/desktops/*.desktop
+desktops.path = $${DCP_INSTALL_LIB}/libduicontrolpanel-tests/ut_dcpappletmetadata-data/desktops
 
 INSTALLS += desktops
