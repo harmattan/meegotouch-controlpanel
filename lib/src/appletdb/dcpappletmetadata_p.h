@@ -23,6 +23,7 @@ public:
 	int m_Counter;
 	QString m_FileName;
     QString m_BinaryDir;
+    QString m_GconfKeyUsage;
 };
 
 #endif // DCPAPPLETMETADATA_P_H
