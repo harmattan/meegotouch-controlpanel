@@ -14,9 +14,12 @@ class MostUsedCounter {
 
 		~MostUsedCounter();
 
-		int add(const QString& name);
-		int get(const QString& name);
-		void clear(const QString& name);
+		int add(const QString& path);
+		int get(const QString& path);
+		void clear(const QString& path);
+
+		//Convert desktop file full path to GConf key
+                void convertPathToKey( const QString & path, QString & key );
 	
 	private:
 
