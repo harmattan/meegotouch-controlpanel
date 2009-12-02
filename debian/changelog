@@ -1,3 +1,9 @@
+duicontrolpanel (0.5.9) unstable; urgency=low
+
+  * bumping up: add minimum libdui0 dependency
+
+ -- Manner Robert <manni@manni-ubu.chello.hu>  Wed, 02 Dec 2009 14:47:48 +0100
+
 duicontrolpanel (0.5.8) unstable; urgency=low
 
   * tag 0.5.8
