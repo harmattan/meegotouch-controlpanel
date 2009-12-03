@@ -36,12 +36,6 @@ install_headers.files += include/D* \
     widget/dcpbriefwidget.h \
     widget/dcpwidgettypes.h \
     widget/dcpspaceritem.h \
-    deprecated/dcpbutton2.h \
-    deprecated/dcpbutton2align.h \
-    deprecated/dcpbutton2toggle.h \
-    deprecated/dcpbutton2image.h \
-    deprecated/dcpdialog.h \
-    deprecated/dcpcommondialog.h \
     dcpdebug.h \
     dcpretranslator.h \
     service_interface/duicontrolpanelif.h \
