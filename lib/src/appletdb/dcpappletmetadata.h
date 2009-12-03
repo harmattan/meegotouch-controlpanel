@@ -63,7 +63,7 @@ public:
 signals:
     void briefChanged();
 
-protected slots:
+public slots:
 	void slotClicked();
 
 protected:

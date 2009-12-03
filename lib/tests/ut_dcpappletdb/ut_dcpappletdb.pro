@@ -5,8 +5,7 @@ INCLUDEPATH += $$system(find $$SRCDIR -type d)
 TARGET = ut_dcpappletdb
 
 TEST_SOURCES = \
-    $$SRCDIR/appletdb/dcpappletdb.cpp \
-    $$SRCDIR/appletdb/dcpappletmetadata.cpp
+    $$SRCDIR/appletdb/dcpappletdb.cpp 
 
 # unit test and unit
 SOURCES += \
