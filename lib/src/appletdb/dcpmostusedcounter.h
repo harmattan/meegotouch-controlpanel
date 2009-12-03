@@ -11,6 +11,7 @@ class MostUsedCounter {
 	public:
 
 		static MostUsedCounter* instance();
+                static void destroy();
 
 		~MostUsedCounter();
 
