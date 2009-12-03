@@ -78,8 +78,6 @@ void Ut_DcpAppletDb::testAddPath()
 {
     if (QTest::currentTestFailed()) return;
 
-    QWARN("!!!! lgal is going to do better addPath [addPath!=constructor] !!!!");
-
     QVERIFY(m_subject->addPath(testDesktopDir2));
     QVERIFY(m_subject->containsFile(desktopDateTimeFile));
     QVERIFY(m_subject->containsFile(desktopDisplayFile));
