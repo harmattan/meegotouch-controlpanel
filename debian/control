@@ -31,13 +31,13 @@ Description: Control Panel - debug symbols
 
 Package: libduicontrolpanel-doc
 Section: doc
-Architecture: all                                     
-Description: API documentation for libduicontrolpanel   
+Architecture: all
+Description: API documentation for libduicontrolpanel
 
 Package: libduicontrolpanel-tests
 Section: extra
-Architecture: any                                                               
-Depends: ${shlibs:Depends}, libduicontrolpanel (= ${Source-Version}), libqtgui4, testrunner                   
-Description: libduicontrolpanel unit tests                                                  
- Unit testing binaries and shellscripts for testing libduicontrolpanel library   
+Architecture: any
+Depends: ${shlibs:Depends}, libduicontrolpanel (= ${Source-Version}), libqtgui4, testrunner
+Description: libduicontrolpanel unit tests
+ Unit testing binaries and shellscripts for testing libduicontrolpanel library
 

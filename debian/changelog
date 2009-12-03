@@ -1,3 +1,11 @@
+duicontrolpanel (0.5.10) unstable; urgency=low
+
+  * supports libdui 0.16.0-1
+  * removes deprecated classes: DcpButton2 and descendants, and
+    DcpCommonDialog
+
+ -- Manner Robert <manni@manni-ubu.chello.hu>  Thu, 03 Dec 2009 13:45:04 +0100
+
 duicontrolpanel (0.5.9) unstable; urgency=low
 
   * bumping up: add minimum libdui0 dependency
