@@ -165,7 +165,7 @@ void Ut_DcpAppletDb::testListMostUsed()
         ++n;
     }
 
-    // most used list shall reverse the first n applets in the list
+    // most used list shall reverse the first maxN applets in the list
     DcpAppletMetadataList mostUsed = m_subject->listMostUsed();
     DcpAppletMetadataList::iterator orig = applets.begin() + n - 1;
     for (DcpAppletMetadataList::iterator iter = mostUsed.begin();
