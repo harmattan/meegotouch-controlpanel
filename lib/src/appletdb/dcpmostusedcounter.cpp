@@ -7,7 +7,6 @@
 
 MostUsedCounter* MostUsedCounter::sm_Instance = NULL;
 
-//static const QString& MOSTUSEDPATH = "duicontrolpanel/";
 
 MostUsedCounter* MostUsedCounter::instance()
 {
@@ -44,7 +43,7 @@ int MostUsedCounter::add(const QString& name)
 			int tmp = item->value().toInt();
 			item->set(++tmp);
 			
-//			qDebug() << "  ADD  " <<name << "  :  " << item->value().toInt();
+//                        qDebug() << "  ADD  " <<name << "  :  " << item->value().toInt();
 			
 			return item->value().toInt();
 		}
@@ -52,7 +51,7 @@ int MostUsedCounter::add(const QString& name)
 		int tmp = i.value()->value().toInt();
 		i.value()->set(++tmp);
 	
-//		qDebug() << "  ADD  "  << name << "  :  " << i.value()->value().toInt();
+//                qDebug() << "  ADD  "  << name << "  :  " << i.value()->value().toInt();
 	
 		return i.value()->value().toInt();
 	}
@@ -71,12 +70,12 @@ int MostUsedCounter::get(const QString& name)
 			DuiGConfItem* item = new DuiGConfItem(name);
 			m_Data[name] = item;
 	
-//			qDebug() << "  GET  " << name << "  :  " << item->value().toInt();
+//                        qDebug() << "  GET  " << name << "  :  " << item->value().toInt();
 	
 			return item->value().toInt();
 		}
 	
-//		qDebug() <<  "  GET  "  << name << "  :  " << i.value()->value().toInt();
+//                qDebug() <<  "  GET  "  << name << "  :  " << i.value()->value().toInt();
 	
 		return i.value()->value().toInt();
 	}

@@ -89,7 +89,8 @@ DcpAppletMetadata::DcpAppletMetadata(const QString& filename)
     : d (new DcpAppletMetadataPrivate)
 {
 	d->m_FileName = filename;
-    d->m_DesktopEntry = new DuiDesktopEntry(d->m_FileName);
+        d->m_DesktopEntry = new DuiDesktopEntry(d->m_FileName);
+        d->m_GconfKeyUsage = MOSTUSEDCOUNTER_GCONFKEY  + QFileInfo(d->m_FileName).baseName();
 
 //	qDebug() << MostUsedCounter::instance()->get(d->m_FileName);
 //	MostUsedCounter::instance()->clear(d->m_FileName);
@@ -255,7 +256,7 @@ int DcpAppletMetadata::usage() const
 {
     // TODO implement
     //return desktopEntry()->value(Keys[KeyUsage]).toInt() + d->m_Counter;
-	return MostUsedCounter::instance()->get(d->m_FileName);
+        return MostUsedCounter::instance()->get(d->m_GconfKeyUsage);
 }
 
 int DcpAppletMetadata::order() const
@@ -334,7 +335,7 @@ void DcpAppletMetadata::slotClicked()
 //Q_ASSERT(0);
 		//add
 	//d->m_Counter++;
-	MostUsedCounter::instance()->add(d->m_FileName);
+        MostUsedCounter::instance()->add(d->m_GconfKeyUsage);
 
 }
 bool DcpAppletMetadata::orderLessThan(DcpAppletMetadata *meta1,

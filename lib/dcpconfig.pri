@@ -16,6 +16,9 @@ QMAKE_RPATH = -Wl
      DCP_UIDESC_DIR = $$DCP_PREFIX/lib/duicontrolpanel/uidescriptions
      DCP_TRANSLATIONS_DIR = $$DCP_PREFIX/share/l10n/dui
 
+# Gconf keys 
+     DCP_MOSTUSEDCOUNTER_GCONFKEY = /apps/duicontrolpanel/usagecount/
+
 # defines for directories, they work cross-platform like this
 {
     DEFINES += PREFIX=\\\"\"$$DCP_PREFIX\"\\\"
@@ -31,6 +34,8 @@ QMAKE_RPATH = -Wl
     DEFINES += DESKTOP_DIR=\\\"\"$$DCP_DESKTOP_DIR\"\\\"
     
     DEFINES += TRANSLATIONS_DIR=\\\"\"$$DCP_TRANSLATIONS_DIR\"\\\"
+
+    DEFINES += MOSTUSEDCOUNTER_GCONFKEY=\\\"\"$$DCP_MOSTUSEDCOUNTER_GCONFKEY\"\\\"
 
 }
 
