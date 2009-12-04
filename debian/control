@@ -8,13 +8,13 @@ Standards-Version: 3.7.2
 Package: libduicontrolpanel
 Section: libs
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, libdui0
 Description: library for the control panel application and its applets
 
 Package: libduicontrolpanel-dev
 Section: devel
 Architecture: any
-Depends: libduicontrolpanel (= ${Source-Version})
+Depends: libduicontrolpanel (= ${Source-Version}), libdui-dev
 Description: Development files for the control panel application and its applets
 
 Package: duicontrolpanel
