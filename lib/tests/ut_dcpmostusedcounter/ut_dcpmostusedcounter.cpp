@@ -1,44 +1,15 @@
-#include <QObject>
-#include <QGraphicsSceneMouseEvent>
+#include <QString>
 
 #include <dcpmostusedcounter.h>
 
 
 #include "ut_dcpmostusedcounter.h"
+#include "duigconfitem-fake.h"
 
-// mocking functions
-// these violate black box requirement of unit testing
-// for correct unit testing MostUsedCounter shall be refactored
-
-static QMap<QString,QVariant> mockingGConf;
-void DuiGConfItem::set(const QVariant &val)
-{
-    mockingGConf.insert(this->key(), val);
-}
-
-QVariant DuiGConfItem::value() const
-{
-    return mockingGConf.value(this->key());
-}
-
-QVariant DuiGConfItem::value(const QVariant &def) const
-{
-    if (mockingGConf.contains(this->key()))
-        return mockingGConf.value(this->key());
-    return def;
-}
-
-void DuiGConfItem::unset()
-{
-    mockingGConf.insert(this->key(), QVariant(QVariant::Invalid));
-}
-
-//////////////////////////////////////////////////////////////////////
 
 void Ut_DcpMostUsedCounter::init()
 {
     m_subject = MostUsedCounter::instance();
-    mockingGConf.clear();
 }
 
 void Ut_DcpMostUsedCounter::cleanup()

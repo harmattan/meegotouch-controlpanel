@@ -7,6 +7,7 @@
 #include <dcpappletmetadata.h>
 
 #include "ut_dcpappletmetadata.h"
+#include "duigconfitem-fake.h"
 
 void Ut_DcpAppletMetadata::initTestCase()
 {
