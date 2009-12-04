@@ -1,10 +1,27 @@
 #include <QObject>
 #include <QGraphicsSceneMouseEvent>
 #include <QDir>
+#include <QMap>
 
 #include "dcpappletdb.h"
+#include "dcpappletmetadata.h"
 
 #include "ut_dcpappletdb.h"
+
+// mocking DcpAppletMetadata functions
+static QMap<const DcpAppletMetadata *, int> appletStat;
+
+void DcpAppletMetadata::slotClicked()
+{
+    ++appletStat[this];
+}
+
+int DcpAppletMetadata::usage() const
+{
+    return appletStat.value(this);
+}
+
+///////////////////////////////////////////////////////////////
 
 void Ut_DcpAppletDb::initTestCase()
 {
@@ -78,8 +95,6 @@ void Ut_DcpAppletDb::testAddPath()
 {
     if (QTest::currentTestFailed()) return;
 
-    QWARN("!!!! lgal is going to do better addPath [addPath!=constructor] !!!!");
-
     QVERIFY(m_subject->addPath(testDesktopDir2));
     QVERIFY(m_subject->containsFile(desktopDateTimeFile));
     QVERIFY(m_subject->containsFile(desktopDisplayFile));
@@ -137,9 +152,27 @@ void Ut_DcpAppletDb::testListByCategory()
 
 void Ut_DcpAppletDb::testListMostUsed()
 {
-    if (QTest::currentTestFailed()) return;
+    m_subject->addPath(testDesktopDir3);
+    DcpAppletMetadataList applets = m_subject->list();
+    const int maxN = 10;
+    int n = 0;
+    for (DcpAppletMetadataList::iterator iter = applets.begin();
+         iter != applets.end() && n < maxN; ++iter) {
+        // "activate" applet n times
+        for (int i = 0; i < n; ++i) {
+            (*iter)->slotClicked();
+        }
+        ++n;
+    }
 
-    QSKIP("ListMostUsed can't be tested",SkipSingle);
+    // most used list shall reverse the first maxN applets in the list
+    DcpAppletMetadataList mostUsed = m_subject->listMostUsed();
+    DcpAppletMetadataList::iterator orig = applets.begin() + n - 1;
+    for (DcpAppletMetadataList::iterator iter = mostUsed.begin();
+         iter != mostUsed.end() && orig != applets.end(); ++iter) {
+        QCOMPARE(*iter, *orig);
+        --orig;
+    }
 }
 
 void Ut_DcpAppletDb::testRefresh()

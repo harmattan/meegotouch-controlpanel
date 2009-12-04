@@ -110,6 +110,11 @@ DcpAppletDb::addFiles(const QString& pathName, const QString& filter)
     return true;
 }
 
+DcpAppletMetadataList DcpAppletDb::list() const
+{
+    return m_AppletsByFile.values();
+}
+
 DcpAppletMetadataList DcpAppletDb::listByCategory(const QString& category)
 {
     QList<DcpAppletMetadata*> filtered;

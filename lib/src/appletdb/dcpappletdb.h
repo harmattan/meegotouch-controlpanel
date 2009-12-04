@@ -41,6 +41,11 @@ public:
     /*! \brief Database destructor */
     virtual ~DcpAppletDb();
 
+    /*! \brief List all applets
+        \return the metadata list of the applets
+     */
+    DcpAppletMetadataList list() const;
+
     /*! \brief Queries the db for a specified applet category
         \param category the name of the category
         \return the metadata list of the matching applets

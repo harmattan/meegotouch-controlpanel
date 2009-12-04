@@ -31,6 +31,12 @@ MostUsedCounter::~MostUsedCounter()
 	}
 }
 
+void MostUsedCounter::destroy()
+{
+    delete sm_Instance;
+    sm_Instance = 0;
+}
+
 int MostUsedCounter::add(const QString& name)
 {
 	if (name != "") {
