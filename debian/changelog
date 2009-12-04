@@ -1,28 +1,34 @@
+duicontrolpanel (0.6.0) unstable; urgency=low
+
+  * fixes: missing libduicontrolpanel-dev dependency on libdui-dev
+
+ -- Manner Robert <robert.manner@blumsoft.eu>  Fri, 04 Dec 2009 11:37:48 +0100
+
 duicontrolpanel (0.5.10) unstable; urgency=low
 
   * supports libdui 0.16.0-1
   * removes deprecated classes: DcpButton2 and descendants, and
     DcpCommonDialog
 
- -- Manner Robert <manni@manni-ubu.chello.hu>  Thu, 03 Dec 2009 13:45:04 +0100
+ -- Manner Robert <robert.manner@blumsoft.eu>  Thu, 03 Dec 2009 13:45:04 +0100
 
 duicontrolpanel (0.5.9) unstable; urgency=low
 
   * bumping up: add minimum libdui0 dependency
 
- -- Manner Robert <manni@manni-ubu.chello.hu>  Wed, 02 Dec 2009 14:47:48 +0100
+ -- Manner Robert <robert.manner@blumsoft.eu>  Wed, 02 Dec 2009 14:47:48 +0100
 
 duicontrolpanel (0.5.8) unstable; urgency=low
 
   * tag 0.5.8
 
- -- Manner Robert <manni@manni-ubu.chello.hu>  Wed, 02 Dec 2009 12:46:34 +0100
+ -- Manner Robert <robert.manner@blumsoft.eu>  Wed, 02 Dec 2009 12:46:34 +0100
 
 duicontrolpanel (0.5.7) unstable; urgency=low
 
   * bump up
 
- -- Manner Robert <manni@manni-ubu.chello.hu>  Wed, 02 Dec 2009 12:39:39 +0100
+ -- Manner Robert <robert.manner@blumsoft.eu>  Wed, 02 Dec 2009 12:39:39 +0100
 
 duicontrolpanel (0.5.6) unstable; urgency=low
 
@@ -31,7 +37,7 @@ duicontrolpanel (0.5.6) unstable; urgency=low
   * Implements the ability to write declarative applets
   * Fixes orientation change regression on main page
 
- -- Manner Robert <manni@manni-ubu.chello.hu>  Thu, 26 Nov 2009 17:32:12 +0100
+ -- Manner Robert <robert.manner@blumsoft.eu>  Thu, 26 Nov 2009 17:32:12 +0100
 
 duicontrolpanel (0.5.5) unstable; urgency=low
 
