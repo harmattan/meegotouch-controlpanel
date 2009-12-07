@@ -205,7 +205,10 @@ QString DcpAppletMetadata::text1() const
     QString id = desktopEntryStr(KeyNameId);
     QString name = desktopEntryStr(KeyName);
 //    QString catalog = value(Keys[KeyNameCatalog]).toString();
-    return DuiLocale::trid(qPrintable(id), qPrintable(name));
+    if (qtTrId(qPrintable(id)) == id)
+        return ("!! " + name);
+    else
+        return qtTrId(qPrintable(id));
 }
 
 QString DcpAppletMetadata::text2() const
