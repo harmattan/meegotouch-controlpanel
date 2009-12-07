@@ -49,11 +49,12 @@ void DcpAppletPage::load()
           changeWidget(0);
    } else {
        Q_ASSERT (!m_MissingLabel);
-       m_MissingLabel = new DuiLabel(trid("dcp_no_applet_name",
-                                    "Plugin not available"));
+       //% "Plugin not available"
+       m_MissingLabel = new DuiLabel(qtTrId("dcp_no_applet_name"));
        m_MissingLabel->setAlignment(Qt::AlignCenter);
        append(m_MissingLabel);
-       setTitle(trid("dcp_no_applet_title", "Missing plugin"));
+       //% "Missing plugin"
+       setTitle(qtTrId("dcp_no_applet_title"));
    }
 }
 

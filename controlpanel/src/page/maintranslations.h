@@ -8,7 +8,6 @@ typedef struct _DcpCategoryInfo DcpCategoryInfo;
 struct _DcpCategoryInfo
 {
     const char* titleId;
-    const char* titleDefault;
     const char* appletCategory;
     Pages::Id subPageId;
 };
@@ -16,11 +15,8 @@ struct _DcpCategoryInfo
 namespace DcpMain {
    extern const DcpCategoryInfo CategoryInfos[];
    extern const char* settingsTitleId;
-   extern const char* settingsTitleDefault;
    extern const char* mostRecentUsedTitleId;
-   extern const char* mostRecentUsedTitleDefault;
    extern const char* quitMenuItemTextId;
-   extern const char* quitMenuItemTextDefault;
 };
 
 #endif // MAINTRANSLATIONS_H

@@ -2,51 +2,56 @@
 
 const DcpCategoryInfo DcpMain::CategoryInfos[] = {
     {
-		"qtn_sett_main_look", "Look & Feel",
+        //% "Look & Feel"
+	QT_TRID_NOOP("qtn_sett_main_look"),
     	"Look & Feel",
     	Pages::LOOKANDFEEL
     },
     {
-        "qtn_sett_main_sound", "Sounds",
-		"Sound",
-		Pages::SOUND
+        //% "Sounds"
+        QT_TRID_NOOP("qtn_sett_main_sound"),
+        "Sound",
+        Pages::SOUND
     },
     {
-        "qtn_sett_main_connectivity", "Connectivity",
+        //% "Connectivity"
+        QT_TRID_NOOP("qtn_sett_main_connectivity"),
         "Connectivity",
         Pages::CONNECTIVITY
     },
     {
-        "qtn_sett_main_region", "Regional settings",
-		"Regional settings",
-		Pages::REGIONALSETTING
-	},
-	{
-	    "qtn_sett_main_device", "Device utilities",
-		"Device utilities",
-		Pages::DEVICEUTILITIES
-	},
-	{
-	    "qtn_sett_main_data", "Device system",
-		"Device system",
-		Pages::DEVICESYSTEM
-	},
-	{
-	    "qtn_sett_main_combined", "Accounts & Applications",
-		"Accounts & Applications",
-		Pages::ACCOUNTSANDAPPLICATIONS
-	},
-	{ 0, 0, 0, Pages::NOPAGE }
+        //% "Regional settings"
+        QT_TRID_NOOP("qtn_sett_main_region"),
+        "Regional settings",
+        Pages::REGIONALSETTING
+    },
+    {
+        //% "Device utilities"
+        QT_TRID_NOOP("qtn_sett_main_device"),
+        "Device utilities",
+        Pages::DEVICEUTILITIES
+    },
+    {
+        //% "Device system"
+        QT_TRID_NOOP("qtn_sett_main_data"),
+        "Device system",
+        Pages::DEVICESYSTEM
+    },
+    {
+        //% "Accounts & Applications"
+        QT_TRID_NOOP("qtn_sett_main_combined"),
+        "Accounts & Applications",
+        Pages::ACCOUNTSANDAPPLICATIONS
+    },
+    { 0, 0, Pages::NOPAGE }
 };
 
 
-const char* DcpMain::settingsTitleId = "qtn_sett_main_title";
-const char* DcpMain::settingsTitleDefault = "Settings";
+//% "Settings"
+const char* DcpMain::settingsTitleId = QT_TRID_NOOP("qtn_sett_main_title");
 
-const char* DcpMain::mostRecentUsedTitleId = "qtn_sett_main_most";
-const char* DcpMain::mostRecentUsedTitleDefault = "Most recently used";
+//% "Most recently used"
+const char* DcpMain::mostRecentUsedTitleId = QT_TRID_NOOP("qtn_sett_main_most");
 
-const char* DcpMain::quitMenuItemTextId = "qtn_comm_exit";
-const char* DcpMain::quitMenuItemTextDefault = "Exit";
-
-
+//% "Exit"
+const char* DcpMain::quitMenuItemTextId = QT_TRID_NOOP("qtn_comm_exit");

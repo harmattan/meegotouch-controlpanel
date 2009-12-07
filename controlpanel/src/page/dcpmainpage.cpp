@@ -72,14 +72,12 @@ void DcpMainPage::createContent()
 void DcpMainPage::retranslateUi()
 {
     QGraphicsLinearLayout* layout = mainLayout();
-    setTitle(trid(DcpMain::settingsTitleId, DcpMain::settingsTitleDefault));
-    m_RecentlyComp->setTitle(trid(DcpMain::mostRecentUsedTitleId,
-                                  DcpMain::mostRecentUsedTitleDefault));
+    setTitle(qtTrId(DcpMain::settingsTitleId));
+    m_RecentlyComp->setTitle(qtTrId(DcpMain::mostRecentUsedTitleId));
     for (int i=layout->count()-1; i>=1; i--) {
         DcpCategoryComponent* comp =
             dynamic_cast<DcpCategoryComponent*>(layout->itemAt(i));
-        comp->setTitle(trid(DcpMain::CategoryInfos[i-1].titleId,
-                            DcpMain::CategoryInfos[i-1].titleDefault));
+        comp->setTitle(qtTrId(DcpMain::CategoryInfos[i-1].titleId));
     }
     // no need to update briefs, they take care of themselves
 }
