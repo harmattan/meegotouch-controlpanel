@@ -165,7 +165,7 @@ void Ut_DcpAppletDb::testRefresh()
 {
     if (QTest::currentTestFailed()) return;
 
-    QSKIP("!!!! Some things are missing, waiting for Lgal !!!!",SkipSingle);
+    QSKIP("this test would need modifying .desktop files",SkipSingle);
 }
 
 QTEST_APPLESS_MAIN(Ut_DcpAppletDb)
