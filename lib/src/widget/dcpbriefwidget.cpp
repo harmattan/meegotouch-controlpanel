@@ -30,8 +30,8 @@ void DcpBriefWidget::setMetadata(DcpAppletMetadata* metadata)
     if (m_RealWidget) m_RealWidget->deleteLater();
 
     if (m_Metadata) { // metadata is owned by the appletdb, so not removed, only disconnected
-        disconnect (m_Metadata, SIGNAL(briefChanged()), this, SLOT(updateContents()));
-        disconnect (this, SIGNAL(clicked()), m_Metadata, SLOT(slotClicked()));
+        disconnect (m_Metadata, 0, this, 0);
+        this->disconnect();
     }
     Q_ASSERT(metadata);
     m_Metadata = metadata;
@@ -77,7 +77,7 @@ DcpButtonToggle* DcpBriefWidget::constructToggle(
     DcpButtonToggle* toggle = new DcpButtonToggle(this);
     toggle->setSmallToggle(metadata->toggle());
     toggle->setIconId(metadata->toggleIconId());
-    connect (m_RealWidget, SIGNAL(smallToggled(bool)),
+    connect (toggle, SIGNAL(smallToggled(bool)),
              m_Metadata, SLOT(setToggle(bool)));
     return toggle;
 }

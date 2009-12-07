@@ -6,6 +6,8 @@ SRCDIR = ./../../src
 
 DEPENDPATH = $$INCLUDEPATH
 
+QMAKE_LIBDIR += ../../lib/ /usr/lib/
+
 CONFIG += debug
 
 QT += testlib
