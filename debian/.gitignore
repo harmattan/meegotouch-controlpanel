@@ -1,0 +1,10 @@
+*.substvars
+files
+tmp/
+duicontrolpanel-dbg/
+duicontrolpanel-l10n-engineering-english/
+duicontrolpanel/
+libduicontrolpanel-dev/
+libduicontrolpanel-doc/
+libduicontrolpanel-tests/
+libduicontrolpanel/
