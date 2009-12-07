@@ -4,24 +4,10 @@
 #include <QMap>
 
 #include "dcpappletdb.h"
-#include "dcpappletmetadata.h"
 
 #include "ut_dcpappletdb.h"
-
-// mocking DcpAppletMetadata functions
-static QMap<const DcpAppletMetadata *, int> appletStat;
-
-void DcpAppletMetadata::slotClicked()
-{
-    ++appletStat[this];
-}
-
-int DcpAppletMetadata::usage() const
-{
-    return appletStat.value(this);
-}
-
-///////////////////////////////////////////////////////////////
+#include "dcpappletmetadata-fake.h"
+#include "duigconfitem-fake.h"
 
 void Ut_DcpAppletDb::initTestCase()
 {

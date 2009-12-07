@@ -1,6 +1,6 @@
 include(./../../dcpconfig.pri)
 
-INCLUDEPATH +=/usr/include/dui
+INCLUDEPATH +=/usr/include/dui ../doubles
 
 SRCDIR = ./../../src
 
