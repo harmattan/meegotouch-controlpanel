@@ -21,6 +21,7 @@ Package: duicontrolpanel
 Section: x11
 Architecture: any
 Depends: libdui0 (>= 0.15), ${shlibs:Depends}, ${misc:Depends}, libduicontrolpanel (= ${Source-Version}), duicontrolpanel-l10n
+Suggests: duicontrolpanel-l10n-engineering-english
 Description: Control Panel
 
 Package: duicontrolpanel-dbg
@@ -41,3 +42,8 @@ Depends: ${shlibs:Depends}, libduicontrolpanel (= ${Source-Version}), libqtgui4,
 Description: libduicontrolpanel unit tests
  Unit testing binaries and shellscripts for testing libduicontrolpanel library
 
+Package: duicontrolpanel-l10n-engineering-english
+Section: devel
+Architecture: any
+Enhances: duicontrolpanel
+Description: Engineering English translations for duicontrolpanel
