@@ -45,7 +45,7 @@ public:
 
     int order() const;
     int usage() const;
-    
+
     QString part() const;
     int partID() const;
 
@@ -65,6 +65,7 @@ signals:
 
 public slots:
 	void slotClicked();
+    void setToggle(bool checked);
 
 protected:
     DuiDesktopEntry* desktopEntry() const;

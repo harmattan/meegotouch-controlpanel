@@ -235,6 +235,16 @@ QString DcpAppletMetadata::toggleIconId() const
     return desktopEntryStr(KeyToggleIconId);
 }
 
+void DcpAppletMetadata::setToggle(bool checked)
+{
+    if (brief()) {
+        brief()->setToggle(checked);
+    } else {
+        qWarning("Can not set toggle state for the applet %s",
+                 qPrintable(d->m_FileName));
+    }
+}
+
 bool DcpAppletMetadata::isUnique() const
 {
     return !desktopEntryStr(KeyUnique).isEmpty();
