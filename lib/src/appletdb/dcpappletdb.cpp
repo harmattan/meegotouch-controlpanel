@@ -101,7 +101,7 @@ DcpAppletDb::addPath(const QString &pathName)
 bool
 DcpAppletDb::addFiles(const QString& pathName, const QString& filter)
 {
-    QDir appDir(pathName); 
+    QDir appDir(pathName);
     foreach(QString appFile, appDir.entryList(QStringList(filter)))
     {
         if (!addFile(appDir.absoluteFilePath(appFile)))

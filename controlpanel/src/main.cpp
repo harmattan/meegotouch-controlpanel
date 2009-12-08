@@ -7,6 +7,7 @@
 
 int main(int argc, char *argv[])
 {
+    DCP_FUNC_START
     qInstallMsgHandler(DcpDebug::dcpMsg);
 
     DuiApplication app(argc, argv);
@@ -32,6 +33,7 @@ int main(int argc, char *argv[])
     service->createStartPage();
     win.show();
 
+    DCP_FUNC_END
     return app.exec();
 }
 
