@@ -88,9 +88,9 @@ DcpAppletMetadataPrivate::~DcpAppletMetadataPrivate()
 DcpAppletMetadata::DcpAppletMetadata(const QString& filename)
     : d (new DcpAppletMetadataPrivate)
 {
-	d->m_FileName = filename;
-        d->m_DesktopEntry = new DuiDesktopEntry(d->m_FileName);
-        d->m_GconfKeyUsage = MOSTUSEDCOUNTER_GCONFKEY  + QFileInfo(d->m_FileName).baseName();
+    d->m_FileName = filename;
+    d->m_DesktopEntry = new DuiDesktopEntry(d->m_FileName);
+    d->m_GconfKeyUsage = MOSTUSEDCOUNTER_GCONFKEY  + QFileInfo(d->m_FileName).baseName();
 
 //	qDebug() << MostUsedCounter::instance()->get(d->m_FileName);
 //	MostUsedCounter::instance()->clear(d->m_FileName);
@@ -151,11 +151,10 @@ QString DcpAppletMetadata::parentName() const
 
 int DcpAppletMetadata::widgetTypeID() const
 {
-    if (brief() != 0) {
-        return brief()->widgetTypeID();
-    }
+  if (brief() != 0) {
+      return brief()->widgetTypeID();
+  }
 
-  // old way, TODO consider removing it and forcing the applets to supply a widgettype
   QString type = desktopEntryStr(KeyWidgetType);
 
   for(int i=0; i<WIDGETN; i++)
@@ -163,7 +162,7 @@ int DcpAppletMetadata::widgetTypeID() const
       return i;
     }
 
-  qWarning() << "widgettype unspecified for " << name();
+  qWarning() << "widgettype is unspecified for " << name();
   return DCPLABEL2;  //default
 }
 
@@ -181,7 +180,7 @@ Qt::Alignment DcpAppletMetadata::align() const
         return Qt::AlignRight;
 
     qWarning() << Q_FUNC_INFO << "no data"; // default
-    return Qt::AlignLeft; 
+    return Qt::AlignLeft;
 }
 
 DcpAppletMetadata* DcpAppletMetadata::parent() const
@@ -205,7 +204,10 @@ QString DcpAppletMetadata::text1() const
     QString id = desktopEntryStr(KeyNameId);
     QString name = desktopEntryStr(KeyName);
 //    QString catalog = value(Keys[KeyNameCatalog]).toString();
-    return DuiLocale::trid(qPrintable(id), qPrintable(name));
+    if (qtTrId(qPrintable(id)) == id)
+        return ("!! " + name);
+    else
+        return qtTrId(qPrintable(id));
 }
 
 QString DcpAppletMetadata::text2() const
@@ -281,7 +283,7 @@ DcpAppletIf* DcpAppletMetadata::applet() const
 
     if (d->m_AppletLoader == 0){
         d->m_AppletLoader = new DcpAppletLoader(this);
-        if (d->m_AppletLoader->applet() == NULL) {
+        if (d->m_AppletLoader->applet() == 0) {
             qDebug() << d->m_AppletLoader->errorMsg() << "for" << binary();
         } else {
             qDebug() << "APPLET loaded" << fullBinary();
@@ -299,7 +301,6 @@ DuiDesktopEntry* DcpAppletMetadata::desktopEntry() const
 
 DcpBrief* DcpAppletMetadata::brief() const
 {
-
     if (d->m_Brief == 0) {
         if (applet() != 0) {
             d->m_Brief = applet()->constructBrief(partID());

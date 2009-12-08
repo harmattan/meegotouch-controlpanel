@@ -1,0 +1,12 @@
+Makefile
+*.o
+.moc/
+*moc_*
+*~
+*~?~
+declapplet/lib/
+lib/lib/
+*.qm
+build-stamp
+configure-stamp
+

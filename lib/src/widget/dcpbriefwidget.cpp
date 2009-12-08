@@ -5,6 +5,7 @@
 #include "dcpbutton.h"
 #include "dcpbuttontoggle.h"
 #include "dcpbuttonimage.h"
+#include "dcpwrongapplets.h"
 
 #include <DuiSceneManager>
 #include <QGraphicsLinearLayout>
@@ -36,6 +37,8 @@ void DcpBriefWidget::setMetadata(DcpAppletMetadata* metadata)
     Q_ASSERT(metadata);
     m_Metadata = metadata;
 
+    dcpMarkAsMaybeBad(metadata);
+
     switch(m_Metadata->widgetTypeID()) {
         case DCPLABELBUTTON:
         case DCPLABEL2BUTTON:
@@ -55,12 +58,16 @@ void DcpBriefWidget::setMetadata(DcpAppletMetadata* metadata)
         retranslateUi();
         ((QGraphicsLinearLayout*)layout())->addItem(m_RealWidget);
     }
+
+    dcpUnmarkAsMaybeBad(metadata);
 }
 
 void DcpBriefWidget::retranslateUi()
 {
+    dcpMarkAsMaybeBad(m_Metadata);
     m_RealWidget->setText1(m_Metadata->text1());
     updateContents();
+    dcpUnmarkAsMaybeBad(m_Metadata);
 }
 
 DcpButtonImage* DcpBriefWidget::constructImage(
@@ -78,12 +85,13 @@ DcpButtonToggle* DcpBriefWidget::constructToggle(
     toggle->setSmallToggle(metadata->toggle());
     toggle->setIconId(metadata->toggleIconId());
     connect (toggle, SIGNAL(smallToggled(bool)),
-             m_Metadata, SLOT(setToggle(bool)));
+             metadata, SLOT(setToggle(bool)));
     return toggle;
 }
 
 void DcpBriefWidget::updateContents()
 {
+    dcpMarkAsMaybeBad(m_Metadata);
     // for all:
     m_RealWidget->setText2(m_Metadata->text2());
 
@@ -92,15 +100,14 @@ void DcpBriefWidget::updateContents()
     if (toggle) {
         toggle->setSmallToggle(m_Metadata->toggle());
         toggle->setIconId(m_Metadata->toggleIconId());
-        return;
     }
 
     // image specific:
     DcpButtonImage* image = qobject_cast<DcpButtonImage*>(m_RealWidget);
     if (image) {
         image->setImageName(m_Metadata->image());
-        return;
     }
+    dcpUnmarkAsMaybeBad(m_Metadata);
 }
 
 void DcpBriefWidget::showEvent ( QShowEvent * event )

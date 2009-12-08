@@ -6,6 +6,7 @@ CONFIG += build_all silent warn_on
 CONFIG += conf
 
 SUBDIRS += src \
+       translations \
 #	   tests \
 #	   examples
 

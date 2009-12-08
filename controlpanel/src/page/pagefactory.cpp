@@ -135,8 +135,7 @@ void PageFactory::initPage(DcpPage* page)
 
     if (page != m_MainPage) {
         // closeAction TODO XXX on language change, move into to the page?
-        DuiAction *quitAction = new DuiAction(trid(DcpMain::quitMenuItemTextId,
-                                                   DcpMain::quitMenuItemTextDefault), page);
+        DuiAction *quitAction = new DuiAction(qtTrId(DcpMain::quitMenuItemTextId), page);
         quitAction->setLocation((DuiAction::Location)4 /* FIXME DuiAction::ApplicationMenu */);
         connect(quitAction, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
 
