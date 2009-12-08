@@ -20,4 +20,5 @@ enum WIDGETTYPEID {
     DCPLABEL2TOGGLE,    //"DcpLabel2Toggle"
     WIDGETN
 };
+
 #endif // DCPWIDGETTYPES_H

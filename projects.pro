@@ -7,7 +7,6 @@ SUBDIRS += lib \
            controlpanel \
            declapplet
 
-include(dcpconfig.pri)
 include(debian/deb.pri)
 # for check:
 check.target = check
