@@ -2,6 +2,7 @@
 #include "dcpappletif.h"
 #include "dcpappletmetadata.h"
 #include <QPluginLoader>
+#include "dcpwrongapplets.h"
 
 DcpAppletLoader::DcpAppletLoader(const DcpAppletMetadata *metadata):
     m_Metadata(metadata)
@@ -18,7 +19,16 @@ DcpAppletLoader::~DcpAppletLoader()
 
 void DcpAppletLoader::load()
 {
-    QPluginLoader loader(m_Metadata->fullBinary());
+    QString binaryPath = m_Metadata->fullBinary();
+
+    // skip applets which are considered as "bad"
+    if (DcpWrongApplets::instance()->isBad(binaryPath)) {
+        m_ErrorMsg = "Backlisted applet";
+        m_Applet = 0;
+        return;
+    }
+
+    QPluginLoader loader(binaryPath);
     if (!loader.load())
     {
         m_ErrorMsg = "Loading applet failed: " + loader.errorString();

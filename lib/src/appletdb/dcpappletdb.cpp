@@ -2,6 +2,7 @@
 #include "dcpappletmetadata.h"
 #include <QDir>
 #include <QDebug>
+
 const QString APPLETFILTER = "*.desktop";
 DcpAppletDb *DcpAppletDb::sm_Instance=0;
 
@@ -54,8 +55,8 @@ DcpAppletDb::addFile(const QString& filename)
     {
         if (metadata->isUnique())
         {
-             m_AppletsByName.clear();   
-             m_AppletsByFile.clear();   
+             m_AppletsByName.clear();
+             m_AppletsByFile.clear();
              m_HasUniqueMetadata = true;
 
         }
@@ -125,7 +126,7 @@ DcpAppletMetadataList DcpAppletDb::listByCategory(const QString& category)
         QString parentName = item->parentName();
 
         if (parentName != "" && !item->parent()) {
-            item->setParent(applet(parentName));  
+            item->setParent(applet(parentName));
         }
     }
     qSort(filtered.begin(), filtered.end(), DcpAppletMetadata::orderLessThan);
@@ -135,7 +136,8 @@ DcpAppletMetadataList DcpAppletDb::listByCategory(const QString& category)
 DcpAppletMetadataList DcpAppletDb::listMostUsed()
 {
 	DcpAppletMetadataList mostUsed;
-	for (QMap<QString, DcpAppletMetadata*>::iterator iter = m_AppletsByName.begin(); iter != m_AppletsByName.end(); iter++)
+	for (QMap<QString, DcpAppletMetadata*>::iterator iter =
+            m_AppletsByName.begin(); iter != m_AppletsByName.end(); iter++)
 		if (iter.value()->usage())
 			mostUsed.push_back(iter.value());
 

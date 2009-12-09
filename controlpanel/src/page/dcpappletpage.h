@@ -22,7 +22,7 @@ public:
 
 protected:
     virtual void retranslateUi();
-    
+
 protected slots:
     void changeWidget(int widgetId);
     virtual void back();
@@ -39,3 +39,4 @@ private:
 };
 
 #endif // DCPAPPLETPAGE_H
+
