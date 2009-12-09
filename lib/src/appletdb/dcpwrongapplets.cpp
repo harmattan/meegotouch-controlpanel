@@ -10,22 +10,21 @@ DcpWrongApplets* DcpWrongApplets::sm_Instance = 0;
 
 const QString keyPath = "/apps/duicontrolpanel/badplugins";
 
-static inline QDateTime fileTimeStamp(const QString& path)
+static inline QString fileTimeStamp(const QString& path)
 {
-    return QFileInfo(path).lastModified();
+    return QFileInfo(path).lastModified().toString();
 }
 
-static inline QDateTime crashTimeStamp(const QString& name)
+static inline QString crashTimeStamp(const QString& name)
 {
     DuiGConfItem conf(keyPath + "/" + name);
-    return QDateTime::fromString(conf.value().toString());
+    return conf.value().toString();
 }
 
-static inline void setCrashTimeStamp(const QString& name, const QDateTime& date)
+static inline void setCrashTimeStamp(const QString& name, const QString& date)
 {
     DuiGConfItem conf(keyPath + "/" + name);
-    conf.set(date.toString()); // DuiGConfItem does not support
-                               // storing a qdatetime yet, not even int :(
+    conf.set(date);
 }
 
 static inline void unsetCrashTimeStamp(const QString& name)
@@ -39,13 +38,15 @@ DcpWrongApplets::DcpWrongApplets()
     // init cache:
     DuiGConfItem dir(keyPath);
     QList<QString> wrongAppletNames = dir.listEntries();
-    foreach (QString name, wrongAppletNames) {
-        if (fileTimeStamp(APPLET_LIBS + name) == crashTimeStamp(name)) {
+    foreach (QString fullName, wrongAppletNames) {
+        QString name = QFileInfo(fullName).fileName();
+        QString fileName = QString(APPLET_LIBS)+ "/"+ name;
+        if (fileTimeStamp(fileName) == crashTimeStamp(name)) {
+            qDebug() << "!!! Detected bad applet: " << name;
             m_BadApplets.insert(name);
-            qDebug() << "XXX Detected bad applet: " << name;
         } else {
+            qDebug() << "Giving the applet" << name << "another chance.";
             unsetCrashTimeStamp(name);
-            qDebug() << "XXX Giving the applet" << name << "another chance.";
         }
     }
 }
@@ -63,9 +64,9 @@ DcpWrongApplets::markAsMaybeBad(const QString& badSoPath)
     if (!m_MaybeBadApplets.contains(badSoName)
         || m_MaybeBadApplets.value(badSoName) == 0)
     {
-        QDateTime timeStamp = fileTimeStamp(badSoPath);
+        QString timeStamp = fileTimeStamp(badSoPath);
         // .so does not exists -> no segfault can happen
-        if (timeStamp.isNull()) {
+        if (timeStamp.isEmpty()) {
             qWarning("Could not find .so: %s", qPrintable(badSoPath));
             return;
         }
@@ -127,7 +128,7 @@ const QSet<QString>& DcpWrongApplets::badApplets() const
 
 bool DcpWrongApplets::isBad(const QString& badSoName)
 {
-    return m_BadApplets.contains(badSoName);
+    return m_BadApplets.contains(QFileInfo(badSoName).fileName());
 }
 
 
