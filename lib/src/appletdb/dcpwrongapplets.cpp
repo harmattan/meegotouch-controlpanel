@@ -106,3 +106,28 @@ void dcpUnmarkAsMaybeBad (const DcpAppletMetadata* metadata)
     DcpWrongApplets::instance()->unmarkAsMaybeBad (metadata->fullBinary());
 }
 
+DcpWrongApplets* DcpWrongApplets::instance()
+{
+    if (!sm_Instance) sm_Instance = new DcpWrongApplets();
+    return sm_Instance;
+}
+
+void DcpWrongApplets::destroyInstance()
+{
+    delete sm_Instance;
+    sm_Instance = 0;
+}
+
+
+const QSet<QString>& DcpWrongApplets::badApplets() const
+{
+    return m_BadApplets;
+}
+
+
+bool DcpWrongApplets::isBad(const QString& badSoName)
+{
+    return m_BadApplets.contains(badSoName);
+}
+
+
