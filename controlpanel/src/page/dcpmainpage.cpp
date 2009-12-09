@@ -31,7 +31,7 @@ DcpMainPage::DcpMainPage() :
     setEscapeButtonMode(DuiEscapeButtonPanelModel::CloseMode);
 }
 
-DcpMainPage::~DcpMainPage() 
+DcpMainPage::~DcpMainPage()
 {}
 
 
@@ -51,7 +51,7 @@ void DcpMainPage::createContent()
     layout->addItem(m_RecentlyComp);
 
     // category descriptions:
-    for (int i=0; true; i++) {
+    for (int i=0;; i++) {
         DcpCategoryInfo info = DcpMain::CategoryInfos[i];
         if (info.titleId == 0)
              break;
