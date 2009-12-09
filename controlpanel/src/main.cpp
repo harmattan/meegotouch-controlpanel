@@ -2,6 +2,7 @@
 #include "mainwindow.h"
 #include "service/duicontrolpanelservice.h"
 #include "dcpappletdb.h"
+#include "appleterrorsdialog.h"
 #include <DcpDebug>
 #include <DcpRetranslator>
 #include <DuiApplication>
@@ -46,6 +47,7 @@ int main(int argc, char *argv[])
     MainWindow win;
     service->createStartPage();
     win.show();
+    AppletErrorsDialog::showAppletErrors();
 
     DCP_FUNC_END
     return app.exec();

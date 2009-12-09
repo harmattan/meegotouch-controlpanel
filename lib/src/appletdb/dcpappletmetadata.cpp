@@ -258,7 +258,7 @@ QString DcpAppletMetadata::part() const
 
 int DcpAppletMetadata::partID() const
 {
-    if (part().isEmpty())
+    if (part().isEmpty() || !applet())
         return -1;
     return applet()->partID(part());
 }
