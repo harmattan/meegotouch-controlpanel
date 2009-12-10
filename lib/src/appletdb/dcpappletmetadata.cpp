@@ -1,3 +1,5 @@
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #include <QDateTime>
 #include "dcpappletmetadata.h"
 #include "dcpapplet.h"
@@ -9,8 +11,6 @@
 #include "dcpappletloader.h"
 #include "dcpbrief.h"
 #include "dcpappletif.h"
-
-#include <QRegExp>
 
 #include "dcpmostusedcounter.h"
 
@@ -32,6 +32,8 @@ enum  {
     KeyImage,
     KeyUsage,
     KeyBinary,
+    KeyDslFilename,
+    KeyApplicationCommand,
 
     KeyName,
     KeyNameId,
@@ -58,6 +60,9 @@ const QString Keys[KeyCount] = {
     "DCP/Image",
     "DCP/Usage",
     "DUI/X-DUIApplet-Applet",
+    "DUI/X-DUIApplet-Dslfile",
+    "DUI/X-DUIApplet-ApplicationCommand",
+    
 
     "Desktop Entry/Name",
     "Desktop Entry/X-logical-id",
@@ -108,8 +113,13 @@ DcpAppletMetadata::~DcpAppletMetadata()
 }
 
 // TODO XXX rename
-bool DcpAppletMetadata::isValid() const
+bool
+DcpAppletMetadata::isValid() const
 {
+    DCP_DEBUG ("Returning %s for '%s'", 
+            desktopEntry()->isValid() ? "true" : "false",
+            DCP_STR (binary()));
+
     return desktopEntry()->isValid();
 }
 
@@ -137,15 +147,47 @@ void DcpAppletMetadata::setBinaryDir(const QString& dir)
     d->m_BinaryDir = dir;
 }
 
-
-QString DcpAppletMetadata::binary() const
+QString 
+DcpAppletMetadata::binary() const
 {
-    return desktopEntryStr(KeyBinary);
+    return desktopEntryStr (KeyBinary);
 }
 
-QString DcpAppletMetadata::fullBinary() const
+QString 
+DcpAppletMetadata::dslFilename () const
 {
-    return binaryDir() + binary();
+    return desktopEntryStr (KeyDslFilename);
+}
+
+QString 
+DcpAppletMetadata::applicationCommand () const
+{
+    return desktopEntryStr (KeyApplicationCommand);
+}
+
+bool
+DcpAppletMetadata::hasApplicationCommand () const
+{
+    return !desktopEntryStr(KeyApplicationCommand).isEmpty();
+}
+
+
+
+/*
+ * Returns the full path of the applet plugin filename, that is the name of the
+ * shared object, that contains the applet binary program or if the 
+ * "X-DUIApplet-Applet" field of the desktop file is empty returns the empty
+ * string.
+ */
+QString
+DcpAppletMetadata::fullBinary () const
+{
+    QString filename = binary();
+
+    if (filename.isEmpty())
+        return filename;
+
+    return binaryDir () + filename;
 }
 
 QString DcpAppletMetadata::parentName() const
@@ -194,7 +236,6 @@ DcpAppletMetadata* DcpAppletMetadata::parent() const
 
 bool DcpAppletMetadata::toggle() const
 {
-
     if (brief()){
         return brief()->toggle();
     }
@@ -253,6 +294,9 @@ void DcpAppletMetadata::setToggle(bool checked)
 
 bool DcpAppletMetadata::isUnique() const
 {
+    DCP_DEBUG ("Returning %s for %s",
+            !desktopEntryStr(KeyUnique).isEmpty() ? "true" : "false",
+            DCP_STR (binary()));
     return !desktopEntryStr(KeyUnique).isEmpty();
 }
 
@@ -263,16 +307,17 @@ QString DcpAppletMetadata::part() const
 
 int DcpAppletMetadata::partID() const
 {
+    DCP_DEBUG ("");
     if (part().isEmpty() || !applet())
         return -1;
     return applet()->partID(part());
 }
 
-int DcpAppletMetadata::usage() const
+int DcpAppletMetadata::usage () const
 {
     // TODO implement
     //return desktopEntry()->value(Keys[KeyUsage]).toInt() + d->m_Counter;
-        return MostUsedCounter::instance()->get(d->m_GconfKeyUsage);
+    return MostUsedCounter::instance()->get(d->m_GconfKeyUsage);
 }
 
 int DcpAppletMetadata::order() const
@@ -280,39 +325,40 @@ int DcpAppletMetadata::order() const
     return desktopEntry()->value(Keys[KeyOrder]).toInt();
 }
 
-DcpAppletIf* DcpAppletMetadata::applet() const
+DcpAppletIf *
+DcpAppletMetadata::applet() const
 {
+    DCP_DEBUG ("Applet for '%s'", DCP_STR(name ()));
     if (d->m_Parent)
         return d->m_Parent->applet();
 
-    if (d->m_AppletLoader == 0){
-        d->m_AppletLoader = new DcpAppletLoader(this);
+    if (d->m_AppletLoader == 0) {
+        d->m_AppletLoader = new DcpAppletLoader (this);
         if (d->m_AppletLoader->applet() == 0) {
             qDebug() << d->m_AppletLoader->errorMsg() << "for" << binary();
         } else {
             qDebug() << "APPLET loaded" << fullBinary();
         }
     }
-//    qDebug() << Q_FUNC_INFO << d->m_AppletLoader->errorMsg() << fullBinary();
     return d->m_AppletLoader->applet();
 }
 
 DuiDesktopEntry* DcpAppletMetadata::desktopEntry() const
 {
     Q_ASSERT (d->m_DesktopEntry);
+
     return d->m_DesktopEntry;
 }
 
-DcpBrief* DcpAppletMetadata::brief() const
+DcpBrief* DcpAppletMetadata::brief () const
 {
-    if (d->m_Brief == 0) {
-        if (applet() != 0) {
-            d->m_Brief = applet()->constructBrief(partID());
-            if (d->m_Brief != 0){
-                connect (d->m_Brief, SIGNAL(valuesChanged()), this, SIGNAL(briefChanged()));
-            }
-        }
+    if (d->m_Brief == 0 && applet() != 0) {
+        d->m_Brief = applet()->constructBrief(partID());
+        if (d->m_Brief != 0)
+            connect (d->m_Brief, SIGNAL (valuesChanged ()), 
+                    this, SIGNAL (briefChanged ()));
     }
+
     return d->m_Brief;
 }
 

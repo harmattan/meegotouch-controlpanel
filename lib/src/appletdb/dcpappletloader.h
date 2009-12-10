@@ -1,3 +1,5 @@
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et sw=4 ts=4 sts=4: */
 #ifndef DCPAPPLETLOADER_H
 #define DCPAPPLETLOADER_H
 
@@ -15,7 +17,9 @@ public:
     const DcpAppletMetadata* metadata() const {return m_Metadata;};
     const QString errorMsg() const {return m_ErrorMsg;};
 protected:
-    virtual void load();
+    virtual void load ();
+    virtual bool loadPluginFile (const QString &binaryPath);
+    virtual bool loadDslFile    (const QString &dslPath);
 private:
     const DcpAppletMetadata* m_Metadata;
     DcpAppletIf *m_Applet;

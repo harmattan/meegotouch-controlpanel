@@ -31,7 +31,12 @@ public:
     QString fileName() const;
     QString category() const;
     QString toggleIconId() const;
+    
     QString binary() const;
+    QString dslFilename () const;
+    QString applicationCommand () const;
+    bool    hasApplicationCommand () const;
+
     QString fullBinary() const;
     QString binaryDir() const;
     void setBinaryDir(const QString& dir);
