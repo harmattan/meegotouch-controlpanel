@@ -1,5 +1,5 @@
 #include <cstdio>
-#include "mainwindow.h"
+#include <DuiApplicationWindow>
 #include "service/duicontrolpanelservice.h"
 #include "dcpappletdb.h"
 #include "appleterrorsdialog.h"
@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
     QStringList args = app.arguments();
     int i = args.indexOf("-desktopdir", 1);
     if (i >= 1 && i + 1 < args.size()) {
-        const QString &desktopDir = args.at(i+1);
+        const QString &desktopDir = args.at(i + 1);
         qDebug() << "using desktopdir" << desktopDir;
         DcpAppletDb::initInstance(desktopDir);
     } else {
@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
     QObject::connect(&app, SIGNAL(localeSettingsChanged()),
                      &retranslator, SLOT(retranslate()));
 
-    MainWindow win;
+    DuiApplicationWindow win;
     service->createStartPage();
     win.show();
     AppletErrorsDialog::showAppletErrors();
@@ -52,6 +52,4 @@ int main(int argc, char *argv[])
     DCP_FUNC_END
     return app.exec();
 }
-
-//#include "main.moc"
 
