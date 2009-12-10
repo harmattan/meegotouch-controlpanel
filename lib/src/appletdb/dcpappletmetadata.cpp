@@ -14,6 +14,9 @@
 
 #include "dcpmostusedcounter.h"
 
+//#define DEBUG
+#include "dcpdebug.h"
+
 enum  {
     KeyCategory = 0,
     KeyOrder,
@@ -87,6 +90,8 @@ DcpAppletMetadataPrivate::~DcpAppletMetadataPrivate()
 DcpAppletMetadata::DcpAppletMetadata(const QString& filename)
     : d (new DcpAppletMetadataPrivate)
 {
+    DCP_DEBUG ("*** filename = '%s'", DCP_STR(filename));
+
     d->m_FileName = filename;
     d->m_DesktopEntry = new DuiDesktopEntry(d->m_FileName);
     d->m_GconfKeyUsage = MOSTUSEDCOUNTER_GCONFKEY  + QFileInfo(d->m_FileName).baseName();
