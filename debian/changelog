@@ -1,3 +1,9 @@
+duicontrolpanel (0.6.1) unstable; urgency=low
+
+  * bump up
+
+ -- Manner Robert <robert.manner@blumsoft.eu>  Thu, 10 Dec 2009 13:59:00 +0100
+
 duicontrolpanel (0.6.0) unstable; urgency=low
 
   * fixes: missing libduicontrolpanel-dev dependency on libdui-dev
