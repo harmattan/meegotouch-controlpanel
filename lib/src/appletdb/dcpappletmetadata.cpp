@@ -87,7 +87,6 @@ DcpAppletMetadataPrivate::~DcpAppletMetadataPrivate()
     if (m_DesktopEntry) delete m_DesktopEntry;
 }
 
-
 DcpAppletMetadata::DcpAppletMetadata(const QString& filename)
     : d (new DcpAppletMetadataPrivate)
 {
@@ -264,7 +263,7 @@ QString DcpAppletMetadata::part() const
 
 int DcpAppletMetadata::partID() const
 {
-    if (part().isEmpty())
+    if (part().isEmpty() || !applet())
         return -1;
     return applet()->partID(part());
 }
@@ -335,9 +334,9 @@ QString DcpAppletMetadata::desktopEntryStr(int id) const
     return desktopEntry()->value(Keys[id]).trimmed();
 }
 
-void DcpAppletMetadata::cleanup() 
+void DcpAppletMetadata::cleanup()
 {
-    if (d->m_AppletLoader) 
+    if (d->m_AppletLoader)
         d->m_AppletLoader->deleteLater();
     d->m_AppletLoader = 0;
 }

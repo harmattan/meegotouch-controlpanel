@@ -16,15 +16,15 @@ public:
     virtual void createContent();
     virtual void connectSignals();
     virtual void disconnectSignals();
-    Pages::Handle handle() const {return m_Handle;};
-    virtual void setHandle(Pages::Handle handle) {m_Handle = handle;};
+    Pages::Handle handle() const {return m_Handle;}
+    virtual void setHandle(const Pages::Handle &handle) {m_Handle = handle;}
     virtual void setHandle(Pages::Id id, const QString &param="")
-        {m_Handle.id = id; m_Handle.param = param;};
-    Pages::Handle referer() const {return m_Referer;};
+        {m_Handle.id = id; m_Handle.param = param;}
+    Pages::Handle referer() const {return m_Referer;}
 
-    void setReferer(Pages::Handle referer) {m_Referer = referer;};
+    void setReferer(const Pages::Handle &referer) {m_Referer = referer;}
     virtual void setReferer(Pages::Id id, const QString &param="")
-        {m_Referer.id = id; m_Referer.param = param;};
+        {m_Referer.id = id; m_Referer.param = param;}
     QGraphicsLinearLayout *mainLayout();
 
     virtual void reload();

@@ -9,12 +9,13 @@
 class DcpWrongApplets
 {
 public:
-    static inline DcpWrongApplets* instance();
-    static inline void destroyInstance();
+    static DcpWrongApplets* instance();
+    static void destroyInstance();
 
     void markAsMaybeBad(const QString& badSoPath);
     void unmarkAsMaybeBad(const QString& badSoPath);
-    inline bool isBad(const QString& badSoPath);
+    bool isBad(const QString& badSoPath);
+    const QSet<QString>& badApplets() const;
 
 private:
     DcpWrongApplets();
@@ -24,23 +25,6 @@ private:
     QSet<QString> m_BadApplets;
     QHash<QString, int> m_MaybeBadApplets;
 };
-
-DcpWrongApplets* DcpWrongApplets::instance()
-{
-    if (!sm_Instance) sm_Instance = new DcpWrongApplets();
-    return sm_Instance;
-}
-
-void DcpWrongApplets::destroyInstance()
-{
-    delete sm_Instance;
-    sm_Instance = 0;
-}
-
-bool DcpWrongApplets::isBad(const QString& badSoName)
-{
-    return m_BadApplets.contains(badSoName);
-}
 
 //convenience methods:
 void dcpMarkAsMaybeBad(const class DcpAppletMetadata* metadata);
