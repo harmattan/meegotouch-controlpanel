@@ -13,6 +13,7 @@
 void startSupervising()
 {
     while (fork() > 0) {
+        qDebug() << "FORKED a child";
         // we are in parent process ( = supervisor )
         // and a child was successfully started ( = gui )
         QSet<QString> oldBadApplets = DcpWrongApplets::queryBadApplets();
@@ -30,55 +31,67 @@ void startSupervising()
     }
 }
 
-int main(int argc, char *argv[])
+int startApplication(int argc, char* argv[])
 {
-    DCP_FUNC_START
-    qInstallMsgHandler(DcpDebug::dcpMsg);
-
-    startSupervising();
-
-    // parse for -h option
-    for (int i = 1; i < argc; ++i) {
-        QString s(argv[i]);
-        if (s == "-h" || s == "-help") {
-            QTextStream out(stdout);
-            out << "Usage: " << argv[0] << 
-                " [LIBDUI OPTION]... [-desktopdir DIR]\n\n";
-            out << "  -desktopdir DIR     Load .desktop files from DIR";
-            out << "\n\n";
-            break;
-        }
-    }
-
     DuiApplication app(argc, argv);
     app.setAnimator(0);
 
     DuiControlPanelService* service = new DuiControlPanelService();
 
-    QStringList args = app.arguments();
-    int i = args.indexOf("-desktopdir", 1);
-    if (i >= 1 && i + 1 < args.size()) {
-        const QString &desktopDir = args.at(i + 1);
-        qDebug() << "using desktopdir" << desktopDir;
-        DcpAppletDb::initInstance(desktopDir);
-    } else {
-        DcpAppletDb::initInstance();
-    }
-
     DcpRetranslator retranslator;
     QObject::connect(&app, SIGNAL(localeSettingsChanged()),
                      &retranslator, SLOT(retranslate()));
 
-    DuiApplicationWindow* win = new DuiApplicationWindow;
+    DuiApplicationWindow win;
     service->createStartPage();
-    win->show();
+    win.show();
     AppletErrorsDialog::showAppletErrors();
 
-    DCP_FUNC_END
-    int result = app.exec();
+    return app.exec();
+}
+
+
+int main(int argc, char *argv[])
+{
+    qInstallMsgHandler(DcpDebug::dcpMsg);
+
+    // parse options
+    QString desktopDir;
+    for (int i = 1; i < argc; ++i) {
+        QString s(argv[i]);
+        if (s == "-h" || s == "-help") {
+            QTextStream out(stdout);
+            out << "Usage: " << argv[0] <<
+                " [LIBDUI OPTION]... [-desktopdir DIR]\n\n";
+            out << "  -desktopdir DIR     Load .desktop files from DIR\n";
+            out << "  -nosupervisor       Disables applet supervisor";
+            out << "\n\n";
+            break;
+        } else if (s == "-nosupervisor") {
+            qDebug() << "Applet supervisor is disabled.";
+            DcpWrongApplets::disable();
+        } else if (s == "-destopdir") {
+            if (i + 1 < argc) {
+                i++;
+                desktopDir = argv[i + 1];
+                qDebug() << "Using desktopdir:" << desktopDir;
+            }
+        }
+    }
+
+    if (!DcpWrongApplets::isDisabled()) {
+        startSupervising();
+    }
+
+    if (desktopDir.isEmpty()) {
+         DcpAppletDb::initInstance();
+    } else {
+         DcpAppletDb::initInstance(desktopDir);
+    }
+
+    int result = startApplication(argc, argv);
 
     // destructors
-    delete win;
     DcpWrongApplets::destroyInstance();
 
     return result;

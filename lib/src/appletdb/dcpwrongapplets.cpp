@@ -7,6 +7,7 @@
 #include <QtDebug>
 
 DcpWrongApplets* DcpWrongApplets::sm_Instance = 0;
+bool DcpWrongApplets::sm_Disabled = false;
 
 const QString keyPath = "/apps/duicontrolpanel/badplugins";
 
@@ -42,6 +43,8 @@ DcpWrongApplets::DcpWrongApplets()
 QSet<QString> DcpWrongApplets::queryBadApplets()
 {
     QSet<QString> badApplets;
+    if (sm_Disabled) return badApplets;
+
     DuiGConfItem dir(keyPath);
     QList<QString> wrongAppletNames = dir.listEntries();
     foreach (QString fullName, wrongAppletNames) {
@@ -64,7 +67,7 @@ DcpWrongApplets::~DcpWrongApplets()
     for (it = m_MaybeBadApplets.begin(); it!=m_MaybeBadApplets.end(); it++)
     {
         if (it.value() > 0) {
-            qWarning() << "!!!" << it.key() << "were not unmarked:" << it.value();
+            qWarning() << it.key() << "were not unmarked:" << it.value();
             unsetCrashTimeStamp(it.key());
         }
     }
@@ -74,7 +77,7 @@ void
 DcpWrongApplets::markAsMaybeBad(const QString& badSoPath)
 {
     // no .so -> no problem
-    if (badSoPath.isEmpty()) return;
+    if (sm_Disabled || badSoPath.isEmpty()) return;
 
     QFileInfo fileInfo(badSoPath);
     QString badSoName = fileInfo.fileName();
@@ -102,7 +105,7 @@ void
 DcpWrongApplets::unmarkAsMaybeBad(const QString& badSoPath)
 {
     // no .so -> no problem
-    if (badSoPath.isEmpty()) return;
+    if (sm_Disabled || badSoPath.isEmpty()) return;
 
     QFileInfo fileInfo(badSoPath);
     QString badSoName = fileInfo.fileName();
@@ -112,7 +115,7 @@ DcpWrongApplets::unmarkAsMaybeBad(const QString& badSoPath)
 
     int& markCount = m_MaybeBadApplets[badSoName];
     if (markCount <= 0) {
-        qWarning("XXX Not marked plugin was unmarked: %s", qPrintable(badSoName));
+        qWarning("Not marked plugin was unmarked: %s", qPrintable(badSoName));
         return;
     }
     markCount--;
@@ -142,8 +145,10 @@ DcpWrongApplets* DcpWrongApplets::instance()
 
 void DcpWrongApplets::destroyInstance()
 {
-    delete sm_Instance;
-    sm_Instance = 0;
+    if (sm_Instance) {
+        delete sm_Instance;
+        sm_Instance = 0;
+    }
 }
 
 
@@ -158,4 +163,10 @@ bool DcpWrongApplets::isBad(const QString& badSoName)
     return m_BadApplets.contains(QFileInfo(badSoName).fileName());
 }
 
+
+void DcpWrongApplets::disable()
+{
+    sm_Disabled = true;
+    destroyInstance();
+}
 
