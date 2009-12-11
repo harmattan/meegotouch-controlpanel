@@ -41,5 +41,7 @@ QString DcpBrief::image() const
     return QString();
 }
 
-void DcpBrief::setToggle (bool) {}
+void DcpBrief::setToggle (bool) 
+{
+}
 

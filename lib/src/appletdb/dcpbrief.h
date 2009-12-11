@@ -3,18 +3,21 @@
 
 #include <QObject>
 #include <QString>
- /*!
-        \class DcpBrief                                                                                   
-        \brief The Brief of the applet                                                                   
-        \detais Brief is the descriptor of an applet for constructing the buttons that
-        launches the applet.                 
-        These buttons are displaying the applet name and the current value. 
-        Value must be provided and formatted by the applet implementation. 
-        Clicking on this widget displays the applet itself   
-        This class provides all the information from which a widget describing above can be constructed.                                                                                   
-    */               
-class DcpBrief: public QObject{
+
+/*!
+ * \class DcpBrief
+ * \brief The Brief of the applet
+ * \detais Brief is the descriptor of an applet for constructing the buttons 
+ *   that launches the applet. These buttons are displaying the applet name and
+ *   the current value.  Value must be provided and formatted by the applet
+ *   implementation.  Clicking on this widget displays the applet itself   This
+ *   class provides all the information from which a widget describing above can
+ *   be constructed.
+ */
+class DcpBrief: public QObject
+{
     Q_OBJECT
+
 public:
     virtual ~DcpBrief();
 
