@@ -1,54 +1,51 @@
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
+
 #ifndef DCPWIDGET_H
 #define DCPWIDGET_H
 
 #include <DuiWidget>
 /*!
-    \class DcpWidget
-    \details This widget is the base of all widgets of an applet, that act like a page
-    As an applet is one page, "multi-paged" applets can be implemented as replacing
-    main widgets on the only page as needed.
-    Each widget needs a referer, when back button clicked, which widget to "swich back"
-*/
+ * \class DcpWidget
+ * \details The base class for applet view
+ * 
+ * The control panel applets usually have one or more views containing the
+ * actual GUI of the applet. The DcpWidget is the base class for these views.
+ *
+ * TODO: 
+ *  1) To implement multi-view support.
+ *  2) This is a public header, it should not contain elements that are subject
+ *     of change, like inline functions and class members.
+ */
 class QGraphicsWidget;
 class DuiDialog;
-class DcpWidget: public DuiWidget {
-    Q_OBJECT
-public:
-    /*! \brief The constructor. No referer for default*/
-    DcpWidget(QGraphicsWidget *parent=0) : DuiWidget(parent), m_Referer(-1){}
-    virtual ~DcpWidget(){}
-    /*! \brief Sets the referer for the widget
-        \param widgetId the id of a DcpWidget to switch back to.
-     */
-    virtual void setReferer(int widgetId) {m_Referer = widgetId;}
-    
-    /*! \return the referer id of the widget*/
-    int referer() {return m_Referer;}
-    
-    /*! \brief This method is called when user press 'Back' in an applet page
-        \return true if back closes the applet and true if a referer widget
-         should be shown
-    */
-    virtual bool back() {
-	if (referer() > -1) { // emit the changewidget signal if there is a referer set
-	    emit changeWidget(referer());
-	    return false;
-	} else {
-   	    return true; // back is handled by main window
-                         // by default
-	}
-    }
 
-    virtual bool pagePans() const { return true; }
+class DcpWidget: public DuiWidget 
+{
+    Q_OBJECT
+
+public:
+    DcpWidget (QGraphicsWidget *parent=0);
+    virtual ~DcpWidget();
+
+    virtual void setReferer (int widgetId);
+    int referer();
+    
+    virtual bool back();
+    virtual bool pagePans() const;
 
 signals:
-    /*! \brief Emitted when the windget change is requested
-        \pagam widgetId the id of the requested widget instead of this one.
-        \details change can be requested by pressing a button on the widget, for example.
-        In that case, this signal is handled by DcpAppletPage: it destroys this widget and
-        creates and shows the new one at the given widgetId.
-    */
+    /*!
+     * \brief Emitted when the windget change is requested
+     * \param widgetId the id of the requested widget instead of this one.
+     * \details change can be requested by pressing a button on the widget, 
+     *   for example.
+     *
+     * In that case, this signal is handled by DcpAppletPage: it destroys this
+     * widget and creates and shows the new one at the given widgetId.
+     */
     void changeWidget(int widgetId);
+
 private:
     int m_Referer;
 };
