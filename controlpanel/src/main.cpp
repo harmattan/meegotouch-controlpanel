@@ -7,11 +7,35 @@
 #include <DcpRetranslator>
 #include <DuiApplication>
 #include "dcpwrongapplets.h"
+#include <sys/wait.h>
+
+
+void startSupervising()
+{
+    while (fork() > 0) {
+        // we are in parent process ( = supervisor )
+        // and a child was successfully started ( = gui )
+        QSet<QString> oldBadApplets = DcpWrongApplets::queryBadApplets();
+
+        // wait for child to terminate:
+        int result = 0;
+        wait (&result);
+
+        // check if there were additional applets marked as wrong
+        QSet<QString> newBadApplets = DcpWrongApplets::queryBadApplets();
+        newBadApplets.subtract(oldBadApplets);
+        if (newBadApplets.isEmpty()) {
+            exit (result);
+        }
+    }
+}
 
 int main(int argc, char *argv[])
 {
     DCP_FUNC_START
     qInstallMsgHandler(DcpDebug::dcpMsg);
+
+    startSupervising();
 
     // parse for -h option
     for (int i = 1; i < argc; ++i) {

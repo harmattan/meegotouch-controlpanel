@@ -36,19 +36,26 @@ static inline void unsetCrashTimeStamp(const QString& name)
 DcpWrongApplets::DcpWrongApplets()
 {
     // init cache:
+    m_BadApplets = queryBadApplets();
+}
+
+QSet<QString> DcpWrongApplets::queryBadApplets()
+{
+    QSet<QString> badApplets;
     DuiGConfItem dir(keyPath);
     QList<QString> wrongAppletNames = dir.listEntries();
     foreach (QString fullName, wrongAppletNames) {
         QString name = QFileInfo(fullName).fileName();
         QString fileName = QString(APPLET_LIBS)+ "/"+ name;
         if (fileTimeStamp(fileName) == crashTimeStamp(name)) {
-            qDebug() << "!!! Detected bad applet: " << name;
-            m_BadApplets.insert(name);
+            qDebug() << "Detected bad applet: " << name;
+            badApplets.insert(name);
         } else {
             qDebug() << "Giving the applet" << name << "another chance.";
             unsetCrashTimeStamp(name);
         }
     }
+    return badApplets;
 }
 
 DcpWrongApplets::~DcpWrongApplets()

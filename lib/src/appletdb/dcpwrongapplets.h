@@ -16,6 +16,7 @@ public:
     void unmarkAsMaybeBad(const QString& badSoPath);
     bool isBad(const QString& badSoPath);
     const QSet<QString>& badApplets() const;
+    static QSet<QString> queryBadApplets();
 
 private:
     DcpWrongApplets();
