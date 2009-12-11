@@ -61,14 +61,16 @@ DcpWrongApplets::markAsMaybeBad(const QString& badSoPath)
     QFileInfo fileInfo(badSoPath);
     QString badSoName = fileInfo.fileName();
 
+    // prevent marking bad or non existing applets (no more trouble with them)
+    if (m_BadApplets.contains(badSoName) || !fileInfo.exists()) return;
+
     if (!m_MaybeBadApplets.contains(badSoName)
         || m_MaybeBadApplets.value(badSoName) == 0)
     {
         QString timeStamp = fileTimeStamp(badSoPath);
         // .so does not exists -> no segfault can happen
         if (timeStamp.isEmpty()) {
-            qWarning("Could not find .so: %s", qPrintable(badSoPath));
-            return;
+            qWarning("Error getting timestamp: %s", qPrintable(badSoPath));
         }
         setCrashTimeStamp(badSoName, timeStamp);
         m_MaybeBadApplets.insert (badSoName, 1);
@@ -84,10 +86,17 @@ DcpWrongApplets::unmarkAsMaybeBad(const QString& badSoPath)
     // no .so -> no problem
     if (badSoPath.isEmpty()) return;
 
-    QString badSoName = QFileInfo(badSoPath).fileName();
-    Q_ASSERT(m_MaybeBadApplets.contains(badSoName));
+    QFileInfo fileInfo(badSoPath);
+    QString badSoName = fileInfo.fileName();
+
+    // prevent unmarking bad or non existing applets (no more trouble with them)
+    if (m_BadApplets.contains(badSoName) || !fileInfo.exists()) return;
+
     int& markCount = m_MaybeBadApplets[badSoName];
-    Q_ASSERT(markCount > 0);
+    if (markCount <= 0) {
+        qWarning("XXX Not marked plugin was unmarked: %s", qPrintable(badSoName));
+        return;
+    }
     markCount--;
 
     if (markCount == 0) {
