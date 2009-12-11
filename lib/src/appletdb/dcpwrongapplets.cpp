@@ -51,6 +51,17 @@ DcpWrongApplets::DcpWrongApplets()
     }
 }
 
+DcpWrongApplets::~DcpWrongApplets()
+{
+    QHash<QString, int>::const_iterator it;
+    for (it = m_MaybeBadApplets.begin(); it!=m_MaybeBadApplets.end(); it++)
+    {
+        if (it.value() > 0) {
+            qWarning() << "!!!" << it.key() << "were not unmarked:" << it.value();
+            unsetCrashTimeStamp(it.key());
+        }
+    }
+}
 
 void
 DcpWrongApplets::markAsMaybeBad(const QString& badSoPath)

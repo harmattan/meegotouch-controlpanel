@@ -6,6 +6,7 @@
 #include <DcpDebug>
 #include <DcpRetranslator>
 #include <DuiApplication>
+#include "dcpwrongapplets.h"
 
 int main(int argc, char *argv[])
 {
@@ -44,12 +45,18 @@ int main(int argc, char *argv[])
     QObject::connect(&app, SIGNAL(localeSettingsChanged()),
                      &retranslator, SLOT(retranslate()));
 
-    DuiApplicationWindow win;
+    DuiApplicationWindow* win = new DuiApplicationWindow;
     service->createStartPage();
-    win.show();
+    win->show();
     AppletErrorsDialog::showAppletErrors();
 
     DCP_FUNC_END
-    return app.exec();
+    int result = app.exec();
+
+    // destructors
+    delete win;
+    DcpWrongApplets::destroyInstance();
+
+    return result;
 }
 

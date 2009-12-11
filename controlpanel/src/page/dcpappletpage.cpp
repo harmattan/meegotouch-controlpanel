@@ -2,6 +2,7 @@
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 
 #include "dcpappletpage.h"
+#include "dcpwrongapplets.h"
 
 #include <DcpWidget>
 #include <DcpAppletIf>
@@ -18,10 +19,11 @@
 
 
 DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
-    DcpPage(), 
-	m_Metadata(metadata),
-    m_MainWidget(0), 
-	m_MissingLabel(0)
+    DcpPage(),
+    m_Metadata(metadata),
+    m_LoadedMetadata(0),
+    m_MainWidget(0),
+    m_MissingLabel(0)
 {
     setHandle(Pages::APPLET);
     setReferer(Pages::NOPAGE);
@@ -29,7 +31,9 @@ DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
 
 DcpAppletPage::~DcpAppletPage()
 {
+    if (m_LoadedMetadata) { dcpUnmarkAsMaybeBad(m_LoadedMetadata); }
     clearup();
+    qDebug() << "appletpage destroy";
 }
 
 void DcpAppletPage::createContent()
@@ -46,11 +50,14 @@ bool DcpAppletPage::hasError() {
     return m_MissingLabel; 
 }
 
-void 
+void
 DcpAppletPage::load()
 {
+    if (m_LoadedMetadata) { dcpUnmarkAsMaybeBad(m_LoadedMetadata); }
+    if (m_Metadata) { dcpMarkAsMaybeBad(m_Metadata); }
+
     m_LoadedMetadata = m_Metadata;
-   
+
     DCP_DEBUG ("*** m_Metadata = %p", m_Metadata);
     DCP_DEBUG ("*** command    = '%s'", 
             DCP_STR (m_Metadata->applicationCommand()));
@@ -126,7 +133,7 @@ void DcpAppletPage::changeWidget(int widgetId)
         remove (m_MainWidget);
     }
 
-    m_MainWidget = m_Metadata->applet()->constructWidget(widgetId);
+    m_MainWidget = m_LoadedMetadata->applet()->constructWidget(widgetId);
 
     // checks if applet does provide the widget
 
@@ -138,7 +145,7 @@ void DcpAppletPage::changeWidget(int widgetId)
     connect(m_MainWidget, SIGNAL(changeWidget(int)), this, SLOT(changeWidget(int)));
     append(m_MainWidget);
 
-    QVector<DuiAction*> vector = m_Metadata->applet()->viewMenuItems();
+    QVector<DuiAction*> vector = m_LoadedMetadata->applet()->viewMenuItems();
     if (!vector.isEmpty())
         for (int i = 0; i < vector.size(); i++)
             addAction(vector[i]);
@@ -153,8 +160,8 @@ void DcpAppletPage::setMetadata (DcpAppletMetadata *metadata)
 
 void DcpAppletPage::retranslateUi()
 {
-    if (m_Metadata && m_Metadata->applet()) {
-        setTitle(m_Metadata->applet()->title());
+    if (m_LoadedMetadata && m_LoadedMetadata->applet()) {
+        setTitle(m_LoadedMetadata->applet()->title());
     }
 }
 

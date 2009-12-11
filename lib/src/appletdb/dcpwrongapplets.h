@@ -19,6 +19,7 @@ public:
 
 private:
     DcpWrongApplets();
+    ~DcpWrongApplets();
     static DcpWrongApplets* sm_Instance;
 
     // some speed up caches to avoid unnecessery gconf access
