@@ -1,3 +1,6 @@
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
+
 #include "pagefactory.h"
 
 #include <DcpPage>
@@ -11,6 +14,9 @@
 
 #include <DuiApplication>
 #include <DuiAction>
+
+#define DEBUG
+#include "dcpdebug.h"
 
 
 PageFactory *PageFactory::sm_Instance = 0;
@@ -27,7 +33,9 @@ PageFactory* PageFactory::instance()
     return sm_Instance;
 }
 
-DcpPage* PageFactory::create(Pages::Handle &handle)
+DcpPage* 
+PageFactory::create (
+        Pages::Handle &handle)
 {
 //    qDebug() << "create page: " << handle.id << handle.param;
     DcpPage *page=0;
@@ -43,7 +51,10 @@ DcpPage* PageFactory::create(Pages::Handle &handle)
             break;
 
         case Pages::APPLET:
-            page = createAppletPage(DcpAppletDb::instance()->applet(handle.param));
+            Q_ASSERT (!handle.param.isEmpty());
+            DCP_DEBUG ("*** applet name = '%s'", DCP_STR (handle.param));
+            page = createAppletPage (
+			    DcpAppletDb::instance()->applet (handle.param));
             break;
 
         default:
@@ -81,8 +92,12 @@ DcpPage* PageFactory::createMainPage()
     return m_MainPage;
 }
 
-DcpPage* PageFactory::createAppletPage(DcpAppletMetadata *metadata)
+DcpPage *
+PageFactory::createAppletPage (
+		DcpAppletMetadata *metadata)
 {
+    DCP_DEBUG ("*** metadata = %p", metadata);
+
     if (!m_AppletPage) {
         m_AppletPage = new DcpAppletPage(metadata);
         initPage(m_AppletPage);

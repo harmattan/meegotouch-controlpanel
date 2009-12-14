@@ -14,7 +14,7 @@
 #include <DuiAction>
 #include <QtDebug>
 
-//#define DEBUG
+#define DEBUG
 #include "dcpdebug.h"
 
 
@@ -25,8 +25,8 @@ DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
     m_MainWidget(0),
     m_MissingLabel(0)
 {
-    setHandle(Pages::APPLET);
-    setReferer(Pages::NOPAGE);
+    setHandle  (Pages::APPLET, metadata->name());
+    setReferer (Pages::NOPAGE);
 }
 
 DcpAppletPage::~DcpAppletPage()
@@ -53,14 +53,22 @@ bool DcpAppletPage::hasError() {
 void
 DcpAppletPage::load()
 {
-    if (m_LoadedMetadata) { dcpUnmarkAsMaybeBad(m_LoadedMetadata); }
-    if (m_Metadata) { dcpMarkAsMaybeBad(m_Metadata); }
+    DCP_DEBUG ("------------------------------------------");
+    DCP_DEBUG ("*** this             = %p", this);
+    DCP_DEBUG ("*** m_Metadata       = %p", m_Metadata);
+    DCP_DEBUG ("*** m_LoadedMetadata = %p", m_LoadedMetadata);
+
+    if (m_LoadedMetadata) {
+        dcpUnmarkAsMaybeBad (m_LoadedMetadata); 
+    }
+
+    if (m_Metadata) {
+        dcpMarkAsMaybeBad (m_Metadata); 
+    }
 
     m_LoadedMetadata = m_Metadata;
 
-    DCP_DEBUG ("*** m_Metadata = %p", m_Metadata);
-    DCP_DEBUG ("*** command    = '%s'", 
-            DCP_STR (m_Metadata->applicationCommand()));
+    
     if (m_Metadata && m_Metadata->isValid()) {
         if (m_Metadata->applet()) {
             /*
@@ -118,11 +126,14 @@ void DcpAppletPage::reload()
         load();
     }
     DcpPage::reload();
-    setReferer(Pages::NOPAGE); // means: referer should be set by pagefactory to the last page
+    // means: referer should be set by pagefactory to the last page
+    setReferer(Pages::NOPAGE); 
 }
 
 void DcpAppletPage::back()
 {
+    DCP_DEBUG ("*** m_MainWidget = %p", m_MainWidget);
+
     if (!m_MainWidget || m_MainWidget->back())
         DcpPage::back();
 }
@@ -133,7 +144,7 @@ void DcpAppletPage::changeWidget(int widgetId)
         remove (m_MainWidget);
     }
 
-    m_MainWidget = m_LoadedMetadata->applet()->constructWidget(widgetId);
+    m_MainWidget = m_Metadata->applet()->constructWidget (widgetId);
 
     // checks if applet does provide the widget
 
@@ -142,7 +153,16 @@ void DcpAppletPage::changeWidget(int widgetId)
     }
     setPannableAreaInteractive(m_MainWidget->pagePans());
 
-    connect(m_MainWidget, SIGNAL(changeWidget(int)), this, SLOT(changeWidget(int)));
+    /*
+     * FIXME: Are we sure this is a new widget that we never saw before and
+     * never connected to its signals?
+     */
+    connect (m_MainWidget, SIGNAL (changeWidget(int)), 
+            this, SLOT(changeWidget(int)));
+
+    connect (m_MainWidget, SIGNAL (activatePluginByName (const QString &)),
+            m_Metadata, SLOT (activatePluginByName (const QString &)));
+
     append(m_MainWidget);
 
     QVector<DuiAction*> vector = m_LoadedMetadata->applet()->viewMenuItems();
@@ -155,6 +175,8 @@ void DcpAppletPage::changeWidget(int widgetId)
 
 void DcpAppletPage::setMetadata (DcpAppletMetadata *metadata)
 {
+    DCP_DEBUG ("************************************");
+    DCP_DEBUG ("*** setting %p", metadata);
     m_Metadata = metadata;
 }
 

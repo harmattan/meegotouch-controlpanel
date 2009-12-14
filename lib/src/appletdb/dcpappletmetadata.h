@@ -13,10 +13,9 @@ class DcpBrief;
 class DcpAppletMetadataPrivate;
 
 /*!
-    \brief DcpAppletMetadata contains all the information of the applet
-    \details This class provides all the info
-*/
-//class DcpAppletMetadata;
+ * \brief DcpAppletMetadata contains all the information of the applet
+ * \details This class provides all the info
+ */
 class DcpAppletMetadata : public QObject
 {
     Q_OBJECT
@@ -69,11 +68,13 @@ public:
     static bool orderLessThan(DcpAppletMetadata *meta1,
                               DcpAppletMetadata *meta2);
 signals:
-    void briefChanged();
+    void briefChanged ();
+    void activateApplet ();
 
 public slots:
-	void slotClicked();
-    void setToggle(bool checked);
+	void slotClicked ();
+    void setToggle (bool checked);
+    bool activatePluginByName (const QString &name) const;
 
 protected:
     DuiDesktopEntry* desktopEntry() const;

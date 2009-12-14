@@ -8,13 +8,15 @@
 #include "dcpappletmetadata_p.h"
 #include <DcpWidgetTypes>
 #include <DuiDesktopEntry>
+
+#include "dcpappletdb.h"
 #include "dcpappletloader.h"
 #include "dcpbrief.h"
 #include "dcpappletif.h"
 
 #include "dcpmostusedcounter.h"
 
-//#define DEBUG
+#define DEBUG
 #include "dcpdebug.h"
 
 enum  {
@@ -280,6 +282,38 @@ QString DcpAppletMetadata::toggleIconId() const
 
     // static way
     return desktopEntryStr(KeyToggleIconId);
+}
+
+/*!
+ * \brief A slot for the inter plugin activation.
+ * \param name The name of the other applet to activate.
+ * 
+ * \details This slot will activate an other applet. First the function will
+ * find the applet using the applet database then it will emit the
+ * activateApplet() signal on it.
+ *
+ * The signal will be grabbed by the DcpBriefComponent that will start and
+ * activate the other applet.
+ */
+bool 
+DcpAppletMetadata::activatePluginByName (
+        const QString &name) const
+{
+    DcpAppletMetadata  *otherApplet;
+
+    Q_UNUSED (name);
+    DCP_DEBUG ("Start on '%s'", DCP_STR (name));
+
+    otherApplet = DcpAppletDb::instance()->applet (name);
+
+    if (otherApplet) {
+        DCP_DEBUG ("Activating on metadata %p", otherApplet);
+        emit otherApplet->activateApplet ();
+        return true;
+    }
+        
+    DCP_WARNING ("Applet with name '%s' not found.", DCP_STR (name));
+    return false;
 }
 
 void DcpAppletMetadata::setToggle(bool checked)
