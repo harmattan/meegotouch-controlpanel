@@ -11,19 +11,24 @@ class DcpWrongApplets
 public:
     static DcpWrongApplets* instance();
     static void destroyInstance();
+    static void disable();
+    static bool isDisabled() { return sm_Disabled; }
 
     void markAsMaybeBad(const QString& badSoPath);
     void unmarkAsMaybeBad(const QString& badSoPath);
     bool isBad(const QString& badSoPath);
     const QSet<QString>& badApplets() const;
+    static QSet<QString> queryBadApplets();
 
 private:
     DcpWrongApplets();
+    ~DcpWrongApplets();
     static DcpWrongApplets* sm_Instance;
 
     // some speed up caches to avoid unnecessery gconf access
     QSet<QString> m_BadApplets;
     QHash<QString, int> m_MaybeBadApplets;
+    static bool sm_Disabled;
 };
 
 //convenience methods:
