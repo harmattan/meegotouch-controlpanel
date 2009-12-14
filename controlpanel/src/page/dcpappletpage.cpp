@@ -13,7 +13,7 @@
 #include <DuiAction>
 #include <QtDebug>
 
-//#define DEBUG
+#define DEBUG
 #include "dcpdebug.h"
 
 
@@ -52,8 +52,7 @@ DcpAppletPage::load()
     m_LoadedMetadata = m_Metadata;
    
     DCP_DEBUG ("*** m_Metadata = %p", m_Metadata);
-    DCP_DEBUG ("*** command    = '%s'", 
-            DCP_STR (m_Metadata->applicationCommand()));
+    
     if (m_Metadata && m_Metadata->isValid()) {
         if (m_Metadata->applet()) {
             /*
@@ -126,7 +125,7 @@ void DcpAppletPage::changeWidget(int widgetId)
         remove (m_MainWidget);
     }
 
-    m_MainWidget = m_Metadata->applet()->constructWidget(widgetId);
+    m_MainWidget = m_Metadata->applet()->constructWidget (widgetId);
 
     // checks if applet does provide the widget
 
@@ -135,7 +134,16 @@ void DcpAppletPage::changeWidget(int widgetId)
     }
     setPannableAreaInteractive(m_MainWidget->pagePans());
 
-    connect(m_MainWidget, SIGNAL(changeWidget(int)), this, SLOT(changeWidget(int)));
+    /*
+     * FIXME: Are we sure this is a new widget that we never saw before and
+     * never connected to its signals?
+     */
+    connect (m_MainWidget, SIGNAL (changeWidget(int)), 
+            this, SLOT(changeWidget(int)));
+
+    connect (m_MainWidget, SIGNAL (activatePluginByName (const QString &)),
+            m_Metadata, SLOT (activatePluginByName (const QString &)));
+
     append(m_MainWidget);
 
     QVector<DuiAction*> vector = m_Metadata->applet()->viewMenuItems();

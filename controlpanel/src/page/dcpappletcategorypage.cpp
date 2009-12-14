@@ -49,7 +49,9 @@ void DcpAppletCategoryPage::loadContent()
     m_LoadedAppletCategory = appletCategory();
 }
 
-void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata, bool odd)
+void 
+DcpAppletCategoryPage::addComponent(
+		DcpAppletMetadata *metadata, bool odd)
 {
     DcpBriefComponent *component = new DcpBriefComponent(metadata, m_Category);
 

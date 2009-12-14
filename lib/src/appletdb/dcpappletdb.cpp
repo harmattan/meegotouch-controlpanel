@@ -1,7 +1,12 @@
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #include "dcpappletdb.h"
 #include "dcpappletmetadata.h"
 #include <QDir>
 #include <QDebug>
+
+#define DEBUG
+#include "dcpdebug.h"
 
 const QString APPLETFILTER = "*.desktop";
 DcpAppletDb *DcpAppletDb::sm_Instance=0;
@@ -60,6 +65,7 @@ DcpAppletDb::addFile(const QString& filename)
              m_HasUniqueMetadata = true;
 
         }
+	DCP_DEBUG ("Adding applet name '%s'", DCP_STR (metadata->name()));
         m_AppletsByName[metadata->name()] = metadata;
         m_AppletsByFile[filename] = metadata;
         return true;
