@@ -6,6 +6,10 @@
 
 class QGraphicsLinearLayout;
 
+/*
+ * FIXME: This is a public hader, it should not contain inline functions and
+ * class members that are suject to change.
+ */
 class DcpPage : public DuiApplicationPage
 {
     Q_OBJECT
@@ -16,15 +20,15 @@ public:
     virtual void createContent();
     virtual void connectSignals();
     virtual void disconnectSignals();
-    Pages::Handle handle() const {return m_Handle;}
-    virtual void setHandle(const Pages::Handle &handle) {m_Handle = handle;}
-    virtual void setHandle(Pages::Id id, const QString &param="")
-        {m_Handle.id = id; m_Handle.param = param;}
-    Pages::Handle referer() const {return m_Referer;}
 
-    void setReferer(const Pages::Handle &referer) {m_Referer = referer;}
-    virtual void setReferer(Pages::Id id, const QString &param="")
-        {m_Referer.id = id; m_Referer.param = param;}
+    Pages::Handle handle() const;
+    virtual void setHandle (const Pages::Handle &handle);
+    virtual void setHandle (Pages::Id id, const QString &param);
+
+    Pages::Handle referer() const;
+    void setReferer(const Pages::Handle &referer);
+    virtual void setReferer(Pages::Id id, const QString &param="");
+    
     QGraphicsLinearLayout *mainLayout();
 
     virtual void reload();

@@ -44,7 +44,16 @@ signals:
      * In that case, this signal is handled by DcpAppletPage: it destroys this
      * widget and creates and shows the new one at the given widgetId.
      */
-    void changeWidget(int widgetId);
+    void changeWidget (int widgetId);
+
+    /*!
+     * \brief Should be activated to request the activation of an applet
+     * \param name The name of the applet that should be activated
+     *
+     * This signal should be emitted by the plugin when the activation of an
+     * other applet is requested. 
+     */
+    bool activatePluginByName (const QString &name) const;
 
 private:
     int m_Referer;

@@ -1,7 +1,12 @@
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #include "dcpappletdb.h"
 #include "dcpappletmetadata.h"
 #include <QDir>
 #include <QDebug>
+
+#define DEBUG
+#include "dcpdebug.h"
 
 const QString APPLETFILTER = "*.desktop";
 DcpAppletDb *DcpAppletDb::sm_Instance=0;
@@ -60,6 +65,7 @@ DcpAppletDb::addFile(const QString& filename)
              m_HasUniqueMetadata = true;
 
         }
+	DCP_DEBUG ("Adding applet name '%s'", DCP_STR (metadata->name()));
         m_AppletsByName[metadata->name()] = metadata;
         m_AppletsByFile[filename] = metadata;
         return true;
@@ -145,11 +151,20 @@ DcpAppletMetadataList DcpAppletDb::listMostUsed()
    return mostUsed.mid(0, DcpApplet::MaxMostUsed);
 }
 
-DcpAppletMetadata* DcpAppletDb::applet(const QString& name)
+/*!
+ * \brief Returns the applet found in the databse by its name.
+ *
+ * FIXME: This is actually a localized name, that is changed when the language
+ * settings are changed. This might cause some problems in the future.
+ */
+DcpAppletMetadata *
+DcpAppletDb::applet (const QString& name)
 {
     DcpAppletMetadata *metadata = m_AppletsByName.value(name, 0);
+
     if (!metadata)
         qWarning() << "No such applet:" << name;
+
     return metadata;
 };
 

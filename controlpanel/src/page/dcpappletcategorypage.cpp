@@ -11,8 +11,8 @@ DcpAppletCategoryPage::DcpAppletCategoryPage(const QString &appletCategory) :
 		DcpCategoryPage(),
         m_AppletCategory(appletCategory)
 {
-    setHandle(Pages::APPLETCATEGORY);
-    setReferer(Pages::MAIN);
+    setHandle  (Pages::APPLETCATEGORY, "DcpAppletCategoryPage");
+    setReferer (Pages::MAIN);
 }
 
 DcpAppletCategoryPage::~DcpAppletCategoryPage()
@@ -49,7 +49,9 @@ void DcpAppletCategoryPage::loadContent()
     m_LoadedAppletCategory = appletCategory();
 }
 
-void DcpAppletCategoryPage::addComponent(DcpAppletMetadata *metadata, bool odd)
+void 
+DcpAppletCategoryPage::addComponent(
+		DcpAppletMetadata *metadata, bool odd)
 {
     DcpBriefComponent *component = new DcpBriefComponent(metadata, m_Category);
 

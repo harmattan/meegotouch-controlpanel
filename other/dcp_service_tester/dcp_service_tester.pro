@@ -1,4 +1,4 @@
-include(../lib/dcpconfig.pri)
+include(../../lib/dcpconfig.pri)
 TEMPLATE = app
 TARGET = ./dcp_service_tester
 DEPENDPATH += .

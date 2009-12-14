@@ -30,7 +30,7 @@ protected slots:
 private:
     void clearup();
     void load();
-    bool loadApplet();
+    //bool loadApplet();
 
     DcpAppletMetadata *m_Metadata;
     DcpAppletMetadata *m_LoadedMetadata;

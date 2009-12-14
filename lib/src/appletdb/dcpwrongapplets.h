@@ -6,6 +6,10 @@
 #include <QString>
 
 /** class is internal, handles wrong applet markings and queries */
+/*
+ * TODO: We need a tool to temporary turn this protection off, because it makes
+ * the debugging very hard.
+ */
 class DcpWrongApplets
 {
 public:

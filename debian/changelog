@@ -1,8 +1,14 @@
 duicontrolpanel (0.6.1) unstable; urgency=low
 
   * bump up
+  * Fixes: applet brief does not get the new toggle state
+  * Implements: localization with qtTrid instead of DuiLocale
+  * Implements: detect and prohibit wrong applets
+  * Implements: starting external applications instead of loading a
+    plugin
+  * Implements: inter plugin activation
 
- -- Manner Robert <robert.manner@blumsoft.eu>  Thu, 10 Dec 2009 13:59:00 +0100
+ -- Manner Robert <robert.manner@blumsoft.eu>  Mon, 14 Dec 2009 16:10:04 +0100
 
 duicontrolpanel (0.6.0) unstable; urgency=low
 
