@@ -26,7 +26,7 @@
 DcpMainPage::DcpMainPage() :
 	DcpPage(), m_RecentlyComp(0)
 {
-    setHandle(Pages::MAIN);
+    setHandle (Pages::MAIN, "MainPage");
     setReferer(Pages::NOPAGE);
     setEscapeButtonMode(DuiEscapeButtonPanelModel::CloseMode);
 }

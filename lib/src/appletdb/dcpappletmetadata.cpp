@@ -307,6 +307,7 @@ DcpAppletMetadata::activatePluginByName (
     otherApplet = DcpAppletDb::instance()->applet (name);
 
     if (otherApplet) {
+        DCP_DEBUG ("Activating on metadata %p", otherApplet);
         emit otherApplet->activateApplet ();
         return true;
     }

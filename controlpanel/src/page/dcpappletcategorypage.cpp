@@ -11,8 +11,8 @@ DcpAppletCategoryPage::DcpAppletCategoryPage(const QString &appletCategory) :
 		DcpCategoryPage(),
         m_AppletCategory(appletCategory)
 {
-    setHandle(Pages::APPLETCATEGORY);
-    setReferer(Pages::MAIN);
+    setHandle  (Pages::APPLETCATEGORY, "DcpAppletCategoryPage");
+    setReferer (Pages::MAIN);
 }
 
 DcpAppletCategoryPage::~DcpAppletCategoryPage()

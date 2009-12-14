@@ -17,9 +17,11 @@ DcpBriefComponent::DcpBriefComponent(
     setMattiID ("DcpBriefComponent::" + logicalId + "::" + 
 		    metadata->category() + "::" + metadata->name());
 
-    connect (m_BriefWidget, SIGNAL(clicked()), this, SLOT(switchToSubPage()));
+    connect (m_BriefWidget, SIGNAL (clicked()), 
+		    this, SLOT (switchToSubPage()));
+
     connect (metadata, SIGNAL (activateApplet()), 
-		    this, SLOT(switchToSubPage()));
+		    this, SLOT (switchToSubPage()));
 }
 
 DcpBriefComponent::~DcpBriefComponent()
@@ -38,6 +40,6 @@ QString DcpBriefComponent::mattiID()
 
 void DcpBriefComponent::setMattiID(const QString &mattiID)
 {
-    m_mattiID=mattiID;
+    m_mattiID = mattiID;
 }
 
