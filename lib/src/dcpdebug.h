@@ -67,11 +67,24 @@
 
 #define DCP_STR(qstring) qstring.toLatin1().constData()
 
-namespace DcpDebug 
+namespace DcpDebug
 {
+    /*! \brief Prints out a message with the current time. */
     void time(const QString& msg = "");
+
+    /*! \brief Marks the start of msg.
+     * Can be used with DcpDebug::end to easily debug how long time
+     * it took between start and end. */
     void start(const QString& msg = "");
+
+    /*! \brief Marks the end of msg.
+     * \details DcpDebug::start marks the start, it can be used
+     * to easily debug how long time it took between start and end. */
     void end(const QString& msg = "");
+
+    /*! \brief message handler for qDebug
+     * \details this function can be installed as a message handler for
+     * for debugging with Qt way, using qDebug() */
     void dcpMsg(QtMsgType type, const char *msg);
 
     void dcpPrintMsg (
@@ -88,9 +101,12 @@ inline void DcpDebug::end(const QString& msg = "") {}
 
 #else
 
+/*! \brief convenience macros for debugging how long time a function takes.
+ * \details The start and the end of the function should be marked with it. */
 #define DCP_FUNC_START DcpDebug::start(Q_FUNC_INFO);
 #define DCP_FUNC_END DcpDebug::end(Q_FUNC_INFO);
 
 #endif
 
 #endif // DCPDEBUG_H
+

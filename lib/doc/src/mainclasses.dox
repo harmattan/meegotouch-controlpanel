@@ -1,0 +1,33 @@
+/*! \page mainclasses Main Classes
+
+Classes binary plugins needs to implement:
+<ul>
+<li>DcpAppletIf
+<li>DcpWidget
+<li>DcpBrief
+</ul>
+
+Controling duicontrolpanel:
+<ul>
+<li>DuiControlPanelIf
+</ul>
+
+Widgets:
+<ul>
+<li>DcpBriefWidget
+<li>DcpButton
+<li>DcpButtonImage
+<li>DcpButtonToggle
+<li>DcpButtonAlign
+</ul>
+
+Accessing plugins:
+<ul>
+<li>DcpAppletDb
+<li>DcpAppletLoader
+<li>DcpAppletMetadata
+</ul>
+
+
+*/
+

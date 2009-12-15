@@ -4,7 +4,7 @@
 #include <DuiGConfItem>
 #include <DuiApplication>
 
-// copied from widgetsgallery, makes translation reload automatically
+//! \brief copied from widgetsgallery, makes translation reload
 void 
 DcpRetranslator::retranslate()
 {
