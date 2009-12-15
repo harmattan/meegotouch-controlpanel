@@ -9,6 +9,7 @@
 class DuiDesktopEntry;
 class DcpAppletIf;
 class DcpBrief;
+class DcpWidget;
 
 class DcpAppletMetadataPrivate;
 
@@ -69,12 +70,14 @@ public:
                               DcpAppletMetadata *meta2);
 signals:
     void briefChanged ();
-    void activateApplet ();
+    void activateApplet (
+            const QString  refererName,
+            int            refererId);
 
 public slots:
 	void slotClicked ();
     void setToggle (bool checked);
-    bool activatePluginByName (const QString &name) const;
+    bool activatePluginByName (int refererID, const QString &name) const;
 
 protected:
     DuiDesktopEntry* desktopEntry() const;

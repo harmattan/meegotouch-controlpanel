@@ -1,8 +1,16 @@
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
+
 #include "dcpcomponent.h"
+
 #include <QtDebug>
 #include <QGraphicsLayout>
 
-DcpComponent::DcpComponent(DcpCategory *category, const QString& title,
+//#define DEBUG
+#include "dcpdebug.h"
+
+DcpComponent::DcpComponent (
+		DcpCategory *category, const QString& title,
                            QGraphicsWidget *parent,
                            const QString& logicalId) :
 				DuiWidget(parent),
@@ -20,7 +28,17 @@ DcpComponent* DcpComponent::child(int i) const
 
 void DcpComponent::switchToSubPage()
 {
-    emit openSubPage(subPage());
+    DCP_DEBUG ("Emitting openSubPage()");
+    emit openSubPage (subPage());
+}
+
+void DcpComponent::switchToSubPageWithReferer (
+		const QString   refererName,
+		int             refererId)
+{
+    DCP_DEBUG ("Emitting openSubPageWithReferer "
+		    "(const Pages::Handle &, const QString &, int)");
+    emit openSubPageWithReferer (subPage(), refererName, refererId);
 }
 
 void DcpComponent::onOrientationChange(const Dui::Orientation& orientation)

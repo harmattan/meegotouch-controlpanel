@@ -5,7 +5,8 @@
 #include <QGraphicsLinearLayout>
 #include <DuiSceneManager>
 
-
+#define DEBUG
+#include "../../../lib/src/dcpdebug.h"
 /*!
  * \class DcpCategoryComponent
  * \brief A component for the recently used applets
@@ -46,6 +47,8 @@ void DcpCategoryComponent::createContents()
 
     connect(m_AppletButtons, SIGNAL(openSubPage(Pages::Handle)),
             this, SIGNAL(openSubPage(Pages::Handle)));
+    connect(m_AppletButtons, SIGNAL(openSubPageWithReferer(const Pages::Handle &, const QString &, int)),
+            this, SIGNAL(openSubPageWithReferer(const Pages::Handle &, const QString &, int)));
 
     m_Container->setCentralWidget(m_AppletButtons);
 

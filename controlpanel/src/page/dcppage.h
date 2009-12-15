@@ -23,7 +23,7 @@ public:
 
     Pages::Handle handle() const;
     virtual void setHandle (const Pages::Handle &handle);
-    virtual void setHandle (Pages::Id id, const QString &param);
+    virtual void setHandle (Pages::Id id, const QString &param="");
 
     Pages::Handle referer() const;
     void setReferer(const Pages::Handle &referer);
@@ -39,6 +39,7 @@ public slots:
 
 signals:
     void openSubPage(Pages::Handle handle);
+    void openSubPageWithReferer (const Pages::Handle &, const QString &, int);
 
 protected:
     void append (QGraphicsWidget* widget);

@@ -9,7 +9,7 @@
 #include <DuiApplication>
 #include <DuiApplicationWindow>
 
-#define DEBUG
+//#define DEBUG
 #include "dcpdebug.h"
 
 
@@ -91,6 +91,8 @@ DcpPage::handle () const
 
 /*!
  *
+ * Please note that we can not allow a handle that has no name in it, because
+ * we have to iodentify the 
  */
 void 
 DcpPage::setHandle (
@@ -98,9 +100,10 @@ DcpPage::setHandle (
 {
     m_Handle = handle;
     
-    DCP_DEBUG ("*** m_Handle.id    = %d", m_Handle.id);
-    DCP_DEBUG ("*** m_Handle.param = '%s'", DCP_STR (m_Handle.param));
-    Q_ASSERT (!m_Handle.param.isEmpty());
+    DCP_DEBUG ("*** m_Handle  = '%s'/%d", 
+            DCP_STR (m_Handle.param), m_Handle.id);
+    DCP_DEBUG ("*** m_Referer = '%s'/%d", 
+            DCP_STR (m_Referer.param), m_Referer.id);
 }
 
 void 
@@ -111,9 +114,10 @@ DcpPage::setHandle (
     m_Handle.id = id; 
     m_Handle.param = param;
     
-    DCP_DEBUG ("*** m_Handle.id    = %d", m_Handle.id);
-    DCP_DEBUG ("*** m_Handle.param = '%s'", DCP_STR (m_Handle.param));
-    Q_ASSERT (!m_Handle.param.isEmpty());
+    DCP_DEBUG ("*** m_Handle  = '%s'/%d", 
+            DCP_STR (m_Handle.param), m_Handle.id);
+    DCP_DEBUG ("*** m_Referer = '%s'/%d", 
+            DCP_STR (m_Referer.param), m_Referer.id);
 }
 
 Pages::Handle 
@@ -127,13 +131,16 @@ DcpPage::setReferer (
         const Pages::Handle &referer) 
 {
     m_Referer = referer;
-    
-    if (m_Referer.param.isEmpty()) {
-        m_Referer.param = m_Handle.param;
-    }
-
-    DCP_DEBUG ("*** m_Referer.id    = %d", m_Referer.id);
-    DCP_DEBUG ("*** m_Referer.param = '%s'", DCP_STR (m_Referer.param));
+   
+    DCP_DEBUG ("*** m_Handle  = '%s'/%d", 
+            DCP_STR (m_Handle.param), m_Handle.id);
+    DCP_DEBUG ("*** m_Referer = '%s'/%d", 
+            DCP_STR (m_Referer.param), m_Referer.id);
+    #if 0
+    Q_ASSERT (
+            m_Handle.id == Pages::NOPAGE ||
+            m_Handle.id != m_Referer.id || m_Handle.param != m_Referer.param);
+    #endif
 }
 
 void 
@@ -144,19 +151,18 @@ DcpPage::setReferer (
     m_Referer.id = id; 
     m_Referer.param = param;
     
-    if (m_Referer.param.isEmpty()) {
-        m_Referer.param = m_Handle.param;
-    }
-    DCP_DEBUG ("*** m_Referer.id    = %d", m_Referer.id);
-    DCP_DEBUG ("*** m_Referer.param = '%s'", DCP_STR (m_Referer.param));
+    DCP_DEBUG ("*** m_Handle  = '%s'/%d", 
+            DCP_STR (m_Handle.param), m_Handle.id);
+    DCP_DEBUG ("*** m_Referer = '%s'/%d", 
+            DCP_STR (m_Referer.param), m_Referer.id);
 }
 
 void 
 DcpPage::back ()
 {
-    DCP_DEBUG ("DcpPage::back");
-    DCP_DEBUG ("*** m_Referer.id    = %d", m_Referer.id);
-    DCP_DEBUG ("*** m_Referer.param = '%s'", DCP_STR (m_Referer.param));
+    DCP_DEBUG ("Emitting openSubPage('%s'/%d)",
+            DCP_STR (referer().param),
+            referer().id);
     emit openSubPage (referer());
 }
 

@@ -11,7 +11,7 @@ DcpAppletCategoryPage::DcpAppletCategoryPage(const QString &appletCategory) :
 		DcpCategoryPage(),
         m_AppletCategory(appletCategory)
 {
-    setHandle  (Pages::APPLETCATEGORY, "DcpAppletCategoryPage");
+    setHandle  (Pages::APPLETCATEGORY);
     setReferer (Pages::MAIN);
 }
 
@@ -58,6 +58,8 @@ DcpAppletCategoryPage::addComponent(
     component->setSubPage(Pages::APPLET, metadata->name());
     connect(component, SIGNAL(openSubPage(Pages::Handle)),
             this, SIGNAL(openSubPage(Pages::Handle)));
+    connect(component, SIGNAL(openSubPageWithReferer(const Pages::Handle &, const QString &, int)),
+            this, SIGNAL(openSubPageWithReferer(const Pages::Handle &, const QString &, int)));
     if (odd)
         m_Category->add(component);
     else

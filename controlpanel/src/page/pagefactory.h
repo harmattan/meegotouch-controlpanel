@@ -15,12 +15,17 @@ class PageFactory : public QObject
     Q_OBJECT
 public:
     static PageFactory *instance();
-    DcpPage* create (Pages::Handle &handle);
+    DcpPage* create (const Pages::Handle &handle);
     DcpPage* currentPage(){return m_CurrentPage;}
     void initPage(DcpPage* page);
 
 public slots:
-    void changePage(Pages::Handle handle);
+    void changePage (Pages::Handle handle);
+
+    void changePageWithReferer (
+		    const Pages::Handle &handle, 
+		    const QString       &refererName,
+		    int                  refererId);
 
 protected:
     PageFactory();

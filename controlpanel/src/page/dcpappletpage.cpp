@@ -51,13 +51,8 @@ bool DcpAppletPage::hasError() {
 }
 
 void
-DcpAppletPage::load()
+DcpAppletPage::load ()
 {
-    DCP_DEBUG ("------------------------------------------");
-    DCP_DEBUG ("*** this             = %p", this);
-    DCP_DEBUG ("*** m_Metadata       = %p", m_Metadata);
-    DCP_DEBUG ("*** m_LoadedMetadata = %p", m_LoadedMetadata);
-
     if (m_LoadedMetadata) {
         dcpUnmarkAsMaybeBad (m_LoadedMetadata); 
     }
@@ -160,8 +155,8 @@ void DcpAppletPage::changeWidget(int widgetId)
     connect (m_MainWidget, SIGNAL (changeWidget(int)), 
             this, SLOT(changeWidget(int)));
 
-    connect (m_MainWidget, SIGNAL (activatePluginByName (const QString &)),
-            m_Metadata, SLOT (activatePluginByName (const QString &)));
+    connect (m_MainWidget, SIGNAL (activatePluginByName (int, const QString &)),
+            m_Metadata, SLOT (activatePluginByName (int, const QString &)));
 
     append(m_MainWidget);
 
