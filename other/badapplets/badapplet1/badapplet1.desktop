@@ -1,0 +1,17 @@
+[Desktop Entry]
+Type=DUIApplet
+Name=BadApplet1
+Icon=
+Exec=
+X-logical-id=qtn_sett_main_display
+X-translation-catalog=duisettings
+
+[DUI]
+X-DUIApplet-Applet=libdcpbadapplet1.so
+X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
+X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
+
+[DCP]
+Category= Look & Feel
+Order=4
+
