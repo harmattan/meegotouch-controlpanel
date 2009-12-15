@@ -35,13 +35,20 @@ PageFactory* PageFactory::instance()
 
 DcpPage* 
 PageFactory::create (
-        Pages::Handle &handle)
+        const Pages::Handle &handle)
 {
-//    qDebug() << "create page: " << handle.id << handle.param;
     DcpPage *page=0;
 
+    DCP_DEBUG ("Creating page '%s'/%d", DCP_STR (handle.param), handle.id);
     switch (handle.id) {
+        case Pages::NOPAGE:
 	    case Pages::MAIN:
+            /*
+             * Creating the main page. If the ID is is Pages::NOPAGE we also
+             * create the main page, for which we can handle pages that has no
+             * valid referer. These pages are going to open the main page when
+             * closed.
+             */
             page = createMainPage();
             break;
 
@@ -51,18 +58,16 @@ PageFactory::create (
             break;
 
         case Pages::APPLET:
-            Q_ASSERT (!handle.param.isEmpty());
-            DCP_DEBUG ("*** applet name = '%s'", DCP_STR (handle.param));
             page = createAppletPage (
 			    DcpAppletDb::instance()->applet (handle.param));
+            if (page)
+                page->setHandle (handle);
             break;
 
         default:
-        {
             Q_ASSERT(handle.id > Pages::CATEGORY_PAGEID_START
                      && handle.id < Pages::CATEGORY_PAGEID_END);
             page = createAppletCategoryPage(handle.id);
-        }
     }
 
     if (page) {
@@ -73,9 +78,11 @@ PageFactory::create (
 
 		if (page->isContentCreated())
             page->reload();
-
+        
+        #if 0
         if (m_CurrentPage && page->referer().id == Pages::NOPAGE)
                 page->setReferer(m_CurrentPage->handle());
+        #endif
 
         m_CurrentPage = page;
     }
@@ -96,8 +103,6 @@ DcpPage *
 PageFactory::createAppletPage (
 		DcpAppletMetadata *metadata)
 {
-    DCP_DEBUG ("*** metadata = %p", metadata);
-
     if (!m_AppletPage) {
         m_AppletPage = new DcpAppletPage(metadata);
         initPage(m_AppletPage);
@@ -106,7 +111,7 @@ PageFactory::createAppletPage (
     }
 
     // page has to be loaded to know if the applet provides page or not
-    if (m_AppletPage->isContentCreated()){
+    if (m_AppletPage->isContentCreated()) {
         m_AppletPage->reload();
     } else {
         m_AppletPage->createContent();
@@ -136,22 +141,56 @@ DcpPage* PageFactory::createAppletCategoryPage(Pages::Id id)
     return m_AppletCategoryPage;
 }
 
-void PageFactory::changePage(Pages::Handle handle)
+void 
+PageFactory::changePage (
+        Pages::Handle handle)
 {
-    DcpPage *page = create(handle);
+    DcpPage *page = create (handle);
+
+    DCP_DEBUG ("Destination");
     if (page) {
-        page->appear(DuiSceneWindow::KeepWhenDone);
+        page->appear (DuiSceneWindow::KeepWhenDone);
     }
 }
 
-void PageFactory::initPage(DcpPage* page)
+void 
+PageFactory::changePageWithReferer (
+        const Pages::Handle  &handle,
+        const QString        &refererName,
+        int                   refererId)
 {
-    connect(page, SIGNAL(openSubPage(Pages::Handle)), this, SLOT(changePage(Pages::Handle)));
+    DCP_DEBUG ("Creating page '%s'/%d for referer '%s'/%d",
+            DCP_STR (handle.param), handle.id,
+            DCP_STR (refererName), refererId);
+
+    DcpPage *page = create (handle);
+
+    if (page) {
+        if (refererId != -1) {
+            page->setReferer ((Pages::Id) refererId, refererName);
+        }
+        page->appearNow (DuiSceneWindow::KeepWhenDone);
+    }
+}
+
+void 
+PageFactory::initPage (
+        DcpPage* page)
+{
+    connect (page, SIGNAL(openSubPage (Pages::Handle)), 
+            this, SLOT(changePage(Pages::Handle)));
+
+    connect (
+            page, 
+            SIGNAL (openSubPageWithReferer(const Pages::Handle &, const QString &, int)), 
+            this, 
+            SLOT (changePageWithReferer(const Pages::Handle &, const QString &, int)));
 
     if (page != m_MainPage) {
         // closeAction TODO XXX on language change, move into to the page?
         DuiAction *quitAction = new DuiAction(qtTrId(DcpMain::quitMenuItemTextId), page);
         quitAction->setLocation((DuiAction::Location)4 /* FIXME DuiAction::ApplicationMenu */);
+        
         connect(quitAction, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
 
         // Add actions to page

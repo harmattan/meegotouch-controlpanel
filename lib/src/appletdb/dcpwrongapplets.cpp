@@ -43,7 +43,8 @@ DcpWrongApplets::DcpWrongApplets()
 QSet<QString> DcpWrongApplets::queryBadApplets()
 {
     QSet<QString> badApplets;
-    if (sm_Disabled) return badApplets;
+    if (sm_Disabled) 
+	    return badApplets;
 
     DuiGConfItem dir(keyPath);
     QList<QString> wrongAppletNames = dir.listEntries();
@@ -102,10 +103,12 @@ DcpWrongApplets::markAsMaybeBad(const QString& badSoPath)
 
 
 void
-DcpWrongApplets::unmarkAsMaybeBad(const QString& badSoPath)
+DcpWrongApplets::unmarkAsMaybeBad(
+		const QString& badSoPath)
 {
     // no .so -> no problem
-    if (sm_Disabled || badSoPath.isEmpty()) return;
+    if (sm_Disabled || badSoPath.isEmpty()) 
+	    return;
 
     QFileInfo fileInfo(badSoPath);
     QString badSoName = fileInfo.fileName();
@@ -127,23 +130,31 @@ DcpWrongApplets::unmarkAsMaybeBad(const QString& badSoPath)
     }
 }
 
-void dcpMarkAsMaybeBad (const DcpAppletMetadata* metadata)
+void
+dcpMarkAsMaybeBad (
+		const DcpAppletMetadata* metadata)
 {
     DcpWrongApplets::instance()->markAsMaybeBad (metadata->fullBinary());
 }
 
-void dcpUnmarkAsMaybeBad (const DcpAppletMetadata* metadata)
+void 
+dcpUnmarkAsMaybeBad (
+		const DcpAppletMetadata* metadata)
 {
     DcpWrongApplets::instance()->unmarkAsMaybeBad (metadata->fullBinary());
 }
 
-DcpWrongApplets* DcpWrongApplets::instance()
+DcpWrongApplets *
+DcpWrongApplets::instance()
 {
-    if (!sm_Instance) sm_Instance = new DcpWrongApplets();
+    if (!sm_Instance) 
+	    sm_Instance = new DcpWrongApplets();
+
     return sm_Instance;
 }
 
-void DcpWrongApplets::destroyInstance()
+void 
+DcpWrongApplets::destroyInstance()
 {
     if (sm_Instance) {
         delete sm_Instance;
@@ -152,19 +163,22 @@ void DcpWrongApplets::destroyInstance()
 }
 
 
-const QSet<QString>& DcpWrongApplets::badApplets() const
+const QSet<QString> &
+DcpWrongApplets::badApplets() const
 {
     return m_BadApplets;
 }
 
 
-bool DcpWrongApplets::isBad(const QString& badSoName)
+bool 
+DcpWrongApplets::isBad (
+		const QString& badSoName)
 {
     return m_BadApplets.contains(QFileInfo(badSoName).fileName());
 }
 
 
-void DcpWrongApplets::disable()
+void DcpWrongApplets::disable ()
 {
     sm_Disabled = true;
     destroyInstance();

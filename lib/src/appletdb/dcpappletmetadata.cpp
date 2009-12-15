@@ -297,18 +297,23 @@ QString DcpAppletMetadata::toggleIconId() const
  */
 bool 
 DcpAppletMetadata::activatePluginByName (
+        int            refererID,
         const QString &name) const
 {
     DcpAppletMetadata  *otherApplet;
 
-    Q_UNUSED (name);
-    DCP_DEBUG ("Start on '%s'", DCP_STR (name));
+    DCP_DEBUG ("Want to start '%s' by '%s'/%d", 
+            DCP_STR (name),
+            DCP_STR (this->name()),
+            refererID);
 
     otherApplet = DcpAppletDb::instance()->applet (name);
-
     if (otherApplet) {
-        DCP_DEBUG ("Activating on metadata %p", otherApplet);
-        emit otherApplet->activateApplet ();
+        DCP_DEBUG ("Emitting %p->activateApplet (%s, %d)", 
+                otherApplet,
+                DCP_STR (this->name()), 
+                refererID);
+        emit otherApplet->activateApplet (this->name(), refererID);
         return true;
     }
         

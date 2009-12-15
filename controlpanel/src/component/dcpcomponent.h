@@ -31,12 +31,17 @@ public:
     virtual const QString logicalId() {return m_LogicalId;}
     void setLogicalId(const QString& logicalId) {m_LogicalId = logicalId;}
 protected:
-    virtual void createContents()=0;
+    virtual void createContents() = 0;
+
 protected slots:
-    virtual void switchToSubPage();
+    virtual void switchToSubPage ();
+    virtual void switchToSubPageWithReferer (
+		    const QString refererName, 
+		    int           refererId);
 
 signals:
-    void openSubPage(const Pages::Handle&);
+    void openSubPage (const Pages::Handle &);
+    void openSubPageWithReferer (const Pages::Handle &, const QString &, int);
 
 public slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation);

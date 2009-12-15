@@ -12,6 +12,8 @@
 #include "dcpcategorycomponent.h"
 #include "maintranslations.h"
 
+#define DEBUG
+#include "../../../lib/src/dcpdebug.h"
 /*!
  * \class DcpMainPage
  * \brief The main page of duicontrolpanel.
@@ -26,7 +28,7 @@
 DcpMainPage::DcpMainPage() :
 	DcpPage(), m_RecentlyComp(0)
 {
-    setHandle (Pages::MAIN, "MainPage");
+    setHandle (Pages::MAIN);
     setReferer(Pages::NOPAGE);
     setEscapeButtonMode(DuiEscapeButtonPanelModel::CloseMode);
 }
@@ -46,8 +48,14 @@ void DcpMainPage::createContent()
     m_RecentlyComp = new DcpCategoryComponent(0,
                                  DcpApplet::MostUsedCategory,
                                  DcpMain::mostRecentUsedTitleId);
+
     connect(m_RecentlyComp, SIGNAL(openSubPage(Pages::Handle)),
             this, SIGNAL(openSubPage(Pages::Handle)));
+    // Well strangely enough we don't need to do this, and if we do it
+    // we got the signal twice. I can't even begin to understand this
+    // complicated signal handling we have.
+    //connect(m_RecentlyComp, SIGNAL(openSubPageWithReferer(const Pages::Handle &, const QString &, int)),
+    //        this, SIGNAL(openSubPageWithReferer(const Pages::Handle &, const QString &, int)));
     layout->addItem(m_RecentlyComp);
 
     // category descriptions:
@@ -60,6 +68,8 @@ void DcpMainPage::createContent()
 
         connect(component, SIGNAL(openSubPage(Pages::Handle)),
             this, SIGNAL(openSubPage(Pages::Handle)));
+    	connect(component, SIGNAL(openSubPageWithReferer(const Pages::Handle &, const QString &, int)),
+            this, SIGNAL(openSubPageWithReferer(const Pages::Handle &, const QString &, int)));
 
         layout->addItem(component);
     }

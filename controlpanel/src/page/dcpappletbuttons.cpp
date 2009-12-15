@@ -11,6 +11,9 @@
 #include <DuiGridLayoutPolicy>
 #include <DuiLinearLayoutPolicy>
 #include "maintranslations.h"
+
+#define DEBUG
+#include "../../../lib/src/dcpdebug.h"
 /*!
  * \class DcpAppletButtons
  * \brief A container which contains buttons that represents the
@@ -56,7 +59,11 @@ void DcpAppletButtons::addComponent(DcpAppletMetadata *metadata, bool fullLine)
     DcpBriefComponent *component = new DcpBriefComponent(metadata, this, logicalId());
 
 	component->setSubPage(Pages::APPLET, metadata->name());
-    connect(component, SIGNAL(openSubPage(Pages::Handle)), this, SIGNAL(openSubPage(Pages::Handle)));
+
+    connect (component, SIGNAL(openSubPage(Pages::Handle)), 
+		    this, SIGNAL(openSubPage(Pages::Handle)));
+    connect (component, SIGNAL(openSubPageWithReferer(const Pages::Handle &, const QString &, int)), 
+        this, SIGNAL(openSubPageWithReferer(const Pages::Handle &, const QString &, int)));
 
     if (fullLine)
         add(component);

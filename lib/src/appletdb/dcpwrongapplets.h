@@ -5,10 +5,11 @@
 #include <QHash>
 #include <QString>
 
+
 /** class is internal, handles wrong applet markings and queries */
 /*
- * TODO: We need a tool to temporary turn this protection off, because it makes
- * the debugging very hard.
+ * To disable the applet segfault protection please check the 
+ * DcpWrongApplets::sm_Disabled in the dcpwrongapplets.cpp file.
  */
 class DcpWrongApplets
 {

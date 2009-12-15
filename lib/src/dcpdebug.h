@@ -24,7 +24,7 @@
 #ifdef DEBUG
 #  define DCP_DEBUG(...) DcpDebug::dcpPrintMsg (\
 		QtDebugMsg, \
-		__func__, \
+		__PRETTY_FUNCTION__, \
 		__VA_ARGS__)
 #else
 #  define DCP_DEBUG(...) { /* Nothing... */ }
@@ -37,7 +37,7 @@
 #ifdef WARNING
 #  define DCP_WARNING(...) DcpDebug::dcpPrintMsg (\
 		QtWarningMsg, \
-		__func__, \
+		__PRETTY_FUNCTION__, \
 		__VA_ARGS__)
 #else
 #  define DCP_WARNING(...) { /* Nothing... */ }
@@ -50,7 +50,7 @@
 #ifdef CRITICAL
 #  define DCP_CRITICAL(...) DcpDebug::dcpPrintMsg (\
 		QtCriticalMsg, \
-		__func__, \
+		__PRETTY_FUNCTION__, \
 		__VA_ARGS__)
 #else
 #  define DCP_CRITICAL(...) { /* Nothing... */ }

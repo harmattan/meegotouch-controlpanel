@@ -16,6 +16,7 @@
  *  1) To implement multi-view support.
  *  2) This is a public header, it should not contain elements that are subject
  *     of change, like inline functions and class members.
+ *  3) This widget does not know its own ID!
  */
 class QGraphicsWidget;
 class DuiDialog;
@@ -53,7 +54,7 @@ signals:
      * This signal should be emitted by the plugin when the activation of an
      * other applet is requested. 
      */
-    bool activatePluginByName (const QString &name) const;
+    bool activatePluginByName (int widgetId, const QString &name) const;
 
 private:
     int m_Referer;
