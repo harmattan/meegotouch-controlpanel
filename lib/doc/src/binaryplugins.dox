@@ -1,7 +1,134 @@
 /*! \page binaryplugins Binary applets
 
 \section description Description
-...TODO...
+A binary controlpanel applet is an applet which is implemented as a
+shared object. You can find a very basic example at
+af/duicontrolpanel-skeleton-applet package, which can be a good starting
+point for creating a new binary applet.
 
+The applet should inherit from DcpAppletIf, and compiled into
+a shared object. The interface has functions for specifying controlpanel
+the things it needs.
+
+\section viewhandling View handling: DcpWidgets
+
+When launching an applet, DuiControlpanel displays it on one special page,
+that provides title, menu, and back-mechanism which is handled internally,
+so applet developers has nothing to do with it. Thus, applet has no pages
+but widgets. Each widget is displayed on this special page as the main widget,
+so it looks like that each widget is a new "page view" of an applet.
+
+To provide this mechanism, these widgets must be inherited by DcpWidget,
+which is a DuiWidget descendant with a few services:
+<ul>
+    <li>It can request pages from controlpanel.
+    <li>TODO: how back handling changes...
+</ul>
+
+
+\section multipage Having multiple pages
+
+\subsection partids The ids of the pages
+
+When an applet has multiple pages (widgets), it associates every one of
+them with an id. DcpAppletIf::constructWidget() gets the id as parameter,
+and creates the widget for that id. These ids are referred to as partIds.
+
+These ids meant to be internal to the applet, outside the applet people
+refer to pages of the applet as a string. For example a part of the date
+applet is possibly "Clock". The DcpAppletIf::partID() call translates this
+string into the integer partId.
+
+\subsection changepage Changing between the applet's pages
+
+The current widget can request changing to another widget by emitting
+DcpWidget::changeWidget(), where widgetId is the id of another widget,
+defined by the applet itself.
+
+\subsection backbutton Back button handling
+
+Every DcpWidget can set a widget as a referer where to go back, when
+the user presses 'Back' button on the control panel page.
+When the referer is -1, it means that you are on the main view of the applet,
+and 'Back' button should close the applet and continue with controlpanel's
+applet selection page.
+
+When the back button is pressed the current DcpWidget::back() function gets
+called, if the applet wants to do some extra 'cleanup',
+it can override the DcpWidget::back() function
+which is called by the page. (For example stopping threads or such.)
+
+\section launchbuttons Applet Launch Buttons
+
+Applets are launched from DuiControlPanel when user presses one of the launch
+buttons. A button like these contains applet name, optionally a picture or a
+toggle button, and the current value of an applet setting.
+
+These values (id for the picture, toggle button state, value text) can come
+from different places, and may need to format differently for each applet.
+For example Date & Time applet can display a value (the system time) and
+formats it according to the regional datetime format.
+
+Also the values can change, then the applet has to notify controlpanel
+about that change. For example Date & Time applet's value
+can be updated in each second.
+
+All these customizations of the launch button can be done through
+inheriting from the DcpBrief class, a specialized one, which returns
+the type of the launch button, the values which it needs to display,
+and emitting a signal when some of the values changes.
+
+If you do not need that much flexibility then you can get a non interactive
+button by specifying these things only in the .desktop file.
+
+\subsection launchspecific Launch button for a specific applet page
+
+Pressing a launch button of an applet leads to the main page of the applet
+by default. If you want to create an applet launch button for part of an applet,
+you can do that with creating another desktop file for it, and specify
+which part should be openned by default in the "Part=" attribute. See
+<a href="desktopformat.html">desktop file format</a> for details.
+
+\section implementation Implementation
+
+Each binary applet must implement DcpAppletIf interface. Here are some
+example which you can redefine, see DcpAppletIf for details.
+<ul>
+<li>DcpAppletIf::constructWidget()
+should create a widget of the applet,
+<li>DcpAppletIf::title() the title of the current
+page,
+<li>DcpAppletIf::constructBrief()
+should create an applet specific DcpBrief descendant,
+which provides all the information for Launch Button.
+<li>DcpAppletIf::viewMenuItems()
+method can provide applet specific menu items
+to the application menu, etc.
+</ul>
+
+
+\subsection implementing Implementing settings
+
+To provide settings that the applet can work from, the recommended way
+is to write an own singleton class for handling it, whose public interface
+does not depend on how the values are stored.
+
+\code
+class DcpLanguageConf                                        
+{                                                            
+public:                                                      
+    static DcpLanguageConf *instance();                      
+    ~DcpLanguageConf();                                      
+    QString displayLanguage();                               
+    void setDisplayLanguage(QString displayLanguage);        
+protected:                                                   
+    DcpLanguageConf(); 
+...
+}
+\endcode
+
+In this way, some data can come from DuiConf, some from QSettings or can
+be calculated, but you can easily return test data from methods, and replace
+them later with live ones.
 
 */
