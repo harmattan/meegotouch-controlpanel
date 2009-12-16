@@ -5,45 +5,45 @@ const DcpCategoryInfo DcpMain::CategoryInfos[] = {
         //% "Look & Feel"
 	QT_TRID_NOOP("qtn_sett_main_look"),
     	"Look & Feel",
-    	Pages::LOOKANDFEEL
+    	PageHandle::LOOKANDFEEL
     },
     {
         //% "Sounds"
         QT_TRID_NOOP("qtn_sett_main_sound"),
         "Sound",
-        Pages::SOUND
+        PageHandle::SOUND
     },
     {
         //% "Connectivity"
         QT_TRID_NOOP("qtn_sett_main_connectivity"),
         "Connectivity",
-        Pages::CONNECTIVITY
+        PageHandle::CONNECTIVITY
     },
     {
         //% "Regional settings"
         QT_TRID_NOOP("qtn_sett_main_region"),
         "Regional settings",
-        Pages::REGIONALSETTING
+        PageHandle::REGIONALSETTING
     },
     {
         //% "Device utilities"
         QT_TRID_NOOP("qtn_sett_main_device"),
         "Device utilities",
-        Pages::DEVICEUTILITIES
+        PageHandle::DEVICEUTILITIES
     },
     {
         //% "Device system"
         QT_TRID_NOOP("qtn_sett_main_data"),
         "Device system",
-        Pages::DEVICESYSTEM
+        PageHandle::DEVICESYSTEM
     },
     {
         //% "Accounts & Applications"
         QT_TRID_NOOP("qtn_sett_main_combined"),
         "Accounts & Applications",
-        Pages::ACCOUNTSANDAPPLICATIONS
+        PageHandle::ACCOUNTSANDAPPLICATIONS
     },
-    { 0, 0, Pages::NOPAGE }
+    { 0, 0, PageHandle::NOPAGE }
 };
 
 

@@ -9,7 +9,7 @@ struct _DcpCategoryInfo
 {
     const char* titleId;
     const char* appletCategory;
-    Pages::Id subPageId;
+    PageHandle::PageTypeId subPageId;
 };
 
 namespace DcpMain {

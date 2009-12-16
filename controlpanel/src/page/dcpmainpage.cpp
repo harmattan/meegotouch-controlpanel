@@ -28,9 +28,9 @@
 DcpMainPage::DcpMainPage() :
 	DcpPage(), m_RecentlyComp(0)
 {
-    setHandle (Pages::MAIN);
-    setReferer(Pages::NOPAGE);
-    setEscapeButtonMode(DuiEscapeButtonPanelModel::CloseMode);
+    setHandle (PageHandle::MAIN);
+    setReferer (PageHandle::NOPAGE);
+    setEscapeButtonMode (DuiEscapeButtonPanelModel::CloseMode);
 }
 
 DcpMainPage::~DcpMainPage()
@@ -49,13 +49,13 @@ void DcpMainPage::createContent()
                                  DcpApplet::MostUsedCategory,
                                  DcpMain::mostRecentUsedTitleId);
 
-    connect(m_RecentlyComp, SIGNAL(openSubPage(Pages::Handle)),
-            this, SIGNAL(openSubPage(Pages::Handle)));
+    connect(m_RecentlyComp, SIGNAL(openSubPage(PageHandle)),
+            this, SIGNAL(openSubPage(PageHandle)));
     // Well strangely enough we don't need to do this, and if we do it
     // we got the signal twice. I can't even begin to understand this
     // complicated signal handling we have.
-    //connect(m_RecentlyComp, SIGNAL(openSubPageWithReferer(const Pages::Handle &, const QString &, int)),
-    //        this, SIGNAL(openSubPageWithReferer(const Pages::Handle &, const QString &, int)));
+    //connect(m_RecentlyComp, SIGNAL(openSubPageWithReferer(const PageHandle &, const QString &, int)),
+    //        this, SIGNAL(openSubPageWithReferer(const PageHandle &, const QString &, int)));
     layout->addItem(m_RecentlyComp);
 
     // category descriptions:
@@ -66,10 +66,10 @@ void DcpMainPage::createContent()
         DcpCategoryComponent *component = new DcpCategoryComponent(0,
                                  info.appletCategory, info.titleId);
 
-        connect(component, SIGNAL(openSubPage(Pages::Handle)),
-            this, SIGNAL(openSubPage(Pages::Handle)));
-    	connect(component, SIGNAL(openSubPageWithReferer(const Pages::Handle &, const QString &, int)),
-            this, SIGNAL(openSubPageWithReferer(const Pages::Handle &, const QString &, int)));
+        connect(component, SIGNAL(openSubPage(PageHandle)),
+            this, SIGNAL(openSubPage(PageHandle)));
+    	connect(component, SIGNAL(openSubPageWithReferer(const PageHandle &, const QString &, int)),
+            this, SIGNAL(openSubPageWithReferer(const PageHandle &, const QString &, int)));
 
         layout->addItem(component);
     }

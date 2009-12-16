@@ -25,8 +25,8 @@ DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
     m_MainWidget(0),
     m_MissingLabel(0)
 {
-    setHandle  (Pages::APPLET, metadata->name());
-    setReferer (Pages::NOPAGE);
+    setHandle  (PageHandle::APPLET, metadata->name());
+    setReferer (PageHandle::NOPAGE);
 }
 
 DcpAppletPage::~DcpAppletPage()
@@ -120,7 +120,7 @@ void DcpAppletPage::reload()
     }
     DcpPage::reload();
     // means: referer should be set by pagefactory to the last page
-    setReferer(Pages::NOPAGE); 
+    setReferer(PageHandle::NOPAGE); 
 }
 
 void DcpAppletPage::back()

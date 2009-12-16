@@ -35,29 +35,29 @@ PageFactory* PageFactory::instance()
 
 DcpPage* 
 PageFactory::create (
-        const Pages::Handle &handle)
+        const PageHandle &handle)
 {
     DcpPage *page=0;
 
     DCP_DEBUG ("Creating page '%s'/%d", DCP_STR (handle.param), handle.id);
     switch (handle.id) {
-        case Pages::NOPAGE:
-	    case Pages::MAIN:
+        case PageHandle::NOPAGE:
+	    case PageHandle::MAIN:
             /*
-             * Creating the main page. If the ID is is Pages::NOPAGE we also
-             * create the main page, for which we can handle pages that has no
-             * valid referer. These pages are going to open the main page when
-             * closed.
+             * Creating the main page. If the ID is is PageHandle::NOPAGE we
+             * also create the main page, for which we can handle pages that has
+             * no valid referer. These pages are going to open the main page
+             * when closed.
              */
             page = createMainPage();
             break;
 
-        case Pages::APPLETCATEGORY: // when coming back
+        case PageHandle::APPLETCATEGORY: // when coming back
             Q_ASSERT(m_AppletCategoryPage);
             page = m_AppletCategoryPage;
             break;
 
-        case Pages::APPLET:
+        case PageHandle::APPLET:
             page = createAppletPage (
 			    DcpAppletDb::instance()->applet (handle.param));
             if (page)
@@ -65,8 +65,8 @@ PageFactory::create (
             break;
 
         default:
-            Q_ASSERT(handle.id > Pages::CATEGORY_PAGEID_START
-                     && handle.id < Pages::CATEGORY_PAGEID_END);
+            Q_ASSERT(handle.id > PageHandle::CATEGORY_PAGEID_START
+                     && handle.id < PageHandle::CATEGORY_PAGEID_END);
             page = createAppletCategoryPage(handle.id);
     }
 
@@ -79,11 +79,6 @@ PageFactory::create (
 		if (page->isContentCreated())
             page->reload();
         
-        #if 0
-        if (m_CurrentPage && page->referer().id == Pages::NOPAGE)
-                page->setReferer(m_CurrentPage->handle());
-        #endif
-
         m_CurrentPage = page;
     }
 
@@ -125,10 +120,12 @@ PageFactory::createAppletPage (
     }
 }
 
-DcpPage* PageFactory::createAppletCategoryPage(Pages::Id id)
+DcpPage *
+PageFactory::createAppletCategoryPage (
+        PageHandle::PageTypeId id)
 {
     const DcpCategoryInfo& info = DcpMain::CategoryInfos[
-                                id - Pages::CATEGORY_PAGEID_START - 1];
+                                id - PageHandle::CATEGORY_PAGEID_START - 1];
     Q_ASSERT(info.subPageId == id);
 
     if (!m_AppletCategoryPage){
@@ -143,7 +140,7 @@ DcpPage* PageFactory::createAppletCategoryPage(Pages::Id id)
 
 void 
 PageFactory::changePage (
-        Pages::Handle handle)
+        PageHandle handle)
 {
     DcpPage *page = create (handle);
 
@@ -155,7 +152,7 @@ PageFactory::changePage (
 
 void 
 PageFactory::changePageWithReferer (
-        const Pages::Handle  &handle,
+        const PageHandle     &handle,
         const QString        &refererName,
         int                   refererId)
 {
@@ -167,7 +164,7 @@ PageFactory::changePageWithReferer (
 
     if (page) {
         if (refererId != -1) {
-            page->setReferer ((Pages::Id) refererId, refererName);
+            page->setReferer ((PageHandle::PageTypeId) refererId, refererName);
         }
         page->appearNow (DuiSceneWindow::KeepWhenDone);
     }
@@ -177,14 +174,14 @@ void
 PageFactory::initPage (
         DcpPage* page)
 {
-    connect (page, SIGNAL(openSubPage (Pages::Handle)), 
-            this, SLOT(changePage(Pages::Handle)));
+    connect (page, SIGNAL(openSubPage (PageHandle)), 
+            this, SLOT(changePage(PageHandle)));
 
     connect (
             page, 
-            SIGNAL (openSubPageWithReferer(const Pages::Handle &, const QString &, int)), 
+            SIGNAL (openSubPageWithReferer(const PageHandle &, const QString &, int)), 
             this, 
-            SLOT (changePageWithReferer(const Pages::Handle &, const QString &, int)));
+            SLOT (changePageWithReferer(const PageHandle &, const QString &, int)));
 
     if (page != m_MainPage) {
         // closeAction TODO XXX on language change, move into to the page?

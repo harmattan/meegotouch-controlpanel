@@ -7,7 +7,7 @@
 #include <QtDebug>
 
 DcpWrongApplets* DcpWrongApplets::sm_Instance = 0;
-bool DcpWrongApplets::sm_Disabled = false;
+bool DcpWrongApplets::sm_Disabled = true;
 
 const QString keyPath = "/apps/duicontrolpanel/badplugins";
 
