@@ -64,7 +64,6 @@ void DcpAppletButtons::addComponent(DcpAppletMetadata *metadata, bool fullLine)
 
     component->setSubPage (PageHandle::APPLET, metadata->name());
 
-    // FIXME: What about the clicked signal?
     if (fullLine)
         add (component);
     else

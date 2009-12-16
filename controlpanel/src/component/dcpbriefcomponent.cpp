@@ -25,6 +25,11 @@ DcpBriefComponent::DcpBriefComponent (
     setMattiID ("DcpBriefComponent::" + logicalId + "::" + 
 		    metadata->category() + "::" + metadata->name());
 
+    /*
+     * Here is how we activate an applet. When the user clicks on the widget we
+     * send a signal to the metadata, then the metadata will do what it needs to
+     * do in order to appear on the screen.
+     */
     connect (m_BriefWidget, SIGNAL (clicked()),
         metadata, SIGNAL (activate ()));
 }
@@ -33,19 +38,6 @@ DcpBriefComponent::~DcpBriefComponent()
 {
 }
 
-#if 0
-void
-DcpBriefComponent::activateApplet (
-        const QString &refererName, 
-        int            refererWidgetId)
-{
-    PageHandle referer (PageHandle::APPLET, refererName, refererWidgetId);
-
-    DCP_DEBUG ("Activating for referer %s", 
-            DCP_STR (referer.getStringVariant()));
-    emit switchToSubPageWithReferer (refererName, refererWidgetId);
-}
-#endif
 
 void 
 DcpBriefComponent::setMetadata (

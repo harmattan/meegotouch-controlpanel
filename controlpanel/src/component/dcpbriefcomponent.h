@@ -27,11 +27,6 @@ public:
     QString mattiID();
     void setMattiID(const QString &mattiID);
 
-#if 0
-private slots:
-    void activateApplet (const QString &, int);
-#endif
-
 private:
 	DcpBriefWidget* m_BriefWidget;
         QString m_mattiID;

@@ -49,8 +49,6 @@ void DcpMainPage::createContent()
                                  DcpApplet::MostUsedCategory,
                                  DcpMain::mostRecentUsedTitleId);
 
-    // What about the clicked signal?
-    
     layout->addItem(m_RecentlyComp);
 
     // category descriptions:
@@ -60,8 +58,6 @@ void DcpMainPage::createContent()
              break;
         DcpCategoryComponent *component = new DcpCategoryComponent(0,
                                  info.appletCategory, info.titleId);
-
-	// FIXME: What about the clicked signal?
 
         layout->addItem(component);
     }

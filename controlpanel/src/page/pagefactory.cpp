@@ -30,6 +30,16 @@ PageFactory::PageFactory():
 {
     DcpAppletMetadataList list;
 
+    /*
+     * Whenever someone wants an applet to be activated (started, shown on the
+     * screen atc.) a signal is sent to the applet's metadata. Then the applets
+     * metadata will send a signal, so the pagefactory can open a new page for
+     * it.
+     *
+     * If an applet wants to start up an other applet we also got a signal here
+     * so we can start up the applet. In this case we will have an external
+     * referer for the applets main page.
+     */
     list = DcpAppletDb::instance()->list();
     foreach (DcpAppletMetadata *item, list) {
         DCP_DEBUG ("*** applet '%s'", DCP_STR (item->name()));
@@ -185,7 +195,11 @@ PageFactory::changePageWithReferer (
     }
 }
 
-
+/*
+ * FIXME: the PageFactory::appletWantsToStart and the 
+ * PageFactory::appletWantsToStartWithReferer could be implemented with default
+ * parameters or something.
+ */
 void
 PageFactory::appletWantsToStart ()
 {

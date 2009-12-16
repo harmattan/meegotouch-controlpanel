@@ -290,11 +290,8 @@ QString DcpAppletMetadata::toggleIconId() const
  * \param name The name of the other applet to activate.
  * 
  * \details This slot will activate an other applet. First the function will
- * find the applet using the applet database then it will emit the
- * activateApplet() signal on it.
- *
- * The signal will be grabbed by the DcpBriefComponent that will start and
- * activate the other applet.
+ * find the applet using the applet database then it will emit a signal for it,
+ * so it is going to be started.
  */
 bool 
 DcpAppletMetadata::activatePluginByName (
