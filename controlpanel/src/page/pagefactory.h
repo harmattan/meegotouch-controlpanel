@@ -20,12 +20,14 @@ public:
     void initPage(DcpPage* page);
 
 public slots:
+    void appletWantsToStart ();
+    void appletWantsToStartWithReferer (const QString &, int);
+    
     void changePage (PageHandle handle);
-
     void changePageWithReferer (
 		    const PageHandle &handle, 
 		    const QString       &refererName,
-		    int                  refererId);
+		    int                  refererWidgetId);
 
 protected:
     PageFactory();

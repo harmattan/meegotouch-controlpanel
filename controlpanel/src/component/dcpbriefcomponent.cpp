@@ -7,15 +7,17 @@
 #include <QGraphicsLinearLayout>
 #include <DcpAppletMetadata>
 
+#include "pages.h"
+
 #define DEBUG
 #include "../../../lib/src/dcpdebug.h"
 
-DcpBriefComponent::DcpBriefComponent(
-		DcpAppletMetadata* metadata,
-		DcpCategory *category,
-		const QString& logicalId)
-    : DcpComponent (category,"", 0, logicalId),
-      m_BriefWidget (new DcpBriefWidget(metadata, this))
+DcpBriefComponent::DcpBriefComponent (
+		DcpAppletMetadata   *metadata,
+		DcpCategory         *category,
+		const QString       &logicalId)
+: DcpComponent (category,"", 0, logicalId),
+    m_BriefWidget (new DcpBriefWidget(metadata, this))
 {
     QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(this);
     layout->addItem(m_BriefWidget);
@@ -23,18 +25,31 @@ DcpBriefComponent::DcpBriefComponent(
     setMattiID ("DcpBriefComponent::" + logicalId + "::" + 
 		    metadata->category() + "::" + metadata->name());
 
-    connect (m_BriefWidget, SIGNAL (clicked()), 
-        this, SLOT (switchToSubPage()));
-
-    connect (metadata, SIGNAL (activateApplet (const QString, int)), 
-        this, SLOT (switchToSubPageWithReferer (const QString, int)));
+    connect (m_BriefWidget, SIGNAL (clicked()),
+        metadata, SIGNAL (activate ()));
 }
 
 DcpBriefComponent::~DcpBriefComponent()
 {
 }
 
-void DcpBriefComponent::setMetadata(DcpAppletMetadata* metadata)
+#if 0
+void
+DcpBriefComponent::activateApplet (
+        const QString &refererName, 
+        int            refererWidgetId)
+{
+    PageHandle referer (PageHandle::APPLET, refererName, refererWidgetId);
+
+    DCP_DEBUG ("Activating for referer %s", 
+            DCP_STR (referer.getStringVariant()));
+    emit switchToSubPageWithReferer (refererName, refererWidgetId);
+}
+#endif
+
+void 
+DcpBriefComponent::setMetadata (
+        DcpAppletMetadata* metadata)
 {
     m_BriefWidget->setMetadata(metadata);
 }

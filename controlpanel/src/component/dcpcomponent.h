@@ -33,15 +33,6 @@ public:
 protected:
     virtual void createContents() = 0;
 
-protected slots:
-    virtual void switchToSubPage ();
-    virtual void switchToSubPageWithReferer (
-		    const QString refererName, 
-		    int           refererId);
-
-signals:
-    void openSubPage (const PageHandle &);
-    void openSubPageWithReferer (const PageHandle &, const QString &, int);
 
 public slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation);

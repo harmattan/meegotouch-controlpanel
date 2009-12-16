@@ -49,11 +49,8 @@ void DcpMainPage::createContent()
                                  DcpApplet::MostUsedCategory,
                                  DcpMain::mostRecentUsedTitleId);
 
-    connect(m_RecentlyComp, SIGNAL(openSubPage(PageHandle)),
-            this, SIGNAL(openSubPage(PageHandle)));
-    // Well strangely enough we don't need connect the openSubPageWithReferer,
-    // and if we do it we got the signal twice. I can't even begin to understand
-    // this complicated signal handling we have.
+    // What about the clicked signal?
+    
     layout->addItem(m_RecentlyComp);
 
     // category descriptions:
@@ -64,10 +61,7 @@ void DcpMainPage::createContent()
         DcpCategoryComponent *component = new DcpCategoryComponent(0,
                                  info.appletCategory, info.titleId);
 
-        connect(component, SIGNAL(openSubPage(PageHandle)),
-            this, SIGNAL(openSubPage(PageHandle)));
-    	connect(component, SIGNAL(openSubPageWithReferer(const PageHandle &, const QString &, int)),
-            this, SIGNAL(openSubPageWithReferer(const PageHandle &, const QString &, int)));
+	// FIXME: What about the clicked signal?
 
         layout->addItem(component);
     }

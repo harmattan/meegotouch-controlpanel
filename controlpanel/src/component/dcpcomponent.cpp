@@ -26,20 +26,7 @@ DcpComponent* DcpComponent::child(int i) const
     return 0;
 }
 
-void DcpComponent::switchToSubPage()
-{
-    DCP_DEBUG ("Emitting openSubPage()");
-    emit openSubPage (subPage());
-}
 
-void DcpComponent::switchToSubPageWithReferer (
-		const QString   refererName,
-		int             refererId)
-{
-    DCP_DEBUG ("Emitting openSubPageWithReferer "
-		    "(const PageHandle &, const QString &, int)");
-    emit openSubPageWithReferer (subPage(), refererName, refererId);
-}
 
 void DcpComponent::onOrientationChange(const Dui::Orientation& orientation)
 {

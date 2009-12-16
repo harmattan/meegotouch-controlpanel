@@ -70,7 +70,8 @@ void DcpDescriptionComponent::mousePressEvent (QGraphicsSceneMouseEvent *event)
 {
     DcpComponent::mousePressEvent(event);
     event->accept();
-    switchToSubPage();
+    // FIXME: What about the clicked signal?
+    //switchToSubPage();
 }
 
 void DcpDescriptionComponent::mouseReleaseEvent (QGraphicsSceneMouseEvent * event)

@@ -58,10 +58,7 @@ DcpAppletCategoryPage::addComponent(
     DcpBriefComponent *component = new DcpBriefComponent(metadata, m_Category);
 
     component->setSubPage(PageHandle::APPLET, metadata->name());
-    connect(component, SIGNAL(openSubPage(PageHandle)),
-            this, SIGNAL(openSubPage(PageHandle)));
-    connect(component, SIGNAL(openSubPageWithReferer(const PageHandle &, const QString &, int)),
-            this, SIGNAL(openSubPageWithReferer(const PageHandle &, const QString &, int)));
+    
     if (odd)
         m_Category->add(component);
     else
