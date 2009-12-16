@@ -13,10 +13,11 @@
 #include "dcpappletloader.h"
 #include "dcpbrief.h"
 #include "dcpappletif.h"
+#include "dcpwidget.h"
 
 #include "dcpmostusedcounter.h"
 
-//#define DEBUG
+#define DEBUG
 #include "dcpdebug.h"
 
 enum  {
@@ -289,11 +290,8 @@ QString DcpAppletMetadata::toggleIconId() const
  * \param name The name of the other applet to activate.
  * 
  * \details This slot will activate an other applet. First the function will
- * find the applet using the applet database then it will emit the
- * activateApplet() signal on it.
- *
- * The signal will be grabbed by the DcpBriefComponent that will start and
- * activate the other applet.
+ * find the applet using the applet database then it will emit a signal for it,
+ * so it is going to be started.
  */
 bool 
 DcpAppletMetadata::activatePluginByName (
@@ -301,19 +299,25 @@ DcpAppletMetadata::activatePluginByName (
         const QString &name) const
 {
     DcpAppletMetadata  *otherApplet;
+    DcpWidget          *senderWidget = qobject_cast<DcpWidget *> (sender());
 
-    DCP_DEBUG ("Want to start '%s' by '%s'/%d", 
+    Q_UNUSED (refererID);
+    Q_ASSERT (senderWidget != NULL);
+   
+    DCP_WARNING ("Want to start '%s' by %s/%d", 
             DCP_STR (name),
             DCP_STR (this->name()),
-            refererID);
+            senderWidget->getWidgetId());
 
     otherApplet = DcpAppletDb::instance()->applet (name);
     if (otherApplet) {
-        DCP_DEBUG ("Emitting %p->activateApplet (%s, %d)", 
+        DCP_DEBUG ("Emitting %p->activateWithReferer (%s, %d)", 
                 otherApplet,
                 DCP_STR (this->name()), 
-                refererID);
-        emit otherApplet->activateApplet (this->name(), refererID);
+                senderWidget->getWidgetId());
+        emit otherApplet->activateWithReferer (
+                this->name(), senderWidget->getWidgetId());
+
         return true;
     }
         

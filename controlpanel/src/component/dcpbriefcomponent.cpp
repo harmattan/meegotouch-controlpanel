@@ -7,15 +7,17 @@
 #include <QGraphicsLinearLayout>
 #include <DcpAppletMetadata>
 
+#include "pages.h"
+
 #define DEBUG
 #include "../../../lib/src/dcpdebug.h"
 
-DcpBriefComponent::DcpBriefComponent(
-		DcpAppletMetadata* metadata,
-		DcpCategory *category,
-		const QString& logicalId)
-    : DcpComponent (category,"", 0, logicalId),
-      m_BriefWidget (new DcpBriefWidget(metadata, this))
+DcpBriefComponent::DcpBriefComponent (
+		DcpAppletMetadata   *metadata,
+		DcpCategory         *category,
+		const QString       &logicalId)
+: DcpComponent (category,"", 0, logicalId),
+    m_BriefWidget (new DcpBriefWidget(metadata, this))
 {
     QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(this);
     layout->addItem(m_BriefWidget);
@@ -23,18 +25,23 @@ DcpBriefComponent::DcpBriefComponent(
     setMattiID ("DcpBriefComponent::" + logicalId + "::" + 
 		    metadata->category() + "::" + metadata->name());
 
-    connect (m_BriefWidget, SIGNAL (clicked()), 
-        this, SLOT (switchToSubPage()));
-
-    connect (metadata, SIGNAL (activateApplet (const QString, int)), 
-        this, SLOT (switchToSubPageWithReferer (const QString, int)));
+    /*
+     * Here is how we activate an applet. When the user clicks on the widget we
+     * send a signal to the metadata, then the metadata will do what it needs to
+     * do in order to appear on the screen.
+     */
+    connect (m_BriefWidget, SIGNAL (clicked()),
+        metadata, SIGNAL (activate ()));
 }
 
 DcpBriefComponent::~DcpBriefComponent()
 {
 }
 
-void DcpBriefComponent::setMetadata(DcpAppletMetadata* metadata)
+
+void 
+DcpBriefComponent::setMetadata (
+        DcpAppletMetadata* metadata)
 {
     m_BriefWidget->setMetadata(metadata);
 }

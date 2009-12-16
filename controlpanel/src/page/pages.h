@@ -37,6 +37,8 @@ public:
                 const QString &name = "", 
                 int widgetId = -1);
 
+    QString getStringVariant ();
+
     PageTypeId  id;
     QString     param;
     int         m_widgetId;

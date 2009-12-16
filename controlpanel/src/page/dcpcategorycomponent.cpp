@@ -45,11 +45,6 @@ void DcpCategoryComponent::createContents()
 
     m_AppletButtons = new DcpAppletButtons(logicalId(), m_CategoryName, title());
 
-    connect(m_AppletButtons, SIGNAL(openSubPage(PageHandle)),
-            this, SIGNAL(openSubPage(PageHandle)));
-    connect(m_AppletButtons, SIGNAL(openSubPageWithReferer(const PageHandle &, const QString &, int)),
-            this, SIGNAL(openSubPageWithReferer(const PageHandle &, const QString &, int)));
-
     m_Container->setCentralWidget(m_AppletButtons);
 
     QGraphicsLinearLayout* layout =

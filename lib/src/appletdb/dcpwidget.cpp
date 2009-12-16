@@ -42,9 +42,15 @@ bool
 DcpWidget::setWidgetId (
         int widgetId)
 {
+    DCP_DEBUG ("*** widgetId = %d", widgetId);
+
     if (m_WidgetId != -1) {
         DCP_WARNING ("The widgetId already set.");
         return false;
+    }
+
+    if (widgetId < 0) {
+        DCP_CRITICAL ("The widgetId should be >= 0.");
     }
 
     m_WidgetId = widgetId;

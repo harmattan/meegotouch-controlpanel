@@ -15,3 +15,10 @@ PageHandle::PageHandle (
     m_widgetId (widgetId)
 {
 }
+
+
+QString
+PageHandle::getStringVariant ()
+{
+    return param + "://" + id + "/" + m_widgetId;
+}

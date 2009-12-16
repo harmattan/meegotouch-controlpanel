@@ -70,7 +70,9 @@ void DcpDescriptionComponent::mousePressEvent (QGraphicsSceneMouseEvent *event)
 {
     DcpComponent::mousePressEvent(event);
     event->accept();
-    switchToSubPage();
+    // FIXME: What about the clicked signal? Why are we here and what are we
+    // doing? I mean the clicked signal is handled somewhare else...
+    //switchToSubPage();
 }
 
 void DcpDescriptionComponent::mouseReleaseEvent (QGraphicsSceneMouseEvent * event)

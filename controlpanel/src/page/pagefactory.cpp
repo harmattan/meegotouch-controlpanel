@@ -21,9 +21,33 @@
 
 PageFactory *PageFactory::sm_Instance = 0;
 
-PageFactory::PageFactory(): QObject(),
-    m_CurrentPage(0), m_MainPage(0), m_AppletPage(0), m_AppletCategoryPage(0)
+PageFactory::PageFactory(): 
+    QObject(),
+    m_CurrentPage(0), 
+    m_MainPage(0), 
+    m_AppletPage(0), 
+    m_AppletCategoryPage(0)
 {
+    DcpAppletMetadataList list;
+
+    /*
+     * Whenever someone wants an applet to be activated (started, shown on the
+     * screen atc.) a signal is sent to the applet's metadata. Then the applets
+     * metadata will send a signal, so the pagefactory can open a new page for
+     * it.
+     *
+     * If an applet wants to start up an other applet we also got a signal here
+     * so we can start up the applet. In this case we will have an external
+     * referer for the applets main page.
+     */
+    list = DcpAppletDb::instance()->list();
+    foreach (DcpAppletMetadata *item, list) {
+        DCP_DEBUG ("*** applet '%s'", DCP_STR (item->name()));
+        connect (item, SIGNAL (activate ()),
+                this, SLOT (appletWantsToStart ()));
+        connect (item, SIGNAL (activateWithReferer (const QString &, int)),
+                this, SLOT (appletWantsToStartWithReferer (const QString &, int)));
+    }
 }
 
 PageFactory* PageFactory::instance()
@@ -154,20 +178,58 @@ void
 PageFactory::changePageWithReferer (
         const PageHandle     &handle,
         const QString        &refererName,
-        int                   refererId)
+        int                   refererWidgetId)
 {
     DCP_DEBUG ("Creating page '%s'/%d for referer '%s'/%d",
             DCP_STR (handle.param), handle.id,
-            DCP_STR (refererName), refererId);
+            DCP_STR (refererName), refererWidgetId);
 
     DcpPage *page = create (handle);
 
     if (page) {
-        if (refererId != -1) {
-            page->setReferer ((PageHandle::PageTypeId) refererId, refererName);
-        }
+        PageHandle referer (PageHandle::APPLET, 
+                refererName, refererWidgetId);
+
+        page->setReferer (referer);
         page->appearNow (DuiSceneWindow::KeepWhenDone);
     }
+}
+
+/*
+ * FIXME: the PageFactory::appletWantsToStart and the 
+ * PageFactory::appletWantsToStartWithReferer could be implemented with default
+ * parameters or something.
+ */
+void
+PageFactory::appletWantsToStart ()
+{
+    DcpAppletMetadata *metadata = qobject_cast<DcpAppletMetadata *> (sender());
+
+    Q_ASSERT (metadata != 0);
+    DCP_DEBUG ("Applet '%s' wants to start.", DCP_STR(metadata->name()));
+    PageHandle handle (
+            PageHandle::APPLET,
+            metadata->name(),
+            metadata->getMainWidgetId ());
+
+    changePage (handle);
+}
+
+void
+PageFactory::appletWantsToStartWithReferer (
+        const QString &refererName, 
+        int            refererWidgetId)
+{
+    DcpAppletMetadata *metadata = qobject_cast<DcpAppletMetadata *> (sender());
+
+    Q_ASSERT (metadata != 0);
+    DCP_DEBUG ("Applet '%s' wants to start.", DCP_STR(metadata->name()));
+    PageHandle handle (
+            PageHandle::APPLET,
+            metadata->name(),
+            metadata->getMainWidgetId ());
+
+    changePageWithReferer (handle, refererName, refererWidgetId);
 }
 
 void 

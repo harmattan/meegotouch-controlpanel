@@ -70,9 +70,10 @@ public:
                               DcpAppletMetadata *meta2);
 signals:
     void briefChanged ();
-    void activateApplet (
-            const QString  refererName,
-            int            refererId);
+    void activate ();
+    void activateWithReferer (
+            const QString  &refererName,
+            int             refererWidgetId);
 
 public slots:
 	void slotClicked ();
