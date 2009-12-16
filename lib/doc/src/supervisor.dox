@@ -1,7 +1,38 @@
 /*! \page supervisor Applet supervisor
 
 \section description Description
-...TODO...
+
+The feature we call applet supervisor is a currently experimental trial to
+protect controlpanel from crashing plugins. If a plugin makes controlpanel
+abnormally exit, it will be marked as bad. Such plugins will be
+ignored by controlpanel.
+
+If a plugin was marked as bad, it will only get another chance if the timestamp
+of its shared object changes, that is considered as a new version was installed.
+
+
+\section disabling How to disable it and why
+
+Applet supervisor makes debugging a bad plugin hard, since plugin developer
+has a different goal then a normal user has: he/she would like if controlpanel
+would segfault to check the backtrace etc.
+
+Therefore the applet supervisor can be disabled with:
+
+\code
+duicontrolpanel -nosupervisor
+\endcode
+
+
+\section cleaning Cleaning bad plugins list
+
+Bad plugins are stored under gconf. If it becomes necessery (because nothing
+else works), you can force controlpanel to forget which plugin is bad by
+issuing the command:
+
+\code
+gconftool-2 --recursive-unset /apps/duicontrolpanel/badplugins
+\endcode
 
 
 */

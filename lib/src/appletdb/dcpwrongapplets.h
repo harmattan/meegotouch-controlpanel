@@ -4,6 +4,7 @@
 #include <QSet>
 #include <QHash>
 #include <QString>
+#include <QObject>
 
 
 /** class is internal, handles wrong applet markings and queries */
@@ -11,8 +12,9 @@
  * To disable the applet segfault protection please check the 
  * DcpWrongApplets::sm_Disabled in the dcpwrongapplets.cpp file.
  */
-class DcpWrongApplets
+class DcpWrongApplets: public QObject
 {
+    Q_OBJECT
 public:
     static DcpWrongApplets* instance();
     static void destroyInstance();

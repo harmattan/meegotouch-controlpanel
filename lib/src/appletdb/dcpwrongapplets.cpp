@@ -6,6 +6,8 @@
 #include <QDateTime>
 #include <QtDebug>
 
+#include <QApplication>
+
 DcpWrongApplets* DcpWrongApplets::sm_Instance = 0;
 bool DcpWrongApplets::sm_Disabled = true;
 
@@ -36,6 +38,9 @@ static inline void unsetCrashTimeStamp(const QString& name)
 
 DcpWrongApplets::DcpWrongApplets()
 {
+    connect (qApp, SIGNAL(aboutToQuit()),
+             this, SLOT(deleteLater()));
+
     // init cache:
     m_BadApplets = queryBadApplets();
 }
@@ -52,7 +57,7 @@ QSet<QString> DcpWrongApplets::queryBadApplets()
         QString name = QFileInfo(fullName).fileName();
         QString fileName = QString(APPLET_LIBS)+ "/"+ name;
         if (fileTimeStamp(fileName) == crashTimeStamp(name)) {
-            qDebug() << "Detected bad applet: " << name;
+//            qDebug() << "Detected bad applet: " << name;
             badApplets.insert(name);
         } else {
             qDebug() << "Giving the applet" << name << "another chance.";
@@ -64,6 +69,7 @@ QSet<QString> DcpWrongApplets::queryBadApplets()
 
 DcpWrongApplets::~DcpWrongApplets()
 {
+    qDebug() << "Marking possibly bad applets as good";
     QHash<QString, int>::const_iterator it;
     for (it = m_MaybeBadApplets.begin(); it!=m_MaybeBadApplets.end(); it++)
     {
