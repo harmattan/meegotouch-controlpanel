@@ -70,10 +70,10 @@ int main(int argc, char *argv[])
         } else if (s == "-nosupervisor") {
             qDebug() << "Applet supervisor is disabled.";
             DcpWrongApplets::disable();
-        } else if (s == "-destopdir") {
+        } else if (s == "-desktopdir") {
             if (i + 1 < argc) {
                 i++;
-                desktopDir = argv[i + 1];
+                desktopDir = argv[i];
                 qDebug() << "Using desktopdir:" << desktopDir;
             }
         }

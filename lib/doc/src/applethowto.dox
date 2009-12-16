@@ -1,0 +1,48 @@
+/*! \page applethowto How to write a controlpanel applet
+
+\section whatis What is a Dcp Applet?
+
+A DuiControlPanel (Dcp for short) applet is a program that can be launched from the Control Panel and can change some settings, like language, display settings, etc.
+All applets have:
+<ul>
+<li>A launch button, which is a button on controlpanel's main page.</li>
+<li>Some pages, which contains widgets to interact with the user in order to change the preferences.
+</ul>
+
+
+\section applettypes Applet types
+
+\subsection binaryapplet Binary applet
+An applet which is implemented as a shared object, which is
+loaded by duicontrolpanel.
+
+This is the best way if you want all flexibility.
+See <a href="binaryplugins.html">binary applets</a> section for details.
+
+\subsection declarativeapplet Declarative applet
+An applet which is implemented as a ui description in an xml file, using
+DirectUI's Declarative Settings Language.
+
+This is the easiest way of creating an applet, but it is less flexible (currently):
+    <ul>
+        <li>You can not create a custom launch button, the launch button of your applet will contain only the applet's title.
+        <li>You can only use some predefined widgets, the ones which are supported by declarative language.
+        <li>You can only store your preferences in GConf.
+    </ul>
+
+See <a href="declarativeplugins.html">declarative applets</a> section for details.
+
+\subsection externalapplet External applet
+An applet which is implemented as a separate application. When your applet's
+    launch button is pressed, controlpanel will start your application.
+    Avoid using it if you can,
+    because the user experience will be different.</dd>
+
+See <a href="externalplugins.html">external applets</a> section for details.
+
+<strong>
+You can find examples/skeletons from each applet type under af/duicontrolpanel-skeleton-applets
+repository or by checking the source package of duicontrolpanel-skeleton-applet.
+</strong>
+*/
+
