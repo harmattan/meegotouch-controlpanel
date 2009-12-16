@@ -19,13 +19,13 @@ private slots:
     void cleanup();
     void initTestCase();
     void cleanupTestCase();
-    void testLoadOk();
-    void testLoadError();
+    void testLoadBinaryOk();
+    void testLoadBinaryError();
+    void testLoadDsl();
     void testMetadata();
 
 private:
     DcpAppletLoader* m_subject;
-    DcpAppletMetadata* m_metadata;
 };
 
 #endif
