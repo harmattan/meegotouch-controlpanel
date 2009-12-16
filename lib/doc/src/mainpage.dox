@@ -40,9 +40,9 @@
     </td>
     <td>
       <ul>
-      <li><a href="binaryplugins.html">Binary plugins</a></li>
-      <li><a href="declarativeplugins.html">Declarative plugins</a></li>
-      <li><a href="externalplugins.html">External plugins</a></li>
+      <li><a href="binaryplugins.html">Binary applets</a></li>
+      <li><a href="declarativeplugins.html">Declarative applets</a></li>
+      <li><a href="externalplugins.html">External applets</a></li>
       <li><a href="servicefw.html">ServiceFw API - Controlling controlpanel</a></li>
       <li><a href="supervisor.html">Applet supervisor</a></li>
       <li><a href="desktopformat.html">Desktop file format</a></li>

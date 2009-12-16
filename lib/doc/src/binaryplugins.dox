@@ -10,6 +10,9 @@ The applet should inherit from DcpAppletIf, and compiled into
 a shared object. The interface has functions for specifying controlpanel
 the things it needs.
 
+Like every other applet, the binary applet also needs a
+<a href="desktopformat.html">.desktop</a> file.
+
 \section viewhandling View handling: DcpWidgets
 
 When launching an applet, DuiControlpanel displays it on one special page,
@@ -114,14 +117,14 @@ is to write an own singleton class for handling it, whose public interface
 does not depend on how the values are stored.
 
 \code
-class DcpLanguageConf                                        
-{                                                            
-public:                                                      
-    static DcpLanguageConf *instance();                      
-    ~DcpLanguageConf();                                      
-    QString displayLanguage();                               
-    void setDisplayLanguage(QString displayLanguage);        
-protected:                                                   
+class DcpLanguageConf
+{
+public:
+    static DcpLanguageConf *instance();
+    ~DcpLanguageConf();
+    QString displayLanguage();
+    void setDisplayLanguage(QString displayLanguage);
+protected:
     DcpLanguageConf(); 
 ...
 }
