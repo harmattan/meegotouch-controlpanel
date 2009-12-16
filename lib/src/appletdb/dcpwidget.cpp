@@ -7,7 +7,8 @@
  */
 DcpWidget::DcpWidget (QGraphicsWidget *parent) 
 	: DuiWidget (parent), 
-	  m_Referer (-1)
+	  m_Referer (-1),
+      m_WidgetId (-1)
 {
 }
 

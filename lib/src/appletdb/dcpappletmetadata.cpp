@@ -16,7 +16,7 @@
 
 #include "dcpmostusedcounter.h"
 
-#define DEBUG
+//#define DEBUG
 #include "dcpdebug.h"
 
 enum  {
@@ -344,12 +344,22 @@ QString DcpAppletMetadata::part() const
     return desktopEntryStr(KeyPart);
 }
 
-int DcpAppletMetadata::partID() const
+/*!
+ * \brief Calls the applet and returns the partid set for this desktop file. 
+ *
+ * This function will take the "DCP/Part" key and call the 
+ * "int partID(const QString& partStr)" function of the plugin to get the
+ * widgetId for the first/main widget. If the applet is not available the 
+ * function will return -1, that is an invalid widgetId.
+ */
+int 
+DcpAppletMetadata::getMainWidgetId () const
 {
     DCP_DEBUG ("");
-    if (part().isEmpty() || !applet())
+    if (!applet())
         return -1;
-    return applet()->partID(part());
+
+    return applet()->partID (part());
 }
 
 int DcpAppletMetadata::usage () const
@@ -367,18 +377,24 @@ int DcpAppletMetadata::order() const
 DcpAppletIf *
 DcpAppletMetadata::applet() const
 {
-    DCP_DEBUG ("Applet for '%s'", DCP_STR(name ()));
     if (d->m_Parent)
         return d->m_Parent->applet();
 
     if (d->m_AppletLoader == 0) {
         d->m_AppletLoader = new DcpAppletLoader (this);
+        
+        #ifdef WARNING
         if (d->m_AppletLoader->applet() == 0) {
             qDebug() << d->m_AppletLoader->errorMsg() << "for" << binary();
+            DCP_WARNING ("Failed to load applet file '%s': %s",
+                    DCP_STR (fullBinary()),
+                    DCP_STR (d->m_AppletLoader->errorMsg()));
         } else {
-            qDebug() << "APPLET loaded" << fullBinary();
+            DCP_DEBUG ("Loaded applet file '%s'", DCP_STR(fullBinary()));
         }
+        #endif
     }
+
     return d->m_AppletLoader->applet();
 }
 
@@ -389,10 +405,12 @@ DuiDesktopEntry* DcpAppletMetadata::desktopEntry() const
     return d->m_DesktopEntry;
 }
 
-DcpBrief* DcpAppletMetadata::brief () const
+DcpBrief *
+DcpAppletMetadata::brief () const
 {
+    DCP_DEBUG ("Brief for '%s' id is %d", DCP_STR (name()), getMainWidgetId());
     if (d->m_Brief == 0 && applet() != 0) {
-        d->m_Brief = applet()->constructBrief(partID());
+        d->m_Brief = applet()->constructBrief(getMainWidgetId());
         if (d->m_Brief != 0)
             connect (d->m_Brief, SIGNAL (valuesChanged ()), 
                     this, SIGNAL (briefChanged ()));

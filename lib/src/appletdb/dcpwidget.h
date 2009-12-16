@@ -58,6 +58,7 @@ signals:
 
 private:
     int m_Referer;
+    int m_WidgetId;
 };
 
 #endif // DCPWIDGET_H

@@ -68,12 +68,10 @@ DcpAppletPage::load ()
         if (m_Metadata->applet()) {
             /*
              * If the plugin is available (loaded) we call it to create a new
-             * view.
+             * view. (Here we got the widgetId from the plugin itself using the
+             * DCP/Part key of the desktop file.)
              */
-            if (m_Metadata->partID() != -1)
-                changeWidget (m_Metadata->partID());
-            else
-                changeWidget (0);
+            changeWidget (m_Metadata->getMainWidgetId ());
 
             return;
         } else if (m_Metadata->hasApplicationCommand ()) {

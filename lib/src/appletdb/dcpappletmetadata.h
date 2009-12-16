@@ -55,7 +55,7 @@ public:
     int usage() const;
 
     QString part() const;
-    int partID() const;
+    int getMainWidgetId () const;
 
     DcpAppletIf* applet() const;
     void setParent(DcpAppletMetadata *parent);
