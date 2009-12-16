@@ -51,11 +51,9 @@ void DcpMainPage::createContent()
 
     connect(m_RecentlyComp, SIGNAL(openSubPage(PageHandle)),
             this, SIGNAL(openSubPage(PageHandle)));
-    // Well strangely enough we don't need to do this, and if we do it
-    // we got the signal twice. I can't even begin to understand this
-    // complicated signal handling we have.
-    //connect(m_RecentlyComp, SIGNAL(openSubPageWithReferer(const PageHandle &, const QString &, int)),
-    //        this, SIGNAL(openSubPageWithReferer(const PageHandle &, const QString &, int)));
+    // Well strangely enough we don't need connect the openSubPageWithReferer,
+    // and if we do it we got the signal twice. I can't even begin to understand
+    // this complicated signal handling we have.
     layout->addItem(m_RecentlyComp);
 
     // category descriptions:
