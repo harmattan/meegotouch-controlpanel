@@ -8,7 +8,7 @@
 #include <DuiApplication>
 #include "dcpwrongapplets.h"
 #include <sys/wait.h>
-
+#include <csignal>
 
 void startSupervising()
 {
@@ -31,9 +31,21 @@ void startSupervising()
     }
 }
 
+/* this redefines the signal handler for TERM and INT signals,
+ * so as to be able to use aboutToQuit signal from qApp
+ * also in these cases */
+void onTermSignal(int param)
+{
+    if (qApp) {
+        qApp->quit();
+    }
+}
+
 int startApplication(int argc, char* argv[])
 {
     DuiApplication app(argc, argv);
+    signal(SIGTERM, &onTermSignal);
+    signal(SIGINT, &onTermSignal);
     app.setAnimator(0);
 
     DuiControlPanelService* service = new DuiControlPanelService();
@@ -89,11 +101,6 @@ int main(int argc, char *argv[])
          DcpAppletDb::initInstance(desktopDir);
     }
 
-    int result = startApplication(argc, argv);
-
-    // destructors
-    DcpWrongApplets::destroyInstance();
-
-    return result;
+    return startApplication(argc, argv);
 }
 
