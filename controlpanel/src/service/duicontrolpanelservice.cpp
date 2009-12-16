@@ -9,7 +9,7 @@ static const char* serviceName = "com.nokia.DuiControlPanel";
 DuiControlPanelService::DuiControlPanelService()
 {
     // by default open the main page:
-    m_StartPage = new Pages::Handle();
+    m_StartPage = new PageHandle ();
     mainPage();
 
     // memory owned by QDBusAbstractAdaptor instance and must be on the heap
@@ -30,7 +30,7 @@ bool
 DuiControlPanelService::appletPage(const QString& appletName)
 {
 
-    Pages::Handle handle = {Pages::APPLET, appletName};
+    PageHandle handle (PageHandle::APPLET, appletName);
     sheduleStart(handle);
 
     return true; // TODO this hack prevents a servicefw issue,
@@ -39,7 +39,8 @@ DuiControlPanelService::appletPage(const QString& appletName)
 }
 
 void
-DuiControlPanelService::sheduleStart(const Pages::Handle& handle)
+DuiControlPanelService::sheduleStart (
+		const PageHandle &handle)
 {
     if (m_StartPage == 0) {
         PageFactory::instance()->changePage(handle);
@@ -52,8 +53,8 @@ DuiControlPanelService::sheduleStart(const Pages::Handle& handle)
 void
 DuiControlPanelService::categoryPage(const QString& category)
 {
-    Pages::Handle handle;
-    handle.id = Pages::APPLETCATEGORY;
+    PageHandle handle;
+    handle.id = PageHandle::APPLETCATEGORY;
     handle.param = category;
     sheduleStart(handle);
 }
@@ -61,8 +62,8 @@ DuiControlPanelService::categoryPage(const QString& category)
 void
 DuiControlPanelService::mainPage()
 {
-    Pages::Handle handle;
-    handle.id = Pages::MAIN;
+    PageHandle handle;
+    handle.id = PageHandle::MAIN;
     handle.param = "";
     sheduleStart(handle);
 }

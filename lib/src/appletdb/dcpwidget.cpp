@@ -2,12 +2,17 @@
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #include "dcpwidget.h"
 
+
+#define DEBUG
+#include "dcpdebug.h"
+
 /*!
  * \brief The constructor. No referer for default
  */
 DcpWidget::DcpWidget (QGraphicsWidget *parent) 
 	: DuiWidget (parent), 
-	  m_Referer (-1)
+	  m_Referer (-1),
+      m_WidgetId (-1)
 {
 }
 
@@ -15,6 +20,36 @@ DcpWidget::~DcpWidget ()
 {
 }
 
+
+/*!
+ *
+ * Returns the widgetId for the DcpWidget object.
+ */
+int 
+DcpWidget::getWidgetId ()
+{
+    return m_WidgetId;
+}
+
+/*!
+ * \brief Sets the widgetId and returns true if the ID could be set.
+ *
+ * Sets the widgetId for the DcpWidget class widget. The WidgetId is set by the
+ * controlpanel, and should not changed by the cp applet. Once the widgetId is
+ * set it can not be changed.
+ */
+bool 
+DcpWidget::setWidgetId (
+        int widgetId)
+{
+    if (m_WidgetId != -1) {
+        DCP_WARNING ("The widgetId already set.");
+        return false;
+    }
+
+    m_WidgetId = widgetId;
+    return true;
+}
 
 /*! 
  * \brief Sets the referer for the widget
@@ -31,7 +66,7 @@ DcpWidget::setReferer (
  * \return the referer id of the widget
  */
 int 
-DcpWidget::referer() 
+DcpWidget::referer () 
 {
     return m_Referer;
 }
@@ -55,8 +90,13 @@ DcpWidget::back ()
 	}
 }
 
+/*!
+ * The pannable area for the entire view (page) will be enabled if this function
+ * returns true. The default implementation of the function returns true, so the
+ * pannable area will be enabled.
+ */
 bool 
-DcpWidget::pagePans() const 
+DcpWidget::pagePans () const 
 {
     return true; 
 }

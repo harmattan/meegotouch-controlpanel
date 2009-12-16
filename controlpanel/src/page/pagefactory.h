@@ -15,15 +15,15 @@ class PageFactory : public QObject
     Q_OBJECT
 public:
     static PageFactory *instance();
-    DcpPage* create (const Pages::Handle &handle);
-    DcpPage* currentPage(){return m_CurrentPage;}
+    DcpPage* create (const PageHandle &handle);
+    DcpPage* currentPage() {return m_CurrentPage;}
     void initPage(DcpPage* page);
 
 public slots:
-    void changePage (Pages::Handle handle);
+    void changePage (PageHandle handle);
 
     void changePageWithReferer (
-		    const Pages::Handle &handle, 
+		    const PageHandle &handle, 
 		    const QString       &refererName,
 		    int                  refererId);
 
@@ -33,7 +33,7 @@ protected:
     DcpPage* createAppletPage(DcpAppletMetadata *metadata);
     DcpPage* createAppletPageFromCategory(DcpAppletMetadata *metadata);
     DcpPage* createAppletPageFromMostUsed(DcpAppletMetadata *metadata);
-    DcpPage* createAppletCategoryPage(Pages::Id pageId);
+    DcpPage* createAppletCategoryPage(PageHandle::PageTypeId pageId);
 
 private:
     static PageFactory* sm_Instance;

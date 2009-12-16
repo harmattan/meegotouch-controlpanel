@@ -17,10 +17,10 @@ public:
 
     QString title() const {return m_Title;}
     virtual void setTitle(const QString& title) {m_Title = title;}
-    void setSubPage(const Pages::Handle& subPage) {m_SubPage = subPage;}
-    void setSubPage(const Pages::Id id, const QString &param="")
+    void setSubPage (const PageHandle &subPage) {m_SubPage = subPage;}
+    void setSubPage (const PageHandle::PageTypeId id, const QString &param="")
         {m_SubPage.id = id; m_SubPage.param = param;}
-    const Pages::Handle& subPage() const {return m_SubPage;}
+    const PageHandle &subPage() const {return m_SubPage;}
     // Composite Pattern Interface
     virtual void add(DcpComponent *component)=0;
     virtual void remove(DcpComponent *component)=0;
@@ -40,8 +40,8 @@ protected slots:
 		    int           refererId);
 
 signals:
-    void openSubPage (const Pages::Handle &);
-    void openSubPageWithReferer (const Pages::Handle &, const QString &, int);
+    void openSubPage (const PageHandle &);
+    void openSubPageWithReferer (const PageHandle &, const QString &, int);
 
 public slots:
     virtual void onOrientationChange (const Dui::Orientation &orientation);
@@ -50,6 +50,6 @@ private:
     QString m_Title;
     QString m_LogicalId;
     DcpCategory* m_Category;
-    Pages::Handle m_SubPage;
+    PageHandle m_SubPage;
 };
 #endif //DCPCOMPONENT_H

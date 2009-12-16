@@ -9,7 +9,7 @@
 #include <DuiApplication>
 #include <DuiApplicationWindow>
 
-//#define DEBUG
+#define DEBUG
 #include "dcpdebug.h"
 
 
@@ -83,7 +83,7 @@ void DcpPage::disconnectSignals()
     disconnect(this, SIGNAL(backButtonClicked()), this, SLOT(back()));
 }
 
-Pages::Handle 
+PageHandle 
 DcpPage::handle () const 
 {
     return m_Handle;
@@ -96,7 +96,7 @@ DcpPage::handle () const
  */
 void 
 DcpPage::setHandle (
-        const Pages::Handle &handle) 
+        const PageHandle &handle) 
 {
     m_Handle = handle;
     
@@ -108,8 +108,8 @@ DcpPage::setHandle (
 
 void 
 DcpPage::setHandle (
-        Pages::Id       id, 
-        const QString  &param)
+        PageHandle::PageTypeId       id, 
+        const QString               &param)
 {
     m_Handle.id = id; 
     m_Handle.param = param;
@@ -120,7 +120,7 @@ DcpPage::setHandle (
             DCP_STR (m_Referer.param), m_Referer.id);
 }
 
-Pages::Handle 
+PageHandle 
 DcpPage::referer () const 
 {
     return m_Referer;
@@ -128,7 +128,7 @@ DcpPage::referer () const
 
 void 
 DcpPage::setReferer (
-        const Pages::Handle &referer) 
+        const PageHandle &referer) 
 {
     m_Referer = referer;
    
@@ -136,17 +136,12 @@ DcpPage::setReferer (
             DCP_STR (m_Handle.param), m_Handle.id);
     DCP_DEBUG ("*** m_Referer = '%s'/%d", 
             DCP_STR (m_Referer.param), m_Referer.id);
-    #if 0
-    Q_ASSERT (
-            m_Handle.id == Pages::NOPAGE ||
-            m_Handle.id != m_Referer.id || m_Handle.param != m_Referer.param);
-    #endif
 }
 
 void 
 DcpPage::setReferer (
-        Pages::Id         id, 
-        const QString    &param)
+        PageHandle::PageTypeId    id, 
+        const QString            &param)
 {
     m_Referer.id = id; 
     m_Referer.param = param;

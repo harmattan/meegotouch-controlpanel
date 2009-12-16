@@ -25,8 +25,8 @@ DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
     m_MainWidget(0),
     m_MissingLabel(0)
 {
-    setHandle  (Pages::APPLET, metadata->name());
-    setReferer (Pages::NOPAGE);
+    setHandle  (PageHandle::APPLET, metadata->name());
+    setReferer (PageHandle::NOPAGE);
 }
 
 DcpAppletPage::~DcpAppletPage()
@@ -68,12 +68,10 @@ DcpAppletPage::load ()
         if (m_Metadata->applet()) {
             /*
              * If the plugin is available (loaded) we call it to create a new
-             * view.
+             * view. (Here we got the widgetId from the plugin itself using the
+             * DCP/Part key of the desktop file.)
              */
-            if (m_Metadata->partID() != -1)
-                changeWidget (m_Metadata->partID());
-            else
-                changeWidget (0);
+            changeWidget (m_Metadata->getMainWidgetId ());
 
             return;
         } else if (m_Metadata->hasApplicationCommand ()) {
@@ -122,7 +120,7 @@ void DcpAppletPage::reload()
     }
     DcpPage::reload();
     // means: referer should be set by pagefactory to the last page
-    setReferer(Pages::NOPAGE); 
+    setReferer(PageHandle::NOPAGE); 
 }
 
 void DcpAppletPage::back()
@@ -133,20 +131,33 @@ void DcpAppletPage::back()
         DcpPage::back();
 }
 
-void DcpAppletPage::changeWidget(int widgetId)
+void 
+DcpAppletPage::changeWidget (
+        int widgetId)
 {
     if (m_MainWidget != 0) {
         remove (m_MainWidget);
     }
 
+    /*
+     * Creating the widget and setting its widgetId.
+     */
     m_MainWidget = m_Metadata->applet()->constructWidget (widgetId);
-
-    // checks if applet does provide the widget
-
     if (!m_MainWidget) {
         return;
     }
-    setPannableAreaInteractive(m_MainWidget->pagePans());
+
+    if (!m_MainWidget->setWidgetId (widgetId) &&
+            m_MainWidget->getWidgetId () != widgetId) {
+        DCP_WARNING ("The widgetId could not be set for applet '%s' "
+                "widget %d it remains %d.",
+                DCP_STR (m_Metadata->name()),
+                widgetId,
+                m_MainWidget->getWidgetId ());
+    }
+
+    // 
+    setPannableAreaInteractive (m_MainWidget->pagePans());
 
     /*
      * FIXME: Are we sure this is a new widget that we never saw before and
@@ -158,7 +169,7 @@ void DcpAppletPage::changeWidget(int widgetId)
     connect (m_MainWidget, SIGNAL (activatePluginByName (int, const QString &)),
             m_Metadata, SLOT (activatePluginByName (int, const QString &)));
 
-    append(m_MainWidget);
+    append (m_MainWidget);
 
     QVector<DuiAction*> vector = m_LoadedMetadata->applet()->viewMenuItems();
     if (!vector.isEmpty())

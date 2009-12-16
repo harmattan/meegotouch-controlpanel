@@ -21,13 +21,13 @@ public:
     virtual void connectSignals();
     virtual void disconnectSignals();
 
-    Pages::Handle handle() const;
-    virtual void setHandle (const Pages::Handle &handle);
-    virtual void setHandle (Pages::Id id, const QString &param="");
+    PageHandle handle() const;
+    virtual void setHandle (const PageHandle &handle);
+    virtual void setHandle (PageHandle::PageTypeId id, const QString &param="");
 
-    Pages::Handle referer() const;
-    void setReferer(const Pages::Handle &referer);
-    virtual void setReferer(Pages::Id id, const QString &param="");
+    PageHandle referer() const;
+    void setReferer(const PageHandle &referer);
+    virtual void setReferer(PageHandle::PageTypeId id, const QString &param="");
     
     QGraphicsLinearLayout *mainLayout();
 
@@ -38,8 +38,8 @@ public slots:
     virtual void organizeContent(const Dui::Orientation& ori);
 
 signals:
-    void openSubPage(Pages::Handle handle);
-    void openSubPageWithReferer (const Pages::Handle &, const QString &, int);
+    void openSubPage (PageHandle handle);
+    void openSubPageWithReferer (const PageHandle &, const QString &, int);
 
 protected:
     void append (QGraphicsWidget* widget);
@@ -47,8 +47,8 @@ protected:
 
 private:
     void connectOrientation();
-    Pages::Handle m_Handle;
-    Pages::Handle m_Referer;
+    PageHandle m_Handle;
+    PageHandle m_Referer;
     void createLayout();
 };
 

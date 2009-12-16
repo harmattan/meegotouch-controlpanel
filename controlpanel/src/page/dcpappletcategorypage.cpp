@@ -1,3 +1,5 @@
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #include "dcpappletcategorypage.h"
 #include <DcpMainCategory>
 #include <QDebug>
@@ -11,8 +13,8 @@ DcpAppletCategoryPage::DcpAppletCategoryPage(const QString &appletCategory) :
 		DcpCategoryPage(),
         m_AppletCategory(appletCategory)
 {
-    setHandle  (Pages::APPLETCATEGORY);
-    setReferer (Pages::MAIN);
+    setHandle  (PageHandle::APPLETCATEGORY);
+    setReferer (PageHandle::MAIN);
 }
 
 DcpAppletCategoryPage::~DcpAppletCategoryPage()
@@ -55,11 +57,11 @@ DcpAppletCategoryPage::addComponent(
 {
     DcpBriefComponent *component = new DcpBriefComponent(metadata, m_Category);
 
-    component->setSubPage(Pages::APPLET, metadata->name());
-    connect(component, SIGNAL(openSubPage(Pages::Handle)),
-            this, SIGNAL(openSubPage(Pages::Handle)));
-    connect(component, SIGNAL(openSubPageWithReferer(const Pages::Handle &, const QString &, int)),
-            this, SIGNAL(openSubPageWithReferer(const Pages::Handle &, const QString &, int)));
+    component->setSubPage(PageHandle::APPLET, metadata->name());
+    connect(component, SIGNAL(openSubPage(PageHandle)),
+            this, SIGNAL(openSubPage(PageHandle)));
+    connect(component, SIGNAL(openSubPageWithReferer(const PageHandle &, const QString &, int)),
+            this, SIGNAL(openSubPageWithReferer(const PageHandle &, const QString &, int)));
     if (odd)
         m_Category->add(component);
     else

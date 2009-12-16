@@ -45,10 +45,10 @@ void DcpCategoryComponent::createContents()
 
     m_AppletButtons = new DcpAppletButtons(logicalId(), m_CategoryName, title());
 
-    connect(m_AppletButtons, SIGNAL(openSubPage(Pages::Handle)),
-            this, SIGNAL(openSubPage(Pages::Handle)));
-    connect(m_AppletButtons, SIGNAL(openSubPageWithReferer(const Pages::Handle &, const QString &, int)),
-            this, SIGNAL(openSubPageWithReferer(const Pages::Handle &, const QString &, int)));
+    connect(m_AppletButtons, SIGNAL(openSubPage(PageHandle)),
+            this, SIGNAL(openSubPage(PageHandle)));
+    connect(m_AppletButtons, SIGNAL(openSubPageWithReferer(const PageHandle &, const QString &, int)),
+            this, SIGNAL(openSubPageWithReferer(const PageHandle &, const QString &, int)));
 
     m_Container->setCentralWidget(m_AppletButtons);
 

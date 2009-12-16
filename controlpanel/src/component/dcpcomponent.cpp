@@ -6,7 +6,7 @@
 #include <QtDebug>
 #include <QGraphicsLayout>
 
-//#define DEBUG
+#define DEBUG
 #include "dcpdebug.h"
 
 DcpComponent::DcpComponent (
@@ -37,7 +37,7 @@ void DcpComponent::switchToSubPageWithReferer (
 		int             refererId)
 {
     DCP_DEBUG ("Emitting openSubPageWithReferer "
-		    "(const Pages::Handle &, const QString &, int)");
+		    "(const PageHandle &, const QString &, int)");
     emit openSubPageWithReferer (subPage(), refererName, refererId);
 }
 
