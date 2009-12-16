@@ -26,14 +26,17 @@ class DcpWidget: public DuiWidget
     Q_OBJECT
 
 public:
-    DcpWidget (QGraphicsWidget *parent=0);
+    DcpWidget (QGraphicsWidget *parent = 0);
     virtual ~DcpWidget();
 
     virtual void setReferer (int widgetId);
     int referer();
     
-    virtual bool back();
-    virtual bool pagePans() const;
+    virtual bool back ();
+    virtual bool pagePans () const;
+
+    int getWidgetId ();
+    bool setWidgetId (int widgetId);
 
 signals:
     /*!

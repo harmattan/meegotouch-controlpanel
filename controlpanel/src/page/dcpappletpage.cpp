@@ -131,20 +131,33 @@ void DcpAppletPage::back()
         DcpPage::back();
 }
 
-void DcpAppletPage::changeWidget(int widgetId)
+void 
+DcpAppletPage::changeWidget (
+        int widgetId)
 {
     if (m_MainWidget != 0) {
         remove (m_MainWidget);
     }
 
+    /*
+     * Creating the widget and setting its widgetId.
+     */
     m_MainWidget = m_Metadata->applet()->constructWidget (widgetId);
-
-    // checks if applet does provide the widget
-
     if (!m_MainWidget) {
         return;
     }
-    setPannableAreaInteractive(m_MainWidget->pagePans());
+
+    if (!m_MainWidget->setWidgetId (widgetId) &&
+            m_MainWidget->getWidgetId () != widgetId) {
+        DCP_WARNING ("The widgetId could not be set for applet '%s' "
+                "widget %d it remains %d.",
+                DCP_STR (m_Metadata->name()),
+                widgetId,
+                m_MainWidget->getWidgetId ());
+    }
+
+    // 
+    setPannableAreaInteractive (m_MainWidget->pagePans());
 
     /*
      * FIXME: Are we sure this is a new widget that we never saw before and
@@ -156,7 +169,7 @@ void DcpAppletPage::changeWidget(int widgetId)
     connect (m_MainWidget, SIGNAL (activatePluginByName (int, const QString &)),
             m_Metadata, SLOT (activatePluginByName (int, const QString &)));
 
-    append(m_MainWidget);
+    append (m_MainWidget);
 
     QVector<DuiAction*> vector = m_LoadedMetadata->applet()->viewMenuItems();
     if (!vector.isEmpty())
