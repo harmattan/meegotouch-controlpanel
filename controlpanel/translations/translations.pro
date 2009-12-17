@@ -1,4 +1,4 @@
-LANGUAGES = # empty, means to build only engineering English
+LANGUAGES = de # empty, means to build only engineering English
 CATALOGNAME = duicontrolpanel
 SOURCEDIR = $$PWD/..
 TRANSLATIONDIR = $$PWD
