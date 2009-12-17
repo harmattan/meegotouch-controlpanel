@@ -23,9 +23,6 @@
 enum  {
     KeyCategory = 0,
     KeyOrder,
-    KeyOnPicture,
-    KeyOffPicture,
-    KeyDisabledPicture,
 
     KeyWidgetType,
     KeyAlign,
@@ -33,7 +30,6 @@ enum  {
 
     KeyText2,
     KeyImage,
-    KeyUsage,
     KeyBinary,
     KeyDslFilename,
     KeyApplicationCommand,
@@ -51,9 +47,6 @@ enum  {
 const QString Keys[KeyCount] = {
     "DCP/Category",
     "DCP/Order",
-    "DCP/OnPicture",
-    "DCP/OffPicture",
-    "DCP/DisabledPicture",
 
     "DCP/WidgetType",
     "DCP/Align",
@@ -61,7 +54,6 @@ const QString Keys[KeyCount] = {
 
     "DCP/Text2",
     "DCP/Image",
-    "DCP/Usage",
     "DUI/X-DUIApplet-Applet",
     "DUI/X-DUIApplet-Dslfile",
     "DUI/X-DUIApplet-ApplicationCommand",
@@ -412,8 +404,6 @@ DcpAppletMetadata::getMainWidgetId () const
 
 int DcpAppletMetadata::usage () const
 {
-    // TODO implement
-    //return desktopEntry()->value(Keys[KeyUsage]).toInt() + d->m_Counter;
     return MostUsedCounter::instance()->get(d->m_GconfKeyUsage);
 }
 

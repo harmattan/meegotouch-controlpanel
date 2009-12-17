@@ -1,7 +1,166 @@
 /*! \page desktopformat Desktop file format of a plugin
 
 \section description Description
-...TODO...
 
+Each applet should have a .desktop file. By default its location
+should be under . (This can be changed with the controlpanel parameter
+-desktoppath.) The desktop file specifies information about the
+plugin.
+
+\section format Format of the file
+
+The .desktop file is an ini format file, it has three sections:
+<ul>
+    <li>[Desktop Entry]
+    <li>[DUI]
+    <li>[DCP]
+</ul>
+
+In each section there are key-value entries, separated by an equal sign:
+\code
+Key=Value
+\endcode
+
+
+\section keys The keys controlpanel understands
+
+\subsection desection [Desktop Entry]
+
+\par Name
+The name of the applet. Must be unique, other applets and programs will refer
+to the applet with its name, for example when they request duicontrolpanel to
+pop up the applet.
+
+Also suits as the engineering english translation of the applet's title.
+
+\par X-logical-id
+The translation id for the title of the applet. (The one you would write for
+qtTrid or trid.)
+
+\par X-translation-catalog
+The translation catalog for the title of the applet.
+
+
+\subsection duisection [DUI]
+
+\par X-DUIApplet-Applet
+This contains the path of the shared object. It is enough if you specify the
+file name if your applet is under the default location:
+/usr/lib/duicontrolpanel/applets
+
+For a declarative applet, you have to specify "libdeclarative.so" here.
+
+\par X-DUIApplet-Dslfile
+TODO: document
+
+\par X-DUIApplet-ApplicationCommand
+A command which gets executed when the user clicks on the applet launch button.
+If you specify a command here, then your applet will be considered an
+external applet and the shared object you optionally specified at
+X-DUIApplet-Applet will be ignored.
+
+
+\subsection dcpsection [DCP]
+
+\par Category
+The category name in which the launch button of the applet will be displayed.
+It can be one of the followings: "Look & Feel", "Sound", "Connectivity",
+"Regional settings", "Device utilities", "Device system",
+"Accounts & Applications"
+
+\par Order
+A number which specifies the position of the launch button inside its category.
+For example if according to the design your button is at the 3rd row in
+portrait mode, and in the 2nd row 1st column in landscape mode, than you should
+specify 3 here. However if an applet is missing which would have a lower order
+value, than your applet will move upper, because controlpanel does not put
+holes in place of non installed applets.
+
+\par WidgetType
+The widget type of the launch button. Can be one of the following:
+<ul>
+<li>DcpLabel2 - Button with the applet title and optionally a value text
+<li>DcpLabel2Button - Like DcpLabel2 and a toggle button which can switch
+the value line off
+<li>DcpLabel2Image - Like DcpLabel2, and an image
+</ul>
+
+\par Align
+A property for either the toggle or the image type launch button.
+<ul>
+<li>"Left" specifies that the toggle/image should be on the left side,
+<li>"Right" the opposite.
+</ul>
+
+\par ToggleIconId
+The icon which is to be displayed on the toggle button. Leave it empty if you
+do not want an icon there, just want to use the default toggle button.
+
+\par Text2
+Specifies the text on the second line of the launch button.
+It is mainly for demonstrating purposes
+only, but you can use it if you want to display a constant as a value.
+
+\par Image
+Specifies the image name for the image type launch button.
+
+\par Part
+For binary plugins, if this value contains the name of an applet part, then that part
+of the applet will be openned when the user presses the launch
+button. If you omit this, your applet will be started on its first page.
+You can freely choose the part name, but it should be implemented in
+DcpAppletIf::partID().
+Example: A part string for the clock page on the time applet can be "Clock".
+For declarative plugins this value contains the name of the xml file, which
+describes the content of their main widget.
+
+\par Unique
+Only for testing. The first applet which has a 1 here, will be alone,
+and controlpanel will not load the others.
+This key will most likely be removed soon.
+
+\par Parent
+TODO
+
+\section specialities Other
+
+\subsection brief Binary plugin's overrides
+A binary plugin can override some values specified in the desktop file by
+its interface (DcpBrief, DcpAppletIf).
+
+\section example An example desktop file
+
+In case of a binary plugin for Date & Time applet,
+the desktop file can look like this:
+
+\code
+[Desktop Entry]
+Type=DUIApplet
+
+# Name of the applet
+Name=Date & Time
+
+# id for localization
+X-logical-id=qtn_sett_main_date_time
+
+# catalog for localization
+X-translation-catalog=duisettings
+
+[DUI]
+# applet binary
+X-DUIApplet-Applet=libdatetimeapplet.so
+
+[DCP]
+# The category name under which the applet will appear in Control Panel
+Category= Regional settings
+
+# The order of the applet launch button in the Category Page of Dcp.
+Order=1
+
+# Type of the widget launch button.
+WidgetType=DcpLabel2
+
+\endcode
 
 */
+

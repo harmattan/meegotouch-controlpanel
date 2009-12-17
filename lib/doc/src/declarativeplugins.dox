@@ -1,7 +1,50 @@
 /*! \page declarativeplugins Declarative applets
 
 \section description Description
-...TODO...
+A declarative applet has all of its content declared in user readable file formats.
+It has a .desktop file, like all applets, and an .xml file which describes its
+main widgets content using DirectUI's Declarative Settings Language.
 
+This is the easiest way of creating an applet, but it is less flexible (currently):
+
+    <ul>
+        <li>You can not create a custom launch button, the launch button of your applet
+will contain only the applet's title.
+        <li>You can only use some predefined widgets, the ones which are supported by
+declarative language.
+        <li>You can only store your preferences in GConf.
+	<li>Your applet can only have one page.
+    </ul>
+
+Some of these restrictions will most likely change in the near future.
+
+\section requirements Requirements
+
+\subsection desktopfile The .desktop file
+The plugin should have a .desktop file like any other plugin, see
+<a href="desktopformat.html">Desktop file format</a> for details.
+
+Only difference is that you have to specify the followings:
+
+\par DUI / X-DUIApplet-Applet
+This must be "libdeclarative.so" for a declarative applet.
+
+\par DCP / Part
+For declarative plugins this value contains the name of the xml file, which
+describes the content of their main widget.
+
+\subsection mainwidget The .xml description of the main widget
+
+The .xml file which describes the main widget should be located
+under "/usr/lib/duicontrolpanel/uidescriptions".
+
+For details about how you can create input widgets, check libdui-doc about
+Declarative Settings Language.
+
+All keys of the input widgets are considered as GConf paths, where the
+value of the user feedback gets stored.
+
+For an example, check duicontrolpanel-skeleton-applet package, or the git repo under
+af/duicontrolpanel-skeleton-applet.
 
 */
