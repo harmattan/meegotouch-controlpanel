@@ -2,8 +2,10 @@
 /* vim:set et sw=4 ts=4 sts=4: */
 
 #include "dcpbrief.h"
-#include <DcpWidgetTypes>
+#include "dcpwidgettypes.h"
 
+#define DEBUG
+#include "../../../lib/src/dcpdebug.h"
 
 DcpBrief::~DcpBrief()
 {
@@ -18,6 +20,7 @@ DcpBrief::~DcpBrief()
 int
 DcpBrief::widgetTypeID () const
 {
+    DCP_DEBUG ("------------------> %d", DCPBRIEFWIDGETINVALID);
     return DCPBRIEFWIDGETINVALID;
 }
 

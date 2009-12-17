@@ -1,7 +1,9 @@
-#include <DcpBriefWidget>
-#include <DcpAppletMetadata>
-#include <DcpWidgetTypes>
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 
+#include "dcpbriefwidget.h"
+#include "dcpappletmetadata.h"
+#include "dcpwidgettypes.h"
 #include "dcpbutton.h"
 #include "dcpbuttontoggle.h"
 #include "dcpbuttonimage.h"
@@ -11,13 +13,18 @@
 #include <QGraphicsLinearLayout>
 #include <QtDebug>
 
-DcpBriefWidget::DcpBriefWidget(DcpAppletMetadata* metadata, DuiWidget* parent)
-    : DuiWidget(parent), m_RealWidget(0), m_Metadata(0), m_Hidden(true)
+DcpBriefWidget::DcpBriefWidget (
+        DcpAppletMetadata *metadata, 
+        DuiWidget         *parent)
+: DuiWidget (parent), 
+    m_RealWidget (0), 
+    m_Metadata (0), 
+    m_Hidden (true)
 {
     QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(this);
     layout->setContentsMargins(0,0,0,0);
 
-    setMetadata(metadata);
+    setMetadata (metadata);
 }
 
 
@@ -25,34 +32,45 @@ DcpBriefWidget::~DcpBriefWidget()
 {
 }
 
-void DcpBriefWidget::setMetadata(DcpAppletMetadata* metadata)
+void 
+DcpBriefWidget::setMetadata (
+        DcpAppletMetadata* metadata)
 {
-    // can be optimized if necessery (not recreating the widget, just updating its contents)
-    if (m_RealWidget) m_RealWidget->deleteLater();
+    // can be optimized if necessery (not recreating the widget, just updating 
+    // its contents)
+    if (m_RealWidget) 
+        m_RealWidget->deleteLater();
 
-    if (m_Metadata) { // metadata is owned by the appletdb, so not removed, only disconnected
+    if (m_Metadata) { 
+        // metadata is owned by the appletdb, so not removed, only disconnected
         disconnect (m_Metadata, 0, this, 0);
         this->disconnect();
     }
-    Q_ASSERT(metadata);
+    Q_ASSERT (metadata);
     m_Metadata = metadata;
 
-    dcpMarkAsMaybeBad(metadata);
+    dcpMarkAsMaybeBad (metadata);
 
-    switch(m_Metadata->widgetTypeID()) {
+    switch (m_Metadata->widgetTypeID()) {
         case DCPLABELBUTTON:
         case DCPLABEL2BUTTON:
-            m_RealWidget = constructToggle(metadata);
+            m_RealWidget = constructToggle (metadata);
             break;
+
         case DCPLABEL2IMAGE :
-            m_RealWidget = constructImage(metadata);
+            m_RealWidget = constructImage (metadata);
             break;
+
         default:
             m_RealWidget = new DcpButton(this);
             break;
     }
 
-    connect (this, SIGNAL(clicked()), m_Metadata, SLOT(slotClicked()));
+    connect (this, SIGNAL (clicked()), 
+            m_Metadata, SLOT (slotClicked()));
+    connect (this, SIGNAL (clicked()),
+        m_Metadata, SIGNAL (activate ()));
+
 
     if (m_RealWidget) {
         retranslateUi();

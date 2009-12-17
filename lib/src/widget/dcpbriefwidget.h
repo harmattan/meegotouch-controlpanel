@@ -1,3 +1,5 @@
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #ifndef DCPBRIEFWIDGET_H
 #define DCPBRIEFWIDGET_H
 
@@ -9,11 +11,22 @@ class DcpButtonToggle;
 class QShowEvent;
 class QHideEvent;
 
+/*!
+ * \brief An activatable entry in the control panel.
+ * 
+ * The #DcpBriefWidget is an actiavatable widget in the control panel. It
+ * usually has a #DcpAppletMetadata associated with it, so when the user clicks
+ * on the widget the applet variant is activated. The widget connects its
+ * clicked() signal to the activate() signal of the #DcpAppletMetadata object,
+ * so the applet variant will be started when the widget is clicked.
+ */
 class DcpBriefWidget: public DuiWidget
 {
     Q_OBJECT
+
 public:
 	DcpBriefWidget(DcpAppletMetadata* metadata, DuiWidget* parent = 0);
+    
     void setMetadata(DcpAppletMetadata* metadata);
     DcpAppletMetadata* metadata() const {return m_Metadata;}
 

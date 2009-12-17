@@ -6,9 +6,9 @@
 #include <duilocale.h>
 #include <QDebug>
 #include "dcpappletmetadata_p.h"
-#include <DcpWidgetTypes>
-#include <DuiDesktopEntry>
 
+#include "duidesktopentry.h"
+#include "dcpwidgettypes.h"
 #include "dcpappletdb.h"
 #include "dcpappletloader.h"
 #include "dcpbrief.h"
@@ -220,8 +220,9 @@ DcpAppletMetadata::widgetTypeID () const
      */
     if (brief != NULL) {
         retval = brief->widgetTypeID ();
-        if (DCP_WIDGET_TYPE_VALID (retval)) 
+        if (DCP_WIDGET_TYPE_VALID (retval)) {
             return retval;
+        }
     }
 
     /*
@@ -230,9 +231,11 @@ DcpAppletMetadata::widgetTypeID () const
      */
     QString typeName = desktopEntryStr (KeyWidgetType);
     if (!typeName.isEmpty()) {
-        for (int i = 0; i < WIDGETN; i++) {
-            if (WIDGETNAME[i] == typeName) 
-                return i;
+        for (retval = 0; retval < WIDGETN; retval++) {
+            if (WIDGETNAME[retval] == typeName && 
+                    DCP_WIDGET_TYPE_VALID (retval)) { 
+                return retval;
+            }
         }
     }
 
@@ -493,14 +496,12 @@ void DcpAppletMetadata::setParent(DcpAppletMetadata *parent)
     d->m_Parent = parent;
 }
 
-void DcpAppletMetadata::slotClicked()
+void 
+DcpAppletMetadata::slotClicked()
 {
-//Q_ASSERT(0);
-		//add
-	//d->m_Counter++;
-        MostUsedCounter::instance()->add(d->m_GconfKeyUsage);
-
+    MostUsedCounter::instance()->add (d->m_GconfKeyUsage);
 }
+
 bool DcpAppletMetadata::orderLessThan(DcpAppletMetadata *meta1,
                                       DcpAppletMetadata *meta2)
 {

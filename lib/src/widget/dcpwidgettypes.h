@@ -20,8 +20,11 @@ WIDGETNAME[] =
     "DcpLabel2Toggle",
 };
 
+/*
+ * FIXME: The code rely on the fact that the first element has a 0 value!!
+ */
 enum WIDGETTYPEID {
-    DCPBRIEFWIDGETINVALID = -1,
+    DCPBRIEFWIDGETINVALID = 0,
     DCPLABEL,           //"DcpLabel"
     DCPLABEL2,          //"DcpLabel2"
     DCPLABELBUTTON,     //"DcpLabelButton"
