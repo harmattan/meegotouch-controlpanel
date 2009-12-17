@@ -14,8 +14,16 @@ class DcpWidget;
 class DcpAppletMetadataPrivate;
 
 /*!
- * \brief DcpAppletMetadata contains all the information of the applet
- * \details This class provides all the info
+ * \brief DcpAppletMetadata contains all the information on the applet variant
+ * \details This class provides all the information about an applet variant in 
+ *   practical format. Every applet can hold one or more .desktop file, for each
+ *   there will be a #DcpAppletMetadata class object, and each will define a
+ *   configuration for the applet binary. 
+ * 
+ *   If an applet have more than one desktop file we say the applet have more
+ *   than one applet variant, that is from the user point of view the applet
+ *   seems like it were more than one applet, but these variants might share 
+ *   common elements (UI, code and data).
  */
 class DcpAppletMetadata : public QObject
 {
@@ -82,7 +90,7 @@ public slots:
 protected:
     DuiDesktopEntry* desktopEntry() const;
     QString desktopEntryStr(int id) const;
-    DcpBrief* brief() const;
+    DcpBrief* getBrief() const;
 
 private:
     DcpAppletMetadataPrivate * const d;
