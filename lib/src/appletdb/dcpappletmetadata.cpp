@@ -287,7 +287,7 @@ QString DcpAppletMetadata::toggleIconId() const
 
 /*!
  * \brief A slot for the inter plugin activation.
- * \param name The name of the other applet to activate.
+ * \param appletName The name of the applet to activate.
  * 
  * \details This slot will activate an other applet. First the function will
  * find the applet using the applet database then it will emit a signal for it,
@@ -295,33 +295,31 @@ QString DcpAppletMetadata::toggleIconId() const
  */
 bool 
 DcpAppletMetadata::activatePluginByName (
-        int            refererID,
-        const QString &name) const
+        const QString &appletName) const
 {
     DcpAppletMetadata  *otherApplet;
     DcpWidget          *senderWidget = qobject_cast<DcpWidget *> (sender());
 
-    Q_UNUSED (refererID);
     Q_ASSERT (senderWidget != NULL);
    
     DCP_WARNING ("Want to start '%s' by %s/%d", 
-            DCP_STR (name),
-            DCP_STR (this->name()),
+            DCP_STR (appletName),
+            DCP_STR (name()),
             senderWidget->getWidgetId());
 
-    otherApplet = DcpAppletDb::instance()->applet (name);
+    otherApplet = DcpAppletDb::instance()->applet (appletName);
     if (otherApplet) {
         DCP_DEBUG ("Emitting %p->activateWithReferer (%s, %d)", 
                 otherApplet,
-                DCP_STR (this->name()), 
+                DCP_STR (name()), 
                 senderWidget->getWidgetId());
         emit otherApplet->activateWithReferer (
-                this->name(), senderWidget->getWidgetId());
+                name(), senderWidget->getWidgetId());
 
         return true;
     }
         
-    DCP_WARNING ("Applet with name '%s' not found.", DCP_STR (name));
+    DCP_WARNING ("Applet with name '%s' not found.", DCP_STR (appletName));
     return false;
 }
 

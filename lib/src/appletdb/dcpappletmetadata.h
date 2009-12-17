@@ -61,7 +61,6 @@ public:
     void setParent(DcpAppletMetadata *parent);
     DcpAppletMetadata* parent() const;
     QString parentName() const;
-//	void save();
     void cleanup();
     static bool usageGreatherThan(DcpAppletMetadata *meta1,
                                   DcpAppletMetadata *meta2);
@@ -78,7 +77,7 @@ signals:
 public slots:
 	void slotClicked ();
     void setToggle (bool checked);
-    bool activatePluginByName (int refererID, const QString &name) const;
+    bool activatePluginByName (const QString &name) const;
 
 protected:
     DuiDesktopEntry* desktopEntry() const;

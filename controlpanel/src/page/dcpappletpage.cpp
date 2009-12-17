@@ -163,11 +163,13 @@ DcpAppletPage::changeWidget (
      * FIXME: Are we sure this is a new widget that we never saw before and
      * never connected to its signals?
      */
+    DCP_DEBUG ("Connecting %p->changeWidget => %p->changeWidget()", 
+            m_MainWidget, this);
     connect (m_MainWidget, SIGNAL (changeWidget(int)), 
             this, SLOT(changeWidget(int)));
 
-    connect (m_MainWidget, SIGNAL (activatePluginByName (int, const QString &)),
-            m_Metadata, SLOT (activatePluginByName (int, const QString &)));
+    connect (m_MainWidget, SIGNAL (activatePluginByName (const QString &)),
+            m_Metadata, SLOT (activatePluginByName (const QString &)));
 
     append (m_MainWidget);
 

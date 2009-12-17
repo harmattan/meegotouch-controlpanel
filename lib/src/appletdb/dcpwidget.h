@@ -16,7 +16,6 @@
  *  1) To implement multi-view support.
  *  2) This is a public header, it should not contain elements that are subject
  *     of change, like inline functions and class members.
- *  3) This widget does not know its own ID!
  */
 class QGraphicsWidget;
 class DuiDialog;
@@ -52,17 +51,18 @@ signals:
 
     /*!
      * \brief Should be activated to request the activation of an applet
-     * \param name The name of the applet that should be activated
+     * \param appletName The name of the applet that should be activated
+     * \returns true if the applet could be found
      *
      * This signal should be emitted by the plugin when the activation of an
      * other applet is requested. 
      */
-    bool activatePluginByName (int widgetId, const QString &name) const;
+    bool activatePluginByName (const QString &appletName) const;
 
 private:
     int m_Referer;
     int m_WidgetId;
 };
 
-#endif // DCPWIDGET_H
+#endif
 
