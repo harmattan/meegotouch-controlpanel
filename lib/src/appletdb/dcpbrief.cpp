@@ -20,7 +20,6 @@ DcpBrief::~DcpBrief()
 int
 DcpBrief::widgetTypeID () const
 {
-    DCP_DEBUG ("------------------> %d", DCPBRIEFWIDGETINVALID);
     return DCPBRIEFWIDGETINVALID;
 }
 

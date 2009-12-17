@@ -39,10 +39,12 @@ signals:
 
 protected:
     virtual void retranslateUi();
-    virtual void showEvent ( QShowEvent * event );
-    virtual void hideEvent ( QHideEvent * event );
-    DcpButtonImage* constructImage(const DcpAppletMetadata* metadata);
-    DcpButtonToggle* constructToggle(const DcpAppletMetadata* metadata);
+    virtual void showEvent (QShowEvent *event);
+    virtual void hideEvent (QHideEvent *event);
+
+    virtual void constructRealWidget (int widgetTypeId);
+    DcpButtonImage *constructImage(const DcpAppletMetadata* metadata);
+    DcpButtonToggle *constructToggle(const DcpAppletMetadata* metadata);
 
     DcpButton* m_RealWidget;
     DcpAppletMetadata* m_Metadata;

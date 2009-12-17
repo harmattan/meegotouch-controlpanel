@@ -307,6 +307,9 @@ DcpAppletMetadata::text2() const
 /*!
  * FIXME: The name of this function is easy to misunderstand. It does not return
  * an image, and it is not clear if the string is a name or a filename.
+ *
+ * Found in dcpbriefwidget.cpp, this is an image name. It should be renamed as
+ * such.
  */
 QString 
 DcpAppletMetadata::image () const
@@ -401,7 +404,6 @@ QString DcpAppletMetadata::part() const
 int 
 DcpAppletMetadata::getMainWidgetId () const
 {
-    DCP_DEBUG ("");
     if (!applet())
         return -1;
 
@@ -454,8 +456,6 @@ DuiDesktopEntry* DcpAppletMetadata::desktopEntry() const
 DcpBrief *
 DcpAppletMetadata::getBrief () const
 {
-    DCP_DEBUG ("Brief for '%s' id is %d", DCP_STR (name()), getMainWidgetId());
-
     if (d->m_Brief == 0 && applet() != 0) {
         d->m_Brief = applet()->constructBrief (getMainWidgetId());
 
