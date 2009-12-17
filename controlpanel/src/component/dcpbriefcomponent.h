@@ -29,7 +29,7 @@ public:
 
 private:
 	DcpBriefWidget* m_BriefWidget;
-        QString m_mattiID;
+    QString m_mattiID;
 };
 
 #endif // DCPBRIEFCOMPONENT_H

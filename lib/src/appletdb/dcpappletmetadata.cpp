@@ -6,9 +6,9 @@
 #include <duilocale.h>
 #include <QDebug>
 #include "dcpappletmetadata_p.h"
-#include <DcpWidgetTypes>
-#include <DuiDesktopEntry>
 
+#include "duidesktopentry.h"
+#include "dcpwidgettypes.h"
 #include "dcpappletdb.h"
 #include "dcpappletloader.h"
 #include "dcpbrief.h"
@@ -90,9 +90,14 @@ DcpAppletMetadataPrivate::DcpAppletMetadataPrivate()
 
 DcpAppletMetadataPrivate::~DcpAppletMetadataPrivate()
 {
-    if (m_AppletLoader) m_AppletLoader->deleteLater();
-    if (m_Brief) m_Brief->deleteLater();
-    if (m_DesktopEntry) delete m_DesktopEntry;
+    if (m_AppletLoader) 
+        m_AppletLoader->deleteLater();
+
+    if (m_Brief) 
+        m_Brief->deleteLater();
+
+    if (m_DesktopEntry) 
+        delete m_DesktopEntry;
 }
 
 DcpAppletMetadata::DcpAppletMetadata(const QString& filename)
@@ -198,27 +203,53 @@ QString DcpAppletMetadata::parentName() const
     return desktopEntryStr(KeyParent);
 }
 
-int DcpAppletMetadata::widgetTypeID() const
+/*!
+ * \brief Returns what type of brief widget shall an applet variant use.
+ *
+ * Gets the required brief widget type code of the applet variant. 
+ */
+int 
+DcpAppletMetadata::widgetTypeID () const
 {
-  if (brief() != 0) {
-      return brief()->widgetTypeID();
-  }
+    int         retval;
+    DcpBrief   *brief = getBrief ();
 
-  QString type = desktopEntryStr(KeyWidgetType);
-
-  for(int i=0; i<WIDGETN; i++)
-    if (WIDGETNAME[i]==type) {
-      return i;
+    /*
+     * If we have a brief and it provides us a widget type id that is valid, we
+     * can use that.
+     */
+    if (brief != NULL) {
+        retval = brief->widgetTypeID ();
+        if (DCP_WIDGET_TYPE_VALID (retval)) {
+            return retval;
+        }
     }
 
-  qWarning() << "widgettype is unspecified for " << name();
-  return DCPLABEL2;  //default
+    /*
+     * Otherwise we check the "DCP/WidgetType" key in the desktop file. If it is
+     * valid we return that as a numerical value.
+     */
+    QString typeName = desktopEntryStr (KeyWidgetType);
+    if (!typeName.isEmpty()) {
+        for (retval = 0; retval < WIDGETN; retval++) {
+            if (WIDGETNAME[retval] == typeName && 
+                    DCP_WIDGET_TYPE_VALID (retval)) { 
+                return retval;
+            }
+        }
+    }
+
+    /*
+     * Otherwise we return the default value, simple plugins can rely on this.
+     */
+    return DCPLABEL2;
 }
 
-Qt::Alignment DcpAppletMetadata::align() const
+Qt::Alignment 
+DcpAppletMetadata::align() const
 {
-    if (brief()){
-        return brief()->align();
+    if (getBrief()){
+        return getBrief()->align();
     }
 
     // old way, try desktop file
@@ -237,13 +268,14 @@ DcpAppletMetadata* DcpAppletMetadata::parent() const
     return d->m_Parent;
 }
 
-bool DcpAppletMetadata::toggle() const
+bool 
+DcpAppletMetadata::toggle () const
 {
-    if (brief()){
-        return brief()->toggle();
+    if (getBrief()) {
+        return getBrief()->toggle ();
     }
 
-    qWarning() << Q_FUNC_INFO << "no brief"; // default
+    qWarning() << Q_FUNC_INFO << "no brief"; 
     return false;
 }
 
@@ -258,28 +290,42 @@ QString DcpAppletMetadata::text1() const
         return qtTrId(qPrintable(id));
 }
 
-QString DcpAppletMetadata::text2() const
+QString 
+DcpAppletMetadata::text2() const
 {
-    if (brief())
-        return brief()->valueText();
+    /*
+     * This way if we have a brief we can not specify the second line in the
+     * desktop file.
+     */
+    if (getBrief())
+        return getBrief()->valueText();
 
     // static way
     return desktopEntryStr(KeyText2);
 }
 
-QString DcpAppletMetadata::image() const
+/*!
+ * FIXME: The name of this function is easy to misunderstand. It does not return
+ * an image, and it is not clear if the string is a name or a filename.
+ *
+ * Found in dcpbriefwidget.cpp, this is an image name. It should be renamed as
+ * such.
+ */
+QString 
+DcpAppletMetadata::image () const
 {
-    if (brief())
-        return brief()->image();
+    if (getBrief())
+        return getBrief()->image();
 
     // static way
     return desktopEntryStr(KeyImage);
 }
 
-QString DcpAppletMetadata::toggleIconId() const
+QString 
+DcpAppletMetadata::toggleIconId() const
 {
-    if (brief())
-        return brief()->toggleIconId();
+    if (getBrief())
+        return getBrief()->toggleIconId();
 
     // static way
     return desktopEntryStr(KeyToggleIconId);
@@ -323,10 +369,11 @@ DcpAppletMetadata::activatePluginByName (
     return false;
 }
 
-void DcpAppletMetadata::setToggle(bool checked)
+void 
+DcpAppletMetadata::setToggle(bool checked)
 {
-    if (brief()) {
-        brief()->setToggle(checked);
+    if (getBrief()) {
+        getBrief()->setToggle (checked);
     } else {
         qWarning("Can not set toggle state for the applet %s",
                  qPrintable(d->m_FileName));
@@ -357,7 +404,6 @@ QString DcpAppletMetadata::part() const
 int 
 DcpAppletMetadata::getMainWidgetId () const
 {
-    DCP_DEBUG ("");
     if (!applet())
         return -1;
 
@@ -408,11 +454,11 @@ DuiDesktopEntry* DcpAppletMetadata::desktopEntry() const
 }
 
 DcpBrief *
-DcpAppletMetadata::brief () const
+DcpAppletMetadata::getBrief () const
 {
-    DCP_DEBUG ("Brief for '%s' id is %d", DCP_STR (name()), getMainWidgetId());
     if (d->m_Brief == 0 && applet() != 0) {
-        d->m_Brief = applet()->constructBrief(getMainWidgetId());
+        d->m_Brief = applet()->constructBrief (getMainWidgetId());
+
         if (d->m_Brief != 0)
             connect (d->m_Brief, SIGNAL (valuesChanged ()), 
                     this, SIGNAL (briefChanged ()));
@@ -450,14 +496,12 @@ void DcpAppletMetadata::setParent(DcpAppletMetadata *parent)
     d->m_Parent = parent;
 }
 
-void DcpAppletMetadata::slotClicked()
+void 
+DcpAppletMetadata::slotClicked()
 {
-//Q_ASSERT(0);
-		//add
-	//d->m_Counter++;
-        MostUsedCounter::instance()->add(d->m_GconfKeyUsage);
-
+    MostUsedCounter::instance()->add (d->m_GconfKeyUsage);
 }
+
 bool DcpAppletMetadata::orderLessThan(DcpAppletMetadata *meta1,
                                       DcpAppletMetadata *meta2)
 {

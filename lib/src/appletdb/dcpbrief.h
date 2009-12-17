@@ -1,3 +1,6 @@
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et sw=4 ts=4 sts=4: */
+
 #ifndef DCPBRIEF_H
 #define DCPBRIEF_H
 
@@ -21,7 +24,16 @@ class DcpBrief: public QObject
 public:
     virtual ~DcpBrief();
 
-    /*! \brief This method tell what kind of Brief Widget we need */
+    /*! 
+     * \brief This method tell what kind of Brief Widget the applet needs.
+     * 
+     * Returns the brief widget type code for the plugin variant. This value
+     * can also defined in the desktop file using the "DCP/WidgetType" key. If
+     * none of these specified the "DCPLABEL2" will be used as default.
+     *
+     * FIXME: If we are defining all the acceptable IDs the return value of this
+     * function should be an enum.
+     */
     virtual int widgetTypeID() const;
 
     /*! \brief returns the value that is to be displayed on second line
@@ -40,8 +52,12 @@ public:
      * on the right. */
     virtual Qt::Alignment align() const;
 
-    /*! \brief If the widget type is toggle, then this function returns
-     * the initial state of the toggle button. */
+    /*! 
+     * \brief Returns the initial state of the toggle in the brief widget.
+     * 
+     * If the widget type is toggle, then this function returns
+     * the initial state of the toggle button. The default value is false.
+     */
     virtual bool toggle() const;
 
     /*! \brief Gets called when toggle state changes

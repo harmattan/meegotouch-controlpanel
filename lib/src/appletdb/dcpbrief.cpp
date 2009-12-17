@@ -1,14 +1,26 @@
-#include "dcpbrief.h"
-#include <DcpWidgetTypes>
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et sw=4 ts=4 sts=4: */
 
+#include "dcpbrief.h"
+#include "dcpwidgettypes.h"
+
+#define DEBUG
+#include "../../../lib/src/dcpdebug.h"
 
 DcpBrief::~DcpBrief()
 {
 }
 
-int DcpBrief::widgetTypeID() const
+/*!
+ *
+ * Default implementation of the widgetTypeID() virtual function. This function
+ * should return an invalid value so that we know that we should search the
+ * desktop file for a textual representation of the required widget type.
+ */
+int
+DcpBrief::widgetTypeID () const
 {
-    return DCPLABEL2;
+    return DCPBRIEFWIDGETINVALID;
 }
 
 QString DcpBrief::icon() const
@@ -31,7 +43,8 @@ Qt::Alignment DcpBrief::align() const
     return Qt::AlignLeft;
 }
 
-bool DcpBrief::toggle() const
+bool 
+DcpBrief::toggle() const
 {
     return false;
 }
