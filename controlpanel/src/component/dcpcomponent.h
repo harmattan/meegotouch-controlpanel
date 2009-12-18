@@ -9,6 +9,7 @@ class DcpCategory;
 class DcpComponent : public DuiWidget
 {
     Q_OBJECT
+
 public:
     explicit DcpComponent(DcpCategory *category,
                                   const QString& title="",
@@ -30,6 +31,7 @@ public:
 
     virtual const QString logicalId() {return m_LogicalId;}
     void setLogicalId(const QString& logicalId) {m_LogicalId = logicalId;}
+
 protected:
     virtual void createContents() = 0;
 

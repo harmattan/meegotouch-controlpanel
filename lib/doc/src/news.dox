@@ -1,15 +1,15 @@
 /*! \page news What's New in DuiControlPanel
 \section v061 0.6.1
 
-\subsection New
+\subsection new New
 - duicontrolpanel now detects and prohibits wrong applets, see <a href="supervisor.html">Applet supervisor</a>
 - support for starting external applications, see <a href="externalplugins.html">External applets</a>
 - you can request a plugin from another, see DcpWidget::activatePluginByName
 
-\subsection Deprecated
+\subsection deprec Deprecated
 - None
 
-\subsection Bugs fixed
+\subsection bugsfixed Bugs fixed
 - Applet brief did not get the new toggle state
 
 */

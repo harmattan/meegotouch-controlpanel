@@ -1,7 +1,37 @@
 /*! \page servicefw Controlling controlpanel
 
 \section description Description
-...TODO...
+Controlpanel has a servicefw interface, with which you can control it from other
+applications through dbus.
 
+For this you have to link with libduicontrolpanel, and
+<cl>
+<li>create an instance of DuiControlPanelIf,
+<li>optionally check if the interface is valid (DuiControlPanelIf::isValid()),
+<li>request the page you need.
+</cl>
+You can either pop up the mainpage, an applet or an appletcategory.
+
+\subsection applet Popping up an applet
+Use DuiControlPanelIf::appletPage() with the applet name as parameter.
+
+You can find out the applet's name from the desktop file of the applet,
+which is a file under /usr/lib/duicontrolpanel/*.desktop. For example you find there that:
+
+\code
+[Desktop Entry]
+Type=DUIApplet
+Name=I have a silly name
+X-logical-id=qtn_sett_main_silly_name
+...
+\endcode
+
+Than the applet's name is "I have a silly name".
+
+\subsection mainpage Popping up the main page
+Use DuiControlPanelIf::mainPage().
+
+\subsection appletcategory Popping up an applet category
+Use DuiControlPanelIf::categoryPage().
 
 */

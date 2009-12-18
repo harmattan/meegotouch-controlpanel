@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
     QString desktopDir;
     for (int i = 1; i < argc; ++i) {
         QString s(argv[i]);
-        if (s == "-h" || s == "-help") {
+        if (s == "-h" || s == "-help" || s == "--help" ) {
             QTextStream out(stdout);
             out << "Usage: " << argv[0] <<
                 " [LIBDUI OPTION]... [-desktopdir DIR]\n\n";

@@ -13,6 +13,9 @@
 #include <QGraphicsLinearLayout>
 #include <QtDebug>
 
+#define DEBUG
+#include "dcpdebug.h"
+
 DcpBriefWidget::DcpBriefWidget (
         DcpAppletMetadata *metadata, 
         DuiWidget         *parent)
@@ -21,10 +24,39 @@ DcpBriefWidget::DcpBriefWidget (
     m_Metadata (0), 
     m_Hidden (true)
 {
-    QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(this);
-    layout->setContentsMargins(0,0,0,0);
+    QGraphicsLinearLayout* layout;
+    
+    layout = new QGraphicsLinearLayout (this);
+    layout->setContentsMargins (0,0,0,0);
 
     setMetadata (metadata);
+}
+
+DcpBriefWidget::DcpBriefWidget (
+        int               widgetTypeId,
+        const QString    &line1,
+        const QString    &line2,
+        DuiWidget        *parent)
+: DuiWidget (parent),
+    m_Metadata (0),
+    m_Hidden (true)
+{
+    QGraphicsLinearLayout* wlayout = new QGraphicsLinearLayout (this);
+    wlayout->setContentsMargins (0, 0, 0, 0);
+
+    DCP_WARNING ("Unsupported widget type: %d", widgetTypeId);
+   
+
+    DcpButton * toggle = new DcpButton (this);
+
+    //toggle->setIconId ("");
+    //connect (toggle, SIGNAL (smallToggled (bool)),
+    //        metadata, SLOT (setToggle (bool)));
+    
+    m_RealWidget = toggle;
+    m_RealWidget->setText1 (line1);
+    m_RealWidget->setText2 (line2);
+    ((QGraphicsLinearLayout*) layout())->addItem (m_RealWidget);
 }
 
 
@@ -45,33 +77,35 @@ DcpBriefWidget::constructRealWidget (
     switch (widgetTypeId) {
         case DCPLABELBUTTON:
         case DCPLABEL2BUTTON:
+            DCP_DEBUG ("calling constructToggle()");
             m_RealWidget = constructToggle (m_Metadata);
             break;
 
         case DCPLABEL2IMAGE :
-            m_RealWidget = constructImage (m_Metadata);
+            DCP_DEBUG ("calling constructImage()");
+            m_RealWidget = constructImage ();
             break;
 
         default:
+            DCP_DEBUG ("calling DcpButton()");
             m_RealWidget = new DcpButton (this);
             break;
     }
 
 
     if (m_RealWidget) {
-        retranslateUi ();
+        m_RealWidget->setText1 (m_Metadata->text1());
         ((QGraphicsLinearLayout*) layout())->addItem (m_RealWidget);
     }
-
 }
 
-void 
+void
 DcpBriefWidget::setMetadata (
         DcpAppletMetadata *metadata)
 {
     // can be optimized if necessery (not recreating the widget, just updating 
     // its contents)
-    if (m_RealWidget) 
+    if (m_RealWidget)
         m_RealWidget->deleteLater();
 
     /*
@@ -84,10 +118,6 @@ DcpBriefWidget::setMetadata (
          */
         disconnect (m_Metadata, 0, this, 0);
         disconnect (this, 0, m_Metadata, 0);
-        // FIXME: I think this would not be a good ide, we can not disconnect 
-        // all functions, because for example we will loose hide/show signals.
-        // And who knows what else are we going to connect in the future.
-        // this->disconnect ();
     }
 
     m_Metadata = metadata;
@@ -99,9 +129,7 @@ DcpBriefWidget::setMetadata (
     if (m_Metadata) {
         // FIXME: This might cause a race condition? What if the matedata sends
         // a signal when we are not connected yet?
-        dcpMarkAsMaybeBad (metadata);
         constructRealWidget (m_Metadata->widgetTypeID());
-        dcpUnmarkAsMaybeBad(metadata);
 
         connect (this, SIGNAL (clicked()), 
                 m_Metadata, SLOT (slotClicked()));
@@ -116,42 +144,38 @@ void
 DcpBriefWidget::retranslateUi ()
 {
     if (m_Metadata) {
-        dcpMarkAsMaybeBad(m_Metadata);
-        m_RealWidget->setText1(m_Metadata->text1());
-        updateContents();
-        dcpUnmarkAsMaybeBad(m_Metadata);
+        dcpMarkAsMaybeBad (m_Metadata);
+        m_RealWidget->setText1 (m_Metadata->text1());
+        if (isVisible()) {
+            updateContents ();
+        }
+        dcpUnmarkAsMaybeBad (m_Metadata);
     }
 }
 
-DcpButtonImage* DcpBriefWidget::constructImage(
-        const DcpAppletMetadata* metadata)
+DcpButtonImage * 
+DcpBriefWidget::constructImage ()
 {
     DcpButtonImage* image = new DcpButtonImage(this);
-
-    if (metadata) {
-        image->setImageName(metadata->image());
-    }
-
     return image;
 }
 
 DcpButtonToggle *
-DcpBriefWidget::constructToggle(
-        const DcpAppletMetadata* metadata)
+DcpBriefWidget::constructToggle (
+        const DcpAppletMetadata *metadata)
 {
-    DcpButtonToggle* toggle = new DcpButtonToggle (this);
+    DcpButtonToggle *toggle = new DcpButtonToggle (this);
 
     if (metadata) {
-        toggle->setSmallToggle (metadata->toggle());
-        toggle->setIconId (metadata->toggleIconId());
-        connect (toggle, SIGNAL (smallToggled(bool)),
-             metadata, SLOT (setToggle(bool)));
+        connect (toggle, SIGNAL (smallToggled (bool)),
+                 metadata, SLOT (setToggle (bool)));
     }
 
     return toggle;
 }
 
-void DcpBriefWidget::updateContents ()
+void
+DcpBriefWidget::updateContents ()
 {
     if (m_Metadata) {
         dcpMarkAsMaybeBad (m_Metadata);
@@ -189,14 +213,16 @@ DcpBriefWidget::showEvent (
                 this, SIGNAL(clicked()));
 
         if (m_Metadata)
-            connect (m_Metadata, SIGNAL (briefChanged()), 
+            connect (m_Metadata, SIGNAL (briefChanged ()), 
                 this, SLOT (updateContents()));
 
         updateContents();
     }
 }
 
-void DcpBriefWidget::hideEvent ( QHideEvent * event )
+void 
+DcpBriefWidget::hideEvent (
+        QHideEvent     *event)
 {
     Q_UNUSED (event);
     Q_ASSERT (m_RealWidget);

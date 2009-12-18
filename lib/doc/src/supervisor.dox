@@ -26,7 +26,7 @@ duicontrolpanel -nosupervisor
 
 \section cleaning Cleaning bad plugins list
 
-Bad plugins are stored under gconf. If it becomes necessery (because nothing
+Bad plugins are stored under gconf. If it becomes necessary (because nothing
 else works), you can force controlpanel to forget which plugin is bad by
 issuing the command:
 

@@ -12,6 +12,10 @@ All applets have:
 
 \section applettypes Applet types
 
+\note
+You can find examples/skeletons from each applet type under af/duicontrolpanel-skeleton-applets
+repository or by checking the source package of duicontrolpanel-skeleton-applet.
+
 \subsection binaryapplet Binary applet
 An applet which is implemented as a shared object, which is
 loaded by duicontrolpanel.
@@ -40,9 +44,6 @@ An applet which is implemented as a separate application. When your applet's
 
 See <a href="externalplugins.html">external applets</a> section for details.
 
-<strong>
-You can find examples/skeletons from each applet type under af/duicontrolpanel-skeleton-applets
-repository or by checking the source package of duicontrolpanel-skeleton-applet.
-</strong>
+
 */
 

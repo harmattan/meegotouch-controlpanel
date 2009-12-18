@@ -8,28 +8,47 @@
 class DcpAppletMetadata;
 class DcpBriefWidget;
 
-class DcpBriefComponent: public DcpComponent 
+/*
+ * FIXME: This class is practically empty, it should be removed.
+ */
+class DcpBriefComponent: 
+    public DcpComponent 
 {
     Q_OBJECT
-    Q_PROPERTY(QString mattiID READ mattiID WRITE setMattiID)
+    Q_PROPERTY (QString mattiID READ mattiID WRITE setMattiID)
 
 public:
-    DcpBriefComponent(DcpAppletMetadata* metadata, DcpCategory *category,
-                      const QString& logicalId="");
-    ~DcpBriefComponent();
-    void setMetadata(DcpAppletMetadata* metadata);
+    DcpBriefComponent (
+            DcpAppletMetadata   *metadata, 
+            DcpCategory         *category,
+            const QString       &logicalId = "");
+
+    DcpBriefComponent (
+            const QString       &line1,
+            const QString       &line2,
+            DcpCategory         *category,
+            const QString       &logicalId = "");
+
+    ~DcpBriefComponent ();
+
+
+    void setMetadata (DcpAppletMetadata *metadata);
+    DcpAppletMetadata* metadata();
 
     // Composite Pattern Interface, do nothing
-    virtual void add(DcpComponent *) {}
-    virtual void remove(DcpComponent *) {}
-    virtual void createContents() {}
+    virtual void add (DcpComponent *) {}
+    virtual void remove (DcpComponent *) {}
+    virtual void createContents () {}
 
-    QString mattiID();
-    void setMattiID(const QString &mattiID);
+    QString mattiID ();
+    void setMattiID (const QString &mattiID);
+
+public slots:
+    void activate ();
 
 private:
-	DcpBriefWidget* m_BriefWidget;
-    QString m_mattiID;
+	DcpBriefWidget *m_BriefWidget;
+    QString         m_mattiID;
 };
 
 #endif // DCPBRIEFCOMPONENT_H

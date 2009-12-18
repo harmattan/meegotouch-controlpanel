@@ -1,4 +1,4 @@
-/*! \page externalplugins External applets
+/*! \page external applets External applets
 
 \section description Description
 
@@ -9,8 +9,17 @@ application.
 
 \section howto Required things
 
-For this to work you will need a .desktop file for your application similar
-to this:
+For this to work you will need a .desktop file for your application
+(like for any other controlpanel applet) and install it under
+"/usr/lib/duicontrolpanel".
+
+The important key is that you will need to specify the application you
+want to start in the key "X-DUIApplet-ApplicationCommand".
+
+See also <a href="desktopformat.html">Desktop file format</a> for details.
+
+\subsection example Example
+Here is an example for the desktop file:
 
 \code
 [Desktop Entry]
@@ -34,10 +43,6 @@ Order=3
 WidgetType= DcpLabel2
 \endcode
 
-You have to install the desktop file under /usr/lib/duicontrolpanel/ and
-you are done.
-
-See also <a href="desktopformat.html">Desktop file format</a> for details.
 
 */
 

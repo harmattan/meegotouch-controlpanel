@@ -94,28 +94,28 @@ DcpDebug::dcpPrintMsg (
     va_start (args, formatstring);
     switch (type) {
         case QtDebugMsg:
-	        fprintf (stderr, "%s%s()%s: ",
+	        fprintf (stderr, "%s%s%s: ",
                     TERM_GREEN, function, TERM_NORMAL);
             vfprintf (stderr, formatstring, args);
             break;
 
         case QtWarningMsg:
-	        fprintf (stderr, "%s%s()%s: ",
+	        fprintf (stderr, "%s%s%s: ",
                     TERM_YELLOW, function, TERM_NORMAL);
             vfprintf (stderr, formatstring, args);
             break;
 
         case QtCriticalMsg:
-	        fprintf (stderr, "%s%s()%s: ",
+	        fprintf (stderr, "%s%s%s: ",
                     TERM_RED, function, TERM_NORMAL);
             vfprintf (stderr, formatstring, args);
             break;
 
         case QtFatalMsg:
-	        fprintf (stderr, "%s%s()%s: ",
+	        fprintf (stderr, "%s%s%s: ",
                     TERM_GREEN, function, TERM_NORMAL);
             vfprintf (stderr, formatstring, args);
-	        fprintf (stderr, "\n%s%s()%s: Aborting program.",
+	        fprintf (stderr, "\n%s%s%s: Aborting program.",
                     TERM_RED TERM_BOLD, function, TERM_NORMAL);
             putchar('\n');
             fflush (stderr);

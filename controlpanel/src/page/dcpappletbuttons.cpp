@@ -16,40 +16,64 @@
 
 #define DEBUG
 #include "../../../lib/src/dcpdebug.h"
+
 /*!
  * \class DcpAppletButtons
  * \brief A container which contains buttons that represents the
  * applets.
  */
-
-DcpAppletButtons::DcpAppletButtons(const QString& logicalId,
-                                   const QString& categoryName,
-                                         const QString& title,
-                                         QGraphicsWidget *parent) :
-  DcpMainCategory(title, parent, logicalId), m_CategoryName(categoryName)
+DcpAppletButtons::DcpAppletButtons(
+        const QString& logicalId,
+        const QString& categoryName,
+        const QString& title,
+        QGraphicsWidget *parent) :
+    DcpMainCategory (title, parent, logicalId), 
+    m_CategoryName (categoryName)
 {
-    setCreateSeparators(true);
-    setMaxColumns(2);
-    createContents();
-    setMattiID("DcpAppletButtons::"+logicalId+"::"+categoryName);
+    setCreateSeparators (true);
+    setMaxColumns (2);
+    createContents ();
+    setMattiID ("DcpAppletButtons::" + logicalId + "::" + categoryName);
 }
 
 void 
 DcpAppletButtons::createContents ()
 {
     DcpAppletMetadataList list;
-    if (logicalId() == DcpMain::mostRecentUsedTitleId)
-        list = DcpAppletDb::instance()->listMostUsed();
-    else
-        list = DcpAppletDb::instance()->listByCategory(m_CategoryName);
+    int                   cnt = 0;
 
-    int cnt = 0;
+    /*
+     * Getting the list of applet variants (metadata objects) that will go into
+     * this widget.
+     */
+    if (logicalId() == DcpMain::mostRecentUsedTitleId) {
+        list = DcpAppletDb::instance()->listMostUsed();
+    } else {
+        list = DcpAppletDb::instance()->listByCategory (m_CategoryName);
+    }
+
+    /*
+     * Adding internally handled items. This is not fully implemented.
+     */
+    if (logicalId() == QT_TRID_NOOP ("qtn_sett_main_combined")) {
+        addComponent (
+                "Applications",
+                "",
+                PageHandle::ACCOUNTSANDAPPLICATIONS,
+                false);
+        ++cnt;
+    }
+    /*
+     * Adding the applet variants to the widget.
+     */
     foreach (DcpAppletMetadata *item, list) {
         cnt++;
-	if (cnt == list.count() && cnt % 2 == 1) //last item is impaired
-	    addComponent(item, true);
-	else
-	    addComponent(item, false);
+        DCP_DEBUG ("   *** item->name = %s", DCP_STR (item->name()));
+        //last item is impaired
+        if (cnt == list.count() && cnt % 2 == 1) 
+            addComponent (item, true);
+        else
+            addComponent (item, false);
     }
 
     m_PortraitLayout->setObjectName ("MostUsedItems");
@@ -57,11 +81,14 @@ DcpAppletButtons::createContents ()
     setVerticalSpacing (0);
 }
 
-void DcpAppletButtons::addComponent(DcpAppletMetadata *metadata, bool fullLine)
+void 
+DcpAppletButtons::addComponent (
+        DcpAppletMetadata *metadata, 
+        bool               fullLine)
 {
-    DcpBriefComponent *component = new 
-	    DcpBriefComponent (metadata, this, logicalId());
-
+    DcpBriefComponent *component;
+    
+    component = new DcpBriefComponent (metadata, this, logicalId());
     component->setSubPage (PageHandle::APPLET, metadata->name());
 
     if (fullLine)
@@ -70,7 +97,30 @@ void DcpAppletButtons::addComponent(DcpAppletMetadata *metadata, bool fullLine)
         append (component);
 }
 
-void DcpAppletButtons::reload()
+void
+DcpAppletButtons::addComponent (
+        const QString       &briefTitleText,
+        const QString       &briefSecondaryText,
+        const PageHandle    &pageHandle,
+        bool                 fullLine)
+{
+    DcpBriefComponent *component;
+    
+    component = new DcpBriefComponent (
+            briefTitleText, 
+            briefSecondaryText,
+            this, logicalId());
+    component->setSubPage (pageHandle);
+
+    if (fullLine)
+        add (component);
+    else
+        append (component);
+}
+
+
+void 
+DcpAppletButtons::reload()
 {
     deleteItems();
     createContents();
