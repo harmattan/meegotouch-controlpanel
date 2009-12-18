@@ -59,6 +59,11 @@ DcpBriefComponent::setMetadata (
     m_BriefWidget->setMetadata (metadata);
 }
 
+DcpAppletMetadata* DcpBriefComponent::metadata()
+{
+    return m_BriefWidget->metadata();
+}
+
 QString DcpBriefComponent::mattiID ()
 {
     return m_mattiID;

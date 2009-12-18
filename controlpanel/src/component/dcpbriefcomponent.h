@@ -33,6 +33,7 @@ public:
 
 
     void setMetadata (DcpAppletMetadata *metadata);
+    DcpAppletMetadata* metadata();
 
     // Composite Pattern Interface, do nothing
     virtual void add (DcpComponent *) {}

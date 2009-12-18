@@ -5,7 +5,7 @@
 #include <DuiApplication>
 
 //! \brief copied from widgetsgallery, makes translation reload
-void 
+void
 DcpRetranslator::retranslate()
 {
     DuiApplication* duiApp = DuiApplication::instance();

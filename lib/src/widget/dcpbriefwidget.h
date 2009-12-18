@@ -54,7 +54,7 @@ protected:
     virtual void hideEvent (QHideEvent *event);
 
     virtual void constructRealWidget (int widgetTypeId);
-    DcpButtonImage *constructImage(const DcpAppletMetadata* metadata);
+    DcpButtonImage *constructImage();
     DcpButtonToggle *constructToggle(const DcpAppletMetadata* metadata);
 
     DcpButton* m_RealWidget;

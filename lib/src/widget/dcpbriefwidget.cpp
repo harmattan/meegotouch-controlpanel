@@ -83,7 +83,7 @@ DcpBriefWidget::constructRealWidget (
 
         case DCPLABEL2IMAGE :
             DCP_DEBUG ("calling constructImage()");
-            m_RealWidget = constructImage (m_Metadata);
+            m_RealWidget = constructImage ();
             break;
 
         default:
@@ -94,18 +94,18 @@ DcpBriefWidget::constructRealWidget (
 
 
     if (m_RealWidget) {
-        retranslateUi ();
+        m_RealWidget->setText1 (m_Metadata->text1());
         ((QGraphicsLinearLayout*) layout())->addItem (m_RealWidget);
     }
 }
 
-void 
+void
 DcpBriefWidget::setMetadata (
         DcpAppletMetadata *metadata)
 {
     // can be optimized if necessery (not recreating the widget, just updating 
     // its contents)
-    if (m_RealWidget) 
+    if (m_RealWidget)
         m_RealWidget->deleteLater();
 
     /*
@@ -118,10 +118,6 @@ DcpBriefWidget::setMetadata (
          */
         disconnect (m_Metadata, 0, this, 0);
         disconnect (this, 0, m_Metadata, 0);
-        // FIXME: I think this would not be a good idea, we can not disconnect 
-        // all functions, because for example we will loose hide/show signals.
-        // And who knows what else are we going to connect in the future.
-        // this->disconnect ();
     }
 
     m_Metadata = metadata;
@@ -133,9 +129,7 @@ DcpBriefWidget::setMetadata (
     if (m_Metadata) {
         // FIXME: This might cause a race condition? What if the matedata sends
         // a signal when we are not connected yet?
-        dcpMarkAsMaybeBad (metadata);
         constructRealWidget (m_Metadata->widgetTypeID());
-        dcpUnmarkAsMaybeBad(metadata);
 
         connect (this, SIGNAL (clicked()), 
                 m_Metadata, SLOT (slotClicked()));
@@ -152,21 +146,17 @@ DcpBriefWidget::retranslateUi ()
     if (m_Metadata) {
         dcpMarkAsMaybeBad (m_Metadata);
         m_RealWidget->setText1 (m_Metadata->text1());
-        updateContents ();
+        if (isVisible()) {
+            updateContents ();
+        }
         dcpUnmarkAsMaybeBad (m_Metadata);
     }
 }
 
 DcpButtonImage * 
-DcpBriefWidget::constructImage (
-        const DcpAppletMetadata* metadata)
+DcpBriefWidget::constructImage ()
 {
     DcpButtonImage* image = new DcpButtonImage(this);
-
-    if (metadata) {
-        image->setImageName (metadata->image());
-    }
-
     return image;
 }
 
@@ -177,16 +167,14 @@ DcpBriefWidget::constructToggle (
     DcpButtonToggle *toggle = new DcpButtonToggle (this);
 
     if (metadata) {
-        toggle->setSmallToggle (metadata->toggle());
-        toggle->setIconId (metadata->toggleIconId());
         connect (toggle, SIGNAL (smallToggled (bool)),
-             metadata, SLOT (setToggle (bool)));
+                 metadata, SLOT (setToggle (bool)));
     }
 
     return toggle;
 }
 
-void 
+void
 DcpBriefWidget::updateContents ()
 {
     if (m_Metadata) {
