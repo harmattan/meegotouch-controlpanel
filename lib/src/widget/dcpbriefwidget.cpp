@@ -225,7 +225,7 @@ DcpBriefWidget::showEvent (
                 this, SIGNAL(clicked()));
 
         if (m_Metadata)
-            connect (m_Metadata, SIGNAL (briefChanged()), 
+            connect (m_Metadata, SIGNAL (briefChanged ()), 
                 this, SLOT (updateContents()));
 
         updateContents();

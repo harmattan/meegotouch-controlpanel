@@ -61,9 +61,9 @@ DcpPage*
 PageFactory::create (
         const PageHandle &handle)
 {
-    DcpPage *page=0;
+    DcpPage *page = 0;
 
-    DCP_DEBUG ("Creating page '%s'/%d", DCP_STR (handle.param), handle.id);
+    DCP_DEBUG ("Creating page %s", DCP_STR (handle.getStringVariant()));
     switch (handle.id) {
         case PageHandle::NOPAGE:
 	    case PageHandle::MAIN:
@@ -77,7 +77,7 @@ PageFactory::create (
             break;
 
         case PageHandle::APPLETCATEGORY: // when coming back
-            Q_ASSERT(m_AppletCategoryPage);
+            Q_ASSERT (m_AppletCategoryPage);
             page = m_AppletCategoryPage;
             break;
 
@@ -91,7 +91,9 @@ PageFactory::create (
         default:
             Q_ASSERT(handle.id > PageHandle::CATEGORY_PAGEID_START
                      && handle.id < PageHandle::CATEGORY_PAGEID_END);
-            page = createAppletCategoryPage(handle.id);
+            page = createAppletCategoryPage (handle.id);
+            if (page)
+                page->setHandle (handle);
     }
 
     if (page) {
@@ -109,12 +111,13 @@ PageFactory::create (
     return page;
 }
 
-DcpPage* PageFactory::createMainPage()
+DcpPage* PageFactory::createMainPage ()
 {
     if (!m_MainPage) {
-        m_MainPage = new DcpMainPage();
-        initPage(m_MainPage);
+        m_MainPage = new DcpMainPage ();
+        initPage (m_MainPage);
     }
+
     return m_MainPage;
 }
 
@@ -124,16 +127,16 @@ PageFactory::createAppletPage (
 {
     if (!m_AppletPage) {
         m_AppletPage = new DcpAppletPage(metadata);
-        initPage(m_AppletPage);
+        initPage (m_AppletPage);
     } else {
-        m_AppletPage->setMetadata(metadata);
+        m_AppletPage->setMetadata (metadata);
     }
 
     // page has to be loaded to know if the applet provides page or not
-    if (m_AppletPage->isContentCreated()) {
-        m_AppletPage->reload();
+    if (m_AppletPage->isContentCreated ()) {
+        m_AppletPage->reload ();
     } else {
-        m_AppletPage->createContent();
+        m_AppletPage->createContent ();
     }
 
     if (!m_AppletPage->hasWidget() && !m_AppletPage->hasError()) {
@@ -148,17 +151,32 @@ DcpPage *
 PageFactory::createAppletCategoryPage (
         PageHandle::PageTypeId id)
 {
-    const DcpCategoryInfo& info = DcpMain::CategoryInfos[
-                                id - PageHandle::CATEGORY_PAGEID_START - 1];
-    Q_ASSERT(info.subPageId == id);
+    const DcpCategoryInfo *info;
+    int                    n;
 
-    if (!m_AppletCategoryPage){
-        m_AppletCategoryPage = new DcpAppletCategoryPage(info.appletCategory);
-        initPage(m_AppletCategoryPage);
-    } else {
-        m_AppletCategoryPage->setAppletCategory(info.appletCategory);
+    DCP_DEBUG ("*** id = %d", (int) id);
+
+    for (n = 0; ; ++n) {
+        info = & DcpMain::CategoryInfos[n];
+
+        if (info->titleId == 0) {
+            DCP_DEBUG ("Category info for page type %d not found.", (int) id);
+            return 0;
+        }
+
+        if (info->subPageId == id)
+            break;
     }
 
+    if (!m_AppletCategoryPage){
+        m_AppletCategoryPage = new DcpAppletCategoryPage (info->appletCategory);
+        initPage (m_AppletCategoryPage);
+    } else {
+        m_AppletCategoryPage->setAppletCategory (info->appletCategory);
+    }
+
+    m_AppletCategoryPage->setTitle (qtTrId (info->titleId));
+    
     return m_AppletCategoryPage;
 }
 
@@ -168,7 +186,7 @@ PageFactory::changePage (
 {
     DcpPage *page = create (handle);
 
-    DCP_DEBUG ("Destination");
+    DCP_DEBUG ("*** handle = %s", DCP_STR (handle.getStringVariant ()));
     if (page) {
         page->appear (DuiSceneWindow::KeepWhenDone);
     }

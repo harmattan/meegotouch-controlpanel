@@ -100,10 +100,8 @@ DcpPage::setHandle (
 {
     m_Handle = handle;
     
-    DCP_DEBUG ("*** m_Handle  = '%s'/%d", 
-            DCP_STR (m_Handle.param), m_Handle.id);
-    DCP_DEBUG ("*** m_Referer = '%s'/%d", 
-            DCP_STR (m_Referer.param), m_Referer.id);
+    DCP_DEBUG ("*** m_Handle  = %s", DCP_STR (m_Handle.getStringVariant()));
+    DCP_DEBUG ("*** m_Referer = %s", DCP_STR (m_Referer.getStringVariant()));
 }
 
 void 
@@ -113,11 +111,8 @@ DcpPage::setHandle (
 {
     m_Handle.id = id; 
     m_Handle.param = param;
-    
-    DCP_DEBUG ("*** m_Handle  = '%s'/%d", 
-            DCP_STR (m_Handle.param), m_Handle.id);
-    DCP_DEBUG ("*** m_Referer = '%s'/%d", 
-            DCP_STR (m_Referer.param), m_Referer.id);
+    DCP_DEBUG ("*** m_Handle  = %s", DCP_STR (m_Handle.getStringVariant()));
+    DCP_DEBUG ("*** m_Referer = %s", DCP_STR (m_Referer.getStringVariant()));
 }
 
 PageHandle 
@@ -131,11 +126,8 @@ DcpPage::setReferer (
         const PageHandle &referer) 
 {
     m_Referer = referer;
-   
-    DCP_DEBUG ("*** m_Handle  = '%s'/%d", 
-            DCP_STR (m_Handle.param), m_Handle.id);
-    DCP_DEBUG ("*** m_Referer = '%s'/%d", 
-            DCP_STR (m_Referer.param), m_Referer.id);
+    DCP_DEBUG ("*** m_Handle  = %s", DCP_STR (m_Handle.getStringVariant()));
+    DCP_DEBUG ("*** m_Referer = %s", DCP_STR (m_Referer.getStringVariant()));
 }
 
 void 
@@ -145,19 +137,15 @@ DcpPage::setReferer (
 {
     m_Referer.id = id; 
     m_Referer.param = param;
-    
-    DCP_DEBUG ("*** m_Handle  = '%s'/%d", 
-            DCP_STR (m_Handle.param), m_Handle.id);
-    DCP_DEBUG ("*** m_Referer = '%s'/%d", 
-            DCP_STR (m_Referer.param), m_Referer.id);
+    DCP_DEBUG ("*** m_Handle  = %s", DCP_STR (m_Handle.getStringVariant()));
+    DCP_DEBUG ("*** m_Referer = %s", DCP_STR (m_Referer.getStringVariant()));
 }
 
 void 
 DcpPage::back ()
 {
-    DCP_DEBUG ("Emitting openSubPage('%s'/%d)",
-            DCP_STR (referer().param),
-            referer().id);
+    DCP_DEBUG ("*** m_Handle  = %s", DCP_STR (m_Handle.getStringVariant()));
+    DCP_DEBUG ("*** m_Referer = %s", DCP_STR (m_Referer.getStringVariant()));
     emit openSubPage (referer());
 }
 

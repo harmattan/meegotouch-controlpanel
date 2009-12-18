@@ -42,6 +42,9 @@ public:
     QString mattiID ();
     void setMattiID (const QString &mattiID);
 
+public slots:
+    void activate ();
+
 private:
 	DcpBriefWidget *m_BriefWidget;
     QString         m_mattiID;

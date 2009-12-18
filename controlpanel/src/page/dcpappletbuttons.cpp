@@ -42,8 +42,6 @@ DcpAppletButtons::createContents ()
     DcpAppletMetadataList list;
     int                   cnt = 0;
 
-    DCP_WARNING ("*** logicalId = %s", DCP_STR (logicalId()));
-
     /*
      * Getting the list of applet variants (metadata objects) that will go into
      * this widget.
@@ -54,8 +52,10 @@ DcpAppletButtons::createContents ()
         list = DcpAppletDb::instance()->listByCategory (m_CategoryName);
     }
 
+    /*
+     * Adding internally handled items. This is not fully implemented.
+     */
     if (logicalId() == QT_TRID_NOOP ("qtn_sett_main_combined")) {
-        DCP_WARNING ("This is the applications category");
         addComponent (
                 "Applications",
                 "",
