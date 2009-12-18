@@ -8,17 +8,27 @@
 class DcpAppletMetadata;
 class DcpBriefWidget;
 
+/*
+ * FIXME: This class is practically empty, it should be removed.
+ */
 class DcpBriefComponent: 
     public DcpComponent 
 {
     Q_OBJECT
-    Q_PROPERTY(QString mattiID READ mattiID WRITE setMattiID)
+    Q_PROPERTY (QString mattiID READ mattiID WRITE setMattiID)
 
 public:
     DcpBriefComponent (
-            DcpAppletMetadata* metadata, 
-            DcpCategory *category,
-            const QString& logicalId = "");
+            DcpAppletMetadata   *metadata, 
+            DcpCategory         *category,
+            const QString       &logicalId = "");
+
+    DcpBriefComponent (
+            const QString       &line1,
+            const QString       &line2,
+            DcpCategory         *category,
+            const QString       &logicalId = "");
+
     ~DcpBriefComponent ();
 
 
@@ -29,8 +39,8 @@ public:
     virtual void remove (DcpComponent *) {}
     virtual void createContents () {}
 
-    QString mattiID();
-    void setMattiID(const QString &mattiID);
+    QString mattiID ();
+    void setMattiID (const QString &mattiID);
 
 private:
 	DcpBriefWidget *m_BriefWidget;

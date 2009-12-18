@@ -4,6 +4,7 @@
 #include "dcpbriefcomponent.h"
 #include "dcpappletmetadata.h"
 #include "dcpbriefwidget.h"
+#include "dcpwidgettypes.h"
 #include "pages.h"
 
 #include <QGraphicsLinearLayout>
@@ -16,7 +17,7 @@ DcpBriefComponent::DcpBriefComponent (
 		DcpAppletMetadata   *metadata,
 		DcpCategory         *category,
 		const QString       &logicalId)
-: DcpComponent (category,"", 0, logicalId),
+: DcpComponent (category, "", 0, logicalId),
     m_BriefWidget (new DcpBriefWidget (metadata, this))
 {
     QGraphicsLinearLayout* layout = new QGraphicsLinearLayout (this);
@@ -24,6 +25,21 @@ DcpBriefComponent::DcpBriefComponent (
 
     setMattiID ("DcpBriefComponent::" + logicalId + "::" + 
 		    metadata->category() + "::" + metadata->name());
+}
+
+
+DcpBriefComponent::DcpBriefComponent (
+        const QString       &line1,
+        const QString       &line2,
+		DcpCategory         *category,
+		const QString       &logicalId)
+: DcpComponent (category, "", 0, logicalId),
+    m_BriefWidget (new DcpBriefWidget (DCPLABELBUTTON, line1, line2, this))
+{
+    QGraphicsLinearLayout* layout = new QGraphicsLinearLayout (this);
+    layout->addItem (m_BriefWidget);
+
+    setMattiID ("DcpBriefComponent::" + logicalId + "::" + "::" + line1);
 }
 
 DcpBriefComponent::~DcpBriefComponent()
@@ -35,10 +51,10 @@ void
 DcpBriefComponent::setMetadata (
         DcpAppletMetadata* metadata)
 {
-    m_BriefWidget->setMetadata(metadata);
+    m_BriefWidget->setMetadata (metadata);
 }
 
-QString DcpBriefComponent::mattiID()
+QString DcpBriefComponent::mattiID ()
 {
     return m_mattiID;
 }

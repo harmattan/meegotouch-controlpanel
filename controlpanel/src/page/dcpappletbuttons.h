@@ -1,3 +1,6 @@
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
+
 #ifndef MCPMOSTUSEDCATEGORY_H
 #define MCPMOSTUSEDCATEGORY_H
 
@@ -5,17 +8,28 @@
 
 class DcpAppletMetadata;
 
-class DcpAppletButtons  : public DcpMainCategory
+class DcpAppletButtons :
+    public DcpMainCategory
 {
     Q_OBJECT
-    Q_PROPERTY(QString mattiID READ mattiID WRITE setMattiID)
-public:
-    DcpAppletButtons(const QString& logicalId,
-                     const QString& categoryName,
-                     const QString& title,
-                     QGraphicsWidget *parent=0);
+    Q_PROPERTY (QString mattiID READ mattiID WRITE setMattiID)
 
-    void addComponent(DcpAppletMetadata *metadata, bool fullLine = false);
+public:
+    DcpAppletButtons (const QString&   logicalId,
+                      const QString&   categoryName,
+                      const QString&   title,
+                      QGraphicsWidget *parent=0);
+
+    void addComponent (
+            DcpAppletMetadata *metadata, 
+            bool               fullLine = false);
+
+    void addComponent (
+        const QString       &briefTitleText,
+        const QString       &briefSecondaryText,
+        const PageHandle    &pageHandle,
+        bool                 fullLine);
+
 
     virtual void reload();
 
@@ -24,9 +38,10 @@ public:
 
 protected:
     virtual void createContents();
+
 private:
-  QString m_CategoryName;
-  QString m_mattiID;
+    QString m_CategoryName;
+    QString m_mattiID;
 };
 
 #endif

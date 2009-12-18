@@ -4,6 +4,7 @@
 #define DCPBRIEFWIDGET_H
 
 #include <DuiWidget>
+
 class DcpAppletMetadata;
 class DcpButton;
 class DcpButtonImage;
@@ -20,17 +21,27 @@ class QHideEvent;
  * clicked() signal to the activate() signal of the #DcpAppletMetadata object,
  * so the applet variant will be started when the widget is clicked.
  */
-class DcpBriefWidget: public DuiWidget
+class DcpBriefWidget: 
+    public DuiWidget
 {
     Q_OBJECT
 
 public:
-	DcpBriefWidget(DcpAppletMetadata* metadata, DuiWidget* parent = 0);
-    
-    void setMetadata(DcpAppletMetadata* metadata);
-    DcpAppletMetadata* metadata() const {return m_Metadata;}
+	DcpBriefWidget (
+            DcpAppletMetadata *metadata, 
+            DuiWidget         *parent = 0);
+
+    DcpBriefWidget (
+            int               widgetTypeId,
+            const QString    &line1,
+            const QString    &line2,
+            DuiWidget        *parent = 0);
+
+    void setMetadata (DcpAppletMetadata *metadata);
+    DcpAppletMetadata *metadata () const {return m_Metadata;}
 
 	~DcpBriefWidget();
+
 public slots:
     void updateContents();
 
@@ -52,4 +63,4 @@ protected:
 };
 
 
-#endif // DCPBRIEFWIDGET_H
+#endif 
