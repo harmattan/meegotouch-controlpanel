@@ -23,3 +23,5 @@ desktops.files = ut_dcpappletmetadata-data/desktops/*.desktop
 desktops.path = $${DCP_INSTALL_LIB}/libduicontrolpanel-tests/ut_dcpappletmetadata-data/desktops
 
 INSTALLS += desktops
+
+include(../common_bot.pri)
