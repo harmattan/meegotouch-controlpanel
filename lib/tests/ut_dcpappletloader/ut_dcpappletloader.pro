@@ -32,4 +32,4 @@ HEADERS += \
 # service classes
 HEADERS += \
 
-
+include(../common_bot.pri)

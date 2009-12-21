@@ -37,3 +37,5 @@ desktops3.files += ut_dcpappletdb-data/desktops3/*.desktop
 desktops3.path = $${DATADIR}/desktops3
 
 INSTALLS += desktops1 desktops2 desktops3
+
+include(../common_bot.pri)

@@ -12,4 +12,8 @@ check-xml.target = check-xml
 check-xml.CONFIG = recursive
 QMAKE_EXTRA_TARGETS += check-xml
 
+coverage.target = coverage
+coverage.CONFIG = recursive
+QMAKE_EXTRA_TARGETS += coverage
+
 QMAKE_CLEAN += **/*.log.xml **/*.log

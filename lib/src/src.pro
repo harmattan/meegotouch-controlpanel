@@ -16,6 +16,12 @@ SOURCES += $$system(find ./ -name \'*.cpp\' -not -name \'moc_*\')
 TARGET        = $$qtLibraryTarget(duicontrolpanel)
 DESTDIR       = ../lib
 
+contains(cov, true) {
+    message("Coverage options enabled")
+    QMAKE_CXXFLAGS += --coverage
+    QMAKE_LFLAGS += --coverage
+}
+
 target.path    += $$DCP_INSTALL_LIB
 install_headers.path    += $$DCP_INSTALL_HEADERS
 install_headers.files += include/D* \
