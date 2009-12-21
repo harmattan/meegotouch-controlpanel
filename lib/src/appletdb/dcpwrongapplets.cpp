@@ -143,7 +143,7 @@ dcpMarkAsMaybeBad (
     DcpWrongApplets::instance()->markAsMaybeBad (metadata->fullBinary());
 }
 
-void
+void 
 dcpUnmarkAsMaybeBad (
 		const DcpAppletMetadata* metadata)
 {

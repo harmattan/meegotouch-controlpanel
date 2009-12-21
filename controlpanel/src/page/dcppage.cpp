@@ -153,7 +153,7 @@ DcpPage::back ()
 /* this is where pages optimize their open up times
  * default implementation sets the correct orientation */
 void DcpPage::reload()
-{ 
+{
     if (sceneManager()) {
         organizeContent(sceneManager()->orientation());
     }

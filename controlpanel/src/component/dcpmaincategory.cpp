@@ -92,6 +92,7 @@ void DcpMainCategory::add(DcpComponent *component)
         m_ItemCount++;
     }
 
+
     DcpCategory::add(component);
     m_RowCount++;
     m_ItemCount++;

@@ -104,7 +104,7 @@ PageFactory::create (
 
 		if (page->isContentCreated())
             page->reload();
-
+        
         m_CurrentPage = page;
     }
 
