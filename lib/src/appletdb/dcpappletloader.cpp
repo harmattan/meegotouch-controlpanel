@@ -37,7 +37,7 @@ DcpAppletLoader::loadPluginFile (
      * We check if the given binary is backlisted because of a previous fault
      * (e.g. segmentation fault).
      */
-    if (DcpWrongApplets::instance()->isBad (binaryPath)) {
+    if (DcpWrongApplets::instance()->isAppletRecentlyCrashed (binaryPath)) {
         DCP_WARNING ("The '%s' is a blacklisted applet", 
                 DCP_STR (m_Metadata->name()));
 

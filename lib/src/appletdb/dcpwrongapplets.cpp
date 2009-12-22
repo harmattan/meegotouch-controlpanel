@@ -1,49 +1,148 @@
 /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
-#include "dcpwrongapplets.h"
+#include <signal.h>
+#include <execinfo.h>
 
-#include "dcpappletmetadata.h"
 #include <DuiGConfItem>
 #include <QFileInfo>
 #include <QDateTime>
 #include <QtDebug>
-
 #include <QApplication>
+
+#include "dcpwrongapplets.h"
+#include "dcpappletdb.h"
+#include "dcpappletmetadata.h"
+
 
 #define DEBUG
 #include "dcpdebug.h"
 
+#define KEY_SEPARATOR "/"
 
 DcpWrongApplets* DcpWrongApplets::sm_Instance = 0;
 bool DcpWrongApplets::sm_Disabled = false;
-
 const QString keyPath = "/apps/duicontrolpanel/badplugins";
 
-static inline QString fileTimeStamp(const QString& path)
+
+/*********************************************************************************
+ * Here some signal handlers are implemented.
+ */
+#define BACKTRACE_SIZE 128
+
+bool
+backtrace_line_is_an_applet (
+        const char     *line,
+        char          **start,
+        char          **end)
 {
-    return QFileInfo(path).lastModified().toString();
+    *start = strstr(line, "/usr/lib/duicontrolpanel/applets/");
+    if (*start == 0)
+        return false;
+
+    *end = *start;
+    while (**end != '\0' && **end != '(')
+        ++(*end);
+
+    return true;
 }
 
-static inline QString crashTimeStamp(const QString& name)
+void
+mark_applet_as_bad (
+        const char   *full_path)
 {
-    DuiGConfItem conf(keyPath + "/" + name);
-    return conf.value().toString();
+    DuiGConfItem  conf (keyPath + full_path + KEY_SEPARATOR + "CrashDateTime" );
+    QDateTime     now = QDateTime::currentDateTime ();
+
+    conf.set (now.toString());
 }
 
-static inline void setCrashTimeStamp(const QString& name, const QString& date)
+void
+some_crash_happened (
+        void)
 {
-    DuiGConfItem conf(keyPath + "/" + name);
-    conf.set(date);
+    void     *backtrace_array [BACKTRACE_SIZE];
+    char    **backtrace_strings;
+    size_t    backtrace_size;
+    char     *start, *end;
+
+    DCP_WARNING ("Crash...");
+    backtrace_size = backtrace (backtrace_array, BACKTRACE_SIZE);
+    backtrace_strings = backtrace_symbols (backtrace_array, backtrace_size);
+
+    /*
+     * Let's print the backtrace from the stack.
+     */
+    fprintf (stderr, "--- Crash backtrace of DuiControlPanel ---\n");
+    for (size_t i = 0; i < backtrace_size; i++) {
+        fprintf (stderr, "   %s\n", backtrace_strings[i]);
+    }
+    fprintf (stderr, "------------------------------------------\n");
+    fflush (stderr);
+
+    /*
+     * Let's see if any of the functions is actually in some applet.
+     */
+    for (size_t i = 0; i < backtrace_size; i++) {
+        if (!backtrace_line_is_an_applet (backtrace_strings[i], &start, &end))
+            continue;
+
+        *end = '\0';
+        DCP_WARNING ("*** This is an applet: '%s'", start);
+        mark_applet_as_bad (start);
+        break;
+    }
 }
 
-static inline void unsetCrashTimeStamp(const QString& name)
+void
+termination_signal_handler (
+        int signum)
 {
-    DuiGConfItem conf(keyPath + "/" + name);
-    conf.unset();
+    DCP_DEBUG ("*** signum = %d", signum);
+    switch (signum) {
+        case SIGTERM:
+        case SIGHUP:
+        case SIGINT:
+        case SIGQUIT:
+            /*
+             * These are the signals that are not caused by any bug in the code.
+             * We can do something with these, but now we just exit.
+             */
+            exit (1);
+            break;
+       
+        case SIGILL:
+        case SIGSEGV:
+        case SIGBUS:
+        case SIGABRT:
+        case SIGFPE:
+            /*
+             * And here are those that are caused by errors.
+             */
+            some_crash_happened ();
+            exit (1);
+            break;
+    }
+
+    raise (signum);
 }
 
-DcpWrongApplets::DcpWrongApplets()
+/*********************************************************************************
+ * Other parts of the code.
+ */
+DcpWrongApplets::DcpWrongApplets ()
 {
+    DCP_DEBUG ("");
+    signal (SIGTERM, termination_signal_handler);
+    signal (SIGHUP,  termination_signal_handler);
+    signal (SIGINT,  termination_signal_handler);
+    signal (SIGQUIT,  termination_signal_handler);
+
+    signal (SIGILL,  termination_signal_handler);
+    signal (SIGSEGV, termination_signal_handler);
+    signal (SIGBUS, termination_signal_handler);
+    signal (SIGABRT, termination_signal_handler);
+    signal (SIGFPE,  termination_signal_handler);
+
     connect (qApp, SIGNAL(aboutToQuit()),
              this, SLOT(deleteLater()));
 
@@ -51,110 +150,33 @@ DcpWrongApplets::DcpWrongApplets()
     m_BadApplets = queryBadApplets();
 }
 
-QSet<QString> DcpWrongApplets::queryBadApplets()
+DcpWrongApplets::~DcpWrongApplets ()
 {
-    QSet<QString> badApplets;
-    if (sm_Disabled) 
-	    return badApplets;
+}
 
-    DuiGConfItem dir(keyPath);
-    QList<QString> wrongAppletNames = dir.listEntries();
-    foreach (QString fullName, wrongAppletNames) {
-        QString name = QFileInfo(fullName).fileName();
-        QString fileName = QString(APPLET_LIBS)+ "/"+ name;
-        if (fileTimeStamp(fileName) == crashTimeStamp(name)) {
-//            qDebug() << "Detected bad applet: " << name;
-            badApplets.insert(name);
-        } else {
-            qDebug() << "Giving the applet" << name << "another chance.";
-            unsetCrashTimeStamp(name);
-        }
+
+QSet <QString> 
+DcpWrongApplets::queryBadApplets ()
+{
+    QSet <QString> badApplets;
+
+    DCP_DEBUG ("");
+    DcpAppletMetadataList metadataList = DcpAppletDb::instance()->list();
+
+    /*
+     * We go through all the applets and we check each and every one of them in
+     * the GConf database.
+     */
+    foreach (DcpAppletMetadata *metadata, metadataList) {
+        if (isAppletRecentlyCrashed (metadata))
+            badApplets.insert (metadata->binary());
     }
+    
     return badApplets;
 }
 
-DcpWrongApplets::~DcpWrongApplets()
-{
-    qDebug() << "Marking possibly bad applets as good";
-    QHash<QString, int>::const_iterator it;
-    for (it = m_MaybeBadApplets.begin(); it!=m_MaybeBadApplets.end(); it++)
-    {
-        if (it.value() > 0) {
-            qWarning() << it.key() << "were not unmarked:" << it.value();
-            unsetCrashTimeStamp(it.key());
-        }
-    }
-}
-
-void
-DcpWrongApplets::markAsMaybeBad (
-        const QString  &badSoPath,
-        const char     *caller)
-{
-    DCP_DEBUG ("*** badSoPath = '%s'", DCP_STR(badSoPath));
-    DCP_DEBUG ("*** caller    = %s", caller);
-
-    // no .so -> no problem
-    if (sm_Disabled || badSoPath.isEmpty()) 
-        return;
-
-    QFileInfo fileInfo(badSoPath);
-    QString badSoName = fileInfo.fileName();
-
-    // prevent marking bad or non existing applets (no more trouble with them)
-    if (m_BadApplets.contains(badSoName) || !fileInfo.exists()) 
-        return;
-
-    if (!m_MaybeBadApplets.contains(badSoName)
-        || m_MaybeBadApplets.value(badSoName) == 0)
-    {
-        QString timeStamp = fileTimeStamp(badSoPath);
-        // .so does not exists -> no segfault can happen
-        if (timeStamp.isEmpty()) {
-            qWarning("Error getting timestamp: %s", qPrintable(badSoPath));
-        }
-        setCrashTimeStamp(badSoName, timeStamp);
-        m_MaybeBadApplets.insert (badSoName, 1);
-    } else {
-        m_MaybeBadApplets[badSoName]++;
-    }
-}
-
-
-void
-DcpWrongApplets::unmarkAsMaybeBad (
-		const QString  &badSoPath,
-        const char     *caller)
-{
-    DCP_DEBUG ("*** badSoPath = '%s'", DCP_STR (badSoPath));
-    DCP_DEBUG ("*** caller    = %s", caller);
-
-    // no .so -> no problem
-    if (sm_Disabled || badSoPath.isEmpty()) 
-	    return;
-
-    QFileInfo fileInfo(badSoPath);
-    QString badSoName = fileInfo.fileName();
-
-    // prevent unmarking bad or non existing applets (no more trouble with them)
-    if (m_BadApplets.contains(badSoName) || !fileInfo.exists()) return;
-
-    int& markCount = m_MaybeBadApplets[badSoName];
-    if (markCount <= 0) {
-        qWarning("Not marked plugin was unmarked: %s", qPrintable(badSoName));
-        return;
-    }
-    markCount--;
-
-    if (markCount == 0) {
-        // mark it as working
-        DuiGConfItem conf(keyPath+"/"+badSoName);
-        conf.unset();
-    }
-}
-
 DcpWrongApplets *
-DcpWrongApplets::instance()
+DcpWrongApplets::instance ()
 {
     if (!sm_Instance) 
 	    sm_Instance = new DcpWrongApplets();
@@ -163,7 +185,7 @@ DcpWrongApplets::instance()
 }
 
 void 
-DcpWrongApplets::destroyInstance()
+DcpWrongApplets::destroyInstance ()
 {
     if (sm_Instance) {
         delete sm_Instance;
@@ -171,25 +193,49 @@ DcpWrongApplets::destroyInstance()
     }
 }
 
-
 const QSet<QString> &
-DcpWrongApplets::badApplets() const
+DcpWrongApplets::badApplets () const
 {
     return m_BadApplets;
 }
 
-
 bool 
-DcpWrongApplets::isBad (
-		const QString& badSoName)
+DcpWrongApplets::isAppletRecentlyCrashed (
+		const DcpAppletMetadata       *metadata)
 {
-    return m_BadApplets.contains(QFileInfo(badSoName).fileName());
+    return isAppletRecentlyCrashed (metadata->fullBinary());
 }
 
+bool 
+DcpWrongApplets::isAppletRecentlyCrashed (
+		const QString       &fullSoPath)
+{
+    DuiGConfItem conf (keyPath + fullSoPath + KEY_SEPARATOR + "CrashDateTime" );
+    QString      lastCrashDate = conf.value().toString ();
 
-void DcpWrongApplets::disable ()
+    /*
+     * If the applet protection has been disabled or the applet has no entry in
+     * the GConf database.
+     */
+    if (sm_Disabled || lastCrashDate.isEmpty())
+        return false;
+
+    /*
+     * Check if the applet file was modified since the crash.
+     */
+    if (QFileInfo (fullSoPath).lastModified() > 
+            QDateTime::fromString (lastCrashDate)) {
+        conf.unset ();
+        return false;
+    }
+
+    return true;
+}
+
+void
+DcpWrongApplets::disable ()
 {
     sm_Disabled = true;
-    destroyInstance();
+    destroyInstance ();
 }
 
