@@ -14,7 +14,7 @@
 #include <DuiLinearLayoutPolicy>
 #include "maintranslations.h"
 
-#define DEBUG
+//#define DEBUG
 #include "../../../lib/src/dcpdebug.h"
 
 /*!

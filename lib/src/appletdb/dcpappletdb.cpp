@@ -42,11 +42,12 @@ DcpAppletDb::~DcpAppletDb()
 {
 }
 
-void DcpAppletDb::destroy()
+void 
+DcpAppletDb::destroy()
 {
-     sm_Instance->destroyData();
-     delete sm_Instance;
-     sm_Instance = 0;
+    sm_Instance->destroyData();
+    delete sm_Instance;
+    sm_Instance = 0;
 }
 
 bool
@@ -209,8 +210,10 @@ void DcpAppletDb::eraseEntry(DcpAppletMetadata *metadata)
     metadata->deleteLater();
 }
 
-void DcpAppletDb::destroyData()
+void 
+DcpAppletDb::destroyData()
 {
+    DCP_WARNING ("Destroying all metadata.");
 	foreach(DcpAppletMetadata *metadata, m_AppletsByName) {
 		metadata->deleteLater();
 	}

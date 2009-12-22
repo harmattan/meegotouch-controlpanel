@@ -17,42 +17,61 @@
 #define DEBUG
 #include "dcpdebug.h"
 
-
-DcpAppletPage::DcpAppletPage(DcpAppletMetadata *metadata):
+DcpAppletPage::DcpAppletPage (
+        DcpAppletMetadata *metadata):
     DcpPage(),
     m_Metadata(metadata),
     m_LoadedMetadata(0),
     m_MainWidget(0),
     m_MissingLabel(0)
 {
+    DCP_DEBUG ("");
     setHandle  (PageHandle::APPLET, metadata->name());
     setReferer (PageHandle::NOPAGE);
 }
 
-DcpAppletPage::~DcpAppletPage()
+DcpAppletPage::~DcpAppletPage ()
 {
-    if (m_LoadedMetadata) { dcpUnmarkAsMaybeBad(m_LoadedMetadata); }
+    DCP_DEBUG ("");
+    #if 0
+    if (m_LoadedMetadata) { 
+        dcpUnmarkAsMaybeBad (m_LoadedMetadata); 
+    }
+    #endif
+
     clearup();
+    
     qDebug() << "appletpage destroy";
 }
 
-void DcpAppletPage::createContent()
+
+void
+DcpAppletPage::createContent ()
 {
-    DcpPage::createContent();
-    load();
+    DcpPage::createContent ();
+    load ();
 }
 
-bool DcpAppletPage::hasWidget() {
+bool 
+DcpAppletPage::hasWidget() 
+{
     return m_MainWidget;
 }
 
-bool DcpAppletPage::hasError() {
+bool 
+DcpAppletPage::hasError() 
+{
     return m_MissingLabel; 
 }
 
 void
 DcpAppletPage::load ()
 {
+    /*
+     * I removed this part of the protection for it seems to be some problem
+     * with it. It caused false positives.
+     */
+    #if 0
     if (m_LoadedMetadata) {
         dcpUnmarkAsMaybeBad (m_LoadedMetadata); 
     }
@@ -60,10 +79,10 @@ DcpAppletPage::load ()
     if (m_Metadata) {
         dcpMarkAsMaybeBad (m_Metadata); 
     }
+    #endif
 
     m_LoadedMetadata = m_Metadata;
 
-    
     if (m_Metadata && m_Metadata->isValid()) {
         if (m_Metadata->applet()) {
             /*
@@ -93,37 +112,42 @@ DcpAppletPage::load ()
 
     Q_ASSERT (!m_MissingLabel);
     //% "Plugin not available"
-    m_MissingLabel = new DuiLabel(qtTrId("dcp_no_applet_name"));
-    m_MissingLabel->setAlignment(Qt::AlignCenter);
-    append(m_MissingLabel);
+    m_MissingLabel = new DuiLabel (qtTrId("dcp_no_applet_name"));
+    m_MissingLabel->setAlignment (Qt::AlignCenter);
+    append (m_MissingLabel);
     //% "Missing plugin"
-    setTitle(qtTrId("dcp_no_applet_title"));
+    setTitle (qtTrId("dcp_no_applet_title"));
 }
 
-void DcpAppletPage::clearup()
+void 
+DcpAppletPage::clearup ()
 {
     if (m_MainWidget) {
         m_MainWidget->deleteLater();
         m_MainWidget = 0;
     }
+
     if (m_MissingLabel) {
         m_MissingLabel->deleteLater();
         m_MissingLabel = 0;
     }
 }
 
-void DcpAppletPage::reload()
+void 
+DcpAppletPage::reload ()
 {
     if (m_Metadata != m_LoadedMetadata || !hasWidget()) {
         clearup();
         load();
     }
+
     DcpPage::reload();
     // means: referer should be set by pagefactory to the last page
     setReferer(PageHandle::NOPAGE); 
 }
 
-void DcpAppletPage::back()
+void 
+DcpAppletPage::back ()
 {
     DCP_DEBUG ("*** m_MainWidget = %p", m_MainWidget);
 
@@ -181,14 +205,16 @@ DcpAppletPage::changeWidget (
     retranslateUi();
 }
 
-void DcpAppletPage::setMetadata (DcpAppletMetadata *metadata)
+void 
+DcpAppletPage::setMetadata (
+        DcpAppletMetadata *metadata)
 {
-    DCP_DEBUG ("************************************");
-    DCP_DEBUG ("*** setting %p", metadata);
+    DCP_DEBUG ("*** metadata = %p", metadata);
     m_Metadata = metadata;
 }
 
-void DcpAppletPage::retranslateUi()
+void 
+DcpAppletPage::retranslateUi ()
 {
     if (m_LoadedMetadata && m_LoadedMetadata->applet()) {
         setTitle(m_LoadedMetadata->applet()->title());

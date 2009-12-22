@@ -1,3 +1,5 @@
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #include "dcpwrongapplets.h"
 
 #include "dcpappletmetadata.h"
@@ -7,6 +9,10 @@
 #include <QtDebug>
 
 #include <QApplication>
+
+#define DEBUG
+#include "dcpdebug.h"
+
 
 DcpWrongApplets* DcpWrongApplets::sm_Instance = 0;
 bool DcpWrongApplets::sm_Disabled = false;
@@ -81,16 +87,23 @@ DcpWrongApplets::~DcpWrongApplets()
 }
 
 void
-DcpWrongApplets::markAsMaybeBad(const QString& badSoPath)
+DcpWrongApplets::markAsMaybeBad (
+        const QString  &badSoPath,
+        const char     *caller)
 {
+    DCP_DEBUG ("*** badSoPath = '%s'", DCP_STR(badSoPath));
+    DCP_DEBUG ("*** caller    = %s", caller);
+
     // no .so -> no problem
-    if (sm_Disabled || badSoPath.isEmpty()) return;
+    if (sm_Disabled || badSoPath.isEmpty()) 
+        return;
 
     QFileInfo fileInfo(badSoPath);
     QString badSoName = fileInfo.fileName();
 
     // prevent marking bad or non existing applets (no more trouble with them)
-    if (m_BadApplets.contains(badSoName) || !fileInfo.exists()) return;
+    if (m_BadApplets.contains(badSoName) || !fileInfo.exists()) 
+        return;
 
     if (!m_MaybeBadApplets.contains(badSoName)
         || m_MaybeBadApplets.value(badSoName) == 0)
@@ -109,9 +122,13 @@ DcpWrongApplets::markAsMaybeBad(const QString& badSoPath)
 
 
 void
-DcpWrongApplets::unmarkAsMaybeBad(
-		const QString& badSoPath)
+DcpWrongApplets::unmarkAsMaybeBad (
+		const QString  &badSoPath,
+        const char     *caller)
 {
+    DCP_DEBUG ("*** badSoPath = '%s'", DCP_STR (badSoPath));
+    DCP_DEBUG ("*** caller    = %s", caller);
+
     // no .so -> no problem
     if (sm_Disabled || badSoPath.isEmpty()) 
 	    return;
@@ -134,20 +151,6 @@ DcpWrongApplets::unmarkAsMaybeBad(
         DuiGConfItem conf(keyPath+"/"+badSoName);
         conf.unset();
     }
-}
-
-void
-dcpMarkAsMaybeBad (
-		const DcpAppletMetadata* metadata)
-{
-    DcpWrongApplets::instance()->markAsMaybeBad (metadata->fullBinary());
-}
-
-void 
-dcpUnmarkAsMaybeBad (
-		const DcpAppletMetadata* metadata)
-{
-    DcpWrongApplets::instance()->unmarkAsMaybeBad (metadata->fullBinary());
 }
 
 DcpWrongApplets *

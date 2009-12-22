@@ -9,7 +9,7 @@
 #include <DuiApplication>
 #include <DuiApplicationWindow>
 
-#define DEBUG
+//#define DEBUG
 #include "dcpdebug.h"
 
 

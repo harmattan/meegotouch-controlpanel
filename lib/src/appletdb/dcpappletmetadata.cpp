@@ -108,7 +108,7 @@ DcpAppletMetadata::DcpAppletMetadata(const QString& filename)
 
 DcpAppletMetadata::~DcpAppletMetadata()
 {
-//	save();
+    DCP_WARNING ("Destroying %p", this);
     delete d;
 }
 
