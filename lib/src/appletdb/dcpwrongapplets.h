@@ -55,22 +55,6 @@ private:
     static bool sm_Disabled;
 };
 
-#if 0
-#  define dcpMarkAsMaybeBad(metadata) \
-    Q_ASSERT (metadata != 0); \
-    DcpWrongApplets::instance()->markAsMaybeBad ( \
-            metadata->fullBinary(), \
-            __PRETTY_FUNCTION__)
-
-#  define dcpUnmarkAsMaybeBad(metadata) \
-    Q_ASSERT (metadata != 0); \
-    DcpWrongApplets::instance()->unmarkAsMaybeBad ( \
-            metadata->fullBinary(), \
-            __PRETTY_FUNCTION__)
-#else
-#  define dcpMarkAsMaybeBad(metadata) {/* Doing nothing*/}
-#  define dcpUnmarkAsMaybeBad(metadata) {/* Doing nothing*/}
-#endif
 
 #endif
 

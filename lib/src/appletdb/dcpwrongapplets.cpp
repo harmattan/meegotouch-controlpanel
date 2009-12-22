@@ -74,7 +74,7 @@ some_crash_happened (
      */
     fprintf (stderr, "--- Crash backtrace of DuiControlPanel ---\n");
     for (size_t i = 0; i < backtrace_size; i++) {
-        fprintf (stderr, "   %s\n", backtrace_strings[i]);
+        fprintf (stderr, "%03u %s\n", i, backtrace_strings[i]);
     }
     fprintf (stderr, "------------------------------------------\n");
     fflush (stderr);
