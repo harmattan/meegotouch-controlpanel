@@ -33,7 +33,6 @@ private:
     //bool loadApplet();
 
     DcpAppletMetadata *m_Metadata;
-    DcpAppletMetadata *m_LoadedMetadata;
     DcpWidget *m_MainWidget;
     DuiLabel *m_MissingLabel;
 };

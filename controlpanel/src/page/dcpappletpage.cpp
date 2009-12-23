@@ -21,7 +21,6 @@ DcpAppletPage::DcpAppletPage (
         DcpAppletMetadata *metadata):
     DcpPage(),
     m_Metadata(metadata),
-    m_LoadedMetadata(0),
     m_MainWidget(0),
     m_MissingLabel(0)
 {
@@ -33,12 +32,6 @@ DcpAppletPage::DcpAppletPage (
 DcpAppletPage::~DcpAppletPage ()
 {
     DCP_DEBUG ("");
-    #if 0
-    if (m_LoadedMetadata) { 
-        dcpUnmarkAsMaybeBad (m_LoadedMetadata); 
-    }
-    #endif
-
     clearup();
     
     qDebug() << "appletpage destroy";
@@ -67,22 +60,6 @@ DcpAppletPage::hasError()
 void
 DcpAppletPage::load ()
 {
-    /*
-     * I removed this part of the protection for it seems to be some problem
-     * with it. It caused false positives.
-     */
-    #if 0
-    if (m_LoadedMetadata) {
-        dcpUnmarkAsMaybeBad (m_LoadedMetadata); 
-    }
-
-    if (m_Metadata) {
-        dcpMarkAsMaybeBad (m_Metadata); 
-    }
-    #endif
-
-    m_LoadedMetadata = m_Metadata;
-
     if (m_Metadata && m_Metadata->isValid()) {
         if (m_Metadata->applet()) {
             /*
@@ -136,7 +113,7 @@ DcpAppletPage::clearup ()
 void 
 DcpAppletPage::reload ()
 {
-    if (m_Metadata != m_LoadedMetadata || !hasWidget()) {
+    if (!hasWidget()) {
         clearup();
         load();
     }
@@ -197,7 +174,7 @@ DcpAppletPage::changeWidget (
 
     append (m_MainWidget);
 
-    QVector<DuiAction*> vector = m_LoadedMetadata->applet()->viewMenuItems();
+    QVector<DuiAction*> vector = m_Metadata->applet()->viewMenuItems();
     if (!vector.isEmpty())
         for (int i = 0; i < vector.size(); i++)
             addAction(vector[i]);
@@ -216,8 +193,8 @@ DcpAppletPage::setMetadata (
 void 
 DcpAppletPage::retranslateUi ()
 {
-    if (m_LoadedMetadata && m_LoadedMetadata->applet()) {
-        setTitle(m_LoadedMetadata->applet()->title());
+    if (m_Metadata && m_Metadata->applet()) {
+        setTitle(m_Metadata->applet()->title());
     }
 }
 

@@ -8,6 +8,7 @@
 #include <QString>
 #include <QObject>
 
+class DcpAppletMetadata;
 
 /** class is internal, handles wrong applet markings and queries */
 /*
@@ -20,7 +21,7 @@ class DcpWrongApplets:
 Q_OBJECT
 
 public:
-    static DcpWrongApplets* instance();
+    static DcpWrongApplets* instance ();
     static void destroyInstance();
     static void disable();
     static bool isDisabled() { return sm_Disabled; }
@@ -33,32 +34,26 @@ public:
             const QString &badSoPath,
             const char    *caller);
 
-    bool isBad(const QString& badSoPath);
-    const QSet<QString>& badApplets() const;
-    static QSet<QString> queryBadApplets();
+    static bool 
+        isAppletRecentlyCrashed (
+            const QString           &badSoPath);
+
+    static bool isAppletRecentlyCrashed (
+            const DcpAppletMetadata *metadata);
+
+    const QSet<QString> &badApplets () const;
+    static QSet <QString> 
+        queryBadApplets ();
 
 private:
     DcpWrongApplets();
     ~DcpWrongApplets();
-    static DcpWrongApplets* sm_Instance;
+    static DcpWrongApplets *sm_Instance;
 
     // some speed up caches to avoid unnecessery gconf access
     QSet<QString> m_BadApplets;
-    QHash<QString, int> m_MaybeBadApplets;
     static bool sm_Disabled;
 };
-
-#define dcpMarkAsMaybeBad(metadata) \
-    Q_ASSERT (metadata != 0); \
-    DcpWrongApplets::instance()->markAsMaybeBad ( \
-            metadata->fullBinary(), \
-            __PRETTY_FUNCTION__)
-
-#define dcpUnmarkAsMaybeBad(metadata) \
-    Q_ASSERT (metadata != 0); \
-    DcpWrongApplets::instance()->unmarkAsMaybeBad ( \
-            metadata->fullBinary(), \
-            __PRETTY_FUNCTION__)
 
 
 #endif

@@ -133,9 +133,7 @@ DcpBriefWidget::setMetadata (
     if (m_Metadata) {
         // FIXME: This might cause a race condition? What if the matedata sends
         // a signal when we are not connected yet?
-        dcpMarkAsMaybeBad (metadata);
         constructRealWidget (m_Metadata->widgetTypeID());
-        dcpUnmarkAsMaybeBad(metadata);
 
         connect (this, SIGNAL (clicked()), 
                 m_Metadata, SLOT (slotClicked()));
@@ -150,10 +148,8 @@ void
 DcpBriefWidget::retranslateUi ()
 {
     if (m_Metadata) {
-        dcpMarkAsMaybeBad (m_Metadata);
         m_RealWidget->setText1 (m_Metadata->text1());
         updateContents ();
-        dcpUnmarkAsMaybeBad (m_Metadata);
     }
 }
 
@@ -190,7 +186,6 @@ void
 DcpBriefWidget::updateContents ()
 {
     if (m_Metadata) {
-        dcpMarkAsMaybeBad (m_Metadata);
         // for all:
         m_RealWidget->setText2 (m_Metadata->text2());
 
@@ -206,7 +201,6 @@ DcpBriefWidget::updateContents ()
         if (image) {
             image->setImageName (m_Metadata->image());
         }
-        dcpUnmarkAsMaybeBad (m_Metadata);
     }
 }
 
