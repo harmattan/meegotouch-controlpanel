@@ -13,9 +13,10 @@
 
 DcpAppletCategoryPage::DcpAppletCategoryPage (
         const QString &appletCategory) :
-    DcpCategoryPage(),
-    m_AppletCategory(appletCategory)
+    DcpCategoryPage (),
+    m_AppletCategory (appletCategory)
 {
+    // FIXME: This is clearly wrong.
     setHandle  (PageHandle::APPLETCATEGORY);
     setReferer (PageHandle::MAIN);
 }
@@ -24,7 +25,9 @@ DcpAppletCategoryPage::~DcpAppletCategoryPage ()
 {
 }
 
-void DcpAppletCategoryPage::createContent ()
+
+void 
+DcpAppletCategoryPage::createContent ()
 {
     DcpCategoryPage::createContent ();
     m_Category->setMaxColumns (2);
@@ -35,7 +38,21 @@ void DcpAppletCategoryPage::createContent ()
     loadContent();
 }
 
-void DcpAppletCategoryPage::loadContent ()
+const QString 
+DcpAppletCategoryPage::appletCategory() const 
+{
+    return m_AppletCategory;
+}
+
+void 
+DcpAppletCategoryPage::setAppletCategory (
+        const QString &appletCategory) 
+{
+    m_AppletCategory=appletCategory;
+}
+
+void 
+DcpAppletCategoryPage::loadContent ()
 {
     bool odd;
 
@@ -56,22 +73,11 @@ void DcpAppletCategoryPage::loadContent ()
          * We do not treat 1 item as odd, because it does not have to be spanned
          * in two columns.
          */
-        bool odd = list.size() % 2 == 1 && list.size() > 1;
+        odd = list.size() % 2 == 1 && list.size() > 1;
         DCP_DEBUG ("*** applet '%s'", DCP_STR (item->name()));
         addComponent (item, odd);
     }
-#if 0
-    if (!list.isEmpty()) {
-        // we do not treat 1 item as odd,
-        // because it does not have to be spanned in two columns
-        //bool odd = list.size() % 2 == 1 && list.size() > 1;
-    	DcpAppletMetadataList::const_iterator i;
-        for (i = list.begin(); i != list.end(); ++i) {
-            DCP_DEBUG ("*** *i = %s", DCP_STR (i->name()));
-            //addComponent(*i, i == list.end() - 1 && odd);
-        }
-    }
-#endif
+
     m_LoadedAppletCategory = appletCategory ();
 }
 
@@ -120,7 +126,7 @@ DcpAppletCategoryPage::cleanup ()
         for (i = list.begin(); i != list.end(); ++i) {
             DcpAppletMetadata *metadata = *i;
             qDebug() << "Cleaning up metadata" << metadata->name();
-            metadata->cleanup();
+            metadata->cleanup ();
         }
     }
 }

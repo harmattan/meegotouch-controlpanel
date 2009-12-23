@@ -6,16 +6,18 @@
 
 class DcpAppletMetadata;
 
-class DcpAppletCategoryPage : public DcpCategoryPage
+class DcpAppletCategoryPage : 
+	public DcpCategoryPage
 {
     Q_OBJECT
 
 public:
-    DcpAppletCategoryPage(const QString &appletCategory = QString());
-    virtual ~DcpAppletCategoryPage();
-    virtual void createContent();
-    const QString appletCategory() const {return m_AppletCategory;};
-    void setAppletCategory(const QString &appletCategory){m_AppletCategory=appletCategory;};
+    DcpAppletCategoryPage (const QString &appletCategory = QString());
+    virtual ~DcpAppletCategoryPage ();
+    virtual void createContent ();
+    const QString appletCategory () const;
+    void setAppletCategory (const QString &appletCategory);
+
     virtual void reload();
     void cleanup();
 
@@ -33,5 +35,5 @@ private:
                                     // page's content is loaded
 };
 
-#endif // DCPAPPLETCATEGORYPAGE_H
+#endif
 
