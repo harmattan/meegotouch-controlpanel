@@ -8,81 +8,112 @@
 #include <DcpAppletDb>
 #include <DcpAppletMetadata>
 
+#define DEBUG
+#include "dcpdebug.h"
 
-DcpAppletCategoryPage::DcpAppletCategoryPage(const QString &appletCategory) :
-		DcpCategoryPage(),
-        m_AppletCategory(appletCategory)
+DcpAppletCategoryPage::DcpAppletCategoryPage (
+        const QString &appletCategory) :
+    DcpCategoryPage(),
+    m_AppletCategory(appletCategory)
 {
     setHandle  (PageHandle::APPLETCATEGORY);
     setReferer (PageHandle::MAIN);
 }
 
-DcpAppletCategoryPage::~DcpAppletCategoryPage()
+DcpAppletCategoryPage::~DcpAppletCategoryPage ()
 {
 }
 
-void DcpAppletCategoryPage::createContent()
+void DcpAppletCategoryPage::createContent ()
 {
-    DcpCategoryPage::createContent();
-    m_Category->setMaxColumns(2);
-    m_Category->setVerticalSpacing(0);
-    m_Category->setCreateSeparators();
-    m_Category->setDoNotRemoveLastSeparator();
+    DcpCategoryPage::createContent ();
+    m_Category->setMaxColumns (2);
+    m_Category->setVerticalSpacing (0);
+    m_Category->setCreateSeparators ();
+    m_Category->setDoNotRemoveLastSeparator ();
 
     loadContent();
 }
 
-void DcpAppletCategoryPage::loadContent()
+void DcpAppletCategoryPage::loadContent ()
 {
+    bool odd;
+
     Q_ASSERT(!appletCategory().isEmpty());
+    
+    DCP_DEBUG ("*** appletCategory() = '%s'", DCP_STR (appletCategory()));
+    /*
+     * I had to comment this out, because it destroyed the metadata already
+     * exists and then everything went wrong.
+     */
+    //DcpAppletDb::instance()->refresh();
 
-    DcpAppletDb::instance()->refresh();
-    DcpAppletMetadataList list = DcpAppletDb::instance()->listByCategory(appletCategory());
+    DcpAppletMetadataList list = DcpAppletDb::instance()->listByCategory (
+            appletCategory());
 
+    foreach (DcpAppletMetadata *item, list) {
+        /*
+         * We do not treat 1 item as odd, because it does not have to be spanned
+         * in two columns.
+         */
+        bool odd = list.size() % 2 == 1 && list.size() > 1;
+        DCP_DEBUG ("*** applet '%s'", DCP_STR (item->name()));
+        addComponent (item, odd);
+    }
+#if 0
     if (!list.isEmpty()) {
         // we do not treat 1 item as odd,
         // because it does not have to be spanned in two columns
-        bool odd = list.size() % 2 == 1 && list.size() > 1;
+        //bool odd = list.size() % 2 == 1 && list.size() > 1;
     	DcpAppletMetadataList::const_iterator i;
-        for (i = list.begin(); i != list.end(); ++i)
-            addComponent(*i, i == list.end() - 1 && odd);
+        for (i = list.begin(); i != list.end(); ++i) {
+            DCP_DEBUG ("*** *i = %s", DCP_STR (i->name()));
+            //addComponent(*i, i == list.end() - 1 && odd);
+        }
     }
-
-    m_LoadedAppletCategory = appletCategory();
+#endif
+    m_LoadedAppletCategory = appletCategory ();
 }
 
 void 
-DcpAppletCategoryPage::addComponent(
-		DcpAppletMetadata *metadata, bool odd)
+DcpAppletCategoryPage::addComponent (
+		DcpAppletMetadata *metadata,
+        bool               odd)
 {
-    DcpBriefComponent *component = new DcpBriefComponent(metadata, m_Category);
+    DcpBriefComponent *component = new DcpBriefComponent (metadata, m_Category);
 
-    component->setSubPage(PageHandle::APPLET, metadata->name());
+    component->setSubPage (PageHandle::APPLET, metadata->name());
     
     if (odd)
-        m_Category->add(component);
+        m_Category->add (component);
     else
-        m_Category->append(component);
+        m_Category->append (component);
 }
 
-void DcpAppletCategoryPage::reload()
+void 
+DcpAppletCategoryPage::reload ()
 {
+    DCP_DEBUG ("");
+
     if (m_LoadedAppletCategory != appletCategory()) {
         m_Category->deleteItems();
         loadContent();
     }
+
     DcpCategoryPage::reload();
 }
 
-void DcpAppletCategoryPage::back()
+void DcpAppletCategoryPage::back ()
 {
     cleanup();
     DcpCategoryPage::back();
 }
 
-void DcpAppletCategoryPage::cleanup()
+void 
+DcpAppletCategoryPage::cleanup ()
 {
-    DcpAppletMetadataList list = DcpAppletDb::instance()->listByCategory(appletCategory());
+    DcpAppletMetadataList list = DcpAppletDb::instance()->listByCategory (
+            appletCategory());
 
     if (!list.isEmpty()) {
     	DcpAppletMetadataList::const_iterator i;
@@ -93,3 +124,4 @@ void DcpAppletCategoryPage::cleanup()
         }
     }
 }
+

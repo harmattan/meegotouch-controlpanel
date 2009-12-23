@@ -15,18 +15,18 @@
 #include <DuiApplication>
 #include <DuiAction>
 
-//#define DEBUG
+#define DEBUG
 #include "dcpdebug.h"
 
 
 PageFactory *PageFactory::sm_Instance = 0;
 
-PageFactory::PageFactory(): 
-    QObject(),
-    m_CurrentPage(0), 
-    m_MainPage(0), 
-    m_AppletPage(0), 
-    m_AppletCategoryPage(0)
+PageFactory::PageFactory (): 
+    QObject (),
+    m_CurrentPage (0), 
+    m_MainPage (0), 
+    m_AppletPage (0), 
+    m_AppletCategoryPage (0)
 {
     DcpAppletMetadataList list;
 
@@ -50,7 +50,8 @@ PageFactory::PageFactory():
     }
 }
 
-PageFactory* PageFactory::instance()
+PageFactory * 
+PageFactory::instance ()
 {
     if (!sm_Instance)
         sm_Instance = new PageFactory();
@@ -73,22 +74,25 @@ PageFactory::create (
              * no valid referer. These pages are going to open the main page
              * when closed.
              */
+            DCP_DEBUG ("## MAIN ##");
             page = createMainPage();
             break;
 
-        case PageHandle::APPLETCATEGORY: // when coming back
+        case PageHandle::APPLETCATEGORY: 
+            // when coming back
+            DCP_DEBUG ("## APPLETCATEGORY ##");
             Q_ASSERT (m_AppletCategoryPage);
             page = m_AppletCategoryPage;
             break;
 
         case PageHandle::APPLET:
+            DCP_DEBUG ("## APPLET ##");
             page = createAppletPage (
 			    DcpAppletDb::instance()->applet (handle.param));
-            if (page)
-                page->setHandle (handle);
             break;
 
         default:
+            DCP_DEBUG ("## CATEGORY_PAGEID_XXX ##");
             Q_ASSERT(handle.id > PageHandle::CATEGORY_PAGEID_START
                      && handle.id < PageHandle::CATEGORY_PAGEID_END);
             page = createAppletCategoryPage (handle.id);
@@ -97,10 +101,12 @@ PageFactory::create (
     }
 
     if (page) {
-        if (m_CurrentPage)
-            m_CurrentPage->disconnectSignals();
+        page->setHandle (handle);
 
-        page->connectSignals();
+        if (m_CurrentPage)
+            m_CurrentPage->disconnectSignals ();
+
+        page->connectSignals ();
 
 		if (page->isContentCreated())
             page->reload();
