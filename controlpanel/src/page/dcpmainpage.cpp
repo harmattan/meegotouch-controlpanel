@@ -39,7 +39,7 @@ DcpMainPage::~DcpMainPage()
 }
 
 
-void 
+void
 DcpMainPage::createContent()
 {
     DcpPage::createContent();
@@ -60,7 +60,7 @@ DcpMainPage::createContent()
         DcpCategoryInfo info = DcpMain::CategoryInfos[i];
         if (info.titleId == 0)
              break;
-        
+
         component = new DcpCategoryComponent (
                 0, info.appletCategory, info.titleId);
 
@@ -88,7 +88,7 @@ void DcpMainPage::retranslateUi()
     // no need to update briefs, they take care of themselves
 }
 
-void 
+void
 DcpMainPage::organizeContent (
         const Dui::Orientation& ori)
 {
