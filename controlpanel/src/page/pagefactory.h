@@ -30,21 +30,17 @@ public slots:
 		    int                  refererWidgetId);
 
 protected:
-    PageFactory();
-    DcpPage* createMainPage();	
-    DcpPage* createAppletPage(DcpAppletMetadata *metadata);
-    DcpPage* createAppletPageFromCategory(DcpAppletMetadata *metadata);
-    DcpPage* createAppletPageFromMostUsed(DcpAppletMetadata *metadata);
-    DcpPage* createAppletCategoryPage(PageHandle::PageTypeId pageId);
+    PageFactory ();
+    DcpPage* createMainPage ();	
+    DcpPage* createAppletPage (DcpAppletMetadata *metadata);
+    DcpPage* createAppletCategoryPage (PageHandle::PageTypeId pageId);
 
 private:
-    static PageFactory* sm_Instance;
-    DcpPage *m_CurrentPage;
-
-    DcpMainPage *m_MainPage;
-    DcpAppletPage *m_AppletPage;
+    static PageFactory  *sm_Instance;
+    DcpPage             *m_CurrentPage;
+    DcpMainPage         *m_MainPage;
+    DcpAppletPage       *m_AppletPage;
     DcpAppletCategoryPage *m_AppletCategoryPage;
-
 };
 
-#endif // PAGEFACTORY_H
+#endif

@@ -125,9 +125,14 @@ DcpPage* PageFactory::createMainPage ()
     return m_MainPage;
 }
 
+/*!
+ * Creates an applet page for the default widget of the applet variant
+ * represented by the metadata. Also will try to re-use the already existing
+ * applet page referenced by the m_AppletPage class member.
+ */
 DcpPage *
 PageFactory::createAppletPage (
-		DcpAppletMetadata *metadata)
+		DcpAppletMetadata   *metadata)
 {
     /*
      * If we have not created the applet page yet we do that, otherwise we set
