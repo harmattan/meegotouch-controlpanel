@@ -19,15 +19,17 @@
 
 DcpAppletPage::DcpAppletPage (
         DcpAppletMetadata *metadata):
-    DcpPage(),
-    m_Metadata(metadata),
-    m_MainWidget(0),
-    m_MissingLabel(0)
+    DcpPage (),
+    m_Metadata (metadata),
+    m_ReloadNeeded (false),
+    m_MainWidget (0),
+    m_MissingLabel (0)
 {
     DCP_DEBUG ("");
     setHandle  (PageHandle::APPLET, metadata->name());
     setReferer (PageHandle::NOPAGE);
 }
+
 
 DcpAppletPage::~DcpAppletPage ()
 {
@@ -35,6 +37,24 @@ DcpAppletPage::~DcpAppletPage ()
     dropWidget ();
 }
 
+/*!
+ * Will refresh the content of the applet page calling the appropriate function.
+ * If the content is not yet created will call the createContent () function, if
+ * the content is created but the metadata is changed (so reload is needed) will
+ * call the reload() function, otherwise will call the load() function that is
+ * will activate the applet.
+ */
+void 
+DcpAppletPage::refreshContent ()
+{
+    if (!isContentCreated()) {
+        createContent ();
+    } else if (m_ReloadNeeded) {
+        reload ();
+    } else {
+        load ();
+    }
+}
 
 void
 DcpAppletPage::createContent ()
@@ -44,18 +64,18 @@ DcpAppletPage::createContent ()
 }
 
 bool 
-DcpAppletPage::hasWidget() 
+DcpAppletPage::hasWidget ()
 {
     DCP_DEBUG ("Returning %s", m_MainWidget ? "true" : "false");
     return m_MainWidget;
 }
 
 bool 
-DcpAppletPage::hasError () 
+DcpAppletPage::hasError ()
 {
     DCP_DEBUG ("Returning %s", m_MissingLabel ? "true" : "false");
 
-    return m_MissingLabel; 
+    return m_MissingLabel;
 }
 
 void
@@ -126,8 +146,6 @@ DcpAppletPage::reload ()
     }
 
     DcpPage::reload ();
-    // means: referer should be set by pagefactory to the last page
-    setReferer (PageHandle::NOPAGE); 
 }
 
 void 
@@ -203,6 +221,8 @@ DcpAppletPage::setMetadata (
     }
 
     m_Metadata = metadata;
+    m_ReloadNeeded = true;
+    setReferer (PageHandle::NOPAGE); 
 }
 
 void 

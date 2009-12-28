@@ -16,14 +16,16 @@ public:
     DcpAppletPage(DcpAppletMetadata *metadata);
     virtual ~DcpAppletPage();
 
+    virtual void refreshContent ();
     virtual void createContent ();
+
     void setMetadata (DcpAppletMetadata *metadata);
     virtual void reload ();
     bool hasWidget ();
     bool hasError ();
 
 protected:
-    virtual void retranslateUi();
+    virtual void retranslateUi ();
 
 protected slots:
     void changeWidget (int widgetId);
@@ -34,6 +36,7 @@ private:
     void load ();
 
     DcpAppletMetadata   *m_Metadata;
+    bool                 m_ReloadNeeded;
     DcpWidget           *m_MainWidget;
     DuiLabel            *m_MissingLabel;
 };

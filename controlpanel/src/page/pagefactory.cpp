@@ -106,8 +106,13 @@ PageFactory::create (
 
         page->connectSignals ();
 
-		if (page->isContentCreated())
-            page->reload();
+        /*
+         * But we did this already in the createAppletPage() function! This
+         * design should be better...
+         */
+        if (handle.id != PageHandle::APPLET)
+    		if (page->isContentCreated())
+                page->reload();
         
         m_CurrentPage = page;
     }
@@ -115,7 +120,8 @@ PageFactory::create (
     return page;
 }
 
-DcpPage* PageFactory::createMainPage ()
+DcpPage *
+PageFactory::createMainPage ()
 {
     if (!m_MainPage) {
         m_MainPage = new DcpMainPage ();
@@ -144,18 +150,9 @@ PageFactory::createAppletPage (
     } else {
         m_AppletPage->setMetadata (metadata);
     }
-   
-    /*
-     * FIXME: This is wrong, we try to think instead the applet page should think
-     * for itself!
-     */
-    // page has to be loaded to know if the applet provides page or not
-    if (m_AppletPage->isContentCreated ()) {
-        m_AppletPage->reload ();
-    } else {
-        m_AppletPage->createContent ();
-    }
 
+    m_AppletPage->refreshContent ();
+    
     if (!m_AppletPage->hasWidget() && !m_AppletPage->hasError()) {
         // the applet does not provide a page (eg. just a dialog)
         return 0;
