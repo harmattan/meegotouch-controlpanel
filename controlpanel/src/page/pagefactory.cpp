@@ -96,8 +96,6 @@ PageFactory::create (
             Q_ASSERT(handle.id > PageHandle::CATEGORY_PAGEID_START
                      && handle.id < PageHandle::CATEGORY_PAGEID_END);
             page = createAppletCategoryPage (handle.id);
-            if (page)
-                page->setHandle (handle);
     }
 
     if (page) {
@@ -131,12 +129,27 @@ DcpPage *
 PageFactory::createAppletPage (
 		DcpAppletMetadata *metadata)
 {
+    /*
+     * I found a serious bug some change of the code triggered. When activating
+     * the second applet the old page came up. I managed to fix the bug with
+     * this change, but then we will not re-use the applet page. I will find a
+     * better solution, but until I do this change will fix the bug.
+     */
+#if 0
     if (!m_AppletPage) {
         m_AppletPage = new DcpAppletPage(metadata);
         initPage (m_AppletPage);
     } else {
         m_AppletPage->setMetadata (metadata);
     }
+#else
+    if (m_AppletPage)
+        delete m_AppletPage;
+
+    m_AppletPage = new DcpAppletPage (metadata);
+    initPage (m_AppletPage);
+#endif
+    
 
     // page has to be loaded to know if the applet provides page or not
     if (m_AppletPage->isContentCreated ()) {
@@ -271,8 +284,10 @@ PageFactory::initPage (
 
     if (page != m_MainPage) {
         // closeAction TODO XXX on language change, move into to the page?
-        DuiAction *quitAction = new DuiAction(qtTrId(DcpMain::quitMenuItemTextId), page);
-        quitAction->setLocation((DuiAction::Location)4 /* FIXME DuiAction::ApplicationMenu */);
+        DuiAction *quitAction = new DuiAction (
+                qtTrId(DcpMain::quitMenuItemTextId), page);
+        /* FIXME DuiAction::ApplicationMenu */
+        quitAction->setLocation((DuiAction::Location) 4);
         
         connect(quitAction, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
 
