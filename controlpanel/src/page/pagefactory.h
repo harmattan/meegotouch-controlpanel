@@ -20,8 +20,9 @@ public:
     void initPage(DcpPage* page);
 
 public slots:
-    void appletWantsToStart ();
-    void appletWantsToStartWithReferer (const QString &, int);
+    void appletWantsToStart (
+		    const QString &refererName = "", 
+		    int            refererWidgetId = -1);
     
     void changePage (PageHandle handle);
     void changePageWithReferer (

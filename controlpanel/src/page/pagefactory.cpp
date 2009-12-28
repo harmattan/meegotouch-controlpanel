@@ -46,7 +46,7 @@ PageFactory::PageFactory ():
         connect (item, SIGNAL (activate ()),
                 this, SLOT (appletWantsToStart ()));
         connect (item, SIGNAL (activateWithReferer (const QString &, int)),
-                this, SLOT (appletWantsToStartWithReferer (const QString &, int)));
+                this, SLOT (appletWantsToStart (const QString &, int)));
     }
 }
 
@@ -230,28 +230,8 @@ PageFactory::changePageWithReferer (
     }
 }
 
-/*
- * FIXME: the PageFactory::appletWantsToStart and the 
- * PageFactory::appletWantsToStartWithReferer could be implemented with default
- * parameters or something.
- */
 void
-PageFactory::appletWantsToStart ()
-{
-    DcpAppletMetadata *metadata = qobject_cast<DcpAppletMetadata *> (sender());
-
-    Q_ASSERT (metadata != 0);
-    DCP_DEBUG ("Applet '%s' wants to start.", DCP_STR(metadata->name()));
-    PageHandle handle (
-            PageHandle::APPLET,
-            metadata->name(),
-            metadata->getMainWidgetId ());
-
-    changePage (handle);
-}
-
-void
-PageFactory::appletWantsToStartWithReferer (
+PageFactory::appletWantsToStart (
         const QString &refererName, 
         int            refererWidgetId)
 {
@@ -264,7 +244,10 @@ PageFactory::appletWantsToStartWithReferer (
             metadata->name(),
             metadata->getMainWidgetId ());
 
-    changePageWithReferer (handle, refererName, refererWidgetId);
+    if (refererName.isEmpty())
+        changePage (handle);
+    else
+        changePageWithReferer (handle, refererName, refererWidgetId);
 }
 
 void 
