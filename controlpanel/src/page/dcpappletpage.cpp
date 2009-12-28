@@ -52,7 +52,7 @@ DcpAppletPage::refreshContent ()
     } else if (m_ReloadNeeded) {
         reload ();
     } else {
-        load ();
+        loadMainWidget ();
     }
 }
 
@@ -60,7 +60,7 @@ void
 DcpAppletPage::createContent ()
 {
     DcpPage::createContent ();
-    load ();
+    loadMainWidget ();
 }
 
 bool 
@@ -78,8 +78,17 @@ DcpAppletPage::hasError ()
     return m_MissingLabel;
 }
 
+/*!
+ * This function might do three things. If the applet variant has a binary
+ * applet it will call the binary and load the main widget of the applet
+ * variant. If the applet variant has an application command (a shell command
+ * that should be called when the applet is activated) the function will execute
+ * the shell command. Finaly if neither the applet binary is loaded nor the
+ * shell command is available this function will create wome widgets to show
+ * that the applet is not available.
+ */
 void
-DcpAppletPage::load ()
+DcpAppletPage::loadMainWidget ()
 {
     DCP_DEBUG ("");
 
@@ -142,7 +151,7 @@ DcpAppletPage::reload ()
 
     if (hasWidget()) {
         dropWidget ();
-        load ();
+        loadMainWidget ();
     }
 
     DcpPage::reload ();

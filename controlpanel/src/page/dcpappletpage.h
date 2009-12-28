@@ -33,7 +33,7 @@ protected slots:
 
 private:
     void dropWidget ();
-    void load ();
+    void loadMainWidget ();
 
     DcpAppletMetadata   *m_Metadata;
     bool                 m_ReloadNeeded;
