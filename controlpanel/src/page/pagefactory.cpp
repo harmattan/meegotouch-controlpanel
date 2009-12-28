@@ -59,7 +59,7 @@ PageFactory::instance ()
 }
 
 DcpPage* 
-PageFactory::create (
+PageFactory::createPage (
         const PageHandle &handle)
 {
     DcpPage *page = 0;
@@ -125,7 +125,7 @@ PageFactory::createMainPage ()
 {
     if (!m_MainPage) {
         m_MainPage = new DcpMainPage ();
-        initPage (m_MainPage);
+        registerPage (m_MainPage);
     }
 
     return m_MainPage;
@@ -146,7 +146,7 @@ PageFactory::createAppletPage (
      */
     if (!m_AppletPage) {
         m_AppletPage = new DcpAppletPage (metadata);
-        initPage (m_AppletPage);
+        registerPage (m_AppletPage);
     } else {
         m_AppletPage->setMetadata (metadata);
     }
@@ -184,7 +184,7 @@ PageFactory::createAppletCategoryPage (
 
     if (!m_AppletCategoryPage){
         m_AppletCategoryPage = new DcpAppletCategoryPage (info->appletCategory);
-        initPage (m_AppletCategoryPage);
+        registerPage (m_AppletCategoryPage);
     } else {
         m_AppletCategoryPage->setAppletCategory (info->appletCategory);
     }
@@ -198,7 +198,7 @@ void
 PageFactory::changePage (
         PageHandle handle)
 {
-    DcpPage *page = create (handle);
+    DcpPage *page = createPage (handle);
 
     DCP_DEBUG ("*** handle = %s", DCP_STR (handle.getStringVariant ()));
     if (page) {
@@ -216,7 +216,7 @@ PageFactory::changePageWithReferer (
             DCP_STR (handle.param), handle.id,
             DCP_STR (refererName), refererWidgetId);
 
-    DcpPage *page = create (handle);
+    DcpPage *page = createPage (handle);
 
     if (page) {
         PageHandle referer (PageHandle::APPLET, 
@@ -247,18 +247,23 @@ PageFactory::appletWantsToStart (
         changePageWithReferer (handle, refererName, refererWidgetId);
 }
 
+/*!
+ * This function does all the common stuff that is needed to be done when a new 
+ * page is created. The function connects to signals and adds the 'Quit' action
+ * to the menu of the page.
+ */
 void 
-PageFactory::initPage (
+PageFactory::registerPage (
         DcpPage* page)
 {
     connect (page, SIGNAL(openSubPage (PageHandle)), 
-            this, SLOT(changePage(PageHandle)));
+        this, SLOT(changePage(PageHandle)));
 
     connect (
-            page, 
-            SIGNAL (openSubPageWithReferer(const PageHandle &, const QString &, int)), 
-            this, 
-            SLOT (changePageWithReferer(const PageHandle &, const QString &, int)));
+        page, 
+        SIGNAL (openSubPageWithReferer(const PageHandle &, const QString &, int)), 
+        this, 
+        SLOT (changePageWithReferer(const PageHandle &, const QString &, int)));
 
     if (page != m_MainPage) {
         // closeAction TODO XXX on language change, move into to the page?
