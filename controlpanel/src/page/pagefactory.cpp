@@ -130,27 +130,20 @@ PageFactory::createAppletPage (
 		DcpAppletMetadata *metadata)
 {
     /*
-     * I found a serious bug some change of the code triggered. When activating
-     * the second applet the old page came up. I managed to fix the bug with
-     * this change, but then we will not re-use the applet page. I will find a
-     * better solution, but until I do this change will fix the bug.
+     * If we have not created the applet page yet we do that, otherwise we set
+     * the metadata for the existing page.
      */
-#if 0
     if (!m_AppletPage) {
-        m_AppletPage = new DcpAppletPage(metadata);
+        m_AppletPage = new DcpAppletPage (metadata);
         initPage (m_AppletPage);
     } else {
         m_AppletPage->setMetadata (metadata);
     }
-#else
-    if (m_AppletPage)
-        delete m_AppletPage;
-
-    m_AppletPage = new DcpAppletPage (metadata);
-    initPage (m_AppletPage);
-#endif
-    
-
+   
+    /*
+     * FIXME: This is wrong, we try to think instead the applet page should think
+     * for itself!
+     */
     // page has to be loaded to know if the applet provides page or not
     if (m_AppletPage->isContentCreated ()) {
         m_AppletPage->reload ();

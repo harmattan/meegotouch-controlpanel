@@ -10,32 +10,33 @@ class DuiLabel;
 
 class DcpAppletPage : public DcpPage
 {
-    Q_OBJECT
+Q_OBJECT
+
 public:
     DcpAppletPage(DcpAppletMetadata *metadata);
     virtual ~DcpAppletPage();
-    virtual void createContent();
+
+    virtual void createContent ();
     void setMetadata (DcpAppletMetadata *metadata);
-    virtual void reload();
-    bool hasWidget();
-    bool hasError();
+    virtual void reload ();
+    bool hasWidget ();
+    bool hasError ();
 
 protected:
     virtual void retranslateUi();
 
 protected slots:
-    void changeWidget(int widgetId);
-    virtual void back();
+    void changeWidget (int widgetId);
+    virtual void back ();
 
 private:
-    void clearup();
-    void load();
-    //bool loadApplet();
+    void dropWidget ();
+    void load ();
 
-    DcpAppletMetadata *m_Metadata;
-    DcpWidget *m_MainWidget;
-    DuiLabel *m_MissingLabel;
+    DcpAppletMetadata   *m_Metadata;
+    DcpWidget           *m_MainWidget;
+    DuiLabel            *m_MissingLabel;
 };
 
-#endif // DCPAPPLETPAGE_H
+#endif
 

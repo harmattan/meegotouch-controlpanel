@@ -32,9 +32,7 @@ DcpAppletPage::DcpAppletPage (
 DcpAppletPage::~DcpAppletPage ()
 {
     DCP_DEBUG ("");
-    clearup();
-    
-    qDebug() << "appletpage destroy";
+    dropWidget ();
 }
 
 
@@ -48,18 +46,23 @@ DcpAppletPage::createContent ()
 bool 
 DcpAppletPage::hasWidget() 
 {
+    DCP_DEBUG ("Returning %s", m_MainWidget ? "true" : "false");
     return m_MainWidget;
 }
 
 bool 
-DcpAppletPage::hasError() 
+DcpAppletPage::hasError () 
 {
+    DCP_DEBUG ("Returning %s", m_MissingLabel ? "true" : "false");
+
     return m_MissingLabel; 
 }
 
 void
 DcpAppletPage::load ()
 {
+    DCP_DEBUG ("");
+
     if (m_Metadata && m_Metadata->isValid()) {
         if (m_Metadata->applet()) {
             /*
@@ -97,8 +100,10 @@ DcpAppletPage::load ()
 }
 
 void 
-DcpAppletPage::clearup ()
+DcpAppletPage::dropWidget ()
 {
+    DCP_DEBUG ("");
+
     if (m_MainWidget) {
         m_MainWidget->deleteLater();
         m_MainWidget = 0;
@@ -113,20 +118,22 @@ DcpAppletPage::clearup ()
 void 
 DcpAppletPage::reload ()
 {
-    if (!hasWidget()) {
-        clearup();
-        load();
+    DCP_DEBUG ("");
+
+    if (hasWidget()) {
+        dropWidget ();
+        load ();
     }
 
-    DcpPage::reload();
+    DcpPage::reload ();
     // means: referer should be set by pagefactory to the last page
-    setReferer(PageHandle::NOPAGE); 
+    setReferer (PageHandle::NOPAGE); 
 }
 
 void 
 DcpAppletPage::back ()
 {
-    DCP_DEBUG ("*** m_MainWidget = %p", m_MainWidget);
+    DCP_DEBUG ("");
 
     if (!m_MainWidget || m_MainWidget->back())
         DcpPage::back();
@@ -136,6 +143,8 @@ void
 DcpAppletPage::changeWidget (
         int widgetId)
 {
+    DCP_DEBUG ("");
+
     if (m_MainWidget != 0) {
         remove (m_MainWidget);
     }
@@ -187,12 +196,20 @@ DcpAppletPage::setMetadata (
         DcpAppletMetadata *metadata)
 {
     DCP_DEBUG ("*** metadata = %p", metadata);
+
+    if (m_Metadata == metadata) {
+        DCP_WARNING ("The same metadata already set.");
+        return;
+    }
+
     m_Metadata = metadata;
 }
 
 void 
 DcpAppletPage::retranslateUi ()
 {
+    DCP_DEBUG ("");
+
     if (m_Metadata && m_Metadata->applet()) {
         setTitle(m_Metadata->applet()->title());
     }
