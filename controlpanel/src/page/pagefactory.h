@@ -28,11 +28,10 @@ public slots:
 		    const QString &refererName = "", 
 		    int            refererWidgetId = -1);
     
-    void changePage (PageHandle handle);
-    void changePageWithReferer (
+    void changePage (
 		    const PageHandle &handle, 
-		    const QString    &refererName,
-		    int               refererWidgetId);
+		    const QString    &refererName      = "",
+		    int               refererWidgetId  = -1);
 
 protected:
     PageFactory ();

@@ -196,35 +196,36 @@ PageFactory::createAppletCategoryPage (
 
 void 
 PageFactory::changePage (
-        PageHandle handle)
-{
-    DcpPage *page = createPage (handle);
-
-    DCP_DEBUG ("*** handle = %s", DCP_STR (handle.getStringVariant ()));
-    if (page) {
-        page->appear (DuiSceneWindow::KeepWhenDone);
-    }
-}
-
-void 
-PageFactory::changePageWithReferer (
         const PageHandle     &handle,
         const QString        &refererName,
         int                   refererWidgetId)
 {
+    DcpPage  *page;
+
     DCP_DEBUG ("Creating page '%s'/%d for referer '%s'/%d",
             DCP_STR (handle.param), handle.id,
             DCP_STR (refererName), refererWidgetId);
+    /*
+     * Creating the page with the given handle.
+     */
+    page = createPage (handle);
+    if (!page)
+        return;
 
-    DcpPage *page = createPage (handle);
-
-    if (page) {
+    /*
+     * If we have a referer we set it now.
+     */
+    if (!refererName.isEmpty()) {
         PageHandle referer (PageHandle::APPLET, 
                 refererName, refererWidgetId);
 
         page->setReferer (referer);
-        page->appearNow (DuiSceneWindow::KeepWhenDone);
     }
+    
+    /*
+     * Time to show the new page.
+     */
+    page->appearNow (DuiSceneWindow::KeepWhenDone);
 }
 
 void
@@ -244,7 +245,7 @@ PageFactory::appletWantsToStart (
     if (refererName.isEmpty())
         changePage (handle);
     else
-        changePageWithReferer (handle, refererName, refererWidgetId);
+        changePage (handle, refererName, refererWidgetId);
 }
 
 /*!
@@ -256,14 +257,14 @@ void
 PageFactory::registerPage (
         DcpPage* page)
 {
-    connect (page, SIGNAL(openSubPage (PageHandle)), 
-        this, SLOT(changePage(PageHandle)));
+    connect (page, SIGNAL(openSubPage (const PageHandle &)), 
+        this, SLOT(changePage(const PageHandle &)));
 
     connect (
         page, 
-        SIGNAL (openSubPageWithReferer(const PageHandle &, const QString &, int)), 
+        SIGNAL (openSubPageWithReferer (const PageHandle &, const QString &, int)), 
         this, 
-        SLOT (changePageWithReferer(const PageHandle &, const QString &, int)));
+        SLOT (changePage (const PageHandle &, const QString &, int)));
 
     if (page != m_MainPage) {
         // closeAction TODO XXX on language change, move into to the page?
