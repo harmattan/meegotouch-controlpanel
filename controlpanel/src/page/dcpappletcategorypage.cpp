@@ -16,9 +16,13 @@ DcpAppletCategoryPage::DcpAppletCategoryPage (
     DcpCategoryPage (),
     m_AppletCategory (appletCategory)
 {
-    // FIXME: This is clearly wrong.
+    /*
+     * Will remove in a few days.
+     */
+    #if 0
     setHandle  (PageHandle::APPLETCATEGORY);
     setReferer (PageHandle::MAIN);
+    #endif
 }
 
 DcpAppletCategoryPage::~DcpAppletCategoryPage ()
@@ -62,6 +66,8 @@ DcpAppletCategoryPage::loadContent ()
     /*
      * I had to comment this out, because it destroyed the metadata already
      * exists and then everything went wrong.
+     * FIXME: Should find a way to refresh the database without destroying the
+     * existing metadata entries.
      */
     //DcpAppletDb::instance()->refresh();
 

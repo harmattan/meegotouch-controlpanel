@@ -90,9 +90,7 @@ DcpPage::handle () const
 }
 
 /*!
- *
- * Please note that we can not allow a handle that has no name in it, because
- * we have to iodentify the 
+ * \brief Sets the handle (symbolic representation) of the page.
  */
 void 
 DcpPage::setHandle (

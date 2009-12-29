@@ -29,8 +29,14 @@
 DcpMainPage::DcpMainPage() :
 	DcpPage(), m_RecentlyComp(0)
 {
+    /*
+     * I dont believe a view should set its own handle or referer. It is not
+     * necessary, I will remove it in a few days.
+     */
+#if 0
     setHandle (PageHandle::MAIN);
     setReferer (PageHandle::NOPAGE);
+#endif
     setEscapeButtonMode (DuiEscapeButtonPanelModel::CloseMode);
 }
 

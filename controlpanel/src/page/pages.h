@@ -44,4 +44,4 @@ public:
     int         m_widgetId;
 };
 
-#endif // PAGES_H
+#endif

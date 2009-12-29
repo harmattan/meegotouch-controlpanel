@@ -47,9 +47,10 @@ protected:
 
 private:
     void connectOrientation();
+    void createLayout();
+
     PageHandle m_Handle;
     PageHandle m_Referer;
-    void createLayout();
 };
 
-#endif // DCPPAGE_H
+#endif

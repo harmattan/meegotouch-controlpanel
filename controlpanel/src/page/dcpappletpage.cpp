@@ -26,8 +26,14 @@ DcpAppletPage::DcpAppletPage (
     m_MissingLabel (0)
 {
     DCP_DEBUG ("");
+    #if 0
+    /*
+     * I dont believe a view should set its own handle or referer. It is not
+     * necessary, I will remove it in a few days.
+     */
     setHandle  (PageHandle::APPLET, metadata->name());
     setReferer (PageHandle::NOPAGE);
+    #endif
 }
 
 

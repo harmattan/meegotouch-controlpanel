@@ -64,7 +64,9 @@ PageFactory::createPage (
 {
     DcpPage *page = 0;
 
-    DCP_DEBUG ("Creating page %s", DCP_STR (handle.getStringVariant()));
+    DCP_DEBUG ("****************************");
+    DCP_DEBUG ("*** handle = %s", DCP_STR (handle.getStringVariant()));
+    DCP_DEBUG ("****************************");
     switch (handle.id) {
         case PageHandle::NOPAGE:
 	    case PageHandle::MAIN:
@@ -111,8 +113,8 @@ PageFactory::createPage (
          * design should be better...
          */
         if (handle.id != PageHandle::APPLET)
-    		if (page->isContentCreated())
-                page->reload();
+    		if (page->isContentCreated ())
+                page->reload ();
         
         m_CurrentPage = page;
     }
@@ -154,7 +156,7 @@ PageFactory::createAppletPage (
     m_AppletPage->refreshContent ();
     
     if (!m_AppletPage->hasWidget() && !m_AppletPage->hasError()) {
-        // the applet does not provide a page (eg. just a dialog)
+        // the applet does not provide a page (e.g. just a dialog)
         return 0;
     } else {
         return m_AppletPage;
@@ -194,6 +196,12 @@ PageFactory::createAppletCategoryPage (
     return m_AppletCategoryPage;
 }
 
+/*!
+ * Creates a new page and sets as the current page. If the refererName is not
+ * empty the referer for the new page will be set.
+ *
+ * FIXME: This function assumes that the referer is an applet page.
+ */
 void 
 PageFactory::changePage (
         const PageHandle     &handle,
