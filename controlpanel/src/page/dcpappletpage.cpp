@@ -129,7 +129,7 @@ DcpAppletPage::loadMainWidget ()
     //% "Plugin not available"
     m_MissingLabel = new DuiLabel (qtTrId("dcp_no_applet_name"));
     m_MissingLabel->setAlignment (Qt::AlignCenter);
-    append (m_MissingLabel);
+    appendWidget (m_MissingLabel);
     //% "Missing plugin"
     setTitle (qtTrId("dcp_no_applet_title"));
 }
@@ -179,7 +179,7 @@ DcpAppletPage::changeWidget (
     DCP_DEBUG ("");
 
     if (m_MainWidget != 0) {
-        remove (m_MainWidget);
+        removeWidget (m_MainWidget);
     }
 
     /*
@@ -214,7 +214,7 @@ DcpAppletPage::changeWidget (
     connect (m_MainWidget, SIGNAL (activatePluginByName (const QString &)),
             m_Metadata, SLOT (activatePluginByName (const QString &)));
 
-    append (m_MainWidget);
+    appendWidget (m_MainWidget);
 
     QVector<DuiAction*> vector = m_Metadata->applet()->viewMenuItems();
     if (!vector.isEmpty())

@@ -13,13 +13,13 @@
 #include "dcpdebug.h"
 
 
-DcpPage::DcpPage() :
-    DuiApplicationPage()
+DcpPage::DcpPage () :
+    DuiApplicationPage ()
 {
     setEscapeButtonMode (DuiEscapeButtonPanelModel::BackMode);
 }
 
-DcpPage::~DcpPage()
+DcpPage::~DcpPage ()
 {
 }
 
@@ -48,7 +48,7 @@ DcpPage::organizeContent (
 }
 
 void 
-DcpPage::append (
+DcpPage::appendWidget (
         QGraphicsWidget *widget)
 {
     Q_ASSERT (mainLayout());
@@ -56,7 +56,7 @@ DcpPage::append (
 }
 
 void 
-DcpPage::remove (
+DcpPage::removeWidget (
         QGraphicsWidget *widget)
 {
     widget->deleteLater();
@@ -88,7 +88,7 @@ DcpPage::connectOrientation ()
 }
 
 void 
-DcpPage::disconnectSignals()
+DcpPage::disconnectSignals ()
 {
     DuiSceneManager *manager = sceneManager ();
 
@@ -196,13 +196,17 @@ DcpPage::back ()
 }
 
 
-/* this is where pages optimize their open up times
- * default implementation sets the correct orientation */
+/*! 
+ * FIXME: Why this method is called reload?
+ *
+ * this is where pages optimize their open up times
+ * default implementation sets the correct orientation 
+ */
 void 
-DcpPage::reload()
+DcpPage::reload ()
 {
     if (sceneManager()) {
-        organizeContent(sceneManager()->orientation());
+        organizeContent (sceneManager()->orientation());
     }
 }
 

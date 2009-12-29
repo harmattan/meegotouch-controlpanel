@@ -46,8 +46,8 @@ signals:
     void openSubPageWithReferer (const PageHandle &, const QString &, int);
 
 protected:
-    void append (QGraphicsWidget *widget);
-    void remove (QGraphicsWidget *widget);
+    void appendWidget (QGraphicsWidget *widget);
+    void removeWidget (QGraphicsWidget *widget);
 
 private:
     void connectOrientation();

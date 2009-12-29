@@ -53,7 +53,7 @@ void Ut_DcpAppletMetadata::testIsValid()
     QVERIFY(m_subject->isValid());
     delete m_subject;m_subject=0;
 
-    QWARN("\n\t ---- Expected QWARN : Mulitple definitions of group 'DUI' ----");
+    QWARN("\n\t ---- Expected QWARN : Multiple definitions of group 'DUI' ----");
     QVERIFY((m_subject=new DcpAppletMetadata(desktopBadTestFile)));
     QVERIFY(!m_subject->isValid());
 }

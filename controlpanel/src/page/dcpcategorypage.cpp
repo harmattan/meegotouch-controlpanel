@@ -5,21 +5,24 @@
 #include "dcpmaincategory.h"
 
 
-DcpCategoryPage::DcpCategoryPage() :
+DcpCategoryPage::DcpCategoryPage () :
 	DcpPage()
 {
 }
 
-void DcpCategoryPage::createContent()
+void 
+DcpCategoryPage::createContent ()
 {
     DcpPage::createContent();
-    m_Category = new DcpMainCategory("");
-    append(m_Category);
+    m_Category = new DcpMainCategory ("");
+    appendWidget (m_Category);
 }
 
-void DcpCategoryPage::organizeContent(const Dui::Orientation& ori)
+void 
+DcpCategoryPage::organizeContent (
+		const Dui::Orientation& ori)
 {
-    DcpPage::organizeContent(ori);
-    m_Category->onOrientationChange(ori);
+    DcpPage::organizeContent (ori);
+    m_Category->onOrientationChange (ori);
 }
 
