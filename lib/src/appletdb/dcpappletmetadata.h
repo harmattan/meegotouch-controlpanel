@@ -29,52 +29,56 @@ class DcpAppletMetadata : public QObject
 {
     Q_OBJECT
 public:
-    DcpAppletMetadata(const QString& filename);
-    virtual ~DcpAppletMetadata();
-    virtual bool isValid() const;
-    virtual bool isUnique() const;
-    virtual bool isModified() const;
+    DcpAppletMetadata (const QString& filename);
+    virtual ~DcpAppletMetadata ();
 
-    QString name() const;
-    QString fileName() const;
-    QString category() const;
-    QString toggleIconId() const;
+    virtual bool isValid () const;
+    virtual bool isUnique () const;
+    virtual bool isModified () const;
+
+    QString name () const;
+    QString fileName () const;
+    QString category () const;
+    QString toggleIconId () const;
     
-    QString binary() const;
+    QString binary () const;
     QString dslFilename () const;
     QString applicationCommand () const;
     bool    hasApplicationCommand () const;
 
-    QString fullBinary() const;
-    QString binaryDir() const;
-    void setBinaryDir(const QString& dir);
+    QString fullBinary () const;
+    QString binaryDir () const;
+    void setBinaryDir (const QString& dir);
 
-    int widgetTypeID() const;
+    int widgetTypeID () const;
 
-    Qt::Alignment align() const;
-    bool toggle() const;
+    Qt::Alignment align () const;
+    bool toggle () const;
 
-    QString text1() const;
-    QString text2() const;
+    QString text1 () const;
+    QString text2 () const;
 
-    QString image() const;
+    QString image () const;
 
-    int order() const;
-    int usage() const;
+    int order () const;
+    int usage () const;
 
-    QString part() const;
+    QString part () const;
     int getMainWidgetId () const;
 
-    DcpAppletIf* applet() const;
-    void setParent(DcpAppletMetadata *parent);
-    DcpAppletMetadata* parent() const;
-    QString parentName() const;
-    void cleanup();
-    static bool usageGreatherThan(DcpAppletMetadata *meta1,
-                                  DcpAppletMetadata *meta2);
+    DcpAppletIf* applet () const;
+    void setParent (DcpAppletMetadata *parent);
+    DcpAppletMetadata* parent () const;
+    QString parentName () const;
+    void cleanup ();
 
-    static bool orderLessThan(DcpAppletMetadata *meta1,
-                              DcpAppletMetadata *meta2);
+    static bool usageGreatherThan (
+            DcpAppletMetadata *meta1,
+            DcpAppletMetadata *meta2);
+
+    static bool orderLessThan (
+            DcpAppletMetadata *meta1,
+            DcpAppletMetadata *meta2);
 signals:
     void briefChanged ();
     void activate ();
@@ -88,13 +92,14 @@ public slots:
     bool activatePluginByName (const QString &name) const;
 
 protected:
-    DuiDesktopEntry* desktopEntry() const;
-    QString desktopEntryStr(int id) const;
-    DcpBrief* getBrief() const;
+    DuiDesktopEntry* desktopEntry () const;
+    QString desktopEntryStr (int id) const;
+    DcpBrief* getBrief () const;
 
 private:
-    DcpAppletMetadataPrivate * const d;
-    Q_DISABLE_COPY(DcpAppletMetadata);
+    DcpAppletMetadataPrivate *const d;
+    Q_DISABLE_COPY (DcpAppletMetadata);
 };
-#endif // DCPAPP LETMETADATA_H
+
+#endif
 

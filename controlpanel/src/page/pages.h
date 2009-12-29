@@ -7,7 +7,7 @@
 #include <QString>
 
 /*!
- *
+ * \brief A symbolic representation of a page.
  * The PageHandle is a purely symbolic representation of a page in the control
  * panel. It does not contain any binary information like widget pointers or
  * plugin objects, but only a string and numeric identification for a specific

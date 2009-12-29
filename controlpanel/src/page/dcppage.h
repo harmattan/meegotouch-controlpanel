@@ -17,6 +17,7 @@ class DcpPage : public DuiApplicationPage
 public:
     DcpPage();
     virtual ~DcpPage();
+
     virtual void createContent();
     virtual void connectSignals();
     virtual void disconnectSignals();
@@ -28,7 +29,7 @@ public:
 		    const QString &param = "");
 
     PageHandle referer () const;
-    void setReferer (const PageHandle &referer);
+    virtual void setReferer (const PageHandle &referer);
     virtual void setReferer (
 		    PageHandle::PageTypeId id, 
 		    const QString &param = "");

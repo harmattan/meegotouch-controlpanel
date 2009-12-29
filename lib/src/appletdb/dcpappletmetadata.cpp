@@ -68,54 +68,63 @@ const QString Keys[KeyCount] = {
 };
 
 
-DcpAppletMetadataPrivate::DcpAppletMetadataPrivate()
-    : m_AppletLoader(0),
-      m_Brief(0),
-      m_DesktopEntry(0),
-      m_Parent(0),
-      m_Counter(-1),
-      m_FileName(""),
-      m_BinaryDir(APPLET_LIBS)
+DcpAppletMetadataPrivate::DcpAppletMetadataPrivate ()
+    : m_AppletLoader (0),
+      m_Brief (0),
+      m_DesktopEntry (0),
+      m_Parent (0),
+      m_Counter (-1),
+      m_FileName (""),
+      m_BinaryDir (APPLET_LIBS)
 {
-    if (!m_BinaryDir.endsWith('/')) m_BinaryDir += '/';
+    if (!m_BinaryDir.endsWith('/')) 
+        m_BinaryDir += '/';
 }
 
-DcpAppletMetadataPrivate::~DcpAppletMetadataPrivate()
+DcpAppletMetadataPrivate::~DcpAppletMetadataPrivate ()
 {
     if (m_AppletLoader) 
-        m_AppletLoader->deleteLater();
+        m_AppletLoader->deleteLater ();
 
     if (m_Brief) 
-        m_Brief->deleteLater();
+        m_Brief->deleteLater ();
 
     if (m_DesktopEntry) 
         delete m_DesktopEntry;
 }
 
-DcpAppletMetadata::DcpAppletMetadata(const QString& filename)
-    : d (new DcpAppletMetadataPrivate)
+
+DcpAppletMetadata::DcpAppletMetadata (
+        const QString& filename)
+: d (new DcpAppletMetadataPrivate)
 {
     DCP_DEBUG ("*** filename = '%s'", DCP_STR(filename));
 
     d->m_FileName = filename;
     d->m_DesktopEntry = new DuiDesktopEntry(d->m_FileName);
-    d->m_GconfKeyUsage = MOSTUSEDCOUNTER_GCONFKEY  + QFileInfo(d->m_FileName).baseName();
-
-//	qDebug() << MostUsedCounter::instance()->get(d->m_FileName);
-//	MostUsedCounter::instance()->clear(d->m_FileName);
-//	qDebug() << MostUsedCounter::instance()->get(d->m_FileName);
+    d->m_GconfKeyUsage =
+        MOSTUSEDCOUNTER_GCONFKEY  + 
+        QFileInfo (d->m_FileName).baseName();
 }
 
-DcpAppletMetadata::~DcpAppletMetadata()
+DcpAppletMetadata::~DcpAppletMetadata ()
 {
-    DCP_WARNING ("Destroying %p", this);
+    DCP_DEBUG ("Destroying %p", this);
     delete d;
 }
 
 // TODO XXX rename
 bool
-DcpAppletMetadata::isValid() const
+DcpAppletMetadata::isValid () const
 {
+    if (binary().isEmpty() &&
+            dslFilename().isEmpty()) {
+        /*
+         * FIXME: Maybe we should return false then?
+         */
+        DCP_WARNING ("The applet binary and the shell command also empty.");
+    }
+
     DCP_DEBUG ("Returning %s for '%s'", 
             desktopEntry()->isValid() ? "true" : "false",
             DCP_STR (binary()));
@@ -124,7 +133,8 @@ DcpAppletMetadata::isValid() const
 }
 
 // TODO XXX rename
-bool DcpAppletMetadata::isModified() const
+bool 
+DcpAppletMetadata::isModified() const
 {
     QFileInfo info(d->m_FileName);
     bool modified = info.lastModified() >  d->m_FileInfo.lastModified();
@@ -132,23 +142,35 @@ bool DcpAppletMetadata::isModified() const
     return modified;
 }
 
-QString DcpAppletMetadata::category() const
+/*!
+ * Returns the value of the "DCP/Category" key from the desktop file.
+ */
+QString 
+DcpAppletMetadata::category () const
 {
-    return desktopEntryStr(KeyCategory);
+    return desktopEntryStr (KeyCategory);
 }
 
-QString DcpAppletMetadata::binaryDir() const
+QString 
+DcpAppletMetadata::binaryDir () const
 {
     return d->m_BinaryDir;
 }
 
-void DcpAppletMetadata::setBinaryDir(const QString& dir)
+void 
+DcpAppletMetadata::setBinaryDir (
+        const QString &dir)
 {
     d->m_BinaryDir = dir;
 }
 
+/*!
+ * Returns the value of the "DUI/X-DUIApplet-Applet" key from the desktop file.
+ * This is the binary applet file name, a file name of the shared object
+ * containing the binary code of the applet.
+ */
 QString 
-DcpAppletMetadata::binary() const
+DcpAppletMetadata::binary () const
 {
     return desktopEntryStr (KeyBinary);
 }
@@ -159,19 +181,25 @@ DcpAppletMetadata::dslFilename () const
     return desktopEntryStr (KeyDslFilename);
 }
 
+/*!
+ * Returns the value of the "DUI/X-DUIApplet-ApplicationCommand" key from the
+ * desktop file. This is the application command that will be executed when the
+ * applet is activated.
+ */
 QString 
 DcpAppletMetadata::applicationCommand () const
 {
     return desktopEntryStr (KeyApplicationCommand);
 }
 
+/*!
+ * Returns true if the metadata has a shell command associated to it.
+ */
 bool
 DcpAppletMetadata::hasApplicationCommand () const
 {
     return !desktopEntryStr(KeyApplicationCommand).isEmpty();
 }
-
-
 
 /*
  * Returns the full path of the applet plugin filename, that is the name of the
@@ -182,7 +210,7 @@ DcpAppletMetadata::hasApplicationCommand () const
 QString
 DcpAppletMetadata::fullBinary () const
 {
-    QString filename = binary();
+    QString filename = binary ();
 
     if (filename.isEmpty())
         return filename;
@@ -190,9 +218,10 @@ DcpAppletMetadata::fullBinary () const
     return binaryDir () + filename;
 }
 
-QString DcpAppletMetadata::parentName() const
+QString 
+DcpAppletMetadata::parentName () const
 {
-    return desktopEntryStr(KeyParent);
+    return desktopEntryStr (KeyParent);
 }
 
 /*!
@@ -238,7 +267,7 @@ DcpAppletMetadata::widgetTypeID () const
 }
 
 Qt::Alignment 
-DcpAppletMetadata::align() const
+DcpAppletMetadata::align () const
 {
     if (getBrief()){
         return getBrief()->align();
@@ -255,7 +284,8 @@ DcpAppletMetadata::align() const
     return Qt::AlignLeft;
 }
 
-DcpAppletMetadata* DcpAppletMetadata::parent() const
+DcpAppletMetadata *
+DcpAppletMetadata::parent () const
 {
     return d->m_Parent;
 }
@@ -271,7 +301,8 @@ DcpAppletMetadata::toggle () const
     return false;
 }
 
-QString DcpAppletMetadata::text1() const
+QString 
+DcpAppletMetadata::text1 () const
 {
     QString id = desktopEntryStr(KeyNameId);
     QString name = desktopEntryStr(KeyName);
@@ -283,7 +314,7 @@ QString DcpAppletMetadata::text1() const
 }
 
 QString 
-DcpAppletMetadata::text2() const
+DcpAppletMetadata::text2 () const
 {
     /*
      * This way if we have a brief we can not specify the second line in the
@@ -314,7 +345,7 @@ DcpAppletMetadata::image () const
 }
 
 QString 
-DcpAppletMetadata::toggleIconId() const
+DcpAppletMetadata::toggleIconId () const
 {
     if (getBrief())
         return getBrief()->toggleIconId();
@@ -362,7 +393,8 @@ DcpAppletMetadata::activatePluginByName (
 }
 
 void 
-DcpAppletMetadata::setToggle(bool checked)
+DcpAppletMetadata::setToggle (
+        bool checked)
 {
     if (getBrief()) {
         getBrief()->setToggle (checked);
@@ -372,15 +404,18 @@ DcpAppletMetadata::setToggle(bool checked)
     }
 }
 
-bool DcpAppletMetadata::isUnique() const
+bool 
+DcpAppletMetadata::isUnique () const
 {
     DCP_DEBUG ("Returning %s for %s",
             !desktopEntryStr(KeyUnique).isEmpty() ? "true" : "false",
             DCP_STR (binary()));
+
     return !desktopEntryStr(KeyUnique).isEmpty();
 }
 
-QString DcpAppletMetadata::part() const
+QString 
+DcpAppletMetadata::part () const
 {
     return desktopEntryStr(KeyPart);
 }
@@ -402,18 +437,20 @@ DcpAppletMetadata::getMainWidgetId () const
     return applet()->partID (part());
 }
 
-int DcpAppletMetadata::usage () const
+int 
+DcpAppletMetadata::usage () const
 {
-    return MostUsedCounter::instance()->get(d->m_GconfKeyUsage);
+    return MostUsedCounter::instance()->get (d->m_GconfKeyUsage);
 }
 
-int DcpAppletMetadata::order() const
+int 
+DcpAppletMetadata::order () const
 {
     return desktopEntry()->value(Keys[KeyOrder]).toInt();
 }
 
 DcpAppletIf *
-DcpAppletMetadata::applet() const
+DcpAppletMetadata::applet () const
 {
     if (d->m_Parent)
         return d->m_Parent->applet();
@@ -436,7 +473,8 @@ DcpAppletMetadata::applet() const
     return d->m_AppletLoader->applet();
 }
 
-DuiDesktopEntry* DcpAppletMetadata::desktopEntry() const
+DuiDesktopEntry *
+DcpAppletMetadata::desktopEntry () const
 {
     Q_ASSERT (d->m_DesktopEntry);
 
@@ -459,47 +497,59 @@ DcpAppletMetadata::getBrief () const
 
 
 // TODO XXX rename
-QString DcpAppletMetadata::name() const
+QString 
+DcpAppletMetadata::name () const
 {
     return desktopEntry()->name().trimmed();
 }
 
 // TODO XXX rename
-QString DcpAppletMetadata::fileName() const
+QString 
+DcpAppletMetadata::fileName () const
 {
     return desktopEntry()->fileName();
 }
 
-QString DcpAppletMetadata::desktopEntryStr(int id) const
+QString 
+DcpAppletMetadata::desktopEntryStr (
+        int id) const
 {
     return desktopEntry()->value(Keys[id]).trimmed();
 }
 
-void DcpAppletMetadata::cleanup()
+void 
+DcpAppletMetadata::cleanup ()
 {
     if (d->m_AppletLoader)
         d->m_AppletLoader->deleteLater();
     d->m_AppletLoader = 0;
 }
-void DcpAppletMetadata::setParent(DcpAppletMetadata *parent)
+
+void 
+DcpAppletMetadata::setParent (
+        DcpAppletMetadata *parent)
 {
     d->m_Parent = parent;
 }
 
 void 
-DcpAppletMetadata::slotClicked()
+DcpAppletMetadata::slotClicked ()
 {
     MostUsedCounter::instance()->add (d->m_GconfKeyUsage);
 }
 
-bool DcpAppletMetadata::orderLessThan(DcpAppletMetadata *meta1,
-                                      DcpAppletMetadata *meta2)
+bool 
+DcpAppletMetadata::orderLessThan (
+        DcpAppletMetadata *meta1,
+        DcpAppletMetadata *meta2)
 {
-    return meta1->order() < meta2->order();
+    return meta1->order () < meta2->order ();
 }
 
-bool DcpAppletMetadata::usageGreatherThan(DcpAppletMetadata *meta1,
-                                          DcpAppletMetadata *meta2)
+bool 
+DcpAppletMetadata::usageGreatherThan (
+        DcpAppletMetadata *meta1,
+        DcpAppletMetadata *meta2)
 {
     return meta1->usage() > meta2->usage();
 }
