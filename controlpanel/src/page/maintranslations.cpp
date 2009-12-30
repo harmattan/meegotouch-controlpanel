@@ -3,6 +3,33 @@
 
 #include "maintranslations.h"
 
+static const DcpCategoryInfo
+AccountsAndApplicationsElements[] = 
+{
+    {
+        //% Service accounts
+        QT_TRID_NOOP ("qtn_sett_main_account"),
+        "Service accounts",
+        PageHandle::ServiceAccounts,
+        NULL
+    },
+    {
+        //% Applications
+        QT_TRID_NOOP ("qtn_sett_main_application"),
+        "Applications",
+        PageHandle::Applications,
+        NULL
+    },
+    {
+        // The last element must have the .titleId == 0
+	    0, 0, PageHandle::NOPAGE, NULL
+    }
+};
+
+/*
+ * The applet categories that will be shown in the main window of the control
+ * panel.
+ */
 const DcpCategoryInfo 
 DcpMain::CategoryInfos[] = 
 {
@@ -10,47 +37,54 @@ DcpMain::CategoryInfos[] =
         //% "Look & Feel"
 	    QT_TRID_NOOP ("qtn_sett_main_look"),
     	"Look & Feel",
-    	PageHandle::LOOKANDFEEL
+    	PageHandle::LOOKANDFEEL,
+        NULL
     },
     {
         //% "Sounds"
         QT_TRID_NOOP ("qtn_sett_main_sound"),
         "Sound",
-        PageHandle::SOUND
+        PageHandle::SOUND,
+        NULL
     },
     {
         //% "Connectivity"
         QT_TRID_NOOP ("qtn_sett_main_connectivity"),
         "Connectivity",
-        PageHandle::CONNECTIVITY
+        PageHandle::CONNECTIVITY,
+        NULL
     },
     {
         //% "Regional settings"
         QT_TRID_NOOP ("qtn_sett_main_region"),
         "Regional settings",
-        PageHandle::REGIONALSETTING
+        PageHandle::REGIONALSETTING,
+        NULL
     },
     {
         //% "Device utilities"
         QT_TRID_NOOP ("qtn_sett_main_device"),
         "Device utilities",
-        PageHandle::DEVICEUTILITIES
+        PageHandle::DEVICEUTILITIES,
+        NULL
     },
     {
         //% "Device system"
         QT_TRID_NOOP ("qtn_sett_main_data"),
         "Device system",
-        PageHandle::DEVICESYSTEM
+        PageHandle::DEVICESYSTEM,
+        NULL
     },
     {
         //% "Accounts & Applications"
         QT_TRID_NOOP ("qtn_sett_main_combined"),
         "Accounts & Applications",
-        PageHandle::ACCOUNTSANDAPPLICATIONS
+        PageHandle::ACCOUNTSANDAPPLICATIONS,
+        AccountsAndApplicationsElements
     },
     {
         // The last element must have the .titleId == 0
-	    0, 0, PageHandle::NOPAGE 
+	    0, 0, PageHandle::NOPAGE, NULL
     }
 };
 

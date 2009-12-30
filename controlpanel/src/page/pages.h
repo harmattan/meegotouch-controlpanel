@@ -27,6 +27,8 @@ public:
         DEVICEUTILITIES,
         ACCOUNTSANDAPPLICATIONS,
         DEVICESYSTEM,
+        ServiceAccounts,
+        Applications,
         CATEGORY_PAGEID_END,    // ---
         APPLET,
         APPLETCATEGORY,

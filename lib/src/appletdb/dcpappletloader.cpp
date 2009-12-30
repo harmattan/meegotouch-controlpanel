@@ -9,11 +9,12 @@
 //#define DEBUG
 #include "dcpdebug.h"
 
-DcpAppletLoader::DcpAppletLoader(const DcpAppletMetadata *metadata):
-    m_Metadata(metadata)
+DcpAppletLoader::DcpAppletLoader (
+        const DcpAppletMetadata *metadata)
+: m_Metadata(metadata)
 {
     m_Applet = 0;
-    load();
+    load ();
 }
 
 DcpAppletLoader::~DcpAppletLoader()
@@ -46,20 +47,22 @@ DcpAppletLoader::loadPluginFile (
         return false;
     }
 
-    QPluginLoader loader(binaryPath);
+    QPluginLoader loader (binaryPath);
     if (!loader.load ()) {
-	    DCP_WARNING ("The loading of applet '%s' has been failed.",
-                DCP_STR (m_Metadata->name()));
-
         m_ErrorMsg = "Loading applet failed: " + loader.errorString();
+	    DCP_WARNING ("The loading of applet '%s' has been failed: %s",
+                DCP_STR (m_Metadata->name()),
+                DCP_STR (loader.errorString()));
     } else {
         QObject *object = loader.instance();
         m_Applet = qobject_cast<DcpAppletIf*>(object);
+
         if (!m_Applet) {
             m_ErrorMsg = "Can't convert object to ExampleAppletInterface.";
+            DCP_WARNING ("");
             return false;
         } else {
-            m_Applet->init();
+            m_Applet->init ();
         }
     }
 

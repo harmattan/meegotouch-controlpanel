@@ -11,30 +11,29 @@
 #include "../../../lib/src/dcpdebug.h"
 
 /*!
- * \class DcpCategoryComponent
- * \brief A component for the recently used applets
- *
- * It is supplies the background and title for around DcpAppletButtons,
- * which contains the buttons. (Actually uses DuiContainer for that.)
+ * Constructor that uses category name to create the component. Should use 
+ * DcpCategoryInfo so this is deprecated.
  */
-
-DcpCategoryComponent::DcpCategoryComponent(
-                            DcpCategory *category,
-                            const QString& categoryName,
-                            const QString& logicalId,
-                            QGraphicsWidget *parent)
-         : DcpComponent(category, categoryName, parent, logicalId),
-         m_CategoryName(categoryName)
+DcpCategoryComponent::DcpCategoryComponent (
+        DcpCategory       *category,
+        const QString     &categoryName,
+        const QString     &logicalId,
+        QGraphicsWidget   *parent)
+: DcpComponent (category, categoryName, parent, logicalId),
+    m_CategoryName(categoryName)
 {
-    createContents();
-    setMattiID ("DcpCategoryComponent::"+logicalId);
+    createContents ();
+    setMattiID ("DcpCategoryComponent::" + logicalId);
 }
 
 DcpCategoryComponent::~DcpCategoryComponent()
 {
 }
 
-void DcpCategoryComponent::setTitle(const QString& title)
+
+void 
+DcpCategoryComponent::setTitle (
+        const QString &title)
 {
     m_Container->setTitle(title);
     DcpComponent::setTitle(title);

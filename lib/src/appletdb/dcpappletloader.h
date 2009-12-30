@@ -7,23 +7,28 @@
 #include <QString>
 class DcpAppletMetadata;
 class DcpAppletIf;
+
 class DcpAppletLoader : public QObject
 {
     Q_OBJECT
+
 public:
-    DcpAppletLoader(const DcpAppletMetadata* metadata);
-    virtual ~DcpAppletLoader();
-    DcpAppletIf* applet() const {return m_Applet;};
-    const DcpAppletMetadata* metadata() const {return m_Metadata;};
-    const QString errorMsg() const {return m_ErrorMsg;};
+    DcpAppletLoader (const DcpAppletMetadata *metadata);
+    virtual ~DcpAppletLoader ();
+
+    DcpAppletIf *applet() const { return m_Applet; };
+    const DcpAppletMetadata *metadata () const { return m_Metadata; };
+    const QString errorMsg () const { return m_ErrorMsg; };
+
 protected:
     virtual void load ();
     virtual bool loadPluginFile (const QString &binaryPath);
     virtual bool loadDslFile    (const QString &dslPath);
+
 private:
     const DcpAppletMetadata* m_Metadata;
     DcpAppletIf *m_Applet;
     QString m_ErrorMsg;
 };
 
-#endif // DCPAPPLETLOADER_H
+#endif
