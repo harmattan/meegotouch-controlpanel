@@ -30,7 +30,7 @@ public:
     
     DcpCategoryComponent (
 		    DcpCategory      *category, 
-		    DcpCategoryInfo  *categoryInfo,
+		    const DcpCategoryInfo  *categoryInfo,
 		    QGraphicsWidget  *parent = 0);
 
     virtual ~DcpCategoryComponent();
@@ -50,9 +50,9 @@ public slots:
 
 private:
     DcpAppletButtons *m_AppletButtons;
-    // m_CategoryName is deprecated
+    // m_CategoryName may be deprecated
     QString           m_CategoryName;
-    DcpCategoryInfo  *m_categoryInfo;
+    const DcpCategoryInfo  *m_CategoryInfo;
     DuiContainer     *m_Container;
     QString           m_mattiID;
 };

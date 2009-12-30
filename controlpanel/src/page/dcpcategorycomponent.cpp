@@ -21,7 +21,7 @@ DcpCategoryComponent::DcpCategoryComponent (
         QGraphicsWidget   *parent)
 : DcpComponent (category, categoryName, parent, logicalId),
     m_CategoryName (categoryName),
-    m_categoryInfo (0)
+    m_CategoryInfo (0)
 {
     createContents ();
     setMattiID ("DcpCategoryComponent::" + logicalId);
@@ -32,11 +32,11 @@ DcpCategoryComponent::DcpCategoryComponent (
  */
 DcpCategoryComponent::DcpCategoryComponent (
 		    DcpCategory      *category, 
-		    DcpCategoryInfo  *categoryInfo,
+		    const DcpCategoryInfo  *categoryInfo,
 		    QGraphicsWidget  *parent)
 : DcpComponent (category, categoryInfo->appletCategory, parent, categoryInfo->titleId),
     m_CategoryName (categoryInfo->appletCategory),
-    m_categoryInfo (categoryInfo)
+    m_CategoryInfo (categoryInfo)
 {
     createContents ();
     setMattiID (QString("DcpCategoryComponent::") + categoryInfo->titleId);
@@ -61,7 +61,13 @@ DcpCategoryComponent::createContents ()
 {
     m_Container = new DuiContainer (this);
     m_Container->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
-    m_AppletButtons = new DcpAppletButtons (logicalId(), m_CategoryName, title());
+    
+    if (m_CategoryInfo) 
+        m_AppletButtons = new DcpAppletButtons (m_CategoryInfo, title());
+    else
+        m_AppletButtons = new DcpAppletButtons (
+                logicalId(), m_CategoryName, title());
+
     m_Container->setCentralWidget (m_AppletButtons);
     QGraphicsLinearLayout* layout = new QGraphicsLinearLayout (Qt::Vertical, this);
     layout->addItem (m_Container);

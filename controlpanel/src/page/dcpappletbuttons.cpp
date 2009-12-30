@@ -22,19 +22,38 @@
  * \brief A container which contains buttons that represents the
  * applets.
  */
-DcpAppletButtons::DcpAppletButtons(
-        const QString& logicalId,
-        const QString& categoryName,
-        const QString& title,
-        QGraphicsWidget *parent) :
-    DcpMainCategory (title, parent, logicalId), 
-    m_CategoryName (categoryName)
+DcpAppletButtons::DcpAppletButtons (
+        const QString      &logicalId,
+        const QString      &categoryName,
+        const QString      &title,
+        QGraphicsWidget    *parent) 
+: DcpMainCategory (title, parent, logicalId), 
+    m_CategoryName (categoryName),
+    m_CategoryInfo (0)
 {
     setCreateSeparators (true);
     setMaxColumns (2);
     createContents ();
     setMattiID ("DcpAppletButtons::" + logicalId + "::" + categoryName);
 }
+
+DcpAppletButtons::DcpAppletButtons (
+        const DcpCategoryInfo  *categoryInfo,
+        const QString          &title,
+        QGraphicsWidget        *parent)
+: DcpMainCategory (title, parent, categoryInfo->titleId),
+    m_CategoryName (categoryInfo->appletCategory),
+    m_CategoryInfo (categoryInfo)
+{
+    setCreateSeparators (true);
+    setMaxColumns (2);
+    createContents ();
+    setMattiID (
+            QString ("DcpAppletButtons::") + 
+            categoryInfo->titleId + "::" + 
+            categoryInfo->appletCategory);
+}
+
 
 void 
 DcpAppletButtons::createContents ()
