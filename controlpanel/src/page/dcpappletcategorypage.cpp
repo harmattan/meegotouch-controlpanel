@@ -16,13 +16,6 @@ DcpAppletCategoryPage::DcpAppletCategoryPage (
     DcpCategoryPage (),
     m_AppletCategory (appletCategory)
 {
-    /*
-     * Will remove in a few days.
-     */
-    #if 0
-    setHandle  (PageHandle::APPLETCATEGORY);
-    setReferer (PageHandle::MAIN);
-    #endif
 }
 
 DcpAppletCategoryPage::~DcpAppletCategoryPage ()
@@ -58,9 +51,7 @@ DcpAppletCategoryPage::setAppletCategory (
 void 
 DcpAppletCategoryPage::loadContent ()
 {
-    bool odd;
-
-    Q_ASSERT(!appletCategory().isEmpty());
+    Q_ASSERT (!appletCategory().isEmpty());
     
     DCP_DEBUG ("*** appletCategory() = '%s'", DCP_STR (appletCategory()));
     /*
@@ -75,13 +66,8 @@ DcpAppletCategoryPage::loadContent ()
             appletCategory());
 
     foreach (DcpAppletMetadata *item, list) {
-        /*
-         * We do not treat 1 item as odd, because it does not have to be spanned
-         * in two columns.
-         */
-        odd = list.size() % 2 == 1 && list.size() > 1;
         DCP_DEBUG ("*** applet '%s'", DCP_STR (item->name()));
-        addComponent (item, odd);
+        addComponent (item);
     }
 
     m_LoadedAppletCategory = appletCategory ();
@@ -89,17 +75,13 @@ DcpAppletCategoryPage::loadContent ()
 
 void 
 DcpAppletCategoryPage::addComponent (
-		DcpAppletMetadata *metadata,
-        bool               odd)
+		DcpAppletMetadata *metadata)
 {
     DcpBriefComponent *component = new DcpBriefComponent (metadata, m_Category);
 
     component->setSubPage (PageHandle::APPLET, metadata->name());
-    
-    if (odd)
-        m_Category->add (component);
-    else
-        m_Category->append (component);
+
+    appendWidget (component);
 }
 
 void 

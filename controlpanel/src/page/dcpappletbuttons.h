@@ -29,14 +29,12 @@ public:
             QGraphicsWidget        *parent = 0);
 
     void addComponent (
-            DcpAppletMetadata *metadata, 
-            bool               fullLine = false);
+            DcpAppletMetadata *metadata);
 
     void addComponent (
         const QString       &briefTitleText,
         const QString       &briefSecondaryText,
-        const PageHandle    &pageHandle,
-        bool                 fullLine);
+        const PageHandle    &pageHandle);
 
 
     virtual void reload();

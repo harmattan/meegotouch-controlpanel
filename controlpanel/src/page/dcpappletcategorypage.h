@@ -25,8 +25,8 @@ public slots:
     virtual void back();
 
 protected:
-    void addComponent(DcpAppletMetadata *metadata, bool odd);
-    void loadContent();
+    void addComponent (DcpAppletMetadata *metadata);
+    void loadContent ();
 
 private:
     QString m_AppletCategory;

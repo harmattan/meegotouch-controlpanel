@@ -14,7 +14,7 @@
 #include <DuiLinearLayoutPolicy>
 #include "maintranslations.h"
 
-//#define DEBUG
+#define DEBUG
 #include "../../../lib/src/dcpdebug.h"
 
 /*!
@@ -59,9 +59,8 @@ void
 DcpAppletButtons::createContents ()
 {
     DcpAppletMetadataList list;
-    bool                  odd;
-    int                   cnt = 0;
 
+    DCP_DEBUG ("");
     /*
      * Getting the list of applet variants (metadata objects) that will go into
      * this widget.
@@ -80,19 +79,15 @@ DcpAppletButtons::createContents ()
     if (m_CategoryInfo && m_CategoryInfo->staticElements) {
         const DcpCategoryInfo *element;
 
-        for (;;) {
+        for (int cnt = 0; ; ++cnt) {
             element = &m_CategoryInfo->staticElements[cnt];
             if (element->titleId == 0)
                 break;
-
-            odd = cnt % 2 != 0;
+            
             addComponent (
                     element->appletCategory,
                     "",
-                    element->subPageId,
-                    odd);
-
-            ++cnt;
+                    element->subPageId);
         }
 
     }
@@ -101,13 +96,8 @@ DcpAppletButtons::createContents ()
      * Adding the applet variants to the widget.
      */
     foreach (DcpAppletMetadata *item, list) {
-        cnt++;
         DCP_DEBUG ("   *** item->name = %s", DCP_STR (item->name()));
-        //last item is impaired
-        if (cnt == list.count() && cnt % 2 == 1) 
-            addComponent (item, true);
-        else
-            addComponent (item, false);
+        addComponent (item);
     }
 
     m_PortraitLayout->setObjectName ("MostUsedItems");
@@ -117,26 +107,21 @@ DcpAppletButtons::createContents ()
 
 void 
 DcpAppletButtons::addComponent (
-        DcpAppletMetadata *metadata, 
-        bool               fullLine)
+        DcpAppletMetadata *metadata)
 {
     DcpBriefComponent *component;
     
     component = new DcpBriefComponent (metadata, this, logicalId());
     component->setSubPage (PageHandle::APPLET, metadata->name());
 
-    if (fullLine)
-        add (component);
-    else
-        append (component);
+    appendWidget (component);
 }
 
 void
 DcpAppletButtons::addComponent (
         const QString       &briefTitleText,
         const QString       &briefSecondaryText,
-        const PageHandle    &pageHandle,
-        bool                 fullLine)
+        const PageHandle    &pageHandle)
 {
     DcpBriefComponent *component;
     
@@ -146,26 +131,26 @@ DcpAppletButtons::addComponent (
             this, logicalId());
     component->setSubPage (pageHandle);
 
-    if (fullLine)
-        add (component);
-    else
-        append (component);
+    appendWidget (component);
 }
 
 
 void 
-DcpAppletButtons::reload()
+DcpAppletButtons::reload ()
 {
     deleteItems();
     createContents();
 }
 
-QString DcpAppletButtons::mattiID()
+QString 
+DcpAppletButtons::mattiID ()
 {
     return m_mattiID;
 }
 
-void DcpAppletButtons::setMattiID(const QString &mattiID)
+void 
+DcpAppletButtons::setMattiID (
+        const QString &mattiID)
 {
     m_mattiID=mattiID;
 }
