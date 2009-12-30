@@ -3,6 +3,9 @@
 
 #include <DcpComponent>
 
+#include "maintranslations.h"
+
+
 class DcpAppletButtons;
 class DuiContainer;
 
@@ -20,10 +23,15 @@ Q_PROPERTY (QString mattiID READ mattiID WRITE setMattiID)
 
 public:
     DcpCategoryComponent (
-		    DcpCategory *category, 
-		    const QString& categoryName,
-		    const QString& logicalId,
+		    DcpCategory     *category, 
+		    const QString   &categoryName,
+		    const QString   &logicalId,
 		    QGraphicsWidget *parent = 0);
+    
+    DcpCategoryComponent (
+		    DcpCategory      *category, 
+		    DcpCategoryInfo  *categoryInfo,
+		    QGraphicsWidget  *parent = 0);
 
     virtual ~DcpCategoryComponent();
     virtual void createContents();
@@ -42,9 +50,11 @@ public slots:
 
 private:
     DcpAppletButtons *m_AppletButtons;
-    QString m_CategoryName;
-    DuiContainer *m_Container;
-    QString m_mattiID;
+    // m_CategoryName is deprecated
+    QString           m_CategoryName;
+    DcpCategoryInfo  *m_categoryInfo;
+    DuiContainer     *m_Container;
+    QString           m_mattiID;
 };
 
 

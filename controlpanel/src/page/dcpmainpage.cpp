@@ -58,9 +58,12 @@ DcpMainPage::createContent()
         DcpCategoryInfo info = DcpMain::CategoryInfos[i];
         if (info.titleId == 0)
              break;
-
+#if 0
         component = new DcpCategoryComponent (
                 0, info.appletCategory, info.titleId);
+#else
+        component = new DcpCategoryComponent (0, &info);
+#endif
 
         layout->addItem(component);
     }

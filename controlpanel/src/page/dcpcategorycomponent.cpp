@@ -12,7 +12,7 @@
 
 /*!
  * Constructor that uses category name to create the component. Should use 
- * DcpCategoryInfo so this is deprecated.
+ * DcpCategoryInfo so this may be deprecated.
  */
 DcpCategoryComponent::DcpCategoryComponent (
         DcpCategory       *category,
@@ -20,11 +20,28 @@ DcpCategoryComponent::DcpCategoryComponent (
         const QString     &logicalId,
         QGraphicsWidget   *parent)
 : DcpComponent (category, categoryName, parent, logicalId),
-    m_CategoryName(categoryName)
+    m_CategoryName (categoryName),
+    m_categoryInfo (0)
 {
     createContents ();
     setMattiID ("DcpCategoryComponent::" + logicalId);
 }
+
+/*!
+ * Constructor that uses DcpCategoryInfo to create a DcpCategoryComponent.
+ */
+DcpCategoryComponent::DcpCategoryComponent (
+		    DcpCategory      *category, 
+		    DcpCategoryInfo  *categoryInfo,
+		    QGraphicsWidget  *parent)
+: DcpComponent (category, categoryInfo->appletCategory, parent, categoryInfo->titleId),
+    m_CategoryName (categoryInfo->appletCategory),
+    m_categoryInfo (categoryInfo)
+{
+    createContents ();
+    setMattiID (QString("DcpCategoryComponent::") + categoryInfo->titleId);
+}
+
 
 DcpCategoryComponent::~DcpCategoryComponent()
 {
@@ -39,19 +56,15 @@ DcpCategoryComponent::setTitle (
     DcpComponent::setTitle(title);
 }
 
-void DcpCategoryComponent::createContents()
+void 
+DcpCategoryComponent::createContents ()
 {
-    m_Container = new DuiContainer(this);
-    m_Container->setSizePolicy(QSizePolicy::Expanding,
-                                 QSizePolicy::Expanding);
-
-    m_AppletButtons = new DcpAppletButtons(logicalId(), m_CategoryName, title());
-
-    m_Container->setCentralWidget(m_AppletButtons);
-
-    QGraphicsLinearLayout* layout =
-        new QGraphicsLinearLayout(Qt::Vertical,this);
-    layout->addItem(m_Container);
+    m_Container = new DuiContainer (this);
+    m_Container->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_AppletButtons = new DcpAppletButtons (logicalId(), m_CategoryName, title());
+    m_Container->setCentralWidget (m_AppletButtons);
+    QGraphicsLinearLayout* layout = new QGraphicsLinearLayout (Qt::Vertical, this);
+    layout->addItem (m_Container);
 }
 
 void DcpCategoryComponent::reload()
