@@ -63,6 +63,14 @@ PageHandle::getStringVariant () const
             typeName = "DEVICESYSTEM";
             break;
 
+        case ServiceAccounts:
+            typeName = "ServiceAccounts";
+            break;
+
+        case Applications:
+            typeName = "Applications";
+            break;
+
         case CATEGORY_PAGEID_END:
             typeName = "CATEGORY_PAGEID_END";
             break;

@@ -176,7 +176,7 @@ PageFactory::createAppletCategoryPage (
         info = & DcpMain::CategoryInfos[n];
 
         if (info->titleId == 0) {
-            DCP_DEBUG ("Category info for page type %d not found.", (int) id);
+            DCP_WARNING ("Category info for page type %d not found.", (int) id);
             return 0;
         }
 

@@ -59,6 +59,7 @@ void
 DcpAppletButtons::createContents ()
 {
     DcpAppletMetadataList list;
+    bool                  odd;
     int                   cnt = 0;
 
     /*
@@ -72,16 +73,30 @@ DcpAppletButtons::createContents ()
     }
 
     /*
-     * Adding internally handled items. This is not fully implemented.
+     * If we have a category info that might contain static elements, like the
+     * 'accounts & applications' contain the 'service accounts' and
+     * 'applications' static elements.
      */
-    if (logicalId() == QT_TRID_NOOP ("qtn_sett_main_combined")) {
-        addComponent (
-                "Applications",
-                "",
-                PageHandle::ACCOUNTSANDAPPLICATIONS,
-                false);
-        ++cnt;
+    if (m_CategoryInfo && m_CategoryInfo->staticElements) {
+        const DcpCategoryInfo *element;
+
+        for (;;) {
+            element = &m_CategoryInfo->staticElements[cnt];
+            if (element->titleId == 0)
+                break;
+
+            odd = cnt % 2 != 0;
+            addComponent (
+                    element->appletCategory,
+                    "",
+                    element->subPageId,
+                    odd);
+
+            ++cnt;
+        }
+
     }
+    
     /*
      * Adding the applet variants to the widget.
      */
