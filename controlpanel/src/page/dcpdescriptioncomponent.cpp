@@ -1,3 +1,5 @@
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #include "dcpdescriptioncomponent.h"
 
 #include <DuiLabel>
@@ -13,71 +15,82 @@
  *
  * It displays a title and description about the category, and requests
  * the page switching if the user clicked on it.
- * Currently uses DuiContainer for all rendering stuff. */
-
-DcpDescriptionComponent::DcpDescriptionComponent(DcpCategory *category,
-                                                 const QString& title,
-                                                 QGraphicsWidget *parent) :
-    DcpComponent(category, title, parent),
-    m_Container(0)
+ * Currently uses DuiContainer for all rendering stuff. 
+ */
+DcpDescriptionComponent::DcpDescriptionComponent(
+        DcpCategory *category,
+        const QString& title,
+        QGraphicsWidget *parent) 
+: DcpComponent (category, title, parent),
+    m_Container (0)
 {
-    createContents();
+    createContents ();
 }
 
 
-void DcpDescriptionComponent::createContents()
+void 
+DcpDescriptionComponent::createContents ()
 {
-    m_Container = new DuiContainer(this);
+    m_Container = new DuiContainer (this);
     m_Container->setAcceptedMouseButtons(0);
-/*    m_Container->setSizePolicy(QSizePolicy::Expanding,
-                                 QSizePolicy::Expanding);*/
-    setTitle(title());
+    setTitle (title());
 
-    m_Description = new DuiLabel(m_Container);
-    m_Description->setObjectName("ComponentDescription");
-//    m_Description->setWordWrap(true);
-//    m_Description->setAlignment(Qt::AlignTop);
-  //  m_Description->setMinimumSize(10,115); // TODO move this to css when it becomes possible to do so
-    m_Description->setAcceptedMouseButtons(0);
-    m_Description->setSizePolicy(QSizePolicy::Expanding,
-                                 QSizePolicy::Expanding);
+    m_Description = new DuiLabel (m_Container);
+    m_Description->setObjectName ("ComponentDescription");
 
-    m_Container->setCentralWidget(m_Description);
+    // FIXME: TODO move this to css when it becomes possible to do so
+    m_Description->setAcceptedMouseButtons (0);
+    m_Description->setSizePolicy (
+            QSizePolicy::Expanding, 
+            QSizePolicy::Expanding);
 
-    QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(this);
-//    layout->setContentsMargins(0,0,0,0);
-    layout->addItem(m_Container);
+    m_Container->setCentralWidget (m_Description);
+
+    QGraphicsLinearLayout *layout = new QGraphicsLinearLayout(this);
+    layout->addItem (m_Container);
 }
 
-void DcpDescriptionComponent::setTitle (const QString& title)
+void
+DcpDescriptionComponent::setTitle (
+        const QString& title)
 {
-    Q_ASSERT(m_Container);
-    m_Container->setTitle(title);
-//    DcpComponent::setTitle(title);
+    Q_ASSERT (m_Container);
+    m_Container->setTitle (title);
 }
 
-void DcpDescriptionComponent::setDescription(const QString& desc)
+void
+DcpDescriptionComponent::setDescription (
+        const QString& desc)
 {
-    m_Description->setText(desc);
+    m_Description->setText (desc);
 }
 
-void DcpDescriptionComponent::setTextAlignment(Qt::Alignment align)
+void 
+DcpDescriptionComponent::setTextAlignment (
+        Qt::Alignment align)
 {
-    m_Description->setAlignment(align);
+    m_Description->setAlignment (align);
 }
 
-void DcpDescriptionComponent::mousePressEvent (QGraphicsSceneMouseEvent *event)
+#if 0
+// I removed these methods, since we did not used them.
+// FIXME: The code should be entirely removed.
+void 
+DcpDescriptionComponent::mousePressEvent (
+        QGraphicsSceneMouseEvent *event)
 {
     DcpComponent::mousePressEvent(event);
     event->accept();
     // FIXME: What about the clicked signal? Why are we here and what are we
-    // doing? I mean the clicked signal is handled somewhare else...
-    //switchToSubPage();
+    // doing? I mean the clicked signal is handled somewhere else...
+    //switchToSubPage ();
 }
 
-void DcpDescriptionComponent::mouseReleaseEvent (QGraphicsSceneMouseEvent * event)
+void 
+DcpDescriptionComponent::mouseReleaseEvent (
+        QGraphicsSceneMouseEvent *event)
 {
     DcpComponent::mouseReleaseEvent(event);
     event->accept();
 }
-
+#endif
