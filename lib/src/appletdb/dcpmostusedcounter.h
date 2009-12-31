@@ -24,5 +24,5 @@ class MostUsedCounter
         static MostUsedCounter *sm_Instance;
         QMap<QString, DuiGConfItem*> m_Data;
 };
-#endif // MOSTUSEDCOUNTER_H
+#endif
 

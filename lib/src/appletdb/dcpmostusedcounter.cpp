@@ -13,7 +13,6 @@ MostUsedCounter::MostUsedCounter ()
 
 MostUsedCounter::~MostUsedCounter ()
 {
-
 	QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.constBegin();
 	
 	while (i != m_Data.constEnd()) {
@@ -27,6 +26,7 @@ MostUsedCounter::instance ()
 {
     if (!sm_Instance)
         sm_Instance = new MostUsedCounter;
+
     return sm_Instance;
 }
 
@@ -41,58 +41,53 @@ int
 MostUsedCounter::add (
         const QString &name)
 {
-    if (name != "") {
-        QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(name);
-		
-        if (i == m_Data.end ()) { 
-            DuiGConfItem* item = new DuiGConfItem(name);
-            m_Data[name] = item;
-            int tmp = item->value().toInt();
-            item->set(++tmp);
-			
-            return item->value().toInt();
-        }
-	
-        int tmp = i.value()->value().toInt();
-        i.value()->set(++tmp);
-	
-        return i.value()->value().toInt();
-    }
+    if (name.isEmpty())
+        return 0;
 
-	return 0;
+    QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(name);
+		
+    if (i == m_Data.end ()) { 
+        DuiGConfItem *item = new DuiGConfItem(name);
+        m_Data[name] = item;
+        int tmp = item->value().toInt();
+        item->set(++tmp);
+			
+        return item->value().toInt();
+    }
+	
+    int tmp = i.value()->value().toInt();
+    i.value()->set (++tmp);
+	
+    return i.value()->value().toInt();
 }
 
 int 
 MostUsedCounter::get (
         const QString &name)
 {
-    if (name != "") {
-        QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(name);
-		
-        if (i == m_Data.end()) { 
-            DuiGConfItem* item = new DuiGConfItem(name);
-            m_Data[name] = item;
-	
-            return item->value().toInt();
-        }
-		
-        return i.value()->value().toInt();
-	}
+    if (name.isEmpty()) 
+        return 0;
 
-	return 0;
+    QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(name);		
+    if (i == m_Data.end()) {
+        DuiGConfItem *item = new DuiGConfItem(name);
+        m_Data[name] = item; 
+        
+        return item->value().toInt();
+    }
+		
+    return i.value()->value().toInt();
 }
 
 void 
 MostUsedCounter::clear (
         const QString &name)
 {
-    if (name != "") {
-        QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(name);
+    if (name.isEmpty())
+        return;
 
-        if (i == m_Data.end()) { 
-			return;
-        }
-	
+    QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(name);
+    if (i != m_Data.end()) 
         i.value()->unset();
-    }
 }
+
