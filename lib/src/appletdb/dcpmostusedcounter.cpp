@@ -1,5 +1,5 @@
-
-
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #include "dcpmostusedcounter.h"
 
 #include <QString>
@@ -7,20 +7,11 @@
 
 MostUsedCounter* MostUsedCounter::sm_Instance = NULL;
 
-
-MostUsedCounter* MostUsedCounter::instance()
-{
-    if (!sm_Instance)
-        sm_Instance = new MostUsedCounter;
-    return sm_Instance;
-}
-
-
-MostUsedCounter::MostUsedCounter()
+MostUsedCounter::MostUsedCounter ()
 {
 }
 
-MostUsedCounter::~MostUsedCounter()
+MostUsedCounter::~MostUsedCounter ()
 {
 
 	QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.constBegin();
@@ -31,79 +22,77 @@ MostUsedCounter::~MostUsedCounter()
 	}
 }
 
-void MostUsedCounter::destroy()
+MostUsedCounter *
+MostUsedCounter::instance ()
+{
+    if (!sm_Instance)
+        sm_Instance = new MostUsedCounter;
+    return sm_Instance;
+}
+
+void 
+MostUsedCounter::destroy ()
 {
     delete sm_Instance;
     sm_Instance = 0;
 }
 
-int MostUsedCounter::add(const QString& name)
+int 
+MostUsedCounter::add (
+        const QString &name)
 {
-	if (name != "") {
-
-		QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(name);
+    if (name != "") {
+        QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(name);
 		
-		if (i== m_Data.end()) { 
-			DuiGConfItem* item = new DuiGConfItem(name);
-			m_Data[name] = item;
-			int tmp = item->value().toInt();
-			item->set(++tmp);
+        if (i == m_Data.end ()) { 
+            DuiGConfItem* item = new DuiGConfItem(name);
+            m_Data[name] = item;
+            int tmp = item->value().toInt();
+            item->set(++tmp);
 			
-//                        qDebug() << "  ADD  " <<name << "  :  " << item->value().toInt();
-			
-			return item->value().toInt();
-		}
+            return item->value().toInt();
+        }
 	
-		int tmp = i.value()->value().toInt();
-		i.value()->set(++tmp);
+        int tmp = i.value()->value().toInt();
+        i.value()->set(++tmp);
 	
-//                qDebug() << "  ADD  "  << name << "  :  " << i.value()->value().toInt();
+        return i.value()->value().toInt();
+    }
+
+	return 0;
+}
+
+int 
+MostUsedCounter::get (
+        const QString &name)
+{
+    if (name != "") {
+        QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(name);
+		
+        if (i == m_Data.end()) { 
+            DuiGConfItem* item = new DuiGConfItem(name);
+            m_Data[name] = item;
 	
-		return i.value()->value().toInt();
+            return item->value().toInt();
+        }
+		
+        return i.value()->value().toInt();
 	}
 
 	return 0;
 }
 
-int MostUsedCounter::get(const QString& name)
+void 
+MostUsedCounter::clear (
+        const QString &name)
 {
+    if (name != "") {
+        QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(name);
 
-	if (name != "") {
-
-		QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(name);
-		
-		if (i== m_Data.end()) { 
-			DuiGConfItem* item = new DuiGConfItem(name);
-			m_Data[name] = item;
-	
-//                        qDebug() << "  GET  " << name << "  :  " << item->value().toInt();
-	
-			return item->value().toInt();
-		}
-	
-//                qDebug() <<  "  GET  "  << name << "  :  " << i.value()->value().toInt();
-	
-		return i.value()->value().toInt();
-	}
-
-	return 0;
-
-}
-
-void MostUsedCounter::clear(const QString& name)
-{
-
-	if (name != "") {
-
-		QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(name);
-		
-		if (i== m_Data.end()) { 
-			//DuiGConfItem* item = new DuiGConfItem(name);
-			//m_Data[name] = 0;
-		
+        if (i == m_Data.end()) { 
 			return;
-		}
+        }
 	
-		i.value()->unset();
-	}
+        i.value()->unset();
+    }
 }
