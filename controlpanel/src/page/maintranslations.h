@@ -5,7 +5,7 @@
 #define MAINTRANSLATIONS_H
 
 typedef struct _DcpCategoryInfo DcpCategoryInfo;
-#include <Pages>
+#include "pages.h"
 #include <DuiLocale>
 
 /*!
@@ -36,6 +36,10 @@ namespace DcpMain {
    extern const char *quitMenuItemTextId;
 };
 
+const DcpCategoryInfo *
+dcp_find_category_info (
+        PageHandle::PageTypeId   id,
+        const DcpCategoryInfo   *info = 0);
 #endif
 
 

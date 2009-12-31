@@ -172,16 +172,10 @@ PageFactory::createAppletCategoryPage (
 
     DCP_DEBUG ("*** id = %d", (int) id);
 
-    for (n = 0; ; ++n) {
-        info = & DcpMain::CategoryInfos[n];
-
-        if (info->titleId == 0) {
-            DCP_WARNING ("Category info for page type %d not found.", (int) id);
-            return 0;
-        }
-
-        if (info->subPageId == id)
-            break;
+    info = dcp_find_category_info (id);
+    if (!info) {
+        DCP_WARNING ("Category info for page type %d not found.", (int) id);
+        return 0;
     }
 
     if (!m_AppletCategoryPage){

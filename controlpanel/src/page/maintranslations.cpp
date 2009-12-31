@@ -97,3 +97,48 @@ const char* DcpMain::mostRecentUsedTitleId = QT_TRID_NOOP("qtn_sett_main_most");
 
 //% "Exit"
 const char* DcpMain::quitMenuItemTextId = QT_TRID_NOOP("qtn_comm_exit");
+
+/*!
+ * Will find a DcpCategoryInfo by the page type id. Uses recirsive search to
+ * find sub-categories.
+ */
+const DcpCategoryInfo *
+dcp_find_category_info (
+        PageHandle::PageTypeId   id,
+        const DcpCategoryInfo   *info)
+{
+    /*
+     * The default place to find infos.
+     */
+    if (info == NULL) {
+        info = DcpMain::CategoryInfos;
+    }
+
+    for (int n = 0; ; ++n) {
+        /*
+         * The end of the array.
+         */
+        if (info[n].titleId == 0) {
+            return 0;
+        }
+
+        /*
+         * If found it.
+         */
+        if (info[n].subPageId == id)
+            return &info[n];
+
+        /*
+         * If we have a chance to search recursively.
+         */
+        if (info[n].staticElements != NULL) {
+            const DcpCategoryInfo *retval;
+
+            retval = dcp_find_category_info (id, info[n].staticElements);
+            if (retval)
+                return retval;
+        }
+    }
+
+    return NULL;
+}
