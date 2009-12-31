@@ -40,7 +40,7 @@ protected:
     DcpPage* createAppletCategoryPage (PageHandle::PageTypeId pageId);
 
 private:
-    void registerPage (DcpPage* page);
+    void registerPage (DcpPage *page);
 
     static PageFactory  *sm_Instance;
     DcpPage             *m_CurrentPage;

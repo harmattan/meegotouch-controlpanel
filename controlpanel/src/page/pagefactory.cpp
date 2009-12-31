@@ -50,6 +50,7 @@ PageFactory::PageFactory ():
     }
 }
 
+
 PageFactory * 
 PageFactory::instance ()
 {
@@ -122,6 +123,9 @@ PageFactory::createPage (
     return page;
 }
 
+/*!
+ * Creates the main page that shows most of the applets.
+ */
 DcpPage *
 PageFactory::createMainPage ()
 {
@@ -163,6 +167,10 @@ PageFactory::createAppletPage (
     }
 }
 
+/*!
+ * Creates an applet category page, a page that shows a group of applets the
+ * same way the main page shows applets.
+ */
 DcpPage *
 PageFactory::createAppletCategoryPage (
         PageHandle::PageTypeId id)
@@ -270,8 +278,9 @@ PageFactory::registerPage (
 
     if (page != m_MainPage) {
         // closeAction TODO XXX on language change, move into to the page?
-        DuiAction *quitAction = new DuiAction (
-                qtTrId(DcpMain::quitMenuItemTextId), page);
+        DuiAction *quitAction;
+        
+        quitAction = new DuiAction (qtTrId(DcpMain::quitMenuItemTextId), page);
         /* FIXME DuiAction::ApplicationMenu */
         quitAction->setLocation((DuiAction::Location) 4);
         
