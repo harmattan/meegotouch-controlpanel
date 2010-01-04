@@ -17,7 +17,7 @@
 
 #include "dcpmostusedcounter.h"
 
-#define DEBUG
+//#define DEBUG
 #include "dcpdebug.h"
 
 enum  {
@@ -440,7 +440,7 @@ DcpAppletMetadata::getMainWidgetId () const
 int 
 DcpAppletMetadata::usage () const
 {
-    return MostUsedCounter::instance()->get (d->m_GconfKeyUsage);
+    return MostUsedCounter::instance()->getUsageCounter (d->m_GconfKeyUsage);
 }
 
 int 
@@ -535,7 +535,7 @@ DcpAppletMetadata::setParent (
 void 
 DcpAppletMetadata::slotClicked ()
 {
-    MostUsedCounter::instance()->add (d->m_GconfKeyUsage);
+    MostUsedCounter::instance()->incrementUsageCounter (d->m_GconfKeyUsage);
 }
 
 bool 

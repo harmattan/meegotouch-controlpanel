@@ -5,6 +5,9 @@
 #include <QString>
 #include <QDebug>
 
+//#define DEBUG
+#include "dcpdebug.h"
+
 MostUsedCounter* MostUsedCounter::sm_Instance = NULL;
 
 MostUsedCounter::MostUsedCounter ()
@@ -37,18 +40,22 @@ MostUsedCounter::destroy ()
     sm_Instance = 0;
 }
 
+/*!
+ * Increments the usage counter for the given GConf key, returns the new value.
+ */
 int 
-MostUsedCounter::add (
-        const QString &name)
+MostUsedCounter::incrementUsageCounter (
+        const QString &key)
 {
-    if (name.isEmpty())
+    DCP_DEBUG ("*** key = '%s'", DCP_STR(key));
+    if (key.isEmpty())
         return 0;
 
-    QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(name);
+    QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(key);
 		
     if (i == m_Data.end ()) { 
-        DuiGConfItem *item = new DuiGConfItem(name);
-        m_Data[name] = item;
+        DuiGConfItem *item = new DuiGConfItem(key);
+        m_Data[key] = item;
         int tmp = item->value().toInt();
         item->set(++tmp);
 			
@@ -61,33 +68,43 @@ MostUsedCounter::add (
     return i.value()->value().toInt();
 }
 
+/*!
+ * \brief returns the usage counter for the given GConf key.
+ */
 int 
-MostUsedCounter::get (
-        const QString &name)
+MostUsedCounter::getUsageCounter (
+        const QString &key)
 {
-    if (name.isEmpty()) 
+    DCP_DEBUG ("*** key = '%s'", DCP_STR(key));
+    if (key.isEmpty()) 
         return 0;
 
-    QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(name);		
+    QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(key);
     if (i == m_Data.end()) {
-        DuiGConfItem *item = new DuiGConfItem(name);
-        m_Data[name] = item; 
+        DuiGConfItem *item = new DuiGConfItem(key);
+        m_Data[key] = item; 
         
         return item->value().toInt();
     }
-		
+
     return i.value()->value().toInt();
 }
 
+/*!
+ * \brief Removes the usage counter key from the database. 
+ */
 void 
-MostUsedCounter::clear (
-        const QString &name)
+MostUsedCounter::dropKey (
+        const QString &key)
 {
-    if (name.isEmpty())
+    DCP_DEBUG ("*** key = '%s'", DCP_STR(key));
+    if (key.isEmpty())
         return;
 
-    QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(name);
-    if (i != m_Data.end()) 
+    QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find (key);
+    if (i != m_Data.end()) {
         i.value()->unset();
+        delete i.value();
+        m_Data.remove (key);
+    }
 }
-

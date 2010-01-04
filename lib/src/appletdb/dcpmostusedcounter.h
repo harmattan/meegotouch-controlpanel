@@ -15,9 +15,10 @@ class MostUsedCounter
 
         static MostUsedCounter *instance ();
         static void destroy ();
-        int add (const QString &name);
-        int get (const QString &name);
-        void clear (const QString &name);
+
+        int incrementUsageCounter (const QString &name);
+        int getUsageCounter (const QString &key);
+        void dropKey (const QString &key);
 	
     private:
         MostUsedCounter ();

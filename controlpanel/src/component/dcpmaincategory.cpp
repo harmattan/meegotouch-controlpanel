@@ -10,7 +10,7 @@
 #include <QtDebug>
 #include <DuiSeparator>
 
-#define DEBUG
+//#define DEBUG
 #include "../../../lib/src/dcpdebug.h"
 
 static const QString SEPARATOR_OBJECTNAME = "DcpSmallSeparator";

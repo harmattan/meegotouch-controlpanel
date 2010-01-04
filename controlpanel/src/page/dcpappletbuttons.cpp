@@ -14,13 +14,12 @@
 #include <DuiLinearLayoutPolicy>
 #include "maintranslations.h"
 
-#define DEBUG
+//#define DEBUG
 #include "../../../lib/src/dcpdebug.h"
 
 /*!
  * \class DcpAppletButtons
- * \brief A container which contains buttons that represents the
- * applets.
+ * \brief A container which contains buttons that represents the applets.
  */
 DcpAppletButtons::DcpAppletButtons (
         const QString      &logicalId,

@@ -5,7 +5,7 @@
 #include <QDir>
 #include <QDebug>
 
-#define DEBUG
+//#define DEBUG
 #include "dcpdebug.h"
 
 const QString APPLETFILTER = "*.desktop";
