@@ -72,25 +72,3 @@ DcpDescriptionComponent::setTextAlignment (
     m_Description->setAlignment (align);
 }
 
-#if 0
-// I removed these methods, since we did not used them.
-// FIXME: The code should be entirely removed.
-void 
-DcpDescriptionComponent::mousePressEvent (
-        QGraphicsSceneMouseEvent *event)
-{
-    DcpComponent::mousePressEvent(event);
-    event->accept();
-    // FIXME: What about the clicked signal? Why are we here and what are we
-    // doing? I mean the clicked signal is handled somewhere else...
-    //switchToSubPage ();
-}
-
-void 
-DcpDescriptionComponent::mouseReleaseEvent (
-        QGraphicsSceneMouseEvent *event)
-{
-    DcpComponent::mouseReleaseEvent(event);
-    event->accept();
-}
-#endif

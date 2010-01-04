@@ -35,10 +35,6 @@ public:
 
 protected:
     virtual void createContents ();
-    // I removed these methods, since we did not used them.
-    // FIXME: The code should be entirely removed.
-    //virtual void mousePressEvent (QGraphicsSceneMouseEvent *event );
-    //virtual void mouseReleaseEvent (QGraphicsSceneMouseEvent *event );
 
 private:
     class DuiLabel    *m_Description;
