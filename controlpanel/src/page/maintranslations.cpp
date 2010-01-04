@@ -7,14 +7,14 @@ static const DcpCategoryInfo
 AccountsAndApplicationsElements[] = 
 {
     {
-        //% Service accounts
+        //% "Service accounts"
         QT_TRID_NOOP ("qtn_sett_main_account"),
         "Service accounts",
         PageHandle::ServiceAccounts,
         NULL
     },
     {
-        //% Applications
+        //% "Applications"
         QT_TRID_NOOP ("qtn_sett_main_application"),
         "Applications",
         PageHandle::Applications,
