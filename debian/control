@@ -20,8 +20,7 @@ Description: Development files for the control panel application and its applets
 Package: duicontrolpanel
 Section: x11
 Architecture: any
-Depends: libdui0 (>= 0.15), ${shlibs:Depends}, ${misc:Depends}, libduicontrolpanel (= ${Source-Version}), duicontrolpanel-l10n
-Recommends: duicontrolpanel-l10n-engineering-english
+Depends: libdui0 (>= 0.15), ${shlibs:Depends}, ${misc:Depends}, libduicontrolpanel (= ${Source-Version}), duicontrolpanel-l10n, duicontrolpanel-l10n-engineering-english (= ${Source-Version})
 Description: Control Panel
 
 Package: duicontrolpanel-dbg
