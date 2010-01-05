@@ -6,18 +6,37 @@
 #define DEBUG
 #include "dcpdebug.h"
 
+/******************************************************************************
+ * Private data class for the DcpWidget class.
+ */
+class DcpWidgetPrivate {
+public:
+    DcpWidgetPrivate ();
+    int m_Referer;
+    int m_WidgetId;
+};
+
+DcpWidgetPrivate::DcpWidgetPrivate () :
+    m_Referer (-1),
+    m_WidgetId (-1)
+{
+}
+
+
 /*!
  * \brief The constructor. No referer for default
  */
 DcpWidget::DcpWidget (QGraphicsWidget *parent) 
 	: DuiWidget (parent), 
-	  m_Referer (-1),
-      m_WidgetId (-1)
+      d_ptr (new DcpWidgetPrivate)
 {
+    DCP_DEBUG ("*** this = %p", this);
 }
 
 DcpWidget::~DcpWidget ()
 {
+    DCP_DEBUG ("*** this = %p", this);
+    delete d_ptr;
 }
 
 
@@ -28,7 +47,7 @@ DcpWidget::~DcpWidget ()
 int 
 DcpWidget::getWidgetId ()
 {
-    return m_WidgetId;
+    return d_ptr->m_WidgetId;
 }
 
 /*!
@@ -42,9 +61,11 @@ bool
 DcpWidget::setWidgetId (
         int widgetId)
 {
-    DCP_DEBUG ("*** widgetId = %d", widgetId);
+    DCP_DEBUG ("*** this       = %p", this);
+    DCP_DEBUG ("*** widgetId   = %d", widgetId);
+    DCP_DEBUG ("*** m_WidgetId = %d", d_ptr->m_WidgetId);
 
-    if (m_WidgetId != -1) {
+    if (d_ptr->m_WidgetId != -1) {
         DCP_WARNING ("The widgetId already set.");
         return false;
     }
@@ -53,7 +74,7 @@ DcpWidget::setWidgetId (
         DCP_CRITICAL ("The widgetId should be >= 0.");
     }
 
-    m_WidgetId = widgetId;
+    d_ptr->m_WidgetId = widgetId;
     return true;
 }
 
@@ -65,7 +86,7 @@ void
 DcpWidget::setReferer (
         int widgetId)
 {
-    m_Referer = widgetId;
+    d_ptr->m_Referer = widgetId;
 }
     
 /*! 
@@ -74,7 +95,7 @@ DcpWidget::setReferer (
 int 
 DcpWidget::referer () 
 {
-    return m_Referer;
+    return d_ptr->m_Referer;
 }
 
 /*!

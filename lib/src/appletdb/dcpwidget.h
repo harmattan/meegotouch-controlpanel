@@ -5,6 +5,9 @@
 #define DCPWIDGET_H
 
 #include <DuiWidget>
+
+class DcpWidgetPrivate;
+
 /*!
  * \class DcpWidget
  * \details The base class for applet view
@@ -60,8 +63,7 @@ signals:
     bool activatePluginByName (const QString &appletName) const;
 
 private:
-    int m_Referer;
-    int m_WidgetId;
+    DcpWidgetPrivate* const d_ptr;
 };
 
 #endif

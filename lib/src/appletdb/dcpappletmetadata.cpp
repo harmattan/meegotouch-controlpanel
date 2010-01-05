@@ -17,7 +17,7 @@
 
 #include "dcpmostusedcounter.h"
 
-//#define DEBUG
+#define DEBUG
 #include "dcpdebug.h"
 
 enum  {
@@ -242,6 +242,7 @@ DcpAppletMetadata::widgetTypeID () const
     if (brief != NULL) {
         retval = brief->widgetTypeID ();
         if (DCP_WIDGET_TYPE_VALID (retval)) {
+            DCP_DEBUG ("brief->widgetTypeID () provides a widget type.");
             return retval;
         }
     }
@@ -255,6 +256,8 @@ DcpAppletMetadata::widgetTypeID () const
         for (retval = 0; retval < WIDGETN; retval++) {
             if (WIDGETNAME[retval] == typeName && 
                     DCP_WIDGET_TYPE_VALID (retval)) { 
+                DCP_DEBUG ("Desktop file provides a widget type: '%s'",
+                        DCP_STR (typeName));
                 return retval;
             }
         }
@@ -263,6 +266,7 @@ DcpAppletMetadata::widgetTypeID () const
     /*
      * Otherwise we return the default value, simple plugins can rely on this.
      */
+    DCP_DEBUG ("Using default widget type.");
     return DCPLABEL2;
 }
 

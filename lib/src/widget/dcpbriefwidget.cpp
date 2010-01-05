@@ -13,7 +13,7 @@
 #include <QGraphicsLinearLayout>
 #include <QtDebug>
 
-//#define DEBUG
+#define DEBUG
 #include "dcpdebug.h"
 
 DcpBriefWidget::DcpBriefWidget (
@@ -76,18 +76,22 @@ DcpBriefWidget::constructRealWidget (
 {
     switch (widgetTypeId) {
         case DCPLABELBUTTON:
-        case DCPLABEL2BUTTON:
-            DCP_DEBUG ("calling constructToggle()");
+            DCP_DEBUG ("### DCPLABELBUTTON ###");
             m_RealWidget = constructToggle (m_Metadata);
             break;
 
-        case DCPLABEL2IMAGE :
-            DCP_DEBUG ("calling constructImage()");
+        case DCPLABEL2BUTTON:
+            DCP_DEBUG ("### DCPLABEL2BUTTON ###");
+            m_RealWidget = constructToggle (m_Metadata);
+            break;
+
+        case DCPLABEL2IMAGE:
+            DCP_DEBUG ("### DCPLABEL2IMAGE ###");
             m_RealWidget = constructImage (m_Metadata);
             break;
 
         default:
-            DCP_DEBUG ("calling DcpButton()");
+            DCP_DEBUG ("### other widget ###");
             m_RealWidget = new DcpButton (this);
             break;
     }
@@ -97,6 +101,9 @@ DcpBriefWidget::constructRealWidget (
         retranslateUi ();
         ((QGraphicsLinearLayout*) layout())->addItem (m_RealWidget);
     }
+
+    DCP_DEBUG ("*** m_Metadata   = '%s'", DCP_STR(m_Metadata->name()));
+    DCP_DEBUG ("*** widgetTypeId = %d", widgetTypeId);
 }
 
 void 
