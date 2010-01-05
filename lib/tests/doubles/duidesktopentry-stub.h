@@ -36,9 +36,21 @@ bool  DuiDesktopEntry::startupNotify () const { return false; }
 QString  DuiDesktopEntry::startupWMClass () const { return ""; }
 QString  DuiDesktopEntry::url () const { return ""; }
 QString  DuiDesktopEntry::xMaemoService () const { return ""; }
+
+//#define OLD_LIBDUI
+#ifdef OLD_LIBDUI
+QString  DuiDesktopEntry::value (QString) const { return ""; }
+QString  DuiDesktopEntry::value (QString, QString) const { return ""; }
+bool  DuiDesktopEntry::contains (QString) const { return false; }
+bool  DuiDesktopEntry::contains (QString, QString) const  { return false; }
+#else
 QString  DuiDesktopEntry::value (const QString&) const { return ""; }
 QString  DuiDesktopEntry::value (const QString&, const QString&) const { return ""; }
 bool  DuiDesktopEntry::contains (const QString&) const { return false; }
 bool  DuiDesktopEntry::contains (const QString&, const QString&) const  { return false; }
+#endif
+
+
+
 #endif
 
