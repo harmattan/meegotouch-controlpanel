@@ -26,14 +26,6 @@ DcpAppletPage::DcpAppletPage (
     m_MissingLabel (0)
 {
     DCP_DEBUG ("");
-    #if 0
-    /*
-     * I dont believe a view should set its own handle or referer. It is not
-     * necessary, I will remove it in a few days.
-     */
-    setHandle  (PageHandle::APPLET, metadata->name());
-    setReferer (PageHandle::NOPAGE);
-    #endif
 }
 
 
@@ -140,7 +132,7 @@ DcpAppletPage::dropWidget ()
     DCP_DEBUG ("");
 
     if (m_MainWidget) {
-        m_MainWidget->deleteLater();
+        removeWidget (m_MainWidget);
         m_MainWidget = 0;
     }
 
@@ -176,43 +168,62 @@ void
 DcpAppletPage::changeWidget (
         int widgetId)
 {
-    DCP_DEBUG ("");
-
-    if (m_MainWidget != 0) {
-        removeWidget (m_MainWidget);
-    }
+    DcpWidget  *newMainWidget;
+    bool        this_is_a_new_widget;
 
     /*
      * Creating the widget and setting its widgetId.
      */
-    m_MainWidget = m_Metadata->applet()->constructWidget (widgetId);
+    newMainWidget = m_Metadata->applet()->constructWidget (widgetId);
+    this_is_a_new_widget = m_MainWidget != newMainWidget;
+
+    DCP_DEBUG ("-----------------------------------------");
+    DCP_DEBUG ("*** this            = %p", this);
+    DCP_DEBUG ("*** m_MainWidget    = %p", m_MainWidget);
+    DCP_DEBUG ("*** newMainWidget   = %p", newMainWidget);
+
+    if (m_MainWidget != 0 && this_is_a_new_widget) {
+        /*
+         * If this is not the same widget that we already have, we remove the
+         * old one. It is possible the user started up the same applet just
+         * backed from and then we might get the same widget!
+         */
+        dropWidget ();
+    }
+    /*
+     * From now on, this is the widget we have. And if it is NULL, we just
+     * return.
+     */
+    m_MainWidget = newMainWidget;
+    
+    if (this_is_a_new_widget &&
+            newMainWidget != 0 && 
+            !newMainWidget->setWidgetId (widgetId) &&
+            newMainWidget->getWidgetId () != widgetId) {
+            /*
+             * We needed to set the widgetId, for it is a new widget, but we
+             * could not set it.
+             */
+            DCP_WARNING ("The widgetId could not be set for applet '%s' "
+                "widget %d it remains %d.",
+                DCP_STR (m_Metadata->name()),
+                widgetId,
+                newMainWidget->getWidgetId ());
+    }
+
     if (!m_MainWidget) {
         return;
     }
 
-    if (!m_MainWidget->setWidgetId (widgetId) &&
-            m_MainWidget->getWidgetId () != widgetId) {
-        DCP_WARNING ("The widgetId could not be set for applet '%s' "
-                "widget %d it remains %d.",
-                DCP_STR (m_Metadata->name()),
-                widgetId,
-                m_MainWidget->getWidgetId ());
+    if (this_is_a_new_widget) {
+        setPannableAreaInteractive (m_MainWidget->pagePans());
+
+        connect (m_MainWidget, SIGNAL (changeWidget(int)), 
+                this, SLOT(changeWidget(int)));
+
+        connect (m_MainWidget, SIGNAL (activatePluginByName (const QString &)),
+                m_Metadata, SLOT (activatePluginByName (const QString &)));
     }
-
-    // 
-    setPannableAreaInteractive (m_MainWidget->pagePans());
-
-    /*
-     * FIXME: Are we sure this is a new widget that we never saw before and
-     * never connected to its signals?
-     */
-    DCP_DEBUG ("Connecting %p->changeWidget => %p->changeWidget()", 
-            m_MainWidget, this);
-    connect (m_MainWidget, SIGNAL (changeWidget(int)), 
-            this, SLOT(changeWidget(int)));
-
-    connect (m_MainWidget, SIGNAL (activatePluginByName (const QString &)),
-            m_Metadata, SLOT (activatePluginByName (const QString &)));
 
     appendWidget (m_MainWidget);
 

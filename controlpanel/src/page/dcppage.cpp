@@ -9,7 +9,7 @@
 #include <DuiApplication>
 #include <DuiApplicationWindow>
 
-//#define DEBUG
+#define DEBUG
 #include "dcpdebug.h"
 
 
@@ -52,14 +52,42 @@ DcpPage::appendWidget (
         QGraphicsWidget *widget)
 {
     Q_ASSERT (mainLayout());
+    DCP_DEBUG ("*** adding   widget at %p", widget);
+    /*
+     * FIXME: Because we called the hide() in the removeWidget() method we have
+     * to call the show() here.
+     */
     mainLayout()->addItem (widget);
+    widget->show ();
 }
 
+/*
+ * FIXME: This function does nothing usefull... 
+ */
 void 
 DcpPage::removeWidget (
         QGraphicsWidget *widget)
 {
-    widget->deleteLater();
+    DCP_DEBUG ("*** deleting widget at %p", widget);
+#if 0
+    /*
+     * FIXME: The applet created the widget and we are destroying it. It is not
+     * very good, some applets are sending back the same widget pointer, while
+     * those are dead objects already. It is also a very rude thing to destroy
+     * page 1 when the applet opens page 2, so I removed this from here.
+     * 
+     * FIXME: Do we have to solve the memory leak then or we just assume that
+     * the applets are going to free all the memory they allocated?
+     */
+    //widget->deleteLater();
+#else
+    /*
+     * FIXME: Apparently the removeItem will not work, i still can see the
+     * widget. So we also call the hide() method.
+     */
+    mainLayout()->removeItem (widget);
+    widget->hide();
+#endif
 }
 
 void 
