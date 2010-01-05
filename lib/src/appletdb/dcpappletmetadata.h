@@ -90,6 +90,7 @@ public slots:
 	void slotClicked ();
     void setToggle (bool checked);
     bool activatePluginByName (const QString &name) const;
+    void activateSlot ();
 
 protected:
     DuiDesktopEntry* desktopEntry () const;

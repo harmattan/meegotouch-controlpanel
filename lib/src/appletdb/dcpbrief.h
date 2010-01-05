@@ -40,17 +40,24 @@ public:
      *  \details Value should be formatted properly as the user should see it.
      *  For example language code can be formatted with DuiLocale or
          the current time that comes from the system */
-    virtual QString valueText() const;
-    /*! \return the current icon of the widget */
-    virtual QString icon() const;
+    virtual QString valueText () const;
 
-    /*! \return the current icon for the toggle button */
-    virtual QString toggleIconId() const;
+    /*! 
+     * \return the name of the icon for the brief 
+     */
+    virtual QString icon () const;
 
-    /*! \return the alignment of the text in the brief widget. if AlignLeft
+    /*!
+     * \return the current icon for the toggle button 
+     */
+    virtual QString toggleIconId () const;
+
+    /*!
+     * \return the alignment of the text in the brief widget. if AlignLeft
      * (default), then the text will be on the left side, the button/picture
-     * on the right. */
-    virtual Qt::Alignment align() const;
+     * on the right. 
+     */
+    virtual Qt::Alignment align () const;
 
     /*! 
      * \brief Returns the initial state of the toggle in the brief widget.
@@ -58,23 +65,36 @@ public:
      * If the widget type is toggle, then this function returns
      * the initial state of the toggle button. The default value is false.
      */
-    virtual bool toggle() const;
+    virtual bool toggle () const;
 
-    /*! \brief Gets called when toggle state changes
-     *  \details If the widget type is toggle, and the user changes the toggle
-     * button state, this function will be called, so that the applet can
-     * handle the setting change.
+    /*!
+     * \brief Gets called when toggle state changes
+     * \details If the widget type is toggle, and the user changes the toggle
+     *   button state, this function will be called, so that the applet can
+     *   handle the setting change.
      * \param toggle The new state
      */
     virtual void setToggle (bool toggle);
 
-    virtual QString image() const;
+    virtual QString image () const;
+
+    /*!
+     * \brief Sends the activateSignal() signal to activate the applet
+     */
+    void activate () {emit activateSignal();}
 
 signals:
     /*! Should be emitted when some of the values changed. Causes the
      * widget to be refreshed with current values. */
     void valuesChanged();
+
+    /*!
+     * The applet can activate itself by sending this signal. The control panel
+     * will start up the applet the same way it is activated when the user
+     * clicked on the brief widget.
+     */
+    void activateSignal ();
 };
 
 
-#endif // DCPBRIEF_H
+#endif

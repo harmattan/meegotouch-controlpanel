@@ -490,11 +490,18 @@ DcpAppletMetadata::getBrief () const
         if (d->m_Brief != 0)
             connect (d->m_Brief, SIGNAL (valuesChanged ()), 
                     this, SIGNAL (briefChanged ()));
+            connect (d->m_Brief, SIGNAL (activateSignal ()), 
+                    this, SLOT (activateSlot ()));
     }
 
     return d->m_Brief;
 }
 
+void 
+DcpAppletMetadata::activateSlot ()
+{
+    emit activate();
+}
 
 // TODO XXX rename
 QString 

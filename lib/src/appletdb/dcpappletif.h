@@ -2,6 +2,7 @@
 #define DCPAPPLETIF_H
 
 #include <QtPlugin>
+
 class DcpWidget;
 class DuiAction;
 class DcpBrief;
@@ -14,7 +15,6 @@ class DcpBrief;
  */
 class DcpAppletIf 
 {
-
 public:
     virtual ~DcpAppletIf() {}
     /*!

@@ -63,6 +63,10 @@ DcpAppletLoader::loadPluginFile (
             return false;
         } else {
             m_Applet->init ();
+            #if 0
+            connect (object, SIGNAL(activate()),
+                    m_Metadata, SIGNAL (activate()));
+            #endif
         }
     }
 
