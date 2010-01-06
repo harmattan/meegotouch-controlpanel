@@ -9,7 +9,7 @@
 
 DcpButtonImage::DcpButtonImage (
         DuiWidget *parent)
-: DcpButtonAlign (parent, false)
+: DcpButtonAlign (parent)
 {
     setLayout (createLayout());
 }

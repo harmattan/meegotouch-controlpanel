@@ -12,9 +12,11 @@ class QGraphicsSceneMouseEvent;
 class DcpButtonPrivate;
 
 /*!
- * Base class of the widgets used as 'brief widgets' lines that represent
- * applets in the main view and category pages of the control panel.
+ * \brief Widget used as part of the brief widget.
  *
+ * The #DcpButton is a widget the DuiControlpanel uses as part of the brief
+ * widgets representing one applet variant in the main page and the category
+ * pages of the control panel UI.
  * TODO if design stays the way it is we could use here an empty
  * WidgetController which supports margins set by css
  */
@@ -38,7 +40,7 @@ signals:
     void clicked();
 
 protected:
-    DcpButton (DuiWidget* parent, bool);
+    DcpButton (DuiWidget *parent, bool);
     virtual QGraphicsLayout *createLayout();
     QGraphicsGridLayout *textLayout ();
     virtual void mousePressEvent (QGraphicsSceneMouseEvent *event);

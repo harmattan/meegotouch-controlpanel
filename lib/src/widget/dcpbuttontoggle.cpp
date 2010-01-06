@@ -4,13 +4,16 @@
 #include <DuiLayout>
 #include <DuiButton>
 
-DcpButtonToggle::DcpButtonToggle(DuiWidget* parent)
-    : DcpButtonAlign(parent, false)
+DcpButtonToggle::DcpButtonToggle (
+		DuiWidget *parent)
+    : DcpButtonAlign (parent)
 {
     this->setLayout(createLayout());
 }
 
-QGraphicsLayout* DcpButtonToggle::createLayout()
+
+QGraphicsLayout *
+DcpButtonToggle::createLayout ()
 {
     // toggle
     DuiButton* toggleButton = new DuiButton(this);
@@ -24,7 +27,9 @@ QGraphicsLayout* DcpButtonToggle::createLayout()
     return DcpButtonAlign::createLayout();
 }
 
-void DcpButtonToggle::setText2(const QString& text)
+void 
+DcpButtonToggle::setText2 (
+		const QString &text)
 {
     m_Text2 = text;
 
@@ -34,39 +39,47 @@ void DcpButtonToggle::setText2(const QString& text)
     }
 }
 
-void DcpButtonToggle::onSmallToggled (bool isOn)
+void 
+DcpButtonToggle::onSmallToggled (
+		bool isOn)
 {
     // do not show second line in case it is off:
     if (isOn){
-        DcpButton::setText2(m_Text2);
+        DcpButton::setText2 (m_Text2);
     } else {
-        DcpButton::setText2(QString());
+        DcpButton::setText2 (QString());
     }
 
     // emit signal
-    emit smallToggled(isOn);
+    emit smallToggled (isOn);
 }
 
-void DcpButtonToggle::setSmallToggle(bool isOn)
+void 
+DcpButtonToggle::setSmallToggle (
+		bool isOn)
 {
     if (toggleButton()->isChecked() != isOn) {
         toggleButton()->setChecked(isOn);
     }
 }
 
-DuiButton* DcpButtonToggle::toggleButton()
+DuiButton *
+DcpButtonToggle::toggleButton ()
 {
     return qobject_cast<DuiButton*>(alignedWidget());
 }
 
-void DcpButtonToggle::setIconId(const QString& iconId)
+void 
+DcpButtonToggle::setIconId (
+		const QString &iconId)
 {
     if (iconId != this->iconId()) {
         toggleButton()->setIconID(iconId);
     }
 }
 
-QString DcpButtonToggle::iconId()
+QString 
+DcpButtonToggle::iconId ()
 {
     return toggleButton()->iconID();
 }

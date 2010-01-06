@@ -28,8 +28,8 @@ DcpButtonPrivate::DcpButtonPrivate ():
 }
 
 
-DcpButton::DcpButton(DuiWidget* parent): 
-    DuiStylableWidget(parent), 
+DcpButton::DcpButton (DuiWidget *parent): 
+    DuiStylableWidget (parent), 
     d_ptr (new DcpButtonPrivate)
 {
     // TODO remove me, it is only a hack, seems to prevent baddrawable error

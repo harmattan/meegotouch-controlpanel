@@ -32,7 +32,7 @@ DcpButtonAlignPrivate::DcpButtonAlignPrivate () :
  * maybe removed?
  */
 DcpButtonAlign::DcpButtonAlign (
-        DuiWidget* parent, bool): 
+        DuiWidget *parent): 
     DcpButton (parent, false),
     d_ptr (new DcpButtonAlignPrivate)
 {
@@ -67,15 +67,17 @@ void
 DcpButtonAlign::setAlignment (
         Qt::Alignment align)
 {
-    if (d_ptr->m_Alignment != align)
-        d_ptr->m_Alignment = align;
+    if (d_ptr->m_Alignment == align)
+        return;
+
+    d_ptr->m_Alignment = align;
 
     if (d_ptr->m_AlignLayout != NULL) {
         /* if the layout has already been created, remove and readd the items
          * in the correct order */
         d_ptr->m_AlignLayout->removeAt (0);
         d_ptr->m_AlignLayout->removeAt (1);
-        putupWidgets();
+        putupWidgets ();
     }
 }
 
@@ -87,13 +89,13 @@ DcpButtonAlign::putupWidgets ()
 
     switch (d_ptr->m_Alignment) {
         case Qt::AlignRight:
-            d_ptr->m_AlignLayout->addItem(textLayout());
-            d_ptr->m_AlignLayout->addItem(alignedWidget());
+            d_ptr->m_AlignLayout->addItem (textLayout());
+            d_ptr->m_AlignLayout->addItem (alignedWidget());
             break;
 
         case Qt::AlignLeft:
-            d_ptr->m_AlignLayout->addItem(alignedWidget());
-            d_ptr->m_AlignLayout->addItem(textLayout());
+            d_ptr->m_AlignLayout->addItem (alignedWidget());
+            d_ptr->m_AlignLayout->addItem (textLayout());
             break;
 
         default:
@@ -112,7 +114,7 @@ DcpButtonAlign::alignedWidget ()
 
 void 
 DcpButtonAlign::setAlignedWidget (
-        DuiWidget* widget)
+        DuiWidget *widget)
 {
     // only lets to set it up once currently (no widget changing)
     Q_ASSERT (!d_ptr->m_AlignedWidget); 
