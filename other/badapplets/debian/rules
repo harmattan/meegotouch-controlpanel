@@ -77,7 +77,7 @@ binary-arch: build install
 #	dh_installinfo
 	dh_installman
 	dh_link
-	dh_strip --dbg-package=duicontrolpanel-datetimeapplet-dbg
+	dh_strip --dbg-package=duicontrolpanel-badapplets-dbg
 	dh_compress
 	dh_fixperms
 #	dh_perl
