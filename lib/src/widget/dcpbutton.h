@@ -21,8 +21,8 @@ class DcpButtonPrivate;
 class DcpButton: public DuiStylableWidget
 {
     Q_OBJECT
-    Q_PROPERTY (QString text1 READ text1 WRITE setText1)
-    Q_PROPERTY (QString text2 READ text2 WRITE setText2)
+    Q_PROPERTY (QString text1 READ getText1 WRITE setText1)
+    Q_PROPERTY (QString text2 READ getText2 WRITE setText2)
 
 public:
 	explicit DcpButton (DuiWidget* parent = 0);
@@ -31,15 +31,15 @@ public:
     void setText (const QString& text1, const QString& text2);
     virtual void setText1 (const QString& text);
     virtual void setText2 (const QString& text);
-    virtual QString text1 () const;
-    virtual QString text2 () const;
+    virtual QString getText1 () const;
+    virtual QString getText2 () const;
 
 signals:
     void clicked();
 
 protected:
     DcpButton (DuiWidget* parent, bool);
-    virtual QGraphicsLayout * createLayout();
+    virtual QGraphicsLayout *createLayout();
     QGraphicsGridLayout *textLayout ();
     virtual void mousePressEvent (QGraphicsSceneMouseEvent *event);
     virtual void mouseReleaseEvent (QGraphicsSceneMouseEvent *event);

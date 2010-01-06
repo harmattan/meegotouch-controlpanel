@@ -8,6 +8,7 @@
 #define DEBUG
 #include "dcpdebug.h"
 
+
 /******************************************************************************
  * Private data class for the DcpWidget class.
  */
@@ -76,12 +77,16 @@ DcpButton::createLayout ()
     return d_ptr->m_TextLayout;
 }
 
-void DcpButton::setText1(const QString& text)
+void 
+DcpButton::setText1 (
+        const QString &text)
 {
     d_ptr->m_Label1->setText(text);
 }
 
-void DcpButton::setText2(const QString& text)
+void 
+DcpButton::setText2 (
+        const QString &text)
 {
     if (text == d_ptr->m_Label2->text()) 
         return;
@@ -90,17 +95,20 @@ void DcpButton::setText2(const QString& text)
     updateLabelSizes ();
 }
 
-QString DcpButton::text1() const
+QString 
+DcpButton::getText1() const
 {
     return d_ptr->m_Label1->text();
 }
 
-QString DcpButton::text2() const
+QString 
+DcpButton::getText2() const
 {
     return d_ptr->m_Label2->text();
 }
 
-void DcpButton::updateLabelSizes()
+void 
+DcpButton::updateLabelSizes ()
 {
     if (d_ptr->m_Label2->text().isEmpty()) {
         d_ptr->m_Label1->setObjectName ("DcpButtonMain");
@@ -118,18 +126,24 @@ void DcpButton::updateLabelSizes()
 }
 
 // convenience function
-void DcpButton::setText(const QString& text1, const QString& text2)
+void 
+DcpButton::setText (
+        const QString &text1, 
+        const QString &text2)
 {
-    setText1(text1);
-    setText2(text2);
+    setText1 (text1);
+    setText2 (text2);
 }
 
-QGraphicsGridLayout* DcpButton::textLayout()
+QGraphicsGridLayout *
+DcpButton::textLayout()
 {
     return d_ptr->m_TextLayout;
 }
 
-void DcpButton::mousePressEvent ( QGraphicsSceneMouseEvent * event )
+void 
+DcpButton::mousePressEvent (
+        QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event);
     // this function is only for becoming the mouse grabber item
@@ -138,7 +152,9 @@ void DcpButton::mousePressEvent ( QGraphicsSceneMouseEvent * event )
     // visual feedback for user can be implemented here
 }
 
-void DcpButton::mouseReleaseEvent ( QGraphicsSceneMouseEvent * event )
+void 
+DcpButton::mouseReleaseEvent (
+        QGraphicsSceneMouseEvent *event)
 {
     if (QRectF(QPointF(),size()).contains(event->pos())) {
         emit clicked();
