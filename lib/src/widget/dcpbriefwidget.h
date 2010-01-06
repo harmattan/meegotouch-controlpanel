@@ -11,11 +11,12 @@ class DcpButtonImage;
 class DcpButtonToggle;
 class QShowEvent;
 class QHideEvent;
+class DcpBriefWidgetPrivate;
 
 /*!
  * \brief An activatable entry in the control panel.
  * 
- * The #DcpBriefWidget is an actiavatable widget in the control panel. It
+ * The #DcpBriefWidget is an activatable widget in the control panel. It
  * usually has a #DcpAppletMetadata associated with it, so when the user clicks
  * on the widget the applet variant is activated. The widget connects its
  * clicked() signal to the activate() signal of the #DcpAppletMetadata object,
@@ -36,11 +37,12 @@ public:
             const QString    &line1,
             const QString    &line2,
             DuiWidget        *parent = 0);
+	
+    ~DcpBriefWidget();
+
 
     void setMetadata (DcpAppletMetadata *metadata);
-    DcpAppletMetadata *metadata () const {return m_Metadata;}
-
-	~DcpBriefWidget();
+    DcpAppletMetadata *metadata () const;
 
 public slots:
     void updateContents();
@@ -54,12 +56,11 @@ protected:
     virtual void hideEvent (QHideEvent *event);
 
     virtual void constructRealWidget (int widgetTypeId);
-    DcpButtonImage *constructImage(const DcpAppletMetadata* metadata);
-    DcpButtonToggle *constructToggle(const DcpAppletMetadata* metadata);
+    DcpButtonImage *constructImage (const DcpAppletMetadata* metadata);
+    DcpButtonToggle *constructToggle (const DcpAppletMetadata* metadata);
 
-    DcpButton* m_RealWidget;
-    DcpAppletMetadata* m_Metadata;
-    bool m_Hidden;
+private:
+    DcpBriefWidgetPrivate* const d_ptr;
 };
 
 
