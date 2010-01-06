@@ -42,7 +42,7 @@ public:
 
 
     void setMetadata (DcpAppletMetadata *metadata);
-    DcpAppletMetadata *metadata () const;
+    DcpAppletMetadata *getMetadata () const;
 
 public slots:
     void updateContents();

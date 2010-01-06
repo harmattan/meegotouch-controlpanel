@@ -116,13 +116,10 @@ DcpBriefWidget::constructRealWidget (
         retranslateUi ();
         ((QGraphicsLinearLayout*) layout())->addItem (d_ptr->m_RealWidget);
     }
-
-    DCP_DEBUG ("*** m_Metadata   = '%s'", DCP_STR(d_ptr->m_Metadata->name()));
-    DCP_DEBUG ("*** widgetTypeId = %d", widgetTypeId);
 }
 
 DcpAppletMetadata *
-DcpBriefWidget::metadata () const
+DcpBriefWidget::getMetadata () const
 {
     return d_ptr->m_Metadata;
 }
@@ -213,22 +210,24 @@ DcpBriefWidget::constructToggle (
 void 
 DcpBriefWidget::updateContents ()
 {
-    if (d_ptr->m_Metadata) {
-        // for all:
-        d_ptr->m_RealWidget->setText2 (d_ptr->m_Metadata->text2());
+    if (!d_ptr->m_Metadata)
+        return;
 
-        // toggle specific:
-        DcpButtonToggle* toggle = qobject_cast<DcpButtonToggle*>(d_ptr->m_RealWidget);
-        if (toggle) {
-            toggle->setSmallToggle (d_ptr->m_Metadata->toggle());
-            toggle->setIconId (d_ptr->m_Metadata->toggleIconId());
-        }
-
-        // image specific:
-        DcpButtonImage* image = qobject_cast<DcpButtonImage*>(d_ptr->m_RealWidget);
-        if (image) {
-            image->setImageName (d_ptr->m_Metadata->image());
-        }
+    // for all:
+    d_ptr->m_RealWidget->setText2 (d_ptr->m_Metadata->text2()); 
+    
+    // toggle specific:
+    DcpButtonToggle *toggle = qobject_cast<DcpButtonToggle*>
+        (d_ptr->m_RealWidget);
+    if (toggle) {
+        toggle->setSmallToggle (d_ptr->m_Metadata->toggle());
+        toggle->setIconId (d_ptr->m_Metadata->toggleIconId());
+    } 
+    
+    // image specific:
+    DcpButtonImage *image = qobject_cast<DcpButtonImage*>(d_ptr->m_RealWidget);
+    if (image) {
+        image->setImageName (d_ptr->m_Metadata->image());
     }
 }
 
