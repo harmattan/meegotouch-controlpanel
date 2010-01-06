@@ -180,9 +180,9 @@ DcpBriefWidget::retranslateUi ()
 
 DcpButtonImage * 
 DcpBriefWidget::constructImage (
-        const DcpAppletMetadata* metadata)
+        const DcpAppletMetadata *metadata)
 {
-    DcpButtonImage* image = new DcpButtonImage(this);
+    DcpButtonImage *image = new DcpButtonImage (this);
 
     if (metadata) {
         image->setImageName (metadata->image());

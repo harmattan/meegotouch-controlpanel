@@ -76,12 +76,22 @@ public:
      */
     virtual void setToggle (bool toggle);
 
+    /*!
+     * \brief returns the name for the icon
+     * \details The implementation should return the icon name that the applet
+     *   wants to use in the brief widget.
+     *
+     * FIXME: The name of this function should be getIconName() and it should
+     * get the widgetId as an argument!
+     * FIXME: It is not clear if we use this only inside the brief or somewhere
+     * else also.
+     */
     virtual QString image () const;
 
     /*!
      * \brief Sends the activateSignal() signal to activate the applet
      */
-    void activate () {emit activateSignal();}
+    void activate ();
 
 signals:
     /*! Should be emitted when some of the values changed. Causes the

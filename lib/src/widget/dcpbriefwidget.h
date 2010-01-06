@@ -21,6 +21,13 @@ class DcpBriefWidgetPrivate;
  * on the widget the applet variant is activated. The widget connects its
  * clicked() signal to the activate() signal of the #DcpAppletMetadata object,
  * so the applet variant will be started when the widget is clicked.
+ *
+ * This class implements the connection between the brief shown on the screen
+ * and the metadata describing the applet variant.
+ *
+ * Inside the #DcpBriefWidget there is a #DcpButtonImage or a #DcpButtonToggle
+ * as an actual widget. 
+ * FIXME: Why is this?
  */
 class DcpBriefWidget: 
     public DuiWidget

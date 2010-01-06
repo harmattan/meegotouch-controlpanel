@@ -13,12 +13,8 @@ class DcpWidgetPrivate;
  * \details The base class for applet view
  * 
  * The control panel applets usually have one or more views containing the
- * actual GUI of the applet. The DcpWidget is the base class for these views.
- *
- * TODO: 
- *  1) To implement multi-view support.
- *  2) This is a public header, it should not contain elements that are subject
- *     of change, like inline functions and class members.
+ * actual GUI of the applet. The DcpWidget is the base class for these views
+ * (sometimes called pages).
  */
 class QGraphicsWidget;
 class DuiDialog;
