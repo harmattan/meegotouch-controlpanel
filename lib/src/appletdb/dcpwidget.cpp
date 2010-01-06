@@ -15,7 +15,7 @@ public:
     int m_WidgetId;
 };
 
-DcpWidgetPrivate::DcpWidgetPrivate () :
+DcpWidgetPrivate::DcpWidgetPrivate ():
     m_Referer (-1),
     m_WidgetId (-1)
 {
@@ -35,7 +35,6 @@ DcpWidget::DcpWidget (QGraphicsWidget *parent)
 DcpWidget::~DcpWidget ()
 {
     DCP_DEBUG ("*** this = %p", this);
-    //Q_ASSERT (false);
     delete d_ptr;
 }
 
