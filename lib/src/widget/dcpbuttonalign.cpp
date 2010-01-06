@@ -5,11 +5,44 @@
 #include <QGraphicsLinearLayout>
 #include <QGraphicsGridLayout>
 
-DcpButtonAlign::DcpButtonAlign(DuiWidget* parent, bool)
-    : DcpButton(parent, false),
-      m_AlignedWidget(0), m_Alignment(Qt::AlignRight)
+#define DEBUG
+#include "dcpdebug.h"
+
+/******************************************************************************
+ * Private data class for the DcpWidget class.
+ */
+class DcpButtonAlignPrivate {
+public:
+    DcpButtonAlignPrivate ();
+    DuiWidget              *m_AlignedWidget;
+    QGraphicsLinearLayout  *m_AlignLayout;
+    Qt::Alignment           m_Alignment;
+}; 
+
+DcpButtonAlignPrivate::DcpButtonAlignPrivate () :
+    m_AlignedWidget (0), 
+    m_AlignLayout (0),
+    m_Alignment (Qt::AlignRight)
+
 {
 }
+
+/*!
+ * FIXME: This constructor has an unused unnamed boolean argument. It should be
+ * maybe removed?
+ */
+DcpButtonAlign::DcpButtonAlign (
+        DuiWidget* parent, bool): 
+    DcpButton (parent, false),
+    d_ptr (new DcpButtonAlignPrivate)
+{
+}
+
+DcpButtonAlign::~DcpButtonAlign ()
+{
+    delete d_ptr;
+}
+
 
 QGraphicsLayout *
 DcpButtonAlign::createLayout ()
@@ -20,28 +53,28 @@ DcpButtonAlign::createLayout ()
     DcpButton::createLayout();
     qreal left, right, top, bottom;
     textLayout()->getContentsMargins (&left, &top, &right, &bottom);
-    textLayout()->setContentsMargins (0,0,right,0);
+    textLayout()->setContentsMargins (0, 0, right, 0);
 
     // putting the widget next to the text
-    m_AlignLayout = new QGraphicsLinearLayout (Qt::Horizontal);
-    m_AlignLayout->setContentsMargins (left,top,right,bottom);
+    d_ptr->m_AlignLayout = new QGraphicsLinearLayout (Qt::Horizontal);
+    d_ptr->m_AlignLayout->setContentsMargins (left, top, right, bottom);
 
     putupWidgets();
-    return m_AlignLayout;
+    return d_ptr->m_AlignLayout;
 }
 
 void 
 DcpButtonAlign::setAlignment (
         Qt::Alignment align)
 {
-    if (m_Alignment != align)
-        m_Alignment = align;
+    if (d_ptr->m_Alignment != align)
+        d_ptr->m_Alignment = align;
 
-    if (m_AlignLayout != NULL) {
+    if (d_ptr->m_AlignLayout != NULL) {
         /* if the layout has already been created, remove and readd the items
          * in the correct order */
-        m_AlignLayout->removeAt (0);
-        m_AlignLayout->removeAt (1);
+        d_ptr->m_AlignLayout->removeAt (0);
+        d_ptr->m_AlignLayout->removeAt (1);
         putupWidgets();
     }
 }
@@ -52,15 +85,15 @@ DcpButtonAlign::putupWidgets ()
     Q_ASSERT (alignedWidget());
     Q_ASSERT (textLayout());
 
-    switch (m_Alignment) {
+    switch (d_ptr->m_Alignment) {
         case Qt::AlignRight:
-            m_AlignLayout->addItem(textLayout());
-            m_AlignLayout->addItem(alignedWidget());
+            d_ptr->m_AlignLayout->addItem(textLayout());
+            d_ptr->m_AlignLayout->addItem(alignedWidget());
             break;
 
         case Qt::AlignLeft:
-            m_AlignLayout->addItem(alignedWidget());
-            m_AlignLayout->addItem(textLayout());
+            d_ptr->m_AlignLayout->addItem(alignedWidget());
+            d_ptr->m_AlignLayout->addItem(textLayout());
             break;
 
         default:
@@ -68,21 +101,22 @@ DcpButtonAlign::putupWidgets ()
             break;
     }
 
-    m_AlignLayout->setAlignment (alignedWidget(), Qt::AlignVCenter);
+    d_ptr->m_AlignLayout->setAlignment (alignedWidget(), Qt::AlignVCenter);
 }
 
 DuiWidget *
 DcpButtonAlign::alignedWidget ()
 {
-    return m_AlignedWidget;
+    return d_ptr->m_AlignedWidget;
 }
 
 void 
 DcpButtonAlign::setAlignedWidget (
         DuiWidget* widget)
 {
-    Q_ASSERT(!m_AlignedWidget); // only lets to set it up once currently (no widget changing)
-    m_AlignedWidget = widget;
+    // only lets to set it up once currently (no widget changing)
+    Q_ASSERT (!d_ptr->m_AlignedWidget); 
+    d_ptr->m_AlignedWidget = widget;
 }
 
 

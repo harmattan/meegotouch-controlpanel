@@ -6,13 +6,15 @@
 #include "dcpbutton.h"
 class QGraphicsLayout;
 class QGraphicsLinearLayout;
+class DcpButtonAlignPrivate;
 
 class DcpButtonAlign: public DcpButton 
 {
     Q_OBJECT
 
 public:
-    DcpButtonAlign(DuiWidget* parent, bool);
+    DcpButtonAlign (DuiWidget *parent, bool);
+    ~DcpButtonAlign ();
 
     void setWidgetAlignment(Qt::Alignment align);
 
@@ -25,9 +27,7 @@ protected:
 
 private:
     void putupWidgets();
-    DuiWidget* m_AlignedWidget;
-    QGraphicsLinearLayout* m_AlignLayout;
-    Qt::Alignment m_Alignment;
+    DcpButtonAlignPrivate * const d_ptr;
 };
 
 
