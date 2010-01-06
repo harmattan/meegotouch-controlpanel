@@ -149,9 +149,9 @@ DcpAppletPage::reload ()
 
     if (hasWidget()) {
         dropWidget ();
-        loadMainWidget ();
     }
-
+    
+    loadMainWidget ();
     DcpPage::reload ();
 }
 

@@ -15,7 +15,7 @@
 #include <DuiApplication>
 #include <DuiAction>
 
-//#define DEBUG
+#define DEBUG
 #include "dcpdebug.h"
 
 
