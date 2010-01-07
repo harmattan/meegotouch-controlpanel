@@ -33,14 +33,16 @@ public:
 		    const DcpCategoryInfo  *categoryInfo,
 		    QGraphicsWidget  *parent = 0);
 
-    virtual ~DcpCategoryComponent();
-    virtual void createContents();
-    virtual void add(DcpComponent*){}
-    virtual void remove(DcpComponent*){}
+    virtual ~DcpCategoryComponent ();
+    virtual void createContents ();
+    virtual void add (DcpComponent*){}
+    virtual void remove (DcpComponent*){}
+    virtual void retranslateUi ();
 
     void setTitle(const QString& text);
 
     void reload();
+    int getItemCount ();
 
     QString mattiID();
     void setMattiID(const QString &mattiID);
@@ -54,6 +56,7 @@ private:
     QString           m_CategoryName;
     const DcpCategoryInfo  *m_CategoryInfo;
     DuiContainer     *m_Container;
+    QString           m_LogicalId;
     QString           m_mattiID;
 };
 

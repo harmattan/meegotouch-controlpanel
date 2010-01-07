@@ -21,7 +21,8 @@ DcpCategoryComponent::DcpCategoryComponent (
         QGraphicsWidget   *parent)
 : DcpComponent (category, categoryName, parent, logicalId),
     m_CategoryName (categoryName),
-    m_CategoryInfo (0)
+    m_CategoryInfo (0),
+    m_LogicalId (logicalId)
 {
     createContents ();
     setMattiID ("DcpCategoryComponent::" + logicalId);
@@ -31,9 +32,9 @@ DcpCategoryComponent::DcpCategoryComponent (
  * Constructor that uses DcpCategoryInfo to create a DcpCategoryComponent.
  */
 DcpCategoryComponent::DcpCategoryComponent (
-		    DcpCategory      *category, 
+		    DcpCategory            *category, 
 		    const DcpCategoryInfo  *categoryInfo,
-		    QGraphicsWidget  *parent)
+		    QGraphicsWidget        *parent)
 : DcpComponent (category, categoryInfo->appletCategory, parent, categoryInfo->titleId),
     m_CategoryName (categoryInfo->appletCategory),
     m_CategoryInfo (categoryInfo)
@@ -52,13 +53,25 @@ void
 DcpCategoryComponent::setTitle (
         const QString &title)
 {
-    m_Container->setTitle(title);
-    DcpComponent::setTitle(title);
+    m_Container->setTitle (title);
+    DcpComponent::setTitle (title);
+}
+
+void
+DcpCategoryComponent::retranslateUi ()
+{
+    if (m_CategoryInfo) {
+        setTitle (qtTrId (m_CategoryInfo->titleId));
+    } else {
+        setTitle (qtTrId (DCP_STR(m_LogicalId)));
+    }
 }
 
 void 
 DcpCategoryComponent::createContents ()
 {
+    QGraphicsLinearLayout *layout;
+
     m_Container = new DuiContainer (this);
     m_Container->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
     
@@ -69,27 +82,39 @@ DcpCategoryComponent::createContents ()
                 logicalId(), m_CategoryName, title());
 
     m_Container->setCentralWidget (m_AppletButtons);
-    QGraphicsLinearLayout* layout = new QGraphicsLinearLayout (Qt::Vertical, this);
+    layout = new QGraphicsLinearLayout (Qt::Vertical, this);
     layout->addItem (m_Container);
 }
 
-void DcpCategoryComponent::reload()
+void 
+DcpCategoryComponent::reload ()
 {
     m_AppletButtons->reload();
 }
 
-void DcpCategoryComponent::onOrientationChange
-                            (const Dui::Orientation &orientation)
+int
+DcpCategoryComponent::getItemCount ()
+{
+    return m_AppletButtons->getItemCount ();
+}
+
+void 
+DcpCategoryComponent::onOrientationChange (
+        const Dui::Orientation &orientation)
 {
     m_AppletButtons->onOrientationChange(orientation);
 }
 
-QString DcpCategoryComponent::mattiID()
+QString 
+DcpCategoryComponent::mattiID ()
 {
     return m_mattiID;
 }
 
-void DcpCategoryComponent::setMattiID(const QString &mattiID)
+void 
+DcpCategoryComponent::setMattiID (
+        const QString &mattiID)
 {
     m_mattiID = mattiID;
 }
+

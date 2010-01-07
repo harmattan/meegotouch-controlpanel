@@ -27,7 +27,8 @@
  * for them in the categories.
  */
 DcpMainPage::DcpMainPage() :
-	DcpPage(), m_RecentlyComp(0)
+	DcpPage(), 
+    m_RecentlyComp (0)
 {
     setEscapeButtonMode (DuiEscapeButtonPanelModel::CloseMode);
 }
@@ -38,49 +39,68 @@ DcpMainPage::~DcpMainPage()
 
 
 void
-DcpMainPage::createContent()
+DcpMainPage::createContent ()
 {
-    DcpPage::createContent();
+    QGraphicsLinearLayout *layout;
 
-    QGraphicsLinearLayout* layout = mainLayout();
+    DcpPage::createContent ();
 
-    // most recent used items:
-    m_RecentlyComp = new DcpCategoryComponent(0,
-                                 DcpApplet::MostUsedCategory,
-                                 DcpMain::mostRecentUsedTitleId);
+    layout = mainLayout ();
 
-    layout->addItem(m_RecentlyComp);
+    /*
+     * Most recent used items. If this category is empty it is not visible so we
+     * will add to the layout later.
+     * Use 
+     * # gconftool-2 --recursive-unset /apps/duicontrolpanel/usagecount
+     * to test this piece of code.
+     */
+    m_RecentlyComp = new DcpCategoryComponent (
+            0,
+            DcpApplet::MostUsedCategory,
+            DcpMain::mostRecentUsedTitleId);
+    if (m_RecentlyComp->getItemCount() != 0)
+        layout->addItem (m_RecentlyComp);
 
-    // category descriptions:
+    /*
+     * All the other categories.
+     */
     for (int i = 0;; i++) {
-        DcpCategoryComponent *component;
-
-        DcpCategoryInfo info = DcpMain::CategoryInfos[i];
-        if (info.titleId == 0)
+        DcpCategoryComponent   *component;
+        const DcpCategoryInfo  *info;
+        
+        info = &DcpMain::CategoryInfos[i];
+        if (info->titleId == 0)
              break;
 
-        component = new DcpCategoryComponent (0, &info);
-
-        layout->addItem(component);
+        component = new DcpCategoryComponent (0, info);
+        layout->addItem (component);
     }
 
     setEscapeButtonMode (DuiEscapeButtonPanelModel::CloseMode);
 
-    retranslateUi();
+    retranslateUi ();
 }
 
-void DcpMainPage::retranslateUi()
+void 
+DcpMainPage::retranslateUi ()
 {
-    QGraphicsLinearLayout* layout = mainLayout();
+    QGraphicsLinearLayout *layout = mainLayout();
 
+    /*
+     * The title of the main window.
+     */
     setTitle (qtTrId(DcpMain::settingsTitleId));
-    m_RecentlyComp->setTitle (qtTrId(DcpMain::mostRecentUsedTitleId));
-
-    for (int i = layout->count() - 1; i >= 1; i--) {
+    
+    /*
+     * All the category component capable to retlanslate the UI for itself e.g.
+     * they know the title id, they can localize themselves.
+     * Please note that we only retlanslate those that are currently visible.
+     */
+    for (int i = 0; i < layout->count(); ++i) {
         DcpCategoryComponent* comp =
             dynamic_cast<DcpCategoryComponent*> (layout->itemAt(i));
 
-        comp->setTitle (qtTrId(DcpMain::CategoryInfos[i - 1].titleId));
+        comp->retranslateUi();
     }
     // no need to update briefs, they take care of themselves
 }
@@ -101,15 +121,37 @@ DcpMainPage::organizeContent (
     DcpPage::organizeContent(ori);
 }
 
-void DcpMainPage::reload()
+void DcpMainPage::reload ()
 {
-    // refresh the most recent items sequence:
-    if (m_RecentlyComp){
-        m_RecentlyComp->reload();
+    /*
+     * Refreshing the 'most recently used' category. This category category will
+     * be turned off when it just become empty (a highly unlikely event), and
+     * will be turned on if it was empty and now become non-empty.
+     */
+    if (m_RecentlyComp) {
+        bool was_visible;
+        
+        was_visible = m_RecentlyComp->getItemCount() != 0;
+
+        m_RecentlyComp->reload ();
+
+        /*
+         * If the 'most recetly used' category is empty we hide it, if not empty
+         * we show it.
+         */
+        if (m_RecentlyComp->getItemCount() == 0 && was_visible) {
+            mainLayout ()->removeItem (m_RecentlyComp);
+        } else if (m_RecentlyComp->getItemCount() != 0 && !was_visible) {
+            mainLayout ()->insertItem (0, m_RecentlyComp);
+            m_RecentlyComp->retranslateUi ();
+        }
     }
 
-    // DcpBriefWidget takes care of all the other things
-    DcpPage::reload();
+    /*
+     * DcpBriefWidget takes care of all the other things
+     * FIXME: No, I'm not sure about that.
+     */
+    DcpPage::reload ();
 }
 
 // if clicked fast, back button can be pressed instead of close

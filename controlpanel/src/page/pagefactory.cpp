@@ -15,7 +15,7 @@
 #include <DuiApplication>
 #include <DuiAction>
 
-//#define DEBUG
+#define DEBUG
 #include "dcpdebug.h"
 
 
@@ -219,8 +219,10 @@ PageFactory::changePage (
      * Creating the page with the given handle.
      */
     page = createPage (handle);
-    if (!page)
+    if (!page) {
+        DCP_DEBUG ("Page is not created...");
         return;
+    }
 
     /*
      * If we have a referer we set it now.

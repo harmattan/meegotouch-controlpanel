@@ -6,28 +6,35 @@
 #include "dcpbutton.h"
 class QGraphicsLayout;
 class QGraphicsLinearLayout;
+class DcpButtonAlignPrivate;
 
+/*!
+ * \brief Parent class for all the brief widgets.
+ *
+ * The #DcpButtonAlign is the base class for all the brief widget classes. The
+ * brief widgets are the widgets inside the main page and the category subpages
+ * representing one applet variant.
+ */
 class DcpButtonAlign: public DcpButton 
 {
     Q_OBJECT
 
 public:
-    DcpButtonAlign(DuiWidget* parent, bool);
+    DcpButtonAlign (DuiWidget *parent);
+    ~DcpButtonAlign ();
 
-    void setWidgetAlignment(Qt::Alignment align);
+    void setWidgetAlignment (Qt::Alignment align);
 
 protected:
-    virtual QGraphicsLayout* createLayout();
-    void setAlignment(Qt::Alignment align);
+    virtual QGraphicsLayout* createLayout ();
+    void setAlignment (Qt::Alignment align);
 
-    DuiWidget* alignedWidget();
-    void setAlignedWidget(DuiWidget* widget);
+    DuiWidget* alignedWidget ();
+    void setAlignedWidget (DuiWidget* widget);
 
 private:
-    void putupWidgets();
-    DuiWidget* m_AlignedWidget;
-    QGraphicsLinearLayout* m_AlignLayout;
-    Qt::Alignment m_Alignment;
+    void putupWidgets ();
+    DcpButtonAlignPrivate * const d_ptr;
 };
 
 

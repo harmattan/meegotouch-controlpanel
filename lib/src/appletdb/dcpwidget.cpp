@@ -2,8 +2,7 @@
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #include "dcpwidget.h"
 
-
-#define DEBUG
+//#define DEBUG
 #include "dcpdebug.h"
 
 /******************************************************************************
@@ -16,7 +15,7 @@ public:
     int m_WidgetId;
 };
 
-DcpWidgetPrivate::DcpWidgetPrivate () :
+DcpWidgetPrivate::DcpWidgetPrivate ():
     m_Referer (-1),
     m_WidgetId (-1)
 {

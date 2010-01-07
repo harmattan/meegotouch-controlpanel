@@ -23,22 +23,26 @@ DcpBrief::widgetTypeID () const
     return DCPBRIEFWIDGETINVALID;
 }
 
-QString DcpBrief::icon() const
+QString 
+DcpBrief::icon() const
 {
     return QString();
 }
 
-QString DcpBrief::toggleIconId() const
+QString 
+DcpBrief::toggleIconId() const
 {
     return QString();
 }
 
-QString DcpBrief::valueText() const
+QString 
+DcpBrief::valueText() const
 {
     return QString();
 }
 
-Qt::Alignment DcpBrief::align() const
+Qt::Alignment 
+DcpBrief::align() const
 {
     return Qt::AlignLeft;
 }
@@ -49,12 +53,20 @@ DcpBrief::toggle() const
     return false;
 }
 
-QString DcpBrief::image() const
+QString 
+DcpBrief::image() const
 {
     return QString();
 }
 
-void DcpBrief::setToggle (bool) 
+void 
+DcpBrief::setToggle (
+        bool) 
 {
 }
 
+void 
+DcpBrief::activate ()
+{
+    emit activateSignal();
+}

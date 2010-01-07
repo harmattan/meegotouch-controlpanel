@@ -34,6 +34,7 @@ public:
     void setCreateSeparators (bool create = true);
     void setDoNotRemoveLastSeparator (bool remove = true);
 
+    int getItemCount () { return m_ItemCount; };
     void deleteItems();
 
 public slots:
