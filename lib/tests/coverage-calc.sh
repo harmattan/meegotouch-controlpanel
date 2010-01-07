@@ -1,7 +1,8 @@
 #!/bin/sh
 
+#echo test suite directory $PWD
 for srcfile in "$@"; do
-    gcov $srcfile
+    gcov $srcfile >/dev/null
     base=$(basename $srcfile)
     gcov="$base.gcov"
     covered=$(grep '^ *[0-9]\+:' $gcov | wc -l)

@@ -18,7 +18,7 @@ DEFINES += QT_NO_DEBUG_OUTPUT
 #DEFINES += QT_NO_WARNING_OUTPUT
 DEFINES += UNIT_TEST
 
-contains(cov, true) {
+coverage {
     message("Coverage options enabled")
     QMAKE_CXXFLAGS += --coverage
     QMAKE_LFLAGS += --coverage
