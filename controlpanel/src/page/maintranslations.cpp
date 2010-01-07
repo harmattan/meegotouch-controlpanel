@@ -41,13 +41,6 @@ DcpMain::CategoryInfos[] =
         NULL
     },
     {
-        //% "Sounds"
-        QT_TRID_NOOP ("qtn_sett_main_sound"),
-        "Sound",
-        PageHandle::SOUND,
-        NULL
-    },
-    {
         //% "Connectivity"
         QT_TRID_NOOP ("qtn_sett_main_connectivity"),
         "Connectivity",
@@ -55,20 +48,13 @@ DcpMain::CategoryInfos[] =
         NULL
     },
     {
-        //% "Regional settings"
+        //% "Language & Region"
         QT_TRID_NOOP ("qtn_sett_main_region"),
-        "Regional settings",
+        "Language & Region",
         PageHandle::REGIONALSETTING,
         NULL
     },
-    {
-        //% "Device utilities"
-        QT_TRID_NOOP ("qtn_sett_main_device"),
-        "Device utilities",
-        PageHandle::DEVICEUTILITIES,
-        NULL
-    },
-    {
+        {
         //% "Device system"
         QT_TRID_NOOP ("qtn_sett_main_data"),
         "Device system",
