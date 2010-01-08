@@ -16,7 +16,7 @@ SOURCES += $$system(find ./ -name \'*.cpp\' -not -name \'moc_*\')
 TARGET        = $$qtLibraryTarget(duicontrolpanel)
 DESTDIR       = ../lib
 
-contains(cov, true) {
+coverage {
     message("Coverage options enabled")
     QMAKE_CXXFLAGS += --coverage
     QMAKE_LFLAGS += --coverage
@@ -59,3 +59,6 @@ check.commands = $$system(true)
 QMAKE_EXTRA_TARGETS += check-xml
 check-xml.commands = $$system(true)
 
+QMAKE_EXTRA_TARGETS += coverage
+coverage.depends = clean
+coverage.commands = qmake "CONFIG+=coverage" && make
