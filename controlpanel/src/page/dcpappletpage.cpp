@@ -117,13 +117,14 @@ DcpAppletPage::loadMainWidget ()
         }
     }
 
-    Q_ASSERT (!m_MissingLabel);
-    //% "Plugin not available"
-    m_MissingLabel = new DuiLabel (qtTrId("dcp_no_applet_name"));
-    m_MissingLabel->setAlignment (Qt::AlignCenter);
-    appendWidget (m_MissingLabel);
-    //% "Missing plugin"
-    setTitle (qtTrId("dcp_no_applet_title"));
+    if (!m_MissingLabel) {
+        //% "Plugin not available"
+        m_MissingLabel = new DuiLabel (qtTrId("dcp_no_applet_name"));
+        m_MissingLabel->setAlignment (Qt::AlignCenter);
+        appendWidget (m_MissingLabel);
+        //% "Missing plugin"
+        setTitle (qtTrId("dcp_no_applet_title"));
+    }
 }
 
 void 
@@ -177,9 +178,6 @@ DcpAppletPage::changeWidget (
     DcpWidget  *newMainWidget;
     bool        this_is_a_new_widget;
 
-    /*
-     * No matter what, we drop the 'plugin not available' label.
-     */
     dropMissingLabel ();
 
     /*
