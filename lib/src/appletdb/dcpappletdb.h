@@ -5,12 +5,13 @@
 #include <QString>
 #include "dcpapplet.h"
 /*!
-    \class DcpAppletMetadata    
-    \brief This singleton class keeps track of all installed applets of Conrol Panel
-    \details  Applet database can be filled with desktop files and then can
-     be queried by category, usage, by applet name.
-     The database is live, so any changes in the desktop files are applied on refresg
-*/
+ * \class DcpAppletMetadata    
+ * \brief This singleton class keeps track of all installed applets of Conrol
+ *   Panel
+ * \details Applet database can be filled with desktop files and then can
+ *   be queried by category, usage, by applet name.  The database is live, so
+ *   any changes in the desktop files are applied on refresg
+ */
 class DcpAppletMetadata;
 
 typedef QList<DcpAppletMetadata*> DcpAppletMetadataList;

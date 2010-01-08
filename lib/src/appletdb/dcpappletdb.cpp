@@ -5,7 +5,7 @@
 #include <QDir>
 #include <QDebug>
 
-//#define DEBUG
+#define DEBUG
 #include "dcpdebug.h"
 
 const QString APPLETFILTER = "*.desktop";
@@ -124,33 +124,56 @@ DcpAppletDb::list() const
     return m_AppletsByFile.values();
 }
 
-DcpAppletMetadataList DcpAppletDb::listByCategory(const QString& category)
+/*!
+ *
+ */
+DcpAppletMetadataList 
+DcpAppletDb::listByCategory (
+        const QString &category)
 {
     QList<DcpAppletMetadata*> filtered;
 
+    DCP_DEBUG ("--- %s ---", DCP_STR(category));
     foreach (DcpAppletMetadata *item, m_AppletsByFile) {
-        if (category.compare(item->category(),Qt::CaseInsensitive) == 0)
-            filtered.append(item);
-        QString parentName = item->parentName();
+        if (category.compare (item->category(), Qt::CaseInsensitive) == 0)
+            filtered.append (item);
+        QString parentName = item->parentName ();
 
         if (parentName != "" && !item->parent()) {
-            item->setParent(applet(parentName));
+            item->setParent (applet(parentName));
         }
+
+        DCP_DEBUG ("*** name       = '%s'/%s", 
+                DCP_STR (item->name()),
+                DCP_STR(item->category()));
+        DCP_DEBUG ("*** parentname = '%s'/%s", 
+                DCP_STR (item->parentName()),
+                item->parent() ? DCP_STR(item->parent()->category()) : "");
     }
+
     qSort(filtered.begin(), filtered.end(), DcpAppletMetadata::orderLessThan);
     return filtered;
 }
 
-DcpAppletMetadataList DcpAppletDb::listMostUsed()
+DcpAppletMetadataList 
+DcpAppletDb::listMostUsed ()
 {
 	DcpAppletMetadataList mostUsed;
+
 	for (QMap<QString, DcpAppletMetadata*>::iterator iter =
             m_AppletsByName.begin(); iter != m_AppletsByName.end(); iter++)
 		if (iter.value()->usage())
 			mostUsed.push_back(iter.value());
 
-   qSort(mostUsed.begin(), mostUsed.end(), DcpAppletMetadata::usageGreatherThan); 
-   return mostUsed.mid(0, DcpApplet::MaxMostUsed);
+   qSort (mostUsed.begin(), mostUsed.end(), 
+           DcpAppletMetadata::usageGreatherThan); 
+
+   /*
+    * Yes, the UI specification states the maximum number of items shown in the
+    * 'most used category'. The number might change, but there always will be a
+    * limit.
+    */
+   return mostUsed.mid (0, DcpApplet::MaxMostUsed);
 }
 
 /*!
