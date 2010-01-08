@@ -37,7 +37,7 @@ QString  DuiDesktopEntry::startupWMClass () const { return ""; }
 QString  DuiDesktopEntry::url () const { return ""; }
 QString  DuiDesktopEntry::xMaemoService () const { return ""; }
 
-//#define OLD_LIBDUI
+#define OLD_LIBDUI
 #ifdef OLD_LIBDUI
 QString  DuiDesktopEntry::value (QString) const { return ""; }
 QString  DuiDesktopEntry::value (QString, QString) const { return ""; }

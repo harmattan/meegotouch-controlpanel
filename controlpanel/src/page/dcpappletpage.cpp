@@ -136,6 +136,12 @@ DcpAppletPage::dropWidget ()
         m_MainWidget = 0;
     }
 
+    dropMissingLabel ();
+}
+
+void 
+DcpAppletPage::dropMissingLabel ()
+{
     if (m_MissingLabel) {
         m_MissingLabel->deleteLater();
         m_MissingLabel = 0;
@@ -170,6 +176,11 @@ DcpAppletPage::changeWidget (
 {
     DcpWidget  *newMainWidget;
     bool        this_is_a_new_widget;
+
+    /*
+     * No matter what, we drop the 'plugin not available' label.
+     */
+    dropMissingLabel ();
 
     /*
      * Creating the widget and setting its widgetId.
