@@ -39,14 +39,15 @@ public:
 
     virtual void reload();
 
-    QString mattiID();
-    void setMattiID(const QString &mattiID);
+    QString mattiID ();
+    void setMattiID (const QString &mattiID);
 
 protected:
     virtual void createContents();
 
 private:
     QString                 m_CategoryName;
+    QString                 m_LogicalId;
     const DcpCategoryInfo  *m_CategoryInfo;
     QString                 m_mattiID;
 };

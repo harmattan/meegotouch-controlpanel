@@ -28,6 +28,7 @@ DcpAppletButtons::DcpAppletButtons (
         QGraphicsWidget    *parent) 
 : DcpMainCategory (title, parent, logicalId), 
     m_CategoryName (categoryName),
+    m_LogicalId (logicalId),
     m_CategoryInfo (0)
 {
     setCreateSeparators (true);
@@ -65,9 +66,19 @@ DcpAppletButtons::createContents ()
      * this widget.
      */
     if (logicalId() == DcpMain::mostRecentUsedTitleId) {
-        list = DcpAppletDb::instance()->listMostUsed();
+        list = DcpAppletDb::instance()->listMostUsed ();
     } else {
-        list = DcpAppletDb::instance()->listByCategory (m_CategoryName);
+        const char *names[3];
+        if (m_CategoryInfo) {
+            names[0] = m_CategoryInfo->titleId;
+            names[1] = m_CategoryInfo->appletCategory;
+        } else {
+            names[0] = DCP_STR (m_LogicalId);
+            names[1] = DCP_STR (m_CategoryName);
+        }
+        names[2] = 0;
+
+        list = DcpAppletDb::instance()->listByCategory (names, 2);
     }
 
     /*

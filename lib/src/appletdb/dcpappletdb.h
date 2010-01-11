@@ -51,7 +51,11 @@ public:
         \param category the name of the category
         \return the metadata list of the matching applets
     */
-    DcpAppletMetadataList listByCategory(const QString& category);
+    DcpAppletMetadataList listByCategory(const QString &category);
+    
+    DcpAppletMetadataList listByCategory (
+		    const char **category, 
+		    int          n_categories);
 
     /*! \brief List the six most used applets
         \details gives backt the most used componnents but six*/

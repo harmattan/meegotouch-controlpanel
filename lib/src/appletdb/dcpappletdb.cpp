@@ -133,25 +133,45 @@ DcpAppletDb::listByCategory (
 {
     QList<DcpAppletMetadata*> filtered;
 
-    DCP_DEBUG ("--- %s ---", DCP_STR(category));
     foreach (DcpAppletMetadata *item, m_AppletsByFile) {
         if (category.compare (item->category(), Qt::CaseInsensitive) == 0)
             filtered.append (item);
-        QString parentName = item->parentName ();
 
+        // FIXME: This should not be done here!
+        QString parentName = item->parentName ();
         if (parentName != "" && !item->parent()) {
             item->setParent (applet(parentName));
         }
-
-        DCP_DEBUG ("*** name       = '%s'/%s", 
-                DCP_STR (item->name()),
-                DCP_STR(item->category()));
-        DCP_DEBUG ("*** parentname = '%s'/%s", 
-                DCP_STR (item->parentName()),
-                item->parent() ? DCP_STR(item->parent()->category()) : "");
     }
 
     qSort(filtered.begin(), filtered.end(), DcpAppletMetadata::orderLessThan);
+    return filtered;
+}
+
+DcpAppletMetadataList 
+DcpAppletDb::listByCategory (
+        const char **category,
+        int          n_categories)
+{
+    QList<DcpAppletMetadata*> filtered;
+
+    foreach (DcpAppletMetadata *item, m_AppletsByFile) {
+        for (int n = 0; n < n_categories && category[n] != 0; ++n) {
+            if (!item->category().compare (
+                        QString(category[n]), Qt::CaseInsensitive)) {
+                filtered.append (item);
+                break;
+            }
+        }
+
+        // FIXME: This should not be done here!
+        QString parentName = item->parentName ();
+        if (parentName != "" && !item->parent()) {
+            item->setParent (applet(parentName));
+        }
+    }
+
+    qSort (filtered.begin(), filtered.end(), DcpAppletMetadata::orderLessThan);
     return filtered;
 }
 
