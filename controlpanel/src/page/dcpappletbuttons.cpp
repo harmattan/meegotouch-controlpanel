@@ -68,7 +68,12 @@ DcpAppletButtons::createContents ()
     if (logicalId() == DcpMain::mostRecentUsedTitleId) {
         list = DcpAppletDb::instance()->listMostUsed ();
     } else {
+        bool        withUncategorized;
         const char *names[3];
+
+        withUncategorized = m_CategoryInfo && 
+            m_CategoryInfo->subPageId == PageHandle::Applications;
+
         if (m_CategoryInfo) {
             names[0] = m_CategoryInfo->titleId;
             names[1] = m_CategoryInfo->appletCategory;
@@ -78,7 +83,8 @@ DcpAppletButtons::createContents ()
         }
         names[2] = 0;
 
-        list = DcpAppletDb::instance()->listByCategory (names, 2);
+        list = DcpAppletDb::instance()->listByCategory (names, 2, 
+                withUncategorized ? dcp_category_name_enlisted : NULL);
     }
 
     /*

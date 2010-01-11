@@ -8,13 +8,13 @@
 #include <DcpAppletDb>
 #include <DcpAppletMetadata>
 
-#define DEBUG
+//#define DEBUG
 #include "dcpdebug.h"
 
 DcpAppletCategoryPage::DcpAppletCategoryPage (
-        const QString &appletCategory) :
+        const DcpCategoryInfo  *categoryInfo) :
     DcpCategoryPage (),
-    m_AppletCategory (appletCategory)
+    m_CategoryInfo (categoryInfo)
 {
 }
 
@@ -38,22 +38,26 @@ DcpAppletCategoryPage::createContent ()
 const QString 
 DcpAppletCategoryPage::appletCategory() const 
 {
-    return m_AppletCategory;
+    return m_CategoryInfo->appletCategory;
 }
 
 void 
-DcpAppletCategoryPage::setAppletCategory (
-        const QString &appletCategory) 
+DcpAppletCategoryPage::setCategoryInfo (
+        const DcpCategoryInfo *categoryInfo) 
 {
-    m_AppletCategory=appletCategory;
+    m_CategoryInfo = categoryInfo;
 }
 
 void 
 DcpAppletCategoryPage::loadContent ()
 {
-    Q_ASSERT (!appletCategory().isEmpty());
-    
-    DCP_DEBUG ("*** appletCategory() = '%s'", DCP_STR (appletCategory()));
+    bool                    withUncategorized;
+    const char             *names[3];
+    DcpAppletMetadataList   list;
+
+    if (!m_CategoryInfo)
+        return;
+
     /*
      * I had to comment this out, because it destroyed the metadata already
      * exists and then everything went wrong.
@@ -62,9 +66,16 @@ DcpAppletCategoryPage::loadContent ()
      */
     //DcpAppletDb::instance()->refresh();
 
-    DcpAppletMetadataList list = DcpAppletDb::instance()->listByCategory (
-            appletCategory());
+    withUncategorized = m_CategoryInfo && 
+            m_CategoryInfo->subPageId == PageHandle::Applications;
 
+    names[0] = m_CategoryInfo->titleId;
+    names[1] = m_CategoryInfo->appletCategory;
+    names[2] = 0;
+
+    list = DcpAppletDb::instance()->listByCategory (names, 2, 
+                withUncategorized ? dcp_category_name_enlisted : NULL);
+    
     foreach (DcpAppletMetadata *item, list) {
         DCP_DEBUG ("*** applet '%s'", DCP_STR (item->name()));
         addComponent (item);

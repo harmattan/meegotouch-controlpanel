@@ -142,3 +142,55 @@ dcp_find_category_info (
 
     return NULL;
 }
+
+/*!
+ * Will find the category info by name checking both the localized version and 
+ * the logical id.
+ */
+const DcpCategoryInfo *
+dcp_find_category_info (
+        const QString           &name,
+        const DcpCategoryInfo   *info)
+{
+    /*
+     * The default place to find infos.
+     */
+    if (info == NULL) {
+        info = DcpMain::CategoryInfos;
+    }
+
+    for (int n = 0; ; ++n) {
+        /*
+         * The end of the array.
+         */
+        if (info[n].titleId == 0)
+            return 0;
+
+        /*
+         * If found it.
+         */
+        if (!name.compare (info[n].titleId, Qt::CaseInsensitive) ||
+                !name.compare (info[n].appletCategory, Qt::CaseInsensitive)) 
+            return &info[n];
+
+        /*
+         * If we have a chance to search recursively.
+         */
+        if (info[n].staticElements != NULL) {
+            const DcpCategoryInfo *retval;
+
+            retval = dcp_find_category_info (name, info[n].staticElements);
+            if (retval)
+                return retval;
+        }
+    }
+
+    return NULL;
+}
+
+bool
+dcp_category_name_enlisted (
+        const QString           &name)
+{
+    return dcp_find_category_info (name) != NULL;
+}

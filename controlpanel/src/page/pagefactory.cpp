@@ -187,10 +187,10 @@ PageFactory::createAppletCategoryPage (
     }
 
     if (!m_AppletCategoryPage){
-        m_AppletCategoryPage = new DcpAppletCategoryPage (info->appletCategory);
+        m_AppletCategoryPage = new DcpAppletCategoryPage (info);
         registerPage (m_AppletCategoryPage);
     } else {
-        m_AppletCategoryPage->setAppletCategory (info->appletCategory);
+        m_AppletCategoryPage->setCategoryInfo (info);
     }
 
     m_AppletCategoryPage->setTitle (qtTrId (info->titleId));
