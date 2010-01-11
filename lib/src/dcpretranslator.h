@@ -2,6 +2,7 @@
 #define DCP_RETRANSLATOR_H
 
 #include <QObject>
+class DuiLocale;
 
 /*! \brief copied from widgetsgallery, makes translation reload automatically
  *  \details DuiApplication's localeSettingsChanged signal should be connected
@@ -12,6 +13,9 @@
 class DcpRetranslator : public QObject
 {
     Q_OBJECT
+
+public:
+    static void installAppletTranslations(DuiLocale& locale);
 
 public slots:
    void retranslate();

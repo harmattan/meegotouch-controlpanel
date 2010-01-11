@@ -9,6 +9,7 @@
 #include "dcpwrongapplets.h"
 #include <sys/wait.h>
 #include <csignal>
+#include <DuiLocale>
 
 void startSupervising()
 {
@@ -36,6 +37,7 @@ void startSupervising()
  * also in these cases */
 void onTermSignal(int param)
 {
+    Q_UNUSED(param);
     if (qApp) {
         qApp->quit();
     }
@@ -48,12 +50,20 @@ int startApplication(int argc, char* argv[])
     signal(SIGINT, &onTermSignal);
     app.setAnimator(0);
 
+    // init servicefw api:
     DuiControlPanelService* service = new DuiControlPanelService();
 
+    // install the new translations if locale changes:
     DcpRetranslator retranslator;
     QObject::connect(&app, SIGNAL(localeSettingsChanged()),
                      &retranslator, SLOT(retranslate()));
 
+    // install translations for the applets if any:
+    DuiLocale locale;
+    DcpRetranslator::installAppletTranslations(locale);
+    DuiLocale::setDefault (locale);
+
+    // mainwindow:
     DuiApplicationWindow win;
     service->createStartPage();
     win.show();
