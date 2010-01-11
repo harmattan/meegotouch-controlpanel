@@ -23,9 +23,9 @@
 #undef DCP_DEBUG
 #ifdef DEBUG
 #  define DCP_DEBUG(...) DcpDebug::dcpPrintMsg (\
-		QtDebugMsg, \
-		__PRETTY_FUNCTION__, \
-		__VA_ARGS__)
+        QtDebugMsg, \
+        __PRETTY_FUNCTION__, \
+        __VA_ARGS__)
 #else
 #  define DCP_DEBUG(...) { /* Nothing... */ }
 #endif
@@ -36,9 +36,9 @@
 #undef DCP_WARNING
 #ifdef WARNING
 #  define DCP_WARNING(...) DcpDebug::dcpPrintMsg (\
-		QtWarningMsg, \
-		__PRETTY_FUNCTION__, \
-		__VA_ARGS__)
+        QtWarningMsg, \
+        __PRETTY_FUNCTION__, \
+        __VA_ARGS__)
 #else
 #  define DCP_WARNING(...) { /* Nothing... */ }
 #endif
@@ -49,9 +49,9 @@
 #undef DCP_CRITICAL
 #ifdef CRITICAL
 #  define DCP_CRITICAL(...) DcpDebug::dcpPrintMsg (\
-		QtCriticalMsg, \
-		__PRETTY_FUNCTION__, \
-		__VA_ARGS__)
+        QtCriticalMsg, \
+        __PRETTY_FUNCTION__, \
+        __VA_ARGS__)
 #else
 #  define DCP_CRITICAL(...) { /* Nothing... */ }
 #endif
@@ -88,10 +88,10 @@ namespace DcpDebug
     void dcpMsg(QtMsgType type, const char *msg);
 
     void dcpPrintMsg (
-		QtMsgType     type,
-		const char   *function,
-		const char   *formatstring,
-		...);
+        QtMsgType     type,
+        const char   *function,
+        const char   *formatstring,
+        ...);
 };
 
 #if 0

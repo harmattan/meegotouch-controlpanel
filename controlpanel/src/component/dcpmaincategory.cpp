@@ -21,10 +21,10 @@ DcpMainCategory::DcpMainCategory (
         const QString& logicalId) 
 : DcpCategory(title, parent, logicalId),
     m_ColCount (0),
-	m_RowCount (0),
-	m_ItemCount (0),
+    m_RowCount (0),
+    m_ItemCount (0),
     m_CreateSeparators (false),
-	m_HasLastSeparator (false)
+    m_HasLastSeparator (false)
 {
     m_Layout = new DuiLayout(this);
 

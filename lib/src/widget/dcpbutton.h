@@ -27,7 +27,7 @@ class DcpButton: public DuiStylableWidget
     Q_PROPERTY (QString text2 READ getText2 WRITE setText2)
 
 public:
-	explicit DcpButton (DuiWidget* parent = 0);
+    explicit DcpButton (DuiWidget* parent = 0);
     ~DcpButton ();
 
     void setText (const QString& text1, const QString& text2);

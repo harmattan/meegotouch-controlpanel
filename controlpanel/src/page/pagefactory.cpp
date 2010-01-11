@@ -70,7 +70,7 @@ PageFactory::createPage (
     DCP_DEBUG ("****************************");
     switch (handle.id) {
         case PageHandle::NOPAGE:
-	    case PageHandle::MAIN:
+        case PageHandle::MAIN:
             /*
              * Creating the main page. If the ID is is PageHandle::NOPAGE we
              * also create the main page, for which we can handle pages that has
@@ -91,7 +91,7 @@ PageFactory::createPage (
         case PageHandle::APPLET:
             DCP_DEBUG ("## APPLET ##");
             page = createAppletPage (
-			    DcpAppletDb::instance()->applet (handle.param));
+                DcpAppletDb::instance()->applet (handle.param));
             break;
 
         default:
@@ -114,7 +114,7 @@ PageFactory::createPage (
          * design should be better...
          */
         if (handle.id != PageHandle::APPLET)
-    		if (page->isContentCreated ())
+            if (page->isContentCreated ())
                 page->reload ();
         
         m_CurrentPage = page;
@@ -144,7 +144,7 @@ PageFactory::createMainPage ()
  */
 DcpPage *
 PageFactory::createAppletPage (
-		DcpAppletMetadata   *metadata)
+        DcpAppletMetadata   *metadata)
 {
     /*
      * If we have not created the applet page yet we do that, otherwise we set

@@ -1,8 +1,9 @@
 duicontrolpanel (0.6.4) UNRELEASED; urgency=low
 
   * Fixes: NB#149663 Class member names are not consistent
+  * Fixes: NB#149659 The identation is not consistent 
 
- -- Viktor Nagy <viktor.nagy@blumsoft.eu>  Mon, 11 Jan 2010 16:28:45 +0100
+ -- Viktor Nagy <viktor.nagy@blumsoft.eu>  Mon, 11 Jan 2010 17:50:14 +0100
 
 duicontrolpanel (0.6.3) unstable; urgency=low
 

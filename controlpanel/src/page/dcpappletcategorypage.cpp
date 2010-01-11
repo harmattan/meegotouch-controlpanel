@@ -86,7 +86,7 @@ DcpAppletCategoryPage::loadContent ()
 
 void 
 DcpAppletCategoryPage::addComponent (
-		DcpAppletMetadata *metadata)
+        DcpAppletMetadata *metadata)
 {
     DcpBriefComponent *component = new DcpBriefComponent (metadata, m_Category);
 
@@ -121,7 +121,7 @@ DcpAppletCategoryPage::cleanup ()
             appletCategory());
 
     if (!list.isEmpty()) {
-    	DcpAppletMetadataList::const_iterator i;
+        DcpAppletMetadataList::const_iterator i;
         for (i = list.begin(); i != list.end(); ++i) {
             DcpAppletMetadata *metadata = *i;
             qDebug() << "Cleaning up metadata" << metadata->name();

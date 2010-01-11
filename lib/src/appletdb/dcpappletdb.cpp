@@ -66,7 +66,7 @@ DcpAppletDb::addFile(const QString& filename)
              m_HasUniqueMetadata = true;
 
         }
-	DCP_DEBUG ("Adding applet name '%s'", DCP_STR (metadata->name()));
+        DCP_DEBUG ("Adding applet name '%s'", DCP_STR (metadata->name()));
         m_AppletsByName[metadata->name()] = metadata;
         m_AppletsByFile[filename] = metadata;
         return true;
@@ -160,7 +160,7 @@ DcpAppletMetadataList
 DcpAppletDb::listByCategory (
         const char **category,
         int          n_categories,
-		checkCategory   checkFunction)
+        checkCategory   checkFunction)
 {
     QList<DcpAppletMetadata*> filtered;
 
@@ -204,12 +204,12 @@ DcpAppletDb::listByCategory (
 DcpAppletMetadataList 
 DcpAppletDb::listMostUsed ()
 {
-	DcpAppletMetadataList mostUsed;
+    DcpAppletMetadataList mostUsed;
 
-	for (QMap<QString, DcpAppletMetadata*>::iterator iter =
+    for (QMap<QString, DcpAppletMetadata*>::iterator iter =
             m_AppletsByName.begin(); iter != m_AppletsByName.end(); iter++)
-		if (iter.value()->usage())
-			mostUsed.push_back(iter.value());
+        if (iter.value()->usage())
+            mostUsed.push_back(iter.value());
 
    qSort (mostUsed.begin(), mostUsed.end(), 
            DcpAppletMetadata::usageGreatherThan); 
@@ -284,8 +284,8 @@ void
 DcpAppletDb::destroyData()
 {
     DCP_WARNING ("Destroying all metadata.");
-	foreach(DcpAppletMetadata *metadata, m_AppletsByName) {
-		metadata->deleteLater();
-	}
+    foreach(DcpAppletMetadata *metadata, m_AppletsByName) {
+        metadata->deleteLater();
+    }
 }
 

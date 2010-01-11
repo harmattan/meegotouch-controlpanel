@@ -25,14 +25,14 @@ public:
     PageHandle handle () const;
     virtual void setHandle (const PageHandle &handle);
     virtual void setHandle (
-		    PageHandle::PageTypeId id, 
-		    const QString &param = "");
+                    PageHandle::PageTypeId id, 
+                    const QString &param = "");
 
     PageHandle referer () const;
     virtual void setReferer (const PageHandle &referer);
     virtual void setReferer (
-		    PageHandle::PageTypeId id, 
-		    const QString &param = "");
+                    PageHandle::PageTypeId id, 
+                    const QString &param = "");
     
     QGraphicsLinearLayout *mainLayout();
 

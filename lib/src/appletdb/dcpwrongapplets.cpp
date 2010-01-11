@@ -179,7 +179,7 @@ DcpWrongApplets *
 DcpWrongApplets::instance ()
 {
     if (!sm_Instance) 
-	    sm_Instance = new DcpWrongApplets();
+        sm_Instance = new DcpWrongApplets();
 
     return sm_Instance;
 }
@@ -201,14 +201,14 @@ DcpWrongApplets::badApplets () const
 
 bool 
 DcpWrongApplets::isAppletRecentlyCrashed (
-		const DcpAppletMetadata       *metadata)
+        const DcpAppletMetadata       *metadata)
 {
     return isAppletRecentlyCrashed (metadata->fullBinary());
 }
 
 bool 
 DcpWrongApplets::isAppletRecentlyCrashed (
-		const QString       &fullSoPath)
+        const QString       &fullSoPath)
 {
     DuiGConfItem conf (keyPath + fullSoPath + KEY_SEPARATOR + "CrashDateTime" );
     QString      lastCrashDate = conf.value().toString ();

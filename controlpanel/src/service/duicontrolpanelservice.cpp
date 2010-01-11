@@ -40,7 +40,7 @@ DuiControlPanelService::appletPage(const QString& appletName)
 
 void
 DuiControlPanelService::sheduleStart (
-		const PageHandle &handle)
+                const PageHandle &handle)
 {
     if (m_StartPage == 0) {
         PageFactory::instance()->changePage(handle);

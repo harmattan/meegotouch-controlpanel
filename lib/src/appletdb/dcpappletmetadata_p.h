@@ -20,8 +20,8 @@ public:
     DcpBrief* m_Brief;
     DuiDesktopEntry* m_DesktopEntry;
     DcpAppletMetadata *m_Parent;
-	int m_Counter;
-	QString m_FileName;
+    int m_Counter;
+    QString m_FileName;
     QString m_BinaryDir;
     QString m_GconfKeyUsage;
 };

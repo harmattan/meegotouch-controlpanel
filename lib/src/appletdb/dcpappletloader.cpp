@@ -50,7 +50,7 @@ DcpAppletLoader::loadPluginFile (
     QPluginLoader loader (binaryPath);
     if (!loader.load ()) {
         m_ErrorMsg = "Loading applet failed: " + loader.errorString();
-	    DCP_WARNING ("The loading of applet '%s' has been failed: %s",
+        DCP_WARNING ("The loading of applet '%s' has been failed: %s",
                 DCP_STR (m_Metadata->name()),
                 DCP_STR (loader.errorString()));
     } else {
