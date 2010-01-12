@@ -48,7 +48,6 @@ int startApplication(int argc, char* argv[])
     DuiApplication app(argc, argv);
     signal(SIGTERM, &onTermSignal);
     signal(SIGINT, &onTermSignal);
-    app.setAnimator(0);
 
     // init servicefw api:
     DuiControlPanelService* service = new DuiControlPanelService();
