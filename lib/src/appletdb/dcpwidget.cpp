@@ -26,7 +26,7 @@ DcpWidgetPrivate::DcpWidgetPrivate ():
  * \brief The constructor. No referer for default
  */
 DcpWidget::DcpWidget (QGraphicsWidget *parent) 
-	: DuiWidget (parent), 
+    : DuiWidget (parent), 
       d_ptr (new DcpWidgetPrivate)
 {
     DCP_DEBUG ("*** this = %p", this);
@@ -108,12 +108,12 @@ DcpWidget::back ()
 {
     if (referer() > -1) {
         // emit the changewidget signal if there is a referer set
-	    emit changeWidget(referer());
-	    return false;
-	} else {
+        emit changeWidget(referer());
+        return false;
+    } else {
         // back is handled by main window by default
-   	    return true; 
-	}
+        return true; 
+    }
 }
 
 /*!

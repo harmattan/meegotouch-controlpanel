@@ -40,6 +40,15 @@ const DcpCategoryInfo *
 dcp_find_category_info (
         PageHandle::PageTypeId   id,
         const DcpCategoryInfo   *info = 0);
+
+const DcpCategoryInfo *
+dcp_find_category_info (
+        const QString           &name,
+        const DcpCategoryInfo   *info = 0);
+
+bool
+dcp_category_name_enlisted (
+        const QString           &name);
 #endif
 
 

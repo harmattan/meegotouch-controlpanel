@@ -46,7 +46,7 @@ public slots:
     void activate ();
 
 private:
-	DcpBriefWidget *m_BriefWidget;
+    DcpBriefWidget *m_BriefWidget;
     QString         m_mattiID;
 };
 

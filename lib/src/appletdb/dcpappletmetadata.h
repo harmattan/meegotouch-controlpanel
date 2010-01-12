@@ -87,7 +87,7 @@ signals:
             int             refererWidgetId);
 
 public slots:
-	void slotClicked ();
+    void slotClicked ();
     void setToggle (bool checked);
     bool activatePluginByName (const QString &name) const;
     void activateSlot ();

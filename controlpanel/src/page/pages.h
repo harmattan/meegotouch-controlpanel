@@ -43,7 +43,7 @@ public:
 
     PageTypeId  id;
     QString     param;
-    int         m_widgetId;
+    int         widgetId;
 };
 
 #endif

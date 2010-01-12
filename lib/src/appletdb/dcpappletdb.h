@@ -4,6 +4,7 @@
 #include <QMap>
 #include <QString>
 #include "dcpapplet.h"
+
 /*!
  * \class DcpAppletMetadata    
  * \brief This singleton class keeps track of all installed applets of Conrol
@@ -17,6 +18,7 @@ class DcpAppletMetadata;
 typedef QList<DcpAppletMetadata*> DcpAppletMetadataList;
 typedef QMap<QString, DcpAppletMetadata*> DcpAppletMetadataMap;
 
+typedef bool (*checkCategory)(const QString &);
 
 class DcpAppletDb
 {
@@ -51,11 +53,13 @@ public:
         \param category the name of the category
         \return the metadata list of the matching applets
     */
-    DcpAppletMetadataList listByCategory(const QString &category);
+    DcpAppletMetadataList listByCategory(
+                    const QString &category);
     
     DcpAppletMetadataList listByCategory (
-		    const char **category, 
-		    int          n_categories);
+                    const char    **category, 
+                    int             n_categories,
+                    checkCategory   checkFunction = 0);
 
     /*! \brief List the six most used applets
         \details gives backt the most used componnents but six*/
@@ -84,7 +88,7 @@ public:
     bool containsName(const QString& name);
 
     /*! \brief destroys all the contents (metadata) of the db */
-	void destroyData(void);
+    void destroyData(void);
     static void destroy(void);
 
 protected:
@@ -92,6 +96,7 @@ protected:
     DcpAppletDb(const QString &pathName);
     /*! \brief refresh a specified path*/
     void refreshPath(const QString &pathName);
+
 private:
     DcpAppletMetadataMap m_AppletsByName;  
     DcpAppletMetadataMap m_AppletsByFile; 

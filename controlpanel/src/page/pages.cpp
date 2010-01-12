@@ -12,7 +12,7 @@ PageHandle::PageHandle (
         int             widgetId):
     id (pageType),
     param (name),
-    m_widgetId (widgetId)
+    widgetId (widgetId)
 {
 }
 
@@ -90,5 +90,5 @@ PageHandle::getStringVariant () const
 
     return QString (typeName) + "://" 
         + param + "/" 
-        + QString::number (m_widgetId);
+        + QString::number (widgetId);
 }

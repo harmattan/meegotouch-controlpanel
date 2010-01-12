@@ -5,7 +5,7 @@
 #include <DuiButton>
 
 DcpButtonToggle::DcpButtonToggle (
-		DuiWidget *parent)
+        DuiWidget *parent)
     : DcpButtonAlign (parent)
 {
     this->setLayout(createLayout());
@@ -29,7 +29,7 @@ DcpButtonToggle::createLayout ()
 
 void 
 DcpButtonToggle::setText2 (
-		const QString &text)
+        const QString &text)
 {
     m_Text2 = text;
 
@@ -41,7 +41,7 @@ DcpButtonToggle::setText2 (
 
 void 
 DcpButtonToggle::onSmallToggled (
-		bool isOn)
+        bool isOn)
 {
     // do not show second line in case it is off:
     if (isOn){
@@ -56,7 +56,7 @@ DcpButtonToggle::onSmallToggled (
 
 void 
 DcpButtonToggle::setSmallToggle (
-		bool isOn)
+        bool isOn)
 {
     if (toggleButton()->isChecked() != isOn) {
         toggleButton()->setChecked(isOn);
@@ -71,7 +71,7 @@ DcpButtonToggle::toggleButton ()
 
 void 
 DcpButtonToggle::setIconId (
-		const QString &iconId)
+        const QString &iconId)
 {
     if (iconId != this->iconId()) {
         toggleButton()->setIconID(iconId);

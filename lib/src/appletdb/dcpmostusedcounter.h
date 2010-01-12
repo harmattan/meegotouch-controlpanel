@@ -11,7 +11,7 @@
 class MostUsedCounter 
 {
     public:
-		~MostUsedCounter();
+        ~MostUsedCounter();
 
         static MostUsedCounter *instance ();
         static void destroy ();
@@ -19,7 +19,7 @@ class MostUsedCounter
         int incrementUsageCounter (const QString &name);
         int getUsageCounter (const QString &key);
         void dropKey (const QString &key);
-	
+    
     private:
         MostUsedCounter ();
         static MostUsedCounter *sm_Instance;

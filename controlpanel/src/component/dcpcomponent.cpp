@@ -10,10 +10,10 @@
 #include "dcpdebug.h"
 
 DcpComponent::DcpComponent (
-		DcpCategory *category, const QString& title,
+        DcpCategory *category, const QString& title,
                            QGraphicsWidget *parent,
                            const QString& logicalId) :
-				DuiWidget(parent),
+                DuiWidget(parent),
                 m_Title(title),
                 m_LogicalId(logicalId),
                 m_Category(category)

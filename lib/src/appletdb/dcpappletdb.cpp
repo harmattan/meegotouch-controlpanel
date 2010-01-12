@@ -66,7 +66,7 @@ DcpAppletDb::addFile(const QString& filename)
              m_HasUniqueMetadata = true;
 
         }
-	DCP_DEBUG ("Adding applet name '%s'", DCP_STR (metadata->name()));
+        DCP_DEBUG ("Adding applet name '%s'", DCP_STR (metadata->name()));
         m_AppletsByName[metadata->name()] = metadata;
         m_AppletsByFile[filename] = metadata;
         return true;
@@ -148,17 +148,43 @@ DcpAppletDb::listByCategory (
     return filtered;
 }
 
+/*!
+ * \param category An array of string pointers with the category names. All
+ *   categories with these names will be added.
+ * \param n_categories The size of the name array.
+ * \param checkFunction If not NULL the function will be called with the
+ *   category name of the metadata items and those that are getting false return
+ *   value are going to be added too. Used to handle the uncategorized applets.
+ */
 DcpAppletMetadataList 
 DcpAppletDb::listByCategory (
         const char **category,
-        int          n_categories)
+        int          n_categories,
+        checkCategory   checkFunction)
 {
     QList<DcpAppletMetadata*> filtered;
 
     foreach (DcpAppletMetadata *item, m_AppletsByFile) {
         for (int n = 0; n < n_categories && category[n] != 0; ++n) {
-            if (!item->category().compare (
+            /*
+             * We add this item if we asked to include the uncategorized
+             * items and this is an uncategorized item or if the item is in the
+             * category we are requested for.
+             */
+            #if 0
+            DCP_WARNING ("------------------------------");
+            DCP_WARNING ("applet        = %s", DCP_STR(item->name()));
+            DCP_WARNING ("category      = %s", DCP_STR(item->category()));
+            DCP_WARNING ("checkFunction = %p", checkFunction);
+            DCP_WARNING ("checked       = %s", 
+                    checkFunction && checkFunction (item->category ()) ?
+                    "true" : "false");
+            #endif
+
+            if ((checkFunction && !checkFunction (item->category ())) ||
+                    !item->category().compare (
                         QString(category[n]), Qt::CaseInsensitive)) {
+                DCP_WARNING ("Adding applet %s", DCP_STR(item->name()));
                 filtered.append (item);
                 break;
             }
@@ -178,12 +204,12 @@ DcpAppletDb::listByCategory (
 DcpAppletMetadataList 
 DcpAppletDb::listMostUsed ()
 {
-	DcpAppletMetadataList mostUsed;
+    DcpAppletMetadataList mostUsed;
 
-	for (QMap<QString, DcpAppletMetadata*>::iterator iter =
+    for (QMap<QString, DcpAppletMetadata*>::iterator iter =
             m_AppletsByName.begin(); iter != m_AppletsByName.end(); iter++)
-		if (iter.value()->usage())
-			mostUsed.push_back(iter.value());
+        if (iter.value()->usage())
+            mostUsed.push_back(iter.value());
 
    qSort (mostUsed.begin(), mostUsed.end(), 
            DcpAppletMetadata::usageGreatherThan); 
@@ -195,6 +221,7 @@ DcpAppletDb::listMostUsed ()
     */
    return mostUsed.mid (0, DcpApplet::MaxMostUsed);
 }
+
 
 /*!
  * \brief Returns the applet found in the databse by its name.
@@ -257,8 +284,8 @@ void
 DcpAppletDb::destroyData()
 {
     DCP_WARNING ("Destroying all metadata.");
-	foreach(DcpAppletMetadata *metadata, m_AppletsByName) {
-		metadata->deleteLater();
-	}
+    foreach(DcpAppletMetadata *metadata, m_AppletsByName) {
+        metadata->deleteLater();
+    }
 }
 

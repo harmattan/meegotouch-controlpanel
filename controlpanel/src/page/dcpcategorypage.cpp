@@ -6,7 +6,7 @@
 
 
 DcpCategoryPage::DcpCategoryPage () :
-	DcpPage()
+        DcpPage()
 {
 }
 
@@ -20,7 +20,7 @@ DcpCategoryPage::createContent ()
 
 void 
 DcpCategoryPage::organizeContent (
-		const Dui::Orientation& ori)
+                const Dui::Orientation& ori)
 {
     DcpPage::organizeContent (ori);
     m_Category->onOrientationChange (ori);

@@ -32,9 +32,9 @@ DcpCategoryComponent::DcpCategoryComponent (
  * Constructor that uses DcpCategoryInfo to create a DcpCategoryComponent.
  */
 DcpCategoryComponent::DcpCategoryComponent (
-		    DcpCategory            *category, 
-		    const DcpCategoryInfo  *categoryInfo,
-		    QGraphicsWidget        *parent)
+            DcpCategory            *category, 
+            const DcpCategoryInfo  *categoryInfo,
+            QGraphicsWidget        *parent)
 : DcpComponent (category, categoryInfo->appletCategory, parent, categoryInfo->titleId),
     m_CategoryName (categoryInfo->appletCategory),
     m_CategoryInfo (categoryInfo)
