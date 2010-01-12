@@ -92,7 +92,7 @@ DcpAppletCategoryPage::addComponent (
 
     component->setSubPage (PageHandle::APPLET, metadata->name());
 
-    appendWidget (component);
+    m_Category->appendWidget (component);
 }
 
 void 
