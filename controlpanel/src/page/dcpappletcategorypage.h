@@ -8,7 +8,7 @@
 class DcpAppletMetadata;
 
 class DcpAppletCategoryPage : 
-	public DcpCategoryPage
+        public DcpCategoryPage
 {
     Q_OBJECT
 

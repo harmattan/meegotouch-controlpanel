@@ -27,7 +27,7 @@
  * for them in the categories.
  */
 DcpMainPage::DcpMainPage() :
-	DcpPage(), 
+    DcpPage(), 
     m_RecentlyComp (0)
 {
     setEscapeButtonMode (DuiEscapeButtonPanelModel::CloseMode);

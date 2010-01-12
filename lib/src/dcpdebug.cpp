@@ -51,8 +51,8 @@ void DcpDebug::end(const QString& msg) {
  */
 void 
 DcpDebug::dcpMsg (
-		QtMsgType   type, 
-		const char *msg)
+        QtMsgType   type, 
+        const char *msg)
 {
     switch (type) {
         case QtDebugMsg:
@@ -72,7 +72,7 @@ DcpDebug::dcpMsg (
             fflush (stderr);
             abort();
     }
-	
+
     fflush (stderr);
 }
 
@@ -84,44 +84,44 @@ DcpDebug::dcpMsg (
  */
 void 
 DcpDebug::dcpPrintMsg (
-		QtMsgType     type,
-		const char   *function,
-		const char   *formatstring,
-		...)
+        QtMsgType     type,
+        const char   *function,
+        const char   *formatstring,
+        ...)
 {
     va_list args;
 
     va_start (args, formatstring);
     switch (type) {
         case QtDebugMsg:
-	        fprintf (stderr, "%s%s%s: ",
+            fprintf (stderr, "%s%s%s: ",
                     TERM_GREEN, function, TERM_NORMAL);
             vfprintf (stderr, formatstring, args);
             break;
 
         case QtWarningMsg:
-	        fprintf (stderr, "%s%s%s: ",
+            fprintf (stderr, "%s%s%s: ",
                     TERM_YELLOW, function, TERM_NORMAL);
             vfprintf (stderr, formatstring, args);
             break;
 
         case QtCriticalMsg:
-	        fprintf (stderr, "%s%s%s: ",
+            fprintf (stderr, "%s%s%s: ",
                     TERM_RED, function, TERM_NORMAL);
             vfprintf (stderr, formatstring, args);
             break;
 
         case QtFatalMsg:
-	        fprintf (stderr, "%s%s%s: ",
+            fprintf (stderr, "%s%s%s: ",
                     TERM_GREEN, function, TERM_NORMAL);
             vfprintf (stderr, formatstring, args);
-	        fprintf (stderr, "\n%s%s%s: Aborting program.",
+            fprintf (stderr, "\n%s%s%s: Aborting program.",
                     TERM_RED TERM_BOLD, function, TERM_NORMAL);
             putchar('\n');
             fflush (stderr);
             abort();
     }
-	va_end (args);
+    va_end (args);
 
     putchar('\n');
     fflush (stderr);

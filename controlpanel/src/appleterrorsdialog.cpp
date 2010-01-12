@@ -12,7 +12,7 @@ description = "The following applets were disabled due to crash:";
 AppletErrorsDialog::AppletErrorsDialog():
     DuiDialog ()
 {
-	// TODO: localization etc.
+    // TODO: localization etc.
     setTitle ("Disabled applets"); 
 
     QGraphicsLinearLayout* layout =

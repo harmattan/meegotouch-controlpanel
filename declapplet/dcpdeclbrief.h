@@ -6,10 +6,10 @@
 class DcpDeclBrief: public DcpBrief
 {
 public:
-	DcpDeclBrief();
+        DcpDeclBrief();
 
 private:
-	
+        
 };
 
 

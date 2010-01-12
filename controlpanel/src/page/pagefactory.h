@@ -25,17 +25,17 @@ public:
 
 public slots:
     void appletWantsToStart (
-		    const QString &refererName = "", 
-		    int            refererWidgetId = -1);
+                    const QString &refererName = "", 
+                    int            refererWidgetId = -1);
     
     void changePage (
-		    const PageHandle &handle, 
-		    const QString    &refererName      = "",
-		    int               refererWidgetId  = -1);
+                    const PageHandle &handle, 
+                    const QString    &refererName      = "",
+                    int               refererWidgetId  = -1);
 
 protected:
     PageFactory ();
-    DcpPage* createMainPage ();	
+    DcpPage* createMainPage ();
     DcpPage* createAppletPage (DcpAppletMetadata *metadata);
     DcpPage* createAppletCategoryPage (PageHandle::PageTypeId pageId);
 

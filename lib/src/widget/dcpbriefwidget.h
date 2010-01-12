@@ -35,7 +35,7 @@ class DcpBriefWidget:
     Q_OBJECT
 
 public:
-	DcpBriefWidget (
+    DcpBriefWidget (
             DcpAppletMetadata *metadata, 
             DuiWidget         *parent = 0);
 
@@ -44,7 +44,7 @@ public:
             const QString    &line1,
             const QString    &line2,
             DuiWidget        *parent = 0);
-	
+
     ~DcpBriefWidget();
 
 

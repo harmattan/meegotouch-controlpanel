@@ -14,9 +14,9 @@
 #include "../../../lib/src/dcpdebug.h"
 
 DcpBriefComponent::DcpBriefComponent (
-		DcpAppletMetadata   *metadata,
-		DcpCategory         *category,
-		const QString       &logicalId)
+        DcpAppletMetadata   *metadata,
+        DcpCategory         *category,
+        const QString       &logicalId)
 : DcpComponent (category, "", 0, logicalId),
     m_BriefWidget (new DcpBriefWidget (metadata, this))
 {
@@ -24,15 +24,15 @@ DcpBriefComponent::DcpBriefComponent (
     layout->addItem (m_BriefWidget);
 
     setMattiID ("DcpBriefComponent::" + logicalId + "::" + 
-		    metadata->category() + "::" + metadata->name());
+            metadata->category() + "::" + metadata->name());
 }
 
 
 DcpBriefComponent::DcpBriefComponent (
         const QString       &line1,
         const QString       &line2,
-		DcpCategory         *category,
-		const QString       &logicalId)
+        DcpCategory         *category,
+        const QString       &logicalId)
 : DcpComponent (category, "", 0, logicalId)
 {
     QGraphicsLinearLayout* layout;

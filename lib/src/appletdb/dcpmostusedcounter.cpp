@@ -16,12 +16,12 @@ MostUsedCounter::MostUsedCounter ()
 
 MostUsedCounter::~MostUsedCounter ()
 {
-	QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.constBegin();
-	
-	while (i != m_Data.constEnd()) {
-		delete i.value();
-		++i;
-	}
+    QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.constBegin();
+
+    while (i != m_Data.constEnd()) {
+        delete i.value();
+        ++i;
+    }
 }
 
 MostUsedCounter *
@@ -52,19 +52,19 @@ MostUsedCounter::incrementUsageCounter (
         return 0;
 
     QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(key);
-		
+
     if (i == m_Data.end ()) { 
         DuiGConfItem *item = new DuiGConfItem(key);
         m_Data[key] = item;
         int tmp = item->value().toInt();
         item->set(++tmp);
-			
+
         return item->value().toInt();
     }
-	
+
     int tmp = i.value()->value().toInt();
     i.value()->set (++tmp);
-	
+
     return i.value()->value().toInt();
 }
 

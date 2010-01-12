@@ -22,7 +22,7 @@ AccountsAndApplicationsElements[] =
     },
     {
         // The last element must have the .titleId == 0
-	    0, 0, PageHandle::NOPAGE, NULL
+        0, 0, PageHandle::NOPAGE, NULL
     }
 };
 
@@ -35,9 +35,9 @@ DcpMain::CategoryInfos[] =
 {
     {
         //% "Look & Feel"
-	    QT_TRID_NOOP ("qtn_sett_main_look"),
-    	"Look & Feel",
-    	PageHandle::LOOKANDFEEL,
+        QT_TRID_NOOP ("qtn_sett_main_look"),
+        "Look & Feel",
+        PageHandle::LOOKANDFEEL,
         NULL
     },
     {
@@ -84,7 +84,7 @@ DcpMain::CategoryInfos[] =
     },
     {
         // The last element must have the .titleId == 0
-	    0, 0, PageHandle::NOPAGE, NULL
+        0, 0, PageHandle::NOPAGE, NULL
     }
 };
 

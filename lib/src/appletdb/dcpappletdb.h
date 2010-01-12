@@ -54,12 +54,12 @@ public:
         \return the metadata list of the matching applets
     */
     DcpAppletMetadataList listByCategory(
-		    const QString &category);
+                    const QString &category);
     
     DcpAppletMetadataList listByCategory (
-		    const char    **category, 
-		    int             n_categories,
-		    checkCategory   checkFunction = 0);
+                    const char    **category, 
+                    int             n_categories,
+                    checkCategory   checkFunction = 0);
 
     /*! \brief List the six most used applets
         \details gives backt the most used componnents but six*/
@@ -88,7 +88,7 @@ public:
     bool containsName(const QString& name);
 
     /*! \brief destroys all the contents (metadata) of the db */
-	void destroyData(void);
+    void destroyData(void);
     static void destroy(void);
 
 protected:
