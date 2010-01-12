@@ -15,7 +15,6 @@ DcpButtonToggle::DcpButtonToggle (
 QGraphicsLayout *
 DcpButtonToggle::createLayout ()
 {
-    // toggle
     DuiButton* toggleButton = new DuiButton(this);
     toggleButton->setObjectName("DcpButtonToggle");
     toggleButton->setCheckable(true);
@@ -33,7 +32,6 @@ DcpButtonToggle::setText2 (
 {
     m_Text2 = text;
 
-    // only update if toggle is on
     if (toggleButton()->isChecked()) {
         DcpButton::setText2(m_Text2);
     }
@@ -50,7 +48,6 @@ DcpButtonToggle::onSmallToggled (
         DcpButton::setText2 (QString());
     }
 
-    // emit signal
     emit smallToggled (isOn);
 }
 
