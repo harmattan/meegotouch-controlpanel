@@ -57,11 +57,6 @@ int startApplication(int argc, char* argv[])
     QObject::connect(&app, SIGNAL(localeSettingsChanged()),
                      &retranslator, SLOT(retranslate()));
 
-    // install translations for the applets if any:
-    DuiLocale locale;
-    DcpRetranslator::installAppletTranslations(locale);
-    DuiLocale::setDefault (locale);
-
     // mainwindow:
     DuiApplicationWindow win;
     service->createStartPage();

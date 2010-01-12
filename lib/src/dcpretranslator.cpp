@@ -7,6 +7,13 @@
 #include <QDir>
 #include <QStringList>
 
+DcpRetranslator::DcpRetranslator()
+{
+    // install translations for the applets if any:
+    DuiLocale locale;
+    DcpRetranslator::installAppletTranslations(locale);
+    DuiLocale::setDefault (locale);
+}
 
 //! \brief copied from widgetsgallery, makes translation reload
 void
