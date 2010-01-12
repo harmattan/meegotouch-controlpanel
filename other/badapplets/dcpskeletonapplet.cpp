@@ -14,7 +14,7 @@ Q_EXPORT_PLUGIN2(skeletonapplet, SkeletonApplet)
 void SkeletonApplet::init()
 {
     DuiTheme::loadCSS(QString(CSSDIR) + "skeletonapplet.css");
-};
+}
 
 DcpWidget* SkeletonApplet::constructWidget(int widgetId)
 {
@@ -28,7 +28,7 @@ DcpWidget* SkeletonApplet::constructWidget(int widgetId)
                     qDebug() << "Page Unknown";
                     return 0;
                     break;
-    };
+    }
 }
 
 DcpWidget* SkeletonApplet::pageMain()

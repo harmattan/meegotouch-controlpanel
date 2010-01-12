@@ -8,7 +8,7 @@ Q_EXPORT_PLUGIN2(declarative, DcpDeclApplet)
 
 void DcpDeclApplet::init()
 {
-};
+}
 
 DcpWidget* DcpDeclApplet::constructWidget(int widgetId)
 {
