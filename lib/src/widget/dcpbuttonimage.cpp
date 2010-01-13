@@ -25,7 +25,6 @@ DcpButtonImage::setImageName (
 QGraphicsLayout *
 DcpButtonImage::createLayout ()
 {
-    // image:
     // we could use the icon of the button here, if it could be set to a custom
     // file
     m_Image = new DuiImage (this);

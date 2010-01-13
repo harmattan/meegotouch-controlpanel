@@ -32,9 +32,10 @@ private slots:
 
 private:
     DcpAppletDb* m_subject;
-    QString      emptyDesktopDir,testDesktopDir,testDesktopDir2,testDesktopDir3;
-    QString      desktopTestFile,desktopTestFile2,desktopDateTimeFile,desktopDisplayFile;
-    QString      browserEntryName,datetimeEntryName,displayEntryName;
+    QString  emptyDesktopDir,testDesktopDir,testDesktopDir2,testDesktopDir3;
+    QString  desktopTestFile,desktopTestFile2,desktopDateTimeFile,
+             desktopDisplayFile;
+    QString  browserEntryName,datetimeEntryName,displayEntryName;
     QCoreApplication* qap;
 };
 

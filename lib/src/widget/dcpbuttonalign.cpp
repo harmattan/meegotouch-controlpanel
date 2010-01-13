@@ -49,13 +49,11 @@ DcpButtonAlign::createLayout ()
 {
     Q_ASSERT(alignedWidget());
 
-    // text
     DcpButton::createLayout();
     qreal left, right, top, bottom;
     textLayout()->getContentsMargins (&left, &top, &right, &bottom);
     textLayout()->setContentsMargins (0, 0, right, 0);
 
-    // putting the widget next to the text
     d_ptr->m_AlignLayout = new QGraphicsLinearLayout (Qt::Horizontal);
     d_ptr->m_AlignLayout->setContentsMargins (left, top, right, bottom);
 

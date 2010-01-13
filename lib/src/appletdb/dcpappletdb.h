@@ -31,7 +31,8 @@ public:
 
         \param pathName the initial path where the desktop files are found.
     */
-    static DcpAppletDb *initInstance(const QString &pathName=DcpApplet::DefaultPath);
+    static DcpAppletDb *initInstance(const QString &pathName=
+                                                    DcpApplet::DefaultPath);
     /*! \brief Gives back the db instance
       */
     static DcpAppletDb *instance();
@@ -74,7 +75,8 @@ public:
     /*! \brief erase metadata from the db */
     void eraseEntry(DcpAppletMetadata *metadata);
 
-    /*! \brief checks all the deskop files and reloads or erases them if needed*/
+    /*! \brief checks all the deskop files and reloads or erases them
+         if needed*/
     void refresh();
 
 
@@ -84,7 +86,8 @@ public:
     /*! \brief checks if fileName has already added to the db */
     bool containsFile(const QString& fileName);
 
-    /*! \brief checks if an applet with given name is already in the db */
+    /*! \brief checks if an applet with given name is already 
+        in the db */
     bool containsName(const QString& name);
 
     /*! \brief destroys all the contents (metadata) of the db */

@@ -57,7 +57,6 @@ DcpButton::~DcpButton ()
 QGraphicsLayout *
 DcpButton::createLayout ()
 {
-    // create the labels:
     d_ptr->m_Label1 = new DuiLabel (this);
     d_ptr->m_Label1->setAcceptedMouseButtons (0);
     d_ptr->m_Label1->setTextElide (true);
@@ -67,7 +66,6 @@ DcpButton::createLayout ()
     d_ptr->m_Label2->setAcceptedMouseButtons (0);
     d_ptr->m_Label2->setObjectName ("DcpButtonLine2");
 
-    // create the layout:
     d_ptr->m_TextLayout = new QGraphicsGridLayout ();
     d_ptr->m_TextLayout->setContentsMargins (0, 0, 0, 0);
     d_ptr->m_TextLayout->addItem (d_ptr->m_Label1, 0, 0);
@@ -125,7 +123,6 @@ DcpButton::updateLabelSizes ()
     }
 }
 
-// convenience function
 void 
 DcpButton::setText (
         const QString &text1, 

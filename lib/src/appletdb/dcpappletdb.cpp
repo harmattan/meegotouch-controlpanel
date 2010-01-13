@@ -238,7 +238,7 @@ DcpAppletDb::applet (const QString& name)
         qWarning() << "No such applet:" << name;
 
     return metadata;
-};
+}
 
 void DcpAppletDb::refresh()
 {

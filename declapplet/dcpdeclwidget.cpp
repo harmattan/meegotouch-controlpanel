@@ -17,10 +17,13 @@ DcpDeclWidget::DcpDeclWidget(const QString& xmlPath)
                                       Qt::Vertical, this);
 
     // TODO memleaks in errors
-    QString filePath = xmlPath.startsWith('/') ? xmlPath : defaultPath + xmlPath;
+    QString filePath = xmlPath.startsWith('/') ? xmlPath 
+                                               : defaultPath + xmlPath;
     QFile file(filePath);
     if (!file.open(QIODevice::ReadOnly)) {
-        createErrorLabel(QString("Cannot find applet xml file %1").arg(filePath));
+        createErrorLabel(
+            QString("Cannot find applet xml file %1").arg(filePath)
+            );
         return;
     }
 

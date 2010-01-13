@@ -274,7 +274,8 @@ PageFactory::registerPage (
 
     connect (
         page, 
-        SIGNAL (openSubPageWithReferer (const PageHandle &, const QString &, int)), 
+        SIGNAL (openSubPageWithReferer (const PageHandle &, 
+                                        const QString &, int)), 
         this, 
         SLOT (changePage (const PageHandle &, const QString &, int)));
 

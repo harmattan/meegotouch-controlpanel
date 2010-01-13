@@ -53,7 +53,7 @@ void Ut_DcpAppletMetadata::testIsValid()
     QVERIFY(m_subject->isValid());
     delete m_subject;m_subject=0;
 
-    QWARN("\n\t ---- Expected QWARN : Multiple definitions of group 'DUI' ----");
+    QWARN("\n\t----Expected QWARN: Multiple definitions of group 'DUI'----");
     QVERIFY((m_subject=new DcpAppletMetadata(desktopBadTestFile)));
     QVERIFY(!m_subject->isValid());
 }
@@ -130,14 +130,16 @@ void Ut_DcpAppletMetadata::testAlign()
 
 void Ut_DcpAppletMetadata::testToggle()
 {
-    QSKIP("!!!! UnableToLoadAnyApplet bug under fixxing by Lgal !!!!",SkipSingle);
+    QSKIP("!!!! UnableToLoadAnyApplet bug under fixxing by Lgal !!!!",
+            SkipSingle);
 
     if (QTest::currentTestFailed()) return;
 }
 
 void Ut_DcpAppletMetadata::testText2()
 {
-    QSKIP("!!!! UnableToLoadAnyApplet bug under fixxing by Lgal !!!!",SkipSingle);
+    QSKIP("!!!! UnableToLoadAnyApplet bug under fixxing by Lgal !!!!",
+            SkipSingle);
 
     if (QTest::currentTestFailed()) return;
 }
@@ -174,7 +176,8 @@ void Ut_DcpAppletMetadata::testPart()
 
 void Ut_DcpAppletMetadata::testApplet()
 {
-    QSKIP("!!!! UnableToLoadAnyApplet bug under fixxing by Lgal !!!!",SkipSingle);
+    QSKIP("!!!! UnableToLoadAnyApplet bug under fixxing by Lgal !!!!",
+            SkipSingle);
 
     if (QTest::currentTestFailed()) return;
 
@@ -210,7 +213,8 @@ void Ut_DcpAppletMetadata::testCleanup()
 
 void Ut_DcpAppletMetadata::testBriefChanged()
 {
-    QSKIP("!!!! UnableToLoadAnyApplet bug under fixxing by Lgal !!!!",SkipSingle);
+    QSKIP("!!!! UnableToLoadAnyApplet bug under fixxing by Lgal !!!!",
+          SkipSingle);
 
     if (QTest::currentTestFailed()) return;
 }
