@@ -7,10 +7,17 @@
  */
 
 /*
- * Use these lines to disable the debug messages in the entire source tree.
+ * Use these lines to disable the debug (or warning) messages in the entire 
+ * source tree.
  */
 #undef DEBUG
-#undef WARNING
+//#undef WARNING
+
+/*
+ * Or use these lines to turn on all the debug (or warning) messages.
+ */
+//#define DEBUG
+#define WARNING
 
 /*
  * If the debug facility is enabled we also enable all the warning messages.

@@ -9,42 +9,49 @@
 #include "dcpdebug.h"
 
 const QString APPLETFILTER = "*.desktop";
-DcpAppletDb *DcpAppletDb::sm_Instance=0;
 
-DcpAppletDb*
-DcpAppletDb::initInstance(const QString &pathName)
-{
-    if (sm_Instance) {
-        qWarning() << "ignoring reinitialization of DcpAppletDb instance";
-    } else {
-        sm_Instance = new DcpAppletDb(pathName);
-    }
-    return sm_Instance;
-}
+DcpAppletDb *DcpAppletDb::sm_Instance = 0;
 
-DcpAppletDb*
-DcpAppletDb::instance()
-{
-    if (!sm_Instance)
-        return initInstance();
-    return sm_Instance;
-}
-
-DcpAppletDb::DcpAppletDb(const QString &pathName)
+DcpAppletDb::DcpAppletDb (
+        const QString   &pathName,
+        const QString   &nameFilter)
 {
     m_HasUniqueMetadata = false;
-    if (!pathName.isEmpty()){
-        addPath(pathName);
-    }
+
+    if (!pathName.isEmpty()) 
+        addFiles (pathName, nameFilter);
 }
 
 DcpAppletDb::~DcpAppletDb()
 {
 }
 
-void 
-DcpAppletDb::destroy()
+/*!
+ *
+ * Use this function to get the instance of the DcpAppletDb singleton, by
+ * re-using the existing one and initializing it.
+ */
+DcpAppletDb *
+DcpAppletDb::instance (
+        const QString   &pathName,
+        const QString   &nameFilter)
 {
+    if (!sm_Instance) {
+        sm_Instance = new DcpAppletDb (pathName, nameFilter);
+    }
+
+    return sm_Instance;
+}
+
+
+void 
+DcpAppletDb::destroy ()
+{
+    if (!sm_Instance) {
+        DCP_WARNING ("There is no instance to destroy.");
+        return;
+    }
+
     sm_Instance->destroyData();
     delete sm_Instance;
     sm_Instance = 0;
@@ -88,9 +95,10 @@ DcpAppletDb::containsFile(const QString& fileName)
 }
 
 bool
-DcpAppletDb::containsName(const QString& name)
+DcpAppletDb::containsName (
+        const QString &name)
 {
-    return m_AppletsByName.contains(name);
+    return m_AppletsByName.contains (name);
 }
 
 bool
@@ -113,9 +121,6 @@ DcpAppletDb::addFiles (
 {
     QStringList nameFilters (filter);
     QDir        appDir (pathName);
-
-    DCP_DEBUG ("*** 2 pathname = '%s'", DCP_STR (pathName));
-    DCP_DEBUG ("*** 2 filter   = '%s'", DCP_STR (filter));
 
     appDir.setNameFilters (nameFilters);
     foreach (QString appFile, appDir.entryList (QDir::Files)) {
@@ -234,13 +239,14 @@ DcpAppletDb::listMostUsed ()
 
 
 /*!
- * \brief Returns the applet found in the databse by its name.
+ * \brief Returns the applet found in the database by its name.
  *
  * FIXME: This is actually a localized name, that is changed when the language
  * settings are changed. This might cause some problems in the future.
  */
 DcpAppletMetadata *
-DcpAppletDb::applet (const QString& name)
+DcpAppletDb::applet (
+        const QString &name)
 {
     DcpAppletMetadata *metadata = m_AppletsByName.value(name, 0);
 
@@ -272,6 +278,9 @@ DcpAppletDb::refreshPath (
 {
     DCP_DEBUG ("");
 
+    /*
+     * FIXME: Should not we re-use the already set filterName?
+     */
     QDir appDir(pathName, APPLETFILTER);
     if (!appDir.exists()) {
         qWarning() << "Applet dir" << pathName << "does not exists";
@@ -286,7 +295,9 @@ DcpAppletDb::refreshPath (
     }
 }
 
-void DcpAppletDb::eraseEntry(DcpAppletMetadata *metadata)
+void 
+DcpAppletDb::eraseEntry (
+        DcpAppletMetadata *metadata)
 {
     m_AppletsByName.remove(metadata->name());
     m_AppletsByFile.remove(metadata->fileName());
@@ -294,7 +305,7 @@ void DcpAppletDb::eraseEntry(DcpAppletMetadata *metadata)
 }
 
 void 
-DcpAppletDb::destroyData()
+DcpAppletDb::destroyData ()
 {
     DCP_WARNING ("Destroying all metadata.");
     foreach(DcpAppletMetadata *metadata, m_AppletsByName) {
