@@ -415,19 +415,12 @@ DcpAppletMetadata::applet () const
 
     if (d->m_AppletLoader == 0) {
         d->m_AppletLoader = new DcpAppletLoader (this);
-        
-        #ifdef WARNING
-        if (d->m_AppletLoader->applet() == 0) {
-            qDebug() << d->m_AppletLoader->errorMsg() << "for" << binary();
-            DCP_WARNING ("Failed to load applet file '%s': %s",
-                    DCP_STR (fullBinary()),
-                    DCP_STR (d->m_AppletLoader->errorMsg()));
-        } else {
-            DCP_DEBUG ("Loaded applet file '%s'", DCP_STR(fullBinary()));
-        }
-        #endif
     }
 
+    /*
+     * FIXME: This way we try to load the applet binary every time this function
+     * is called. We should remember we failed instead.
+     */
     return d->m_AppletLoader->applet();
 }
 

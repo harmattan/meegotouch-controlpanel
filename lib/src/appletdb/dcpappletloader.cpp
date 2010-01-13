@@ -39,10 +39,9 @@ DcpAppletLoader::loadPluginFile (
      * (e.g. segmentation fault).
      */
     if (DcpWrongApplets::instance()->isAppletRecentlyCrashed (binaryPath)) {
-        DCP_WARNING ("The '%s' is a blacklisted applet", 
-                DCP_STR (m_Metadata->name()));
+        m_ErrorMsg =  "The " + binaryPath + "is a blacklisted applet";
+        DCP_WARNING ("%s", DCP_STR (m_ErrorMsg));
 
-        m_ErrorMsg = "Blacklisted applet";
         m_Applet = 0;
         return false;
     }
@@ -50,23 +49,18 @@ DcpAppletLoader::loadPluginFile (
     QPluginLoader loader (binaryPath);
     if (!loader.load ()) {
         m_ErrorMsg = "Loading applet failed: " + loader.errorString();
-        DCP_WARNING ("The loading of applet '%s' has been failed: %s",
-                DCP_STR (m_Metadata->name()),
-                DCP_STR (loader.errorString()));
+        DCP_WARNING ("%s", DCP_STR (m_ErrorMsg));
     } else {
         QObject *object = loader.instance();
         m_Applet = qobject_cast<DcpAppletIf*>(object);
 
         if (!m_Applet) {
-            m_ErrorMsg = "Can't convert object to ExampleAppletInterface.";
-            DCP_WARNING ("");
+            m_ErrorMsg = "Loading of the " + binaryPath +
+                "applet failed: Invalid ExampleAppletInterface object.";
+            DCP_WARNING ("%s", DCP_STR (m_ErrorMsg));
             return false;
         } else {
             m_Applet->init ();
-            #if 0
-            connect (object, SIGNAL(activate()),
-                    m_Metadata, SIGNAL (activate()));
-            #endif
         }
     }
 
@@ -82,8 +76,7 @@ DcpAppletLoader::loadDslFile (
         const QString &binaryPath)
 {
     Q_UNUSED (binaryPath);
-    DCP_WARNING ("Unimplemented.");
-
+    DCP_WARNING ("Loading of the DSL file is not implemented yet.");
 
     return false;
 }
