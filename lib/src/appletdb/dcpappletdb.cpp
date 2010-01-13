@@ -184,7 +184,7 @@ DcpAppletDb::listByCategory (
             if ((checkFunction && !checkFunction (item->category ())) ||
                     !item->category().compare (
                         QString(category[n]), Qt::CaseInsensitive)) {
-                DCP_WARNING ("Adding applet %s", DCP_STR(item->name()));
+                //DCP_WARNING ("Adding applet %s", DCP_STR(item->name()));
                 filtered.append (item);
                 break;
             }

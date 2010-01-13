@@ -76,7 +76,7 @@ DcpMainCategory::setVerticalSpacing (
 
 
 /*!
- * Appends a new item to the widget. Hendles two column layout automatically.
+ * Appends a new item to the widget. Handles two column layout automatically.
  * There is no function to add a long line, but as I see we don't need that
  * feature right now. Anyway, it is easy to implement such a function.  
  */
