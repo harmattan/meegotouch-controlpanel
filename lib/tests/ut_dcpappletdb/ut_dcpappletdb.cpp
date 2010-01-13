@@ -38,7 +38,15 @@ void Ut_DcpAppletDb::cleanupTestCase()
 
 void Ut_DcpAppletDb::init()
 {
-    QVERIFY((m_subject=DcpAppletDb::initInstance(emptyDesktopDir)));
+    /*
+     * FIXME: I removed the initInstance() function simply because it refused to
+     * initialize an existing object, it was only usefull to initialize new
+     * instances and of course that's the constructor or the instance() function
+     * is for.
+     * However this init() function has no documentation, so I don't know how to
+     * remove it entirely. So I added instance() instead of initInstance()...
+     */
+    QVERIFY ((m_subject=DcpAppletDb::instance(emptyDesktopDir)));
 }
 
 void Ut_DcpAppletDb::cleanup()

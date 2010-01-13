@@ -43,16 +43,20 @@ DcpRetranslator::installAppletTranslations(DuiLocale& locale)
 {
     static const QString pluginFilePrefix = "duicontrolpanel-";
     QDir localeDir(TRANSLATIONS_DIR);
-    QStringList fileNames = localeDir.entryList(QStringList(pluginFilePrefix + "*.qm"),
-                                                QDir::Files | QDir::Readable,
-                                                QDir::Name);
+    QStringList fileNames = 
+        localeDir.entryList(QStringList(pluginFilePrefix + "*.qm"),
+                            QDir::Files | QDir::Readable,
+                            QDir::Name);
     QString translationName = "/";
     foreach (QString fileName, fileNames) {
-        // do not load the same translation multiple times (fileNames are sorted)
+        // do not load the same translation multiple times
+        // (fileNames are sorted)
         if (fileName.startsWith(translationName)) continue;
 
         int chopIndex = fileName.indexOf('_');
-        if (chopIndex == -1) chopIndex = fileName.indexOf('.'); // is an engineering english translation
+        if (chopIndex == -1)
+         chopIndex = fileName.indexOf('.'); // is an engineering english
+                                            // translation
         if (chopIndex == -1) continue; // strange error
 
         translationName = fileName;

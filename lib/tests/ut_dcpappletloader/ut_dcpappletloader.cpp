@@ -38,7 +38,9 @@ void Ut_DcpAppletLoader::testLoadBinaryOk()
     DcpAppletMetadata *metadata = new DcpAppletMetadata("dummy-binary");
     m_subject = new DcpAppletLoader(metadata);
     QVERIFY(m_subject->applet());
-    QVERIFY(dynamic_cast<DcpAppletLoaderApplet*>(m_subject->applet())->initialized());
+    QVERIFY(
+        dynamic_cast<DcpAppletLoaderApplet*>(m_subject->applet())->initialized()
+        );
     delete metadata;
 }
 

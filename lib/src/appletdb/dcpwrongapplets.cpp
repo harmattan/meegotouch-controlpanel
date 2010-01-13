@@ -24,7 +24,7 @@ bool DcpWrongApplets::sm_Disabled = false;
 const QString keyPath = "/apps/duicontrolpanel/badplugins";
 
 
-/*********************************************************************************
+/*******************************************************************************
  * Here some signal handlers are implemented.
  */
 #define BACKTRACE_SIZE 128
@@ -126,7 +126,7 @@ termination_signal_handler (
     raise (signum);
 }
 
-/*********************************************************************************
+/*******************************************************************************
  * Other parts of the code.
  */
 DcpWrongApplets::DcpWrongApplets ()

@@ -1,3 +1,5 @@
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #ifndef DCPAPPLETDB_H
 #define DCPAPPLETDB_H
 #include <QList>
@@ -23,23 +25,21 @@ typedef bool (*checkCategory)(const QString &);
 class DcpAppletDb
 {
 public:
-    /*! \brief Initializes and returns the singleton instance.
-
-        It only can be called once and only before instance() gets called.
-        Calling this function is not mandatory. When it's not called,
-        the instance will be initialized by DcpApplet::DefaultPath.
-
-        \param pathName the initial path where the desktop files are found.
-    */
-    static DcpAppletDb *initInstance(const QString &pathName=DcpApplet::DefaultPath);
-    /*! \brief Gives back the db instance
-      */
-    static DcpAppletDb *instance();
+    /*!
+     * \brief Gives back the db instance
+     *
+     * This function has two optional arguments, so the path and the filter can
+     * be initialized as the very first step.
+     */
+    static DcpAppletDb *instance (
+            const QString &pathName = DcpApplet::DefaultPath,
+            const QString &nameFilter = "*.desktop");
+    
     /*! \brief adds files at a specified path pathName to the db */
-    bool addPath(const QString &pathName);
+    bool addPath (const QString &pathName);
 
     /* \brief adds files at specified pathName with specific name filter */
-    bool addFiles(const QString& path, const QString& filter);
+    bool addFiles (const QString &path, const QString &filter);
  
     /*! \brief Database destructor */
     virtual ~DcpAppletDb();
@@ -74,7 +74,8 @@ public:
     /*! \brief erase metadata from the db */
     void eraseEntry(DcpAppletMetadata *metadata);
 
-    /*! \brief checks all the deskop files and reloads or erases them if needed*/
+    /*! \brief checks all the deskop files and reloads or erases them
+         if needed*/
     void refresh();
 
 
@@ -84,16 +85,17 @@ public:
     /*! \brief checks if fileName has already added to the db */
     bool containsFile(const QString& fileName);
 
-    /*! \brief checks if an applet with given name is already in the db */
+    /*! \brief checks if an applet with given name is already 
+        in the db */
     bool containsName(const QString& name);
 
     /*! \brief destroys all the contents (metadata) of the db */
-    void destroyData(void);
-    static void destroy(void);
+    void destroyData (void);
+    static void destroy (void);
 
 protected:
     /*! \brief protected constructor for singleton*/
-    DcpAppletDb(const QString &pathName);
+    DcpAppletDb (const QString &pathName, const QString &nameFilter);
     /*! \brief refresh a specified path*/
     void refreshPath(const QString &pathName);
 

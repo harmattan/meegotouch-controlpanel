@@ -100,9 +100,9 @@ int main(int argc, char *argv[])
     }
 
     if (desktopDir.isEmpty()) {
-         DcpAppletDb::initInstance();
+         DcpAppletDb::instance ();
     } else {
-         DcpAppletDb::initInstance(desktopDir);
+         DcpAppletDb::instance (desktopDir);
     }
 
     return startApplication(argc, argv);

@@ -188,9 +188,34 @@ dcp_find_category_info (
     return NULL;
 }
 
+/*!
+ * \brief Check if the category name is 'recognized' by the duicontrolpanel.
+ * 
+ * This function is used to decide if a given category name is a supported
+ * 'official' category name of the control panel. If an applet has a category
+ * name that is not supported as offical the applet will appear in the
+ * 'applications' category that is shown as a sub-page.
+ */
 bool
 dcp_category_name_enlisted (
         const QString           &name)
 {
-    return dcp_find_category_info (name) != NULL;
+    bool retval;
+
+    /*
+     * If the category name can be found in this inline database it is official.
+     */
+    retval = dcp_find_category_info (name) != NULL;
+    if (retval)
+        return retval;
+
+    /*
+     * Checking additional category names. FIXME: Should be more robust not to
+     * mention the localization; I don't know what is the logical string for
+     * 'Startup'.
+     */
+    if (name == "Startup")
+        return true;
+
+    return false;
 }
