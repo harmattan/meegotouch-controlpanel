@@ -7,6 +7,12 @@
  */
 
 /*
+ * Use these lines to disable the debug messages in the entire source tree.
+ */
+#undef DEBUG
+#undef WARNING
+
+/*
  * If the debug facility is enabled we also enable all the warning messages.
  */
 #if defined(DEBUG) && !defined(WARNING)

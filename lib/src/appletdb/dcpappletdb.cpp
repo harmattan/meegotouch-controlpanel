@@ -51,30 +51,28 @@ DcpAppletDb::destroy()
 }
 
 bool
-DcpAppletDb::addFile(const QString& filename)
+DcpAppletDb::addFile (
+        const QString& filename)
 {
- if (containsFile(filename) || m_HasUniqueMetadata)
-    return false;
+    if (containsFile(filename) || m_HasUniqueMetadata)
+        return false;
 
-  DcpAppletMetadata *metadata = new DcpAppletMetadata(filename);
-  if (metadata->isValid())
-    {
-        if (metadata->isUnique())
-        {
+    DcpAppletMetadata *metadata = new DcpAppletMetadata(filename);
+    if (metadata->isValid()) {
+        if (metadata->isUnique()) {
              m_AppletsByName.clear();
              m_AppletsByFile.clear();
              m_HasUniqueMetadata = true;
-
         }
         DCP_DEBUG ("Adding applet name '%s'", DCP_STR (metadata->name()));
         m_AppletsByName[metadata->name()] = metadata;
         m_AppletsByFile[filename] = metadata;
         return true;
+    } else {
+        metadata->deleteLater();
     }
-  else {
-    metadata->deleteLater();
-  }
-  return false;
+    
+    return false;
 }
 
 QStringList
@@ -96,8 +94,10 @@ DcpAppletDb::containsName(const QString& name)
 }
 
 bool
-DcpAppletDb::addPath(const QString &pathName)
+DcpAppletDb::addPath (const QString &pathName)
 {
+    DCP_DEBUG ("Will use filter '*.desktop'!");
+
     if (addFiles (pathName, "*.desktop")) {
         m_Paths.append(pathName);
         return true;
@@ -107,14 +107,24 @@ DcpAppletDb::addPath(const QString &pathName)
 }
 
 bool
-DcpAppletDb::addFiles(const QString& pathName, const QString& filter)
+DcpAppletDb::addFiles (
+        const QString  &pathName, 
+        const QString  &filter)
 {
-    QDir appDir(pathName);
-    foreach(QString appFile, appDir.entryList(QStringList(filter)))
-    {
-        if (!addFile(appDir.absoluteFilePath(appFile)))
-              return false;
+    QStringList nameFilters (filter);
+    QDir        appDir (pathName);
+
+    DCP_DEBUG ("*** 2 pathname = '%s'", DCP_STR (pathName));
+    DCP_DEBUG ("*** 2 filter   = '%s'", DCP_STR (filter));
+
+    appDir.setNameFilters (nameFilters);
+    foreach (QString appFile, appDir.entryList (QDir::Files)) {
+        DCP_DEBUG ("Adding file '%s'", 
+                DCP_STR (appDir.absoluteFilePath(appFile)));
+        if (!addFile (appDir.absoluteFilePath(appFile)))
+            return false;
     }
+
     return true;
 }
 
@@ -256,8 +266,11 @@ void DcpAppletDb::refresh()
     }
 }
 
-void DcpAppletDb::refreshPath(const QString &pathName)
+void 
+DcpAppletDb::refreshPath (
+        const QString &pathName)
 {
+    DCP_DEBUG ("");
 
     QDir appDir(pathName, APPLETFILTER);
     if (!appDir.exists()) {
