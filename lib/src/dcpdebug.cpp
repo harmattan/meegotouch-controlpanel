@@ -30,7 +30,8 @@ static const char* DEBUG_PREFIX = "(DCP)";
 static QHash<QString, QTime> starttimes;
 
 void DcpDebug::time(const QString& msg) {
-    qDebug() << DEBUG_PREFIX << QTime::currentTime().toString("mm:ss.zzz") << msg;
+    qDebug() << DEBUG_PREFIX 
+        << QTime::currentTime().toString("mm:ss.zzz") << msg;
 }
 
 void DcpDebug::start(const QString& msg) {

@@ -38,7 +38,8 @@ int main(int argc, char** argv)
     foreach (QString key, binary->keys()) {
         datastore->addGConfKey(key, key);
     }
-    DuiDeclarativeSettings* widget = DuiDeclarativeSettingsFactory::createWidget(*binary, datastore );
+    DuiDeclarativeSettings* widget = 
+        DuiDeclarativeSettingsFactory::createWidget(*binary, datastore );
     Q_ASSERT(widget);
     layout->addItem(widget);
     /* -- */
