@@ -222,8 +222,8 @@ DcpAppletMetadata::widgetTypeID () const
     QString typeName = desktopEntryStr (KeyWidgetType);
     if (!typeName.isEmpty()) {
         for (retval = DcpWidgetType::BriefInvalid; retval < DcpWidgetType::IdMax; retval++) {
-            if (DcpWidgetType::names[retval] == typeName && 
-                    DcpWidgetType::isIdValid (retval)) { 
+            if (DcpWidgetType::names[retval - DcpWidgetType::BriefInvalid] == typeName && 
+                    DcpWidgetType::isIdValid (retval)) {
                 DCP_DEBUG ("Desktop file provides a widget type: '%s'",
                         DCP_STR (typeName));
                 return retval;
