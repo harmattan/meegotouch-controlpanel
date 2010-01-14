@@ -88,9 +88,15 @@ DcpBriefWidget::~DcpBriefWidget ()
  * implement internal brief widgets also.
  */
 void
-DcpBriefWidget::constructRealWidget (int widgetTypeId)
+DcpBriefWidget::constructRealWidget (
+        int                widgetTypeId)
 {
     switch (widgetTypeId) {
+        case DcpWidgetType::Label:
+            DCP_DEBUG ("### DcpWidgetType::Label ###");
+            d_ptr->m_RealWidget = constructToggle (d_ptr->m_Metadata);
+            break;
+
         case DcpWidgetType::Toggle:
             DCP_DEBUG ("### DcpWidgetType::Toggle ###");
             d_ptr->m_RealWidget = constructToggle (d_ptr->m_Metadata);
@@ -102,7 +108,7 @@ DcpBriefWidget::constructRealWidget (int widgetTypeId)
             break;
 
         default:
-            DCP_DEBUG ("### DcpWidgetType::Label ###");
+            DCP_DEBUG ("### other widget ###");
             d_ptr->m_RealWidget = new DcpButton (this);
             break;
     }

@@ -4,28 +4,17 @@
 #define DCPWIDGETTYPES_H
 #include <QString>
 
-enum Q_DECL_DEPRECATED WIDGETTYPEID {
-    DCPBRIEFWIDGETINVALID = 0,
-    DCPLABEL,           //"DcpLabel"
-    DCPLABEL2,          //"DcpLabel2"
-    DCPLABELBUTTON,     //"DcpLabelButton"
-    DCPLABEL2BUTTON,    //"DcpLabel2Button"
-    DCPLABEL2IMAGE,     //"DcpLabel2Image"
-    DCPLABEL2TOGGLE,    //"DcpLabel2Toggle"
-    WIDGETN
-};
-
 namespace DcpWidgetType
 {
         enum Id {
-            BriefInvalid = 100,
+            BriefInvalid = 0,
             Label,
             Toggle,
             Image,
-            IdMax
+            IdCount
         };
         const QString  
-        names[IdMax - BriefInvalid] = 
+        names[IdCount] = 
         {
             "DcpBriefWidgetInvalid",
             "DcpLabel",
@@ -45,6 +34,16 @@ Q_DECL_DEPRECATED WIDGETNAME[] =
     "DcpLabel2Button",
     "DcpLabel2Image",
     "DcpLabel2Toggle",
+};
+enum Q_DECL_DEPRECATED WIDGETTYPEID {
+    DCPBRIEFWIDGETINVALID = 0,
+    DCPLABEL,           //"DcpLabel"
+    DCPLABEL2,          //"DcpLabel2"
+    DCPLABELBUTTON,     //"DcpLabelButton"
+    DCPLABEL2BUTTON,    //"DcpLabel2Button"
+    DCPLABEL2IMAGE,     //"DcpLabel2Image"
+    DCPLABEL2TOGGLE,    //"DcpLabel2Toggle"
+    WIDGETN
 };
 
 #define DCP_WIDGET_TYPE_VALID(type) ((type) >= DCPLABEL && \

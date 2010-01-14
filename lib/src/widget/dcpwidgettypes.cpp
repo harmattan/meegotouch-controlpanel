@@ -6,6 +6,6 @@ namespace DcpWidgetType
        bool 
        isIdValid(int id)
        {
-            return id > BriefInvalid && id < IdMax;
+            return id > BriefInvalid && id < IdCount;
        } 
 };
