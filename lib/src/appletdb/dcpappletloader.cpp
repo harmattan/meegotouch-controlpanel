@@ -41,6 +41,7 @@ DcpAppletLoader::loadPluginFile (
     if (DcpWrongApplets::instance()->isAppletRecentlyCrashed (binaryPath)) {
         m_ErrorMsg =  "The " + binaryPath + "is a blacklisted applet";
         DCP_WARNING ("%s", DCP_STR (m_ErrorMsg));
+        qCritical() << m_ErrorMsg;
 
         m_Applet = 0;
         return false;
@@ -50,6 +51,7 @@ DcpAppletLoader::loadPluginFile (
     if (!loader.load ()) {
         m_ErrorMsg = "Loading applet failed: " + loader.errorString();
         DCP_WARNING ("%s", DCP_STR (m_ErrorMsg));
+        qCritical () << m_ErrorMsg;
     } else {
         QObject *object = loader.instance();
         m_Applet = qobject_cast<DcpAppletIf*>(object);
@@ -58,6 +60,7 @@ DcpAppletLoader::loadPluginFile (
             m_ErrorMsg = "Loading of the " + binaryPath +
                 "applet failed: Invalid ExampleAppletInterface object.";
             DCP_WARNING ("%s", DCP_STR (m_ErrorMsg));
+            qCritical() << m_ErrorMsg;
             return false;
         } else {
             m_Applet->init ();
