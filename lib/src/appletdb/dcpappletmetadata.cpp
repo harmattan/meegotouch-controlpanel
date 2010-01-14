@@ -313,6 +313,25 @@ DcpAppletMetadata::toggleIconId () const
 }
 
 /*!
+ * \returns The status text/error message of the applet variant.
+ */
+QString 
+DcpAppletMetadata::errorMsg () const 
+{
+    QString retval;
+
+    if (!isValid())
+        retval = "The desktop file is invalid.";
+    else if (applet() != NULL)
+        retval = "OK";
+    else 
+        retval = d->m_AppletLoader->errorMsg();
+
+    return retval;
+}
+
+
+/*!
  * \brief A slot for the inter plugin activation.
  * \param appletName The name of the applet to activate.
  * 

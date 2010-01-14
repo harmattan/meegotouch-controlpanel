@@ -191,11 +191,6 @@ DcpAppletPage::changeWidget (
     newMainWidget = m_Metadata->applet()->constructWidget (widgetId);
     this_is_a_new_widget = m_MainWidget != newMainWidget;
 
-    DCP_DEBUG ("-----------------------------------------");
-    DCP_DEBUG ("*** this            = %p", this);
-    DCP_DEBUG ("*** m_MainWidget    = %p", m_MainWidget);
-    DCP_DEBUG ("*** newMainWidget   = %p", newMainWidget);
-
     if (m_MainWidget != 0 && this_is_a_new_widget) {
         /*
          * If this is not the same widget that we already have, we remove the

@@ -10,10 +10,10 @@
 #include "dcpdebug.h"
 
 DcpAppletLoader::DcpAppletLoader (
-        const DcpAppletMetadata *metadata)
-: m_Metadata(metadata)
+        const DcpAppletMetadata *metadata): 
+    m_Metadata(metadata),
+    m_Applet (0)
 {
-    m_Applet = 0;
     load ();
 }
 
@@ -23,6 +23,30 @@ DcpAppletLoader::~DcpAppletLoader()
         delete m_Applet;
 
     m_Applet = 0;
+}
+
+/*!
+ * \returns The applet interface of the applet loader.
+ *
+ * Returns the applet interface, the interface object created by the applet if
+ * the applet loaded successfully. Returns NULL if the applet was not loaded.
+ * Please note that this method might return NULL!
+ */
+DcpAppletIf *
+DcpAppletLoader::applet() const 
+{ 
+    return m_Applet; 
+}
+
+/*!
+ * \returns the error message string describes the problem why the applet was
+ *   not loaded. Returns the empty string if the applet was loaded 
+ *   successfully.
+ */
+const QString 
+DcpAppletLoader::errorMsg () const
+{ 
+    return m_ErrorMsg; 
 }
 
 /*

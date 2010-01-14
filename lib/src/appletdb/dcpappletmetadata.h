@@ -40,7 +40,8 @@ public:
     QString fileName () const;
     QString category () const;
     QString toggleIconId () const;
-    
+    QString errorMsg () const;
+
     QString binary () const;
     QString dslFilename () const;
     QString applicationCommand () const;
