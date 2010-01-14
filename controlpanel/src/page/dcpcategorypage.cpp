@@ -25,4 +25,3 @@ DcpCategoryPage::organizeContent (
     DcpPage::organizeContent (ori);
     m_Category->onOrientationChange (ori);
 }
-

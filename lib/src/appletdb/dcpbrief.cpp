@@ -20,7 +20,7 @@ DcpBrief::~DcpBrief()
 int
 DcpBrief::widgetTypeID () const
 {
-    return DCPBRIEFWIDGETINVALID;
+    return DcpWidgetType::BriefInvalid;
 }
 
 QString 

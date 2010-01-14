@@ -195,7 +195,7 @@ DcpAppletMetadata::widgetTypeID () const
      */
     if (brief != NULL) {
         retval = brief->widgetTypeID ();
-        if (DCP_WIDGET_TYPE_VALID (retval)) {
+        if (DcpWidgetType::isIdValid(retval)) {
             DCP_DEBUG ("brief->widgetTypeID () provides a widget type.");
             return retval;
         }
@@ -207,9 +207,9 @@ DcpAppletMetadata::widgetTypeID () const
      */
     QString typeName = desktopEntryStr (KeyWidgetType);
     if (!typeName.isEmpty()) {
-        for (retval = 0; retval < WIDGETN; retval++) {
-            if (WIDGETNAME[retval] == typeName && 
-                    DCP_WIDGET_TYPE_VALID (retval)) { 
+        for (retval = 0; retval < DcpWidgetType::IdCount ; retval++) {
+            if (DcpWidgetType::names[retval] == typeName && 
+                    DcpWidgetType::isIdValid (retval)) { 
                 DCP_DEBUG ("Desktop file provides a widget type: '%s'",
                         DCP_STR (typeName));
                 return retval;
@@ -221,7 +221,7 @@ DcpAppletMetadata::widgetTypeID () const
      * Otherwise we return the default value, simple plugins can rely on this.
      */
     DCP_DEBUG ("Using default widget type.");
-    return DCPLABEL2;
+    return DcpWidgetType::Label;
 }
 
 Qt::Alignment 

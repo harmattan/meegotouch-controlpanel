@@ -92,18 +92,18 @@ DcpBriefWidget::constructRealWidget (
         int                widgetTypeId)
 {
     switch (widgetTypeId) {
-        case DCPLABELBUTTON:
-            DCP_DEBUG ("### DCPLABELBUTTON ###");
+        case DcpWidgetType::Label:
+            DCP_DEBUG ("### DcpWidgetType::Label ###");
             d_ptr->m_RealWidget = constructToggle (d_ptr->m_Metadata);
             break;
 
-        case DCPLABEL2BUTTON:
-            DCP_DEBUG ("### DCPLABEL2BUTTON ###");
+        case DcpWidgetType::Toggle:
+            DCP_DEBUG ("### DcpWidgetType::Toggle ###");
             d_ptr->m_RealWidget = constructToggle (d_ptr->m_Metadata);
             break;
 
-        case DCPLABEL2IMAGE:
-            DCP_DEBUG ("### DCPLABEL2IMAGE ###");
+        case DcpWidgetType::Image:
+            DCP_DEBUG ("### DcpWidgetType::Image ###");
             d_ptr->m_RealWidget = constructImage (d_ptr->m_Metadata);
             break;
 

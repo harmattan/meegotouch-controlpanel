@@ -4,12 +4,28 @@
 #define DCPWIDGETTYPES_H
 #include <QString>
 
-/*
- * Fixme: These should be inside some namespace, and the names should not be all
- * capitals.
- */
+namespace DcpWidgetType
+{
+        enum Id {
+            BriefInvalid = 0,
+            Label,
+            Toggle,
+            Image,
+            IdCount
+        };
+        const QString  
+        names[IdCount] = 
+        {
+            "DcpBriefWidgetInvalid",
+            "DcpLabel",
+            "DcpLabelButton",
+            "DcpLabelImage",
+        };
+        bool isIdValid(int id); 
+};
+
 static const QString  
-WIDGETNAME[] = 
+Q_DECL_DEPRECATED WIDGETNAME[] = 
 {
     "DcpBriefWidgetInvalid",
     "DcpLabel",
@@ -19,11 +35,7 @@ WIDGETNAME[] =
     "DcpLabel2Image",
     "DcpLabel2Toggle",
 };
-
-/*
- * FIXME: The code rely on the fact that the first element has a 0 value!!
- */
-enum WIDGETTYPEID {
+enum Q_DECL_DEPRECATED WIDGETTYPEID {
     DCPBRIEFWIDGETINVALID = 0,
     DCPLABEL,           //"DcpLabel"
     DCPLABEL2,          //"DcpLabel2"
@@ -36,4 +48,5 @@ enum WIDGETTYPEID {
 
 #define DCP_WIDGET_TYPE_VALID(type) ((type) >= DCPLABEL && \
                                      (type) <= DCPLABEL2TOGGLE)
+
 #endif // DCPWIDGETTYPES_H
