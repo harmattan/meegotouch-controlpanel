@@ -62,8 +62,10 @@ DcpBriefWidget::DcpBriefWidget (
     QGraphicsLinearLayout* wlayout = new QGraphicsLinearLayout (this);
     wlayout->setContentsMargins (0, 0, 0, 0);
 
-    DCP_WARNING ("Unsupported widget type: %d", widgetTypeId);
-   
+    /*
+     * FIXME: I mean unused argument.
+     */
+    //DCP_WARNING ("Unsupported widget type: %d", widgetTypeId);
 
     toggle = new DcpButton (this);
     d_ptr->m_RealWidget = toggle;

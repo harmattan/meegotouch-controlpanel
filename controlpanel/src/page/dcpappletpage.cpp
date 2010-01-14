@@ -115,6 +115,11 @@ DcpAppletPage::loadMainWidget ()
 
             return;
         }
+
+        DCP_WARNING ("The metadata has no loaded plugin nor an external "
+                "command defined");
+    } else {
+        DCP_WARNING ("The metadata is not valid.");
     }
 
     if (!m_MissingLabel) {

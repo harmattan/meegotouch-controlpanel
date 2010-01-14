@@ -13,7 +13,7 @@
 //#define DEBUG
 #include "../../../lib/src/dcpdebug.h"
 
-static const QString SEPARATOR_OBJECTNAME = "DcpSmallSeparator";
+static const QString SeparatorObjectName = "DcpSmallSeparator";
 
 DcpMainCategory::DcpMainCategory (
         const QString &title, 
@@ -76,7 +76,7 @@ DcpMainCategory::setVerticalSpacing (
 
 
 /*!
- * Appends a new item to the widget. Hendles two column layout automatically.
+ * Appends a new item to the widget. Handles two column layout automatically.
  * There is no function to add a long line, but as I see we don't need that
  * feature right now. Anyway, it is easy to implement such a function.  
  */
@@ -170,7 +170,7 @@ DcpMainCategory::appendSeparatorsIfNeeded ()
      */
     do {
         separator = new DuiSeparator (this);
-        separator->setObjectName (SEPARATOR_OBJECTNAME);
+        separator->setObjectName (SeparatorObjectName);
         /*
          * We will not add the separator to the m_PortraitLayout, we don't want
          * to see them in portrait mode.
