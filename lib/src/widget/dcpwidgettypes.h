@@ -35,10 +35,6 @@ Q_DECL_DEPRECATED WIDGETNAME[] =
     "DcpLabel2Image",
     "DcpLabel2Toggle",
 };
-
-/*
- * FIXME: The code rely on the fact that the first element has a 0 value!!
- */
 enum Q_DECL_DEPRECATED WIDGETTYPEID {
     DCPBRIEFWIDGETINVALID = 0,
     DCPLABEL,           //"DcpLabel"
@@ -52,4 +48,5 @@ enum Q_DECL_DEPRECATED WIDGETTYPEID {
 
 #define DCP_WIDGET_TYPE_VALID(type) ((type) >= DCPLABEL && \
                                      (type) <= DCPLABEL2TOGGLE)
+
 #endif // DCPWIDGETTYPES_H

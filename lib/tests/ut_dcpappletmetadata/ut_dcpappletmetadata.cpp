@@ -117,8 +117,8 @@ void Ut_DcpAppletMetadata::testWidgetTypeID()
 {
     if (QTest::currentTestFailed()) return;
 
-    QCOMPARE(m_subject->widgetTypeID(),static_cast<int>(DCPLABEL2));
-}
+    QCOMPARE(m_subject->widgetTypeID(),static_cast<int>(DcpWidgetType::Label));
+}  
 
 void Ut_DcpAppletMetadata::testAlign()
 {

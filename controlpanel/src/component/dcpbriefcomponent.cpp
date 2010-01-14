@@ -37,7 +37,7 @@ DcpBriefComponent::DcpBriefComponent (
 {
     QGraphicsLinearLayout* layout;
     
-    m_BriefWidget = new DcpBriefWidget (DCPLABELBUTTON, line1, line2, this);
+    m_BriefWidget = new DcpBriefWidget (DcpWidgetType::Toggle, line1, line2, this);
     layout = new QGraphicsLinearLayout (this);
     layout->addItem (m_BriefWidget);
 
