@@ -3,13 +3,14 @@ duicontrolpanel (0.6.4) UNRELEASED; urgency=low
   [ Viktor Nagy ]
   * Fixes: NB#149663 Class member names are not consistent
   * Fixes: NB#149659 The identation is not consistent 
+  * Updated category containers
 
   [ Robert Manner ]
   * Fixes: NB#150929 The applets should be re-enabled when the
     controlpanel is re-installed
   * Implements: support for using applet translations
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 12 Jan 2010 14:48:02 +0100
+ -- Viktor Nagy <viktor.nagy@blumsoft.eu>  Thu, 14 Jan 2010 15:52:38 +0100
 
 duicontrolpanel (0.6.3) unstable; urgency=low
 
