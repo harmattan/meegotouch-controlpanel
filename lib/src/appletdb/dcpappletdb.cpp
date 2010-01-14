@@ -8,9 +8,8 @@
 #define DEBUG
 #include "dcpdebug.h"
 
-const QString APPLETFILTER = "*.desktop";
-
-DcpAppletDb *DcpAppletDb::sm_Instance = 0;
+const QString AppletFilter = "*.desktop";
+DcpAppletDb *DcpAppletDb::sm_Instance=0;
 
 DcpAppletDb::DcpAppletDb (
         const QString   &pathName,
@@ -281,7 +280,7 @@ DcpAppletDb::refreshPath (
     /*
      * FIXME: Should not we re-use the already set filterName?
      */
-    QDir appDir(pathName, APPLETFILTER);
+    QDir appDir(pathName, AppletFilter);
     if (!appDir.exists()) {
         qWarning() << "Applet dir" << pathName << "does not exists";
         return;
