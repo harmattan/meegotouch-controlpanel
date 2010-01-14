@@ -198,6 +198,20 @@ DcpAppletMetadata::widgetTypeID () const
         if (DcpWidgetType::isIdValid(retval)) {
             DCP_DEBUG ("brief->widgetTypeID () provides a widget type.");
             return retval;
+        } else {
+            /* FIXME: for supporting old api,
+             * please remove ones deprecated ids are removed */
+            switch (retval) {
+                case DCPLABELBUTTON:
+                case DCPLABEL2BUTTON:
+                case DCPLABEL2TOGGLE:
+                    return DcpWidgetType::Toggle;
+                case DCPLABEL2IMAGE:
+                    return DcpWidgetType::Image;
+                case DCPLABEL:
+                case DCPLABEL2:
+                    return DcpWidgetType::Label;
+            };
         }
     }
 
@@ -207,9 +221,9 @@ DcpAppletMetadata::widgetTypeID () const
      */
     QString typeName = desktopEntryStr (KeyWidgetType);
     if (!typeName.isEmpty()) {
-        for (retval = 0; retval < DcpWidgetType::IdCount ; retval++) {
-            if (DcpWidgetType::names[retval] == typeName && 
-                    DcpWidgetType::isIdValid (retval)) { 
+        for (retval = DcpWidgetType::BriefInvalid; retval < DcpWidgetType::IdMax; retval++) {
+            if (DcpWidgetType::names[retval - DcpWidgetType::BriefInvalid] == typeName && 
+                    DcpWidgetType::isIdValid (retval)) {
                 DCP_DEBUG ("Desktop file provides a widget type: '%s'",
                         DCP_STR (typeName));
                 return retval;
