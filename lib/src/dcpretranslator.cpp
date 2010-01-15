@@ -28,7 +28,7 @@ DcpRetranslator::retranslate()
     qDebug() << __PRETTY_FUNCTION__ << binaryName << language;
 
     // install engineering english
-    locale.installTrCatalog(binaryName+".qm");
+    locale.installTrCatalog(binaryName + ".qm");
     // install real translation
     locale.installTrCatalog(binaryName);
 
@@ -64,7 +64,7 @@ DcpRetranslator::installAppletTranslations(DuiLocale& locale)
         qDebug() << "Installing translation for" << translationName;
 
         // install engineering english
-        locale.installTrCatalog(translationName+".qm");
+        locale.installTrCatalog(translationName + ".qm");
         // install real translation
         locale.installTrCatalog(translationName);
     }

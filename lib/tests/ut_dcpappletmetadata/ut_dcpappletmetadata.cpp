@@ -78,14 +78,14 @@ void Ut_DcpAppletMetadata::testFileName()
 {
     if (QTest::currentTestFailed()) return;
 
-    QCOMPARE(m_subject->fileName(),desktopTestFile);
+    QCOMPARE(m_subject->fileName(), desktopTestFile);
 }
 
 void Ut_DcpAppletMetadata::testCategory()
 {
     if (QTest::currentTestFailed()) return;
 
-    QCOMPARE(m_subject->category(),QString("Application"));
+    QCOMPARE(m_subject->category(), QString("Application"));
 }
 
 void Ut_DcpAppletMetadata::testGetSetBinaryDir()
@@ -94,14 +94,14 @@ void Ut_DcpAppletMetadata::testGetSetBinaryDir()
 
     m_subject->setBinaryDir(appletDir);
 
-    QCOMPARE(m_subject->binaryDir(),appletDir);
+    QCOMPARE(m_subject->binaryDir(), appletDir);
 }
 
 void Ut_DcpAppletMetadata::testBinary()
 {
     if (QTest::currentTestFailed()) return;
 
-    QCOMPARE(m_subject->binary(),QString("testapplet.so"));
+    QCOMPARE(m_subject->binary(), QString("testapplet.so"));
 }
 
 void Ut_DcpAppletMetadata::testFullBinary()
@@ -110,21 +110,21 @@ void Ut_DcpAppletMetadata::testFullBinary()
 
     testGetSetBinaryDir();
 
-    QCOMPARE(m_subject->fullBinary(),appletDir+appletSo);
+    QCOMPARE(m_subject->fullBinary(), appletDir + appletSo);
 }
 
 void Ut_DcpAppletMetadata::testWidgetTypeID()
 {
     if (QTest::currentTestFailed()) return;
 
-    QCOMPARE(m_subject->widgetTypeID(),static_cast<int>(DcpWidgetType::Label));
+    QCOMPARE(m_subject->widgetTypeID(), static_cast<int>(DcpWidgetType::Label));
 }  
 
 void Ut_DcpAppletMetadata::testAlign()
 {
     if (QTest::currentTestFailed()) return;
 
-    QCOMPARE(m_subject->align(),Qt::AlignRight);
+    QCOMPARE(m_subject->align(), Qt::AlignRight);
 
 }
 
@@ -148,19 +148,19 @@ void Ut_DcpAppletMetadata::testImage()
 {
     if (QTest::currentTestFailed()) return;
 
-    QCOMPARE(m_subject->image(),QString("test.png"));
+    QCOMPARE(m_subject->image(), QString("test.png"));
 }
 
 void Ut_DcpAppletMetadata::testOrder()
 {
     if (QTest::currentTestFailed()) return;
 
-    QCOMPARE(m_subject->order(),1);
+    QCOMPARE(m_subject->order(), 1);
 }
 
 void Ut_DcpAppletMetadata::testUsage()
 {
-    QSKIP("!!!! RelativePath bug under fixxing by Retsoft !!!!",SkipSingle);
+    QSKIP("!!!! RelativePath bug under fixxing by Retsoft !!!!", SkipSingle);
 
     if (QTest::currentTestFailed()) return;
 
@@ -171,7 +171,7 @@ void Ut_DcpAppletMetadata::testPart()
 {
     if (QTest::currentTestFailed()) return;
 
-    QCOMPARE(m_subject->part(),QString("RobiJonMegKutyaraDer"));
+    QCOMPARE(m_subject->part(), QString("RobiJonMegKutyaraDer"));
 }
 
 void Ut_DcpAppletMetadata::testApplet()
@@ -192,7 +192,7 @@ void Ut_DcpAppletMetadata::testSetGetParent()
 
     m_subject->setParent(m_subject);
 
-    QCOMPARE(m_subject,m_subject->parent());
+    QCOMPARE(m_subject, m_subject->parent());
 
     m_subject->setParent(0);
 }
@@ -201,7 +201,7 @@ void Ut_DcpAppletMetadata::testParentName()
 {
     if (QTest::currentTestFailed()) return;
 
-    QCOMPARE(m_subject->parentName(),QString("RobiJonMegKutyaraDer_II"));
+    QCOMPARE(m_subject->parentName(), QString("RobiJonMegKutyaraDer_II"));
 }
 
 void Ut_DcpAppletMetadata::testCleanup()

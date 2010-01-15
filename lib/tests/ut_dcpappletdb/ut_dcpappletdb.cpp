@@ -22,10 +22,10 @@ void Ut_DcpAppletDb::initTestCase()
     testDesktopDir = dataDir + "desktops/";
     testDesktopDir2 = dataDir + "desktops2/";
     testDesktopDir3 = dataDir + "desktops3/";
-    desktopTestFile = testDesktopDir+"test.desktop";
-    desktopTestFile2 = testDesktopDir+"test2.desktop";
-    desktopDateTimeFile = testDesktopDir2+"datetime.desktop";
-    desktopDisplayFile = testDesktopDir2+"display.desktop";
+    desktopTestFile = testDesktopDir + "test.desktop";
+    desktopTestFile2 = testDesktopDir + "test2.desktop";
+    desktopDateTimeFile = testDesktopDir2 + "datetime.desktop";
+    desktopDisplayFile = testDesktopDir2 + "display.desktop";
     browserEntryName="Browser";
     datetimeEntryName="Date & Time";
     displayEntryName="Display";
@@ -82,7 +82,7 @@ void Ut_DcpAppletDb::testAddContainNameFile()
 //    QVERIFY(!m_subject->addFile(desktopTestFile2));
 
     QVERIFY(m_subject->containsName(browserEntryName));
-    QVERIFY(!m_subject->containsName(browserEntryName)+"x");
+    QVERIFY(!m_subject->containsName(browserEntryName) + "x");
 }
 
 void Ut_DcpAppletDb::testAddPath()
@@ -173,7 +173,7 @@ void Ut_DcpAppletDb::testRefresh()
 {
     if (QTest::currentTestFailed()) return;
 
-    QSKIP("this test would need modifying .desktop files",SkipSingle);
+    QSKIP("this test would need modifying .desktop files", SkipSingle);
 }
 
 QTEST_APPLESS_MAIN(Ut_DcpAppletDb)

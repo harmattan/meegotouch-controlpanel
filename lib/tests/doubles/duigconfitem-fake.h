@@ -10,7 +10,7 @@ struct DuiGConfItemFake {
     QVariant val;
 };
 
-static QMap<const DuiGConfItem*,DuiGConfItemFake*> fakeMap;
+static QMap<const DuiGConfItem*, DuiGConfItemFake*> fakeMap;
 #define FAKE() fakeMap[this]
 
 
