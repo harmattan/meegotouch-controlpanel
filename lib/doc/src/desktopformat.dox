@@ -38,7 +38,7 @@ The translation id for the title of the applet. (The one you would write for
 qtTrid or trid.)
 
 \par X-translation-catalog
-The translation catalog for the title of the applet.
+The translation catalog for the applet. (The filename of its .qm file.)
 
 
 \subsection duisection [DUI]
@@ -79,10 +79,10 @@ holes in place of non installed applets.
 \par WidgetType
 The widget type of the launch button. Can be one of the following:
 <ul>
-<li>DcpLabel2 - Button with the applet title and optionally a value text
-<li>DcpLabel2Button - Like DcpLabel2 and a toggle button which can switch
+<li>Label - Button with the applet title and optionally a value text
+<li>Toggle - Like DcpLabel2 and a toggle button which can switch
 the value line off
-<li>DcpLabel2Image - Like DcpLabel2, and an image
+<li>Image - Like DcpLabel2, and an image
 </ul>
 
 \par Align
@@ -158,7 +158,7 @@ Category= Regional settings
 Order=1
 
 # Type of the widget launch button.
-WidgetType=DcpLabel2
+WidgetType=Label
 
 \endcode
 

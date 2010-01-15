@@ -28,9 +28,9 @@ namespace DcpWidgetType
         names[IdMax - BriefInvalid] = 
         {
             "DcpBriefWidgetInvalid",
-            "DcpLabel",
-            "DcpLabelButton",
-            "DcpLabelImage",
+            "Label",
+            "Toggle",
+            "Image"
         };
         bool isIdValid(int id); 
 };
