@@ -41,7 +41,7 @@ DcpDeclWidget::DcpDeclWidget(const QString& xmlPath)
         datastore->addGConfKey(key, key);
     }
     DuiDeclarativeSettings* widget =
-        DuiDeclarativeSettingsFactory::createWidget(*binary, datastore );
+        DuiDeclarativeSettingsFactory::createWidget(*binary, datastore);
     Q_ASSERT(widget);
     layout->addItem(widget);
 }

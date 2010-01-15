@@ -117,7 +117,7 @@ DcpButton::updateLabelSizes ()
     } else {
         d_ptr->m_Label1->setObjectName ("DcpButtonLine1");
         if (textLayout()->count() <= 1) {
-            textLayout()->addItem (d_ptr->m_Label2, 1,0);
+            textLayout()->addItem (d_ptr->m_Label2, 1, 0);
         }
         d_ptr->m_Label2->show();
     }
@@ -153,7 +153,7 @@ void
 DcpButton::mouseReleaseEvent (
         QGraphicsSceneMouseEvent *event)
 {
-    if (QRectF(QPointF(),size()).contains(event->pos())) {
+    if (QRectF(QPointF(), size()).contains(event->pos())) {
         emit clicked();
     }
 }

@@ -22,11 +22,10 @@ DcpRetranslator::retranslate()
     qDebug() << __PRETTY_FUNCTION__ << binaryName << language;
 
     // install engineering english
-    locale.installTrCatalog(binaryName+".qm");
+    locale.installTrCatalog(binaryName + ".qm");
     // install real translation
     locale.installTrCatalog(binaryName);
 
     DuiLocale::setDefault(locale);
 }
-
 

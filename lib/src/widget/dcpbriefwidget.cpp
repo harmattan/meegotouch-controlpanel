@@ -45,7 +45,7 @@ DcpBriefWidget::DcpBriefWidget (
     QGraphicsLinearLayout* layout;
     
     layout = new QGraphicsLinearLayout (this);
-    layout->setContentsMargins (0,0,0,0);
+    layout->setContentsMargins (0, 0, 0, 0);
 
     setMetadata (metadata);
 }
