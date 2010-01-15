@@ -29,7 +29,7 @@ public:
      * 
      * Returns the brief widget type code for the plugin variant. This value
      * can also defined in the desktop file using the "DCP/WidgetType" key. If
-     * none of these specified the "DCPLABEL2" will be used as default.
+     * none of these specified the "DcpWidgetType::Label" will be used as default.
      *
      * FIXME: If we are defining all the acceptable IDs the return value of this
      * function should be an enum.
