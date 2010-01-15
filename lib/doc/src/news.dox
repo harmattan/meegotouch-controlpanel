@@ -1,4 +1,33 @@
 /*! \page news What's New in DuiControlPanel
+
+\section v064 0.6.4
+
+\subsection deprec Deprecated
+
+- The widget type ids became deprecated (used in DcpBrief::widgetTypeID()):
+    DCPLABEL,
+    DCPLABEL2,
+    DCPLABELBUTTON,
+    DCPLABEL2BUTTON,
+    DCPLABEL2IMAGE,
+    DCPLABEL2TOGGLE.
+    Use the followings instead:
+    DcpWidgetType::Label,
+    DcpWidgetType::Toggle,
+    DcpWidgetType::Image
+
+- The following widget type strings became deprecated (used in .desktop file):
+    "DcpLabel",
+    "DcpLabel2",
+    "DcpLabelButton",
+    "DcpLabel2Button",
+    "DcpLabel2Image",
+    "DcpLabel2Toggle".
+    Use the followings instead:
+    "Label",
+    "Toggle",
+    "Image"
+
 \section v061 0.6.1
 
 \subsection new New
