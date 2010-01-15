@@ -1,20 +1,19 @@
 /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #include <QDateTime>
+#include <DuiLocale>
+#include <QDebug>
+#include <DuiDesktopEntry>
+
 #include "dcpappletmetadata.h"
 #include "dcpapplet.h"
-#include <duilocale.h>
-#include <QDebug>
 #include "dcpappletmetadata_p.h"
-
-#include "duidesktopentry.h"
 #include "dcpwidgettypes.h"
 #include "dcpappletdb.h"
 #include "dcpappletloader.h"
 #include "dcpbrief.h"
 #include "dcpappletif.h"
 #include "dcpwidget.h"
-
 #include "dcpmostusedcounter.h"
 
 //#define DEBUG

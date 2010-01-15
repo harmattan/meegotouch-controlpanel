@@ -1,15 +1,15 @@
 #include <cstdio>
+#include <sys/wait.h>
+#include <csignal>
 #include <DuiApplicationWindow>
-#include "service/duicontrolpanelservice.h"
-#include "dcpappletdb.h"
-#include "appleterrorsdialog.h"
 #include <DcpDebug>
 #include <DcpRetranslator>
 #include <DuiApplication>
-#include "dcpwrongapplets.h"
-#include <sys/wait.h>
-#include <csignal>
 #include <DuiLocale>
+#include "service/duicontrolpanelservice.h"
+#include "dcpappletdb.h"
+#include "appleterrorsdialog.h"
+#include "dcpwrongapplets.h"
 
 void startSupervising()
 {

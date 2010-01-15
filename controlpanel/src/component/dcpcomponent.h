@@ -1,7 +1,7 @@
 #ifndef DCPCOMPONENT_H
 #define DCPCOMPONENT_H
 
-#include <duiwidget.h>
+#include <DuiWidget>
 #include <Pages>
 
 class DcpCategory;

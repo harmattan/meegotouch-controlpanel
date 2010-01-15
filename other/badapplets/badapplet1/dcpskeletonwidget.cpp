@@ -1,9 +1,9 @@
+#include <DuiLayout>
+#include <DuiLinearLayoutPolicy>
+#include <DuiLabel>
 #include "dcpskeletonwidget.h"
 #include "translations.h"
 #include "dcpskeleton.h"
-#include <duilayout.h>
-#include <duilinearlayoutpolicy.h>
-#include <duilabel.h>
 
 const int widgetWidth = 100;
 
@@ -27,10 +27,10 @@ void SkeletonWidget::initWidget()
             new DuiLinearLayoutPolicy(mainLayout, Qt::Horizontal);
     mainLayout->setPolicy(mainLayoutPolicy);
 	
-	m_aboutLabel = new DuiLabel(DcpSkeleton::About, this);
-	m_aboutLabel->setObjectName("LabelAbout");
+    m_aboutLabel = new DuiLabel(DcpSkeleton::About, this);
+    m_aboutLabel->setObjectName("LabelAbout");
 	
-	mainLayoutPolicy->addItem(m_aboutLabel, Qt::AlignLeft);
+    mainLayoutPolicy->addItem(m_aboutLabel, Qt::AlignLeft);
     setLayout(mainLayout);
 
     qDebug("Bad applet 1 aborted when creating the widget");
