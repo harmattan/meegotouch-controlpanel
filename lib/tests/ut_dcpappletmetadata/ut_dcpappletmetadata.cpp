@@ -20,7 +20,8 @@ void Ut_DcpAppletMetadata::initTestCase()
     desktopTestFile =  desktopDir + "test.desktop";
     desktopBadTestFile = desktopDir + "testBad.desktop";
 
-    appletDir="so.applet/";appletSo="testapplet.so";
+    appletDir = "so.applet/";
+    appletSo = "testapplet.so";
 }
 
 void Ut_DcpAppletMetadata::cleanupTestCase()
@@ -30,14 +31,14 @@ void Ut_DcpAppletMetadata::cleanupTestCase()
 
 void Ut_DcpAppletMetadata::init()
 {
-    QVERIFY(m_subject=new DcpAppletMetadata(desktopTestFile));
+    QVERIFY(m_subject = new DcpAppletMetadata(desktopTestFile));
 }
 
 void Ut_DcpAppletMetadata::cleanup()
 {
     if (m_subject) {
        delete m_subject;
-       m_subject=0;
+       m_subject = 0;
     }
 }
 
@@ -51,10 +52,11 @@ void Ut_DcpAppletMetadata::testIsValid()
     if (QTest::currentTestFailed()) return;
 
     QVERIFY(m_subject->isValid());
-    delete m_subject;m_subject=0;
+    delete m_subject;
+    m_subject = 0;
 
     QWARN("\n\t----Expected QWARN: Multiple definitions of group 'DUI'----");
-    QVERIFY((m_subject=new DcpAppletMetadata(desktopBadTestFile)));
+    QVERIFY((m_subject = new DcpAppletMetadata(desktopBadTestFile)));
     QVERIFY(!m_subject->isValid());
 }
 
@@ -62,7 +64,7 @@ void Ut_DcpAppletMetadata::testIsModified()
 {
     if (QTest::currentTestFailed()) return;
 
-    QVERIFY((m_subject=new DcpAppletMetadata(desktopTestFile)));
+    QVERIFY((m_subject = new DcpAppletMetadata(desktopTestFile)));
 
     QVERIFY(m_subject->isModified());
     QVERIFY(!m_subject->isModified());
@@ -72,7 +74,7 @@ void Ut_DcpAppletMetadata::testName()
 {
     if (QTest::currentTestFailed()) return;
 
-    QVERIFY(m_subject->name()=="Browser");
+    QVERIFY(m_subject->name() == "Browser");
 }
 void Ut_DcpAppletMetadata::testFileName()
 {

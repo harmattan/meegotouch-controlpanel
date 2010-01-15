@@ -281,7 +281,7 @@ DcpAppletPage::loadAppletTranslations ()
     if (catalog.isEmpty()) return;
 
     DuiLocale locale; // gets the current locale
-    locale.installTrCatalog(catalog+".qm"); // install engineering english
+    locale.installTrCatalog(catalog + ".qm"); // install engineering english
     locale.installTrCatalog(catalog); // install real translation, if any
     DuiLocale::setDefault(locale);
     DCP_DEBUG("Translation %s loaded.", qPrintable(catalog));

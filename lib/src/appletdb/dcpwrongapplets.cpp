@@ -50,7 +50,7 @@ void
 mark_applet_as_bad (
         const char   *full_path)
 {
-    DuiGConfItem  conf (keyPath + full_path + KEY_SEPARATOR + "CrashDateTime" );
+    DuiGConfItem  conf(keyPath + full_path + KEY_SEPARATOR + "CrashDateTime");
     QDateTime     now = QDateTime::currentDateTime ();
 
     conf.set (now.toString());
@@ -210,8 +210,8 @@ bool
 DcpWrongApplets::isAppletRecentlyCrashed (
         const QString       &fullSoPath)
 {
-    DuiGConfItem conf (keyPath + fullSoPath + KEY_SEPARATOR + "CrashDateTime" );
-    QString      lastCrashDate = conf.value().toString ();
+    DuiGConfItem conf(keyPath + fullSoPath + KEY_SEPARATOR + "CrashDateTime");
+    QString      lastCrashDate = conf.value().toString();
 
     /*
      * If the applet protection has been disabled or the applet has no entry in

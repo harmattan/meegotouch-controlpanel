@@ -9,7 +9,7 @@
 #include "dcpdebug.h"
 
 const QString AppletFilter = "*.desktop";
-DcpAppletDb *DcpAppletDb::sm_Instance=0;
+DcpAppletDb *DcpAppletDb::sm_Instance = 0;
 
 DcpAppletDb::DcpAppletDb (
         const QString   &pathName,

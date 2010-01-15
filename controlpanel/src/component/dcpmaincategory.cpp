@@ -49,7 +49,7 @@ DcpMainCategory::deleteItems ()
 
     // delete all items in all policies:
     foreach (DuiAbstractLayoutPolicy* policy, m_Layout->registeredPolicies()){
-        for (int i=policy->count()-1; i >= 0; i--){
+        for (int i = policy->count() - 1; i >= 0; i--){
             QGraphicsWidget* widget = (QGraphicsWidget*)
                                       (policy->itemAt(i)->graphicsItem());
             Q_ASSERT(widget);

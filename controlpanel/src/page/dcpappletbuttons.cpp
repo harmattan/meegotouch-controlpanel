@@ -168,6 +168,6 @@ void
 DcpAppletButtons::setMattiID (
         const QString &mattiID)
 {
-    m_mattiID=mattiID;
+    m_mattiID = mattiID;
 }
 

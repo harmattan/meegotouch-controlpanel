@@ -26,9 +26,9 @@ void Ut_DcpAppletDb::initTestCase()
     desktopTestFile2 = testDesktopDir + "test2.desktop";
     desktopDateTimeFile = testDesktopDir2 + "datetime.desktop";
     desktopDisplayFile = testDesktopDir2 + "display.desktop";
-    browserEntryName="Browser";
-    datetimeEntryName="Date & Time";
-    displayEntryName="Display";
+    browserEntryName = "Browser";
+    datetimeEntryName = "Date & Time";
+    displayEntryName = "Display";
 }
 
 void Ut_DcpAppletDb::cleanupTestCase()
@@ -46,7 +46,7 @@ void Ut_DcpAppletDb::init()
      * However this init() function has no documentation, so I don't know how to
      * remove it entirely. So I added instance() instead of initInstance()...
      */
-    QVERIFY ((m_subject=DcpAppletDb::instance(emptyDesktopDir)));
+    QVERIFY ((m_subject = DcpAppletDb::instance(emptyDesktopDir)));
 }
 
 void Ut_DcpAppletDb::cleanup()
@@ -63,7 +63,7 @@ void Ut_DcpAppletDb::testInstance()
 {
     if (QTest::currentTestFailed()) return;
 
-    QVERIFY((m_subject==DcpAppletDb::instance()));
+    QVERIFY((m_subject == DcpAppletDb::instance()));
 }
 
 void Ut_DcpAppletDb::testAddContainNameFile()
@@ -100,7 +100,7 @@ void Ut_DcpAppletDb::testAppletNames()
 
     QVERIFY(m_subject->addPath(testDesktopDir2));
 
-    QVERIFY(m_subject->appletNames().length()==2);
+    QVERIFY(m_subject->appletNames().length() == 2);
     QVERIFY(m_subject->appletNames().contains(datetimeEntryName));
     QVERIFY(m_subject->appletNames().contains(displayEntryName));
 }
@@ -124,10 +124,10 @@ void Ut_DcpAppletDb::testEraseEntry()
     DcpAppletMetadata *metadata;
 
     QVERIFY(m_subject->addPath(testDesktopDir2));
-    QVERIFY(m_subject->appletNames().length()==2);
+    QVERIFY(m_subject->appletNames().length() == 2);
     QVERIFY((metadata=m_subject->applet(datetimeEntryName)));
     m_subject->eraseEntry(metadata);
-    QVERIFY(m_subject->appletNames().length()==1);
+    QVERIFY(m_subject->appletNames().length() == 1);
 }
 
 void Ut_DcpAppletDb::testListByCategory()
@@ -135,13 +135,13 @@ void Ut_DcpAppletDb::testListByCategory()
     if (QTest::currentTestFailed()) return;
 
     QVERIFY(m_subject->addPath(testDesktopDir3));
-    QVERIFY(m_subject->listByCategory("Application").length()==1);
-    QVERIFY(m_subject->listByCategory("Connectivity").length()==1);
-    QVERIFY(m_subject->listByCategory("Device utilities").length()==1);
-    QVERIFY(m_subject->listByCategory("Look & Feel").length()==3);
-    QVERIFY(m_subject->listByCategory("Regional settings").length()==3);
-    QVERIFY(m_subject->listByCategory("Sound").length()==2);
-    QVERIFY(m_subject->listByCategory("Startup").length()==4);
+    QVERIFY(m_subject->listByCategory("Application").length() == 1);
+    QVERIFY(m_subject->listByCategory("Connectivity").length() == 1);
+    QVERIFY(m_subject->listByCategory("Device utilities").length() == 1);
+    QVERIFY(m_subject->listByCategory("Look & Feel").length() == 3);
+    QVERIFY(m_subject->listByCategory("Regional settings").length() == 3);
+    QVERIFY(m_subject->listByCategory("Sound").length() == 2);
+    QVERIFY(m_subject->listByCategory("Startup").length() == 4);
 }
 
 void Ut_DcpAppletDb::testListMostUsed()

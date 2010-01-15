@@ -39,7 +39,7 @@ int main(int argc, char** argv)
         datastore->addGConfKey(key, key);
     }
     DuiDeclarativeSettings* widget = 
-        DuiDeclarativeSettingsFactory::createWidget(*binary, datastore );
+        DuiDeclarativeSettingsFactory::createWidget(*binary, datastore);
     Q_ASSERT(widget);
     layout->addItem(widget);
     /* -- */
