@@ -7,10 +7,10 @@
 #include <DcpWidget>
 #include <DcpAppletIf>
 #include <DcpAppletMetadata>
-#include <DcpAppletLoader>
 
 #include <DuiLabel>
 #include <DuiLocale>
+#include <DuiApplication>
 #include <DuiAction>
 #include <QtDebug>
 
@@ -26,6 +26,8 @@ DcpAppletPage::DcpAppletPage (
     m_MissingLabel (0)
 {
     DCP_DEBUG ("");
+    QObject::connect(qApp, SIGNAL(localeSettingsChanged()),
+                     this, SLOT(loadAppletTranslations()));
 }
 
 
@@ -58,6 +60,7 @@ void
 DcpAppletPage::createContent ()
 {
     DcpPage::createContent ();
+    loadAppletTranslations ();
     loadMainWidget ();
 }
 
@@ -162,7 +165,7 @@ DcpAppletPage::reload ()
     if (hasWidget()) {
         dropWidget ();
     }
-    
+    loadAppletTranslations();
     loadMainWidget ();
     DcpPage::reload ();
 }
@@ -260,7 +263,7 @@ DcpAppletPage::setMetadata (
     setReferer (PageHandle::NOPAGE); 
 }
 
-void 
+void
 DcpAppletPage::retranslateUi ()
 {
     DCP_DEBUG ("");
@@ -268,5 +271,19 @@ DcpAppletPage::retranslateUi ()
     if (m_Metadata && m_Metadata->applet()) {
         setTitle(m_Metadata->applet()->title());
     }
+}
+
+void
+DcpAppletPage::loadAppletTranslations ()
+{
+    if (!m_Metadata) return;
+    QString catalog = m_Metadata->translationCatalog();
+    if (catalog.isEmpty()) return;
+
+    DuiLocale locale; // gets the current locale
+    locale.installTrCatalog(catalog+".qm"); // install engineering english
+    locale.installTrCatalog(catalog); // install real translation, if any
+    DuiLocale::setDefault(locale);
+    DCP_DEBUG("Translation %s loaded.", qPrintable(catalog));
 }
 

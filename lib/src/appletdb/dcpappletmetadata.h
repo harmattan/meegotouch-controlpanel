@@ -58,6 +58,7 @@ public:
 
     QString text1 () const;
     QString text2 () const;
+    QString translationCatalog() const;
 
     QString image () const;
 
