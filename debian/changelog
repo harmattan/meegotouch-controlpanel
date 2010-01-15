@@ -1,4 +1,4 @@
-duicontrolpanel (0.6.4) UNRELEASED; urgency=low
+duicontrolpanel (0.6.4) unstable; urgency=low
 
   [ Viktor Nagy ]
   * Fixes: NB#149663 Class member names are not consistent
