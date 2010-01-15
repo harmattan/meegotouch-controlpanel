@@ -1,9 +1,9 @@
+#include <DuiLayout>
+#include <DuiLinearLayoutPolicy>
+#include <DuiLabel>
 #include "dcpskeletonwidget.h"
 #include "translations.h"
 #include "dcpskeleton.h"
-#include <duilayout.h>
-#include <duilinearlayoutpolicy.h>
-#include <duilabel.h>
 
 const int widgetWidth = 100;
 
