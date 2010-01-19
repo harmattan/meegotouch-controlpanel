@@ -87,7 +87,7 @@ DcpMainCategory::appendWidget (
     DCP_DEBUG ("APPENDING to %p", this);
     appendSeparatorsIfNeeded ();
 
-    m_LandscapeLayout->addItemAtPosition (component, m_RowCount, m_ColCount);
+    m_LandscapeLayout->addItem (component, m_RowCount, m_ColCount);
     m_PortraitLayout->addItem (component);
     
     incrementRowAndCol ();
@@ -175,7 +175,7 @@ DcpMainCategory::appendSeparatorsIfNeeded ()
          * We will not add the separator to the m_PortraitLayout, we don't want
          * to see them in portrait mode.
          */
-        m_LandscapeLayout->addItemAtPosition (
+        m_LandscapeLayout->addItem (
                 separator, m_RowCount, m_ColCount);
         
         incrementRowAndCol ();

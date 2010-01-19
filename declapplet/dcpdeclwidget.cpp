@@ -2,10 +2,10 @@
 
 #include <QGraphicsLinearLayout>
 #include <QFile>
-#include <DuiDeclarativeSettingsParser>
-#include <DuiDeclarativeSettingsBinary>
-#include <DuiDeclarativeSettings>
-#include <DuiDeclarativeSettingsFactory>
+#include <DuiSettingsLanguageParser>
+#include <DuiSettingsLanguageBinary>
+#include <DuiSettingsLanguageWidget>
+#include <DuiSettingsLanguageWidgetFactory>
 #include <DuiGConfDataStore>
 #include <DuiLabel>
 
@@ -27,21 +27,18 @@ DcpDeclWidget::DcpDeclWidget(const QString& xmlPath)
         return;
     }
 
-    DuiDeclarativeSettingsParser parser;
+    DuiSettingsLanguageParser parser;
     if (!parser.readFrom(file)) {
         createErrorLabel(QString("Error parsing the ui description %1")
                          .arg(filePath));
         return;
     }
 
-    DuiDeclarativeSettingsBinary* binary = parser.createSettingsBinary();
+    DuiSettingsLanguageBinary* binary = parser.createSettingsBinary();
     Q_ASSERT(binary);
-    DuiGConfDataStore* datastore = new DuiGConfDataStore();
-    foreach (QString key, binary->keys()) {
-        datastore->addGConfKey(key, key);
-    }
-    DuiDeclarativeSettings* widget =
-        DuiDeclarativeSettingsFactory::createWidget(*binary, datastore );
+    DuiGConfDataStore* datastore = new DuiGConfDataStore(binary->keys().first());
+    DuiSettingsLanguageWidget* widget =
+        DuiSettingsLanguageWidgetFactory::createWidget(*binary, datastore );
     Q_ASSERT(widget);
     layout->addItem(widget);
 }

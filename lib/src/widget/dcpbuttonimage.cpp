@@ -3,7 +3,7 @@
 #include "dcpbuttonimage.h"
 
 #include <DuiButton>
-#include <DuiImage>
+#include <DuiImageWidget>
 #include <QGraphicsLinearLayout>
 #include <QtDebug>
 
@@ -27,9 +27,9 @@ DcpButtonImage::createLayout ()
 {
     // we could use the icon of the button here, if it could be set to a custom
     // file
-    m_Image = new DuiImage (this);
+    m_Image = new DuiImageWidget (this);
     m_Image->setObjectName ("DcpButtonImage");
-    m_Image->setZoomRatioMode (Qt::IgnoreAspectRatio);
+    m_Image->setAspectRatioMode (Qt::IgnoreAspectRatio);
 
     setAlignedWidget (m_Image);
 
@@ -37,7 +37,7 @@ DcpButtonImage::createLayout ()
 }
 
 
-DuiImage *
+DuiImageWidget *
 DcpButtonImage::imageWidget ()
 {
     return m_Image;

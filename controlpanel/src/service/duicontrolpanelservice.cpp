@@ -30,7 +30,7 @@ bool
 DuiControlPanelService::appletPage(const QString& appletName)
 {
 
-    PageHandle handle (PageHandle::APPLET, appletName);
+    PageHandle handle (PageHandle::APPLET, appletName, 0, true);
     sheduleStart(handle);
 
     return true; // TODO this hack prevents a servicefw issue,

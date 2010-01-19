@@ -9,10 +9,12 @@
 PageHandle::PageHandle (
         PageTypeId      pageType, 
         const QString  &name,
-        int             widgetId):
+        int             widgetId,
+        bool            isStandalone):  
     id (pageType),
     param (name),
-    widgetId (widgetId)
+    widgetId (widgetId),
+    isStandalone (isStandalone)
 {
 }
 
