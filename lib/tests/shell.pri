@@ -1,4 +1,4 @@
-include(../dcpconfig.pri)
+include(../src/duicontrolpanel.prf)
 shell_scripts.commands += ./gen-tests-xml.sh > tests.xml
 shell_scripts.files += runtests.sh tests.xml
 shell_scripts.path += $$DCP_PREFIX/share/libduicontrolpanel-tests
