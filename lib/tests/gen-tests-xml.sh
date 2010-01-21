@@ -1,5 +1,10 @@
 #!/bin/bash
 
+DOMAIN="Application Framework"
+FEATURE="DirectUI Control Panel"
+TYPE="Functional"
+LEVEL="Component"
+
 UT_TESTCASES=""
 FT_TESTCASES=""
 
@@ -19,12 +24,11 @@ TESTCASE_TEMPLATE="<case name=\"$TEST\" description=\"$TEST\" requirement=\"\" t
 	fi
 done
 
-echo "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>
+TESTSUITE_TEMPLATE="<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>
 <testdefinition version=\"0.1\">
-  <suite name=\"libduicontrolpanel-tests\">"
+  <suite name=\"libduicontrolpanel-tests\" domain=\"$DOMAIN\" type=\"$TYPE\" level=\"$LEVEL\">
+    <set name=\"unit_tests\" description=\"Unit Tests\" feature=\"$FEATURE\">
 
-if [ -n "$UT_TESTCASES" ]; then
-    echo "    <set name=\"unit_tests\" description=\"Unit Tests\">
       $UT_TESTCASES
 
       <environments>
@@ -32,10 +36,9 @@ if [ -n "$UT_TESTCASES" ]; then
         <hardware>true</hardware>    
       </environments> 
 
-    </set>"
-fi
-if [ -n "$FT_TESTCASES" ]; then
-    echo "    <set name=\"functional_tests\" description=\"Functional Tests\">
+    </set>
+    <set name=\"functional_tests\" description=\"Functional Tests\" feature=\"$FEATURE\">
+
       $FT_TESTCASES
 
       <environments>
@@ -43,8 +46,9 @@ if [ -n "$FT_TESTCASES" ]; then
         <hardware>true</hardware>    
       </environments> 
 
-    </set>"
-fi
-echo "  </suite>
+    </set>
+  </suite>
 </testdefinition>"
+
+echo "$TESTSUITE_TEMPLATE"
 
