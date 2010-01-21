@@ -3,11 +3,14 @@ QMAKE_RPATH = -Wl
      DCP_PREFIX = /usr
      DCP_INSTALL_LIB = $$DCP_PREFIX/lib
      DCP_INSTALL_HEADERS = $$DCP_PREFIX/include/duicontrolpanel
-     DCP_THEME_DIR = $$DCP_PREFIX/share/duicontrolpanel/themes
+     DCP_THEME_DIR = $$DCP_PREFIX/share/themes/base/dui/duicontrolpanel
      DCP_CSS_DIR = $$DCP_THEME_DIR/style/
      DCP_DESKTOP_DIR = $$DCP_PREFIX/lib/duicontrolpanel
      DCP_APPLET_DIR = $$DCP_PREFIX/lib/duicontrolpanel/applets
      DCP_TRANSLATIONS_DIR = $$DCP_PREFIX/share/l10n/dui
+
+# Gconf keys 
+     DCP_MOSTUSEDCOUNTER_GCONFKEY = /apps/duicontrolpanel/usagecount/
 
 # extending include path
 
@@ -33,5 +36,6 @@ LIBS += -lduicontrolpanel
     
     DEFINES += TRANSLATIONS_DIR=\\\"\"$$DCP_TRANSLATIONS_DIR\"\\\"
 
+    DEFINES += MOSTUSEDCOUNTER_GCONFKEY=\\\"\"$$DCP_MOSTUSEDCOUNTER_GCONFKEY\"\\\"
 }
 

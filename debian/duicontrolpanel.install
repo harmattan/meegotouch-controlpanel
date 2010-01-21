@@ -1,7 +1,7 @@
 usr/bin/duicontrolpanel
-usr/share/duicontrolpanel/themes/style/duicontrolpanel.*
-usr/share/duicontrolpanel/themes/images/*
-usr/share/duicontrolpanel/themes/svg/*
-usr/share/duicontrolpanel/themes/duicontrolpanel.conf
+usr/share/themes/base/dui/duicontrolpanel/style/duicontrolpanel.*
+usr/share/themes/base/dui/duicontrolpanel/images/*
+usr/share/themes/base/dui/duicontrolpanel/svg/*
+usr/share/themes/base/dui/duicontrolpanel/duicontrolpanel.conf
 usr/share/applications/duicontrolpanel.desktop
 usr/lib/duicontrolpanel/applets/libdeclarative.so

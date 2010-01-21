@@ -37,13 +37,15 @@ public:
 
     PageHandle (PageTypeId  pageType = NOPAGE, 
                 const QString &name = "", 
-                int widgetId = -1);
+                int widgetId = -1,
+                bool isStandalone = false);
 
     QString getStringVariant () const;
 
     PageTypeId  id;
     QString     param;
     int         widgetId;
+    bool isStandalone;
 };
 
 #endif

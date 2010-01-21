@@ -4,7 +4,7 @@
 #define DCPBUTTONIMAGE_H
 
 #include "dcpbuttonalign.h"
-class DuiImage;
+class DuiImageWidget;
 
 class DcpButtonImage: public DcpButtonAlign 
 {
@@ -17,8 +17,8 @@ public:
 
 protected:
     virtual QGraphicsLayout *createLayout ();
-    DuiImage *imageWidget ();
-    DuiImage *m_Image;
+    DuiImageWidget *imageWidget ();
+    DuiImageWidget *m_Image;
 };
 
 

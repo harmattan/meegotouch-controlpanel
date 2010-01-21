@@ -1,7 +1,7 @@
-@import "../../../themes/base/dui/libdui/style/fonts.css";
-@import "../../../themes/base/dui/libdui/style/sizes.css";
-@import "../../../themes/base/dui/libdui/style/colors.css";
-@import "../../../themes/base/dui/libdui/style/margins.css";
+@import "../../libdui/style/fonts.css";
+@import "../../libdui/style/sizes.css";
+@import "../../libdui/style/colors.css";
+@import "../../libdui/style/margins.css";
 
 /* this is specified that briefwidget's first line text must
  * have bigger font if there is no second line (for ex.: toggle off) */
@@ -17,29 +17,11 @@ DuiLabelStyle#DcpButtonLine2 {
     color: $COLOR_SECONDARY_FOREGROUND;
 }
 
-/* See more indicator is not used anymore
-#DcpSeeMoreIndicator {
-    background-image: "See-more-indicator-small" 0 0 0 0;
-    minimum-size: 16 16;
-    maximum-size: 16 16;
-    margin-left: $MARGIN_MEDIUM;
-}
-*/
-
 DuiImageStyle#DcpButtonImage {
 /*
-    maximum-size: $SIZE_ICON_DEFAULT $SIZE_ICON_DEFAULT;
-    minimum-size: $SIZE_ICON_DEFAULT $SIZE_ICON_DEFAULT;
-
     Image should have same size as the toggle:
  */
     maximum-size: $SIZE_BUTTON $SIZE_BUTTON;
     minimum-size: $SIZE_BUTTON $SIZE_BUTTON;
 }
 
-/*
-DuiButtonStyle#DcpButtonToggle {
-    maximum-size: 64 64;
-    minimum-size: 64 64;
-}
-*/

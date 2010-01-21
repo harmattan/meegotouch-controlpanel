@@ -174,7 +174,8 @@ void
 DcpAppletPage::back ()
 {
     DCP_DEBUG ("");
-
+    if (handle().isStandalone)
+        return;
     if (!m_MainWidget || m_MainWidget->back())
         DcpPage::back();
 }
