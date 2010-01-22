@@ -1,4 +1,4 @@
-include(../../lib/src/duicontrolpanel.prf)
+include(../../lib/dcpconfig.pri)
 
 QMAKE_LIBDIR += ../../lib/lib/ 
 QMAKE_RPATH = -Wl

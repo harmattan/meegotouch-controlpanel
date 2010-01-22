@@ -4,7 +4,7 @@ INCLUDEPATH  += $$system(find ./ -type d)
 MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects
 QMAKE_RPATH = -Wl
-include(duicontrolpanel.prf)
+include(../dcpconfig.pri)
 
 # this has to be above finds, because it generates .h .cpp files
 include(service_interface/service_interface.pri)

@@ -1,4 +1,4 @@
-include(./../../src/duicontrolpanel.prf)
+include(./../../dcpconfig.pri)
 
 INCLUDEPATH +=/usr/include/dui ../doubles
 
