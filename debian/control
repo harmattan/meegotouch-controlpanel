@@ -38,6 +38,8 @@ Package: libduicontrolpanel-tests
 Section: misc
 Architecture: any
 Depends: ${shlibs:Depends}, libduicontrolpanel (= ${Source-Version}), libqtgui4, duitestrunner
+XB-Maemo-CI-Packages: libduicontrolpanel
+XB-Maemo-CI-Stage: fast, staging
 Description: libduicontrolpanel unit tests
  Unit testing binaries and shellscripts for testing libduicontrolpanel library
 
