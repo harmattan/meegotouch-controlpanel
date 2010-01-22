@@ -35,7 +35,7 @@ Architecture: all
 Description: API documentation for libduicontrolpanel
 
 Package: libduicontrolpanel-tests
-Section: extra
+Section: misc
 Architecture: any
 Depends: ${shlibs:Depends}, libduicontrolpanel (= ${Source-Version}), libqtgui4, duitestrunner
 Description: libduicontrolpanel unit tests
