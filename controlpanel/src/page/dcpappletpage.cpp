@@ -174,8 +174,12 @@ void
 DcpAppletPage::back ()
 {
     DCP_DEBUG ("");
-    if (handle().isStandalone)
-        return;
+    if (handle().isStandalone  && m_MainWidget->referer() == -1)
+    {
+       DCP_DEBUG("This is a standalone applet"); 
+       qApp->exit(0);
+       return;
+    }
     if (!m_MainWidget || m_MainWidget->back())
         DcpPage::back();
 }
