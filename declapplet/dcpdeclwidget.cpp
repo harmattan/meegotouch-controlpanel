@@ -9,6 +9,8 @@
 #include <DuiGConfDataStore>
 #include <DuiLabel>
 
+#include <QtDebug>
+
 static const QString defaultPath = "/usr/lib/duicontrolpanel/uidescriptions/";
 
 DcpDeclWidget::DcpDeclWidget(const QString& xmlPath)
@@ -16,7 +18,6 @@ DcpDeclWidget::DcpDeclWidget(const QString& xmlPath)
     QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(
                                       Qt::Vertical, this);
 
-    // TODO memleaks in errors
     QString filePath = xmlPath.startsWith('/') ? xmlPath 
                                                : defaultPath + xmlPath;
     QFile file(filePath);
@@ -36,7 +37,11 @@ DcpDeclWidget::DcpDeclWidget(const QString& xmlPath)
 
     DuiSettingsLanguageBinary* binary = parser.createSettingsBinary();
     Q_ASSERT(binary);
-    DuiGConfDataStore* datastore = new DuiGConfDataStore(binary->keys().first());
+
+    QString gpath = binary->keys().first();
+    qDebug() << gpath;
+    DuiGConfDataStore* datastore = new DuiGConfDataStore(gpath);
+
     DuiSettingsLanguageWidget* widget =
         DuiSettingsLanguageWidgetFactory::createWidget(*binary, datastore );
     Q_ASSERT(widget);

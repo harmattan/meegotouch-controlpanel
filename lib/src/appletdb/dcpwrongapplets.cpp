@@ -146,6 +146,9 @@ DcpWrongApplets::DcpWrongApplets ()
     connect (qApp, SIGNAL(aboutToQuit()),
              this, SLOT(deleteLater()));
 
+    // on dcp timestamp change, remove the list of bad applets
+    removeBadsOnDcpTimeStampChange();
+
     // init cache:
     m_BadApplets = queryBadApplets();
 }
@@ -238,4 +241,49 @@ DcpWrongApplets::disable ()
     sm_Disabled = true;
     destroyInstance ();
 }
+
+
+// removes a gconf path recursively, like "gconftool-2 --recusive-unset"
+static void gconf_recursive_remove(const QString& path)
+{
+    DuiGConfItem conf(path);
+    foreach (QString entry, conf.listEntries()){
+        DuiGConfItem(entry).unset();
+    }
+    foreach (QString dir, conf.listDirs()){
+        gconf_recursive_remove(dir);
+    }
+}
+
+
+/*! \brief Removes the list of bad applets if timestamp of controlpanel changes
+ */
+void
+DcpWrongApplets::removeBadsOnDcpTimeStampChange()
+{
+    // skip this all if applet protection is disabled
+    // (including changing the last stamp)
+    if (sm_Disabled) return;
+
+    // the current timestamp of the executable
+    QDateTime currentDateStamp =
+        QFileInfo(qApp->applicationFilePath()).lastModified();
+
+    // the previous timestamp of the executable
+    DuiGConfItem conf(keyPath + "/dcpTimeStamp");
+    QString lastDateStr = conf.value().toString();
+    QDateTime lastDateStamp = QDateTime::fromString(lastDateStr);
+
+    if (!lastDateStamp.isValid() || currentDateStamp > lastDateStamp) {
+        DCP_DEBUG("Removing bad applet list due to dcp timestamp change");
+
+        // remove the wrong applet list
+//        DuiGConfItem(keyPath+"/usr").unset();
+        gconf_recursive_remove(keyPath + "/usr");
+
+        // write the new stamp:
+        conf.set(currentDateStamp.toString());
+    }
+}
+
 

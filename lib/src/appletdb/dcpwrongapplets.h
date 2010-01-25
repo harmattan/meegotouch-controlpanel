@@ -49,6 +49,7 @@ private:
     DcpWrongApplets();
     ~DcpWrongApplets();
     static DcpWrongApplets *sm_Instance;
+    void removeBadsOnDcpTimeStampChange();
 
     // some speed up caches to avoid unnecessery gconf access
     QSet<QString> m_BadApplets;
