@@ -50,6 +50,7 @@ private:
     ~DcpWrongApplets();
     // not a public header so private data members are allowed here
     static DcpWrongApplets *sm_Instance;
+    void removeBadsOnDcpTimeStampChange();
 
     // some speed up caches to avoid unnecessery gconf access
     QSet<QString> m_BadApplets;

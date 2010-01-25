@@ -11,6 +11,7 @@
 #include "appleterrorsdialog.h"
 #include "dcpwrongapplets.h"
 
+
 void startSupervising()
 {
     while (fork() > 0) {
