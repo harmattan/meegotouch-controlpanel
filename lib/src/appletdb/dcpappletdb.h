@@ -18,10 +18,10 @@
 class DcpAppletMetadata;
 
 typedef QList<DcpAppletMetadata*> DcpAppletMetadataList;
-typedef QMap<QString, DcpAppletMetadata*> DcpAppletMetadataMap;
 
 typedef bool (*checkCategory)(const QString &);
 
+class DcpAppletDbPrivate;
 class DcpAppletDb
 {
 public:
@@ -100,11 +100,8 @@ protected:
     void refreshPath(const QString &pathName);
 
 private:
-    DcpAppletMetadataMap m_AppletsByName;  
-    DcpAppletMetadataMap m_AppletsByFile; 
-    QList<QString> m_Paths;
-    bool m_HasUniqueMetadata;
-    static DcpAppletDb *sm_Instance;
+    DcpAppletDbPrivate *const d;
+    Q_DISABLE_COPY(DcpAppletDb);  
 };
 #endif // DCPAPPLETDB_H
 

@@ -1,6 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #include "dcpappletdb.h"
+#include "dcpappletdb_p.h"
 #include "dcpappletmetadata.h"
 #include <QDir>
 #include <QDebug>
@@ -9,14 +10,20 @@
 #include "dcpdebug.h"
 
 const QString AppletFilter = "*.desktop";
-DcpAppletDb *DcpAppletDb::sm_Instance = 0;
+DcpAppletDb* DcpAppletDbPrivate::sm_Instance = 0;
+DcpAppletDbPrivate::DcpAppletDbPrivate()
+{
+    hasUniqueMetadata = false;
+}
+
+
+DcpAppletDbPrivate::~DcpAppletDbPrivate()
+{}
 
 DcpAppletDb::DcpAppletDb (
         const QString   &pathName,
-        const QString   &nameFilter)
+        const QString   &nameFilter) : d(new DcpAppletDbPrivate())
 {
-    m_HasUniqueMetadata = false;
-
     if (!pathName.isEmpty()) 
         addFiles (pathName, nameFilter);
 }
@@ -35,44 +42,44 @@ DcpAppletDb::instance (
         const QString   &pathName,
         const QString   &nameFilter)
 {
-    if (!sm_Instance) {
-        sm_Instance = new DcpAppletDb (pathName, nameFilter);
+    if (!DcpAppletDbPrivate::sm_Instance) {
+        DcpAppletDbPrivate::sm_Instance = new DcpAppletDb (pathName, nameFilter);
     }
 
-    return sm_Instance;
+    return DcpAppletDbPrivate::sm_Instance;
 }
 
 
 void 
 DcpAppletDb::destroy ()
 {
-    if (!sm_Instance) {
+    if (!DcpAppletDbPrivate::sm_Instance) {
         DCP_WARNING ("There is no instance to destroy.");
         return;
     }
 
-    sm_Instance->destroyData();
-    delete sm_Instance;
-    sm_Instance = 0;
+    DcpAppletDbPrivate::sm_Instance->destroyData();
+    delete DcpAppletDbPrivate::sm_Instance;
+    DcpAppletDbPrivate::sm_Instance = 0;
 }
 
 bool
 DcpAppletDb::addFile (
         const QString& filename)
 {
-    if (containsFile(filename) || m_HasUniqueMetadata)
+    if (containsFile(filename) || d->hasUniqueMetadata)
         return false;
 
     DcpAppletMetadata *metadata = new DcpAppletMetadata(filename);
     if (metadata->isValid()) {
         if (metadata->isUnique()) {
-             m_AppletsByName.clear();
-             m_AppletsByFile.clear();
-             m_HasUniqueMetadata = true;
+             d->appletsByName.clear();
+             d->appletsByFile.clear();
+             d->hasUniqueMetadata = true;
         }
         DCP_DEBUG ("Adding applet name '%s'", DCP_STR (metadata->name()));
-        m_AppletsByName[metadata->name()] = metadata;
-        m_AppletsByFile[filename] = metadata;
+        d->appletsByName[metadata->name()] = metadata;
+        d->appletsByFile[filename] = metadata;
         return true;
     } else {
         metadata->deleteLater();
@@ -84,20 +91,20 @@ DcpAppletDb::addFile (
 QStringList
 DcpAppletDb::appletNames() const
 {
-    return m_AppletsByName.keys();
+    return d->appletsByName.keys();
 }
 
 bool
 DcpAppletDb::containsFile(const QString& fileName)
 {
-    return m_AppletsByFile.contains(fileName);
+    return d->appletsByFile.contains(fileName);
 }
 
 bool
 DcpAppletDb::containsName (
         const QString &name)
 {
-    return m_AppletsByName.contains (name);
+    return d->appletsByName.contains (name);
 }
 
 bool
@@ -106,7 +113,7 @@ DcpAppletDb::addPath (const QString &pathName)
     DCP_DEBUG ("Will use filter '*.desktop'!");
 
     if (addFiles (pathName, "*.desktop")) {
-        m_Paths.append(pathName);
+        d->paths.append(pathName);
         return true;
     } else {
         return false;
@@ -135,7 +142,7 @@ DcpAppletDb::addFiles (
 DcpAppletMetadataList 
 DcpAppletDb::list() const
 {
-    return m_AppletsByFile.values();
+    return d->appletsByFile.values();
 }
 
 /*!
@@ -147,7 +154,7 @@ DcpAppletDb::listByCategory (
 {
     QList<DcpAppletMetadata*> filtered;
 
-    foreach (DcpAppletMetadata *item, m_AppletsByFile) {
+    foreach (DcpAppletMetadata *item, d->appletsByFile) {
         if (category.compare (item->category(), Qt::CaseInsensitive) == 0)
             filtered.append (item);
 
@@ -178,7 +185,7 @@ DcpAppletDb::listByCategory (
 {
     QList<DcpAppletMetadata*> filtered;
 
-    foreach (DcpAppletMetadata *item, m_AppletsByFile) {
+    foreach (DcpAppletMetadata *item, d->appletsByFile) {
         for (int n = 0; n < n_categories && category[n] != 0; ++n) {
             /*
              * We add this item if we asked to include the uncategorized
@@ -221,7 +228,7 @@ DcpAppletDb::listMostUsed ()
     DcpAppletMetadataList mostUsed;
 
     for (QMap<QString, DcpAppletMetadata*>::iterator iter =
-            m_AppletsByName.begin(); iter != m_AppletsByName.end(); iter++)
+            d->appletsByName.begin(); iter != d->appletsByName.end(); iter++)
         if (iter.value()->usage())
             mostUsed.push_back(iter.value());
 
@@ -247,7 +254,7 @@ DcpAppletMetadata *
 DcpAppletDb::applet (
         const QString &name)
 {
-    DcpAppletMetadata *metadata = m_AppletsByName.value(name, 0);
+    DcpAppletMetadata *metadata = d->appletsByName.value(name, 0);
 
     if (!metadata)
         qWarning() << "No such applet:" << name;
@@ -257,10 +264,10 @@ DcpAppletDb::applet (
 
 void DcpAppletDb::refresh()
 {
-    foreach(QString pathName, m_Paths)
+    foreach(QString pathName, d->paths)
         refreshPath(pathName);
 
-    foreach(DcpAppletMetadata *metadata, m_AppletsByName) {
+    foreach(DcpAppletMetadata *metadata, d->appletsByName) {
         if (!metadata->isValid()) {
             eraseEntry(metadata);
         } else if (metadata->isModified()) {
@@ -288,7 +295,7 @@ DcpAppletDb::refreshPath (
     
     foreach(QString appFile, appDir.entryList()) {
         QString fileName = appDir.absoluteFilePath(appFile);
-        if (!m_AppletsByFile.contains(appFile)) {
+        if (!d->appletsByFile.contains(appFile)) {
             addFile(fileName);
         }
     }
@@ -298,8 +305,8 @@ void
 DcpAppletDb::eraseEntry (
         DcpAppletMetadata *metadata)
 {
-    m_AppletsByName.remove(metadata->name());
-    m_AppletsByFile.remove(metadata->fileName());
+    d->appletsByName.remove(metadata->name());
+    d->appletsByFile.remove(metadata->fileName());
     metadata->deleteLater();
 }
 
@@ -307,7 +314,7 @@ void
 DcpAppletDb::destroyData ()
 {
     DCP_WARNING ("Destroying all metadata.");
-    foreach(DcpAppletMetadata *metadata, m_AppletsByName) {
+    foreach(DcpAppletMetadata *metadata, d->appletsByName) {
         metadata->deleteLater();
     }
 }
