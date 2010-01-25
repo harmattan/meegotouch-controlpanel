@@ -1,6 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
 /* vim:set et sw=4 ts=4 sts=4: */
 #include "dcpappletloader.h"
+#include "dcpappletloader_p.h"
 #include "dcpappletif.h"
 #include "dcpappletmetadata.h"
 #include <QPluginLoader>
@@ -10,19 +11,27 @@
 #include "dcpdebug.h"
 
 DcpAppletLoader::DcpAppletLoader (
-        const DcpAppletMetadata *metadata): 
-    m_Metadata(metadata),
-    m_Applet (0)
+        const DcpAppletMetadata *metadata):
+   d_prt(new DcpAppletLoaderPrivate(metadata))
 {
-    load ();
+    load();
 }
+
+DcpAppletLoaderPrivate::DcpAppletLoaderPrivate(const DcpAppletMetadata* metadata):
+    metadata(metadata)
+{
+    applet = 0;
+}
+
+DcpAppletLoaderPrivate::~DcpAppletLoaderPrivate ()
+{}
 
 DcpAppletLoader::~DcpAppletLoader()
 {
-    if (m_Applet)
-        delete m_Applet;
+    if (d_ptr->applet)
+        delete d_ptr->applet;
 
-    m_Applet = 0;
+    d_ptr->applet = 0;
 }
 
 /*!
@@ -35,7 +44,16 @@ DcpAppletLoader::~DcpAppletLoader()
 DcpAppletIf *
 DcpAppletLoader::applet() const 
 { 
-    return m_Applet; 
+    return d_ptr->applet; 
+}
+
+/*!
+ * \returns the metadata of the applet
+ */
+const DcpAppletMetadata*
+DcpAppletLoader::metadata () const 
+{ 
+    return d_ptr->metadata;
 }
 
 /*!
@@ -46,7 +64,7 @@ DcpAppletLoader::applet() const
 const QString 
 DcpAppletLoader::errorMsg () const
 { 
-    return m_ErrorMsg; 
+    return d_ptr->errorMsg; 
 }
 
 /*
@@ -63,31 +81,31 @@ DcpAppletLoader::loadPluginFile (
      * (e.g. segmentation fault).
      */
     if (DcpWrongApplets::instance()->isAppletRecentlyCrashed (binaryPath)) {
-        m_ErrorMsg =  "The " + binaryPath + "is a blacklisted applet";
-        DCP_WARNING ("%s", DCP_STR (m_ErrorMsg));
-        qCritical() << m_ErrorMsg;
+        d_ptr->errorMsg =  "The " + binaryPath + "is a blacklisted applet";
+        DCP_WARNING ("%s", DCP_STR (d_ptr->errorMsg));
+        qCritical() << d_ptr->errorMsg;
 
-        m_Applet = 0;
+        d_ptr->applet = 0;
         return false;
     }
 
     QPluginLoader loader (binaryPath);
     if (!loader.load ()) {
-        m_ErrorMsg = "Loading applet failed: " + loader.errorString();
-        DCP_WARNING ("%s", DCP_STR (m_ErrorMsg));
-        qCritical () << m_ErrorMsg;
+        d_ptr->errorMsg = "Loading applet failed: " + loader.errorString();
+        DCP_WARNING ("%s", DCP_STR (d_ptr->errorMsg));
+        qCritical () << d_ptr->errorMsg;
     } else {
         QObject *object = loader.instance();
-        m_Applet = qobject_cast<DcpAppletIf*>(object);
+        d_ptr->applet = qobject_cast<DcpAppletIf*>(object);
 
-        if (!m_Applet) {
-            m_ErrorMsg = "Loading of the " + binaryPath +
+        if (!d_ptr->applet) {
+            d_ptr->errorMsg = "Loading of the " + binaryPath +
                 "applet failed: Invalid ExampleAppletInterface object.";
-            DCP_WARNING ("%s", DCP_STR (m_ErrorMsg));
-            qCritical() << m_ErrorMsg;
+            DCP_WARNING ("%s", DCP_STR (d_ptr->errorMsg));
+            qCritical() << d_ptr->errorMsg;
             return false;
         } else {
-            m_Applet->init ();
+            d_ptr->applet->init ();
         }
     }
 
@@ -111,13 +129,13 @@ DcpAppletLoader::loadDslFile (
 void 
 DcpAppletLoader::load ()
 {
-    QString binaryPath = m_Metadata->fullBinary();
-    QString dslFilename = m_Metadata->dslFilename ();
+    QString binaryPath = d_ptr->metadata->fullBinary();
+    QString dslFilename = d_ptr->metadata->dslFilename ();
 
     DCP_DEBUG ("*** binaryPath          = '%s'", DCP_STR (binaryPath));
     DCP_DEBUG ("*** dslFilename         = '%s'", DCP_STR (dslFilename));
     DCP_DEBUG ("*** applicationCommand  = '%s'", 
-            DCP_STR (m_Metadata->applicationCommand ()));
+            DCP_STR (d_ptr->metadata->applicationCommand ()));
 
     if (!binaryPath.isEmpty()) {
         loadPluginFile (binaryPath);

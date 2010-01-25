@@ -1,6 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #include "dcpmostusedcounter.h"
+#include "dcpmostusedcounter_p.h"
 
 #include <QString>
 #include <QDebug>
@@ -8,17 +9,17 @@
 //#define DEBUG
 #include "dcpdebug.h"
 
-MostUsedCounter* MostUsedCounter::sm_Instance = NULL;
+MostUsedCounter* MostUsedCounterPrivate::sm_Instance = NULL;
 
-MostUsedCounter::MostUsedCounter ()
+MostUsedCounter::MostUsedCounter () : d_ptr(new MostUsedCounterPrivate())
 {
 }
 
 MostUsedCounter::~MostUsedCounter ()
 {
-    QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.constBegin();
+    QMap<QString, DuiGConfItem*>::const_iterator i = d_ptr->data.constBegin();
 
-    while (i != m_Data.constEnd()) {
+    while (i != d_ptr->data.constEnd()) {
         delete i.value();
         ++i;
     }
@@ -27,17 +28,17 @@ MostUsedCounter::~MostUsedCounter ()
 MostUsedCounter *
 MostUsedCounter::instance ()
 {
-    if (!sm_Instance)
-        sm_Instance = new MostUsedCounter;
+    if (!MostUsedCounterPrivate::sm_Instance)
+        MostUsedCounterPrivate::sm_Instance = new MostUsedCounter;
 
-    return sm_Instance;
+    return MostUsedCounterPrivate::sm_Instance;
 }
 
 void 
 MostUsedCounter::destroy ()
 {
-    delete sm_Instance;
-    sm_Instance = 0;
+    delete MostUsedCounterPrivate::sm_Instance;
+    MostUsedCounterPrivate::sm_Instance = 0;
 }
 
 /*!
@@ -51,11 +52,11 @@ MostUsedCounter::incrementUsageCounter (
     if (key.isEmpty())
         return 0;
 
-    QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(key);
+    QMap<QString, DuiGConfItem*>::const_iterator i = d_ptr->data.find(key);
 
-    if (i == m_Data.end ()) { 
+    if (i == d_ptr->data.end ()) { 
         DuiGConfItem *item = new DuiGConfItem(key);
-        m_Data[key] = item;
+        d_ptr->data[key] = item;
         int tmp = item->value().toInt();
         item->set(++tmp);
 
@@ -79,10 +80,10 @@ MostUsedCounter::getUsageCounter (
     if (key.isEmpty()) 
         return 0;
 
-    QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find(key);
-    if (i == m_Data.end()) {
+    QMap<QString, DuiGConfItem*>::const_iterator i = d_ptr->data.find(key);
+    if (i == d_ptr->data.end()) {
         DuiGConfItem *item = new DuiGConfItem(key);
-        m_Data[key] = item; 
+        d_ptr->data[key] = item; 
         
         return item->value().toInt();
     }
@@ -101,10 +102,10 @@ MostUsedCounter::dropKey (
     if (key.isEmpty())
         return;
 
-    QMap<QString, DuiGConfItem*>::const_iterator i = m_Data.find (key);
-    if (i != m_Data.end()) {
+    QMap<QString, DuiGConfItem*>::const_iterator i = d_ptr->data.find (key);
+    if (i != d_ptr->data.end()) {
         i.value()->unset();
         delete i.value();
-        m_Data.remove (key);
+        d_ptr->data.remove (key);
     }
 }

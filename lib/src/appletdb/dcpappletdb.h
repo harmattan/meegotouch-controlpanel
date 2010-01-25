@@ -100,7 +100,7 @@ protected:
     void refreshPath(const QString &pathName);
 
 private:
-    DcpAppletDbPrivate *const d;
+    DcpAppletDbPrivate *const d_ptr;
     Q_DISABLE_COPY(DcpAppletDb);  
 };
 #endif // DCPAPPLETDB_H

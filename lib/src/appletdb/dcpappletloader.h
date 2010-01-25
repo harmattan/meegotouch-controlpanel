@@ -7,6 +7,7 @@
 #include <QString>
 class DcpAppletMetadata;
 class DcpAppletIf;
+class DcpAppletLoaderPrivate;
 
 class DcpAppletLoader : public QObject
 {
@@ -17,7 +18,7 @@ public:
     virtual ~DcpAppletLoader ();
 
     DcpAppletIf *applet() const;
-    const DcpAppletMetadata *metadata () const { return m_Metadata; };
+    const DcpAppletMetadata *metadata() const;
     const QString errorMsg () const;
 
 protected:
@@ -26,9 +27,8 @@ protected:
     virtual bool loadDslFile    (const QString &dslPath);
 
 private:
-    const DcpAppletMetadata* m_Metadata;
-    DcpAppletIf *m_Applet;
-    QString m_ErrorMsg;
+    DcpAppletLoaderPrivate *const d_ptr;
+    Q_DISABLE_COPY(DcpAppletLoader);
 };
 
 #endif

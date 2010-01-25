@@ -3,27 +3,26 @@
 #ifndef MOSTUSEDCOUNTER_H
 #define MOSTUSEDCOUNTER_H
 
-#include <DuiGConfItem>
-
 #include <QString>
-#include <QMap>
+class MostUsedCounterPrivate;
 
 class MostUsedCounter 
 {
-    public:
-        ~MostUsedCounter();
+public:
+    ~MostUsedCounter();
 
-        static MostUsedCounter *instance ();
-        static void destroy ();
+    static MostUsedCounter *instance ();
+    static void destroy ();
 
-        int incrementUsageCounter (const QString &name);
-        int getUsageCounter (const QString &key);
-        void dropKey (const QString &key);
-    
-    private:
-        MostUsedCounter ();
-        static MostUsedCounter *sm_Instance;
-        QMap<QString, DuiGConfItem*> m_Data;
+    int incrementUsageCounter (const QString &name);
+    int getUsageCounter (const QString &key);
+    void dropKey (const QString &key);
+
+protected:
+    MostUsedCounter ();
+private:
+    MostUsedCounterPrivate *const d_ptr;
+    Q_DISABLE_COPY(MostUsedCounter);
 };
 #endif
 

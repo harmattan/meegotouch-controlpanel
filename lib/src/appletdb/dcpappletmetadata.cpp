@@ -49,15 +49,15 @@ DcpAppletMetadataPrivate::~DcpAppletMetadataPrivate ()
 
 DcpAppletMetadata::DcpAppletMetadata (
         const QString& filename)
-: d (new DcpAppletMetadataPrivate)
+: d_ptr (new DcpAppletMetadataPrivate)
 {
     DCP_DEBUG ("*** filename = '%s'", DCP_STR(filename));
 
-    d->m_FileName = filename;
-    d->m_DesktopEntry = new DuiDesktopEntry(d->m_FileName);
-    d->m_GconfKeyUsage =
+    d_ptr->m_FileName = filename;
+    d_ptr->m_DesktopEntry = new DuiDesktopEntry(d_ptr->m_FileName);
+    d_ptr->m_GconfKeyUsage =
         MOSTUSEDCOUNTER_GCONFKEY  + 
-        QFileInfo (d->m_FileName).baseName();
+        QFileInfo (d_ptr->m_FileName).baseName();
 }
 
 DcpAppletMetadata::~DcpAppletMetadata ()
@@ -89,9 +89,9 @@ DcpAppletMetadata::isValid () const
 bool 
 DcpAppletMetadata::isModified() const
 {
-    QFileInfo info(d->m_FileName);
-    bool modified = info.lastModified() >  d->m_FileInfo.lastModified();
-    d->m_FileInfo = info;
+    QFileInfo info(d_ptr->m_FileName);
+    bool modified = info.lastModified() >  d_ptr->m_FileInfo.lastModified();
+    d_ptr->m_FileInfo = info;
     return modified;
 }
 
@@ -107,14 +107,14 @@ DcpAppletMetadata::category () const
 QString 
 DcpAppletMetadata::binaryDir () const
 {
-    return d->m_BinaryDir;
+    return d_ptr->m_BinaryDir;
 }
 
 void 
 DcpAppletMetadata::setBinaryDir (
         const QString &dir)
 {
-    d->m_BinaryDir = dir;
+    d_ptr->m_BinaryDir = dir;
 }
 
 /*!
@@ -258,7 +258,7 @@ DcpAppletMetadata::align () const
 DcpAppletMetadata *
 DcpAppletMetadata::parent () const
 {
-    return d->m_Parent;
+    return d_ptr->m_Parent;
 }
 
 bool 
@@ -350,7 +350,7 @@ DcpAppletMetadata::errorMsg () const
     else if (applet() != NULL)
         retval = "OK";
     else 
-        retval = d->m_AppletLoader->errorMsg();
+        retval = d_ptr->m_AppletLoader->errorMsg();
 
     return retval;
 }
@@ -402,7 +402,7 @@ DcpAppletMetadata::setToggle (
         getBrief()->setToggle (checked);
     } else {
         qWarning("Can not set toggle state for the applet %s",
-                 qPrintable(d->m_FileName));
+                 qPrintable(d_ptr->m_FileName));
     }
 }
 
@@ -442,7 +442,7 @@ DcpAppletMetadata::getMainWidgetId () const
 int 
 DcpAppletMetadata::usage () const
 {
-    return MostUsedCounter::instance()->getUsageCounter (d->m_GconfKeyUsage);
+    return MostUsedCounter::instance()->getUsageCounter (d_ptr->m_GconfKeyUsage);
 }
 
 int 
@@ -454,42 +454,42 @@ DcpAppletMetadata::order () const
 DcpAppletIf *
 DcpAppletMetadata::applet () const
 {
-    if (d->m_Parent)
-        return d->m_Parent->applet();
+    if (d_ptr->m_Parent)
+        return d_ptr->m_Parent->applet();
 
-    if (d->m_AppletLoader == 0) {
-        d->m_AppletLoader = new DcpAppletLoader (this);
+    if (d_ptr->m_AppletLoader == 0) {
+        d_ptr->m_AppletLoader = new DcpAppletLoader (this);
     }
 
     /*
      * FIXME: This way we try to load the applet binary every time this function
      * is called. We should remember we failed instead.
      */
-    return d->m_AppletLoader->applet();
+    return d_ptr->m_AppletLoader->applet();
 }
 
 DuiDesktopEntry *
 DcpAppletMetadata::desktopEntry () const
 {
-    Q_ASSERT (d->m_DesktopEntry);
+    Q_ASSERT (d_ptr->m_DesktopEntry);
 
-    return d->m_DesktopEntry;
+    return d_ptr->m_DesktopEntry;
 }
 
 DcpBrief *
 DcpAppletMetadata::getBrief () const
 {
-    if (d->m_Brief == 0 && applet() != 0) {
-        d->m_Brief = applet()->constructBrief (getMainWidgetId());
+    if (d_ptr->m_Brief == 0 && applet() != 0) {
+        d_ptr->m_Brief = applet()->constructBrief (getMainWidgetId());
 
-        if (d->m_Brief != 0)
-            connect (d->m_Brief, SIGNAL (valuesChanged ()), 
+        if (d_ptr->m_Brief != 0)
+            connect (d_ptr->m_Brief, SIGNAL (valuesChanged ()), 
                     this, SIGNAL (briefChanged ()));
-            connect (d->m_Brief, SIGNAL (activateSignal ()), 
+            connect (d_ptr->m_Brief, SIGNAL (activateSignal ()), 
                     this, SLOT (activateSlot ()));
     }
 
-    return d->m_Brief;
+    return d_ptr->m_Brief;
 }
 
 void 
@@ -522,22 +522,22 @@ DcpAppletMetadata::desktopEntryStr (
 void 
 DcpAppletMetadata::cleanup ()
 {
-    if (d->m_AppletLoader)
-        d->m_AppletLoader->deleteLater();
-    d->m_AppletLoader = 0;
+    if (d_ptr->m_AppletLoader)
+        d_ptr->m_AppletLoader->deleteLater();
+    d_ptr->m_AppletLoader = 0;
 }
 
 void 
 DcpAppletMetadata::setParent (
         DcpAppletMetadata *parent)
 {
-    d->m_Parent = parent;
+    d_ptr->m_Parent = parent;
 }
 
 void 
 DcpAppletMetadata::slotClicked ()
 {
-    MostUsedCounter::instance()->incrementUsageCounter (d->m_GconfKeyUsage);
+    MostUsedCounter::instance()->incrementUsageCounter (d_ptr->m_GconfKeyUsage);
 }
 
 bool 

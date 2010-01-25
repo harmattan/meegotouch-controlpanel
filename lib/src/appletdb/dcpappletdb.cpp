@@ -22,7 +22,7 @@ DcpAppletDbPrivate::~DcpAppletDbPrivate()
 
 DcpAppletDb::DcpAppletDb (
         const QString   &pathName,
-        const QString   &nameFilter) : d(new DcpAppletDbPrivate())
+        const QString   &nameFilter) : d_ptr(new DcpAppletDbPrivate())
 {
     if (!pathName.isEmpty()) 
         addFiles (pathName, nameFilter);
@@ -67,19 +67,19 @@ bool
 DcpAppletDb::addFile (
         const QString& filename)
 {
-    if (containsFile(filename) || d->hasUniqueMetadata)
+    if (containsFile(filename) || d_ptr->hasUniqueMetadata)
         return false;
 
     DcpAppletMetadata *metadata = new DcpAppletMetadata(filename);
     if (metadata->isValid()) {
         if (metadata->isUnique()) {
-             d->appletsByName.clear();
-             d->appletsByFile.clear();
-             d->hasUniqueMetadata = true;
+             d_ptr->appletsByName.clear();
+             d_ptr->appletsByFile.clear();
+             d_ptr->hasUniqueMetadata = true;
         }
         DCP_DEBUG ("Adding applet name '%s'", DCP_STR (metadata->name()));
-        d->appletsByName[metadata->name()] = metadata;
-        d->appletsByFile[filename] = metadata;
+        d_ptr->appletsByName[metadata->name()] = metadata;
+        d_ptr->appletsByFile[filename] = metadata;
         return true;
     } else {
         metadata->deleteLater();
@@ -91,20 +91,20 @@ DcpAppletDb::addFile (
 QStringList
 DcpAppletDb::appletNames() const
 {
-    return d->appletsByName.keys();
+    return d_ptr->appletsByName.keys();
 }
 
 bool
 DcpAppletDb::containsFile(const QString& fileName)
 {
-    return d->appletsByFile.contains(fileName);
+    return d_ptr->appletsByFile.contains(fileName);
 }
 
 bool
 DcpAppletDb::containsName (
         const QString &name)
 {
-    return d->appletsByName.contains (name);
+    return d_ptr->appletsByName.contains (name);
 }
 
 bool
@@ -113,7 +113,7 @@ DcpAppletDb::addPath (const QString &pathName)
     DCP_DEBUG ("Will use filter '*.desktop'!");
 
     if (addFiles (pathName, "*.desktop")) {
-        d->paths.append(pathName);
+        d_ptr->paths.append(pathName);
         return true;
     } else {
         return false;
@@ -142,7 +142,7 @@ DcpAppletDb::addFiles (
 DcpAppletMetadataList 
 DcpAppletDb::list() const
 {
-    return d->appletsByFile.values();
+    return d_ptr->appletsByFile.values();
 }
 
 /*!
@@ -154,7 +154,7 @@ DcpAppletDb::listByCategory (
 {
     QList<DcpAppletMetadata*> filtered;
 
-    foreach (DcpAppletMetadata *item, d->appletsByFile) {
+    foreach (DcpAppletMetadata *item, d_ptr->appletsByFile) {
         if (category.compare (item->category(), Qt::CaseInsensitive) == 0)
             filtered.append (item);
 
@@ -185,7 +185,7 @@ DcpAppletDb::listByCategory (
 {
     QList<DcpAppletMetadata*> filtered;
 
-    foreach (DcpAppletMetadata *item, d->appletsByFile) {
+    foreach (DcpAppletMetadata *item, d_ptr->appletsByFile) {
         for (int n = 0; n < n_categories && category[n] != 0; ++n) {
             /*
              * We add this item if we asked to include the uncategorized
@@ -228,7 +228,7 @@ DcpAppletDb::listMostUsed ()
     DcpAppletMetadataList mostUsed;
 
     for (QMap<QString, DcpAppletMetadata*>::iterator iter =
-            d->appletsByName.begin(); iter != d->appletsByName.end(); iter++)
+            d_ptr->appletsByName.begin(); iter != d_ptr->appletsByName.end(); iter++)
         if (iter.value()->usage())
             mostUsed.push_back(iter.value());
 
@@ -254,7 +254,7 @@ DcpAppletMetadata *
 DcpAppletDb::applet (
         const QString &name)
 {
-    DcpAppletMetadata *metadata = d->appletsByName.value(name, 0);
+    DcpAppletMetadata *metadata = d_ptr->appletsByName.value(name, 0);
 
     if (!metadata)
         qWarning() << "No such applet:" << name;
@@ -264,10 +264,10 @@ DcpAppletDb::applet (
 
 void DcpAppletDb::refresh()
 {
-    foreach(QString pathName, d->paths)
+    foreach(QString pathName, d_ptr->paths)
         refreshPath(pathName);
 
-    foreach(DcpAppletMetadata *metadata, d->appletsByName) {
+    foreach(DcpAppletMetadata *metadata, d_ptr->appletsByName) {
         if (!metadata->isValid()) {
             eraseEntry(metadata);
         } else if (metadata->isModified()) {
@@ -295,7 +295,7 @@ DcpAppletDb::refreshPath (
     
     foreach(QString appFile, appDir.entryList()) {
         QString fileName = appDir.absoluteFilePath(appFile);
-        if (!d->appletsByFile.contains(appFile)) {
+        if (!d_ptr->appletsByFile.contains(appFile)) {
             addFile(fileName);
         }
     }
@@ -305,8 +305,8 @@ void
 DcpAppletDb::eraseEntry (
         DcpAppletMetadata *metadata)
 {
-    d->appletsByName.remove(metadata->name());
-    d->appletsByFile.remove(metadata->fileName());
+    d_ptr->appletsByName.remove(metadata->name());
+    d_ptr->appletsByFile.remove(metadata->fileName());
     metadata->deleteLater();
 }
 
@@ -314,7 +314,7 @@ void
 DcpAppletDb::destroyData ()
 {
     DCP_WARNING ("Destroying all metadata.");
-    foreach(DcpAppletMetadata *metadata, d->appletsByName) {
+    foreach(DcpAppletMetadata *metadata, d_ptr->appletsByName) {
         metadata->deleteLater();
     }
 }

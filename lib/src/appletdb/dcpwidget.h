@@ -60,6 +60,7 @@ signals:
 
 private:
     DcpWidgetPrivate* const d_ptr;
+    Q_DISABLE_COPY(DcpWidget);
 };
 
 #endif
