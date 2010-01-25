@@ -6,6 +6,7 @@
 #include "dcpbuttonalign.h"
 class DuiImageWidget;
 
+class DcpButtonImagePrivate;
 class DcpButtonImage: public DcpButtonAlign 
 {
     Q_OBJECT
@@ -18,7 +19,9 @@ public:
 protected:
     virtual QGraphicsLayout *createLayout ();
     DuiImageWidget *imageWidget ();
-    DuiImageWidget *m_Image;
+private:
+    DcpButtonImagePrivate *const d_ptr;
+    Q_DISABLE_COPY(DcpButtonImage);
 };
 
 

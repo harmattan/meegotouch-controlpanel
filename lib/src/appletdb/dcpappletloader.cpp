@@ -12,7 +12,7 @@
 
 DcpAppletLoader::DcpAppletLoader (
         const DcpAppletMetadata *metadata):
-   d_prt(new DcpAppletLoaderPrivate(metadata))
+   d_ptr(new DcpAppletLoaderPrivate(metadata))
 {
     load();
 }

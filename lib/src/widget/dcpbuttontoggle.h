@@ -6,6 +6,7 @@
 #include "dcpbuttonalign.h"
 class DuiButton;
 
+class DcpButtonTogglePrivate;
 class DcpButtonToggle: public DcpButtonAlign {
     Q_OBJECT
 public:
@@ -27,7 +28,8 @@ protected:
     DuiButton* toggleButton();
 
 private:
-    QString m_Text2;
+    DcpButtonTogglePrivate *const d_ptr;
+    Q_DISABLE_COPY(DcpButtonToggle);
 };
 
 

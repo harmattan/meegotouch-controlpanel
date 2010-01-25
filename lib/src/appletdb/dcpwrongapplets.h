@@ -48,6 +48,7 @@ public:
 private:
     DcpWrongApplets();
     ~DcpWrongApplets();
+    // not a public header so private data members are allowed here
     static DcpWrongApplets *sm_Instance;
 
     // some speed up caches to avoid unnecessery gconf access

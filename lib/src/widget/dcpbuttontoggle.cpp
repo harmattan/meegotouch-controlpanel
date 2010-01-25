@@ -1,12 +1,14 @@
 /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #include "dcpbuttontoggle.h"
+#include "dcpbuttontoggle_p.h"
 #include <DuiLayout>
 #include <DuiButton>
 
 DcpButtonToggle::DcpButtonToggle (
         DuiWidget *parent)
-    : DcpButtonAlign (parent)
+    : DcpButtonAlign (parent),
+    d_ptr(new DcpButtonTogglePrivate)
 {
     this->setLayout(createLayout());
 }
@@ -30,10 +32,10 @@ void
 DcpButtonToggle::setText2 (
         const QString &text)
 {
-    m_Text2 = text;
+    d_ptr->text2 = text;
 
     if (toggleButton()->isChecked()) {
-        DcpButton::setText2(m_Text2);
+        DcpButton::setText2(d_ptr->text2);
     }
 }
 
@@ -43,7 +45,7 @@ DcpButtonToggle::onSmallToggled (
 {
     // do not show second line in case it is off:
     if (isOn){
-        DcpButton::setText2 (m_Text2);
+        DcpButton::setText2 (d_ptr->text2);
     } else {
         DcpButton::setText2 (QString());
     }

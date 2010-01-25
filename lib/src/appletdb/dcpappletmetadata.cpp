@@ -63,7 +63,7 @@ DcpAppletMetadata::DcpAppletMetadata (
 DcpAppletMetadata::~DcpAppletMetadata ()
 {
     DCP_DEBUG ("Destroying %p", this);
-    delete d;
+    delete d_ptr;
 }
 
 // TODO XXX rename
