@@ -1,8 +1,9 @@
 duicontrolpanel (0.6.5) unstable; urgency=low
 
   [ Laszlo Gal ]
+  * Fixes NB#149661 - Private class members in public headers
   * Fixes NB#148951 - Back button has missleading behaviour
-
+  
  -- Viktor Nagy <viktor.nagy@blumsoft.eu>  Fri, 22 Jan 2010 15:16:57 +0100
 
 duicontrolpanel (0.6.4) unstable; urgency=low
