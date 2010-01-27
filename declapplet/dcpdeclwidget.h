@@ -9,7 +9,7 @@ class DcpDeclWidget: public DcpWidget
 public:
     DcpDeclWidget(const QString& xmlPath);
 
-protected:
+private:
     void createErrorLabel(const QString& text);
 
 };
