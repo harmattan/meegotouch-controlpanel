@@ -30,7 +30,6 @@ protected:
 protected slots:
     void changeWidget (int widgetId);
     virtual void back ();
-    void loadAppletTranslations ();
 
 private:
     void dropWidget ();
