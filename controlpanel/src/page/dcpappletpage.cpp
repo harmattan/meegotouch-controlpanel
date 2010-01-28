@@ -240,14 +240,16 @@ DcpAppletPage::changeWidget (
 
         connect (m_MainWidget, SIGNAL (activatePluginByName (const QString &)),
                 m_Metadata, SLOT (activatePluginByName (const QString &)));
+    
     }
 
-    appendWidget (m_MainWidget);
-
+    clearActions();
     QVector<DuiAction*> vector = m_Metadata->applet()->viewMenuItems();
     if (!vector.isEmpty())
         for (int i = 0; i < vector.size(); i++)
             addAction(vector[i]);
+    appendWidget (m_MainWidget);
+
 
     retranslateUi();
 }
