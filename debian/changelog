@@ -1,3 +1,9 @@
+duicontrolpanel (0.7.0) UNRELEASED; urgency=low
+
+  * Fixes: NB#154090 Localization of the applet loaded too late
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 27 Jan 2010 10:55:58 +0100
+
 duicontrolpanel (0.6.5) unstable; urgency=low
 
   [ Laszlo Gal ]

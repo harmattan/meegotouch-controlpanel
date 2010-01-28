@@ -2,7 +2,6 @@
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 
 #include "dcpappletpage.h"
-#include "dcpwrongapplets.h"
 
 #include <DcpWidget>
 #include <DcpAppletIf>
@@ -12,7 +11,6 @@
 #include <DuiLocale>
 #include <DuiApplication>
 #include <DuiAction>
-#include <QtDebug>
 
 #define DEBUG
 #include "dcpdebug.h"
@@ -26,8 +24,6 @@ DcpAppletPage::DcpAppletPage (
     m_MissingLabel (0)
 {
     DCP_DEBUG ("");
-    QObject::connect(qApp, SIGNAL(localeSettingsChanged()),
-                     this, SLOT(loadAppletTranslations()));
 }
 
 
@@ -60,7 +56,6 @@ void
 DcpAppletPage::createContent ()
 {
     DcpPage::createContent ();
-    loadAppletTranslations ();
     loadMainWidget ();
 }
 
@@ -165,7 +160,6 @@ DcpAppletPage::reload ()
     if (hasWidget()) {
         dropWidget ();
     }
-    loadAppletTranslations();
     loadMainWidget ();
     DcpPage::reload ();
 }
@@ -280,17 +274,4 @@ DcpAppletPage::retranslateUi ()
     }
 }
 
-void
-DcpAppletPage::loadAppletTranslations ()
-{
-    if (!m_Metadata) return;
-    QString catalog = m_Metadata->translationCatalog();
-    if (catalog.isEmpty()) return;
-
-    DuiLocale locale; // gets the current locale
-    locale.installTrCatalog(catalog + ".qm"); // install engineering english
-    locale.installTrCatalog(catalog); // install real translation, if any
-    DuiLocale::setDefault(locale);
-    DCP_DEBUG("Translation %s loaded.", qPrintable(catalog));
-}
 

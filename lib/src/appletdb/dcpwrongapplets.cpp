@@ -132,16 +132,18 @@ termination_signal_handler (
 DcpWrongApplets::DcpWrongApplets ()
 {
     DCP_DEBUG ("");
-    signal (SIGTERM, termination_signal_handler);
-    signal (SIGHUP,  termination_signal_handler);
-    signal (SIGINT,  termination_signal_handler);
-    signal (SIGQUIT,  termination_signal_handler);
+    if (!sm_Disabled) {
+        signal (SIGTERM, termination_signal_handler);
+        signal (SIGHUP,  termination_signal_handler);
+        signal (SIGINT,  termination_signal_handler);
+        signal (SIGQUIT,  termination_signal_handler);
 
-    signal (SIGILL,  termination_signal_handler);
-    signal (SIGSEGV, termination_signal_handler);
-    signal (SIGBUS, termination_signal_handler);
-    signal (SIGABRT, termination_signal_handler);
-    signal (SIGFPE,  termination_signal_handler);
+        signal (SIGILL,  termination_signal_handler);
+        signal (SIGSEGV, termination_signal_handler);
+        signal (SIGBUS, termination_signal_handler);
+        signal (SIGABRT, termination_signal_handler);
+        signal (SIGFPE,  termination_signal_handler);
+    }
 
     connect (qApp, SIGNAL(aboutToQuit()),
              this, SLOT(deleteLater()));

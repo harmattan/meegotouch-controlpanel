@@ -64,8 +64,13 @@ DcpBriefWidget::DcpBriefWidget (
 
     /*
      * FIXME: I mean unused argument.
+     * All this contructor seems strange, dcpbriefwidget would be about
+     * interaction between the metadata and the DcpButtons, consider
+     * using DcpButton directly instead of this
+     *
      */
     //DCP_WARNING ("Unsupported widget type: %d", widgetTypeId);
+    Q_UNUSED(widgetTypeId);
 
     toggle = new DcpButton (this);
     d_ptr->m_RealWidget = toggle;
