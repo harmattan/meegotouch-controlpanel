@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=DUIApplet
+Name=Unresolved symbol applet
+Icon=
+Exec=
+X-logical-id=qtn_sett_unresolved
+X-translation-catalog=
+
+[DUI]
+X-DUIApplet-Applet=libdcpbadapplet3.so
+
+[DCP]
+Category= Look & Feel
+Order=4
+
