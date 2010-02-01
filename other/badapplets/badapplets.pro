@@ -5,6 +5,7 @@ CONFIG += build_all silent warn_on
 
 SUBDIRS += badapplet1 \
            badapplet2 \
+           badapplet3 \
 
 # for check:
 check.target = check
