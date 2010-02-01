@@ -1,0 +1,19 @@
+[Desktop Entry]
+Type=DUIApplet
+Name=Language
+X-logical-id=qtn_sett_main_language
+X-translation-catalog=duisettings
+
+Icon=
+Exec=
+
+[DUI]
+X-DUIApplet-Applet=liblanguageapplet.so
+X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
+X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
+
+[DCP]
+Category= Regional settings
+Order=3
+WidgetType= DcpLabel2
+

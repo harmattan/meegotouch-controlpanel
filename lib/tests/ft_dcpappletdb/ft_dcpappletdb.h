@@ -1,5 +1,5 @@
- #ifndef UT_DCPAPPLETDB_H
-#define UT_DCPAPPLETDB_H
+#ifndef FT_DCPAPPLETDB_H
+#define FT_DCPAPPLETDB_H
 
 #include <QtTest/QtTest>
 #include <QObject>
@@ -9,7 +9,7 @@
 
 Q_DECLARE_METATYPE(DcpAppletDb*);
 
-class Ut_DcpAppletDb : public QObject
+class Ft_DcpAppletDb : public QObject
 {
     Q_OBJECT
 

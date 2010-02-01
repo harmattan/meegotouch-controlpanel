@@ -1,0 +1,20 @@
+[Desktop Entry]
+Type=DUIApplet
+Name=Timezone
+X-logical-id=qtn_sett_main_region
+X-translation-catalog=duisettings
+Icon=
+Exec=
+
+[DUI]
+X-DUIApplet-Applet=libdatetimeapplet.so
+X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
+X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
+
+[DCP]
+Category= Startup 
+Part=TimeZone
+Order=4
+WidgetType= DcpLabel2
+Text2= GMT +0:00 London
+

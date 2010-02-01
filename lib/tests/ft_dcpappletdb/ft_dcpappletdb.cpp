@@ -5,18 +5,18 @@
 
 #include "dcpappletdb.h"
 
-#include "ut_dcpappletdb.h"
-#include "dcpappletmetadata-fake.h"
-#include "duigconfitem-fake.h"
+#include "ft_dcpappletdb.h"
+#include <DcpAppletMetadata>
+#include <DuiGConfItem>
 
-void Ut_DcpAppletDb::initTestCase()
+void Ft_DcpAppletDb::initTestCase()
 {
     static int c = 0;
     static QByteArray arg("dummyarg");
     char *argp = arg.data();
     qap = new QCoreApplication(c, &argp);
     QString dataDir(qApp->applicationDirPath() + 
-                       "/ut_dcpappletdb-data/");
+                       "/ft_dcpappletdb-data/");
 
     emptyDesktopDir = dataDir + "emptyDesktopDir/"; // a non-existent dir
     testDesktopDir = dataDir + "desktops/";
@@ -31,12 +31,12 @@ void Ut_DcpAppletDb::initTestCase()
     displayEntryName = "Display";
 }
 
-void Ut_DcpAppletDb::cleanupTestCase()
+void Ft_DcpAppletDb::cleanupTestCase()
 {
     delete qap;
 }
 
-void Ut_DcpAppletDb::init()
+void Ft_DcpAppletDb::init()
 {
     /*
      * FIXME: I removed the initInstance() function simply because it refused to
@@ -49,24 +49,24 @@ void Ut_DcpAppletDb::init()
     QVERIFY ((m_subject = DcpAppletDb::instance(emptyDesktopDir)));
 }
 
-void Ut_DcpAppletDb::cleanup()
+void Ft_DcpAppletDb::cleanup()
 {
     DcpAppletDb::destroy();
 }
 
-void Ut_DcpAppletDb::testCreateAndDestroy()
+void Ft_DcpAppletDb::testCreateAndDestroy()
 {
     if (QTest::currentTestFailed()) return;
 }
 
-void Ut_DcpAppletDb::testInstance()
+void Ft_DcpAppletDb::testInstance()
 {
     if (QTest::currentTestFailed()) return;
 
     QVERIFY((m_subject == DcpAppletDb::instance()));
 }
 
-void Ut_DcpAppletDb::testAddContainNameFile()
+void Ft_DcpAppletDb::testAddContainNameFile()
 {
     if (QTest::currentTestFailed()) return;
 
@@ -85,7 +85,7 @@ void Ut_DcpAppletDb::testAddContainNameFile()
     QVERIFY(!m_subject->containsName(browserEntryName) + "x");
 }
 
-void Ut_DcpAppletDb::testAddPath()
+void Ft_DcpAppletDb::testAddPath()
 {
     if (QTest::currentTestFailed()) return;
 
@@ -94,7 +94,7 @@ void Ut_DcpAppletDb::testAddPath()
     QVERIFY(m_subject->containsFile(desktopDisplayFile));
 }
 
-void Ut_DcpAppletDb::testAppletNames()
+void Ft_DcpAppletDb::testAppletNames()
 {
     if (QTest::currentTestFailed()) return;
 
@@ -105,7 +105,7 @@ void Ut_DcpAppletDb::testAppletNames()
     QVERIFY(m_subject->appletNames().contains(displayEntryName));
 }
 
-void Ut_DcpAppletDb::testApplet()
+void Ft_DcpAppletDb::testApplet()
 {
     if (QTest::currentTestFailed()) return;
 
@@ -117,7 +117,7 @@ void Ut_DcpAppletDb::testApplet()
     QVERIFY(!m_subject->applet("xxx"));
 }
 
-void Ut_DcpAppletDb::testEraseEntry()
+void Ft_DcpAppletDb::testEraseEntry()
 {
     if (QTest::currentTestFailed()) return;
 
@@ -130,7 +130,7 @@ void Ut_DcpAppletDb::testEraseEntry()
     QVERIFY(m_subject->appletNames().length() == 1);
 }
 
-void Ut_DcpAppletDb::testListByCategory()
+void Ft_DcpAppletDb::testListByCategory()
 {
     if (QTest::currentTestFailed()) return;
 
@@ -144,7 +144,7 @@ void Ut_DcpAppletDb::testListByCategory()
     QVERIFY(m_subject->listByCategory("Startup").length() == 4);
 }
 
-void Ut_DcpAppletDb::testListMostUsed()
+void Ft_DcpAppletDb::testListMostUsed()
 {
     m_subject->addPath(testDesktopDir3);
     DcpAppletMetadataList applets = m_subject->list();
@@ -169,11 +169,11 @@ void Ut_DcpAppletDb::testListMostUsed()
     }
 }
 
-void Ut_DcpAppletDb::testRefresh()
+void Ft_DcpAppletDb::testRefresh()
 {
     if (QTest::currentTestFailed()) return;
 
     QSKIP("this test would need modifying .desktop files", SkipSingle);
 }
 
-QTEST_APPLESS_MAIN(Ut_DcpAppletDb)
+QTEST_APPLESS_MAIN(Ft_DcpAppletDb)
