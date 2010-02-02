@@ -206,7 +206,7 @@ DcpAppletPage::changeWidget (
      * return.
      */
     m_MainWidget = newMainWidget;
-    
+
     if (this_is_a_new_widget &&
             newMainWidget != 0 && 
             !newMainWidget->setWidgetId (widgetId) &&
@@ -229,24 +229,32 @@ DcpAppletPage::changeWidget (
     if (this_is_a_new_widget) {
         setPannableAreaInteractive (m_MainWidget->pagePans());
 
-        connect (m_MainWidget, SIGNAL (changeWidget(int)), 
+        connect (m_MainWidget, SIGNAL (changeWidget(int)),
                 this, SLOT(changeWidget(int)));
 
         connect (m_MainWidget, SIGNAL (activatePluginByName (const QString &)),
                 m_Metadata, SLOT (activatePluginByName (const QString &)));
     }
 
+    replaceActions(m_Metadata->applet()->viewMenuItems());
     appendWidget (m_MainWidget);
-
-    QVector<DuiAction*> vector = m_Metadata->applet()->viewMenuItems();
-    if (!vector.isEmpty())
-        for (int i = 0; i < vector.size(); i++)
-            addAction(vector[i]);
 
     retranslateUi();
 }
 
-void 
+void
+DcpAppletPage::replaceActions(const QVector<DuiAction*>& actions)
+{
+    foreach (DuiAction* action, m_Actions) {
+        action->deleteLater();
+    }
+    m_Actions = actions;
+    foreach (DuiAction* action, m_Actions) {
+        addAction(action);
+    }
+}
+
+void
 DcpAppletPage::setMetadata (
         DcpAppletMetadata *metadata)
 {

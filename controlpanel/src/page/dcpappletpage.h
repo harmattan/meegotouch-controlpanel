@@ -3,10 +3,12 @@
 
 #include <DcpPage>
 #include <Pages>
+#include <QVector>
 
 class DcpWidget;
 class DcpAppletMetadata;
 class DuiLabel;
+class DuiAction;
 
 class DcpAppletPage : public DcpPage
 {
@@ -26,6 +28,7 @@ public:
 
 protected:
     virtual void retranslateUi ();
+    void replaceActions(const QVector<DuiAction*>& actions);
 
 protected slots:
     void changeWidget (int widgetId);
@@ -40,6 +43,7 @@ private:
     bool                 m_ReloadNeeded;
     DcpWidget           *m_MainWidget;
     DuiLabel            *m_MissingLabel;
+    QVector<DuiAction*> m_Actions;
 };
 
 #endif

@@ -1,8 +1,9 @@
 duicontrolpanel (0.7.0) UNRELEASED; urgency=low
 
   * Fixes: NB#154090 Localization of the applet loaded too late
+  * Fixes: NB#154094 Duicontrolpanel has many help menu items
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 27 Jan 2010 10:55:58 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 01 Feb 2010 15:01:13 +0100
 
 duicontrolpanel (0.6.5) unstable; urgency=low
 

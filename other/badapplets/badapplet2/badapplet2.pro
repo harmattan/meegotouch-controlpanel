@@ -11,7 +11,6 @@ DEPENDPATH += $$INCLUDEPATH
 
 HEADERS       = ../dcpskeletonapplet.h \
 		        ../dcpskeletonwidget.h \
-                ../translations.h \
                 ../dcpskeletonbrief.h
 
 SOURCES       = ../dcpskeletonapplet.cpp \
