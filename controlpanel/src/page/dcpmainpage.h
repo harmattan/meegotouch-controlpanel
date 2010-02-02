@@ -12,18 +12,24 @@ class DcpCategoryComponent;
 class DcpMainPage : public DcpPage
 {
     Q_OBJECT
+
 public:
     DcpMainPage();
     virtual ~DcpMainPage();
-    virtual void createContent();
+    virtual void _createContent();
     virtual void reload();
+
 public slots:
     void back();
+    void shown ();
+
 protected:
     virtual void retranslateUi();
     virtual void organizeContent(const Dui::Orientation& ori);
+
 private:
-    DcpCategoryComponent* m_RecentlyComp;
+    DcpCategoryComponent *m_RecentlyComp;
+    bool                  m_HasContent;
 };
 
-#endif // DCPMAINPAGE_H
+#endif

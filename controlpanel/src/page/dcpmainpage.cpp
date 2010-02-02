@@ -27,21 +27,38 @@
  * for them in the categories.
  */
 DcpMainPage::DcpMainPage() :
-    DcpPage(), 
-    m_RecentlyComp (0)
+    DcpPage (), 
+    m_RecentlyComp (0),
+    m_HasContent (false)
 {
     setEscapeButtonMode (DuiEscapeButtonPanelModel::CloseMode);
+    connect (this, SIGNAL(windowShown()),
+            this, SLOT(shown()));
+    
+    setTitle (qtTrId(DcpMain::settingsTitleId));
 }
 
 DcpMainPage::~DcpMainPage()
 {
 }
 
+void
+DcpMainPage::shown ()
+{
+    DCP_DEBUG ("##################################################");
+    DCP_DEBUG ("### Main page has been shown #####################");
+    DCP_DEBUG ("##################################################");
+    _createContent ();
+}
 
 void
-DcpMainPage::createContent ()
+DcpMainPage::_createContent ()
 {
     QGraphicsLinearLayout *layout;
+    
+    if (m_HasContent)
+        return;
+    m_HasContent = true;
 
     DcpPage::createContent ();
 
@@ -86,6 +103,7 @@ DcpMainPage::retranslateUi ()
 {
     QGraphicsLinearLayout *layout = mainLayout();
 
+    DCP_DEBUG ("");
     /*
      * The title of the main window.
      */

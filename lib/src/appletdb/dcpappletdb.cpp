@@ -11,6 +11,7 @@
 
 const QString AppletFilter = "*.desktop";
 DcpAppletDb* DcpAppletDbPrivate::sm_Instance = 0;
+
 DcpAppletDbPrivate::DcpAppletDbPrivate()
 {
     hasUniqueMetadata = false;
@@ -18,7 +19,9 @@ DcpAppletDbPrivate::DcpAppletDbPrivate()
 
 
 DcpAppletDbPrivate::~DcpAppletDbPrivate()
-{}
+{
+}
+
 
 DcpAppletDb::DcpAppletDb (
         const QString   &pathName,
@@ -31,6 +34,7 @@ DcpAppletDb::DcpAppletDb (
 DcpAppletDb::~DcpAppletDb()
 {
 }
+
 
 /*!
  *
@@ -128,6 +132,7 @@ DcpAppletDb::addFiles (
     QStringList nameFilters (filter);
     QDir        appDir (pathName);
 
+    //Q_ASSERT (false);
     appDir.setNameFilters (nameFilters);
     foreach (QString appFile, appDir.entryList (QDir::Files)) {
         DCP_DEBUG ("Adding file '%s'", 
