@@ -1,3 +1,5 @@
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #ifndef DCP_RETRANSLATOR_H
 #define DCP_RETRANSLATOR_H
 
@@ -20,12 +22,13 @@ public:
     DcpRetranslator();
 
     void loadAppletTranslations (DuiLocale& locale);
-    void loadAppletTranslation (DuiLocale& locale,
-                               const DcpAppletMetadata* metadata);
+    void loadAppletTranslation (
+		    DuiLocale               &locale,
+		    const DcpAppletMetadata *metadata);
 
 public slots:
    void retranslate();
 };
 
-#endif // DCP_RETRANSLATOR_H
+#endif
 

@@ -27,10 +27,15 @@
  * for them in the categories.
  */
 DcpMainPage::DcpMainPage() :
-    DcpPage(), 
-    m_RecentlyComp (0)
+    DcpPage (), 
+    m_RecentlyComp (0),
+    m_HasContent (false)
 {
     setEscapeButtonMode (DuiEscapeButtonPanelModel::CloseMode);
+    connect (this, SIGNAL(windowShown()),
+            this, SLOT(shown()));
+    
+    setTitle (qtTrId(DcpMain::settingsTitleId));
 }
 
 DcpMainPage::~DcpMainPage()
@@ -39,9 +44,32 @@ DcpMainPage::~DcpMainPage()
 
 
 void
-DcpMainPage::createContent ()
+DcpMainPage::shown ()
+{
+    DCP_DEBUG ("##################################################");
+    DCP_DEBUG ("### Main page has been shown #####################");
+    DCP_DEBUG ("##################################################");
+    
+    if (m_HasContent)
+        return;
+    
+    createContentLate ();
+    m_HasContent = true;
+    
+    emit firstShown ();
+}
+
+/*!
+ * The main page is usually the first page to start, so we want to show it as
+ * soon as possible. First we show the page without the applet brief widgets in
+ * it, then when it appeared on the screen we load the content. This second step
+ * is implemented here.
+ */
+void
+DcpMainPage::createContentLate ()
 {
     QGraphicsLinearLayout *layout;
+    
 
     DcpPage::createContent ();
 
@@ -86,6 +114,7 @@ DcpMainPage::retranslateUi ()
 {
     QGraphicsLinearLayout *layout = mainLayout();
 
+    DCP_DEBUG ("");
     /*
      * The title of the main window.
      */

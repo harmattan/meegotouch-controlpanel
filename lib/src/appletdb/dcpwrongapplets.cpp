@@ -56,7 +56,10 @@ mark_applet_as_bad (
     conf.set (now.toString());
 }
 
-void
+/*!
+ * Returns true if an applet crash has been discovered.
+ */
+bool
 some_crash_happened (
         void)
 {
@@ -87,10 +90,13 @@ some_crash_happened (
             continue;
 
         *const_cast<char*>(end) = '\0';
-        DCP_WARNING ("*** This is an applet: '%s'", start);
+        DCP_WARNING ("*** Marking this applet: '%s'", start);
         mark_applet_as_bad (start);
-        break;
+        DCP_WARNING ("*** Done");
+        return true;
     }
+
+    return false;
 }
 
 void
@@ -107,7 +113,7 @@ termination_signal_handler (
              * These are the signals that are not caused by any bug in the code.
              * We can do something with these, but now we just exit.
              */
-            exit (1);
+            exit (0);
             break;
        
         case SIGILL:
@@ -118,11 +124,16 @@ termination_signal_handler (
             /*
              * And here are those that are caused by errors.
              */
-            some_crash_happened ();
-            exit (1);
+            if (!some_crash_happened ())
+                exit (0);
             break;
     }
 
+    /*
+     * If we discovered an applet crash we raise the same signal so that the
+     * parent will know that we need to be restarted.
+     */
+    signal (signum, SIG_DFL);
     raise (signum);
 }
 
@@ -131,6 +142,7 @@ termination_signal_handler (
  */
 DcpWrongApplets::DcpWrongApplets ()
 {
+    //Q_ASSERT (false);
     DCP_DEBUG ("");
     if (!sm_Disabled) {
         signal (SIGTERM, termination_signal_handler);
