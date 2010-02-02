@@ -15,6 +15,8 @@
 #include <DuiApplication>
 #include <DuiAction>
 
+#include "appleterrorsdialog.h"
+
 #define DEBUG
 #include "dcpdebug.h"
 
@@ -27,6 +29,17 @@ PageFactory::PageFactory ():
     m_MainPage (0), 
     m_AppletPage (0), 
     m_AppletCategoryPage (0)
+{
+}
+
+/*!
+ * This slotz should be called only once, when the main page has been shown, so
+ * we can access the applet database without forcing it to be loaded early. It
+ * is also important, that we have a window on the screen, so we can show a
+ * dialog if we want.
+ */
+void
+PageFactory::mainPageFirstShown ()
 {
     DcpAppletMetadataList list;
 
@@ -48,6 +61,8 @@ PageFactory::PageFactory ():
         connect (item, SIGNAL (activateWithReferer (const QString &, int)),
                 this, SLOT (appletWantsToStart (const QString &, int)));
     }
+
+    AppletErrorsDialog::showAppletErrors();
 }
 
 
@@ -131,8 +146,11 @@ PageFactory::createMainPage ()
 {
     if (!m_MainPage) {
         m_MainPage = new DcpMainPage ();
+
+        connect (m_MainPage, SIGNAL (firstShown(void)),
+                this, SLOT(mainPageFirstShown (void)));
+
         registerPage (m_MainPage);
-        
     }
 
     return m_MainPage;

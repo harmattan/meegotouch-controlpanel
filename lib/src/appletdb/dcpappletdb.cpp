@@ -3,8 +3,12 @@
 #include "dcpappletdb.h"
 #include "dcpappletdb_p.h"
 #include "dcpappletmetadata.h"
+#include "dcpretranslator.h"
+
 #include <QDir>
 #include <QDebug>
+#include <DuiLocale>
+
 
 #define DEBUG
 #include "dcpdebug.h"
@@ -47,7 +51,19 @@ DcpAppletDb::instance (
         const QString   &nameFilter)
 {
     if (!DcpAppletDbPrivate::sm_Instance) {
-        DcpAppletDbPrivate::sm_Instance = new DcpAppletDb (pathName, nameFilter);
+        DcpAppletDbPrivate::sm_Instance = new DcpAppletDb (
+                pathName, nameFilter);
+        /*
+         * When we created the instance we force to load the applet
+         * translations. We need these because some data in the *.desktop files
+         * actually localized and the brief will also return localized UI
+         * strings.
+         */
+        DuiLocale       locale;
+        DcpRetranslator retranslator;
+
+        retranslator.loadAppletTranslations (locale);
+        DuiLocale::setDefault (locale);
     }
 
     return DcpAppletDbPrivate::sm_Instance;

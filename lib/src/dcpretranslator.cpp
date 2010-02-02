@@ -14,10 +14,18 @@
 
 DcpRetranslator::DcpRetranslator ()
 {
+    /*
+     * Please note that we are not loading the applet translations automatically
+     * any more, for it forced the applet database to be loaded early. The
+     * applet database will load the translations immediatelly after the 
+     * database loaded.
+     */
+#if 0
     // at startup load translations for the applets:
     DuiLocale locale;
     loadAppletTranslations (locale);
     DuiLocale::setDefault (locale);
+#endif
 }
 
 
@@ -48,7 +56,6 @@ void
 DcpRetranslator::loadAppletTranslations (
 		DuiLocale& locale)
 {
-    //Q_ASSERT (false);
     DcpAppletDb *db = DcpAppletDb::instance();
     foreach (DcpAppletMetadata* metadata, db->list()) {
         loadAppletTranslation (locale, metadata);

@@ -32,10 +32,8 @@ DcpMainPage::DcpMainPage() :
     m_HasContent (false)
 {
     setEscapeButtonMode (DuiEscapeButtonPanelModel::CloseMode);
-    #ifdef INITIALIZE_LATE
     connect (this, SIGNAL(windowShown()),
             this, SLOT(shown()));
-    #endif
     
     setTitle (qtTrId(DcpMain::settingsTitleId));
 }
@@ -45,30 +43,33 @@ DcpMainPage::~DcpMainPage()
 }
 
 
-#ifdef INITIALIZE_LATE
 void
 DcpMainPage::shown ()
 {
     DCP_DEBUG ("##################################################");
     DCP_DEBUG ("### Main page has been shown #####################");
     DCP_DEBUG ("##################################################");
-    createContentLate ();
-}
-#endif
-
-#ifdef INITIALIZE_LATE
-void
-DcpMainPage::createContentLate ()
-#else
-void
-DcpMainPage::createContent ()
-#endif
-{
-    QGraphicsLinearLayout *layout;
     
     if (m_HasContent)
         return;
+    
+    createContentLate ();
     m_HasContent = true;
+    
+    emit firstShown ();
+}
+
+/*!
+ * The main page is usually the first page to start, so we want to show it as
+ * soon as possible. First we show the page without the applet brief widgets in
+ * it, then when it appeared on the screen we load the content. This second step
+ * is implemented here.
+ */
+void
+DcpMainPage::createContentLate ()
+{
+    QGraphicsLinearLayout *layout;
+    
 
     DcpPage::createContent ();
 

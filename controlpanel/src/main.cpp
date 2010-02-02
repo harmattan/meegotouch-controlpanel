@@ -105,7 +105,6 @@ startApplication (int argc, char* argv[])
     DuiApplicationWindow win;
     service->createStartPage();
     win.show();
-    AppletErrorsDialog::showAppletErrors();
 
     return app.exec();
 }

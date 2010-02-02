@@ -142,6 +142,7 @@ termination_signal_handler (
  */
 DcpWrongApplets::DcpWrongApplets ()
 {
+    //Q_ASSERT (false);
     DCP_DEBUG ("");
     if (!sm_Disabled) {
         signal (SIGTERM, termination_signal_handler);
