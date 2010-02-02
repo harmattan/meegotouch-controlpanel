@@ -32,7 +32,7 @@ private slots:
     void cleanup();
     void initTestCase();
     void cleanupTestCase();
-//    void testSubPage();
+    void testSubPage();
     void testTitle();
     void testCategory();
     void testLogicalId();    

@@ -52,6 +52,13 @@ void Ft_DcpComponent::cleanupTestCase()
 {
 }
 
+void Ft_DcpComponent::testSubPage()
+{
+    Pages::Handle handle(Pages::MAIN, "param", 0, true);
+    m_subject->setSubPage(handle);
+    QCOMPARE(m_subject->subPage(), handle);
+}
+
 void Ft_DcpComponent::testTitle()
 {
     
