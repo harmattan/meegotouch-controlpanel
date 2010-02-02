@@ -24,7 +24,7 @@ coverage {
     QMAKE_LFLAGS += --coverage
 }
 
-target.path = $${DCP_INSTALL_LIB}/libduicontrolpanel-tests                                  
+target.path = $${DCP_INSTALL_LIB}/duicontrolpanel-tests                                  
 INSTALLS += target                                                              
 include(check.pri)
 LIBS += -L../../lib/ -L/usr/lib -lduicontrolpanel

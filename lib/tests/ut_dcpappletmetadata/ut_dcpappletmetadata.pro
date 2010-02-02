@@ -20,7 +20,7 @@ HEADERS +=
 HEADERS += 
 
 desktops.files = ut_dcpappletmetadata-data/desktops/*.desktop
-desktops.path = $${DCP_INSTALL_LIB}/libduicontrolpanel-tests/ut_dcpappletmetadata-data/desktops
+desktops.path = $${DCP_TESTS_INSTALL_LIB}/ut_dcpappletmetadata-data/desktops
 
 INSTALLS += desktops
 

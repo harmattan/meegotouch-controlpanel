@@ -21,6 +21,7 @@ SOURCES += $$SRCDIR/page/pages.cpp
 # unit test and unit
 HEADERS += \
     ft_dcpcomponent.h \
+    $$SRCDIR/include/* \
     $$SRCDIR/component/dcpcomponent.h \
 
 # base classes

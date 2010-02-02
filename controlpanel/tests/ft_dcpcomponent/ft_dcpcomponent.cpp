@@ -4,6 +4,7 @@
 
 #include <dcpcomponent.h>
 #include "ft_dcpcomponent.h"
+#include <Pages>
 
 DcpSingleComponent::DcpSingleComponent(DcpCategory *category,
                                   const QString& title,
@@ -54,9 +55,9 @@ void Ft_DcpComponent::cleanupTestCase()
 
 void Ft_DcpComponent::testSubPage()
 {
-    Pages::Handle handle(Pages::MAIN, "param", 0, true);
+    PageHandle handle(PageHandle::MAIN, "param", 0, true);
     m_subject->setSubPage(handle);
-    QCOMPARE(m_subject->subPage(), handle);
+    QCOMPARE(m_subject->subPage().id, handle.id);
 }
 
 void Ft_DcpComponent::testTitle()

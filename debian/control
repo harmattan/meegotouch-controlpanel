@@ -34,14 +34,14 @@ Section: doc
 Architecture: all
 Description: API documentation for libduicontrolpanel
 
-Package: libduicontrolpanel-tests
+Package: duicontrolpanel-tests
 Section: misc
 Architecture: any
-Depends: ${shlibs:Depends}, libduicontrolpanel (= ${Source-Version}), libqtgui4, duitestrunner
-XB-Maemo-CI-Packages: libduicontrolpanel
+Depends: ${shlibs:Depends}, duicontrolpanel (= ${Source-Version}), libqtgui4, duitestrunner
+XB-Maemo-CI-Packages: duicontrolpanel
 XB-Maemo-CI-Stage: fast, staging
 Description: libduicontrolpanel unit tests
- Unit testing binaries and shellscripts for testing libduicontrolpanel library
+ Functional and Unit testing binaries and shellscripts for testing duicontrolpanel / libduicontrolpanel library
 
 Package: duicontrolpanel-l10n-engineering-english
 Section: devel
