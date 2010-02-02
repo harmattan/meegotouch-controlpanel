@@ -143,11 +143,15 @@ int main(int argc, char *argv[])
         startSupervising();
     }
 
-    DCP_DEBUG ("### Creating DcpAppletDb");
+    /*!
+     * FIXME: If we have a desktop directory we have to load the desktop files
+     * now. We could delay it by changing the DcpAppletDb class implementation.
+     */
     if (desktopDir.isEmpty()) {
+        DCP_DEBUG ("### Not creating DcpAppletDb, we can do it later.");
          //DcpAppletDb::instance ();
     } else {
-        DCP_DEBUG ("### Creating DcpAppletDb in directory '%s'", 
+        DCP_DEBUG ("### Creating DcpAppletDb in directory '%s'.", 
                 DCP_STR(desktopDir));
         DcpAppletDb::instance (desktopDir);
     }
