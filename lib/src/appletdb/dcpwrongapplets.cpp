@@ -32,8 +32,8 @@ const QString keyPath = "/apps/duicontrolpanel/badplugins";
 bool
 backtrace_line_is_an_applet (
         const char     *line,
-        char          **start,
-        char          **end)
+        const char     **start,
+        const char     **end)
 {
     *start = strstr(line, "/usr/lib/duicontrolpanel/applets/");
     if (*start == 0)
@@ -63,7 +63,7 @@ some_crash_happened (
     void     *backtrace_array [BACKTRACE_SIZE];
     char    **backtrace_strings;
     size_t    backtrace_size;
-    char     *start, *end;
+    const char     *start, *end;
 
     DCP_WARNING ("Crash...");
     backtrace_size = backtrace (backtrace_array, BACKTRACE_SIZE);
@@ -86,7 +86,7 @@ some_crash_happened (
         if (!backtrace_line_is_an_applet (backtrace_strings[i], &start, &end))
             continue;
 
-        *end = '\0';
+        *const_cast<char*>(end) = '\0';
         DCP_WARNING ("*** This is an applet: '%s'", start);
         mark_applet_as_bad (start);
         break;
