@@ -32,8 +32,10 @@ DcpMainPage::DcpMainPage() :
     m_HasContent (false)
 {
     setEscapeButtonMode (DuiEscapeButtonPanelModel::CloseMode);
+    #ifdef INITIALIZE_LATE
     connect (this, SIGNAL(windowShown()),
             this, SLOT(shown()));
+    #endif
     
     setTitle (qtTrId(DcpMain::settingsTitleId));
 }
@@ -42,17 +44,25 @@ DcpMainPage::~DcpMainPage()
 {
 }
 
+
+#ifdef INITIALIZE_LATE
 void
 DcpMainPage::shown ()
 {
     DCP_DEBUG ("##################################################");
     DCP_DEBUG ("### Main page has been shown #####################");
     DCP_DEBUG ("##################################################");
-    _createContent ();
+    createContentLate ();
 }
+#endif
 
+#ifdef INITIALIZE_LATE
 void
-DcpMainPage::_createContent ()
+DcpMainPage::createContentLate ()
+#else
+void
+DcpMainPage::createContent ()
+#endif
 {
     QGraphicsLinearLayout *layout;
     

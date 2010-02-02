@@ -28,7 +28,6 @@ PageFactory::PageFactory ():
     m_AppletPage (0), 
     m_AppletCategoryPage (0)
 {
-#if 1
     DcpAppletMetadataList list;
 
     /*
@@ -49,7 +48,6 @@ PageFactory::PageFactory ():
         connect (item, SIGNAL (activateWithReferer (const QString &, int)),
                 this, SLOT (appletWantsToStart (const QString &, int)));
     }
-#endif
 }
 
 
