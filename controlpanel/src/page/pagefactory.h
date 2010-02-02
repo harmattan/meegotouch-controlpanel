@@ -39,14 +39,17 @@ protected:
     DcpPage* createAppletPage (DcpAppletMetadata *metadata);
     DcpPage* createAppletCategoryPage (PageHandle::PageTypeId pageId);
 
+private slots:
+    void mainPageFirstShown (void);
+
 private:
     void registerPage (DcpPage *page);
 
-    static PageFactory  *sm_Instance;
-    DcpPage             *m_CurrentPage;
-    DcpMainPage         *m_MainPage;
-    DcpAppletPage       *m_AppletPage;
-    DcpAppletCategoryPage *m_AppletCategoryPage;
+    static PageFactory     *sm_Instance;
+    DcpPage                *m_CurrentPage;
+    DcpMainPage            *m_MainPage;
+    DcpAppletPage          *m_AppletPage;
+    DcpAppletCategoryPage  *m_AppletCategoryPage;
 };
 
 #endif

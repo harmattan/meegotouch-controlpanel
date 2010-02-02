@@ -1,3 +1,5 @@
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #include <cstdio>
 #include <sys/wait.h>
 #include <csignal>
@@ -11,41 +13,82 @@
 #include "appleterrorsdialog.h"
 #include "dcpwrongapplets.h"
 
+#define DEBUG
+#include "dcpdebug.h"
 
-void startSupervising()
+/*!
+ * In this function we fork to a child and then wait until the child is
+ * terminated. Then we try to decide what happened with the child process, if it
+ * is crashed then we for again.
+ * Here we don't want to load use DcpWrongApplets::queryBadApplets() to
+ * investigate the disabled applet's list, because that would lead to a
+ * situation where we load all the applet *.desktop files in the parent and in
+ * the child as well. That would slow down the initialization of the
+ * application.
+ */
+void 
+startSupervising()
 {
-    while (fork() > 0) {
-        qDebug() << "FORKED a child";
-        // we are in parent process ( = supervisor )
-        // and a child was successfully started ( = gui )
-        QSet<QString> oldBadApplets = DcpWrongApplets::queryBadApplets();
+    DCP_DEBUG ("");
 
-        // wait for child to terminate:
+    while (fork() > 0) {
+        DCP_DEBUG ("FORKED a child");
+
+        /*
+         * We forked to a child that will do the actual job. We just wait until
+         * it exits.
+         */
         int result = 0;
         wait (&result);
 
-        // check if there were additional applets marked as wrong
-        QSet<QString> newBadApplets = DcpWrongApplets::queryBadApplets();
-        newBadApplets.subtract(oldBadApplets);
-        if (newBadApplets.isEmpty()) {
-            exit (result);
+        /*
+         * If the child exited because of a signal and the signal shows that it
+         * was a crash we continue (fork again) to start up the program with the
+         * applet disabled. Please note that the child process will end up with
+         * these signals only if it found a fawlty applet. It catches all these
+         * signals and it will call exit() if the crash happened inside the
+         * duicontrolpanel code.
+         */
+        if (WIFSIGNALED(result)) {
+            switch (WTERMSIG(result)) {
+                case SIGILL:
+                case SIGSEGV:
+                case SIGBUS:
+                case SIGABRT:
+                case SIGFPE:
+                    DCP_WARNING ("Child has been aborted.");
+                    continue;
+            }
         }
+        
+        /*
+         * If this was not an applet crash we exit.
+         */
+        exit (result);
     }
 }
 
-/* this redefines the signal handler for TERM and INT signals,
- * so as to be able to use aboutToQuit signal from qApp
- * also in these cases */
-void onTermSignal(int param)
+/* 
+ * this redefines the signal handler for TERM and INT signals, so as to be able
+ * to use aboutToQuit signal from qApp also in these cases 
+ */
+void 
+onTermSignal (
+        int param)
 {
+    DCP_DEBUG ("");
+
     Q_UNUSED(param);
     if (qApp) {
         qApp->quit();
     }
 }
 
-int startApplication(int argc, char* argv[])
+int 
+startApplication (int argc, char* argv[])
 {
+    DCP_DEBUG ("");
+
     DuiApplication app(argc, argv);
     signal(SIGTERM, &onTermSignal);
     signal(SIGINT, &onTermSignal);
@@ -62,7 +105,6 @@ int startApplication(int argc, char* argv[])
     DuiApplicationWindow win;
     service->createStartPage();
     win.show();
-    AppletErrorsDialog::showAppletErrors();
 
     return app.exec();
 }
@@ -100,12 +142,20 @@ int main(int argc, char *argv[])
         startSupervising();
     }
 
+    /*!
+     * FIXME: If we have a desktop directory we have to load the desktop files
+     * now. We could delay it by changing the DcpAppletDb class implementation.
+     */
     if (desktopDir.isEmpty()) {
-         DcpAppletDb::instance ();
+        DCP_DEBUG ("### Not creating DcpAppletDb, we can do it later.");
+         //DcpAppletDb::instance ();
     } else {
-         DcpAppletDb::instance (desktopDir);
+        DCP_DEBUG ("### Creating DcpAppletDb in directory '%s'.", 
+                DCP_STR(desktopDir));
+        DcpAppletDb::instance (desktopDir);
     }
 
-    return startApplication(argc, argv);
+    DCP_DEBUG ("### Starting up application.");
+    return startApplication (argc, argv);
 }
 

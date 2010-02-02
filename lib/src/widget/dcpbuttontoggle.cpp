@@ -17,9 +17,11 @@ DcpButtonToggle::DcpButtonToggle (
 QGraphicsLayout *
 DcpButtonToggle::createLayout ()
 {
-    DuiButton* toggleButton = new DuiButton(this);
-    toggleButton->setObjectName("DcpButtonToggle");
-    toggleButton->setCheckable(true);
+    DuiButton* toggleButton = new DuiButton (this);
+    toggleButton->setObjectName ("DcpButtonToggle");
+    toggleButton->setCheckable (true);
+    toggleButton->setViewType (DuiButton::switchType);
+
     connect (toggleButton, SIGNAL(toggled(bool)),
              this, SLOT(onSmallToggled(bool)));
 
