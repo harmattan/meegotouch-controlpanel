@@ -1,16 +1,16 @@
 #ifndef MOSTUSEDCOUNTERPRIVATE_H
 #define MOSTUSEDCOUNTERPRIVATE_H
 
-#include <DuiGConfItem>
 #include <QString>
-#include <QMap>
+#include <DuiGConfDataStore>
 
 class MostUsedCounter;
+
 class MostUsedCounterPrivate
 {
 public:
     static MostUsedCounter *sm_Instance;
-    QMap<QString, DuiGConfItem*> data;
+    DuiGConfDataStore* m_Conf;
 };
 
 #endif // MOSTUSEDCOUNTERPRIVATE_H

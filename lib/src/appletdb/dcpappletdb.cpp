@@ -295,7 +295,7 @@ void DcpAppletDb::refresh()
              QString fileName = metadata->fileName();
              eraseEntry(metadata);
              addFile(fileName);
-        } 
+        }
     }
 }
 

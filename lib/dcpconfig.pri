@@ -20,7 +20,7 @@
 
 # Gconf keys 
 {
-	DCP_MOSTUSEDCOUNTER_GCONFKEY = /apps/duicontrolpanel/usagecount/
+	DCP_MOSTUSEDCOUNTER_GCONFKEY = /apps/duicontrolpanel/usagecount
 }
 
 # defines for directories, they work cross-platform like this

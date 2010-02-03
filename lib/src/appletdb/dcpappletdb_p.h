@@ -16,11 +16,12 @@ class DcpAppletDbPrivate
 public:
     DcpAppletDbPrivate();
     ~DcpAppletDbPrivate();
-    DcpAppletMetadataMap appletsByName;  
-    DcpAppletMetadataMap appletsByFile; 
+    DcpAppletMetadataMap appletsByName;
+    DcpAppletMetadataMap appletsByFile;
     QList<QString> paths;
     bool hasUniqueMetadata;
     static DcpAppletDb *sm_Instance;
 };
+
 #endif // DCPAPPLETDB_H
 

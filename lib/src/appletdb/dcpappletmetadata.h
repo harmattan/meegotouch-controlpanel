@@ -48,8 +48,6 @@ public:
     bool    hasApplicationCommand () const;
 
     QString fullBinary () const;
-    QString binaryDir () const;
-    void setBinaryDir (const QString& dir);
 
     int widgetTypeID () const;
 

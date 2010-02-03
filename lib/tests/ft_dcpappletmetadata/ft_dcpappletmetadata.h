@@ -25,7 +25,6 @@ private slots:
     void testName();
     void testFileName();
     void testCategory();
-    void testGetSetBinaryDir();
     void testBinary();
     void testFullBinary();
     void testWidgetTypeID();

@@ -13,16 +13,13 @@ MostUsedCounter* MostUsedCounterPrivate::sm_Instance = NULL;
 
 MostUsedCounter::MostUsedCounter () : d_ptr(new MostUsedCounterPrivate())
 {
+    d_ptr->m_Conf = new DuiGConfDataStore(MOSTUSEDCOUNTER_GCONFKEY);
 }
 
 MostUsedCounter::~MostUsedCounter ()
 {
-    QMap<QString, DuiGConfItem*>::const_iterator i = d_ptr->data.constBegin();
-
-    while (i != d_ptr->data.constEnd()) {
-        delete i.value();
-        ++i;
-    }
+    delete d_ptr->m_Conf;
+    delete d_ptr;
 }
 
 MostUsedCounter *
@@ -34,7 +31,7 @@ MostUsedCounter::instance ()
     return MostUsedCounterPrivate::sm_Instance;
 }
 
-void 
+void
 MostUsedCounter::destroy ()
 {
     delete MostUsedCounterPrivate::sm_Instance;
@@ -44,68 +41,35 @@ MostUsedCounter::destroy ()
 /*!
  * Increments the usage counter for the given GConf key, returns the new value.
  */
-int 
-MostUsedCounter::incrementUsageCounter (
-        const QString &key)
+int
+MostUsedCounter::incrementUsageCount (const QString &key)
 {
     DCP_DEBUG ("*** key = '%s'", DCP_STR(key));
-    if (key.isEmpty())
-        return 0;
 
-    QMap<QString, DuiGConfItem*>::const_iterator i = d_ptr->data.find(key);
-
-    if (i == d_ptr->data.end ()) { 
-        DuiGConfItem *item = new DuiGConfItem(key);
-        d_ptr->data[key] = item;
-        int tmp = item->value().toInt();
-        item->set(++tmp);
-
-        return item->value().toInt();
-    }
-
-    int tmp = i.value()->value().toInt();
-    i.value()->set (++tmp);
-
-    return i.value()->value().toInt();
+    int count = d_ptr->m_Conf->value(key).toInt() + 1;
+    d_ptr->m_Conf->createValue(key,count);
+    return count;
 }
 
 /*!
  * \brief returns the usage counter for the given GConf key.
  */
-int 
-MostUsedCounter::getUsageCounter (
-        const QString &key)
+int
+MostUsedCounter::getUsageCount (const QString &key)
 {
     DCP_DEBUG ("*** key = '%s'", DCP_STR(key));
-    if (key.isEmpty()) 
-        return 0;
 
-    QMap<QString, DuiGConfItem*>::const_iterator i = d_ptr->data.find(key);
-    if (i == d_ptr->data.end()) {
-        DuiGConfItem *item = new DuiGConfItem(key);
-        d_ptr->data[key] = item; 
-        
-        return item->value().toInt();
-    }
-
-    return i.value()->value().toInt();
+    // if key does not exist or not convertible, 0 is returned (default value)
+    return d_ptr->m_Conf->value(key).toInt();
 }
 
 /*!
  * \brief Removes the usage counter key from the database. 
  */
-void 
-MostUsedCounter::dropKey (
-        const QString &key)
+void
+MostUsedCounter::dropKey (const QString &key)
 {
-    DCP_DEBUG ("*** key = '%s'", DCP_STR(key));
-    if (key.isEmpty())
-        return;
-
-    QMap<QString, DuiGConfItem*>::const_iterator i = d_ptr->data.find (key);
-    if (i != d_ptr->data.end()) {
-        i.value()->unset();
-        delete i.value();
-        d_ptr->data.remove (key);
-    }
+    d_ptr->m_Conf->setValue(key,QVariant());
 }
+
+

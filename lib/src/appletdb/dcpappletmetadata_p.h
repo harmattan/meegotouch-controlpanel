@@ -14,16 +14,14 @@ public:
     DcpAppletMetadataPrivate();
     ~DcpAppletMetadataPrivate();
 
-    QFileInfo m_FileInfo;
+    // last modification time of the desktop entry:
+    QTime m_LastModified;
 
     DcpAppletLoader* m_AppletLoader;
     DcpBrief* m_Brief;
     DuiDesktopEntry* m_DesktopEntry;
     DcpAppletMetadata *m_Parent;
-    int m_Counter;
     QString m_FileName;
-    QString m_BinaryDir;
-    QString m_GconfKeyUsage;
 };
 
 enum  {
@@ -47,7 +45,7 @@ enum  {
     KeyPart,
     KeyUnique,
     KeyParent,
-    KeyCount,
+    KeyCount
 };
 
 const QString Keys[KeyCount] = {
@@ -63,7 +61,6 @@ const QString Keys[KeyCount] = {
     "DUI/X-DUIApplet-Applet",
     "DUI/X-DUIApplet-Dslfile",
     "DUI/X-DUIApplet-ApplicationCommand",
-    
 
     "Desktop Entry/Name",
     "Desktop Entry/X-logical-id",
@@ -74,3 +71,4 @@ const QString Keys[KeyCount] = {
 };
 
 #endif // DCPAPPLETMETADATA_P_H
+

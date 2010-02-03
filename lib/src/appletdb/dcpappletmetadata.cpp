@@ -25,18 +25,13 @@ DcpAppletMetadataPrivate::DcpAppletMetadataPrivate ()
     : m_AppletLoader (0),
       m_Brief (0),
       m_DesktopEntry (0),
-      m_Parent (0),
-      m_Counter (-1),
-      m_FileName (""),
-      m_BinaryDir (APPLET_LIBS)
+      m_Parent (0)
 {
-    if (!m_BinaryDir.endsWith('/')) 
-        m_BinaryDir += '/';
 }
 
 DcpAppletMetadataPrivate::~DcpAppletMetadataPrivate ()
 {
-    if (m_AppletLoader) 
+    if (m_AppletLoader)
         m_AppletLoader->deleteLater ();
 
     if (m_Brief) 
@@ -54,10 +49,8 @@ DcpAppletMetadata::DcpAppletMetadata (
     DCP_DEBUG ("*** filename = '%s'", DCP_STR(filename));
 
     d_ptr->m_FileName = filename;
-    d_ptr->m_DesktopEntry = new DuiDesktopEntry(d_ptr->m_FileName);
-    d_ptr->m_GconfKeyUsage =
-        MOSTUSEDCOUNTER_GCONFKEY  + 
-        QFileInfo (d_ptr->m_FileName).baseName();
+    d_ptr->m_DesktopEntry = new DuiDesktopEntry(filename);
+    d_ptr->m_LastModified = QFileInfo(filename).lastModified().time();
 }
 
 DcpAppletMetadata::~DcpAppletMetadata ()
@@ -89,9 +82,8 @@ DcpAppletMetadata::isValid () const
 bool 
 DcpAppletMetadata::isModified() const
 {
-    QFileInfo info(d_ptr->m_FileName);
-    bool modified = info.lastModified() >  d_ptr->m_FileInfo.lastModified();
-    d_ptr->m_FileInfo = info;
+    QTime lastModified = QFileInfo(d_ptr->m_FileName).lastModified().time();
+    bool modified = lastModified !=  d_ptr->m_LastModified;
     return modified;
 }
 
@@ -102,19 +94,6 @@ QString
 DcpAppletMetadata::category () const
 {
     return desktopEntryStr (KeyCategory);
-}
-
-QString 
-DcpAppletMetadata::binaryDir () const
-{
-    return d_ptr->m_BinaryDir;
-}
-
-void 
-DcpAppletMetadata::setBinaryDir (
-        const QString &dir)
-{
-    d_ptr->m_BinaryDir = dir;
 }
 
 /*!
@@ -168,7 +147,7 @@ DcpAppletMetadata::fullBinary () const
     if (filename.isEmpty())
         return filename;
 
-    return binaryDir () + filename;
+    return APPLET_LIBS "/" + filename;
 }
 
 QString 
@@ -442,7 +421,9 @@ DcpAppletMetadata::getMainWidgetId () const
 int 
 DcpAppletMetadata::usage () const
 {
-    return MostUsedCounter::instance()->getUsageCounter (d_ptr->m_GconfKeyUsage);
+    return MostUsedCounter::instance()->getUsageCount (
+            QFileInfo(fileName()).baseName()
+    );
 }
 
 int 
@@ -471,8 +452,6 @@ DcpAppletMetadata::applet () const
 DuiDesktopEntry *
 DcpAppletMetadata::desktopEntry () const
 {
-    Q_ASSERT (d_ptr->m_DesktopEntry);
-
     return d_ptr->m_DesktopEntry;
 }
 
@@ -537,7 +516,9 @@ DcpAppletMetadata::setParent (
 void 
 DcpAppletMetadata::slotClicked ()
 {
-    MostUsedCounter::instance()->incrementUsageCounter (d_ptr->m_GconfKeyUsage);
+    MostUsedCounter::instance()->incrementUsageCount (
+            QFileInfo(fileName()).baseName()
+    );
 }
 
 bool 

@@ -6,7 +6,7 @@
 #include <QString>
 class MostUsedCounterPrivate;
 
-class MostUsedCounter 
+class MostUsedCounter
 {
 public:
     ~MostUsedCounter();
@@ -14,8 +14,8 @@ public:
     static MostUsedCounter *instance ();
     static void destroy ();
 
-    int incrementUsageCounter (const QString &name);
-    int getUsageCounter (const QString &key);
+    int incrementUsageCount (const QString &name);
+    int getUsageCount (const QString &key);
     void dropKey (const QString &key);
 
 protected:

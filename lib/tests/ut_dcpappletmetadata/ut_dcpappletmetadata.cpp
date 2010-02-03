@@ -66,15 +66,25 @@ void Ut_DcpAppletMetadata::testIsModified()
 
     QVERIFY((m_subject = new DcpAppletMetadata(desktopTestFile)));
 
-    QVERIFY(m_subject->isModified());
     QVERIFY(!m_subject->isModified());
+
+#if 0
+    FIXME
+
+    // touch the desktop file:
+    QFile file(desktopTestFile);
+    file.open(QIODevice::WriteOnly | QIODevice::Append);
+    file.close();
+
+    QVERIFY(m_subject->isModified());
+#endif
 }
 
 void Ut_DcpAppletMetadata::testName()
 {
     if (QTest::currentTestFailed()) return;
 
-    QVERIFY(m_subject->name() == "Browser");
+    QCOMPARE(m_subject->name(), QString("Browser"));
 }
 void Ut_DcpAppletMetadata::testFileName()
 {
@@ -90,15 +100,6 @@ void Ut_DcpAppletMetadata::testCategory()
     QCOMPARE(m_subject->category(), QString("Application"));
 }
 
-void Ut_DcpAppletMetadata::testGetSetBinaryDir()
-{
-    if (QTest::currentTestFailed()) return;
-
-    m_subject->setBinaryDir(appletDir);
-
-    QCOMPARE(m_subject->binaryDir(), appletDir);
-}
-
 void Ut_DcpAppletMetadata::testBinary()
 {
     if (QTest::currentTestFailed()) return;
@@ -109,8 +110,6 @@ void Ut_DcpAppletMetadata::testBinary()
 void Ut_DcpAppletMetadata::testFullBinary()
 {
     if (QTest::currentTestFailed()) return;
-
-    testGetSetBinaryDir();
 
     QCOMPARE(m_subject->fullBinary(), appletDir + appletSo);
 }
@@ -182,8 +181,6 @@ void Ut_DcpAppletMetadata::testApplet()
             SkipSingle);
 
     if (QTest::currentTestFailed()) return;
-
-    testGetSetBinaryDir();
 
     QVERIFY(m_subject->applet());
 }
