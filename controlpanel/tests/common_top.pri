@@ -6,7 +6,7 @@ SRCDIR = ./../../src
 
 DEPENDPATH = $$INCLUDEPATH
 
-QMAKE_LIBDIR += ../../lib/lib/ /usr/lib/
+QMAKE_LIBDIR += ../../../lib/lib/ /usr/lib/
 LIBDCPINCLUDE=../../../lib/src/include
 CONFIG += debug
 
@@ -27,7 +27,7 @@ coverage {
 target.path = $${DCP_INSTALL_LIB}/duicontrolpanel-tests                                  
 INSTALLS += target                                                              
 include(check.pri)
-LIBS += -L../../lib/ -L/usr/lib -lduicontrolpanel
+LIBS +=  -L/usr/lib -lduicontrolpanel
 QMAKE_CXXFLAGS += -Werror
 message($$target.path)
 
