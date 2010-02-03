@@ -35,6 +35,7 @@ public:
 
     virtual ~DcpCategoryComponent ();
     virtual void createContents ();
+    virtual void createContentsLate ();
     virtual void add (DcpComponent*){}
     virtual void remove (DcpComponent*){}
     virtual void retranslateUi ();

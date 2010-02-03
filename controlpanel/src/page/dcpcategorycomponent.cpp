@@ -20,6 +20,7 @@ DcpCategoryComponent::DcpCategoryComponent (
         const QString     &logicalId,
         QGraphicsWidget   *parent)
 : DcpComponent (category, categoryName, parent, logicalId),
+    m_AppletButtons (0),
     m_CategoryName (categoryName),
     m_CategoryInfo (0),
     m_LogicalId (logicalId)
@@ -73,8 +74,19 @@ DcpCategoryComponent::createContents ()
 {
     QGraphicsLinearLayout *layout;
 
+    DCP_DEBUG ("");
     m_Container = new DuiContainer (this);
     m_Container->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_Container->setProgressIndicatorVisible (true);
+
+    layout = new QGraphicsLinearLayout (Qt::Vertical, this);
+    layout->addItem (m_Container);
+}
+
+void 
+DcpCategoryComponent::createContentsLate ()
+{
+    DCP_DEBUG ("");
     
     if (m_CategoryInfo) 
         m_AppletButtons = new DcpAppletButtons (m_CategoryInfo, title());
@@ -83,8 +95,7 @@ DcpCategoryComponent::createContents ()
                 logicalId(), m_CategoryName, title());
 
     m_Container->setCentralWidget (m_AppletButtons);
-    layout = new QGraphicsLinearLayout (Qt::Vertical, this);
-    layout->addItem (m_Container);
+    m_Container->setProgressIndicatorVisible (false);
 }
 
 void 
@@ -96,7 +107,7 @@ DcpCategoryComponent::reload ()
 int
 DcpCategoryComponent::getItemCount ()
 {
-    return m_AppletButtons->getItemCount ();
+    return m_AppletButtons ? m_AppletButtons->getItemCount () : 0;
 }
 
 void 

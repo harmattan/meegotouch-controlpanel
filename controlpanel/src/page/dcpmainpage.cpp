@@ -53,24 +53,17 @@ DcpMainPage::shown ()
     if (m_HasContent)
         return;
     
-    createContentLate ();
+    createContentsLate ();
     m_HasContent = true;
     
     emit firstShown ();
 }
 
-/*!
- * The main page is usually the first page to start, so we want to show it as
- * soon as possible. First we show the page without the applet brief widgets in
- * it, then when it appeared on the screen we load the content. This second step
- * is implemented here.
- */
 void
-DcpMainPage::createContentLate ()
+DcpMainPage::createContent ()
 {
+    DCP_DEBUG ("");
     QGraphicsLinearLayout *layout;
-    
-
     DcpPage::createContent ();
 
     layout = mainLayout ();
@@ -86,8 +79,8 @@ DcpMainPage::createContentLate ()
             0,
             DcpApplet::MostUsedCategory,
             DcpMain::mostRecentUsedTitleId);
-    if (m_RecentlyComp->getItemCount() != 0)
-        layout->addItem (m_RecentlyComp);
+    //if (m_RecentlyComp->getItemCount() != 0)
+    //    layout->addItem (m_RecentlyComp);
 
     /*
      * All the other categories.
@@ -105,8 +98,36 @@ DcpMainPage::createContentLate ()
     }
 
     setEscapeButtonMode (DuiEscapeButtonPanelModel::CloseMode);
-
     retranslateUi ();
+}
+
+/*!
+ * The main page is usually the first page to start, so we want to show it as
+ * soon as possible. First we show the page without the applet brief widgets in
+ * it, then when it appeared on the screen we load the content. This second step
+ * is implemented here.
+ */
+void
+DcpMainPage::createContentsLate ()
+{
+    QGraphicsLinearLayout *layout;
+    layout = mainLayout ();
+
+    m_RecentlyComp->createContentsLate ();
+
+    for (int i = 0; i < layout->count(); ++i) {
+        DcpCategoryComponent* comp =
+            dynamic_cast<DcpCategoryComponent*> (layout->itemAt(i));
+
+        comp->createContentsLate ();
+        comp->retranslateUi ();
+    }
+
+    if (m_RecentlyComp->getItemCount() != 0) {
+        mainLayout ()->insertItem (0, m_RecentlyComp);
+        m_RecentlyComp->retranslateUi ();
+    }
+//    retranslateUi ();
 }
 
 void 

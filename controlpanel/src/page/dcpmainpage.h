@@ -17,7 +17,8 @@ public:
     DcpMainPage();
     virtual ~DcpMainPage();
     
-    virtual void createContentLate ();
+    virtual void createContent ();
+    virtual void createContentsLate ();
 
     virtual void reload();
 
