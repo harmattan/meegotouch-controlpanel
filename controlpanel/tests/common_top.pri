@@ -1,4 +1,4 @@
-include(./../../lib/dcpconfig.pri)
+#include(./../../lib/dcpconfig.pri)
 
 INCLUDEPATH +=/usr/include/dui ../doubles
 
