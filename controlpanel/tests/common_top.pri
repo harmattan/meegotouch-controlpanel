@@ -1,4 +1,4 @@
-include(./../../dcpconfig.pri)
+include(./../../lib/dcpconfig.pri)
 
 INCLUDEPATH +=/usr/include/dui ../doubles
 
@@ -6,8 +6,8 @@ SRCDIR = ./../../src
 
 DEPENDPATH = $$INCLUDEPATH
 
-QMAKE_LIBDIR += ../../lib/ /usr/lib/
-
+QMAKE_LIBDIR += ../../lib/lib/ /usr/lib/
+LIBDCPINCLUDE=../../../lib/src/include
 CONFIG += debug
 
 QT += testlib
@@ -24,8 +24,7 @@ coverage {
     QMAKE_LFLAGS += --coverage
 }
 
-DCP_TESTS_INSTALL_LIB = $${DCP_INSTALL_LIB}/duicontrolpanel-tests                                  
-target.path = $${DCP_TESTS_INSTALL_LIB}                                 
+target.path = $${DCP_INSTALL_LIB}/duicontrolpanel-tests                                  
 INSTALLS += target                                                              
 include(check.pri)
 LIBS += -L../../lib/ -L/usr/lib -lduicontrolpanel

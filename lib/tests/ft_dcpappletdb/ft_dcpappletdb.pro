@@ -28,7 +28,7 @@ HEADERS += \
 # service classes
 HEADERS += \
 
-DATADIR = $${DCP_INSTALL_LIB}/libduicontrolpanel-tests/ft_dcpappletdb-data/
+DATADIR = $${DCP_TESTS_INSTALL_LIB}/ft_dcpappletdb-data/
 desktops1.files += ft_dcpappletdb-data/desktops/*.desktop
 desktops1.path = $${DATADIR}/desktops
 desktops2.files += ft_dcpappletdb-data/desktops2/*.desktop

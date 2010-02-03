@@ -7,7 +7,7 @@ CONFIG += conf
 
 SUBDIRS += src \
        translations \
-#	   tests \
+	   tests \
 #	   examples
 
 # install targets:

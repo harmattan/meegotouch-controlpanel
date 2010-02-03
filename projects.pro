@@ -8,6 +8,7 @@ SUBDIRS += lib \
            declapplet
 
 include(debian/deb.pri)
+include(gentests/gentests.pri)
 # for check:
 check.target = check
 check.CONFIG = recursive
