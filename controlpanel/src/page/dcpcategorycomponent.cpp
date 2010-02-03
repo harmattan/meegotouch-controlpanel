@@ -3,6 +3,7 @@
 #include "dcpcategorycomponent.h"
 #include "dcpappletbuttons.h"
 
+#include <QCoreApplication>
 #include <DuiContainer>
 #include <QGraphicsLinearLayout>
 #include <DuiSceneManager>
@@ -86,6 +87,8 @@ DcpCategoryComponent::createContents ()
 
     layout = new QGraphicsLinearLayout (Qt::Vertical, this);
     layout->addItem (m_Container);
+    
+    QCoreApplication::processEvents ();
 }
 
 /*!
@@ -106,6 +109,8 @@ DcpCategoryComponent::createContentsLate ()
 
     m_Container->setCentralWidget (m_AppletButtons);
     m_Container->setProgressIndicatorVisible (false);
+    
+    QCoreApplication::processEvents ();
 }
 
 void 

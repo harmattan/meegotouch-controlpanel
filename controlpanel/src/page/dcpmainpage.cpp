@@ -113,6 +113,9 @@ void
 DcpMainPage::createContentsLate ()
 {
     QGraphicsLinearLayout *layout;
+    
+    DCP_DEBUG ("");
+
     layout = mainLayout ();
 
     m_RecentlyComp->createContentsLate ();
