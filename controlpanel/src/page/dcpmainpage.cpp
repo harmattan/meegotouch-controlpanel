@@ -59,6 +59,9 @@ DcpMainPage::shown ()
     emit firstShown ();
 }
 
+/*!
+ * Creates the empty category containers inside the main page.
+ */
 void
 DcpMainPage::createContent ()
 {
@@ -79,8 +82,6 @@ DcpMainPage::createContent ()
             0,
             DcpApplet::MostUsedCategory,
             DcpMain::mostRecentUsedTitleId);
-    //if (m_RecentlyComp->getItemCount() != 0)
-    //    layout->addItem (m_RecentlyComp);
 
     /*
      * All the other categories.
@@ -123,11 +124,17 @@ DcpMainPage::createContentsLate ()
         comp->retranslateUi ();
     }
 
+    /*
+     * Most recent used items. If this category is empty it is not visible so we
+     * will add to the layout later.
+     * Use 
+     * # gconftool-2 --recursive-unset /apps/duicontrolpanel/usagecount
+     * to test this piece of code.
+     */
     if (m_RecentlyComp->getItemCount() != 0) {
         mainLayout ()->insertItem (0, m_RecentlyComp);
         m_RecentlyComp->retranslateUi ();
     }
-//    retranslateUi ();
 }
 
 void 
