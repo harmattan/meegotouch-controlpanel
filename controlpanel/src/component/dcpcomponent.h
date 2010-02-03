@@ -19,8 +19,10 @@ public:
     QString title() const {return m_Title;}
     virtual void setTitle(const QString& title) {m_Title = title;}
     void setSubPage (const PageHandle &subPage) {m_SubPage = subPage;}
-    void setSubPage (const PageHandle::PageTypeId id, const QString &param="")
-        { m_SubPage.id = id; m_SubPage.param = param; }
+    void setSubPage (const PageHandle::PageTypeId id, const QString &param="", 
+                     const int widgetId=-1, const bool isStandalone=false)
+        { m_SubPage.id = id; m_SubPage.param = param; 
+          m_SubPage.widgetId = widgetId; m_SubPage.isStandalone = isStandalone; }
     const PageHandle &subPage() const { return m_SubPage; }
     // Composite Pattern Interface
     virtual void add(DcpComponent *component) = 0;

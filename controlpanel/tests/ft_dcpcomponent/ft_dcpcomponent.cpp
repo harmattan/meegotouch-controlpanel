@@ -13,8 +13,9 @@ DcpSingleComponent::DcpSingleComponent(DcpCategory *category,
     : DcpComponent(category, title, parent, logicalId)
 {}
 
- void DcpSingleComponent::add(DcpComponent *component)
+void DcpSingleComponent::add(DcpComponent *component)
 {
+    
    Q_UNUSED(component);
 }
 
@@ -55,9 +56,36 @@ void Ft_DcpComponent::cleanupTestCase()
 
 void Ft_DcpComponent::testSubPage()
 {
-    PageHandle handle(PageHandle::MAIN, "param", 0, true);
+    PageHandle handle(PageHandle::MAIN, "param", 3, true);
     m_subject->setSubPage(handle);
-    QCOMPARE(m_subject->subPage().id, handle.id);
+    QVERIFY(m_subject->subPage().id == handle.id);
+    QVERIFY(m_subject->subPage().param == handle.param);
+    QVERIFY(m_subject->subPage().widgetId == handle.widgetId);
+    QVERIFY(m_subject->subPage().isStandalone == handle.isStandalone);
+    
+    m_subject->setSubPage(PageHandle::MAIN);
+    QVERIFY(m_subject->subPage().id == PageHandle::MAIN);
+    QVERIFY(m_subject->subPage().param == "");
+    QVERIFY(m_subject->subPage().widgetId == -1);
+    QVERIFY(!m_subject->subPage().isStandalone);
+    
+    m_subject->setSubPage(PageHandle::MAIN, "param");
+    QVERIFY(m_subject->subPage().id == PageHandle::MAIN);
+    QVERIFY(m_subject->subPage().param == "param");
+    QVERIFY(m_subject->subPage().widgetId == -1);
+    QVERIFY(!m_subject->subPage().isStandalone);
+    
+    m_subject->setSubPage(PageHandle::MAIN, "param", 1);
+    QVERIFY(m_subject->subPage().id == PageHandle::MAIN);
+    QVERIFY(m_subject->subPage().param == "param");
+    QVERIFY(m_subject->subPage().widgetId == 1);
+    QVERIFY(!m_subject->subPage().isStandalone);
+
+    m_subject->setSubPage(PageHandle::MAIN, "param", 1, true);
+    QVERIFY(m_subject->subPage().id == PageHandle::MAIN);
+    QVERIFY(m_subject->subPage().param == "param");
+    QVERIFY(m_subject->subPage().widgetId == 1);
+    QVERIFY(m_subject->subPage().isStandalone);
 }
 
 void Ft_DcpComponent::testTitle()
@@ -76,6 +104,9 @@ void Ft_DcpComponent::testCategory()
 
 void Ft_DcpComponent::testChild()
 {
+    QVERIFY(m_subject->child(0) == 0);
+    QVERIFY(m_subject->child(1) == 0);
+    QVERIFY(m_subject->child(100) == 0);
 }
 
 void Ft_DcpComponent::testLogicalId()    
