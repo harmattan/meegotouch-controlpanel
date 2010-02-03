@@ -8,6 +8,7 @@
 #include <DcpAppletMetadata>
 #include <DcpApplet>
 
+#include <QCoreApplication>
 #include <QtDebug>
 #include <DuiSceneManager>
 #include <DuiGridLayoutPolicy>
@@ -113,7 +114,9 @@ DcpAppletButtons::createContents ()
      */
     foreach (DcpAppletMetadata *item, list) {
         DCP_DEBUG ("   *** item->name = %s", DCP_STR (item->name()));
+        QCoreApplication::processEvents ();
         addComponent (item);
+        QCoreApplication::processEvents ();
     }
 
     m_PortraitLayout->setObjectName ("MostUsedItems");
