@@ -100,8 +100,6 @@ void Ft_DcpComponent::testTitle()
 void Ft_DcpComponent::testCategory()
 {
     QCOMPARE(m_subject->category(), m_Category);
-    m_subject->setCategory("ACategory");
-    QCOMPARE(m_subject->category(), "ACategory");
 }
 
 void Ft_DcpComponent::testChild()

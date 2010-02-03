@@ -30,7 +30,7 @@ public:
 
     virtual DcpComponent* child(int i) const;
     DcpCategory* category() const { return m_Category; }
-
+    
     virtual const QString logicalId() { return m_LogicalId; }
     void setLogicalId(const QString& logicalId) { m_LogicalId = logicalId; }
 
