@@ -74,6 +74,10 @@ void Ft_DcpComponent::testCategory()
     QCOMPARE(m_subject->category(), m_Category);
 }
 
+void Ft_DcpComponent::testChild()
+{
+}
+
 void Ft_DcpComponent::testLogicalId()    
 {
     QCOMPARE(m_subject->logicalId(), m_LogicalId);

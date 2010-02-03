@@ -3,7 +3,7 @@ include(../common_top.pri)
 CONFIG += duicontrolpanel
  
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
-message ($$INCLUDEPATH)
+INCLUDEPATH += $$LIBDCPINCLUDE 
 TARGET = ft_dcpcomponent
 
 TEST_SOURCES = \
@@ -24,6 +24,7 @@ HEADERS += \
     $$SRCDIR/include/* \
     $$SRCDIR/component/dcpcomponent.h \
 
+message ($$HEADERS)
 # base classes
 HEADERS += \
 

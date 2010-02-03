@@ -34,6 +34,7 @@ private slots:
     void cleanupTestCase();
     void testSubPage();
     void testTitle();
+    void testChild();
     void testCategory();
     void testLogicalId();    
 
