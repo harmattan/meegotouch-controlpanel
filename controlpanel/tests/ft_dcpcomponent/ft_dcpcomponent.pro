@@ -7,12 +7,12 @@ INCLUDEPATH += $$LIBDCPINCLUDE
 TARGET = ft_dcpcomponent
 
 TEST_SOURCES = \
-    $$SRCDIR/component/dcpcomponent.cpp \
+    $$SRCDIR/component/dcpcomponent.cpp 
 
 # unit test and unit
 SOURCES += \
     ft_dcpcomponent.cpp \
-    $$TEST_SOURCES \ 
+    $$TEST_SOURCES 
 
 # base classes
 SOURCES += $$SRCDIR/page/pages.cpp
@@ -22,14 +22,14 @@ SOURCES += $$SRCDIR/page/pages.cpp
 HEADERS += \
     ft_dcpcomponent.h \
     $$SRCDIR/include/* \
-    $$SRCDIR/component/dcpcomponent.h \
+    $$SRCDIR/component/dcpcomponent.h 
 
 message ($$HEADERS)
 # base classes
-HEADERS += \
+#HEADERS += 
 
 
 # service classes
-HEADERS += \
+#HEADERS += 
 
 

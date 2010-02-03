@@ -69,6 +69,11 @@ DcpCategoryComponent::retranslateUi ()
     }
 }
 
+/*!
+ * The content is created in two phase. First an empty container with a spinner
+ * is created, then the applets are loaded and the brief widgets are added. this
+ * is the first phase.
+ */
 void 
 DcpCategoryComponent::createContents ()
 {
@@ -83,6 +88,11 @@ DcpCategoryComponent::createContents ()
     layout->addItem (m_Container);
 }
 
+/*!
+ * The content is created in two phase. First an empty container with a spinner
+ * is created, then the applets are loaded and the brief widgets are added. this
+ * is the second phase.
+ */
 void 
 DcpCategoryComponent::createContentsLate ()
 {

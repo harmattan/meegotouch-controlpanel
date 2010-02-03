@@ -82,6 +82,7 @@ DcpMainPage::createContent ()
             0,
             DcpApplet::MostUsedCategory,
             DcpMain::mostRecentUsedTitleId);
+    layout->insertItem (0, m_RecentlyComp);
 
     /*
      * All the other categories.
@@ -115,13 +116,14 @@ DcpMainPage::createContentsLate ()
     layout = mainLayout ();
 
     m_RecentlyComp->createContentsLate ();
+    //m_RecentlyComp->retranslateUi ();
 
     for (int i = 0; i < layout->count(); ++i) {
         DcpCategoryComponent* comp =
             dynamic_cast<DcpCategoryComponent*> (layout->itemAt(i));
 
         comp->createContentsLate ();
-        comp->retranslateUi ();
+        //comp->retranslateUi ();
     }
 
     /*
@@ -131,9 +133,8 @@ DcpMainPage::createContentsLate ()
      * # gconftool-2 --recursive-unset /apps/duicontrolpanel/usagecount
      * to test this piece of code.
      */
-    if (m_RecentlyComp->getItemCount() != 0) {
-        mainLayout ()->insertItem (0, m_RecentlyComp);
-        m_RecentlyComp->retranslateUi ();
+    if (m_RecentlyComp->getItemCount() == 0) {
+        mainLayout ()->removeItem (m_RecentlyComp);
     }
 }
 
