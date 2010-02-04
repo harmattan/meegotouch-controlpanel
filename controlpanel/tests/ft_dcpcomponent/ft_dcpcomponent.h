@@ -13,7 +13,7 @@ class DcpSingleComponent : public DcpComponent
 {
     Q_OBJECT
 public:
-    explicit DcpSingleComponent(DcpCategory *category,
+    explicit DcpSingleComponent(DcpComponent *category,
                                   const QString& title="",
                                   QGraphicsWidget *parent=0,
                                   const QString& logicalId="");
@@ -40,7 +40,7 @@ private slots:
 
 private:
     DcpComponent* m_subject;
-    DcpCategory* m_Category;
+    DcpComponent* m_Category;
     QString m_Title;
     QGraphicsWidget *m_Parent;
     QString m_LogicalId;

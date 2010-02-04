@@ -15,7 +15,7 @@
 
 DcpBriefComponent::DcpBriefComponent (
         DcpAppletMetadata   *metadata,
-        DcpCategory         *category,
+        DcpComponent        *category,
         const QString       &logicalId)
 : DcpComponent (category, "", 0, logicalId),
     m_BriefWidget (new DcpBriefWidget (metadata, this))
@@ -31,7 +31,7 @@ DcpBriefComponent::DcpBriefComponent (
 DcpBriefComponent::DcpBriefComponent (
         const QString       &line1,
         const QString       &line2,
-        DcpCategory         *category,
+        DcpComponent        *category,
         const QString       &logicalId)
 : DcpComponent (category, "", 0, logicalId)
 {

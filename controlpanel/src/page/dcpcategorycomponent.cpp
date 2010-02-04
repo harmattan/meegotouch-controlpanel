@@ -16,7 +16,7 @@
  * DcpCategoryInfo so this may be deprecated.
  */
 DcpCategoryComponent::DcpCategoryComponent (
-        DcpCategory       *category,
+        DcpComponent      *category,
         const QString     &categoryName,
         const QString     &logicalId,
         QGraphicsWidget   *parent)
@@ -34,7 +34,7 @@ DcpCategoryComponent::DcpCategoryComponent (
  * Constructor that uses DcpCategoryInfo to create a DcpCategoryComponent.
  */
 DcpCategoryComponent::DcpCategoryComponent (
-            DcpCategory            *category, 
+            DcpComponent            *category, 
             const DcpCategoryInfo  *categoryInfo,
             QGraphicsWidget        *parent)
 : DcpComponent (category, categoryInfo->appletCategory, parent, 

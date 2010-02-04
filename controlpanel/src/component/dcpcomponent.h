@@ -4,14 +4,15 @@
 #include <DuiWidget>
 #include <Pages>
 
-class DcpCategory;
+// FIXME: what the hell?
+class DcpComponent;
 
 class DcpComponent : public DuiWidget
 {
     Q_OBJECT
 
 public:
-    explicit DcpComponent(DcpCategory *category,
+    explicit DcpComponent(DcpComponent *category,
                                   const QString& title="",
                                   QGraphicsWidget *parent=0,
                                   const QString& logicalId="");
@@ -25,11 +26,11 @@ public:
           m_SubPage.widgetId = widgetId; m_SubPage.isStandalone = isStandalone; }
     const PageHandle &subPage() const { return m_SubPage; }
     // Composite Pattern Interface
-    virtual void add(DcpComponent *component) = 0;
-    virtual void remove(DcpComponent *component) = 0;
+    //virtual void add(DcpComponent *component) = 0;
+    //virtual void remove(DcpComponent *component) = 0;
 
     virtual DcpComponent* child(int i) const;
-    DcpCategory* category() const { return m_Category; }
+    DcpComponent* category() const { return m_Category; }
     
     virtual const QString logicalId() { return m_LogicalId; }
     void setLogicalId(const QString& logicalId) { m_LogicalId = logicalId; }
@@ -44,7 +45,7 @@ public slots:
 private:
     QString m_Title;
     QString m_LogicalId;
-    DcpCategory* m_Category;
+    DcpComponent* m_Category;
     PageHandle m_SubPage;
 };
 #endif //DCPCOMPONENT_H

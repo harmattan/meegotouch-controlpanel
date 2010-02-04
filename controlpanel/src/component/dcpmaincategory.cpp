@@ -10,7 +10,7 @@
 #include <QtDebug>
 #include <DuiSeparator>
 
-//#define DEBUG
+#define DEBUG
 #include "../../../lib/src/dcpdebug.h"
 
 static const QString SeparatorObjectName = "DcpSmallSeparator";
@@ -19,7 +19,7 @@ DcpMainCategory::DcpMainCategory (
         const QString &title, 
         QGraphicsWidget *parent,
         const QString& logicalId) 
-: DcpCategory(title, parent, logicalId),
+: DcpComponent (0, title, parent, logicalId),
     m_ColCount (0),
     m_RowCount (0),
     m_ItemCount (0),
@@ -93,7 +93,7 @@ DcpMainCategory::appendWidget (
     incrementRowAndCol ();
     ++m_ItemCount;
 
-    DcpCategory::add (component);
+    //DcpCategory::add (component);
 }
 
 void 
@@ -114,7 +114,7 @@ DcpMainCategory::onOrientationChange (
         m_Layout->setPolicy (m_LandscapeLayout);
     }
 
-    DcpCategory::onOrientationChange (orientation);
+    //DcpCategory::onOrientationChange (orientation);
 }
 
 void 

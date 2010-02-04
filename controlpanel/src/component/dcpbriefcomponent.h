@@ -20,13 +20,13 @@ class DcpBriefComponent:
 public:
     DcpBriefComponent (
             DcpAppletMetadata   *metadata, 
-            DcpCategory         *category,
+            DcpComponent        *category,
             const QString       &logicalId = "");
 
     DcpBriefComponent (
             const QString       &line1,
             const QString       &line2,
-            DcpCategory         *category,
+            DcpComponent        *category,
             const QString       &logicalId = "");
 
     ~DcpBriefComponent ();

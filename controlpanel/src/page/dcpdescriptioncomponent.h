@@ -22,7 +22,7 @@ Q_OBJECT
 
 public:
     DcpDescriptionComponent(
-            DcpCategory *category,
+            DcpComponent *category,
             const QString& title = "",
             QGraphicsWidget *parent = 0);
 

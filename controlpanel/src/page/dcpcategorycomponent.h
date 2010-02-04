@@ -23,13 +23,13 @@ Q_PROPERTY (QString mattiID READ mattiID WRITE setMattiID)
 
 public:
     DcpCategoryComponent (
-                    DcpCategory     *category, 
+                    DcpComponent     *category, 
                     const QString   &categoryName,
                     const QString   &logicalId,
                     QGraphicsWidget *parent = 0);
     
     DcpCategoryComponent (
-                    DcpCategory      *category, 
+                    DcpComponent      *category, 
                     const DcpCategoryInfo  *categoryInfo,
                     QGraphicsWidget  *parent = 0);
 

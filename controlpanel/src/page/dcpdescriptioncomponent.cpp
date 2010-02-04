@@ -18,7 +18,7 @@
  * Currently uses DuiContainer for all rendering stuff. 
  */
 DcpDescriptionComponent::DcpDescriptionComponent(
-        DcpCategory *category,
+        DcpComponent *category,
         const QString& title,
         QGraphicsWidget *parent) 
 : DcpComponent (category, title, parent),

@@ -6,7 +6,7 @@
 #include "ft_dcpcomponent.h"
 #include <Pages>
 
-DcpSingleComponent::DcpSingleComponent(DcpCategory *category,
+DcpSingleComponent::DcpSingleComponent(DcpComponent *category,
                                   const QString& title,
                                   QGraphicsWidget *parent,
                                   const QString& logicalId)

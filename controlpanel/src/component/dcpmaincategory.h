@@ -11,7 +11,7 @@ class QShowEvent;
 /*!
  * A rectangular table like widget inside the main page and the category pages.
  */
-class DcpMainCategory : public DcpCategory
+class DcpMainCategory : public /*DcpCategory*/ DcpComponent
 {
     Q_OBJECT
 

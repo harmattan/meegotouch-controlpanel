@@ -4,7 +4,7 @@
 #define DCPCATEGORY_H
 
 #include "dcpcomponent.h"
-
+#if 0
 class DcpCategory : public DcpComponent
 {
     Q_OBJECT
@@ -14,7 +14,7 @@ public:
     // Composite Pattern Interface
     virtual void add(DcpComponent *component);
     virtual void remove(DcpComponent *component);
-    int childCount() { return m_Children.count(); }
+    int childCount() const;
     virtual DcpComponent* child(int i) const;
     virtual DcpCategory* category() const {return 0;}
 public slots:
@@ -24,4 +24,6 @@ protected:
     QString m_LogicalId;
     QVector<DcpComponent*> m_Children;
 };
+#endif
+
 #endif //DCPCATEGORY_H
