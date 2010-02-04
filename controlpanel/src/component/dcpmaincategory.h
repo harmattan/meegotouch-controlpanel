@@ -3,7 +3,7 @@
 #ifndef DCPMAINCATEGORY_H
 #define DCPMAINCATEGORY_H
 
-#include "dcpcategory.h"
+#include "dcpcomponent.h"
 
 class DuiLayout;
 class QShowEvent;
