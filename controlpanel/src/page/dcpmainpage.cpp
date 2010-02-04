@@ -119,14 +119,12 @@ DcpMainPage::createContentsLate ()
     layout = mainLayout ();
 
     m_RecentlyComp->createContentsLate ();
-    //m_RecentlyComp->retranslateUi ();
 
     for (int i = 0; i < layout->count(); ++i) {
         DcpCategoryComponent* comp =
             dynamic_cast<DcpCategoryComponent*> (layout->itemAt(i));
 
         comp->createContentsLate ();
-        //comp->retranslateUi ();
     }
 
     /*
