@@ -38,10 +38,6 @@ public:
 protected:
     virtual void createContents() = 0;
 
-
-public slots:
-    virtual void onOrientationChange (const Dui::Orientation &orientation);
-
 private:
     QString m_Title;
     QString m_LogicalId;

@@ -15,7 +15,6 @@ class DcpMainPage : public DcpPage
 
 public:
     DcpMainPage();
-    virtual ~DcpMainPage();
     
     virtual void createContent ();
     virtual void createContentsLate ();
@@ -31,7 +30,6 @@ public slots:
 
 protected:
     virtual void retranslateUi();
-    virtual void organizeContent(const Dui::Orientation& ori);
 
 private:
     DcpCategoryComponent *m_RecentlyComp;

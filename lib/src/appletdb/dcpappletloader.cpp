@@ -7,6 +7,7 @@
 #include <QPluginLoader>
 #include "dcpwrongapplets.h"
 
+#define DEBUG
 #define WARNING
 #include "dcpdebug.h"
 
@@ -105,6 +106,7 @@ DcpAppletLoader::loadPluginFile (
             qCritical() << d_ptr->errorMsg;
             return false;
         } else {
+            DCP_DEBUG ("Initializing %s", DCP_STR (binaryPath));
             d_ptr->applet->init ();
         }
     }

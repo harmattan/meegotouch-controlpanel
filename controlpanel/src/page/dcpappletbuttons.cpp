@@ -161,8 +161,9 @@ DcpAppletButtons::addComponent (
 void 
 DcpAppletButtons::reload ()
 {
-    deleteItems();
-    createContents();
+    DCP_WARNING ("WARNING: Why do we need this function?!");
+    deleteItems ();
+    createContents ();
 }
 
 QString 

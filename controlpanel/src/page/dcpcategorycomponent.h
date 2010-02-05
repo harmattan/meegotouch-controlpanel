@@ -48,9 +48,6 @@ public:
     QString mattiID();
     void setMattiID(const QString &mattiID);
 
-public slots:
-    virtual void onOrientationChange (const Dui::Orientation &orientation);
-
 private:
     DcpAppletButtons *m_AppletButtons;
     // m_CategoryName may be deprecated

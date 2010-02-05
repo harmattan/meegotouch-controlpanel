@@ -19,10 +19,6 @@ DcpPage::DcpPage () :
     setEscapeButtonMode (DuiEscapeButtonPanelModel::BackMode);
 }
 
-DcpPage::~DcpPage ()
-{
-}
-
 
 void 
 DcpPage::createContent ()
@@ -38,13 +34,6 @@ void
 DcpPage::createLayout ()
 {
     new QGraphicsLinearLayout (Qt::Vertical, centralWidget());
-}
-
-void 
-DcpPage::organizeContent (
-        const Dui::Orientation &ori)
-{
-    Q_UNUSED (ori);
 }
 
 void 
@@ -96,37 +85,14 @@ DcpPage::connectSignals ()
    connect (
            this, SIGNAL(backButtonClicked()), 
            this, SLOT(back()));
-   connectOrientation ();
-}
-
-void 
-DcpPage::connectOrientation ()
-{
-   DuiSceneManager* manager;
-   
-   manager = DuiApplication::activeApplicationWindow()->sceneManager();
-   if (manager) {
-       // handle orientation change:
-       connect (
-               manager, SIGNAL(orientationChanged (Dui::Orientation)),
-               this, SLOT(organizeContent(Dui::Orientation)));
-   } else {
-       qWarning("orientation connect fails");
-   }
 }
 
 void 
 DcpPage::disconnectSignals ()
 {
-    DuiSceneManager *manager = sceneManager ();
-
-    if (manager) {
-        disconnect (
-                manager, SIGNAL (orientationChanged (Dui::Orientation)),
-                this, SLOT (organizeContent(Dui::Orientation)));
-    }
-
-    disconnect (this, SIGNAL(backButtonClicked()), this, SLOT(back()));
+    disconnect (
+            this, SIGNAL(backButtonClicked()), 
+            this, SLOT(back()));
 }
 
 /*!
@@ -229,13 +195,13 @@ DcpPage::back ()
  *
  * this is where pages optimize their open up times
  * default implementation sets the correct orientation 
+ *
+ * FIXME: Removed the function body, we don't use this any more, maybe it should
+ * be deleted.
  */
 void 
 DcpPage::reload ()
 {
-    if (sceneManager()) {
-        organizeContent (sceneManager()->orientation());
-    }
 }
 
 QGraphicsLinearLayout *

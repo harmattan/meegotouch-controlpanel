@@ -116,6 +116,7 @@ DcpCategoryComponent::createContentsLate ()
 void 
 DcpCategoryComponent::reload ()
 {
+    DCP_DEBUG ("WARNING: RELOADING");
     m_AppletButtons->reload();
 }
 
@@ -125,12 +126,6 @@ DcpCategoryComponent::getItemCount ()
     return m_AppletButtons ? m_AppletButtons->getItemCount () : 0;
 }
 
-void 
-DcpCategoryComponent::onOrientationChange (
-        const Dui::Orientation &orientation)
-{
-    m_AppletButtons->onOrientationChange(orientation);
-}
 
 QString 
 DcpCategoryComponent::mattiID ()

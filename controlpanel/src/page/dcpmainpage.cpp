@@ -38,10 +38,6 @@ DcpMainPage::DcpMainPage() :
     setTitle (qtTrId(DcpMain::settingsTitleId));
 }
 
-DcpMainPage::~DcpMainPage()
-{
-}
-
 
 void
 DcpMainPage::shown ()
@@ -82,7 +78,7 @@ DcpMainPage::createContent ()
             0,
             DcpApplet::MostUsedCategory,
             DcpMain::mostRecentUsedTitleId);
-    layout->insertItem (0, m_RecentlyComp);
+    layout->addItem (m_RecentlyComp);
 
     /*
      * All the other categories.
@@ -164,24 +160,11 @@ DcpMainPage::retranslateUi ()
     // no need to update briefs, they take care of themselves
 }
 
-void
-DcpMainPage::organizeContent (
-        const Dui::Orientation& ori)
+
+void 
+DcpMainPage::reload ()
 {
-    QGraphicsLayout* layout = mainLayout();
-
-    for (int i = layout->count() - 1; i >= 0; i--) {
-        DcpCategoryComponent* comp =
-            dynamic_cast<DcpCategoryComponent*>(layout->itemAt(i));
-
-        comp->onOrientationChange (ori);
-    }
-
-    DcpPage::organizeContent(ori);
-}
-
-void DcpMainPage::reload ()
-{
+    DCP_DEBUG ("WARNING: RELOADING");
     /*
      * Refreshing the 'most recently used' category. This category category will
      * be turned off when it just become empty (a highly unlikely event), and
@@ -214,7 +197,8 @@ void DcpMainPage::reload ()
 }
 
 // if clicked fast, back button can be pressed instead of close
-void DcpMainPage::back()
+void 
+DcpMainPage::back()
 {
     qApp->quit();
 }

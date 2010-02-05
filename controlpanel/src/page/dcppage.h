@@ -16,7 +16,6 @@ class DcpPage : public DuiApplicationPage
 
 public:
     DcpPage();
-    virtual ~DcpPage();
 
     virtual void createContent();
     virtual void connectSignals();
@@ -40,7 +39,6 @@ public:
 
 public slots:
     virtual void back ();
-    virtual void organizeContent (const Dui::Orientation& ori);
 
 signals:
     void openSubPage (PageHandle handle);
@@ -51,7 +49,6 @@ protected:
     void removeWidget (QGraphicsWidget *widget);
 
 private:
-    void connectOrientation();
     void createLayout();
 
     PageHandle m_Handle;

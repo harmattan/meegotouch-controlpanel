@@ -26,9 +26,3 @@ DcpComponent* DcpComponent::child(int i) const
     return 0;
 }
 
-
-
-void DcpComponent::onOrientationChange(const Dui::Orientation& orientation)
-{
-    Q_UNUSED(orientation);
-}

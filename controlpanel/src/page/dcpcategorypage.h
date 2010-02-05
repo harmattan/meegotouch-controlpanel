@@ -3,8 +3,10 @@
 
 #include "dcppage.h"
 class DcpMainCategory;
-class QGraphicsSceneResizeEvent;
 
+/*!
+ * FIXME: this class is just an empty shell?
+ */
 class DcpCategoryPage : public DcpPage
 {
     Q_OBJECT
@@ -12,12 +14,8 @@ public:
     DcpCategoryPage();
     virtual void createContent();
 
-public slots:
-    virtual void organizeContent(const Dui::Orientation& ori);
-
 protected:
     DcpMainCategory *m_Category;
-
 };
 
-#endif // DCPCATEGORYPAGE_H
+#endif
