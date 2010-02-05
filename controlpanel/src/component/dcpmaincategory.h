@@ -6,7 +6,6 @@
 #include "dcpcomponent.h"
 
 class DuiLayout;
-class QShowEvent;
 
 /*!
  * A rectangular table like widget inside the main page and the category pages.
@@ -21,9 +20,6 @@ public:
             QGraphicsWidget  *parent = 0,
             const QString    &logicalId = "");
 
-    virtual ~DcpMainCategory ();
-
-    
     virtual void appendWidget (DcpComponent *component);
     virtual int  maxColumns ();
     virtual void setMaxColumns (int columns);
@@ -32,17 +28,12 @@ public:
     void setHorizontalSpacing (int space);
     void setVerticalSpacing (int space);
     void setCreateSeparators (bool create = true);
-    void setDoNotRemoveLastSeparator (bool remove = true);
 
     int getItemCount () { return m_ItemCount; };
     void deleteItems();
 
-public slots:
-    virtual void onOrientationChange (const Dui::Orientation &orientation);
-
 protected:
     virtual void createContents ();
-    virtual void showEvent (QShowEvent *);
 
     DuiLayout                    *m_Layout;
     class DuiGridLayoutPolicy    *m_LandscapeLayout;

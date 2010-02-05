@@ -30,7 +30,6 @@ DcpAppletCategoryPage::createContent ()
     m_Category->setMaxColumns (2);
     m_Category->setVerticalSpacing (0);
     m_Category->setCreateSeparators ();
-    m_Category->setDoNotRemoveLastSeparator ();
 
     loadContent();
 }

@@ -26,18 +26,15 @@ DcpMainCategory::DcpMainCategory (
     m_CreateSeparators (false),
     m_HasLastSeparator (false)
 {
-    m_Layout = new DuiLayout(this);
+    m_Layout = new DuiLayout (this);
 
     m_LandscapeLayout = new DuiGridLayoutPolicy (m_Layout);
-
-    m_Layout->setPolicy (m_LandscapeLayout);
     m_PortraitLayout = new DuiLinearLayoutPolicy (m_Layout, Qt::Vertical);
+    
+    m_Layout->setLandscapePolicy (m_LandscapeLayout);
+    m_Layout->setPortraitPolicy (m_PortraitLayout);
 
-    setLayout(m_Layout);
-}
-
-DcpMainCategory::~DcpMainCategory ()
-{
+    setLayout (m_Layout);
 }
 
 
@@ -52,9 +49,9 @@ DcpMainCategory::deleteItems ()
         for (int i = policy->count() - 1; i >= 0; i--){
             QGraphicsWidget* widget = (QGraphicsWidget*)
                                       (policy->itemAt(i)->graphicsItem());
-            Q_ASSERT(widget);
-            m_Layout->removeItem(widget);
-            widget->deleteLater();
+            Q_ASSERT (widget);
+            m_Layout->removeItem (widget);
+            widget->deleteLater ();
         }
     }
 }
@@ -63,7 +60,7 @@ void
 DcpMainCategory::setHorizontalSpacing (
         int space)
 {
-    m_LandscapeLayout->setHorizontalSpacing(space);
+    m_LandscapeLayout->setHorizontalSpacing (space);
 }
 
 void 
@@ -92,8 +89,6 @@ DcpMainCategory::appendWidget (
     
     incrementRowAndCol ();
     ++m_ItemCount;
-
-    //DcpCategory::add (component);
 }
 
 void 
@@ -101,30 +96,6 @@ DcpMainCategory::createContents ()
 {
 }
 
-/*
- * FIXME: This is clearly not necessary!
- */
-void 
-DcpMainCategory::onOrientationChange (
-        const Dui::Orientation &orientation)
-{
-    if (orientation == Dui::Portrait) {
-        m_Layout->setPolicy (m_PortraitLayout);
-    } else {
-        m_Layout->setPolicy (m_LandscapeLayout);
-    }
-
-    //DcpCategory::onOrientationChange (orientation);
-}
-
-void 
-DcpMainCategory::showEvent (
-        QShowEvent *)
-{
-    if (sceneManager()) {
-        onOrientationChange(sceneManager()->orientation());
-    }
-}
 
 void 
 DcpMainCategory::setCreateSeparators (
@@ -194,19 +165,9 @@ DcpMainCategory::setMaxColumns (
 }
 
 int 
-DcpMainCategory::maxColumns (void)
+DcpMainCategory::maxColumns ()
 {
     return m_MaxColumns;
-}
-
-/*
- * FIXME: What?
- */
-void 
-DcpMainCategory::setDoNotRemoveLastSeparator (
-        bool remove)
-{
-    m_HasLastSeparator = remove;
 }
 
 
