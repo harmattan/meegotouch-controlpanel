@@ -68,6 +68,8 @@ DcpAppletButtons::createContents ()
      */
     if (logicalId() == DcpMain::mostRecentUsedTitleId) {
         list = DcpAppletDb::instance()->listMostUsed ();
+        m_PortraitLayout->setObjectName ("MostUsedItems");
+        m_LandscapeLayout->setObjectName ("MostUsedItems");
     } else {
         bool        withUncategorized;
         const char *names[3];
@@ -117,8 +119,6 @@ DcpAppletButtons::createContents ()
         QCoreApplication::processEvents ();
     }
 
-    m_PortraitLayout->setObjectName ("MostUsedItems");
-    m_LandscapeLayout->setObjectName ("MostUsedItems");
     setVerticalSpacing (0);
 }
 
