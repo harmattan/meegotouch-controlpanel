@@ -25,8 +25,8 @@ class DcpBriefWidgetPrivate;
  * This class implements the connection between the brief shown on the screen
  * and the metadata describing the applet variant.
  *
- * Inside the #DcpBriefWidget there is a #DcpButtonImage or a #DcpButtonToggle
- * as an actual widget. 
+ * Inside the #DcpBriefWidget there is a #DcpButton, a #DcpButtonImage or a 
+ * #DcpButtonToggle as an actual widget. 
  * FIXME: Why is this?
  */
 class DcpBriefWidget: 

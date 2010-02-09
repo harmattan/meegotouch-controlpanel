@@ -36,6 +36,9 @@ DcpBriefWidgetPrivate::DcpBriefWidgetPrivate ():
 }
 
 
+/******************************************************************************
+ * Stuff for the DcpBriefWidget class.
+ */
 DcpBriefWidget::DcpBriefWidget (
         DcpAppletMetadata *metadata, 
         DuiWidget         *parent):
