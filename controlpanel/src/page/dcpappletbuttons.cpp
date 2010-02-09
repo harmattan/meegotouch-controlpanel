@@ -113,14 +113,8 @@ DcpAppletButtons::createContents ()
      * Adding the applet variants to the widget.
      */
     foreach (DcpAppletMetadata *item, list) {
-        DCP_DEBUG ("   *** item->name = %s", DCP_STR (item->name()));
-        QCoreApplication::processEvents ();
-        DCP_DEBUG ("*** geometry before   = %dx%d", 
-                size().width(), size().height());
         addComponent (item);
         QCoreApplication::processEvents ();
-        DCP_DEBUG ("*** geometry after    = %dx%d", 
-                size().width(), size().height());
     }
 
     m_PortraitLayout->setObjectName ("MostUsedItems");
