@@ -132,6 +132,7 @@ void
 DcpButton::mousePressEvent (
         QGraphicsSceneMouseEvent *event)
 {
+    DCP_DEBUG ("");
     Q_UNUSED(event);
     // this function is only for becoming the mouse grabber item
     // so that release event is working
@@ -143,6 +144,7 @@ void
 DcpButton::mouseReleaseEvent (
         QGraphicsSceneMouseEvent *event)
 {
+    DCP_DEBUG ("");
     if (QRectF(QPointF(), size()).contains(event->pos())) {
         emit clicked();
     }
