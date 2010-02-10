@@ -1,4 +1,5 @@
-
+!dcpconfig {
+    CONFIG += dcpconfig
 # some hack for some problems experienced before
 {
 	QMAKE_CXXFLAGS_RELEASE += -g                                                                                                                       
@@ -41,4 +42,4 @@
 
 	DEFINES += MOSTUSEDCOUNTER_GCONFKEY=\\\"\"$$DCP_MOSTUSEDCOUNTER_GCONFKEY\"\\\"
 }
-
+}
