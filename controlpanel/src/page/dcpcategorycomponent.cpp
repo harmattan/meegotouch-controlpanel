@@ -87,8 +87,6 @@ DcpCategoryComponent::createContents ()
 
     layout = new QGraphicsLinearLayout (Qt::Vertical, this);
     layout->addItem (m_Container);
-    
-    QCoreApplication::processEvents ();
 }
 
 /*!
@@ -100,7 +98,7 @@ void
 DcpCategoryComponent::createContentsLate ()
 {
     DCP_DEBUG ("");
-    
+
     if (m_CategoryInfo) 
         m_AppletButtons = new DcpAppletButtons (m_CategoryInfo, title());
     else
@@ -108,9 +106,19 @@ DcpCategoryComponent::createContentsLate ()
                 logicalId(), m_CategoryName, title());
 
     m_Container->setCentralWidget (m_AppletButtons);
+
+    // stop progress indicator, when all applets are in place:
+    connect (m_AppletButtons, SIGNAL(loadingFinished()),
+             this, SLOT(onAppletButtonsLoaded ()));
+
+    m_AppletButtons->startLoading();
+}
+
+void
+DcpCategoryComponent::onAppletButtonsLoaded ()
+{
     m_Container->setProgressIndicatorVisible (false);
-    
-    QCoreApplication::processEvents ();
+    emit loadFinished();
 }
 
 void 
@@ -120,12 +128,20 @@ DcpCategoryComponent::reload ()
     m_AppletButtons->reload();
 }
 
+// ! Can be misleading, because it returns the count of the items already loaded
 int
 DcpCategoryComponent::getItemCount ()
 {
     return m_AppletButtons ? m_AppletButtons->getItemCount () : 0;
 }
 
+/*! \returns true if the container has loaded or loading items
+ */
+bool
+DcpCategoryComponent::hasLoadingItems ()
+{
+    return m_AppletButtons ? m_AppletButtons->hasLoadingItems() : false;
+}
 
 QString 
 DcpCategoryComponent::mattiID ()

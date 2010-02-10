@@ -23,10 +23,10 @@ DcpMainCategory::DcpMainCategory (
     m_ColCount (0),
     m_RowCount (0),
     m_ItemCount (0),
-    m_CreateSeparators (false),
-    m_HasLastSeparator (false)
+    m_CreateSeparators (false)
 {
     m_Layout = new DuiLayout (this);
+    m_Layout->setAnimation(0);
 
     m_LandscapeLayout = new DuiGridLayoutPolicy (m_Layout);
     m_PortraitLayout = new DuiLinearLayoutPolicy (m_Layout, Qt::Vertical);

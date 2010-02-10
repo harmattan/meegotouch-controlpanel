@@ -8,6 +8,7 @@
 DuiLabelStyle#DcpButtonMain {
     font: $FONT_LARGE;
 }
+
 DuiLabelStyle#DcpButtonLine1 {
     font: $FONT_DEFAULT;
 }
@@ -24,4 +25,15 @@ DuiImageStyle#DcpButtonImage {
     maximum-size: $SIZE_BUTTON $SIZE_BUTTON;
     minimum-size: $SIZE_BUTTON $SIZE_BUTTON;
 }
+
+/* 
+ * In case we would like to ensure that every widget has same height,
+ * we should do something like this:
+ */
+#DcpButton {
+    preferred-size: -1 85;
+    minimum-size: -1 85;
+    maximum-size: -1 85;
+}
+
 

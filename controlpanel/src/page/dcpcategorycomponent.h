@@ -43,10 +43,21 @@ public:
     void setTitle(const QString& text);
 
     void reload();
+
+    // ! Can be misleading, because it returns the count of the items already
+    // loaded
     int getItemCount ();
+
+    bool hasLoadingItems ();
 
     QString mattiID();
     void setMattiID(const QString &mattiID);
+
+signals:
+    void loadFinished();
+
+protected slots:
+    void onAppletButtonsLoaded ();
 
 private:
     DcpAppletButtons *m_AppletButtons;
@@ -60,3 +71,4 @@ private:
 
 
 #endif
+

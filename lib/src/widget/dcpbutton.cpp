@@ -22,8 +22,6 @@ DcpButton::DcpButton (DuiWidget *parent):
     DuiStylableWidget (parent), 
     d_ptr (new DcpButtonPrivate)
 {
-    // TODO remove me, it is only a hack, seems to prevent baddrawable error
-    setMaximumSize (999, 999); 
     setObjectName ("DcpButton");
     this->setLayout (createLayout());
 }

@@ -38,18 +38,31 @@ public:
 
 
     virtual void reload();
+    void startLoading();
+    bool hasLoadingItems();
 
     QString mattiID ();
     void setMattiID (const QString &mattiID);
 
+signals:
+    void loadingFinished();
+
 protected:
     virtual void createContents();
+    void stopLoading();
+
+protected slots:
+    void continueLoading();
 
 private:
     QString                 m_CategoryName;
     QString                 m_LogicalId;
     const DcpCategoryInfo  *m_CategoryInfo;
     QString                 m_mattiID;
+
+    // stores the metadatas to be loaded until loading completed:
+    int m_LoadPosition;
+    QList<DcpAppletMetadata*>* m_LoadingMetadatas;
 };
 
 #endif

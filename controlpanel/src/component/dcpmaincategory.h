@@ -58,7 +58,6 @@ private:
     int m_ItemCount;
 
     bool m_CreateSeparators;
-    bool m_HasLastSeparator;
 };
 
 #endif

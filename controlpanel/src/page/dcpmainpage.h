@@ -31,9 +31,15 @@ public slots:
 protected:
     virtual void retranslateUi();
 
+protected slots:
+    void loadNextContainer();
+
 private:
     DcpCategoryComponent *m_RecentlyComp;
     bool                  m_HasContent;
+
+    // shows how many of the containers have finished their loading process
+    int m_LoadedContainers;
 };
 
 #endif

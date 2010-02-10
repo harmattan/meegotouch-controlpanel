@@ -10,9 +10,11 @@
 
 #include <QCoreApplication>
 #include <QtDebug>
+#include <QTimer>
 #include <DuiSceneManager>
 #include <DuiGridLayoutPolicy>
 #include <DuiLinearLayoutPolicy>
+#include <QPropertyAnimation>
 #include "maintranslations.h"
 
 #define DEBUG
@@ -34,7 +36,7 @@ DcpAppletButtons::DcpAppletButtons (
 {
     setCreateSeparators (true);
     setMaxColumns (2);
-    createContents ();
+    createContents();
     setMattiID ("DcpAppletButtons::" + logicalId + "::" + categoryName);
 }
 
@@ -59,15 +61,15 @@ DcpAppletButtons::DcpAppletButtons (
 void 
 DcpAppletButtons::createContents ()
 {
-    DcpAppletMetadataList list;
-
     DCP_DEBUG ("");
     /*
      * Getting the list of applet variants (metadata objects) that will go into
      * this widget.
      */
     if (logicalId() == DcpMain::mostRecentUsedTitleId) {
-        list = DcpAppletDb::instance()->listMostUsed ();
+        // additional copy (with implicit sharing) to be able to clear whole mem up
+        m_LoadingMetadatas = new DcpAppletMetadataList(
+                                    DcpAppletDb::instance()->listMostUsed ());
         m_PortraitLayout->setObjectName ("MostUsedItems");
         m_LandscapeLayout->setObjectName ("MostUsedItems");
     } else {
@@ -86,8 +88,9 @@ DcpAppletButtons::createContents ()
         }
         names[2] = 0;
 
-        list = DcpAppletDb::instance()->listByCategory (names, 2, 
-                withUncategorized ? dcp_category_name_enlisted : NULL);
+        m_LoadingMetadatas = new DcpAppletMetadataList(
+                DcpAppletDb::instance()->listByCategory (names, 2,
+                withUncategorized ? dcp_category_name_enlisted : NULL));
     }
 
     /*
@@ -102,33 +105,92 @@ DcpAppletButtons::createContents ()
             element = &m_CategoryInfo->staticElements[cnt];
             if (element->titleId == 0)
                 break;
-            
+
             addComponent (
                     element->appletCategory,
                     "",
                     element->subPageId);
         }
-
     }
-    
+
+}
+
+/*! \brief start the loading
+ * It is called from outside so that the caller can connect on
+ * loadingFinished signal before calling the method, if it wants
+ * to get notified when loading finished.
+ */
+void
+DcpAppletButtons::startLoading()
+{
     /*
      * Adding the applet variants to the widget.
      */
-    foreach (DcpAppletMetadata *item, list) {
-        addComponent (item);
-        QCoreApplication::processEvents ();
+    m_LoadPosition = 0;
+    if (m_LoadingMetadatas->count() > 0) {
+        QTimer::singleShot(0, this, SLOT(continueLoading()));
+    } else {
+        stopLoading();
     }
-
-    setVerticalSpacing (0);
 }
 
-void 
+void
+DcpAppletButtons::stopLoading()
+{
+    delete m_LoadingMetadatas;
+    m_LoadingMetadatas = 0;
+    m_LoadPosition = 0;
+    emit loadingFinished();
+}
+
+/* \returns true if the container contains loaded or loading items */
+bool
+DcpAppletButtons::hasLoadingItems()
+{
+    if (m_LoadingMetadatas) {
+        return m_LoadingMetadatas->count() > 0;
+    } else {
+        return getItemCount() > 0;
+    }
+}
+
+void
+DcpAppletButtons::continueLoading ()
+{
+    DcpAppletMetadata*& item = (*m_LoadingMetadatas)[m_LoadPosition];
+    addComponent (item);
+    item = 0;
+    m_LoadPosition++;
+    if (m_LoadPosition < m_LoadingMetadatas->count()) {
+        QTimer::singleShot(0, this, SLOT(continueLoading()));
+    } else {
+        stopLoading();
+    }
+}
+
+void
 DcpAppletButtons::addComponent (
         DcpAppletMetadata *metadata)
 {
     DcpBriefComponent *component;
-    
+
     component = new DcpBriefComponent (metadata, this, logicalId());
+
+    // this creates a fade in animation
+    component->setOpacity(0);
+    QPropertyAnimation* animation =
+        new QPropertyAnimation(component, "opacity");
+    animation->setDuration(1000);
+    animation->setStartValue(0.0);
+    animation->setEndValue(1.0);
+    animation->start(QAbstractAnimation::DeleteWhenStopped);
+/*
+    DuiWidgetAnimation* a = new DuiWidgetAnimation(NULL);
+    a->setTargetOpacity(component, 1.0);
+    a->setDuration(1000, "opacity");
+    a->start(QAbstractAnimation::DeleteWhenStopped);
+    */
+
     component->setSubPage (PageHandle::APPLET, metadata->name());
 
     appendWidget (component);
@@ -141,9 +203,9 @@ DcpAppletButtons::addComponent (
         const PageHandle    &pageHandle)
 {
     DcpBriefComponent *component;
-    
+
     component = new DcpBriefComponent (
-            briefTitleText, 
+            briefTitleText,
             briefSecondaryText,
             this, logicalId());
     component->setSubPage (pageHandle);
@@ -155,7 +217,12 @@ DcpAppletButtons::addComponent (
 void 
 DcpAppletButtons::reload ()
 {
-    DCP_WARNING ("WARNING: Why do we need this function?!");
+//    This is used only for reloading the sequence of the most used items
+//
+//    FIXME, maybe we could make it more optimal with reusing the existing
+//    widgets (at most one additional widget is coming, at most one is to be
+//    removed)
+//
     deleteItems ();
     createContents ();
 }

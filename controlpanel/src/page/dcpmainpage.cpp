@@ -34,7 +34,7 @@ DcpMainPage::DcpMainPage() :
     setEscapeButtonMode (DuiEscapeButtonPanelModel::CloseMode);
     connect (this, SIGNAL(windowShown()),
             this, SLOT(shown()));
-    
+
     setTitle (qtTrId(DcpMain::settingsTitleId));
 }
 
@@ -45,7 +45,7 @@ DcpMainPage::shown ()
     DCP_DEBUG ("##################################################");
     DCP_DEBUG ("### Main page has been shown #####################");
     DCP_DEBUG ("##################################################");
-    
+
     if (m_HasContent)
         return;
     
@@ -78,7 +78,7 @@ DcpMainPage::createContent ()
             0,
             DcpApplet::MostUsedCategory,
             DcpMain::mostRecentUsedTitleId);
-    layout->addItem (m_RecentlyComp);
+    layout->addItem(m_RecentlyComp);
 
     /*
      * All the other categories.
@@ -86,7 +86,7 @@ DcpMainPage::createContent ()
     for (int i = 0;; i++) {
         DcpCategoryComponent   *component;
         const DcpCategoryInfo  *info;
-        
+
         info = &DcpMain::CategoryInfos[i];
         if (info->titleId == 0)
              break;
@@ -109,19 +109,20 @@ void
 DcpMainPage::createContentsLate ()
 {
     QGraphicsLinearLayout *layout;
-    
+
     DCP_DEBUG ("");
 
     layout = mainLayout ();
 
+    /* 
+     * recently used item load finish will start the load process of the other
+     * containers:
+     */
+    m_LoadedContainers = 0;
+    connect (m_RecentlyComp, SIGNAL(loadFinished()),
+             this, SLOT(loadNextContainer()));
+
     m_RecentlyComp->createContentsLate ();
-
-    for (int i = 0; i < layout->count(); ++i) {
-        DcpCategoryComponent* comp =
-            dynamic_cast<DcpCategoryComponent*> (layout->itemAt(i));
-
-        comp->createContentsLate ();
-    }
 
     /*
      * Most recent used items. If this category is empty it is not visible so we
@@ -130,12 +131,36 @@ DcpMainPage::createContentsLate ()
      * # gconftool-2 --recursive-unset /apps/duicontrolpanel/usagecount
      * to test this piece of code.
      */
-    if (m_RecentlyComp->getItemCount() == 0) {
+    if (!m_RecentlyComp->hasLoadingItems()) {
         mainLayout ()->removeItem (m_RecentlyComp);
+        m_RecentlyComp->hide();
     }
 }
 
-void 
+void
+DcpMainPage::loadNextContainer ()
+{
+    // disconnect last item
+    disconnect (sender(), SIGNAL(loadFinished()),
+                this, SLOT(loadNextContainer()));
+
+    QGraphicsLinearLayout* layout = mainLayout();
+    m_LoadedContainers++;
+    if (layout->count() <= m_LoadedContainers) {
+        // finished loading the page
+        return;
+    }
+
+    DcpCategoryComponent* comp =
+       dynamic_cast<DcpCategoryComponent*> (layout->itemAt(m_LoadedContainers));
+
+    // handle next item:
+    connect (comp, SIGNAL(loadFinished()),
+             this, SLOT(loadNextContainer()));
+    comp->createContentsLate ();
+}
+
+void
 DcpMainPage::retranslateUi ()
 {
     QGraphicsLinearLayout *layout = mainLayout();
@@ -145,7 +170,7 @@ DcpMainPage::retranslateUi ()
      * The title of the main window.
      */
     setTitle (qtTrId(DcpMain::settingsTitleId));
-    
+
     /*
      * All the category component capable to retlanslate the UI for itself e.g.
      * they know the title id, they can localize themselves.
@@ -172,19 +197,22 @@ DcpMainPage::reload ()
      */
     if (m_RecentlyComp) {
         bool was_visible;
-        
+
         was_visible = m_RecentlyComp->getItemCount() != 0;
 
         m_RecentlyComp->reload ();
+        bool should_be_visible = m_RecentlyComp->hasLoadingItems();
 
         /*
          * If the 'most recetly used' category is empty we hide it, if not empty
          * we show it.
          */
-        if (m_RecentlyComp->getItemCount() == 0 && was_visible) {
+        if (!should_be_visible && was_visible) {
             mainLayout ()->removeItem (m_RecentlyComp);
-        } else if (m_RecentlyComp->getItemCount() != 0 && !was_visible) {
+            m_RecentlyComp->hide();
+        } else if (should_be_visible && !was_visible) {
             mainLayout ()->insertItem (0, m_RecentlyComp);
+            m_RecentlyComp->show();
             m_RecentlyComp->retranslateUi ();
         }
     }
@@ -192,6 +220,7 @@ DcpMainPage::reload ()
     /*
      * DcpBriefWidget takes care of all the other things
      * FIXME: No, I'm not sure about that.
+     * I do think so: DcpBriefWidget::showEvent()
      */
     DcpPage::reload ();
 }
