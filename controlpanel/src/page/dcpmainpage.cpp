@@ -78,7 +78,6 @@ DcpMainPage::createContent ()
             0,
             DcpApplet::MostUsedCategory,
             DcpMain::mostRecentUsedTitleId);
-    layout->addItem(m_RecentlyComp);
 
     /*
      * All the other categories.
@@ -132,8 +131,9 @@ DcpMainPage::createContentsLate ()
      * to test this piece of code.
      */
     if (!m_RecentlyComp->hasLoadingItems()) {
-        mainLayout ()->removeItem (m_RecentlyComp);
         m_RecentlyComp->hide();
+    } else {
+        mainLayout ()->insertItem (0,m_RecentlyComp);
     }
 }
 
@@ -145,18 +145,16 @@ DcpMainPage::loadNextContainer ()
                 this, SLOT(loadNextContainer()));
 
     QGraphicsLinearLayout* layout = mainLayout();
-    m_LoadedContainers++;
-    if (layout->count() <= m_LoadedContainers) {
-        // finished loading the page
-        return;
-    }
-
     DcpCategoryComponent* comp =
        dynamic_cast<DcpCategoryComponent*> (layout->itemAt(m_LoadedContainers));
 
     // handle next item:
-    connect (comp, SIGNAL(loadFinished()),
-             this, SLOT(loadNextContainer()));
+    m_LoadedContainers++;
+    if (layout->count() > m_LoadedContainers) {
+        // continue loading the next container if load finished:
+        connect (comp, SIGNAL(loadFinished()),
+                 this, SLOT(loadNextContainer()));
+    }
     comp->createContentsLate ();
 }
 
