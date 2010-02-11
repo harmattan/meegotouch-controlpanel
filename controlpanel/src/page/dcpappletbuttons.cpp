@@ -14,7 +14,6 @@
 #include <DuiSceneManager>
 #include <DuiGridLayoutPolicy>
 #include <DuiLinearLayoutPolicy>
-#include <QPropertyAnimation>
 #include "maintranslations.h"
 
 #define DEBUG
@@ -173,24 +172,7 @@ DcpAppletButtons::addComponent (
         DcpAppletMetadata *metadata)
 {
     DcpBriefComponent *component;
-
     component = new DcpBriefComponent (metadata, this, logicalId());
-
-    // this creates a fade in animation
-    component->setOpacity(0);
-    QPropertyAnimation* animation =
-        new QPropertyAnimation(component, "opacity");
-    animation->setDuration(1000);
-    animation->setStartValue(0.0);
-    animation->setEndValue(1.0);
-    animation->start(QAbstractAnimation::DeleteWhenStopped);
-/*
-    DuiWidgetAnimation* a = new DuiWidgetAnimation(NULL);
-    a->setTargetOpacity(component, 1.0);
-    a->setDuration(1000, "opacity");
-    a->start(QAbstractAnimation::DeleteWhenStopped);
-    */
-
     component->setSubPage (PageHandle::APPLET, metadata->name());
 
     appendWidget (component);
