@@ -5,6 +5,7 @@
 
 #include <DuiWidget>
 
+#if 0
 /*!
  * I believe this class is not used in the code anywhere.
  * FIXME: Maybe this class should be removed.
@@ -23,3 +24,4 @@ public:
 
 };
 #endif // DCPSPACERITEM_H
+#endif
