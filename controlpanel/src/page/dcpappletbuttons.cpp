@@ -225,6 +225,7 @@ DcpAppletButtons::reload ()
 //
     deleteItems ();
     createContents ();
+    startLoading ();
 }
 
 QString 
