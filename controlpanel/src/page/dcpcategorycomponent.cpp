@@ -87,6 +87,7 @@ DcpCategoryComponent::createContents ()
 
     layout = new QGraphicsLinearLayout (Qt::Vertical, this);
     layout->addItem (m_Container);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 }
 
 /*!
@@ -98,6 +99,12 @@ void
 DcpCategoryComponent::createContentsLate ()
 {
     DCP_DEBUG ("");
+
+    // Do not create the contents twice:
+    if (m_AppletButtons) {
+        onAppletButtonsLoaded();
+        return;
+    }
 
     if (m_CategoryInfo) 
         m_AppletButtons = new DcpAppletButtons (m_CategoryInfo, title());
