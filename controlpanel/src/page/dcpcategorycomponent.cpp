@@ -39,6 +39,7 @@ DcpCategoryComponent::DcpCategoryComponent (
             QGraphicsWidget        *parent)
 : DcpComponent (category, categoryInfo->appletCategory, parent, 
                 categoryInfo->titleId),
+    m_AppletButtons(0),
     m_CategoryName (categoryInfo->appletCategory),
     m_CategoryInfo (categoryInfo)
 {
