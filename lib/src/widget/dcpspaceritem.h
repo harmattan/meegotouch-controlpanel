@@ -9,6 +9,8 @@
 /*!
  * I believe this class is not used in the code anywhere.
  * FIXME: Maybe this class should be removed.
+ * Removed the class, the file itself will be removed soon if noone touches this
+ * file.
  */
 class DcpSpacerItem : public QGraphicsWidget
 {

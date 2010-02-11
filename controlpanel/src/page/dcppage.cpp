@@ -9,6 +9,9 @@
 #include <DuiApplication>
 #include <DuiApplicationWindow>
 
+#include "duiwidgetcreator.h"
+DUI_REGISTER_WIDGET(DcpPage)
+
 #define DEBUG
 #include "dcpdebug.h"
 
@@ -16,6 +19,7 @@
 DcpPage::DcpPage () :
     DuiApplicationPage ()
 {
+    DCP_DEBUG ("");
     setEscapeButtonMode (DuiEscapeButtonPanelModel::BackMode);
 }
 

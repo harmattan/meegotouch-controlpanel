@@ -15,6 +15,9 @@
 #define DEBUG
 #include "dcpdebug.h"
 
+#include "duiwidgetcreator.h"
+DUI_REGISTER_WIDGET_NO_CREATE(DcpAppletPage)
+
 DcpAppletPage::DcpAppletPage (
         DcpAppletMetadata *metadata):
     DcpPage (),

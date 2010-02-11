@@ -6,10 +6,56 @@
 #include <QGraphicsGridLayout>
 #include <QGraphicsSceneMouseEvent>
 
+#include "duiwidgetcreator.h"
+DUI_REGISTER_WIDGET_NO_CREATE(DcpButton)
+
+
 #define DEBUG
 #include "dcpdebug.h"
 
+/******************************************************************************
+ * Stuff for the DuiStylableWidget style handling. 
+ */
+#ifdef USE_STYLABLE_WIDGET
+class DcpButtonStyleContainerPrivate {
+    bool none;
+};
 
+DcpButtonStyle::DcpButtonStyle () 
+{
+    DCP_DEBUG ("");
+}
+
+DcpButtonStyle::~DcpButtonStyle () 
+{
+    DCP_DEBUG ("");
+}
+
+DcpButtonStyleContainer::DcpButtonStyleContainer() :
+    d_ptr (new DcpButtonStyleContainerPrivate)
+{
+    DCP_DEBUG ("");
+}
+
+DcpButtonStyleContainer::~DcpButtonStyleContainer()
+{
+    DCP_DEBUG ("");
+}
+
+void DcpButtonStyleContainer::reloadStyles()
+{
+    DuiWidgetStyleContainer::reloadStyles();
+}
+
+const char* DcpButtonStyleContainer::styleType() const
+{
+    return "DcpButtonStyle";
+}
+#endif
+
+/******************************************************************************
+ * Stuff for the private data.
+ */
 DcpButtonPrivate::DcpButtonPrivate ():
     textLayout (0), 
     label1 (0), 
@@ -18,10 +64,18 @@ DcpButtonPrivate::DcpButtonPrivate ():
 }
 
 
+/******************************************************************************
+ * Stuff for the DcpButton widget class. 
+ */
 DcpButton::DcpButton (DuiWidget *parent): 
+    #ifdef USE_STYLABLE_WIDGET
     DuiStylableWidget (parent), 
+    #else
+    DuiWidget (parent), 
+    #endif
     d_ptr (new DcpButtonPrivate)
 {
+    DCP_DEBUG ("");
     setObjectName ("DcpButton");
     this->setLayout (createLayout());
 }
@@ -30,7 +84,11 @@ DcpButton::DcpButton (DuiWidget *parent):
  * protected constructor which avoids creating the layout
  */
 DcpButton::DcpButton(DuiWidget* parent, bool): 
-    DuiStylableWidget(parent), 
+    #ifdef USE_STYLABLE_WIDGET
+    DuiStylableWidget (parent), 
+    #else
+    DuiWidget (parent), 
+    #endif
     d_ptr (new DcpButtonPrivate)
 {
     setObjectName ("DcpButton");

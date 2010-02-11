@@ -14,6 +14,9 @@
 #include "dcpcategorycomponent.h"
 #include "maintranslations.h"
 
+#include "duiwidgetcreator.h"
+DUI_REGISTER_WIDGET_NO_CREATE(DcpMainPage)
+
 #define DEBUG
 #include "../../../lib/src/dcpdebug.h"
 
