@@ -9,6 +9,7 @@
 #include "maintranslations.h"
 
 class DcpAppletMetadata;
+class PanningDetector;
 
 class DcpAppletButtons :
     public DcpMainCategory
@@ -63,6 +64,10 @@ private:
     // stores the metadatas to be loaded until loading completed:
     int m_LoadPosition;
     QList<DcpAppletMetadata*>* m_LoadingMetadatas;
+
+    // detects panning when loading
+    PanningDetector        *m_PanningDetector;
 };
 
 #endif
+

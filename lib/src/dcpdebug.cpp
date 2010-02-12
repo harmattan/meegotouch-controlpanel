@@ -118,13 +118,13 @@ DcpDebug::dcpPrintMsg (
             vfprintf (stderr, formatstring, args);
             fprintf (stderr, "\n%s%s%s: Aborting program.",
                     TERM_RED TERM_BOLD, function, TERM_NORMAL);
-            putchar('\n');
+            fputc('\n', stderr);
             fflush (stderr);
             abort();
     }
     va_end (args);
 
-    putchar('\n');
+    fputc('\n', stderr);
     fflush (stderr);
 }
 

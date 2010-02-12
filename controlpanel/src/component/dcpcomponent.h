@@ -25,9 +25,6 @@ public:
         { m_SubPage.id = id; m_SubPage.param = param; 
           m_SubPage.widgetId = widgetId; m_SubPage.isStandalone = isStandalone; }
     const PageHandle &subPage() const { return m_SubPage; }
-    // Composite Pattern Interface
-    //virtual void add(DcpComponent *component) = 0;
-    //virtual void remove(DcpComponent *component) = 0;
 
     virtual DcpComponent* child(int i) const;
     DcpComponent* category() const { return m_Category; }
