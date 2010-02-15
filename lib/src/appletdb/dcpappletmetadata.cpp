@@ -280,6 +280,12 @@ QString
 DcpAppletMetadata::text2 () const
 {
     /*
+     * FIXME: This feature is not in the UI spec, we have no localization for
+     * the string.
+     */
+    if (isDisabled())
+        return QString ("Disabled");
+    /*
      * This way if we have a brief we can not specify the second line in the
      * desktop file.
      */
