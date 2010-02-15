@@ -176,6 +176,7 @@ DcpAppletButtons::continueLoading ()
     // "pause" the loading process until user is panning
     if (!m_PanningDetector) return;
     if (m_PanningDetector->isPanning()) {
+        DCP_DEBUG("Loading PAUSED until user stops panning");
         m_PanningDetector->notifyOnNextStop(this, SLOT(continueLoading()));
         return;
     }

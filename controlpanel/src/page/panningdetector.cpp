@@ -50,12 +50,14 @@ PanningDetector::findPannableWidget(DuiWidget* parentWidget)
 
 void PanningDetector::onPanningStarted()
 {
+    DCP_DEBUG("");
     m_IsPanning = true;
 }
 
 void PanningDetector::onPanningStopped()
 {
     if (m_IsPanning) {
+        DCP_DEBUG("");
         m_IsPanning = false;
         emit panningStoppedNotifyOnce();
         disconnect (SIGNAL(panningStoppedNotifyOnce()));

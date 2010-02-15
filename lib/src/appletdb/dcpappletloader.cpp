@@ -18,8 +18,9 @@ DcpAppletLoader::DcpAppletLoader (
     load();
 }
 
-DcpAppletLoaderPrivate::DcpAppletLoaderPrivate(const DcpAppletMetadata* metadata):
-    metadata(metadata)
+DcpAppletLoaderPrivate::DcpAppletLoaderPrivate(
+        const DcpAppletMetadata* metadata):
+    metadata (metadata)
 {
     applet = 0;
 }
@@ -43,8 +44,18 @@ DcpAppletLoader::~DcpAppletLoader()
  * Please note that this method might return NULL!
  */
 DcpAppletIf *
-DcpAppletLoader::applet() const 
-{ 
+DcpAppletLoader::applet()
+{
+    /*
+     * It is possible that the applet was disabled before, but it is enabled
+     * now. 
+     */
+    DCP_DEBUG ("The applet is %s",
+            d_ptr->metadata->isDisabled() ? "disabled" : "enabled");
+    if (d_ptr->applet == 0 && 
+            d_ptr->metadata && !d_ptr->metadata->isDisabled())
+        loadPluginFile (d_ptr->metadata->fullBinary());
+
     return d_ptr->applet; 
 }
 
@@ -78,11 +89,17 @@ DcpAppletLoader::loadPluginFile (
         const QString &binaryPath)
 {
     /*
-     * We check if the given binary is backlisted because of a previous fault
-     * (e.g. segmentation fault).
+     * We only check that the applet is blacklicted or not (due for example to a
+     * previous segfault), if the applet is disabled. This way the application
+     * can re-enable the applet. We currently re-enable the applet when the user
+     * explicitly clicks on the applet brief.
      */
-    if (DcpWrongApplets::instance()->isAppletRecentlyCrashed (binaryPath)) {
-        d_ptr->errorMsg =  "The " + binaryPath + "is a blacklisted applet";
+    if (d_ptr->metadata && d_ptr->metadata->isDisabled ()) {
+        if (DcpWrongApplets::instance()->isAppletRecentlyCrashed (binaryPath)) 
+            d_ptr->errorMsg =  "The " + binaryPath + "is a blacklisted applet";
+        else
+            d_ptr->errorMsg =  "The " + binaryPath + "is a disabled applet";
+
         DCP_WARNING ("%s", DCP_STR (d_ptr->errorMsg));
         qCritical() << d_ptr->errorMsg;
 
