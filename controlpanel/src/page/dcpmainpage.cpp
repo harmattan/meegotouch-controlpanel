@@ -41,7 +41,11 @@ DcpMainPage::DcpMainPage() :
     setTitle (qtTrId(DcpMain::settingsTitleId));
 }
 
-
+/*!
+ * this function is called when the main page has been shown. here we start to
+ * load the applets and put categoryies and brief widgets into the window, here
+ * the progressive load starts.
+ */
 void
 DcpMainPage::shown ()
 {
@@ -171,6 +175,11 @@ DcpMainPage::retranslateUi ()
      * The title of the main window.
      */
     setTitle (qtTrId(DcpMain::settingsTitleId));
+
+    /*
+     * We always retranslate the 'most used' category, see NB #156882.
+     */
+    m_RecentlyComp->retranslateUi ();
 
     /*
      * All the category component capable to retlanslate the UI for itself e.g.

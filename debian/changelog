@@ -11,6 +11,7 @@ duicontrolpanel (0.7.0) UNRELEASED; urgency=low
 
   [ Laszlo Pere ]
   * Fixes: NB#156790 Dcp fully disables an applet when its crashes
+  * Fixes: NB#156882 "Most recently used" text doesn't appear.
 
  -- Viktor Nagy <viktor.nagy@blumsoft.eu>  Fri, 12 Feb 2010 16:52:31 +0100
 
