@@ -163,11 +163,14 @@ DcpBriefWidget::setMetadata (
         // FIXME: This might cause a race condition? What if the metadata sends
         // a signal when we are not connected yet?
         constructRealWidget (d_ptr->m_Metadata->widgetTypeID());
-
+        /*
+         * This will count the activations and activate the applet.
+         */
         connect (this, SIGNAL (clicked()), 
                 d_ptr->m_Metadata, SLOT (slotClicked()));
-        connect (this, SIGNAL (clicked()),
-                d_ptr->m_Metadata, SIGNAL (activate ()));
+        /*
+         * This will follow the breiaf changes on the UI.
+         */
         connect (d_ptr->m_Metadata, SIGNAL (briefChanged()), 
                 this, SLOT (updateContents()));
     }

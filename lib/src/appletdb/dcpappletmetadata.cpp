@@ -442,6 +442,8 @@ DcpAppletMetadata::order () const
 DcpAppletIf *
 DcpAppletMetadata::applet () const
 {
+    DCP_DEBUG ("");
+
     if (d_ptr->m_Parent)
         return d_ptr->m_Parent->applet();
 
@@ -481,6 +483,7 @@ DcpAppletMetadata::getBrief () const
 void 
 DcpAppletMetadata::activateSlot ()
 {
+    DCP_DEBUG ("Emitting activate()");
     emit activate();
 }
 
@@ -520,12 +523,24 @@ DcpAppletMetadata::setParent (
     d_ptr->m_Parent = parent;
 }
 
+/*!
+ * This slot will 1) count the activations for the 'most used' category 2)
+ * re-enable if the applet is disabled and 3) send the activate() signal so
+ * thath the applet will be loaded and shown.
+ */
 void 
 DcpAppletMetadata::slotClicked ()
 {
     MostUsedCounter::instance()->incrementUsageCount (
             QFileInfo(fileName()).baseName()
     );
+
+    if (isDisabled()) {
+        DCP_DEBUG ("Enabling debug.");
+        setDisabled (false);
+    }
+
+    emit activate ();
 }
 
 bool 
@@ -547,7 +562,9 @@ DcpAppletMetadata::usageGreatherThan (
 bool
 DcpAppletMetadata::isDisabled () const
 {
-    DCP_DEBUG ("*** returning %s", d_ptr->m_Disabled ? "true" : "false");
+    DCP_DEBUG ("*** %s is %s", 
+            DCP_STR (name()),
+            d_ptr->m_Disabled ? "disabled" : "enabled");
     return d_ptr->m_Disabled; 
 }
 
@@ -555,7 +572,9 @@ void
 DcpAppletMetadata::setDisabled (
         bool disabled)
 {
-    DCP_DEBUG ("*** setting %s", disabled ? "true" : "false");
+    DCP_DEBUG ("*** setting %s to %s", 
+            DCP_STR (name()),
+            disabled ? "disabled" : "enabled");
     d_ptr->m_Disabled = disabled;
 }
 

@@ -17,7 +17,7 @@ public:
     DcpAppletLoader (const DcpAppletMetadata *metadata);
     virtual ~DcpAppletLoader ();
 
-    DcpAppletIf *applet() const;
+    DcpAppletIf *applet();
     const DcpAppletMetadata *metadata() const;
     const QString errorMsg () const;
 

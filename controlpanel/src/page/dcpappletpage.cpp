@@ -92,7 +92,7 @@ DcpAppletPage::loadMainWidget ()
     DCP_DEBUG ("");
 
     if (m_Metadata && m_Metadata->isValid()) {
-        if (m_Metadata->applet()) {
+       if (m_Metadata->applet()) {
             /*
              * If the plugin is available (loaded) we call it to create a new
              * view. (Here we got the widgetId from the plugin itself using the
@@ -123,6 +123,12 @@ DcpAppletPage::loadMainWidget ()
         DCP_WARNING ("The metadata is not valid.");
     }
 
+    /*
+     * Showing the 'plugin not available' label. We currently show this only if
+     * the plugin is really not available, we will not show this if the plugin
+     * is crashed. The plugin will be re-enabled (and most likely crash again)
+     * when the user activates the applet by clicking on the brief.
+     */
     if (!m_MissingLabel) {
         //% "Plugin not available"
         m_MissingLabel = new DuiLabel (qtTrId("dcp_no_applet_name"));
