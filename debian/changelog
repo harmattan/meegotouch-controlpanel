@@ -1,10 +1,11 @@
-duicontrolpanel (0.7.0) UNRELEASED; urgency=low
+duicontrolpanel (0.7.0) unstable; urgency=low
 
   [ Robert Manner ]
   * Fixes: NB#154090 Localization of the applet loaded too late
   * Fixes: NB#154094 Duicontrolpanel has many help menu items
   * Fixes: NB#138717 System Settings takes too long to launch
   * Implements pausing the loading on mainpage while user is scrolling
+    (experimental)
 
   [ Viktor Nagy ]
   * Fixes: NB#156262 duicontrolpanel's D-Bus service is not installed 
