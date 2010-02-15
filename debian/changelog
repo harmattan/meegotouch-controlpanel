@@ -9,6 +9,9 @@ duicontrolpanel (0.7.0) UNRELEASED; urgency=low
   * Fixes: NB#156262 duicontrolpanel's D-Bus service is not installed 
     with duicontrolpanel but with libduicontrolpanel-dev
 
+  [ Laszlo Pere ]
+  * Fixes: NB#156790 Dcp fully disables an applet when its crashes
+
  -- Viktor Nagy <viktor.nagy@blumsoft.eu>  Fri, 12 Feb 2010 16:52:31 +0100
 
 duicontrolpanel (0.6.5) unstable; urgency=low

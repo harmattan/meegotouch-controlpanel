@@ -10,7 +10,7 @@
  * Use these lines to disable the debug (or warning) messages in the entire 
  * source tree.
  */
-//#undef DEBUG
+#undef DEBUG
 //#undef WARNING
 
 /*
