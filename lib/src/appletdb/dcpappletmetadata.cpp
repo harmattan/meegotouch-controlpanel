@@ -16,7 +16,7 @@
 #include "dcpwidget.h"
 #include "dcpmostusedcounter.h"
 
-//#define DEBUG
+#define DEBUG
 #include "dcpdebug.h"
 
 
@@ -25,7 +25,8 @@ DcpAppletMetadataPrivate::DcpAppletMetadataPrivate ()
     : m_AppletLoader (0),
       m_Brief (0),
       m_DesktopEntry (0),
-      m_Parent (0)
+      m_Parent (0),
+      m_Disabled (false)
 {
 }
 
@@ -536,3 +537,19 @@ DcpAppletMetadata::usageGreatherThan (
 {
     return meta1->usage() > meta2->usage();
 }
+
+bool
+DcpAppletMetadata::isDisabled () const
+{
+    DCP_DEBUG ("*** returning %s", d_ptr->m_Disabled ? "true" : "false");
+    return d_ptr->m_Disabled; 
+}
+
+void
+DcpAppletMetadata::setDisabled (
+        bool disabled)
+{
+    DCP_DEBUG ("*** setting %s", disabled ? "true" : "false");
+    d_ptr->m_Disabled = disabled;
+}
+

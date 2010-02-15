@@ -79,6 +79,10 @@ public:
     static bool orderLessThan (
             DcpAppletMetadata *meta1,
             DcpAppletMetadata *meta2);
+    
+    bool isDisabled () const;
+    void setDisabled (bool disabled);
+
 signals:
     void briefChanged ();
     void activate ();

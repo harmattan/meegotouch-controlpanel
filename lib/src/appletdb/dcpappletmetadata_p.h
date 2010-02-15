@@ -22,6 +22,7 @@ public:
     DuiDesktopEntry* m_DesktopEntry;
     DcpAppletMetadata *m_Parent;
     QString m_FileName;
+    bool m_Disabled;
 };
 
 enum  {

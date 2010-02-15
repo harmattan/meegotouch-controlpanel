@@ -185,8 +185,10 @@ DcpWrongApplets::queryBadApplets ()
      * the GConf database.
      */
     foreach (DcpAppletMetadata *metadata, metadataList) {
-        if (isAppletRecentlyCrashed (metadata))
+        if (isAppletRecentlyCrashed (metadata)) {
             badApplets.insert (metadata->binary());
+            metadata->setDisabled (true);
+        }
     }
     
     return badApplets;
