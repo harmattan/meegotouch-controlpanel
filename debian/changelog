@@ -1,9 +1,18 @@
-duicontrolpanel (0.7.0) UNRELEASED; urgency=low
+duicontrolpanel (0.7.1) UNRELEASED; urgency=low
+
+  [ David Kedves ]
+  * Fix for debian/control
+
+ -- David Kedves <dkedves@blumsoft.eu>  Wed, 17 Feb 2010 15:38:56 +0100
+
+duicontrolpanel (0.7.0) unstable; urgency=low
 
   [ Robert Manner ]
   * Fixes: NB#154090 Localization of the applet loaded too late
   * Fixes: NB#154094 Duicontrolpanel has many help menu items
   * Fixes: NB#138717 System Settings takes too long to launch
+  * Implements pausing the loading on mainpage while user is scrolling
+    (experimental)
 
   [ Viktor Nagy ]
   * Fixes: NB#156262 duicontrolpanel's D-Bus service is not installed 
@@ -13,7 +22,7 @@ duicontrolpanel (0.7.0) UNRELEASED; urgency=low
   * Fixes: NB#156790 Dcp fully disables an applet when its crashes
   * Fixes: NB#156882 "Most recently used" text doesn't appear.
 
- -- Viktor Nagy <viktor.nagy@blumsoft.eu>  Fri, 12 Feb 2010 16:52:31 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 15 Feb 2010 11:42:56 +0100
 
 duicontrolpanel (0.6.5) unstable; urgency=low
 

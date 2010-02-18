@@ -14,10 +14,13 @@
 #include <DuiSceneManager>
 #include <DuiGridLayoutPolicy>
 #include <DuiLinearLayoutPolicy>
-#include "maintranslations.h"
+
+#include "panningdetector.h"
 
 #define DEBUG
 #include "../../../lib/src/dcpdebug.h"
+
+static const int LOAD_AT_ONCE_MAX = 2;
 
 /*!
  * \class DcpAppletButtons
@@ -31,7 +34,10 @@ DcpAppletButtons::DcpAppletButtons (
 : DcpMainCategory (title, parent, logicalId), 
     m_CategoryName (categoryName),
     m_LogicalId (logicalId),
-    m_CategoryInfo (0)
+    m_CategoryInfo (0),
+    m_LoadPosition (0),
+    m_LoadingMetadatas (0),
+    m_PanningDetector (0)
 {
     setCreateSeparators (true);
     setMaxColumns (2);
@@ -45,7 +51,10 @@ DcpAppletButtons::DcpAppletButtons (
         QGraphicsWidget        *parent)
 : DcpMainCategory (title, parent, categoryInfo->titleId),
     m_CategoryName (categoryInfo->appletCategory),
-    m_CategoryInfo (categoryInfo)
+    m_CategoryInfo (categoryInfo),
+    m_LoadPosition (0),
+    m_LoadingMetadatas (0),
+    m_PanningDetector (0)
 {
     setCreateSeparators (true);
     setMaxColumns (2);
@@ -69,8 +78,8 @@ DcpAppletButtons::createContents ()
         // additional copy (with implicit sharing) to be able to clear whole mem up
         m_LoadingMetadatas = new DcpAppletMetadataList(
                                     DcpAppletDb::instance()->listMostUsed ());
-        m_PortraitLayout->setObjectName ("MostUsedItems");
-        m_LandscapeLayout->setObjectName ("MostUsedItems");
+//        m_PortraitLayout->setObjectName ("MostUsedItems");
+//        m_LandscapeLayout->setObjectName ("MostUsedItems");
     } else {
         bool        withUncategorized;
         const char *names[3];
@@ -111,7 +120,6 @@ DcpAppletButtons::createContents ()
                     element->subPageId);
         }
     }
-
 }
 
 /*! \brief start the loading
@@ -126,7 +134,11 @@ DcpAppletButtons::startLoading()
      * Adding the applet variants to the widget.
      */
     m_LoadPosition = 0;
+    Q_ASSERT(m_LoadingMetadatas);
     if (m_LoadingMetadatas->count() > 0) {
+        if (!m_PanningDetector) {
+            m_PanningDetector = new PanningDetector(this);
+        }
         QTimer::singleShot(0, this, SLOT(continueLoading()));
     } else {
         stopLoading();
@@ -136,6 +148,11 @@ DcpAppletButtons::startLoading()
 void
 DcpAppletButtons::stopLoading()
 {
+    if (m_PanningDetector) {
+       // this is to avoid overhead of the signals
+       m_PanningDetector->deleteLater();
+       m_PanningDetector = 0;
+    }
     delete m_LoadingMetadatas;
     m_LoadingMetadatas = 0;
     m_LoadPosition = 0;
@@ -156,11 +173,26 @@ DcpAppletButtons::hasLoadingItems()
 void
 DcpAppletButtons::continueLoading ()
 {
-    DcpAppletMetadata*& item = (*m_LoadingMetadatas)[m_LoadPosition];
-    addComponent (item);
-    item = 0;
-    m_LoadPosition++;
-    if (m_LoadPosition < m_LoadingMetadatas->count()) {
+    // "pause" the loading process until user is panning
+    if (!m_PanningDetector) return;
+    if (m_PanningDetector->isPanning()) {
+        DCP_DEBUG("Loading PAUSED until user stops panning");
+        m_PanningDetector->notifyOnNextStop(this, SLOT(continueLoading()));
+        return;
+    }
+
+    Q_ASSERT(m_LoadingMetadatas);
+    int metadataCount = m_LoadingMetadatas->count();
+    // load at maximum LOAD_AT_ONCE elements:
+    int maxPos = qMin(metadataCount, m_LoadPosition + LOAD_AT_ONCE_MAX);
+
+    for (; m_LoadPosition < maxPos; m_LoadPosition++) {
+        DcpAppletMetadata*& item = (*m_LoadingMetadatas)[m_LoadPosition];
+        addComponent (item);
+        item = 0;
+    }
+
+    if (m_LoadPosition < metadataCount) {
         QTimer::singleShot(0, this, SLOT(continueLoading()));
     } else {
         stopLoading();
@@ -222,4 +254,6 @@ DcpAppletButtons::setMattiID (
 {
     m_mattiID = mattiID;
 }
+
+
 
