@@ -89,6 +89,13 @@ DcpAppletLoader::loadPluginFile (
         const QString &binaryPath)
 {
     /*
+     * The external program applets does not use binary file to load. Here is a
+     * protection for them, but I'm not sure this is how we should handle the
+     * issue.
+     */
+    if (binaryPath.isEmpty())
+        return true;
+    /*
      * We only check that the applet is blacklicted or not (due for example to a
      * previous segfault), if the applet is disabled. This way the application
      * can re-enable the applet. We currently re-enable the applet when the user
@@ -96,9 +103,13 @@ DcpAppletLoader::loadPluginFile (
      */
     if (d_ptr->metadata && d_ptr->metadata->isDisabled ()) {
         if (DcpWrongApplets::instance()->isAppletRecentlyCrashed (binaryPath)) 
-            d_ptr->errorMsg =  "The " + binaryPath + "is a blacklisted applet";
+            d_ptr->errorMsg =  "The '" + binaryPath + "/" +
+                d_ptr->metadata->name() +
+                "' is a blacklisted applet";
         else
-            d_ptr->errorMsg =  "The " + binaryPath + "is a disabled applet";
+            d_ptr->errorMsg =  "The '" + binaryPath + "/" +
+                d_ptr->metadata->name() +
+                "' is a disabled applet";
 
         DCP_WARNING ("%s", DCP_STR (d_ptr->errorMsg));
         qCritical() << d_ptr->errorMsg;
@@ -109,7 +120,9 @@ DcpAppletLoader::loadPluginFile (
 
     QPluginLoader loader (binaryPath);
     if (!loader.load ()) {
-        d_ptr->errorMsg = "Loading applet failed: " + loader.errorString();
+        d_ptr->errorMsg = "Loading of the '" + binaryPath + "/" +
+            d_ptr->metadata->name() +
+            "' applet failed: " + loader.errorString();
         DCP_WARNING ("%s", DCP_STR (d_ptr->errorMsg));
         qCritical () << d_ptr->errorMsg;
     } else {
@@ -117,8 +130,9 @@ DcpAppletLoader::loadPluginFile (
         d_ptr->applet = qobject_cast<DcpAppletIf*>(object);
 
         if (!d_ptr->applet) {
-            d_ptr->errorMsg = "Loading of the " + binaryPath +
-                "applet failed: Invalid ExampleAppletInterface object.";
+            d_ptr->errorMsg = "Loading of the '" + binaryPath + "/" +
+                d_ptr->metadata->name() +
+                "' applet failed: Invalid ExampleAppletInterface object.";
             DCP_WARNING ("%s", DCP_STR (d_ptr->errorMsg));
             qCritical() << d_ptr->errorMsg;
             return false;
