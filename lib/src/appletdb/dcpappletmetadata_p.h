@@ -2,11 +2,11 @@
 #define DCPAPPLETMETADATA_P_H
 
 #include <QFileInfo>
+#include <QDateTime>
+#include <DuiDesktopEntry>
 class DcpBrief;
 class DcpAppletLoader;
-class DuiDesktopEntry;
 class DcpAppletMetadata;
-class QString;
 
 class DcpAppletMetadataPrivate
 {
