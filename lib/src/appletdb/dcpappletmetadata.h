@@ -102,7 +102,6 @@ protected:
     DcpBrief* getBrief () const;
 
 private:
-    QString XXX;
     DcpAppletMetadataPrivate *const d_ptr;
     Q_DISABLE_COPY (DcpAppletMetadata);
 };
