@@ -13,7 +13,7 @@
 #include "dcpwidget.h"
 #include "dcpmostusedcounter.h"
 
-#define DEBUG
+//#define DEBUG
 #include "dcpdebug.h"
 
 
@@ -537,7 +537,7 @@ DcpAppletMetadata::slotClicked ()
     );
 
     if (isDisabled()) {
-        DCP_DEBUG ("Enabling debug.");
+        DCP_DEBUG ("Enabling a disabled applet: '%s'", DCP_STR(name()));
         setDisabled (false);
     }
 

@@ -31,6 +31,9 @@ private slots:
     void testRefresh();
 
 private:
+    void printAppletListForDebug (const QString &title) const;
+    static void resetUsageCounters ();
+    
     DcpAppletDb* m_subject;
     QString  emptyDesktopDir, testDesktopDir, testDesktopDir2, testDesktopDir3;
     QString  desktopTestFile, desktopTestFile2;
