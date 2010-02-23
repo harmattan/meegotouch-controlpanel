@@ -24,7 +24,7 @@ coverage {
 
 target.path    += $$DCP_INSTALL_LIB
 install_headers.path    += $$DCP_INSTALL_HEADERS
-install_headers.files += include/D* \
+install_headers.files += $$system(echo include/D*) \
     appletdb/dcpapplet.h \
     appletdb/dcpappletif.h \
     appletdb/dcpwidget.h \
@@ -46,6 +46,8 @@ install_headers.files += include/D* \
     dcpretranslator.h \
     service_interface/duicontrolpanelif.h \
     service_interface/duicontrolpanelifproxy.h
+
+message ("Install headers:" $$install_headers.files)
 
 install_prf.path = $$[QT_INSTALL_DATA]/mkspecs/features
 install_prf.files = duicontrolpanel.prf
