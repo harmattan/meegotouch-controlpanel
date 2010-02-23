@@ -74,11 +74,6 @@ public:
     /*! \brief erase metadata from the db */
     void eraseEntry(DcpAppletMetadata *metadata);
 
-    /*! \brief checks all the deskop files and reloads or erases them
-         if needed*/
-    void refresh();
-
-
     /*! \brief returns all applet names of the db */
     QStringList appletNames() const;
 
@@ -96,8 +91,6 @@ public:
 protected:
     /*! \brief protected constructor for singleton*/
     DcpAppletDb (const QString &pathName, const QString &nameFilter);
-    /*! \brief refresh a specified path*/
-    void refreshPath(const QString &pathName);
 
 private:
     DcpAppletDbPrivate *const d_ptr;

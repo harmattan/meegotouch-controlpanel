@@ -85,6 +85,10 @@ DcpAppletMetadata::isModified() const
 {
     QTime lastModified = QFileInfo(d_ptr->m_FileName).lastModified().time();
     bool modified = lastModified !=  d_ptr->m_LastModified;
+
+    DCP_DEBUG ("Returning %s for '%s'", 
+            modified ? "true" : "false",
+            DCP_STR (binary()));
     return modified;
 }
 
