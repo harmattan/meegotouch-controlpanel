@@ -29,13 +29,13 @@ public:
     ~PanningDetector();
 
     bool isPanning();
-    void notifyOnNextStop (QObject* receiver, const char* slot);
+//    void notifyOnNextStop (QObject* receiver, const char* slot);
 
     static DuiPannableViewport* findPannableWidget(DuiWidget* parent);
 
 
 signals:
-    void panningStoppedNotifyOnce();
+    void panningStoppedNotifyOnce(); // TODO XXX rename
 
 protected slots:
     void onPanningStarted();

@@ -17,7 +17,6 @@
 #include "duiwidgetcreator.h"
 DUI_REGISTER_WIDGET_NO_CREATE(DcpMainPage)
 
-#define DEBUG
 #include "../../../lib/src/dcpdebug.h"
 
 /*!
@@ -30,7 +29,7 @@ DUI_REGISTER_WIDGET_NO_CREATE(DcpMainPage)
  * for them in the categories.
  */
 DcpMainPage::DcpMainPage() :
-    DcpPage (), 
+    DcpPage (),
     m_RecentlyComp (0),
     m_HasContent (false)
 {
@@ -156,6 +155,7 @@ DcpMainPage::loadNextContainer ()
     QGraphicsLinearLayout* layout = mainLayout();
     DcpCategoryComponent* comp =
        dynamic_cast<DcpCategoryComponent*> (layout->itemAt(m_LoadedContainers));
+    qDebug() << "XXX -- next container" << (void*)comp;
 
     // handle next item:
     m_LoadedContainers++;

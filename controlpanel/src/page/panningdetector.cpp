@@ -50,24 +50,26 @@ PanningDetector::findPannableWidget(DuiWidget* parentWidget)
 
 void PanningDetector::onPanningStarted()
 {
-    DCP_DEBUG("");
+    qDebug() << "XXX panning start";
     m_IsPanning = true;
 }
 
 void PanningDetector::onPanningStopped()
 {
     if (m_IsPanning) {
+        qDebug() << "XXX panning stop";
         DCP_DEBUG("");
         m_IsPanning = false;
         emit panningStoppedNotifyOnce();
-        disconnect (SIGNAL(panningStoppedNotifyOnce()));
     }
 }
 
+#if 0
 void PanningDetector::notifyOnNextStop (QObject* receiver, const char* slot)
 {
     connect (this, SIGNAL(panningStoppedNotifyOnce()),
              receiver, slot);
+    qDebug() << "XXX notifyMePlease" << slot;
 }
-
+#endif
 
