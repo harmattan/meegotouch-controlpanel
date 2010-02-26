@@ -31,17 +31,12 @@ private slots:
     void testAlign();
     void testToggle();
 //    void testText1(); it can't be tested
-    void testText2();
-    void testImage();
+    void testImageName();
     void testOrder();
     void testUsage();
     void testPart();
-    void testApplet();
     void testSetGetParent();
     void testParentName();
-    void testCleanup();
-
-    void testBriefChanged();
 
 private:
     DcpAppletMetadata* m_subject;

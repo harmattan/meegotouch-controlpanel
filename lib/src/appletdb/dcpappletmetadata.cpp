@@ -5,13 +5,8 @@
 #include "dcpappletmetadata.h"
 #include "dcpappletmetadata_p.h"
 #include "dcpapplet.h"
-#include "dcpwidgettypes.h"
-#include "dcpappletdb.h"
-#include "dcpappletloader.h"
-#include "dcpbrief.h"
-#include "dcpappletif.h"
-#include "dcpwidget.h"
 #include "dcpmostusedcounter.h"
+#include "dcpwidgettypes.h"
 
 #define DEBUG
 #include "dcpdebug.h"
@@ -19,8 +14,7 @@
 
 
 DcpAppletMetadataPrivate::DcpAppletMetadataPrivate ()
-    : m_AppletLoader (0),
-      m_Brief (0),
+    :
       m_DesktopEntry (0),
       m_Parent (0),
       m_Disabled (false)
@@ -29,12 +23,6 @@ DcpAppletMetadataPrivate::DcpAppletMetadataPrivate ()
 
 DcpAppletMetadataPrivate::~DcpAppletMetadataPrivate ()
 {
-    if (m_AppletLoader)
-        m_AppletLoader->deleteLater ();
-
-    if (m_Brief) 
-        m_Brief->deleteLater ();
-
     if (m_DesktopEntry) 
         delete m_DesktopEntry;
 }
@@ -57,16 +45,13 @@ DcpAppletMetadata::~DcpAppletMetadata ()
     delete d_ptr;
 }
 
-// TODO XXX rename
 bool
 DcpAppletMetadata::isValid () const
 {
     if (binary().isEmpty() &&
             dslFilename().isEmpty()) {
-        /*
-         * FIXME: Maybe we should return false then?
-         */
         DCP_WARNING ("The applet binary and the shell command also empty.");
+        return false;
     }
 
     DCP_DEBUG ("Returning %s for '%s'", 
@@ -76,7 +61,6 @@ DcpAppletMetadata::isValid () const
     return desktopEntry()->isValid();
 }
 
-// TODO XXX rename
 bool 
 DcpAppletMetadata::isModified() const
 {
@@ -162,42 +146,9 @@ DcpAppletMetadata::parentName () const
 int 
 DcpAppletMetadata::widgetTypeID () const
 {
-    int         retval;
-    DcpBrief   *brief = getBrief ();
-
-    /*
-     * If we have a brief and it provides us a widget type id that is valid, we
-     * can use that.
-     */
-    if (brief != NULL) {
-        retval = brief->widgetTypeID ();
-        if (DcpWidgetType::isIdValid(retval)) {
-            DCP_DEBUG ("brief->widgetTypeID () provides a widget type.");
-            return retval;
-        } else {
-            /* FIXME: for supporting old api,
-             * please remove ones deprecated ids are removed */
-            switch (retval) {
-                case DCPLABELBUTTON:
-                case DCPLABEL2BUTTON:
-                case DCPLABEL2TOGGLE:
-                    return DcpWidgetType::Toggle;
-                case DCPLABEL2IMAGE:
-                    return DcpWidgetType::Image;
-                case DCPLABEL:
-                case DCPLABEL2:
-                    return DcpWidgetType::Label;
-            };
-        }
-    }
-
-    /*
-     * Otherwise we check the "DCP/WidgetType" key in the desktop file. If it is
-     * valid we return that as a numerical value.
-     */
     QString typeName = desktopEntryStr (KeyWidgetType);
     if (!typeName.isEmpty()) {
-        for (retval = DcpWidgetType::BriefInvalid; retval < DcpWidgetType::IdMax; retval++) {
+        for (int retval = DcpWidgetType::BriefInvalid; retval < DcpWidgetType::IdMax; retval++) {
             if (DcpWidgetType::names[retval - DcpWidgetType::BriefInvalid] == typeName && 
                     DcpWidgetType::isIdValid (retval)) {
                 DCP_DEBUG ("Desktop file provides a widget type: '%s'",
@@ -217,11 +168,6 @@ DcpAppletMetadata::widgetTypeID () const
 Qt::Alignment 
 DcpAppletMetadata::align () const
 {
-    if (getBrief()){
-        return getBrief()->align();
-    }
-
-    // old way, try desktop file
     QString align = desktopEntryStr(KeyAlign).toUpper();
     if (align == "LEFT")
         return Qt::AlignLeft;
@@ -241,11 +187,6 @@ DcpAppletMetadata::parent () const
 bool 
 DcpAppletMetadata::toggle () const
 {
-    if (getBrief()) {
-        return getBrief()->toggle ();
-    }
-
-    qWarning() << Q_FUNC_INFO << "no brief"; 
     return false;
 }
 
@@ -282,111 +223,20 @@ DcpAppletMetadata::text2 () const
      */
     if (isDisabled())
         return QString ("Disabled");
-    /*
-     * This way if we have a brief we can not specify the second line in the
-     * desktop file.
-     */
-    if (getBrief())
-        return getBrief()->valueText();
-
     // static way
     return desktopEntryStr(KeyText2);
 }
 
-/*!
- * FIXME: The name of this function is easy to misunderstand. It does not return
- * an image, and it is not clear if the string is a name or a filename.
- *
- * Found in dcpbriefwidget.cpp, this is an image name. It should be renamed as
- * such.
- */
 QString 
-DcpAppletMetadata::image () const
+DcpAppletMetadata::imageName () const
 {
-    if (getBrief())
-        return getBrief()->image();
-
-    // static way
     return desktopEntryStr(KeyImage);
 }
 
 QString 
 DcpAppletMetadata::toggleIconId () const
 {
-    if (getBrief())
-        return getBrief()->toggleIconId();
-
-    // static way
     return desktopEntryStr(KeyToggleIconId);
-}
-
-/*!
- * \returns The status text/error message of the applet variant.
- */
-QString 
-DcpAppletMetadata::errorMsg () const 
-{
-    QString retval;
-
-    if (!isValid())
-        retval = "The desktop file is invalid.";
-    else if (applet() != NULL)
-        retval = "OK";
-    else 
-        retval = d_ptr->m_AppletLoader->errorMsg();
-
-    return retval;
-}
-
-
-/*!
- * \brief A slot for the inter plugin activation.
- * \param appletName The name of the applet to activate.
- * 
- * \details This slot will activate an other applet. First the function will
- * find the applet using the applet database then it will emit a signal for it,
- * so it is going to be started.
- */
-bool 
-DcpAppletMetadata::activatePluginByName (
-        const QString &appletName) const
-{
-    DcpAppletMetadata  *otherApplet;
-    DcpWidget          *senderWidget = qobject_cast<DcpWidget *> (sender());
-
-    Q_ASSERT (senderWidget != NULL);
-   
-    DCP_WARNING ("Want to start '%s' by %s/%d", 
-            DCP_STR (appletName),
-            DCP_STR (name()),
-            senderWidget->getWidgetId());
-
-    otherApplet = DcpAppletDb::instance()->applet (appletName);
-    if (otherApplet) {
-        DCP_DEBUG ("Emitting %p->activateWithReferer (%s, %d)", 
-                otherApplet,
-                DCP_STR (name()), 
-                senderWidget->getWidgetId());
-        emit otherApplet->activateWithReferer (
-                name(), senderWidget->getWidgetId());
-
-        return true;
-    }
-        
-    DCP_WARNING ("Applet with name '%s' not found.", DCP_STR (appletName));
-    return false;
-}
-
-void 
-DcpAppletMetadata::setToggle (
-        bool checked)
-{
-    if (getBrief()) {
-        getBrief()->setToggle (checked);
-    } else {
-        qWarning("Can not set toggle state for the applet %s",
-                 qPrintable(d_ptr->m_FileName));
-    }
 }
 
 bool 
@@ -405,21 +255,10 @@ DcpAppletMetadata::part () const
     return desktopEntryStr(KeyPart);
 }
 
-/*!
- * \brief Calls the applet and returns the partid set for this desktop file. 
- *
- * This function will take the "DCP/Part" key and call the 
- * "int partID(const QString& partStr)" function of the plugin to get the
- * widgetId for the first/main widget. If the applet is not available the 
- * function will return -1, that is an invalid widgetId.
- */
 int 
-DcpAppletMetadata::getMainWidgetId () const
+DcpAppletMetadata::order () const
 {
-    if (!applet())
-        return -1;
-
-    return applet()->partID (part());
+    return desktopEntry()->value(Keys[KeyOrder]).toInt();
 }
 
 int 
@@ -430,29 +269,13 @@ DcpAppletMetadata::usage () const
     );
 }
 
-int 
-DcpAppletMetadata::order () const
-{
-    return desktopEntry()->value(Keys[KeyOrder]).toInt();
-}
+void
+DcpAppletMetadata::incrementUsage()
+{ 
+    MostUsedCounter::instance()->incrementUsageCount (
 
-DcpAppletIf *
-DcpAppletMetadata::applet () const
-{
-    DCP_DEBUG ("");
-
-    if (d_ptr->m_Parent)
-        return d_ptr->m_Parent->applet();
-
-    if (d_ptr->m_AppletLoader == 0) {
-        d_ptr->m_AppletLoader = new DcpAppletLoader (this);
-    }
-
-    /*
-     * FIXME: This way we try to load the applet binary every time this function
-     * is called. We should remember we failed instead.
-     */
-    return d_ptr->m_AppletLoader->applet();
+            QFileInfo(fileName()).baseName()
+    );
 }
 
 DuiDesktopEntry *
@@ -461,37 +284,13 @@ DcpAppletMetadata::desktopEntry () const
     return d_ptr->m_DesktopEntry;
 }
 
-DcpBrief *
-DcpAppletMetadata::getBrief () const
-{
-    if (d_ptr->m_Brief == 0 && applet() != 0) {
-        d_ptr->m_Brief = applet()->constructBrief (getMainWidgetId());
 
-        if (d_ptr->m_Brief != 0)
-            connect (d_ptr->m_Brief, SIGNAL (valuesChanged ()), 
-                    this, SIGNAL (briefChanged ()));
-            connect (d_ptr->m_Brief, SIGNAL (activateSignal ()), 
-                    this, SLOT (activateSlot ()));
-    }
-
-    return d_ptr->m_Brief;
-}
-
-void 
-DcpAppletMetadata::activateSlot ()
-{
-    DCP_DEBUG ("Emitting activate()");
-    emit activate();
-}
-
-// TODO XXX rename
 QString 
 DcpAppletMetadata::name () const
 {
     return desktopEntry()->name().trimmed();
 }
 
-// TODO XXX rename
 QString 
 DcpAppletMetadata::fileName () const
 {
@@ -506,39 +305,12 @@ DcpAppletMetadata::desktopEntryStr (
 }
 
 void 
-DcpAppletMetadata::cleanup ()
-{
-    if (d_ptr->m_AppletLoader)
-        d_ptr->m_AppletLoader->deleteLater();
-    d_ptr->m_AppletLoader = 0;
-}
-
-void 
 DcpAppletMetadata::setParent (
         DcpAppletMetadata *parent)
 {
     d_ptr->m_Parent = parent;
 }
 
-/*!
- * This slot will 1) count the activations for the 'most used' category 2)
- * re-enable if the applet is disabled and 3) send the activate() signal so
- * thath the applet will be loaded and shown.
- */
-void 
-DcpAppletMetadata::slotClicked ()
-{
-    MostUsedCounter::instance()->incrementUsageCount (
-            QFileInfo(fileName()).baseName()
-    );
-
-    if (isDisabled()) {
-        DCP_DEBUG ("Enabling debug.");
-        setDisabled (false);
-    }
-
-    emit activate ();
-}
 
 bool 
 DcpAppletMetadata::orderLessThan (

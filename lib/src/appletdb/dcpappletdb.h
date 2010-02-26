@@ -16,6 +16,7 @@
  *   any changes in the desktop files are applied on refresg
  */
 class DcpAppletMetadata;
+class DcpAppletObject;
 
 typedef QList<DcpAppletMetadata*> DcpAppletMetadataList;
 
@@ -65,8 +66,8 @@ public:
         \details gives backt the most used componnents but six*/
     DcpAppletMetadataList listMostUsed();
 
-    /*! \reaturn metadata of an applet by name*/
-    DcpAppletMetadata *applet(const QString& name);
+    /*! \return the object of an applet by name*/
+    DcpAppletObject *applet(const QString& name);
 
     /*! \brief add one file to the db */
     bool addFile(const QString& filename);

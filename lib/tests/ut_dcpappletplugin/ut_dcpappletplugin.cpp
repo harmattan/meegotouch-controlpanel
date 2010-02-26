@@ -1,45 +1,45 @@
 #include <QObject>
 #include <QGraphicsSceneMouseEvent>
 
-#include "dcpappletloader.h"
+#include "dcpappletplugin.h"
 
 
-#include "ut_dcpappletloader.h"
+#include "ut_dcpappletplugin.h"
 #include "qpluginloader-fake.h"
 #include "dcpappletmetadata-fake.h"
 #include "duidesktopentry-stub.h"
 
-void Ut_DcpAppletLoader::init()
+void Ut_DcpAppletPlugin::init()
 {
 }
 
-void Ut_DcpAppletLoader::cleanup()
+void Ut_DcpAppletPlugin::cleanup()
 {
     delete m_subject;
     m_subject = 0;
 }
 
-void Ut_DcpAppletLoader::initTestCase()
+void Ut_DcpAppletPlugin::initTestCase()
 {
 }
 
-void Ut_DcpAppletLoader::cleanupTestCase()
+void Ut_DcpAppletPlugin::cleanupTestCase()
 {
 }
 
 /**
  * checks if appletloader calls applet's init function
  */
-void Ut_DcpAppletLoader::testLoadBinaryOk()
+void Ut_DcpAppletPlugin::testLoadBinaryOk()
 {
     DcpAppletMetadataFake::appletType = 
         DcpAppletMetadataFake::TYPE_BINARY;
     qPluginLoaderFakeSuccessful = true;
     DcpAppletMetadata *metadata = new DcpAppletMetadata("dummy-binary");
-    m_subject = new DcpAppletLoader(metadata);
+    m_subject = new DcpAppletPlugin(metadata);
     QVERIFY(m_subject->applet());
     QVERIFY(
-        dynamic_cast<DcpAppletLoaderApplet*>(m_subject->applet())->initialized()
+        dynamic_cast<DcpAppletPluginApplet*>(m_subject->applet())->initialized()
         );
     delete metadata;
 }
@@ -48,13 +48,13 @@ void Ut_DcpAppletLoader::testLoadBinaryOk()
  * checks if appletloader returns 0 on load error and
  * errorMsg() contains the load error message coming from the QPluginLoader
  */
-void Ut_DcpAppletLoader::testLoadBinaryError()
+void Ut_DcpAppletPlugin::testLoadBinaryError()
 {
     DcpAppletMetadataFake::appletType = 
         DcpAppletMetadataFake::TYPE_BINARY;
     qPluginLoaderFakeSuccessful = false;
     DcpAppletMetadata *metadata = new DcpAppletMetadata("dummy-binary");
-    m_subject = new DcpAppletLoader(metadata);
+    m_subject = new DcpAppletPlugin(metadata);
     QVERIFY(!m_subject->applet());
     QVERIFY(m_subject->errorMsg().contains(fakeErrorMsg));
     delete metadata;
@@ -63,7 +63,7 @@ void Ut_DcpAppletLoader::testLoadBinaryError()
 /**
  * TODO
  */
-void Ut_DcpAppletLoader::testLoadDsl()
+void Ut_DcpAppletPlugin::testLoadDsl()
 {
     DcpAppletMetadataFake::appletType = 
         DcpAppletMetadataFake::TYPE_DSL;
@@ -75,12 +75,12 @@ void Ut_DcpAppletLoader::testLoadDsl()
  * checks if metadata() returns the same pointer that was given in
  * initialization
  */
-void Ut_DcpAppletLoader::testMetadata()
+void Ut_DcpAppletPlugin::testMetadata()
 {
     DcpAppletMetadata *metadata = new DcpAppletMetadata("dummy-binary");
-    m_subject = new DcpAppletLoader(metadata);
+    m_subject = new DcpAppletPlugin(metadata);
     QVERIFY(m_subject->metadata() == metadata);
     delete metadata;
 }
 
-QTEST_MAIN(Ut_DcpAppletLoader)
+QTEST_MAIN(Ut_DcpAppletPlugin)

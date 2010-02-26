@@ -204,7 +204,7 @@ DcpAppletButtons::addComponent (
         DcpAppletMetadata *metadata)
 {
     DcpBriefComponent *component;
-    component = new DcpBriefComponent (metadata, this, logicalId());
+    component = new DcpBriefComponent (DcpAppletDb::instance()->applet(metadata->name()), this, logicalId());
     component->setSubPage (PageHandle::APPLET, metadata->name());
 
     appendWidget (component);

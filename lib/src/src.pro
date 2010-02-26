@@ -31,7 +31,8 @@ install_headers.files += $$system(echo include/D*) \
     appletdb/dcpmetadata.h \
     appletdb/dcpbrief.h \
     appletdb/dcpappletdb.h \
-    appletdb/dcpappletloader.h \
+    appletdb/dcpappletplugin.h \
+    appletdb/dcpappletobject.h \
     appletdb/dcpappletmetadata.h \
     appletdb/dcpmostusedcounter.h \
     appletdb/dcpmostusedcounter.h \

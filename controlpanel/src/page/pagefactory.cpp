@@ -9,6 +9,7 @@
 #include <DcpAppletDb>
 #include <DcpAppletIf>
 #include <DcpAppletMetadata>
+#include <DcpAppletObject>
 #include <DcpAppletCategoryPage>
 #include <MainTranslations>
 
@@ -56,9 +57,10 @@ PageFactory::mainPageFirstShown ()
     list = DcpAppletDb::instance()->list();
     foreach (DcpAppletMetadata *item, list) {
         DCP_DEBUG ("*** applet '%s'", DCP_STR (item->name()));
-        connect (item, SIGNAL (activate ()),
+        DcpAppletObject *applet = DcpAppletDb::instance()->applet(item->name());
+        connect (applet, SIGNAL (activate ()),
                 this, SLOT (appletWantsToStart ()));
-        connect (item, SIGNAL (activateWithReferer (const QString &, int)),
+        connect (applet, SIGNAL (activateWithReferer (const QString &, int)),
                 this, SLOT (appletWantsToStart (const QString &, int)));
     }
 
@@ -162,18 +164,17 @@ PageFactory::createMainPage ()
  * applet page referenced by the m_AppletPage class member.
  */
 DcpPage *
-PageFactory::createAppletPage (
-        DcpAppletMetadata   *metadata)
+PageFactory::createAppletPage(DcpAppletObject *applet)
 {
     /*
      * If we have not created the applet page yet we do that, otherwise we set
      * the metadata for the existing page.
      */
     if (!m_AppletPage) {
-        m_AppletPage = new DcpAppletPage (metadata);
+        m_AppletPage = new DcpAppletPage(applet);
         registerPage (m_AppletPage);
     } else {
-        m_AppletPage->setMetadata (metadata);
+        m_AppletPage->setApplet(applet);
     }
 
     m_AppletPage->refreshContent ();
@@ -195,7 +196,6 @@ PageFactory::createAppletCategoryPage (
         PageHandle::PageTypeId id)
 {
     const DcpCategoryInfo *info;
-    int                    n;
 
     DCP_DEBUG ("*** id = %d", (int) id);
 
@@ -264,14 +264,15 @@ PageFactory::appletWantsToStart (
         const QString &refererName, 
         int            refererWidgetId)
 {
-    DcpAppletMetadata *metadata = qobject_cast<DcpAppletMetadata *> (sender());
+    DcpAppletObject *applet = qobject_cast<DcpAppletObject*> (sender());
 
-    Q_ASSERT (metadata != 0);
+    Q_ASSERT (applet);
+ 
     DCP_DEBUG ("Applet '%s' wants to start.", DCP_STR(metadata->name()));
     PageHandle handle (
             PageHandle::APPLET,
-            metadata->name(),
-            metadata->getMainWidgetId ());
+            applet->metadata()->name(),
+            applet->getMainWidgetId());
 
     if (refererName.isEmpty())
         changePage (handle);

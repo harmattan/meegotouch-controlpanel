@@ -2,6 +2,7 @@
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 
 #include "dcpbriefwidget.h"
+#include "dcpappletobject.h"
 #include "dcpappletmetadata.h"
 #include "dcpwidgettypes.h"
 #include "dcpbutton.h"
@@ -23,14 +24,14 @@ class DcpBriefWidgetPrivate {
 public:
     DcpBriefWidgetPrivate ();
 
-    DcpButton         *m_RealWidget;
-    DcpAppletMetadata *m_Metadata;
-    bool               m_Hidden;
+    DcpButton *m_RealWidget;
+    DcpAppletObject *m_Applet;
+    bool m_Hidden;
 };
 
 DcpBriefWidgetPrivate::DcpBriefWidgetPrivate ():
     m_RealWidget (0), 
-    m_Metadata (0), 
+    m_Applet (0), 
     m_Hidden (true)
 {
 }
@@ -40,7 +41,7 @@ DcpBriefWidgetPrivate::DcpBriefWidgetPrivate ():
  * Stuff for the DcpBriefWidget class.
  */
 DcpBriefWidget::DcpBriefWidget (
-        DcpAppletMetadata *metadata, 
+        DcpAppletObject *applet, 
         DuiWidget         *parent):
     DuiWidget (parent), 
     d_ptr (new DcpBriefWidgetPrivate)
@@ -50,7 +51,7 @@ DcpBriefWidget::DcpBriefWidget (
     layout = new QGraphicsLinearLayout (this);
     layout->setContentsMargins (0, 0, 0, 0);
 
-    setMetadata (metadata);
+    setApplet (applet);
 }
 
 DcpBriefWidget::DcpBriefWidget (
@@ -68,7 +69,7 @@ DcpBriefWidget::DcpBriefWidget (
     /*
      * FIXME: I mean unused argument.
      * All this contructor seems strange, dcpbriefwidget would be about
-     * interaction between the metadata and the DcpButtons, consider
+     * interaction between the applet and the DcpButtons, consider
      * using DcpButton directly instead of this
      *
      */
@@ -101,12 +102,12 @@ DcpBriefWidget::constructRealWidget (int widgetTypeId)
     switch (widgetTypeId) {
         case DcpWidgetType::Toggle:
             DCP_DEBUG ("### DcpWidgetType::Toggle ###");
-            d_ptr->m_RealWidget = constructToggle (d_ptr->m_Metadata);
+            d_ptr->m_RealWidget = constructToggle (d_ptr->m_Applet);
             break;
 
         case DcpWidgetType::Image:
             DCP_DEBUG ("### DcpWidgetType::Image ###");
-            d_ptr->m_RealWidget = constructImage (d_ptr->m_Metadata);
+            d_ptr->m_RealWidget = constructImage (d_ptr->m_Applet);
             break;
 
         default:
@@ -122,15 +123,15 @@ DcpBriefWidget::constructRealWidget (int widgetTypeId)
     }
 }
 
-DcpAppletMetadata *
-DcpBriefWidget::getMetadata () const
+DcpAppletObject *
+DcpBriefWidget::applet() const
 {
-    return d_ptr->m_Metadata;
+    return d_ptr->m_Applet;
 }
 
 void 
-DcpBriefWidget::setMetadata (
-        DcpAppletMetadata *metadata)
+DcpBriefWidget::setApplet (
+        DcpAppletObject *applet)
 {
     // can be optimized if necessery (not recreating the widget, just updating 
     // its contents)
@@ -138,40 +139,40 @@ DcpBriefWidget::setMetadata (
         d_ptr->m_RealWidget->deleteLater();
 
     /*
-     * If we had an old metadata object. Not a fat chance for that...
+     * If we had an old applet object. Not a fat chance for that...
      */
-    if (d_ptr->m_Metadata) { 
+    if (d_ptr->m_Applet) { 
         /* 
          * Metadata is owned by the appletdb, so not removed, only disconnected
          * both ways.
          */
-        disconnect (d_ptr->m_Metadata, 0, this, 0);
-        disconnect (this, 0, d_ptr->m_Metadata, 0);
+        disconnect (d_ptr->m_Applet, 0, this, 0);
+        disconnect (this, 0, d_ptr->m_Applet, 0);
         // FIXME: I think this would not be a good idea, we can not disconnect 
         // all functions, because for example we will loose hide/show signals.
         // And who knows what else are we going to connect in the future.
         // this->disconnect ();
     }
 
-    d_ptr->m_Metadata = metadata;
+    d_ptr->m_Applet = applet;
 
     /*
-     * If we have a metadata object we can construct a widget for that and then
+     * If we have a applet object we can construct a widget for that and then
      * we can connect some signals.
      */
-    if (d_ptr->m_Metadata) {
-        // FIXME: This might cause a race condition? What if the metadata sends
+    if (d_ptr->m_Applet) {
+        // FIXME: This might cause a race condition? What if the applet sends
         // a signal when we are not connected yet?
-        constructRealWidget (d_ptr->m_Metadata->widgetTypeID());
+        constructRealWidget (d_ptr->m_Applet->widgetTypeID());
         /*
          * This will count the activations and activate the applet.
          */
         connect (this, SIGNAL (clicked()), 
-                d_ptr->m_Metadata, SLOT (slotClicked()));
+                d_ptr->m_Applet, SLOT (slotClicked()));
         /*
          * This will follow the breiaf changes on the UI.
          */
-        connect (d_ptr->m_Metadata, SIGNAL (briefChanged()), 
+        connect (d_ptr->m_Applet, SIGNAL (briefChanged()), 
                 this, SLOT (updateContents()));
     }
 }
@@ -179,20 +180,20 @@ DcpBriefWidget::setMetadata (
 void 
 DcpBriefWidget::retranslateUi ()
 {
-    if (d_ptr->m_Metadata) {
-        d_ptr->m_RealWidget->setText1 (d_ptr->m_Metadata->text1());
+    if (d_ptr->m_Applet) {
+        d_ptr->m_RealWidget->setText1 (applet()->metadata()->text1());
         updateContents ();
     }
 }
 
 DcpButtonImage * 
 DcpBriefWidget::constructImage (
-        const DcpAppletMetadata *metadata)
+        const DcpAppletObject *applet)
 {
     DcpButtonImage *image = new DcpButtonImage (this);
 
-    if (metadata) {
-        image->setImageName (metadata->image());
+    if (applet) {
+        image->setImageName (applet->imageName());
     }
 
     return image;
@@ -200,15 +201,15 @@ DcpBriefWidget::constructImage (
 
 DcpButtonToggle *
 DcpBriefWidget::constructToggle (
-        const DcpAppletMetadata *metadata)
+        const DcpAppletObject *applet)
 {
     DcpButtonToggle *toggle = new DcpButtonToggle (this);
 
-    if (metadata) {
-        toggle->setSmallToggle (metadata->toggle());
-        toggle->setIconId (metadata->toggleIconId());
+    if (applet) {
+        toggle->setSmallToggle (applet->toggle());
+        toggle->setIconId (applet->toggleIconId());
         connect (toggle, SIGNAL (smallToggled (bool)),
-             metadata, SLOT (setToggle (bool)));
+             applet, SLOT (setToggle (bool)));
     }
 
     return toggle;
@@ -217,24 +218,24 @@ DcpBriefWidget::constructToggle (
 void 
 DcpBriefWidget::updateContents ()
 {
-    if (!d_ptr->m_Metadata)
+    if (!d_ptr->m_Applet)
         return;
 
     // for all:
-    d_ptr->m_RealWidget->setText2 (d_ptr->m_Metadata->text2()); 
+    d_ptr->m_RealWidget->setText2 (d_ptr->m_Applet->text2()); 
     
     // toggle specific:
     DcpButtonToggle *toggle = qobject_cast<DcpButtonToggle*>
         (d_ptr->m_RealWidget);
     if (toggle) {
-        toggle->setSmallToggle (d_ptr->m_Metadata->toggle());
-        toggle->setIconId (d_ptr->m_Metadata->toggleIconId());
+        toggle->setSmallToggle (d_ptr->m_Applet->toggle());
+        toggle->setIconId (d_ptr->m_Applet->toggleIconId());
     } 
     
     // image specific:
     DcpButtonImage *image = qobject_cast<DcpButtonImage*>(d_ptr->m_RealWidget);
     if (image) {
-        image->setImageName (d_ptr->m_Metadata->image());
+        image->setImageName (d_ptr->m_Applet->imageName());
     }
 }
 
@@ -252,8 +253,8 @@ DcpBriefWidget::showEvent (
         connect (d_ptr->m_RealWidget, SIGNAL(clicked()), 
                 this, SIGNAL(clicked()));
 
-        if (d_ptr->m_Metadata)
-            connect (d_ptr->m_Metadata, SIGNAL (briefChanged ()), 
+        if (d_ptr->m_Applet)
+            connect (d_ptr->m_Applet, SIGNAL (briefChanged ()), 
                 this, SLOT (updateContents()));
 
         updateContents();
@@ -273,8 +274,8 @@ DcpBriefWidget::hideEvent (
         disconnect (d_ptr->m_RealWidget, SIGNAL(clicked()), 
                 this, SIGNAL(clicked()));
 
-        if (d_ptr->m_Metadata)
-            disconnect (d_ptr->m_Metadata, SIGNAL (briefChanged()), 
+        if (d_ptr->m_Applet)
+            disconnect (d_ptr->m_Applet, SIGNAL (briefChanged()), 
                 this, SLOT (updateContents()));
     }
 }

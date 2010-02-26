@@ -5,7 +5,7 @@
 
 static QMap<const DcpAppletMetadata *, int> appletStat;
 
-void DcpAppletMetadata::slotClicked()
+void DcpAppletMetadata::incrementUsage()
 {
     ++appletStat[this];
 }

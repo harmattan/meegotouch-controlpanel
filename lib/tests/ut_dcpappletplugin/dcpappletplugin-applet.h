@@ -8,17 +8,17 @@
 
 #include "dcpappletif.h"
 
-class DcpAppletLoaderApplet : public QObject, public DcpAppletIf {
+class DcpAppletPluginApplet : public QObject, public DcpAppletIf {
     Q_OBJECT
     Q_INTERFACES(DcpAppletIf)
 
     public:
-        DcpAppletLoaderApplet() : m_Initialized(false) {
+        DcpAppletPluginApplet() : m_Initialized(false) {
         }
         virtual void init() { 
             m_Initialized = true;
         }
-        virtual DcpWidget *constructWidget(int);
+        virtual DcpWidget *constructWidget(int) {return 0;};
         virtual QString title() const { return 0; };
         virtual QVector<DuiAction *> viewMenuItems() {
             QVector<DuiAction*> empty;

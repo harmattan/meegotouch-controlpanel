@@ -6,6 +6,7 @@
 
 class DcpPage;
 class DcpAppletMetadata;
+class DcpAppletObject;
 class DcpMainPage;
 class DcpAppletPage;
 class DcpAppletCategoryPage;
@@ -36,7 +37,7 @@ public slots:
 protected:
     PageFactory ();
     DcpPage* createMainPage ();
-    DcpPage* createAppletPage (DcpAppletMetadata *metadata);
+    DcpPage* createAppletPage(DcpAppletObject *applet);
     DcpPage* createAppletCategoryPage (PageHandle::PageTypeId pageId);
 
 private slots:

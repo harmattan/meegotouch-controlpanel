@@ -2,7 +2,7 @@
 #define QPLUGINLOADER_FAKE_H__
 
 #include <QtDebug>
-#include "dcpappletloader-applet.h"
+#include "dcpappletplugin-applet.h"
 
 static bool qPluginLoaderFakeSuccessful = true;
 static const QString fakeErrorMsg("fake-error-msg");
@@ -33,7 +33,7 @@ QString QPluginLoader::errorString() const
 QObject *QPluginLoader::instance()
 {
     if (qPluginLoaderFakeSuccessful) {
-        return new DcpAppletLoaderApplet();
+        return new DcpAppletPluginApplet();
     }
 
     return 0;

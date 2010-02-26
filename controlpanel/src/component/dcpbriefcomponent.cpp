@@ -3,6 +3,7 @@
 #include "pagefactory.h"
 #include "dcpbriefcomponent.h"
 #include "dcpappletmetadata.h"
+#include "dcpappletobject.h"
 #include "dcpbriefwidget.h"
 #include "dcpwidgettypes.h"
 #include "pages.h"
@@ -14,17 +15,17 @@
 #include "../../../lib/src/dcpdebug.h"
 
 DcpBriefComponent::DcpBriefComponent (
-        DcpAppletMetadata   *metadata,
+        DcpAppletObject   *applet,
         DcpComponent        *category,
         const QString       &logicalId)
 : DcpComponent (category, "", 0, logicalId),
-    m_BriefWidget (new DcpBriefWidget (metadata, this))
+    m_BriefWidget (new DcpBriefWidget (applet, this))
 {
     QGraphicsLinearLayout* layout = new QGraphicsLinearLayout (this);
     layout->addItem (m_BriefWidget);
 
     setMattiID ("DcpBriefComponent::" + logicalId + "::" + 
-            metadata->category() + "::" + metadata->name());
+            applet->metadata()->category() + "::" + applet->metadata()->name());
 }
 
 
@@ -53,10 +54,10 @@ DcpBriefComponent::~DcpBriefComponent()
 
 
 void 
-DcpBriefComponent::setMetadata (
-        DcpAppletMetadata* metadata)
+DcpBriefComponent::setApplet(
+        DcpAppletObject* applet)
 {
-    m_BriefWidget->setMetadata (metadata);
+    m_BriefWidget->setApplet(applet);
 }
 
 QString DcpBriefComponent::mattiID ()

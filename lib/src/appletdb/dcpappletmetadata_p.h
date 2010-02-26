@@ -4,8 +4,6 @@
 #include <QFileInfo>
 #include <QDateTime>
 #include <DuiDesktopEntry>
-class DcpBrief;
-class DcpAppletLoader;
 class DcpAppletMetadata;
 
 class DcpAppletMetadataPrivate
@@ -16,9 +14,6 @@ public:
 
     // last modification time of the desktop entry:
     QTime m_LastModified;
-
-    DcpAppletLoader* m_AppletLoader;
-    DcpBrief* m_Brief;
     DuiDesktopEntry* m_DesktopEntry;
     DcpAppletMetadata *m_Parent;
     QString m_FileName;

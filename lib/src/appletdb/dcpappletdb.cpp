@@ -3,6 +3,7 @@
 #include "dcpappletdb.h"
 #include "dcpappletdb_p.h"
 #include "dcpappletmetadata.h"
+#include "dcpappletobject.h"
 #include "dcpretranslator.h"
 
 #include <QDir>
@@ -121,17 +122,14 @@ DcpAppletDb::containsFile(const QString& fileName)
 }
 
 bool
-DcpAppletDb::containsName (
-        const QString &name)
+DcpAppletDb::containsName(const QString &name)
 {
     return d_ptr->appletsByName.contains (name);
 }
 
 bool
-DcpAppletDb::addPath (const QString &pathName)
+DcpAppletDb::addPath(const QString &pathName)
 {
-    DCP_DEBUG ("Will use filter '*.desktop'!");
-
     if (addFiles (pathName, "*.desktop")) {
         d_ptr->paths.append(pathName);
         return true;
@@ -148,7 +146,6 @@ DcpAppletDb::addFiles (
     QStringList nameFilters (filter);
     QDir        appDir (pathName);
 
-    //Q_ASSERT (false);
     appDir.setNameFilters (nameFilters);
     foreach (QString appFile, appDir.entryList (QDir::Files)) {
         DCP_DEBUG ("Adding file '%s'", 
@@ -182,7 +179,7 @@ DcpAppletDb::listByCategory (
         // FIXME: This should not be done here!
         QString parentName = item->parentName ();
         if (parentName != "" && !item->parent()) {
-            item->setParent (applet(parentName));
+            item->setParent (d_ptr->appletsByName[parentName]);
         }
     }
 
@@ -235,7 +232,8 @@ DcpAppletDb::listByCategory (
         // FIXME: This should not be done here!
         QString parentName = item->parentName ();
         if (parentName != "" && !item->parent()) {
-            item->setParent (applet(parentName));
+            item->setParent(d_ptr->appletsByName[parentName]);
+
         }
     }
 
@@ -256,11 +254,6 @@ DcpAppletDb::listMostUsed ()
    qSort (mostUsed.begin(), mostUsed.end(), 
            DcpAppletMetadata::usageGreatherThan); 
 
-   /*
-    * Yes, the UI specification states the maximum number of items shown in the
-    * 'most used category'. The number might change, but there always will be a
-    * limit.
-    */
    return mostUsed.mid (0, DcpApplet::MaxMostUsed);
 }
 
@@ -271,16 +264,24 @@ DcpAppletDb::listMostUsed ()
  * FIXME: This is actually a localized name, that is changed when the language
  * settings are changed. This might cause some problems in the future.
  */
-DcpAppletMetadata *
+DcpAppletObject *
 DcpAppletDb::applet (
         const QString &name)
 {
-    DcpAppletMetadata *metadata = d_ptr->appletsByName.value(name, 0);
+    DcpAppletObject *obj = d_ptr->appletObjectsByName.value(name, 0);
 
-    if (!metadata)
-        qWarning() << "No such applet:" << name;
-
-    return metadata;
+    if (!obj)
+    {
+        DcpAppletMetadata *metadata = d_ptr->appletsByName.value(name, 0);
+        if (metadata)
+        {
+            obj = new DcpAppletObject(metadata);
+            d_ptr->appletObjectsByName[name] = obj;
+        }
+        else
+            qWarning() << "No such applet:" << name;
+    }
+    return obj;
 }
 
 void DcpAppletDb::refresh()

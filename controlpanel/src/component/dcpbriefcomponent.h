@@ -5,7 +5,7 @@
 #define DCPBRIEFCOMPONENT_H
 
 #include "dcpcomponent.h"
-class DcpAppletMetadata;
+class DcpAppletObject;
 class DcpBriefWidget;
 
 /*
@@ -18,8 +18,7 @@ class DcpBriefComponent:
     Q_PROPERTY (QString mattiID READ mattiID WRITE setMattiID)
 
 public:
-    DcpBriefComponent (
-            DcpAppletMetadata   *metadata, 
+    DcpBriefComponent (DcpAppletObject *applet, 
             DcpComponent        *category,
             const QString       &logicalId = "");
 
@@ -32,7 +31,7 @@ public:
     ~DcpBriefComponent ();
 
 
-    void setMetadata (DcpAppletMetadata *metadata);
+    void setApplet (DcpAppletObject *applet);
 
     // Composite Pattern Interface, do nothing
     virtual void add (DcpComponent *) {}

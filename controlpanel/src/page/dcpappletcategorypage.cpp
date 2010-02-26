@@ -7,6 +7,7 @@
 
 #include <DcpAppletDb>
 #include <DcpAppletMetadata>
+#include <DcpAppletObject>
 
 //#define DEBUG
 #include "dcpdebug.h"
@@ -87,7 +88,7 @@ void
 DcpAppletCategoryPage::addComponent (
         DcpAppletMetadata *metadata)
 {
-    DcpBriefComponent *component = new DcpBriefComponent (metadata, m_Category);
+    DcpBriefComponent *component = new DcpBriefComponent(DcpAppletDb::instance()->applet(metadata->name()), m_Category);
 
     component->setSubPage (PageHandle::APPLET, metadata->name());
 
@@ -124,7 +125,7 @@ DcpAppletCategoryPage::cleanup ()
         for (i = list.begin(); i != list.end(); ++i) {
             DcpAppletMetadata *metadata = *i;
             qDebug() << "Cleaning up metadata" << metadata->name();
-            metadata->cleanup ();
+            //metadata->cleanup ();
         }
     }
 }

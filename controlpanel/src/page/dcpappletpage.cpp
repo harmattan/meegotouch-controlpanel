@@ -6,6 +6,7 @@
 #include <DcpWidget>
 #include <DcpAppletIf>
 #include <DcpAppletMetadata>
+#include <DcpAppletObject>
 
 #include <DuiLabel>
 #include <DuiLocale>
@@ -19,27 +20,25 @@
 DUI_REGISTER_WIDGET_NO_CREATE(DcpAppletPage)
 
 DcpAppletPage::DcpAppletPage (
-        DcpAppletMetadata *metadata):
+        DcpAppletObject *applet):
     DcpPage (),
-    m_Metadata (metadata),
+    m_Applet(applet),
     m_ReloadNeeded (false),
     m_MainWidget (0),
     m_MissingLabel (0)
 {
-    DCP_DEBUG ("");
 }
 
 
 DcpAppletPage::~DcpAppletPage ()
 {
-    DCP_DEBUG ("");
     dropWidget ();
 }
 
 /*!
  * Will refresh the content of the applet page calling the appropriate function.
  * If the content is not yet created will call the createContent () function, if
- * the content is created but the metadata is changed (so reload is needed) will
+ * the content is created but the applet is changed (so reload is needed) will
  * call the reload() function, otherwise will call the load() function that is
  * will activate the applet.
  */
@@ -65,15 +64,12 @@ DcpAppletPage::createContent ()
 bool 
 DcpAppletPage::hasWidget ()
 {
-    DCP_DEBUG ("Returning %s", m_MainWidget ? "true" : "false");
     return m_MainWidget;
 }
 
 bool 
 DcpAppletPage::hasError ()
 {
-    DCP_DEBUG ("Returning %s", m_MissingLabel ? "true" : "false");
-
     return m_MissingLabel;
 }
 
@@ -91,17 +87,17 @@ DcpAppletPage::loadMainWidget ()
 {
     DCP_DEBUG ("");
 
-    if (m_Metadata && m_Metadata->isValid()) {
-       if (m_Metadata->applet()) {
+    if (m_Applet) {
+       if (m_Applet->isAppletLoaded()) {
             /*
              * If the plugin is available (loaded) we call it to create a new
              * view. (Here we got the widgetId from the plugin itself using the
              * DCP/Part key of the desktop file.)
              */
-            changeWidget (m_Metadata->getMainWidgetId ());
+            changeWidget (m_Applet->getMainWidgetId ());
 
             return;
-        } else if (m_Metadata->hasApplicationCommand ()) {
+        } else if (m_Applet->metadata()->hasApplicationCommand ()) {
             /*
              * If the applet is not loaded from a binary file, but it has an
              * activation command line we execute an external application.
@@ -110,17 +106,17 @@ DcpAppletPage::loadMainWidget ()
              */
             const char *command;
 
-            command = m_Metadata->applicationCommand().toLatin1().constData();
+            command = m_Applet->metadata()->applicationCommand().toLatin1().constData();
             DCP_DEBUG ("Executing command '%s'", command);
             system (command);
 
             return;
         }
 
-        DCP_WARNING ("The metadata has no loaded plugin nor an external "
+        DCP_WARNING ("The applet has no loaded plugin nor an external "
                 "command defined");
     } else {
-        DCP_WARNING ("The metadata is not valid.");
+        DCP_WARNING ("The applet is not valid.");
     }
 
     /*
@@ -199,7 +195,7 @@ DcpAppletPage::changeWidget (
     /*
      * Creating the widget and setting its widgetId.
      */
-    newMainWidget = m_Metadata->applet()->constructWidget (widgetId);
+    newMainWidget = m_Applet->applet()->constructWidget (widgetId);
     this_is_a_new_widget = m_MainWidget != newMainWidget;
 
     if (m_MainWidget != 0 && this_is_a_new_widget) {
@@ -226,7 +222,7 @@ DcpAppletPage::changeWidget (
              */
             DCP_WARNING ("The widgetId could not be set for applet '%s' "
                 "widget %d it remains %d.",
-                DCP_STR (m_Metadata->name()),
+                DCP_STR (m_Applet->metadata()->name()),
                 widgetId,
                 newMainWidget->getWidgetId ());
     }
@@ -242,10 +238,10 @@ DcpAppletPage::changeWidget (
                 this, SLOT(changeWidget(int)));
 
         connect (m_MainWidget, SIGNAL (activatePluginByName (const QString &)),
-                m_Metadata, SLOT (activatePluginByName (const QString &)));
+                m_Applet, SLOT (activatePluginByName (const QString &)));
     }
 
-    replaceActions(m_Metadata->applet()->viewMenuItems());
+    replaceActions(m_Applet->applet()->viewMenuItems());
     appendWidget (m_MainWidget);
 
     retranslateUi();
@@ -264,17 +260,17 @@ DcpAppletPage::replaceActions(const QVector<DuiAction*>& actions)
 }
 
 void
-DcpAppletPage::setMetadata (
-        DcpAppletMetadata *metadata)
+DcpAppletPage::setApplet (
+        DcpAppletObject *applet)
 {
-    DCP_DEBUG ("*** metadata = %p", metadata);
+    DCP_DEBUG ("*** applet = %p", applet);
 
-    if (m_Metadata == metadata) {
-        DCP_WARNING ("The same metadata already set.");
+    if (m_Applet == applet) {
+        DCP_WARNING ("The same applet already set.");
         return;
     }
 
-    m_Metadata = metadata;
+    m_Applet = applet;
     m_ReloadNeeded = true;
     setReferer (PageHandle::NOPAGE); 
 }
@@ -284,8 +280,8 @@ DcpAppletPage::retranslateUi ()
 {
     DCP_DEBUG ("");
 
-    if (m_Metadata && m_Metadata->applet()) {
-        setTitle(m_Metadata->applet()->title());
+    if (m_Applet && m_Applet->applet()) {
+        setTitle(m_Applet->applet()->title());
     }
 }
 

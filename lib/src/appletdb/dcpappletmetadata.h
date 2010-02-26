@@ -7,10 +7,6 @@
 #include <QObject>
 #include <QString>
 class DuiDesktopEntry;
-class DcpAppletIf;
-class DcpBrief;
-class DcpWidget;
-
 class DcpAppletMetadataPrivate;
 
 /*!
@@ -40,37 +36,30 @@ public:
     QString fileName () const;
     QString category () const;
     QString toggleIconId () const;
-    QString errorMsg () const;
-
+    int widgetTypeID() const;
     QString binary () const;
     QString dslFilename () const;
     QString applicationCommand () const;
     bool    hasApplicationCommand () const;
-
+    bool toggle() const;
     QString fullBinary () const;
 
-    int widgetTypeID () const;
-
     Qt::Alignment align () const;
-    bool toggle () const;
 
     QString text1 () const;
     QString text2 () const;
     QString translationCatalog() const;
 
-    QString image () const;
+    QString imageName() const;
 
     int order () const;
     int usage () const;
-
+    void incrementUsage();
     QString part () const;
-    int getMainWidgetId () const;
 
-    DcpAppletIf* applet () const;
     void setParent (DcpAppletMetadata *parent);
     DcpAppletMetadata* parent () const;
     QString parentName () const;
-    void cleanup ();
 
     static bool usageGreatherThan (
             DcpAppletMetadata *meta1,
@@ -83,24 +72,9 @@ public:
     bool isDisabled () const;
     void setDisabled (bool disabled);
 
-signals:
-    void briefChanged ();
-    void activate ();
-    void activateWithReferer (
-            const QString  &refererName,
-            int             refererWidgetId);
-
-public slots:
-    void slotClicked ();
-    void setToggle (bool checked);
-    bool activatePluginByName (const QString &name) const;
-    void activateSlot ();
-
 protected:
     DuiDesktopEntry* desktopEntry () const;
     QString desktopEntryStr (int id) const;
-    DcpBrief* getBrief () const;
-
 private:
     DcpAppletMetadataPrivate *const d_ptr;
     Q_DISABLE_COPY (DcpAppletMetadata);

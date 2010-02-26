@@ -137,19 +137,11 @@ void Ut_DcpAppletMetadata::testToggle()
     if (QTest::currentTestFailed()) return;
 }
 
-void Ut_DcpAppletMetadata::testText2()
-{
-    QSKIP("!!!! UnableToLoadAnyApplet bug under fixxing by Lgal !!!!",
-            SkipSingle);
-
-    if (QTest::currentTestFailed()) return;
-}
-
-void Ut_DcpAppletMetadata::testImage()
+void Ut_DcpAppletMetadata::testImageName()
 {
     if (QTest::currentTestFailed()) return;
 
-    QCOMPARE(m_subject->image(), QString("test.png"));
+    QCOMPARE(m_subject->imageName(), QString("test.png"));
 }
 
 void Ut_DcpAppletMetadata::testOrder()
@@ -175,15 +167,6 @@ void Ut_DcpAppletMetadata::testPart()
     QCOMPARE(m_subject->part(), QString("RobiJonMegKutyaraDer"));
 }
 
-void Ut_DcpAppletMetadata::testApplet()
-{
-    QSKIP("!!!! UnableToLoadAnyApplet bug under fixxing by Lgal !!!!",
-            SkipSingle);
-
-    if (QTest::currentTestFailed()) return;
-
-    QVERIFY(m_subject->applet());
-}
 
 void Ut_DcpAppletMetadata::testSetGetParent()
 {
@@ -201,21 +184,6 @@ void Ut_DcpAppletMetadata::testParentName()
     if (QTest::currentTestFailed()) return;
 
     QCOMPARE(m_subject->parentName(), QString("RobiJonMegKutyaraDer_II"));
-}
-
-void Ut_DcpAppletMetadata::testCleanup()
-{
-    if (QTest::currentTestFailed()) return;
-
-    m_subject->cleanup(); //We're happy if there is no SegFault
-}
-
-void Ut_DcpAppletMetadata::testBriefChanged()
-{
-    QSKIP("!!!! UnableToLoadAnyApplet bug under fixxing by Lgal !!!!",
-          SkipSingle);
-
-    if (QTest::currentTestFailed()) return;
 }
 
 QTEST_APPLESS_MAIN(Ut_DcpAppletMetadata)

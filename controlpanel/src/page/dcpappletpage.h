@@ -6,7 +6,7 @@
 #include <QVector>
 
 class DcpWidget;
-class DcpAppletMetadata;
+class DcpAppletObject;
 class DuiLabel;
 class DuiAction;
 
@@ -15,13 +15,13 @@ class DcpAppletPage : public DcpPage
 Q_OBJECT
 
 public:
-    DcpAppletPage(DcpAppletMetadata *metadata);
+    DcpAppletPage(DcpAppletObject *applet);
     virtual ~DcpAppletPage();
 
     virtual void refreshContent ();
     virtual void createContent ();
 
-    void setMetadata (DcpAppletMetadata *metadata);
+    void setApplet(DcpAppletObject *applet);
     virtual void reload ();
     bool hasWidget ();
     bool hasError ();
@@ -39,7 +39,7 @@ private:
     void dropMissingLabel ();
     void loadMainWidget ();
 
-    DcpAppletMetadata   *m_Metadata;
+    DcpAppletObject   *m_Applet;
     bool                 m_ReloadNeeded;
     DcpWidget           *m_MainWidget;
     DuiLabel            *m_MissingLabel;
