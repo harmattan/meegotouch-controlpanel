@@ -3,10 +3,8 @@
 
 #include "dcpcomponent.h"
 
-#include <QtDebug>
 #include <QGraphicsLayout>
 
-#define DEBUG
 #include "dcpdebug.h"
 
 DcpComponent::DcpComponent (
@@ -18,11 +16,5 @@ DcpComponent::DcpComponent (
                 m_LogicalId(logicalId),
                 m_Category(category)
 {
-}
-
-DcpComponent* DcpComponent::child(int i) const
-{
-    Q_UNUSED(i);
-    return 0;
 }
 
