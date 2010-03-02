@@ -85,6 +85,7 @@ DcpMainPage::createContent ()
             DcpApplet::MostUsedCategory,
             DcpMain::mostRecentUsedTitleId);
     // FIXME: what if we would not need DcpComponent as parent?
+    m_RecentlyComp->hide();
     m_RecentlyComp->setParentItem(centralWidget()); 
 
     /*
@@ -150,6 +151,7 @@ DcpMainPage::createContentsLate ()
         m_RecentlyComp->hide();
     } else {
         mainLayout ()->insertItem (0,m_RecentlyComp);
+        m_RecentlyComp->show();
     }
 }
 
