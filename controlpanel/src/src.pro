@@ -35,4 +35,7 @@ desktop_entry.files = duicontrolpanel.desktop
 INSTALLS += target \
             desktop_entry
 
+# FIXME, this is a temporary fix for an issue
+# You can enable delayed applet loading with uncommenting this line:
+DEFINES += DISABLE_DELAYED_LOADING
 

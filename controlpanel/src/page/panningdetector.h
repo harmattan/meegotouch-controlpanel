@@ -35,7 +35,7 @@ public:
 
 
 signals:
-    void panningStoppedNotifyOnce(); // TODO XXX rename
+    void panningStopped();
 
 protected slots:
     void onPanningStarted();

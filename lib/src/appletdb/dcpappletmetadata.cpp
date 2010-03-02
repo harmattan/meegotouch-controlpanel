@@ -57,7 +57,6 @@ DcpAppletMetadata::~DcpAppletMetadata ()
     delete d_ptr;
 }
 
-// TODO XXX rename
 bool
 DcpAppletMetadata::isValid () const
 {

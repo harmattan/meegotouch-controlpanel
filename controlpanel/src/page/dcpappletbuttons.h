@@ -55,7 +55,7 @@ protected:
     virtual void createContents();
 
     void stopLoading();
-    void loadNextItem();
+    bool loadNextItem();
     void pauseLoading();
 
     virtual void timerEvent (QTimerEvent*);

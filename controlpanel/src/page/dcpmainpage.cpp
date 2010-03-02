@@ -104,6 +104,14 @@ DcpMainPage::createContent ()
 
     setEscapeButtonMode (DuiEscapeButtonPanelModel::CloseMode);
     retranslateUi ();
+
+#ifdef DISABLE_DELAYED_LOADING
+    createContentsLate ();
+    m_HasContent = true;
+
+    emit firstShown ();
+#endif // DISABLE_DELAYED_LOADING
+
 }
 
 /*!
@@ -121,7 +129,7 @@ DcpMainPage::createContentsLate ()
 
     layout = mainLayout ();
 
-    /* 
+    /*
      * recently used item load finish will start the load process of the other
      * containers:
      */
@@ -155,7 +163,6 @@ DcpMainPage::loadNextContainer ()
     QGraphicsLinearLayout* layout = mainLayout();
     DcpCategoryComponent* comp =
        dynamic_cast<DcpCategoryComponent*> (layout->itemAt(m_LoadedContainers));
-    qDebug() << "XXX -- next container" << (void*)comp;
 
     // handle next item:
     m_LoadedContainers++;

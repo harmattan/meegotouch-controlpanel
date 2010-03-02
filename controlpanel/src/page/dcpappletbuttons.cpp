@@ -8,8 +8,6 @@
 #include <DcpAppletMetadata>
 #include <DcpApplet>
 
-#include <QCoreApplication> // XXX
-#include <QtDebug> // XXX
 #include <DuiSceneManager>
 #include <DuiGridLayoutPolicy>
 #include <DuiLinearLayoutPolicy>
@@ -17,7 +15,6 @@
 #include "panningdetector.h"
 
 #include "../../../lib/src/dcpdebug.h"
-#include <QTime> // XXX
 
 static const int LOAD_AT_ONCE_MAX = 1;
 static const int TIMER_STOPPED = -1;
@@ -132,19 +129,24 @@ DcpAppletButtons::createContents ()
 void
 DcpAppletButtons::startLoading()
 {
-    qDebug() << "XXX Load started";
     /*
      * Adding the applet variants to the widget.
      */
     m_LoadPosition = 0;
     Q_ASSERT(m_LoadingMetadatas);
     if (m_LoadingMetadatas->count() > 0) {
+#ifndef DISABLE_DELAYED_LOADING
         if (!m_PanningDetector) {
             m_PanningDetector = new PanningDetector(this);
-            connect (m_PanningDetector, SIGNAL(panningStoppedNotifyOnce()),
+            connect (m_PanningDetector, SIGNAL(panningStopped()),
                      this, SLOT(continueLoading()));
         }
         continueLoading();
+#else
+        // FIXME this is a hack to disable the applet delayed loading until
+        // we can solve the !updateAll assert, which seems a Qt bug
+        while (loadNextItem());
+#endif
     } else {
         stopLoading();
     }
@@ -153,7 +155,6 @@ DcpAppletButtons::startLoading()
 void
 DcpAppletButtons::stopLoading()
 {
-    qDebug() << "XXX Load ended";
     pauseLoading();
     if (m_PanningDetector) {
        // this is to avoid overhead of the signals
@@ -183,7 +184,6 @@ void
 DcpAppletButtons::pauseLoading()
 {
     if (m_LoadTimer != TIMER_STOPPED) {
-        qDebug() << "XXX paused, timerid:" << m_LoadTimer;
         killTimer(m_LoadTimer);
         m_LoadTimer = TIMER_STOPPED;
     }
@@ -193,24 +193,13 @@ void
 DcpAppletButtons::continueLoading ()
 {
     if (m_LoadTimer == TIMER_STOPPED) {
-        m_LoadTimer = startTimer(1000);
-        qDebug() << "XXX continue, timerid:" << m_LoadTimer;
+        m_LoadTimer = startTimer(0);
     }
 }
 
-void
+bool
 DcpAppletButtons::loadNextItem ()
 {
-    qDebug() << "XXX loadNextItem" << QTime::currentTime();
-
-    // "pause" the loading process until user is panning
-    Q_ASSERT(m_PanningDetector);
-    if (m_PanningDetector->isPanning()) {
-        DCP_DEBUG("Loading PAUSED until user stops panning");
-        pauseLoading();
-        return;
-    }
-
     Q_ASSERT(m_LoadingMetadatas);
     // load at maximum LOAD_AT_ONCE elements:
     int metadataCount = m_LoadingMetadatas->count();
@@ -218,7 +207,6 @@ DcpAppletButtons::loadNextItem ()
     int maxPos = qMin(metadataCount, m_LoadPosition + LOAD_AT_ONCE_MAX);
 
     for (; m_LoadPosition < maxPos; m_LoadPosition++) {
-        qDebug() << "XXX maxpos:" << maxPos << m_LoadPosition << metadataCount;
         DcpAppletMetadata*& item = (*m_LoadingMetadatas)[m_LoadPosition];
         Q_ASSERT(item);
         addComponent (item);
@@ -226,14 +214,23 @@ DcpAppletButtons::loadNextItem ()
     }
     if (m_LoadPosition >= metadataCount) {
         stopLoading();
-        return;
+        return false;
     }
+    return true;
 }
 
 void
 DcpAppletButtons::timerEvent (QTimerEvent* event)
 {
     if (m_LoadTimer == event->timerId()) {
+        // "pause" the loading process if user is panning
+        Q_ASSERT(m_PanningDetector);
+        if (m_PanningDetector->isPanning()) {
+            DCP_DEBUG("Loading PAUSED until user stops panning");
+            pauseLoading();
+            return;
+        }
+
         loadNextItem();
     }
 }
@@ -242,7 +239,6 @@ void
 DcpAppletButtons::addComponent (
         DcpAppletMetadata *metadata)
 {
-    qDebug() << "XXX adding" << metadata->name();
     DcpBriefComponent *component;
     component = new DcpBriefComponent (metadata, this, logicalId());
     component->setSubPage (PageHandle::APPLET, metadata->name());
