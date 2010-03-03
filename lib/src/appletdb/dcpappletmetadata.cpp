@@ -268,6 +268,16 @@ DcpAppletMetadata::translationCatalog() const
 QString
 DcpAppletMetadata::text1 () const
 {
+    // use DcpAppletIf::title() by default:
+    DcpAppletIf* applet = this->applet();
+    if (applet) {
+        QString title = applet->title();
+        if (!title.isEmpty()) return title;
+    }
+
+    /* in case the applet does not specify a title, use the one from the
+     * desktop file:
+     */
     QString id = desktopEntryStr(KeyNameId);
     QString name = desktopEntryStr(KeyName);
     if (qtTrId(qPrintable(id)) == id)
@@ -487,7 +497,6 @@ DcpAppletMetadata::activateSlot ()
     emit activate();
 }
 
-// TODO XXX rename
 QString 
 DcpAppletMetadata::name () const
 {
