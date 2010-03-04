@@ -99,7 +99,7 @@ DcpMainPage::createContent ()
         if (info->titleId == 0)
              break;
 
-        button = new DcpBriefComponent(qtTrId(info->titleId), otherCategories, "FIXME");
+        button = new DcpBriefComponent(qtTrId(info->titleId), otherCategories, info->titleId);
         button->setSubPage(info->subPageId, info->titleId);
         otherCategories->appendWidget(button);
         
