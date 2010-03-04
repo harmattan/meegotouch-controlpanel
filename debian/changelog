@@ -3,7 +3,11 @@ duicontrolpanel (0.7.1) UNRELEASED; urgency=low
   [ David Kedves ]
   * Fix for debian/control
 
- -- David Kedves <dkedves@blumsoft.eu>  Wed, 17 Feb 2010 15:38:56 +0100
+  [ Robert Manner ]
+  * Fixes NB#156748: could not define first line value for brief in
+    applet for dcp
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 03 Mar 2010 11:37:25 +0100
 
 duicontrolpanel (0.7.0) unstable; urgency=low
 

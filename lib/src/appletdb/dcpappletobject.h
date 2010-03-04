@@ -27,6 +27,7 @@ public:
     Qt::Alignment align () const;
     bool toggle () const;
 
+    QString text1 () const;
     QString text2 () const;
     QString imageName() const;
     int getMainWidgetId () const;

@@ -8,19 +8,16 @@
 #include <DcpAppletMetadata>
 #include <DcpApplet>
 
-#include <QCoreApplication>
-#include <QtDebug>
-#include <QTimer>
 #include <DuiSceneManager>
 #include <DuiGridLayoutPolicy>
 #include <DuiLinearLayoutPolicy>
 
 #include "panningdetector.h"
 
-#define DEBUG
 #include "../../../lib/src/dcpdebug.h"
 
-static const int LOAD_AT_ONCE_MAX = 2;
+static const int LOAD_AT_ONCE_MAX = 1;
+static const int TIMER_STOPPED = -1;
 
 /*!
  * \class DcpAppletButtons
@@ -37,6 +34,7 @@ DcpAppletButtons::DcpAppletButtons (
     m_CategoryInfo (0),
     m_LoadPosition (0),
     m_LoadingMetadatas (0),
+    m_LoadTimer(TIMER_STOPPED),
     m_PanningDetector (0)
 {
     setCreateSeparators (true);
@@ -54,6 +52,7 @@ DcpAppletButtons::DcpAppletButtons (
     m_CategoryInfo (categoryInfo),
     m_LoadPosition (0),
     m_LoadingMetadatas (0),
+    m_LoadTimer(TIMER_STOPPED),
     m_PanningDetector (0)
 {
     setCreateSeparators (true);
@@ -136,10 +135,18 @@ DcpAppletButtons::startLoading()
     m_LoadPosition = 0;
     Q_ASSERT(m_LoadingMetadatas);
     if (m_LoadingMetadatas->count() > 0) {
+#ifndef DISABLE_DELAYED_LOADING
         if (!m_PanningDetector) {
             m_PanningDetector = new PanningDetector(this);
+            connect (m_PanningDetector, SIGNAL(panningStopped()),
+                     this, SLOT(continueLoading()));
         }
-        QTimer::singleShot(0, this, SLOT(continueLoading()));
+        continueLoading();
+#else
+        // FIXME this is a hack to disable the applet delayed loading until
+        // we can solve the !updateAll assert, which seems a Qt bug
+        while (loadNextItem()) ;
+#endif
     } else {
         stopLoading();
     }
@@ -148,15 +155,18 @@ DcpAppletButtons::startLoading()
 void
 DcpAppletButtons::stopLoading()
 {
+    pauseLoading();
     if (m_PanningDetector) {
        // this is to avoid overhead of the signals
        m_PanningDetector->deleteLater();
        m_PanningDetector = 0;
     }
-    delete m_LoadingMetadatas;
-    m_LoadingMetadatas = 0;
-    m_LoadPosition = 0;
-    emit loadingFinished();
+    if (m_LoadingMetadatas) {
+        delete m_LoadingMetadatas;
+        m_LoadingMetadatas = 0;
+        m_LoadPosition = 0;
+        emit loadingFinished();
+    }
 }
 
 /* \returns true if the container contains loaded or loading items */
@@ -171,31 +181,57 @@ DcpAppletButtons::hasLoadingItems()
 }
 
 void
+DcpAppletButtons::pauseLoading()
+{
+    if (m_LoadTimer != TIMER_STOPPED) {
+        killTimer(m_LoadTimer);
+        m_LoadTimer = TIMER_STOPPED;
+    }
+}
+
+void
 DcpAppletButtons::continueLoading ()
 {
-    // "pause" the loading process until user is panning
-    if (!m_PanningDetector) return;
-    if (m_PanningDetector->isPanning()) {
-        DCP_DEBUG("Loading PAUSED until user stops panning");
-        m_PanningDetector->notifyOnNextStop(this, SLOT(continueLoading()));
-        return;
+    if (m_LoadTimer == TIMER_STOPPED) {
+        m_LoadTimer = startTimer(0);
     }
+}
 
+bool
+DcpAppletButtons::loadNextItem ()
+{
     Q_ASSERT(m_LoadingMetadatas);
-    int metadataCount = m_LoadingMetadatas->count();
     // load at maximum LOAD_AT_ONCE elements:
+    int metadataCount = m_LoadingMetadatas->count();
+
     int maxPos = qMin(metadataCount, m_LoadPosition + LOAD_AT_ONCE_MAX);
 
     for (; m_LoadPosition < maxPos; m_LoadPosition++) {
         DcpAppletMetadata*& item = (*m_LoadingMetadatas)[m_LoadPosition];
+        Q_ASSERT(item);
         addComponent (item);
         item = 0;
     }
-
-    if (m_LoadPosition < metadataCount) {
-        QTimer::singleShot(0, this, SLOT(continueLoading()));
-    } else {
+    if (m_LoadPosition >= metadataCount) {
         stopLoading();
+        return false;
+    }
+    return true;
+}
+
+void
+DcpAppletButtons::timerEvent (QTimerEvent* event)
+{
+    if (m_LoadTimer == event->timerId()) {
+        // "pause" the loading process if user is panning
+        Q_ASSERT(m_PanningDetector);
+        if (m_PanningDetector->isPanning()) {
+            DCP_DEBUG("Loading PAUSED until user stops panning");
+            pauseLoading();
+            return;
+        }
+
+        loadNextItem();
     }
 }
 

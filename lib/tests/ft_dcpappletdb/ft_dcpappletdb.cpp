@@ -1,3 +1,6 @@
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et sw=4 ts=4 sts=4: */
+#include <QDebug>
 #include <QObject>
 #include <QGraphicsSceneMouseEvent>
 #include <QDir>
@@ -10,12 +13,17 @@
 #include <DcpAppletObject>
 #include <DuiGConfItem>
 
+#define DEBUG
+#include "../../src/dcpdebug.h"
+
 void Ft_DcpAppletDb::initTestCase()
 {
     static int c = 0;
     static QByteArray arg("dummyarg");
     char *argp = arg.data();
+
     qap = new QCoreApplication(c, &argp);
+    qInstallMsgHandler (0);
     QString dataDir(qApp->applicationDirPath() + 
                        "/ft_dcpappletdb-data/");
 
@@ -30,11 +38,37 @@ void Ft_DcpAppletDb::initTestCase()
     browserEntryName = "Browser";
     datetimeEntryName = "Date & Time";
     displayEntryName = "Display";
+
+    /*
+     * First we delete all the usage counter, so the previous runs will not 
+     * ruin the test. 
+     */
+    Ft_DcpAppletDb::resetUsageCounters ();    
 }
 
 void Ft_DcpAppletDb::cleanupTestCase()
 {
+    /*
+     * We clean up the usage counters just to be sure.
+     */
+    Ft_DcpAppletDb::resetUsageCounters ();
+
     delete qap;
+}
+
+void 
+Ft_DcpAppletDb::resetUsageCounters () 
+{
+    int                   retval;
+
+    /*
+     * The gconftool-2 is in the same package gconfd-2 is found, so we can
+     * assume it is installed.
+     */
+    retval = system (
+            "gconftool-2 --recursive-unset /apps/duicontrolpanel/usagecount");
+    if (retval == -1)
+        DCP_WARNING ("Failed resetting usage counters: %m");
 }
 
 void Ft_DcpAppletDb::init()
@@ -145,12 +179,35 @@ void Ft_DcpAppletDb::testListByCategory()
     QVERIFY(m_subject->listByCategory("Startup").length() == 4);
 }
 
+void 
+Ft_DcpAppletDb::printAppletListForDebug (
+        const QString &title) const
+{
+    #ifdef DEBUG
+    DcpAppletMetadataList applets = m_subject->list();
+
+    DCP_DEBUG ("-------------- The applet list %12s ---------------", 
+            DCP_STR(title));
+    DCP_DEBUG ("Usage | Name");
+    foreach (DcpAppletMetadata *metadata, applets) {
+        DCP_DEBUG (" %4d | %s", metadata->usage(), DCP_STR(metadata->name()));
+    }
+    DCP_DEBUG ("----------------------------------------------------------");
+    #else
+    Q_UNUSED (title);
+    #endif
+}
+
+
 void Ft_DcpAppletDb::testListMostUsed()
 {
-    m_subject->addPath(testDesktopDir3);
+    m_subject->addPath (testDesktopDir3);
     DcpAppletMetadataList applets = m_subject->list();
-    const int maxN = 10;
-    int n = 0;
+    const int             maxN = 10;
+    int                   n = 0;
+
+    printAppletListForDebug ("Initial state");
+
     for (DcpAppletMetadataList::iterator iter = applets.begin();
          iter != applets.end() && n < maxN; ++iter) {
         // "activate" applet n times
@@ -168,6 +225,8 @@ void Ft_DcpAppletDb::testListMostUsed()
         QCOMPARE(*iter, *orig);
         --orig;
     }
+    
+    printAppletListForDebug ("After the test");
 }
 
 void Ft_DcpAppletDb::testRefresh()

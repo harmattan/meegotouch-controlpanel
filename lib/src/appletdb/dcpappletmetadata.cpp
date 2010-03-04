@@ -8,7 +8,7 @@
 #include "dcpmostusedcounter.h"
 #include "dcpwidgettypes.h"
 
-#define DEBUG
+//#define DEBUG
 #include "dcpdebug.h"
 
 
@@ -66,6 +66,10 @@ DcpAppletMetadata::isModified() const
 {
     QTime lastModified = QFileInfo(d_ptr->m_FileName).lastModified().time();
     bool modified = lastModified !=  d_ptr->m_LastModified;
+
+    DCP_DEBUG ("Returning %s for '%s'", 
+            modified ? "true" : "false",
+            DCP_STR (binary()));
     return modified;
 }
 
@@ -310,7 +314,6 @@ DcpAppletMetadata::setParent (
 {
     d_ptr->m_Parent = parent;
 }
-
 
 bool 
 DcpAppletMetadata::orderLessThan (

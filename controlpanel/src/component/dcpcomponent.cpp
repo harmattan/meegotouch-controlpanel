@@ -3,10 +3,8 @@
 
 #include "dcpcomponent.h"
 
-#include <QtDebug>
 #include <QGraphicsLayout>
 
-#define DEBUG
 #include "dcpdebug.h"
 
 DcpComponent::DcpComponent (
@@ -20,14 +18,8 @@ DcpComponent::DcpComponent (
 {
 }
 
-DcpComponent* DcpComponent::child(int i) const
-{
-    Q_UNUSED(i);
-    return 0;
-}
-
 QString 
-DcpComponent::mattiID ()
+DcpComponent::mattiID () const
 {
     return m_MattiID;
 }
@@ -38,3 +30,4 @@ DcpComponent::setMattiID (
 {
     m_MattiID = mattiID;
 }
+

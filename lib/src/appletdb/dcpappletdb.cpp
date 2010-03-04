@@ -10,7 +10,6 @@
 #include <QDebug>
 #include <DuiLocale>
 
-
 #define DEBUG
 #include "dcpdebug.h"
 
@@ -282,45 +281,6 @@ DcpAppletDb::applet (
             qWarning() << "No such applet:" << name;
     }
     return obj;
-}
-
-void DcpAppletDb::refresh()
-{
-    foreach(QString pathName, d_ptr->paths)
-        refreshPath(pathName);
-
-    foreach(DcpAppletMetadata *metadata, d_ptr->appletsByName) {
-        if (!metadata->isValid()) {
-            eraseEntry(metadata);
-        } else if (metadata->isModified()) {
-             QString fileName = metadata->fileName();
-             eraseEntry(metadata);
-             addFile(fileName);
-        }
-    }
-}
-
-void 
-DcpAppletDb::refreshPath (
-        const QString &pathName)
-{
-    DCP_DEBUG ("");
-
-    /*
-     * FIXME: Should not we re-use the already set filterName?
-     */
-    QDir appDir(pathName, AppletFilter);
-    if (!appDir.exists()) {
-        qWarning() << "Applet dir" << pathName << "does not exists";
-        return;
-    }
-    
-    foreach(QString appFile, appDir.entryList()) {
-        QString fileName = appDir.absoluteFilePath(appFile);
-        if (!d_ptr->appletsByFile.contains(appFile)) {
-            addFile(fileName);
-        }
-    }
 }
 
 void 

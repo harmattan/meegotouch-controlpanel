@@ -16,7 +16,6 @@
 #include "duiwidgetcreator.h"
 DUI_REGISTER_WIDGET_NO_CREATE(DcpMainPage)
 
-#define DEBUG
 #include "../../../lib/src/dcpdebug.h"
 
 /*!
@@ -29,7 +28,7 @@ DUI_REGISTER_WIDGET_NO_CREATE(DcpMainPage)
  * for them in the categories.
  */
 DcpMainPage::DcpMainPage() :
-    DcpPage (), 
+    DcpPage (),
     m_RecentlyComp (0),
     m_HasContent (false)
 {
@@ -85,6 +84,7 @@ DcpMainPage::createContent ()
             DcpApplet::MostUsedCategory,
             DcpMain::mostRecentUsedTitleId);
     // FIXME: what if we would not need DcpComponent as parent?
+    m_RecentlyComp->hide();
     m_RecentlyComp->setParentItem(centralWidget()); 
     DcpMainCategory *otherCategories = new DcpMainCategory(
             DcpMain::otherCategoriesTitleId,
@@ -104,9 +104,17 @@ DcpMainPage::createContent ()
         otherCategories->appendWidget(button);
         
     }
+
     layout->addItem(otherCategories);
     setEscapeButtonMode(DuiEscapeButtonPanelModel::CloseMode);
     retranslateUi();
+
+#ifdef DISABLE_DELAYED_LOADING
+    createContentsLate ();
+    m_HasContent = true;
+
+    emit firstShown ();
+#endif // DISABLE_DELAYED_LOADING
 }
 
 /*!
@@ -137,6 +145,7 @@ DcpMainPage::createContentsLate ()
         m_RecentlyComp->hide();
     } else {
         mainLayout ()->insertItem (0,m_RecentlyComp);
+        m_RecentlyComp->show();
     }
 }
 

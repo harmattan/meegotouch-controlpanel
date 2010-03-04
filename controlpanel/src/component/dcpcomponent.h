@@ -4,9 +4,6 @@
 #include <DuiWidget>
 #include <Pages>
 
-// FIXME: what the hell?
-class DcpComponent;
-
 class DcpComponent : public DuiWidget
 {
     Q_OBJECT
@@ -27,12 +24,12 @@ public:
           m_SubPage.widgetId = widgetId; m_SubPage.isStandalone = isStandalone; }
     const PageHandle &subPage() const { return m_SubPage; }
 
-    virtual DcpComponent* child(int i) const;
     DcpComponent* category() const { return m_Category; }
     
     virtual const QString logicalId() { return m_LogicalId; }
     void setLogicalId(const QString& logicalId) { m_LogicalId = logicalId; }
-    QString mattiID();
+
+    QString mattiID() const;
     void setMattiID(const QString &mattiID);
 
 protected:

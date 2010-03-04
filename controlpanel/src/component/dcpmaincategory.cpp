@@ -77,7 +77,7 @@ DcpMainCategory::setVerticalSpacing (
  * There is no function to add a long line, but as I see we don't need that
  * feature right now. Anyway, it is easy to implement such a function.  
  */
-void 
+void
 DcpMainCategory::appendWidget (
         DcpComponent *component)
 {
@@ -86,7 +86,7 @@ DcpMainCategory::appendWidget (
 
     m_LandscapeLayout->addItem (component, m_RowCount, m_ColCount);
     m_PortraitLayout->addItem (component);
-    
+
     incrementRowAndCol ();
     ++m_ItemCount;
 }
@@ -148,7 +148,7 @@ DcpMainCategory::appendSeparatorsIfNeeded ()
          */
         m_LandscapeLayout->addItem (
                 separator, m_RowCount, m_ColCount);
-        
+
         incrementRowAndCol ();
     } while (m_ColCount != 0);
 }

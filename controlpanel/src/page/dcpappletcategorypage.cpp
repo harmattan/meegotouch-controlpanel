@@ -58,14 +58,6 @@ DcpAppletCategoryPage::loadContent ()
     if (!m_CategoryInfo)
         return;
 
-    /*
-     * I had to comment this out, because it destroyed the metadata already
-     * exists and then everything went wrong.
-     * FIXME: Should find a way to refresh the database without destroying the
-     * existing metadata entries.
-     */
-    //DcpAppletDb::instance()->refresh();
-
     withUncategorized = m_CategoryInfo && 
             m_CategoryInfo->subPageId == PageHandle::Applications;
 

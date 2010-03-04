@@ -38,7 +38,10 @@ public:
 
 
     virtual void reload();
+
+    //! starts loading the items
     void startLoading();
+
     bool hasLoadingItems();
 
 
@@ -47,7 +50,12 @@ signals:
 
 protected:
     virtual void createContents();
+
     void stopLoading();
+    bool loadNextItem();
+    void pauseLoading();
+
+    virtual void timerEvent (QTimerEvent*);
 
 protected slots:
     void continueLoading();
@@ -60,6 +68,7 @@ private:
     // stores the metadatas to be loaded until loading completed:
     int m_LoadPosition;
     QList<DcpAppletMetadata*>* m_LoadingMetadatas;
+    int m_LoadTimer;
 
     // detects panning when loading
     PanningDetector        *m_PanningDetector;

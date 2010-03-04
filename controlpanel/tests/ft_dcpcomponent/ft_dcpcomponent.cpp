@@ -102,13 +102,6 @@ void Ft_DcpComponent::testCategory()
     QCOMPARE(m_subject->category(), m_Category);
 }
 
-void Ft_DcpComponent::testChild()
-{
-    QVERIFY(m_subject->child(0) == 0);
-    QVERIFY(m_subject->child(1) == 0);
-    QVERIFY(m_subject->child(100) == 0);
-}
-
 void Ft_DcpComponent::testLogicalId()    
 {
     QCOMPARE(m_subject->logicalId(), m_LogicalId);

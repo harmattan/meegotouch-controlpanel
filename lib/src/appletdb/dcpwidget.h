@@ -16,8 +16,6 @@ class DcpWidgetPrivate;
  * actual GUI of the applet. The DcpWidget is the base class for these views
  * (sometimes called pages).
  */
-class QGraphicsWidget;
-class DuiDialog;
 
 class DcpWidget: public DuiWidget 
 {

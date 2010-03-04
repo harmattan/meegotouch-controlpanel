@@ -59,15 +59,7 @@ void PanningDetector::onPanningStopped()
     if (m_IsPanning) {
         DCP_DEBUG("");
         m_IsPanning = false;
-        emit panningStoppedNotifyOnce();
-        disconnect (SIGNAL(panningStoppedNotifyOnce()));
+        emit panningStopped();
     }
 }
-
-void PanningDetector::notifyOnNextStop (QObject* receiver, const char* slot)
-{
-    connect (this, SIGNAL(panningStoppedNotifyOnce()),
-             receiver, slot);
-}
-
 

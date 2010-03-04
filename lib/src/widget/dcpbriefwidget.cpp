@@ -181,7 +181,7 @@ void
 DcpBriefWidget::retranslateUi ()
 {
     if (d_ptr->m_Applet) {
-        d_ptr->m_RealWidget->setText1 (applet()->metadata()->text1());
+        d_ptr->m_RealWidget->setText1 (applet()->text1());
         updateContents ();
     }
 }
