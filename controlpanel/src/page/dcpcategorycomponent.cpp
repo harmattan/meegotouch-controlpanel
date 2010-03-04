@@ -62,7 +62,7 @@ DcpCategoryComponent::setTitle (
 }
 
 void
-DcpCategoryComponent::retranslateUi ()
+DcpCategoryComponent::retranslateUi()
 {
     if (m_CategoryInfo) {
         setTitle (qtTrId (m_CategoryInfo->titleId));
@@ -149,18 +149,5 @@ bool
 DcpCategoryComponent::hasLoadingItems ()
 {
     return m_AppletButtons ? m_AppletButtons->hasLoadingItems() : false;
-}
-
-QString 
-DcpCategoryComponent::mattiID ()
-{
-    return m_mattiID;
-}
-
-void 
-DcpCategoryComponent::setMattiID (
-        const QString &mattiID)
-{
-    m_mattiID = mattiID;
 }
 

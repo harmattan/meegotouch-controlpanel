@@ -42,7 +42,7 @@ PageFactory::PageFactory ():
 void
 PageFactory::mainPageFirstShown ()
 {
-    DcpAppletMetadataList list;
+    QStringList list;
 
     /*
      * Whenever someone wants an applet to be activated (started, shown on the
@@ -54,10 +54,10 @@ PageFactory::mainPageFirstShown ()
      * so we can start up the applet. In this case we will have an external
      * referer for the applets main page.
      */
-    list = DcpAppletDb::instance()->list();
-    foreach (DcpAppletMetadata *item, list) {
-        DCP_DEBUG ("*** applet '%s'", DCP_STR (item->name()));
-        DcpAppletObject *applet = DcpAppletDb::instance()->applet(item->name());
+    list = DcpAppletDb::instance()->appletNames();
+    foreach (QString name, list) {
+        DCP_DEBUG ("*** LAC applet '%s'", DCP_STR (name));
+        DcpAppletObject *applet = DcpAppletDb::instance()->applet(name);
         connect (applet, SIGNAL (activate ()),
                 this, SLOT (appletWantsToStart ()));
         connect (applet, SIGNAL (activateWithReferer (const QString &, int)),
@@ -99,10 +99,7 @@ PageFactory::createPage (
             break;
 
         case PageHandle::APPLETCATEGORY: 
-            // when coming back
-            DCP_DEBUG ("## APPLETCATEGORY ##");
-            Q_ASSERT (m_AppletCategoryPage);
-            page = m_AppletCategoryPage;
+            page = createAppletCategoryPage(handle.id);
             break;
 
         case PageHandle::APPLET:
@@ -175,8 +172,9 @@ PageFactory::createAppletPage(DcpAppletObject *applet)
         registerPage (m_AppletPage);
     } else {
         m_AppletPage->setApplet(applet);
+        m_AppletPage->setReferer(m_CurrentPage->handle());
     }
-
+  
     m_AppletPage->refreshContent ();
     
     if (!m_AppletPage->hasWidget() && !m_AppletPage->hasError()) {

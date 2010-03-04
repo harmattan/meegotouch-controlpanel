@@ -28,6 +28,10 @@ public:
             DcpComponent        *category,
             const QString       &logicalId = "");
 
+    DcpBriefComponent (
+            const QString       &line,
+            DcpComponent        *category,
+            const QString       &logicalId = "");
     ~DcpBriefComponent ();
 
 
@@ -38,15 +42,15 @@ public:
     virtual void remove (DcpComponent *) {}
     virtual void createContents () {}
 
-    QString mattiID ();
-    void setMattiID (const QString &mattiID);
+//    QString mattiID ();
+//    void setMattiID (const QString &mattiID);
 
 public slots:
     void activate ();
 
 private:
     DcpBriefWidget *m_BriefWidget;
-    QString         m_mattiID;
+  //  QString         m_mattiID;
 };
 
 #endif // DCPBRIEFCOMPONENT_H

@@ -33,6 +33,7 @@ namespace DcpMain {
    extern const DcpCategoryInfo CategoryInfos[];
    extern const char *settingsTitleId;
    extern const char *mostRecentUsedTitleId;
+   extern const char *otherCategoriesTitleId;
    extern const char *quitMenuItemTextId;
 };
 

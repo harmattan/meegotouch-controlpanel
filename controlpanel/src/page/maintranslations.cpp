@@ -81,6 +81,8 @@ const char* DcpMain::settingsTitleId = QT_TRID_NOOP("qtn_sett_main_title");
 //% "Most recently used"
 const char* DcpMain::mostRecentUsedTitleId = QT_TRID_NOOP("qtn_sett_main_most");
 
+//% "Other Categories"
+const char* DcpMain::otherCategoriesTitleId = QT_TRID_NOOP("qtn_sett_main_other");
 //% "Exit"
 const char* DcpMain::quitMenuItemTextId = QT_TRID_NOOP("qtn_comm_exit");
 

@@ -242,18 +242,6 @@ DcpAppletButtons::reload ()
     startLoading ();
 }
 
-QString 
-DcpAppletButtons::mattiID ()
-{
-    return m_mattiID;
-}
-
-void 
-DcpAppletButtons::setMattiID (
-        const QString &mattiID)
-{
-    m_mattiID = mattiID;
-}
 
 
 

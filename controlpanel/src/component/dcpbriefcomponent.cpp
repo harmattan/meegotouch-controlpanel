@@ -9,6 +9,7 @@
 #include "pages.h"
 
 #include <QGraphicsLinearLayout>
+#include <DuiContentItem>
 
 
 #define DEBUG
@@ -48,6 +49,24 @@ DcpBriefComponent::DcpBriefComponent (
     setMattiID ("DcpBriefComponent::" + logicalId + "::" + "::" + line1);
 }
 
+DcpBriefComponent::DcpBriefComponent (
+        const QString       &line,
+        DcpComponent        *category,
+        const QString       &logicalId)
+: DcpComponent (category, "", 0, logicalId)
+{
+    QGraphicsLinearLayout* layout;
+    
+    DuiContentItem *item = new DuiContentItem(DuiContentItem::SingleTextLabel);
+    item->setTitle(line);
+    layout = new QGraphicsLinearLayout (this);
+    layout->addItem (item);
+
+    connect(item, SIGNAL (clicked()),
+            this, SLOT (activate()));
+    
+    setMattiID ("DcpBriefComponent::" + logicalId + "::" + "::" + line);
+}
 DcpBriefComponent::~DcpBriefComponent()
 {
 }
@@ -58,18 +77,6 @@ DcpBriefComponent::setApplet(
         DcpAppletObject* applet)
 {
     m_BriefWidget->setApplet(applet);
-}
-
-QString DcpBriefComponent::mattiID ()
-{
-    return m_mattiID;
-}
-
-void 
-DcpBriefComponent::setMattiID (
-        const QString &mattiID)
-{
-    m_mattiID = mattiID;
 }
 
 void

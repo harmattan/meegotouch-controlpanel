@@ -15,7 +15,6 @@ class DcpAppletButtons :
     public DcpMainCategory
 {
     Q_OBJECT
-    Q_PROPERTY (QString mattiID READ mattiID WRITE setMattiID)
 
 public:
     DcpAppletButtons (
@@ -42,8 +41,6 @@ public:
     void startLoading();
     bool hasLoadingItems();
 
-    QString mattiID ();
-    void setMattiID (const QString &mattiID);
 
 signals:
     void loadingFinished();
@@ -59,7 +56,6 @@ private:
     QString                 m_CategoryName;
     QString                 m_LogicalId;
     const DcpCategoryInfo  *m_CategoryInfo;
-    QString                 m_mattiID;
 
     // stores the metadatas to be loaded until loading completed:
     int m_LoadPosition;

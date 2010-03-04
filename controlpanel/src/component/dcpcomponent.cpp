@@ -26,3 +26,15 @@ DcpComponent* DcpComponent::child(int i) const
     return 0;
 }
 
+QString 
+DcpComponent::mattiID ()
+{
+    return m_MattiID;
+}
+
+void 
+DcpComponent::setMattiID (
+        const QString &mattiID)
+{
+    m_MattiID = mattiID;
+}

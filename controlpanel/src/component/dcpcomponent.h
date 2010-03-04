@@ -10,6 +10,7 @@ class DcpComponent;
 class DcpComponent : public DuiWidget
 {
     Q_OBJECT
+    Q_PROPERTY (QString mattiID READ mattiID WRITE setMattiID)
 
 public:
     explicit DcpComponent(DcpComponent *category,
@@ -31,6 +32,8 @@ public:
     
     virtual const QString logicalId() { return m_LogicalId; }
     void setLogicalId(const QString& logicalId) { m_LogicalId = logicalId; }
+    QString mattiID();
+    void setMattiID(const QString &mattiID);
 
 protected:
     virtual void createContents() = 0;
@@ -38,6 +41,7 @@ protected:
 private:
     QString m_Title;
     QString m_LogicalId;
+    QString m_MattiID;
     DcpComponent* m_Category;
     PageHandle m_SubPage;
 };
