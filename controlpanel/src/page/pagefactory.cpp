@@ -254,9 +254,13 @@ PageFactory::changePage (
     }
     
     /*
-     * Time to show the new page.
+     * Time to show the new page. We also raise the main window here, because
+     * this page might appear for a DBus request while the duicontrolpanel is
+     * already started but the window is hiding behind some other application.
      */
     page->appear (DuiSceneWindow::KeepWhenDone);
+    if (DuiApplication::activeWindow ())
+        DuiApplication::activeWindow ()->raise();
 }
 
 void
