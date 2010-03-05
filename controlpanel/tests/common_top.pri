@@ -1,4 +1,4 @@
-#include(./../../lib/dcpconfig.pri)
+include(./../../lib/dcpconfig.pri)
 
 INCLUDEPATH +=/usr/include/dui ../doubles
 
@@ -24,8 +24,8 @@ coverage {
     QMAKE_LFLAGS += --coverage
 }
 
-target.path = $${DCP_INSTALL_LIB}/duicontrolpanel-tests                                  
-INSTALLS += target                                                              
+target.path = $${DCP_INSTALL_LIB}/duicontrolpanel-tests
+INSTALLS += target
 include(check.pri)
 LIBS +=  -L/usr/lib -lduicontrolpanel
 QMAKE_CXXFLAGS += -Werror
