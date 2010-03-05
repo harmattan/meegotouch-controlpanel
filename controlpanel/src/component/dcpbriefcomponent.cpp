@@ -15,6 +15,9 @@
 #define DEBUG
 #include "../../../lib/src/dcpdebug.h"
 
+/* FIXME: check if logicalId can be removed from the class.
+ */
+
 DcpBriefComponent::DcpBriefComponent (
         DcpAppletObject   *applet,
         DcpComponent        *category,
@@ -65,7 +68,7 @@ DcpBriefComponent::DcpBriefComponent (
     connect(item, SIGNAL (clicked()),
             this, SLOT (activate()));
     
-    setMattiID ("DcpBriefComponent::" + logicalId + "::" + "::" + line);
+    setMattiID ("DcpBriefComponent::" + logicalId);
 }
 DcpBriefComponent::~DcpBriefComponent()
 {
