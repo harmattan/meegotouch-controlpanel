@@ -32,9 +32,6 @@ public:
     QString mattiID() const;
     void setMattiID(const QString &mattiID);
 
-protected:
-    virtual void createContents() = 0;
-
 private:
     QString m_Title;
     QString m_LogicalId;

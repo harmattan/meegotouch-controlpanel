@@ -188,9 +188,8 @@ DcpPage::setReferer (
 void 
 DcpPage::back ()
 {
-    DCP_DEBUG ("*** m_Handle  = %s", DCP_STR (m_Handle.getStringVariant()));
-    DCP_DEBUG ("*** m_Referer = %s", DCP_STR (m_Referer.getStringVariant()));
     emit openSubPage (referer());
+//    dismiss();
 }
 
 

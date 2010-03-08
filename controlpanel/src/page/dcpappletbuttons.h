@@ -31,12 +31,6 @@ public:
     void addComponent (
             DcpAppletMetadata *metadata);
 
-    void addComponent (
-        const QString       &briefTitleText,
-        const QString       &briefSecondaryText,
-        const PageHandle    &pageHandle);
-
-
     virtual void reload();
 
     //! starts loading the items

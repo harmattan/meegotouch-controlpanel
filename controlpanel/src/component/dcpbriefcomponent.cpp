@@ -15,8 +15,6 @@
 #define DEBUG
 #include "../../../lib/src/dcpdebug.h"
 
-/* FIXME: check if logicalId can be removed from the class.
- */
 
 DcpBriefComponent::DcpBriefComponent (
         DcpAppletObject   *applet,
@@ -33,43 +31,6 @@ DcpBriefComponent::DcpBriefComponent (
 }
 
 
-DcpBriefComponent::DcpBriefComponent (
-        const QString       &line1,
-        const QString       &line2,
-        DcpComponent        *category,
-        const QString       &logicalId)
-: DcpComponent (category, "", 0, logicalId)
-{
-    QGraphicsLinearLayout* layout;
-    
-    m_BriefWidget = new DcpBriefWidget (DcpWidgetType::Toggle, line1, line2, this);
-    layout = new QGraphicsLinearLayout (this);
-    layout->addItem (m_BriefWidget);
-
-    connect (m_BriefWidget, SIGNAL (clicked()),
-            this, SLOT (activate()));
-    
-    setMattiID ("DcpBriefComponent::" + logicalId + "::" + "::" + line1);
-}
-
-DcpBriefComponent::DcpBriefComponent (
-        const QString       &line,
-        DcpComponent        *category,
-        const QString       &logicalId)
-: DcpComponent (category, "", 0, logicalId)
-{
-    QGraphicsLinearLayout* layout;
-    
-    DuiContentItem *item = new DuiContentItem(DuiContentItem::SingleTextLabel);
-    item->setTitle(line);
-    layout = new QGraphicsLinearLayout (this);
-    layout->addItem (item);
-
-    connect(item, SIGNAL (clicked()),
-            this, SLOT (activate()));
-    
-    setMattiID ("DcpBriefComponent::" + logicalId);
-}
 DcpBriefComponent::~DcpBriefComponent()
 {
 }

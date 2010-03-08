@@ -103,7 +103,7 @@ DcpAppletCategoryPage::reload ()
 void DcpAppletCategoryPage::back ()
 {
     cleanup();
-    DcpCategoryPage::back();
+    DcpPage::back();
 }
 
 void 

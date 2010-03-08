@@ -113,10 +113,11 @@ DcpAppletButtons::createContents ()
             if (element->titleId == 0)
                 break;
 
-            addComponent (
+  /*          addComponent (
                     element->appletCategory,
                     "",
                     element->subPageId);
+*/
         }
     }
 }
@@ -242,23 +243,6 @@ DcpAppletButtons::addComponent (
     DcpBriefComponent *component;
     component = new DcpBriefComponent (DcpAppletDb::instance()->applet(metadata->name()), this, logicalId());
     component->setSubPage (PageHandle::APPLET, metadata->name());
-
-    appendWidget (component);
-}
-
-void
-DcpAppletButtons::addComponent (
-        const QString       &briefTitleText,
-        const QString       &briefSecondaryText,
-        const PageHandle    &pageHandle)
-{
-    DcpBriefComponent *component;
-
-    component = new DcpBriefComponent (
-            briefTitleText,
-            briefSecondaryText,
-            this, logicalId());
-    component->setSubPage (pageHandle);
 
     appendWidget (component);
 }

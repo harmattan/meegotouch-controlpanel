@@ -5,6 +5,7 @@
 #include <QtDebug>
 #include <DuiApplication>
 #include <DcpBriefComponent>
+#include <DcpSingleComponent>
 #include <DcpMainCategory>
 #include <Pages>
 #include <DcpApplet>
@@ -92,14 +93,14 @@ DcpMainPage::createContent ()
             DcpMain::otherCategoriesTitleId);
     otherCategories->setMaxColumns(2);
     for (int i = 0;; i++) {
-        DcpBriefComponent *button;
+        DcpSingleComponent *button;
         const DcpCategoryInfo  *info;
 
         info = &DcpMain::CategoryInfos[i];
         if (info->titleId == 0)
              break;
 
-        button = new DcpBriefComponent(qtTrId(info->titleId), otherCategories, info->titleId);
+        button = new DcpSingleComponent(otherCategories, info->titleId, qtTrId(info->titleId));
         button->setSubPage(info->subPageId, info->titleId);
         otherCategories->appendWidget(button);
         

@@ -180,7 +180,7 @@ DcpAppletPage::back ()
        return;
     }
     if (!m_MainWidget || m_MainWidget->back())
-        DcpPage::back();
+        dismiss();//DcpPage::back();
 }
 
 void 

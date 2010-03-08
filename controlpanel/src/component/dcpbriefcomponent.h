@@ -18,18 +18,7 @@ class DcpBriefComponent:
     Q_PROPERTY (QString mattiID READ mattiID WRITE setMattiID)
 
 public:
-    DcpBriefComponent (DcpAppletObject *applet, 
-            DcpComponent        *category,
-            const QString       &logicalId = "");
-
-    DcpBriefComponent (
-            const QString       &line1,
-            const QString       &line2,
-            DcpComponent        *category,
-            const QString       &logicalId = "");
-
-    DcpBriefComponent (
-            const QString       &line,
+    DcpBriefComponent(DcpAppletObject *applet, 
             DcpComponent        *category,
             const QString       &logicalId = "");
     ~DcpBriefComponent ();
@@ -37,20 +26,11 @@ public:
 
     void setApplet (DcpAppletObject *applet);
 
-    // Composite Pattern Interface, do nothing
-    virtual void add (DcpComponent *) {}
-    virtual void remove (DcpComponent *) {}
-    virtual void createContents () {}
-
-//    QString mattiID ();
-//    void setMattiID (const QString &mattiID);
-
 public slots:
     void activate ();
 
 private:
     DcpBriefWidget *m_BriefWidget;
-  //  QString         m_mattiID;
 };
 
 #endif // DCPBRIEFCOMPONENT_H
