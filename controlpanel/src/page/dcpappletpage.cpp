@@ -182,12 +182,8 @@ DcpAppletPage::back ()
        qApp->exit(0);
        return;
     }
-<<<<<<< HEAD:controlpanel/src/page/dcpappletpage.cpp
-    if (!m_MainWidget || m_MainWidget->back())
-        dismiss();//DcpPage::back();
-=======
+   // if (!m_MainWidget || m_MainWidget->back())
     DcpPage::back();
->>>>>>> 463626db3719896e1d1f90252be4dfe6f9ec3af6:controlpanel/src/page/dcpappletpage.cpp
 }
 
 void 
