@@ -104,7 +104,6 @@ PageFactory::createPage (
             break;
 
         default:
-            DCP_DEBUG ("## CATEGORY_PAGEID_XXX ##");
             Q_ASSERT(handle.id > PageHandle::CATEGORY_PAGEID_START
                      && handle.id < PageHandle::CATEGORY_PAGEID_END);
             page = createAppletCategoryPage (handle.id);
@@ -239,7 +238,7 @@ PageFactory::appletWantsToStart (int pageId)
 
     Q_ASSERT (applet);
 
-    DCP_DEBUG ("XXX Applet '%s' wants to start, widgetId: %d",
+    DCP_DEBUG ("Applet '%s' wants to start, widgetId: %d",
                DCP_STR(applet->metadata()->name()), pageId);
 
     PageHandle handle (PageHandle::APPLET, applet->metadata()->name(), pageId);

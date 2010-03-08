@@ -171,31 +171,17 @@ DcpAppletObject::activatePluginByName (
         const QString &appletName) const
 {
     Q_UNUSED(appletName);
-    /*
-       DcpAppletObject  *otherApplet;
-       DcpWidget          *senderWidget = qobject_cast<DcpWidget *> (sender());
+    DcpAppletObject  *otherApplet;
 
-       Q_ASSERT (senderWidget != NULL);
+    DCP_WARNING ("Want to start '%s'", DCP_STR (appletName));
 
-       DCP_WARNING ("Want to start '%s' by %s/%d", 
-       DCP_STR (appletName),
-       DCP_STR (metadata()->name()),
-       senderWidget->getWidgetId());
-
-       otherApplet = DcpAppletDb::instance()->applet (appletName);
-       if (otherApplet) {
-       DCP_DEBUG ("Emitting %p->activateWithReferer (%s, %d)", 
-                otherApplet,
-                DCP_STR (name()), 
-                senderWidget->getWidgetId());
-        emit otherApplet->activateWithReferer (
-                name(), senderWidget->getWidgetId());
-
+    otherApplet = DcpAppletDb::instance()->applet (appletName);
+    if (otherApplet) {
+        otherApplet->activateSlot ();
         return true;
     }
-        
+
     DCP_WARNING ("Applet with name '%s' not found.", DCP_STR (appletName));
-*/
     return false;
 }
 

@@ -57,7 +57,6 @@ DcpAppletPage::refreshContent ()
 void
 DcpAppletPage::createContent ()
 {
-    DCP_DEBUG("DcpAppletPage XXX createContent");
     DcpPage::createContent ();
     loadMainWidget ();
 }
@@ -194,8 +193,6 @@ DcpAppletPage::changeWidget (
     bool        this_is_a_new_widget;
 
     dropMissingLabel ();
-
-    DCP_DEBUG("XXX changeWidget widgetId: %d", m_WidgetId);
 
     /*
      * Creating the widget and setting its widgetId.
