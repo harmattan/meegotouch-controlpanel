@@ -18,8 +18,6 @@ public:
     DcpPage();
 
     virtual void createContent();
-    virtual void connectSignals();
-    virtual void disconnectSignals();
 
     PageHandle handle () const;
     virtual void setHandle (const PageHandle &handle);

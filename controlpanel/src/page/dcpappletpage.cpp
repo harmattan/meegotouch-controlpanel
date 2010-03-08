@@ -19,10 +19,10 @@
 #include "duiwidgetcreator.h"
 DUI_REGISTER_WIDGET_NO_CREATE(DcpAppletPage)
 
-DcpAppletPage::DcpAppletPage (
-        DcpAppletObject *applet):
+DcpAppletPage::DcpAppletPage (DcpAppletObject *applet, int widgetId):
     DcpPage (),
     m_Applet(applet),
+    m_WidgetId(widgetId),
     m_ReloadNeeded (false),
     m_MainWidget (0),
     m_MissingLabel (0)
@@ -57,6 +57,7 @@ DcpAppletPage::refreshContent ()
 void
 DcpAppletPage::createContent ()
 {
+    DCP_DEBUG("DcpAppletPage XXX createContent");
     DcpPage::createContent ();
     loadMainWidget ();
 }
@@ -94,7 +95,10 @@ DcpAppletPage::loadMainWidget ()
              * view. (Here we got the widgetId from the plugin itself using the
              * DCP/Part key of the desktop file.)
              */
-            changeWidget (m_Applet->getMainWidgetId ());
+            if (m_WidgetId < 0) {
+                m_WidgetId = m_Applet->getMainWidgetId();
+            }
+            changeWidget (m_WidgetId);
 
             return;
         } else if (m_Applet->metadata()->hasApplicationCommand ()) {
@@ -173,14 +177,13 @@ void
 DcpAppletPage::back ()
 {
     DCP_DEBUG ("");
-    if (handle().isStandalone  && m_MainWidget->referer() == -1)
+    if (handle().isStandalone)
     {
        DCP_DEBUG("This is a standalone applet"); 
        qApp->exit(0);
        return;
     }
-    if (!m_MainWidget || m_MainWidget->back())
-        DcpPage::back();
+    DcpPage::back();
 }
 
 void 
@@ -191,6 +194,8 @@ DcpAppletPage::changeWidget (
     bool        this_is_a_new_widget;
 
     dropMissingLabel ();
+
+    DCP_DEBUG("XXX changeWidget widgetId: %d", m_WidgetId);
 
     /*
      * Creating the widget and setting its widgetId.
@@ -235,7 +240,7 @@ DcpAppletPage::changeWidget (
         setPannableAreaInteractive (m_MainWidget->pagePans());
 
         connect (m_MainWidget, SIGNAL (changeWidget(int)),
-                this, SLOT(changeWidget(int)));
+                 m_Applet, SLOT(activateSlot(int)));
 
         connect (m_MainWidget, SIGNAL (activatePluginByName (const QString &)),
                 m_Applet, SLOT (activatePluginByName (const QString &)));
@@ -261,16 +266,17 @@ DcpAppletPage::replaceActions(const QVector<DuiAction*>& actions)
 
 void
 DcpAppletPage::setApplet (
-        DcpAppletObject *applet)
+        DcpAppletObject *applet, int widgetId)
 {
     DCP_DEBUG ("*** applet = %p", applet);
 
-    if (m_Applet == applet) {
+    if (m_Applet == applet && widgetId == m_WidgetId) {
         DCP_WARNING ("The same applet already set.");
         return;
     }
 
     m_Applet = applet;
+    m_WidgetId = widgetId;
     m_ReloadNeeded = true;
     setReferer (PageHandle::NOPAGE); 
 }

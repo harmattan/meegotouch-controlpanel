@@ -67,7 +67,7 @@ DcpAppletCategoryPage::loadContent ()
 
     list = DcpAppletDb::instance()->listByCategory (names, 2, 
                 withUncategorized ? dcp_category_name_enlisted : NULL);
-    
+
     foreach (DcpAppletMetadata *item, list) {
         DCP_DEBUG ("*** applet '%s'", DCP_STR (item->name()));
         addComponent (item);
