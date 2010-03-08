@@ -19,7 +19,7 @@
 
 DcpAppletObjectPrivate::DcpAppletObjectPrivate ()
     :
-      m_Brief (0)
+        m_Brief (0)
 {
 }
 
@@ -31,7 +31,7 @@ DcpAppletObjectPrivate::~DcpAppletObjectPrivate ()
 }
 
 
-DcpAppletObject::DcpAppletObject(DcpAppletMetadata *metadata)
+    DcpAppletObject::DcpAppletObject(DcpAppletMetadata *metadata)
 : DcpAppletPlugin(metadata), d_ptr (new DcpAppletObjectPrivate)
 {
 }
@@ -133,7 +133,7 @@ DcpAppletObject::text2 () const
      */
     if (metadata()->isDisabled())
         return QString ("Disabled");
-    
+
     return (brief() ? brief()->valueText() : metadata()->text2());
 }
 
@@ -147,7 +147,7 @@ DcpAppletObject::text2 () const
 QString 
 DcpAppletObject::imageName() const
 {
-     return (brief() ? brief()->image() : metadata()->imageName());
+    return (brief() ? brief()->image() : metadata()->imageName());
 }
 
 QString 
@@ -171,31 +171,17 @@ DcpAppletObject::activatePluginByName (
         const QString &appletName) const
 {
     Q_UNUSED(appletName);
-/*
     DcpAppletObject  *otherApplet;
-    DcpWidget          *senderWidget = qobject_cast<DcpWidget *> (sender());
 
-    Q_ASSERT (senderWidget != NULL);
-   
-    DCP_WARNING ("Want to start '%s' by %s/%d", 
-            DCP_STR (appletName),
-            DCP_STR (metadata()->name()),
-            senderWidget->getWidgetId());
+    DCP_WARNING ("Want to start '%s'", DCP_STR (appletName));
 
     otherApplet = DcpAppletDb::instance()->applet (appletName);
     if (otherApplet) {
-        DCP_DEBUG ("Emitting %p->activateWithReferer (%s, %d)", 
-                otherApplet,
-                DCP_STR (name()), 
-                senderWidget->getWidgetId());
-        emit otherApplet->activateWithReferer (
-                name(), senderWidget->getWidgetId());
-
+        otherApplet->activateSlot ();
         return true;
     }
-        
+
     DCP_WARNING ("Applet with name '%s' not found.", DCP_STR (appletName));
-*/
     return false;
 }
 
@@ -244,13 +230,6 @@ DcpAppletObject::brief () const
     return d_ptr->m_Brief;
 }
 
-void 
-DcpAppletObject::activateSlot ()
-{
-    DCP_DEBUG ("Emitting activate()");
-    emit activate();
-}
-
 
 
 
@@ -269,6 +248,13 @@ DcpAppletObject::slotClicked ()
         metadata()->setDisabled (false);
     }
 
-    emit activate ();
+    activateSlot();
+}
+
+void
+DcpAppletObject::activateSlot (int pageId)
+{
+    DCP_DEBUG ("Emitting activate(%d)", pageId);
+    emit activate(pageId);
 }
 

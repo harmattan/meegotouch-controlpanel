@@ -18,7 +18,6 @@
 
 #include "appleterrorsdialog.h"
 
-#define DEBUG
 #include "dcpdebug.h"
 
 
@@ -28,7 +27,6 @@ PageFactory::PageFactory ():
     QObject (),
     m_CurrentPage (0), 
     m_MainPage (0), 
-    m_AppletPage (0), 
     m_AppletCategoryPage (0)
 {
 }
@@ -58,10 +56,8 @@ PageFactory::mainPageFirstShown ()
     foreach (QString name, list) {
         DCP_DEBUG ("*** LAC applet '%s'", DCP_STR (name));
         DcpAppletObject *applet = DcpAppletDb::instance()->applet(name);
-        connect (applet, SIGNAL (activate ()),
-                this, SLOT (appletWantsToStart ()));
-        connect (applet, SIGNAL (activateWithReferer (const QString &, int)),
-                this, SLOT (appletWantsToStart (const QString &, int)));
+        connect (applet, SIGNAL (activate (int)),
+                this, SLOT (appletWantsToStart (int)));
     }
 
     AppletErrorsDialog::showAppletErrors();
@@ -104,12 +100,10 @@ PageFactory::createPage (
 
         case PageHandle::APPLET:
             DCP_DEBUG ("## APPLET ##");
-            page = createAppletPage (
-                DcpAppletDb::instance()->applet (handle.param));
+            page = createAppletPage (handle);
             break;
 
         default:
-            DCP_DEBUG ("## CATEGORY_PAGEID_XXX ##");
             Q_ASSERT(handle.id > PageHandle::CATEGORY_PAGEID_START
                      && handle.id < PageHandle::CATEGORY_PAGEID_END);
             page = createAppletCategoryPage (handle.id);
@@ -118,19 +112,10 @@ PageFactory::createPage (
     if (page) {
         page->setHandle (handle);
 
-        if (m_CurrentPage)
-            m_CurrentPage->disconnectSignals ();
+        if (page->isContentCreated ()) {
+            page->reload ();
+        }
 
-        page->connectSignals ();
-
-        /*
-         * But we did this already in the createAppletPage() function! This
-         * design should be better...
-         */
-        if (handle.id != PageHandle::APPLET)
-            if (page->isContentCreated ())
-                page->reload ();
-        
         m_CurrentPage = page;
     }
 
@@ -158,30 +143,28 @@ PageFactory::createMainPage ()
 /*!
  * Creates an applet page for the default widget of the applet variant
  * represented by the metadata. Also will try to re-use the already existing
- * applet page referenced by the m_AppletPage class member.
+ * applet page referenced by the appletPage class member.
  */
 DcpPage *
-PageFactory::createAppletPage(DcpAppletObject *applet)
+PageFactory::createAppletPage(const PageHandle & handle)
 {
+    DcpAppletObject *applet = DcpAppletDb::instance()->applet (handle.param);
+
     /*
-     * If we have not created the applet page yet we do that, otherwise we set
-     * the metadata for the existing page.
+     * We do not cache appletpages (only with back mechanism).
      */
-    if (!m_AppletPage) {
-        m_AppletPage = new DcpAppletPage(applet);
-        registerPage (m_AppletPage);
-    } else {
-        m_AppletPage->setApplet(applet);
-        m_AppletPage->setReferer(m_CurrentPage->handle());
-    }
-  
-    m_AppletPage->refreshContent ();
-    
-    if (!m_AppletPage->hasWidget() && !m_AppletPage->hasError()) {
+    DcpAppletPage* appletPage = new DcpAppletPage(applet, handle.widgetId);
+    registerPage (appletPage);
+
+    // we do this because we need to know if the page has a widget or not
+    // TODO XXX
+    appletPage->createContent();
+
+    if (!appletPage->hasWidget() && !appletPage->hasError()) {
         // the applet does not provide a page (e.g. just a dialog)
         return 0;
     } else {
-        return m_AppletPage;
+        return appletPage;
     }
 }
 
@@ -211,27 +194,20 @@ PageFactory::createAppletCategoryPage (
     }
 
     m_AppletCategoryPage->setTitle (qtTrId (info->titleId));
-    
+
     return m_AppletCategoryPage;
 }
 
 /*!
- * Creates a new page and sets as the current page. If the refererName is not
- * empty the referer for the new page will be set.
- *
- * FIXME: This function assumes that the referer is an applet page.
+ * Creates a new page and sets as the current page.
  */
 void 
-PageFactory::changePage (
-        const PageHandle     &handle,
-        const QString        &refererName,
-        int                   refererWidgetId)
+PageFactory::changePage (const PageHandle &handle)
 {
     DcpPage  *page;
 
-    DCP_DEBUG ("Creating page '%s'/%d for referer '%s'/%d",
-            DCP_STR (handle.param), handle.id,
-            DCP_STR (refererName), refererWidgetId);
+    DCP_DEBUG ("Creating page '%s'/%d",
+            DCP_STR (handle.param), handle.id);
     /*
      * Creating the page with the given handle.
      */
@@ -242,40 +218,31 @@ PageFactory::changePage (
     }
 
     /*
-     * If we have a referer we set it now.
-     */
-    if (!refererName.isEmpty()) {
-        PageHandle referer (PageHandle::APPLET, 
-                refererName, refererWidgetId);
-
-        page->setReferer (referer);
-    }
-    
-    /*
      * Time to show the new page.
+     *
+     * Destroy policy: cached pages should not be destroyed,
+     * applet pages should be destroyed only when coming back from them
+     * to ensure there is no leak
      */
-    page->appear (DuiSceneWindow::KeepWhenDone);
+    if (handle.id == PageHandle::APPLET) {
+        page->appear (DuiSceneWindow::DestroyWhenDismissed);
+    } else {
+        page->appear (DuiSceneWindow::KeepWhenDone);
+    }
 }
 
 void
-PageFactory::appletWantsToStart (
-        const QString &refererName, 
-        int            refererWidgetId)
+PageFactory::appletWantsToStart (int pageId)
 {
     DcpAppletObject *applet = qobject_cast<DcpAppletObject*> (sender());
 
     Q_ASSERT (applet);
- 
-    DCP_DEBUG ("Applet '%s' wants to start.", DCP_STR(metadata->name()));
-    PageHandle handle (
-            PageHandle::APPLET,
-            applet->metadata()->name(),
-            applet->getMainWidgetId());
 
-    if (refererName.isEmpty())
-        changePage (handle);
-    else
-        changePage (handle, refererName, refererWidgetId);
+    DCP_DEBUG ("Applet '%s' wants to start, widgetId: %d",
+               DCP_STR(applet->metadata()->name()), pageId);
+
+    PageHandle handle (PageHandle::APPLET, applet->metadata()->name(), pageId);
+    changePage (handle);
 }
 
 /*!
@@ -300,11 +267,10 @@ PageFactory::registerPage (
     if (page != m_MainPage) {
         // closeAction TODO XXX on language change, move into to the page?
         DuiAction *quitAction;
-        
+
         quitAction = new DuiAction (qtTrId(DcpMain::quitMenuItemTextId), page);
-        /* FIXME DuiAction::ApplicationMenu */
-        quitAction->setLocation((DuiAction::Location) 4);
-        
+        quitAction->setLocation(DuiAction::ApplicationMenuLocation);
+
         connect(quitAction, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
 
         // Add actions to page

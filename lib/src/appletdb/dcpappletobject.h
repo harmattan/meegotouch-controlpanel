@@ -34,15 +34,13 @@ public:
 
 signals:
     void briefChanged ();
-    void activate ();
-    void activateWithReferer (
-            const QString  &refererName,
-            int             refererWidgetId);
+    void activate (int pageId);
+
 public slots:
     void slotClicked ();
     void setToggle (bool checked);
     bool activatePluginByName (const QString &name) const;
-    void activateSlot ();
+    void activateSlot(int widgetId = -1);
 
 protected:
     DcpBrief* brief() const;

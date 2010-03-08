@@ -24,7 +24,6 @@ HEADERS += \
     $$SRCDIR/include/* \
     $$SRCDIR/component/dcpcomponent.h 
 
-message ($$HEADERS)
 # base classes
 #HEADERS += 
 

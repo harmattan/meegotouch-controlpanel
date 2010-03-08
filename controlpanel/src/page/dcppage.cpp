@@ -21,6 +21,10 @@ DcpPage::DcpPage () :
 {
     DCP_DEBUG ("");
     setEscapeButtonMode (DuiEscapeButtonPanelModel::BackMode);
+
+    // back button handling:
+    connect (this, SIGNAL(backButtonClicked()),
+             this, SLOT(back()));
 }
 
 
@@ -81,22 +85,6 @@ DcpPage::removeWidget (
     mainLayout()->removeItem (widget);
     widget->hide();
 #endif
-}
-
-void 
-DcpPage::connectSignals ()
-{
-   connect (
-           this, SIGNAL(backButtonClicked()), 
-           this, SLOT(back()));
-}
-
-void 
-DcpPage::disconnectSignals ()
-{
-    disconnect (
-            this, SIGNAL(backButtonClicked()), 
-            this, SLOT(back()));
 }
 
 /*!
@@ -182,25 +170,19 @@ DcpPage::setReferer (
 
 /*!
  * A virtual function that is executed when the top right corner 'back' button
- * is clicked on a page. The default implementation will open the referer page
- * (that is will go back to the parent page).
+ * is clicked on a page. The default implementation will call dismiss,
+ * so back will be handled by libdui.
  */
 void 
 DcpPage::back ()
 {
-    emit openSubPage (referer());
-//    dismiss();
+    dismiss();
 }
 
 
 /*! 
- * FIXME: Why this method is called reload?
- *
- * this is where pages optimize their open up times
- * default implementation sets the correct orientation 
- *
- * FIXME: Removed the function body, we don't use this any more, maybe it should
- * be deleted.
+ * This is called automatically for cached pages to reload their content when
+ * they are openned again.
  */
 void 
 DcpPage::reload ()
