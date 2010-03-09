@@ -16,7 +16,7 @@
 /*
  * Or use these lines to turn on all the debug (or warning) messages.
  */
-//#define DEBUG
+#define DEBUG
 #define WARNING
 
 /*

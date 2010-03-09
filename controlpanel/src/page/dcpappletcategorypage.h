@@ -28,7 +28,7 @@ public slots:
     virtual void back();
 
 protected:
-    void addComponent (DcpAppletMetadata *metadata);
+    void addComponent (DcpAppletMetadata *applet);
     void loadContent ();
 
 private:

@@ -19,7 +19,6 @@ class DuiContainer;
 class DcpCategoryComponent: public DcpComponent
 {
 Q_OBJECT
-Q_PROPERTY (QString mattiID READ mattiID WRITE setMattiID)
 
 public:
     DcpCategoryComponent (
@@ -50,8 +49,6 @@ public:
 
     bool hasLoadingItems ();
 
-    QString mattiID();
-    void setMattiID(const QString &mattiID);
 
 signals:
     void loadFinished();
@@ -66,7 +63,6 @@ private:
     const DcpCategoryInfo  *m_CategoryInfo;
     DuiContainer     *m_Container;
     QString           m_LogicalId;
-    QString           m_mattiID;
 };
 
 

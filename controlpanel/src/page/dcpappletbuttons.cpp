@@ -113,10 +113,11 @@ DcpAppletButtons::createContents ()
             if (element->titleId == 0)
                 break;
 
-            addComponent (
+  /*          addComponent (
                     element->appletCategory,
                     "",
                     element->subPageId);
+*/
         }
     }
 }
@@ -145,7 +146,7 @@ DcpAppletButtons::startLoading()
 #else
         // FIXME this is a hack to disable the applet delayed loading until
         // we can solve the !updateAll assert, which seems a Qt bug
-        while (loadNextItem());
+        while (loadNextItem()) ;
 #endif
     } else {
         stopLoading();
@@ -240,25 +241,8 @@ DcpAppletButtons::addComponent (
         DcpAppletMetadata *metadata)
 {
     DcpBriefComponent *component;
-    component = new DcpBriefComponent (metadata, this, logicalId());
+    component = new DcpBriefComponent (DcpAppletDb::instance()->applet(metadata->name()), this, logicalId());
     component->setSubPage (PageHandle::APPLET, metadata->name());
-
-    appendWidget (component);
-}
-
-void
-DcpAppletButtons::addComponent (
-        const QString       &briefTitleText,
-        const QString       &briefSecondaryText,
-        const PageHandle    &pageHandle)
-{
-    DcpBriefComponent *component;
-
-    component = new DcpBriefComponent (
-            briefTitleText,
-            briefSecondaryText,
-            this, logicalId());
-    component->setSubPage (pageHandle);
 
     appendWidget (component);
 }
@@ -278,18 +262,6 @@ DcpAppletButtons::reload ()
     startLoading ();
 }
 
-QString 
-DcpAppletButtons::mattiID ()
-{
-    return m_mattiID;
-}
-
-void 
-DcpAppletButtons::setMattiID (
-        const QString &mattiID)
-{
-    m_mattiID = mattiID;
-}
 
 
 

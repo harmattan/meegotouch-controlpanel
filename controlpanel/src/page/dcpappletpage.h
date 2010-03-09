@@ -6,7 +6,7 @@
 #include <QVector>
 
 class DcpWidget;
-class DcpAppletMetadata;
+class DcpAppletObject;
 class DuiLabel;
 class DuiAction;
 
@@ -15,13 +15,13 @@ class DcpAppletPage : public DcpPage
 Q_OBJECT
 
 public:
-    DcpAppletPage(DcpAppletMetadata *metadata);
+    DcpAppletPage(DcpAppletObject *applet, int widgetId = -1);
     virtual ~DcpAppletPage();
 
     virtual void refreshContent ();
     virtual void createContent ();
 
-    void setMetadata (DcpAppletMetadata *metadata);
+    void setApplet(DcpAppletObject *applet, int widgetId = -1);
     virtual void reload ();
     bool hasWidget ();
     bool hasError ();
@@ -31,15 +31,16 @@ protected:
     void replaceActions(const QVector<DuiAction*>& actions);
 
 protected slots:
-    void changeWidget (int widgetId);
     virtual void back ();
 
 private:
+    void changeWidget (int widgetId);
     void dropWidget ();
     void dropMissingLabel ();
     void loadMainWidget ();
 
-    DcpAppletMetadata   *m_Metadata;
+    DcpAppletObject   *m_Applet;
+    int m_WidgetId;
     bool                 m_ReloadNeeded;
     DcpWidget           *m_MainWidget;
     DuiLabel            *m_MissingLabel;

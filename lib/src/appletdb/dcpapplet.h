@@ -7,7 +7,8 @@ namespace DcpApplet {
     const QString DefaultPath = DESKTOP_DIR;
     const QString Lib = APPLET_LIBS;
     const QString MostUsedCategory = "MostUsedCategory";
-    const int MaxMostUsed = 6;
+    const QString OtherCategories = "OtherCategories";
+    const int MaxMostUsed = 4;
 };
 
 #endif // DCPAPPLET_H

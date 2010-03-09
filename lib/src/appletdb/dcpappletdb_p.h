@@ -8,6 +8,7 @@
 class DcpAppletDb;
 
 typedef QMap<QString, DcpAppletMetadata*> DcpAppletMetadataMap;
+typedef QMap<QString, DcpAppletObject*> DcpAppletObjectMap;
 
 //typedef bool (*checkCategory)(const QString &);
 
@@ -18,6 +19,7 @@ public:
     ~DcpAppletDbPrivate();
     DcpAppletMetadataMap appletsByName;
     DcpAppletMetadataMap appletsByFile;
+    DcpAppletObjectMap appletObjectsByName;
     QList<QString> paths;
     bool hasUniqueMetadata;
     static DcpAppletDb *sm_Instance;

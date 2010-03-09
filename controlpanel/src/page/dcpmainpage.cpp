@@ -4,13 +4,13 @@
 
 #include <QtDebug>
 #include <DuiApplication>
-
+#include <DcpBriefComponent>
+#include <DcpSingleComponent>
 #include <DcpMainCategory>
 #include <Pages>
 #include <DcpApplet>
 #include <QGraphicsLinearLayout>
 
-#include "dcpdescriptioncomponent.h"
 #include "dcpcategorycomponent.h"
 #include "maintranslations.h"
 
@@ -87,24 +87,28 @@ DcpMainPage::createContent ()
     // FIXME: what if we would not need DcpComponent as parent?
     m_RecentlyComp->hide();
     m_RecentlyComp->setParentItem(centralWidget()); 
-
-    /*
-     * All the other categories.
-     */
+    DcpMainCategory *otherCategories = new DcpMainCategory(
+            DcpMain::otherCategoriesTitleId,
+            0,
+            DcpMain::otherCategoriesTitleId);
+    otherCategories->setMaxColumns(2);
     for (int i = 0;; i++) {
-        DcpCategoryComponent   *component;
+        DcpSingleComponent *button;
         const DcpCategoryInfo  *info;
 
         info = &DcpMain::CategoryInfos[i];
         if (info->titleId == 0)
              break;
 
-        component = new DcpCategoryComponent (0, info);
-        layout->addItem (component);
+        button = new DcpSingleComponent(otherCategories, info->titleId, qtTrId(info->titleId));
+        button->setSubPage(info->subPageId, info->titleId);
+        otherCategories->appendWidget(button);
+        
     }
 
-    setEscapeButtonMode (DuiEscapeButtonPanelModel::CloseMode);
-    retranslateUi ();
+    layout->addItem(otherCategories);
+    setEscapeButtonMode(DuiEscapeButtonPanelModel::CloseMode);
+    retranslateUi();
 
 #ifdef DISABLE_DELAYED_LOADING
     createContentsLate ();
@@ -112,7 +116,6 @@ DcpMainPage::createContent ()
 
     emit firstShown ();
 #endif // DISABLE_DELAYED_LOADING
-
 }
 
 /*!
@@ -129,14 +132,6 @@ DcpMainPage::createContentsLate ()
     DCP_DEBUG ("");
 
     layout = mainLayout ();
-
-    /*
-     * recently used item load finish will start the load process of the other
-     * containers:
-     */
-    m_LoadedContainers = 0;
-    connect (m_RecentlyComp, SIGNAL(loadFinished()),
-             this, SLOT(loadNextContainer()));
 
     m_RecentlyComp->createContentsLate ();
 
@@ -156,35 +151,8 @@ DcpMainPage::createContentsLate ()
 }
 
 void
-DcpMainPage::loadNextContainer ()
-{
-    // disconnect last item
-    disconnect (sender(), SIGNAL(loadFinished()),
-                this, SLOT(loadNextContainer()));
-
-    QGraphicsLinearLayout* layout = mainLayout();
-    DcpCategoryComponent* comp =
-       dynamic_cast<DcpCategoryComponent*> (layout->itemAt(m_LoadedContainers));
-
-    // handle next item:
-    m_LoadedContainers++;
-    if (layout->count() > m_LoadedContainers) {
-        // continue loading the next container if load finished:
-        connect (comp, SIGNAL(loadFinished()),
-                 this, SLOT(loadNextContainer()));
-    }
-    comp->createContentsLate ();
-}
-
-void
 DcpMainPage::retranslateUi ()
 {
-    QGraphicsLinearLayout *layout = mainLayout();
-
-    DCP_DEBUG ("");
-    /*
-     * The title of the main window.
-     */
     setTitle (qtTrId(DcpMain::settingsTitleId));
 
     /*
@@ -192,18 +160,6 @@ DcpMainPage::retranslateUi ()
      */
     m_RecentlyComp->retranslateUi ();
 
-    /*
-     * All the category component capable to retlanslate the UI for itself e.g.
-     * they know the title id, they can localize themselves.
-     * Please note that we only retlanslate those that are currently visible.
-     */
-    for (int i = 0; i < layout->count(); ++i) {
-        DcpCategoryComponent* comp =
-            dynamic_cast<DcpCategoryComponent*> (layout->itemAt(i));
-
-        comp->retranslateUi();
-    }
-    // no need to update briefs, they take care of themselves
 }
 
 

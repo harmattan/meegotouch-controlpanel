@@ -1,0 +1,1 @@
+#include "../appletdb/dcpappletobject.h"

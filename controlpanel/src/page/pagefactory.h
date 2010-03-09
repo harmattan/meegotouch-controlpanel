@@ -6,6 +6,7 @@
 
 class DcpPage;
 class DcpAppletMetadata;
+class DcpAppletObject;
 class DcpMainPage;
 class DcpAppletPage;
 class DcpAppletCategoryPage;
@@ -24,19 +25,14 @@ public:
     DcpPage* currentPage() { return m_CurrentPage; }
 
 public slots:
-    void appletWantsToStart (
-                    const QString &refererName = "", 
-                    int            refererWidgetId = -1);
-    
-    void changePage (
-                    const PageHandle &handle, 
-                    const QString    &refererName      = "",
-                    int               refererWidgetId  = -1);
+    void appletWantsToStart (int widgetId = -1);
+
+    void changePage (const PageHandle &handle);
 
 protected:
     PageFactory ();
     DcpPage* createMainPage ();
-    DcpPage* createAppletPage (DcpAppletMetadata *metadata);
+    DcpPage* createAppletPage(const PageHandle& applet);
     DcpPage* createAppletCategoryPage (PageHandle::PageTypeId pageId);
 
 private slots:
@@ -48,8 +44,8 @@ private:
     static PageFactory     *sm_Instance;
     DcpPage                *m_CurrentPage;
     DcpMainPage            *m_MainPage;
-    DcpAppletPage          *m_AppletPage;
     DcpAppletCategoryPage  *m_AppletCategoryPage;
 };
 
 #endif
+

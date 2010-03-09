@@ -1,16 +1,16 @@
-#ifndef UT_DCPAPPLETLOADER_H
-#define UT_DCPAPPLETLOADER_H
+#ifndef UT_DCPAPPLETPLUGIN_H
+#define UT_DCPAPPLETPLUGIN_H
 
 #include <QtTest/QtTest>
 #include <QObject>
 
-// the real unit/DcpAppletLoader class declaration
-#include "dcpappletloader.h"
+// the real unit/DcpAppletPlugin class declaration
+#include "dcpappletplugin.h"
 #include "dcpappletmetadata.h"
 
-Q_DECLARE_METATYPE(DcpAppletLoader*);
+Q_DECLARE_METATYPE(DcpAppletPlugin*);
 
-class Ut_DcpAppletLoader : public QObject
+class Ut_DcpAppletPlugin : public QObject
 {
     Q_OBJECT
 
@@ -25,7 +25,7 @@ private slots:
     void testMetadata();
 
 private:
-    DcpAppletLoader* m_subject;
+    DcpAppletPlugin* m_subject;
 };
 
 #endif
