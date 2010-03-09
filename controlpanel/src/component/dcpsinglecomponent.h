@@ -18,8 +18,15 @@ public:
                        const QString &title, 
                        const QString &subTitle="");
     ~DcpSingleComponent ();
+
+    void setTitle(const QString& title);
+    void setSubtitle(const QString& subtitle);
+
 public slots:
     void activate ();
+
+private:
+    class DuiContentItem* m_Item;
 };
 
 #endif // DCPSINGLECOMPONENT_H

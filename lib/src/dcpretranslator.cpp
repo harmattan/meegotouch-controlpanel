@@ -43,8 +43,11 @@ DcpRetranslator::retranslate ()
               qPrintable(language));
 
     // install engineering english
+    locale.installTrCatalog("libdui.qm");
     locale.installTrCatalog(binaryName + ".qm");
     // install real translation
+    locale.installTrCatalog("libdui");
+    locale.installTrCatalog("common");
     locale.installTrCatalog(binaryName);
 
     loadAppletTranslations(locale);

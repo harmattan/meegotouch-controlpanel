@@ -103,7 +103,7 @@ DcpMainPage::createContent ()
         button = new DcpSingleComponent(otherCategories, info->titleId, qtTrId(info->titleId));
         button->setSubPage(info->subPageId, info->titleId);
         otherCategories->appendWidget(button);
-        
+        m_CategoryButtons.append(button);
     }
 
     layout->addItem(otherCategories);
@@ -160,10 +160,14 @@ DcpMainPage::retranslateUi ()
      */
     m_RecentlyComp->retranslateUi ();
 
+    for (int i=0; i<m_CategoryButtons.count(); i++) {
+        DcpSingleComponent* comp = m_CategoryButtons.at(i);
+        comp->setTitle(qtTrId(DcpMain::CategoryInfos[i].titleId));
+    }
 }
 
 
-void 
+void
 DcpMainPage::reload ()
 {
     DCP_DEBUG ("WARNING: RELOADING");

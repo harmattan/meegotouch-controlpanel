@@ -22,15 +22,15 @@ DcpSingleComponent::DcpSingleComponent (
 
     QGraphicsLinearLayout* layout;
     
-    DuiContentItem *item = new DuiContentItem(subTitle.isEmpty() ? DuiContentItem::SingleTextLabel:
+    m_Item = new DuiContentItem(subTitle.isEmpty() ? DuiContentItem::SingleTextLabel:
                                 DuiContentItem::TwoTextLabels);
-    item->setTitle(title);
+    setTitle(title);
     if (!subTitle.isEmpty())
-        item->setSubtitle(subTitle);
+        setSubtitle(subTitle);
     layout = new QGraphicsLinearLayout (this);
-    layout->addItem (item);
+    layout->addItem (m_Item);
 
-    connect(item, SIGNAL (clicked()),
+    connect(m_Item, SIGNAL (clicked()),
             this, SLOT (activate()));
     
     setMattiID ("DcpSingleComponent::" + logicalId);
@@ -46,3 +46,16 @@ DcpSingleComponent::activate ()
     PageFactory *pageFactory = PageFactory::instance();
     pageFactory->changePage (subPage());
 }
+
+void
+DcpSingleComponent::setTitle (const QString& title)
+{
+    m_Item->setTitle(title);
+}
+
+void
+DcpSingleComponent::setSubtitle (const QString& subTitle)
+{
+    m_Item->setSubtitle(subTitle);
+}
+

@@ -5,9 +5,11 @@
 #define DCPMAINPAGE_H
 
 #include <DcpCategoryPage>
+#include <QList>
 
 class DcpMainCategory;
 class DcpCategoryComponent;
+class DcpSingleComponent;
 
 class DcpMainPage : public DcpPage
 {
@@ -34,7 +36,8 @@ protected:
 private:
     DcpCategoryComponent *m_RecentlyComp;
     bool                  m_HasContent;
-
+    QList<DcpSingleComponent *> m_CategoryButtons;
 };
 
 #endif
+
