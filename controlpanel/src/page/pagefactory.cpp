@@ -229,6 +229,10 @@ PageFactory::changePage (const PageHandle &handle)
     } else {
         page->appear (DuiSceneWindow::KeepWhenDone);
     }
+
+    if (DuiApplication::activeWindow ()) {
+        DuiApplication::activeWindow ()->raise();
+    }
 }
 
 void
