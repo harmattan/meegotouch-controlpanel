@@ -29,18 +29,32 @@ DcpRetranslator::DcpRetranslator ()
 }
 
 
-//! \brief copied from widgetsgallery, makes translation reload
+/*
+ * ! \brief copied from widgetsgallery, makes translation reload
+ *
+ * Please note that I had to add a recursion protection to this function because
+ * with the newest libdui (libdui0_0.19.4-2_i386.deb) it fell into endless
+ * recursion.
+ */
 void
 DcpRetranslator::retranslate ()
 {
+    static bool running = false;
+
+    /*
+     * Protection against endless recursion.
+     */
+    if (running)
+        return;
+    running = true;
+
     DuiApplication* duiApp = DuiApplication::instance();
     DuiGConfItem languageItem("/Dui/i18n/Language");
     QString language = languageItem.value().toString();
     DuiLocale locale(language);
 
     QString binaryName = duiApp->binaryName();
-    DCP_DEBUG("%s: %s %s", __PRETTY_FUNCTION__, qPrintable(binaryName),
-              qPrintable(language));
+    DCP_DEBUG("%s %s", qPrintable(binaryName), qPrintable(language));
 
     // install engineering english
     locale.installTrCatalog("libdui.qm");
@@ -53,6 +67,8 @@ DcpRetranslator::retranslate ()
     loadAppletTranslations(locale);
 
     DuiLocale::setDefault(locale);
+
+    running = false;
 }
 
 void

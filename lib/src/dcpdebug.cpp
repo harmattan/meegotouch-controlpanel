@@ -24,22 +24,25 @@
 
 
 
-
+#define DEBUG
 
 static const char* DEBUG_PREFIX = "(DCP)";
 static QHash<QString, QTime> starttimes;
 
 void DcpDebug::time(const QString& msg) {
+    DCP_DEBUG ("");
     qDebug() << DEBUG_PREFIX 
         << QTime::currentTime().toString("mm:ss.zzz") << msg;
 }
 
 void DcpDebug::start(const QString& msg) {
+    DCP_DEBUG ("");
     starttimes.insert(msg, QTime::currentTime());
     time(msg + " begins");
 }
 
 void DcpDebug::end(const QString& msg) {
+    DCP_DEBUG ("");
     QTime last = starttimes.take(msg);
     time(msg + " ends, elapsed time: " + QString::number(
                 last.msecsTo(QTime::currentTime())));
