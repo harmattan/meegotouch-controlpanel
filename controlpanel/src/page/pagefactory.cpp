@@ -193,7 +193,7 @@ PageFactory::createAppletCategoryPage (
         m_AppletCategoryPage->setCategoryInfo (info);
     }
 
-    m_AppletCategoryPage->setTitle (qtTrId (info->titleId));
+    m_AppletCategoryPage->setTitleId (info->titleId);
 
     return m_AppletCategoryPage;
 }

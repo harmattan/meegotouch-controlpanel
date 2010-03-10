@@ -23,11 +23,13 @@ public:
 
     virtual void reload();
     void cleanup();
+    void setTitleId(const char* titleId);
 
 public slots:
     virtual void back();
 
 protected:
+    virtual void retranslateUi();
     void addComponent (DcpAppletMetadata *applet);
     void loadContent ();
 
@@ -37,6 +39,7 @@ private:
     // page's content is loaded
     QString m_LoadedAppletCategory; 
     const DcpCategoryInfo  *m_CategoryInfo;
+    const char* m_TitleId;
 };
 
 #endif

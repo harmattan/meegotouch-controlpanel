@@ -48,7 +48,7 @@ DcpAppletCategoryPage::setCategoryInfo (
     m_CategoryInfo = categoryInfo;
 }
 
-void 
+void
 DcpAppletCategoryPage::loadContent ()
 {
     bool                    withUncategorized;
@@ -120,5 +120,19 @@ DcpAppletCategoryPage::cleanup ()
             //metadata->cleanup ();
         }
     }
+}
+
+void
+DcpAppletCategoryPage::retranslateUi()
+{
+    // briefwidgets take care of themselves, so we only update title here
+    setTitle(qtTrId(m_TitleId));
+}
+
+void
+DcpAppletCategoryPage::setTitleId(const char* titleId)
+{
+    m_TitleId = titleId;
+    retranslateUi();
 }
 

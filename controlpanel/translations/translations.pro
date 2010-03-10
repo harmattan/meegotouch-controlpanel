@@ -5,7 +5,7 @@
 #
 # Remove them once we get real translations.
 
-LANGUAGES = ar de en fi hu ur zh_CN
+LANGUAGES = ar de fi hu ur zh_CN
 # LANGUAGES =
 CATALOGNAME = duicontrolpanel
 SOURCEDIR = $$PWD/..

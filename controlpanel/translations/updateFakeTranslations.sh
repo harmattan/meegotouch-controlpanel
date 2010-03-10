@@ -8,7 +8,7 @@
 # change is working until we get the real translations.
 
 # configure these: --
-langs="ar de en fi hu ur zh_CN"
+langs="ar de fi hu ur zh_CN"
 pkgName="duicontrolpanel"
 # --
 
@@ -31,7 +31,7 @@ createTranslation() {
             if [ "x$lastWord" = "x" ]; then
                 echo "<translation>Fake $lang $i</translation>"
             else
-                echo "<translation>${lang},$lastWord,$lang</translation>"
+                echo "<translation>(${lang}) $lastWord</translation>"
             fi
             lastWord=
         else
