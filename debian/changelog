@@ -1,8 +1,9 @@
-duicontrolpanel (0.7.2) UNRELEASED; urgency=low
+duicontrolpanel (0.7.2) unstable; urgency=low
 
   * Fixes NB#159307 - DuiControlpanel page animation is not right
+  * updated ui according to spec changes (category buttons on main page, etc)
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 08 Mar 2010 15:43:43 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 10 Mar 2010 13:00:27 +0100
 
 duicontrolpanel (0.7.1) unstable; urgency=low
 
