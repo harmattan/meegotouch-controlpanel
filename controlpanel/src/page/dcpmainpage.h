@@ -10,6 +10,7 @@
 class DcpMainCategory;
 class DcpCategoryComponent;
 class DcpSingleComponent;
+class DuiContainer;
 
 class DcpMainPage : public DcpPage
 {
@@ -35,6 +36,7 @@ protected:
 
 private:
     DcpCategoryComponent *m_RecentlyComp;
+    DuiContainer *m_OtherComp;
     bool                  m_HasContent;
     QList<DcpSingleComponent *> m_CategoryButtons;
 };

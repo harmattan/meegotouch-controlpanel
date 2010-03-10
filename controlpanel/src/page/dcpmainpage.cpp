@@ -10,6 +10,7 @@
 #include <Pages>
 #include <DcpApplet>
 #include <QGraphicsLinearLayout>
+#include <DuiContainer>
 
 #include "dcpcategorycomponent.h"
 #include "maintranslations.h"
@@ -37,7 +38,6 @@ DcpMainPage::DcpMainPage() :
     connect (this, SIGNAL(windowShown()),
             this, SLOT(shown()));
 
-    setTitle (qtTrId(DcpMain::settingsTitleId));
 }
 
 /*!
@@ -86,7 +86,9 @@ DcpMainPage::createContent ()
             DcpMain::mostRecentUsedTitleId);
     // FIXME: what if we would not need DcpComponent as parent?
     m_RecentlyComp->hide();
-    m_RecentlyComp->setParentItem(centralWidget()); 
+    m_RecentlyComp->setParentItem(centralWidget());
+
+    m_OtherComp = new DuiContainer();
     DcpMainCategory *otherCategories = new DcpMainCategory(
             DcpMain::otherCategoriesTitleId,
             0,
@@ -105,8 +107,9 @@ DcpMainPage::createContent ()
         otherCategories->appendWidget(button);
         m_CategoryButtons.append(button);
     }
+    m_OtherComp->setCentralWidget(otherCategories);
 
-    layout->addItem(otherCategories);
+    layout->addItem(m_OtherComp);
     setEscapeButtonMode(DuiEscapeButtonPanelModel::CloseMode);
     retranslateUi();
 
@@ -159,6 +162,8 @@ DcpMainPage::retranslateUi ()
      * We always retranslate the 'most used' category, see NB #156882.
      */
     m_RecentlyComp->retranslateUi ();
+
+    m_OtherComp->setTitle(qtTrId(DcpMain::otherCategoriesTitleId));
 
     for (int i=0; i<m_CategoryButtons.count(); i++) {
         DcpSingleComponent* comp = m_CategoryButtons.at(i);

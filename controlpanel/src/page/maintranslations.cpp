@@ -3,29 +3,6 @@
 
 #include "maintranslations.h"
 
-static const DcpCategoryInfo
-AccountsAndApplicationsElements[] = 
-{
-    {
-        //% "Service accounts"
-        QT_TRID_NOOP ("qtn_sett_main_account"),
-        "Service accounts",
-        PageHandle::ServiceAccounts,
-        NULL
-    },
-    {
-        //% "Applications"
-        QT_TRID_NOOP ("qtn_sett_main_application"),
-        "Applications",
-        PageHandle::Applications,
-        NULL
-    },
-    {
-        // The last element must have the .titleId == 0
-        0, 0, PageHandle::NOPAGE, NULL
-    }
-};
-
 /*
  * The applet categories that will be shown in the main window of the control
  * panel.
@@ -62,11 +39,19 @@ DcpMain::CategoryInfos[] =
         NULL
     },
     {
-        //% "Accounts & Applications"
-        QT_TRID_NOOP ("qtn_sett_main_combined"),
-        "Accounts & Applications",
-        PageHandle::ACCOUNTSANDAPPLICATIONS,
-        AccountsAndApplicationsElements
+        //% "Service Accounts"
+        QT_TRID_NOOP ("qtn_sett_main_account"),
+        "Accounts & Applications", /* FIXME we will need to deprecate it somehow
+                                      it is currently maintained for compatibility */
+        PageHandle::ServiceAccounts,
+        NULL
+    },
+    {
+        //% "Applications"
+        QT_TRID_NOOP ("qtn_sett_main_applications"),
+        "Applications",
+        PageHandle::Applications,
+        NULL
     },
     {
         // The last element must have the .titleId == 0
