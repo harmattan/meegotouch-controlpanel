@@ -111,7 +111,7 @@ void Ut_DcpAppletDb::testApplet()
 
     QVERIFY(m_subject->addPath(testDesktopDir2));
 
-    QWARN("\n\t ---- Expected QWARN : No such applet: 'xxx' ----");
+//    QWARN("\n\t ---- Expected QWARN : No such applet: 'xxx' ----");
     QVERIFY(m_subject->applet(displayEntryName));
     QVERIFY(m_subject->applet(datetimeEntryName));
     QVERIFY(!m_subject->applet("xxx"));
