@@ -156,6 +156,10 @@ int main(int argc, char *argv[])
     }
 
     DCP_DEBUG ("### Starting up application.");
-    return startApplication (argc, argv);
+    int st = startApplication (argc, argv);
+
+    DcpAppletDb::destroy();
+
+    return st;
 }
 

@@ -28,10 +28,9 @@ DcpAppletPluginPrivate::~DcpAppletPluginPrivate ()
 
 DcpAppletPlugin::~DcpAppletPlugin()
 {
-    if (d_ptr->appletInstance)
-        delete d_ptr->appletInstance;
-
-    d_ptr->appletInstance = 0;
+    if (d_ptr->loader.isLoaded()) {
+        d_ptr->loader.unload();
+    }
 }
 
 /*!
@@ -122,15 +121,15 @@ DcpAppletPlugin::loadPluginFile (
         return false;
     }
 
-    QPluginLoader loader (binaryPath);
-    if (!loader.load ()) {
+    d_ptr->loader.setFileName (binaryPath);
+    if (!d_ptr->loader.load ()) {
         d_ptr->errorMsg = "Loading of the '" + binaryPath + "/" +
             d_ptr->appletMetadata->name() +
-            "' applet failed: " + loader.errorString();
+            "' applet failed: " + d_ptr->loader.errorString();
         DCP_WARNING ("%s", DCP_STR (d_ptr->errorMsg));
         qCritical () << d_ptr->errorMsg;
     } else {
-        QObject *object = loader.instance();
+        QObject *object = d_ptr->loader.instance();
         d_ptr->appletInstance = qobject_cast<DcpAppletIf*>(object);
 
         if (!d_ptr->appletInstance) {

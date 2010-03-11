@@ -295,9 +295,16 @@ DcpAppletDb::eraseEntry (
 void 
 DcpAppletDb::destroyData ()
 {
-    DCP_WARNING ("Destroying all metadata.");
+    DCP_DEBUG ("Destroying all metadata.");
     foreach(DcpAppletMetadata *metadata, d_ptr->appletsByName) {
-        metadata->deleteLater();
+        delete metadata;
     }
+    d_ptr->appletsByName.clear();
+
+    DCP_DEBUG ("Destroying DcpAppletObjects");
+    foreach(DcpAppletObject *applet, d_ptr->appletObjectsByName) {
+        delete applet;
+    }
+    d_ptr->appletObjectsByName.clear();
 }
 
