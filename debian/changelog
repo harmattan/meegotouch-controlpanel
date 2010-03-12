@@ -1,4 +1,4 @@
-duicontrolpanel (0.7.3) unstable; urgency=low
+duicontrolpanel (0.7.3~unreleased) unstable; urgency=low
 
   * Fixes: NB#156027 DcpAppletIf leaks memory
 
