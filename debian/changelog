@@ -1,3 +1,9 @@
+duicontrolpanel (0.7.3) unstable; urgency=low
+
+  * Fixes: NB#156027 DcpAppletIf leaks memory
+
+ -- Viktor Nagy <viktor.nagy@blumsoft.eu>  Fri, 12 Mar 2010 10:55:10 +0100
+
 duicontrolpanel (0.7.2) unstable; urgency=low
 
   * Fixes NB#159307 - DuiControlpanel page animation is not right
