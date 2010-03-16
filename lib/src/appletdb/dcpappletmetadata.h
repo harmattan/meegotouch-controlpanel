@@ -6,6 +6,13 @@
 
 #include <QObject>
 #include <QString>
+
+/*
+ * This macro shows that the DcpAppletLoader is deprecated, not available any
+ * more. FIXME: This macro has to be removed sooner or later.
+ */
+#define DCP_APPLET_LOADER_DEPRECATED 1
+
 class DuiDesktopEntry;
 class DcpAppletMetadataPrivate;
 
