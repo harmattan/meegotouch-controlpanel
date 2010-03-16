@@ -49,7 +49,7 @@ bool
 DcpAppletMetadata::isValid () const
 {
     if (binary().isEmpty() &&
-            dslFilename().isEmpty()) {
+            dslFilename().isEmpty() && !hasApplicationCommand()) {
         DCP_WARNING ("The applet binary and the shell command also empty.");
         return false;
     }

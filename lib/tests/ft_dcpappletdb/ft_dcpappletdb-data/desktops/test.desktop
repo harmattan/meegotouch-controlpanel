@@ -5,6 +5,7 @@ Icon=
 Exec=
 X-logical-id=qtn_sett_main_browser
 X-translation-catalog=duisettings
+
 [DUI]
 X-DUIApplet-Applet=testapplet.so
 X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
@@ -19,3 +20,4 @@ Align = RIGHT
 Image = test.png
 Part = RobiJonMegKutyaraDer
 Parent = RobiJonMegKutyaraDer_II
+
