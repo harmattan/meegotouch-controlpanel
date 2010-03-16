@@ -28,9 +28,18 @@ DcpAppletPluginPrivate::~DcpAppletPluginPrivate ()
 
 DcpAppletPlugin::~DcpAppletPlugin()
 {
+    /*
+     * I had to remove this code, because the libdui will cause serius segfaults
+     * when the applet has been reloaded and the loadCSS() method is called. We
+     * have to find a solution for this problem.
+     *
+     * lpere@blumsoft.eu
+     */
+    #if 0
     if (d_ptr->loader.isLoaded()) {
         d_ptr->loader.unload();
     }
+    #endif
 }
 
 /*!
