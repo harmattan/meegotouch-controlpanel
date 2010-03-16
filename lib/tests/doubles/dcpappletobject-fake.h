@@ -4,7 +4,7 @@
 #define DCPAPPLETOBJECT_FAKE
 #include "dcpappletobject.h"
 #include "dcpappletobject_p.h"
-#include "dcpappletmetadata-fake.h"
+#include "dcpappletmetadata.h"
 #include "dcpappletplugin-fake.h"
 #include "dcpwidgettypes.h"
 

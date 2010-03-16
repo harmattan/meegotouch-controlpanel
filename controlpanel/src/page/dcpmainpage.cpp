@@ -53,7 +53,10 @@ DcpMainPage::shown ()
     DCP_DEBUG ("##################################################");
 
     if (m_HasContent)
-        return;
+    {
+       m_RecentlyComp->reload(); 
+       return;
+    }
     
     createContentsLate ();
     m_HasContent = true;
