@@ -21,7 +21,8 @@ Description: Development files for the control panel application and its applets
 Package: duicontrolpanel
 Section: x11
 Architecture: any
-Depends: libdui0 (>= 0.15), ${shlibs:Depends}, ${misc:Depends}, libduicontrolpanel (= ${Source-Version}), duicontrolpanel-l10n-fake (= ${Source-Version}), duicontrolpanel-l10n-engineering-english (= ${Source-Version})
+# removed: duicontrolpanel-l10n-fake (= ${Source-Version}), 
+Depends: libdui0 (>= 0.15), ${shlibs:Depends}, ${misc:Depends}, libduicontrolpanel (= ${Source-Version}), duicontrolpanel-l10n-engineering-english (= ${Source-Version})
 Description: Control Panel
 
 Package: duicontrolpanel-dbg
@@ -50,10 +51,13 @@ Architecture: any
 Enhances: duicontrolpanel
 Description: Engineering English translations for duicontrolpanel
 
-Package: duicontrolpanel-l10n-fake
-Section: misc
-Architecture: any
-Conflicts: duicontrolpanel-l10n, duicontrolpanel-l10n-fi-fi, duicontrolpanel-l10n-en-gb, duicontrolpanel-l10n-zh-cn, duicontrolpanel-l10n-de
-Description: Fake translations for duicontrolpanel
- Makes it easier to demo the "on the fly" language change
+#
+# Removed because the fake package could not be installed. 
+#
+#Package: duicontrolpanel-l10n-fake
+#Section: misc
+#Architecture: any
+#Conflicts: duicontrolpanel-l10n, duicontrolpanel-l10n-fi-fi, duicontrolpanel-l10n-en-gb, duicontrolpanel-l10n-zh-cn, duicontrolpanel-l10n-de
+#Description: Fake translations for duicontrolpanel
+# Makes it easier to demo the "on the fly" language change
 
