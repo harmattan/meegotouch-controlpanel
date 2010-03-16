@@ -1,0 +1,113 @@
+#! /usr/bin/perl
+# usage :
+#    $1 class name - ie in upper camel case - no 'ft_' prepended
+
+$duisrcdir="../src";
+
+# catch wrong usage
+if ( "$ARGV[0]" eq "" || "$ARGV[0]" =~ "^ft_" ) {
+    print "usage: $0 <DuiClassName>\n";
+    exit -1;
+}
+
+$camelClassName="$ARGV[0]";
+$lowerClassName=lc( $camelClassName );
+$upperClassName=uc( $camelClassName );
+
+$camelMkFtClassName="MkFtClassName";
+$lowerMkFtClassName=lc( $camelMkFtClassName );
+$upperMkFtClassName=uc( $camelMkFtClassName );
+
+$srcDir="../src";
+$unitH="$srcDir/${lowerClassName}.h";
+$unitCpp="$srcDir/${lowerClassName}.cpp";
+$targetDir="ft_$lowerClassName";
+
+if ( -e "$targetDir" ) {
+    print "$targetDir/ already exists - too risky to overwrite, please delete manually\n";
+    exit -1;
+}
+
+@bases = ();
+$thisFile=$unitH;
+$thisBase=getBase( $thisFile, $camelClassName );
+while ( "$thisBase" ne "" ) {
+    push @bases, $thisBase;
+    $thisFile="../src/".lc( $thisBase ).".h";
+    $thisBase=getBase( $thisFile, $thisBase );
+}
+
+foreach $duiWidget (@bases) {
+    $lowerDuiWidget=lc($duiWidget);
+    $newBaseSource="\$\$DUISRCDIR\/${lowerDuiWidget}.cpp \\";
+    $newBaseHeader="\$\$DUISRCDIR\/${lowerDuiWidget}.h \\";
+    push @baseSources, $newBaseSource;
+    push @baseHeaders, $newBaseHeader;
+}
+#$newServiceHeader="\$\$DUISRCDIR\/${lowerDuiWidget}.h \$\$STUBSDIR\/${lowerDuiWidget}_stub.h \\";
+
+$allBaseSources = "";
+$allBaseHeaders = "";
+
+$allBaseSources = "\t".join( "\n\t", @baseSources ) if ( @baseSources );
+$allBaseHeaders = "\t".join( "\n\t", @baseHeaders ) if ( @baseHeaders );
+
+# make the directory
+if ( ! -e "$targetDir" ) {
+    mkdir $targetDir;
+}
+
+$classHeader = "${lowerClassName}.h";
+$classHeaderP = "${lowerClassName}_p.h";
+$classInclude = "#include <$classHeader>";
+$classIncludeP = "";
+if ( -e "$duisrcdir/$classHeaderP" ) {
+    $classIncludeP = "#include <$classHeaderP>";
+}
+
+## copy template
+foreach $file ( glob( "template/*" ) ) {
+    $base=basename($file);
+    $targetFile="$targetDir/$base";
+    $targetFile=~s/template/$lowerClassName/;
+    open INFILE, "<$file" || die( "Could not read from $file:$!" );
+    open OUTFILE, ">$targetFile" || die( "Could not write to $targetFile:$!" );
+    while (<INFILE>) {
+        $_ =~ s/^\s*mkftserviceheaders//g;
+        $_ =~ s/^\s*mkftbasesources/$allBaseSources/g;
+        $_ =~ s/^\s*mkftbaseheaders/$allBaseHeaders/g;
+        $_ =~ s/$camelMkFtClassName/$camelClassName/g;
+        $_ =~ s/$lowerMkFtClassName/$lowerClassName/g;
+        $_ =~ s/$upperMkFtClassName/$upperClassName/g;
+        $_ =~ s/^mkftclassinclude$/$classInclude/g;
+        $_ =~ s/^mkftclassinclude_p$/$classIncludeP/g;
+        $_ =~ s/MKFTCLASSMEMBERS//g;
+        print OUTFILE "$_";
+    }
+    close OUTFILE;
+    close INFILE;
+}
+
+sub getBase
+{
+    my ($thisFile, $thisBase)=@_;
+    my $retVal="";
+
+    open THISFILE, "<$thisFile";
+    while (<THISFILE>) {
+        if ( /class\s+$thisBase\s*:\s*\S+\s+(Dui\S+)/ ) {
+            $retVal=$1;
+            last;
+        }
+    }
+    close THISFILE;
+    return $retVal;
+}
+
+sub basename
+{
+    my ($filename)=@_;
+    my @bits=split( /\//, $filename );
+
+    return $bits[ @bits-1 ];
+}
