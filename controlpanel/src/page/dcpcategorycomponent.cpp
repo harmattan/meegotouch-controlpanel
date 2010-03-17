@@ -3,13 +3,10 @@
 #include "dcpcategorycomponent.h"
 #include "dcpappletbuttons.h"
 
-#include <QCoreApplication>
 #include <DuiContainer>
 #include <QGraphicsLinearLayout>
-#include <DuiSceneManager>
 
-#define DEBUG
-#include "../../../lib/src/dcpdebug.h"
+#include "dcpdebug.h"
 
 /*!
  * Constructor that uses category name to create the component. Should use 
@@ -53,7 +50,7 @@ DcpCategoryComponent::~DcpCategoryComponent()
 }
 
 
-void 
+void
 DcpCategoryComponent::setTitle (
         const QString &title)
 {
@@ -71,12 +68,7 @@ DcpCategoryComponent::retranslateUi()
     }
 }
 
-/*!
- * The content is created in two phase. First an empty container with a spinner
- * is created, then the applets are loaded and the brief widgets are added. this
- * is the first phase.
- */
-void 
+void
 DcpCategoryComponent::createContents ()
 {
     QGraphicsLinearLayout *layout;
@@ -84,28 +76,10 @@ DcpCategoryComponent::createContents ()
     DCP_DEBUG ("");
     m_Container = new DuiContainer (this);
     m_Container->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
-    m_Container->setProgressIndicatorVisible (true);
 
     layout = new QGraphicsLinearLayout (Qt::Vertical, this);
     layout->addItem (m_Container);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-}
-
-/*!
- * The content is created in two phase. First an empty container with a spinner
- * is created, then the applets are loaded and the brief widgets are added. this
- * is the second phase.
- */
-void 
-DcpCategoryComponent::createContentsLate ()
-{
-    DCP_DEBUG ("");
-
-    // Do not create the contents twice:
-    if (m_AppletButtons) {
-        onAppletButtonsLoaded();
-        return;
-    }
 
     if (m_CategoryInfo) 
         m_AppletButtons = new DcpAppletButtons (m_CategoryInfo, title());
@@ -114,19 +88,6 @@ DcpCategoryComponent::createContentsLate ()
                 logicalId(), m_CategoryName, title());
 
     m_Container->setCentralWidget (m_AppletButtons);
-
-    // stop progress indicator, when all applets are in place:
-    connect (m_AppletButtons, SIGNAL(loadingFinished()),
-             this, SLOT(onAppletButtonsLoaded ()));
-
-    m_AppletButtons->startLoading();
-}
-
-void
-DcpCategoryComponent::onAppletButtonsLoaded ()
-{
-    m_Container->setProgressIndicatorVisible (false);
-    emit loadFinished();
 }
 
 void 
@@ -141,13 +102,5 @@ int
 DcpCategoryComponent::getItemCount ()
 {
     return m_AppletButtons ? m_AppletButtons->getItemCount () : 0;
-}
-
-/*! \returns true if the container has loaded or loading items
- */
-bool
-DcpCategoryComponent::hasLoadingItems ()
-{
-    return m_AppletButtons ? m_AppletButtons->hasLoadingItems() : false;
 }
 

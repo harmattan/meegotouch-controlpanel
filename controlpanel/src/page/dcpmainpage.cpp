@@ -32,12 +32,12 @@ DUI_REGISTER_WIDGET_NO_CREATE(DcpMainPage)
 DcpMainPage::DcpMainPage() :
     DcpPage (),
     m_RecentlyComp (0),
-    m_HasContent (false)
+    m_HasContent (false),
+    m_WasHidden (false)
 {
     setEscapeButtonMode (DuiEscapeButtonPanelModel::CloseMode);
     connect (this, SIGNAL(windowShown()),
             this, SLOT(shown()));
-
 }
 
 /*!
@@ -52,18 +52,27 @@ DcpMainPage::shown ()
     DCP_DEBUG ("### Main page has been shown #####################");
     DCP_DEBUG ("##################################################");
 
-    if (m_HasContent)
-    {
-        m_RecentlyComp->reload(); 
-        createContentsLate ();
-//       m_RecentlyComp->show(); 
-       return;
+    if (m_HasContent) {
+        if (m_WasHidden) {
+            m_WasHidden = false;
+            m_RecentlyComp->reload();
+        }
+        return;
     }
-   
-    createContentsLate ();
+
     m_HasContent = true;
-    
+
+#ifndef DISABLE_DELAYED_LOADING
+    createContentsLate ();
+#endif
+
     emit firstShown ();
+}
+
+void
+DcpMainPage::hideEvent(QHideEvent*)
+{
+    m_WasHidden = true;
 }
 
 /*!
@@ -77,21 +86,6 @@ DcpMainPage::createContent ()
     DcpPage::createContent ();
 
     layout = mainLayout ();
-
-    /*
-     * Most recent used items. If this category is empty it is not visible so we
-     * will add to the layout later.
-     * Use 
-     * # gconftool-2 --recursive-unset /apps/duicontrolpanel/usagecount
-     * to test this piece of code.
-     */
-    m_RecentlyComp = new DcpCategoryComponent (
-            0,
-            DcpApplet::MostUsedCategory,
-            DcpMain::mostRecentUsedTitleId);
-    // FIXME: what if we would not need DcpComponent as parent?
-    m_RecentlyComp->hide();
-    m_RecentlyComp->setParentItem(centralWidget());
 
     m_OtherComp = new DuiContainer();
     DcpMainCategory *otherCategories = new DcpMainCategory(
@@ -107,7 +101,8 @@ DcpMainPage::createContent ()
         if (info->titleId == 0)
              break;
 
-        button = new DcpSingleComponent(otherCategories, info->titleId, qtTrId(info->titleId));
+        button = new DcpSingleComponent(otherCategories, info->titleId,
+                                        qtTrId(info->titleId));
         button->setSubPage(info->subPageId, info->titleId);
         otherCategories->appendWidget(button);
         m_CategoryButtons.append(button);
@@ -120,10 +115,7 @@ DcpMainPage::createContent ()
 
 #ifdef DISABLE_DELAYED_LOADING
     createContentsLate ();
-    m_HasContent = true;
-
-    emit firstShown ();
-#endif // DISABLE_DELAYED_LOADING
+#endif
 }
 
 /*!
@@ -135,23 +127,24 @@ DcpMainPage::createContent ()
 void
 DcpMainPage::createContentsLate ()
 {
-    QGraphicsLinearLayout *layout;
-
-    DCP_DEBUG ("");
-
-    layout = mainLayout ();
-
-    m_RecentlyComp->createContentsLate ();
+    Q_ASSERT(isContentCreated());
+    QGraphicsLinearLayout *layout = mainLayout();
+    Q_ASSERT(layout);
 
     /*
-     * Most recent used items. If this category is empty it is not visible so we
-     * will add to the layout later.
-     * Use 
+     * Creating the most recent used items.
+     * Use
      * # gconftool-2 --recursive-unset /apps/duicontrolpanel/usagecount
      * to test this piece of code.
      */
-    if (!m_RecentlyComp->hasLoadingItems() && !m_RecentlyComp->getItemCount()) {
+    m_RecentlyComp = new DcpCategoryComponent (
+            0,
+            DcpApplet::MostUsedCategory,
+            DcpMain::mostRecentUsedTitleId);
+
+    if (!m_RecentlyComp->getItemCount()) {
         m_RecentlyComp->hide();
+        m_RecentlyComp->setParentItem(centralWidget());
     } else {
         mainLayout ()->insertItem (0,m_RecentlyComp);
         m_RecentlyComp->show();
@@ -166,7 +159,9 @@ DcpMainPage::retranslateUi ()
     /*
      * We always retranslate the 'most used' category, see NB #156882.
      */
-    m_RecentlyComp->retranslateUi ();
+    if (m_RecentlyComp) {
+        m_RecentlyComp->retranslateUi ();
+    }
 
     m_OtherComp->setTitle(qtTrId(DcpMain::otherCategoriesTitleId));
 
@@ -192,7 +187,7 @@ DcpMainPage::reload ()
         was_visible = m_RecentlyComp->getItemCount() != 0;
 
         m_RecentlyComp->reload ();
-        bool should_be_visible = m_RecentlyComp->hasLoadingItems();
+        bool should_be_visible = m_RecentlyComp->getItemCount() != 0;
 
         /*
          * If the 'most recetly used' category is empty we hide it, if not empty
@@ -209,9 +204,7 @@ DcpMainPage::reload ()
     }
 
     /*
-     * DcpBriefWidget takes care of all the other things
-     * FIXME: No, I'm not sure about that.
-     * I do think so: DcpBriefWidget::showEvent()
+     * DcpBriefWidget should take care of updating their contents in showEvent
      */
     DcpPage::reload ();
 }

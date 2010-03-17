@@ -37,5 +37,5 @@ INSTALLS += target \
 
 # FIXME, this is a temporary fix for an issue
 # You can enable delayed applet loading with uncommenting this line:
-DEFINES += DISABLE_DELAYED_LOADING
+# DEFINES += DISABLE_DELAYED_LOADING
 

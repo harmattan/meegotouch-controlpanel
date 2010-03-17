@@ -262,13 +262,6 @@ PageFactory::registerPage (
     connect (page, SIGNAL(openSubPage (const PageHandle &)), 
         this, SLOT(changePage(const PageHandle &)));
 
-    connect (
-        page, 
-        SIGNAL (openSubPageWithReferer (const PageHandle &, 
-                                        const QString &, int)), 
-        this, 
-        SLOT (changePage (const PageHandle &, const QString &, int)));
-
     if (page != m_MainPage) {
         // closeAction TODO XXX on language change, move into to the page?
         DuiAction *quitAction;
