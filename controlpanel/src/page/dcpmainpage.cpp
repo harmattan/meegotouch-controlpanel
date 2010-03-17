@@ -54,10 +54,12 @@ DcpMainPage::shown ()
 
     if (m_HasContent)
     {
-       m_RecentlyComp->reload(); 
+        m_RecentlyComp->reload(); 
+        createContentsLate ();
+//       m_RecentlyComp->show(); 
        return;
     }
-    
+   
     createContentsLate ();
     m_HasContent = true;
     
@@ -148,7 +150,7 @@ DcpMainPage::createContentsLate ()
      * # gconftool-2 --recursive-unset /apps/duicontrolpanel/usagecount
      * to test this piece of code.
      */
-    if (!m_RecentlyComp->hasLoadingItems()) {
+    if (!m_RecentlyComp->hasLoadingItems() && !m_RecentlyComp->getItemCount()) {
         m_RecentlyComp->hide();
     } else {
         mainLayout ()->insertItem (0,m_RecentlyComp);

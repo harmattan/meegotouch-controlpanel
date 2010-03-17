@@ -130,12 +130,13 @@ PageFactory::createMainPage ()
 {
     if (!m_MainPage) {
         m_MainPage = new DcpMainPage ();
-
         connect (m_MainPage, SIGNAL (firstShown(void)),
                 this, SLOT(mainPageFirstShown (void)));
 
         registerPage (m_MainPage);
     }
+    else
+        m_MainPage->reload();
 
     return m_MainPage;
 }
