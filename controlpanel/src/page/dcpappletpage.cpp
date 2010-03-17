@@ -23,7 +23,6 @@ DcpAppletPage::DcpAppletPage (DcpAppletObject *applet, int widgetId):
     DcpPage (),
     m_Applet(applet),
     m_WidgetId(widgetId),
-    m_ReloadNeeded (false),
     m_MainWidget (0),
     m_MissingLabel (0)
 {
@@ -32,33 +31,13 @@ DcpAppletPage::DcpAppletPage (DcpAppletObject *applet, int widgetId):
 
 DcpAppletPage::~DcpAppletPage ()
 {
-    dropWidget ();
-}
-
-/*!
- * Will refresh the content of the applet page calling the appropriate function.
- * If the content is not yet created will call the createContent () function, if
- * the content is created but the applet is changed (so reload is needed) will
- * call the reload() function, otherwise will call the load() function that is
- * will activate the applet.
- */
-void 
-DcpAppletPage::refreshContent ()
-{
-    if (!isContentCreated()) {
-        createContent ();
-    } else if (m_ReloadNeeded) {
-        reload ();
-    } else {
-        loadMainWidget ();
-    }
 }
 
 void
 DcpAppletPage::createContent ()
 {
     DcpPage::createContent ();
-    loadMainWidget ();
+    load();
 }
 
 bool 
@@ -83,7 +62,7 @@ DcpAppletPage::hasError ()
  * that the applet is not available.
  */
 void
-DcpAppletPage::loadMainWidget ()
+DcpAppletPage::load ()
 {
     DCP_DEBUG ("");
 
@@ -97,7 +76,7 @@ DcpAppletPage::loadMainWidget ()
             if (m_WidgetId < 0) {
                 m_WidgetId = m_Applet->getMainWidgetId();
             }
-            changeWidget (m_WidgetId);
+            loadWidget (m_WidgetId);
 
             return;
         } else if (m_Applet->metadata()->hasApplicationCommand ()) {
@@ -139,40 +118,6 @@ DcpAppletPage::loadMainWidget ()
 }
 
 void 
-DcpAppletPage::dropWidget ()
-{
-    DCP_DEBUG ("");
-
-    if (m_MainWidget) {
-        removeWidget (m_MainWidget);
-        m_MainWidget = 0;
-    }
-
-    dropMissingLabel ();
-}
-
-void 
-DcpAppletPage::dropMissingLabel ()
-{
-    if (m_MissingLabel) {
-        m_MissingLabel->deleteLater();
-        m_MissingLabel = 0;
-    }
-}
-
-void 
-DcpAppletPage::reload ()
-{
-    DCP_DEBUG ("");
-
-    if (hasWidget()) {
-        dropWidget ();
-    }
-    loadMainWidget ();
-    DcpPage::reload ();
-}
-
-void 
 DcpAppletPage::back ()
 {
     DCP_DEBUG ("");
@@ -182,101 +127,57 @@ DcpAppletPage::back ()
        qApp->exit(0);
        return;
     }
-   // if (!m_MainWidget || m_MainWidget->back())
     DcpPage::back();
 }
 
-void 
-DcpAppletPage::changeWidget (
-        int widgetId)
+void
+DcpAppletPage::loadWidget (int widgetId)
 {
     DcpWidget  *newMainWidget;
-    bool        this_is_a_new_widget;
-
-    dropMissingLabel ();
 
     /*
      * Creating the widget and setting its widgetId.
      */
     newMainWidget = m_Applet->applet()->constructWidget (widgetId);
-    this_is_a_new_widget = m_MainWidget != newMainWidget;
 
-    if (m_MainWidget != 0 && this_is_a_new_widget) {
-        /*
-         * If this is not the same widget that we already have, we remove the
-         * old one. It is possible the user started up the same applet just
-         * backed from and then we might get the same widget!
-         */
-        dropWidget ();
-    }
     /*
      * From now on, this is the widget we have. And if it is NULL, we just
      * return.
      */
     m_MainWidget = newMainWidget;
 
-    if (this_is_a_new_widget &&
-            newMainWidget != 0 && 
-            !newMainWidget->setWidgetId (widgetId) &&
-            newMainWidget->getWidgetId () != widgetId) {
-            /*
-             * We needed to set the widgetId, for it is a new widget, but we
-             * could not set it.
-             */
-            DCP_WARNING ("The widgetId could not be set for applet '%s' "
-                "widget %d it remains %d.",
-                DCP_STR (m_Applet->metadata()->name()),
-                widgetId,
-                newMainWidget->getWidgetId ());
+    if (newMainWidget != 0 && !newMainWidget->setWidgetId (widgetId) &&
+        newMainWidget->getWidgetId () != widgetId)
+    {
+        /*
+        * We needed to set the widgetId, for it is a new widget, but we
+        * could not set it.
+        */
+        DCP_WARNING ("The widgetId could not be set for applet '%s' "
+                     "widget %d it remains %d.",
+                     DCP_STR (m_Applet->metadata()->name()),
+                     widgetId,
+                     newMainWidget->getWidgetId ());
     }
 
     if (!m_MainWidget) {
         return;
     }
 
-    if (this_is_a_new_widget) {
-        setPannableAreaInteractive (m_MainWidget->pagePans());
+    setPannableAreaInteractive (m_MainWidget->pagePans());
 
-        connect (m_MainWidget, SIGNAL (changeWidget(int)),
-                 m_Applet, SLOT(activateSlot(int)));
+    connect (m_MainWidget, SIGNAL (changeWidget(int)),
+             m_Applet, SLOT(activateSlot(int)));
+    connect (m_MainWidget, SIGNAL (activatePluginByName (const QString &)),
+             m_Applet, SLOT (activatePluginByName (const QString &)));
 
-        connect (m_MainWidget, SIGNAL (activatePluginByName (const QString &)),
-                m_Applet, SLOT (activatePluginByName (const QString &)));
-    }
-
-    replaceActions(m_Applet->applet()->viewMenuItems());
-    appendWidget (m_MainWidget);
-
-    retranslateUi();
-}
-
-void
-DcpAppletPage::replaceActions(const QVector<DuiAction*>& actions)
-{
-    foreach (DuiAction* action, m_Actions) {
-        action->deleteLater();
-    }
-    m_Actions = actions;
-    foreach (DuiAction* action, m_Actions) {
+    // add the actions:
+    foreach (DuiAction* action, m_Applet->applet()->viewMenuItems()) {
         addAction(action);
     }
-}
 
-void
-DcpAppletPage::setApplet (
-        DcpAppletObject *applet, int widgetId)
-{
-    DCP_DEBUG ("*** applet = %p", applet);
-
-    if (m_Applet == applet && widgetId == m_WidgetId) {
-        DCP_WARNING ("The same applet already set.");
-        return;
-    }
-
-    m_Applet = applet;
-    m_WidgetId = widgetId;
-    m_ReloadNeeded = true;
-    setReferer (PageHandle::NOPAGE); 
+    appendWidget (m_MainWidget);
+    retranslateUi();
 }
 
 void
