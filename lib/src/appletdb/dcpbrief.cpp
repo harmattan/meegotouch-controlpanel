@@ -41,6 +41,12 @@ DcpBrief::valueText() const
     return QString();
 }
 
+QString
+DcpBrief::titleText () const
+{
+    return QString();
+}
+
 Qt::Alignment 
 DcpBrief::align() const
 {

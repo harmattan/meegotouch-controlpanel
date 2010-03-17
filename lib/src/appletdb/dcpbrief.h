@@ -104,6 +104,15 @@ signals:
      * clicked on the brief widget.
      */
     void activateSignal ();
+
+public:
+    /*!
+     * If you have to use other title text as the brief view of your
+     * applet then for its main view (DcpWidget), you can specify it here.
+     *
+     * Otherwise, just leave it default, and the brief title will be the same as
+     * your applet's title, specified in DcpAppletIf::title(). */
+    virtual QString titleText () const;
 };
 
 

@@ -136,7 +136,6 @@ DcpAppletPlugin::loadPluginFile (
             d_ptr->appletMetadata->name() +
             "' applet failed: " + d_ptr->loader.errorString();
         DCP_WARNING ("%s", DCP_STR (d_ptr->errorMsg));
-        qCritical () << d_ptr->errorMsg;
     } else {
         QObject *object = d_ptr->loader.instance();
         d_ptr->appletInstance = qobject_cast<DcpAppletIf*>(object);
@@ -146,7 +145,6 @@ DcpAppletPlugin::loadPluginFile (
                 metadata()->name() +
                 "' applet failed: Invalid ExampleAppletInterface object.";
             DCP_WARNING ("%s", DCP_STR (d_ptr->errorMsg));
-            qCritical() << d_ptr->errorMsg;
             return false;
         } else {
             DCP_DEBUG ("Initializing %s", DCP_STR (binaryPath));
