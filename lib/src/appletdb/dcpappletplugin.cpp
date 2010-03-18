@@ -14,7 +14,6 @@
 DcpAppletPlugin::DcpAppletPlugin(DcpAppletMetadata *metadata):
    d_ptr(new DcpAppletPluginPrivate(metadata))
 {
-    load();
 }
 
 DcpAppletPluginPrivate::DcpAppletPluginPrivate(DcpAppletMetadata* metadata):
@@ -28,9 +27,18 @@ DcpAppletPluginPrivate::~DcpAppletPluginPrivate ()
 
 DcpAppletPlugin::~DcpAppletPlugin()
 {
+    /*
+     * I had to remove this code, because the libdui will cause serius segfaults
+     * when the applet has been reloaded and the loadCSS() method is called. We
+     * have to find a solution for this problem.
+     *
+     * lpere@blumsoft.eu
+     */
+    #if 0
     if (d_ptr->loader.isLoaded()) {
         d_ptr->loader.unload();
     }
+    #endif
 }
 
 /*!
@@ -43,16 +51,13 @@ DcpAppletPlugin::~DcpAppletPlugin()
 DcpAppletIf *
 DcpAppletPlugin::applet() const
 {
-    /*
-     * It is possible that the applet was disabled before, but it is enabled
-     * now. 
-     */
-  /*  DCP_DEBUG ("The applet is %s",
-            metadata()->isDisabled() ? "disabled" : "enabled");
-    if (d_ptr->appletInstance == 0 && 
-            metadata() && metadata()->isDisabled())
-        loadPluginFile (metadata()->fullBinary());
-*/
+    if (! isAppletLoaded()) {
+        /*
+         * ugly hack, but makes it possible to only load the necessery applets,
+         * currently on mainpage only 4 of them is needed
+         */
+        const_cast<DcpAppletPlugin*>(this)->load();
+    }
     return d_ptr->appletInstance; 
 }
 
@@ -127,7 +132,6 @@ DcpAppletPlugin::loadPluginFile (
             d_ptr->appletMetadata->name() +
             "' applet failed: " + d_ptr->loader.errorString();
         DCP_WARNING ("%s", DCP_STR (d_ptr->errorMsg));
-        qCritical () << d_ptr->errorMsg;
     } else {
         QObject *object = d_ptr->loader.instance();
         d_ptr->appletInstance = qobject_cast<DcpAppletIf*>(object);
@@ -137,7 +141,6 @@ DcpAppletPlugin::loadPluginFile (
                 metadata()->name() +
                 "' applet failed: Invalid ExampleAppletInterface object.";
             DCP_WARNING ("%s", DCP_STR (d_ptr->errorMsg));
-            qCritical() << d_ptr->errorMsg;
             return false;
         } else {
             DCP_DEBUG ("Initializing %s", DCP_STR (binaryPath));
@@ -177,6 +180,16 @@ DcpAppletPlugin::load ()
         loadPluginFile (binaryPath);
     } else if (!dslFilename.isEmpty()) {
         loadDslFile (dslFilename);
+    }
+}
+
+int
+DcpAppletPlugin::interfaceVersion()
+{
+    if (applet()) {
+        return applet()->interfaceVersion();
+    } else {
+        return -1;
     }
 }
 

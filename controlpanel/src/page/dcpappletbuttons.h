@@ -9,7 +9,6 @@
 #include "maintranslations.h"
 
 class DcpAppletMetadata;
-class PanningDetector;
 
 class DcpAppletButtons :
     public DcpMainCategory
@@ -33,39 +32,13 @@ public:
 
     virtual void reload();
 
-    //! starts loading the items
-    void startLoading();
-
-    bool hasLoadingItems();
-
-
-signals:
-    void loadingFinished();
-
 protected:
     virtual void createContents();
-
-    void stopLoading();
-    bool loadNextItem();
-    void pauseLoading();
-
-    virtual void timerEvent (QTimerEvent*);
-
-protected slots:
-    void continueLoading();
 
 private:
     QString                 m_CategoryName;
     QString                 m_LogicalId;
     const DcpCategoryInfo  *m_CategoryInfo;
-
-    // stores the metadatas to be loaded until loading completed:
-    int m_LoadPosition;
-    QList<DcpAppletMetadata*>* m_LoadingMetadatas;
-    int m_LoadTimer;
-
-    // detects panning when loading
-    PanningDetector        *m_PanningDetector;
 };
 
 #endif

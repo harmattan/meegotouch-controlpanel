@@ -130,12 +130,13 @@ PageFactory::createMainPage ()
 {
     if (!m_MainPage) {
         m_MainPage = new DcpMainPage ();
-
         connect (m_MainPage, SIGNAL (firstShown(void)),
                 this, SLOT(mainPageFirstShown (void)));
 
         registerPage (m_MainPage);
     }
+    else
+        m_MainPage->reload();
 
     return m_MainPage;
 }
@@ -260,13 +261,6 @@ PageFactory::registerPage (
 {
     connect (page, SIGNAL(openSubPage (const PageHandle &)), 
         this, SLOT(changePage(const PageHandle &)));
-
-    connect (
-        page, 
-        SIGNAL (openSubPageWithReferer (const PageHandle &, 
-                                        const QString &, int)), 
-        this, 
-        SLOT (changePage (const PageHandle &, const QString &, int)));
 
     if (page != m_MainPage) {
         // closeAction TODO XXX on language change, move into to the page?

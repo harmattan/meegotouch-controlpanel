@@ -33,11 +33,13 @@ public slots:
 
 protected:
     virtual void retranslateUi();
+    virtual void hideEvent(class QHideEvent*);
 
 private:
     DcpCategoryComponent *m_RecentlyComp;
     DuiContainer *m_OtherComp;
     bool                  m_HasContent;
+    bool                  m_WasHidden;
     QList<DcpSingleComponent *> m_CategoryButtons;
 };
 

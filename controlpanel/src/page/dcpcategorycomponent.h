@@ -26,7 +26,7 @@ public:
                     const QString   &categoryName,
                     const QString   &logicalId,
                     QGraphicsWidget *parent = 0);
-    
+
     DcpCategoryComponent (
                     DcpComponent      *category, 
                     const DcpCategoryInfo  *categoryInfo,
@@ -34,7 +34,6 @@ public:
 
     virtual ~DcpCategoryComponent ();
     virtual void createContents ();
-    virtual void createContentsLate ();
     virtual void add (DcpComponent*){}
     virtual void remove (DcpComponent*){}
     virtual void retranslateUi ();
@@ -46,15 +45,6 @@ public:
     // ! Can be misleading, because it returns the count of the items already
     // loaded
     int getItemCount ();
-
-    bool hasLoadingItems ();
-
-
-signals:
-    void loadFinished();
-
-protected slots:
-    void onAppletButtonsLoaded ();
 
 private:
     DcpAppletButtons *m_AppletButtons;

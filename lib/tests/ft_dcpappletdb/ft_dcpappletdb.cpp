@@ -9,9 +9,8 @@
 #include "dcpappletdb.h"
 
 #include "ft_dcpappletdb.h"
-#include <DcpAppletMetadata>
-#include <DcpAppletObject>
 #include <DuiGConfItem>
+#include "dcpappletobject-fake.h"
 
 #define DEBUG
 #include "../../src/dcpdebug.h"

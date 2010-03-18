@@ -64,6 +64,13 @@ public:
      * applet. 
      */
     virtual int partID (const QString& partStr) { Q_UNUSED(partStr); return 0; }
+
+    /*!
+     * Control panel uses this function to determine with which version of
+     * the interface the plugin was compiled with. It lets controlpanel
+     * extend the interface without the need to recompile all applets.
+     */
+    virtual int interfaceVersion() { return 1; }
 };
 
 Q_DECLARE_INTERFACE (DcpAppletIf, "com.nokia.dui.core.DcpAppletIf/1.0")
