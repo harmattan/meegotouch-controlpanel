@@ -12,7 +12,7 @@ TARGET = ft_dcpappletobject
 CONFIG += dui
 
 DATADIR = /usr/lib/duicontrolpanel-tests/ft_dcpappletobject-data
-DEFINES += APPLET_LIBS=\\\"$$(DATADIR)\\\" DATADIR=\\\"$$(DATADIR)\\\" DESKTOP_DIR=\\\"$$(DATADIR)\\\" MOSTUSEDCOUNTER_GCONFKEY=\\\"/apps/duicontrolpanel/usagecount\\\"
+DEFINES += APPLET_LIBS=\\\"$$DATADIR\\\" DATADIR=\\\"$$DATADIR\\\" DESKTOP_DIR=\\\"$$DATADIR\\\" MOSTUSEDCOUNTER_GCONFKEY=\\\"/apps/duicontrolpanel/usagecount\\\"
 
 
 # FIXME these dependencies should be eliminated

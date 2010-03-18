@@ -1,17 +1,28 @@
+include ($$[QT_INSTALL_DATA]/mkspecs/dcpconfig.pri)
+
 TEMPLATE = lib
 CONFIG += plugin gui dui duicontrolpanel debug
 
-HEADERS = testapplet.h testappletwidget.h
-SOURCES = testapplet.cpp testappletwidget.cpp
+HEADERS = \
+    testapplet.h \
+    testappletwidget.h \
+    testwidget.h \
+
+SOURCES = \
+    testapplet.cpp \
+    testappletwidget.cpp \
+    testwidget.cpp \
 
 TARGET = $$qtLibraryTarget(testapplet)
 
 DATADIR = /usr/lib/duicontrolpanel-tests/ft_dcpappletobject-data
 
-DEFINES += DATADIR=\\\"$$(DATADIR)\\\"
+DEFINES += DATADIR=\\\"$$DATADIR\\\"
 
-desktop.file = testapplet.desktop
+desktop.files = testapplet.desktop
 desktop.path = $$DATADIR
 target.path = $$DATADIR
+css.files = testapplet.css
+css.path = $$DATADIR
 
-INSTALLS += target desktop
+INSTALLS += target desktop css

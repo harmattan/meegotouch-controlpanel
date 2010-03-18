@@ -15,7 +15,7 @@ TestApplet::~TestApplet()
 void TestApplet::init()
 {
     qDebug() << "TestApplet init";
-    DuiTheme::loadCSS(DATADIR "testapplet.css");
+    DuiTheme::loadCSS(DATADIR "/testapplet.css");
 }
 
 DcpWidget *TestApplet::constructWidget(int widgetId)
@@ -25,7 +25,7 @@ DcpWidget *TestApplet::constructWidget(int widgetId)
 
 QString TestApplet::title() const
 {
-    return "Test title";
+    return "Test title 1";
 }
 
 QVector<DuiAction*> TestApplet::viewMenuItems()

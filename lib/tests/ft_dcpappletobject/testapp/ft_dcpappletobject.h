@@ -3,6 +3,7 @@
 
 #include <QtTest/QtTest>
 #include <QObject>
+#include <DuiApplication>
 
 // the real unit/DcpAppletObject class declaration
 #include "dcpappletobject.h"
@@ -24,7 +25,10 @@ private slots:
     
 
 private:
-    DcpAppletObject* m_subject;
+    void testApplet(const char *desktopfile);
+    void doAppletTest (const char *desktopfile);
+
+    DuiApplication*  m_app;
 };
 
 #endif
