@@ -12,6 +12,8 @@
 #define DEBUG
 #include "dcpdebug.h"
 
+static QString lastLanguage;
+
 DcpRetranslator::DcpRetranslator ()
 {
     /*
@@ -20,12 +22,9 @@ DcpRetranslator::DcpRetranslator ()
      * applet database will load the translations immediatelly after the 
      * database loaded.
      */
-#if 0
-    // at startup load translations for the applets:
-    DuiLocale locale;
-    loadAppletTranslations (locale);
-    DuiLocale::setDefault (locale);
-#endif
+
+    DuiGConfItem languageItem("/Dui/i18n/Language");
+    lastLanguage = languageItem.value().toString();
 }
 
 
@@ -39,18 +38,23 @@ DcpRetranslator::DcpRetranslator ()
 void
 DcpRetranslator::retranslate ()
 {
-    static bool running = false;
-
     /*
      * Protection against endless recursion.
      */
+    static bool running = false;
     if (running)
         return;
     running = true;
 
-    DuiApplication* duiApp = DuiApplication::instance();
+    /*
+     * Protection against loading all applet translations multiple times
+     */
     DuiGConfItem languageItem("/Dui/i18n/Language");
     QString language = languageItem.value().toString();
+    if (lastLanguage == language)
+        return;
+
+    DuiApplication* duiApp = DuiApplication::instance();
     DuiLocale locale(language);
 
     QString binaryName = duiApp->binaryName();
@@ -69,11 +73,11 @@ DcpRetranslator::retranslate ()
     DuiLocale::setDefault(locale);
 
     running = false;
+    lastLanguage = language;
 }
 
 void
-DcpRetranslator::loadAppletTranslations (
-		DuiLocale& locale)
+DcpRetranslator::loadAppletTranslations (DuiLocale& locale)
 {
     DcpAppletDb *db = DcpAppletDb::instance();
     foreach (DcpAppletMetadata* metadata, db->list()) {
