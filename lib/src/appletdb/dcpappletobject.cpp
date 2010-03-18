@@ -114,11 +114,17 @@ DcpAppletObject::text1 () const
     if (applet) {
         // use DcpBrief::titleText() if specified:
         QString text1;
+#if 0
+        // FIXME: enable this after all plugins has been recompiled
+        // with the new api, since until then it causes segfault
+        // marked at W11 with version 0.7.5~unreleased
+
         DcpBrief* brief = this->brief();
         if (brief) {
             text1 = brief->titleText();
             if (!text1.isEmpty()) return text1;
         }
+#endif
 
         // use DcpAppletIf::title() by default:
         text1 = applet->title();

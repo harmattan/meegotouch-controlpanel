@@ -26,6 +26,7 @@ protected:
     virtual void load ();
     virtual bool loadPluginFile (const QString &binaryPath);
     virtual bool loadDslFile    (const QString &dslPath);
+    int interfaceVersion();
 
 private:
     DcpAppletPluginPrivate *const d_ptr;

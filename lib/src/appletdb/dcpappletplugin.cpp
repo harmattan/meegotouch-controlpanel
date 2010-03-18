@@ -187,3 +187,13 @@ DcpAppletPlugin::load ()
     }
 }
 
+int
+DcpAppletPlugin::interfaceVersion()
+{
+    if (applet()) {
+        return applet()->interfaceVersion();
+    } else {
+        return -1;
+    }
+}
+
