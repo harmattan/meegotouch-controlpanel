@@ -122,6 +122,9 @@ DcpPage::setHandle (
 {
     m_Handle.id = id; 
     m_Handle.param = param;
+    m_Handle.widgetId = -1;
+    m_Handle.isStandalone=false;
+
     DCP_DEBUG ("*** m_Handle  = %s", DCP_STR (m_Handle.getStringVariant()));
     DCP_DEBUG ("*** m_Referer = %s", DCP_STR (m_Referer.getStringVariant()));
 }
@@ -163,6 +166,8 @@ DcpPage::setReferer (
 {
     m_Referer.id = id; 
     m_Referer.param = param;
+    m_Referer.widgetId = -1;
+    m_Referer.isStandalone=false;
     DCP_DEBUG ("*** m_Handle  = %s", DCP_STR (m_Handle.getStringVariant()));
     DCP_DEBUG ("*** m_Referer = %s", DCP_STR (m_Referer.getStringVariant()));
 }
