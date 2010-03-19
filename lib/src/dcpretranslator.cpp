@@ -9,7 +9,6 @@
 #include "dcpappletdb.h"
 #include "dcpappletmetadata.h"
 
-#define DEBUG
 #include "dcpdebug.h"
 
 static QString lastLanguage;

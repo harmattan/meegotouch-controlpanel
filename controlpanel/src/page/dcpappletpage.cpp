@@ -13,7 +13,6 @@
 #include <DuiApplication>
 #include <DuiAction>
 
-#define DEBUG
 #include "dcpdebug.h"
 
 #include "duiwidgetcreator.h"

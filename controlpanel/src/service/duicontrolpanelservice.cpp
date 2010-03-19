@@ -9,7 +9,6 @@
 
 static const char* serviceName = "com.nokia.DuiControlPanel";
 
-#define DEBUG
 #include "dcpdebug.h"
 
 DuiControlPanelService::DuiControlPanelService ()

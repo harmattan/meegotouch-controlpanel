@@ -14,7 +14,6 @@
 #include "dcpappletmetadata.h"
 
 
-#define DEBUG
 #include "dcpdebug.h"
 
 #define KEY_SEPARATOR "/"

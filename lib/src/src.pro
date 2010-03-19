@@ -16,6 +16,9 @@ SOURCES += $$system(find ./ -name \'*.cpp\' -not -name \'moc_*\')
 TARGET        = $$qtLibraryTarget(duicontrolpanel)
 DESTDIR       = ../lib
 
+# disable debugging:
+DEFINES += QT_NO_DEBUG_OUTPUT
+
 coverage {
     message("Coverage options enabled")
     QMAKE_CXXFLAGS += --coverage

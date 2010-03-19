@@ -6,7 +6,6 @@
 #include <QString>
 #include <QDebug>
 
-//#define DEBUG
 #include "dcpdebug.h"
 
 MostUsedCounter* MostUsedCounterPrivate::sm_Instance = NULL;

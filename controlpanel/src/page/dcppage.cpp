@@ -12,7 +12,6 @@
 #include "duiwidgetcreator.h"
 DUI_REGISTER_WIDGET(DcpPage)
 
-#define DEBUG
 #include "dcpdebug.h"
 
 

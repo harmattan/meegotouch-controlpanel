@@ -12,8 +12,7 @@
 #include <DuiContentItem>
 
 
-#define DEBUG
-#include "../../../lib/src/dcpdebug.h"
+#include "dcpdebug.h"
 
 
 DcpBriefComponent::DcpBriefComponent (

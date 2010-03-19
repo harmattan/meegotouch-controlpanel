@@ -9,7 +9,6 @@
 #include <DcpAppletMetadata>
 #include <DcpAppletObject>
 
-//#define DEBUG
 #include "dcpdebug.h"
 
 DcpAppletCategoryPage::DcpAppletCategoryPage (

@@ -4,8 +4,9 @@ duicontrolpanel (0.7.5~unreleased) unstable; urgency=low
   * Fixes NB#160780 - Signal connection error in duicontrolpanel
   * Fixes 161074 - Duicontrolpanel applet translations loaded twice
   * Fixes: NB#160864 - Unable to access contents within System Settings
+  * Fixes: NB#159646 - Debug messages shall be disabled by default
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 19 Mar 2010 13:35:18 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 19 Mar 2010 13:54:26 +0100
 
 duicontrolpanel (0.7.4) unstable; urgency=low
 
