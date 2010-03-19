@@ -22,7 +22,7 @@ Q_OBJECT
 public:
     static PageFactory *instance ();
     DcpPage* createPage (const PageHandle &handle);
-    DcpPage* currentPage() { return m_CurrentPage; }
+    DcpPage* currentPage ();
 
 public slots:
     void appletWantsToStart (int widgetId = -1);
@@ -42,7 +42,6 @@ private:
     void registerPage (DcpPage *page);
 
     static PageFactory     *sm_Instance;
-    DcpPage                *m_CurrentPage;
     DcpMainPage            *m_MainPage;
     DcpAppletCategoryPage  *m_AppletCategoryPage;
 };

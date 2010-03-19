@@ -24,8 +24,6 @@
 
 
 
-#define DEBUG
-
 static const char* DEBUG_PREFIX = "(DCP)";
 static QHash<QString, QTime> starttimes;
 

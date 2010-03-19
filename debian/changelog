@@ -1,8 +1,19 @@
-duicontrolpanel (0.7.5~unreleased) unstable; urgency=low
+duicontrolpanel (0.7.6~unreleased) unstable; urgency=low
 
   * new version
+  * Fixes: NB#161217 - Two instance launches when tapped in quick
+    succession...
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 17 Mar 2010 14:59:13 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 19 Mar 2010 15:11:19 +0100
+
+duicontrolpanel (0.7.5) unstable; urgency=low
+
+  * Fixes NB#160780 - Signal connection error in duicontrolpanel
+  * Fixes 161074 - Duicontrolpanel applet translations loaded twice
+  * Fixes: NB#160864 - Unable to access contents within System Settings
+  * Fixes: NB#159646 - Debug messages shall be disabled by default
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 19 Mar 2010 13:54:26 +0100
 
 duicontrolpanel (0.7.4) unstable; urgency=low
 

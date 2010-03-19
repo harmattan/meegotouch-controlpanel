@@ -6,7 +6,6 @@
 #include <QGraphicsLinearLayout>
 #include <QGraphicsGridLayout>
 
-#define DEBUG
 #include "dcpdebug.h"
 
 DcpButtonAlignPrivate::DcpButtonAlignPrivate () :

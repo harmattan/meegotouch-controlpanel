@@ -10,7 +10,6 @@
 DUI_REGISTER_WIDGET_NO_CREATE(DcpButton)
 
 
-#define DEBUG
 #include "dcpdebug.h"
 
 /******************************************************************************

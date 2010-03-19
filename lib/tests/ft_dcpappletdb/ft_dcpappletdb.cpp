@@ -12,8 +12,7 @@
 #include <DuiGConfItem>
 #include "dcpappletobject-fake.h"
 
-#define DEBUG
-#include "../../src/dcpdebug.h"
+#include "dcpdebug.h"
 
 void Ft_DcpAppletDb::initTestCase()
 {

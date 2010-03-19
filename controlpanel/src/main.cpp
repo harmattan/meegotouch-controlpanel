@@ -13,7 +13,6 @@
 #include "appleterrorsdialog.h"
 #include "dcpwrongapplets.h"
 
-#define DEBUG
 #include "dcpdebug.h"
 
 /*!
@@ -112,8 +111,6 @@ startApplication (int argc, char* argv[])
 
 int main(int argc, char *argv[])
 {
-    qInstallMsgHandler(DcpDebug::dcpMsg);
-
     // parse options
     QString desktopDir;
     for (int i = 1; i < argc; ++i) {

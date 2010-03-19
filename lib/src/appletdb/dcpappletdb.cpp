@@ -10,7 +10,6 @@
 #include <QDebug>
 #include <DuiLocale>
 
-#define DEBUG
 #include "dcpdebug.h"
 
 const QString AppletFilter = "*.desktop";

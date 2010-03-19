@@ -7,8 +7,6 @@
 #include <QPluginLoader>
 #include "dcpwrongapplets.h"
 
-#define DEBUG
-#define WARNING
 #include "dcpdebug.h"
 
 DcpAppletPlugin::DcpAppletPlugin(DcpAppletMetadata *metadata):

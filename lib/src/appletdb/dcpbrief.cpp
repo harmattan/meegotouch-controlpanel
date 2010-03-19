@@ -4,8 +4,7 @@
 #include "dcpbrief.h"
 #include "dcpwidgettypes.h"
 
-#define DEBUG
-#include "../../../lib/src/dcpdebug.h"
+#include "dcpdebug.h"
 
 DcpBrief::~DcpBrief()
 {

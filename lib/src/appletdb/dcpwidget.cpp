@@ -3,7 +3,6 @@
 #include "dcpwidget.h"
 #include "dcpwidget_p.h"
 
-//#define DEBUG
 #include "dcpdebug.h"
 
 

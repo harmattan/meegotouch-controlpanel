@@ -1,8 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 
-#define DEBUG
-#include "../../../lib/src/dcpdebug.h"
+#include "dcpdebug.h"
 
 #include "pages.h"
 
@@ -94,3 +93,11 @@ PageHandle::getStringVariant () const
         + param + "/" 
         + QString::number (widgetId);
 }
+
+
+bool PageHandle::operator== (const PageHandle& page) const
+{
+    return page.id == id && page.param == param &&
+           page.widgetId == widgetId;
+}
+

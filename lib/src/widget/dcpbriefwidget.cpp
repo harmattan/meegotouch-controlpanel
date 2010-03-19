@@ -14,7 +14,6 @@
 #include <QGraphicsLinearLayout>
 #include <QtDebug>
 
-//#define DEBUG
 #include "dcpdebug.h"
 
 /******************************************************************************
