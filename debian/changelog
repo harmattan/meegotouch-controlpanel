@@ -1,6 +1,5 @@
-duicontrolpanel (0.7.5~unreleased) unstable; urgency=low
+duicontrolpanel (0.7.5) unstable; urgency=low
 
-  * new version
   * Fixes NB#160780 - Signal connection error in duicontrolpanel
   * Fixes 161074 - Duicontrolpanel applet translations loaded twice
   * Fixes: NB#160864 - Unable to access contents within System Settings
