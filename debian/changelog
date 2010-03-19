@@ -1,8 +1,10 @@
 duicontrolpanel (0.7.6~unreleased) unstable; urgency=low
 
   * new version
+  * Fixes: NB#161217 - Two instance launches when tapped in quick
+    succession...
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 19 Mar 2010 14:34:58 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 19 Mar 2010 15:11:19 +0100
 
 duicontrolpanel (0.7.5) unstable; urgency=low
 

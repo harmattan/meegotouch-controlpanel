@@ -14,6 +14,7 @@
 #include <MainTranslations>
 
 #include <DuiApplication>
+#include <DuiApplicationWindow>
 #include <DuiAction>
 
 #include "appleterrorsdialog.h"
@@ -25,7 +26,6 @@ PageFactory *PageFactory::sm_Instance = 0;
 
 PageFactory::PageFactory (): 
     QObject (),
-    m_CurrentPage (0), 
     m_MainPage (0), 
     m_AppletCategoryPage (0)
 {
@@ -115,8 +115,6 @@ PageFactory::createPage (
         if (page->isContentCreated ()) {
             page->reload ();
         }
-
-        m_CurrentPage = page;
     }
 
     return page;
@@ -199,12 +197,29 @@ PageFactory::createAppletCategoryPage (
     return m_AppletCategoryPage;
 }
 
+DcpPage*
+PageFactory::currentPage ()
+{
+    DuiApplicationWindow* win = DuiApplication::activeApplicationWindow();
+    if (win == 0) return 0;
+
+    return qobject_cast<DcpPage*>(win->currentPage());
+}
+
 /*!
  * Creates a new page and sets as the current page.
  */
 void 
 PageFactory::changePage (const PageHandle &handle)
 {
+    /*
+     * this prevents openning the same page multiple times,
+     * if more signals are coming, for example if user clicks double
+     */
+
+    DcpPage* currentPage = this->currentPage();
+    if (currentPage && handle == currentPage->handle()) return;
+
     DcpPage  *page;
 
     DCP_DEBUG ("Creating page '%s'/%d",

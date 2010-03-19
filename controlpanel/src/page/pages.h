@@ -39,6 +39,7 @@ public:
                 const QString &name = "", 
                 int widgetId = -1,
                 bool isStandalone = false);
+    bool operator== (const PageHandle& page) const;
 
     QString getStringVariant () const;
 

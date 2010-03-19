@@ -93,3 +93,11 @@ PageHandle::getStringVariant () const
         + param + "/" 
         + QString::number (widgetId);
 }
+
+
+bool PageHandle::operator== (const PageHandle& page) const
+{
+    return page.id == id && page.param == param &&
+           page.widgetId == widgetId;
+}
+
