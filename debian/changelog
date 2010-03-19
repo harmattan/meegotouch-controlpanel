@@ -1,8 +1,10 @@
 duicontrolpanel (0.7.5~unreleased) unstable; urgency=low
 
   * new version
+  * Fixes NB#160780 - Signal connection error in duicontrolpanel
+  * Fixes 161074 - Duicontrolpanel applet translations loaded twice
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 17 Mar 2010 14:59:13 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 19 Mar 2010 11:36:39 +0100
 
 duicontrolpanel (0.7.4) unstable; urgency=low
 
