@@ -12,6 +12,7 @@
 DcpAppletPlugin::DcpAppletPlugin(DcpAppletMetadata *metadata):
    d_ptr(new DcpAppletPluginPrivate(metadata))
 {
+    load();
 }
 
 DcpAppletPluginPrivate::DcpAppletPluginPrivate(DcpAppletMetadata* metadata):
@@ -49,13 +50,6 @@ DcpAppletPlugin::~DcpAppletPlugin()
 DcpAppletIf *
 DcpAppletPlugin::applet() const
 {
-    if (! isAppletLoaded()) {
-        /*
-         * ugly hack, but makes it possible to only load the necessery applets,
-         * currently on mainpage only 4 of them is needed
-         */
-        const_cast<DcpAppletPlugin*>(this)->load();
-    }
     return d_ptr->appletInstance; 
 }
 

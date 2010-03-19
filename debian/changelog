@@ -3,8 +3,9 @@ duicontrolpanel (0.7.6~unreleased) unstable; urgency=low
   * new version
   * Fixes: NB#161217 - Two instance launches when tapped in quick
     succession...
+  * Fixes: NB#148951 - Back button has missleading behaviour
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 19 Mar 2010 15:11:19 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 19 Mar 2010 16:36:33 +0100
 
 duicontrolpanel (0.7.5) unstable; urgency=low
 

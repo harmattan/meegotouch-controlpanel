@@ -54,8 +54,7 @@ DuiControlPanelService::sheduleStart (
     if (m_StartPage == 0) {
         PageFactory::instance()->changePage(handle);
     } else {
-        m_StartPage->id = handle.id;
-        m_StartPage->param = handle.param;
+        *m_StartPage = handle;
     }
 }
 
@@ -64,9 +63,7 @@ DuiControlPanelService::categoryPage (
         const QString& category)
 {
     DCP_DEBUG ("");
-    PageHandle handle;
-    handle.id = PageHandle::APPLETCATEGORY;
-    handle.param = category;
+    PageHandle handle (PageHandle::APPLETCATEGORY, category, 0, true);
     sheduleStart(handle);
 }
 
