@@ -8,7 +8,7 @@ DEPENDPATH = $$INCLUDEPATH
 
 QMAKE_LIBDIR += ../../../lib/lib/ /usr/lib/
 LIBDCPINCLUDE=../../../lib/src/include
-CONFIG += debug
+CONFIG += dui debug
 
 QT += testlib
 
