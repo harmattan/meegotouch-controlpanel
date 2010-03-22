@@ -1,6 +1,13 @@
-duicontrolpanel (0.7.6~unreleased) unstable; urgency=low
+duicontrolpanel (0.7.7~unreleased) unstable; urgency=low
 
-  * new version
+  * Increased version number
+  * Fixes: NB#161540 -  System-settings application is crashing after tapping 
+    on "Language & Region"
+
+ -- David Kedves <dkedves@blumsoft.eu>  Mon, 22 Mar 2010 11:55:58 +0100
+
+duicontrolpanel (0.7.6) unstable; urgency=low
+
   * Fixes: NB#161217 - Two instance launches when tapped in quick
     succession...
   * Fixes: NB#148951 - Back button has missleading behaviour

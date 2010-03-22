@@ -66,7 +66,7 @@ if ( -e "$duisrcdir/$classHeaderP" ) {
 }
 
 ## copy template
-foreach $file ( glob( "ut_template/*" ) ) {
+foreach $file ( glob( "template_u/*" ) ) {
     $base=basename($file);
     $targetFile="$targetDir/$base";
     $targetFile=~s/template/$lowerClassName/;
