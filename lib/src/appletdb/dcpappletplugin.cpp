@@ -119,7 +119,8 @@ DcpAppletPlugin::loadPluginFile (
     }
 
     /*
-     *
+     * We need this so our application won't abort on an unresolved symbol in
+     * the plugin.
      */
     d_ptr->loader.setLoadHints(QLibrary::ResolveAllSymbolsHint);
     d_ptr->loader.setFileName (binaryPath);
