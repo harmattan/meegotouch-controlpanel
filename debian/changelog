@@ -1,6 +1,5 @@
-duicontrolpanel (0.7.6~unreleased) unstable; urgency=low
+duicontrolpanel (0.7.6) unstable; urgency=low
 
-  * new version
   * Fixes: NB#161217 - Two instance launches when tapped in quick
     succession...
   * Fixes: NB#148951 - Back button has missleading behaviour
