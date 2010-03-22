@@ -14,17 +14,17 @@ SOURCES += \
 
 # base classes
 SOURCES += \
-
+    ../doubles/dcppage-fake.h
 
 # unit test and unit
 HEADERS += \
     ut_pagefactory.h \
-    ../doubles/dcppage-fake.h
+
 # base classes
-HEADERS += \
+HEADERS += $$SRCDIR/page/dcppage.h \
 
 
 # service classes
-HEADERS += \
+# HEADERS += \
 
 
