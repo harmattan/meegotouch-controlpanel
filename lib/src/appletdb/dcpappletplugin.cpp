@@ -118,6 +118,10 @@ DcpAppletPlugin::loadPluginFile (
         return false;
     }
 
+    /*
+     *
+     */
+    d_ptr->loader.setLoadHints(QLibrary::ResolveAllSymbolsHint);
     d_ptr->loader.setFileName (binaryPath);
     if (!d_ptr->loader.load ()) {
         d_ptr->errorMsg = "Loading of the '" + binaryPath + "/" +
