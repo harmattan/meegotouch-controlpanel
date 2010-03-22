@@ -1,6 +1,8 @@
 duicontrolpanel (0.7.7~unreleased) unstable; urgency=low
 
   * Increased version number
+  * Fixes: NB#161540 -  System-settings application is crashing after tapping 
+    on "Language & Region"
 
  -- David Kedves <dkedves@blumsoft.eu>  Mon, 22 Mar 2010 11:55:58 +0100
 
