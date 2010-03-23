@@ -270,3 +270,4 @@ DcpAppletObject::activateSlot (int pageId)
     emit activate(pageId);
 }
 
+

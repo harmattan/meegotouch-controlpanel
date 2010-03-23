@@ -11,6 +11,7 @@
 #include <DuiSceneManager>
 #include <DuiGridLayoutPolicy>
 #include <DuiLinearLayoutPolicy>
+#include <DcpRetranslator>
 
 #include "dcpdebug.h"
 
@@ -104,6 +105,8 @@ DcpAppletButtons::createContents ()
 */
         }
     }
+
+    DcpRetranslator::instance()->ensureTranslationsAreLoaded(metadatas);
 
     // adds the briefwidgets
     foreach (DcpAppletMetadata* item, metadatas) {

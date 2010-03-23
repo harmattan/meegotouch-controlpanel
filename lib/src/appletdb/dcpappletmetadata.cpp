@@ -11,12 +11,12 @@
 #include "dcpdebug.h"
 
 
-
 DcpAppletMetadataPrivate::DcpAppletMetadataPrivate ()
     :
       m_DesktopEntry (0),
       m_Parent (0),
-      m_Disabled (false)
+      m_Disabled (false),
+      m_Activated (0)
 {
 }
 
@@ -348,4 +348,47 @@ DcpAppletMetadata::setDisabled (
             disabled ? "disabled" : "enabled");
     d_ptr->m_Disabled = disabled;
 }
+
+
+/*! \brief Marks the plugin as active
+ *
+ * We mean by active that the plugin is somehow displayed on the screen,
+ * used by some widget etc. Think of this as a reference counter,
+ * when the plugin is referred by anyone, its translation will be loaded
+ * etc.
+ */
+void
+DcpAppletMetadata::markActive()
+{
+    d_ptr->m_Activated++;
+    DCP_DEBUG("XXX markActive -> %d", count);
+}
+
+/*! \brief Marks the plugin inactive
+ *
+ * See markActive().
+ */
+void
+DcpAppletMetadata::markInactive()
+{
+    int& count = d_ptr->m_Activated;
+    if (count > 0) {
+        count --;
+        DCP_DEBUG("XXX markInactive -> %d", count);
+    } else {
+        DCP_WARNING("Internal error: plugin was inactivated "
+                    "more times then activated");
+    }
+}
+
+/*! \brief Returns if the plugin is active or not
+ *
+ * See markActive().
+ */
+bool
+DcpAppletMetadata::isActive() const
+{
+    return d_ptr->m_Activated;
+}
+
 

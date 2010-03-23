@@ -13,8 +13,14 @@
 
 static QString lastLanguage;
 
+static DcpRetranslator* sm_Instance = 0;
+
 DcpRetranslator::DcpRetranslator ()
 {
+    if (sm_Instance == 0) {
+        sm_Instance = this;
+    }
+
     /*
      * Please note that we are not loading the applet translations automatically
      * any more, for it forced the applet database to be loaded early. The
@@ -80,14 +86,16 @@ DcpRetranslator::loadAppletTranslations (DuiLocale& locale)
 {
     DcpAppletDb *db = DcpAppletDb::instance();
     foreach (DcpAppletMetadata* metadata, db->list()) {
-        loadAppletTranslation (locale, metadata);
+        if (metadata->isActive()) {
+            loadAppletTranslation (locale, metadata);
+        }
     }
 }
 
 void
 DcpRetranslator::loadAppletTranslation (
-		DuiLocale                &locale,
-		const DcpAppletMetadata  *metadata)
+        DuiLocale                &locale,
+        const DcpAppletMetadata  *metadata)
 {
     Q_ASSERT(metadata);
     QString catalog = metadata->translationCatalog();
@@ -96,5 +104,30 @@ DcpRetranslator::loadAppletTranslation (
     locale.installTrCatalog(catalog + ".qm"); // install engineering english
     locale.installTrCatalog(catalog); // install real translation, if any
     DCP_DEBUG ("Translation %s loaded.", qPrintable(catalog));
+}
+
+void
+DcpRetranslator::ensureTranslationsAreLoaded(const DcpAppletMetadataList& list)
+{
+    DuiLocale locale;
+    foreach (DcpAppletMetadata* metadata, list) {
+        loadAppletTranslation(locale, metadata);
+    }
+    DuiLocale::setDefault(locale);
+}
+
+void
+DcpRetranslator::ensureTranslationLoaded(DcpAppletMetadata* metadata)
+{
+    DuiLocale locale;
+    loadAppletTranslation(locale, metadata);
+    DuiLocale::setDefault(locale);
+}
+
+DcpRetranslator*
+DcpRetranslator::instance()
+{
+    // FIXME: make it singleton
+    return sm_Instance;
 }
 
