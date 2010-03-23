@@ -44,6 +44,9 @@ private:
     static PageFactory     *sm_Instance;
     DcpMainPage            *m_MainPage;
     DcpAppletCategoryPage  *m_AppletCategoryPage;
+
+    // for testability
+    friend class Ut_PageFactory;
 };
 
 #endif

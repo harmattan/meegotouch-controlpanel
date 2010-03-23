@@ -1,6 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
-
+#ifndef DCPPAGE_FAKE_H
+#define DCPPAGE_FAKE_H
 #include <QtDebug>
 
 #include "dcppage.h"
@@ -36,11 +37,6 @@ DcpPage::setHandle (
     Q_UNUSED(handle);
 }
 
-/*!
- * \brief Sets the handle (symbolic representation) of the page.
- * Sets the handle for the page. The handle is a purely symbolic representation
- * of the page. The default value of the handle is PageHandle::NOPAGE.
- */
 void 
 DcpPage::setHandle (
         PageHandle::PageTypeId       id, 
@@ -88,4 +84,5 @@ DcpPage::mainLayout ()
 {
     return 0;
 }
+#endif // DCPPAGE_FAKE_H
 
