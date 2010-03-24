@@ -11,16 +11,27 @@
 
 #include "dcpdebug.h"
 
-static QString lastLanguage;
+#include <QHash>
 
-static DcpRetranslator* sm_Instance = 0;
+class DcpRetranslatorPriv {
+public:
+    DcpRetranslatorPriv();
 
-DcpRetranslator::DcpRetranslator ()
+    QString lastLanguage;
+    QSet<const DcpAppletMetadata*> loadedTranslations; // FIXME: this can be a metadata attribute XXX
+    static DcpRetranslator* instance;
+};
+
+DcpRetranslator* DcpRetranslatorPriv::instance = 0;
+
+DcpRetranslatorPriv::DcpRetranslatorPriv ()
 {
-    if (sm_Instance == 0) {
-        sm_Instance = this;
-    }
+    DuiGConfItem languageItem("/Dui/i18n/Language");
+    lastLanguage = languageItem.value().toString();
+}
 
+DcpRetranslator::DcpRetranslator (): priv(new DcpRetranslatorPriv())
+{
     /*
      * Please note that we are not loading the applet translations automatically
      * any more, for it forced the applet database to be loaded early. The
@@ -28,8 +39,6 @@ DcpRetranslator::DcpRetranslator ()
      * database loaded.
      */
 
-    DuiGConfItem languageItem("/Dui/i18n/Language");
-    lastLanguage = languageItem.value().toString();
 }
 
 
@@ -56,8 +65,10 @@ DcpRetranslator::retranslate ()
      */
     DuiGConfItem languageItem("/Dui/i18n/Language");
     QString language = languageItem.value().toString();
-    if (lastLanguage == language)
+    if (priv->lastLanguage == language)
         return;
+
+    priv->loadedTranslations.clear();
 
     DuiApplication* duiApp = DuiApplication::instance();
     DuiLocale locale(language);
@@ -73,23 +84,18 @@ DcpRetranslator::retranslate ()
     locale.installTrCatalog("common");
     locale.installTrCatalog(binaryName);
 
-    loadAppletTranslations(locale);
-
-    DuiLocale::setDefault(locale);
-
-    running = false;
-    lastLanguage = language;
-}
-
-void
-DcpRetranslator::loadAppletTranslations (DuiLocale& locale)
-{
+    // load the translations of the active applets:
     DcpAppletDb *db = DcpAppletDb::instance();
     foreach (DcpAppletMetadata* metadata, db->list()) {
         if (metadata->isActive()) {
             loadAppletTranslation (locale, metadata);
         }
     }
+
+    DuiLocale::setDefault(locale);
+
+    running = false;
+    priv->lastLanguage = language;
 }
 
 void
@@ -98,12 +104,22 @@ DcpRetranslator::loadAppletTranslation (
         const DcpAppletMetadata  *metadata)
 {
     Q_ASSERT(metadata);
+    qDebug("XXX trial %s",qPrintable(metadata->name()));
+
+    // Do not load the translation if it is already loaded
+    if (priv->loadedTranslations.contains(metadata)) return;
+
     QString catalog = metadata->translationCatalog();
-    if (catalog.isEmpty()) return;
+    if (catalog.isEmpty() ) return;
 
     locale.installTrCatalog(catalog + ".qm"); // install engineering english
     locale.installTrCatalog(catalog); // install real translation, if any
-    DCP_DEBUG ("Translation %s loaded.", qPrintable(catalog));
+
+    // mark it as loaded:
+    priv->loadedTranslations.insert(metadata);
+
+//    DCP_DEBUG ("Translation %s loaded.", qPrintable(catalog));
+    qDebug("XXX Translation %s loaded.\n", qPrintable(catalog));
 }
 
 void
@@ -127,7 +143,9 @@ DcpRetranslator::ensureTranslationLoaded(DcpAppletMetadata* metadata)
 DcpRetranslator*
 DcpRetranslator::instance()
 {
-    // FIXME: make it singleton
-    return sm_Instance;
+    if (DcpRetranslatorPriv::instance == NULL) {
+        DcpRetranslatorPriv::instance = new DcpRetranslator();
+    }
+    return DcpRetranslatorPriv::instance;
 }
 

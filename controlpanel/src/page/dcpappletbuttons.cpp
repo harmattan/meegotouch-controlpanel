@@ -106,12 +106,11 @@ DcpAppletButtons::createContents ()
         }
     }
 
-    DcpRetranslator::instance()->ensureTranslationsAreLoaded(metadatas);
-
     // adds the briefwidgets
     foreach (DcpAppletMetadata* item, metadatas) {
         addComponent (item);
     }
+    DcpRetranslator::instance()->ensureTranslationsAreLoaded(metadatas);
 }
 
 

@@ -96,9 +96,8 @@ startApplication (int argc, char* argv[])
     DuiControlPanelService* service = new DuiControlPanelService();
 
     // install the new translations if locale changes:
-    DcpRetranslator retranslator;
     QObject::connect(&app, SIGNAL(localeSettingsChanged()),
-                     &retranslator, SLOT(retranslate()));
+                     DcpRetranslator::instance(), SLOT(retranslate()));
 
     // mainwindow:
     DuiApplicationWindow win;

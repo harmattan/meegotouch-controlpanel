@@ -22,13 +22,7 @@ class DcpRetranslator : public QObject
 {
     Q_OBJECT
 public:
-    DcpRetranslator();
     static DcpRetranslator* instance();
-
-    void loadAppletTranslations (DuiLocale& locale);
-    void loadAppletTranslation (
-            DuiLocale               &locale,
-            const DcpAppletMetadata *metadata);
 
     void ensureTranslationsAreLoaded(const DcpAppletMetadataList& list);
     void ensureTranslationLoaded(DcpAppletMetadata* metadata);
@@ -36,6 +30,13 @@ public:
 
 public slots:
    void retranslate();
+
+protected:
+    DcpRetranslator();
+    void loadAppletTranslation (
+            DuiLocale               &locale,
+            const DcpAppletMetadata *metadata);
+    class DcpRetranslatorPriv* priv;
 };
 
 #endif

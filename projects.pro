@@ -9,6 +9,7 @@ SUBDIRS += lib \
 
 include(debian/deb.pri)
 include(gentests/gentests.pri)
+
 # for check:
 check.target = check
 check.CONFIG = recursive
@@ -24,3 +25,4 @@ coverage.depends = lib/Makefile
 coverage.commands = cd lib && make coverage
 # dont want to make it CONFIG = recursive because other subdirs would need
 # a stub rule for this target
+
