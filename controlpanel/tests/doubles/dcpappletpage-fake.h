@@ -34,6 +34,13 @@ DcpAppletPage::hasError ()
     return false;
 }
 
+int 
+DcpAppletPage::widgetId ()
+{
+    return 0;
+}
+
+
 void
 DcpAppletPage::load ()
 {

@@ -19,6 +19,7 @@
 
 #include "appleterrorsdialog.h"
 
+#define DEBUG
 #include "dcpdebug.h"
 
 
@@ -29,6 +30,9 @@ PageFactory::PageFactory ():
     m_MainPage (0), 
     m_AppletCategoryPage (0)
 {
+    connect (DuiApplication::activeWindow (),
+            SIGNAL(pageChanged(DuiApplicationPage *)),
+            this, SLOT(pageChanged(DuiApplicationPage *)));
 }
 
 /*!
@@ -76,12 +80,13 @@ DcpPage*
 PageFactory::createPage (
         const PageHandle &handle)
 {
+    PageHandle myHandle = handle;
     DcpPage *page = 0;
 
     DCP_DEBUG ("****************************");
-    DCP_DEBUG ("*** handle = %s", DCP_STR (handle.getStringVariant()));
+    DCP_DEBUG ("*** handle = %s", DCP_STR (myHandle.getStringVariant()));
     DCP_DEBUG ("****************************");
-    switch (handle.id) {
+    switch (myHandle.id) {
         case PageHandle::NOPAGE:
         case PageHandle::MAIN:
             /*
@@ -95,22 +100,22 @@ PageFactory::createPage (
             break;
 
         case PageHandle::APPLETCATEGORY: 
-            page = createAppletCategoryPage(handle.id);
+            page = createAppletCategoryPage(myHandle.id);
             break;
 
         case PageHandle::APPLET:
             DCP_DEBUG ("## APPLET ##");
-            page = createAppletPage (handle);
+            page = createAppletPage (myHandle);
             break;
 
         default:
-            Q_ASSERT(handle.id > PageHandle::CATEGORY_PAGEID_START
-                     && handle.id < PageHandle::CATEGORY_PAGEID_END);
-            page = createAppletCategoryPage (handle.id);
+            Q_ASSERT(myHandle.id > PageHandle::CATEGORY_PAGEID_START
+                     && myHandle.id < PageHandle::CATEGORY_PAGEID_END);
+            page = createAppletCategoryPage (myHandle.id);
     }
 
     if (page) {
-        page->setHandle (handle);
+        page->setHandle (myHandle);
 
         if (page->isContentCreated ()) {
             page->reload ();
@@ -145,7 +150,8 @@ PageFactory::createMainPage ()
  * applet page referenced by the appletPage class member.
  */
 DcpPage *
-PageFactory::createAppletPage(const PageHandle & handle)
+PageFactory::createAppletPage(
+        PageHandle &handle)
 {
     DcpAppletObject *applet = DcpAppletDb::instance()->applet (handle.param);
 
@@ -153,6 +159,7 @@ PageFactory::createAppletPage(const PageHandle & handle)
      * We do not cache appletpages (only with back mechanism).
      */
     DcpAppletPage* appletPage = new DcpAppletPage(applet, handle.widgetId);
+
     registerPage (appletPage);
 
     // we do this because we need to know if the page has a widget or not
@@ -163,6 +170,7 @@ PageFactory::createAppletPage(const PageHandle & handle)
         // the applet does not provide a page (e.g. just a dialog)
         return 0;
     } else {
+        handle.widgetId = appletPage->widgetId();
         return appletPage;
     }
 }
@@ -217,13 +225,20 @@ PageFactory::changePage (const PageHandle &handle)
      * if more signals are coming, for example if user clicks double
      */
 
-    DcpPage* currentPage = this->currentPage();
-    if (currentPage && handle == currentPage->handle()) return;
+    DcpPage *currentPage = this->currentPage();
+    if (currentPage) {
+        DCP_DEBUG ("Current page %s",
+                DCP_STR (currentPage->handle().getStringVariant()));
+    }
+
+    if (currentPage && 
+            handle == currentPage->handle()) 
+        return;
 
     DcpPage  *page;
 
-    DCP_DEBUG ("Creating page '%s'/%d",
-            DCP_STR (handle.param), handle.id);
+    DCP_DEBUG ("Creating page %s",
+            DCP_STR (handle.getStringVariant()));
     /*
      * Creating the page with the given handle.
      */
@@ -291,4 +306,41 @@ PageFactory::registerPage (
     }
 }
 
+void
+PageFactory::pageChanged (
+        DuiApplicationPage *page)
+{
+    DCP_DEBUG ("========================================");
+    DCP_DEBUG ("*** page = %p", page);
+    if (m_Pages.empty()) {
+        DCP_DEBUG ("List is empty, adding");
+        m_Pages.append (page);
+    } else if (m_Pages.size() > 2 && 
+            page == m_Pages.at(m_Pages.size() - 2)) {
+        DCP_DEBUG ("Last page removed, removing...");
+        m_Pages.takeLast();
+    } else if (m_Pages.contains(page)) {
+        DCP_WARNING ("It should not contain this page!");
+    } else {
+        DCP_DEBUG ("New page added!");
+        m_Pages.append (page);
+    }
+}
 
+#if 0
+bool 
+PageFactory::isLastPage (
+        const PageHandle &handle)
+{
+    if (m_Pages.isEmpty()) 
+        return false;
+
+    DcpPage *page;
+    page = qobject_cast<DcpPage*> (m_Pages.last());
+
+    if (page == 0)
+        return false;
+
+    return page->handle() == handle;
+}
+#endif

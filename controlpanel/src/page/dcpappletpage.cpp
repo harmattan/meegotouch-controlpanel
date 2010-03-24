@@ -51,6 +51,12 @@ DcpAppletPage::hasError ()
     return m_MissingLabel;
 }
 
+int 
+DcpAppletPage::widgetId ()
+{
+    return m_WidgetId;
+}
+
 /*!
  * This function might do three things. If the applet variant has a binary
  * applet it will call the binary and load the main widget of the applet
