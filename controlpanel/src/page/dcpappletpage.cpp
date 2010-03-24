@@ -120,6 +120,11 @@ void
 DcpAppletPage::back ()
 {
     DCP_DEBUG ("");
+
+    if (m_MainWidget) {
+        m_MainWidget->back();
+    }
+
     if (handle().isStandalone)
     {
        DCP_DEBUG("This is a standalone applet"); 
