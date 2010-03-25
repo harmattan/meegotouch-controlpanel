@@ -1,6 +1,12 @@
 duicontrolpanel (0.7.8~unreleased) unstable; urgency=low
 
-  * new version
+  * [ Laszlo Pere ]
+  * Fixes: NB#162019 - Duicontrolpanel creates already existing widgets
+  * Fixes: NB#161543 - WEP key- and Other settings are not preserved in 
+    advanced internet settings
+  * Fixes: NB#161616 - Duicontrolpanel creates two main widgets
+  * Fixes: NB#161942 - Navigation from BT settings view does not work after 
+    removing pairing
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 24 Mar 2010 11:10:00 +0100
 
