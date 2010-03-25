@@ -361,7 +361,6 @@ void
 DcpAppletMetadata::markActive()
 {
     d_ptr->m_Activated++;
-    DCP_DEBUG("XXX markActive -> %d", count);
 }
 
 /*! \brief Marks the plugin inactive
@@ -374,7 +373,6 @@ DcpAppletMetadata::markInactive()
     int& count = d_ptr->m_Activated;
     if (count > 0) {
         count --;
-        DCP_DEBUG("XXX markInactive -> %d", count);
     } else {
         DCP_WARNING("Internal error: plugin was inactivated "
                     "more times then activated");
