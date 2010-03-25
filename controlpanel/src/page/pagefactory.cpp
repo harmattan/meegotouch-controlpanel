@@ -3,6 +3,7 @@
 
 #include "pagefactory.h"
 
+#include <QTime>
 #include <DcpPage>
 #include <DcpMainPage>
 #include <DcpAppletPage>
@@ -19,7 +20,7 @@
 
 #include "appleterrorsdialog.h"
 
-#define DEBUG
+//#define DEBUG
 #include "dcpdebug.h"
 
 
@@ -220,22 +221,19 @@ PageFactory::currentPage ()
 void 
 PageFactory::changePage (const PageHandle &handle)
 {
+    DcpPage *page;
+
     /*
      * this prevents openning the same page multiple times,
      * if more signals are coming, for example if user clicks double
      */
-
     DcpPage *currentPage = this->currentPage();
-    if (currentPage) {
-        DCP_DEBUG ("Current page %s",
-                DCP_STR (currentPage->handle().getStringVariant()));
-    }
-
     if (currentPage && 
             handle == currentPage->handle()) 
         return;
-
-    DcpPage  *page;
+    
+    if (tryOpenPageBackward(handle))
+        return;
 
     DCP_DEBUG ("Creating page %s",
             DCP_STR (handle.getStringVariant()));
@@ -306,16 +304,20 @@ PageFactory::registerPage (
     }
 }
 
+/*!
+ * This function will be called when the current page has been changed. It will
+ * maintain a list of pages so the pagefactory will always know what pages are
+ * in the stack. This is needed so the duicontrolpanel can page back to a
+ * requested page.
+ */
 void
 PageFactory::pageChanged (
         DuiApplicationPage *page)
 {
-    DCP_DEBUG ("========================================");
-    DCP_DEBUG ("*** page = %p", page);
     if (m_Pages.empty()) {
         DCP_DEBUG ("List is empty, adding");
         m_Pages.append (page);
-    } else if (m_Pages.size() > 2 && 
+    } else if (m_Pages.size() >= 2 && 
             page == m_Pages.at(m_Pages.size() - 2)) {
         DCP_DEBUG ("Last page removed, removing...");
         m_Pages.takeLast();
@@ -327,20 +329,79 @@ PageFactory::pageChanged (
     }
 }
 
-#if 0
+/*!
+ * This function will try to activate the page by dismissing pages, that is if a
+ * page with the given handle is already opened the function will dismiss all
+ * the pages that are on the top of the requested page.
+ *
+ * This function will return true if the operation was successfull, the
+ * requested page is on top.
+ */
 bool 
-PageFactory::isLastPage (
+PageFactory::tryOpenPageBackward (
         const PageHandle &handle)
 {
-    if (m_Pages.isEmpty()) 
-        return false;
-
     DcpPage *page;
-    page = qobject_cast<DcpPage*> (m_Pages.last());
+    int foundAtIndex = -1;
+    int n;
 
-    if (page == 0)
+    /*
+     * We try to find the requested page in the stack.
+     */
+    for (n = 0; n < m_Pages.size(); ++n) {
+        page = qobject_cast<DcpPage*> (m_Pages[n]);
+
+        if (page && page->handle() == handle) {
+            foundAtIndex = n;
+            break;
+        }
+    }
+    
+    /*
+     * If not found we return false. This means a new page has to be created in
+     * order to open the requested applet widget.
+     */
+    if (foundAtIndex == -1) {
+        DCP_DEBUG ("Page not found, returning false");
         return false;
+    }
 
-    return page->handle() == handle;
+    /*
+     * We close all the pages that are above the requested page.
+     */
+    while (m_Pages.size() > foundAtIndex + 1) {
+        int s = m_Pages.size();
+
+        DuiApplicationPage *duiPage = m_Pages.last();
+        duiPage->dismiss();
+
+        /*
+         * This is rather unfortunate, but we need this becouse otherwise the
+         * libdui will not refresh the screen correctly.
+         */
+        QTime dieTime = QTime::currentTime().addMSecs(250);
+        while( QTime::currentTime() < dieTime )
+        	QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        /*
+         * This is a protection so we _never_ fall into an endless loop.
+         */
+        if (m_Pages.size() == s) {
+            DCP_WARNING ("Could not close page.");
+            return false;
+        }
+    }
+   
+    /*
+     * A simple debug tool to print the page stack.
+     */
+    #ifdef DEBUG
+    for (n = 0; n < m_Pages.size(); ++n) {
+        page = qobject_cast<DcpPage*> (m_Pages[n]);
+        DCP_DEBUG ("page[%d] = %s", n,
+                DCP_STR(page->handle().getStringVariant()));
+    }
+    #endif
+
+    return true;
 }
-#endif
+

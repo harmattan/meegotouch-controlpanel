@@ -42,7 +42,7 @@ private slots:
     void pageChanged (DuiApplicationPage *page);
 
 private:
-    //bool isLastPage (const PageHandle &handle);
+    bool tryOpenPageBackward (const PageHandle &handle);
     void registerPage (DcpPage *page);
 
     static PageFactory     *sm_Instance;
