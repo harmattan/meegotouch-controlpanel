@@ -12,7 +12,6 @@
 #include "dcpappletif.h"
 #include "dcpwidget.h"
 
-#define DEBUG
 #include "dcpdebug.h"
 
 

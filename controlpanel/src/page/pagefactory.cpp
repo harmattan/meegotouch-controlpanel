@@ -20,7 +20,6 @@
 
 #include "appleterrorsdialog.h"
 
-//#define DEBUG
 #include "dcpdebug.h"
 
 
