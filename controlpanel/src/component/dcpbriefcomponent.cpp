@@ -19,9 +19,10 @@ DcpBriefComponent::DcpBriefComponent (
         DcpAppletObject   *applet,
         DcpComponent        *category,
         const QString       &logicalId)
-: DcpComponent (category, "", 0, logicalId),
-    m_BriefWidget (new DcpBriefWidget (applet, this))
+: DcpComponent (category, "", 0, logicalId)
 {
+    applet->metadata()->markActive();
+    m_BriefWidget = new DcpBriefWidget (applet, this);
     QGraphicsLinearLayout* layout = new QGraphicsLinearLayout (this);
     layout->addItem (m_BriefWidget);
 
@@ -32,10 +33,11 @@ DcpBriefComponent::DcpBriefComponent (
 
 DcpBriefComponent::~DcpBriefComponent()
 {
+    m_BriefWidget->applet()->metadata()->markInactive();
 }
 
 
-void 
+void
 DcpBriefComponent::setApplet(
         DcpAppletObject* applet)
 {
@@ -54,3 +56,5 @@ DcpBriefComponent::activate ()
     PageFactory *pageFactory = PageFactory::instance();
     pageFactory->changePage (subPage());
 }
+
+

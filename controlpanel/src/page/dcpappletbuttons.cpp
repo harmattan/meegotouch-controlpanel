@@ -11,6 +11,7 @@
 #include <DuiSceneManager>
 #include <DuiGridLayoutPolicy>
 #include <DuiLinearLayoutPolicy>
+#include <DcpRetranslator>
 
 #include "dcpdebug.h"
 
@@ -109,6 +110,7 @@ DcpAppletButtons::createContents ()
     foreach (DcpAppletMetadata* item, metadatas) {
         addComponent (item);
     }
+    DcpRetranslator::instance()->ensureTranslationsAreLoaded(metadatas);
 }
 
 

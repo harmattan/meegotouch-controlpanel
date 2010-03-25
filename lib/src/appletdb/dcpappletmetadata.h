@@ -79,6 +79,10 @@ public:
     bool isDisabled () const;
     void setDisabled (bool disabled);
 
+    void markActive();
+    void markInactive();
+    bool isActive() const;
+
 protected:
     DuiDesktopEntry* desktopEntry () const;
     QString desktopEntryStr (int id) const;

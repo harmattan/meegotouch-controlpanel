@@ -7,6 +7,7 @@
 #include <DcpAppletIf>
 #include <DcpAppletMetadata>
 #include <DcpAppletObject>
+#include <DcpRetranslator>
 
 #include <DuiLabel>
 #include <DuiLocale>
@@ -30,6 +31,9 @@ DcpAppletPage::DcpAppletPage (DcpAppletObject *applet, int widgetId):
 
 DcpAppletPage::~DcpAppletPage ()
 {
+    if (m_Applet) {
+        m_Applet->metadata()->markInactive();
+    }
 }
 
 void
@@ -72,7 +76,12 @@ DcpAppletPage::load ()
     DCP_DEBUG ("");
 
     if (m_Applet) {
+        m_Applet->metadata()->markActive();
+        DcpRetranslator::instance()->ensureTranslationLoaded(
+               m_Applet->metadata());
+
        if (m_Applet->isAppletLoaded()) {
+
             /*
              * If the plugin is available (loaded) we call it to create a new
              * view. (Here we got the widgetId from the plugin itself using the

@@ -11,21 +11,35 @@
 
 #include "dcpdebug.h"
 
-static QString lastLanguage;
+#include <QHash>
 
-DcpRetranslator::DcpRetranslator ()
+class DcpRetranslatorPriv {
+public:
+    DcpRetranslatorPriv();
+
+    QString lastLanguage;
+    QSet<QString> loadedTranslations;
+    static DcpRetranslator* instance;
+    static bool compatibleMode;
+};
+
+DcpRetranslator* DcpRetranslatorPriv::instance = 0;
+bool DcpRetranslatorPriv::compatibleMode = true;
+
+DcpRetranslatorPriv::DcpRetranslatorPriv ()
 {
-    /*
-     * Please note that we are not loading the applet translations automatically
-     * any more, for it forced the applet database to be loaded early. The
-     * applet database will load the translations immediatelly after the 
-     * database loaded.
-     */
-
     DuiGConfItem languageItem("/Dui/i18n/Language");
     lastLanguage = languageItem.value().toString();
 }
 
+DcpRetranslator::DcpRetranslator (): priv(new DcpRetranslatorPriv())
+{
+    if (DcpRetranslatorPriv::compatibleMode) {
+        // load the translations of the applets:
+        DcpAppletDb *db = DcpAppletDb::instance();
+        ensureTranslationsAreLoaded(db->list());
+    }
+}
 
 /*
  * ! \brief copied from widgetsgallery, makes translation reload
@@ -50,8 +64,10 @@ DcpRetranslator::retranslate ()
      */
     DuiGConfItem languageItem("/Dui/i18n/Language");
     QString language = languageItem.value().toString();
-    if (lastLanguage == language)
+    if (priv->lastLanguage == language)
         return;
+
+    priv->loadedTranslations.clear();
 
     DuiApplication* duiApp = DuiApplication::instance();
     DuiLocale locale(language);
@@ -67,34 +83,83 @@ DcpRetranslator::retranslate ()
     locale.installTrCatalog("common");
     locale.installTrCatalog(binaryName);
 
-    loadAppletTranslations(locale);
+    // load the translations of the active applets:
+    DcpAppletDb *db = DcpAppletDb::instance();
+    foreach (DcpAppletMetadata* metadata, db->list()) {
+        if (metadata->isActive() || DcpRetranslatorPriv::compatibleMode) {
+            loadAppletTranslation (locale, metadata);
+        }
+    }
 
     DuiLocale::setDefault(locale);
 
     running = false;
-    lastLanguage = language;
-}
-
-void
-DcpRetranslator::loadAppletTranslations (DuiLocale& locale)
-{
-    DcpAppletDb *db = DcpAppletDb::instance();
-    foreach (DcpAppletMetadata* metadata, db->list()) {
-        loadAppletTranslation (locale, metadata);
-    }
+    priv->lastLanguage = language;
 }
 
 void
 DcpRetranslator::loadAppletTranslation (
-		DuiLocale                &locale,
-		const DcpAppletMetadata  *metadata)
+        DuiLocale                &locale,
+        const DcpAppletMetadata  *metadata)
 {
     Q_ASSERT(metadata);
+
     QString catalog = metadata->translationCatalog();
-    if (catalog.isEmpty()) return;
+    if (catalog.isEmpty() ) return;
+
+    /* Do not load the translation if it is already loaded
+     * In compatible mode (for suw), it is skipped.
+     */
+    if (!DcpRetranslatorPriv::compatibleMode &&
+        priv->loadedTranslations.contains(catalog)) return;
 
     locale.installTrCatalog(catalog + ".qm"); // install engineering english
     locale.installTrCatalog(catalog); // install real translation, if any
+
+    // mark it as loaded:
+    priv->loadedTranslations.insert(catalog);
+
     DCP_DEBUG ("Translation %s loaded.", qPrintable(catalog));
+}
+
+void
+DcpRetranslator::ensureTranslationsAreLoaded(const DcpAppletMetadataList& list)
+{
+    DuiLocale locale;
+    foreach (DcpAppletMetadata* metadata, list) {
+        loadAppletTranslation(locale, metadata);
+    }
+    DuiLocale::setDefault(locale);
+}
+
+void
+DcpRetranslator::ensureTranslationLoaded(DcpAppletMetadata* metadata)
+{
+    DuiLocale locale;
+    loadAppletTranslation(locale, metadata);
+    DuiLocale::setDefault(locale);
+}
+
+
+/*!
+* The retranslator is in compatibility mode if you call it with its constructor,
+* so as not to cause problems with suw or other program, which are also using the
+* retranslator. In compatibility mode retranslator behaves like before:
+* it reloads the translations for all applets, which are in the db.
+*
+* If you call it trough instance() it will not be in compatibility mode,
+* which means it only reloads the translations
+* for the active plugins, see DcpAppletMetadata::isActive(), and apps have
+* to call ensureLoaded functions to load the translations for the actives.
+*/
+DcpRetranslator*
+DcpRetranslator::instance()
+{
+    if (DcpRetranslatorPriv::instance == NULL)
+    {
+        DcpRetranslatorPriv::compatibleMode = false;
+        DcpRetranslatorPriv::instance = new DcpRetranslator();
+    }
+    return DcpRetranslatorPriv::instance;
 }
 
