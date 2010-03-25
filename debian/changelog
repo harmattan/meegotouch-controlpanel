@@ -1,10 +1,7 @@
-duicontrolpanel (0.7.9~unreleasee) unstable; urgency=low
+duicontrolpanel (0.7.8) unstable; urgency=low
 
+  [ Gabor Juhasz ]
   * dummy release to test CITA 
-
- -- Gabor Juhasz <ext-gabor.2.juhasz@nokia.com>  Thu, 25 Mar 2010 11:29:04 +0200
-
-duicontrolpanel (0.7.8~unreleased) unstable; urgency=low
 
   * [ Laszlo Pere ]
   * Fixes: NB#162019 - Duicontrolpanel creates already existing widgets
