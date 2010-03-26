@@ -1,11 +1,11 @@
 #! /usr/bin/perl
 # usage :
-#    $1 class name - ie in upper camel case - no 'ut_' prepended
+#    $1 class name - ie in upper camel case - no 'ft_' prepended
 
 $duisrcdir="../src";
 
 # catch wrong usage
-if ( "$ARGV[0]" eq "" || "$ARGV[0]" =~ "^ut_" ) {
+if ( "$ARGV[0]" eq "" || "$ARGV[0]" =~ "^ft_" ) {
     print "usage: $0 <DuiClassName>\n";
     exit -1;
 }
@@ -14,14 +14,14 @@ $camelClassName="$ARGV[0]";
 $lowerClassName=lc( $camelClassName );
 $upperClassName=uc( $camelClassName );
 
-$camelMkUtClassName="MkUtClassName";
-$lowerMkUtClassName=lc( $camelMkUtClassName );
-$upperMkUtClassName=uc( $camelMkUtClassName );
+$camelMkFtClassName="MkFtClassName";
+$lowerMkFtClassName=lc( $camelMkFtClassName );
+$upperMkFtClassName=uc( $camelMkFtClassName );
 
 $srcDir="../src";
 $unitH="$srcDir/${lowerClassName}.h";
 $unitCpp="$srcDir/${lowerClassName}.cpp";
-$targetDir="ut_$lowerClassName";
+$targetDir="ft_$lowerClassName";
 
 if ( -e "$targetDir" ) {
     print "$targetDir/ already exists - too risky to overwrite, please delete manually\n";
@@ -66,22 +66,22 @@ if ( -e "$duisrcdir/$classHeaderP" ) {
 }
 
 ## copy template
-foreach $file ( glob( "template/ut*" ) ) {
+foreach $file ( glob( "template/ft*" ) ) {
     $base=basename($file);
     $targetFile="$targetDir/$base";
     $targetFile=~s/template/$lowerClassName/;
     open INFILE, "<$file" || die( "Could not read from $file:$!" );
     open OUTFILE, ">$targetFile" || die( "Could not write to $targetFile:$!" );
     while (<INFILE>) {
-        $_ =~ s/^\s*mkutserviceheaders//g;
-        $_ =~ s/^\s*mkutbasesources/$allBaseSources/g;
-        $_ =~ s/^\s*mkutbaseheaders/$allBaseHeaders/g;
-        $_ =~ s/$camelMkUtClassName/$camelClassName/g;
-        $_ =~ s/$lowerMkUtClassName/$lowerClassName/g;
-        $_ =~ s/$upperMkUtClassName/$upperClassName/g;
-        $_ =~ s/^mkutclassinclude$/$classInclude/g;
-        $_ =~ s/^mkutclassinclude_p$/$classIncludeP/g;
-        $_ =~ s/MKUTCLASSMEMBERS//g;
+        $_ =~ s/^\s*mkftserviceheaders//g;
+        $_ =~ s/^\s*mkftbasesources/$allBaseSources/g;
+        $_ =~ s/^\s*mkftbaseheaders/$allBaseHeaders/g;
+        $_ =~ s/$camelMkFtClassName/$camelClassName/g;
+        $_ =~ s/$lowerMkFtClassName/$lowerClassName/g;
+        $_ =~ s/$upperMkFtClassName/$upperClassName/g;
+        $_ =~ s/^mkftclassinclude$/$classInclude/g;
+        $_ =~ s/^mkftclassinclude_p$/$classIncludeP/g;
+        $_ =~ s/MKFTCLASSMEMBERS//g;
         print OUTFILE "$_";
     }
     close OUTFILE;

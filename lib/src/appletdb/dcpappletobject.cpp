@@ -177,6 +177,8 @@ DcpAppletObject::toggleIconId () const
  * \details This slot will activate an other applet. First the function will
  * find the applet using the applet database then it will emit a signal for it,
  * so it is going to be started.
+ *
+ * FIXME: to be moved to DcpAppletDb ?
  */
 bool 
 DcpAppletObject::activatePluginByName (
