@@ -21,7 +21,7 @@ private slots:
     void cleanupTestCase();
     void testLoad();
     void testLoadManyTimes();
-
+    void testGetters();
     
 
 private:
