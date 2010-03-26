@@ -26,14 +26,10 @@ void Ut_DcpAppletButtons::cleanup()
 
 void Ut_DcpAppletButtons::initTestCase()
 {
-    static int argc = 1;
-    static char *app_name[1] = { (char *) "./ut_dcpappletbuttons" };
-    app = new DuiApplication(argc, app_name);
 }
 
 void Ut_DcpAppletButtons::cleanupTestCase()
 {
-    delete app;
 }
 
 void Ut_DcpAppletButtons::testCreation()
@@ -55,6 +51,11 @@ void Ut_DcpAppletButtons::testCreateContents()
 {
     QSKIP("incomplete", SkipSingle);   // remove this when you've finished
 }
-    
 
-QTEST_APPLESS_MAIN(Ut_DcpAppletButtons)
+int main (int argc, char** argv) {
+    DuiApplication* app = new DuiApplication (argc, argv);
+    Ut_DcpAppletButtons test;
+    QTest::qExec(&test, argc, argv);
+    delete app;
+}
+
