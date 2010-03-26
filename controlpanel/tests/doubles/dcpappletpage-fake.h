@@ -5,6 +5,7 @@
 #include "dcpappletpage.h"
 
 DcpAppletPage::DcpAppletPage (DcpAppletObject *applet, int widgetId) :
+    DcpPage(),
     m_MainWidget (0),
     m_MissingLabel (0)
 {

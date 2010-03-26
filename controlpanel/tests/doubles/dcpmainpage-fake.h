@@ -3,6 +3,7 @@
 #ifndef DCPMAINPAGE_FAKE_H
 #define DCPMAINPAGE_FAKE_H
 #include "dcpmainpage.h"
+#include "dcppage-fake.h"
 DcpMainPage::DcpMainPage()
 {
 }

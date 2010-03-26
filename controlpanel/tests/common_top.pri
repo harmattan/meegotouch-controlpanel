@@ -8,6 +8,8 @@ DEPENDPATH = $$INCLUDEPATH
 
 QMAKE_LIBDIR += ../../../lib/lib/ /usr/lib/
 LIBDCPINCLUDE=../../../lib/src/include
+LIBDCPFAKES=../../../lib/tests/doubles
+STUBSDIR = ../stubs
 CONFIG += dui debug
 
 QT += testlib

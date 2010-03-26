@@ -21,6 +21,7 @@ Q_OBJECT
 
 public:
     static PageFactory *instance ();
+    static void destroy();
     DcpPage* createPage (const PageHandle &handle);
     DcpPage* currentPage ();
 

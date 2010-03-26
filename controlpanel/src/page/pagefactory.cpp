@@ -31,6 +31,14 @@ PageFactory::PageFactory ():
 {
 }
 
+void
+PageFactory::destroy()
+{
+    if (sm_Instance)
+      delete sm_Instance;
+    sm_Instance=0;
+}
+ 
 /*!
  * This slotz should be called only once, when the main page has been shown, so
  * we can access the applet database without forcing it to be loaded early. It
@@ -110,6 +118,7 @@ PageFactory::createPage (
     }
 
     if (page) {
+        qDebug() << handle.getStringVariant();
         page->setHandle (handle);
 
         if (page->isContentCreated ()) {

@@ -39,6 +39,7 @@ private:
     QString                 m_CategoryName;
     QString                 m_LogicalId;
     const DcpCategoryInfo  *m_CategoryInfo;
+    friend class Ut_DcpAppletButtons;
 };
 
 #endif
