@@ -19,7 +19,6 @@ DcpPage::DcpPage () :
     DuiApplicationPage ()
 {
     DCP_DEBUG ("");
-    setEscapeButtonMode (DuiEscapeButtonPanelModel::BackMode);
 
     // back button handling:
     connect (this, SIGNAL(backButtonClicked()),
@@ -33,7 +32,6 @@ DcpPage::createContent ()
     DuiApplicationPage::createContent ();
     setObjectName ("DcpPage");
 
-    setEscapeButtonMode (DuiEscapeButtonPanelModel::BackMode);
     createLayout ();
 }
 

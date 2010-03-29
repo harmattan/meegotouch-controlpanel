@@ -183,7 +183,7 @@ DcpAppletPage::loadWidget (int widgetId)
         return;
     }
 
-    setPannableAreaInteractive (m_MainWidget->pagePans());
+    setPannable (m_MainWidget->pagePans());
 
     connect (m_MainWidget, SIGNAL (changeWidget(int)),
              m_Applet, SLOT(activateSlot(int)));

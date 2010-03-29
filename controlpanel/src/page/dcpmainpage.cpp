@@ -35,8 +35,7 @@ DcpMainPage::DcpMainPage() :
     m_HasContent (false),
     m_WasHidden (false)
 {
-    setEscapeButtonMode (DuiEscapeButtonPanelModel::CloseMode);
-    connect (this, SIGNAL(windowShown()),
+    connect (this, SIGNAL(appeared()),
             this, SLOT(shown()));
 }
 
@@ -110,7 +109,6 @@ DcpMainPage::createContent ()
     m_OtherComp->setCentralWidget(otherCategories);
 
     layout->addItem(m_OtherComp);
-    setEscapeButtonMode(DuiEscapeButtonPanelModel::CloseMode);
     retranslateUi();
 
 #ifdef DISABLE_DELAYED_LOADING
