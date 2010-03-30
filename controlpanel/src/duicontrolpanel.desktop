@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
 Name=System settings
-Icon=Icon-bookmarks
+Icon=icon-l-settings
 Exec=/usr/bin/duicontrolpanel
 
