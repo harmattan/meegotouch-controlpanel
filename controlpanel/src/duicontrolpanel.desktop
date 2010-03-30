@@ -1,7 +1,6 @@
 [Desktop Entry]
 Type=Application
-Categories=DUI;
 Name=System settings
-Icon=Icon-bookmarks
+Icon=icon-l-settings
 Exec=/usr/bin/duicontrolpanel
 

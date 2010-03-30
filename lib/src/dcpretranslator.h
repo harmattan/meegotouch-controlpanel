@@ -6,6 +6,9 @@
 #include <QObject>
 class DuiLocale;
 class DcpAppletMetadata;
+#include <QList>
+
+typedef QList<DcpAppletMetadata*> DcpAppletMetadataList;
 
 /*! \brief makes translation reload automatically
  *  \details DuiApplication's localeSettingsChanged signal should be connected
@@ -19,15 +22,21 @@ class DcpRetranslator : public QObject
 {
     Q_OBJECT
 public:
-    DcpRetranslator();
+    static DcpRetranslator* instance();
+    DcpRetranslator(); // FIXME, this is deprecated, only for compatibility, suw uses it
 
-    void loadAppletTranslations (DuiLocale& locale);
-    void loadAppletTranslation (
-		    DuiLocale               &locale,
-		    const DcpAppletMetadata *metadata);
+    void ensureTranslationsAreLoaded(const DcpAppletMetadataList& list);
+    void ensureTranslationLoaded(DcpAppletMetadata* metadata);
+    void unloadTranslation(DcpAppletMetadata* metadata);
 
 public slots:
    void retranslate();
+
+protected:
+    void loadAppletTranslation (
+            DuiLocale               &locale,
+            const DcpAppletMetadata *metadata);
+    class DcpRetranslatorPriv* priv;
 };
 
 #endif

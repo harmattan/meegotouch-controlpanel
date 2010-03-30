@@ -18,6 +18,7 @@ public:
     DcpAppletMetadata *m_Parent;
     QString m_FileName;
     bool m_Disabled;
+    int m_Activated;
 };
 
 enum  {

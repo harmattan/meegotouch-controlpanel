@@ -8,6 +8,7 @@
 #include <DcpAppletDb>
 #include <DcpAppletMetadata>
 #include <DcpAppletObject>
+#include <DcpRetranslator>
 
 #include "dcpdebug.h"
 
@@ -71,6 +72,7 @@ DcpAppletCategoryPage::loadContent ()
         DCP_DEBUG ("*** applet '%s'", DCP_STR (item->name()));
         addComponent (item);
     }
+    DcpRetranslator::instance()->ensureTranslationsAreLoaded(list);
 
     m_LoadedAppletCategory = appletCategory ();
 }

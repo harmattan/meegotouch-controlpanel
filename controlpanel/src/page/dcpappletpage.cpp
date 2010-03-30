@@ -7,6 +7,7 @@
 #include <DcpAppletIf>
 #include <DcpAppletMetadata>
 #include <DcpAppletObject>
+#include <DcpRetranslator>
 
 #include <DuiLabel>
 #include <DuiLocale>
@@ -30,6 +31,9 @@ DcpAppletPage::DcpAppletPage (DcpAppletObject *applet, int widgetId):
 
 DcpAppletPage::~DcpAppletPage ()
 {
+    if (m_Applet) {
+        m_Applet->metadata()->markInactive();
+    }
 }
 
 void
@@ -51,6 +55,12 @@ DcpAppletPage::hasError ()
     return m_MissingLabel;
 }
 
+int 
+DcpAppletPage::widgetId ()
+{
+    return m_WidgetId;
+}
+
 /*!
  * This function might do three things. If the applet variant has a binary
  * applet it will call the binary and load the main widget of the applet
@@ -66,7 +76,12 @@ DcpAppletPage::load ()
     DCP_DEBUG ("");
 
     if (m_Applet) {
+        m_Applet->metadata()->markActive();
+        DcpRetranslator::instance()->ensureTranslationLoaded(
+               m_Applet->metadata());
+
        if (m_Applet->isAppletLoaded()) {
+
             /*
              * If the plugin is available (loaded) we call it to create a new
              * view. (Here we got the widgetId from the plugin itself using the
@@ -120,6 +135,11 @@ void
 DcpAppletPage::back ()
 {
     DCP_DEBUG ("");
+
+    if (m_MainWidget) {
+        m_MainWidget->back();
+    }
+
     if (handle().isStandalone)
     {
        DCP_DEBUG("This is a standalone applet"); 
@@ -163,7 +183,7 @@ DcpAppletPage::loadWidget (int widgetId)
         return;
     }
 
-    setPannableAreaInteractive (m_MainWidget->pagePans());
+    setPannable (m_MainWidget->pagePans());
 
     connect (m_MainWidget, SIGNAL (changeWidget(int)),
              m_Applet, SLOT(activateSlot(int)));

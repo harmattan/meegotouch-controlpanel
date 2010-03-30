@@ -20,6 +20,10 @@ else
 	CFLAGS += -O2
 endif
 
+ifneq (,$(findstring debug,$(DEB_BUILD_OPTIONS)))
+    DEBUG = DEFINES+=DEBUG
+endif
+
 configure: configure-stamp
 configure-stamp:
 	dh_testdir
@@ -31,7 +35,7 @@ build: build-stamp
 build-stamp: configure-stamp 
 	dh_testdir
 
-	DEBIAN_DESTDIR=$(CURDIR)/debian/tmp qmake
+	DEBIAN_DESTDIR=$(CURDIR)/debian/tmp qmake $(DEBUG)
 	DEBIAN_DESTDIR=$(CURDIR)/debian/tmp $(MAKE)
 	touch $@
 

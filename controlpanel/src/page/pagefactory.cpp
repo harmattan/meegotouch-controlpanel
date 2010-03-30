@@ -3,6 +3,7 @@
 
 #include "pagefactory.h"
 
+#include <QTime>
 #include <DcpPage>
 #include <DcpMainPage>
 #include <DcpAppletPage>
@@ -29,6 +30,9 @@ PageFactory::PageFactory ():
     m_MainPage (0), 
     m_AppletCategoryPage (0)
 {
+    connect (DuiApplication::activeWindow (),
+            SIGNAL(pageChanged(DuiApplicationPage *)),
+            this, SLOT(pageChanged(DuiApplicationPage *)));
 }
 
 void
@@ -84,12 +88,13 @@ DcpPage*
 PageFactory::createPage (
         const PageHandle &handle)
 {
+    PageHandle myHandle = handle;
     DcpPage *page = 0;
 
     DCP_DEBUG ("****************************");
-    DCP_DEBUG ("*** handle = %s", DCP_STR (handle.getStringVariant()));
+    DCP_DEBUG ("*** handle = %s", DCP_STR (myHandle.getStringVariant()));
     DCP_DEBUG ("****************************");
-    switch (handle.id) {
+    switch (myHandle.id) {
         case PageHandle::NOPAGE:
         case PageHandle::MAIN:
             /*
@@ -103,23 +108,22 @@ PageFactory::createPage (
             break;
 
         case PageHandle::APPLETCATEGORY: 
-            page = createAppletCategoryPage(handle.id);
+            page = createAppletCategoryPage(myHandle.id);
             break;
 
         case PageHandle::APPLET:
             DCP_DEBUG ("## APPLET ##");
-            page = createAppletPage (handle);
+            page = createAppletPage (myHandle);
             break;
 
         default:
-            Q_ASSERT(handle.id > PageHandle::CATEGORY_PAGEID_START
-                     && handle.id < PageHandle::CATEGORY_PAGEID_END);
-            page = createAppletCategoryPage (handle.id);
+            Q_ASSERT(myHandle.id > PageHandle::CATEGORY_PAGEID_START
+                     && myHandle.id < PageHandle::CATEGORY_PAGEID_END);
+            page = createAppletCategoryPage (myHandle.id);
     }
 
     if (page) {
-        qDebug() << handle.getStringVariant();
-        page->setHandle (handle);
+        page->setHandle (myHandle);
 
         if (page->isContentCreated ()) {
             page->reload ();
@@ -154,7 +158,8 @@ PageFactory::createMainPage ()
  * applet page referenced by the appletPage class member.
  */
 DcpPage *
-PageFactory::createAppletPage(const PageHandle & handle)
+PageFactory::createAppletPage(
+        PageHandle &handle)
 {
     DcpAppletObject *applet = DcpAppletDb::instance()->applet (handle.param);
 
@@ -162,6 +167,7 @@ PageFactory::createAppletPage(const PageHandle & handle)
      * We do not cache appletpages (only with back mechanism).
      */
     DcpAppletPage* appletPage = new DcpAppletPage(applet, handle.widgetId);
+
     registerPage (appletPage);
 
     // we do this because we need to know if the page has a widget or not
@@ -172,6 +178,7 @@ PageFactory::createAppletPage(const PageHandle & handle)
         // the applet does not provide a page (e.g. just a dialog)
         return 0;
     } else {
+        handle.widgetId = appletPage->widgetId();
         return appletPage;
     }
 }
@@ -221,18 +228,22 @@ PageFactory::currentPage ()
 void 
 PageFactory::changePage (const PageHandle &handle)
 {
+    DcpPage *page;
+
     /*
      * this prevents openning the same page multiple times,
      * if more signals are coming, for example if user clicks double
      */
+    DcpPage *currentPage = this->currentPage();
+    if (currentPage && 
+            handle == currentPage->handle()) 
+        return;
+    
+    if (tryOpenPageBackward(handle))
+        return;
 
-    DcpPage* currentPage = this->currentPage();
-    if (currentPage && handle == currentPage->handle()) return;
-
-    DcpPage  *page;
-
-    DCP_DEBUG ("Creating page '%s'/%d",
-            DCP_STR (handle.param), handle.id);
+    DCP_DEBUG ("Creating page %s",
+            DCP_STR (handle.getStringVariant()));
     /*
      * Creating the page with the given handle.
      */
@@ -300,4 +311,104 @@ PageFactory::registerPage (
     }
 }
 
+/*!
+ * This function will be called when the current page has been changed. It will
+ * maintain a list of pages so the pagefactory will always know what pages are
+ * in the stack. This is needed so the duicontrolpanel can page back to a
+ * requested page.
+ */
+void
+PageFactory::pageChanged (
+        DuiApplicationPage *page)
+{
+    if (m_Pages.empty()) {
+        DCP_DEBUG ("List is empty, adding");
+        m_Pages.append (page);
+    } else if (m_Pages.size() >= 2 && 
+            page == m_Pages.at(m_Pages.size() - 2)) {
+        DCP_DEBUG ("Last page removed, removing...");
+        m_Pages.takeLast();
+    } else if (m_Pages.contains(page)) {
+        DCP_WARNING ("It should not contain this page!");
+    } else {
+        DCP_DEBUG ("New page added!");
+        m_Pages.append (page);
+    }
+}
+
+/*!
+ * This function will try to activate the page by dismissing pages, that is if a
+ * page with the given handle is already opened the function will dismiss all
+ * the pages that are on the top of the requested page.
+ *
+ * This function will return true if the operation was successfull, the
+ * requested page is on top.
+ */
+bool 
+PageFactory::tryOpenPageBackward (
+        const PageHandle &handle)
+{
+    DcpPage *page;
+    int foundAtIndex = -1;
+    int n;
+
+    /*
+     * We try to find the requested page in the stack.
+     */
+    for (n = 0; n < m_Pages.size(); ++n) {
+        page = qobject_cast<DcpPage*> (m_Pages[n]);
+
+        if (page && page->handle() == handle) {
+            foundAtIndex = n;
+            break;
+        }
+    }
+    
+    /*
+     * If not found we return false. This means a new page has to be created in
+     * order to open the requested applet widget.
+     */
+    if (foundAtIndex == -1) {
+        DCP_DEBUG ("Page not found, returning false");
+        return false;
+    }
+
+    /*
+     * We close all the pages that are above the requested page.
+     */
+    while (m_Pages.size() > foundAtIndex + 1) {
+        int s = m_Pages.size();
+
+        DuiApplicationPage *duiPage = m_Pages.last();
+        duiPage->dismiss();
+
+        /*
+         * This is rather unfortunate, but we need this becouse otherwise the
+         * libdui will not refresh the screen correctly.
+         */
+        QTime dieTime = QTime::currentTime().addMSecs(250);
+        while( QTime::currentTime() < dieTime )
+        	QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        /*
+         * This is a protection so we _never_ fall into an endless loop.
+         */
+        if (m_Pages.size() == s) {
+            DCP_WARNING ("Could not close page.");
+            return false;
+        }
+    }
+   
+    /*
+     * A simple debug tool to print the page stack.
+     */
+    #ifdef DEBUG
+    for (n = 0; n < m_Pages.size(); ++n) {
+        page = qobject_cast<DcpPage*> (m_Pages[n]);
+        DCP_DEBUG ("page[%d] = %s", n,
+                DCP_STR(page->handle().getStringVariant()));
+    }
+    #endif
+
+    return true;
+}
 

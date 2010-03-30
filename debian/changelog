@@ -1,10 +1,40 @@
-duicontrolpanel (0.7.7~unreleased) unstable; urgency=low
+duicontrolpanel (0.7.9) unstable; urgency=low
 
+  [ Robert Manner ]
+  * Release for dui 0.20
+  * Optimized applet translation catalog loading for faster startup time
+
+  [ Laszlo Pere ]
+  * Fixes: NB#162454 - Wrong icon displayed in application launcher
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 30 Mar 2010 11:08:21 +0200
+
+duicontrolpanel (0.7.8) unstable; urgency=low
+
+  [ Gabor Juhasz ]
+  * dummy release to test CITA 
+
+  * [ Laszlo Pere ]
+  * Fixes: NB#162019 - Duicontrolpanel creates already existing widgets
+  * Fixes: NB#161543 - WEP key- and Other settings are not preserved in 
+    advanced internet settings
+  * Fixes: NB#161616 - Duicontrolpanel creates two main widgets
+  * Fixes: NB#161942 - Navigation from BT settings view does not work after 
+    removing pairing
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 24 Mar 2010 11:10:00 +0100
+
+duicontrolpanel (0.7.7) unstable; urgency=low
+
+  [ David Kedves ]
   * Increased version number
   * Fixes: NB#161540 -  System-settings application is crashing after tapping 
     on "Language & Region"
 
- -- David Kedves <dkedves@blumsoft.eu>  Mon, 22 Mar 2010 11:55:58 +0100
+  [ Robert Manner ]
+  * Fixes: NB#161937 - datetime applet settings are not working in dcp
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 24 Mar 2010 10:22:51 +0100
 
 duicontrolpanel (0.7.6) unstable; urgency=low
 

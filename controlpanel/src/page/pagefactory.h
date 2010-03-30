@@ -3,7 +3,9 @@
 
 #include "pages.h"
 #include <QObject>
+#include <QList>
 
+class DuiApplicationPage;
 class DcpPage;
 class DcpAppletMetadata;
 class DcpAppletObject;
@@ -33,19 +35,21 @@ public slots:
 protected:
     PageFactory ();
     DcpPage* createMainPage ();
-    DcpPage* createAppletPage(const PageHandle& applet);
+    DcpPage* createAppletPage(PageHandle& applet);
     DcpPage* createAppletCategoryPage (PageHandle::PageTypeId pageId);
 
 private slots:
     void mainPageFirstShown (void);
+    void pageChanged (DuiApplicationPage *page);
 
 private:
+    bool tryOpenPageBackward (const PageHandle &handle);
     void registerPage (DcpPage *page);
 
     static PageFactory     *sm_Instance;
     DcpMainPage            *m_MainPage;
     DcpAppletCategoryPage  *m_AppletCategoryPage;
-
+    QList<DuiApplicationPage *> m_Pages;
     // for testability
     friend class Ut_PageFactory;
 };

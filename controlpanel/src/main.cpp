@@ -92,13 +92,12 @@ startApplication (int argc, char* argv[])
     signal(SIGTERM, &onTermSignal);
     signal(SIGINT, &onTermSignal);
 
+    // install the new translations if locale changes:
+    QObject::connect(&app, SIGNAL(localeSettingsChanged()),
+                     DcpRetranslator::instance(), SLOT(retranslate()));
+
     // init servicefw api:
     DuiControlPanelService* service = new DuiControlPanelService();
-
-    // install the new translations if locale changes:
-    DcpRetranslator retranslator;
-    QObject::connect(&app, SIGNAL(localeSettingsChanged()),
-                     &retranslator, SLOT(retranslate()));
 
     // mainwindow:
     DuiApplicationWindow win;

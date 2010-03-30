@@ -17,7 +17,7 @@ TARGET        = $$qtLibraryTarget(duicontrolpanel)
 DESTDIR       = ../lib
 
 # disable debugging:
-DEFINES += QT_NO_DEBUG_OUTPUT
+# DEFINES += QT_NO_DEBUG_OUTPUT
 
 coverage {
     message("Coverage options enabled")

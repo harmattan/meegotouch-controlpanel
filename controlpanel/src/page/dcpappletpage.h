@@ -22,7 +22,7 @@ public:
 
     bool hasWidget ();
     bool hasError ();
-
+    int widgetId ();
 protected:
     virtual void retranslateUi ();
 
