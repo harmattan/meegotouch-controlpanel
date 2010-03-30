@@ -2,6 +2,9 @@ duicontrolpanel (0.7.9~unreleased) unstable; urgency=low
 
   * Optimized applet translation catalog loading for faster startup time
 
+  [ Laszlo Pere ]
+  * Fixes: NB#162454 - Wrong icon displayed in application launcher
+
  -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 25 Mar 2010 11:57:09 +0100
 
 duicontrolpanel (0.7.8) unstable; urgency=low
