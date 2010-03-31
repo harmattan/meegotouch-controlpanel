@@ -1,7 +1,9 @@
 include ($$[QT_INSTALL_DATA]/mkspecs/dcpconfig.pri)
 
 TEMPLATE = lib
-CONFIG += plugin gui dui duicontrolpanel debug
+CONFIG += plugin gui dui debug
+
+INCLUDEPATH += ../../../src/include
 
 HEADERS = \
     testapplet.h \
