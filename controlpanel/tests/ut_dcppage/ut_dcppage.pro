@@ -11,7 +11,8 @@ TEST_SOURCES = \
 
 # unit test and unit
 SOURCES += \
-    ut_dcppage.cpp \
+    *.cpp \
+    $$STUBSDIR/duiapplicationpage-fake.cpp \
     $$SRCDIR/../../lib/src/dcpdebug.cpp\
     $$TEST_SOURCES \ 
 
@@ -21,7 +22,7 @@ SOURCES += \
 
 # unit test and unit
 HEADERS += \
-    ut_dcppage.h \
+    *.h \
     $$SRCDIR/page/dcppage.h \
     $$SRCDIR/../../lib/src/dcpdebug.h
 

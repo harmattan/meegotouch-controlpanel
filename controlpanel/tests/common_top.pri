@@ -33,3 +33,6 @@ LIBS +=  -L/usr/lib -lduicontrolpanel
 QMAKE_CXXFLAGS += -Werror
 message($$target.path)
 
+OBJECTS_DIR = .obj
+MOC_DIR = .moc
+
