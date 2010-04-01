@@ -1,9 +1,5 @@
-/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
-/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
-#ifndef DCPMAINPAGE_FAKE_H
-#define DCPMAINPAGE_FAKE_H
 #include "dcpmainpage.h"
-#include "dcppage-fake.h"
+
 DcpMainPage::DcpMainPage()
 {
 }
@@ -44,4 +40,3 @@ DcpMainPage::back()
 {
 }
 
-#endif // DCPMAINPAGE_FAKE_H

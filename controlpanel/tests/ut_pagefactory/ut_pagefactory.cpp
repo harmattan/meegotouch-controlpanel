@@ -4,18 +4,6 @@
 
 #include "ut_pagefactory.h"
 
-#include "duigconfitem-fake.h"
-//#include "duiwindow-fake.h"
-#include "duidesktopentry-stub.h"
-#include "dcpappletobject-fake.h"
-#include "dcpappletdb-fake.h"
-#include "dcppage-fake.h"
-#include "dcpmainpage-fake.h"
-#include "dcpcategorypage-fake.h"
-#include "dcpappletcategorypage-fake.h"
-#include "dcpappletpage-fake.h"
-#include "appleterrorsdialog-fake.h"
-#include "maintranslations-fake.h"
 
 void Ut_PageFactory::init()
 {
@@ -60,7 +48,7 @@ void Ut_PageFactory::testCreatePage()
     
     page = factory->createPage(PageHandle(PageHandle::MAIN));    
     QVERIFY(page);    
-  y  QVERIFY(factory->m_MainPage == page);    
+    QVERIFY(factory->m_MainPage == page);    
     page = factory->createPage(PageHandle(PageHandle::NOPAGE));    
     QVERIFY(page);    
     QVERIFY(factory->m_MainPage == page);    
@@ -145,4 +133,5 @@ void Ut_PageFactory::testRegisterPage()
     QSKIP("incomplete", SkipSingle);
 }
 
-QTEST_APPLESS_MAIN(Ut_PageFactory)
+QTEST_APPLESS_MAIN (Ut_PageFactory);
+
