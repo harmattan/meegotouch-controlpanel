@@ -209,4 +209,8 @@ DcpAppletPage::retranslateUi ()
     }
 }
 
+DcpAppletObject* DcpAppletPage::applet()
+{
+    return m_Applet;
+}
 

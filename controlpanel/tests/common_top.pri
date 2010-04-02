@@ -1,6 +1,6 @@
 include(./../../lib/dcpconfig.pri)
 
-INCLUDEPATH +=/usr/include/dui ../doubles
+INCLUDEPATH += ../doubles
 
 SRCDIR = ./../../src
 
@@ -10,7 +10,7 @@ QMAKE_LIBDIR += ../../../lib/lib/ /usr/lib/
 LIBDCPINCLUDE=../../../lib/src/include
 LIBDCPFAKES=../../../lib/tests/doubles
 STUBSDIR = ../doubles
-CONFIG += dui debug
+CONFIG += debug
 
 QT += testlib
 

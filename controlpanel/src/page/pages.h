@@ -22,16 +22,16 @@ public:
         CATEGORY_PAGEID_START,  // ---
         LOOKANDFEEL,
         CONNECTIVITY,
-        SOUND,
+//        SOUND,
         REGIONALSETTING,
-        DEVICEUTILITIES,
-        ACCOUNTSANDAPPLICATIONS,
+//        DEVICEUTILITIES,
+//        ACCOUNTSANDAPPLICATIONS,
         DEVICESYSTEM,
         ServiceAccounts,
         Applications,
         CATEGORY_PAGEID_END,    // ---
         APPLET,
-        APPLETCATEGORY,
+//        APPLETCATEGORY,
         PAGEID_COUNT
     } PageTypeId;
 

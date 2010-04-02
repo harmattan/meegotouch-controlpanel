@@ -1,5 +1,9 @@
 #include <duiapplicationpage.h>
 
+#include "duiapplicationwindow-fake.h"
+#include <duiapplication.h>
+#include <duiscenewindow.h>
+
 static QString sTitle;
 
 DuiApplicationPage::DuiApplicationPage(QGraphicsItem *){}
@@ -50,4 +54,14 @@ void DuiApplicationPage::setPanningDirection(Qt::Orientations){}
 void DuiApplicationPage::setProgressIndicatorVisible(bool){}
 void DuiApplicationPage::setEscapeMode(DuiApplicationPageModel::PageEscapeMode){}
 void DuiApplicationPage::actionEvent(QActionEvent *){}
+
+void DuiSceneWindow::appear (DuiWindow *, DuiSceneWindow::DeletionPolicy)
+{
+    this->appear();
+}
+
+void DuiSceneWindow::appear (DuiSceneWindow::DeletionPolicy)
+{
+    DuiApplication::activeApplicationWindow()->setCurrentPage((DuiApplicationPage*)this);
+}
 

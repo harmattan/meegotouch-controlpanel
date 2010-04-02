@@ -106,11 +106,11 @@ PageFactory::createPage (
             DCP_DEBUG ("## MAIN ##");
             page = createMainPage();
             break;
-
+/* FIXME: this does not have any sense
         case PageHandle::APPLETCATEGORY: 
             page = createAppletCategoryPage(myHandle.id);
             break;
-
+ */
         case PageHandle::APPLET:
             DCP_DEBUG ("## APPLET ##");
             page = createAppletPage (myHandle);

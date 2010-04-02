@@ -2,10 +2,11 @@
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #ifndef DCPAPPLETDB_FAKE_H
 #define DCPAPPLETDB_FAKE_H
+
 #include "dcpappletdb.h"
 #include "dcpappletdb_p.h"
-#include "dcpappletmetadata-fake.h"
-#include "dcpappletobject-fake.h"
+#include "dcpappletmetadata.h"
+#include "dcpappletobject.h"
 
 DcpAppletDb::DcpAppletDb (
         const QString   &pathName,
@@ -79,4 +80,5 @@ DcpAppletDb::applet (
     DcpAppletMetadata metadata(name);
     return new DcpAppletObject(&metadata);
 }
+
 #endif // DCPAPPLETDB_FAKE_H

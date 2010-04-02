@@ -2,11 +2,11 @@
 
 DcpAppletPage::DcpAppletPage (DcpAppletObject *applet, int widgetId) :
     DcpPage(),
+    m_Applet (applet),
+    m_WidgetId (widgetId),
     m_MainWidget (0),
     m_MissingLabel (0)
 {
-    Q_UNUSED(applet);
-    Q_UNUSED(widgetId);
 }
 
 
@@ -34,7 +34,13 @@ DcpAppletPage::hasError ()
 int 
 DcpAppletPage::widgetId ()
 {
-    return 0;
+    return m_WidgetId;
+}
+
+DcpAppletObject*
+DcpAppletPage::applet()
+{
+    return m_Applet;
 }
 
 
@@ -47,6 +53,7 @@ void
 DcpAppletPage::back ()
 {
 }
+
 void
 DcpAppletPage::retranslateUi()
 {

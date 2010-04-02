@@ -63,8 +63,12 @@ DuiControlPanelService::categoryPage (
         const QString& category)
 {
     DCP_DEBUG ("");
+    /* FIXME implement it
     PageHandle handle (PageHandle::APPLETCATEGORY, category, 0, true);
     sheduleStart(handle);
+     */
+    DCP_WARNING("Openning a categoryPage is not implemented yet.");
+    mainPage();
 }
 
 void

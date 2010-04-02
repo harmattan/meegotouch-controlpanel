@@ -1,3 +1,4 @@
+
 QMAKE_EXTRA_TARGETS += coverage-calc
 coverage-calc.depends = check
 coverage-calc.commands = ../coverage-calc.sh $$TEST_SOURCES >>../coverage.out

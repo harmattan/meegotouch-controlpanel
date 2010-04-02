@@ -23,6 +23,8 @@ public:
     bool hasWidget ();
     bool hasError ();
     int widgetId ();
+    DcpAppletObject* applet();
+
 protected:
     virtual void retranslateUi ();
 

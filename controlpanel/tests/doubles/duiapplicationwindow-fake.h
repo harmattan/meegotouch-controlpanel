@@ -2,23 +2,24 @@
 #define DUIAPPLICATIONWINDOW_H
 
 #include <QObject>
-#include "duiwindow.h"
+#include "./duiwindow-fake.h"
 
 class DuiApplicationPage;
 
-class DuiApplicationWindow: public QObject, public DuiWindow
+class DuiApplicationWindow: public DuiWindow
 {
     Q_OBJECT
 public:
     DuiApplicationWindow();
-    DuiApplicationPage* currentPage();
 
-    static DuiApplicationWindow* activeWindow;
+    DuiApplicationPage* currentPage() const;
+    void setCurrentPage(DuiApplicationPage* currentPage);
 
 signals:
     void pageChanged(DuiApplicationPage *);
 
-private:
+protected:
+    DuiApplicationPage* m_CurrentPage;
 };
 
 #endif // DUIAPPLICATIONWINDOW_H

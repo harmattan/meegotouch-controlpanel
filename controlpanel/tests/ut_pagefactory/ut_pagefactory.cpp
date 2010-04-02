@@ -1,8 +1,12 @@
-#include <QObject>
-
-#include <pagefactory.h>
-
 #include "ut_pagefactory.h"
+#include <pagefactory.h>
+#include "duiapplicationwindow-fake.h"
+#include "duiapplication.h"
+#include <dcppage.h>
+#include <dcpappletpage.h>
+#include <dcpappletobject.h>
+
+#include <QObject>
 
 
 void Ut_PageFactory::init()
@@ -12,19 +16,14 @@ void Ut_PageFactory::init()
 void Ut_PageFactory::cleanup()
 {
     PageFactory::destroy();
+
+    // this is to make tests start with clean look like app (and fake appwindow
+    // does not support tracking the currentwindow on back
+    DuiApplication::activeApplicationWindow()->setCurrentPage(0);
 }
 
 void Ut_PageFactory::initTestCase()
 {
-    /*
-    static int argc = 1;
-    static char *app_name[1] = { (char *) "./ut_duiapplicationpage" };
-    app = new DuiApplication(argc, app_name);
-    appWin = new DuiApplicationWindow;
-
-    qRegisterMetaType<DuiApplicationPage *>();
-    qRegisterMetaType<DuiEscapeButtonPanelModel::EscapeMode>();
-    */
 }
 
 void Ut_PageFactory::cleanupTestCase()
@@ -42,85 +41,139 @@ void Ut_PageFactory::testInstance()
 
 void Ut_PageFactory::testCreatePage()
 {
-    /*
     PageFactory *factory = PageFactory::instance();
     DcpPage *page;
-    
-    page = factory->createPage(PageHandle(PageHandle::MAIN));    
-    QVERIFY(page);    
-    QVERIFY(factory->m_MainPage == page);    
-    page = factory->createPage(PageHandle(PageHandle::NOPAGE));    
-    QVERIFY(page);    
-    QVERIFY(factory->m_MainPage == page);    
-    page = factory->createPage(PageHandle(PageHandle::APPLET, "anApplet"));    
-    QVERIFY(page);    
-    page = factory->createPage(PageHandle(PageHandle::APPLETCATEGORY, "category"));    
-    QVERIFY(page);    
-    QVERIFY(factory->m_AppletCategoryPage == page);    
-    */
+
+    // a mainpage:
+    page = factory->createPage(PageHandle(PageHandle::MAIN));
+    QVERIFY(page);
+    QCOMPARE((void*)factory->m_MainPage, (void*)page);
+
+    // an invalid page:
+    page = factory->createPage(PageHandle(PageHandle::NOPAGE));
+    QVERIFY(page);
+    QCOMPARE((void*)factory->m_MainPage, (void*)page);
+
+    // an appletpage:
+    page = factory->createPage(PageHandle(PageHandle::APPLET, "anApplet"));
+    QVERIFY(page);
+
+    // applet category pages:
+    for (int i = PageHandle::CATEGORY_PAGEID_START+1;
+             i < PageHandle::CATEGORY_PAGEID_END; i++)
+    {
+        page = factory->createPage(PageHandle((PageHandle::PageTypeId)i));
+        QVERIFY(page);
+        QCOMPARE((void*)factory->m_AppletCategoryPage, (void*) page);
+    }
 }
 
 void Ut_PageFactory::testCreateMainPage()
 {
-    /*
-    QSKIP("incomplete", SkipSingle);
     PageFactory *factory = PageFactory::instance();
 
-    QVERIFY(factory->m_MainPage == 0);    
-    
-    DcpPage *page = factory->createMainPage();    
-    QVERIFY(page);    
-     QVERIFY(factory->m_MainPage == page);    
+    QVERIFY(factory->m_MainPage == 0);
+
+    DcpPage *page = factory->createMainPage();
+    QVERIFY(page);
+    QCOMPARE((void*)factory->m_MainPage, (void*) page);
+
     // Second call should just return existing m_MainPage
-    QVERIFY(factory->m_MainPage == factory->createMainPage());    
-    */
+    void* lastPage = (void*)factory->m_MainPage;
+    QCOMPARE(lastPage, (void*) factory->createMainPage());
 }
 
 void Ut_PageFactory::testCreateAppletPage()
 {
-    QSKIP("incomplete", SkipSingle);
-    /*
     PageFactory *factory = PageFactory::instance();
-    QSKIP("incomplete", SkipSingle);
-    QVERIFY(factory->m_MainPage == 0);    
-    DcpPage *page = factory->createAppletPage(PageHandle(PageHandle::APPLET, "anApplet"));    
-    QVERIFY(page);  
-    */  
+    QCOMPARE((void*)factory->m_MainPage, (void*)0);
+    PageHandle handle(PageHandle::APPLET, "anApplet");
+    DcpPage *page =
+        factory->createAppletPage(handle);
+    QVERIFY(page);
 }
 
 void Ut_PageFactory::testCreateAppletCategoryPage()
 {
-    QSKIP("incomplete", SkipSingle);
-/*
     PageFactory *factory = PageFactory::instance();
-    QVERIFY(factory->m_AppletCategoryPage == 0);    
-    DcpPage *page = factory->createAppletCategoryPage(PageHandle::LOOKANDFEEL);    
-    QVERIFY(page);    
-    QVERIFY(factory->m_AppletCategoryPage == page);    
-    // Second call should just return existing m_AppletCategoryPage
-    QVERIFY(factory->m_AppletCategoryPage == factory->createAppletCategoryPage(PageHandle::LOOKANDFEEL));    
-    // Strange, but expected 
-    QVERIFY(factory->m_AppletCategoryPage == factory->createAppletCategoryPage(PageHandle::SOUND));    
-*/
+    QVERIFY(factory->m_AppletCategoryPage == 0);
+    DcpPage *page = factory->createAppletCategoryPage(PageHandle::LOOKANDFEEL);
+    QVERIFY(page);
+    QCOMPARE((void*)factory->m_AppletCategoryPage, (void*) page);
+
+    // Second call should just return the existing m_AppletCategoryPage
+    void* lastPage = factory->m_AppletCategoryPage;
+    QCOMPARE(lastPage,
+            (void*) factory->createAppletCategoryPage(PageHandle::LOOKANDFEEL));
+
+    // Ensures that no second categorypage gets created, but the existing one
+    // is used again:
+    QCOMPARE(lastPage,
+             (void*)factory->createAppletCategoryPage(PageHandle::DEVICESYSTEM));
 }
 
 
 void Ut_PageFactory::testCurrentPage()
 {
-    QSKIP("incomplete", SkipSingle);
-    //PageFactory *factory = PageFactory::instance();
-    //QVERIFY(factory->currentPage() == 0);
+    PageFactory *factory = PageFactory::instance();
+    QCOMPARE((void*)factory->currentPage(), (void*) 0);
+
+    DcpPage* page = new DcpPage();;
+    page->appear();
+    QCOMPARE((void*)factory->currentPage(), (void*)page);
+
+    DcpPage* page2 = new DcpPage();;
+    page2->appear();
+    QCOMPARE((void*)factory->currentPage(), (void*)page2);
+
+    // cleanup
+    page2->deleteLater();
+    page->deleteLater();
 }
 
 void Ut_PageFactory::testChangePage()
 {
-    QSKIP("incomplete", SkipSingle);
-}
+    // for testing that the window was raised on page switch:
+    DuiApplication::activeApplicationWindow()->lower();
+    QCOMPARE (DuiApplication::activeApplicationWindow()->isRaised(), false);
 
+    PageFactory *factory = PageFactory::instance();
+    QCOMPARE(factory->currentPage(), (void*)0);
+
+    factory->changePage (PageHandle(PageHandle::MAIN));
+    QCOMPARE((void*)factory->currentPage(), (void*)factory->m_MainPage);
+    QCOMPARE (DuiApplication::activeApplicationWindow()->isRaised(), true);
+
+    factory->changePage (PageHandle(PageHandle::DEVICESYSTEM));
+    QCOMPARE((void*)factory->currentPage(), (void*)factory->m_AppletCategoryPage);
+}
 
 void Ut_PageFactory::testAppletWantsToStart()
 {
-    QSKIP("incomplete", SkipSingle);
+    // switch to an appletpage
+    PageFactory *factory = PageFactory::instance();
+    PageHandle handle(PageHandle::APPLET, "anApplet");
+    factory->changePage (handle);
+    DcpAppletPage* page = qobject_cast<DcpAppletPage*>(factory->currentPage());
+    QVERIFY (page);
+
+    /*
+     * call appletWantsToStart through the applet
+     *
+     * (it is a precondition of the function that it is only called from
+     * an appletobject)
+     */
+    DcpAppletObject* applet = page->applet();
+    applet->activateSlot(1);
+    page = qobject_cast<DcpAppletPage*>(factory->currentPage());
+    QVERIFY (page);
+    QCOMPARE (page->widgetId(), 1);
+
+    applet = page->applet();
+    applet->activateSlot(2);
+    page = qobject_cast<DcpAppletPage*>(factory->currentPage());
+    QVERIFY (page);
+    QCOMPARE (page->widgetId(), 2);
 }
 
 void Ut_PageFactory::testMainPageFirstShown()
@@ -128,7 +181,7 @@ void Ut_PageFactory::testMainPageFirstShown()
     QSKIP("incomplete", SkipSingle);
 }
 
-void Ut_PageFactory::testRegisterPage() 
+void Ut_PageFactory::testRegisterPage()
 {
     QSKIP("incomplete", SkipSingle);
 }

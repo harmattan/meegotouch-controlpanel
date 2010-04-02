@@ -4,7 +4,6 @@ DcpMainPage::DcpMainPage()
 {
 }
 
-
 void
 DcpMainPage::createContent ()
 {

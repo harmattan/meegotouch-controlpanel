@@ -1,6 +1,6 @@
 #include <duiapplication.h>
-#include "duiapplicationwindow.h"
-#include <duiwindow.h>
+#include "duiapplicationwindow-fake.h"
+#include "duiwindow.h"
 
 static DuiApplicationWindow* win = 0;
 
@@ -12,7 +12,6 @@ DuiApplicationWindow * DuiApplication::activeApplicationWindow ()
 
 DuiWindow * DuiApplication::activeWindow ()
 {
-    if (!win) win = new DuiApplicationWindow();
-    return win;
+    return activeApplicationWindow();
 }
 

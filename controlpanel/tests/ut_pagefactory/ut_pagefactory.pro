@@ -1,11 +1,11 @@
 include(../common_top.pri)
 
-CONFIG -= dui
 CONFIG -= app_bundle
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
 INCLUDEPATH += $${LIBDCPINCLUDE}
 APPLETDBINCLUDE = $${LIBDCPINCLUDE}/../appletdb
 INCLUDEPATH += $${APPLETDBINCLUDE}
+INCLUDEPATH += /usr/include/dui
 
 TARGET = ut_pagefactory
 
@@ -21,6 +21,10 @@ SOURCES += \
     $$STUBSDIR/duiapplicationpage-fake.cpp \
     $$STUBSDIR/duiapplication-fake.cpp \
     $$STUBSDIR/duiapplicationwindow.cpp \
+    $$STUBSDIR/duigconfitem-fake.cpp \
+    $$STUBSDIR/dcpappletdb-fake.cpp \
+    $$STUBSDIR/dcpappletplugin-fake.cpp \
+    $$STUBSDIR/dcpappletmetadata-fake.cpp \
     $$SRCDIR/page/pages.cpp \
     $$SRCDIR/page/pagefactory.cpp \
     $$SRCDIR/page/maintranslations.cpp \
@@ -28,8 +32,9 @@ SOURCES += \
 # unit test and unit
 HEADERS += \
     *.h \
-    $$STUBSDIR/duiapplicationwindow.h \
-    $$STUBSDIR/duiwindow.h \
+    $$STUBSDIR/duigconfitem_priv.h \
+    $$STUBSDIR/duiapplicationwindow-fake.h \
+    $$STUBSDIR/duiwindow-fake.h \
     $$SRCDIR/page/pagefactory.h \
     $$SRCDIR/page/dcppage.h \
     $$SRCDIR/page/dcpmainpage.h \
@@ -37,4 +42,6 @@ HEADERS += \
     $$SRCDIR/page/dcpappletcategorypage.h \
     $$SRCDIR/page/dcpappletpage.h \
     $$SRCDIR/appleterrorsdialog.h \
+
+include(../common_bot.pri)
 
