@@ -2,16 +2,10 @@
 #include <QGraphicsSceneMouseEvent>
 
 #include <dcpappletbuttons.h>
-#include "duiapplication_stub.h"
-#include "duitheme_stub.h"
-
 
 #include "ut_dcpappletbuttons.h"
 #include "maintranslations-fake.h"
 
-// stubs
-#include "dcpbriefcomponent-fake.h"
-#include "dcpsinglecomponent-fake.h"
 
 void Ut_DcpAppletButtons::init()
 {
@@ -52,10 +46,5 @@ void Ut_DcpAppletButtons::testCreateContents()
     QSKIP("incomplete", SkipSingle);   // remove this when you've finished
 }
 
-int main (int argc, char** argv) {
-    DuiApplication* app = new DuiApplication (argc, argv);
-    Ut_DcpAppletButtons test;
-    QTest::qExec(&test, argc, argv);
-    delete app;
-}
+QTEST_APPLESS_MAIN(Ut_DcpAppletButtons)
 

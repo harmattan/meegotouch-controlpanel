@@ -20,7 +20,7 @@ SOURCES += \
     $$STUBSDIR/appleterrorsdialog-fake.cpp \
     $$STUBSDIR/duiapplicationpage-fake.cpp \
     $$STUBSDIR/duiapplication-fake.cpp \
-    $$STUBSDIR/duiapplicationwindow.cpp \
+    $$STUBSDIR/duiapplicationwindow-fake.cpp \
     $$STUBSDIR/duigconfitem-fake.cpp \
     $$STUBSDIR/dcpappletdb-fake.cpp \
     $$STUBSDIR/dcpappletplugin-fake.cpp \

@@ -1,5 +1,10 @@
 TEMPLATE    = subdirs
-# SUBDIRS     = $$system(ls -1d ut_*/ ft_*/)
+SUBDIRS     = \
+#               ut_dcpappletbuttons \
+               ut_dcppage \
+               ut_pagefactory \
+               ut_pages \
+
 QMAKE_STRIP = echo
 
 check.target = check
@@ -17,3 +22,4 @@ coverage.CONFIG = recursive
 QMAKE_EXTRA_TARGETS += coverage
 
 QMAKE_CLEAN += **/*.log.xml **/*.log coverage.out
+

@@ -1,21 +1,41 @@
-#include <duiapplicationwindow.h>
+#include "duiapplicationwindow-fake.h"
+#include "duiapplicationpage.h"
+#include "duiapplication.h"
 
-DuiApplicationWindow::DuiApplicationWindow(QWidget *){}
-DuiApplicationWindow::DuiApplicationWindow(DuiScene *, QWidget *){}
-DuiApplicationWindow::~DuiApplicationWindow(){}
-DuiApplicationPage* DuiApplicationWindow::currentPage() const{ return 0; }
+DuiApplicationWindow::DuiApplicationWindow():
+    DuiWindow(),
+    m_CurrentPage(0)
+{
+}
 
-QString DuiApplicationWindow::windowIconID() const{ return QString(); }
-DuiTheme::ViewType DuiApplicationWindow::toolbarViewType() const{ return QString(); }
-bool DuiApplicationWindow::isMenuOpen() const{ return false; }
-void DuiApplicationWindow::openMenu(){}
-void DuiApplicationWindow::closeMenu(){}
-void DuiApplicationWindow::setWindowIconID(const QString &){}
-void DuiApplicationWindow::setToolbarViewType(const DuiTheme::ViewType&){}
-DuiApplicationWindow::DuiApplicationWindow(DuiApplicationWindowPrivate &, QWidget *){}
-DuiApplicationWindow::DuiApplicationWindow(DuiApplicationWindowPrivate &, DuiScene *, QWidget *){}
-bool DuiApplicationWindow::event(QEvent *){return true;}
-void DuiApplicationWindow::closeEvent(QCloseEvent *){}
-void DuiApplicationWindow::mousePressEvent(QMouseEvent *){}
-void DuiApplicationWindow::mouseReleaseEvent(QMouseEvent *){}
+DuiApplicationPage* DuiApplicationWindow::currentPage() const
+{
+    return m_CurrentPage;
+}
+
+void DuiApplicationWindow::setCurrentPage (DuiApplicationPage* page)
+{
+    m_CurrentPage = page;
+    emit pageChanged(page);
+}
+
+void DuiWindow::raise() {
+    m_IsRaised = true;
+}
+
+// this hack is to transfer the call to DuiWindow, because it is
+// not a widget really in the tests
+void QWidget::raise() {
+    if ((void*)this == (void*)DuiApplication::activeApplicationWindow()) {
+        DuiApplication::activeApplicationWindow()->raise();
+    }
+}
+
+void DuiWindow::lower() {
+    m_IsRaised = false;
+}
+
+bool DuiWindow::isRaised() {
+    return m_IsRaised;
+}
 

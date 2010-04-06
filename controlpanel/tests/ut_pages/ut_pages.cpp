@@ -16,7 +16,6 @@ void Ut_PageHandle::cleanup()
 
 void Ut_PageHandle::initTestCase()
 {
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
 }
 
 void Ut_PageHandle::cleanupTestCase()
@@ -42,7 +41,7 @@ void Ut_PageHandle::testCreation()
     QVERIFY(h3.param == "param");
     QVERIFY(h3.widgetId == 1);
     QVERIFY(!h3.isStandalone);
-    
+
     PageHandle h4(PageHandle::MAIN, "param", 1, true);
     QVERIFY(h4.id == PageHandle::MAIN);
     QVERIFY(h4.param == "param");
@@ -53,12 +52,11 @@ void Ut_PageHandle::testGetStringVariant()
 {
     PageHandle h1(PageHandle::MAIN);
     QVERIFY(h1.getStringVariant() == "MAIN:///-1");
-    PageHandle h2(PageHandle::APPLETCATEGORY, "param");
-    QVERIFY(h2.getStringVariant() == "APPLETCATEGORY://param/-1");
     PageHandle h3(PageHandle::APPLET, "datetime", 1);
     QVERIFY(h3.getStringVariant() == "APPLET://datetime/1");
     PageHandle h4(PageHandle::NOPAGE);
     QVERIFY(h4.getStringVariant() == "NOPAGE:///-1");
 }
 
-QTEST_MAIN(Ut_PageHandle)
+QTEST_APPLESS_MAIN(Ut_PageHandle)
+

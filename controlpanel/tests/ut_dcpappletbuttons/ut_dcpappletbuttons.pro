@@ -1,6 +1,6 @@
 include(../common_top.pri)
-OBJECTS_DIR = .tmp                                                                                                
-MOC_DIR = .tmp 
+
+CONFIG += dui duicontrolpanel
 
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
 INCLUDEPATH += $${LIBDCPINCLUDE}
@@ -15,13 +15,17 @@ TEST_SOURCES = \
     $$SRCDIR/page/dcpappletbuttons.cpp \
     $$SRCDIR/page/pages.cpp \
     $$SRCDIR/component/dcpcomponent.cpp \
+    $$SRCDIR/component/dcpbriefcomponent.cpp \
     $$SRCDIR/component/dcpmaincategory.cpp \
-    ../doubles/stubbase.cpp \
+    $$STUBSDIR/pagefactory-fake.cpp \
+    $$STUBSDIR/dcppage-fake.cpp \
+    $$STUBSDIR/duilayout-fake.cpp \
+    $$STUBSDIR/qgraphicswidget-fake.cpp \
 
 # unit test and unit
 SOURCES += \
     ut_dcpappletbuttons.cpp \
-    $$TEST_SOURCES \ 
+    $$TEST_SOURCES \
 
 # base classes
 SOURCES += \
@@ -31,7 +35,11 @@ SOURCES += \
 HEADERS += \
     ut_dcpappletbuttons.h \
     $$SRCDIR/page/dcpappletbuttons.h \
-    $$SRCDIR/component/*.h \
+    $$SRCDIR/page/dcppage.h \
+    $$SRCDIR/page/pagefactory.h \
+    $$SRCDIR/component/dcpmaincategory.h \
+    $$SRCDIR/component/dcpbriefcomponent.h \
+    $$SRCDIR/component/dcpcomponent.h \
 
 # base classes
 HEADERS += \

@@ -13,6 +13,7 @@ TEST_SOURCES = \
 SOURCES += \
     *.cpp \
     $$STUBSDIR/duiapplicationpage-fake.cpp \
+    $$STUBSDIR/duiapplicationwindow-fake.cpp \
     $$SRCDIR/../../lib/src/dcpdebug.cpp\
     $$TEST_SOURCES \ 
 
