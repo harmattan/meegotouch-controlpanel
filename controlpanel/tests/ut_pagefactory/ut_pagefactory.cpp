@@ -150,9 +150,13 @@ void Ut_PageFactory::testChangePage()
 
 void Ut_PageFactory::testAppletWantsToStart()
 {
-    // switch to an appletpage
+    // FIXME: current implementation requires that the mainpagefirstshown gets
+    // called, so it is not working when popping up directly an applet page
     PageFactory *factory = PageFactory::instance();
-    PageHandle handle(PageHandle::APPLET, "anApplet");
+    factory->mainPageFirstShown();
+
+    // switch to an appletpage
+    PageHandle handle(PageHandle::APPLET, "fake-name");
     factory->changePage (handle);
     DcpAppletPage* page = qobject_cast<DcpAppletPage*>(factory->currentPage());
     QVERIFY (page);

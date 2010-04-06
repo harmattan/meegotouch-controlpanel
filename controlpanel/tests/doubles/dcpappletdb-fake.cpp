@@ -14,7 +14,14 @@ DcpAppletDb::DcpAppletDb (
 {
     Q_UNUSED(pathName);
     Q_UNUSED(nameFilter);
-}
+
+    // a test plugin:
+    DcpAppletMetadata* metadata = new DcpAppletMetadata("fake");
+    DcpAppletObject* applet = new DcpAppletObject (metadata);
+    d_ptr->appletsByName[metadata->name()] = metadata;
+    d_ptr->appletsByFile[metadata->fileName()] = metadata;
+    d_ptr->appletObjectsByName[metadata->name()] = applet;
+ }
 
 DcpAppletDb *
 DcpAppletDb::instance (
@@ -77,8 +84,11 @@ DcpAppletObject *
 DcpAppletDb::applet (
         const QString &name)
 {
-    DcpAppletMetadata metadata(name);
-    return new DcpAppletObject(&metadata);
+    if (d_ptr->appletObjectsByName[name] != 0) {
+        return d_ptr->appletObjectsByName[name];
+    }
+    DcpAppletMetadata* metadata = new DcpAppletMetadata(name);
+    return new DcpAppletObject(metadata);
 }
 
 #endif // DCPAPPLETDB_FAKE_H

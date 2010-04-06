@@ -92,7 +92,7 @@ DcpAppletDb::addFile (
     } else {
         metadata->deleteLater();
     }
-    
+
     return false;
 }
 

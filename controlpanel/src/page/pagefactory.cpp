@@ -63,10 +63,14 @@ PageFactory::mainPageFirstShown ()
      * If an applet wants to start up an other applet we also got a signal here
      * so we can start up the applet. In this case we will have an external
      * referer for the applets main page.
+     *
+     * FIXME: this is not good, because when main page is not at all popped up,
+     * for example when starting with an appletpage because of a servicefw
+     * signal, then the applets are not connected, therefor not able to pop up
+     * there other pages, or another applet's page.
      */
     list = DcpAppletDb::instance()->appletNames();
     foreach (QString name, list) {
-        DCP_DEBUG ("*** LAC applet '%s'", DCP_STR (name));
         DcpAppletObject *applet = DcpAppletDb::instance()->applet(name);
         connect (applet, SIGNAL (activate (int)),
                 this, SLOT (appletWantsToStart (int)));
@@ -106,11 +110,6 @@ PageFactory::createPage (
             DCP_DEBUG ("## MAIN ##");
             page = createMainPage();
             break;
-/* FIXME: this does not have any sense
-        case PageHandle::APPLETCATEGORY: 
-            page = createAppletCategoryPage(myHandle.id);
-            break;
- */
         case PageHandle::APPLET:
             DCP_DEBUG ("## APPLET ##");
             page = createAppletPage (myHandle);

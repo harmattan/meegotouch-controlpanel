@@ -43,23 +43,9 @@ PageHandle::getStringVariant () const
         case CONNECTIVITY:
             typeName = "CONNECTIVITY";
             break;
-/*
-        case SOUND:
-            typeName = "SOUND";
-            break;
- */
         case REGIONALSETTING:
             typeName = "REGIONALSETTING";
             break;
-/*
-        case DEVICEUTILITIES:
-            typeName = "DEVICEUTILITIES";
-            break;
-        case ACCOUNTSANDAPPLICATIONS:
-            typeName = "ACCOUNTSANDAPPLICATIONS";
-            break;
- */
-
         case DEVICESYSTEM:
             typeName = "DEVICESYSTEM";
             break;
@@ -79,11 +65,6 @@ PageHandle::getStringVariant () const
         case APPLET:
             typeName = "APPLET";
             break;
-/*
-        case APPLETCATEGORY:
-            typeName = "APPLETCATEGORY";
-            break;
- */
         case PAGEID_COUNT:
             typeName = "PAGEID_COUNT";
             break;
