@@ -1,6 +1,6 @@
 TEMPLATE    = subdirs
 SUBDIRS     = \
-#               ut_dcpappletbuttons \
+               ut_dcpappletbuttons \
                ut_dcppage \
                ut_pagefactory \
                ut_pages \
