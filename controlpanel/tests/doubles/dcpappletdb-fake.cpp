@@ -76,6 +76,7 @@ DcpAppletMetadataList
 DcpAppletDb::listMostUsed ()
 {
    DcpAppletMetadataList mostUsed;
+   mostUsed.append (new DcpAppletMetadata("mostUsed"));
    return mostUsed;
 }
 

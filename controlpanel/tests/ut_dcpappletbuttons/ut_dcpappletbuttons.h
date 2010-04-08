@@ -3,7 +3,7 @@
 
 #include <QtTest/QtTest>
 #include <QObject>
-class DuiApplication;
+
 // the real unit/DcpAppletButtons class declaration
 #include <dcpappletbuttons.h>
 
@@ -22,11 +22,10 @@ private slots:
     void testAddComponent();
     void testReload();
     void testCreateContents();
-    
 
 private:
     DcpAppletButtons* m_subject;
-    DuiApplication *app;
 };
 
 #endif
+

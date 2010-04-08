@@ -53,7 +53,7 @@ DcpAppletButtons::DcpAppletButtons (
 }
 
 
-void 
+void
 DcpAppletButtons::createContents ()
 {
     DCP_DEBUG ("");
@@ -84,28 +84,6 @@ DcpAppletButtons::createContents ()
                     withUncategorized ? dcp_category_name_enlisted : NULL);
     }
 
-    /*
-     * If we have a category info that might contain static elements, like the
-     * 'accounts & applications' contain the 'service accounts' and
-     * 'applications' static elements.
-     * FIXME consider removing it since we do not need it anymore
-     */
-    if (m_CategoryInfo && m_CategoryInfo->staticElements) {
-        const DcpCategoryInfo *element;
-
-        for (int cnt = 0; ; ++cnt) {
-            element = &m_CategoryInfo->staticElements[cnt];
-            if (element->titleId == 0)
-                break;
-
-  /*          addComponent (
-                    element->appletCategory,
-                    "",
-                    element->subPageId);
-*/
-        }
-    }
-
     // adds the briefwidgets
     foreach (DcpAppletMetadata* item, metadatas) {
         addComponent (item);
@@ -119,14 +97,16 @@ DcpAppletButtons::addComponent (
         DcpAppletMetadata *metadata)
 {
     DcpBriefComponent *component;
-    component = new DcpBriefComponent (DcpAppletDb::instance()->applet(metadata->name()), this, logicalId());
+    component = new DcpBriefComponent (
+            DcpAppletDb::instance()->applet(metadata->name()),
+            this, logicalId());
     component->setSubPage (PageHandle::APPLET, metadata->name());
 
     appendWidget (component);
 }
 
 
-void 
+void
 DcpAppletButtons::reload ()
 {
 //    This is used only for reloading the sequence of the most used items

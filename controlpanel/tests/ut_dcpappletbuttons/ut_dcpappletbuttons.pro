@@ -14,17 +14,21 @@ TARGET = ut_dcpappletbuttons
 TEST_SOURCES = \
     $$SRCDIR/page/dcpappletbuttons.cpp \
     $$SRCDIR/page/pages.cpp \
-    $$SRCDIR/component/dcpcomponent.cpp \
-    $$SRCDIR/component/dcpbriefcomponent.cpp \
     $$SRCDIR/component/dcpmaincategory.cpp \
-    $$STUBSDIR/pagefactory-fake.cpp \
-    $$STUBSDIR/dcppage-fake.cpp \
-    $$STUBSDIR/duilayout-fake.cpp \
-    $$STUBSDIR/qgraphicswidget-fake.cpp \
+    $$SRCDIR/component/dcpcomponent.cpp \
 
 # unit test and unit
 SOURCES += \
     ut_dcpappletbuttons.cpp \
+    $$STUBSDIR/duigridlayoutpolicy-fake.cpp \
+    $$STUBSDIR/duiabstractlayoutpolicy-fake.cpp \
+    $$STUBSDIR/duilayout-fake.cpp \
+    $$STUBSDIR/duilinearlayoutpolicy-fake.cpp \
+    $$STUBSDIR/duigconfitem-fake.cpp \
+    $$STUBSDIR/dcpappletdb-fake.cpp \
+    $$STUBSDIR/dcpappletmetadata-fake.cpp \
+    $$STUBSDIR/dcpappletplugin-fake.cpp \
+    $$STUBSDIR/dcpbriefcomponent-fake.cpp \
     $$TEST_SOURCES \
 
 # base classes
@@ -34,9 +38,8 @@ SOURCES += \
 # unit test and unit
 HEADERS += \
     ut_dcpappletbuttons.h \
+    $$STUBSDIR/duigconfitem_priv.h \
     $$SRCDIR/page/dcpappletbuttons.h \
-    $$SRCDIR/page/dcppage.h \
-    $$SRCDIR/page/pagefactory.h \
     $$SRCDIR/component/dcpmaincategory.h \
     $$SRCDIR/component/dcpbriefcomponent.h \
     $$SRCDIR/component/dcpcomponent.h \
