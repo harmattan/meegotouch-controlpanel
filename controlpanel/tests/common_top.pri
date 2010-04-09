@@ -7,6 +7,7 @@ SRCDIR = ./../../src
 DEPENDPATH = $$INCLUDEPATH
 
 QMAKE_LIBDIR += ../../../lib/lib/ /usr/lib/
+LIBDCPSRC =../../../lib/src
 LIBDCPINCLUDE=../../../lib/src/include
 LIBDCPFAKES=../../../lib/tests/doubles
 STUBSDIR = ../doubles

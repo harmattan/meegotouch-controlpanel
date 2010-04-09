@@ -1,0 +1,44 @@
+include(../common_top.pri)
+CONFIG += dui duicontrolpanel
+INCLUDEPATH += $$system(find $$SRCDIR -type d)
+INCLUDEPATH += ../doubles 
+INCLUDEPATH += $$LIBDCPSRC/appletdb 
+
+TARGET = ut_dcpbriefcomponent
+
+TEST_SOURCES = \
+    $$SRCDIR/component/dcpbriefcomponent.cpp \
+    $$SRCDIR/component/dcpcomponent.cpp \
+    $$SRCDIR/page/pages.cpp \
+    ../doubles/pagefactory-fake.cpp \
+    ../doubles/dcppage-fake.cpp \
+    ../doubles/dcpappletplugin-fake.cpp \
+    ../doubles/duidesktopentry-fake.cpp \
+    ../doubles/duigconfitem-fake.cpp \
+
+# unit test and unit
+SOURCES += \
+    ut_dcpbriefcomponent.cpp \
+    $$TEST_SOURCES \ 
+
+# base classes
+SOURCES += \
+
+
+# unit test and unit
+HEADERS += \
+    ut_dcpbriefcomponent.h \
+    $$SRCDIR/component/dcpbriefcomponent.h \
+    $$SRCDIR/component/dcpcomponent.h \
+    $$SRCDIR/page/pages.h \
+    $$SRCDIR/page/dcppage.h \
+    $$SRCDIR/page/pagefactory.h \
+
+# base classes
+HEADERS += \
+
+
+# service classes
+HEADERS += \
+
+

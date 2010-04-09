@@ -1,72 +1,64 @@
-#ifndef STUB_DUIGCONFITEM_H
-#define STUB_DUIGCONFITEM_H
+#ifndef DUIGCONFITEM_FAKE_H__
+#define DUIGCONFITEM_FAKE_H__
 
 #include <DuiGConfItem>
-#include <QHash>
-#include <QList>
-#include <QtDebug>
+#include <QMap>
 
-#include "duigconfitem_priv.h"
+struct DuiGConfItemFake {
+    DuiGConfItemFake(const QString &key_) : key(key_) {}
+    QString key;
+    QVariant val;
+};
 
-// stub class for duigconfitem which simulates its exact work,
-// when gconf is working
-//
-// it simulates the followings:
-// - changing a value for a key
-// - emitting the itemChanged signal
+static QMap<const DuiGConfItem*, DuiGConfItemFake*> fakeMap;
+#define FAKE() fakeMap[this]
 
-static QHash<QString, QVariant> gconf_database;
-static int gconfItemConstructCount = 0;
-static QList<DuiGConfItemPrivate*> gconfitemprivates;
 
-DuiGConfItem::DuiGConfItem  (const QString &key, QObject *)
+DuiGConfItem::DuiGConfItem(const QString &key, QObject *parent)
 {
-    priv = new DuiGConfItemPrivate;
-    priv->key = key;
-    gconfItemConstructCount++;
-    gconfitemprivates.append(this->priv);
-    connect (priv, SIGNAL(valueChanged()),
-             this, SIGNAL(valueChanged()));
+    Q_UNUSED(parent);
+    fakeMap.insert(this, new DuiGConfItemFake(key));
 }
 
-DuiGConfItem::~DuiGConfItem ()
+DuiGConfItem::~DuiGConfItem()
 {
-    gconfitemprivates.removeOne(priv);
-    delete priv;
-    gconfItemConstructCount--;
+    fakeMap.remove(this);
+    delete FAKE();
 }
 
-void gconf_changevalue(const QString& key, const QVariant& value)
+QVariant DuiGConfItem::value() const
 {
-    gconf_database[key] = value;
-    foreach(DuiGConfItemPrivate * priv, gconfitemprivates)
-    {
-        if (priv->key == key) {
-            priv->emitChangedSignal();
-        }
-    }
+    return FAKE()->val;
 }
 
-QString DuiGConfItem::key () const
+QVariant DuiGConfItem::value(const QVariant &def) const
 {
-    return priv->key;
+    if (FAKE()->val != QVariant::Invalid)
+        return FAKE()->val;
+    return def;
 }
 
-QVariant DuiGConfItem::value () const
+void DuiGConfItem::set(const QVariant &val)
 {
-    return value(QVariant());
-}
-
-QVariant DuiGConfItem::value (const QVariant &def) const
-{
-    return gconf_database.contains(key()) ? gconf_database.value(key()) : def;
-}
-
-void DuiGConfItem::set (const QVariant &val)
-{
-    gconf_changevalue(key(), val);
+    FAKE()->val = val;
 }
 
 
-#endif // STUB_DUIGCONFITEM_H
+void DuiGConfItem::unset()
+{
+    FAKE()->val = QVariant::Invalid;
+}
 
+QList<QString> DuiGConfItem::listDirs() const
+{
+    QList<QString> dummy;
+    return dummy;
+}
+
+QList<QString> DuiGConfItem::listEntries() const
+{
+    QList<QString> dummy;
+    return dummy;
+}
+
+#endif
