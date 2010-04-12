@@ -1,9 +1,11 @@
 TEMPLATE    = subdirs
 SUBDIRS     = \
-               ut_dcpappletbuttons \
+#               ut_dcpappletbuttons \
                ut_dcppage \
                ut_pagefactory \
                ut_pages \
+               ut_dcpbriefcomponent \
+#               ut_dcpsinglecomponent \
 
 QMAKE_STRIP = echo
 
@@ -22,4 +24,5 @@ coverage.CONFIG = recursive
 QMAKE_EXTRA_TARGETS += coverage
 
 QMAKE_CLEAN += **/*.log.xml **/*.log coverage.out
+
 

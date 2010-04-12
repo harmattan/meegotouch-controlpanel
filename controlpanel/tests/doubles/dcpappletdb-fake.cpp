@@ -68,15 +68,23 @@ DcpAppletDb::listByCategory (
     Q_UNUSED(category);
     Q_UNUSED(n_categories);
     Q_UNUSED(checkFunction);
-    QList<DcpAppletMetadata*> filtered;
-    return filtered;
+    return d_ptr->appletsByFile.values();
 }
 
-DcpAppletMetadataList 
+DcpAppletMetadataList
 DcpAppletDb::listMostUsed ()
 {
-   DcpAppletMetadataList mostUsed;
-   mostUsed.append (new DcpAppletMetadata("mostUsed"));
+   static DcpAppletMetadataList mostUsed;
+   if (mostUsed.isEmpty()) {
+       // a test plugin:
+       DcpAppletMetadata* metadata = new DcpAppletMetadata("mostUsed");
+       DcpAppletObject* applet = new DcpAppletObject (metadata);
+       d_ptr->appletsByName[metadata->name()] = metadata;
+       d_ptr->appletsByFile[metadata->fileName()] = metadata;
+       d_ptr->appletObjectsByName[metadata->name()] = applet;
+
+       mostUsed.append (metadata);
+   }
    return mostUsed;
 }
 
@@ -93,3 +101,4 @@ DcpAppletDb::applet (
 }
 
 #endif // DCPAPPLETDB_FAKE_H
+

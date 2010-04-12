@@ -6,7 +6,6 @@ INCLUDEPATH += $$system(find $$SRCDIR -type d)
 INCLUDEPATH += $${LIBDCPINCLUDE}
 APPLETDBINCLUDE = $${LIBDCPINCLUDE}/../appletdb
 INCLUDEPATH += $${APPLETDBINCLUDE}
-INCLUDEPATH += $${LIBDCPFAKES}
 INCLUDEPATH += $${STUBSDIR}
 
 TARGET = ut_dcpappletbuttons
@@ -16,6 +15,7 @@ TEST_SOURCES = \
     $$SRCDIR/page/pages.cpp \
     $$SRCDIR/component/dcpmaincategory.cpp \
     $$SRCDIR/component/dcpcomponent.cpp \
+    $$SRCDIR/page/maintranslations.cpp \
 
 # unit test and unit
 SOURCES += \
@@ -28,6 +28,7 @@ SOURCES += \
     $$STUBSDIR/dcpappletdb-fake.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
     $$STUBSDIR/dcpappletplugin-fake.cpp \
+    $$STUBSDIR/dcpretranslator-fake.cpp \
     $$STUBSDIR/dcpbriefcomponent-fake.cpp \
     $$TEST_SOURCES \
 

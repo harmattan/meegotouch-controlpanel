@@ -22,13 +22,7 @@ Q_OBJECT
 
 public:
     DcpCategoryComponent (
-                    DcpComponent     *category, 
-                    const QString   &categoryName,
-                    const QString   &logicalId,
-                    QGraphicsWidget *parent = 0);
-
-    DcpCategoryComponent (
-                    DcpComponent      *category, 
+                    DcpComponent      *category,
                     const DcpCategoryInfo  *categoryInfo,
                     QGraphicsWidget  *parent = 0);
 
@@ -48,8 +42,6 @@ public:
 
 private:
     DcpAppletButtons *m_AppletButtons;
-    // m_CategoryName may be deprecated
-    QString           m_CategoryName;
     const DcpCategoryInfo  *m_CategoryInfo;
     DuiContainer     *m_Container;
     QString           m_LogicalId;
