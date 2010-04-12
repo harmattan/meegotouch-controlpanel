@@ -27,6 +27,7 @@ public slots:
 
 private:
     class DuiContentItem* m_Item;
+    friend class Ut_DcpSingleComponent;
 };
 
 #endif // DCPSINGLECOMPONENT_H
