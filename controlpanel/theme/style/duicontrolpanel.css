@@ -1,7 +1,7 @@
-@import "../../libdui/style/fonts.css";
-@import "../../libdui/style/sizes.css";
-@import "../../libdui/style/colors.css";
-@import "../../libdui/style/margins.css";
+@import "../../libduicore/style/fonts.css";
+@import "../../libduicore/style/sizes.css";
+@import "../../libduicore/style/colors.css";
+@import "../../libduicore/style/margins.css";
 
 /* this is specified that briefwidget's first line text must
  * have bigger font if there is no second line (for ex.: toggle off) */
