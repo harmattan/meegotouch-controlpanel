@@ -5,47 +5,40 @@
 #include <dcpbriefwidget.h>
 
 
-#include "ut_dcpbriefcomponent.h"
+#include "ft_dcpbriefcomponent.h"
 #include "dcpappletobject.h"
 #include "dcpappletmetadata.h"
 #include "dcppage.h"
 #include "pagefactory.h"
 
-void Ut_DcpBriefComponent::init()
+void Ft_DcpBriefComponent::init()
 {
     m_applet = new DcpAppletObject(new DcpAppletMetadata("fake"));
     m_subject = new DcpBriefComponent(m_applet,0,"");
     m_subject->setSubPage(PageHandle::APPLET, "fake");
 }
 
-void Ut_DcpBriefComponent::cleanup()
+void Ft_DcpBriefComponent::cleanup()
 {
     delete m_subject;
     delete m_applet;
     m_subject = 0;
 }
 
-void Ut_DcpBriefComponent::initTestCase()
+void Ft_DcpBriefComponent::initTestCase()
 {
 }
 
-void Ut_DcpBriefComponent::cleanupTestCase()
+void Ft_DcpBriefComponent::cleanupTestCase()
 {
 }
 
-void Ut_DcpBriefComponent::testCreation()
-{
-    QVERIFY(m_subject);
-    QVERIFY(m_subject->m_BriefWidget);
-}
-
-void Ut_DcpBriefComponent::testApplet()
+void Ft_DcpBriefComponent::testCreation()
 {
     QVERIFY(m_subject);
-    QCOMPARE((void*)(m_subject->m_BriefWidget->applet()), (void*)m_applet);
 }
 
-void Ut_DcpBriefComponent::testActivate()
+void Ft_DcpBriefComponent::testActivate()
 {
     DcpPage *page = PageFactory::instance()->currentPage();
     QVERIFY(page == 0);
@@ -56,4 +49,4 @@ void Ut_DcpBriefComponent::testActivate()
 }
 
 
-QTEST_APPLESS_MAIN(Ut_DcpBriefComponent)
+QTEST_APPLESS_MAIN(Ft_DcpBriefComponent)

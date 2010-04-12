@@ -4,7 +4,7 @@ INCLUDEPATH += $$system(find $$SRCDIR -type d)
 INCLUDEPATH += ../doubles 
 INCLUDEPATH += $$LIBDCPSRC/appletdb 
 
-TARGET = ut_dcpbriefcomponent
+TARGET = ft_dcpbriefcomponent
 
 TEST_SOURCES = \
     $$SRCDIR/component/dcpbriefcomponent.cpp \
@@ -21,7 +21,7 @@ TEST_SOURCES = \
 
 # unit test and unit
 SOURCES += \
-    ut_dcpbriefcomponent.cpp \
+    ft_dcpbriefcomponent.cpp \
     $$TEST_SOURCES \ 
 
 # base classes
@@ -30,7 +30,7 @@ SOURCES += \
 
 # unit test and unit
 HEADERS += \
-    ut_dcpbriefcomponent.h \
+    ft_dcpbriefcomponent.h \
     $$SRCDIR/component/dcpbriefcomponent.h \
     $$SRCDIR/component/dcpcomponent.h \
     $$SRCDIR/page/pages.h \
