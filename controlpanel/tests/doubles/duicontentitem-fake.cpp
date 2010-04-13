@@ -2,6 +2,14 @@
 
 /* Fake DuiContentItem
  */
+class DuiContentItemFake 
+{
+public:
+    QString m_Title;
+    QString m_Subtitle;
+};
+
+DuiContentItemFake f;
 
 DuiContentItem::DuiContentItem(DuiContentItem::ContentItemStyle,
                                QGraphicsItem*)
@@ -19,10 +27,13 @@ QImage DuiContentItem::image() const{ return QImage(); }
 
 QString DuiContentItem::title() const
 {
-    return QString();
+    return f.m_Title;
 }
 
-QString DuiContentItem::subtitle() const{ return QString(); }
+QString DuiContentItem::subtitle() const
+{
+    return f.m_Subtitle;
+}
 
 DuiContentItem::ContentItemMode DuiContentItem::itemMode() const
 {
@@ -41,11 +52,15 @@ QImage DuiContentItem::optionalImage() const{ return QImage(); }
 void DuiContentItem::setPixmap(const QPixmap &){}
 void DuiContentItem::setImage(const QImage &){}
 
-void DuiContentItem::setTitle(const QString &)
+void DuiContentItem::setTitle(const QString &title)
 {
+    f.m_Title = title;
 }
 
-void DuiContentItem::setSubtitle(const QString &){}
+void DuiContentItem::setSubtitle(const QString &subtitle)
+{
+    f.m_Subtitle = subtitle;
+}
 void DuiContentItem::setItemMode(ContentItemMode){}
 void DuiContentItem::setAdditionalItem(DuiWidget*){}
 void DuiContentItem::enableProgressBar(){}

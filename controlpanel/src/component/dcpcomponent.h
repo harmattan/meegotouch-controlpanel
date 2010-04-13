@@ -15,7 +15,7 @@ public:
                                   QGraphicsWidget *parent=0,
                                   const QString& logicalId="");
 
-    QString title() const {return m_Title;}
+    virtual QString title() const {return m_Title;}
     virtual void setTitle(const QString& title) {m_Title = title;}
     void setSubPage (const PageHandle &subPage) {m_SubPage = subPage;}
     void setSubPage (const PageHandle::PageTypeId id, const QString &param="", 

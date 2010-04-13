@@ -19,7 +19,9 @@ public:
                        const QString &subTitle="");
     ~DcpSingleComponent ();
 
-    void setTitle(const QString& title);
+    virtual QString title() const;
+    virtual void setTitle(const QString& title);
+    const QString subtitle();
     void setSubtitle(const QString& subtitle);
 
 public slots:
