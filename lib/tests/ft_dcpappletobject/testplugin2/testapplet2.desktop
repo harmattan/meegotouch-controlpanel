@@ -1,0 +1,16 @@
+[Desktop Entry]
+Type=DUIApplet
+Name=TestApplet2
+Icon=
+Exec=
+X-logical-id=qtn_sett_main_display
+X-translation-catalog=duisettings
+
+[DUI]
+X-DUIApplet-Applet=libtestapplet2.so
+
+[DCP]
+Category= Look & Feel
+Order=1
+WidgetType= DcpLabel
+

@@ -20,14 +20,12 @@ duicontrolpanel (0.7.9) unstable; urgency=low
   [ Laszlo Pere ]
   * Fixes: NB#162454 - Wrong icon displayed in application launcher
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 30 Mar 2010 11:08:21 +0200
-
 duicontrolpanel (0.7.8) unstable; urgency=low
 
   [ Gabor Juhasz ]
   * dummy release to test CITA 
 
-  * [ Laszlo Pere ]
+  [ Laszlo Pere ]
   * Fixes: NB#162019 - Duicontrolpanel creates already existing widgets
   * Fixes: NB#161543 - WEP key- and Other settings are not preserved in 
     advanced internet settings
