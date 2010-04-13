@@ -1,3 +1,10 @@
+duicontrolpanel (0.7.11) unstable; urgency=low
+
+  * Fixes: NB#156748 - could not define first line value for brief in
+    applet for dcp
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 13 Apr 2010 10:37:44 +0200
+
 duicontrolpanel (0.7.10) unstable; urgency=low
 
   * marked some dependencies
