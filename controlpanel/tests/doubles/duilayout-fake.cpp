@@ -17,6 +17,9 @@ class DuiLayoutPrivate
 {
 public:
     QList<DuiAbstractLayoutPolicy*> policies;
+    DuiAbstractLayoutPolicy *portraitPolicy;
+    DuiAbstractLayoutPolicy *landscapePolicy;
+    DuiLayoutAnimation *animation;
 };
 
 DuiLayout::DuiLayout(QGraphicsLayoutItem *) :
@@ -107,22 +110,24 @@ void DuiLayout::setPolicy(DuiAbstractLayoutPolicy *)
 {
 }
 
-void DuiLayout::setLandscapePolicy(DuiAbstractLayoutPolicy *)
+void DuiLayout::setLandscapePolicy(DuiAbstractLayoutPolicy *policy)
 {
+    d_ptr->landscapePolicy = policy;
 }
 
 DuiAbstractLayoutPolicy *DuiLayout::landscapePolicy() const
 {
-    return 0;
+    return d_ptr->landscapePolicy;
 }
 
-void DuiLayout::setPortraitPolicy(DuiAbstractLayoutPolicy *)
+void DuiLayout::setPortraitPolicy(DuiAbstractLayoutPolicy *policy)
 {
+    d_ptr->portraitPolicy = policy;
 }
 
 DuiAbstractLayoutPolicy *DuiLayout::portraitPolicy() const
 {
-    return 0;
+    return d_ptr->portraitPolicy;
 }
 
 DuiAbstractLayoutPolicy *DuiLayout::policy() const
@@ -132,16 +137,17 @@ DuiAbstractLayoutPolicy *DuiLayout::policy() const
 
 QList<DuiAbstractLayoutPolicy *> DuiLayout::registeredPolicies() const
 {
-    return QList<DuiAbstractLayoutPolicy *>();
+    return d_ptr->policies;
 }
 
-void DuiLayout::setAnimation(DuiLayoutAnimation *)
+void DuiLayout::setAnimation(DuiLayoutAnimation *animation)
 {
+    d_ptr->animation = animation;
 }
 
 DuiLayoutAnimation *DuiLayout::animation() const
 {
-    return 0;
+    return d_ptr->animation;
 }
 
 void DuiLayout::setContentsMargins(qreal, qreal, qreal, qreal)

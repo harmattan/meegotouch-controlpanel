@@ -41,7 +41,7 @@ DcpAppletDb::DcpAppletDb (
      * - test
      * - mostUsed (which is only returned with the most used list
      */
-    createTestApplet(d_ptr, "test");
+    createTestApplet(d_ptr, "fake");
     createTestApplet(d_ptr, "mostUsed");
 }
 

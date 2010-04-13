@@ -7,8 +7,8 @@ const DcpCategoryInfo
 DcpMain::CategoryInfos[] =
 {
     {
-        "qtn-test",
-        "test-category",
+        "qtn-fake",
+        "fake-category",
         PageHandle::LOOKANDFEEL,
         NULL
     },
