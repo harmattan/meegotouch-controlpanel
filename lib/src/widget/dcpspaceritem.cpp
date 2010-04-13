@@ -3,7 +3,7 @@
 #include "dcpspaceritem.h"
 
 #if 0
-DcpSpacerItem::DcpSpacerItem(DuiWidget *parent,
+DcpSpacerItem::DcpSpacerItem(MWidget *parent,
                              int width, int height,
                              QSizePolicy::Policy hPolicy,
                              QSizePolicy::Policy vPolicy)

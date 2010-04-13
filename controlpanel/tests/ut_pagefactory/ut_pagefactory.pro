@@ -5,7 +5,7 @@ INCLUDEPATH += $$system(find $$SRCDIR -type d)
 INCLUDEPATH += $${LIBDCPINCLUDE}
 APPLETDBINCLUDE = $${LIBDCPINCLUDE}/../appletdb
 INCLUDEPATH += $${APPLETDBINCLUDE}
-INCLUDEPATH += /usr/include/dui
+INCLUDEPATH += /usr/include/m
 
 TARGET = ut_pagefactory
 
@@ -18,10 +18,10 @@ SOURCES += \
     $$STUBSDIR/dcpappletcategorypage-fake.cpp \
     $$STUBSDIR/dcpappletpage-fake.cpp \
     $$STUBSDIR/appleterrorsdialog-fake.cpp \
-    $$STUBSDIR/duiapplicationpage-fake.cpp \
-    $$STUBSDIR/duiapplication-fake.cpp \
-    $$STUBSDIR/duiapplicationwindow-fake.cpp \
-    $$STUBSDIR/duigconfitem-fake.cpp \
+    $$STUBSDIR/mapplicationpage-fake.cpp \
+    $$STUBSDIR/mapplication-fake.cpp \
+    $$STUBSDIR/mapplicationwindow-fake.cpp \
+    $$STUBSDIR/mgconfitem-fake.cpp \
     $$STUBSDIR/dcpappletdb-fake.cpp \
     $$STUBSDIR/dcpappletplugin-fake.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
@@ -32,9 +32,9 @@ SOURCES += \
 # unit test and unit
 HEADERS += \
     *.h \
-    $$STUBSDIR/duigconfitem_priv.h \
-    $$STUBSDIR/duiapplicationwindow-fake.h \
-    $$STUBSDIR/duiwindow-fake.h \
+    $$STUBSDIR/mgconfitem_priv.h \
+    $$STUBSDIR/mapplicationwindow-fake.h \
+    $$STUBSDIR/mwindow-fake.h \
     $$SRCDIR/page/pagefactory.h \
     $$SRCDIR/page/dcppage.h \
     $$SRCDIR/page/dcpmainpage.h \

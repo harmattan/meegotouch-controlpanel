@@ -17,7 +17,7 @@ DcpWidgetPrivate::DcpWidgetPrivate ():
  * \brief The constructor. No referer for default
  */
 DcpWidget::DcpWidget (QGraphicsWidget *parent) 
-    : DuiWidget (parent), 
+    : MWidget (parent), 
       d_ptr (new DcpWidgetPrivate)
 {
     DCP_DEBUG ("*** this = %p", this);

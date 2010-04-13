@@ -10,7 +10,7 @@
  * More applets can be added with addFile which will always succeed.
  *
  * If you need to fake the db, consider using also:
- * - dcpappletmetadata-fake.cpp, so you can avoid using DuiDesktopEntry
+ * - dcpappletmetadata-fake.cpp, so you can avoid using MDesktopEntry
  *   and .desktop files
  *
  */

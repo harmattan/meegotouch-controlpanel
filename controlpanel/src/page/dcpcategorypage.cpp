@@ -1,6 +1,6 @@
 #include "dcpcategorypage.h"
 
-#include <DuiLinearLayoutPolicy>
+#include <MLinearLayoutPolicy>
 
 #include "dcpmaincategory.h"
 

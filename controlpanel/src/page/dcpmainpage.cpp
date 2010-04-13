@@ -3,26 +3,26 @@
 #include "dcpmainpage.h"
 
 #include <QtDebug>
-#include <DuiApplication>
+#include <MApplication>
 #include <DcpBriefComponent>
 #include <DcpSingleComponent>
 #include <DcpMainCategory>
 #include <Pages>
 #include <DcpApplet>
 #include <QGraphicsLinearLayout>
-#include <DuiContainer>
+#include <MContainer>
 
 #include "dcpcategorycomponent.h"
 #include "maintranslations.h"
 
-#include "duiwidgetcreator.h"
-DUI_REGISTER_WIDGET_NO_CREATE(DcpMainPage)
+#include "mwidgetcreator.h"
+M_REGISTER_WIDGET_NO_CREATE(DcpMainPage)
 
 #include "../../../lib/src/dcpdebug.h"
 
 /*!
  * \class DcpMainPage
- * \brief The main page of duicontrolpanel.
+ * \brief The main page of mcontrolpanel.
  *
  * Displays a list of the applet categories and emits a signal if one of them is
  * to be opened.  Also has a recent used items list at the top, which contains
@@ -86,7 +86,7 @@ DcpMainPage::createContent ()
 
     layout = mainLayout ();
 
-    m_OtherComp = new DuiContainer();
+    m_OtherComp = new MContainer();
     DcpMainCategory *otherCategories = new DcpMainCategory(
             DcpMain::otherCategoriesTitleId,
             0,
@@ -132,7 +132,7 @@ DcpMainPage::createContentsLate ()
     /*
      * Creating the most recent used items.
      * Use
-     * # gconftool-2 --recursive-unset /apps/duicontrolpanel/usagecount
+     * # gconftool-2 --recursive-unset /apps/mcontrolpanel/usagecount
      * to test this piece of code.
      */
     m_RecentlyComp = new DcpCategoryComponent (0, &DcpMain::mostUsedCategory,

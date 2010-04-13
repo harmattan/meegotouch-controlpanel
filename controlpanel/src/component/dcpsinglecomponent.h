@@ -28,7 +28,7 @@ public slots:
     void activate ();
 
 private:
-    class DuiContentItem* m_Item;
+    class MContentItem* m_Item;
     friend class Ut_DcpSingleComponent;
 };
 

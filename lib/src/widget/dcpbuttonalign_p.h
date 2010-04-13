@@ -4,7 +4,7 @@
 class DcpButtonAlignPrivate { 
 public:
     DcpButtonAlignPrivate ();
-    DuiWidget              *alignedWidget;
+    MWidget              *alignedWidget;
     QGraphicsLinearLayout  *alignLayout;
     Qt::Alignment           alignment;
 }; 

@@ -5,7 +5,7 @@
 
 #include "ut_dcpappletbuttons.h"
 #include "maintranslations.h"
-#include <duilinearlayoutpolicy.h>
+#include <mlinearlayoutpolicy.h>
 #include <DcpAppletMetadata>
 
 #define fakeInfo DcpMain::CategoryInfos[0]

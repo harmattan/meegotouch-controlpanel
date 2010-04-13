@@ -8,7 +8,7 @@
 
 #include <QDir>
 #include <QDebug>
-#include <DuiLocale>
+#include <MLocale>
 
 #include "dcpdebug.h"
 

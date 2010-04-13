@@ -4,7 +4,7 @@
 
 
 #include "ut_dcpmostusedcounter.h"
-#include "duigconfitem-fake.h"
+#include "mgconfitem-fake.h"
 
 
 void Ut_DcpMostUsedCounter::init()

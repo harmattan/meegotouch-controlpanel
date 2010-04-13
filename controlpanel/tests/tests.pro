@@ -1,11 +1,12 @@
 TEMPLATE    = subdirs
 SUBDIRS     = \
-#               ut_dcpappletbuttons \
-               ut_dcppage \
-               ut_pagefactory \
-               ut_pages \
-               ut_dcpbriefcomponent \
-#               ut_dcpsinglecomponent \
+              ut_dcpappletbuttons \
+              ut_dcppage \
+              ut_pagefactory \
+              ut_pages \
+              ut_dcpbriefcomponent \
+              ut_dcpsinglecomponent \
+              ut_dcpmaincategory \
 
 QMAKE_STRIP = echo
 

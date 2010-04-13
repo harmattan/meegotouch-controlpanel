@@ -13,7 +13,7 @@
  */
 #define DCP_APPLET_LOADER_DEPRECATED 1
 
-class DuiDesktopEntry;
+class MDesktopEntry;
 class DcpAppletMetadataPrivate;
 
 /*!
@@ -84,7 +84,7 @@ public:
     bool isActive() const;
 
 protected:
-    DuiDesktopEntry* desktopEntry () const;
+    MDesktopEntry* desktopEntry () const;
     QString desktopEntryStr (int id) const;
 private:
     DcpAppletMetadataPrivate *const d_ptr;

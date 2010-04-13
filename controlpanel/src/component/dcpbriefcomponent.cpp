@@ -9,7 +9,7 @@
 #include "pages.h"
 
 #include <QGraphicsLinearLayout>
-#include <DuiContentItem>
+#include <MContentItem>
 
 
 #include "dcpdebug.h"

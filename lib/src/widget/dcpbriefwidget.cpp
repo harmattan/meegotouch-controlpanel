@@ -10,7 +10,7 @@
 #include "dcpbuttonimage.h"
 #include "dcpwrongapplets.h"
 
-#include <DuiSceneManager>
+#include <MSceneManager>
 #include <QGraphicsLinearLayout>
 #include <QtDebug>
 
@@ -41,8 +41,8 @@ DcpBriefWidgetPrivate::DcpBriefWidgetPrivate ():
  */
 DcpBriefWidget::DcpBriefWidget (
         DcpAppletObject *applet, 
-        DuiWidget         *parent):
-    DuiWidget (parent), 
+        MWidget         *parent):
+    MWidget (parent), 
     d_ptr (new DcpBriefWidgetPrivate)
 {
     QGraphicsLinearLayout* layout;
@@ -57,8 +57,8 @@ DcpBriefWidget::DcpBriefWidget (
         int               widgetTypeId,
         const QString    &line1,
         const QString    &line2,
-        DuiWidget        *parent):
-    DuiWidget (parent),
+        MWidget        *parent):
+    MWidget (parent),
     d_ptr (new DcpBriefWidgetPrivate)
 {
     DcpButton    *toggle;

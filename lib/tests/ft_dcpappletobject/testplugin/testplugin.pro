@@ -1,7 +1,7 @@
 include ($$[QT_INSTALL_DATA]/mkspecs/dcpconfig.pri)
 
 TEMPLATE = lib
-CONFIG += plugin gui dui debug
+CONFIG += plugin gui m debug
 
 INCLUDEPATH += ../../../src/include
 
@@ -17,7 +17,7 @@ SOURCES = \
 
 TARGET = $$qtLibraryTarget(testapplet)
 
-DATADIR = /usr/lib/duicontrolpanel-tests/ft_dcpappletobject-data
+DATADIR = /usr/lib/mcontrolpanel-tests/ft_dcpappletobject-data
 
 DEFINES += DATADIR=\\\"$$DATADIR\\\"
 

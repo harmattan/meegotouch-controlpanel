@@ -3,9 +3,9 @@
 #ifndef APPLETERRORSDIALOG_H
 #define APPLETERRORSDIALOG_H
 
-#include <DuiDialog>
+#include <MDialog>
 
-class AppletErrorsDialog: public DuiDialog
+class AppletErrorsDialog: public MDialog
 {
 Q_OBJECT
     AppletErrorsDialog ();

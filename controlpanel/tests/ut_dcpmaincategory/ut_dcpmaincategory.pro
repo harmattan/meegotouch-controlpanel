@@ -1,5 +1,5 @@
 include(../common_top.pri)
-CONFIG += dui duicontrolpanel
+CONFIG += m mcontrolpanel
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
 INCLUDEPATH += ../doubles 
 
@@ -13,13 +13,13 @@ SOURCES += \
     ut_dcpmaincategory.cpp \
     $$SRCDIR/page/pages.cpp \
     ../doubles/dcpcomponent-fake.cpp \
-    ../doubles/duiapplication-fake.cpp \
-    ../doubles/duiapplicationwindow-fake.cpp \
-    ../doubles/duiwindow-fake.h \
-    ../doubles/duilayout-fake.cpp \
-    ../doubles/duiabstractlayoutpolicy-fake.cpp \
-    ../doubles/duilinearlayoutpolicy-fake.cpp \
-    ../doubles/duigridlayoutpolicy-fake.cpp \
+    ../doubles/mapplication-fake.cpp \
+    ../doubles/mapplicationwindow-fake.cpp \
+    ../doubles/mwindow-fake.h \
+    ../doubles/mlayout-fake.cpp \
+    ../doubles/mabstractlayoutpolicy-fake.cpp \
+    ../doubles/mlinearlayoutpolicy-fake.cpp \
+    ../doubles/mgridlayoutpolicy-fake.cpp \
     $$TEST_SOURCES \ 
 
 # base classes

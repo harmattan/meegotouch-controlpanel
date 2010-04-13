@@ -5,7 +5,7 @@
 
 
 #include "ut_dcpmaincategory.h"
-#include <DuiLayout>
+#include <MLayout>
 
 void Ut_DcpMainCategory::init()
 {
@@ -54,7 +54,7 @@ void Ut_DcpMainCategory::testGetItemCount()
     QSKIP("incomplete", SkipSingle);   // remove this when you've finished
 }
 
-void Ut_DcpMainCategory::testDuiLayout() 
+void Ut_DcpMainCategory::testMLayout() 
 {
     QSKIP("incomplete", SkipSingle);   // remove this when you've finished
 }

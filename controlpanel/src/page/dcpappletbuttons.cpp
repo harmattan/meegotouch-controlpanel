@@ -8,9 +8,9 @@
 #include <DcpAppletMetadata>
 #include <DcpApplet>
 
-#include <DuiSceneManager>
-#include <DuiGridLayoutPolicy>
-#include <DuiLinearLayoutPolicy>
+#include <MSceneManager>
+#include <MGridLayoutPolicy>
+#include <MLinearLayoutPolicy>
 #include <DcpRetranslator>
 #include "maintranslations.h"
 

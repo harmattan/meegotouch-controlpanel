@@ -1,4 +1,4 @@
-#include <DuiTheme>
+#include <MTheme>
 #include <QtDebug>
 #include <DcpWidget>
 #include <DcpBrief>
@@ -15,7 +15,7 @@ TestApplet::~TestApplet()
 void TestApplet::init()
 {
     qDebug() << "TestApplet init";
-    DuiTheme::loadCSS(DATADIR "/testapplet.css");
+    MTheme::loadCSS(DATADIR "/testapplet.css");
 }
 
 DcpWidget *TestApplet::constructWidget(int widgetId)
@@ -28,9 +28,9 @@ QString TestApplet::title() const
     return "Test title 1";
 }
 
-QVector<DuiAction*> TestApplet::viewMenuItems()
+QVector<MAction*> TestApplet::viewMenuItems()
 {
-    return QVector<DuiAction*>();
+    return QVector<MAction*>();
 }
 
 DcpBrief *TestApplet::constructBrief(int)

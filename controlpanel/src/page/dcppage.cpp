@@ -5,18 +5,18 @@
 
 #include "dcppage.h"
 #include <QGraphicsLinearLayout>
-#include <DuiSceneManager>
-#include <DuiApplication>
-#include <DuiApplicationWindow>
+#include <MSceneManager>
+#include <MApplication>
+#include <MApplicationWindow>
 
-#include "duiwidgetcreator.h"
-DUI_REGISTER_WIDGET(DcpPage)
+#include "mwidgetcreator.h"
+M_REGISTER_WIDGET(DcpPage)
 
 #include "dcpdebug.h"
 
 
 DcpPage::DcpPage () :
-    DuiApplicationPage ()
+    MApplicationPage ()
 {
     DCP_DEBUG ("");
 
@@ -29,7 +29,7 @@ DcpPage::DcpPage () :
 void 
 DcpPage::createContent ()
 {
-    DuiApplicationPage::createContent ();
+    MApplicationPage::createContent ();
     setObjectName ("DcpPage");
 
     createLayout ();

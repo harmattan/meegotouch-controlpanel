@@ -3,7 +3,7 @@
 #include "dcpcategorycomponent.h"
 #include "dcpappletbuttons.h"
 
-#include <DuiContainer>
+#include <MContainer>
 #include <QGraphicsLinearLayout>
 
 #include "dcpdebug.h"
@@ -54,7 +54,7 @@ DcpCategoryComponent::createContents ()
     QGraphicsLinearLayout *layout;
 
     DCP_DEBUG ("");
-    m_Container = new DuiContainer (this);
+    m_Container = new MContainer (this);
     m_Container->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     layout = new QGraphicsLinearLayout (Qt::Vertical, this);

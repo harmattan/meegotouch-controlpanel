@@ -4,13 +4,13 @@
 #include "dcpwrongapplets.h"
 
 #include <QGraphicsLinearLayout>
-#include <DuiLabel>
+#include <MLabel>
 
 static const QString 
 description = "The following applets were disabled due to crash:";
 
 AppletErrorsDialog::AppletErrorsDialog():
-    DuiDialog ()
+    MDialog ()
 {
     // TODO: localization etc.
     setTitle ("Disabled applets"); 
@@ -18,13 +18,13 @@ AppletErrorsDialog::AppletErrorsDialog():
     QGraphicsLinearLayout* layout =
         new QGraphicsLinearLayout (Qt::Vertical, centralWidget());
 
-    DuiLabel* descLabel = new DuiLabel (description);
+    MLabel* descLabel = new MLabel (description);
     descLabel->setWordWrap(true);
     layout->addItem(descLabel);
 
     const QSet<QString> badApplets = DcpWrongApplets::instance()->badApplets();
     foreach (QString badApplet, badApplets) {
-        layout->addItem (new DuiLabel (badApplet));
+        layout->addItem (new MLabel (badApplet));
     }
 }
 
@@ -32,7 +32,7 @@ void
 AppletErrorsDialog::showAppletErrors()
 {
     if (!DcpWrongApplets::instance()->badApplets().isEmpty()) {
-        (new AppletErrorsDialog)->appear(DuiSceneWindow::DestroyWhenDone);
+        (new AppletErrorsDialog)->appear(MSceneWindow::DestroyWhenDone);
     }
 }
 

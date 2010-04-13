@@ -38,7 +38,7 @@ public:
 
     /*! \brief returns the value that is to be displayed on second line
      *  \details Value should be formatted properly as the user should see it.
-     *  For example language code can be formatted with DuiLocale or
+     *  For example language code can be formatted with MLocale or
          the current time that comes from the system */
     virtual QString valueText () const;
 

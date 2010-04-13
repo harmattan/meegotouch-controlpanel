@@ -1,7 +1,7 @@
 #include "ut_pagefactory.h"
 #include <pagefactory.h>
-#include "duiapplicationwindow-fake.h"
-#include "duiapplication.h"
+#include "mapplicationwindow-fake.h"
+#include "mapplication.h"
 #include <dcppage.h>
 #include <dcpappletpage.h>
 #include <dcpappletobject.h>
@@ -19,7 +19,7 @@ void Ut_PageFactory::cleanup()
 
     // this is to make tests start with clean look like app (and fake appwindow
     // does not support tracking the currentwindow on back
-    DuiApplication::activeApplicationWindow()->setCurrentPage(0);
+    MApplication::activeApplicationWindow()->setCurrentPage(0);
 }
 
 void Ut_PageFactory::initTestCase()
@@ -134,15 +134,15 @@ void Ut_PageFactory::testCurrentPage()
 void Ut_PageFactory::testChangePage()
 {
     // for testing that the window was raised on page switch:
-    DuiApplication::activeApplicationWindow()->lower();
-    QCOMPARE (DuiApplication::activeApplicationWindow()->isRaised(), false);
+    MApplication::activeApplicationWindow()->lower();
+    QCOMPARE (MApplication::activeApplicationWindow()->isRaised(), false);
 
     PageFactory *factory = PageFactory::instance();
     QCOMPARE(factory->currentPage(), (void*)0);
 
     factory->changePage (PageHandle(PageHandle::MAIN));
     QCOMPARE((void*)factory->currentPage(), (void*)factory->m_MainPage);
-    QCOMPARE (DuiApplication::activeApplicationWindow()->isRaised(), true);
+    QCOMPARE (MApplication::activeApplicationWindow()->isRaised(), true);
 
     factory->changePage (PageHandle(PageHandle::DEVICESYSTEM));
     QCOMPARE((void*)factory->currentPage(), (void*)factory->m_AppletCategoryPage);

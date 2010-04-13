@@ -173,7 +173,7 @@ DcpAppletMetadata::incrementUsage()
 { 
 }
 
-DuiDesktopEntry *
+MDesktopEntry *
 DcpAppletMetadata::desktopEntry () const
 {
     return 0;

@@ -3,7 +3,7 @@
 #include <signal.h>
 #include <execinfo.h>
 
-#include <DuiGConfItem>
+#include <MGConfItem>
 #include <QFileInfo>
 #include <QDateTime>
 #include <QtDebug>
@@ -20,7 +20,7 @@
 
 DcpWrongApplets* DcpWrongApplets::sm_Instance = 0;
 bool DcpWrongApplets::sm_Disabled = false;
-const QString keyPath = "/apps/duicontrolpanel/badplugins";
+const QString keyPath = "/apps/mcontrolpanel/badplugins";
 
 
 /*******************************************************************************
@@ -34,7 +34,7 @@ backtrace_line_is_an_applet (
         const char     **start,
         const char     **end)
 {
-    *start = strstr(line, "/usr/lib/duicontrolpanel/applets/");
+    *start = strstr(line, "/usr/lib/mcontrolpanel/applets/");
     if (*start == 0)
         return false;
 
@@ -49,7 +49,7 @@ void
 mark_applet_as_bad (
         const char   *full_path)
 {
-    DuiGConfItem  conf(keyPath + full_path + KEY_SEPARATOR + "CrashDateTime");
+    MGConfItem  conf(keyPath + full_path + KEY_SEPARATOR + "CrashDateTime");
     QDateTime     now = QDateTime::currentDateTime ();
 
     conf.set (now.toString());
@@ -74,7 +74,7 @@ some_crash_happened (
     /*
      * Let's print the backtrace from the stack.
      */
-    fprintf (stderr, "--- Crash backtrace of DuiControlPanel ---\n");
+    fprintf (stderr, "--- Crash backtrace of MControlPanel ---\n");
     for (size_t i = 0; i < backtrace_size; i++) {
         fprintf (stderr, "%03u %s\n", i, backtrace_strings[i]);
     }
@@ -228,7 +228,7 @@ bool
 DcpWrongApplets::isAppletRecentlyCrashed (
         const QString       &fullSoPath)
 {
-    DuiGConfItem conf(keyPath + fullSoPath + KEY_SEPARATOR + "CrashDateTime");
+    MGConfItem conf(keyPath + fullSoPath + KEY_SEPARATOR + "CrashDateTime");
     QString      lastCrashDate = conf.value().toString();
 
     /*
@@ -261,9 +261,9 @@ DcpWrongApplets::disable ()
 // removes a gconf path recursively, like "gconftool-2 --recusive-unset"
 static void gconf_recursive_remove(const QString& path)
 {
-    DuiGConfItem conf(path);
+    MGConfItem conf(path);
     foreach (QString entry, conf.listEntries()){
-        DuiGConfItem(entry).unset();
+        MGConfItem(entry).unset();
     }
     foreach (QString dir, conf.listDirs()){
         gconf_recursive_remove(dir);
@@ -285,7 +285,7 @@ DcpWrongApplets::removeBadsOnDcpTimeStampChange()
         QFileInfo(qApp->applicationFilePath()).lastModified();
 
     // the previous timestamp of the executable
-    DuiGConfItem conf(keyPath + "/dcpTimeStamp");
+    MGConfItem conf(keyPath + "/dcpTimeStamp");
     QString lastDateStr = conf.value().toString();
     QDateTime lastDateStamp = QDateTime::fromString(lastDateStr);
 
@@ -293,7 +293,7 @@ DcpWrongApplets::removeBadsOnDcpTimeStampChange()
         DCP_DEBUG("Removing bad applet list due to dcp timestamp change");
 
         // remove the wrong applet list
-//        DuiGConfItem(keyPath+"/usr").unset();
+//        MGConfItem(keyPath+"/usr").unset();
         gconf_recursive_remove(keyPath + "/usr");
 
         // write the new stamp:

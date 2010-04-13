@@ -27,10 +27,10 @@ coverage {
     QMAKE_LFLAGS += --coverage
 }
 
-target.path = $${DCP_INSTALL_LIB}/duicontrolpanel-tests
+target.path = $${DCP_INSTALL_LIB}/mcontrolpanel-tests
 INSTALLS += target
 include(check.pri)
-LIBS +=  -L/usr/lib -lduicontrolpanel
+LIBS +=  -L/usr/lib -lmcontrolpanel
 QMAKE_CXXFLAGS += -Werror
 message($$target.path)
 

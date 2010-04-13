@@ -55,7 +55,7 @@ PageFactory::changePage (const PageHandle &handle)
 }
 
 void
-PageFactory::pageChanged (DuiApplicationPage *)
+PageFactory::pageChanged (MApplicationPage *)
 {
 }
 

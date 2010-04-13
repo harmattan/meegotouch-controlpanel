@@ -1,6 +1,6 @@
 include(../common_top.pri)
 
-CONFIG += dui duicontrolpanel
+CONFIG += m mcontrolpanel
 
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
 INCLUDEPATH += $${LIBDCPINCLUDE}
@@ -19,12 +19,12 @@ TEST_SOURCES = \
 # unit test and unit
 SOURCES += \
     ut_dcpappletbuttons.cpp \
-    $$STUBSDIR/duigridlayoutpolicy-fake.cpp \
+    $$STUBSDIR/mgridlayoutpolicy-fake.cpp \
     $$STUBSDIR/maintranslations-fake.cpp \
-    $$STUBSDIR/duiabstractlayoutpolicy-fake.cpp \
-    $$STUBSDIR/duilayout-fake.cpp \
-    $$STUBSDIR/duilinearlayoutpolicy-fake.cpp \
-    $$STUBSDIR/duigconfitem-fake.cpp \
+    $$STUBSDIR/mabstractlayoutpolicy-fake.cpp \
+    $$STUBSDIR/mlayout-fake.cpp \
+    $$STUBSDIR/mlinearlayoutpolicy-fake.cpp \
+    $$STUBSDIR/mgconfitem-fake.cpp \
     $$STUBSDIR/dcpappletdb-fake.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
     $$STUBSDIR/dcpappletplugin-fake.cpp \
@@ -39,7 +39,7 @@ SOURCES += \
 # unit test and unit
 HEADERS += \
     ut_dcpappletbuttons.h \
-    $$STUBSDIR/duigconfitem_priv.h \
+    $$STUBSDIR/mgconfitem_priv.h \
     $$SRCDIR/page/dcpappletbuttons.h \
     $$SRCDIR/component/dcpmaincategory.h \
     $$SRCDIR/component/dcpbriefcomponent.h \

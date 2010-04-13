@@ -4,8 +4,8 @@ class DcpButtonPrivate {
 public:
     DcpButtonPrivate ();
     QGraphicsGridLayout *textLayout;
-    DuiLabel            *label1;
-    DuiLabel            *label2;
+    MLabel            *label1;
+    MLabel            *label2;
 };
 #endif //DCPBUTTONPRIVATE
 

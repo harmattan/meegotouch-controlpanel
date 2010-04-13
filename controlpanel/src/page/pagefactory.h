@@ -5,7 +5,7 @@
 #include <QObject>
 #include <QList>
 
-class DuiApplicationPage;
+class MApplicationPage;
 class DcpPage;
 class DcpAppletMetadata;
 class DcpAppletObject;
@@ -40,7 +40,7 @@ protected:
 
 private slots:
     void mainPageFirstShown (void);
-    void pageChanged (DuiApplicationPage *page);
+    void pageChanged (MApplicationPage *page);
 
 private:
     bool tryOpenPageBackward (const PageHandle &handle);
@@ -49,7 +49,7 @@ private:
     static PageFactory     *sm_Instance;
     DcpMainPage            *m_MainPage;
     DcpAppletCategoryPage  *m_AppletCategoryPage;
-    QList<DuiApplicationPage *> m_Pages;
+    QList<MApplicationPage *> m_Pages;
     // for testability
     friend class Ut_PageFactory;
 };

@@ -168,7 +168,7 @@ dcp_find_category_info (
 }
 
 /*!
- * \brief Check if the category name is 'recognized' by the duicontrolpanel.
+ * \brief Check if the category name is 'recognized' by the mcontrolpanel.
  * 
  * This function is used to decide if a given category name is a supported
  * 'official' category name of the control panel. If an applet has a category

@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QVector>
-#include <DuiAction>
+#include <MAction>
 #include <QtDebug>
 
 #include "dcpappletif.h"
@@ -20,8 +20,8 @@ class DcpAppletPluginApplet : public QObject, public DcpAppletIf {
         }
         virtual DcpWidget *constructWidget(int) {return 0;};
         virtual QString title() const { return 0; };
-        virtual QVector<DuiAction *> viewMenuItems() {
-            QVector<DuiAction*> empty;
+        virtual QVector<MAction *> viewMenuItems() {
+            QVector<MAction*> empty;
             return empty;
         }
         virtual DcpBrief* constructBrief(int) { return 0; };

@@ -14,9 +14,9 @@
 #include <DcpAppletCategoryPage>
 #include <MainTranslations>
 
-#include <DuiApplication>
-#include <DuiApplicationWindow>
-#include <DuiAction>
+#include <MApplication>
+#include <MApplicationWindow>
+#include <MAction>
 
 #include "appleterrorsdialog.h"
 
@@ -30,9 +30,9 @@ PageFactory::PageFactory ():
     m_MainPage (0), 
     m_AppletCategoryPage (0)
 {
-    connect (DuiApplication::activeWindow (),
-            SIGNAL(pageChanged(DuiApplicationPage *)),
-            this, SLOT(pageChanged(DuiApplicationPage *)));
+    connect (MApplication::activeWindow (),
+            SIGNAL(pageChanged(MApplicationPage *)),
+            this, SLOT(pageChanged(MApplicationPage *)));
 }
 
 void
@@ -215,7 +215,7 @@ PageFactory::createAppletCategoryPage (
 DcpPage*
 PageFactory::currentPage ()
 {
-    DuiApplicationWindow* win = DuiApplication::activeApplicationWindow();
+    MApplicationWindow* win = MApplication::activeApplicationWindow();
     if (win == 0) return 0;
 
     return qobject_cast<DcpPage*>(win->currentPage());
@@ -260,13 +260,13 @@ PageFactory::changePage (const PageHandle &handle)
      * to ensure there is no leak
      */
     if (handle.id == PageHandle::APPLET) {
-        page->appear (DuiSceneWindow::DestroyWhenDismissed);
+        page->appear (MSceneWindow::DestroyWhenDismissed);
     } else {
-        page->appear (DuiSceneWindow::KeepWhenDone);
+        page->appear (MSceneWindow::KeepWhenDone);
     }
 
-    if (DuiApplication::activeWindow ()) {
-        DuiApplication::activeWindow ()->raise();
+    if (MApplication::activeWindow ()) {
+        MApplication::activeWindow ()->raise();
     }
 }
 
@@ -298,10 +298,10 @@ PageFactory::registerPage (
 
     if (page != m_MainPage) {
         // closeAction TODO XXX on language change, move into to the page?
-        DuiAction *quitAction;
+        MAction *quitAction;
 
-        quitAction = new DuiAction (qtTrId(DcpMain::quitMenuItemTextId), page);
-        quitAction->setLocation(DuiAction::ApplicationMenuLocation);
+        quitAction = new MAction (qtTrId(DcpMain::quitMenuItemTextId), page);
+        quitAction->setLocation(MAction::ApplicationMenuLocation);
 
         connect(quitAction, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
 
@@ -313,12 +313,12 @@ PageFactory::registerPage (
 /*!
  * This function will be called when the current page has been changed. It will
  * maintain a list of pages so the pagefactory will always know what pages are
- * in the stack. This is needed so the duicontrolpanel can page back to a
+ * in the stack. This is needed so the mcontrolpanel can page back to a
  * requested page.
  */
 void
 PageFactory::pageChanged (
-        DuiApplicationPage *page)
+        MApplicationPage *page)
 {
     if (m_Pages.empty()) {
         DCP_DEBUG ("List is empty, adding");
@@ -378,8 +378,8 @@ PageFactory::tryOpenPageBackward (
     while (m_Pages.size() > foundAtIndex + 1) {
         int s = m_Pages.size();
 
-        DuiApplicationPage *duiPage = m_Pages.last();
-        duiPage->dismiss();
+        MApplicationPage *mPage = m_Pages.last();
+        mPage->dismiss();
 
         /*
          * This is rather unfortunate, but we need this becouse otherwise the

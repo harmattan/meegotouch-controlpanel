@@ -4,14 +4,14 @@
 
 
 #include "ft_dcpmostusedcounter.h"
-#include <DuiGConfItem>
+#include <MGConfItem>
 
 
 void Ft_DcpMostUsedCounter::init()
 {
     printf("\n" MOSTUSEDCOUNTER_GCONFKEY "/foo\n");
-    DuiGConfItem foo(MOSTUSEDCOUNTER_GCONFKEY "/foo");
-    DuiGConfItem bar(MOSTUSEDCOUNTER_GCONFKEY "/bar");
+    MGConfItem foo(MOSTUSEDCOUNTER_GCONFKEY "/foo");
+    MGConfItem bar(MOSTUSEDCOUNTER_GCONFKEY "/bar");
     foo.set(0);
     bar.set(0);
     m_subject = MostUsedCounter::instance();

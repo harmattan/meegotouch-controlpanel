@@ -3,7 +3,7 @@
 #ifndef DCPBRIEFWIDGET_H
 #define DCPBRIEFWIDGET_H
 
-#include <DuiWidget>
+#include <MWidget>
 
 class DcpAppletObject;
 class DcpButton;
@@ -30,20 +30,20 @@ class DcpBriefWidgetPrivate;
  * FIXME: Why is this?
  */
 class DcpBriefWidget: 
-    public DuiWidget
+    public MWidget
 {
     Q_OBJECT
 
 public:
     DcpBriefWidget (
             DcpAppletObject *applet, 
-            DuiWidget         *parent = 0);
+            MWidget         *parent = 0);
 
     DcpBriefWidget (
             int               widgetTypeId,
             const QString    &line1,
             const QString    &line2,
-            DuiWidget        *parent = 0);
+            MWidget        *parent = 0);
 
     ~DcpBriefWidget();
 

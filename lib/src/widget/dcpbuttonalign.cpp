@@ -21,7 +21,7 @@ DcpButtonAlignPrivate::DcpButtonAlignPrivate () :
  * maybe removed?
  */
 DcpButtonAlign::DcpButtonAlign (
-        DuiWidget *parent): 
+        MWidget *parent): 
     DcpButton (parent, false),
     d_ptr (new DcpButtonAlignPrivate)
 {
@@ -93,7 +93,7 @@ DcpButtonAlign::putupWidgets ()
     d_ptr->alignLayout->setAlignment (alignedWidget(), Qt::AlignVCenter);
 }
 
-DuiWidget *
+MWidget *
 DcpButtonAlign::alignedWidget ()
 {
     return d_ptr->alignedWidget;
@@ -101,7 +101,7 @@ DcpButtonAlign::alignedWidget ()
 
 void 
 DcpButtonAlign::setAlignedWidget (
-        DuiWidget *widget)
+        MWidget *widget)
 {
     // only lets to set it up once currently (no widget changing)
     Q_ASSERT (!d_ptr->alignedWidget); 

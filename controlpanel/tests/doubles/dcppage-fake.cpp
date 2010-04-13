@@ -5,7 +5,7 @@
 
 const PageHandle aHandle(PageHandle::MAIN);
 
-DcpPage::DcpPage() : DuiApplicationPage() 
+DcpPage::DcpPage() : MApplicationPage() 
 {
 }
 

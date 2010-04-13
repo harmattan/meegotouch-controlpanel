@@ -7,14 +7,14 @@
 
 
 class DcpAppletButtons;
-class DuiContainer;
+class MContainer;
 
 /*!
  * \class DcpCategoryComponent
  * \brief A component for the recently used applets
  *
  * It is supplies the background and title for around DcpAppletButtons,
- * which contains the buttons. (Actually uses DuiContainer for that.)
+ * which contains the buttons. (Actually uses MContainer for that.)
  */
 class DcpCategoryComponent: public DcpComponent
 {
@@ -43,7 +43,7 @@ public:
 private:
     DcpAppletButtons *m_AppletButtons;
     const DcpCategoryInfo  *m_CategoryInfo;
-    DuiContainer     *m_Container;
+    MContainer     *m_Container;
     QString           m_LogicalId;
 };
 

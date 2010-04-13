@@ -12,7 +12,7 @@ MostUsedCounter* MostUsedCounterPrivate::sm_Instance = NULL;
 
 MostUsedCounter::MostUsedCounter () : d_ptr(new MostUsedCounterPrivate())
 {
-    d_ptr->m_Conf = new DuiGConfDataStore(MOSTUSEDCOUNTER_GCONFKEY);
+    d_ptr->m_Conf = new MGConfDataStore(MOSTUSEDCOUNTER_GCONFKEY);
 }
 
 MostUsedCounter::~MostUsedCounter ()

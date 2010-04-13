@@ -9,7 +9,7 @@
 #include "dcpappletdb.h"
 
 #include "ft_dcpappletdb.h"
-#include <DuiGConfItem>
+#include <MGConfItem>
 #include "dcpappletobject-fake.h"
 
 #include "dcpdebug.h"
@@ -64,7 +64,7 @@ Ft_DcpAppletDb::resetUsageCounters ()
      * assume it is installed.
      */
     retval = system (
-            "gconftool-2 --recursive-unset /apps/duicontrolpanel/usagecount");
+            "gconftool-2 --recursive-unset /apps/mcontrolpanel/usagecount");
     if (retval == -1)
         DCP_WARNING ("Failed resetting usage counters: %m");
 }

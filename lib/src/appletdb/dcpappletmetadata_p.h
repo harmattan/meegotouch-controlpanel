@@ -3,7 +3,7 @@
 
 #include <QFileInfo>
 #include <QDateTime>
-#include <DuiDesktopEntry>
+#include <MDesktopEntry>
 class DcpAppletMetadata;
 
 class DcpAppletMetadataPrivate
@@ -14,7 +14,7 @@ public:
 
     // last modification time of the desktop entry:
     QTime m_LastModified;
-    DuiDesktopEntry* m_DesktopEntry;
+    MDesktopEntry* m_DesktopEntry;
     DcpAppletMetadata *m_Parent;
     QString m_FileName;
     bool m_Disabled;
@@ -55,9 +55,9 @@ const QString Keys[KeyCount] = {
 
     "DCP/Text2",
     "DCP/Image",
-    "DUI/X-DUIApplet-Applet",
-    "DUI/X-DUIApplet-Dslfile",
-    "DUI/X-DUIApplet-ApplicationCommand",
+    "M/X-MApplet-Applet",
+    "M/X-MApplet-Dslfile",
+    "M/X-MApplet-ApplicationCommand",
 
     "Desktop Entry/Name",
     "Desktop Entry/X-logical-id",

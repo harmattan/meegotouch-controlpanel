@@ -1,8 +1,8 @@
 #include "testwidget.h"
 
 TestWidget::TestWidget(QString const &text, 
-                       DuiWidget *parent) : 
-    DuiLabel(text, parent) {
+                       MWidget *parent) : 
+    MLabel(text, parent) {
 }
 
 TestWidget::~TestWidget() {

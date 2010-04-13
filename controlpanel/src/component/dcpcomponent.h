@@ -1,10 +1,10 @@
 #ifndef DCPCOMPONENT_H
 #define DCPCOMPONENT_H
 
-#include <DuiWidget>
+#include <MWidget>
 #include <Pages>
 
-class DcpComponent : public DuiWidget
+class DcpComponent : public MWidget
 {
     Q_OBJECT
     Q_PROPERTY (QString mattiID READ mattiID WRITE setMattiID)

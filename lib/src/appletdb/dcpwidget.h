@@ -4,7 +4,7 @@
 #ifndef DCPWIDGET_H
 #define DCPWIDGET_H
 
-#include <DuiWidget>
+#include <MWidget>
 
 class DcpWidgetPrivate;
 
@@ -17,7 +17,7 @@ class DcpWidgetPrivate;
  * (sometimes called pages).
  */
 
-class DcpWidget: public DuiWidget 
+class DcpWidget: public MWidget 
 {
     Q_OBJECT
 

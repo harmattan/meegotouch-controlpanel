@@ -29,7 +29,7 @@ void Ft_DcpAppletObject::initTestCase()
 {
     int argc = 1;
     char *appname = (char*) "./ft_dcpappletobject";
-    m_app = new DuiApplication(argc, &appname);
+    m_app = new MApplication(argc, &appname);
 }
 
 void Ft_DcpAppletObject::cleanupTestCase()

@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
-#include <DuiLocale>
+#include <MLocale>
 
 #include "dcpappletmetadata.h"
 #include "dcpappletmetadata_p.h"
@@ -34,7 +34,7 @@ DcpAppletMetadata::DcpAppletMetadata (
     DCP_DEBUG ("*** filename = '%s'", DCP_STR(filename));
 
     d_ptr->m_FileName = filename;
-    d_ptr->m_DesktopEntry = new DuiDesktopEntry(filename);
+    d_ptr->m_DesktopEntry = new MDesktopEntry(filename);
     d_ptr->m_LastModified = QFileInfo(filename).lastModified().time();
 }
 
@@ -82,7 +82,7 @@ DcpAppletMetadata::category () const
 }
 
 /*!
- * Returns the value of the "DUI/X-DUIApplet-Applet" key from the desktop file.
+ * Returns the value of the "M/X-MApplet-Applet" key from the desktop file.
  * This is the binary applet file name, a file name of the shared object
  * containing the binary code of the applet.
  */
@@ -99,7 +99,7 @@ DcpAppletMetadata::dslFilename () const
 }
 
 /*!
- * Returns the value of the "DUI/X-DUIApplet-ApplicationCommand" key from the
+ * Returns the value of the "M/X-MApplet-ApplicationCommand" key from the
  * desktop file. This is the application command that will be executed when the
  * applet is activated.
  */
@@ -121,7 +121,7 @@ DcpAppletMetadata::hasApplicationCommand () const
 /*
  * Returns the full path of the applet plugin filename, that is the name of the
  * shared object, that contains the applet binary program or if the 
- * "X-DUIApplet-Applet" field of the desktop file is empty returns the empty
+ * "X-MApplet-Applet" field of the desktop file is empty returns the empty
  * string.
  */
 QString
@@ -196,8 +196,8 @@ DcpAppletMetadata::toggle () const
 
 /*! @brief The name of the catalog file which contains the applet's translation
  *
- *  @returns For example duicontrolpanel-languageapplet if the translations are
- *  in the following files: duicontrolpanel-languageapplet_en_GB.qm ...
+ *  @returns For example mcontrolpanel-languageapplet if the translations are
+ *  in the following files: mcontrolpanel-languageapplet_en_GB.qm ...
  */
 QString
 DcpAppletMetadata::translationCatalog() const
@@ -281,7 +281,7 @@ DcpAppletMetadata::incrementUsage()
     );
 }
 
-DuiDesktopEntry *
+MDesktopEntry *
 DcpAppletMetadata::desktopEntry () const
 {
     return d_ptr->m_DesktopEntry;

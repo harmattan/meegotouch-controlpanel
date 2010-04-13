@@ -1,7 +1,7 @@
 #ifndef DCPPAGE_H
 #define DCPPAGE_H
 
-#include <DuiApplicationPage>
+#include <MApplicationPage>
 #include <Pages>
 
 class QGraphicsLinearLayout;
@@ -10,7 +10,7 @@ class QGraphicsLinearLayout;
  * FIXME: This is a public hader, it should not contain inline functions and
  * class members that are subject to change.
  */
-class DcpPage : public DuiApplicationPage
+class DcpPage : public MApplicationPage
 {
     Q_OBJECT
 

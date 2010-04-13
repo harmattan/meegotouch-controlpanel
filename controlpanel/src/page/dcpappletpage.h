@@ -7,8 +7,8 @@
 
 class DcpWidget;
 class DcpAppletObject;
-class DuiLabel;
-class DuiAction;
+class MLabel;
+class MAction;
 
 class DcpAppletPage : public DcpPage
 {
@@ -38,7 +38,7 @@ private:
     DcpAppletObject   *m_Applet;
     int m_WidgetId;
     DcpWidget           *m_MainWidget;
-    DuiLabel            *m_MissingLabel;
+    MLabel            *m_MissingLabel;
 };
 
 #endif

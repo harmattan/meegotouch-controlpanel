@@ -1,17 +1,17 @@
 /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 
-#include "duicontrolpanelservice.h"
+#include "mcontrolpanelservice.h"
 #include "pagefactory.h"
 
-#include "duicontrolpanelifadaptor.h"
+#include "mcontrolpanelifadaptor.h"
 #include <QtDebug>
 
-static const char* serviceName = "com.nokia.DuiControlPanel";
+static const char* serviceName = "com.nokia.MControlPanel";
 
 #include "dcpdebug.h"
 
-DuiControlPanelService::DuiControlPanelService ()
+MControlPanelService::MControlPanelService ()
 {
     DCP_DEBUG ("");
     // by default open the main page:
@@ -19,7 +19,7 @@ DuiControlPanelService::DuiControlPanelService ()
     mainPage();
 
     // memory owned by QDBusAbstractAdaptor instance and must be on the heap
-    new DuiControlPanelIfAdaptor(this);
+    new MControlPanelIfAdaptor(this);
 
     QDBusConnection connection = QDBusConnection::sessionBus();
 
@@ -33,7 +33,7 @@ DuiControlPanelService::DuiControlPanelService ()
 }
 
 bool
-DuiControlPanelService::appletPage (
+MControlPanelService::appletPage (
         const QString& appletName)
 {
 
@@ -47,7 +47,7 @@ DuiControlPanelService::appletPage (
 }
 
 void
-DuiControlPanelService::sheduleStart (
+MControlPanelService::sheduleStart (
                 const PageHandle &handle)
 {
     DCP_DEBUG ("");
@@ -59,7 +59,7 @@ DuiControlPanelService::sheduleStart (
 }
 
 void
-DuiControlPanelService::categoryPage (const QString& category)
+MControlPanelService::categoryPage (const QString& category)
 {
     DCP_DEBUG ("");
     Q_UNUSED (category);
@@ -72,7 +72,7 @@ DuiControlPanelService::categoryPage (const QString& category)
 }
 
 void
-DuiControlPanelService::mainPage()
+MControlPanelService::mainPage()
 {
     DCP_DEBUG ("");
     PageHandle handle;
@@ -84,7 +84,7 @@ DuiControlPanelService::mainPage()
 // this method gets called after mainwindow has been created,
 // so after it has been called, the pages can be created for real
 void
-DuiControlPanelService::createStartPage()
+MControlPanelService::createStartPage()
 {
     DCP_DEBUG ("");
     // createStartPage should not be called twice

@@ -4,7 +4,7 @@
 #include <QString>
 #include <QObject>
 
-struct DuiGConfItemPrivate: public QObject
+struct MGConfItemPrivate: public QObject
 {
     Q_OBJECT
 public:

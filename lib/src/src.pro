@@ -1,5 +1,5 @@
 TEMPLATE      = lib
-CONFIG       += plugin gui dui debug
+CONFIG       += plugin gui m debug
 INCLUDEPATH  += $$system(find ./ -type d)
 MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects
@@ -13,7 +13,7 @@ include(service_interface/service_interface.pri)
 HEADERS += $$system(find ./ -name \'*.h\')
 SOURCES += $$system(find ./ -name \'*.cpp\' -not -name \'moc_*\')
 
-TARGET        = $$qtLibraryTarget(duicontrolpanel)
+TARGET        = $$qtLibraryTarget(mcontrolpanel)
 DESTDIR       = ../lib
 
 # disable debugging:
@@ -48,13 +48,13 @@ install_headers.files += $$system(echo include/D*) \
     widget/dcpspaceritem.h \
     dcpdebug.h \
     dcpretranslator.h \
-    service_interface/duicontrolpanelif.h \
-    service_interface/duicontrolpanelifproxy.h
+    service_interface/mcontrolpanelif.h \
+    service_interface/mcontrolpanelifproxy.h
 
 message ("Install headers:" $$install_headers.files)
 
 install_prf.path = $$[QT_INSTALL_DATA]/mkspecs/features
-install_prf.files = duicontrolpanel.prf
+install_prf.files = mcontrolpanel.prf
 
 INSTALLS += target install_headers install_prf
 

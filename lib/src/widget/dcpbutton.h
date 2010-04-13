@@ -3,53 +3,53 @@
 #ifndef DCPBUTTON_H
 #define DCPBUTTON_H
 
-#include <DuiWidget>
+#include <MWidget>
 
-class DuiLabel;
+class MLabel;
 class QGraphicsLayout;
 class QGraphicsGridLayout;
 class QGraphicsSceneMouseEvent;
 class DcpButtonPrivate;
 
 /*
- * This DcpButton class is originally based on the DuiStylableWidget class, but
+ * This DcpButton class is originally based on the MStylableWidget class, but
  * the actual style was not implemented. When I implemented the elements needed
  * for the actual style it turned out that the libdui is crashing. I believe the
  * bug is in the libdui, I found no actual example of a class based on the
- * DuiStylableWidget. I did not want to delete the style stuff, so started to
+ * MStylableWidget. I did not want to delete the style stuff, so started to
  * use the USE_STYLABLE_WIDGET. Please define this macro to check if the 
- * DuiStylableWidget is working. until such a time we can use the DuiWidget
+ * MStylableWidget is working. until such a time we can use the MWidget
  * instead.
  */
 #ifdef USE_STYLABLE_WIDGET
-#include <DuiStylableWidget>
-class DUI_EXPORT DcpButtonStyle : public DuiWidgetStyle
+#include <MStylableWidget>
+class M_EXPORT DcpButtonStyle : public MWidgetStyle
 {
     Q_OBJECT
-    DUI_STYLE(DcpButtonStyle)
+    M_STYLE(DcpButtonStyle)
 
-    DUI_STYLE_ATTRIBUTE(bool,    drawTiledHorizontal, DrawTiledHorizontal)
+    M_STYLE_ATTRIBUTE(bool,    drawTiledHorizontal, DrawTiledHorizontal)
 };
 
-class DUI_EXPORT DcpButtonStyleContainer : public DuiWidgetStyleContainer
+class M_EXPORT DcpButtonStyleContainer : public MWidgetStyleContainer
 {
-    DUI_STYLE_CONTAINER(DcpButtonStyle)
+    M_STYLE_CONTAINER(DcpButtonStyle)
 };
 #endif
 
 /*!
  * \brief Widget used as part of the brief widget.
  *
- * The #DcpButton is a widget the DuiControlpanel uses as part of the brief
+ * The #DcpButton is a widget the MControlpanel uses as part of the brief
  * widgets representing one applet variant in the main page and the category
  * pages of the control panel UI.
  * TODO if design stays the way it is we could use here an empty
  * WidgetController which supports margins set by css
  */
 #ifdef USE_STYLABLE_WIDGET
-class DcpButton: public DuiStylableWidget
+class DcpButton: public MStylableWidget
 #else
-class DcpButton: public DuiWidget
+class DcpButton: public MWidget
 #endif
 {
     Q_OBJECT
@@ -57,7 +57,7 @@ class DcpButton: public DuiWidget
     Q_PROPERTY (QString text2 READ getText2 WRITE setText2)
 
 public:
-    explicit DcpButton (DuiWidget* parent = 0);
+    explicit DcpButton (MWidget* parent = 0);
     ~DcpButton ();
 
     void setText (const QString& text1, const QString& text2);
@@ -70,7 +70,7 @@ signals:
     void clicked();
 
 protected:
-    DcpButton (DuiWidget *parent, bool);
+    DcpButton (MWidget *parent, bool);
     virtual QGraphicsLayout *createLayout();
     QGraphicsGridLayout *textLayout ();
     virtual void mousePressEvent (QGraphicsSceneMouseEvent *event);
@@ -80,7 +80,7 @@ private:
     void updateLabelSizes();
     DcpButtonPrivate * const d_ptr;
     #ifdef USE_STYLABLE_WIDGET
-    DUI_STYLABLE_WIDGET (DcpButtonStyle)
+    M_STYLABLE_WIDGET (DcpButtonStyle)
     #endif
 };
 

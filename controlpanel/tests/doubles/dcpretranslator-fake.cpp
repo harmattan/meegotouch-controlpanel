@@ -32,7 +32,7 @@ DcpRetranslator::retranslate ()
 
 void
 DcpRetranslator::loadAppletTranslation (
-        DuiLocale                &,
+        MLocale                &,
         const DcpAppletMetadata  *metadata)
 {
     QString catalog = metadata->translationCatalog();

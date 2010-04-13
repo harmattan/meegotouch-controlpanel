@@ -9,7 +9,7 @@ style.path = $$DCP_THEME_DIR/style
 svg.files += theme/svg/*
 svg.path = $$DCP_THEME_DIR/svg
 
-conf.files += theme/duicontrolpanel.conf
+conf.files += theme/mcontrolpanel.conf
 conf.path = $$DCP_THEME_DIR
 
 message ("Theme path will be: "$$DCP_THEME_DIR)

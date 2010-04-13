@@ -1,8 +1,8 @@
 #ifndef DCPBUTTONIMAGE_P
 #define DCPBUTTONIMAGE_P
-class DuiImageWidget;
+class MImageWidget;
 class DcpButtonImagePrivate {
 public:
-    DuiImageWidget *image;
+    MImageWidget *image;
 };
 #endif // DCPBUTTONIMAGE_P

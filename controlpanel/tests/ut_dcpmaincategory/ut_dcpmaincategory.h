@@ -22,7 +22,7 @@ private slots:
     void testAppendWidget(); 
     void testMaxColums(); 
     void testGetItemCount(); 
-    void testDuiLayout(); 
+    void testMLayout(); 
     void testHorizontalSpacing(); 
     void testVerticalSpacing(); 
     void testCreateSeparators(); 

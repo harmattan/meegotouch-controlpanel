@@ -2,13 +2,13 @@
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #include "dcpmaincategory.h"
 
-#include <DuiLayout>
-#include <DuiGridLayoutPolicy>
-#include <DuiLinearLayoutPolicy>
-#include <DuiSceneManager>
+#include <MLayout>
+#include <MGridLayoutPolicy>
+#include <MLinearLayoutPolicy>
+#include <MSceneManager>
 
 #include <QtDebug>
-#include <DuiSeparator>
+#include <MSeparator>
 
 #include "dcpdebug.h"
 
@@ -24,11 +24,11 @@ DcpMainCategory::DcpMainCategory (
     m_ItemCount (0),
     m_CreateSeparators (false)
 {
-    m_Layout = new DuiLayout (this);
+    m_Layout = new MLayout (this);
     m_Layout->setAnimation(0);
 
-    m_LandscapeLayout = new DuiGridLayoutPolicy (m_Layout);
-    m_PortraitLayout = new DuiLinearLayoutPolicy (m_Layout, Qt::Vertical);
+    m_LandscapeLayout = new MGridLayoutPolicy (m_Layout);
+    m_PortraitLayout = new MLinearLayoutPolicy (m_Layout, Qt::Vertical);
     
     m_Layout->setLandscapePolicy (m_LandscapeLayout);
     m_Layout->setPortraitPolicy (m_PortraitLayout);
@@ -44,7 +44,7 @@ DcpMainCategory::deleteItems ()
     m_ItemCount = m_RowCount = m_ColCount = 0;
 
     // delete all items in all policies:
-    foreach (DuiAbstractLayoutPolicy* policy, m_Layout->registeredPolicies()){
+    foreach (MAbstractLayoutPolicy* policy, m_Layout->registeredPolicies()){
         for (int i = policy->count() - 1; i >= 0; i--){
             QGraphicsWidget* widget = (QGraphicsWidget*)
                                       (policy->itemAt(i)->graphicsItem());
@@ -116,7 +116,7 @@ DcpMainCategory::incrementRowAndCol ()
 void
 DcpMainCategory::appendSeparatorsIfNeeded ()
 {
-    DuiSeparator  *separator;
+    MSeparator  *separator;
 
     DCP_DEBUG ("");
 
@@ -139,7 +139,7 @@ DcpMainCategory::appendSeparatorsIfNeeded ()
      * Adding as much separators as needed to get to the next row.
      */
     do {
-        separator = new DuiSeparator (this);
+        separator = new MSeparator (this);
         separator->setObjectName (SeparatorObjectName);
         /*
          * We will not add the separator to the m_PortraitLayout, we don't want

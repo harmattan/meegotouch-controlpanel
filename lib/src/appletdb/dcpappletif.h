@@ -4,13 +4,13 @@
 #include <QtPlugin>
 
 class DcpWidget;
-class DuiAction;
+class MAction;
 class DcpBrief;
 
 /*!
- * \brief Applet interface for DuiControlPanel applets.
+ * \brief Applet interface for MControlPanel applets.
  *
- * The class implements the basic communication API between the DuiControlPanel
+ * The class implements the basic communication API between the MControlPanel
  * and the control panel applet. 
  */
 class DcpAppletIf 
@@ -47,12 +47,12 @@ public:
      * \brief Menu items that applet can provide in the main menu of the 
      *   applet page
      */
-    virtual QVector <DuiAction *> viewMenuItems () = 0;
+    virtual QVector <MAction *> viewMenuItems () = 0;
 
     /*!
      * \brief The Brief view of the applet
      * \detais Brief widget is the button-look on category pages of
-     *   DuiControlpanel It displays the applet name and the current value.
+     *   MControlpanel It displays the applet name and the current value.
      *   Value must be provided and formatted by the applet implementation.
      *   Clicking on the widget displays the applet itself.
      */
@@ -73,7 +73,7 @@ public:
     virtual int interfaceVersion() { return 1; }
 };
 
-Q_DECLARE_INTERFACE (DcpAppletIf, "com.nokia.dui.core.DcpAppletIf/1.0")
+Q_DECLARE_INTERFACE (DcpAppletIf, "com.nokia.m.core.DcpAppletIf/1.0")
 
 #endif
 

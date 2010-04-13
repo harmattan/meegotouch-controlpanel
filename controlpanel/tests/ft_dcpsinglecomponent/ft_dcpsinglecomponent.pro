@@ -1,5 +1,5 @@
 include(../common_top.pri)
-CONFIG += dui duicontrolpanel
+CONFIG += m mcontrolpanel
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
 INCLUDEPATH += ../doubles 
 INCLUDEPATH += $$LIBDCPSRC/appletdb 
@@ -13,12 +13,12 @@ TEST_SOURCES = \
     ../doubles/dcppage-fake.cpp \
     ../doubles/dcpcomponent-fake.cpp \
     ../doubles/dcpappletplugin-fake.cpp \
-    ../doubles/duidesktopentry-fake.cpp \
-    ../doubles/duigconfitem-fake.cpp \
-    ../doubles/duicontentitem-fake.cpp \
-    ../doubles/duiapplication-fake.cpp \
-    ../doubles/duiapplicationpage-fake.cpp \
-    ../doubles/duiapplicationwindow-fake.cpp \
+    ../doubles/mdesktopentry-fake.cpp \
+    ../doubles/mgconfitem-fake.cpp \
+    ../doubles/mcontentitem-fake.cpp \
+    ../doubles/mapplication-fake.cpp \
+    ../doubles/mapplicationpage-fake.cpp \
+    ../doubles/mapplicationwindow-fake.cpp \
 
 # unit test and unit
 SOURCES += \

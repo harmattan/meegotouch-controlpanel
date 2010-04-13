@@ -5,7 +5,7 @@
 #include "pages.h"
 
 #include <QGraphicsLinearLayout>
-#include <DuiContentItem>
+#include <MContentItem>
 
 
 #include "dcpdebug.h"
@@ -21,8 +21,8 @@ DcpSingleComponent::DcpSingleComponent (
 
     QGraphicsLinearLayout* layout;
     
-    m_Item = new DuiContentItem(subTitle.isEmpty() ? DuiContentItem::SingleTextLabel:
-                                DuiContentItem::TwoTextLabels);
+    m_Item = new MContentItem(subTitle.isEmpty() ? MContentItem::SingleTextLabel:
+                                MContentItem::TwoTextLabels);
     setTitle(title);
     if (!subTitle.isEmpty())
         setSubtitle(subTitle);

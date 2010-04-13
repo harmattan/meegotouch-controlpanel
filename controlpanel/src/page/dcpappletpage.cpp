@@ -9,15 +9,15 @@
 #include <DcpAppletObject>
 #include <DcpRetranslator>
 
-#include <DuiLabel>
-#include <DuiLocale>
-#include <DuiApplication>
-#include <DuiAction>
+#include <MLabel>
+#include <MLocale>
+#include <MApplication>
+#include <MAction>
 
 #include "dcpdebug.h"
 
-#include "duiwidgetcreator.h"
-DUI_REGISTER_WIDGET_NO_CREATE(DcpAppletPage)
+#include "mwidgetcreator.h"
+M_REGISTER_WIDGET_NO_CREATE(DcpAppletPage)
 
 DcpAppletPage::DcpAppletPage (DcpAppletObject *applet, int widgetId):
     DcpPage (),
@@ -123,7 +123,7 @@ DcpAppletPage::load ()
      */
     if (!m_MissingLabel) {
         //% "Plugin not available"
-        m_MissingLabel = new DuiLabel (qtTrId("dcp_no_applet_name"));
+        m_MissingLabel = new MLabel (qtTrId("dcp_no_applet_name"));
         m_MissingLabel->setAlignment (Qt::AlignCenter);
         appendWidget (m_MissingLabel);
         //% "Missing plugin"
@@ -191,7 +191,7 @@ DcpAppletPage::loadWidget (int widgetId)
              m_Applet, SLOT (activatePluginByName (const QString &)));
 
     // add the actions:
-    foreach (DuiAction* action, m_Applet->applet()->viewMenuItems()) {
+    foreach (MAction* action, m_Applet->applet()->viewMenuItems()) {
         addAction(action);
     }
 
