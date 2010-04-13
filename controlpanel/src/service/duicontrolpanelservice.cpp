@@ -59,10 +59,10 @@ DuiControlPanelService::sheduleStart (
 }
 
 void
-DuiControlPanelService::categoryPage (
-        const QString& category)
+DuiControlPanelService::categoryPage (const QString& category)
 {
     DCP_DEBUG ("");
+    Q_UNUSED (category);
     /* FIXME implement it
     PageHandle handle (PageHandle::APPLETCATEGORY, category, 0, true);
     sheduleStart(handle);

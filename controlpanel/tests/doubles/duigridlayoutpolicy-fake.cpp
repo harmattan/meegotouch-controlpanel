@@ -1,5 +1,11 @@
 #include <duigridlayoutpolicy.h>
 
+/*
+ * Fake GridLayoutPolicy.
+ * It makes you able to launch the tests without X, but does not handle the
+ * list of items currently.
+ */
+
 DuiGridLayoutPolicy::DuiGridLayoutPolicy(DuiLayout* p): DuiAbstractLayoutPolicy(p){}
 DuiGridLayoutPolicy::~DuiGridLayoutPolicy(){}
 int DuiGridLayoutPolicy::rowCount() const{ return 0; }

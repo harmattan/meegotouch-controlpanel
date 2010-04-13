@@ -4,9 +4,8 @@
 #ifndef MAINTRANSLATIONS_H
 #define MAINTRANSLATIONS_H
 
-typedef struct _DcpCategoryInfo DcpCategoryInfo;
 #include "pages.h"
-#include <DuiLocale>
+#include <QtGlobal>
 
 /*!
  * A structure that describes an applet category that should appear inside the
@@ -21,7 +20,7 @@ typedef struct _DcpCategoryInfo DcpCategoryInfo;
  * staticEelements: An array pointer to the category infos that should be added
  *   to the category. 
  */
-struct _DcpCategoryInfo
+struct DcpCategoryInfo
 {
     const char               *titleId;
     const char               *appletCategory;
@@ -32,7 +31,7 @@ struct _DcpCategoryInfo
 namespace DcpMain {
    extern const DcpCategoryInfo CategoryInfos[];
    extern const char *settingsTitleId;
-   extern const char *mostRecentUsedTitleId;
+   extern const DcpCategoryInfo mostUsedCategory;
    extern const char *otherCategoriesTitleId;
    extern const char *quitMenuItemTextId;
 };
@@ -50,6 +49,7 @@ dcp_find_category_info (
 bool
 dcp_category_name_enlisted (
         const QString           &name);
+
 #endif
 
 

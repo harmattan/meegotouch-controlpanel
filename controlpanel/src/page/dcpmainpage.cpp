@@ -135,14 +135,11 @@ DcpMainPage::createContentsLate ()
      * # gconftool-2 --recursive-unset /apps/duicontrolpanel/usagecount
      * to test this piece of code.
      */
-    m_RecentlyComp = new DcpCategoryComponent (
-            0,
-            DcpApplet::MostUsedCategory,
-            DcpMain::mostRecentUsedTitleId);
+    m_RecentlyComp = new DcpCategoryComponent (0, &DcpMain::mostUsedCategory,
+                                               centralWidget());
 
     if (!m_RecentlyComp->getItemCount()) {
         m_RecentlyComp->hide();
-        m_RecentlyComp->setParentItem(centralWidget());
     } else {
         mainLayout ()->insertItem (0,m_RecentlyComp);
         m_RecentlyComp->show();

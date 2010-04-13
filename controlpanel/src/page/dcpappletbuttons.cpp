@@ -12,35 +12,15 @@
 #include <DuiGridLayoutPolicy>
 #include <DuiLinearLayoutPolicy>
 #include <DcpRetranslator>
+#include "maintranslations.h"
 
 #include "dcpdebug.h"
-
-/*!
- * \class DcpAppletButtons
- * \brief A container which contains buttons that represents the applets.
- */
-DcpAppletButtons::DcpAppletButtons (
-        const QString      &logicalId,
-        const QString      &categoryName,
-        const QString      &title,
-        QGraphicsWidget    *parent) 
-: DcpMainCategory (title, parent, logicalId), 
-    m_CategoryName (categoryName),
-    m_LogicalId (logicalId),
-    m_CategoryInfo (0)
-{
-    setCreateSeparators (true);
-    setMaxColumns (2);
-    createContents();
-    setMattiID ("DcpAppletButtons::" + logicalId + "::" + categoryName);
-}
 
 DcpAppletButtons::DcpAppletButtons (
         const DcpCategoryInfo  *categoryInfo,
         const QString          &title,
         QGraphicsWidget        *parent)
 : DcpMainCategory (title, parent, categoryInfo->titleId),
-    m_CategoryName (categoryInfo->appletCategory),
     m_CategoryInfo (categoryInfo)
 {
     setCreateSeparators (true);
@@ -62,22 +42,17 @@ DcpAppletButtons::createContents ()
      * this widget.
      */
     DcpAppletMetadataList metadatas;
-    if (logicalId() == DcpMain::mostRecentUsedTitleId) {
+    if (m_CategoryInfo == &DcpMain::mostUsedCategory) {
         metadatas = DcpAppletDb::instance()->listMostUsed ();
     } else {
         bool        withUncategorized;
         const char *names[3];
 
-        withUncategorized = m_CategoryInfo && 
+        withUncategorized =
             m_CategoryInfo->subPageId == PageHandle::Applications;
 
-        if (m_CategoryInfo) {
-            names[0] = m_CategoryInfo->titleId;
-            names[1] = m_CategoryInfo->appletCategory;
-        } else {
-            names[0] = DCP_STR (m_LogicalId);
-            names[1] = DCP_STR (m_CategoryName);
-        }
+        names[0] = m_CategoryInfo->titleId;
+        names[1] = m_CategoryInfo->appletCategory;
         names[2] = 0;
 
         metadatas = DcpAppletDb::instance()->listByCategory (names, 2,
