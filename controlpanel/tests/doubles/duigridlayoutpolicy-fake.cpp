@@ -2,8 +2,10 @@
 
 /*
  * Fake GridLayoutPolicy.
- * It makes you able to launch the tests without X, but does not handle the
- * list of items currently.
+ * It makes you able to launch the tests without X.
+ *
+ * ! It does not handle the list of items currently.
+ * ! If you use this, you will also need to use duiabstractlayoutpolicy-fake.cpp
  */
 
 DuiGridLayoutPolicy::DuiGridLayoutPolicy(DuiLayout* p): DuiAbstractLayoutPolicy(p){}

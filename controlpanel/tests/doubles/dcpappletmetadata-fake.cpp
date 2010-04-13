@@ -1,6 +1,14 @@
 #include "dcpappletmetadata.h"
 #include "dcpappletmetadata_p.h"
 
+/* Fake appletmetadata
+ *
+ * Works like a real one, but not using desktop files.
+ * The returned values will be <filename>-<valuetype>, for example
+ * the name will be "test-name" for an applet which was called with
+ * "test" as filename in its constructor.
+ */
+
 DcpAppletMetadataPrivate::DcpAppletMetadataPrivate ()
     :
       m_DesktopEntry (0),

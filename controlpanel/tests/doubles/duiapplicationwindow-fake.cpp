@@ -2,6 +2,10 @@
 #include "duiapplicationpage.h"
 #include "duiapplication.h"
 
+/*
+ * See header on what this is about.
+ */
+
 DuiApplicationWindow::DuiApplicationWindow():
     DuiWindow(),
     m_CurrentPage(0)

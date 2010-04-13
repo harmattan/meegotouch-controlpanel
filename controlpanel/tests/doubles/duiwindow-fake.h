@@ -1,6 +1,12 @@
 #ifndef DUIWINDOW_H
 #define DUIWINDOW_H
 
+/* Fake DuiWindow
+ *
+ * See duiapplicationwindow.h on details of how to use it.
+ *
+ */
+
 class DuiWindow: public QObject {
     public:
         void raise();

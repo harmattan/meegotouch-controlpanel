@@ -3,10 +3,31 @@
 #ifndef DCPAPPLETDB_FAKE_H
 #define DCPAPPLETDB_FAKE_H
 
+/* Fake appletdb
+ *
+ * Works like a real db which contains by default two plugins from which only
+ * one gets returned for mostUsed items.
+ * More applets can be added with addFile which will always succeed.
+ *
+ * If you need to fake the db, consider using also:
+ * - dcpappletmetadata-fake.cpp, so you can avoid using DuiDesktopEntry
+ *   and .desktop files
+ *
+ */
+
 #include "dcpappletdb.h"
 #include "dcpappletdb_p.h"
 #include "dcpappletmetadata.h"
 #include "dcpappletobject.h"
+
+static void createTestApplet(DcpAppletDbPrivate* d_ptr, const QString& name)
+{
+    DcpAppletMetadata* metadata = new DcpAppletMetadata(name);
+    DcpAppletObject* applet = new DcpAppletObject (metadata);
+    d_ptr->appletsByName[metadata->name()] = metadata;
+    d_ptr->appletsByFile[metadata->fileName()] = metadata;
+    d_ptr->appletObjectsByName[metadata->name()] = applet;
+}
 
 DcpAppletDb::DcpAppletDb (
         const QString   &pathName,
@@ -15,13 +36,14 @@ DcpAppletDb::DcpAppletDb (
     Q_UNUSED(pathName);
     Q_UNUSED(nameFilter);
 
-    // a test plugin:
-    DcpAppletMetadata* metadata = new DcpAppletMetadata("fake");
-    DcpAppletObject* applet = new DcpAppletObject (metadata);
-    d_ptr->appletsByName[metadata->name()] = metadata;
-    d_ptr->appletsByFile[metadata->fileName()] = metadata;
-    d_ptr->appletObjectsByName[metadata->name()] = applet;
- }
+    /*
+     * by default the fake db contains 2 test applets:
+     * - test
+     * - mostUsed (which is only returned with the most used list
+     */
+    createTestApplet(d_ptr, "test");
+    createTestApplet(d_ptr, "mostUsed");
+}
 
 DcpAppletDb *
 DcpAppletDb::instance (
@@ -39,7 +61,7 @@ DcpAppletDb::instance (
 bool
 DcpAppletDb::addFile(const QString& filename)
 {
-    Q_UNUSED(filename);
+    createTestApplet(d_ptr, filename);
     return true;
 }
 
@@ -59,16 +81,21 @@ DcpAppletDb::addFiles (
     Q_UNUSED(filter);
     return true;
 }
-DcpAppletMetadataList 
+
+DcpAppletMetadataList
 DcpAppletDb::listByCategory (
         const char **category,
         int          n_categories,
         checkCategory   checkFunction)
 {
-    Q_UNUSED(category);
-    Q_UNUSED(n_categories);
     Q_UNUSED(checkFunction);
-    return d_ptr->appletsByFile.values();
+    DcpAppletMetadataList list;
+    foreach(DcpAppletMetadata* m, d_ptr->appletsByFile.values()) {
+        if (n_categories && category[1] == m->category()) {
+            list.append (m);
+        }
+    }
+    return list;
 }
 
 DcpAppletMetadataList
@@ -76,14 +103,7 @@ DcpAppletDb::listMostUsed ()
 {
    static DcpAppletMetadataList mostUsed;
    if (mostUsed.isEmpty()) {
-       // a test plugin:
-       DcpAppletMetadata* metadata = new DcpAppletMetadata("mostUsed");
-       DcpAppletObject* applet = new DcpAppletObject (metadata);
-       d_ptr->appletsByName[metadata->name()] = metadata;
-       d_ptr->appletsByFile[metadata->fileName()] = metadata;
-       d_ptr->appletObjectsByName[metadata->name()] = applet;
-
-       mostUsed.append (metadata);
+       mostUsed.append (applet("mostUsed-name")->metadata());
    }
    return mostUsed;
 }
@@ -96,8 +116,7 @@ DcpAppletDb::applet (
     if (d_ptr->appletObjectsByName[name] != 0) {
         return d_ptr->appletObjectsByName[name];
     }
-    DcpAppletMetadata* metadata = new DcpAppletMetadata(name);
-    return new DcpAppletObject(metadata);
+    return 0;
 }
 
 #endif // DCPAPPLETDB_FAKE_H

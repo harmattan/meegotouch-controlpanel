@@ -8,14 +8,17 @@
 #include <duilinearlayoutpolicy.h>
 #include <DcpAppletMetadata>
 
-// a fake category info
-static const DcpCategoryInfo fakeInfo =
+#define fakeInfo DcpMain::CategoryInfos[0]
+
+/* a nonexistent category */
+const DcpCategoryInfo zeroCategory =
 {
-    QT_TRID_NOOP ("qtn_sett_main_look"),
-    "Fake Look & Feel",
-    PageHandle::LOOKANDFEEL,
-    0
+    "qtn_bla_bla",
+    "zero-category",
+    PageHandle::NOPAGE,
+    NULL
 };
+
 
 void Ut_DcpAppletButtons::init()
 {
@@ -36,12 +39,12 @@ void Ut_DcpAppletButtons::cleanupTestCase()
 void Ut_DcpAppletButtons::testCreation()
 {
     // if we create with a category other then mostrecentused
-    DcpAppletButtons buttons1(&fakeInfo, "fake-category");
+    DcpAppletButtons buttons1(&fakeInfo, "test-category");
     QCOMPARE (&fakeInfo, buttons1.m_CategoryInfo);
     //      -> checks if the right widgets were added to the layout:
     QCOMPARE (buttons1.m_PortraitLayout->count(), 1);
     QCOMPARE (((DcpComponent*)buttons1.m_PortraitLayout->itemAt(0))->title(),
-              QString("fake-name"));
+              QString("test-name"));
 
     // if we create with mostrecentused
     DcpAppletButtons buttons2(&DcpMain::mostUsedCategory, "MostUsed");
@@ -55,21 +58,21 @@ void Ut_DcpAppletButtons::testCreation()
 void Ut_DcpAppletButtons::testAddComponent()
 {
     // create an empty appletbuttons:
-    DcpAppletButtons buttons1(&fakeInfo, "null");
+    DcpAppletButtons buttons1(&zeroCategory, "null");
     QCOMPARE (buttons1.m_PortraitLayout->count(), 0);
 
     // add a button:
-    DcpAppletMetadata* metadata = new DcpAppletMetadata("fake");
+    DcpAppletMetadata* metadata = new DcpAppletMetadata("test");
     buttons1.addComponent(metadata);
     QCOMPARE (buttons1.m_PortraitLayout->count(), 1);
     QCOMPARE (((DcpComponent*)buttons1.m_PortraitLayout->itemAt(0))->title(),
-              QString("fake-name"));
+              QString("test-name"));
 }
 
 void Ut_DcpAppletButtons::testReload()
 {
     // create an empty appletbuttons:
-    DcpAppletButtons buttons1(&fakeInfo, "null");
+    DcpAppletButtons buttons1(&zeroCategory, "null");
     QCOMPARE (buttons1.m_PortraitLayout->count(), 0);
 
     // change the categoryname to the test one and reload:
@@ -78,14 +81,18 @@ void Ut_DcpAppletButtons::testReload()
     buttons1.reload();
     QCOMPARE (buttons1.m_PortraitLayout->count(), 1);
     QCOMPARE (((DcpComponent*)buttons1.m_PortraitLayout->itemAt(0))->title(),
-              QString("fake-name"));
+              QString("test-name"));
 
     // change to mostuseditems and reload: applet count should stay the same,
     // but the one applet changes
     buttons1.m_CategoryInfo = &DcpMain::mostUsedCategory;
     buttons1.reload();
-    QCOMPARE (buttons1.m_PortraitLayout->count(), 1);
-    QCOMPARE (((DcpComponent*)buttons1.m_PortraitLayout->itemAt(0))->title(),
+
+    // note, this is 2 because the widgets are deleted with deleteLater
+    // and there is no eventloop :(
+    // not sure how to fix it
+    QCOMPARE (buttons1.m_PortraitLayout->count(), 2);
+    QCOMPARE (((DcpComponent*)buttons1.m_PortraitLayout->itemAt(1))->title(),
               QString("mostUsed-name"));
 }
 

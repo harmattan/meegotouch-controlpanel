@@ -5,6 +5,8 @@
  * With this source you can fake the linear layout policy,
  * so it will only handle a list of items for you, and it will not require
  * you to use X for testing.
+ *
+ * ! If you use this, you will also need to use duiabstractlayoutpolicy-fake.cpp
  */
 
 DuiLinearLayoutPolicy::DuiLinearLayoutPolicy(DuiLayout* p, Qt::Orientation):

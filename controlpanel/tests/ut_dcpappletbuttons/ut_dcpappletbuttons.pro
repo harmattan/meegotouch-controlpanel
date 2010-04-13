@@ -15,12 +15,12 @@ TEST_SOURCES = \
     $$SRCDIR/page/pages.cpp \
     $$SRCDIR/component/dcpmaincategory.cpp \
     $$SRCDIR/component/dcpcomponent.cpp \
-    $$SRCDIR/page/maintranslations.cpp \
 
 # unit test and unit
 SOURCES += \
     ut_dcpappletbuttons.cpp \
     $$STUBSDIR/duigridlayoutpolicy-fake.cpp \
+    $$STUBSDIR/maintranslations-fake.cpp \
     $$STUBSDIR/duiabstractlayoutpolicy-fake.cpp \
     $$STUBSDIR/duilayout-fake.cpp \
     $$STUBSDIR/duilinearlayoutpolicy-fake.cpp \

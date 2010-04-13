@@ -1,12 +1,32 @@
 #include "duilayout.h"
 
+/* A fake duilayout
+ *
+ * Can be used to create tests which run without X.
+ * It does nothing, handles nothing.
+ *
+ * If you use it, consider using one of the fake policies:
+ * - duigridlayoutpolicy-fake.cpp
+ * - duilinearlayoutpolicy-fake.cpp
+ *
+ */
+
+#include <duiabstractlayoutpolicy.h>
+
+class DuiLayoutPrivate
+{
+public:
+    QList<DuiAbstractLayoutPolicy*> policies;
+};
+
 DuiLayout::DuiLayout(QGraphicsLayoutItem *) :
-    d_ptr(0)
+    d_ptr(new DuiLayoutPrivate)
 {
 }
 
 DuiLayout::~DuiLayout()
 {
+     delete d_ptr;
 }
 
 void DuiLayout::invalidate()
@@ -64,8 +84,13 @@ int DuiLayout::addItem(QGraphicsLayoutItem *)
     return 0;
 }
 
-void DuiLayout::removeItem(const QGraphicsLayoutItem *const)
+void DuiLayout::removeItem(const QGraphicsLayoutItem *const item)
 {
+    // this is necessery, because the item removes itself from the
+    // policies through the layout when it gets destroyed
+    foreach (DuiAbstractLayoutPolicy* layout, d_ptr->policies) {
+        layout->removeItem(item);
+    }
 }
 
 int DuiLayout::indexOf(const QGraphicsItem *) const
