@@ -5,6 +5,7 @@ class DuiLayoutFake
 public:
     DuiAbstractLayoutPolicy *portraitPolicy;
     DuiAbstractLayoutPolicy *landscapePolicy;
+    DuiLayoutAnimation *animation;
 };
 
 DuiLayoutFake f;
@@ -121,13 +122,14 @@ QList<DuiAbstractLayoutPolicy *> DuiLayout::registeredPolicies() const
     return QList<DuiAbstractLayoutPolicy *>();
 }
 
-void DuiLayout::setAnimation(DuiLayoutAnimation *)
+void DuiLayout::setAnimation(DuiLayoutAnimation *animation)
 {
+    f.animation = animation;
 }
 
 DuiLayoutAnimation *DuiLayout::animation() const
 {
-    return 0;
+    return f.animation;
 }
 
 void DuiLayout::setContentsMargins(qreal, qreal, qreal, qreal)
