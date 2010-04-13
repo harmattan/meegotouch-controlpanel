@@ -13,7 +13,7 @@ MOC_DIR = .moc
 HEADERS += $$system(find ./ -name \'*.h\')
 SOURCES += $$system(find ./ -name \'*.cpp\')
 
-CONFIG += plugin gui dui silent debug
+CONFIG += plugin gui meegotouch silent debug
 LIBS += -lduicontrolpanel
 
 # a fake check target so as not to stop the testing:

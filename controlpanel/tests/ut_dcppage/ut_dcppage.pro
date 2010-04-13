@@ -1,5 +1,7 @@
 include(../common_top.pri)
-CONFIG += m
+
+CONFIG += meegotouch
+
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
 INCLUDEPATH += $$system(find $$SRCDIR/../../lib/src/ -type d)
 

@@ -19,7 +19,7 @@ HEADERS += $$system(find ./ -name \'*.h\')
 HEADERS += include/*
 SOURCES += $$system(find ./ -name \'*.cpp\')
 
-CONFIG += m build_all warn_on debug
+CONFIG += meegotouch build_all warn_on debug
 LIBS += -lduicontrolpanel
 
 # a fake check target so as not to stop the testing:

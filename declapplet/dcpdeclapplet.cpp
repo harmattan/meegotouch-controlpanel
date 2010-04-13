@@ -1,6 +1,6 @@
 #include "dcpdeclapplet.h"
 #include <QDebug>
-#include <DuiAction>
+#include <MAction>
 #include "dcpdeclwidget.h"
 #include "dcpdeclbrief.h"
 
@@ -27,9 +27,9 @@ QString DcpDeclApplet::title() const
     return QString(); // TODO
 }
 
-QVector<DuiAction*> DcpDeclApplet::viewMenuItems()
+QVector<MAction*> DcpDeclApplet::viewMenuItems()
 {
-    QVector<DuiAction*> vector;
+    QVector<MAction*> vector;
     return vector;
 }
 

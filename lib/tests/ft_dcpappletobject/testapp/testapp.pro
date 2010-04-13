@@ -9,7 +9,7 @@ INCLUDEPATH += $$system(find $$SRCDIR -type d)
 
 TARGET = ft_dcpappletobject
 
-CONFIG += m
+CONFIG += meegotouch
 
 DATADIR = /usr/lib/duicontrolpanel-tests/ft_dcpappletobject-data
 DEFINES += APPLET_LIBS=\\\"$$DATADIR\\\" DATADIR=\\\"$$DATADIR\\\" DESKTOP_DIR=\\\"$$DATADIR\\\" MOSTUSEDCOUNTER_GCONFKEY=\\\"/apps/duicontrolpanel/usagecount\\\"

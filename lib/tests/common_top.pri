@@ -8,7 +8,7 @@ DEPENDPATH = $$INCLUDEPATH
 
 QMAKE_LIBDIR += ../../lib/ /usr/lib/
 
-CONFIG += debug
+CONFIG += debug meegotouch
 
 QT += testlib
 

@@ -1,6 +1,7 @@
 include(../common_top.pri)
 
-CONFIG -= app_bundle
+CONFIG += meegotouch
+
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
 INCLUDEPATH += $${LIBDCPINCLUDE}
 APPLETDBINCLUDE = $${LIBDCPINCLUDE}/../appletdb
