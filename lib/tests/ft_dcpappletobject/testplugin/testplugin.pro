@@ -17,7 +17,7 @@ SOURCES = \
 
 TARGET = $$qtLibraryTarget(testapplet)
 
-DATADIR = /usr/lib/mcontrolpanel-tests/ft_dcpappletobject-data
+DATADIR = /usr/lib/duicontrolpanel-tests/ft_dcpappletobject-data
 
 DEFINES += DATADIR=\\\"$$DATADIR\\\"
 

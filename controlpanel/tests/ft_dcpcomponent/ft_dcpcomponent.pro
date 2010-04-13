@@ -1,6 +1,6 @@
 include(../common_top.pri)
 
-CONFIG += mcontrolpanel
+CONFIG += duicontrolpanel
  
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
 INCLUDEPATH += $$LIBDCPINCLUDE 

@@ -20,7 +20,7 @@
 
 DcpWrongApplets* DcpWrongApplets::sm_Instance = 0;
 bool DcpWrongApplets::sm_Disabled = false;
-const QString keyPath = "/apps/mcontrolpanel/badplugins";
+const QString keyPath = "/apps/duicontrolpanel/badplugins";
 
 
 /*******************************************************************************
@@ -34,7 +34,7 @@ backtrace_line_is_an_applet (
         const char     **start,
         const char     **end)
 {
-    *start = strstr(line, "/usr/lib/mcontrolpanel/applets/");
+    *start = strstr(line, "/usr/lib/duicontrolpanel/applets/");
     if (*start == 0)
         return false;
 
@@ -74,7 +74,7 @@ some_crash_happened (
     /*
      * Let's print the backtrace from the stack.
      */
-    fprintf (stderr, "--- Crash backtrace of MControlPanel ---\n");
+    fprintf (stderr, "--- Crash backtrace of DuiControlPanel ---\n");
     for (size_t i = 0; i < backtrace_size; i++) {
         fprintf (stderr, "%03u %s\n", i, backtrace_strings[i]);
     }

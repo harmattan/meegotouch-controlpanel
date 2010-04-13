@@ -196,8 +196,8 @@ DcpAppletMetadata::toggle () const
 
 /*! @brief The name of the catalog file which contains the applet's translation
  *
- *  @returns For example mcontrolpanel-languageapplet if the translations are
- *  in the following files: mcontrolpanel-languageapplet_en_GB.qm ...
+ *  @returns For example duicontrolpanel-languageapplet if the translations are
+ *  in the following files: duicontrolpanel-languageapplet_en_GB.qm ...
  */
 QString
 DcpAppletMetadata::translationCatalog() const

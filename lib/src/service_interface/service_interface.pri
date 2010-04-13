@@ -9,6 +9,6 @@ system(m-servicefwgen com.nokia.DuiControlPanelIf)
 # we need. I leave it here in case someone needs it, will be removed soon.
 #
 #system(qdbusxml2cpp -c DuiControlPanelIfProxy \
-#    -p mcontrolpanelifproxy.h:mcontrolpanelifproxy.cpp \
+#    -p duicontrolpanelifproxy.h:duicontrolpanelifproxy.cpp \
 #    $$XML)
 

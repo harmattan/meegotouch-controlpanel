@@ -1,17 +1,17 @@
 /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 
-#ifndef MCONTROLPANELSERVICE_H
-#define MCONTROLPANELSERVICE_H
+#ifndef DUICONTROLPANELSERVICE_H
+#define DUICONTROLPANELSERVICE_H
 
 #include <QObject>
 #include "pages.h"
 
-class MControlPanelService: public QObject
+class DuiControlPanelService: public QObject
 {
     Q_OBJECT
 public:
-    MControlPanelService();
+    DuiControlPanelService();
     void createStartPage();
 
 public Q_SLOTS:

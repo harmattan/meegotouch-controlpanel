@@ -10,18 +10,18 @@
 {
 	DCP_PREFIX = /usr
 	DCP_INSTALL_LIB = $$DCP_PREFIX/lib
-	DCP_INSTALL_HEADERS = $$DCP_PREFIX/include/mcontrolpanel
-	DCP_THEME_DIR = $$DCP_PREFIX/share/themes/base/m/mcontrolpanel
+	DCP_INSTALL_HEADERS = $$DCP_PREFIX/include/duicontrolpanel
+	DCP_THEME_DIR = $$DCP_PREFIX/share/themes/base/m/duicontrolpanel
 	DCP_CSS_DIR = $$DCP_THEME_DIR/style/
-	DCP_DESKTOP_DIR = $$DCP_PREFIX/lib/mcontrolpanel
-	DCP_APPLET_DIR = $$DCP_PREFIX/lib/mcontrolpanel/applets
-	DCP_UIDESC_DIR = $$DCP_PREFIX/lib/mcontrolpanel/uidescriptions
+	DCP_DESKTOP_DIR = $$DCP_PREFIX/lib/duicontrolpanel
+	DCP_APPLET_DIR = $$DCP_PREFIX/lib/duicontrolpanel/applets
+	DCP_UIDESC_DIR = $$DCP_PREFIX/lib/duicontrolpanel/uidescriptions
 	DCP_TRANSLATIONS_DIR = $$DCP_PREFIX/share/l10n/m
 }
 
 # Gconf keys 
 {
-	DCP_MOSTUSEDCOUNTER_GCONFKEY = /apps/mcontrolpanel/usagecount
+	DCP_MOSTUSEDCOUNTER_GCONFKEY = /apps/duicontrolpanel/usagecount
 }
 
 # defines for directories, they work cross-platform like this

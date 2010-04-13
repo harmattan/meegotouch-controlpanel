@@ -1,5 +1,5 @@
 include(../common_top.pri)
-CONFIG += m mcontrolpanel
+CONFIG += meegotouch duicontrolpanel
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
 INCLUDEPATH += ../doubles 
 INCLUDEPATH += $$LIBDCPSRC/appletdb 

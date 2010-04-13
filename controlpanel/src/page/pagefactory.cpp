@@ -313,7 +313,7 @@ PageFactory::registerPage (
 /*!
  * This function will be called when the current page has been changed. It will
  * maintain a list of pages so the pagefactory will always know what pages are
- * in the stack. This is needed so the mcontrolpanel can page back to a
+ * in the stack. This is needed so the duicontrolpanel can page back to a
  * requested page.
  */
 void

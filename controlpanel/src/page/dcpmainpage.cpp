@@ -22,7 +22,7 @@ M_REGISTER_WIDGET_NO_CREATE(DcpMainPage)
 
 /*!
  * \class DcpMainPage
- * \brief The main page of mcontrolpanel.
+ * \brief The main page of duicontrolpanel.
  *
  * Displays a list of the applet categories and emits a signal if one of them is
  * to be opened.  Also has a recent used items list at the top, which contains
@@ -132,7 +132,7 @@ DcpMainPage::createContentsLate ()
     /*
      * Creating the most recent used items.
      * Use
-     * # gconftool-2 --recursive-unset /apps/mcontrolpanel/usagecount
+     * # gconftool-2 --recursive-unset /apps/duicontrolpanel/usagecount
      * to test this piece of code.
      */
     m_RecentlyComp = new DcpCategoryComponent (0, &DcpMain::mostUsedCategory,

@@ -13,7 +13,7 @@ include(service_interface/service_interface.pri)
 HEADERS += $$system(find ./ -name \'*.h\')
 SOURCES += $$system(find ./ -name \'*.cpp\' -not -name \'moc_*\')
 
-TARGET        = $$qtLibraryTarget(mcontrolpanel)
+TARGET        = $$qtLibraryTarget(duicontrolpanel)
 DESTDIR       = ../lib
 
 # disable debugging:
@@ -48,13 +48,13 @@ install_headers.files += $$system(echo include/D*) \
     widget/dcpspaceritem.h \
     dcpdebug.h \
     dcpretranslator.h \
-    service_interface/mcontrolpanelif.h \
-    service_interface/mcontrolpanelifproxy.h
+    service_interface/duicontrolpanelif.h \
+    service_interface/duicontrolpanelifproxy.h
 
 message ("Install headers:" $$install_headers.files)
 
 install_prf.path = $$[QT_INSTALL_DATA]/mkspecs/features
-install_prf.files = mcontrolpanel.prf
+install_prf.files = duicontrolpanel.prf
 
 INSTALLS += target install_headers install_prf
 

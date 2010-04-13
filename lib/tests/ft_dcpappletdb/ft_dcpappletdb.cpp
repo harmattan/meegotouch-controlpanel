@@ -64,7 +64,7 @@ Ft_DcpAppletDb::resetUsageCounters ()
      * assume it is installed.
      */
     retval = system (
-            "gconftool-2 --recursive-unset /apps/mcontrolpanel/usagecount");
+            "gconftool-2 --recursive-unset /apps/duicontrolpanel/usagecount");
     if (retval == -1)
         DCP_WARNING ("Failed resetting usage counters: %m");
 }

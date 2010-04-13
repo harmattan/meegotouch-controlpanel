@@ -8,9 +8,9 @@ class MAction;
 class DcpBrief;
 
 /*!
- * \brief Applet interface for MControlPanel applets.
+ * \brief Applet interface for DuiControlPanel applets.
  *
- * The class implements the basic communication API between the MControlPanel
+ * The class implements the basic communication API between the DuiControlPanel
  * and the control panel applet. 
  */
 class DcpAppletIf 
@@ -52,7 +52,7 @@ public:
     /*!
      * \brief The Brief view of the applet
      * \detais Brief widget is the button-look on category pages of
-     *   MControlpanel It displays the applet name and the current value.
+     *   DuiControlpanel It displays the applet name and the current value.
      *   Value must be provided and formatted by the applet implementation.
      *   Clicking on the widget displays the applet itself.
      */

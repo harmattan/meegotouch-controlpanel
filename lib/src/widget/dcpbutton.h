@@ -40,7 +40,7 @@ class M_EXPORT DcpButtonStyleContainer : public MWidgetStyleContainer
 /*!
  * \brief Widget used as part of the brief widget.
  *
- * The #DcpButton is a widget the MControlpanel uses as part of the brief
+ * The #DcpButton is a widget the DuiControlpanel uses as part of the brief
  * widgets representing one applet variant in the main page and the category
  * pages of the control panel UI.
  * TODO if design stays the way it is we could use here an empty

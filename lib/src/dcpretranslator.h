@@ -14,7 +14,7 @@ typedef QList<DcpAppletMetadata*> DcpAppletMetadataList;
  *  \details MApplication's localeSettingsChanged signal should be connected
  *  on the retranslate slot, which loads the new translation.
  *  Also handles loading applet translations, they just should have the filename
- *  "mcontrolpanel-<appletname>.qm"
+ *  "duicontrolpanel-<appletname>.qm"
  *
  * Widgets have to define their retranslateUi() virtual function properly, so
  * that changes (new translations) could be shown immediately. */

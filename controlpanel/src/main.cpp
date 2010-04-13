@@ -8,7 +8,7 @@
 #include <DcpRetranslator>
 #include <MApplication>
 #include <MLocale>
-#include "service/mcontrolpanelservice.h"
+#include "service/duicontrolpanelservice.h"
 #include "dcpappletdb.h"
 #include "appleterrorsdialog.h"
 #include "dcpwrongapplets.h"
@@ -46,7 +46,7 @@ startSupervising()
          * applet disabled. Please note that the child process will end up with
          * these signals only if it found a fawlty applet. It catches all these
          * signals and it will call exit() if the crash happened inside the
-         * mcontrolpanel code.
+         * duicontrolpanel code.
          */
         if (WIFSIGNALED(result)) {
             switch (WTERMSIG(result)) {
@@ -97,7 +97,7 @@ startApplication (int argc, char* argv[])
                      DcpRetranslator::instance(), SLOT(retranslate()));
 
     // init servicefw api:
-    MControlPanelService* service = new MControlPanelService();
+    DuiControlPanelService* service = new DuiControlPanelService();
 
     // mainwindow:
     MApplicationWindow win;

@@ -1,6 +1,6 @@
 QT += testlib
 SRCDIR = ../../../src
-DCP_TESTS_INSTALL_LIB = /usr/lib/mcontrolpanel-tests                
+DCP_TESTS_INSTALL_LIB = /usr/lib/duicontrolpanel-tests                
 TARGET = ft_dcpappletobject
 target.path = $${DCP_TESTS_INSTALL_LIB}
 INSTALLS += target
@@ -11,8 +11,8 @@ TARGET = ft_dcpappletobject
 
 CONFIG += m
 
-DATADIR = /usr/lib/mcontrolpanel-tests/ft_dcpappletobject-data
-DEFINES += APPLET_LIBS=\\\"$$DATADIR\\\" DATADIR=\\\"$$DATADIR\\\" DESKTOP_DIR=\\\"$$DATADIR\\\" MOSTUSEDCOUNTER_GCONFKEY=\\\"/apps/mcontrolpanel/usagecount\\\"
+DATADIR = /usr/lib/duicontrolpanel-tests/ft_dcpappletobject-data
+DEFINES += APPLET_LIBS=\\\"$$DATADIR\\\" DATADIR=\\\"$$DATADIR\\\" DESKTOP_DIR=\\\"$$DATADIR\\\" MOSTUSEDCOUNTER_GCONFKEY=\\\"/apps/duicontrolpanel/usagecount\\\"
 
 
 # FIXME these dependencies should be eliminated

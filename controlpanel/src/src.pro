@@ -4,7 +4,7 @@ QMAKE_LIBDIR += ../../lib/lib/
 QMAKE_RPATH = -Wl
 message($$QMAKE_RPATH)
 TEMPLATE = app
-TARGET = ../mcontrolpanel
+TARGET = ../duicontrolpanel
 DEPENDPATH += include 
 INCLUDEPATH += $$DEPENDPATH ../../lib/src/include
 message($$INCLUDEPATH)
@@ -20,7 +20,7 @@ HEADERS += include/*
 SOURCES += $$system(find ./ -name \'*.cpp\')
 
 CONFIG += m build_all warn_on debug
-LIBS += -lmcontrolpanel
+LIBS += -lduicontrolpanel
 
 # a fake check target so as not to stop the testing:
 QMAKE_EXTRA_TARGETS += check
@@ -30,7 +30,7 @@ target.path += $$DCP_PREFIX/bin
 message("The install path for the executable will be: "$$target.path)
 
 desktop_entry.path = $$DCP_PREFIX/share/applications
-desktop_entry.files = mcontrolpanel.desktop
+desktop_entry.files = duicontrolpanel.desktop
 
 INSTALLS += target \
             desktop_entry
