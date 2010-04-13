@@ -1,5 +1,14 @@
 #include "duilayout.h"
 
+class DuiLayoutFake
+{
+public:
+    DuiAbstractLayoutPolicy *portraitPolicy;
+    DuiAbstractLayoutPolicy *landscapePolicy;
+};
+
+DuiLayoutFake f;
+
 DuiLayout::DuiLayout(QGraphicsLayoutItem *) :
     d_ptr(0)
 {
@@ -82,22 +91,24 @@ void DuiLayout::setPolicy(DuiAbstractLayoutPolicy *)
 {
 }
 
-void DuiLayout::setLandscapePolicy(DuiAbstractLayoutPolicy *)
+void DuiLayout::setLandscapePolicy(DuiAbstractLayoutPolicy *policy)
 {
+    f.landscapePolicy = policy;
 }
 
 DuiAbstractLayoutPolicy *DuiLayout::landscapePolicy() const
 {
-    return 0;
+    return f.landscapePolicy;
 }
 
-void DuiLayout::setPortraitPolicy(DuiAbstractLayoutPolicy *)
+void DuiLayout::setPortraitPolicy(DuiAbstractLayoutPolicy *policy)
 {
+    f.portraitPolicy = policy;
 }
 
 DuiAbstractLayoutPolicy *DuiLayout::portraitPolicy() const
 {
-    return 0;
+    return f.portraitPolicy;
 }
 
 DuiAbstractLayoutPolicy *DuiLayout::policy() const

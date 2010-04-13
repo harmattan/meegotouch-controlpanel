@@ -58,6 +58,7 @@ private:
     int m_ItemCount;
 
     bool m_CreateSeparators;
+    friend class Ut_DcpMainCategory;
 };
 
 #endif

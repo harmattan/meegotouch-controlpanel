@@ -5,6 +5,7 @@
 
 
 #include "ut_dcpmaincategory.h"
+#include <DuiLayout>
 
 void Ut_DcpMainCategory::init()
 {
@@ -27,7 +28,15 @@ void Ut_DcpMainCategory::cleanupTestCase()
 }
 void Ut_DcpMainCategory::testCreation()
 {
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+    QVERIFY(m_subject->m_Layout != 0);
+    QVERIFY(m_subject->m_Layout->animation() == 0);
+    QVERIFY(m_subject->m_LandscapeLayout != 0);
+    QVERIFY(m_subject->m_PortraitLayout != 0);
+    QCOMPARE((void*)(m_subject->m_Layout->landscapePolicy()),
+          (void*)(m_subject->m_LandscapeLayout));
+    QCOMPARE((void*)(m_subject->m_Layout->portraitPolicy()),
+          (void*)(m_subject->m_PortraitLayout));
+
 }
 
 void Ut_DcpMainCategory::testAppendWidget() 
