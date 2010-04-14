@@ -19,10 +19,6 @@ check-xml.target = check-xml
 check-xml.CONFIG = recursive
 QMAKE_EXTRA_TARGETS += check-xml
 
-
+coverage.depends = lib/src/Makefile
+coverage.commands = cd lib/src && make coverage
 QMAKE_EXTRA_TARGETS += coverage
-coverage.depends = lib/Makefile
-coverage.commands = cd lib && make coverage
-# dont want to make it CONFIG = recursive because other subdirs would need
-# a stub rule for this target
-
