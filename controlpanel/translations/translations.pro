@@ -10,6 +10,6 @@ LANGUAGES = ar de fi hu ur zh_CN
 CATALOGNAME = duicontrolpanel
 SOURCEDIR = $$PWD/..
 TRANSLATIONDIR = $$PWD
-TRANSLATION_INSTALLDIR = /usr/share/l10n/m
+TRANSLATION_INSTALLDIR = /usr/share/l10n/meegotouch
 include(../../translations.pri)
 
