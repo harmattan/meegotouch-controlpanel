@@ -55,9 +55,9 @@ const QString Keys[KeyCount] = {
 
     "DCP/Text2",
     "DCP/Image",
-    "M/X-MApplet-Applet",
-    "M/X-MApplet-Dslfile",
-    "M/X-MApplet-ApplicationCommand",
+    "DUI/X-DUIApplet-Applet",
+    "DUI/X-DUIApplet-Dslfile",
+    "DUI/X-DUIApplet-ApplicationCommand",
 
     "Desktop Entry/Name",
     "Desktop Entry/X-logical-id",

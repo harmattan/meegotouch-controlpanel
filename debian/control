@@ -2,27 +2,27 @@ Source: duicontrolpanel
 Section: devel
 Priority: extra
 Maintainer: Robert Manner <robert.manner@blumsoft.eu>
-Build-Depends: debhelper (>= 5), libdui-dev (>= 0.20), doxygen
+Build-Depends: debhelper (>= 5), libmeegotouch-dev (>= 0.20), doxygen
 Standards-Version: 3.7.2
 
 Package: libduicontrolpanel
 Section: libs
 Replaces: libduicontrolpanel-dev
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libdui0 (>= 0.20)
+Depends: ${shlibs:Depends}, ${misc:Depends}, libmeegotouchcore0 (>= 0.20), libmeegotouchsettings0, libmeegotouchviews0
 Description: library for the control panel application and its applets
 
 Package: libduicontrolpanel-dev
 Section: devel
 Architecture: any
-Depends: libduicontrolpanel (= ${Source-Version}), libdui-dev (>= 0.20)
+Depends: libduicontrolpanel (= ${Source-Version}), libmeegotouch-dev (>= 0.20)
 Description: Development files for the control panel application and its applets
 
 Package: duicontrolpanel
 Section: x11
 Architecture: any
 # removed: duicontrolpanel-l10n-fake (= ${Source-Version}),
-Depends: libdui0 (>= 0.20), ${shlibs:Depends}, ${misc:Depends}, libduicontrolpanel (= ${Source-Version}), duicontrolpanel-l10n-engineering-english (= ${Source-Version})
+Depends: ${shlibs:Depends}, ${misc:Depends}, libduicontrolpanel (= ${Source-Version}), duicontrolpanel-l10n-engineering-english (= ${Source-Version})
 Description: Control Panel
 
 Package: duicontrolpanel-dbg
