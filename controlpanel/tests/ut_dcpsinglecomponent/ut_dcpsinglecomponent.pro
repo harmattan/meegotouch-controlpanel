@@ -2,6 +2,7 @@ include(../common_top.pri)
 CONFIG += meegotouch duicontrolpanel
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
 INCLUDEPATH += ../doubles 
+INCLUDEPATH += $$LIBDCPSRC
 INCLUDEPATH += $$LIBDCPSRC/appletdb 
 
 TARGET = ut_dcpsinglecomponent
