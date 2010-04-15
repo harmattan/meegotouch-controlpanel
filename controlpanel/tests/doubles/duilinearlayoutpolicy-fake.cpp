@@ -15,7 +15,7 @@ DuiLinearLayoutPolicy::DuiLinearLayoutPolicy(DuiLayout* p, Qt::Orientation):
 
 DuiLinearLayoutPolicy::~DuiLinearLayoutPolicy(){}
 qreal DuiLinearLayoutPolicy::spacing() const{ return 0; }
-void DuiLinearLayoutPolicy::setSpacing(qreal){}
+void DuiLinearLayoutPolicy::setSpacing(qreal space){ DuiAbstractLayoutPolicy::setSpacing(space);}
 void DuiLinearLayoutPolicy::setItemSpacing(int, qreal){}
 qreal DuiLinearLayoutPolicy::itemSpacing(int) const{ return 0; }
 Qt::Orientation DuiLinearLayoutPolicy::orientation() const{ return Qt::Horizontal; }

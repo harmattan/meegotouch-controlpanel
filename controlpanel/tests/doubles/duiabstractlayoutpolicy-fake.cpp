@@ -12,6 +12,9 @@
 class DuiAbstractLayoutPolicyPrivate {
     public:
         QList<const QGraphicsLayoutItem*> items;
+        qreal horizontalSpacing;
+        qreal verticalSpacing;
+        qreal spacing;
 };
 
 DuiAbstractLayoutPolicy::DuiAbstractLayoutPolicy(DuiLayout*):
@@ -33,11 +36,28 @@ QSizeF DuiAbstractLayoutPolicy::sizeHint(Qt::SizeHint, const QSizeF &) const{ re
 void DuiAbstractLayoutPolicy::updateStyle(){}
 void DuiAbstractLayoutPolicy::setObjectName(const QString &){}
 QString DuiAbstractLayoutPolicy::objectName() const{ return ""; }
-void DuiAbstractLayoutPolicy::setHorizontalSpacing(qreal){}
-qreal DuiAbstractLayoutPolicy::horizontalSpacing() const{ return 0; }
-void DuiAbstractLayoutPolicy::setVerticalSpacing(qreal){}
-qreal DuiAbstractLayoutPolicy::verticalSpacing() const{ return 0; }
-void DuiAbstractLayoutPolicy::setSpacing(qreal){}
+void DuiAbstractLayoutPolicy::setHorizontalSpacing(qreal space)
+{
+    d_ptr->horizontalSpacing = space;
+}
+qreal DuiAbstractLayoutPolicy::horizontalSpacing() const
+{
+    return d_ptr->horizontalSpacing;
+}
+
+void DuiAbstractLayoutPolicy::setVerticalSpacing(qreal space)
+{
+    d_ptr->verticalSpacing = space;
+}
+
+qreal DuiAbstractLayoutPolicy::verticalSpacing() const
+{
+    return d_ptr->verticalSpacing;
+}
+void DuiAbstractLayoutPolicy::setSpacing(qreal space)
+{
+    d_ptr->spacing = space;
+}
 
 int DuiAbstractLayoutPolicy::count() const
 {
