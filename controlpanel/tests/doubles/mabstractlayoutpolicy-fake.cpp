@@ -12,6 +12,9 @@
 class MAbstractLayoutPolicyPrivate {
     public:
         QList<const QGraphicsLayoutItem*> items;
+        qreal horizontalSpacing;
+        qreal verticalSpacing;
+        qreal spacing;
 };
 
 MAbstractLayoutPolicy::MAbstractLayoutPolicy(MLayout*):
@@ -33,11 +36,28 @@ QSizeF MAbstractLayoutPolicy::sizeHint(Qt::SizeHint, const QSizeF &) const{ retu
 void MAbstractLayoutPolicy::updateStyle(){}
 void MAbstractLayoutPolicy::setObjectName(const QString &){}
 QString MAbstractLayoutPolicy::objectName() const{ return ""; }
-void MAbstractLayoutPolicy::setHorizontalSpacing(qreal){}
-qreal MAbstractLayoutPolicy::horizontalSpacing() const{ return 0; }
-void MAbstractLayoutPolicy::setVerticalSpacing(qreal){}
-qreal MAbstractLayoutPolicy::verticalSpacing() const{ return 0; }
-void MAbstractLayoutPolicy::setSpacing(qreal){}
+void MAbstractLayoutPolicy::setHorizontalSpacing(qreal space)
+{
+    d_ptr->horizontalSpacing = space;
+}
+qreal MAbstractLayoutPolicy::horizontalSpacing() const
+{
+    return d_ptr->horizontalSpacing;
+}
+
+void MAbstractLayoutPolicy::setVerticalSpacing(qreal space)
+{
+    d_ptr->verticalSpacing = space;
+}
+
+qreal MAbstractLayoutPolicy::verticalSpacing() const
+{
+    return d_ptr->verticalSpacing;
+}
+void MAbstractLayoutPolicy::setSpacing(qreal space)
+{
+    d_ptr->spacing = space;
+}
 
 int MAbstractLayoutPolicy::count() const
 {

@@ -6,6 +6,10 @@
 
 #include "ut_dcpmaincategory.h"
 #include <MLayout>
+#include <MAbstractLayoutPolicy>
+#include <MLinearLayoutPolicy>
+#include <MGridLayoutPolicy>
+#include <DcpComponent>
 
 void Ut_DcpMainCategory::init()
 {
@@ -41,47 +45,85 @@ void Ut_DcpMainCategory::testCreation()
 
 void Ut_DcpMainCategory::testAppendWidget() 
 {
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+    DcpComponent *component1 = new DcpComponent(0, "test");
+    QGraphicsLayoutItem *item1 = 0;
+    QGraphicsLayoutItem *item2 = 0;
+    int row = m_subject->m_RowCount;
+    int col = m_subject->m_ColCount;
+    int count = m_subject->m_ItemCount;
+    m_subject->appendWidget(component1);
+    item1 = m_subject->m_Layout->portraitPolicy()->itemAt(0);
+    QCOMPARE((void*)component1, (void*)(QGraphicsWidget*)item1);
+    item2 = m_subject->m_LandscapeLayout->itemAt(row, col);
+    QCOMPARE((void*)component1, (void*)(QGraphicsWidget*)item2);
+    QVERIFY(m_subject->m_ItemCount == count + 1);
+    delete component1;
 }
 
 void Ut_DcpMainCategory::testMaxColums() 
 {
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+    m_subject->setMaxColumns(2);
+    QVERIFY(m_subject->m_MaxColumns == 2);
+    QVERIFY(m_subject->maxColumns() == 2);
+    for (int col = 0; col < m_subject->m_MaxColumns; col++) 
+        QCOMPARE(m_subject->m_LandscapeLayout->columnStretchFactor(col), 1);
 }
 
 void Ut_DcpMainCategory::testGetItemCount() 
 {
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+    DcpComponent *component1 = new DcpComponent(0, "test");
+    m_subject->appendWidget(component1);
+    QVERIFY(m_subject->getItemCount() == 1);
+    
+    m_subject->appendWidget(component1);
+    QVERIFY(m_subject->getItemCount() == 2);
+
+    m_subject->appendWidget(component1);
+    QVERIFY(m_subject->getItemCount() == 3);
+    delete component1;
 }
 
 void Ut_DcpMainCategory::testMLayout() 
 {
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+    QVERIFY(m_subject->mLayout());
+    QCOMPARE((void*)m_subject->mLayout(), (void*)m_subject->m_Layout);
 }
 
 void Ut_DcpMainCategory::testHorizontalSpacing() 
 {
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+    m_subject->setHorizontalSpacing(10);
+    QVERIFY(m_subject->m_LandscapeLayout->horizontalSpacing() == 10);
 }
 
 void Ut_DcpMainCategory::testVerticalSpacing() 
 {
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+    m_subject->setVerticalSpacing(10);
+    QVERIFY(m_subject->m_LandscapeLayout->verticalSpacing() == 10);
 }
 
 void Ut_DcpMainCategory::testCreateSeparators() 
 {
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+    m_subject->setCreateSeparators(true);
+    QVERIFY(m_subject->m_CreateSeparators == true);
+    m_subject->setCreateSeparators(false);
+    QVERIFY(m_subject->m_CreateSeparators == false);
 }
 
 void Ut_DcpMainCategory::testDeleteItems() 
 {
+    DcpComponent *component1 = new DcpComponent(0, "test1");
+    m_subject->appendWidget(component1);
+    DcpComponent *component2 = new DcpComponent(0, "test2");
+    m_subject->appendWidget(component2);
+    QVERIFY(m_subject->m_PortraitLayout->count() != 0); 
+    m_subject->deleteItems();
     QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+    //QCOMPARE(m_subject->m_PortraitLayout->count(), 0); 
 }
 
 void Ut_DcpMainCategory::testCreateContents() 
 {
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+    //empty function
 }
 
 void Ut_DcpMainCategory::testAppendSeparatorsIfNeeded() 
@@ -91,7 +133,19 @@ void Ut_DcpMainCategory::testAppendSeparatorsIfNeeded()
 
 void Ut_DcpMainCategory::testIncrementRowAndCol() 
 {
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+    m_subject->setMaxColumns(2);
+    QVERIFY(m_subject->m_ColCount == 0 && m_subject->m_RowCount == 0);
+    m_subject->incrementRowAndCol();
+    QVERIFY(m_subject->m_ColCount == 1 && m_subject->m_RowCount == 0);
+    m_subject->incrementRowAndCol();
+    QVERIFY(m_subject->m_ColCount == 0 && m_subject->m_RowCount == 1);
+    m_subject->incrementRowAndCol();
+    QVERIFY(m_subject->m_ColCount == 1 && m_subject->m_RowCount == 1);
+    m_subject->incrementRowAndCol();
+    QVERIFY(m_subject->m_ColCount == 0 && m_subject->m_RowCount == 2);
+    m_subject->incrementRowAndCol();
+    QVERIFY(m_subject->m_ColCount == 1 && m_subject->m_RowCount == 2);
+    m_subject->incrementRowAndCol();
 }
 
 QTEST_APPLESS_MAIN(Ut_DcpMainCategory)

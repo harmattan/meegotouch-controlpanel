@@ -15,7 +15,7 @@ MLinearLayoutPolicy::MLinearLayoutPolicy(MLayout* p, Qt::Orientation):
 
 MLinearLayoutPolicy::~MLinearLayoutPolicy(){}
 qreal MLinearLayoutPolicy::spacing() const{ return 0; }
-void MLinearLayoutPolicy::setSpacing(qreal){}
+void MLinearLayoutPolicy::setSpacing(qreal space){ MAbstractLayoutPolicy::setSpacing(space);}
 void MLinearLayoutPolicy::setItemSpacing(int, qreal){}
 qreal MLinearLayoutPolicy::itemSpacing(int) const{ return 0; }
 Qt::Orientation MLinearLayoutPolicy::orientation() const{ return Qt::Horizontal; }
