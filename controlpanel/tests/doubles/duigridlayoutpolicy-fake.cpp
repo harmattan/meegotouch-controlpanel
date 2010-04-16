@@ -30,7 +30,10 @@ DuiGridLayoutPolicy::DuiGridLayoutPolicy(DuiLayout* p)
 
 DuiGridLayoutPolicy::~DuiGridLayoutPolicy(){}
 int DuiGridLayoutPolicy::rowCount() const{ return 0; }
-int DuiGridLayoutPolicy::columnCount() const{ return 0; }
+int DuiGridLayoutPolicy::columnCount() const
+{
+    return priv[this]->items.count(); // FALSE!! this is all of the items
+}
 void DuiGridLayoutPolicy::setRowSpacing(int row, qreal space)
 {
     priv[this]->rowSpacing[row] = space;

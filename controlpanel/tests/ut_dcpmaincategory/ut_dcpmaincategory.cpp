@@ -102,17 +102,27 @@ void Ut_DcpMainCategory::testVerticalSpacing()
 
 void Ut_DcpMainCategory::testCreateSeparators() 
 {
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+    m_subject->setCreateSeparators(true);
+    QVERIFY(m_subject->m_CreateSeparators == true);
+    m_subject->setCreateSeparators(false);
+    QVERIFY(m_subject->m_CreateSeparators == false);
 }
 
 void Ut_DcpMainCategory::testDeleteItems() 
 {
+    DcpComponent *component1 = new DcpComponent(0, "test1");
+    m_subject->appendWidget(component1);
+    DcpComponent *component2 = new DcpComponent(0, "test2");
+    m_subject->appendWidget(component2);
+    QVERIFY(m_subject->m_PortraitLayout->count() != 0); 
+    m_subject->deleteItems();
     QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+    //QCOMPARE(m_subject->m_PortraitLayout->count(), 0); 
 }
 
 void Ut_DcpMainCategory::testCreateContents() 
 {
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+    //empty function
 }
 
 void Ut_DcpMainCategory::testAppendSeparatorsIfNeeded() 
@@ -122,7 +132,19 @@ void Ut_DcpMainCategory::testAppendSeparatorsIfNeeded()
 
 void Ut_DcpMainCategory::testIncrementRowAndCol() 
 {
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+    m_subject->setMaxColumns(2);
+    QVERIFY(m_subject->m_ColCount == 0 && m_subject->m_RowCount == 0);
+    m_subject->incrementRowAndCol();
+    QVERIFY(m_subject->m_ColCount == 1 && m_subject->m_RowCount == 0);
+    m_subject->incrementRowAndCol();
+    QVERIFY(m_subject->m_ColCount == 0 && m_subject->m_RowCount == 1);
+    m_subject->incrementRowAndCol();
+    QVERIFY(m_subject->m_ColCount == 1 && m_subject->m_RowCount == 1);
+    m_subject->incrementRowAndCol();
+    QVERIFY(m_subject->m_ColCount == 0 && m_subject->m_RowCount == 2);
+    m_subject->incrementRowAndCol();
+    QVERIFY(m_subject->m_ColCount == 1 && m_subject->m_RowCount == 2);
+    m_subject->incrementRowAndCol();
 }
 
 QTEST_APPLESS_MAIN(Ut_DcpMainCategory)
