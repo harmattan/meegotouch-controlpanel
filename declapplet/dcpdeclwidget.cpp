@@ -11,7 +11,7 @@
 
 #include <dcpdebug.h>
 
-static const QString defaultPath = "/usr/lib/mcontrolpanel/uidescriptions/";
+static const QString defaultPath = "/usr/lib/duicontrolpanel/uidescriptions/";
 
 DcpDeclWidget::DcpDeclWidget(const QString& xmlPath)
 {
