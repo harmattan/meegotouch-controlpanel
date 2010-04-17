@@ -6,6 +6,7 @@
 
 #include "ut_dcpmaincategory.h"
 #include <MLayout>
+#include <MSeparator>
 #include <MAbstractLayoutPolicy>
 #include <MLinearLayoutPolicy>
 #include <MGridLayoutPolicy>
@@ -24,7 +25,6 @@ void Ut_DcpMainCategory::cleanup()
 
 void Ut_DcpMainCategory::initTestCase()
 {
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
 }
 
 void Ut_DcpMainCategory::cleanupTestCase()
@@ -117,7 +117,7 @@ void Ut_DcpMainCategory::testDeleteItems()
     m_subject->appendWidget(component2);
     QVERIFY(m_subject->m_PortraitLayout->count() != 0); 
     m_subject->deleteItems();
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+//    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
     //QCOMPARE(m_subject->m_PortraitLayout->count(), 0); 
 }
 
@@ -128,7 +128,43 @@ void Ut_DcpMainCategory::testCreateContents()
 
 void Ut_DcpMainCategory::testAppendSeparatorsIfNeeded() 
 {
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+    m_subject->setMaxColumns(2);
+    int col = m_subject->m_ColCount;
+    int row = m_subject->m_RowCount;
+    int itemCount = m_subject->m_ItemCount;
+    // case 1: no elements so no changes are expected
+    m_subject->setCreateSeparators(true);
+    m_subject->appendSeparatorsIfNeeded();
+    QCOMPARE(col, m_subject->m_ColCount);
+    QCOMPARE(row, m_subject->m_RowCount);
+    QCOMPARE(itemCount, m_subject->m_ItemCount);
+    // case 2: there are elements and we want separators
+    DcpComponent *component1 = new DcpComponent(0, "test1");
+    DcpComponent *component2 = new DcpComponent(0, "test2");
+    m_subject->appendWidget(component1);
+    m_subject->appendWidget(component2);
+    col = m_subject->m_ColCount;
+    row = m_subject->m_RowCount;
+    m_subject->appendSeparatorsIfNeeded();
+    QCOMPARE(m_subject->m_ColCount, 0);
+    QCOMPARE(m_subject->m_RowCount, row + 1);
+    MSeparator *separator1 = 0;
+    MSeparator *separator2 = 0;
+    separator1 = (MSeparator*)(m_subject->m_LandscapeLayout->itemAt(row, col));
+    separator2 = (MSeparator*)(m_subject->m_LandscapeLayout->itemAt(row, col + 1));
+    QVERIFY(separator1);
+    QVERIFY(separator2);
+    QCOMPARE(separator1->objectName(), m_subject->sm_SeparatorObjectName);
+    QCOMPARE(separator2->objectName(), m_subject->sm_SeparatorObjectName);
+    // case 3: there are elements, but we do not want separators
+    m_subject->setCreateSeparators(false);
+    col = m_subject->m_ColCount;
+    row = m_subject->m_RowCount;
+    itemCount = m_subject->m_ItemCount;
+    m_subject->appendSeparatorsIfNeeded();
+    QCOMPARE(col, m_subject->m_ColCount);
+    QCOMPARE(row, m_subject->m_RowCount);
+    QCOMPARE(itemCount, m_subject->m_ItemCount);
 }
 
 void Ut_DcpMainCategory::testIncrementRowAndCol() 
@@ -145,7 +181,6 @@ void Ut_DcpMainCategory::testIncrementRowAndCol()
     QVERIFY(m_subject->m_ColCount == 0 && m_subject->m_RowCount == 2);
     m_subject->incrementRowAndCol();
     QVERIFY(m_subject->m_ColCount == 1 && m_subject->m_RowCount == 2);
-    m_subject->incrementRowAndCol();
 }
 
 QTEST_APPLESS_MAIN(Ut_DcpMainCategory)

@@ -12,7 +12,7 @@
 
 #include "dcpdebug.h"
 
-static const QString SeparatorObjectName = "DcpSmallSeparator";
+const QString DcpMainCategory::sm_SeparatorObjectName = "DcpSmallSeparator";
 
 DcpMainCategory::DcpMainCategory (
         const QString &title, 
@@ -140,7 +140,7 @@ DcpMainCategory::appendSeparatorsIfNeeded ()
      */
     do {
         separator = new MSeparator (this);
-        separator->setObjectName (SeparatorObjectName);
+        separator->setObjectName (sm_SeparatorObjectName);
         /*
          * We will not add the separator to the m_PortraitLayout, we don't want
          * to see them in portrait mode.

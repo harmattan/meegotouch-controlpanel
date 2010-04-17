@@ -58,6 +58,7 @@ private:
     int m_ItemCount;
 
     bool m_CreateSeparators;
+    static const QString sm_SeparatorObjectName;
     friend class Ut_DcpMainCategory;
 };
 
