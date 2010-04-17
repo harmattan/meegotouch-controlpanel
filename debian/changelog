@@ -1,5 +1,6 @@
 duicontrolpanel (0.7.12) unstable; urgency=low
 
+  * Fixes: NB#164568 -  Setting the image for DcpBrief from a file is not possible
   * bump up
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 15 Apr 2010 14:54:57 +0200
