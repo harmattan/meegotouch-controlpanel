@@ -34,6 +34,13 @@ DcpSingleComponent::setTitle (const QString& title)
     Q_UNUSED(title);
 }
 
+QString
+DcpSingleComponent::title() const
+{
+    return "";
+}
+
+
 void
 DcpSingleComponent::setSubtitle (const QString& subTitle)
 {
