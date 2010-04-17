@@ -145,16 +145,38 @@ DcpAppletObject::text2 () const
 }
 
 /*!
- * FIXME: The name of this function is easy to misunderstand. It does not return
- * an image, and it is not clear if the string is a name or a filename.
- *
- * Found in dcpbriefwidget.cpp, this is an image name. It should be renamed as
- * such.
+ * Returns the icon name for the applet by calling the DcpBrief::icon() virtual
+ * method. If the applet returns the empty string (default implementation) the
+ * method will return the icon name provided in the desktop file.
+ */
+QString 
+DcpAppletObject::iconName() const
+{
+    QString retval;
+
+    if (brief())
+        retval = brief()->icon();
+
+    if (retval.isEmpty())
+        retval = metadata()->imageName();
+
+    DCP_DEBUG ("Returning %s", DCP_STR(retval));
+    return retval;
+}
+
+/*!
+ * Returns the image file name if the applet interface provides an image file
+ * name by implementing the DcpBrief::image() virtual function. If the applet
+ * does not implement this virtual method returns the empty string (default
+ * implementation).
  */
 QString 
 DcpAppletObject::imageName() const
 {
-    return (brief() ? brief()->image() : metadata()->imageName());
+    QString retval = brief() ? brief()->image() : QString();
+
+    DCP_DEBUG ("Returning %s", DCP_STR(retval));
+    return retval;
 }
 
 QString 

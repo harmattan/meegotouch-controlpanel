@@ -8,6 +8,8 @@
 #include <QGraphicsLinearLayout>
 #include <QtDebug>
 
+#include "dcpdebug.h"
+
 DcpButtonImage::DcpButtonImage (
         MWidget *parent)
 : DcpButtonAlign (parent), 
@@ -16,13 +18,40 @@ DcpButtonImage::DcpButtonImage (
     setLayout (createLayout());
 }
 
+/*!
+ * Calls MImageWidget::setImage() with the provided strings, in other words it
+ * sets the image from an icon name in the theme.
+ */
 void 
 DcpButtonImage::setImageName (
-        const QString &imageName)
+        const QString &iconName)
 {
     Q_ASSERT (imageWidget());
-    imageWidget()->setImage (imageName);
+    DCP_DEBUG("calling setImage(%s)", DCP_STR(iconName));
+    imageWidget()->setImage (iconName);
 }
+
+/*!
+ * Sets the image from an image file.
+ */
+void 
+DcpButtonImage::setImageFromFile (
+        const QString &fileName)
+{
+    bool    success;
+    QImage  image;
+
+    DCP_DEBUG("calling QImage::load(%s)", DCP_STR(fileName));
+    success = image.load (fileName);
+    if (!success) {
+        DCP_WARNING ("The image was not loaded from %s", DCP_STR(fileName));
+        return;
+    }
+
+    image = image.scaled(100, 100, Qt::KeepAspectRatio);
+    imageWidget()->setImage (image);
+}
+
 
 QGraphicsLayout *
 DcpButtonImage::createLayout ()
