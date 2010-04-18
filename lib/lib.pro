@@ -19,4 +19,4 @@ contains(DCP_BUILD_FEATURES,coverage) {
   QMAKE_EXTRA_TARGETS += coverage
   coverage.target = coverage
   coverage.CONFIG = recursive
-} 
+}

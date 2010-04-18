@@ -22,10 +22,9 @@ QMAKE_EXTRA_TARGETS += check-xml
 contains(DCP_BUILD_FEATURES,coverage) {
   QMAKE_EXTRA_TARGETS += coverage
   coverage.depends = lib/src/Makefile controlpanel/src/Makefile
-  #coverage.commands = cd lib && make coverage && cd ../../controlpanel/src && make coverage
   coverage.commands =      cd lib && make coverage && cd .. \
-                        && genhtml -o coverage/ lib/tests/ut*/selected.cov
-
+                        && cd controlpanel && make coverage && cd ..\
+                        && genhtml --legend -t \"libdcp and dcp unit test coverage\" -o coverage/ lib/tests/ut*/selected.cov controlpanel/tests/ut*/selected.cov
   QMAKE_DISTCLEAN += -r coverage/*
 }
 

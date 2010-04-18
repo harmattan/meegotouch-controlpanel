@@ -39,3 +39,7 @@ INSTALLS += target \
 # You can enable delayed applet loading with uncommenting this line:
 # DEFINES += DISABLE_DELAYED_LOADING
 
+contains(DCP_BUILD_FEATURES,coverage) {
+  QMAKE_EXTRA_TARGETS += coverage
+  coverage.commands = $$system(true)
+}
