@@ -19,12 +19,14 @@ TEST_SOURCES = \
 SOURCES += \
     ut_dcpmainpage.cpp \
     $$STUBSDIR/mapplicationpage-fake.cpp \
+    $$STUBSDIR/mapplication-fake.cpp \
     $$STUBSDIR/mapplicationwindow-fake.cpp \
     $$STUBSDIR/mgridlayoutpolicy-fake.cpp \
     $$STUBSDIR/maintranslations-fake.cpp \
     $$STUBSDIR/mabstractlayoutpolicy-fake.cpp \
     $$STUBSDIR/mlayout-fake.cpp \
     $$STUBSDIR/mlinearlayoutpolicy-fake.cpp \
+    $$STUBSDIR/mcontainer-fake.cpp \
     $$STUBSDIR/mgconfitem-fake.cpp \
     $$STUBSDIR/dcppage-fake.cpp \
     $$STUBSDIR/dcpcomponent-fake.cpp \

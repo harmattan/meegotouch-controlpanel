@@ -31,13 +31,13 @@ DcpSingleComponent::activate ()
 void
 DcpSingleComponent::setTitle (const QString& title)
 {
-    Q_UNUSED(title);
+    DcpComponent::setTitle(title);
 }
 
 QString
 DcpSingleComponent::title() const
 {
-    return "";
+    return DcpComponent::title();
 }
 
 

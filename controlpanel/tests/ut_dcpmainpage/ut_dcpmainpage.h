@@ -9,6 +9,7 @@
 
 Q_DECLARE_METATYPE(DcpMainPage*);
 
+class MApplication;
 class Ut_DcpMainPage : public QObject
 {
     Q_OBJECT
@@ -21,13 +22,14 @@ private slots:
     void testCreation();
     void testCreateContent();
     void testCreateContentLate();
-    void testReload();
+//    void testReload();
     void testShown();
-    void testBack();
+//    void testBack();
     void testRetranslateUi();
     void testHideEvent();
 private:
     DcpMainPage* m_subject;
+    MApplication *app;
 };
 
 #endif

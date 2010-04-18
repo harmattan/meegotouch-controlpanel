@@ -18,7 +18,7 @@ class MContainer;
  */
 class DcpCategoryComponent: public DcpComponent
 {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     DcpCategoryComponent (
@@ -39,7 +39,9 @@ public:
     // ! Can be misleading, because it returns the count of the items already
     // loaded
     int getItemCount ();
-
+//signals:
+    // emit after reloading contents
+  //  void reloaded(); 
 private:
     DcpAppletButtons *m_AppletButtons;
     const DcpCategoryInfo  *m_CategoryInfo;

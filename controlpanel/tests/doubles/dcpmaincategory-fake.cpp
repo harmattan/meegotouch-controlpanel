@@ -79,4 +79,3 @@ DcpMainCategory::maxColumns ()
     return 0;
 }
 
-

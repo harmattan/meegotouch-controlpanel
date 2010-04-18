@@ -41,6 +41,7 @@ private:
     bool                  m_HasContent;
     bool                  m_WasHidden;
     QList<DcpSingleComponent *> m_CategoryButtons;
+    friend class Ut_DcpMainPage;
 };
 
 #endif

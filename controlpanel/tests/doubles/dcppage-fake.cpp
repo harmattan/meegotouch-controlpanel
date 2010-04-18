@@ -2,13 +2,22 @@
 
 #include "dcppage.h"
 #include "pages.h"
+#include <MLayout>
+#include <QGraphicsLinearLayout>
 
 const PageHandle aHandle(PageHandle::MAIN);
 
 DcpPage::DcpPage() : MApplicationPage() 
 {
+    createLayout();
 }
 
+
+QGraphicsLinearLayout*
+DcpPage::mainLayout()
+{
+    return (QGraphicsLinearLayout*)(centralWidget()->layout());
+}
 
 void 
 DcpPage::createContent()
@@ -18,7 +27,8 @@ DcpPage::createContent()
 void
 DcpPage::createLayout ()
 {
-}
+    new QGraphicsLinearLayout (Qt::Vertical, centralWidget());     
+} 
 
 
 PageHandle 
@@ -77,9 +87,4 @@ DcpPage::reload ()
 {
 }
 
-QGraphicsLinearLayout *
-DcpPage::mainLayout ()
-{
-    return 0;
-}
 
