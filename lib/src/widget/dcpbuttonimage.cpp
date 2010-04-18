@@ -8,6 +8,8 @@
 #include <QGraphicsLinearLayout>
 #include <QtDebug>
 
+#include "dcpdebug.h"
+
 DcpButtonImage::DcpButtonImage (
         MWidget *parent)
 : DcpButtonAlign (parent), 
@@ -16,13 +18,50 @@ DcpButtonImage::DcpButtonImage (
     setLayout (createLayout());
 }
 
+/*!
+ * Calls MImageWidget::setImage() with the provided strings, in other words it
+ * sets the image from an icon name in the theme.
+ */
 void 
 DcpButtonImage::setImageName (
-        const QString &imageName)
+        const QString &iconName)
 {
     Q_ASSERT (imageWidget());
-    imageWidget()->setImage (imageName);
+    DCP_DEBUG("calling setImage(%s)", DCP_STR(iconName));
+    imageWidget()->setImage (iconName);
+    d_ptr->fileName = "";
 }
+
+/*!
+ * Sets the image from an image file.
+ */
+void 
+DcpButtonImage::setImageFromFile (
+        const QString &fileName)
+{
+    bool    success;
+    QImage  image;
+
+    /*
+     * The image file might be big, so we need a little speed up here, otherwise
+     * the paging effect is blocked when we go back to the main page.
+     */
+    if (fileName == d_ptr->fileName)
+        return;
+
+    DCP_DEBUG("calling QImage::load(%s)", DCP_STR(fileName));
+    success = image.load (fileName);
+    if (!success) {
+        DCP_WARNING ("The image was not loaded from %s", DCP_STR(fileName));
+        return;
+    }
+
+    image = image.scaled(100, 100, Qt::KeepAspectRatio);
+    imageWidget()->setImage (image);
+
+    d_ptr->fileName = fileName;
+}
+
 
 QGraphicsLayout *
 DcpButtonImage::createLayout ()

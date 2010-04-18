@@ -44,6 +44,14 @@ public:
 
     /*! 
      * \return the name of the icon for the brief 
+     *
+     * If the applet provides this virtual function the returned string will be
+     * used as an icon name to set the image in the brief representing the
+     * applet. The icon will be refreshed when the valuesChanged() signal is
+     * emitted.
+     *
+     * Please note that the image() method overrides this one, if the applet
+     * provides an image file name, the icon name will not be used.
      */
     virtual QString icon () const;
 
@@ -77,14 +85,14 @@ public:
     virtual void setToggle (bool toggle);
 
     /*!
-     * \brief returns the name for the icon
-     * \details The implementation should return the icon name that the applet
-     *   wants to use in the brief widget.
+     * \brief returns the file name for the image in the brief widget
      *
-     * FIXME: The name of this function should be getIconName() and it should
-     * get the widgetId as an argument!
-     * FIXME: It is not clear if we use this only inside the brief or somewhere
-     * else also.
+     * If the applet provides this function the return value will be used as a
+     * filename, to load the image shown in the brief widget representing the
+     * plugin. The image will be refreshed when the valuesChanged() signal is
+     * emitted.
+     *
+     * This method overrides the icon() method.
      */
     virtual QString image () const;
 

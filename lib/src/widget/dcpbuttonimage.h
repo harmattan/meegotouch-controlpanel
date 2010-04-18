@@ -14,8 +14,9 @@ class DcpButtonImage: public DcpButtonAlign
 public:
     DcpButtonImage (MWidget *parent = 0);
 
-    void setImageName (const QString& imageName);
-
+    void setImageName (const QString& iconName);
+    void setImageFromFile (const QString &fileName);
+    
 protected:
     virtual QGraphicsLayout *createLayout ();
     MImageWidget *imageWidget ();
