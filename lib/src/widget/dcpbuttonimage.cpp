@@ -29,6 +29,7 @@ DcpButtonImage::setImageName (
     Q_ASSERT (imageWidget());
     DCP_DEBUG("calling setImage(%s)", DCP_STR(iconName));
     imageWidget()->setImage (iconName);
+    d_ptr->fileName = "";
 }
 
 /*!
@@ -41,6 +42,13 @@ DcpButtonImage::setImageFromFile (
     bool    success;
     QImage  image;
 
+    /*
+     * The image file might be big, so we need a little speed up here, otherwise
+     * the paging effect is blocked when we go back to the main page.
+     */
+    if (fileName == d_ptr->fileName)
+        return;
+
     DCP_DEBUG("calling QImage::load(%s)", DCP_STR(fileName));
     success = image.load (fileName);
     if (!success) {
@@ -50,6 +58,8 @@ DcpButtonImage::setImageFromFile (
 
     image = image.scaled(100, 100, Qt::KeepAspectRatio);
     imageWidget()->setImage (image);
+
+    d_ptr->fileName = fileName;
 }
 
 
