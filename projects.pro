@@ -19,6 +19,13 @@ check-xml.target = check-xml
 check-xml.CONFIG = recursive
 QMAKE_EXTRA_TARGETS += check-xml
 
-coverage.depends = lib/src/Makefile
-coverage.commands = cd lib/src && make coverage
-QMAKE_EXTRA_TARGETS += coverage
+contains(DCP_BUILD_FEATURES,coverage) {
+  QMAKE_EXTRA_TARGETS += coverage
+  coverage.depends = lib/src/Makefile controlpanel/src/Makefile
+  #coverage.commands = cd lib && make coverage && cd ../../controlpanel/src && make coverage
+  coverage.commands =      cd lib && make coverage && cd .. \
+                        && genhtml -o coverage/ lib/tests/ut*/selected.cov
+
+  QMAKE_DISTCLEAN += -r coverage/*
+}
+

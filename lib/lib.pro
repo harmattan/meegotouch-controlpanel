@@ -15,7 +15,8 @@ check-xml.target = check-xml
 check-xml.CONFIG = recursive
 QMAKE_EXTRA_TARGETS += check-xml
 
-#coverage.target = coverage
-#coverage.depends = clean
-#coverage.CONFIG = recursive
-#QMAKE_EXTRA_TARGETS += coverage
+contains(DCP_BUILD_FEATURES,coverage) {
+  QMAKE_EXTRA_TARGETS += coverage
+  coverage.target = coverage
+  coverage.CONFIG = recursive
+} 
