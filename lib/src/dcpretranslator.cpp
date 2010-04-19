@@ -28,8 +28,10 @@ bool DcpRetranslatorPriv::compatibleMode = true;
 
 DcpRetranslatorPriv::DcpRetranslatorPriv ()
 {
-    MGConfItem languageItem("/M/i18n/Language");
-    lastLanguage = languageItem.value().toString();
+/*
+ * MGConfItem languageItem("/meegotouch/i18n/language");
+ * lastLanguage = languageItem.value().toString();
+ */
 }
 
 DcpRetranslator::DcpRetranslator (): priv(new DcpRetranslatorPriv())
@@ -62,7 +64,7 @@ DcpRetranslator::retranslate ()
     /*
      * Protection against loading all applet translations multiple times
      */
-    MGConfItem languageItem("/M/i18n/Language");
+    MGConfItem languageItem("/meegotouch/i18n/Language");
     QString language = languageItem.value().toString();
     if (priv->lastLanguage == language)
         return;
