@@ -24,7 +24,7 @@ public:
     void addComponent (
             DcpAppletMetadata *metadata);
 
-    virtual void reload();
+    virtual bool reload();
 
 protected:
     virtual void createContents();

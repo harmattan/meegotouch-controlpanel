@@ -81,7 +81,7 @@ DcpAppletButtons::addComponent (
 }
 
 
-void
+bool
 DcpAppletButtons::reload ()
 {
 //    This is used only for reloading the sequence of the most used items
@@ -93,6 +93,7 @@ DcpAppletButtons::reload ()
 
     deleteItems ();
     createContents ();
+    return true;
 }
 
 

@@ -66,12 +66,11 @@ DcpCategoryComponent::createContents ()
     m_Container->setCentralWidget (m_AppletButtons);
 }
 
-void 
+bool 
 DcpCategoryComponent::reload ()
 {
     DCP_DEBUG ("WARNING: RELOADING");
-    m_AppletButtons->reload();
-    //emit reloaded();
+    return m_AppletButtons->reload();
 }
 
 // ! Can be misleading, because it returns the count of the items already loaded

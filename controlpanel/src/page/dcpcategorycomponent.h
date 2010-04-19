@@ -34,7 +34,7 @@ public:
 
     void setTitle(const QString& text);
 
-    void reload();
+    bool reload();
 
     // ! Can be misleading, because it returns the count of the items already
     // loaded
@@ -47,6 +47,7 @@ private:
     const DcpCategoryInfo  *m_CategoryInfo;
     MContainer     *m_Container;
     QString           m_LogicalId;
+    friend class Ut_DcpCategoryComponent;
 };
 
 
