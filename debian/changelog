@@ -1,3 +1,9 @@
+duicontrolpanel (0.7.13) unstable; urgency=low
+
+  * Fixes: problems with external and declarative plugins
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 19 Apr 2010 16:01:28 +0200
+
 duicontrolpanel (0.7.12) unstable; urgency=low
 
   * Fixes: NB#164568 -  Setting the image for DcpBrief from a file is not possible
