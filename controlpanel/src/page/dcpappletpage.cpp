@@ -13,6 +13,7 @@
 #include <MLocale>
 #include <MApplication>
 #include <MAction>
+#include <QProcess>
 
 #include "dcpdebug.h"
 
@@ -97,15 +98,15 @@ DcpAppletPage::load ()
             /*
              * If the applet is not loaded from a binary file, but it has an
              * activation command line we execute an external application.
-             *
-             * FIXME: This should not block...
              */
-            const char *command;
+            QString command = m_Applet->metadata()->applicationCommand();
+            QProcess *process = new QProcess();
 
-            command = m_Applet->metadata()->applicationCommand().toLatin1().constData();
-            DCP_DEBUG ("Executing command '%s'", command);
-            system (command);
+            // this will free up the QProcess when the process ended:
+            connect (process, SIGNAL(finished ( int, QProcess::ExitStatus)),
+                     process, SLOT(deleteLater()));
 
+            process->start(command);
             return;
         }
 

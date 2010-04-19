@@ -115,7 +115,7 @@ DcpAppletMetadata::applicationCommand () const
 bool
 DcpAppletMetadata::hasApplicationCommand () const
 {
-    return !desktopEntryStr(KeyApplicationCommand).isEmpty();
+    return !applicationCommand().isEmpty();
 }
 
 /*
