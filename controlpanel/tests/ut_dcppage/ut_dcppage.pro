@@ -14,6 +14,7 @@ TEST_SOURCES = \
 # unit test and unit
 SOURCES += \
     *.cpp \
+    $$STUBSDIR/mlayout-fake.cpp \
     $$STUBSDIR/mapplicationpage-fake.cpp \
     $$STUBSDIR/mapplicationwindow-fake.cpp \
     $$SRCDIR/../../lib/src/dcpdebug.cpp\

@@ -50,9 +50,10 @@ DcpCategoryComponent::createContents ()
 {
 }
 
-void 
+bool
 DcpCategoryComponent::reload ()
 {
+    return true;
 }
 
 // ! Can be misleading, because it returns the count of the items already loaded
