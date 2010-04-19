@@ -4,9 +4,17 @@ class MContainerPrivate
 {
 public:
     QGraphicsWidget *m_CentralWidget;
+    QString title;
 };
 
-static QHash<MContainer*, MContainerPrivate*> priv;
+static QHash<const MContainer*, MContainerPrivate*> priv;
+
+void QGraphicsLayoutItem::setSizePolicy ( QSizePolicy::Policy hPolicy, QSizePolicy::Policy vPolicy, QSizePolicy::ControlType controlType)
+{
+    Q_UNUSED(hPolicy);
+    Q_UNUSED(vPolicy);
+    Q_UNUSED(controlType);
+}
 
 MContainer::MContainer(QGraphicsItem *parent) 
 {
@@ -17,7 +25,7 @@ MContainer::MContainer(QGraphicsItem *parent)
 MContainer::MContainer(const QString &title, QGraphicsItem *parent)
 {
     Q_UNUSED(parent);
-    Q_UNUSED(title);
+    priv[this]->title = title;
 }
 
 MContainer::~MContainer()
@@ -38,12 +46,12 @@ void MContainer::setCentralWidget(QGraphicsWidget *centralWidget, bool destroy)
 
 QString MContainer::title() const
 {
-    return "";
+    return priv[this]->title;
 }
 
 void MContainer::setTitle(const QString &newTitle)
 {
-    Q_UNUSED(newTitle);
+    priv[this]->title = newTitle;
 }
 
 QString MContainer::text() const
