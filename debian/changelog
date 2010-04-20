@@ -1,3 +1,9 @@
+duicontrolpanel (0.7.14) unstable; urgency=low
+
+  * Fixes localization problem at startup
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 20 Apr 2010 10:33:28 +0200
+
 duicontrolpanel (0.7.13) unstable; urgency=low
 
   * Fixes: problems with external and declarative plugins
