@@ -22,6 +22,11 @@ DcpCategoryComponent::DcpCategoryComponent (
 {
     createContents ();
     setMattiID (QString("DcpCategoryComponent::") + categoryInfo->titleId);
+
+    // this component is a convenience one and should not be visible for the user
+    // at all, thus disabling margins.
+    setContentsMargins(0,0,0,0);
+    layout()->setContentsMargins(0,0,0,0);
 }
 
 

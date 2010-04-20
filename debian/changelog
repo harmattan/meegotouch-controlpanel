@@ -1,3 +1,10 @@
+duicontrolpanel (0.7.15~unreleased) unstable; urgency=low
+
+  * Fixes: 162708 - The most recent used container is smaller than the other
+    categories container
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 20 Apr 2010 15:30:16 +0200
+
 duicontrolpanel (0.7.14) unstable; urgency=low
 
   * Fixes localization problem at startup
