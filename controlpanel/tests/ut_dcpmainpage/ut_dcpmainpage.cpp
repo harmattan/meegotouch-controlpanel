@@ -100,7 +100,7 @@ void Ut_DcpMainPage::testRetranslateUi()
 //             qtTrId(QT_TRID_NOOP("qtn_sett_main_other")));
     for (int i=0; i<m_subject->m_CategoryButtons.count(); i++) {
         DcpSingleComponent* comp = m_subject->m_CategoryButtons.at(i);
-        QCOMPARE(comp->title(), qtTrId(QT_TRID_NOOP("qtn-fake")));
+        QCOMPARE(comp->title(), qtTrId(QT_TRID_NOOP(i % 2 ? "qtn-fake-2" : "qtn-fake")));
     }
 
 }
