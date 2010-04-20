@@ -4,8 +4,6 @@ INCLUDEPATH += ../doubles
 
 SRCDIR = ./../../src
 
-DEPENDPATH = $$INCLUDEPATH
-
 QMAKE_LIBDIR += ../../../lib/lib/ /usr/lib/
 LIBDCPSRC =../../../lib/src
 LIBDCPINCLUDE=../../../lib/src/include
@@ -29,6 +27,6 @@ LIBS +=  -L/usr/lib -lduicontrolpanel
 QMAKE_CXXFLAGS += -Werror
 message($$target.path)
 
-OBJECTS_DIR = ../.obj
-MOC_DIR = ../.moc
+# OBJECTS_DIR = ../.obj
+# MOC_DIR = ../.moc
 

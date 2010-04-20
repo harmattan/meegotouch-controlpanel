@@ -1,6 +1,6 @@
 include(../common_top.pri)
 
-CONFIG += duicontrolpanel meegotouch
+CONFIG += meegotouch
  
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
 INCLUDEPATH += $$LIBDCPINCLUDE 
