@@ -1,8 +1,12 @@
 #ifndef DCPBUTTONIMAGE_P
 #define DCPBUTTONIMAGE_P
-class DuiImageWidget;
+
+class MImageWidget;
+class QString;
+
 class DcpButtonImagePrivate {
 public:
-    DuiImageWidget *image;
+    MImageWidget *image;
+    QString       fileName;
 };
 #endif // DCPBUTTONIMAGE_P

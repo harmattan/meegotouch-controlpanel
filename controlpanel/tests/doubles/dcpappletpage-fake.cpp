@@ -1,15 +1,12 @@
-/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
-/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
-#ifndef DCPAPPLETPAGE_FAKE_H
-#define DCPAPPLETPAGE_FAKE_H
 #include "dcpappletpage.h"
 
 DcpAppletPage::DcpAppletPage (DcpAppletObject *applet, int widgetId) :
+    DcpPage(),
+    m_Applet (applet),
+    m_WidgetId (widgetId),
     m_MainWidget (0),
     m_MissingLabel (0)
 {
-    Q_UNUSED(applet);
-    Q_UNUSED(widgetId);
 }
 
 
@@ -37,7 +34,13 @@ DcpAppletPage::hasError ()
 int 
 DcpAppletPage::widgetId ()
 {
-    return 0;
+    return m_WidgetId;
+}
+
+DcpAppletObject*
+DcpAppletPage::applet()
+{
+    return m_Applet;
 }
 
 
@@ -50,9 +53,9 @@ void
 DcpAppletPage::back ()
 {
 }
+
 void
 DcpAppletPage::retranslateUi()
 {
 }
 
-#endif // DCPAPPLETPAGE_FAKE_H

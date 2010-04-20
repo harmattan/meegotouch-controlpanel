@@ -1,29 +1,29 @@
-#include <DuiLabel>
-#include <DuiContainer>
-#include <DuiLayout>
-#include <DuiLinearLayoutPolicy>
-#include <DuiButton>
-#include <DuiButtonGroup>
+#include <MLabel>
+#include <MContainer>
+#include <MLayout>
+#include <MLinearLayoutPolicy>
+#include <MButton>
+#include <MButtonGroup>
 #include "testappletwidget.h"
 
 TestAppletWidget::TestAppletWidget(QGraphicsWidget *parent)
     : DcpWidget(parent)
 {
-    DuiLayout *layout = new DuiLayout(this);
-    DuiLinearLayoutPolicy *layoutPolicy = 
-        new DuiLinearLayoutPolicy(layout, Qt::Vertical);
+    MLayout *layout = new MLayout(this);
+    MLinearLayoutPolicy *layoutPolicy = 
+        new MLinearLayoutPolicy(layout, Qt::Vertical);
     layout->setPolicy(layoutPolicy);
 
-    DuiLabel *widget = new DuiLabel("Test applet1", this);
+    MLabel *widget = new MLabel("Test applet1", this);
     layoutPolicy->addItem(widget, Qt::AlignLeft);
 
     /*
-    DuiContainer *container = new DuiContainer("Test container", this);
+    MContainer *container = new MContainer("Test container", this);
     layoutPolicy->addItem(container);
 
-    DuiButtonGroup *buttongrp = new DuiButtonGroup();
+    MButtonGroup *buttongrp = new MButtonGroup();
     for (int i = 0; i < 3; ++i) {
-        DuiButton *button = new DuiButton(QString("%1").arg(i));
+        MButton *button = new MButton(QString("%1").arg(i));
         buttongrp->addButton(button);
         layoutPolicy->addItem(button);
     }

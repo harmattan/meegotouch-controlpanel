@@ -9,15 +9,16 @@
 #include <DcpAppletObject>
 #include <DcpRetranslator>
 
-#include <DuiLabel>
-#include <DuiLocale>
-#include <DuiApplication>
-#include <DuiAction>
+#include <MLabel>
+#include <MLocale>
+#include <MApplication>
+#include <MAction>
+#include <QProcess>
 
 #include "dcpdebug.h"
 
-#include "duiwidgetcreator.h"
-DUI_REGISTER_WIDGET_NO_CREATE(DcpAppletPage)
+#include "mwidgetcreator.h"
+M_REGISTER_WIDGET_NO_CREATE(DcpAppletPage)
 
 DcpAppletPage::DcpAppletPage (DcpAppletObject *applet, int widgetId):
     DcpPage (),
@@ -97,15 +98,15 @@ DcpAppletPage::load ()
             /*
              * If the applet is not loaded from a binary file, but it has an
              * activation command line we execute an external application.
-             *
-             * FIXME: This should not block...
              */
-            const char *command;
+            QString command = m_Applet->metadata()->applicationCommand();
+            QProcess *process = new QProcess();
 
-            command = m_Applet->metadata()->applicationCommand().toLatin1().constData();
-            DCP_DEBUG ("Executing command '%s'", command);
-            system (command);
+            // this will free up the QProcess when the process ended:
+            connect (process, SIGNAL(finished ( int, QProcess::ExitStatus)),
+                     process, SLOT(deleteLater()));
 
+            process->start(command);
             return;
         }
 
@@ -123,7 +124,7 @@ DcpAppletPage::load ()
      */
     if (!m_MissingLabel) {
         //% "Plugin not available"
-        m_MissingLabel = new DuiLabel (qtTrId("dcp_no_applet_name"));
+        m_MissingLabel = new MLabel (qtTrId("dcp_no_applet_name"));
         m_MissingLabel->setAlignment (Qt::AlignCenter);
         appendWidget (m_MissingLabel);
         //% "Missing plugin"
@@ -183,7 +184,7 @@ DcpAppletPage::loadWidget (int widgetId)
         return;
     }
 
-    setPannableAreaInteractive (m_MainWidget->pagePans());
+    setPannable (m_MainWidget->pagePans());
 
     connect (m_MainWidget, SIGNAL (changeWidget(int)),
              m_Applet, SLOT(activateSlot(int)));
@@ -191,7 +192,7 @@ DcpAppletPage::loadWidget (int widgetId)
              m_Applet, SLOT (activatePluginByName (const QString &)));
 
     // add the actions:
-    foreach (DuiAction* action, m_Applet->applet()->viewMenuItems()) {
+    foreach (MAction* action, m_Applet->applet()->viewMenuItems()) {
         addAction(action);
     }
 
@@ -209,4 +210,8 @@ DcpAppletPage::retranslateUi ()
     }
 }
 
+DcpAppletObject* DcpAppletPage::applet()
+{
+    return m_Applet;
+}
 

@@ -29,6 +29,8 @@ public:
 
     QString text1 () const;
     QString text2 () const;
+    
+    QString iconName() const;
     QString imageName() const;
     int getMainWidgetId () const;
 

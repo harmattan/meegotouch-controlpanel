@@ -2,7 +2,7 @@
 #define MOSTUSEDCOUNTERPRIVATE_H
 
 #include <QString>
-#include <DuiGConfDataStore>
+#include <MGConfDataStore>
 
 class MostUsedCounter;
 
@@ -10,7 +10,7 @@ class MostUsedCounterPrivate
 {
 public:
     static MostUsedCounter *sm_Instance;
-    DuiGConfDataStore* m_Conf;
+    MGConfDataStore* m_Conf;
 };
 
 #endif // MOSTUSEDCOUNTERPRIVATE_H

@@ -3,11 +3,11 @@
 #include <cstdio>
 #include <sys/wait.h>
 #include <csignal>
-#include <DuiApplicationWindow>
+#include <MApplicationWindow>
 #include <DcpDebug>
 #include <DcpRetranslator>
-#include <DuiApplication>
-#include <DuiLocale>
+#include <MApplication>
+#include <MLocale>
 #include "service/duicontrolpanelservice.h"
 #include "dcpappletdb.h"
 #include "appleterrorsdialog.h"
@@ -88,7 +88,7 @@ startApplication (int argc, char* argv[])
 {
     DCP_DEBUG ("");
 
-    DuiApplication app(argc, argv);
+    MApplication app(argc, argv);
     signal(SIGTERM, &onTermSignal);
     signal(SIGINT, &onTermSignal);
 
@@ -100,7 +100,7 @@ startApplication (int argc, char* argv[])
     DuiControlPanelService* service = new DuiControlPanelService();
 
     // mainwindow:
-    DuiApplicationWindow win;
+    MApplicationWindow win;
     service->createStartPage();
     win.show();
 
@@ -117,7 +117,7 @@ int main(int argc, char *argv[])
         if (s == "-h" || s == "-help" || s == "--help" ) {
             QTextStream out(stdout);
             out << "Usage: " << argv[0] <<
-                " [LIBDUI OPTION]... [-desktopdir DIR]\n\n";
+                " [LIBM OPTION]... [-desktopdir DIR]\n\n";
             out << "  -desktopdir DIR     Load .desktop files from DIR\n";
             out << "  -nosupervisor       Disables applet supervisor";
             out << "\n\n";

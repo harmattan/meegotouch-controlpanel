@@ -18,7 +18,7 @@ class TestApplet2 : public QObject, public DcpAppletIf
     virtual void init();
     virtual DcpWidget *constructWidget(int widgetId);
     virtual QString title() const;
-    virtual QVector<DuiAction*> viewMenuItems();
+    virtual QVector<MAction*> viewMenuItems();
     virtual DcpBrief *constructBrief(int);
 };
 

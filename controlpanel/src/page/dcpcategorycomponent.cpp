@@ -3,29 +3,10 @@
 #include "dcpcategorycomponent.h"
 #include "dcpappletbuttons.h"
 
-#include <DuiContainer>
+#include <MContainer>
 #include <QGraphicsLinearLayout>
 
 #include "dcpdebug.h"
-
-/*!
- * Constructor that uses category name to create the component. Should use 
- * DcpCategoryInfo so this may be deprecated.
- */
-DcpCategoryComponent::DcpCategoryComponent (
-        DcpComponent      *category,
-        const QString     &categoryName,
-        const QString     &logicalId,
-        QGraphicsWidget   *parent)
-: DcpComponent (category, categoryName, parent, logicalId),
-    m_AppletButtons (0),
-    m_CategoryName (categoryName),
-    m_CategoryInfo (0),
-    m_LogicalId (logicalId)
-{
-    createContents ();
-    setMattiID ("DcpCategoryComponent::" + logicalId);
-}
 
 /*!
  * Constructor that uses DcpCategoryInfo to create a DcpCategoryComponent.
@@ -37,7 +18,6 @@ DcpCategoryComponent::DcpCategoryComponent (
 : DcpComponent (category, categoryInfo->appletCategory, parent, 
                 categoryInfo->titleId),
     m_AppletButtons(0),
-    m_CategoryName (categoryInfo->appletCategory),
     m_CategoryInfo (categoryInfo)
 {
     createContents ();
@@ -74,27 +54,23 @@ DcpCategoryComponent::createContents ()
     QGraphicsLinearLayout *layout;
 
     DCP_DEBUG ("");
-    m_Container = new DuiContainer (this);
+    m_Container = new MContainer (this);
     m_Container->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     layout = new QGraphicsLinearLayout (Qt::Vertical, this);
     layout->addItem (m_Container);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-    if (m_CategoryInfo) 
-        m_AppletButtons = new DcpAppletButtons (m_CategoryInfo, title());
-    else
-        m_AppletButtons = new DcpAppletButtons (
-                logicalId(), m_CategoryName, title());
+    m_AppletButtons = new DcpAppletButtons (m_CategoryInfo, title());
 
     m_Container->setCentralWidget (m_AppletButtons);
 }
 
-void 
+bool 
 DcpCategoryComponent::reload ()
 {
     DCP_DEBUG ("WARNING: RELOADING");
-    m_AppletButtons->reload();
+    return m_AppletButtons->reload();
 }
 
 // ! Can be misleading, because it returns the count of the items already loaded

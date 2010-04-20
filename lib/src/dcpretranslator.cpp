@@ -2,9 +2,9 @@
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #include "dcpretranslator.h"
 
-#include <DuiLocale>
-#include <DuiGConfItem>
-#include <DuiApplication>
+#include <MLocale>
+#include <MGConfItem>
+#include <MApplication>
 #include "dcpdebug.h"
 #include "dcpappletdb.h"
 #include "dcpappletmetadata.h"
@@ -28,8 +28,10 @@ bool DcpRetranslatorPriv::compatibleMode = true;
 
 DcpRetranslatorPriv::DcpRetranslatorPriv ()
 {
-    DuiGConfItem languageItem("/Dui/i18n/Language");
-    lastLanguage = languageItem.value().toString();
+/*
+ * MGConfItem languageItem("/meegotouch/i18n/language");
+ * lastLanguage = languageItem.value().toString();
+ */
 }
 
 DcpRetranslator::DcpRetranslator (): priv(new DcpRetranslatorPriv())
@@ -62,17 +64,17 @@ DcpRetranslator::retranslate ()
     /*
      * Protection against loading all applet translations multiple times
      */
-    DuiGConfItem languageItem("/Dui/i18n/Language");
+    MGConfItem languageItem("/meegotouch/i18n/Language");
     QString language = languageItem.value().toString();
     if (priv->lastLanguage == language)
         return;
 
     priv->loadedTranslations.clear();
 
-    DuiApplication* duiApp = DuiApplication::instance();
-    DuiLocale locale(language);
+    MApplication* mApp = MApplication::instance();
+    MLocale locale(language);
 
-    QString binaryName = duiApp->binaryName();
+    QString binaryName = mApp->binaryName();
     DCP_DEBUG("%s %s", qPrintable(binaryName), qPrintable(language));
 
     // install engineering english
@@ -91,7 +93,7 @@ DcpRetranslator::retranslate ()
         }
     }
 
-    DuiLocale::setDefault(locale);
+    MLocale::setDefault(locale);
 
     running = false;
     priv->lastLanguage = language;
@@ -99,7 +101,7 @@ DcpRetranslator::retranslate ()
 
 void
 DcpRetranslator::loadAppletTranslation (
-        DuiLocale                &locale,
+        MLocale                &locale,
         const DcpAppletMetadata  *metadata)
 {
     Q_ASSERT(metadata);
@@ -125,19 +127,19 @@ DcpRetranslator::loadAppletTranslation (
 void
 DcpRetranslator::ensureTranslationsAreLoaded(const DcpAppletMetadataList& list)
 {
-    DuiLocale locale;
+    MLocale locale;
     foreach (DcpAppletMetadata* metadata, list) {
         loadAppletTranslation(locale, metadata);
     }
-    DuiLocale::setDefault(locale);
+    MLocale::setDefault(locale);
 }
 
 void
 DcpRetranslator::ensureTranslationLoaded(DcpAppletMetadata* metadata)
 {
-    DuiLocale locale;
+    MLocale locale;
     loadAppletTranslation(locale, metadata);
-    DuiLocale::setDefault(locale);
+    MLocale::setDefault(locale);
 }
 
 

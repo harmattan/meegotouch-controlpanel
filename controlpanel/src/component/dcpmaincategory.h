@@ -5,7 +5,7 @@
 
 #include "dcpcomponent.h"
 
-class DuiLayout;
+class MLayout;
 
 /*!
  * A rectangular table like widget inside the main page and the category pages.
@@ -23,7 +23,7 @@ public:
     virtual void appendWidget (DcpComponent *component);
     virtual int  maxColumns ();
     virtual void setMaxColumns (int columns);
-    DuiLayout* duiLayout() const { return m_Layout; }
+    MLayout* mLayout() const { return m_Layout; }
 
     void setHorizontalSpacing (int space);
     void setVerticalSpacing (int space);
@@ -35,9 +35,9 @@ public:
 protected:
     virtual void createContents ();
 
-    DuiLayout                    *m_Layout;
-    class DuiGridLayoutPolicy    *m_LandscapeLayout;
-    class DuiLinearLayoutPolicy  *m_PortraitLayout;
+    MLayout                    *m_Layout;
+    class MGridLayoutPolicy    *m_LandscapeLayout;
+    class MLinearLayoutPolicy  *m_PortraitLayout;
 
 private:
     void appendSeparatorsIfNeeded ();
@@ -58,6 +58,8 @@ private:
     int m_ItemCount;
 
     bool m_CreateSeparators;
+    static const QString sm_SeparatorObjectName;
+    friend class Ut_DcpMainCategory;
 };
 
 #endif

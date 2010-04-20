@@ -7,7 +7,7 @@
 #include <DcpAppletMetadata>
 
 #include "ft_dcpappletmetadata.h"
-#include <DuiGConfItem>
+#include <MGConfItem>
 
 void Ft_DcpAppletMetadata::initTestCase()
 {
@@ -55,7 +55,7 @@ void Ft_DcpAppletMetadata::testIsValid()
     delete m_subject;
     m_subject = 0;
 
-    QWARN("\n\t----Expected QWARN: Multiple definitions of group 'DUI'----");
+    QWARN("\n\t----Expected QWARN: Multiple definitions of group 'M'----");
     QVERIFY((m_subject = new DcpAppletMetadata(desktopBadTestFile)));
     QVERIFY(!m_subject->isValid());
 }

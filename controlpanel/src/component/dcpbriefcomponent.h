@@ -31,6 +31,7 @@ public slots:
 
 private:
     DcpBriefWidget *m_BriefWidget;
+    friend class Ut_DcpBriefComponent;
 };
 
 #endif // DCPBRIEFCOMPONENT_H

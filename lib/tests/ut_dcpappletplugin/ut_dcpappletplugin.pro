@@ -22,7 +22,7 @@ HEADERS += \
     $$SRCDIR/appletdb/dcpappletplugin.h \
     dcpappletplugin-applet.h \
     qpluginloader-fake.h \
-    ../doubles/duidesktopentry-stub.h
+    ../doubles/mdesktopentry-stub.h
 
 # base classes
 HEADERS += \

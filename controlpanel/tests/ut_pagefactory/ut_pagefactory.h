@@ -20,10 +20,11 @@ private slots:
     void cleanupTestCase();
     void testInstance();
     void testCreatePage();
-    void testCurrentPage();
-    void testChangePage();
+    void testCreateMainPage();
     void testCreateAppletPage();
     void testCreateAppletCategoryPage();
+    void testCurrentPage();
+    void testChangePage();
     void testAppletWantsToStart();
     void testMainPageFirstShown();
     void testRegisterPage(); 

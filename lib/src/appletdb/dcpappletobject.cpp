@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
-#include <DuiLocale>
+#include <MLocale>
 
 #include "dcpappletobject.h"
 #include "dcpappletobject_p.h"
@@ -113,17 +113,12 @@ DcpAppletObject::text1 () const
     if (applet) {
         // use DcpBrief::titleText() if specified:
         QString text1;
-#if 0
-        // FIXME: enable this after all plugins has been recompiled
-        // with the new api, since until then it causes segfault
-        // marked at W11 with version 0.7.5~unreleased
 
         DcpBrief* brief = this->brief();
         if (brief) {
             text1 = brief->titleText();
             if (!text1.isEmpty()) return text1;
         }
-#endif
 
         // use DcpAppletIf::title() by default:
         text1 = applet->title();
@@ -150,16 +145,38 @@ DcpAppletObject::text2 () const
 }
 
 /*!
- * FIXME: The name of this function is easy to misunderstand. It does not return
- * an image, and it is not clear if the string is a name or a filename.
- *
- * Found in dcpbriefwidget.cpp, this is an image name. It should be renamed as
- * such.
+ * Returns the icon name for the applet by calling the DcpBrief::icon() virtual
+ * method. If the applet returns the empty string (default implementation) the
+ * method will return the icon name provided in the desktop file.
+ */
+QString 
+DcpAppletObject::iconName() const
+{
+    QString retval;
+
+    if (brief())
+        retval = brief()->icon();
+
+    if (retval.isEmpty())
+        retval = metadata()->imageName();
+
+    DCP_DEBUG ("Returning %s", DCP_STR(retval));
+    return retval;
+}
+
+/*!
+ * Returns the image file name if the applet interface provides an image file
+ * name by implementing the DcpBrief::image() virtual function. If the applet
+ * does not implement this virtual method returns the empty string (default
+ * implementation).
  */
 QString 
 DcpAppletObject::imageName() const
 {
-    return (brief() ? brief()->image() : metadata()->imageName());
+    QString retval = brief() ? brief()->image() : QString();
+
+    DCP_DEBUG ("Returning %s", DCP_STR(retval));
+    return retval;
 }
 
 QString 

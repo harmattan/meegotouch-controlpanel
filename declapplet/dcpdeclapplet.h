@@ -6,7 +6,7 @@
 #include <QString>
 #include <QList>
 class DcpWidget;
-class DuiAction;
+class MAction;
 
 class DcpDeclApplet: public QObject, public DcpAppletIf
 {
@@ -18,7 +18,7 @@ public:
     virtual DcpWidget* constructWidget(int widgetId);
 
     virtual QString title() const;
-    virtual QVector<DuiAction *> viewMenuItems();
+    virtual QVector<MAction *> viewMenuItems();
     virtual DcpBrief* constructBrief(int);
     virtual int partID(const QString& xmlpath);
 

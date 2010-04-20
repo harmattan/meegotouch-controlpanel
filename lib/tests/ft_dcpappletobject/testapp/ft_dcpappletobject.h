@@ -3,7 +3,7 @@
 
 #include <QtTest/QtTest>
 #include <QObject>
-#include <DuiApplication>
+#include <MApplication>
 
 // the real unit/DcpAppletObject class declaration
 #include "dcpappletobject.h"
@@ -28,7 +28,7 @@ private:
     void testApplet(const char *desktopfile);
     void doAppletTest (const char *desktopfile);
 
-    DuiApplication*  m_app;
+    MApplication*  m_app;
 };
 
 #endif

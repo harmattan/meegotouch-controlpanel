@@ -2,10 +2,10 @@
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #include "dcpbuttontoggle.h"
 #include "dcpbuttontoggle_p.h"
-#include <DuiButton>
+#include <MButton>
 
 DcpButtonToggle::DcpButtonToggle (
-        DuiWidget *parent)
+        MWidget *parent)
     : DcpButtonAlign (parent),
     d_ptr(new DcpButtonTogglePrivate)
 {
@@ -16,10 +16,10 @@ DcpButtonToggle::DcpButtonToggle (
 QGraphicsLayout *
 DcpButtonToggle::createLayout ()
 {
-    DuiButton* toggleButton = new DuiButton (this);
+    MButton* toggleButton = new MButton (this);
     toggleButton->setObjectName ("DcpButtonToggle");
     toggleButton->setCheckable (true);
-    toggleButton->setViewType (DuiButton::switchType);
+    toggleButton->setViewType (MButton::switchType);
 
     connect (toggleButton, SIGNAL(toggled(bool)),
              this, SLOT(onSmallToggled(bool)));
@@ -63,10 +63,10 @@ DcpButtonToggle::setSmallToggle (
     }
 }
 
-DuiButton *
+MButton *
 DcpButtonToggle::toggleButton ()
 {
-    return qobject_cast<DuiButton*>(alignedWidget());
+    return qobject_cast<MButton*>(alignedWidget());
 }
 
 void 

@@ -5,7 +5,7 @@
 #include "pages.h"
 
 #include <QGraphicsLinearLayout>
-#include <DuiContentItem>
+#include <MContentItem>
 
 
 #include "dcpdebug.h"
@@ -21,8 +21,8 @@ DcpSingleComponent::DcpSingleComponent (
 
     QGraphicsLinearLayout* layout;
     
-    m_Item = new DuiContentItem(subTitle.isEmpty() ? DuiContentItem::SingleTextLabel:
-                                DuiContentItem::TwoTextLabels);
+    m_Item = new MContentItem(subTitle.isEmpty() ? MContentItem::SingleTextLabel:
+                                MContentItem::TwoTextLabels);
     setTitle(title);
     if (!subTitle.isEmpty())
         setSubtitle(subTitle);
@@ -46,6 +46,12 @@ DcpSingleComponent::activate ()
     pageFactory->changePage (subPage());
 }
 
+QString 
+DcpSingleComponent::title() const
+{
+    return m_Item->title();
+}
+
 void
 DcpSingleComponent::setTitle (const QString& title)
 {
@@ -56,5 +62,11 @@ void
 DcpSingleComponent::setSubtitle (const QString& subTitle)
 {
     m_Item->setSubtitle(subTitle);
+}
+
+const QString
+DcpSingleComponent::subtitle()
+{
+    return m_Item->subtitle();
 }
 

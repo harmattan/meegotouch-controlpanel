@@ -2,12 +2,12 @@
 
 #include <QGraphicsLinearLayout>
 #include <QFile>
-#include <DuiSettingsLanguageParser>
-#include <DuiSettingsLanguageBinary>
-#include <DuiSettingsLanguageWidget>
-#include <DuiSettingsLanguageWidgetFactory>
-#include <DuiGConfDataStore>
-#include <DuiLabel>
+#include <MSettingsLanguageParser>
+#include <MSettingsLanguageBinary>
+#include <MSettingsLanguageWidget>
+#include <MSettingsLanguageWidgetFactory>
+#include <MGConfDataStore>
+#include <MLabel>
 
 #include <dcpdebug.h>
 
@@ -28,14 +28,14 @@ DcpDeclWidget::DcpDeclWidget(const QString& xmlPath)
         return;
     }
 
-    DuiSettingsLanguageParser parser;
+    MSettingsLanguageParser parser;
     if (!parser.readFrom(file)) {
         createErrorLabel(QString("Error parsing the ui description %1")
                          .arg(filePath));
         return;
     }
 
-    DuiSettingsLanguageBinary* binary = parser.createSettingsBinary();
+    MSettingsLanguageBinary* binary = parser.createSettingsBinary();
     if (!binary) {
         createErrorLabel(QString("Error parsing the ui description %1")
                          .arg(filePath));
@@ -43,24 +43,24 @@ DcpDeclWidget::DcpDeclWidget(const QString& xmlPath)
     }
 
     QString gpath = binary->keys().first();
-    DuiGConfDataStore* datastore = 0;
+    MGConfDataStore* datastore = 0;
     if (gpath.startsWith("/")) {
         // TODO this is only working when all keys are in same dir
         gpath = gpath.left(gpath.lastIndexOf("/"));
-        datastore = new DuiGConfDataStore(gpath);
+        datastore = new MGConfDataStore(gpath);
     } else {
         DCP_WARNING("Fix gconf key paths in your xml: %s", qPrintable(filePath));
     }
 
-    DuiSettingsLanguageWidget* widget =
-        DuiSettingsLanguageWidgetFactory::createWidget(*binary, datastore );
+    MSettingsLanguageWidget* widget =
+        MSettingsLanguageWidgetFactory::createWidget(*binary, datastore );
     Q_ASSERT(widget);
     layout->addItem(widget);
 }
 
 void DcpDeclWidget::createErrorLabel(const QString& text)
 {
-    DuiLabel* label = new DuiLabel(this);
+    MLabel* label = new MLabel(this);
     label->setText("Error parsing the ui description, see log");
     DCP_WARNING(qPrintable(text));
     ((QGraphicsLinearLayout*)(layout()))->addItem(label);

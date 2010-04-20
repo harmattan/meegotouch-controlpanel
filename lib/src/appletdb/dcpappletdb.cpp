@@ -8,7 +8,7 @@
 
 #include <QDir>
 #include <QDebug>
-#include <DuiLocale>
+#include <MLocale>
 
 #include "dcpdebug.h"
 
@@ -92,7 +92,7 @@ DcpAppletDb::addFile (
     } else {
         metadata->deleteLater();
     }
-    
+
     return false;
 }
 

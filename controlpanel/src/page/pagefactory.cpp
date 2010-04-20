@@ -14,9 +14,9 @@
 #include <DcpAppletCategoryPage>
 #include <MainTranslations>
 
-#include <DuiApplication>
-#include <DuiApplicationWindow>
-#include <DuiAction>
+#include <MApplication>
+#include <MApplicationWindow>
+#include <MAction>
 
 #include "appleterrorsdialog.h"
 
@@ -30,11 +30,19 @@ PageFactory::PageFactory ():
     m_MainPage (0), 
     m_AppletCategoryPage (0)
 {
-    connect (DuiApplication::activeWindow (),
-            SIGNAL(pageChanged(DuiApplicationPage *)),
-            this, SLOT(pageChanged(DuiApplicationPage *)));
+    connect (MApplication::activeWindow (),
+            SIGNAL(pageChanged(MApplicationPage *)),
+            this, SLOT(pageChanged(MApplicationPage *)));
 }
 
+void
+PageFactory::destroy()
+{
+    if (sm_Instance)
+      delete sm_Instance;
+    sm_Instance=0;
+}
+ 
 /*!
  * This slotz should be called only once, when the main page has been shown, so
  * we can access the applet database without forcing it to be loaded early. It
@@ -55,10 +63,14 @@ PageFactory::mainPageFirstShown ()
      * If an applet wants to start up an other applet we also got a signal here
      * so we can start up the applet. In this case we will have an external
      * referer for the applets main page.
+     *
+     * FIXME: this is not good, because when main page is not at all popped up,
+     * for example when starting with an appletpage because of a servicefw
+     * signal, then the applets are not connected, therefor not able to pop up
+     * there other pages, or another applet's page.
      */
     list = DcpAppletDb::instance()->appletNames();
     foreach (QString name, list) {
-        DCP_DEBUG ("*** LAC applet '%s'", DCP_STR (name));
         DcpAppletObject *applet = DcpAppletDb::instance()->applet(name);
         connect (applet, SIGNAL (activate (int)),
                 this, SLOT (appletWantsToStart (int)));
@@ -98,11 +110,6 @@ PageFactory::createPage (
             DCP_DEBUG ("## MAIN ##");
             page = createMainPage();
             break;
-
-        case PageHandle::APPLETCATEGORY: 
-            page = createAppletCategoryPage(myHandle.id);
-            break;
-
         case PageHandle::APPLET:
             DCP_DEBUG ("## APPLET ##");
             page = createAppletPage (myHandle);
@@ -208,7 +215,7 @@ PageFactory::createAppletCategoryPage (
 DcpPage*
 PageFactory::currentPage ()
 {
-    DuiApplicationWindow* win = DuiApplication::activeApplicationWindow();
+    MApplicationWindow* win = MApplication::activeApplicationWindow();
     if (win == 0) return 0;
 
     return qobject_cast<DcpPage*>(win->currentPage());
@@ -253,13 +260,13 @@ PageFactory::changePage (const PageHandle &handle)
      * to ensure there is no leak
      */
     if (handle.id == PageHandle::APPLET) {
-        page->appear (DuiSceneWindow::DestroyWhenDismissed);
+        page->appear (MSceneWindow::DestroyWhenDismissed);
     } else {
-        page->appear (DuiSceneWindow::KeepWhenDone);
+        page->appear (MSceneWindow::KeepWhenDone);
     }
 
-    if (DuiApplication::activeWindow ()) {
-        DuiApplication::activeWindow ()->raise();
+    if (MApplication::activeWindow ()) {
+        MApplication::activeWindow ()->raise();
     }
 }
 
@@ -291,10 +298,10 @@ PageFactory::registerPage (
 
     if (page != m_MainPage) {
         // closeAction TODO XXX on language change, move into to the page?
-        DuiAction *quitAction;
+        MAction *quitAction;
 
-        quitAction = new DuiAction (qtTrId(DcpMain::quitMenuItemTextId), page);
-        quitAction->setLocation(DuiAction::ApplicationMenuLocation);
+        quitAction = new MAction (qtTrId(DcpMain::quitMenuItemTextId), page);
+        quitAction->setLocation(MAction::ApplicationMenuLocation);
 
         connect(quitAction, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
 
@@ -311,7 +318,7 @@ PageFactory::registerPage (
  */
 void
 PageFactory::pageChanged (
-        DuiApplicationPage *page)
+        MApplicationPage *page)
 {
     if (m_Pages.empty()) {
         DCP_DEBUG ("List is empty, adding");
@@ -371,8 +378,8 @@ PageFactory::tryOpenPageBackward (
     while (m_Pages.size() > foundAtIndex + 1) {
         int s = m_Pages.size();
 
-        DuiApplicationPage *duiPage = m_Pages.last();
-        duiPage->dismiss();
+        MApplicationPage *mPage = m_Pages.last();
+        mPage->dismiss();
 
         /*
          * This is rather unfortunate, but we need this becouse otherwise the

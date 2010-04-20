@@ -1,6 +1,6 @@
 #include <QObject>
 #include <QGraphicsSceneMouseEvent>
-#include <DuiApplication>
+#include <QCoreApplication>
 #include <dcppage.h>
 
 #include "ut_dcppage.h"
@@ -24,6 +24,7 @@ void Ut_DcpPage::initTestCase()
 void Ut_DcpPage::cleanupTestCase()
 {
 }
+
 void Ut_DcpPage::testCreateContents()
 {
     m_subject->createContent();
@@ -72,4 +73,5 @@ void Ut_DcpPage::testMainLayout()
         (QGraphicsLinearLayout*)(m_subject->centralWidget()->layout()));
 }
 
-QTEST_MAIN(Ut_DcpPage)
+QTEST_APPLESS_MAIN(Ut_DcpPage)
+

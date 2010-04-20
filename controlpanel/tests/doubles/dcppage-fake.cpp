@@ -1,18 +1,23 @@
-/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
-/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
-#ifndef DCPPAGE_FAKE_H
-#define DCPPAGE_FAKE_H
 #include <QtDebug>
 
 #include "dcppage.h"
 #include "pages.h"
+#include <MLayout>
+#include <QGraphicsLinearLayout>
 
 const PageHandle aHandle(PageHandle::MAIN);
 
-DcpPage::DcpPage() 
+DcpPage::DcpPage() : MApplicationPage() 
 {
+    createLayout();
 }
 
+
+QGraphicsLinearLayout*
+DcpPage::mainLayout()
+{
+    return (QGraphicsLinearLayout*)(centralWidget()->layout());
+}
 
 void 
 DcpPage::createContent()
@@ -22,19 +27,21 @@ DcpPage::createContent()
 void
 DcpPage::createLayout ()
 {
-}
+    new QGraphicsLinearLayout (Qt::Vertical, centralWidget());     
+} 
+
 
 PageHandle 
 DcpPage::handle () const 
 {
-    return aHandle;
+    return m_Handle;
 }
 
 void 
 DcpPage::setHandle (
         const PageHandle &handle) 
 {
-    Q_UNUSED(handle);
+    m_Handle = handle;
 }
 
 void 
@@ -42,8 +49,9 @@ DcpPage::setHandle (
         PageHandle::PageTypeId       id, 
         const QString               &param)
 {
-    Q_UNUSED(id);
-    Q_UNUSED(param);
+
+    m_Handle.id = id;
+    m_Handle.param = param;
 }
 
 PageHandle 
@@ -79,10 +87,6 @@ DcpPage::reload ()
 {
 }
 
-QGraphicsLinearLayout *
-DcpPage::mainLayout ()
-{
-    return 0;
-}
-#endif // DCPPAGE_FAKE_H
-
+void
+DcpPage::appendWidget(QGraphicsWidget*)
+{}

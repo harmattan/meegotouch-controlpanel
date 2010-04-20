@@ -59,12 +59,18 @@ DcpMain::CategoryInfos[] =
     }
 };
 
+const DcpCategoryInfo DcpMain::mostUsedCategory =
+{
+    //% "Most used items"
+    QT_TRID_NOOP("qtn_sett_main_most"),
+    "MostUsed",
+    PageHandle::NOPAGE,
+    NULL
+};
+
 
 //% "Settings"
 const char* DcpMain::settingsTitleId = QT_TRID_NOOP("qtn_sett_main_title");
-
-//% "Most recently used"
-const char* DcpMain::mostRecentUsedTitleId = QT_TRID_NOOP("qtn_sett_main_most");
 
 //% "Other Categories"
 const char* DcpMain::otherCategoriesTitleId = QT_TRID_NOOP("qtn_sett_main_other");

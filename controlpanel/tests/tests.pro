@@ -1,10 +1,18 @@
 TEMPLATE    = subdirs
 
-contains(DCP_BUILD_FEATURES,coverage) {
-  SUBDIRS = $$system(ls -1d ut_*/)
-} else {
-  SUBDIRS = $$system(ls -1d ut_*/ ft_*/)
-}
+SUBDIRS     = \
+              ut_dcpappletbuttons \
+              ut_dcppage \
+              ut_pagefactory \
+              ut_pages \
+              ut_dcpbriefcomponent \
+              ut_dcpsinglecomponent \
+              ut_dcpmaincategory \
+              ut_dcpmainpage \
+              ut_dcpcategorycomponent \
+              ft_dcpcomponent \
+              ft_dcpbriefcomponent \
+              ft_dcpsinglecomponent \
 
 QMAKE_STRIP = echo
 
@@ -23,3 +31,4 @@ contains(DCP_BUILD_FEATURES,coverage) {
 }
 
 QMAKE_CLEAN += **/*.log.xml **/*.log
+

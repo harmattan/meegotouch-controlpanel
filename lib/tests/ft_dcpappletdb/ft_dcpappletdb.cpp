@@ -9,7 +9,7 @@
 #include "dcpappletdb.h"
 
 #include "ft_dcpappletdb.h"
-#include <DuiGConfItem>
+#include <MGConfItem>
 #include "dcpappletobject-fake.h"
 
 #include "dcpdebug.h"

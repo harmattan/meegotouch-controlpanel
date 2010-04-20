@@ -1,7 +1,7 @@
 include ($$[QT_INSTALL_DATA]/mkspecs/dcpconfig.pri)
 
 TEMPLATE = lib
-CONFIG += plugin gui dui debug
+CONFIG += plugin gui meegotouch debug
 
 INCLUDEPATH += ../../../src/include
 

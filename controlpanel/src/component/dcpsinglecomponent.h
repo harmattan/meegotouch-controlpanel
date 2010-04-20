@@ -19,14 +19,17 @@ public:
                        const QString &subTitle="");
     ~DcpSingleComponent ();
 
-    void setTitle(const QString& title);
+    virtual QString title() const;
+    virtual void setTitle(const QString& title);
+    const QString subtitle();
     void setSubtitle(const QString& subtitle);
 
 public slots:
     void activate ();
 
 private:
-    class DuiContentItem* m_Item;
+    class MContentItem* m_Item;
+    friend class Ut_DcpSingleComponent;
 };
 
 #endif // DCPSINGLECOMPONENT_H

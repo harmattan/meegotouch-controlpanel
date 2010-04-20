@@ -1,5 +1,5 @@
 TEMPLATE      = lib
-CONFIG       += plugin gui dui debug
+CONFIG       += plugin gui meegotouch debug
 INCLUDEPATH  += $$system(find ./ -type d)
 MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects

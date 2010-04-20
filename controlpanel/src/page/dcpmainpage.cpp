@@ -3,20 +3,20 @@
 #include "dcpmainpage.h"
 
 #include <QtDebug>
-#include <DuiApplication>
+#include <MApplication>
 #include <DcpBriefComponent>
 #include <DcpSingleComponent>
 #include <DcpMainCategory>
 #include <Pages>
 #include <DcpApplet>
 #include <QGraphicsLinearLayout>
-#include <DuiContainer>
+#include <MContainer>
 
 #include "dcpcategorycomponent.h"
 #include "maintranslations.h"
 
-#include "duiwidgetcreator.h"
-DUI_REGISTER_WIDGET_NO_CREATE(DcpMainPage)
+#include "mwidgetcreator.h"
+M_REGISTER_WIDGET_NO_CREATE(DcpMainPage)
 
 #include "../../../lib/src/dcpdebug.h"
 
@@ -35,8 +35,7 @@ DcpMainPage::DcpMainPage() :
     m_HasContent (false),
     m_WasHidden (false)
 {
-    setEscapeButtonMode (DuiEscapeButtonPanelModel::CloseMode);
-    connect (this, SIGNAL(windowShown()),
+    connect (this, SIGNAL(appeared()),
             this, SLOT(shown()));
 }
 
@@ -87,7 +86,7 @@ DcpMainPage::createContent ()
 
     layout = mainLayout ();
 
-    m_OtherComp = new DuiContainer();
+    m_OtherComp = new MContainer();
     DcpMainCategory *otherCategories = new DcpMainCategory(
             DcpMain::otherCategoriesTitleId,
             0,
@@ -110,7 +109,6 @@ DcpMainPage::createContent ()
     m_OtherComp->setCentralWidget(otherCategories);
 
     layout->addItem(m_OtherComp);
-    setEscapeButtonMode(DuiEscapeButtonPanelModel::CloseMode);
     retranslateUi();
 
 #ifdef DISABLE_DELAYED_LOADING
@@ -137,14 +135,11 @@ DcpMainPage::createContentsLate ()
      * # gconftool-2 --recursive-unset /apps/duicontrolpanel/usagecount
      * to test this piece of code.
      */
-    m_RecentlyComp = new DcpCategoryComponent (
-            0,
-            DcpApplet::MostUsedCategory,
-            DcpMain::mostRecentUsedTitleId);
+    m_RecentlyComp = new DcpCategoryComponent (0, &DcpMain::mostUsedCategory,
+                                               centralWidget());
 
     if (!m_RecentlyComp->getItemCount()) {
         m_RecentlyComp->hide();
-        m_RecentlyComp->setParentItem(centralWidget());
     } else {
         mainLayout ()->insertItem (0,m_RecentlyComp);
         m_RecentlyComp->show();

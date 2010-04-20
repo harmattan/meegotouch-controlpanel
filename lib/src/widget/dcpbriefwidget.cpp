@@ -10,7 +10,7 @@
 #include "dcpbuttonimage.h"
 #include "dcpwrongapplets.h"
 
-#include <DuiSceneManager>
+#include <MSceneManager>
 #include <QGraphicsLinearLayout>
 #include <QtDebug>
 
@@ -41,8 +41,8 @@ DcpBriefWidgetPrivate::DcpBriefWidgetPrivate ():
  */
 DcpBriefWidget::DcpBriefWidget (
         DcpAppletObject *applet, 
-        DuiWidget         *parent):
-    DuiWidget (parent), 
+        MWidget         *parent):
+    MWidget (parent), 
     d_ptr (new DcpBriefWidgetPrivate)
 {
     QGraphicsLinearLayout* layout;
@@ -57,8 +57,8 @@ DcpBriefWidget::DcpBriefWidget (
         int               widgetTypeId,
         const QString    &line1,
         const QString    &line2,
-        DuiWidget        *parent):
-    DuiWidget (parent),
+        MWidget        *parent):
+    MWidget (parent),
     d_ptr (new DcpBriefWidgetPrivate)
 {
     DcpButton    *toggle;
@@ -192,7 +192,21 @@ DcpBriefWidget::constructImage (
     DcpButtonImage *image = new DcpButtonImage (this);
 
     if (applet) {
-        image->setImageName (applet->imageName());
+        QString   source;
+        
+        /*
+         * If the applet provides an image file name we set the image from that,
+         * otherwise we try to set the image from the icon name.
+         */
+        source = applet->imageName();
+        if (!source.isEmpty()) {
+            DCP_DEBUG ("Calling image->setImageFromFile (%s)", DCP_STR(source));
+            image->setImageFromFile (source);
+        } else {
+            source = applet->iconName();
+            DCP_DEBUG ("Calling image->setImageName (%s)", DCP_STR(source));
+            image->setImageName (source);
+        }
     }
 
     return image;
@@ -234,7 +248,21 @@ DcpBriefWidget::updateContents ()
     // image specific:
     DcpButtonImage *image = qobject_cast<DcpButtonImage*>(d_ptr->m_RealWidget);
     if (image) {
-        image->setImageName (d_ptr->m_Applet->imageName());
+        QString   source;
+
+        /*
+         * If the applet provides an image file name we set the image from that,
+         * otherwise we try to set the image from the icon name.
+         */
+        source = d_ptr->m_Applet->imageName();
+        if (!source.isEmpty()) {
+            DCP_DEBUG ("Calling image->setImageFromFile (%s)", DCP_STR(source));
+            image->setImageFromFile (source);
+        } else {
+            source = d_ptr->m_Applet->iconName();
+            DCP_DEBUG ("Calling image->setImageName (%s)", DCP_STR(source));
+            image->setImageName (source);
+        }
     }
 }
 

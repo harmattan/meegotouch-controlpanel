@@ -40,6 +40,7 @@ private:
     QString m_LoadedAppletCategory; 
     const DcpCategoryInfo  *m_CategoryInfo;
     const char* m_TitleId;
+    friend class Ut_DcpAppletCategoryPage;
 };
 
 #endif

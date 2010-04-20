@@ -1,14 +1,17 @@
 include(./../../lib/dcpconfig.pri)
 
-INCLUDEPATH +=/usr/include/dui ../doubles
+INCLUDEPATH += ../doubles
 
 SRCDIR = ./../../src
 
 DEPENDPATH = $$INCLUDEPATH
 
 QMAKE_LIBDIR += ../../../lib/lib/ /usr/lib/
+LIBDCPSRC =../../../lib/src
 LIBDCPINCLUDE=../../../lib/src/include
-CONFIG += dui debug
+LIBDCPFAKES=../../../lib/tests/doubles
+STUBSDIR = ../doubles
+CONFIG += debug
 
 QT += testlib
 
@@ -25,4 +28,7 @@ include(coverage.pri)
 LIBS +=  -L/usr/lib -lduicontrolpanel
 QMAKE_CXXFLAGS += -Werror
 message($$target.path)
+
+OBJECTS_DIR = ../.obj
+MOC_DIR = ../.moc
 

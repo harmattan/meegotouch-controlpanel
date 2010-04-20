@@ -1,12 +1,46 @@
-duicontrolpanel (0.7.9~unreleased) unstable; urgency=low
+duicontrolpanel (0.7.14) unstable; urgency=low
+
+  * Fixes localization problem at startup
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 20 Apr 2010 10:33:28 +0200
+
+duicontrolpanel (0.7.13) unstable; urgency=low
+
+  * Fixes: problems with external and declarative plugins
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 19 Apr 2010 16:01:28 +0200
+
+duicontrolpanel (0.7.12) unstable; urgency=low
+
+  * Fixes: NB#164568 -  Setting the image for DcpBrief from a file is not possible
+  * bump up
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 15 Apr 2010 14:54:57 +0200
+
+duicontrolpanel (0.7.11) unstable; urgency=low
+
+  * Compatible with libmeegotouch
+  * Fixes: NB#156748 - could not define first line value for brief in
+    applet for dcp
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 13 Apr 2010 10:37:44 +0200
+
+duicontrolpanel (0.7.10) unstable; urgency=low
+
+  * marked some dependencies
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 07 Apr 2010 10:53:19 +0200
+
+duicontrolpanel (0.7.9) unstable; urgency=low
 
   [ Robert Manner ]
+  * Release for dui 0.20
   * Optimized applet translation catalog loading for faster startup time
 
   [ Laszlo Pere ]
   * Fixes: NB#162454 - Wrong icon displayed in application launcher
 
- -- Viktor Nagy <viktor.nagy@blumsoft.eu>  Tue, 30 Mar 2010 16:13:57 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 30 Mar 2010 11:08:21 +0200
 
 duicontrolpanel (0.7.8) unstable; urgency=low
 

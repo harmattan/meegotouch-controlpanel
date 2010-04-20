@@ -4,7 +4,7 @@
 #include <QtPlugin>
 
 class DcpWidget;
-class DuiAction;
+class MAction;
 class DcpBrief;
 
 /*!
@@ -47,7 +47,7 @@ public:
      * \brief Menu items that applet can provide in the main menu of the 
      *   applet page
      */
-    virtual QVector <DuiAction *> viewMenuItems () = 0;
+    virtual QVector <MAction *> viewMenuItems () = 0;
 
     /*!
      * \brief The Brief view of the applet
@@ -73,7 +73,7 @@ public:
     virtual int interfaceVersion() { return 1; }
 };
 
-Q_DECLARE_INTERFACE (DcpAppletIf, "com.nokia.dui.core.DcpAppletIf/1.0")
+Q_DECLARE_INTERFACE (DcpAppletIf, "com.nokia.m.core.DcpAppletIf/1.0")
 
 #endif
 

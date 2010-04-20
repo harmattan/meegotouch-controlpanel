@@ -2,18 +2,18 @@
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #include "dcpbutton.h"
 #include "dcpbutton_p.h"
-#include <DuiLabel>
+#include <MLabel>
 #include <QGraphicsGridLayout>
 #include <QGraphicsSceneMouseEvent>
 
-#include "duiwidgetcreator.h"
-DUI_REGISTER_WIDGET_NO_CREATE(DcpButton)
+#include "mwidgetcreator.h"
+M_REGISTER_WIDGET_NO_CREATE(DcpButton)
 
 
 #include "dcpdebug.h"
 
 /******************************************************************************
- * Stuff for the DuiStylableWidget style handling. 
+ * Stuff for the MStylableWidget style handling. 
  */
 #ifdef USE_STYLABLE_WIDGET
 class DcpButtonStyleContainerPrivate {
@@ -43,7 +43,7 @@ DcpButtonStyleContainer::~DcpButtonStyleContainer()
 
 void DcpButtonStyleContainer::reloadStyles()
 {
-    DuiWidgetStyleContainer::reloadStyles();
+    MWidgetStyleContainer::reloadStyles();
 }
 
 const char* DcpButtonStyleContainer::styleType() const
@@ -66,11 +66,11 @@ DcpButtonPrivate::DcpButtonPrivate ():
 /******************************************************************************
  * Stuff for the DcpButton widget class. 
  */
-DcpButton::DcpButton (DuiWidget *parent): 
+DcpButton::DcpButton (MWidget *parent): 
     #ifdef USE_STYLABLE_WIDGET
-    DuiStylableWidget (parent), 
+    MStylableWidget (parent), 
     #else
-    DuiWidget (parent), 
+    MWidget (parent), 
     #endif
     d_ptr (new DcpButtonPrivate)
 {
@@ -82,11 +82,11 @@ DcpButton::DcpButton (DuiWidget *parent):
 /*!
  * protected constructor which avoids creating the layout
  */
-DcpButton::DcpButton(DuiWidget* parent, bool): 
+DcpButton::DcpButton(MWidget* parent, bool): 
     #ifdef USE_STYLABLE_WIDGET
-    DuiStylableWidget (parent), 
+    MStylableWidget (parent), 
     #else
-    DuiWidget (parent), 
+    MWidget (parent), 
     #endif
     d_ptr (new DcpButtonPrivate)
 {
@@ -102,11 +102,11 @@ DcpButton::~DcpButton ()
 QGraphicsLayout *
 DcpButton::createLayout ()
 {
-    d_ptr->label1 = new DuiLabel (this);
+    d_ptr->label1 = new MLabel (this);
     d_ptr->label1->setAcceptedMouseButtons (0);
     d_ptr->label1->setTextElide (true);
 
-    d_ptr->label2 = new DuiLabel();
+    d_ptr->label2 = new MLabel();
     d_ptr->label2->setTextElide (true);
     d_ptr->label2->setAcceptedMouseButtons (0);
     d_ptr->label2->setObjectName ("DcpButtonLine2");

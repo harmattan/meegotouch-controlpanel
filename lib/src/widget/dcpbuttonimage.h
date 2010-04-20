@@ -4,7 +4,7 @@
 #define DCPBUTTONIMAGE_H
 
 #include "dcpbuttonalign.h"
-class DuiImageWidget;
+class MImageWidget;
 
 class DcpButtonImagePrivate;
 class DcpButtonImage: public DcpButtonAlign 
@@ -12,13 +12,14 @@ class DcpButtonImage: public DcpButtonAlign
     Q_OBJECT
 
 public:
-    DcpButtonImage (DuiWidget *parent = 0);
+    DcpButtonImage (MWidget *parent = 0);
 
-    void setImageName (const QString& imageName);
-
+    void setImageName (const QString& iconName);
+    void setImageFromFile (const QString &fileName);
+    
 protected:
     virtual QGraphicsLayout *createLayout ();
-    DuiImageWidget *imageWidget ();
+    MImageWidget *imageWidget ();
 private:
     DcpButtonImagePrivate *const d_ptr;
     Q_DISABLE_COPY(DcpButtonImage);

@@ -20,7 +20,7 @@ class DcpButtonAlign: public DcpButton
     Q_OBJECT
 
 public:
-    DcpButtonAlign (DuiWidget *parent);
+    DcpButtonAlign (MWidget *parent);
     ~DcpButtonAlign ();
 
     void setWidgetAlignment (Qt::Alignment align);
@@ -29,8 +29,8 @@ protected:
     virtual QGraphicsLayout* createLayout ();
     void setAlignment (Qt::Alignment align);
 
-    DuiWidget* alignedWidget ();
-    void setAlignedWidget (DuiWidget* widget);
+    MWidget* alignedWidget ();
+    void setAlignedWidget (MWidget* widget);
 
 private:
     void putupWidgets ();

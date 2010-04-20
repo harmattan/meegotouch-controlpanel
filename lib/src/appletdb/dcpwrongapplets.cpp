@@ -3,7 +3,7 @@
 #include <signal.h>
 #include <execinfo.h>
 
-#include <DuiGConfItem>
+#include <MGConfItem>
 #include <QFileInfo>
 #include <QDateTime>
 #include <QtDebug>
@@ -49,7 +49,7 @@ void
 mark_applet_as_bad (
         const char   *full_path)
 {
-    DuiGConfItem  conf(keyPath + full_path + KEY_SEPARATOR + "CrashDateTime");
+    MGConfItem  conf(keyPath + full_path + KEY_SEPARATOR + "CrashDateTime");
     QDateTime     now = QDateTime::currentDateTime ();
 
     conf.set (now.toString());
@@ -228,7 +228,7 @@ bool
 DcpWrongApplets::isAppletRecentlyCrashed (
         const QString       &fullSoPath)
 {
-    DuiGConfItem conf(keyPath + fullSoPath + KEY_SEPARATOR + "CrashDateTime");
+    MGConfItem conf(keyPath + fullSoPath + KEY_SEPARATOR + "CrashDateTime");
     QString      lastCrashDate = conf.value().toString();
 
     /*
@@ -261,9 +261,9 @@ DcpWrongApplets::disable ()
 // removes a gconf path recursively, like "gconftool-2 --recusive-unset"
 static void gconf_recursive_remove(const QString& path)
 {
-    DuiGConfItem conf(path);
+    MGConfItem conf(path);
     foreach (QString entry, conf.listEntries()){
-        DuiGConfItem(entry).unset();
+        MGConfItem(entry).unset();
     }
     foreach (QString dir, conf.listDirs()){
         gconf_recursive_remove(dir);
@@ -285,7 +285,7 @@ DcpWrongApplets::removeBadsOnDcpTimeStampChange()
         QFileInfo(qApp->applicationFilePath()).lastModified();
 
     // the previous timestamp of the executable
-    DuiGConfItem conf(keyPath + "/dcpTimeStamp");
+    MGConfItem conf(keyPath + "/dcpTimeStamp");
     QString lastDateStr = conf.value().toString();
     QDateTime lastDateStamp = QDateTime::fromString(lastDateStr);
 
@@ -293,7 +293,7 @@ DcpWrongApplets::removeBadsOnDcpTimeStampChange()
         DCP_DEBUG("Removing bad applet list due to dcp timestamp change");
 
         // remove the wrong applet list
-//        DuiGConfItem(keyPath+"/usr").unset();
+//        MGConfItem(keyPath+"/usr").unset();
         gconf_recursive_remove(keyPath + "/usr");
 
         // write the new stamp:

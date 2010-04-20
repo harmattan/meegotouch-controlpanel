@@ -17,12 +17,6 @@ class DcpAppletButtons :
 
 public:
     DcpAppletButtons (
-            const QString&   logicalId,
-            const QString&   categoryName,
-            const QString&   title,
-            QGraphicsWidget *parent = 0);
-
-    DcpAppletButtons (
             const DcpCategoryInfo  *categoryInfo,
             const QString          &title,
             QGraphicsWidget        *parent = 0);
@@ -30,15 +24,14 @@ public:
     void addComponent (
             DcpAppletMetadata *metadata);
 
-    virtual void reload();
+    virtual bool reload();
 
 protected:
     virtual void createContents();
 
 private:
-    QString                 m_CategoryName;
-    QString                 m_LogicalId;
     const DcpCategoryInfo  *m_CategoryInfo;
+    friend class Ut_DcpAppletButtons;
 };
 
 #endif

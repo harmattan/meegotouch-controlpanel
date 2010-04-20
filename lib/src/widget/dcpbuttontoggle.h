@@ -4,13 +4,13 @@
 #define DCPBUTTONTOGGLE_H
 
 #include "dcpbuttonalign.h"
-class DuiButton;
+class MButton;
 
 class DcpButtonTogglePrivate;
 class DcpButtonToggle: public DcpButtonAlign {
     Q_OBJECT
 public:
-    explicit DcpButtonToggle(DuiWidget* parent = 0);
+    explicit DcpButtonToggle(MWidget* parent = 0);
 
     virtual void setText2(const QString& text);
     virtual void setIconId(const QString& iconId);
@@ -25,7 +25,7 @@ protected slots:
 
 protected:
     virtual QGraphicsLayout* createLayout();
-    DuiButton* toggleButton();
+    MButton* toggleButton();
 
 private:
     DcpButtonTogglePrivate *const d_ptr;

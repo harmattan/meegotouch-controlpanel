@@ -1,5 +1,7 @@
 include(../common_top.pri)
-CONFIG += dui
+
+CONFIG += meegotouch
+
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
 INCLUDEPATH += $$system(find $$SRCDIR/../../lib/src/ -type d)
 
@@ -11,7 +13,10 @@ TEST_SOURCES = \
 
 # unit test and unit
 SOURCES += \
-    ut_dcppage.cpp \
+    *.cpp \
+    $$STUBSDIR/mlayout-fake.cpp \
+    $$STUBSDIR/mapplicationpage-fake.cpp \
+    $$STUBSDIR/mapplicationwindow-fake.cpp \
     $$SRCDIR/../../lib/src/dcpdebug.cpp\
     $$TEST_SOURCES \ 
 
@@ -21,7 +26,7 @@ SOURCES += \
 
 # unit test and unit
 HEADERS += \
-    ut_dcppage.h \
+    *.h \
     $$SRCDIR/page/dcppage.h \
     $$SRCDIR/../../lib/src/dcpdebug.h
 

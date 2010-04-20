@@ -1,14 +1,14 @@
 #ifndef TESTWIDGET_H__
 #define TESTWIDGET_H__
 
-#include <DuiLabel>
+#include <MLabel>
 
-class TestWidget : public DuiLabel
+class TestWidget : public MLabel
 {
     Q_OBJECT
 
     public:
-        TestWidget(QString const &text, DuiWidget *parent=0);
+        TestWidget(QString const &text, MWidget *parent=0);
         virtual ~TestWidget();
 
 };

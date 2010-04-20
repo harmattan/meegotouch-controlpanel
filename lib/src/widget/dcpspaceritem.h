@@ -3,7 +3,7 @@
 #ifndef DCPSPACERITEM_H
 #define DCPSPACERITEM_H
 
-#include <DuiWidget>
+#include <MWidget>
 
 #if 0
 /*!
@@ -15,7 +15,7 @@
 class DcpSpacerItem : public QGraphicsWidget
 {
 public:
-    DcpSpacerItem(DuiWidget *parent, int width, int height,
+    DcpSpacerItem(MWidget *parent, int width, int height,
                   QSizePolicy::Policy hPolicy = QSizePolicy::Minimum,
                   QSizePolicy::Policy vPolicy = QSizePolicy::Minimum);
     virtual ~DcpSpacerItem();

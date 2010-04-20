@@ -1,6 +1,6 @@
 include(./../../dcpconfig.pri)
 
-INCLUDEPATH +=/usr/include/dui ../doubles
+INCLUDEPATH += ../doubles
 
 SRCDIR = ./../../src
 
@@ -8,7 +8,7 @@ DEPENDPATH = $$INCLUDEPATH
 
 QMAKE_LIBDIR += ../../lib/ /usr/lib/
 
-CONFIG += debug
+CONFIG += debug meegotouch
 
 QT += testlib
 

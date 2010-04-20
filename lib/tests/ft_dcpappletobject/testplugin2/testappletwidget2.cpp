@@ -1,20 +1,20 @@
-#include <DuiLabel>
-#include <DuiContainer>
-#include <DuiLayout>
-#include <DuiLinearLayoutPolicy>
-#include <DuiButton>
-#include <DuiButtonGroup>
+#include <MLabel>
+#include <MContainer>
+#include <MLayout>
+#include <MLinearLayoutPolicy>
+#include <MButton>
+#include <MButtonGroup>
 #include "testappletwidget2.h"
 
 TestAppletWidget2::TestAppletWidget2(QGraphicsWidget *parent)
     : DcpWidget(parent)
 {
-    DuiLayout *layout = new DuiLayout(this);
-    DuiLinearLayoutPolicy *layoutPolicy = 
-        new DuiLinearLayoutPolicy(layout, Qt::Vertical);
+    MLayout *layout = new MLayout(this);
+    MLinearLayoutPolicy *layoutPolicy = 
+        new MLinearLayoutPolicy(layout, Qt::Vertical);
     layout->setPolicy(layoutPolicy);
 
-    DuiLabel *widget = new DuiLabel("Test applet2", this);
+    MLabel *widget = new MLabel("Test applet2", this);
     layoutPolicy->addItem(widget, Qt::AlignLeft);
 
     setLayout(layout);

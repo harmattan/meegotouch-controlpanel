@@ -8,7 +8,7 @@
 #include "ut_dcpappletdb.h"
 #include "dcpappletmetadata-fake.h"
 #include "dcpappletobject-fake.h"
-#include "duigconfitem-fake.h"
+#include "mgconfitem-fake.h"
 
 void Ut_DcpAppletDb::initTestCase()
 {
