@@ -13,6 +13,12 @@ DcpMain::CategoryInfos[] =
         NULL
     },
     {
+        "qtn-fake-2",
+        "fake-category-2",
+        PageHandle::LOOKANDFEEL,
+        NULL
+    },
+    {
         // The last element must have the .titleId == 0
         0, 0, PageHandle::NOPAGE, NULL
     }

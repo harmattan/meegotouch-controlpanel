@@ -63,19 +63,19 @@ void
 DcpMainCategory::setCreateSeparators (
         bool create)
 {
-    Q_UNUSED(create);
+    m_CreateSeparators = create;
 }
 
 void 
 DcpMainCategory::setMaxColumns (
         int columns)
 {
-    Q_UNUSED(columns);
+    m_MaxColumns = columns;
 }
 
 int 
 DcpMainCategory::maxColumns ()
 {
-    return 0;
+    return m_MaxColumns;
 }
 

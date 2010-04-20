@@ -9,6 +9,9 @@ SUBDIRS     = \
               ut_dcpmaincategory \
               ut_dcpmainpage \
               ut_dcpcategorycomponent \
+              ft_dcpcomponent \
+              ft_dcpbriefcomponent \
+              ft_dcpsinglecomponent \
 
 QMAKE_STRIP = echo
 

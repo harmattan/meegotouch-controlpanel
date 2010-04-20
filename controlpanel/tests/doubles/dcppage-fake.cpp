@@ -87,4 +87,6 @@ DcpPage::reload ()
 {
 }
 
-
+void
+DcpPage::appendWidget(QGraphicsWidget*)
+{}
