@@ -5,8 +5,8 @@ QMAKE_RPATH = -Wl
 message($$QMAKE_RPATH)
 TEMPLATE = app
 TARGET = ../duicontrolpanel
-DEPENDPATH += include 
-INCLUDEPATH += $$DEPENDPATH ../../lib/src/include
+DEPENDPATH += include ../../lib/src/include
+INCLUDEPATH += $$DEPENDPATH
 message($$INCLUDEPATH)
 OBJECTS_DIR = ../tmp
 MOC_DIR = ../tmp
