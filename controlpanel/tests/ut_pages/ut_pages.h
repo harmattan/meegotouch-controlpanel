@@ -20,7 +20,7 @@ private slots:
     void cleanupTestCase();
     void testCreation();
     void testGetStringVariant();    
-
+    void testEquality();
 };
 
 #endif

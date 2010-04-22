@@ -50,7 +50,9 @@ void
 DcpMainCategory::appendWidget (
         DcpComponent *component)
 {
-    Q_UNUSED(component);
+                                                                                                                    
+    m_LandscapeLayout->addItem (component, m_RowCount, m_ColCount);                                                   
+    m_PortraitLayout->addItem (component);                                    
 }
 
 void 

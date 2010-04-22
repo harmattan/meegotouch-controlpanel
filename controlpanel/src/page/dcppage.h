@@ -51,6 +51,7 @@ private:
 
     PageHandle m_Handle;
     PageHandle m_Referer;
+    friend class Ut_DcpPage;
 };
 
 #endif

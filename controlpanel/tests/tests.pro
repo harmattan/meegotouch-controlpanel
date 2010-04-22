@@ -5,10 +5,10 @@ SUBDIRS     = \
               ut_dcppage \
               ut_pagefactory \
               ut_pages \
-              ut_dcpbriefcomponent \
+#              ut_dcpbriefcomponent \
               ut_dcpsinglecomponent \
               ut_dcpmaincategory \
-              ut_dcpmainpage \
+#              ut_dcpmainpage \
               ut_dcpcategorycomponent \
               ft_dcpcomponent \
               ft_dcpbriefcomponent \
