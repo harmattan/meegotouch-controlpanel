@@ -1,8 +1,9 @@
 #include <QObject>
 #include <QGraphicsSceneMouseEvent>
 #include <QSignalSpy>
-#include <dcpbriefcomponent.h>
-#include <dcpbriefwidget.h>
+
+#include "dcpbriefcomponent.h"
+#include "dcpbriefwidget.h"
 
 
 #include "ft_dcpbriefcomponent.h"
