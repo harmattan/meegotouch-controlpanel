@@ -4,6 +4,7 @@ CONFIG += meegotouch
 
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
 INCLUDEPATH += ../doubles 
+INCLUDEPATH += $$LIBDCPSRC/include 
 INCLUDEPATH += $$LIBDCPSRC/appletdb 
 
 TARGET = ft_dcpbriefcomponent
