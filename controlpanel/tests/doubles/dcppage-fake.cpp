@@ -88,5 +88,7 @@ DcpPage::reload ()
 }
 
 void
-DcpPage::appendWidget(QGraphicsWidget*)
-{}
+DcpPage::appendWidget(QGraphicsWidget* widget)
+{
+    mainLayout()->addItem(widget);
+}

@@ -65,7 +65,7 @@ void Ut_DcpComponent::testSubPage()
 void Ut_DcpComponent::testTitle()
 {
     
-    QCOMPARE(m_subject->title(), "Some Title");
+    QCOMPARE(m_subject->title(), QString("Some Title"));
     QString title("Other title");
     m_subject->setTitle(title); 
     QCOMPARE(m_subject->title(), title);
@@ -73,12 +73,12 @@ void Ut_DcpComponent::testTitle()
 
 void Ut_DcpComponent::testCategory()
 {
-    QCOMPARE(m_subject->category(), 0);
+    QVERIFY(m_subject->category() == 0);
 }
 
 void Ut_DcpComponent::testLogicalId()    
 {
-    QCOMPARE(m_subject->logicalId(), "Logical Id");
+    QCOMPARE(m_subject->logicalId(), QString("Logical Id"));
     QString logicalId("logicalId");
     m_subject->setLogicalId(logicalId); 
     QCOMPARE(m_subject->logicalId(), logicalId);
@@ -87,7 +87,7 @@ void Ut_DcpComponent::testLogicalId()
 void Ut_DcpComponent::testMattiID()    
 {
     m_subject->setMattiID("matti id"); 
-    QCOMPARE(m_subject->mattiID(), "matti id");
+    QCOMPARE(m_subject->mattiID(), QString("matti id"));
 }
 
 QTEST_APPLESS_MAIN(Ut_DcpComponent)

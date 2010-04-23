@@ -22,7 +22,8 @@ private slots:
     void testTitle();
     void testCategory();
     void testLogicalId();    
-    void testMattiID();    
+    void testMattiID();
+private:    
     DcpComponent *m_subject;    
 };
 

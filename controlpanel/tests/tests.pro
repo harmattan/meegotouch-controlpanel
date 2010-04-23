@@ -1,18 +1,10 @@
 TEMPLATE    = subdirs
-
-SUBDIRS     = \
-              ut_dcpappletbuttons \
-              ut_dcppage \
-              ut_pagefactory \
-              ut_pages \
-#              ut_dcpbriefcomponent \
-              ut_dcpsinglecomponent \
-              ut_dcpmaincategory \
-#              ut_dcpmainpage \
-              ut_dcpcategorycomponent \
-              ft_dcpcomponent \
-              ft_dcpbriefcomponent \
-              ft_dcpsinglecomponent \
+                                                                                                                     
+contains(DCP_BUILD_FEATURES,coverage) {                                                                               
+  SUBDIRS = $$system(ls -1d ut_*/)                                                                                    
+} else {                                                                                                              
+  SUBDIRS = $$system(ls -1d ut_*/ ft_*/)                                                                              
+} 
 
 QMAKE_STRIP = echo
 

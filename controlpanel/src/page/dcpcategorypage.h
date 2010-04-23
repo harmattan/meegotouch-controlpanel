@@ -16,6 +16,7 @@ public:
 
 protected:
     DcpMainCategory *m_Category;
+    friend class Ut_DcpCategoryPage;
 };
 
 #endif
