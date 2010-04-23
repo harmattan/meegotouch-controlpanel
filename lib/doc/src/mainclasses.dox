@@ -14,11 +14,7 @@ Controling duicontrolpanel:
 
 Widgets:
 <ul>
-<li>DcpBriefWidget
-<li>DcpButton
-<li>DcpButtonImage
-<li>DcpButtonToggle
-<li>DcpButtonAlign
+<li>DcpContentItem
 </ul>
 
 Accessing plugins:

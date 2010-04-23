@@ -7,6 +7,10 @@
 class MImageWidget;
 
 class DcpButtonImagePrivate;
+
+/*!
+ * THIS CLASS IS DEPRECATED and will be removed soon.
+ */
 class DcpButtonImage: public DcpButtonAlign 
 {
     Q_OBJECT

@@ -7,6 +7,10 @@
 class MButton;
 
 class DcpButtonTogglePrivate;
+
+/*!
+ * THIS CLASS IS DEPRECATED and will be removed soon.
+ */
 class DcpButtonToggle: public DcpButtonAlign {
     Q_OBJECT
 public:

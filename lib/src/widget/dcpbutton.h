@@ -45,11 +45,13 @@ class M_EXPORT DcpButtonStyleContainer : public MWidgetStyleContainer
  * pages of the control panel UI.
  * TODO if design stays the way it is we could use here an empty
  * WidgetController which supports margins set by css
+ *
+ * THIS CLASS IS DEPRECATED. Please use MContentItem instead.
  */
 #ifdef USE_STYLABLE_WIDGET
-class DcpButton: public MStylableWidget
+class Q_DECL_DEPRECATED DcpButton: public MStylableWidget
 #else
-class DcpButton: public MWidget
+class Q_DECL_DEPRECATED DcpButton: public MWidget
 #endif
 {
     Q_OBJECT

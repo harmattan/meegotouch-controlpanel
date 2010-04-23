@@ -38,8 +38,8 @@ install_headers.files += $$system(echo include/D*) \
     widget/dcpbuttontoggle.h \
     widget/dcpbuttonimage.h \
     widget/dcpbriefwidget.h \
+    widget/dcpcontentitem.h \
     widget/dcpwidgettypes.h \
-    widget/dcpspaceritem.h \
     dcpdebug.h \
     dcpretranslator.h \
     service_interface/duicontrolpanelif.h \

@@ -14,8 +14,10 @@ class DcpButtonAlignPrivate;
  * The #DcpButtonAlign is the base class for all the brief widget classes. The
  * brief widgets are the widgets inside the main page and the category subpages
  * representing one applet variant.
+ *
+ * THIS CLASS IS DEPRECATED and will be removed soon.
  */
-class DcpButtonAlign: public DcpButton 
+class DcpButtonAlign: public DcpButton
 {
     Q_OBJECT
 
