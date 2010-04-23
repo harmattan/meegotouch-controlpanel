@@ -6,9 +6,11 @@ CONFIG += build_all silent warn_on
 CONFIG += conf
 
 SUBDIRS += src \
-       translations \
-	   tests \
-#	   examples
+
+!minimal {
+       SUBDIRS += translations \
+                  tests
+}
 
 # install targets:
 include (common.pri)
@@ -29,4 +31,5 @@ contains(DCP_BUILD_FEATURES,coverage) {
   QMAKE_EXTRA_TARGETS += coverage
   coverage.target = coverage
   coverage.CONFIG = recursive
-} 
+}
+

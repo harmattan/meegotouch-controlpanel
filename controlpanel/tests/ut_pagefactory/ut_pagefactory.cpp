@@ -55,7 +55,7 @@ void Ut_PageFactory::testCreatePage()
     QCOMPARE((void*)factory->m_MainPage, (void*)page);
 
     // an appletpage:
-    page = factory->createPage(PageHandle(PageHandle::APPLET, "anApplet"));
+    page = factory->createPage(PageHandle(PageHandle::APPLET, "fake-name"));
     QVERIFY(page);
 
     // applet category pages:
@@ -87,7 +87,7 @@ void Ut_PageFactory::testCreateAppletPage()
 {
     PageFactory *factory = PageFactory::instance();
     QCOMPARE((void*)factory->m_MainPage, (void*)0);
-    PageHandle handle(PageHandle::APPLET, "anApplet");
+    PageHandle handle(PageHandle::APPLET, "fake-name");
     DcpPage *page =
         factory->createAppletPage(handle);
     QVERIFY(page);

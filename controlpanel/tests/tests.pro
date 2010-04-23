@@ -4,7 +4,13 @@ contains(DCP_BUILD_FEATURES,coverage) {
   SUBDIRS = $$system(ls -1d ut_*/)                                                                                    
 } else {                                                                                                              
   SUBDIRS = $$system(ls -1d ut_*/ ft_*/)                                                                              
-} 
+}
+
+# this is only because the tests shares the compile directory for object and
+# moc files, so that the same files does not have to be compiled over and over
+# again,
+# and it causes problems when two project are building/generating the same file
+CONFIG += ordered
 
 QMAKE_STRIP = echo
 

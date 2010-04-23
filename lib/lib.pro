@@ -3,8 +3,12 @@ TEMPLATE = subdirs
 CONFIG += ordered debug
 CONFIG += build_all silent warn_on
 
-SUBDIRS += src tests
-include(doc/doc.pri)
+SUBDIRS += src
+!minimal {
+    SUBDIRS += tests
+    include(doc/doc.pri)
+}
+
 include(libconfig.pri)
 # for check:
 check.target = check

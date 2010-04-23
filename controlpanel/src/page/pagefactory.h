@@ -4,6 +4,7 @@
 #include "pages.h"
 #include <QObject>
 #include <QList>
+#include <QPointer>
 
 class MApplicationPage;
 class DcpPage;
@@ -49,6 +50,7 @@ private:
     static PageFactory     *sm_Instance;
     DcpMainPage            *m_MainPage;
     DcpAppletCategoryPage  *m_AppletCategoryPage;
+    QPointer<DcpAppletPage> m_LastAppletPage;
     QList<MApplicationPage *> m_Pages;
     // for testability
     friend class Ut_PageFactory;

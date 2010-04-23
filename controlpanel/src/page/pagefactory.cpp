@@ -157,10 +157,20 @@ PageFactory::createMainPage ()
  * applet page referenced by the appletPage class member.
  */
 DcpPage *
-PageFactory::createAppletPage(
-        PageHandle &handle)
+PageFactory::createAppletPage (PageHandle &handle)
 {
     DcpAppletObject *applet = DcpAppletDb::instance()->applet (handle.param);
+
+    /*
+     * this prevents openning the same page multiple times,
+     * if more signals are coming, for example if user clicks double
+     */
+    if (handle.widgetId < 0) { // fixup unknown widgetid for the comparing
+        handle.widgetId = applet->getMainWidgetId();
+    }
+    if (m_LastAppletPage && m_LastAppletPage->handle() == handle) {
+        return 0; // m_LastAppletPage.data();
+    }
 
     /*
      * We do not cache appletpages (only with back mechanism).
@@ -178,6 +188,7 @@ PageFactory::createAppletPage(
         return 0;
     } else {
         handle.widgetId = appletPage->widgetId();
+        m_LastAppletPage = appletPage;
         return appletPage;
     }
 }
@@ -229,15 +240,6 @@ PageFactory::changePage (const PageHandle &handle)
 {
     DcpPage *page;
 
-    /*
-     * this prevents openning the same page multiple times,
-     * if more signals are coming, for example if user clicks double
-     */
-    DcpPage *currentPage = this->currentPage();
-    if (currentPage && 
-            handle == currentPage->handle()) 
-        return;
-    
     if (tryOpenPageBackward(handle))
         return;
 
