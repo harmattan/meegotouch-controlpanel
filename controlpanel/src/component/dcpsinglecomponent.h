@@ -5,17 +5,15 @@
 #define DCPSINGLECOMPONENT_H
 
 #include "dcpcomponent.h"
-class DcpBriefWidget;
 
-class DcpSingleComponent: 
-    public DcpComponent 
+class DcpSingleComponent: public DcpComponent
 {
     Q_OBJECT
 
 public:
     DcpSingleComponent(DcpComponent *category,
                        const QString &logicalId,
-                       const QString &title, 
+                       const QString &title,
                        const QString &subTitle="");
     ~DcpSingleComponent ();
 

@@ -6,31 +6,26 @@
 
 #include "dcpcomponent.h"
 class DcpAppletObject;
-class DcpBriefWidget;
+class DcpContentItem;
 
 /*
- * FIXME: This class is practically empty, it should be removed.
+ * FIXME: This class is practically empty, it should be removed. XXX
  */
-class DcpBriefComponent: 
-    public DcpComponent 
+class DcpBriefComponent: public DcpComponent
 {
     Q_OBJECT
     Q_PROPERTY (QString mattiID READ mattiID WRITE setMattiID)
 
 public:
-    DcpBriefComponent(DcpAppletObject *applet, 
+    DcpBriefComponent(DcpAppletObject *applet,
             DcpComponent        *category,
             const QString       &logicalId = "");
     ~DcpBriefComponent ();
 
-
     void setApplet (DcpAppletObject *applet);
 
-public slots:
-    void activate ();
-
 private:
-    DcpBriefWidget *m_BriefWidget;
+    DcpContentItem *m_BriefWidget;
     friend class Ut_DcpBriefComponent;
 };
 

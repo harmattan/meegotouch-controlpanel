@@ -2,6 +2,7 @@
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 
 #include "dcpcontentitem.h"
+#include "mwidgetview.h"
 #include "dcpappletobject.h"
 #include "dcpappletmetadata.h"
 #include "dcpwidgettypes.h"
@@ -17,69 +18,32 @@
 #include "dcpdebug.h"
 
 /******************************************************************************
- * Private data class for the DcpWidget class.
+ * Private data class for the DcpContentItem class.
  */
 class DcpContentItemPrivate {
 public:
     DcpContentItemPrivate ();
 
-    DcpButton *m_RealWidget;
     DcpAppletObject *m_Applet;
     bool m_Hidden;
 };
 
 DcpContentItemPrivate::DcpContentItemPrivate ():
-    m_RealWidget (0), 
-    m_Applet (0), 
+    m_Applet (0),
     m_Hidden (true)
 {
 }
-
 
 /******************************************************************************
  * Stuff for the DcpContentItem class.
  */
 DcpContentItem::DcpContentItem (
-        DcpAppletObject *applet, 
-        MWidget         *parent):
-    MWidget (parent), 
+        DcpAppletObject *applet,
+        QGraphicsItem   *parent):
+    MContentItem (MContentItem::IconAndTwoTextLabels, parent),
     d_ptr (new DcpContentItemPrivate)
 {
-    QGraphicsLinearLayout* layout;
-    
-    layout = new QGraphicsLinearLayout (this);
-    layout->setContentsMargins (0, 0, 0, 0);
-
     setApplet (applet);
-}
-
-DcpContentItem::DcpContentItem (
-        int               widgetTypeId,
-        const QString    &line1,
-        const QString    &line2,
-        MWidget        *parent):
-    MWidget (parent),
-    d_ptr (new DcpContentItemPrivate)
-{
-    DcpButton    *toggle;
-    QGraphicsLinearLayout* wlayout = new QGraphicsLinearLayout (this);
-    wlayout->setContentsMargins (0, 0, 0, 0);
-
-    /*
-     * FIXME: I mean unused argument.
-     * All this contructor seems strange, dcpcontentitem would be about
-     * interaction between the applet and the DcpButtons, consider
-     * using DcpButton directly instead of this
-     *
-     */
-    //DCP_WARNING ("Unsupported widget type: %d", widgetTypeId);
-    Q_UNUSED(widgetTypeId);
-
-    toggle = new DcpButton (this);
-    d_ptr->m_RealWidget = toggle;
-    d_ptr->m_RealWidget->setText1 (line1);
-    d_ptr->m_RealWidget->setText2 (line2);
-    ((QGraphicsLinearLayout*) layout())->addItem (d_ptr->m_RealWidget);
 }
 
 
@@ -96,30 +60,26 @@ DcpContentItem::~DcpContentItem ()
  * implement internal brief widgets also.
  */
 void
-DcpContentItem::constructRealWidget (int widgetTypeId)
+DcpContentItem::constructRealWidget ()
 {
+    int widgetTypeId = d_ptr->m_Applet->widgetTypeID();
     switch (widgetTypeId) {
-        case DcpWidgetType::Toggle:
-            DCP_DEBUG ("### DcpWidgetType::Toggle ###");
-            d_ptr->m_RealWidget = constructToggle (d_ptr->m_Applet);
-            break;
-
         case DcpWidgetType::Image:
             DCP_DEBUG ("### DcpWidgetType::Image ###");
-            d_ptr->m_RealWidget = constructImage (d_ptr->m_Applet);
+            constructImage ();
             break;
 
+        case DcpWidgetType::Toggle:
+            qWarning("Support for toggle type as briefwidget was removed from "
+                     "controlpanel according to the latest specifications (%s)",
+                     qPrintable(applet()->metadata()->name()));
         default:
             DCP_DEBUG ("### DcpWidgetType::Label ###");
-            d_ptr->m_RealWidget = new DcpButton (this);
+            constructLabel ();
             break;
     }
 
-
-    if (d_ptr->m_RealWidget) {
-        retranslateUi ();
-        ((QGraphicsLinearLayout*) layout())->addItem (d_ptr->m_RealWidget);
-    }
+    retranslateUi ();
 }
 
 DcpAppletObject *
@@ -128,29 +88,19 @@ DcpContentItem::applet() const
     return d_ptr->m_Applet;
 }
 
-void 
-DcpContentItem::setApplet (
-        DcpAppletObject *applet)
+void
+DcpContentItem::setApplet (DcpAppletObject *applet)
 {
-    // can be optimized if necessery (not recreating the widget, just updating 
-    // its contents)
-    if (d_ptr->m_RealWidget) 
-        d_ptr->m_RealWidget->deleteLater();
-
     /*
-     * If we had an old applet object. Not a fat chance for that...
+     * If we had an old applet object.
      */
-    if (d_ptr->m_Applet) { 
-        /* 
+    if (d_ptr->m_Applet) {
+        /*
          * Metadata is owned by the appletdb, so not removed, only disconnected
-         * both ways.
+         * both ways, but only the signals between the two participants.
          */
         disconnect (d_ptr->m_Applet, 0, this, 0);
         disconnect (this, 0, d_ptr->m_Applet, 0);
-        // FIXME: I think this would not be a good idea, we can not disconnect 
-        // all functions, because for example we will loose hide/show signals.
-        // And who knows what else are we going to connect in the future.
-        // this->disconnect ();
     }
 
     d_ptr->m_Applet = applet;
@@ -160,92 +110,116 @@ DcpContentItem::setApplet (
      * we can connect some signals.
      */
     if (d_ptr->m_Applet) {
-        // FIXME: This might cause a race condition? What if the applet sends
-        // a signal when we are not connected yet?
-        constructRealWidget (d_ptr->m_Applet->widgetTypeID());
+        constructRealWidget ();
         /*
          * This will count the activations and activate the applet.
          */
-        connect (this, SIGNAL (clicked()), 
+        connect (this, SIGNAL (clicked()),
                 d_ptr->m_Applet, SLOT (slotClicked()));
         /*
-         * This will follow the breiaf changes on the UI.
+         * This will follow the breif changes on the UI.
          */
         connect (d_ptr->m_Applet, SIGNAL (briefChanged()), 
                 this, SLOT (updateContents()));
     }
 }
 
-void 
+void
 DcpContentItem::retranslateUi ()
 {
     if (d_ptr->m_Applet) {
-        d_ptr->m_RealWidget->setText1 (applet()->text1());
         updateContents ();
     }
 }
 
-DcpButtonImage * 
-DcpContentItem::constructImage (
-        const DcpAppletObject *applet)
+void
+DcpContentItem::constructLabel ()
 {
-    DcpButtonImage *image = new DcpButtonImage (this);
+//    const DcpAppletObject *applet = this->applet();
+    model()->setItemStyle(SingleTextLabel);
+}
+
+void
+DcpContentItem::constructImage ()
+{
+    constructLabel();
+#if 0
+    const DcpAppletObject *applet = applet();
 
     if (applet) {
         QString   source;
-        
         /*
          * If the applet provides an image file name we set the image from that,
          * otherwise we try to set the image from the icon name.
          */
         source = applet->imageName();
-        if (!source.isEmpty()) {
-            DCP_DEBUG ("Calling image->setImageFromFile (%s)", DCP_STR(source));
-            image->setImageFromFile (source);
-        } else {
+        if (source.isEmpty()) {
             source = applet->iconName();
-            DCP_DEBUG ("Calling image->setImageName (%s)", DCP_STR(source));
-            image->setImageName (source);
         }
+        d_ptr->pixmap = DuiTheme::pixmap(
     }
-
-    return image;
+#endif
 }
 
-DcpButtonToggle *
-DcpContentItem::constructToggle (
-        const DcpAppletObject *applet)
+/*
+ * this function is a helper, it switches from two-line-mode into one-line-mode
+ * and back
+ */
+void
+DcpContentItem::invertTwoLineMode()
 {
-    DcpButtonToggle *toggle = new DcpButtonToggle (this);
-
-    if (applet) {
-        toggle->setSmallToggle (applet->toggle());
-        toggle->setIconId (applet->toggleIconId());
-        connect (toggle, SIGNAL (smallToggled (bool)),
-             applet, SLOT (setToggle (bool)));
+    int styl = model()->itemStyle();
+    MContentItem::ContentItemStyle newstyl;
+    switch (styl) {
+        case IconAndTwoTextLabels:
+            newstyl = IconAndSingleTextLabel;
+            break;
+        case SingleTextLabel:
+            newstyl = TwoTextLabels;
+            break;
+        case IconAndSingleTextLabel:
+            newstyl = IconAndTwoTextLabels;
+            break;
+        case TwoTextLabels:
+            newstyl = SingleTextLabel;
+            break;
+        case IconAndSingleTextLabelVertical:
+            newstyl = IconAndTwoTextLabelsVertical;
+            break;
+        case IconAndTwoTextLabelsVertical:
+            newstyl = IconAndSingleTextLabelVertical;
+            break;
+        default:
+            return; // do nothing bad at least :)
     }
-
-    return toggle;
+    model()->setItemStyle(newstyl);
 }
 
-void 
+void
 DcpContentItem::updateContents ()
 {
     if (!d_ptr->m_Applet)
         return;
 
     // for all:
-    d_ptr->m_RealWidget->setText2 (d_ptr->m_Applet->text2()); 
-    
-    // toggle specific:
-    DcpButtonToggle *toggle = qobject_cast<DcpButtonToggle*>
-        (d_ptr->m_RealWidget);
-    if (toggle) {
-        toggle->setSmallToggle (d_ptr->m_Applet->toggle());
-        toggle->setIconId (d_ptr->m_Applet->toggleIconId());
-    } 
-    
+    QString text2 = applet()->text2();
+    /*
+     * if emptyness of text2 changes, we will have to switch from twolinemode,
+     * so that the labels remains centered
+     *
+     * FIXME: this is not working, the first time determines which mode the
+     * item will be in, because the widget sizes are set up at setupModel time
+     * only, so currently MContentItem only supports changing the value at
+     * construction time (bug/feature request to libdui if it is important)
+     */
+    if (text2.isEmpty() != subtitle().isEmpty()) {
+        invertTwoLineMode();
+    }
+    setTitle (applet()->text1());
+    setSubtitle (text2);
+
     // image specific:
+#if 0
     DcpButtonImage *image = qobject_cast<DcpButtonImage*>(d_ptr->m_RealWidget);
     if (image) {
         QString   source;
@@ -264,21 +238,18 @@ DcpContentItem::updateContents ()
             image->setImageName (source);
         }
     }
+#endif
 }
 
-void 
-DcpContentItem::showEvent (
-        QShowEvent *event)
+void
+DcpContentItem::showEvent (QShowEvent *event)
 {
     Q_UNUSED (event);
-    Q_ASSERT (d_ptr->m_RealWidget);
+    // TODO XXX: automatic setItemMode...
 
-    if (d_ptr->m_Hidden) { 
+    if (d_ptr->m_Hidden) {
         // prevents multiple showEvents coming
         d_ptr->m_Hidden = false;
-
-        connect (d_ptr->m_RealWidget, SIGNAL(clicked()), 
-                this, SIGNAL(clicked()));
 
         if (d_ptr->m_Applet)
             connect (d_ptr->m_Applet, SIGNAL (briefChanged ()), 
@@ -288,21 +259,16 @@ DcpContentItem::showEvent (
     }
 }
 
-void 
-DcpContentItem::hideEvent (
-        QHideEvent     *event)
+void
+DcpContentItem::hideEvent (QHideEvent *event)
 {
     Q_UNUSED (event);
-    Q_ASSERT (d_ptr->m_RealWidget);
 
     if (!d_ptr->m_Hidden) {// prevents multiple hideEvents coming
         d_ptr->m_Hidden = true;
 
-        disconnect (d_ptr->m_RealWidget, SIGNAL(clicked()), 
-                this, SIGNAL(clicked()));
-
         if (d_ptr->m_Applet)
-            disconnect (d_ptr->m_Applet, SIGNAL (briefChanged()), 
+            disconnect (d_ptr->m_Applet, SIGNAL (briefChanged()),
                 this, SLOT (updateContents()));
     }
 }

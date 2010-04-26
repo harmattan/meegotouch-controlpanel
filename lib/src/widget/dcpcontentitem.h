@@ -3,21 +3,18 @@
 #ifndef DCPCONTENTITEM_H
 #define DCPCONTENTITEM_H
 
-#include <MWidget>
+#include <MContentItem>
 
 class DcpAppletObject;
-class DcpButton;
-class DcpButtonImage;
-class DcpButtonToggle;
 class QShowEvent;
 class QHideEvent;
 class DcpContentItemPrivate;
 
 /*!
  * \brief An activatable entry in the control panel.
- * 
+ *
  * The #DcpContentItem is an activatable widget in the control panel. It
- * usually has a #DcpAppletObject associated with it, so when the user clicks
+ * has a #DcpAppletObject associated with it, so when the user clicks
  * on the widget the applet variant is activated. The widget connects its
  * clicked() signal to the activate() signal of the #DcpAppletObject object,
  * so the applet variant will be started when the widget is clicked.
@@ -25,28 +22,17 @@ class DcpContentItemPrivate;
  * This class implements the connection between the brief shown on the screen
  * and the applet describing the applet variant.
  *
- * Inside the #DcpContentItem there is a #DcpButton, a #DcpButtonImage or a 
- * #DcpButtonToggle as an actual widget. 
- * FIXME: Why is this?
  */
-class DcpContentItem: 
-    public MWidget
+class DcpContentItem: public MContentItem
 {
     Q_OBJECT
 
 public:
     DcpContentItem (
-            DcpAppletObject *applet, 
-            MWidget         *parent = 0);
-
-    DcpContentItem (
-            int               widgetTypeId,
-            const QString    &line1,
-            const QString    &line2,
-            MWidget        *parent = 0);
+            DcpAppletObject *applet = 0,
+            QGraphicsItem *parent = 0);
 
     ~DcpContentItem();
-
 
     void setApplet (DcpAppletObject *applet);
     DcpAppletObject *applet () const;
@@ -54,21 +40,20 @@ public:
 public slots:
     void updateContents();
 
-signals:
-    void clicked();
-
 protected:
     virtual void retranslateUi();
     virtual void showEvent (QShowEvent *event);
     virtual void hideEvent (QHideEvent *event);
 
-    virtual void constructRealWidget (int widgetTypeId);
-    DcpButtonImage *constructImage (const DcpAppletObject* applet);
-    DcpButtonToggle *constructToggle (const DcpAppletObject* applet);
+    virtual void constructRealWidget ();
+    void constructLabel ();
+    void constructImage ();
+    void invertTwoLineMode();
 
 private:
     DcpContentItemPrivate* const d_ptr;
 };
 
 
-#endif 
+#endif
+
