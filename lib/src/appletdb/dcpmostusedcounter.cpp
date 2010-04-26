@@ -46,7 +46,7 @@ MostUsedCounter::incrementUsageCount (const QString &key)
     DCP_DEBUG ("*** key = '%s'", DCP_STR(key));
 
     int count = d_ptr->m_Conf->value(key).toInt() + 1;
-    d_ptr->m_Conf->createValue(key,count);
+    d_ptr->m_Conf->createValue(key, count);
     return count;
 }
 

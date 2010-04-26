@@ -31,8 +31,11 @@ message("The install path for the executable will be: "$$target.path)
 
 desktop_entry.path = $$DCP_PREFIX/share/applications
 desktop_entry.files = duicontrolpanel.desktop
+rfs.files += controlpanel-rfs.sh
+rfs.path += /etc/osso-rfs-scripts
 
 INSTALLS += target \
+            rfs \
             desktop_entry
 
 # FIXME, this is a temporary fix for an issue
