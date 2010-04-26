@@ -8,8 +8,6 @@
 
 #include "dcpdebug.h"
 
-static const QString GConfKeyPrefix = "/controlpanel/usagecounters/";
-
 MostUsedCounter* MostUsedCounterPrivate::sm_Instance = NULL;
 
 MostUsedCounter::MostUsedCounter () : d_ptr(new MostUsedCounterPrivate())
@@ -47,8 +45,8 @@ MostUsedCounter::incrementUsageCount (const QString &key)
 {
     DCP_DEBUG ("*** key = '%s'", DCP_STR(key));
 
-    int count = d_ptr->m_Conf->value(GConfKeyPrefix + key).toInt() + 1;
-    d_ptr->m_Conf->createValue(GConfKeyPrefix + key,count);
+    int count = d_ptr->m_Conf->value(key).toInt() + 1;
+    d_ptr->m_Conf->createValue(key, count);
     return count;
 }
 
@@ -61,7 +59,7 @@ MostUsedCounter::getUsageCount (const QString &key)
     DCP_DEBUG ("*** key = '%s'", DCP_STR(key));
 
     // if key does not exist or not convertible, 0 is returned (default value)
-    return d_ptr->m_Conf->value(GConfKeyPrefix + key).toInt();
+    return d_ptr->m_Conf->value(key).toInt();
 }
 
 /*!
