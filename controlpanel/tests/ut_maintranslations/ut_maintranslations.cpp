@@ -58,6 +58,7 @@ void Ut_maintranslations::testIsCategoryNameEnlisted()
 {
     QVERIFY(DcpMain::isCategoryNameEnlisted("qtn_sett_main_look"));
     QVERIFY(!DcpMain::isCategoryNameEnlisted("qtn_sett_unknown"));
+    QVERIFY(DcpMain::isCategoryNameEnlisted("Startup"));
     
 }
 
