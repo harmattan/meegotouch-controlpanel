@@ -32,23 +32,28 @@ public:
             DcpAppletObject *applet = 0,
             QGraphicsItem *parent = 0);
 
-    ~DcpContentItem();
+    ~DcpContentItem ();
 
     void setApplet (DcpAppletObject *applet);
     DcpAppletObject *applet () const;
 
 public slots:
-    void updateContents();
+    void updateContents ();
 
 protected:
-    virtual void retranslateUi();
+    virtual void retranslateUi ();
     virtual void showEvent (QShowEvent *event);
     virtual void hideEvent (QHideEvent *event);
 
     virtual void constructRealWidget ();
-    void constructLabel ();
-    void constructImage ();
-    void invertTwoLineMode();
+    void invertTwoLineMode ();
+    void updateText ();
+    void updateImage ();
+
+    // image related things:
+    void setImageFromFile (const QString& fileName);
+    void setImageName (const QString& name);
+    void releaseImage ();
 
 private:
     DcpContentItemPrivate* const d_ptr;

@@ -25,12 +25,19 @@ public:
     DcpContentItemPrivate ();
 
     DcpAppletObject *m_Applet;
+    int m_WidgetTypeId;
     bool m_Hidden;
+
+    // for the image widget:
+    QString m_ImageName; // either the image id or path
+    const QPixmap* m_Pixmap;   // the pixmap requested from MTheme if any
 };
 
 DcpContentItemPrivate::DcpContentItemPrivate ():
     m_Applet (0),
-    m_Hidden (true)
+    m_WidgetTypeId (DcpWidgetType::Label),
+    m_Hidden (true),
+    m_Pixmap (0)
 {
 }
 
@@ -49,6 +56,7 @@ DcpContentItem::DcpContentItem (
 
 DcpContentItem::~DcpContentItem ()
 {
+    releaseImage();
     delete d_ptr;
 }
 
@@ -62,11 +70,11 @@ DcpContentItem::~DcpContentItem ()
 void
 DcpContentItem::constructRealWidget ()
 {
-    int widgetTypeId = d_ptr->m_Applet->widgetTypeID();
-    switch (widgetTypeId) {
+    d_ptr->m_WidgetTypeId = d_ptr->m_Applet->widgetTypeID();
+    switch (d_ptr->m_WidgetTypeId) {
         case DcpWidgetType::Image:
             DCP_DEBUG ("### DcpWidgetType::Image ###");
-            constructImage ();
+            model()->setItemStyle(IconAndSingleTextLabel);
             break;
 
         case DcpWidgetType::Toggle:
@@ -75,11 +83,11 @@ DcpContentItem::constructRealWidget ()
                      qPrintable(applet()->metadata()->name()));
         default:
             DCP_DEBUG ("### DcpWidgetType::Label ###");
-            constructLabel ();
+            model()->setItemStyle(SingleTextLabel);
             break;
     }
 
-    retranslateUi ();
+    updateContents ();
 }
 
 DcpAppletObject *
@@ -128,37 +136,8 @@ void
 DcpContentItem::retranslateUi ()
 {
     if (d_ptr->m_Applet) {
-        updateContents ();
+        updateText ();
     }
-}
-
-void
-DcpContentItem::constructLabel ()
-{
-//    const DcpAppletObject *applet = this->applet();
-    model()->setItemStyle(SingleTextLabel);
-}
-
-void
-DcpContentItem::constructImage ()
-{
-    constructLabel();
-#if 0
-    const DcpAppletObject *applet = applet();
-
-    if (applet) {
-        QString   source;
-        /*
-         * If the applet provides an image file name we set the image from that,
-         * otherwise we try to set the image from the icon name.
-         */
-        source = applet->imageName();
-        if (source.isEmpty()) {
-            source = applet->iconName();
-        }
-        d_ptr->pixmap = DuiTheme::pixmap(
-    }
-#endif
 }
 
 /*
@@ -196,12 +175,9 @@ DcpContentItem::invertTwoLineMode()
 }
 
 void
-DcpContentItem::updateContents ()
+DcpContentItem::updateText ()
 {
-    if (!d_ptr->m_Applet)
-        return;
-
-    // for all:
+    // --------- label specific ------------
     QString text2 = applet()->text2();
     /*
      * if emptyness of text2 changes, we will have to switch from twolinemode,
@@ -217,35 +193,109 @@ DcpContentItem::updateContents ()
     }
     setTitle (applet()->text1());
     setSubtitle (text2);
+}
 
-    // image specific:
-#if 0
-    DcpButtonImage *image = qobject_cast<DcpButtonImage*>(d_ptr->m_RealWidget);
-    if (image) {
+void DcpContentItem::updateImage ()
+{
+    // ----------- image specific: -------------
+    if (d_ptr->m_WidgetTypeId == DcpWidgetType::Image) {
         QString   source;
 
         /*
          * If the applet provides an image file name we set the image from that,
          * otherwise we try to set the image from the icon name.
+         *
+         * TODO we should clean this up. Is there a difference, or we just
+         * keeping it for compatibility?
          */
         source = d_ptr->m_Applet->imageName();
-        if (!source.isEmpty()) {
-            DCP_DEBUG ("Calling image->setImageFromFile (%s)", DCP_STR(source));
-            image->setImageFromFile (source);
-        } else {
+        if (source.isEmpty()) {
             source = d_ptr->m_Applet->iconName();
-            DCP_DEBUG ("Calling image->setImageName (%s)", DCP_STR(source));
-            image->setImageName (source);
+        }
+
+        /*
+         * The image file might be big, so we need a little speed up here, otherwise
+         * the paging effect is blocked when we go back to the main page.
+         */
+        if (source == d_ptr->m_ImageName)
+            return;
+
+        /* we release the original pixmap, if any */
+        releaseImage();
+
+        // no picture :(
+        if (source.isEmpty()) return;
+
+        // if it is a filepath, it has an extension, otherwise we have an id
+        if (!source.contains('.')) {
+            setImageName (source);
+        } else {
+            setImageFromFile (source);
         }
     }
-#endif
+}
+
+/*
+ * updates all displayed datas if something changes in the brief / desktop file
+ */
+void
+DcpContentItem::updateContents ()
+{
+    if (!d_ptr->m_Applet)
+        return;
+
+    updateText();
+    updateImage();
+}
+
+/*!
+ * releases the cached image if any
+ */
+void
+DcpContentItem::releaseImage ()
+{
+    const QPixmap*& pix = d_ptr->m_Pixmap;
+    if (pix) {
+        MTheme::releasePixmap (pix);
+        pix = 0;
+    }
+}
+
+
+/*!
+ * sets the image with the given name (id)
+ */
+void
+DcpContentItem::setImageName (const QString& name)
+{
+    d_ptr->m_Pixmap = MTheme::pixmap (name);
+    setPixmap (*(d_ptr->m_Pixmap));
+}
+
+/*!
+ * sets the image based on its filepath
+ */
+void
+DcpContentItem::setImageFromFile (const QString& fileName)
+{
+    bool    success;
+    QImage  image;
+
+    success = image.load (fileName);
+    if (!success) {
+        DCP_WARNING ("The image was not loaded from %s", DCP_STR(fileName));
+        return;
+    }
+
+    setImage (image);
+
+    d_ptr->m_ImageName = fileName;
 }
 
 void
 DcpContentItem::showEvent (QShowEvent *event)
 {
     Q_UNUSED (event);
-    // TODO XXX: automatic setItemMode...
 
     if (d_ptr->m_Hidden) {
         // prevents multiple showEvents coming
