@@ -38,7 +38,7 @@ SOURCES += \
     $$STUBSDIR/dcpretranslator-fake.cpp \
     $$STUBSDIR/dcpbriefcomponent-fake.cpp \
     $$STUBSDIR/dcpsinglecomponent-fake.cpp \
-    $$STUBSDIR/dcpmaincategory-fake.cpp \
+    $$STUBSDIR/dcpmaincategory_with_layout-fake.cpp \
     $$TEST_SOURCES \ 
 
 # base classes

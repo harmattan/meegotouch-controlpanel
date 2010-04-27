@@ -38,7 +38,7 @@ const char* DcpMain::otherCategoriesTitleId = "qtn_sett_main_other";
 const char* DcpMain::quitMenuItemTextId = "qtn_comm_exit";
 
 const DcpCategoryInfo *
-dcp_find_category_info (
+DcpMain::findCategoryInfo (
         PageHandle::PageTypeId,
         const DcpCategoryInfo*)
 {
@@ -46,7 +46,7 @@ dcp_find_category_info (
 }
 
 const DcpCategoryInfo *
-dcp_find_category_info (
+DcpMain::findCategoryInfo (
         const QString&,
         const DcpCategoryInfo*)
 {
@@ -54,7 +54,7 @@ dcp_find_category_info (
 }
 
 bool
-dcp_category_name_enlisted (
+DcpMain::isCategoryNameEnlisted (
         const QString&)
 {
     return true;

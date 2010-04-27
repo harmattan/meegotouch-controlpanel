@@ -38,7 +38,7 @@ void Ut_DcpAppletCategoryPage::testCreation()
 
 void Ut_DcpAppletCategoryPage::testCreateContent()
 {
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+    m_subject->createContent();
 }
 
 void Ut_DcpAppletCategoryPage::testAppletCategory()
@@ -58,7 +58,8 @@ void Ut_DcpAppletCategoryPage::testCategoryInfo()
 
 void Ut_DcpAppletCategoryPage::testReload()
 {
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+    m_subject->createContent();
+    m_subject->reload();
 }
 
 void Ut_DcpAppletCategoryPage::testCleanup()
@@ -74,7 +75,7 @@ void Ut_DcpAppletCategoryPage::testSetTitleId()
 
 void Ut_DcpAppletCategoryPage::testBack()
 {
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+    m_subject->back();
 }
 
 void Ut_DcpAppletCategoryPage::testRetranslateUi()
@@ -88,11 +89,5 @@ void Ut_DcpAppletCategoryPage::testAddComponent()
 {
     QSKIP("incomplete", SkipSingle);   // remove this when you've finished
 }
-
-void Ut_DcpAppletCategoryPage::testLoadContent()
-{
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
-}
-
 
 QTEST_APPLESS_MAIN(Ut_DcpAppletCategoryPage)

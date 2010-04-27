@@ -28,7 +28,6 @@ private slots:
     void testBack();
     void testRetranslateUi();
     void testAddComponent();
-    void testLoadContent();
     
 
 private:

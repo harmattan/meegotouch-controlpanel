@@ -56,7 +56,7 @@ DcpAppletButtons::createContents ()
         names[2] = 0;
 
         metadatas = DcpAppletDb::instance()->listByCategory (names, 2,
-                    withUncategorized ? dcp_category_name_enlisted : NULL);
+                    withUncategorized ? DcpMain::isCategoryNameEnlisted : NULL);
     }
 
     // adds the briefwidgets
