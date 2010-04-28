@@ -25,8 +25,4 @@ DcpBriefComponent::setApplet(
     Q_UNUSED(applet);
 }
 
-void
-DcpBriefComponent::activate ()
-{
-}
 
