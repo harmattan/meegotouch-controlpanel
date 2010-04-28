@@ -18,8 +18,9 @@ class DcpAppletButtons :
 public:
     DcpAppletButtons (
             const DcpCategoryInfo  *categoryInfo,
-            const QString          &title,
+            const QString          &title = "",
             QGraphicsWidget        *parent = 0);
+    ~DcpAppletButtons ();
 
     void addComponent (
             DcpAppletMetadata *metadata);
@@ -30,6 +31,8 @@ protected:
     virtual void createContents();
 
 private:
+    void markAllInactive();
+
     const DcpCategoryInfo  *m_CategoryInfo;
     friend class Ut_DcpAppletButtons;
 };

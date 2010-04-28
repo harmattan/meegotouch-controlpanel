@@ -15,7 +15,6 @@ SOURCES += \
     *.cpp \
     $$STUBSDIR/dcppage-fake.cpp \
     $$STUBSDIR/dcpmainpage-fake.cpp \
-    $$STUBSDIR/dcpcategorypage-fake.cpp \
     $$STUBSDIR/dcpappletcategorypage-fake.cpp \
     $$STUBSDIR/dcpappletpage-fake.cpp \
     $$STUBSDIR/appleterrorsdialog-fake.cpp \
@@ -39,7 +38,6 @@ HEADERS += \
     $$SRCDIR/page/pagefactory.h \
     $$SRCDIR/page/dcppage.h \
     $$SRCDIR/page/dcpmainpage.h \
-    $$SRCDIR/page/dcpcategorypage.h \
     $$SRCDIR/page/dcpappletcategorypage.h \
     $$SRCDIR/page/dcpappletpage.h \
     $$SRCDIR/appleterrorsdialog.h \

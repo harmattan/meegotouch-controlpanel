@@ -29,11 +29,6 @@ DcpAppletCategoryPage::setCategoryInfo (
     m_CategoryInfo = categoryInfo;
 }
 
-void
-DcpAppletCategoryPage::loadContent ()
-{
-}
-
 
 void 
 DcpAppletCategoryPage::reload ()
@@ -41,11 +36,6 @@ DcpAppletCategoryPage::reload ()
 }
 
 void DcpAppletCategoryPage::back ()
-{
-}
-
-void 
-DcpAppletCategoryPage::cleanup ()
 {
 }
 

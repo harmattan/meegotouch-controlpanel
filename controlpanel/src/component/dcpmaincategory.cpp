@@ -77,8 +77,7 @@ DcpMainCategory::setVerticalSpacing (
  * feature right now. Anyway, it is easy to implement such a function.  
  */
 void
-DcpMainCategory::appendWidget (
-        DcpComponent *component)
+DcpMainCategory::appendWidget ( QGraphicsWidget *component)
 {
     DCP_DEBUG ("APPENDING to %p", this);
     appendSeparatorsIfNeeded ();

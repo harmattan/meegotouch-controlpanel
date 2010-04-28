@@ -29,7 +29,6 @@ SOURCES += \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
     $$STUBSDIR/dcpappletplugin-fake.cpp \
     $$STUBSDIR/dcpretranslator-fake.cpp \
-    $$STUBSDIR/dcpbriefcomponent-fake.cpp \
     $$TEST_SOURCES \
 
 # base classes
@@ -42,7 +41,6 @@ HEADERS += \
     $$STUBSDIR/mgconfitem_priv.h \
     $$SRCDIR/page/dcpappletbuttons.h \
     $$SRCDIR/component/dcpmaincategory.h \
-    $$SRCDIR/component/dcpbriefcomponent.h \
     $$SRCDIR/component/dcpcomponent.h \
 
 # base classes

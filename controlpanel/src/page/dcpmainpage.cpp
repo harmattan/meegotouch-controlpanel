@@ -4,7 +4,6 @@
 
 #include <QtDebug>
 #include <MApplication>
-#include <DcpBriefComponent>
 #include <DcpSingleComponent>
 #include <DcpMainCategory>
 #include <Pages>

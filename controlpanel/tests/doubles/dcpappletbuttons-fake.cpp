@@ -11,6 +11,9 @@ DcpAppletButtons::DcpAppletButtons (
 {
 }
 
+DcpAppletButtons::~DcpAppletButtons ()
+{
+}
 
 void
 DcpAppletButtons::createContents ()
