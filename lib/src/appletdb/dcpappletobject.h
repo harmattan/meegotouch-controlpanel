@@ -13,6 +13,15 @@ class DcpWidget;
 
 class DcpAppletObjectPrivate;
 
+/*!
+ * \class DcpAppletObject
+ * \brief This class represents all informations about the applet.
+ *
+ * \details It both gives access to the binary libs of the applet,
+ * and its desktop file.
+ */
+
+
 class DcpAppletObject : public DcpAppletPlugin
 {
     Q_OBJECT

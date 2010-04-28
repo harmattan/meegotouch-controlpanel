@@ -20,8 +20,9 @@ Widgets:
 Accessing plugins:
 <ul>
 <li>DcpAppletDb
-<li>DcpAppletLoader
 <li>DcpAppletMetadata
+<li>DcpAppletPlugin
+<li>DcpAppletObject
 </ul>
 
 

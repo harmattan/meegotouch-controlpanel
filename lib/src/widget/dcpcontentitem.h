@@ -13,14 +13,16 @@ class DcpContentItemPrivate;
 /*!
  * \brief An activatable entry in the control panel.
  *
- * The #DcpContentItem is an activatable widget in the control panel. It
- * has a #DcpAppletObject associated with it, so when the user clicks
+ * This class implements the brief view of an applet shown on the screen
+ * in applet lists.
+ *
+ * It has a #DcpAppletObject associated with it, so when the user clicks
  * on the widget the applet variant is activated. The widget connects its
  * clicked() signal to the activate() signal of the #DcpAppletObject object,
  * so the applet variant will be started when the widget is clicked.
  *
- * This class implements the connection between the brief shown on the screen
- * and the applet describing the applet variant.
+ * The widget updates its contents automatically if the applet notifies it
+ * about the changes, see DcpBrief::valuesChanged().
  *
  */
 class DcpContentItem: public MContentItem
@@ -28,16 +30,32 @@ class DcpContentItem: public MContentItem
     Q_OBJECT
 
 public:
+    /*! \brief Constructor.
+     *
+     * If you do not set an applet here, be sure to do that before the widget
+     * gets shown on the screen. See #setApplet().
+     */
     DcpContentItem (
             DcpAppletObject *applet = 0,
             QGraphicsItem *parent = 0);
 
     ~DcpContentItem ();
 
+    /*! \brief Sets the applet the DcpContentItem should handle.
+     *
+     * Currently you can only call it before the ContentItem is popped up,
+     * due to limitations of MContentItem.
+     */
     void setApplet (DcpAppletObject *applet);
+
+    /*! \brief Returns the applet the DcpContentItem visualizes. */
     DcpAppletObject *applet () const;
 
-public slots:
+protected slots:
+    /*! \brief Make the object update according to the values the applet returns
+     *
+     * It is connected on the DcpBrief::valuesChanged() signal if any.
+     */
     void updateContents ();
 
 protected:
@@ -45,17 +63,25 @@ protected:
     virtual void showEvent (QShowEvent *event);
     virtual void hideEvent (QHideEvent *event);
 
+    /*! Sets up the contentitem according to the values the applet provides:
+     * widgettype, texts, icons etc. */
     virtual void constructRealWidget ();
-    void invertTwoLineMode ();
+
+    /*! \brief Updates all texts according to the values the applet returns */
     void updateText ();
+
+    /*! \brief Updates the picture according to what the applet returns */
     void updateImage ();
 
     // image related things:
     void setImageFromFile (const QString& fileName);
     void setImageName (const QString& name);
+
     void releaseImage ();
 
 private:
+    void invertTwoLineMode ();
+
     DcpContentItemPrivate* const d_ptr;
 };
 

@@ -31,7 +31,4 @@ Than the applet's name is "I have a silly name".
 \subsection mainpage Popping up the main page
 Use DuiControlPanelIf::mainPage().
 
-\subsection appletcategory Popping up an applet category
-Use DuiControlPanelIf::categoryPage().
-
 */

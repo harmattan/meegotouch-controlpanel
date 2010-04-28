@@ -9,9 +9,10 @@
 
 /*!
  * \class DcpBrief
- * \brief The Brief of the applet
- * \detais Brief is the descriptor of an applet for constructing the buttons 
- *   that launches the applet. These buttons are displaying the applet name and
+ * \brief Brief is the descriptor used for constructing the buttons
+ *   that launches the applet.
+ *
+ * \detais These buttons are displaying the applet name and
  *   the current value.  Value must be provided and formatted by the applet
  *   implementation.  Clicking on this widget displays the applet itself   This
  *   class provides all the information from which a widget describing above can

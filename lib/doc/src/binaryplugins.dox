@@ -24,8 +24,9 @@ so it looks like that each widget is a new "page view" of an applet.
 To provide this mechanism, these widgets must be inherited by DcpWidget,
 which is a DuiWidget descendant with a few services:
 <ul>
-    <li>It can request pages from controlpanel.
-    <li>TODO: how back handling changes...
+    <li>It can request pages from controlpanel (own pages, or pages of other
+        applets)...
+    <li>Notified if controlpanel's back button gets pressed...
 </ul>
 
 
@@ -50,16 +51,13 @@ defined by the applet itself.
 
 \subsection backbutton Back button handling
 
-Every DcpWidget can set a widget as a referer where to go back, when
-the user presses 'Back' button on the control panel page.
-When the referer is -1, it means that you are on the main view of the applet,
-and 'Back' button should close the applet and continue with controlpanel's
-applet selection page.
-
-When the back button is pressed the current DcpWidget::back() function gets
-called, if the applet wants to do some extra 'cleanup',
+When the back button is pressed, the current DcpWidget::back() function gets
+called. If the applet wants to do some extra 'cleanup',
 it can override the DcpWidget::back() function
 which is called by the page. (For example stopping threads or such.)
+
+The back function's return value determines if the page gets closed or stays
+visible. By default it gets closed. See DcpWidget::back().
 
 \section launchbuttons Applet Launch Buttons
 
@@ -109,7 +107,6 @@ method can provide applet specific menu items
 to the application menu, etc.
 </ul>
 
-
 \subsection implementing Implementing settings
 
 To provide settings that the applet can work from, the recommended way
@@ -134,4 +131,12 @@ In this way, some data can come from DuiConf, some from QSettings or can
 be calculated, but you can easily return test data from methods, and replace
 them later with live ones.
 
+\subsection styles Loading your custom styles
+
+If you need your own styles for your plugin, you should use meegotouch API
+for that, see their documentation under section "Styling / Theming support for
+external libraries".
+
+
 */
+

@@ -1,5 +1,22 @@
 /*! \page news What's New in DuiControlPanel
 
+\section v0717 0.7.17
+
+\subsection deprec Deprecated
+
+- DcpButton, DcpButtonImage, DcpButtonToggle, DcpButtonAlign became deprecated,
+  use MContentItem instead from libmeegotouch.
+
+- DcpBriefWidget also became deprecated, replaced by DcpContentItem which has
+  nearly identical API but is based on MContentItem.
+
+- DuiControlPanel no longer supports the toggle type of briefwidget due to
+  simplifications in design brief.
+
+- Just a notice, page back handling is handled by meegotouch, applet developers
+  should no longer care about it, with referers and such.
+
+
 \section v064 0.6.4
 
 \subsection deprec Deprecated

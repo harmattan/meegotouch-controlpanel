@@ -38,7 +38,8 @@ The translation id for the title of the applet. (The one you would write for
 qtTrid or trid.)
 
 \par X-translation-catalog
-The translation catalog for the applet. (The filename of its .qm file.)
+The translation catalog for the applet. (The filename of its .qm file, without
+the extension and language ids.)
 
 
 \subsection duisection [DUI]

@@ -9,7 +9,11 @@ class DcpAppletMetadata;
 class DcpAppletIf;
 class DcpAppletPluginPrivate;
 
-class DcpAppletPlugin : public QObject
+/*!
+ * \brief This class loads the binary plugin (if any) based on its metadata.
+ *
+ */
+ class DcpAppletPlugin : public QObject
 {
     Q_OBJECT
 

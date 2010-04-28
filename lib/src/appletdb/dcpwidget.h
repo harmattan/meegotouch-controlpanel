@@ -26,8 +26,7 @@ public:
     virtual ~DcpWidget();
 
     virtual void setReferer (int widgetId);
-    int referer();
-    
+
     virtual bool back ();
     virtual bool pagePans () const;
 

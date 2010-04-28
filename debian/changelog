@@ -1,8 +1,10 @@
 duicontrolpanel (0.7.17~unreleased) unstable; urgency=low
 
   * Fixes servicefw api regression
+  * Deprecated classes: DcpButton*, DcpBriefWidget. MContentItem and
+    MContentItem based DcpContentItem replaces them
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 20 Apr 2010 18:16:53 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 28 Apr 2010 10:39:54 +0200
 
 duicontrolpanel (0.7.16) unstable; urgency=low
 

@@ -7,7 +7,6 @@
 
 
 DcpWidgetPrivate::DcpWidgetPrivate ():
-    m_Referer (-1),
     m_WidgetId (-1)
 {
 }
@@ -69,42 +68,27 @@ DcpWidget::setWidgetId (
 }
 
 /*! 
- * \brief Sets the referer for the widget
- * \param widgetId the id of a DcpWidget to switch back to.
+ * \brief deprecated function
+ * \param widgetId
+ * This function is no longer in use, kept only for
+ * preserving binary compatibility.
  */
 void
-DcpWidget::setReferer (
-        int widgetId)
+DcpWidget::setReferer (int widgetId)
 {
-    d_ptr->m_Referer = widgetId;
-}
-    
-/*! 
- * \return the referer id of the widget
- */
-int 
-DcpWidget::referer () 
-{
-    return d_ptr->m_Referer;
+    Q_UNUSED (widgetId);
+    // FIXME: remove this function
 }
 
 /*!
- * \brief This method is called when user press 'Back' in an applet page
- * \return true if back closes the applet and true if a referer widget
- *      should be shown
- *
+ * \brief This method gets called when user presses 'Back' on the applet page
+ * \return true if back should close the page and false if not
  */
 bool 
-DcpWidget::back () 
+DcpWidget::back ()
 {
-    if (referer() > -1) {
-        // emit the changewidget signal if there is a referer set
-        emit changeWidget(referer());
-        return false;
-    } else {
-        // back is handled by main window by default
-        return true; 
-    }
+    // back closes the page by default
+    return true;
 }
 
 /*!
@@ -117,3 +101,4 @@ DcpWidget::pagePans () const
 {
     return true; 
 }
+
