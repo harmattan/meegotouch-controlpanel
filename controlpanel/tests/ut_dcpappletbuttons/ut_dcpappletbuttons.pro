@@ -29,6 +29,9 @@ SOURCES += \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
     $$STUBSDIR/dcpappletplugin-fake.cpp \
     $$STUBSDIR/dcpretranslator-fake.cpp \
+    $$STUBSDIR/mwidgetcontroller-fake.cpp \
+    $$STUBSDIR/mcontentitem-fake.cpp \
+    $$STUBSDIR/dcpcontentitem-fake.cpp \
     $$TEST_SOURCES \
 
 # base classes

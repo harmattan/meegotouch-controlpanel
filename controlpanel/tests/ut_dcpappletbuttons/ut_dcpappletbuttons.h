@@ -21,9 +21,6 @@ private slots:
     void testCreation();
     void testAddComponent();
     void testReload();
-
-private:
-    DcpAppletButtons* m_subject;
 };
 
 #endif

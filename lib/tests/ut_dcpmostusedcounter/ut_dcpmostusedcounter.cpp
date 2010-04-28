@@ -76,4 +76,4 @@ void Ut_DcpMostUsedCounter::testClearAdded()
     QCOMPARE(m_subject->getUsageCount(key2), 1);
 }
 
-QTEST_MAIN(Ut_DcpMostUsedCounter)
+QTEST_APPLESS_MAIN(Ut_DcpMostUsedCounter)

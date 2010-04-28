@@ -7,6 +7,9 @@
 #include "maintranslations.h"
 #include <mlinearlayoutpolicy.h>
 #include <DcpAppletMetadata>
+#include <DcpAppletObject>
+#include <DcpContentItem>
+
 
 #define fakeInfo DcpMain::CategoryInfos[0]
 
@@ -43,15 +46,17 @@ void Ut_DcpAppletButtons::testCreation()
     QCOMPARE (&fakeInfo, buttons1.m_CategoryInfo);
     //      -> checks if the right widgets were added to the layout:
     QCOMPARE (buttons1.m_PortraitLayout->count(), 1);
-    QCOMPARE (((DcpComponent*)buttons1.m_PortraitLayout->itemAt(0))->title(),
+    QCOMPARE (((DcpContentItem*)buttons1.m_PortraitLayout->
+                itemAt(0))->applet()->metadata()->name(),
               QString("fake-name"));
 
     // if we create with mostrecentused
     DcpAppletButtons buttons2(&DcpMain::mostUsedCategory, "MostUsed");
-//    QCOMPARE (&DcpMain::mostUsedCategory, buttons1.m_CategoryInfo); FIXME: why the hell is this not ok ???
+    QCOMPARE (&DcpMain::mostUsedCategory, buttons2.m_CategoryInfo);
     //      -> checks if the right widgets were added to the layout:
     QCOMPARE (buttons2.m_PortraitLayout->count(), 1);
-    QCOMPARE (((DcpComponent*)buttons2.m_PortraitLayout->itemAt(0))->title(),
+    QCOMPARE (((DcpContentItem*)buttons2.m_PortraitLayout->
+                itemAt(0))->applet()->metadata()->name(),
               QString("mostUsed-name"));
 }
 
@@ -65,7 +70,8 @@ void Ut_DcpAppletButtons::testAddComponent()
     DcpAppletMetadata* metadata = new DcpAppletMetadata("fake");
     buttons1.addComponent(metadata);
     QCOMPARE (buttons1.m_PortraitLayout->count(), 1);
-    QCOMPARE (((DcpComponent*)buttons1.m_PortraitLayout->itemAt(0))->title(),
+    QCOMPARE (((DcpContentItem*)buttons1.m_PortraitLayout->
+                itemAt(0))->applet()->metadata()->name(),
               QString("fake-name"));
 }
 
@@ -80,7 +86,8 @@ void Ut_DcpAppletButtons::testReload()
     buttons1.m_CategoryInfo = &fakeInfo;
     buttons1.reload();
     QCOMPARE (buttons1.m_PortraitLayout->count(), 1);
-    QCOMPARE (((DcpComponent*)buttons1.m_PortraitLayout->itemAt(0))->title(),
+    QCOMPARE (((DcpContentItem*)buttons1.m_PortraitLayout->
+                itemAt(0))->applet()->metadata()->name(),
               QString("fake-name"));
 
     // change to mostuseditems and reload: applet count should stay the same,
@@ -92,7 +99,8 @@ void Ut_DcpAppletButtons::testReload()
     // and there is no eventloop :(
     // not sure how to fix it
     QCOMPARE (buttons1.m_PortraitLayout->count(), 2);
-    QCOMPARE (((DcpComponent*)buttons1.m_PortraitLayout->itemAt(1))->title(),
+    QCOMPARE (((DcpContentItem*)buttons1.m_PortraitLayout->
+                itemAt(1))->applet()->metadata()->name(),
               QString("mostUsed-name"));
 }
 
