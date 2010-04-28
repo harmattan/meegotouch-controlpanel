@@ -19,7 +19,6 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
     void testCreation();
-    void testActivate();
     
 
 private:

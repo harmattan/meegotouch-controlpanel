@@ -39,15 +39,4 @@ void Ft_DcpBriefComponent::testCreation()
     QVERIFY(m_subject);
 }
 
-void Ft_DcpBriefComponent::testActivate()
-{
-    DcpPage *page = PageFactory::instance()->currentPage();
-    QVERIFY(page == 0);
-    m_subject->activate();
-    page = PageFactory::instance()->currentPage();
-    QVERIFY(page->handle().id == PageHandle::APPLET);
-    QVERIFY(page->handle().param == "fake");
-}
-
-
 QTEST_APPLESS_MAIN(Ft_DcpBriefComponent)
