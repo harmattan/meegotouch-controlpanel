@@ -83,4 +83,4 @@ void Ut_DcpAppletPlugin::testMetadata()
     delete metadata;
 }
 
-QTEST_MAIN(Ut_DcpAppletPlugin)
+QTEST_APPLESS_MAIN(Ut_DcpAppletPlugin)
