@@ -276,7 +276,6 @@ void
 DcpAppletMetadata::incrementUsage()
 { 
     MostUsedCounter::instance()->incrementUsageCount (
-
             QFileInfo(fileName()).baseName()
     );
 }

@@ -82,14 +82,14 @@ const char* DcpMain::quitMenuItemTextId = QT_TRID_NOOP("qtn_comm_exit");
  * find sub-categories.
  */
 const DcpCategoryInfo *
-dcp_find_category_info (
+DcpMain::findCategoryInfo (
         PageHandle::PageTypeId   id,
         const DcpCategoryInfo   *info)
 {
     /*
      * The default place to find infos.
      */
-    if (info == NULL) {
+    if (info == 0) {
         info = DcpMain::CategoryInfos;
     }
 
@@ -110,16 +110,16 @@ dcp_find_category_info (
         /*
          * If we have a chance to search recursively.
          */
-        if (info[n].staticElements != NULL) {
+        if (info[n].staticElements != 0) {
             const DcpCategoryInfo *retval;
 
-            retval = dcp_find_category_info (id, info[n].staticElements);
+            retval = findCategoryInfo (id, info[n].staticElements);
             if (retval)
                 return retval;
         }
     }
 
-    return NULL;
+    return 0;
 }
 
 /*!
@@ -127,7 +127,7 @@ dcp_find_category_info (
  * the logical id.
  */
 const DcpCategoryInfo *
-dcp_find_category_info (
+DcpMain::findCategoryInfo (
         const QString           &name,
         const DcpCategoryInfo   *info)
 {
@@ -158,7 +158,7 @@ dcp_find_category_info (
         if (info[n].staticElements != NULL) {
             const DcpCategoryInfo *retval;
 
-            retval = dcp_find_category_info (name, info[n].staticElements);
+            retval = findCategoryInfo (name, info[n].staticElements);
             if (retval)
                 return retval;
         }
@@ -176,7 +176,7 @@ dcp_find_category_info (
  * 'applications' category that is shown as a sub-page.
  */
 bool
-dcp_category_name_enlisted (
+DcpMain::isCategoryNameEnlisted (
         const QString           &name)
 {
     bool retval;
@@ -184,7 +184,7 @@ dcp_category_name_enlisted (
     /*
      * If the category name can be found in this inline database it is official.
      */
-    retval = dcp_find_category_info (name) != NULL;
+    retval = findCategoryInfo (name) != 0;
     if (retval)
         return retval;
 

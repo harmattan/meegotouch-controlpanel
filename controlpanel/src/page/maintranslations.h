@@ -34,22 +34,18 @@ namespace DcpMain {
    extern const DcpCategoryInfo mostUsedCategory;
    extern const char *otherCategoriesTitleId;
    extern const char *quitMenuItemTextId;
-};
 
-const DcpCategoryInfo *
-dcp_find_category_info (
-        PageHandle::PageTypeId   id,
-        const DcpCategoryInfo   *info = 0);
-
-const DcpCategoryInfo *
-dcp_find_category_info (
+   const DcpCategoryInfo *
+   findCategoryInfo (PageHandle::PageTypeId   id,
+                    const DcpCategoryInfo   *info = 0);
+   const DcpCategoryInfo *
+   findCategoryInfo (
         const QString           &name,
         const DcpCategoryInfo   *info = 0);
 
-bool
-dcp_category_name_enlisted (
-        const QString           &name);
-
+   bool
+   isCategoryNameEnlisted (const QString &name);
+}
 #endif
 
 
