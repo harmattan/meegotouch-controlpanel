@@ -35,7 +35,6 @@ SOURCES += \
     $$STUBSDIR/dcpappletbuttons-fake.cpp \
     $$STUBSDIR/dcpappletplugin-fake.cpp \
     $$STUBSDIR/dcpretranslator-fake.cpp \
-    $$STUBSDIR/dcpbriefcomponent-fake.cpp \
     $$STUBSDIR/dcpsinglecomponent-fake.cpp \
     $$STUBSDIR/dcpmaincategory-fake.cpp \
     $$TEST_SOURCES \ 
@@ -53,7 +52,6 @@ HEADERS += \
     $$SRCDIR/page/dcpcategorycomponent.h \
     $$SRCDIR/component/dcpcomponent.h \
     $$SRCDIR/component/dcpmaincategory.h \
-    $$SRCDIR/component/dcpbriefcomponent.h \
     $$SRCDIR/component/dcpsinglecomponent.h \
     $$SRCDIR/page/dcpappletbuttons.h \
 

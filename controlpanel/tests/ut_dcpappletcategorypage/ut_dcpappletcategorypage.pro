@@ -13,7 +13,6 @@ TARGET = ut_dcpappletcategorypage
 
 TEST_SOURCES = \
     $$SRCDIR/page/dcpappletcategorypage.cpp \
-    $$SRCDIR/page/dcpcategorypage.cpp \
     $$SRCDIR/page/pages.cpp \
 
 # unit test and unit
@@ -36,7 +35,6 @@ SOURCES += \
     $$STUBSDIR/dcpappletbuttons-fake.cpp \
     $$STUBSDIR/dcpappletplugin-fake.cpp \
     $$STUBSDIR/dcpretranslator-fake.cpp \
-    $$STUBSDIR/dcpbriefcomponent-fake.cpp \
     $$STUBSDIR/dcpsinglecomponent-fake.cpp \
     $$STUBSDIR/dcpmaincategory_with_layout-fake.cpp \
     $$TEST_SOURCES \ 
@@ -48,14 +46,12 @@ SOURCES += \
 # unit test and unit
 HEADERS += \
     ut_dcpappletcategorypage.h \
-    $$SRCDIR/page/dcpcategorypage.h \
     $$SRCDIR/page/dcpappletcategorypage.h \
     $$SRCDIR/page/dcppage.h \
     $$SRCDIR/page/pages.h \
     $$SRCDIR/page/dcpappletcategorypage.h \
     $$SRCDIR/component/dcpcomponent.h \
     $$SRCDIR/component/dcpmaincategory.h \
-    $$SRCDIR/component/dcpbriefcomponent.h \
     $$SRCDIR/component/dcpsinglecomponent.h \
     $$SRCDIR/page/dcpappletbuttons.h \
 

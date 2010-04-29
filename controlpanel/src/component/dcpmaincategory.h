@@ -20,7 +20,7 @@ public:
             QGraphicsWidget  *parent = 0,
             const QString    &logicalId = "");
 
-    virtual void appendWidget (DcpComponent *component);
+    virtual void appendWidget (QGraphicsWidget *component);
     virtual int  maxColumns ();
     virtual void setMaxColumns (int columns);
     MLayout* mLayout() const { return m_Layout; }
@@ -63,3 +63,4 @@ private:
 };
 
 #endif
+
