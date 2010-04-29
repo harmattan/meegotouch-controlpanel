@@ -81,21 +81,13 @@ holes in place of non installed applets.
 The widget type of the launch button. Can be one of the following:
 <ul>
 <li>Label - Button with the applet title and optionally a value text
-<li>Toggle - Like DcpLabel2 and a toggle button which can switch
-the value line off
-<li>Image - Like DcpLabel2, and an image
+<li>Image - Like Label, and an image
 </ul>
 
 \par Align
-A property for either the toggle or the image type launch button.
-<ul>
-<li>"Left" specifies that the toggle/image should be on the left side,
-<li>"Right" the opposite.
-</ul>
-
-\par ToggleIconId
-The icon which is to be displayed on the toggle button. Leave it empty if you
-do not want an icon there, just want to use the default toggle button.
+DEPRECATED, it used to specify on which side the image is for an image type of
+launch button. According to current UI specs for every launch button the image
+is on the left side.
 
 \par Text2
 Specifies the text on the second line of the launch button.
@@ -103,7 +95,9 @@ It is mainly for demonstrating purposes
 only, but you can use it if you want to display a constant as a value.
 
 \par Image
-Specifies the image name for the image type launch button.
+Specifies the image name for the image type launch button. Preferably its value
+should be an image id, like you would do for MTheme. It also supports a direct
+path to the image but try to avoid using that if you can.
 
 \par Part
 For binary plugins, if this value contains the name of an applet part, then that part
@@ -145,7 +139,7 @@ Name=Date & Time
 X-logical-id=qtn_sett_main_date_time
 
 # catalog for localization
-X-translation-catalog=duisettings
+X-translation-catalog=duisettings-datetime
 
 [DUI]
 # applet binary
