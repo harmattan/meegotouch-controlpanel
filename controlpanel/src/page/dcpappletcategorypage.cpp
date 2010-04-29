@@ -52,7 +52,7 @@ DcpAppletCategoryPage::reload ()
     DCP_DEBUG ("");
 
     if (m_LoadedAppletCategory != appletCategory()) {
-        m_Category->reload();
+        m_Category->setCategoryInfo (m_CategoryInfo);
     }
 
     DcpPage::reload();

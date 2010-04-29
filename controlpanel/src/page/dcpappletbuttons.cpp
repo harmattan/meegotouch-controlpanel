@@ -104,8 +104,6 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata)
 bool
 DcpAppletButtons::reload ()
 {
-//    This is used only for reloading the sequence of the most used items
-//
 //    FIXME, maybe we could make it more optimal with reusing the existing
 //    widgets (at most one additional widget is coming, at most one is to be
 //    removed)
@@ -117,4 +115,12 @@ DcpAppletButtons::reload ()
     return true;
 }
 
+void
+DcpAppletButtons::setCategoryInfo (const DcpCategoryInfo  *categoryInfo)
+{
+    if (m_CategoryInfo != categoryInfo) {
+        m_CategoryInfo = categoryInfo;
+        reload ();
+    }
+}
 

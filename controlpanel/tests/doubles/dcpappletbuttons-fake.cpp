@@ -11,6 +11,10 @@ DcpAppletButtons::DcpAppletButtons (
 {
 }
 
+void DcpAppletButtons::setCategoryInfo(DcpCategoryInfo const*)
+{
+}
+
 DcpAppletButtons::~DcpAppletButtons ()
 {
 }

@@ -22,6 +22,8 @@ public:
             QGraphicsWidget        *parent = 0);
     ~DcpAppletButtons ();
 
+    void setCategoryInfo (const DcpCategoryInfo  *categoryInfo);
+
     void addComponent (
             DcpAppletMetadata *metadata);
 

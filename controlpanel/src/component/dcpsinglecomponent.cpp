@@ -32,7 +32,6 @@ void
 DcpSingleComponent::activate ()
 {
     PageFactory *pageFactory = PageFactory::instance();
-    qWarning("XXX %s", qPrintable(subPage().getStringVariant()));
     pageFactory->changePage (subPage());
 }
 
