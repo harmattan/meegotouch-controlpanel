@@ -39,7 +39,7 @@ Description: API documentation for libduicontrolpanel
 Package: duicontrolpanel-tests
 Section: misc
 Architecture: any
-Depends: ${shlibs:Depends}, duicontrolpanel (= ${Source-Version}), libqtgui4, duitestrunner
+Depends: ${shlibs:Depends}, duicontrolpanel (= ${Source-Version}), libqtgui4, meegotestrunner
 XB-Maemo-CI-Packages: duicontrolpanel
 XB-Maemo-CI-Stage: fast, staging
 Description: libduicontrolpanel unit tests
