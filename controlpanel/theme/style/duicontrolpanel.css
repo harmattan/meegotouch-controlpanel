@@ -1,34 +1,8 @@
-/* this is specified that briefwidget's first line text must
- * have bigger font if there is no second line (for ex.: toggle off) */
-DuiLabelStyle#DcpButtonMain {
-    font: $FONT_LARGE;
-}
 
-DuiLabelStyle#DcpButtonLine1 {
-    font: $FONT_DEFAULT;
+MContentItemStyle {
+    margin-top: $MARGIN_MEDIUM;
+    margin-bottom: $MARGIN_MEDIUM;
+    margin-left: $MARGIN_MEDIUM;
+    margin-right: $MARGIN_MEDIUM;
 }
-
-DuiLabelStyle#DcpButtonLine2 {
-    font: $FONT_SMALL;
-    color: $COLOR_SECONDARY_FOREGROUND;
-}
-
-DuiImageStyle#DcpButtonImage {
-/*
-    Image should have same size as the toggle:
- */
-    maximum-size: $SIZE_BUTTON $SIZE_BUTTON;
-    minimum-size: $SIZE_BUTTON $SIZE_BUTTON;
-}
-
-/* 
- * In case we would like to ensure that every widget has same height,
- * we should do something like this:
- */
-#DcpButton {
-    preferred-size: -1 85;
-    minimum-size: -1 85;
-    maximum-size: -1 85;
-}
-
 

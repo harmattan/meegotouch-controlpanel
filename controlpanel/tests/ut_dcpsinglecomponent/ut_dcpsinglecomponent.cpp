@@ -12,7 +12,7 @@
 void Ut_DcpSingleComponent::init()
 {
     m_subject = new DcpSingleComponent(0, "Logical ID", "title1", "title2");
-    m_subject->setSubPage(PageHandle::LOOKANDFEEL, "Look & Feel");
+    m_subject->setSubPage(PageHandle(PageHandle::LOOKANDFEEL, "Look & Feel"));
 }
 
 void Ut_DcpSingleComponent::cleanup()

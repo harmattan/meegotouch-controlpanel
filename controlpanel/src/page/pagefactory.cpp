@@ -245,6 +245,8 @@ PageFactory::changePage (const PageHandle &handle)
 
     DCP_DEBUG ("Creating page %s",
             DCP_STR (handle.getStringVariant()));
+    qWarning ("XXX Creating page %s",
+            DCP_STR (handle.getStringVariant()));
     /*
      * Creating the page with the given handle.
      */

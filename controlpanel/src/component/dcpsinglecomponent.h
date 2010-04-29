@@ -4,30 +4,35 @@
 #ifndef DCPSINGLECOMPONENT_H
 #define DCPSINGLECOMPONENT_H
 
-#include "dcpcomponent.h"
+#include <MContentItem>
+#include "pages.h"
 
-class DcpSingleComponent: public DcpComponent
+class DcpSingleComponent: public MContentItem
 {
     Q_OBJECT
+    Q_PROPERTY (QString mattiID READ mattiID)
 
 public:
-    DcpSingleComponent(DcpComponent *category,
+    DcpSingleComponent(QGraphicsWidget* parent,
                        const QString &logicalId,
                        const QString &title,
                        const QString &subTitle="");
     ~DcpSingleComponent ();
 
-    virtual QString title() const;
-    virtual void setTitle(const QString& title);
-    const QString subtitle();
-    void setSubtitle(const QString& subtitle);
+    void setSubPage (const PageHandle &subPage) { m_SubPage = subPage; }
+    const PageHandle &subPage() const { return m_SubPage; }
+
+    QString mattiID() const { return m_MattiID; }
 
 public slots:
     void activate ();
 
 private:
-    class MContentItem* m_Item;
+    QString m_MattiID;
+    PageHandle m_SubPage;
+
     friend class Ut_DcpSingleComponent;
 };
 
 #endif // DCPSINGLECOMPONENT_H
+
