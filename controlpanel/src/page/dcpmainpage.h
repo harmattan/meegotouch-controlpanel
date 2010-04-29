@@ -4,7 +4,7 @@
 #ifndef DCPMAINPAGE_H
 #define DCPMAINPAGE_H
 
-#include <DcpPage>
+#include <DcpCategoryPage>
 #include <QList>
 
 class DcpMainCategory;

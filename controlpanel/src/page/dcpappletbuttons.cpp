@@ -1,22 +1,20 @@
 /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #include "dcpappletbuttons.h"
-#include "maintranslations.h"
-#include "dcpdebug.h"
 
 #include <Pages>
 #include <DcpAppletDb>
+#include <DcpBriefComponent>
 #include <DcpAppletMetadata>
-#include <DcpAppletObject>
 #include <DcpApplet>
-#include <DcpContentItem>
 
 #include <MSceneManager>
-// #include <MGridLayoutPolicy>
-// #include <MLinearLayoutPolicy>
+#include <MGridLayoutPolicy>
+#include <MLinearLayoutPolicy>
 #include <DcpRetranslator>
-#include <QGraphicsLayout>
+#include "maintranslations.h"
 
+#include "dcpdebug.h"
 
 DcpAppletButtons::DcpAppletButtons (
         const DcpCategoryInfo  *categoryInfo,
@@ -32,26 +30,6 @@ DcpAppletButtons::DcpAppletButtons (
             QString ("DcpAppletButtons::") + 
             categoryInfo->titleId + "::" + 
             categoryInfo->appletCategory);
-}
-
-
-DcpAppletButtons::~DcpAppletButtons()
-{
-    markAllInactive();
-}
-
-// marks all the appletmetadatas inactive, so they know they are "released"
-void
-DcpAppletButtons::markAllInactive()
-{
-    for(int i=0; i<layout()->count(); i++) {
-        QGraphicsItem* item = layout()->itemAt(i)->graphicsItem();
-        if (!item || !item->isWidget()) continue;
-        QGraphicsWidget* widget = (QGraphicsWidget*) item;
-        DcpContentItem* briefWidget = qobject_cast<DcpContentItem*>(widget);
-        if (!briefWidget) continue;
-        briefWidget->applet()->metadata()->markInactive();
-    }
 }
 
 
@@ -88,16 +66,18 @@ DcpAppletButtons::createContents ()
     DcpRetranslator::instance()->ensureTranslationsAreLoaded(metadatas);
 }
 
+
 void
-DcpAppletButtons::addComponent (DcpAppletMetadata *metadata)
+DcpAppletButtons::addComponent (
+        DcpAppletMetadata *metadata)
 {
-    metadata->markActive();
+    DcpBriefComponent *component;
+    component = new DcpBriefComponent (
+            DcpAppletDb::instance()->applet(metadata->name()),
+            this, logicalId());
+    component->setSubPage (PageHandle::APPLET, metadata->name());
 
-    // FIXME: we can avoid this additional lookup i guess
-    DcpAppletObject* applet = DcpAppletDb::instance ()->applet (metadata->name());
-    DcpContentItem* briefWidget = new DcpContentItem (applet, this);
-
-    appendWidget (briefWidget);
+    appendWidget (component);
 }
 
 
@@ -111,7 +91,6 @@ DcpAppletButtons::reload ()
 //    removed)
 //
 
-    markAllInactive();
     deleteItems ();
     createContents ();
     return true;

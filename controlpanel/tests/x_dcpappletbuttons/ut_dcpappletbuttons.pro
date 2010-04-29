@@ -44,6 +44,7 @@ HEADERS += \
     $$STUBSDIR/mgconfitem_priv.h \
     $$SRCDIR/page/dcpappletbuttons.h \
     $$SRCDIR/component/dcpmaincategory.h \
+    $$SRCDIR/component/dcpbriefcomponent.h \
     $$SRCDIR/component/dcpcomponent.h \
 
 # base classes

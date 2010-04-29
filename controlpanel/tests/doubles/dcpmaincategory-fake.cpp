@@ -48,7 +48,7 @@ DcpMainCategory::setVerticalSpacing (
 
 void
 DcpMainCategory::appendWidget (
-        QGraphicsWidget *component)
+        DcpComponent *component)
 {
                                                                                                                     
     m_LandscapeLayout->addItem (component, m_RowCount, m_ColCount);                                                   

@@ -1,15 +1,14 @@
 #ifndef DCPAPPLETCATEGORYPAGE_H
 #define DCPAPPLETCATEGORYPAGE_H
 
-#include <DcpPage>
+#include <DcpCategoryPage>
 #include <Pages>
 #include "maintranslations.h"
 
 class DcpAppletMetadata;
-class DcpAppletButtons;
 
-class DcpAppletCategoryPage :
-        public DcpPage
+class DcpAppletCategoryPage : 
+        public DcpCategoryPage
 {
     Q_OBJECT
 
@@ -23,6 +22,7 @@ public:
     void setCategoryInfo (const DcpCategoryInfo *categoryInfo);
 
     virtual void reload();
+    void cleanup();
     void setTitleId(const char* titleId);
 
 public slots:
@@ -30,15 +30,16 @@ public slots:
 
 protected:
     virtual void retranslateUi();
+    void addComponent (DcpAppletMetadata *applet);
+    void loadContent ();
 
 private:
     // the appletcategory that has already been
     // loaded. same as m_CategoryInfo->appletCategory if the
     // page's content is loaded
-    QString m_LoadedAppletCategory;
+    QString m_LoadedAppletCategory; 
     const DcpCategoryInfo  *m_CategoryInfo;
     const char* m_TitleId;
-    DcpAppletButtons* m_Category;
     friend class Ut_DcpAppletCategoryPage;
 };
 
