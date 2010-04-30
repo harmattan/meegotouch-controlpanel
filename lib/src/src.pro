@@ -16,8 +16,9 @@ SOURCES += $$system(find ./ -name \'*.cpp\' -not -name \'moc_*\')
 TARGET        = $$qtLibraryTarget(duicontrolpanel)
 DESTDIR       = ../lib
 
-# disable debugging:
-# DEFINES += QT_NO_DEBUG_OUTPUT
+# disable internal deprecation warnings:
+DEFINES += DCP_DISABLE_DEPRECATION_WARNING
+
 
 target.path    += $$DCP_INSTALL_LIB
 install_headers.path    += $$DCP_INSTALL_HEADERS

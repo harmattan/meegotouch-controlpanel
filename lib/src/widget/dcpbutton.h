@@ -49,9 +49,21 @@ class M_EXPORT DcpButtonStyleContainer : public MWidgetStyleContainer
  * THIS CLASS IS DEPRECATED. Please use MContentItem instead.
  */
 #ifdef USE_STYLABLE_WIDGET
+
+#   ifdef DCP_DISABLE_DEPRECATION_WARNING
+class DcpButton: public MStylableWidget
+#   else
 class Q_DECL_DEPRECATED DcpButton: public MStylableWidget
+#   endif
+
 #else
+
+#   ifdef DCP_DISABLE_DEPRECATION_WARNING
+class DcpButton: public MWidget
+#   else
 class Q_DECL_DEPRECATED DcpButton: public MWidget
+#   endif
+
 #endif
 {
     Q_OBJECT

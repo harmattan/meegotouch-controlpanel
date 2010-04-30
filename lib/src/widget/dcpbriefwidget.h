@@ -31,7 +31,12 @@ class DcpBriefWidgetPrivate;
  * THIS CLASS IS DEPRECATED. Please use #DcpContentItem instead, that works
  * the same.
  */
-class Q_DECL_DEPRECATED DcpBriefWidget: 
+
+#ifdef DCP_DISABLE_DEPRECATION_WARNING
+class DcpBriefWidget:
+#else
+class Q_DECL_DEPRECATED DcpBriefWidget:
+#endif
     public MWidget
 {
     Q_OBJECT
