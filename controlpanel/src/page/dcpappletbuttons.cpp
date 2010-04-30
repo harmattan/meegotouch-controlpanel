@@ -96,6 +96,7 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata)
     // FIXME: we can avoid this additional lookup i guess
     DcpAppletObject* applet = DcpAppletDb::instance ()->applet (metadata->name());
     DcpContentItem* briefWidget = new DcpContentItem (applet, this);
+    briefWidget->setObjectName ("DcpContentItem");
     briefWidget->setMattiID ("DcpBriefComponent::" + logicalId() + "::" +
                              metadata->category() + "::" + metadata->name());
 
