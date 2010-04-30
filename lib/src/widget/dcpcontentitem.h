@@ -29,6 +29,10 @@ class DcpContentItem: public MContentItem
 {
     Q_OBJECT
 
+    //! @cond
+    Q_PROPERTY (QString mattiID READ mattiID WRITE setMattiID)
+    //! @endcond
+
 public:
     /*! \brief Constructor.
      *
@@ -50,6 +54,11 @@ public:
 
     /*! \brief Returns the applet the DcpContentItem visualizes. */
     DcpAppletObject *applet () const;
+
+    //! @cond
+    void setMattiID (const QString& mattid);
+    QString mattiID () const;
+    //! @endcond
 
 protected slots:
     /*! \brief Make the object update according to the values the applet returns

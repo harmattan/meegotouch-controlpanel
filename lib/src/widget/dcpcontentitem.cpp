@@ -2,14 +2,9 @@
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 
 #include "dcpcontentitem.h"
-#include "mwidgetview.h"
 #include "dcpappletobject.h"
 #include "dcpappletmetadata.h"
 #include "dcpwidgettypes.h"
-#include "dcpbutton.h"
-#include "dcpbuttontoggle.h"
-#include "dcpbuttonimage.h"
-#include "dcpwrongapplets.h"
 
 #include <MSceneManager>
 #include <QGraphicsLinearLayout>
@@ -27,6 +22,8 @@ public:
     DcpAppletObject *m_Applet;
     int m_WidgetTypeId;
     bool m_Hidden;
+
+    QString m_MattiID;
 
     // for the image widget:
     QString m_ImageName; // either the image id or path
@@ -321,5 +318,15 @@ DcpContentItem::hideEvent (QHideEvent *event)
             disconnect (d_ptr->m_Applet, SIGNAL (briefChanged()),
                 this, SLOT (updateContents()));
     }
+}
+
+void DcpContentItem::setMattiID (const QString& mattid)
+{
+    d_ptr->m_MattiID = mattid;
+}
+
+QString DcpContentItem::mattiID () const
+{
+    return d_ptr->m_MattiID;
 }
 
