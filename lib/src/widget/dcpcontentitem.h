@@ -92,6 +92,8 @@ private:
     void invertTwoLineMode ();
 
     DcpContentItemPrivate* const d_ptr;
+
+    friend class Ut_DcpContentItem;
 };
 
 

@@ -2,33 +2,11 @@
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 
 #include "dcpcontentitem.h"
-#include "dcpappletobject.h"
-#include "dcpappletmetadata.h"
-#include "dcpwidgettypes.h"
-
-#include <MSceneManager>
-#include <QGraphicsLinearLayout>
-#include <QtDebug>
+#include "dcpcontentitem_p.h"
 
 #include "dcpdebug.h"
 
-/******************************************************************************
- * Private data class for the DcpContentItem class.
- */
-class DcpContentItemPrivate {
-public:
-    DcpContentItemPrivate ();
 
-    DcpAppletObject *m_Applet;
-    int m_WidgetTypeId;
-    bool m_Hidden;
-
-    QString m_MattiID;
-
-    // for the image widget:
-    QString m_ImageName; // either the image id or path
-    const QPixmap* m_Pixmap;   // the pixmap requested from MTheme if any
-};
 
 DcpContentItemPrivate::DcpContentItemPrivate ():
     m_Applet (0),
@@ -121,11 +99,6 @@ DcpContentItem::setApplet (DcpAppletObject *applet)
          */
         connect (this, SIGNAL (clicked()),
                 d_ptr->m_Applet, SLOT (slotClicked()));
-        /*
-         * This will follow the breif changes on the UI.
-         */
-        connect (d_ptr->m_Applet, SIGNAL (briefChanged()), 
-                this, SLOT (updateContents()));
     }
 }
 
@@ -229,6 +202,8 @@ void DcpContentItem::updateImage ()
         } else {
             setImageFromFile (source);
         }
+
+        d_ptr->m_ImageName = source;
     }
 }
 
@@ -266,7 +241,7 @@ void
 DcpContentItem::setImageName (const QString& name)
 {
     d_ptr->m_Pixmap = MTheme::pixmap (name);
-    setPixmap (*(d_ptr->m_Pixmap));
+    setPixmap (*(d_ptr->m_Pixmap)); // TODO XXX ??? it should not work
 }
 
 /*!
@@ -285,8 +260,6 @@ DcpContentItem::setImageFromFile (const QString& fileName)
     }
 
     setImage (image);
-
-    d_ptr->m_ImageName = fileName;
 }
 
 void
