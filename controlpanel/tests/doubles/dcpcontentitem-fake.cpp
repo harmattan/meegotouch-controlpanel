@@ -18,6 +18,8 @@ void DcpContentItem::setApplet(DcpAppletObject* applet)
 
 DcpAppletObject* DcpContentItem::applet() const{ return applets[this]; }
 
+void DcpContentItem::setMattiID(const QString&) {}
+QString DcpContentItem::mattiID() const {return QString(); }
 void DcpContentItem::updateContents(){}
 void DcpContentItem::retranslateUi(){}
 void DcpContentItem::showEvent(QShowEvent*){}
