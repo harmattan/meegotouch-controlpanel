@@ -37,7 +37,11 @@ bool  MDesktopEntry::isValid () const { return d_ptr->isValid;; }
 uint  MDesktopEntry::hash () const { return 0; }
 QString  MDesktopEntry::type () const { return ""; }
 QString  MDesktopEntry::version () const { return ""; }
-QString  MDesktopEntry::name () const { return ""; }
+QString  MDesktopEntry::name () const 
+{
+    return d_ptr->values["Desktop Entry/Name"]; 
+}
+
 QString  MDesktopEntry::nameUnlocalized () const { return ""; }
 QString  MDesktopEntry::genericName () const { return ""; }
 bool  MDesktopEntry::noDisplay () const { return false; }

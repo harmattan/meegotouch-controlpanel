@@ -10,6 +10,7 @@
 #include "mgconfitem-fake.h"
 #include "filedatas.h"
 
+static StringMap testGood, testBad;
 void Ut_DcpAppletMetadata::initTestCase()
 {
     static int c = 0;
@@ -23,7 +24,6 @@ void Ut_DcpAppletMetadata::initTestCase()
 
     appletDir = "so.applet/";
     appletSo = "testapplet.so";
-    StringMap testGood, testBad;
     testGood["Desktop Entry/Name"] = "Browser";
     testGood["Desktop Entry/Type"] = "DUIApplet";
     testGood["Desktop Entry/Icon"] = "";
@@ -56,6 +56,7 @@ void Ut_DcpAppletMetadata::initTestCase()
     testBad["DCP/WidgetType"] = "DcpLabel2";
     testBad["DCP/Text2"] = "firefox";
     fileDatas[desktopBadTestFile] = testBad;
+
 }
 
 void Ut_DcpAppletMetadata::cleanupTestCase()
@@ -123,6 +124,7 @@ void Ut_DcpAppletMetadata::testName()
 void Ut_DcpAppletMetadata::testFileName()
 {
     if (QTest::currentTestFailed()) return;
+    QVERIFY((m_subject = new DcpAppletMetadata(desktopTestFile)));
 
     QCOMPARE(m_subject->fileName(), desktopTestFile);
 }

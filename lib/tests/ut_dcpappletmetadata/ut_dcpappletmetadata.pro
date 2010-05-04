@@ -16,6 +16,7 @@ SOURCES +=
 
 # unit test and unit
 HEADERS += ut_dcpappletmetadata.h \
+           ../doubles/fileDatas.h \
            $$SRCDIR/appletdb/dcpappletmetadata.h
 
 # base classes
