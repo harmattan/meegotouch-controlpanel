@@ -97,7 +97,7 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata)
     DcpAppletObject* applet = DcpAppletDb::instance ()->applet (metadata->name());
     DcpContentItem* briefWidget = new DcpContentItem (applet, this);
     briefWidget->setObjectName ("DcpContentItem");
-    briefWidget->setMattiID ("DcpBriefComponent::" + logicalId() + "::" +
+    briefWidget->setMattiID ("DcpContentItem::" + logicalId() + "::" +
                              metadata->category() + "::" + metadata->name());
 
     appendWidget (briefWidget);
