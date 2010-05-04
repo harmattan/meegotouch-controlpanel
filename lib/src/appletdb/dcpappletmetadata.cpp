@@ -159,6 +159,8 @@ DcpAppletMetadata::widgetTypeID () const
                 return retval;
             }
         }
+        DCP_WARNING ("Unknown widget type '%s' in desktop file '%s'",
+                     qPrintable(typeName), qPrintable(fileName()));
     }
 
     /*

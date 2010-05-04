@@ -76,6 +76,11 @@ DcpAppletObject::widgetTypeID () const
         }
     }
 
+    // return the value from the desktop file:
+    retval = metadata()->widgetTypeID ();
+    if (DcpWidgetType::isIdValid(retval)) {
+        return retval;
+    }
 
     /*
      * Otherwise we return the default value, simple plugins can rely on this.
