@@ -27,6 +27,9 @@ DcpAppletPage::DcpAppletPage (DcpAppletObject *applet, int widgetId):
     m_MainWidget (0),
     m_MissingLabel (0)
 {
+    // this is for being able to control leaving or not leaving the page
+    // in response to clicking the back button
+    setEscapeMode(MApplicationPageModel::EscapeManualBack);
 }
 
 
@@ -132,13 +135,15 @@ DcpAppletPage::load ()
     }
 }
 
-void 
+void
 DcpAppletPage::back ()
 {
     DCP_DEBUG ("");
 
     if (m_MainWidget) {
-        m_MainWidget->back();
+        if (!m_MainWidget->back()) {
+            return;
+        }
     }
 
     if (handle().isStandalone)
@@ -190,6 +195,10 @@ DcpAppletPage::loadWidget (int widgetId)
              m_Applet, SLOT(activateSlot(int)));
     connect (m_MainWidget, SIGNAL (activatePluginByName (const QString &)),
              m_Applet, SLOT (activatePluginByName (const QString &)));
+    if (m_Applet->interfaceVersion() >= 2) {
+        connect (m_MainWidget, SIGNAL (closePage()),
+                 this, SLOT (back ()));
+    }
 
     // add the actions:
     foreach (MAction* action, m_Applet->applet()->viewMenuItems()) {

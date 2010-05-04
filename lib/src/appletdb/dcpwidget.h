@@ -11,7 +11,7 @@ class DcpWidgetPrivate;
 /*!
  * \class DcpWidget
  * \details The base class for applet view
- * 
+ *
  * The control panel applets usually have one or more views containing the
  * actual GUI of the applet. The DcpWidget is the base class for these views
  * (sometimes called pages).
@@ -58,6 +58,13 @@ signals:
 private:
     DcpWidgetPrivate* const d_ptr;
     Q_DISABLE_COPY(DcpWidget);
+
+signals:
+    /*!
+     * \brief Should be emitted when duicontrolpanel should close the page
+     * for you
+     */
+    void closePage();
 };
 
 #endif

@@ -374,7 +374,7 @@ DcpAppletMetadata::markInactive()
         count --;
     } else {
         DCP_WARNING("Internal error: plugin was inactivated "
-                    "more times then activated");
+                    "more times then activated (%s)", qPrintable(name()));
     }
 }
 

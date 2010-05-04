@@ -25,12 +25,12 @@ public:
     bool isAppletLoaded() const;
     DcpAppletMetadata *metadata() const;
     const QString errorMsg () const;
+    int interfaceVersion();
 
 protected:
     virtual void load ();
     virtual bool loadPluginFile (const QString &binaryPath);
     virtual bool loadDslFile    (const QString &dslPath);
-    int interfaceVersion();
 
 private:
     DcpAppletPluginPrivate *const d_ptr;

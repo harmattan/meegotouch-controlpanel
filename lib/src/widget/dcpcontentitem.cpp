@@ -7,7 +7,6 @@
 #include "dcpdebug.h"
 
 
-
 DcpContentItemPrivate::DcpContentItemPrivate ():
     m_Applet (0),
     m_WidgetTypeId (DcpWidgetType::Label),

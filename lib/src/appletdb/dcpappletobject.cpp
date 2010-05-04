@@ -251,11 +251,12 @@ DcpAppletObject::brief () const
     if (d_ptr->m_Brief == 0 && applet() != 0) {
         d_ptr->m_Brief = applet()->constructBrief (getMainWidgetId());
 
-        if (d_ptr->m_Brief != 0)
+        if (d_ptr->m_Brief != 0) {
             connect (d_ptr->m_Brief, SIGNAL (valuesChanged ()), 
                     this, SIGNAL (briefChanged ()));
             connect (d_ptr->m_Brief, SIGNAL (activateSignal ()), 
                     this, SLOT (activateSlot ()));
+        }
     }
 
     return d_ptr->m_Brief;
