@@ -97,6 +97,7 @@ protected:
 private:
     DcpAppletDbPrivate *const d_ptr;
     Q_DISABLE_COPY(DcpAppletDb);  
+    friend class Ut_DcpAppletDb;
 };
 #endif // DCPAPPLETDB_H
 

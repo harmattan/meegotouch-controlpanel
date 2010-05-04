@@ -8,6 +8,7 @@
 
 #include "ut_dcpappletmetadata.h"
 #include "mgconfitem-fake.h"
+#include "filedatas.h"
 
 void Ut_DcpAppletMetadata::initTestCase()
 {
@@ -22,6 +23,39 @@ void Ut_DcpAppletMetadata::initTestCase()
 
     appletDir = "so.applet/";
     appletSo = "testapplet.so";
+    StringMap testGood, testBad;
+    testGood["Desktop Entry/Name"] = "Browser";
+    testGood["Desktop Entry/Type"] = "DUIApplet";
+    testGood["Desktop Entry/Icon"] = "";
+    testGood["Desktop Entry/Exec"] = "";
+    testGood["Desktop Entry/X-logical-id"] = "qtn_sett_main_browser";
+    testGood["Desktop Entry/X-translation-catalog"] = "duisettings";
+    testGood["DUI/X-DUIApplet-Applet"] = "testapplet.so";
+    testGood["DUI/X-DUIApplet/ImageLandscape"] = "Widget_landscape_weather.png";
+    testGood["DUI/X-DUIApplet-ImagePortrait"] = "Widget_portrait_weather.png";
+    testGood["DCP/Category"] = "Application";
+    testGood["DCP/Order"] = "1";
+    testGood["DCP/WidgetType"] = "DcpLabel2";
+    testGood["DCP/Text2"] = "firefox";
+    testGood["DCP/Align"] = "RIGHT";
+    testGood["DCP/Image"] = "test.png";
+    testGood["DCP/Part"] = "RobiJonMegKutyaraDer";
+    testGood["DCP/Parent"] = "RobiJonMegKutyaraDerII";
+    fileDatas[desktopTestFile] = testGood;
+    testBad["Desktop Entry/Name"] = "Browser";
+    testBad["Desktop Entry/Type"] = "DUIApplet";
+    testBad["Desktop Entry/Icon"] = "";
+    testBad["Desktop Entry/Exec"] = "";
+    testBad["Desktop Entry/X-logical-id"] = "qtn_sett_main_browser";
+    testBad["Desktop Entry/X-translation-catalog"] = "duisettings";
+    testBad["DUI/X-DUIApplet-Applet"] = "libexampleapplet.so";
+    testBad["DUI/X-DUIApplet/ImageLandscape"] = "Widget_landscape_weather.png";
+    testBad["DUI/X-DUIApplet-ImagePortrait"] = "Widget_portrait_weather.png";
+    testBad["DCP/Category"] = "Application";
+    testBad["DCP/Order"] = "1";
+    testBad["DCP/WidgetType"] = "DcpLabel2";
+    testBad["DCP/Text2"] = "firefox";
+    fileDatas[desktopBadTestFile] = testBad;
 }
 
 void Ut_DcpAppletMetadata::cleanupTestCase()

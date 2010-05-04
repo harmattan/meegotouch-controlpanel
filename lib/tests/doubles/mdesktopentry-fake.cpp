@@ -1,8 +1,9 @@
 #ifndef MDESKTOPENTRY_STUB_H__
 #define MDESKTOPENTRY_STUB_H__
 
+#include <QStringList>
 #include <MDesktopEntry>
-typedef QMap<QString, QString> StringMap;
+#include "filedatas.h"
 class MDesktopEntryPrivate
 {
 public:
@@ -12,7 +13,7 @@ public:
     StringMap values;
 
 };
-QMap<QString, StringMap> fileDatas;
+
 MDesktopEntryPrivate::MDesktopEntryPrivate(const QString& fileName)
 {
     this->fileName = fileName;
