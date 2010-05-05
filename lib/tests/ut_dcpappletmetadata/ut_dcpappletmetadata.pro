@@ -9,6 +9,7 @@ DEFINES += APPLET_LIBS=\\\"\"so.applet\"\\\"
 # unit test and unit
 SOURCES += ut_dcpappletmetadata.cpp \
            ../doubles/mdesktopentry-fake.cpp \
+           ../doubles/fileDatas.cpp \
            $$TEST_SOURCES
 
 # base classes

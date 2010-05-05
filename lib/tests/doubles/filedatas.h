@@ -1,6 +1,11 @@
 #ifndef FILEDATAS_H
 #define FILEDATAS_H
+
+#include <QMap>
+#include <QString>
+
 typedef QMap<QString, QString> StringMap;
 
-static QMap<QString, StringMap> fileDatas;
+extern QMap<QString, StringMap> fileDatas;
+
 #endif // FILEDATAS_H
