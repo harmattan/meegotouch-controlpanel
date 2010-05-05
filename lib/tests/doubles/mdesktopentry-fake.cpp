@@ -39,7 +39,7 @@ QString  MDesktopEntry::type () const { return ""; }
 QString  MDesktopEntry::version () const { return ""; }
 QString  MDesktopEntry::name () const 
 {
-    return d_ptr->values["Desktop Entry/Name"]; 
+    return d_ptr->values["Name"]; 
 }
 
 QString  MDesktopEntry::nameUnlocalized () const { return ""; }
