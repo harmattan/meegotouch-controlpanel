@@ -7,7 +7,6 @@
 #include "ut_dcpappletplugin.h"
 #include "qpluginloader-fake.h"
 #include "dcpappletmetadata-fake.h"
-#include "mdesktopentry-stub.h"
 
 void Ut_DcpAppletPlugin::init()
 {

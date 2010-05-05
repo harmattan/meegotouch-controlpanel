@@ -36,6 +36,7 @@ DcpAppletDb::DcpAppletDb (
 
 DcpAppletDb::~DcpAppletDb()
 {
+    delete d_ptr;
 }
 
 
