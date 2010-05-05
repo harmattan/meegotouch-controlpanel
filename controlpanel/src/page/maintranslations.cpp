@@ -25,7 +25,7 @@ DcpMain::CategoryInfos[] =
         NULL
     },
     {
-        //% "Language & Region"
+        //% "Time & Language"
         QT_TRID_NOOP ("qtn_sett_main_region"),
         "Regional settings",
         PageHandle::REGIONALSETTING,
@@ -39,7 +39,13 @@ DcpMain::CategoryInfos[] =
         NULL
     },
     {
-        //% "Service Accounts"
+        //% "Utilities"
+        QT_TRID_NOOP ("qtn_sett_main_utilities"),
+        "Utilities",
+        PageHandle::UTILITIES,
+        NULL
+    {
+        //% "Service accounts"
         QT_TRID_NOOP ("qtn_sett_main_account"),
         "Accounts & Applications", /* FIXME we will need to deprecate it somehow
                                       it is currently maintained for compatibility */
@@ -48,7 +54,7 @@ DcpMain::CategoryInfos[] =
     },
     {
         //% "Applications"
-        QT_TRID_NOOP ("qtn_sett_main_applications"),
+        QT_TRID_NOOP ("qtn_sett_main_application"),
         "Applications",
         PageHandle::Applications,
         NULL
@@ -61,7 +67,7 @@ DcpMain::CategoryInfos[] =
 
 const DcpCategoryInfo DcpMain::mostUsedCategory =
 {
-    //% "Most used items"
+    //% "Recently used"
     QT_TRID_NOOP("qtn_sett_main_most"),
     "MostUsed",
     PageHandle::NOPAGE,
@@ -72,7 +78,7 @@ const DcpCategoryInfo DcpMain::mostUsedCategory =
 //% "Settings"
 const char* DcpMain::settingsTitleId = QT_TRID_NOOP("qtn_sett_main_title");
 
-//% "Other Categories"
+//% "Other settings"
 const char* DcpMain::otherCategoriesTitleId = QT_TRID_NOOP("qtn_sett_main_other");
 //% "Exit"
 const char* DcpMain::quitMenuItemTextId = QT_TRID_NOOP("qtn_comm_exit");
