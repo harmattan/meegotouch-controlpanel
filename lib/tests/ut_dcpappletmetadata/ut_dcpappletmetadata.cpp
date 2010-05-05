@@ -10,7 +10,6 @@
 #include "mgconfitem-fake.h"
 #include "filedatas.h"
 
-static StringMap testGood, testBad;
 void Ut_DcpAppletMetadata::initTestCase()
 {
     static int c = 0;
@@ -40,22 +39,22 @@ void Ut_DcpAppletMetadata::initTestCase()
     fileDatas[desktopTestFile]["DCP/Align"] = "RIGHT";
     fileDatas[desktopTestFile]["DCP/Image"] = "test.png";
     fileDatas[desktopTestFile]["DCP/Part"] = "RobiJonMegKutyaraDer";
-    fileDatas[desktopTestFile]["DCP/Parent"] = "RobiJonMegKutyaraDerII";
-    //fileDatas[desktopTestFile] = testGood;
-    testBad["Desktop Entry/Name"] = "Browser";
-    testBad["Desktop Entry/Type"] = "DUIApplet";
-    testBad["Desktop Entry/Icon"] = "";
-    testBad["Desktop Entry/Exec"] = "";
-    testBad["Desktop Entry/X-logical-id"] = "qtn_sett_main_browser";
-    testBad["Desktop Entry/X-translation-catalog"] = "duisettings";
-    testBad["DUI/X-DUIApplet-Applet"] = "libexampleapplet.so";
-    testBad["DUI/X-DUIApplet/ImageLandscape"] = "Widget_landscape_weather.png";
-    testBad["DUI/X-DUIApplet-ImagePortrait"] = "Widget_portrait_weather.png";
-    testBad["DCP/Category"] = "Application";
-    testBad["DCP/Order"] = "1";
-    testBad["DCP/WidgetType"] = "DcpLabel2";
-    testBad["DCP/Text2"] = "firefox";
-    fileDatas[desktopBadTestFile] = testBad;
+    fileDatas[desktopTestFile]["DCP/Parent"] = "RobiJonMegKutyaraDer_II";
+    fileDatas[desktopTestFile]["isValid"] = "y";
+    fileDatas[desktopBadTestFile]["Desktop Entry/Name"] = "Browser";
+    fileDatas[desktopBadTestFile]["Desktop Entry/Type"] = "DUIApplet";
+    fileDatas[desktopBadTestFile]["Desktop Entry/Icon"] = "";
+    fileDatas[desktopBadTestFile]["Desktop Entry/Exec"] = "";
+    fileDatas[desktopBadTestFile]["Desktop Entry/X-logical-id"] = "qtn_sett_main_browser";
+    fileDatas[desktopBadTestFile]["Desktop Entry/X-translation-catalog"] = "duisettings";
+    fileDatas[desktopBadTestFile]["DUI/X-DUIApplet-Applet"] = "libexampleapplet.so";
+    fileDatas[desktopBadTestFile]["DUI/X-DUIApplet/ImageLandscape"] = "Widget_landscape_weather.png";
+    fileDatas[desktopBadTestFile]["DUI/X-DUIApplet-ImagePortrait"] = "Widget_portrait_weather.png";
+    fileDatas[desktopBadTestFile]["DCP/Category"] = "Application";
+    fileDatas[desktopBadTestFile]["DCP/Order"] = "1";
+    fileDatas[desktopBadTestFile]["DCP/WidgetType"] = "DcpLabel2";
+    fileDatas[desktopBadTestFile]["DCP/Text2"] = "firefox";
+    fileDatas[desktopBadTestFile]["isValid"] = "n";
 
 }
 

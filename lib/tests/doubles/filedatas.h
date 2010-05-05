@@ -2,6 +2,7 @@
 #define FILEDATAS_H
 
 #include <QMap>
+#include <QMultiMap>
 #include <QString>
 
 typedef QMap<QString, QString> StringMap;

@@ -25,7 +25,6 @@ MDesktopEntry::MDesktopEntry(const QString &filename)
     : d_ptr(new MDesktopEntryPrivate(filename))
 {
     d_ptr->fileName = filename;
-    d_ptr->isValid = true;
 }
 
 MDesktopEntry::~MDesktopEntry()
@@ -33,7 +32,10 @@ MDesktopEntry::~MDesktopEntry()
 }
 
 QString  MDesktopEntry::fileName () const { return d_ptr->fileName; }
-bool  MDesktopEntry::isValid () const { return d_ptr->isValid;; }
+bool  MDesktopEntry::isValid () const 
+{ 
+    return fileDatas[d_ptr->fileName]["isValid"] == "y";
+}
 uint  MDesktopEntry::hash () const { return 0; }
 QString  MDesktopEntry::type () const { return ""; }
 QString  MDesktopEntry::version () const { return ""; }
