@@ -9,7 +9,7 @@ TEST_SOURCES = \
 
 # unit test and unit
 SOURCES += \
-    *.cpp \
+    ut_dcpcontentitem.cpp \
     ../doubles/mcontentitem-fake.cpp \
     ../doubles/mtheme-fake.cpp \
     ../../../controlpanel/tests/doubles/dcpappletmetadata-fake.cpp \
@@ -22,7 +22,7 @@ SOURCES += \
 
 # unit test and unit
 HEADERS += \
-    *.h \
+    ut_dcpcontentitem.h \
     $$SRCDIR/widget/dcpcontentitem.h \
 
 # base classes

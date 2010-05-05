@@ -50,6 +50,10 @@ PageHandle::getStringVariant () const
             typeName = "DEVICESYSTEM";
             break;
 
+        case UTILITIES:
+            typeName = "UTILITIES";
+            break;
+
         case ServiceAccounts:
             typeName = "ServiceAccounts";
             break;

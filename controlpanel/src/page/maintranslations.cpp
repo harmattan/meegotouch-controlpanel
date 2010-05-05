@@ -44,6 +44,7 @@ DcpMain::CategoryInfos[] =
         "Utilities",
         PageHandle::UTILITIES,
         NULL
+    },
     {
         //% "Service accounts"
         QT_TRID_NOOP ("qtn_sett_main_account"),

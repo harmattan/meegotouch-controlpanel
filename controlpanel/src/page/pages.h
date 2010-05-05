@@ -27,6 +27,7 @@ public:
 //        DEVICEUTILITIES,
 //        ACCOUNTSANDAPPLICATIONS,
         DEVICESYSTEM,
+        UTILITIES,
         ServiceAccounts,
         Applications,
         CATEGORY_PAGEID_END,    // ---
