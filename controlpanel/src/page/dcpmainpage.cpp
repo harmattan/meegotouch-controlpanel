@@ -53,7 +53,7 @@ DcpMainPage::shown ()
     if (m_HasContent) {
         if (m_WasHidden) {
             m_WasHidden = false;
-            m_RecentlyComp->reload();
+            reload ();
         }
         return;
     }
