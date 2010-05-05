@@ -3,7 +3,6 @@
 
 #include "dcpappletcategorypage.h"
 #include "dcpappletbuttons.h"
-#include <DcpMainCategory>
 #include <QDebug>
 
 #include <DcpAppletDb>

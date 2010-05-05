@@ -6,8 +6,10 @@ duicontrolpanel (0.7.17~unreleased) unstable; urgency=low
   * Fixes: false return at DcpWidget::back() was not taken into account (the
     page got destroyed either ways)
   * Adds API for closing the appletpage from DcpWidget
+  * Some visual updates according to the ui spec: no space and separator
+    between contentitems, one column lists
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 04 May 2010 16:27:19 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 05 May 2010 11:22:09 +0200
 
 duicontrolpanel (0.7.16) unstable; urgency=low
 

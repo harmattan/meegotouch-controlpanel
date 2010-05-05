@@ -25,8 +25,8 @@ DcpAppletButtons::DcpAppletButtons (
 : DcpMainCategory (title, parent, categoryInfo->titleId),
     m_CategoryInfo (categoryInfo)
 {
-    setCreateSeparators (true);
-    setMaxColumns (2);
+    setCreateSeparators (false);
+    setMaxColumns (1);
     createContents ();
     setMattiID (
             QString ("DcpAppletButtons::") + 

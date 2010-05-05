@@ -90,7 +90,7 @@ DcpMainPage::createContent ()
             DcpMain::otherCategoriesTitleId,
             0,
             DcpMain::otherCategoriesTitleId);
-    otherCategories->setMaxColumns(2);
+    otherCategories->setMaxColumns(1);
     for (int i = 0;; i++) {
         DcpSingleComponent *button;
         const DcpCategoryInfo  *info;
