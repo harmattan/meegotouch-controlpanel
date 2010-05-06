@@ -7,6 +7,11 @@
 #include <MLayout>
 static QString sTitle;
 
+MSceneWindow::MSceneWindow(class MSceneWindowPrivate*,
+                           class MSceneWindowModel*,
+                   MSceneWindow::WindowType,
+                   const QString&, QGraphicsItem*){}
+MSceneWindow::MSceneWindow(QGraphicsItem*){}
 MApplicationPage::MApplicationPage(QGraphicsItem *){}
 MApplicationPage::~MApplicationPage(){}
 void MApplicationPage::createContent(){
