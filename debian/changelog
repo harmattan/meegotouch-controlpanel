@@ -1,4 +1,4 @@
-duicontrolpanel (0.7.17~unreleased) unstable; urgency=low
+duicontrolpanel (0.7.17) unstable; urgency=low
 
   [ Robert Manner ]
   * Fixes servicefw api regression
