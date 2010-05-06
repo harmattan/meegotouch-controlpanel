@@ -1,5 +1,6 @@
 duicontrolpanel (0.7.17~unreleased) unstable; urgency=low
 
+  [ Robert Manner ]
   * Fixes servicefw api regression
   * Deprecated classes: DcpButton*, DcpBriefWidget. MContentItem and
     MContentItem based DcpContentItem replaces them
@@ -9,7 +10,10 @@ duicontrolpanel (0.7.17~unreleased) unstable; urgency=low
   * Some visual updates according to the ui spec: no space and separator
     between contentitems, one column lists
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 05 May 2010 11:22:09 +0200
+  [ Sandor Pinter ]
+  * Using clean-device-dev package to get the RFS script dir
+
+ -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Thu, 06 May 2010 11:53:38 +0200
 
 duicontrolpanel (0.7.16) unstable; urgency=low
 
