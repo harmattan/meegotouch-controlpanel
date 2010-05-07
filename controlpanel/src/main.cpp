@@ -59,7 +59,7 @@ startSupervising()
                     continue;
             }
         }
-        
+
         /*
          * If this was not an applet crash we exit.
          */
