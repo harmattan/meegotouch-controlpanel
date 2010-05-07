@@ -30,6 +30,12 @@ startSupervising()
 {
     DCP_DEBUG ("");
 
+    /* it was necessery to init wrongapplets because it connects the signals
+     * for the segfault, and otherwise segfaulting from DuiApplication for
+     * instance makes duicontrolpanel run in an endless loop
+     */
+    DcpWrongApplets::instance();
+
     while (fork() > 0) {
         DCP_DEBUG ("FORKED a child");
 
