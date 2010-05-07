@@ -4,12 +4,12 @@
 <context>
 <name></name>
 <message id="dcp_no_applet_name">
-<location filename="../src/page/dcpappletpage.cpp" line="133"/>
+<location filename="../src/page/dcpappletpage.cpp" line="130"/>
 <source>Plugin not available</source>
 <translation>(zh_CN) Plugin not available</translation>
 </message>
 <message id="dcp_no_applet_title">
-<location filename="../src/page/dcpappletpage.cpp" line="137"/>
+<location filename="../src/page/dcpappletpage.cpp" line="134"/>
 <source>Missing plugin</source>
 <translation>(zh_CN) Missing plugin</translation>
 </message>
@@ -25,43 +25,63 @@
 </message>
 <message id="qtn_sett_main_region">
 <location filename="../src/page/maintranslations.cpp" line="29"/>
-<source>Language &amp; Region</source>
-<translation>(zh_CN) Language &amp; Region</translation>
+<source>Time &amp; Language</source>
+<translation>(zh_CN) Time &amp; Language</translation>
 </message>
 <message id="qtn_sett_main_data">
 <location filename="../src/page/maintranslations.cpp" line="36"/>
 <source>Device system</source>
 <translation>(zh_CN) Device system</translation>
 </message>
-<message id="qtn_sett_main_account">
+<message id="qtn_sett_main_utilities">
 <location filename="../src/page/maintranslations.cpp" line="43"/>
-<source>Service Accounts</source>
-<translation>(zh_CN) Service Accounts</translation>
+<source>Utilities</source>
+<translation>(zh_CN) Utilities</translation>
 </message>
-<message id="qtn_sett_main_applications">
-<location filename="../src/page/maintranslations.cpp" line="51"/>
+<message id="qtn_sett_main_account">
+<location filename="../src/page/maintranslations.cpp" line="50"/>
+<source>Service accounts</source>
+<translation>(zh_CN) Service accounts</translation>
+</message>
+<message id="qtn_sett_main_application">
+<location filename="../src/page/maintranslations.cpp" line="58"/>
 <source>Applications</source>
 <translation>(zh_CN) Applications</translation>
 </message>
+<message id="qtn_sett_main_most">
+<location filename="../src/page/maintranslations.cpp" line="72"/>
+<source>Recently used</source>
+<translation>(zh_CN) Recently used</translation>
+</message>
 <message id="qtn_sett_main_title">
-<location filename="../src/page/maintranslations.cpp" line="64"/>
+<location filename="../src/page/maintranslations.cpp" line="80"/>
 <source>Settings</source>
 <translation>(zh_CN) Settings</translation>
 </message>
-<message id="qtn_sett_main_most">
-<location filename="../src/page/maintranslations.cpp" line="67"/>
-<source>Most recently used</source>
-<translation>(zh_CN) Most recently used</translation>
-</message>
 <message id="qtn_sett_main_other">
-<location filename="../src/page/maintranslations.cpp" line="70"/>
-<source>Other Categories</source>
-<translation>(zh_CN) Other Categories</translation>
+<location filename="../src/page/maintranslations.cpp" line="83"/>
+<source>Other settings</source>
+<translation>(zh_CN) Other settings</translation>
 </message>
 <message id="qtn_comm_exit">
-<location filename="../src/page/maintranslations.cpp" line="72"/>
+<location filename="../src/page/maintranslations.cpp" line="85"/>
 <source>Exit</source>
 <translation>(zh_CN) Exit</translation>
+</message>
+<message id="abcd">
+<location filename="../tests/ut_dcpappletcategorypage/ut_dcpappletcategorypage.cpp" line="85"/>
+<source></source>
+<translation>Fake zh_CN 14</translation>
+</message>
+<message id="qtn-fake">
+<location filename="../tests/ut_dcpcategorycomponent/ut_dcpcategorycomponent.cpp" line="48"/>
+<source></source>
+<translation>Fake zh_CN 15</translation>
+</message>
+<message id="qtn_sett_main_applications">
+<location filename="../tests/ut_maintranslations/ut_maintranslations.cpp" line="30"/>
+<source>Applications</source>
+<translation>(zh_CN) Applications</translation>
 </message>
 </context>
 </TS>

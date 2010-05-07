@@ -1,3 +1,9 @@
+duicontrolpanel (0.7.19~unreleased) unstable; urgency=low
+
+  * Fixes endless recursion when there is no dbus available
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 07 May 2010 11:24:59 +0200
+
 duicontrolpanel (0.7.18) unstable; urgency=low
 
   * unittest fixes
