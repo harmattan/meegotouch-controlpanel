@@ -267,10 +267,6 @@ PageFactory::changePage (const PageHandle &handle)
     } else {
         page->appear (MSceneWindow::KeepWhenDone);
     }
-
-    if (MApplication::activeWindow ()) {
-        MApplication::activeWindow ()->raise();
-    }
 }
 
 void
