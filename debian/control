@@ -54,10 +54,10 @@ Description: Engineering English translations for duicontrolpanel
 #
 # Removed because the fake package could not be installed. 
 #
-#Package: duicontrolpanel-l10n-fake
-#Section: misc
-#Architecture: any
-#Conflicts: duicontrolpanel-l10n, duicontrolpanel-l10n-fi-fi, duicontrolpanel-l10n-en-gb, duicontrolpanel-l10n-zh-cn, duicontrolpanel-l10n-de
-#Description: Fake translations for duicontrolpanel
-# Makes it easier to demo the "on the fly" language change
+Package: duicontrolpanel-l10n-fake
+Section: misc
+Architecture: any
+Conflicts: duicontrolpanel-l10n, duicontrolpanel-l10n-fi-fi, duicontrolpanel-l10n-en-gb, duicontrolpanel-l10n-zh-cn, duicontrolpanel-l10n-de
+Description: Fake translations for duicontrolpanel
+ Makes it easier to demo the "on the fly" language change
 

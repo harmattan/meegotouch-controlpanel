@@ -1,8 +1,10 @@
 duicontrolpanel (0.7.19~unreleased) unstable; urgency=low
 
   * Fixes endless recursion when there is no dbus available
+  * Fixes: NB#166112 - DuiControlPanel should apply to swap itself to
+    be the toplevel window when DuiControlPanelIf::appletPage
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 07 May 2010 11:24:59 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 07 May 2010 12:06:25 +0200
 
 duicontrolpanel (0.7.18) unstable; urgency=low
 

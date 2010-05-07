@@ -6,6 +6,8 @@
 
 #include "duicontrolpanelifadaptor.h"
 #include <QtDebug>
+#include <MApplication>
+#include <MWindow>
 
 static const char* serviceName = "com.nokia.DuiControlPanel";
 
@@ -46,13 +48,26 @@ DuiControlPanelService::appletPage (
     return true;
 }
 
+/* Starts the page through PageFactory */
+void
+DuiControlPanelService::startPageForReal(
+                const PageHandle &handle)
+{
+    PageFactory::instance()->changePage(handle);
+    if (MApplication::activeWindow ()) {
+        MApplication::activeWindow ()->raise();
+    }
+}
+
+/* Either starts the page or shedules starting it if the window is not yet
+ * created. */
 void
 DuiControlPanelService::sheduleStart (
                 const PageHandle &handle)
 {
     DCP_DEBUG ("");
     if (m_StartPage == 0) {
-        PageFactory::instance()->changePage(handle);
+        startPageForReal(handle);
     } else {
         *m_StartPage = handle;
     }
@@ -88,8 +103,8 @@ DuiControlPanelService::createStartPage()
 {
     DCP_DEBUG ("");
     // createStartPage should not be called twice
-    Q_ASSERT(m_StartPage);  
-    PageFactory::instance()->changePage(*m_StartPage);
+    Q_ASSERT(m_StartPage);
+    startPageForReal (*m_StartPage);
     delete m_StartPage;
     m_StartPage = 0;
 }

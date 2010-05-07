@@ -21,6 +21,8 @@ public Q_SLOTS:
 
 private:
     void sheduleStart (const PageHandle &handle);
+    void startPageForReal(const PageHandle &handle);
+
     // stores the startpage until the app is not started, after that it is 0
     PageHandle *m_StartPage; 
 };
