@@ -1,7 +1,23 @@
 #include <DuiControlPanelIf>
+#include <MDialog>
+#include <MApplication>
+#include <MApplicationWindow>
+#include <MApplicationPage>
 
 int main(int argc, char *argv[])
 {
+    bool gui = (argc == 3 && strcmp(argv[2],"win") == 0);
+    if (gui) {
+        new MApplication(argc, argv);
+        MApplicationWindow* win = new MApplicationWindow();
+        win->show();
+        MApplicationPage* page = new MApplicationPage();
+        page->appear();
+        MDialog* dialog = new MDialog();
+        dialog->addButton("start");
+        dialog->exec();
+    }
+
     // instantiate the interface
     DuiControlPanelIf* m_DcpIf = new DuiControlPanelIf();
 
@@ -20,6 +36,10 @@ int main(int argc, char *argv[])
     } else {
         qDebug() << "Starting main page";
         m_DcpIf->mainPage();
+    }
+
+    if (gui) {
+        return qApp->exec();
     }
     return 0;
 }
