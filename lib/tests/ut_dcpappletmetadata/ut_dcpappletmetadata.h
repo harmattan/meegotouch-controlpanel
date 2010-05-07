@@ -37,7 +37,15 @@ private slots:
     void testPart();
     void testSetGetParent();
     void testParentName();
-
+    void testDslFilename();
+    void testApplicationCommand();
+    void testTranslationCatalog();
+    void testText2();
+    void testIncrementUsage();
+    void testDisabled();
+    void testOrderLessThan();
+    void testUsageGreatherThan();
+    void testActive();
 private:
     DcpAppletMetadata* m_subject;
     QString            desktopOrigFile, desktopTestFile, desktopBadTestFile;

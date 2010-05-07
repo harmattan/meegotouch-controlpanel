@@ -22,7 +22,7 @@ contains(DCP_BUILD_FEATURES,coverage) {
   coverage.target = coverage
   coverage.CONFIG = recursive
 }
-OBJECTS_DIR = .tmp
-MOC_DIR = .tmp
+#OBJECTS_DIR = .tmp
+#MOC_DIR = .tmp
 
 QMAKE_CLEAN += **/*.log.xml **/*.log

@@ -91,6 +91,7 @@ protected:
 private:
     DcpAppletMetadataPrivate *const d_ptr;
     Q_DISABLE_COPY (DcpAppletMetadata);
+    friend class Ut_DcpAppletMetadata;
 };
 
 #endif

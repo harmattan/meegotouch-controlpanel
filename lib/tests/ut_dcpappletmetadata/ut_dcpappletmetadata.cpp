@@ -5,10 +5,12 @@
 #include <DcpWidgetTypes>
 
 #include <dcpappletmetadata.h>
+#include <dcpappletmetadata_p.h>
 
 #include "ut_dcpappletmetadata.h"
 #include "mgconfitem-fake.h"
 #include "filedatas.h"
+#include "dcpmostusedcounter.h"
 
 void Ut_DcpAppletMetadata::initTestCase()
 {
@@ -32,6 +34,8 @@ void Ut_DcpAppletMetadata::initTestCase()
     fileDatas[desktopTestFile]["DUI/X-DUIApplet-Applet"] = "testapplet.so";
     fileDatas[desktopTestFile]["DUI/X-DUIApplet/ImageLandscape"] = "Widget_landscape_weather.png";
     fileDatas[desktopTestFile]["DUI/X-DUIApplet-ImagePortrait"] = "Widget_portrait_weather.png";
+    fileDatas[desktopTestFile]["DUI/X-DUIApplet-ApplicationCommand"] = "./test";
+    fileDatas[desktopTestFile]["DUI/X-DUIApplet-Dslfile"] = "dslfile";
     fileDatas[desktopTestFile]["DCP/Category"] = "Application";
     fileDatas[desktopTestFile]["DCP/Order"] = "1";
     fileDatas[desktopTestFile]["DCP/WidgetType"] = "DcpLabel2";
@@ -220,5 +224,82 @@ void Ut_DcpAppletMetadata::testParentName()
 
     QCOMPARE(m_subject->parentName(), QString("RobiJonMegKutyaraDer_II"));
 }
+void Ut_DcpAppletMetadata::testDslFilename()
+{
+    if (QTest::currentTestFailed()) return;
+    QCOMPARE(m_subject->dslFilename(), QString("dslfile")); 
+}
+
+void Ut_DcpAppletMetadata::testApplicationCommand()
+{
+    if (QTest::currentTestFailed()) return;
+    QVERIFY(m_subject->hasApplicationCommand());
+    QCOMPARE(m_subject->applicationCommand(), QString("./test")); 
+    delete m_subject;
+    fileDatas[desktopTestFile]["DUI/X-DUIApplet-ApplicationCommand"] = "";
+    m_subject = new DcpAppletMetadata(desktopTestFile);
+    QVERIFY(!m_subject->hasApplicationCommand());
+}
+
+void Ut_DcpAppletMetadata::testTranslationCatalog()
+{
+    if (QTest::currentTestFailed()) return;
+    QCOMPARE(m_subject->translationCatalog(), QString("duisettings")); 
+}
+
+void Ut_DcpAppletMetadata::testText2()
+{
+    if (QTest::currentTestFailed()) return;
+    QCOMPARE(m_subject->text2(), QString("firefox")); 
+    m_subject->d_ptr->m_Disabled = true;
+    QCOMPARE(m_subject->text2(), QString("Disabled")); 
+}
+
+void Ut_DcpAppletMetadata::testIncrementUsage()
+{
+    if (QTest::currentTestFailed()) return;
+    QSKIP("remove if finished", SkipSingle);
+}
+
+void Ut_DcpAppletMetadata::testDisabled()
+{
+    m_subject->d_ptr->m_Disabled = false;
+    QVERIFY(!m_subject->isDisabled());
+    m_subject->setDisabled(true);
+    QVERIFY(m_subject->d_ptr->m_Disabled);
+}
+
+void Ut_DcpAppletMetadata::testOrderLessThan()
+{
+    fileDatas[desktopTestFile]["DCP/Order"] = "100";
+    DcpAppletMetadata *metadata = new DcpAppletMetadata(desktopTestFile);
+    QVERIFY(DcpAppletMetadata::orderLessThan(m_subject, metadata));
+    delete metadata;
+}
+
+void Ut_DcpAppletMetadata::testUsageGreatherThan()
+{
+    DcpAppletMetadata *metadata = new DcpAppletMetadata(desktopBadTestFile);
+    MostUsedCounter::instance()->incrementUsageCount (
+            QFileInfo(desktopTestFile).baseName()
+    );
+    QVERIFY(DcpAppletMetadata::usageGreatherThan(m_subject, metadata));
+    delete metadata;
+}
+
+void Ut_DcpAppletMetadata::testActive()
+{
+    if (QTest::currentTestFailed()) return;
+    m_subject->d_ptr->m_Activated = 0;
+    QVERIFY(!m_subject->isActive());
+    m_subject->markActive();
+    m_subject->markActive();
+    QVERIFY(m_subject->isActive());
+    m_subject->markInactive();
+    QVERIFY(m_subject->isActive());
+    m_subject->markInactive();
+    QVERIFY(!m_subject->isActive());
+}
+
 
 QTEST_APPLESS_MAIN(Ut_DcpAppletMetadata)
