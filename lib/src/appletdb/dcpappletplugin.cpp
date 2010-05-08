@@ -38,6 +38,7 @@ DcpAppletPlugin::~DcpAppletPlugin()
         d_ptr->loader.unload();
     }
     #endif
+    delete d_ptr;
 }
 
 /*!

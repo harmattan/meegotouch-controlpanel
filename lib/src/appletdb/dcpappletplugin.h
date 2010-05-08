@@ -35,6 +35,7 @@ protected:
 private:
     DcpAppletPluginPrivate *const d_ptr;
     Q_DISABLE_COPY(DcpAppletPlugin);
+    friend class Ut_DcpAppletPlugin;
 };
 
 #endif
