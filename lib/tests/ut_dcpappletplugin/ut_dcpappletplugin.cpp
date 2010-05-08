@@ -41,6 +41,7 @@ void Ut_DcpAppletPlugin::testLoadBinaryOk()
         dynamic_cast<DcpAppletPluginApplet*>(m_subject->applet())->initialized()
         );
     delete metadata;
+    QVERIFY(m_subject->isAppletLoaded());
 }
 
 /**
@@ -56,6 +57,7 @@ void Ut_DcpAppletPlugin::testLoadBinaryError()
     m_subject = new DcpAppletPlugin(metadata);
     QVERIFY(!m_subject->applet());
     QVERIFY(m_subject->errorMsg().contains(fakeErrorMsg));
+    QVERIFY(!m_subject->isAppletLoaded());
     delete metadata;
 }
 
