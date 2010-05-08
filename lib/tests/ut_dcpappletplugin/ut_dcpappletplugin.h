@@ -23,6 +23,7 @@ private slots:
     void testLoadBinaryError();
     void testLoadDsl();
     void testMetadata();
+    void testInterfaceVersion();
 
 private:
     DcpAppletPlugin* m_subject;

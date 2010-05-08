@@ -5,6 +5,7 @@
 
 
 #include "ut_dcpappletplugin.h"
+#include "dcpappletplugin_p.h"
 #include "qpluginloader-fake.h"
 #include "dcpappletmetadata-fake.h"
 
@@ -41,6 +42,7 @@ void Ut_DcpAppletPlugin::testLoadBinaryOk()
         dynamic_cast<DcpAppletPluginApplet*>(m_subject->applet())->initialized()
         );
     delete metadata;
+    QVERIFY(m_subject->isAppletLoaded());
 }
 
 /**
@@ -56,6 +58,7 @@ void Ut_DcpAppletPlugin::testLoadBinaryError()
     m_subject = new DcpAppletPlugin(metadata);
     QVERIFY(!m_subject->applet());
     QVERIFY(m_subject->errorMsg().contains(fakeErrorMsg));
+    QVERIFY(!m_subject->isAppletLoaded());
     delete metadata;
 }
 
@@ -79,6 +82,21 @@ void Ut_DcpAppletPlugin::testMetadata()
     DcpAppletMetadata *metadata = new DcpAppletMetadata("dummy-binary");
     m_subject = new DcpAppletPlugin(metadata);
     QVERIFY(m_subject->metadata() == metadata);
+    delete metadata;
+}
+
+void Ut_DcpAppletPlugin::testInterfaceVersion()
+{
+    DcpAppletMetadataFake::appletType = 
+        DcpAppletMetadataFake::TYPE_BINARY;
+    qPluginLoaderFakeSuccessful = true;
+    DcpAppletMetadata *metadata = new DcpAppletMetadata("dummy-binary");
+    m_subject = new DcpAppletPlugin(metadata);
+    QVERIFY(m_subject->applet());
+    QCOMPARE(m_subject->interfaceVersion(), 2);
+    delete m_subject->d_ptr->appletInstance;
+    m_subject->d_ptr->appletInstance = 0;
+    QCOMPARE(m_subject->interfaceVersion(), -1);
     delete metadata;
 }
 
