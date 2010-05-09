@@ -58,7 +58,7 @@ signals:
 private:
     DcpWidgetPrivate* const d_ptr;
     Q_DISABLE_COPY(DcpWidget);
-
+    friend class Ut_DcpWidget;
 signals:
     /*!
      * \brief Should be emitted when duicontrolpanel should close the page
