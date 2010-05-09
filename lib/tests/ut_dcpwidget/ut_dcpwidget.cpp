@@ -36,6 +36,7 @@ void Ut_DcpWidget::testWidgetId()
     QCOMPARE(m_subject->d_ptr->m_WidgetId, -1);
     QVERIFY(m_subject->setWidgetId(1));
     QCOMPARE(m_subject->d_ptr->m_WidgetId, 1);
+    QCOMPARE(m_subject->getWidgetId(), 1);
     QVERIFY(!m_subject->setWidgetId(10)); // already set
 }
 
