@@ -51,4 +51,4 @@ void Ut_DcpWidget::testPagePans()
 }
 
 
-QTEST_MAIN(Ut_DcpWidget)
+QTEST_APPLESS_MAIN(Ut_DcpWidget)
