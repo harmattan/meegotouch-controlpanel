@@ -44,7 +44,6 @@ signals:
 
 protected:
     void appendWidget (QGraphicsWidget *widget);
-    void removeWidget (QGraphicsWidget *widget);
 
 private:
     void createLayout();

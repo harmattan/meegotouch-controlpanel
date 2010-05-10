@@ -84,6 +84,7 @@ DcpMainPage::createContent ()
     DcpPage::createContent ();
 
     layout = mainLayout ();
+    Q_ASSERT(layout);
 
     m_OtherComp = new MContainer();
     DcpMainCategory *otherCategories = new DcpMainCategory(

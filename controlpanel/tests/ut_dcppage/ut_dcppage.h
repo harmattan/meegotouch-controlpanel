@@ -21,7 +21,7 @@ private slots:
     void testHandle();
     void testReferer();
     void testMainLayout();
-    void testAppendRemoveWidget();
+    void testAppendWidget();
 private:
     DcpPage* m_subject;
 };

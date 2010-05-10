@@ -80,13 +80,11 @@ void Ut_DcpPage::testMainLayout()
     QVERIFY(m_subject->mainLayout() == 
         (QGraphicsLinearLayout*)(m_subject->centralWidget()->layout()));
 }
-void Ut_DcpPage::testAppendRemoveWidget()
+void Ut_DcpPage::testAppendWidget()
 {
     MLabel *label1 = new MLabel();
     m_subject->appendWidget(label1);
     QCOMPARE(m_subject->mainLayout()->itemAt(0), (QGraphicsLayoutItem*)label1);
-    m_subject->removeWidget(label1);
-    QCOMPARE(m_subject->mainLayout()->count(), 0);
 }
 QTEST_APPLESS_MAIN(Ut_DcpPage)
 

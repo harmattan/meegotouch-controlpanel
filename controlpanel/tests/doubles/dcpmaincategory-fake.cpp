@@ -24,6 +24,9 @@ DcpMainCategory::DcpMainCategory (
     m_ItemCount (0),
     m_CreateSeparators (false)
 {
+    m_Layout = new MLayout (this);
+    m_LandscapeLayout = new MGridLayoutPolicy (m_Layout);
+    m_PortraitLayout = new MLinearLayoutPolicy (m_Layout, Qt::Vertical);
 }
 
 

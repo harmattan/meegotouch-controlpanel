@@ -14,6 +14,7 @@ TARGET = ut_dcpmainpage
 TEST_SOURCES = \
     $$SRCDIR/page/dcpmainpage.cpp \
     $$SRCDIR/page/pages.cpp \
+    $$SRCDIR/page/dcppage.cpp \
 
 # unit test and unit
 SOURCES += \
@@ -27,9 +28,11 @@ SOURCES += \
     $$STUBSDIR/mlayout-fake.cpp \
     $$STUBSDIR/mlinearlayoutpolicy-fake.cpp \
     $$STUBSDIR/mcontainer-fake.cpp \
+    $$STUBSDIR/dcpcontentitem-fake.cpp \
+    $$STUBSDIR/mcontentitem-fake.cpp \
     $$STUBSDIR/mwidgetcontroller-fake.cpp \
     $$STUBSDIR/mgconfitem-fake.cpp \
-    $$STUBSDIR/dcppage-fake.cpp \
+#    $$STUBSDIR/dcppage-fake.cpp \
     $$STUBSDIR/dcpcomponent-fake.cpp \
     $$STUBSDIR/dcpappletdb-fake.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
@@ -38,7 +41,7 @@ SOURCES += \
     $$STUBSDIR/dcpsinglecomponent-fake.cpp \
     $$STUBSDIR/dcpcategorycomponent-fake.cpp \
     $$STUBSDIR/dcpmaincategory-fake.cpp \
-#    $$STUBSDIR/qpixmap-fake.cpp \
+    $$STUBSDIR/qgraphicslinearlayout-fake.cpp \
     $$TEST_SOURCES \ 
 
 # base classes
