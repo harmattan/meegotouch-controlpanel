@@ -5,4 +5,3 @@ MWidgetController::MWidgetController(QGraphicsItem *parent){ QGraphicsItem::setP
 void MWidgetController::setObjectName (const QString&) {}
 MWidgetController::~MWidgetController() {}
 
-
