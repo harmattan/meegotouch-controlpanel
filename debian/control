@@ -9,7 +9,7 @@ Package: libduicontrolpanel
 Section: libs
 Replaces: libduicontrolpanel-dev
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libmeegotouchcore0 (>= 0.20), libmeegotouchsettings0, libmeegotouchviews0
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: library for the control panel application and its applets
 
 Package: libduicontrolpanel-dev
@@ -28,7 +28,7 @@ Description: Control Panel
 Package: duicontrolpanel-dbg
 Section: devel
 Architecture: any
-Depends: duicontrolpanel (= ${binary:Version}), ${shlibs:Depends}
+Depends: duicontrolpanel (= ${binary:Version})
 Description: Control Panel - debug symbols
 
 Package: libduicontrolpanel-doc
