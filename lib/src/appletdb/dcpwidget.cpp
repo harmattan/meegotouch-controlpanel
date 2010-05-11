@@ -102,3 +102,9 @@ DcpWidget::pagePans () const
     return true; 
 }
 
+QString
+DcpWidget::title() const
+{
+    return QString();
+}
+

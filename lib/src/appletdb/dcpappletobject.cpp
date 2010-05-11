@@ -126,6 +126,7 @@ DcpAppletObject::text1 () const
         }
 
         // use DcpAppletIf::title() by default:
+        // FIXME: deprecated to avoid confusion
         text1 = applet->title();
         if (!text1.isEmpty()) return text1;
     }

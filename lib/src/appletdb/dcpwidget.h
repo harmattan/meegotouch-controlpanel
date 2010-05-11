@@ -65,6 +65,9 @@ signals:
      * for you
      */
     void closePage();
+
+public:
+    virtual QString title() const;
 };
 
 #endif

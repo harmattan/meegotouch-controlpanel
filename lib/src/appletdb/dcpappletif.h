@@ -40,9 +40,16 @@ public:
      * \brief Title of the applet that displayed in title row of applet page
      * \return A title which is displayed in title row of page. It can vary by
      *   each widget
+     *
+     *   This function is DEPRECATED and will be removed in near future. Please
+     *   use DcpBrief::title() and DcpWidget::title() instead.
      */
+#   ifdef DCP_DISABLE_DEPRECATION_WARNING
     virtual QString title () const = 0;
-    
+#   else
+    virtual QString Q_DECL_DEPRECATED title () const = 0;
+#   endif
+
     /*!
      * \brief Menu items that applet can provide in the main menu of the 
      *   applet page
@@ -70,7 +77,7 @@ public:
      * the interface the plugin was compiled with. It lets controlpanel
      * extend the interface without the need to recompile all applets.
      */
-    virtual int interfaceVersion() { return 2; }
+    virtual int interfaceVersion() { return 3; }
 };
 
 Q_DECLARE_INTERFACE (DcpAppletIf, "com.nokia.m.core.DcpAppletIf/1.0")

@@ -30,13 +30,14 @@ DcpRetranslator::retranslate ()
 {
 }
 
-void
+bool
 DcpRetranslator::loadAppletTranslation (
         MLocale                &,
         const DcpAppletMetadata  *metadata)
 {
     QString catalog = metadata->translationCatalog();
     priv->loadedTranslations.insert(catalog);
+    return true;
 }
 
 void
