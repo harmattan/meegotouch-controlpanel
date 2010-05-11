@@ -46,3 +46,7 @@ contains(DCP_BUILD_FEATURES,coverage) {
   QMAKE_EXTRA_TARGETS += coverage
   coverage.commands = $$system(true)
 }
+
+# disable internal deprecation warnings:
+DEFINES += DCP_DISABLE_DEPRECATION_WARNING
+

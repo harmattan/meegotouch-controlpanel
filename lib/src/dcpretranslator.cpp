@@ -99,7 +99,15 @@ DcpRetranslator::retranslate ()
     priv->lastLanguage = language;
 }
 
-void
+/** Loads the translation for the applet into locale
+ *
+ * @returns true if the locale was modified, false otherwise.
+ *
+ * Note that false return value does not indicate an error,
+ * it is also possible that the translation was already loaded,
+ * so no modification was necessery.
+ */
+bool
 DcpRetranslator::loadAppletTranslation (
         MLocale                &locale,
         const DcpAppletMetadata  *metadata)
@@ -107,13 +115,13 @@ DcpRetranslator::loadAppletTranslation (
     Q_ASSERT(metadata);
 
     QString catalog = metadata->translationCatalog();
-    if (catalog.isEmpty() ) return;
+    if (catalog.isEmpty() ) return false;
 
     /* Do not load the translation if it is already loaded
      * In compatible mode (for suw), it is skipped.
      */
     if (!DcpRetranslatorPriv::compatibleMode &&
-        priv->loadedTranslations.contains(catalog)) return;
+        priv->loadedTranslations.contains(catalog)) return false;
 
     locale.installTrCatalog(catalog + ".qm"); // install engineering english
     locale.installTrCatalog(catalog); // install real translation, if any
@@ -122,24 +130,41 @@ DcpRetranslator::loadAppletTranslation (
     priv->loadedTranslations.insert(catalog);
 
     DCP_DEBUG ("Translation %s loaded.", qPrintable(catalog));
+    return true;
 }
 
 void
 DcpRetranslator::ensureTranslationsAreLoaded(const DcpAppletMetadataList& list)
 {
     MLocale locale;
+    bool modified = false;
     foreach (DcpAppletMetadata* metadata, list) {
-        loadAppletTranslation(locale, metadata);
+        if (loadAppletTranslation(locale, metadata)) {
+            modified = true;
+        }
     }
-    MLocale::setDefault(locale);
+
+    /*
+     * we only set the locale if it was modified, to avoid unnecessery
+     * retranslateUi calls
+     */
+    if (modified) {
+        MLocale::setDefault(locale);
+    }
 }
 
 void
 DcpRetranslator::ensureTranslationLoaded(DcpAppletMetadata* metadata)
 {
     MLocale locale;
-    loadAppletTranslation(locale, metadata);
-    MLocale::setDefault(locale);
+
+    /*
+     * we only set the locale if it was modified, to avoid unnecessery
+     * retranslateUi calls
+     */
+    if (loadAppletTranslation(locale, metadata)) {
+        MLocale::setDefault(locale);
+    }
 }
 
 
