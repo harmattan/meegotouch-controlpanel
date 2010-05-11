@@ -27,13 +27,12 @@ public:
 
     void ensureTranslationsAreLoaded(const DcpAppletMetadataList& list);
     void ensureTranslationLoaded(DcpAppletMetadata* metadata);
-    void unloadTranslation(DcpAppletMetadata* metadata);
 
 public slots:
    void retranslate();
 
 protected:
-    void loadAppletTranslation (
+    bool loadAppletTranslation (
             MLocale               &locale,
             const DcpAppletMetadata *metadata);
     class DcpRetranslatorPriv* priv;
