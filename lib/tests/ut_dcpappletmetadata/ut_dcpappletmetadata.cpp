@@ -8,7 +8,6 @@
 #include <dcpappletmetadata_p.h>
 
 #include "ut_dcpappletmetadata.h"
-#include "mgconfitem-fake.h"
 #include "filedatas.h"
 #include "dcpmostusedcounter.h"
 

@@ -31,7 +31,7 @@ SOURCES += \
     $$STUBSDIR/dcpcontentitem-fake.cpp \
     $$STUBSDIR/mcontentitem-fake.cpp \
     $$STUBSDIR/mwidgetcontroller-fake.cpp \
-    $$STUBSDIR/mgconfitem-fake.cpp \
+    $$LIBDCPFAKES/mgconfitem-fake.cpp \
 #    $$STUBSDIR/dcppage-fake.cpp \
     $$STUBSDIR/dcpcomponent-fake.cpp \
     $$STUBSDIR/dcpappletdb-fake.cpp \

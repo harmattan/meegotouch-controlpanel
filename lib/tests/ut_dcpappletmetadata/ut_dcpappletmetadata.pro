@@ -10,6 +10,7 @@ DEFINES += APPLET_LIBS=\\\"\"so.applet\"\\\"
 SOURCES += ut_dcpappletmetadata.cpp \
            ../doubles/mdesktopentry-fake.cpp \
            ../doubles/fileDatas.cpp \
+           ../doubles/mgconfitem-fake.cpp \
            $$TEST_SOURCES
 
 # base classes
@@ -18,7 +19,8 @@ SOURCES +=
 # unit test and unit
 HEADERS += ut_dcpappletmetadata.h \
            ../doubles/fileDatas.h \
-           $$SRCDIR/appletdb/dcpappletmetadata.h
+           $$SRCDIR/appletdb/dcpappletmetadata.h \
+           ../doubles/mgconfitem_priv.h \
 
 # base classes
 HEADERS += 

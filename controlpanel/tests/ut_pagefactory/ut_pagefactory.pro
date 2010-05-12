@@ -21,7 +21,7 @@ SOURCES += \
     $$STUBSDIR/mapplicationpage-fake.cpp \
     $$STUBSDIR/mapplication-fake.cpp \
     $$STUBSDIR/mapplicationwindow-fake.cpp \
-    $$STUBSDIR/mgconfitem-fake.cpp \
+    $$LIBDCPFAKES/mgconfitem-fake.cpp \
     $$STUBSDIR/dcpappletdb-fake.cpp \
     $$STUBSDIR/dcpappletplugin-fake.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \

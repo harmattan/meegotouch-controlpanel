@@ -10,6 +10,7 @@ TEST_SOURCES = \
 # unit test and unit
 SOURCES += \
     ut_dcpmostusedcounter.cpp \
+    ../doubles/mgconfitem-fake.cpp \
     $$TEST_SOURCES \ 
 
 # base classes
@@ -20,6 +21,7 @@ SOURCES += \
 HEADERS += \
     ut_dcpmostusedcounter.h \
     $$SRCDIR/dcpmostusedcounter.h \
+    ../doubles/mgconfitem_priv.h \
 
 # base classes
 HEADERS += \
