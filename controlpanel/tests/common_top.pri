@@ -19,6 +19,9 @@ DEFINES += QT_NO_DEBUG_OUTPUT
 #DEFINES += QT_NO_WARNING_OUTPUT
 DEFINES += UNIT_TEST
 
+# disable internal deprecation warnings:
+DEFINES += DCP_DISABLE_DEPRECATION_WARNING
+
 target.path = $${DCP_INSTALL_LIB}/duicontrolpanel-tests
 INSTALLS += target
 include(check.pri)

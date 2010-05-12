@@ -15,6 +15,9 @@ SOURCES = \
     testappletwidget.cpp \
     testwidget.cpp \
 
+# disable internal deprecation warnings:
+DEFINES += DCP_DISABLE_DEPRECATION_WARNING
+
 TARGET = $$qtLibraryTarget(testapplet)
 
 DATADIR = /usr/lib/duicontrolpanel-tests/ft_dcpappletobject-data
