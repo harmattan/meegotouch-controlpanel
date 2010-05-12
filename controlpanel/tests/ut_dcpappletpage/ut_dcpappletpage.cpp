@@ -26,4 +26,4 @@ void Ut_DcpAppletPage::cleanupTestCase()
 {
 }
 
-QTEST_MAIN(Ut_DcpAppletPage)
+QTEST_APPLESS_MAIN(Ut_DcpAppletPage)
