@@ -1,17 +1,15 @@
-#ifndef MGCONFITEM_FAKE_H__
-#define MGCONFITEM_FAKE_H__
-
 #include <MGConfItem>
 #include <QMap>
+
+static QMap<QString, QVariant> database;
 
 struct MGConfItemFake {
     MGConfItemFake(const QString &key_) : key(key_) {}
     QString key;
-    QVariant val;
 };
 
 static QMap<const MGConfItem*, MGConfItemFake*> fakeMap;
-#define FAKE() fakeMap[this]
+#define FAKE fakeMap[this]
 
 
 MGConfItem::MGConfItem(const QString &key, QObject *parent)
@@ -22,31 +20,32 @@ MGConfItem::MGConfItem(const QString &key, QObject *parent)
 
 MGConfItem::~MGConfItem()
 {
-    fakeMap.remove(this);
-    delete FAKE();
+    delete fakeMap.take(this);
 }
 
 QVariant MGConfItem::value() const
 {
-    return FAKE()->val;
+    return value(QVariant());
 }
 
 QVariant MGConfItem::value(const QVariant &def) const
 {
-    if (FAKE()->val != QVariant::Invalid)
-        return FAKE()->val;
-    return def;
+    const QVariant& item = database[FAKE->key];
+    if (item != QVariant::Invalid)
+        return item;
+    else
+        return def;
 }
 
 void MGConfItem::set(const QVariant &val)
 {
-    FAKE()->val = val;
+    database[FAKE->key] = val;
 }
 
 
 void MGConfItem::unset()
 {
-    FAKE()->val = QVariant::Invalid;
+    set (QVariant());
 }
 
 QList<QString> MGConfItem::listDirs() const
@@ -61,4 +60,3 @@ QList<QString> MGConfItem::listEntries() const
     return dummy;
 }
 
-#endif

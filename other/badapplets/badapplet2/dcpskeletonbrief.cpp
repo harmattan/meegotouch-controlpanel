@@ -11,6 +11,7 @@ SkeletonBrief::SkeletonBrief():
 QString SkeletonBrief::valueText() const
 {
     static int nothing = 0;
+    abort();
     nothing++;
     return "value text " + QString::number(nothing);
 }
@@ -18,7 +19,6 @@ QString SkeletonBrief::valueText() const
 bool SkeletonBrief::toggle() const
 {
     qDebug() << "Bad applet2 aborted from toggle() call";
-    abort();
     return m_ToggleState;
 }
 

@@ -1,7 +1,7 @@
 #include <QtGui>
 #include <QDebug>
-#include <DuiAction>
-#include <DuiTheme>
+#include <MAction>
+#include <MTheme>
 #include <DcpWidget>
 #include "dcpskeletonapplet.h"
 #include "dcpskeletonwidget.h"
@@ -12,7 +12,7 @@ Q_EXPORT_PLUGIN2(skeletonapplet, SkeletonApplet)
 
 void SkeletonApplet::init()
 {
-    DuiTheme::loadCSS(QString(CSSDIR) + "skeletonapplet.css");
+    MTheme::loadCSS(QString(CSSDIR) + "skeletonapplet.css");
 }
 
 DcpWidget* SkeletonApplet::constructWidget(int widgetId)
@@ -42,11 +42,11 @@ QString SkeletonApplet::title() const
         return "AppletTitle";
 }
 
-QVector<DuiAction*> SkeletonApplet::viewMenuItems()
+QVector<MAction*> SkeletonApplet::viewMenuItems()
 {
-    QVector<DuiAction*> vector(1);
-    vector[0] = new DuiAction("Help", this);
-    vector[0]->setLocation(DuiAction::ApplicationMenuLocation);
+    QVector<MAction*> vector(1);
+    vector[0] = new MAction("Help", this);
+    vector[0]->setLocation(MAction::ApplicationMenuLocation);
     return vector;
 }
 

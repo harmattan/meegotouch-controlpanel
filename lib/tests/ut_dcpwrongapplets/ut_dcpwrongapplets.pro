@@ -12,10 +12,11 @@ TEST_SOURCES = \
 SOURCES += \
     ut_dcpwrongapplets.cpp \
     ../doubles/mgconfitem-fake.cpp \
+    execinfo-fake.cpp \
+    signal-fake.cpp \
     $$TEST_SOURCES \ 
 
 # unit test and unit
 HEADERS += \
     ut_dcpwrongapplets.h \
-    ../doubles/mgconfitem_priv.h \
 

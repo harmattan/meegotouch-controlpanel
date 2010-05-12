@@ -1,6 +1,6 @@
-#include <DuiLayout>
-#include <DuiLinearLayoutPolicy>
-#include <DuiLabel>
+#include <MLayout>
+#include <MLinearLayoutPolicy>
+#include <MLabel>
 #include "dcpskeletonwidget.h"
 #include "dcpskeleton.h"
 
@@ -20,13 +20,13 @@ SkeletonWidget::~SkeletonWidget()
 
 void SkeletonWidget::initWidget()
 {
-    DuiLayout *mainLayout = new DuiLayout(this);
+    MLayout *mainLayout = new MLayout(this);
     mainLayout->setAnimation(0);
-    DuiLinearLayoutPolicy *mainLayoutPolicy = 
-            new DuiLinearLayoutPolicy(mainLayout, Qt::Horizontal);
+    MLinearLayoutPolicy *mainLayoutPolicy = 
+            new MLinearLayoutPolicy(mainLayout, Qt::Horizontal);
     mainLayout->setPolicy(mainLayoutPolicy);
 	
-    m_aboutLabel = new DuiLabel("About", this);
+    m_aboutLabel = new MLabel("About", this);
     m_aboutLabel->setObjectName("LabelAbout");
 	
     mainLayoutPolicy->addItem(m_aboutLabel, Qt::AlignLeft);

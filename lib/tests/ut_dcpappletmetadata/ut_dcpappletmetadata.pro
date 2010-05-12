@@ -20,7 +20,6 @@ SOURCES +=
 HEADERS += ut_dcpappletmetadata.h \
            ../doubles/fileDatas.h \
            $$SRCDIR/appletdb/dcpappletmetadata.h \
-           ../doubles/mgconfitem_priv.h \
 
 # base classes
 HEADERS += 

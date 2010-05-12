@@ -1,6 +1,6 @@
 include(../common.pri)
 TEMPLATE      = lib
-CONFIG       += plugin gui dui  duicontrolpanel silent debug
+CONFIG       += plugin gui meegotouch  duicontrolpanel silent debug
 
 MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects

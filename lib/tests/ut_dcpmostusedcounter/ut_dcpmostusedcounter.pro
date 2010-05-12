@@ -21,7 +21,6 @@ SOURCES += \
 HEADERS += \
     ut_dcpmostusedcounter.h \
     $$SRCDIR/dcpmostusedcounter.h \
-    ../doubles/mgconfitem_priv.h \
 
 # base classes
 HEADERS += \
