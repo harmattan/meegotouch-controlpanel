@@ -113,10 +113,7 @@ DcpAppletObject *
 DcpAppletDb::applet (
         const QString &name)
 {
-    if (d_ptr->appletObjectsByName[name] != 0) {
-        return d_ptr->appletObjectsByName[name];
-    }
-    return 0;
+    return d_ptr->appletObjectsByName[name];
 }
 
 #endif // DCPAPPLETDB_FAKE_H

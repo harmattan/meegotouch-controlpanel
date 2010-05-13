@@ -1,5 +1,7 @@
 #include <MGConfItem>
+#include "mgconfitem-fake.h"
 #include <QMap>
+#include <QSet>
 
 static QMap<QString, QVariant> database;
 
@@ -7,6 +9,11 @@ struct MGConfItemFake {
     MGConfItemFake(const QString &key_) : key(key_) {}
     QString key;
 };
+
+void emptyFakeGConf()
+{
+    database.clear();
+}
 
 static QMap<const MGConfItem*, MGConfItemFake*> fakeMap;
 #define FAKE fakeMap[this]
@@ -40,6 +47,7 @@ QVariant MGConfItem::value(const QVariant &def) const
 void MGConfItem::set(const QVariant &val)
 {
     database[FAKE->key] = val;
+    if (!val.isValid()) database.remove(FAKE->key);
 }
 
 
@@ -50,13 +58,28 @@ void MGConfItem::unset()
 
 QList<QString> MGConfItem::listDirs() const
 {
-    QList<QString> dummy;
-    return dummy;
+    QList<QString> result;
+    foreach (QString key, database.keys()) {
+        if (key.startsWith(FAKE->key + "/") &&
+                key.count('/') > FAKE->key.count('/')+1)
+        {
+            key.truncate (key.indexOf ('/', FAKE->key.size()+1));
+            result << key;
+        }
+    }
+    return result.toSet().toList();;
 }
 
 QList<QString> MGConfItem::listEntries() const
 {
-    QList<QString> dummy;
-    return dummy;
+    QList<QString> result;
+    foreach (QString key, database.keys()) {
+        if (key.startsWith(FAKE->key + "/") &&
+                key.count('/') == FAKE->key.count('/')+1)
+        {
+            result << key;
+        }
+    }
+    return result.toSet().toList();
 }
 

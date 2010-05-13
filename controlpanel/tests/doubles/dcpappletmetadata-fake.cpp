@@ -224,12 +224,13 @@ DcpAppletMetadata::usageGreatherThan (
 bool
 DcpAppletMetadata::isDisabled () const
 {
-    return false;
+    return d_ptr->m_Disabled;
 }
 
 void
-DcpAppletMetadata::setDisabled ( bool )
+DcpAppletMetadata::setDisabled ( bool val )
 {
+    d_ptr->m_Disabled = val;
 }
 
 void

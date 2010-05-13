@@ -21,6 +21,7 @@
 DcpWrongApplets* DcpWrongApplets::sm_Instance = 0;
 bool DcpWrongApplets::sm_Disabled = false;
 const QString keyPath = "/apps/duicontrolpanel/badplugins";
+const QString dcpTimeStampPath = keyPath + "/dcpTimeStamp";
 
 
 /*******************************************************************************
@@ -156,9 +157,6 @@ DcpWrongApplets::DcpWrongApplets ()
         signal (SIGFPE,  termination_signal_handler);
     }
 
-    connect (qApp, SIGNAL(aboutToQuit()),
-             this, SLOT(deleteLater()));
-
     // on dcp timestamp change, remove the list of bad applets
     removeBadsOnDcpTimeStampChange();
 
@@ -285,7 +283,7 @@ DcpWrongApplets::removeBadsOnDcpTimeStampChange()
         QFileInfo(qApp->applicationFilePath()).lastModified();
 
     // the previous timestamp of the executable
-    MGConfItem conf(keyPath + "/dcpTimeStamp");
+    MGConfItem conf(dcpTimeStampPath);
     QString lastDateStr = conf.value().toString();
     QDateTime lastDateStamp = QDateTime::fromString(lastDateStr);
 
@@ -293,7 +291,6 @@ DcpWrongApplets::removeBadsOnDcpTimeStampChange()
         DCP_DEBUG("Removing bad applet list due to dcp timestamp change");
 
         // remove the wrong applet list
-//        MGConfItem(keyPath+"/usr").unset();
         gconf_recursive_remove(keyPath + "/usr");
 
         // write the new stamp:

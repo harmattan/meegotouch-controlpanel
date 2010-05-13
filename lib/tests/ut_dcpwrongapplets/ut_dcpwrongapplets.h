@@ -17,12 +17,11 @@ private slots:
     void testBacktraceLineIsAnApplet();
     void testMarkAppletAsBad();
     void testSomeCrashHappened();
-    void testTerminationSignalHandler();
+//    void testTerminationSignalHandler();
     void testQueryBadApplets();
-    void testConstructor();
+    void testDisabled();
     void testInstanceNDestroy();
     void testIsAppletRecentlyCrashed();
-    void testDisable();
     void testGConfRecursiveRemove();
     void testRemoveBadsOnDcpTimeStampChange();
 };

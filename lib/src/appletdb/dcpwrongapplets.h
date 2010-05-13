@@ -55,6 +55,8 @@ private:
     // some speed up caches to avoid unnecessery gconf access
     QSet<QString> m_BadApplets;
     static bool sm_Disabled;
+
+    friend class Ut_DcpWrongApplets;
 };
 
 

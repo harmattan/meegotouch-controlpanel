@@ -1,10 +1,16 @@
-#include "dcpwrongapplets.h"
+#include <dcpwrongapplets.h>
+#include <dcpappletobject.h>
 
 #include "ut_dcpwrongapplets.h"
-#include "dcpwrongapplets.h"
+#include "execinfo-fake.h"
+#include "signal-fake.h"
+#include "mgconfitem-fake.h"
 
 // this is because we test internal functions also which are not exported:
 #include "dcpwrongapplets.cpp"
+
+// an example appletpath:
+const char* exampleAppletPath = "/usr/lib/duicontrolpanel/applets/libxxx.so";
 
 void Ut_DcpWrongApplets::init()
 {
@@ -12,6 +18,9 @@ void Ut_DcpWrongApplets::init()
 
 void Ut_DcpWrongApplets::cleanup()
 {
+    DcpWrongApplets::destroyInstance();
+    DcpWrongApplets::sm_Disabled = false;
+    emptyFakeGConf();
 }
 
 void Ut_DcpWrongApplets::initTestCase()
@@ -46,17 +55,17 @@ void Ut_DcpWrongApplets::testBacktraceLineIsAnApplet()
 
 void Ut_DcpWrongApplets::testMarkAppletAsBad()
 {
-    const char* path = "/usr/lib/duicontrolpanel/applets/libtralalal.so";
-    mark_applet_as_bad (path);
-    QString date = MGConfItem(keyPath + path + KEY_SEPARATOR +
+    mark_applet_as_bad (exampleAppletPath);
+    QString date = MGConfItem(keyPath + exampleAppletPath + KEY_SEPARATOR +
                               "CrashDateTime").value().toString();
     QVERIFY (!date.isEmpty());
 }
 
 
-
 void Ut_DcpWrongApplets::testSomeCrashHappened()
 {
+    // -- segfault from an applet --
+    segfaultFromApplet = true;
     bool result = some_crash_happened();
 
     // it found the applet:
@@ -68,56 +77,190 @@ void Ut_DcpWrongApplets::testSomeCrashHappened()
                               "CrashDateTime").value().toString();
     QVERIFY (!date.isEmpty());
 
-    // TODO: test with a crash which does not contain an applet reference
+
+    // -- segfault from the application --
+    segfaultFromApplet = false;
+    result = some_crash_happened();
+
+    // it found no applet:
+    QCOMPARE (result, false);
 }
 
 
+    /* No luck to fake to exit() calls yet...
 void Ut_DcpWrongApplets::testTerminationSignalHandler()
 {
-    QSKIP("Not implemented.", SkipAll);
+    // terminate normally:
+    lastExitStatus = -1;
+    termination_signal_handler (SIGTERM);
+    QCOMPARE (lastExitStatus, 0);
+    lastExitStatus = -1;
+    termination_signal_handler (SIGINT);
+    QCOMPARE (lastExitStatus, 0);
+
+    // terminate with a crash from the application:
+    lastExitStatus = -1;
+    segfaultFromApplet = false;
+    termination_signal_handler (SIGSEGV);
+    QCOMPARE (lastExitStatus, 0);
+
+    // terminate with an applet crash:
+    lastExitStatus = -1;
+    segfaultFromApplet = true;
+    termination_signal_handler (SIGSEGV);
+    QCOMPARE (lastExitStatus, 0);
 }
+     */
 
 
 void Ut_DcpWrongApplets::testQueryBadApplets()
 {
-    QSKIP("Not implemented.", SkipAll);
+    DcpWrongApplets* wa = DcpWrongApplets::instance();
+
+    // empty:
+    QVERIFY(wa->queryBadApplets().isEmpty());
+
+    // one applet:
+    DcpAppletMetadata metadata(QString("fake"));
+    mark_applet_as_bad (qPrintable(metadata.fullBinary()));
+    QSet<QString> badApplets = wa->queryBadApplets();
+    QCOMPARE (badApplets.count(), 1);
+
+    // the applet gets returned:
+    QVERIFY (badApplets.contains(metadata.binary()));
+    // the applet gets disabled:
+    DcpAppletObject* applet =
+        DcpAppletDb::instance()->applet(QString("fake-name"));
+    Q_ASSERT (applet);
+    QVERIFY (applet->metadata()->isDisabled());
 }
 
 
-void Ut_DcpWrongApplets::testConstructor()
+void Ut_DcpWrongApplets::testDisabled()
 {
-    QSKIP("Not implemented.", SkipAll);
+    // checks that the default is the enabled state:
+    QCOMPARE (DcpWrongApplets::sm_Disabled, false);
+
+    // test instance in case supervisor is disabled
+    connectedSignals.clear();
+    DcpWrongApplets::disable();
+    DcpWrongApplets* wa = DcpWrongApplets::instance();
+    QVERIFY (DcpWrongApplets::sm_Instance);
+
+    // checks that it gets disabled:
+    QCOMPARE (DcpWrongApplets::sm_Disabled, true);
+
+    // check that it did not connect any signals:
+    QVERIFY (connectedSignals.isEmpty());
+    // check repeated call does not create another instance:
+    QCOMPARE (wa, DcpWrongApplets::instance());
+
+    // test that it stays disabled on destroyinstance
+    DcpWrongApplets::destroyInstance();
+    QVERIFY (!DcpWrongApplets::sm_Instance);
+    QCOMPARE (DcpWrongApplets::sm_Disabled, true);
+
 }
 
 
 void Ut_DcpWrongApplets::testInstanceNDestroy()
 {
-    QSKIP("Not implemented.", SkipAll);
+    // some cleanup:
+    DcpWrongApplets::sm_Disabled = false;
+    connectedSignals.clear();
+    MGConfItem conf(dcpTimeStampPath);
+    conf.unset();
+    QVERIFY (!conf.value().isValid());
+
+    // test instance in case supervisor is enabled
+    DcpWrongApplets* wa = DcpWrongApplets::instance();
+    QVERIFY (DcpWrongApplets::sm_Instance);
+    QCOMPARE (wa, DcpWrongApplets::sm_Instance);
+
+    // check if signals get connected:
+    QVERIFY(connectedSignals.contains(SIGTERM));
+    QVERIFY(connectedSignals.contains(SIGHUP));
+    QVERIFY(connectedSignals.contains(SIGINT));
+    QVERIFY(connectedSignals.contains(SIGQUIT));
+    QVERIFY(connectedSignals.contains(SIGILL));
+    QVERIFY(connectedSignals.contains(SIGSEGV));
+    QVERIFY(connectedSignals.contains(SIGBUS));
+    QVERIFY(connectedSignals.contains(SIGABRT));
+    QVERIFY(connectedSignals.contains(SIGFPE));
+
+    // ensure that removeBadsOnTimeStampChange gets called
+    QVERIFY (conf.value().isValid());
+
+    // ensure that badapplets get filled: FIXME
+    // QVERIFY (!wa->m_BadApplets.isEmpty());
+
+    // -- test destroyinstance --
+    DcpWrongApplets::destroyInstance();
+    QVERIFY (!DcpWrongApplets::sm_Instance);
+
+    // calling it repeatedly does not do harm:
+    DcpWrongApplets::destroyInstance();
 }
 
 
 void Ut_DcpWrongApplets::testIsAppletRecentlyCrashed()
 {
-    QSKIP("Not implemented.", SkipAll);
-}
-
-
-void Ut_DcpWrongApplets::testDisable()
-{
-    QSKIP("Not implemented.", SkipAll);
+    DcpWrongApplets* wa = DcpWrongApplets::instance();
+    QVERIFY(!wa->isAppletRecentlyCrashed(exampleAppletPath));
+    mark_applet_as_bad (exampleAppletPath);
+    QVERIFY(wa->isAppletRecentlyCrashed(exampleAppletPath));
 }
 
 
 void Ut_DcpWrongApplets::testGConfRecursiveRemove()
 {
-    QSKIP("Not implemented.", SkipAll);
+    // create some fake path hierarchy:
+    MGConfItem gc1("/usr/fake/key");
+    gc1.set(QString("one"));
+    MGConfItem gc2("/usr/fake/key2");
+    gc2.set(QString("two"));
+    MGConfItem gc3("/usr/fake2/key2");
+    gc3.set(QString("three"));
+    MGConfItem gc4("/usr/fake3");
+    gc4.set(QString("four"));
+
+    gconf_recursive_remove("/usr");
+
+    QVERIFY (!gc1.value().isValid());
+    QVERIFY (!gc2.value().isValid());
+    QVERIFY (!gc3.value().isValid());
+    QVERIFY (!gc4.value().isValid());
 }
 
 
 void Ut_DcpWrongApplets::testRemoveBadsOnDcpTimeStampChange()
 {
-    QSKIP("Not implemented.", SkipAll);
+    // -- test that it removes bad applets on timestamp change: --
+    mark_applet_as_bad (exampleAppletPath);
+    MGConfItem conf(dcpTimeStampPath);
+    QVERIFY (conf.value().toString().isEmpty()); // no timestamp yet
+    DcpWrongApplets* wa = DcpWrongApplets::instance();
+    wa->removeBadsOnDcpTimeStampChange();
+
+    QVERIFY (conf.value().isValid()); // the new timestamp was set
+    // the applet crash was forgotten:
+    QVERIFY(! wa->isAppletRecentlyCrashed(exampleAppletPath));
+
+
+    // test that it does not remove them when timestamp does not change:
+    mark_applet_as_bad (exampleAppletPath);
+    wa->removeBadsOnDcpTimeStampChange();
+    // the applet crash was not forgotten:
+    QVERIFY(wa->isAppletRecentlyCrashed(exampleAppletPath));
 }
 
-QTEST_MAIN(Ut_DcpWrongApplets)
+int main (int argc, char** argv)
+{
+    // this is necessery because we request the path of the application etc.
+    QCoreApplication app(argc, argv);
+
+    Ut_DcpWrongApplets test;
+    return QTest::qExec(&test, argc, argv);
+}
+
 

@@ -12,6 +12,9 @@ TEST_SOURCES = \
 SOURCES += \
     ut_dcpwrongapplets.cpp \
     ../doubles/mgconfitem-fake.cpp \
+    ../../../controlpanel/tests/doubles/dcpappletmetadata-fake.cpp \ # FIXME: move to lib/tests
+    ../../../controlpanel/tests/doubles/dcpappletdb-fake.cpp \
+    ../../../controlpanel/tests/doubles/dcpappletplugin-fake.cpp \
     execinfo-fake.cpp \
     signal-fake.cpp \
     $$TEST_SOURCES \ 
