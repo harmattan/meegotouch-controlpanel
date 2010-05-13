@@ -1,0 +1,230 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>LCOV - libdcp and dcp unit test coverage - controlpanel/src/page/dcpappletbuttons.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../index.html">top level</a> - <a href="index.html">controlpanel/src/page</a> - dcpappletbuttons.cpp<span style="font-size: 80%;"> (source / <a href="dcpappletbuttons.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">libdcp and dcp unit test coverage</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">41</td>
+            <td class="headerCovTableEntry">51</td>
+            <td class="headerCovTableEntryMed">80.4 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2010-05-13</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntry">12</td>
+            <td class="headerCovTableEntryLo">66.7 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /***************************************************************************</a>
+<span class="lineNum">       2 </span>            : **
+<span class="lineNum">       3 </span>            : ** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+<span class="lineNum">       4 </span>            : ** All rights reserved.
+<span class="lineNum">       5 </span>            : ** Contact: Karoliina T. Salminen &lt;karoliina.t.salminen@nokia.com&gt;
+<span class="lineNum">       6 </span>            : **
+<span class="lineNum">       7 </span>            : ** This file is part of duicontrolpanel.
+<span class="lineNum">       8 </span>            : **
+<span class="lineNum">       9 </span>            : **
+<span class="lineNum">      10 </span>            : ** This program is free software; you can redistribute it and/or
+<span class="lineNum">      11 </span>            : ** modify it under the terms of the GNU Lesser General Public
+<span class="lineNum">      12 </span>            : ** License version 2.1 as published by the Free Software Foundation
+<span class="lineNum">      13 </span>            : ** and appearing in the file LICENSE.LGPL included in the packaging
+<span class="lineNum">      14 </span>            : ** of this file.
+<span class="lineNum">      15 </span>            : **
+<span class="lineNum">      16 </span>            : ****************************************************************************/
+<span class="lineNum">      17 </span>            : 
+<span class="lineNum">      18 </span>            : /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+<span class="lineNum">      19 </span>            : /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino=&quot;(0,W2s,i2s,t0,l1,:0&quot; */
+<span class="lineNum">      20 </span>            : #include &quot;dcpappletbuttons.h&quot;
+<span class="lineNum">      21 </span>            : #include &quot;maintranslations.h&quot;
+<span class="lineNum">      22 </span>            : #include &quot;dcpdebug.h&quot;
+<span class="lineNum">      23 </span>            : 
+<span class="lineNum">      24 </span>            : #include &lt;Pages&gt;
+<span class="lineNum">      25 </span>            : #include &lt;DcpAppletDb&gt;
+<span class="lineNum">      26 </span>            : #include &lt;DcpAppletMetadata&gt;
+<span class="lineNum">      27 </span>            : #include &lt;DcpAppletObject&gt;
+<span class="lineNum">      28 </span>            : #include &lt;DcpApplet&gt;
+<span class="lineNum">      29 </span>            : #include &lt;DcpContentItem&gt;
+<span class="lineNum">      30 </span>            : 
+<span class="lineNum">      31 </span>            : #include &lt;MSceneManager&gt;
+<span class="lineNum">      32 </span>            : // #include &lt;MGridLayoutPolicy&gt;
+<span class="lineNum">      33 </span>            : // #include &lt;MLinearLayoutPolicy&gt;
+<span class="lineNum">      34 </span>            : #include &lt;DcpRetranslator&gt;
+<span class="lineNum">      35 </span>            : #include &lt;QGraphicsLayout&gt;
+<span class="lineNum">      36 </span>            : 
+<span class="lineNum">      37 </span>            : 
+<span class="lineNum">      38 </span>            : DcpAppletButtons::DcpAppletButtons (
+<a name="39"><span class="lineNum">      39 </span>            :         const DcpCategoryInfo  *categoryInfo,</a>
+<span class="lineNum">      40 </span>            :         const QString          &amp;title,
+<span class="lineNum">      41 </span><span class="lineCov">          4 :         QGraphicsWidget        *parent)</span>
+<span class="lineNum">      42 </span>            : : DcpMainCategory (title, parent, categoryInfo-&gt;titleId),
+<span class="lineNum">      43 </span><span class="lineCov">          4 :     m_CategoryInfo (categoryInfo)</span>
+<span class="lineNum">      44 </span>            : {
+<span class="lineNum">      45 </span><span class="lineCov">          4 :     setCreateSeparators (false);</span>
+<span class="lineNum">      46 </span><span class="lineCov">          4 :     setMaxColumns (1);</span>
+<span class="lineNum">      47 </span><span class="lineCov">          4 :     createContents ();</span>
+<span class="lineNum">      48 </span>            :     setMattiID (
+<span class="lineNum">      49 </span>            :             QString (&quot;DcpAppletButtons::&quot;) + 
+<span class="lineNum">      50 </span>            :             categoryInfo-&gt;titleId + &quot;::&quot; + 
+<span class="lineNum">      51 </span><span class="lineCov">          4 :             categoryInfo-&gt;appletCategory);</span>
+<span class="lineNum">      52 </span><span class="lineCov">          4 : }</span>
+<a name="53"><span class="lineNum">      53 </span>            : </a>
+<span class="lineNum">      54 </span>            : 
+<span class="lineNum">      55 </span><span class="lineCov">          4 : DcpAppletButtons::~DcpAppletButtons()</span>
+<span class="lineNum">      56 </span>            : {
+<span class="lineNum">      57 </span><span class="lineCov">          4 :     markAllInactive();</span>
+<span class="lineNum">      58 </span><span class="lineCov">          4 : }</span>
+<span class="lineNum">      59 </span>            : 
+<a name="60"><span class="lineNum">      60 </span>            : // marks all the appletmetadatas inactive, so they know they are &quot;released&quot;</a>
+<span class="lineNum">      61 </span>            : void
+<span class="lineNum">      62 </span><span class="lineCov">          6 : DcpAppletButtons::markAllInactive()</span>
+<span class="lineNum">      63 </span>            : {
+<span class="lineNum">      64 </span><span class="lineCov">          6 :     for(int i=0; i&lt;layout()-&gt;count(); i++) {</span>
+<span class="lineNum">      65 </span><span class="lineNoCov">          0 :         QGraphicsItem* item = layout()-&gt;itemAt(i)-&gt;graphicsItem();</span>
+<span class="lineNum">      66 </span><span class="lineNoCov">          0 :         if (!item || !item-&gt;isWidget()) continue;</span>
+<span class="lineNum">      67 </span><span class="lineNoCov">          0 :         QGraphicsWidget* widget = (QGraphicsWidget*) item;</span>
+<span class="lineNum">      68 </span><span class="lineNoCov">          0 :         DcpContentItem* briefWidget = qobject_cast&lt;DcpContentItem*&gt;(widget);</span>
+<span class="lineNum">      69 </span><span class="lineNoCov">          0 :         if (!briefWidget) continue;</span>
+<span class="lineNum">      70 </span><span class="lineNoCov">          0 :         briefWidget-&gt;applet()-&gt;metadata()-&gt;markInactive();</span>
+<span class="lineNum">      71 </span>            :     }
+<span class="lineNum">      72 </span><span class="lineCov">          6 : }</span>
+<span class="lineNum">      73 </span>            : 
+<a name="74"><span class="lineNum">      74 </span>            : </a>
+<span class="lineNum">      75 </span>            : void
+<span class="lineNum">      76 </span><span class="lineCov">          6 : DcpAppletButtons::createContents ()</span>
+<span class="lineNum">      77 </span>            : {
+<span class="lineNum">      78 </span>            :     DCP_DEBUG (&quot;&quot;);
+<span class="lineNum">      79 </span>            :     /*
+<span class="lineNum">      80 </span>            :      * Getting the list of applet variants (metadata objects) that will go into
+<span class="lineNum">      81 </span>            :      * this widget.
+<span class="lineNum">      82 </span>            :      */
+<span class="lineNum">      83 </span><span class="lineCov">          6 :     DcpAppletMetadataList metadatas;</span>
+<span class="lineNum">      84 </span><span class="lineCov">          6 :     if (m_CategoryInfo == &amp;DcpMain::mostUsedCategory) {</span>
+<span class="lineNum">      85 </span><span class="lineCov">          2 :         metadatas = DcpAppletDb::instance()-&gt;listMostUsed ();</span>
+<span class="lineNum">      86 </span>            :     } else {
+<span class="lineNum">      87 </span>            :         bool        withUncategorized;
+<span class="lineNum">      88 </span>            :         const char *names[3];
+<span class="lineNum">      89 </span>            : 
+<span class="lineNum">      90 </span>            :         withUncategorized =
+<span class="lineNum">      91 </span><span class="lineCov">          4 :             m_CategoryInfo-&gt;subPageId == PageHandle::Applications;</span>
+<span class="lineNum">      92 </span>            : 
+<span class="lineNum">      93 </span><span class="lineCov">          4 :         names[0] = m_CategoryInfo-&gt;titleId;</span>
+<span class="lineNum">      94 </span><span class="lineCov">          4 :         names[1] = m_CategoryInfo-&gt;appletCategory;</span>
+<span class="lineNum">      95 </span><span class="lineCov">          4 :         names[2] = 0;</span>
+<span class="lineNum">      96 </span>            : 
+<span class="lineNum">      97 </span>            :         metadatas = DcpAppletDb::instance()-&gt;listByCategory (names, 2,
+<span class="lineNum">      98 </span><span class="lineCov">          4 :                     withUncategorized ? DcpMain::isCategoryNameEnlisted : NULL);</span>
+<span class="lineNum">      99 </span>            :     }
+<span class="lineNum">     100 </span>            : 
+<span class="lineNum">     101 </span>            :     // adds the briefwidgets
+<span class="lineNum">     102 </span><span class="lineCov">         10 :     foreach (DcpAppletMetadata* item, metadatas) {</span>
+<span class="lineNum">     103 </span><span class="lineCov">          4 :         addComponent (item);</span>
+<span class="lineNum">     104 </span><span class="lineCov">          6 :     }</span>
+<span class="lineNum">     105 </span><span class="lineCov">          6 :     DcpRetranslator::instance()-&gt;ensureTranslationsAreLoaded(metadatas);</span>
+<span class="lineNum">     106 </span><span class="lineCov">          6 : }</span>
+<a name="107"><span class="lineNum">     107 </span>            : </a>
+<span class="lineNum">     108 </span>            : void
+<span class="lineNum">     109 </span><span class="lineCov">          5 : DcpAppletButtons::addComponent (DcpAppletMetadata *metadata)</span>
+<span class="lineNum">     110 </span>            : {
+<span class="lineNum">     111 </span><span class="lineCov">          5 :     metadata-&gt;markActive();</span>
+<span class="lineNum">     112 </span>            : 
+<span class="lineNum">     113 </span>            :     // FIXME: we can avoid this additional lookup i guess
+<span class="lineNum">     114 </span><span class="lineCov">          5 :     DcpAppletObject* applet = DcpAppletDb::instance ()-&gt;applet (metadata-&gt;name());</span>
+<span class="lineNum">     115 </span><span class="lineCov">          5 :     DcpContentItem* briefWidget = new DcpContentItem (applet, this);</span>
+<span class="lineNum">     116 </span><span class="lineCov">          5 :     briefWidget-&gt;setObjectName (&quot;DcpContentItem&quot;);</span>
+<span class="lineNum">     117 </span>            :     briefWidget-&gt;setMattiID (&quot;DcpContentItem::&quot; + logicalId() + &quot;::&quot; +
+<span class="lineNum">     118 </span><span class="lineCov">          5 :                              metadata-&gt;category() + &quot;::&quot; + metadata-&gt;name());</span>
+<span class="lineNum">     119 </span>            : 
+<span class="lineNum">     120 </span><span class="lineCov">          5 :     appendWidget (briefWidget);</span>
+<span class="lineNum">     121 </span><span class="lineCov">          5 : }</span>
+<span class="lineNum">     122 </span>            : 
+<a name="123"><span class="lineNum">     123 </span>            : </a>
+<span class="lineNum">     124 </span>            : bool
+<span class="lineNum">     125 </span><span class="lineCov">          2 : DcpAppletButtons::reload ()</span>
+<span class="lineNum">     126 </span>            : {
+<span class="lineNum">     127 </span>            : //    FIXME, maybe we could make it more optimal with reusing the existing
+<span class="lineNum">     128 </span>            : //    widgets (at most one additional widget is coming, at most one is to be
+<span class="lineNum">     129 </span>            : //    removed)
+<span class="lineNum">     130 </span>            : //
+<span class="lineNum">     131 </span>            : 
+<span class="lineNum">     132 </span><span class="lineCov">          2 :     markAllInactive();</span>
+<span class="lineNum">     133 </span><span class="lineCov">          2 :     deleteItems ();</span>
+<span class="lineNum">     134 </span><span class="lineCov">          2 :     createContents ();</span>
+<span class="lineNum">     135 </span><span class="lineCov">          2 :     return true;</span>
+<span class="lineNum">     136 </span>            : }
+<a name="137"><span class="lineNum">     137 </span>            : </a>
+<span class="lineNum">     138 </span>            : void
+<span class="lineNum">     139 </span><span class="lineNoCov">          0 : DcpAppletButtons::setCategoryInfo (const DcpCategoryInfo  *categoryInfo)</span>
+<span class="lineNum">     140 </span>            : {
+<span class="lineNum">     141 </span><span class="lineNoCov">          0 :     if (m_CategoryInfo != categoryInfo) {</span>
+<span class="lineNum">     142 </span><span class="lineNoCov">          0 :         m_CategoryInfo = categoryInfo;</span>
+<a name="143"><span class="lineNum">     143 </span><span class="lineNoCov">          0 :         reload ();</span></a>
+<span class="lineNum">     144 </span>            :     }
+<span class="lineNum">     145 </span><span class="lineCov">          3 : }</span>
+<span class="lineNum">     146 </span>            : 
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.9 pre (CVS 1.47)</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

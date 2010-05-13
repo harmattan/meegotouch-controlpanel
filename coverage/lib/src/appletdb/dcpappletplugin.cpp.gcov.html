@@ -1,0 +1,294 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>LCOV - libdcp and dcp unit test coverage - lib/src/appletdb/dcpappletplugin.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../index.html">top level</a> - <a href="index.html">lib/src/appletdb</a> - dcpappletplugin.cpp<span style="font-size: 80%;"> (source / <a href="dcpappletplugin.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">libdcp and dcp unit test coverage</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">49</td>
+            <td class="headerCovTableEntry">55</td>
+            <td class="headerCovTableEntryMed">89.1 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2010-05-13</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">12</td>
+            <td class="headerCovTableEntry">17</td>
+            <td class="headerCovTableEntryLo">70.6 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /***************************************************************************</a>
+<span class="lineNum">       2 </span>            : **
+<span class="lineNum">       3 </span>            : ** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+<span class="lineNum">       4 </span>            : ** All rights reserved.
+<span class="lineNum">       5 </span>            : ** Contact: Karoliina T. Salminen &lt;karoliina.t.salminen@nokia.com&gt;
+<span class="lineNum">       6 </span>            : **
+<span class="lineNum">       7 </span>            : ** This file is part of duicontrolpanel.
+<span class="lineNum">       8 </span>            : **
+<span class="lineNum">       9 </span>            : **
+<span class="lineNum">      10 </span>            : ** This library is free software; you can redistribute it and/or
+<span class="lineNum">      11 </span>            : ** modify it under the terms of the GNU Lesser General Public
+<span class="lineNum">      12 </span>            : ** License version 2.1 as published by the Free Software Foundation
+<span class="lineNum">      13 </span>            : ** and appearing in the file LICENSE.LGPL included in the packaging
+<span class="lineNum">      14 </span>            : ** of this file.
+<span class="lineNum">      15 </span>            : **
+<span class="lineNum">      16 </span>            : ****************************************************************************/
+<span class="lineNum">      17 </span>            : 
+<span class="lineNum">      18 </span>            : /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+<span class="lineNum">      19 </span>            : /* vim:set et sw=4 ts=4 sts=4: */
+<span class="lineNum">      20 </span>            : #include &quot;dcpappletplugin.h&quot;
+<span class="lineNum">      21 </span>            : #include &quot;dcpappletplugin_p.h&quot;
+<span class="lineNum">      22 </span>            : #include &quot;dcpappletif.h&quot;
+<span class="lineNum">      23 </span>            : #include &quot;dcpappletmetadata.h&quot;
+<span class="lineNum">      24 </span>            : #include &lt;QPluginLoader&gt;
+<span class="lineNum">      25 </span>            : #include &quot;dcpwrongapplets.h&quot;
+<span class="lineNum">      26 </span>            : 
+<a name="27"><span class="lineNum">      27 </span>            : #include &quot;dcpdebug.h&quot;</a>
+<span class="lineNum">      28 </span>            : 
+<span class="lineNum">      29 </span><span class="lineCov">          4 : DcpAppletPlugin::DcpAppletPlugin(DcpAppletMetadata *metadata):</span>
+<span class="lineNum">      30 </span><span class="lineCov">          4 :    d_ptr(new DcpAppletPluginPrivate(metadata))</span>
+<span class="lineNum">      31 </span>            : {
+<span class="lineNum">      32 </span><span class="lineCov">          4 :     load();</span>
+<a name="33"><span class="lineNum">      33 </span><span class="lineCov">          4 : }</span></a>
+<span class="lineNum">      34 </span>            : 
+<span class="lineNum">      35 </span><span class="lineCov">          4 : DcpAppletPluginPrivate::DcpAppletPluginPrivate(DcpAppletMetadata* metadata):</span>
+<span class="lineNum">      36 </span>            :     appletMetadata(metadata),
+<span class="lineNum">      37 </span><span class="lineCov">          4 :     appletInstance(0)</span>
+<span class="lineNum">      38 </span>            : {
+<a name="39"><span class="lineNum">      39 </span><span class="lineCov">          4 : }</span></a>
+<span class="lineNum">      40 </span>            : 
+<span class="lineNum">      41 </span><span class="lineCov">          4 : DcpAppletPluginPrivate::~DcpAppletPluginPrivate ()</span>
+<a name="42"><span class="lineNum">      42 </span><span class="lineCov">          4 : {}</span></a>
+<span class="lineNum">      43 </span>            : 
+<span class="lineNum">      44 </span><span class="lineCov">          4 : DcpAppletPlugin::~DcpAppletPlugin()</span>
+<span class="lineNum">      45 </span>            : {
+<span class="lineNum">      46 </span>            :     /*
+<span class="lineNum">      47 </span>            :      * I had to remove this code, because the libdui will cause serius segfaults
+<span class="lineNum">      48 </span>            :      * when the applet has been reloaded and the loadCSS() method is called. We
+<span class="lineNum">      49 </span>            :      * have to find a solution for this problem.
+<span class="lineNum">      50 </span>            :      *
+<span class="lineNum">      51 </span>            :      * lpere@blumsoft.eu
+<span class="lineNum">      52 </span>            :      */
+<span class="lineNum">      53 </span>            :     #if 0
+<span class="lineNum">      54 </span>            :     if (d_ptr-&gt;loader.isLoaded()) {
+<span class="lineNum">      55 </span>            :         d_ptr-&gt;loader.unload();
+<span class="lineNum">      56 </span>            :     }
+<span class="lineNum">      57 </span>            :     #endif
+<span class="lineNum">      58 </span><span class="lineCov">          4 :     delete d_ptr;</span>
+<span class="lineNum">      59 </span><span class="lineCov">          4 : }</span>
+<span class="lineNum">      60 </span>            : 
+<span class="lineNum">      61 </span>            : /*!
+<span class="lineNum">      62 </span>            :  * \returns The applet interface of the applet loader.
+<span class="lineNum">      63 </span>            :  *
+<span class="lineNum">      64 </span>            :  * Returns the applet interface, the interface object created by the applet if
+<span class="lineNum">      65 </span>            :  * the applet loaded successfully. Returns NULL if the applet was not loaded.
+<span class="lineNum">      66 </span>            :  * Please note that this method might return NULL!
+<a name="67"><span class="lineNum">      67 </span>            :  */</a>
+<span class="lineNum">      68 </span>            : DcpAppletIf *
+<span class="lineNum">      69 </span><span class="lineCov">          7 : DcpAppletPlugin::applet() const</span>
+<span class="lineNum">      70 </span>            : {
+<span class="lineNum">      71 </span><span class="lineCov">          7 :     return d_ptr-&gt;appletInstance; </span>
+<span class="lineNum">      72 </span>            : }
+<a name="73"><span class="lineNum">      73 </span>            : </a>
+<span class="lineNum">      74 </span>            : bool
+<span class="lineNum">      75 </span><span class="lineCov">          2 : DcpAppletPlugin::isAppletLoaded() const</span>
+<span class="lineNum">      76 </span>            : {
+<span class="lineNum">      77 </span><span class="lineCov">          2 :     return d_ptr-&gt;appletInstance != 0;</span>
+<span class="lineNum">      78 </span>            : }
+<span class="lineNum">      79 </span>            : 
+<span class="lineNum">      80 </span>            : /*!
+<span class="lineNum">      81 </span>            :  * \returns the metadata of the applet
+<a name="82"><span class="lineNum">      82 </span>            :  */</a>
+<span class="lineNum">      83 </span>            : DcpAppletMetadata*
+<span class="lineNum">      84 </span><span class="lineCov">          7 : DcpAppletPlugin::metadata () const </span>
+<span class="lineNum">      85 </span>            : { 
+<span class="lineNum">      86 </span><span class="lineCov">          7 :     return d_ptr-&gt;appletMetadata;</span>
+<span class="lineNum">      87 </span>            : }
+<span class="lineNum">      88 </span>            : 
+<span class="lineNum">      89 </span>            : /*!
+<span class="lineNum">      90 </span>            :  * \returns the error message string describes the problem why the applet was
+<span class="lineNum">      91 </span>            :  *   not loaded. Returns the empty string if the applet was loaded 
+<span class="lineNum">      92 </span>            :  *   successfully.
+<a name="93"><span class="lineNum">      93 </span>            :  */</a>
+<span class="lineNum">      94 </span>            : const QString 
+<span class="lineNum">      95 </span><span class="lineCov">          1 : DcpAppletPlugin::errorMsg () const</span>
+<span class="lineNum">      96 </span>            : { 
+<span class="lineNum">      97 </span><span class="lineCov">          1 :     return d_ptr-&gt;errorMsg; </span>
+<span class="lineNum">      98 </span>            : }
+<span class="lineNum">      99 </span>            : 
+<span class="lineNum">     100 </span>            : /*
+<span class="lineNum">     101 </span>            :  * Loads the applet from a binary file (a shared object file) stores the 
+<span class="lineNum">     102 </span>            :  * DcpAppletIf plugin object and initializes it by calling the init() virtual 
+<span class="lineNum">     103 </span>            :  * function. Returns true if the object was loaded and initialized.
+<span class="lineNum">     104 </span>            :  */
+<a name="105"><span class="lineNum">     105 </span>            : bool </a>
+<span class="lineNum">     106 </span>            : DcpAppletPlugin::loadPluginFile (
+<span class="lineNum">     107 </span><span class="lineCov">          3 :         const QString &amp;binaryPath)</span>
+<span class="lineNum">     108 </span>            : {
+<span class="lineNum">     109 </span>            :     /*
+<span class="lineNum">     110 </span>            :      * The external program applets does not use binary file to load. Here is a
+<span class="lineNum">     111 </span>            :      * protection for them, but I'm not sure this is how we should handle the
+<span class="lineNum">     112 </span>            :      * issue.
+<span class="lineNum">     113 </span>            :      */
+<span class="lineNum">     114 </span><span class="lineCov">          3 :     if (binaryPath.isEmpty())</span>
+<span class="lineNum">     115 </span><span class="lineNoCov">          0 :         return true;</span>
+<span class="lineNum">     116 </span>            :     /*
+<span class="lineNum">     117 </span>            :      * We only check that the applet is blacklicted or not (due for example to a
+<span class="lineNum">     118 </span>            :      * previous segfault), if the applet is disabled. This way the application
+<span class="lineNum">     119 </span>            :      * can re-enable the applet. We currently re-enable the applet when the user
+<span class="lineNum">     120 </span>            :      * explicitly clicks on the applet brief.
+<span class="lineNum">     121 </span>            :      */
+<span class="lineNum">     122 </span><span class="lineCov">          3 :     if (metadata() &amp;&amp; metadata()-&gt;isDisabled ()) {</span>
+<span class="lineNum">     123 </span>            :         /*if (DcpWrongApplets::instance()-&gt;isAppletRecentlyCrashed (binaryPath)) 
+<span class="lineNum">     124 </span>            :             d_ptr-&gt;errorMsg =  &quot;The '&quot; + binaryPath + &quot;/&quot; +
+<span class="lineNum">     125 </span>            :                 metadata()-&gt;name() +
+<span class="lineNum">     126 </span>            :                 &quot;' is a blacklisted applet&quot;;
+<span class="lineNum">     127 </span>            :         else
+<span class="lineNum">     128 </span>            :             d_ptr-&gt;errorMsg =  &quot;The '&quot; + binaryPath + &quot;/&quot; +
+<span class="lineNum">     129 </span>            :                 metadata()-&gt;name() +
+<span class="lineNum">     130 </span>            :                 &quot;' is a disabled applet&quot;;
+<span class="lineNum">     131 </span>            : 
+<span class="lineNum">     132 </span>            :         DCP_WARNING (&quot;%s&quot;, DCP_STR (d_ptr-&gt;errorMsg));
+<span class="lineNum">     133 </span>            :         qCritical() &lt;&lt; d_ptr-&gt;errorMsg;
+<span class="lineNum">     134 </span>            :         */
+<span class="lineNum">     135 </span><span class="lineNoCov">          0 :         d_ptr-&gt;appletInstance = 0;</span>
+<span class="lineNum">     136 </span><span class="lineNoCov">          0 :         return false;</span>
+<span class="lineNum">     137 </span>            :     }
+<span class="lineNum">     138 </span>            : 
+<span class="lineNum">     139 </span>            :     /*
+<span class="lineNum">     140 </span>            :      * We need this so our application won't abort on an unresolved symbol in
+<span class="lineNum">     141 </span>            :      * the plugin.
+<span class="lineNum">     142 </span>            :      */
+<span class="lineNum">     143 </span><span class="lineCov">          3 :     d_ptr-&gt;loader.setLoadHints(QLibrary::ResolveAllSymbolsHint);</span>
+<span class="lineNum">     144 </span><span class="lineCov">          3 :     d_ptr-&gt;loader.setFileName (binaryPath);</span>
+<span class="lineNum">     145 </span><span class="lineCov">          3 :     if (!d_ptr-&gt;loader.load ()) {</span>
+<span class="lineNum">     146 </span>            :         d_ptr-&gt;errorMsg = &quot;Loading of the '&quot; + binaryPath + &quot;/&quot; +
+<span class="lineNum">     147 </span>            :             d_ptr-&gt;appletMetadata-&gt;name() +
+<span class="lineNum">     148 </span><span class="lineCov">          1 :             &quot;' applet failed: &quot; + d_ptr-&gt;loader.errorString();</span>
+<span class="lineNum">     149 </span><span class="lineCov">          1 :         DCP_WARNING (&quot;%s&quot;, DCP_STR (d_ptr-&gt;errorMsg));</span>
+<span class="lineNum">     150 </span>            :     } else {
+<span class="lineNum">     151 </span><span class="lineCov">          2 :         QObject *object = d_ptr-&gt;loader.instance();</span>
+<span class="lineNum">     152 </span><span class="lineCov">          2 :         d_ptr-&gt;appletInstance = qobject_cast&lt;DcpAppletIf*&gt;(object);</span>
+<span class="lineNum">     153 </span>            : 
+<span class="lineNum">     154 </span><span class="lineCov">          2 :         if (!d_ptr-&gt;appletInstance) {</span>
+<span class="lineNum">     155 </span>            :             d_ptr-&gt;errorMsg = &quot;Loading of the '&quot; + binaryPath + &quot;/&quot; +
+<span class="lineNum">     156 </span>            :                 metadata()-&gt;name() +
+<span class="lineNum">     157 </span><span class="lineNoCov">          0 :                 &quot;' applet failed: Invalid ExampleAppletInterface object.&quot;;</span>
+<span class="lineNum">     158 </span><span class="lineNoCov">          0 :             DCP_WARNING (&quot;%s&quot;, DCP_STR (d_ptr-&gt;errorMsg));</span>
+<span class="lineNum">     159 </span><span class="lineNoCov">          0 :             return false;</span>
+<span class="lineNum">     160 </span>            :         } else {
+<span class="lineNum">     161 </span>            :             DCP_DEBUG (&quot;Initializing %s&quot;, DCP_STR (binaryPath));
+<span class="lineNum">     162 </span><span class="lineCov">          2 :             d_ptr-&gt;appletInstance-&gt;init ();</span>
+<span class="lineNum">     163 </span>            :         }
+<span class="lineNum">     164 </span>            :     }
+<span class="lineNum">     165 </span>            : 
+<span class="lineNum">     166 </span><span class="lineCov">          3 :     return true;</span>
+<span class="lineNum">     167 </span>            : }
+<span class="lineNum">     168 </span>            : 
+<span class="lineNum">     169 </span>            : /*
+<span class="lineNum">     170 </span>            :  * Loads a DSL (Declarative Settings Language) file.
+<span class="lineNum">     171 </span>            :  * Not implemented yet.
+<span class="lineNum">     172 </span>            :  */
+<a name="173"><span class="lineNum">     173 </span>            : bool </a>
+<span class="lineNum">     174 </span>            : DcpAppletPlugin::loadDslFile (
+<span class="lineNum">     175 </span><span class="lineCov">          1 :         const QString &amp;binaryPath)</span>
+<span class="lineNum">     176 </span>            : {
+<span class="lineNum">     177 </span>            :     Q_UNUSED (binaryPath);
+<span class="lineNum">     178 </span><span class="lineCov">          1 :     DCP_WARNING (&quot;Loading of the DSL file is not implemented yet.&quot;);</span>
+<span class="lineNum">     179 </span>            : 
+<span class="lineNum">     180 </span><span class="lineCov">          1 :     return false;</span>
+<span class="lineNum">     181 </span>            : }
+<a name="182"><span class="lineNum">     182 </span>            : </a>
+<span class="lineNum">     183 </span>            : void 
+<span class="lineNum">     184 </span><span class="lineCov">          4 : DcpAppletPlugin::load ()</span>
+<span class="lineNum">     185 </span>            : {
+<span class="lineNum">     186 </span><span class="lineCov">          4 :     QString binaryPath = d_ptr-&gt;appletMetadata-&gt;fullBinary();</span>
+<span class="lineNum">     187 </span><span class="lineCov">          4 :     QString dslFilename = d_ptr-&gt;appletMetadata-&gt;dslFilename ();</span>
+<span class="lineNum">     188 </span>            : 
+<span class="lineNum">     189 </span>            :     DCP_DEBUG (&quot;*** binaryPath          = '%s'&quot;, DCP_STR (binaryPath));
+<span class="lineNum">     190 </span>            :     DCP_DEBUG (&quot;*** dslFilename         = '%s'&quot;, DCP_STR (dslFilename));
+<span class="lineNum">     191 </span>            :     DCP_DEBUG (&quot;*** applicationCommand  = '%s'&quot;, 
+<span class="lineNum">     192 </span>            :             DCP_STR (d_ptr-&gt;appletMetadata-&gt;applicationCommand ()));
+<span class="lineNum">     193 </span>            : 
+<span class="lineNum">     194 </span><span class="lineCov">          4 :     if (!binaryPath.isEmpty()) {</span>
+<span class="lineNum">     195 </span><span class="lineCov">          3 :         loadPluginFile (binaryPath);</span>
+<span class="lineNum">     196 </span><span class="lineCov">          1 :     } else if (!dslFilename.isEmpty()) {</span>
+<span class="lineNum">     197 </span><span class="lineCov">          1 :         loadDslFile (dslFilename);</span>
+<span class="lineNum">     198 </span><span class="lineCov">          4 :     }</span>
+<span class="lineNum">     199 </span><span class="lineCov">          4 : }</span>
+<a name="200"><span class="lineNum">     200 </span>            : </a>
+<span class="lineNum">     201 </span>            : int
+<span class="lineNum">     202 </span><span class="lineCov">          2 : DcpAppletPlugin::interfaceVersion()</span>
+<span class="lineNum">     203 </span>            : {
+<span class="lineNum">     204 </span><span class="lineCov">          2 :     if (applet()) {</span>
+<span class="lineNum">     205 </span><span class="lineCov">          1 :         return applet()-&gt;interfaceVersion();</span>
+<span class="lineNum">     206 </span>            :     } else {
+<span class="lineNum">     207 </span><span class="lineCov">          2 :         return -1;</span>
+<span class="lineNum">     208 </span>            :     }
+<span class="lineNum">     209 </span>            : }
+<span class="lineNum">     210 </span>            : 
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.9 pre (CVS 1.47)</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

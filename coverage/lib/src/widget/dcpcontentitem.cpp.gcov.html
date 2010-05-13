@@ -1,0 +1,405 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>LCOV - libdcp and dcp unit test coverage - lib/src/widget/dcpcontentitem.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../index.html">top level</a> - <a href="index.html">lib/src/widget</a> - dcpcontentitem.cpp<span style="font-size: 80%;"> (source / <a href="dcpcontentitem.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">libdcp and dcp unit test coverage</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">92</td>
+            <td class="headerCovTableEntry">114</td>
+            <td class="headerCovTableEntryMed">80.7 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2010-05-13</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">18</td>
+            <td class="headerCovTableEntry">24</td>
+            <td class="headerCovTableEntryMed">75.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /***************************************************************************</a>
+<span class="lineNum">       2 </span>            : **
+<span class="lineNum">       3 </span>            : ** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+<span class="lineNum">       4 </span>            : ** All rights reserved.
+<span class="lineNum">       5 </span>            : ** Contact: Karoliina T. Salminen &lt;karoliina.t.salminen@nokia.com&gt;
+<span class="lineNum">       6 </span>            : **
+<span class="lineNum">       7 </span>            : ** This file is part of duicontrolpanel.
+<span class="lineNum">       8 </span>            : **
+<span class="lineNum">       9 </span>            : **
+<span class="lineNum">      10 </span>            : ** This library is free software; you can redistribute it and/or
+<span class="lineNum">      11 </span>            : ** modify it under the terms of the GNU Lesser General Public
+<span class="lineNum">      12 </span>            : ** License version 2.1 as published by the Free Software Foundation
+<span class="lineNum">      13 </span>            : ** and appearing in the file LICENSE.LGPL included in the packaging
+<span class="lineNum">      14 </span>            : ** of this file.
+<span class="lineNum">      15 </span>            : **
+<span class="lineNum">      16 </span>            : ****************************************************************************/
+<span class="lineNum">      17 </span>            : 
+<span class="lineNum">      18 </span>            : /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+<span class="lineNum">      19 </span>            : /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino=&quot;(0,W2s,i2s,t0,l1,:0&quot; */
+<span class="lineNum">      20 </span>            : 
+<span class="lineNum">      21 </span>            : #include &quot;dcpcontentitem.h&quot;
+<span class="lineNum">      22 </span>            : #include &quot;dcpcontentitem_p.h&quot;
+<span class="lineNum">      23 </span>            : 
+<span class="lineNum">      24 </span>            : #include &quot;dcpdebug.h&quot;
+<a name="25"><span class="lineNum">      25 </span>            : </a>
+<span class="lineNum">      26 </span>            : 
+<span class="lineNum">      27 </span><span class="lineCov">         14 : DcpContentItemPrivate::DcpContentItemPrivate ():</span>
+<span class="lineNum">      28 </span>            :     m_Applet (0),
+<span class="lineNum">      29 </span>            :     m_WidgetTypeId (DcpWidgetType::Label),
+<span class="lineNum">      30 </span>            :     m_Hidden (true),
+<span class="lineNum">      31 </span><span class="lineCov">         14 :     m_Pixmap (0)</span>
+<span class="lineNum">      32 </span>            : {
+<span class="lineNum">      33 </span><span class="lineCov">         14 : }</span>
+<span class="lineNum">      34 </span>            : 
+<span class="lineNum">      35 </span>            : /******************************************************************************
+<span class="lineNum">      36 </span>            :  * Stuff for the DcpContentItem class.
+<span class="lineNum">      37 </span>            :  */
+<a name="38"><span class="lineNum">      38 </span>            : DcpContentItem::DcpContentItem (</a>
+<span class="lineNum">      39 </span>            :         DcpAppletObject *applet,
+<span class="lineNum">      40 </span><span class="lineCov">         14 :         QGraphicsItem   *parent):</span>
+<span class="lineNum">      41 </span>            :     MContentItem (MContentItem::IconAndTwoTextLabels, parent),
+<span class="lineNum">      42 </span><span class="lineCov">         14 :     d_ptr (new DcpContentItemPrivate)</span>
+<span class="lineNum">      43 </span>            : {
+<span class="lineNum">      44 </span><span class="lineCov">         14 :     setApplet (applet);</span>
+<span class="lineNum">      45 </span><span class="lineCov">         14 : }</span>
+<a name="46"><span class="lineNum">      46 </span>            : </a>
+<span class="lineNum">      47 </span>            : 
+<span class="lineNum">      48 </span><span class="lineCov">         14 : DcpContentItem::~DcpContentItem ()</span>
+<span class="lineNum">      49 </span>            : {
+<span class="lineNum">      50 </span><span class="lineCov">         14 :     releaseImage();</span>
+<span class="lineNum">      51 </span><span class="lineCov">         14 :     delete d_ptr;</span>
+<span class="lineNum">      52 </span><span class="lineCov">         14 : }</span>
+<span class="lineNum">      53 </span>            : 
+<span class="lineNum">      54 </span>            : 
+<span class="lineNum">      55 </span>            : /*
+<span class="lineNum">      56 </span>            :  * Constructs the content of the DcpContentItem according to the widget type.
+<span class="lineNum">      57 </span>            :  * This is a separate code so the inherited classes might use other code,
+<span class="lineNum">      58 </span>            :  * possibly without any information about the applet variant. This way we can
+<span class="lineNum">      59 </span>            :  * implement internal brief widgets also.
+<a name="60"><span class="lineNum">      60 </span>            :  */</a>
+<span class="lineNum">      61 </span>            : void
+<span class="lineNum">      62 </span><span class="lineCov">          6 : DcpContentItem::constructRealWidget ()</span>
+<span class="lineNum">      63 </span>            : {
+<span class="lineNum">      64 </span><span class="lineCov">          6 :     d_ptr-&gt;m_WidgetTypeId = d_ptr-&gt;m_Applet-&gt;widgetTypeID();</span>
+<span class="lineNum">      65 </span><span class="lineCov">          6 :     switch (d_ptr-&gt;m_WidgetTypeId) {</span>
+<span class="lineNum">      66 </span>            :         case DcpWidgetType::Image:
+<span class="lineNum">      67 </span>            :             DCP_DEBUG (&quot;### DcpWidgetType::Image ###&quot;);
+<span class="lineNum">      68 </span><span class="lineNoCov">          0 :             model()-&gt;setItemStyle(IconAndSingleTextLabel);</span>
+<span class="lineNum">      69 </span><span class="lineNoCov">          0 :             break;</span>
+<span class="lineNum">      70 </span>            : 
+<span class="lineNum">      71 </span>            :         case DcpWidgetType::Toggle:
+<span class="lineNum">      72 </span>            :             qWarning(&quot;Support for toggle type as briefwidget was removed from &quot;
+<span class="lineNum">      73 </span>            :                      &quot;controlpanel according to the latest specifications (%s)&quot;,
+<span class="lineNum">      74 </span><span class="lineNoCov">          0 :                      qPrintable(applet()-&gt;metadata()-&gt;name()));</span>
+<span class="lineNum">      75 </span>            :         default:
+<span class="lineNum">      76 </span>            :             DCP_DEBUG (&quot;### DcpWidgetType::Label ###&quot;);
+<span class="lineNum">      77 </span><span class="lineCov">          6 :             model()-&gt;setItemStyle(SingleTextLabel);</span>
+<span class="lineNum">      78 </span>            :             break;
+<span class="lineNum">      79 </span>            :     }
+<span class="lineNum">      80 </span>            : 
+<span class="lineNum">      81 </span><span class="lineCov">          6 :     updateContents ();</span>
+<span class="lineNum">      82 </span><span class="lineCov">          6 : }</span>
+<a name="83"><span class="lineNum">      83 </span>            : </a>
+<span class="lineNum">      84 </span>            : DcpAppletObject *
+<span class="lineNum">      85 </span><span class="lineCov">         18 : DcpContentItem::applet() const</span>
+<span class="lineNum">      86 </span>            : {
+<span class="lineNum">      87 </span><span class="lineCov">         18 :     return d_ptr-&gt;m_Applet;</span>
+<span class="lineNum">      88 </span>            : }
+<a name="89"><span class="lineNum">      89 </span>            : </a>
+<span class="lineNum">      90 </span>            : void
+<span class="lineNum">      91 </span><span class="lineCov">         19 : DcpContentItem::setApplet (DcpAppletObject *applet)</span>
+<span class="lineNum">      92 </span>            : {
+<span class="lineNum">      93 </span>            :     /*
+<span class="lineNum">      94 </span>            :      * If we had an old applet object.
+<span class="lineNum">      95 </span>            :      */
+<span class="lineNum">      96 </span><span class="lineCov">         19 :     if (d_ptr-&gt;m_Applet) {</span>
+<span class="lineNum">      97 </span>            :         /*
+<span class="lineNum">      98 </span>            :          * Metadata is owned by the appletdb, so not removed, only disconnected
+<span class="lineNum">      99 </span>            :          * both ways, but only the signals between the two participants.
+<span class="lineNum">     100 </span>            :          */
+<span class="lineNum">     101 </span><span class="lineNoCov">          0 :         disconnect (d_ptr-&gt;m_Applet, 0, this, 0);</span>
+<span class="lineNum">     102 </span><span class="lineNoCov">          0 :         disconnect (this, 0, d_ptr-&gt;m_Applet, 0);</span>
+<span class="lineNum">     103 </span>            :     }
+<span class="lineNum">     104 </span>            : 
+<span class="lineNum">     105 </span><span class="lineCov">         19 :     d_ptr-&gt;m_Applet = applet;</span>
+<span class="lineNum">     106 </span>            : 
+<span class="lineNum">     107 </span>            :     /*
+<span class="lineNum">     108 </span>            :      * If we have a applet object we can construct a widget for that and then
+<span class="lineNum">     109 </span>            :      * we can connect some signals.
+<span class="lineNum">     110 </span>            :      */
+<span class="lineNum">     111 </span><span class="lineCov">         19 :     if (d_ptr-&gt;m_Applet) {</span>
+<span class="lineNum">     112 </span><span class="lineCov">          5 :         constructRealWidget ();</span>
+<span class="lineNum">     113 </span>            :         /*
+<span class="lineNum">     114 </span>            :          * This will count the activations and activate the applet.
+<span class="lineNum">     115 </span>            :          */
+<span class="lineNum">     116 </span>            :         connect (this, SIGNAL (clicked()),
+<span class="lineNum">     117 </span><span class="lineCov">          5 :                 d_ptr-&gt;m_Applet, SLOT (slotClicked()));</span>
+<span class="lineNum">     118 </span>            :     }
+<span class="lineNum">     119 </span><span class="lineCov">         19 : }</span>
+<a name="120"><span class="lineNum">     120 </span>            : </a>
+<span class="lineNum">     121 </span>            : void
+<span class="lineNum">     122 </span><span class="lineNoCov">          0 : DcpContentItem::retranslateUi ()</span>
+<span class="lineNum">     123 </span>            : {
+<span class="lineNum">     124 </span><span class="lineNoCov">          0 :     if (d_ptr-&gt;m_Applet) {</span>
+<span class="lineNum">     125 </span><span class="lineNoCov">          0 :         updateText ();</span>
+<span class="lineNum">     126 </span>            :     }
+<span class="lineNum">     127 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     128 </span>            : 
+<span class="lineNum">     129 </span>            : /*
+<span class="lineNum">     130 </span>            :  * this function is a helper, it switches from two-line-mode into one-line-mode
+<span class="lineNum">     131 </span>            :  * and back
+<a name="132"><span class="lineNum">     132 </span>            :  */</a>
+<span class="lineNum">     133 </span>            : void
+<span class="lineNum">     134 </span><span class="lineCov">         10 : DcpContentItem::invertTwoLineMode()</span>
+<span class="lineNum">     135 </span>            : {
+<span class="lineNum">     136 </span><span class="lineCov">         10 :     int styl = model()-&gt;itemStyle();</span>
+<span class="lineNum">     137 </span>            :     MContentItem::ContentItemStyle newstyl;
+<span class="lineNum">     138 </span><span class="lineCov">         10 :     switch (styl) {</span>
+<span class="lineNum">     139 </span>            :         case IconAndTwoTextLabels:
+<span class="lineNum">     140 </span><span class="lineCov">          1 :             newstyl = IconAndSingleTextLabel;</span>
+<span class="lineNum">     141 </span><span class="lineCov">          1 :             break;</span>
+<span class="lineNum">     142 </span>            :         case SingleTextLabel:
+<span class="lineNum">     143 </span><span class="lineCov">          7 :             newstyl = TwoTextLabels;</span>
+<span class="lineNum">     144 </span><span class="lineCov">          7 :             break;</span>
+<span class="lineNum">     145 </span>            :         case IconAndSingleTextLabel:
+<span class="lineNum">     146 </span><span class="lineCov">          1 :             newstyl = IconAndTwoTextLabels;</span>
+<span class="lineNum">     147 </span><span class="lineCov">          1 :             break;</span>
+<span class="lineNum">     148 </span>            :         case TwoTextLabels:
+<span class="lineNum">     149 </span><span class="lineCov">          1 :             newstyl = SingleTextLabel;</span>
+<span class="lineNum">     150 </span><span class="lineCov">          1 :             break;</span>
+<span class="lineNum">     151 </span>            :         case IconAndSingleTextLabelVertical:
+<span class="lineNum">     152 </span><span class="lineNoCov">          0 :             newstyl = IconAndTwoTextLabelsVertical;</span>
+<span class="lineNum">     153 </span><span class="lineNoCov">          0 :             break;</span>
+<span class="lineNum">     154 </span>            :         case IconAndTwoTextLabelsVertical:
+<span class="lineNum">     155 </span><span class="lineNoCov">          0 :             newstyl = IconAndSingleTextLabelVertical;</span>
+<span class="lineNum">     156 </span><span class="lineNoCov">          0 :             break;</span>
+<span class="lineNum">     157 </span>            :         default:
+<span class="lineNum">     158 </span><span class="lineNoCov">          0 :             return; // do nothing bad at least :)</span>
+<span class="lineNum">     159 </span>            :     }
+<span class="lineNum">     160 </span><span class="lineCov">         10 :     model()-&gt;setItemStyle(newstyl);</span>
+<span class="lineNum">     161 </span>            : }
+<a name="162"><span class="lineNum">     162 </span>            : </a>
+<span class="lineNum">     163 </span>            : void
+<span class="lineNum">     164 </span><span class="lineCov">          9 : DcpContentItem::updateText ()</span>
+<span class="lineNum">     165 </span>            : {
+<span class="lineNum">     166 </span>            :     // --------- label specific ------------
+<span class="lineNum">     167 </span><span class="lineCov">          9 :     QString text2 = applet()-&gt;text2();</span>
+<span class="lineNum">     168 </span>            :     /*
+<span class="lineNum">     169 </span>            :      * if emptyness of text2 changes, we will have to switch from twolinemode,
+<span class="lineNum">     170 </span>            :      * so that the labels remains centered
+<span class="lineNum">     171 </span>            :      *
+<span class="lineNum">     172 </span>            :      * FIXME: this is not working, the first time determines which mode the
+<span class="lineNum">     173 </span>            :      * item will be in, because the widget sizes are set up at setupModel time
+<span class="lineNum">     174 </span>            :      * only, so currently MContentItem only supports changing the value at
+<span class="lineNum">     175 </span>            :      * construction time (bug/feature request to libdui if it is important)
+<span class="lineNum">     176 </span>            :      */
+<span class="lineNum">     177 </span><span class="lineCov">          9 :     if (text2.isEmpty() != subtitle().isEmpty()) {</span>
+<span class="lineNum">     178 </span><span class="lineCov">          6 :         invertTwoLineMode();</span>
+<span class="lineNum">     179 </span>            :     }
+<span class="lineNum">     180 </span><span class="lineCov">          9 :     setTitle (applet()-&gt;text1());</span>
+<span class="lineNum">     181 </span><span class="lineCov">          9 :     setSubtitle (text2);</span>
+<a name="182"><span class="lineNum">     182 </span><span class="lineCov">          9 : }</span></a>
+<span class="lineNum">     183 </span>            : 
+<span class="lineNum">     184 </span><span class="lineCov">          8 : void DcpContentItem::updateImage ()</span>
+<span class="lineNum">     185 </span>            : {
+<span class="lineNum">     186 </span>            :     // ----------- image specific: -------------
+<span class="lineNum">     187 </span><span class="lineCov">          8 :     if (d_ptr-&gt;m_WidgetTypeId == DcpWidgetType::Image) {</span>
+<span class="lineNum">     188 </span><span class="lineCov">          1 :         QString   source;</span>
+<span class="lineNum">     189 </span>            : 
+<span class="lineNum">     190 </span>            :         /*
+<span class="lineNum">     191 </span>            :          * If the applet provides an image file name we set the image from that,
+<span class="lineNum">     192 </span>            :          * otherwise we try to set the image from the icon name.
+<span class="lineNum">     193 </span>            :          *
+<span class="lineNum">     194 </span>            :          * TODO we should clean this up. Is there a difference, or we just
+<span class="lineNum">     195 </span>            :          * keeping it for compatibility?
+<span class="lineNum">     196 </span>            :          */
+<span class="lineNum">     197 </span><span class="lineCov">          1 :         source = d_ptr-&gt;m_Applet-&gt;imageName();</span>
+<span class="lineNum">     198 </span><span class="lineCov">          1 :         if (source.isEmpty()) {</span>
+<span class="lineNum">     199 </span><span class="lineCov">          1 :             source = d_ptr-&gt;m_Applet-&gt;iconName();</span>
+<span class="lineNum">     200 </span>            :         }
+<span class="lineNum">     201 </span>            : 
+<span class="lineNum">     202 </span>            :         /*
+<span class="lineNum">     203 </span>            :          * The image file might be big, so we need a little speed up here, otherwise
+<span class="lineNum">     204 </span>            :          * the paging effect is blocked when we go back to the main page.
+<span class="lineNum">     205 </span>            :          */
+<span class="lineNum">     206 </span><span class="lineCov">          1 :         if (source == d_ptr-&gt;m_ImageName)</span>
+<span class="lineNum">     207 </span><span class="lineCov">          8 :             return;</span>
+<span class="lineNum">     208 </span>            : 
+<span class="lineNum">     209 </span>            :         /* we release the original pixmap, if any */
+<span class="lineNum">     210 </span><span class="lineCov">          1 :         releaseImage();</span>
+<span class="lineNum">     211 </span>            : 
+<span class="lineNum">     212 </span>            :         // no picture :(
+<span class="lineNum">     213 </span><span class="lineCov">          1 :         if (source.isEmpty()) return;</span>
+<span class="lineNum">     214 </span>            : 
+<span class="lineNum">     215 </span>            :         // if it is a filepath, it has an extension, otherwise we have an id
+<span class="lineNum">     216 </span><span class="lineCov">          1 :         if (!source.contains('.')) {</span>
+<span class="lineNum">     217 </span><span class="lineCov">          1 :             setImageName (source);</span>
+<span class="lineNum">     218 </span>            :         } else {
+<span class="lineNum">     219 </span><span class="lineNoCov">          0 :             setImageFromFile (source);</span>
+<span class="lineNum">     220 </span>            :         }
+<span class="lineNum">     221 </span>            : 
+<span class="lineNum">     222 </span><span class="lineCov">          1 :         d_ptr-&gt;m_ImageName = source;</span>
+<span class="lineNum">     223 </span>            :     }
+<span class="lineNum">     224 </span>            : }
+<span class="lineNum">     225 </span>            : 
+<span class="lineNum">     226 </span>            : /*
+<span class="lineNum">     227 </span>            :  * updates all displayed datas if something changes in the brief / desktop file
+<a name="228"><span class="lineNum">     228 </span>            :  */</a>
+<span class="lineNum">     229 </span>            : void
+<span class="lineNum">     230 </span><span class="lineCov">          7 : DcpContentItem::updateContents ()</span>
+<span class="lineNum">     231 </span>            : {
+<span class="lineNum">     232 </span><span class="lineCov">          7 :     if (!d_ptr-&gt;m_Applet)</span>
+<span class="lineNum">     233 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">     234 </span>            : 
+<span class="lineNum">     235 </span><span class="lineCov">          7 :     updateText();</span>
+<span class="lineNum">     236 </span><span class="lineCov">          7 :     updateImage();</span>
+<span class="lineNum">     237 </span>            : }
+<span class="lineNum">     238 </span>            : 
+<span class="lineNum">     239 </span>            : /*!
+<span class="lineNum">     240 </span>            :  * releases the cached image if any
+<a name="241"><span class="lineNum">     241 </span>            :  */</a>
+<span class="lineNum">     242 </span>            : void
+<span class="lineNum">     243 </span><span class="lineCov">         16 : DcpContentItem::releaseImage ()</span>
+<span class="lineNum">     244 </span>            : {
+<span class="lineNum">     245 </span><span class="lineCov">         16 :     const QPixmap*&amp; pix = d_ptr-&gt;m_Pixmap;</span>
+<span class="lineNum">     246 </span><span class="lineCov">         16 :     if (pix) {</span>
+<span class="lineNum">     247 </span><span class="lineCov">          3 :         MTheme::releasePixmap (pix);</span>
+<span class="lineNum">     248 </span><span class="lineCov">          3 :         pix = 0;</span>
+<span class="lineNum">     249 </span>            :     }
+<span class="lineNum">     250 </span><span class="lineCov">         16 : }</span>
+<span class="lineNum">     251 </span>            : 
+<span class="lineNum">     252 </span>            : 
+<span class="lineNum">     253 </span>            : /*!
+<span class="lineNum">     254 </span>            :  * sets the image with the given name (id)
+<a name="255"><span class="lineNum">     255 </span>            :  */</a>
+<span class="lineNum">     256 </span>            : void
+<span class="lineNum">     257 </span><span class="lineCov">          3 : DcpContentItem::setImageName (const QString&amp; name)</span>
+<span class="lineNum">     258 </span>            : {
+<span class="lineNum">     259 </span><span class="lineCov">          3 :     d_ptr-&gt;m_Pixmap = MTheme::pixmap (name);</span>
+<span class="lineNum">     260 </span><span class="lineCov">          3 :     setPixmap (*(d_ptr-&gt;m_Pixmap)); // TODO XXX ??? it should not work</span>
+<span class="lineNum">     261 </span><span class="lineCov">          3 : }</span>
+<span class="lineNum">     262 </span>            : 
+<span class="lineNum">     263 </span>            : /*!
+<span class="lineNum">     264 </span>            :  * sets the image based on its filepath
+<a name="265"><span class="lineNum">     265 </span>            :  */</a>
+<span class="lineNum">     266 </span>            : void
+<span class="lineNum">     267 </span><span class="lineCov">          1 : DcpContentItem::setImageFromFile (const QString&amp; fileName)</span>
+<span class="lineNum">     268 </span>            : {
+<span class="lineNum">     269 </span>            :     bool    success;
+<span class="lineNum">     270 </span><span class="lineCov">          1 :     QImage  image;</span>
+<span class="lineNum">     271 </span>            : 
+<span class="lineNum">     272 </span><span class="lineCov">          1 :     success = image.load (fileName);</span>
+<span class="lineNum">     273 </span><span class="lineCov">          1 :     if (!success) {</span>
+<span class="lineNum">     274 </span><span class="lineCov">          1 :         DCP_WARNING (&quot;The image was not loaded from %s&quot;, DCP_STR(fileName));</span>
+<span class="lineNum">     275 </span><span class="lineCov">          1 :         return;</span>
+<span class="lineNum">     276 </span>            :     }
+<span class="lineNum">     277 </span>            : 
+<span class="lineNum">     278 </span><span class="lineCov">          1 :     setImage (image);</span>
+<span class="lineNum">     279 </span>            : }
+<a name="280"><span class="lineNum">     280 </span>            : </a>
+<span class="lineNum">     281 </span>            : void
+<span class="lineNum">     282 </span><span class="lineCov">          1 : DcpContentItem::showEvent (QShowEvent *event)</span>
+<span class="lineNum">     283 </span>            : {
+<span class="lineNum">     284 </span>            :     Q_UNUSED (event);
+<span class="lineNum">     285 </span>            : 
+<span class="lineNum">     286 </span><span class="lineCov">          1 :     if (d_ptr-&gt;m_Hidden) {</span>
+<span class="lineNum">     287 </span>            :         // prevents multiple showEvents coming
+<span class="lineNum">     288 </span><span class="lineCov">          1 :         d_ptr-&gt;m_Hidden = false;</span>
+<span class="lineNum">     289 </span>            : 
+<span class="lineNum">     290 </span><span class="lineCov">          1 :         if (d_ptr-&gt;m_Applet)</span>
+<span class="lineNum">     291 </span>            :             connect (d_ptr-&gt;m_Applet, SIGNAL (briefChanged ()), 
+<span class="lineNum">     292 </span><span class="lineCov">          1 :                 this, SLOT (updateContents()));</span>
+<span class="lineNum">     293 </span>            : 
+<span class="lineNum">     294 </span><span class="lineCov">          1 :         updateContents();</span>
+<span class="lineNum">     295 </span>            :     }
+<span class="lineNum">     296 </span><span class="lineCov">          1 : }</span>
+<a name="297"><span class="lineNum">     297 </span>            : </a>
+<span class="lineNum">     298 </span>            : void
+<span class="lineNum">     299 </span><span class="lineNoCov">          0 : DcpContentItem::hideEvent (QHideEvent *event)</span>
+<span class="lineNum">     300 </span>            : {
+<span class="lineNum">     301 </span>            :     Q_UNUSED (event);
+<span class="lineNum">     302 </span>            : 
+<span class="lineNum">     303 </span><span class="lineNoCov">          0 :     if (!d_ptr-&gt;m_Hidden) {// prevents multiple hideEvents coming</span>
+<span class="lineNum">     304 </span><span class="lineNoCov">          0 :         d_ptr-&gt;m_Hidden = true;</span>
+<span class="lineNum">     305 </span>            : 
+<span class="lineNum">     306 </span><span class="lineNoCov">          0 :         if (d_ptr-&gt;m_Applet)</span>
+<span class="lineNum">     307 </span>            :             disconnect (d_ptr-&gt;m_Applet, SIGNAL (briefChanged()),
+<span class="lineNum">     308 </span><span class="lineNoCov">          0 :                 this, SLOT (updateContents()));</span>
+<span class="lineNum">     309 </span>            :     }
+<a name="310"><span class="lineNum">     310 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     311 </span>            : 
+<span class="lineNum">     312 </span><span class="lineCov">          1 : void DcpContentItem::setMattiID (const QString&amp; mattid)</span>
+<span class="lineNum">     313 </span>            : {
+<span class="lineNum">     314 </span><span class="lineCov">          1 :     d_ptr-&gt;m_MattiID = mattid;</span>
+<a name="315"><span class="lineNum">     315 </span><span class="lineCov">          1 : }</span></a>
+<span class="lineNum">     316 </span>            : 
+<span class="lineNum">     317 </span><span class="lineCov">          1 : QString DcpContentItem::mattiID () const</span>
+<a name="318"><span class="lineNum">     318 </span>            : {</a>
+<span class="lineNum">     319 </span><span class="lineCov">          1 :     return d_ptr-&gt;m_MattiID;</span>
+<span class="lineNum">     320 </span><span class="lineCov">          3 : }</span>
+<span class="lineNum">     321 </span>            : 
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.9 pre (CVS 1.47)</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

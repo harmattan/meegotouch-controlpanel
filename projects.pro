@@ -25,6 +25,6 @@ contains(DCP_BUILD_FEATURES,coverage) {
   coverage.commands =      cd lib && make coverage && cd .. \
                         && cd controlpanel && make coverage && cd ..\
                         && genhtml --no-branch-coverage --legend -t \"libdcp and dcp unit test coverage\" -o coverage/ lib/tests/ut*/selected.cov controlpanel/tests/ut*/selected.cov
-  QMAKE_DISTCLEAN += -r coverage/*
+#  QMAKE_DISTCLEAN += -r coverage/*
 }
 
