@@ -10,6 +10,7 @@ TEST_SOURCES = \
 # unit test and unit
 SOURCES += \
     ut_dcpmostusedcounter.cpp \
+    ../doubles/mgconfitem-fake.cpp \
     $$TEST_SOURCES \ 
 
 # base classes

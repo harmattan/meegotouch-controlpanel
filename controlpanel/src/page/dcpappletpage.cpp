@@ -215,7 +215,6 @@ DcpAppletPage::retranslateUi ()
     DCP_DEBUG ("");
 
     if (m_Applet && m_Applet->applet()) {
-        DCP_WARNING("XXX SETTITLE !!");
         QString title;
         if (m_MainWidget && m_Applet->interfaceVersion() >= 3) {
             // this is the new way to specify the title:
@@ -224,6 +223,9 @@ DcpAppletPage::retranslateUi ()
         if (title.isEmpty()) {
             // this is the deprecated way:
             title = m_Applet->applet()->title();
+            if (title.isEmpty()) {
+                title = m_Applet->text1();
+            }
         }
         setTitle(title);
     }

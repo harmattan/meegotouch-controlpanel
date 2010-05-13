@@ -116,13 +116,15 @@ signals:
 
 public:
     /*!
-     * If you have to use other title text as the brief view of your
-     * applet then for its main view (DcpWidget), you can specify it here.
+     * By redefining this function you specify the title text for the brief
+     * view of the applet.
      *
-     * Otherwise, just leave it default, and the brief title will be the same as
-     * your applet's title, specified in DcpAppletIf::title(). */
+     * The other option is to leave this default and specify your title text
+     * in the desktop file.
+     */
     virtual QString titleText () const;
 };
 
 
 #endif
+

@@ -67,6 +67,14 @@ signals:
     void closePage();
 
 public:
+    /*!
+     * \brief Specifies the title for the page where the widget is put.
+     *
+     * Redefine this function to provide a title for a page of the applet.
+     * If you do not need separate titles for different pages, you can
+     * leave this default, and then all titles of the pages will be the
+     * Name of the applet specified in the applet's desktop file.
+     */
     virtual QString title() const;
 };
 

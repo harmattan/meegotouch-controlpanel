@@ -24,8 +24,8 @@ SOURCES += \
     $$STUBSDIR/mabstractlayoutpolicy-fake.cpp \
     $$STUBSDIR/mlayout-fake.cpp \
     $$STUBSDIR/mlinearlayoutpolicy-fake.cpp \
-    $$STUBSDIR/mgconfitem-fake.cpp \
     $$STUBSDIR/dcpappletdb-fake.cpp \
+    $$LIBDCPFAKES/mgconfitem-fake.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
     $$STUBSDIR/dcpappletplugin-fake.cpp \
     $$STUBSDIR/dcpretranslator-fake.cpp \

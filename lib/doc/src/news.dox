@@ -1,5 +1,13 @@
 /*! \page news What's New in DuiControlPanel
 
+\section v0719 0.7.19
+
+\subsection deprec Deprecated
+
+- DcpAppletIf::title() is deprecated to better support applets with multiple
+  pages. Use DcpWidget::title() and DcpBrief::titleText() instead.
+
+
 \section v0717 0.7.17
 
 \subsection deprec Deprecated

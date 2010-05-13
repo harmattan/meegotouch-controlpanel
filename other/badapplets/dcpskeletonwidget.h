@@ -3,7 +3,7 @@
 
 #include <DcpWidget>
  
-class DuiLabel;
+class MLabel;
 
 class SkeletonWidget : public DcpWidget 
 {
@@ -17,7 +17,7 @@ protected:
 	void initWidget();
 		
 private:
-	DuiLabel    *m_aboutLabel;
+	MLabel    *m_aboutLabel;
 		
 };
 #endif // SKELETONWIDGET_H

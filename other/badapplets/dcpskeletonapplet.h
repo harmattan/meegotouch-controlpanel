@@ -4,7 +4,7 @@
 #include <DcpAppletIf>
 #include <QObject>
 class DcpWidget;
-class DuiAction;
+class MAction;
 
 class SkeletonApplet : public QObject, public DcpAppletIf 
 {
@@ -21,7 +21,7 @@ public:
 	virtual DcpWidget* page2();
 */
     virtual QString title() const;
-    virtual QVector<DuiAction *> viewMenuItems();
+    virtual QVector<MAction *> viewMenuItems();
     virtual DcpBrief* constructBrief(int);
 };
 #endif // SKELETONAPPLET_H
