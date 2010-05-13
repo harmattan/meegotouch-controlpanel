@@ -7,8 +7,9 @@ contains(DCP_BUILD_FEATURES,coverage) {
   coverage.commands    =    lcov --directory . --zerocounters \
                          && make check \
                          && lcov --base-directory `pwd` --directory . --capture --output-file all.cov \
-                         && lcov --extract all.cov \"*src*.cpp\" --output-file selected.cov
+                         && lcov --remove all.cov \"*dcpdebug.cpp\" --output-file tmp.cov \
+                         && lcov --extract tmp.cov \"*src*.cpp\" --output-file selected.cov
 }
 
-QMAKE_CLEAN += *.gcda *.gcno *.cov
+QMAKE_CLEAN += .tmp*gcov ./.tmp/*.gcda ./.tmp/*.gcno *.cov
 

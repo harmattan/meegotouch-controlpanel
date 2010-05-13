@@ -1,0 +1,494 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>LCOV - libdcp and dcp unit test coverage - lib/src/appletdb/dcpappletmetadata.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../index.html">top level</a> - <a href="index.html">lib/src/appletdb</a> - dcpappletmetadata.cpp<span style="font-size: 80%;"> (source / <a href="dcpappletmetadata.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">libdcp and dcp unit test coverage</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">99</td>
+            <td class="headerCovTableEntry">121</td>
+            <td class="headerCovTableEntryMed">81.8 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2010-05-13</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">36</td>
+            <td class="headerCovTableEntry">46</td>
+            <td class="headerCovTableEntryMed">78.3 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /***************************************************************************</a>
+<span class="lineNum">       2 </span>            : **
+<span class="lineNum">       3 </span>            : ** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+<span class="lineNum">       4 </span>            : ** All rights reserved.
+<span class="lineNum">       5 </span>            : ** Contact: Karoliina T. Salminen &lt;karoliina.t.salminen@nokia.com&gt;
+<span class="lineNum">       6 </span>            : **
+<span class="lineNum">       7 </span>            : ** This file is part of duicontrolpanel.
+<span class="lineNum">       8 </span>            : **
+<span class="lineNum">       9 </span>            : **
+<span class="lineNum">      10 </span>            : ** This library is free software; you can redistribute it and/or
+<span class="lineNum">      11 </span>            : ** modify it under the terms of the GNU Lesser General Public
+<span class="lineNum">      12 </span>            : ** License version 2.1 as published by the Free Software Foundation
+<span class="lineNum">      13 </span>            : ** and appearing in the file LICENSE.LGPL included in the packaging
+<span class="lineNum">      14 </span>            : ** of this file.
+<span class="lineNum">      15 </span>            : **
+<span class="lineNum">      16 </span>            : ****************************************************************************/
+<span class="lineNum">      17 </span>            : 
+<span class="lineNum">      18 </span>            : /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+<span class="lineNum">      19 </span>            : /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino=&quot;(0,W2s,i2s,t0,l1,:0&quot; */
+<span class="lineNum">      20 </span>            : #include &lt;MLocale&gt;
+<span class="lineNum">      21 </span>            : 
+<span class="lineNum">      22 </span>            : #include &quot;dcpappletmetadata.h&quot;
+<span class="lineNum">      23 </span>            : #include &quot;dcpappletmetadata_p.h&quot;
+<span class="lineNum">      24 </span>            : #include &quot;dcpapplet.h&quot;
+<span class="lineNum">      25 </span>            : #include &quot;dcpmostusedcounter.h&quot;
+<span class="lineNum">      26 </span>            : #include &quot;dcpwidgettypes.h&quot;
+<span class="lineNum">      27 </span>            : 
+<span class="lineNum">      28 </span>            : #include &quot;dcpdebug.h&quot;
+<a name="29"><span class="lineNum">      29 </span>            : </a>
+<span class="lineNum">      30 </span>            : 
+<span class="lineNum">      31 </span><span class="lineCov">         32 : DcpAppletMetadataPrivate::DcpAppletMetadataPrivate ()</span>
+<span class="lineNum">      32 </span>            :     :
+<span class="lineNum">      33 </span>            :       m_DesktopEntry (0),
+<span class="lineNum">      34 </span>            :       m_Parent (0),
+<span class="lineNum">      35 </span>            :       m_Disabled (false),
+<span class="lineNum">      36 </span><span class="lineCov">         32 :       m_Activated (0)</span>
+<span class="lineNum">      37 </span>            : {
+<a name="38"><span class="lineNum">      38 </span><span class="lineCov">         32 : }</span></a>
+<span class="lineNum">      39 </span>            : 
+<span class="lineNum">      40 </span><span class="lineCov">         30 : DcpAppletMetadataPrivate::~DcpAppletMetadataPrivate ()</span>
+<span class="lineNum">      41 </span>            : {
+<span class="lineNum">      42 </span><span class="lineCov">         30 :     if (m_DesktopEntry) </span>
+<span class="lineNum">      43 </span><span class="lineCov">         30 :         delete m_DesktopEntry;</span>
+<span class="lineNum">      44 </span><span class="lineCov">         30 : }</span>
+<span class="lineNum">      45 </span>            : 
+<a name="46"><span class="lineNum">      46 </span>            : </a>
+<span class="lineNum">      47 </span>            : DcpAppletMetadata::DcpAppletMetadata (
+<span class="lineNum">      48 </span><span class="lineCov">         32 :         const QString&amp; filename)</span>
+<span class="lineNum">      49 </span><span class="lineCov">         32 : : d_ptr (new DcpAppletMetadataPrivate)</span>
+<span class="lineNum">      50 </span>            : {
+<span class="lineNum">      51 </span>            :     DCP_DEBUG (&quot;*** filename = '%s'&quot;, DCP_STR(filename));
+<span class="lineNum">      52 </span>            : 
+<span class="lineNum">      53 </span><span class="lineCov">         32 :     d_ptr-&gt;m_FileName = filename;</span>
+<span class="lineNum">      54 </span><span class="lineCov">         32 :     d_ptr-&gt;m_DesktopEntry = new MDesktopEntry(filename);</span>
+<span class="lineNum">      55 </span><span class="lineCov">         32 :     d_ptr-&gt;m_LastModified = QFileInfo(filename).lastModified().time();</span>
+<a name="56"><span class="lineNum">      56 </span><span class="lineCov">         32 : }</span></a>
+<span class="lineNum">      57 </span>            : 
+<span class="lineNum">      58 </span><span class="lineCov">         30 : DcpAppletMetadata::~DcpAppletMetadata ()</span>
+<span class="lineNum">      59 </span>            : {
+<span class="lineNum">      60 </span>            :     DCP_DEBUG (&quot;Destroying %p&quot;, this);
+<span class="lineNum">      61 </span><span class="lineCov">         30 :     delete d_ptr;</span>
+<span class="lineNum">      62 </span><span class="lineCov">         30 : }</span>
+<a name="63"><span class="lineNum">      63 </span>            : </a>
+<span class="lineNum">      64 </span>            : bool
+<span class="lineNum">      65 </span><span class="lineCov">          2 : DcpAppletMetadata::isValid () const</span>
+<span class="lineNum">      66 </span>            : {
+<span class="lineNum">      67 </span><span class="lineCov">          2 :     if (binary().isEmpty() &amp;&amp;</span>
+<span class="lineNum">      68 </span>            :             dslFilename().isEmpty() &amp;&amp; !hasApplicationCommand()) {
+<span class="lineNum">      69 </span><span class="lineNoCov">          0 :         DCP_WARNING (&quot;The applet binary and the shell command also empty.&quot;);</span>
+<span class="lineNum">      70 </span><span class="lineNoCov">          0 :         return false;</span>
+<span class="lineNum">      71 </span>            :     }
+<span class="lineNum">      72 </span>            : 
+<span class="lineNum">      73 </span>            :     DCP_DEBUG (&quot;Returning %s for '%s'&quot;, 
+<span class="lineNum">      74 </span>            :             desktopEntry()-&gt;isValid() ? &quot;true&quot; : &quot;false&quot;,
+<span class="lineNum">      75 </span>            :             DCP_STR (binary()));
+<span class="lineNum">      76 </span>            : 
+<span class="lineNum">      77 </span><span class="lineCov">          2 :     return desktopEntry()-&gt;isValid();</span>
+<span class="lineNum">      78 </span>            : }
+<a name="79"><span class="lineNum">      79 </span>            : </a>
+<span class="lineNum">      80 </span>            : bool 
+<span class="lineNum">      81 </span><span class="lineCov">          1 : DcpAppletMetadata::isModified() const</span>
+<span class="lineNum">      82 </span>            : {
+<span class="lineNum">      83 </span><span class="lineCov">          1 :     QTime lastModified = QFileInfo(d_ptr-&gt;m_FileName).lastModified().time();</span>
+<span class="lineNum">      84 </span><span class="lineCov">          1 :     bool modified = lastModified !=  d_ptr-&gt;m_LastModified;</span>
+<span class="lineNum">      85 </span>            : 
+<span class="lineNum">      86 </span>            :     DCP_DEBUG (&quot;Returning %s for '%s'&quot;, 
+<span class="lineNum">      87 </span>            :             modified ? &quot;true&quot; : &quot;false&quot;,
+<span class="lineNum">      88 </span>            :             DCP_STR (binary()));
+<span class="lineNum">      89 </span><span class="lineCov">          1 :     return modified;</span>
+<span class="lineNum">      90 </span>            : }
+<span class="lineNum">      91 </span>            : 
+<span class="lineNum">      92 </span>            : /*!
+<span class="lineNum">      93 </span>            :  * Returns the value of the &quot;DCP/Category&quot; key from the desktop file.
+<a name="94"><span class="lineNum">      94 </span>            :  */</a>
+<span class="lineNum">      95 </span>            : QString 
+<span class="lineNum">      96 </span><span class="lineCov">          1 : DcpAppletMetadata::category () const</span>
+<span class="lineNum">      97 </span>            : {
+<span class="lineNum">      98 </span><span class="lineCov">          1 :     return desktopEntryStr (KeyCategory);</span>
+<span class="lineNum">      99 </span>            : }
+<span class="lineNum">     100 </span>            : 
+<span class="lineNum">     101 </span>            : /*!
+<span class="lineNum">     102 </span>            :  * Returns the value of the &quot;M/X-MApplet-Applet&quot; key from the desktop file.
+<span class="lineNum">     103 </span>            :  * This is the binary applet file name, a file name of the shared object
+<span class="lineNum">     104 </span>            :  * containing the binary code of the applet.
+<a name="105"><span class="lineNum">     105 </span>            :  */</a>
+<span class="lineNum">     106 </span>            : QString 
+<span class="lineNum">     107 </span><span class="lineCov">          4 : DcpAppletMetadata::binary () const</span>
+<span class="lineNum">     108 </span>            : {
+<span class="lineNum">     109 </span><span class="lineCov">          4 :     return desktopEntryStr (KeyBinary);</span>
+<span class="lineNum">     110 </span>            : }
+<a name="111"><span class="lineNum">     111 </span>            : </a>
+<span class="lineNum">     112 </span>            : QString 
+<span class="lineNum">     113 </span><span class="lineCov">          1 : DcpAppletMetadata::dslFilename () const</span>
+<span class="lineNum">     114 </span>            : {
+<span class="lineNum">     115 </span><span class="lineCov">          1 :     return desktopEntryStr (KeyDslFilename);</span>
+<span class="lineNum">     116 </span>            : }
+<span class="lineNum">     117 </span>            : 
+<span class="lineNum">     118 </span>            : /*!
+<span class="lineNum">     119 </span>            :  * Returns the value of the &quot;M/X-MApplet-ApplicationCommand&quot; key from the
+<span class="lineNum">     120 </span>            :  * desktop file. This is the application command that will be executed when the
+<span class="lineNum">     121 </span>            :  * applet is activated.
+<a name="122"><span class="lineNum">     122 </span>            :  */</a>
+<span class="lineNum">     123 </span>            : QString 
+<span class="lineNum">     124 </span><span class="lineCov">          3 : DcpAppletMetadata::applicationCommand () const</span>
+<span class="lineNum">     125 </span>            : {
+<span class="lineNum">     126 </span><span class="lineCov">          3 :     return desktopEntryStr (KeyApplicationCommand);</span>
+<span class="lineNum">     127 </span>            : }
+<span class="lineNum">     128 </span>            : 
+<span class="lineNum">     129 </span>            : /*!
+<span class="lineNum">     130 </span>            :  * Returns true if the metadata has a shell command associated to it.
+<a name="131"><span class="lineNum">     131 </span>            :  */</a>
+<span class="lineNum">     132 </span>            : bool
+<span class="lineNum">     133 </span><span class="lineCov">          2 : DcpAppletMetadata::hasApplicationCommand () const</span>
+<span class="lineNum">     134 </span>            : {
+<span class="lineNum">     135 </span><span class="lineCov">          2 :     return !applicationCommand().isEmpty();</span>
+<span class="lineNum">     136 </span>            : }
+<span class="lineNum">     137 </span>            : 
+<span class="lineNum">     138 </span>            : /*
+<span class="lineNum">     139 </span>            :  * Returns the full path of the applet plugin filename, that is the name of the
+<span class="lineNum">     140 </span>            :  * shared object, that contains the applet binary program or if the 
+<span class="lineNum">     141 </span>            :  * &quot;X-MApplet-Applet&quot; field of the desktop file is empty returns the empty
+<span class="lineNum">     142 </span>            :  * string.
+<a name="143"><span class="lineNum">     143 </span>            :  */</a>
+<span class="lineNum">     144 </span>            : QString
+<span class="lineNum">     145 </span><span class="lineCov">          1 : DcpAppletMetadata::fullBinary () const</span>
+<span class="lineNum">     146 </span>            : {
+<span class="lineNum">     147 </span><span class="lineCov">          1 :     QString filename = binary ();</span>
+<span class="lineNum">     148 </span>            : 
+<span class="lineNum">     149 </span><span class="lineCov">          1 :     if (filename.isEmpty())</span>
+<span class="lineNum">     150 </span><span class="lineNoCov">          0 :         return filename;</span>
+<span class="lineNum">     151 </span>            : 
+<span class="lineNum">     152 </span><span class="lineCov">          1 :     return APPLET_LIBS &quot;/&quot; + filename;</span>
+<span class="lineNum">     153 </span>            : }
+<a name="154"><span class="lineNum">     154 </span>            : </a>
+<span class="lineNum">     155 </span>            : QString 
+<span class="lineNum">     156 </span><span class="lineCov">          1 : DcpAppletMetadata::parentName () const</span>
+<span class="lineNum">     157 </span>            : {
+<span class="lineNum">     158 </span><span class="lineCov">          1 :     return desktopEntryStr (KeyParent);</span>
+<span class="lineNum">     159 </span>            : }
+<span class="lineNum">     160 </span>            : 
+<span class="lineNum">     161 </span>            : /*!
+<span class="lineNum">     162 </span>            :  * \brief Returns what type of brief widget shall an applet variant use.
+<span class="lineNum">     163 </span>            :  *
+<span class="lineNum">     164 </span>            :  * Gets the required brief widget type code of the applet variant. 
+<a name="165"><span class="lineNum">     165 </span>            :  */</a>
+<span class="lineNum">     166 </span>            : int 
+<span class="lineNum">     167 </span><span class="lineCov">          1 : DcpAppletMetadata::widgetTypeID () const</span>
+<span class="lineNum">     168 </span>            : {
+<span class="lineNum">     169 </span><span class="lineCov">          1 :     QString typeName = desktopEntryStr (KeyWidgetType);</span>
+<span class="lineNum">     170 </span><span class="lineCov">          1 :     if (!typeName.isEmpty()) {</span>
+<span class="lineNum">     171 </span><span class="lineCov">          5 :         for (int retval = DcpWidgetType::BriefInvalid; retval &lt; DcpWidgetType::IdMax; retval++) {</span>
+<span class="lineNum">     172 </span><span class="lineCov">          4 :             if (DcpWidgetType::names[retval - DcpWidgetType::BriefInvalid] == typeName &amp;&amp; </span>
+<span class="lineNum">     173 </span>            :                     DcpWidgetType::isIdValid (retval)) {
+<span class="lineNum">     174 </span>            :                 DCP_DEBUG (&quot;Desktop file provides a widget type: '%s'&quot;,
+<span class="lineNum">     175 </span>            :                         DCP_STR (typeName));
+<span class="lineNum">     176 </span><span class="lineNoCov">          0 :                 return retval;</span>
+<span class="lineNum">     177 </span>            :             }
+<span class="lineNum">     178 </span>            :         }
+<span class="lineNum">     179 </span>            :         DCP_WARNING (&quot;Unknown widget type '%s' in desktop file '%s'&quot;,
+<span class="lineNum">     180 </span><span class="lineCov">          1 :                      qPrintable(typeName), qPrintable(fileName()));</span>
+<span class="lineNum">     181 </span>            :     }
+<span class="lineNum">     182 </span>            : 
+<span class="lineNum">     183 </span>            :     /*
+<span class="lineNum">     184 </span>            :      * Otherwise we return the default value, simple plugins can rely on this.
+<span class="lineNum">     185 </span>            :      */
+<span class="lineNum">     186 </span>            :     DCP_DEBUG (&quot;Using default widget type.&quot;);
+<span class="lineNum">     187 </span><span class="lineCov">          1 :     return DcpWidgetType::Label;</span>
+<span class="lineNum">     188 </span>            : }
+<a name="189"><span class="lineNum">     189 </span>            : </a>
+<span class="lineNum">     190 </span>            : Qt::Alignment 
+<span class="lineNum">     191 </span><span class="lineCov">          1 : DcpAppletMetadata::align () const</span>
+<span class="lineNum">     192 </span>            : {
+<span class="lineNum">     193 </span><span class="lineCov">          1 :     QString align = desktopEntryStr(KeyAlign).toUpper();</span>
+<span class="lineNum">     194 </span><span class="lineCov">          1 :     if (align == &quot;LEFT&quot;)</span>
+<span class="lineNum">     195 </span><span class="lineNoCov">          0 :         return Qt::AlignLeft;</span>
+<span class="lineNum">     196 </span><span class="lineCov">          1 :     if (align == &quot;RIGHT&quot;)</span>
+<span class="lineNum">     197 </span><span class="lineCov">          1 :         return Qt::AlignRight;</span>
+<span class="lineNum">     198 </span>            : 
+<span class="lineNum">     199 </span><span class="lineNoCov">          0 :     qWarning() &lt;&lt; Q_FUNC_INFO &lt;&lt; &quot;no data&quot;; // default</span>
+<span class="lineNum">     200 </span><span class="lineCov">          1 :     return Qt::AlignLeft;</span>
+<span class="lineNum">     201 </span>            : }
+<a name="202"><span class="lineNum">     202 </span>            : </a>
+<span class="lineNum">     203 </span>            : DcpAppletMetadata *
+<span class="lineNum">     204 </span><span class="lineCov">          1 : DcpAppletMetadata::parent () const</span>
+<span class="lineNum">     205 </span>            : {
+<span class="lineNum">     206 </span><span class="lineCov">          1 :     return d_ptr-&gt;m_Parent;</span>
+<span class="lineNum">     207 </span>            : }
+<a name="208"><span class="lineNum">     208 </span>            : </a>
+<span class="lineNum">     209 </span>            : bool 
+<span class="lineNum">     210 </span><span class="lineNoCov">          0 : DcpAppletMetadata::toggle () const</span>
+<span class="lineNum">     211 </span>            : {
+<span class="lineNum">     212 </span><span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     213 </span>            : }
+<span class="lineNum">     214 </span>            : 
+<span class="lineNum">     215 </span>            : 
+<span class="lineNum">     216 </span>            : /*! @brief The name of the catalog file which contains the applet's translation
+<span class="lineNum">     217 </span>            :  *
+<span class="lineNum">     218 </span>            :  *  @returns For example duicontrolpanel-languageapplet if the translations are
+<span class="lineNum">     219 </span>            :  *  in the following files: duicontrolpanel-languageapplet_en_GB.qm ...
+<a name="220"><span class="lineNum">     220 </span>            :  */</a>
+<span class="lineNum">     221 </span>            : QString
+<span class="lineNum">     222 </span><span class="lineCov">          1 : DcpAppletMetadata::translationCatalog() const</span>
+<span class="lineNum">     223 </span>            : {
+<span class="lineNum">     224 </span><span class="lineCov">          1 :     return desktopEntryStr(KeyNameCatalog);</span>
+<span class="lineNum">     225 </span>            : }
+<span class="lineNum">     226 </span>            : 
+<a name="227"><span class="lineNum">     227 </span>            : </a>
+<span class="lineNum">     228 </span>            : QString
+<span class="lineNum">     229 </span><span class="lineNoCov">          0 : DcpAppletMetadata::text1 () const</span>
+<span class="lineNum">     230 </span>            : {
+<span class="lineNum">     231 </span><span class="lineNoCov">          0 :     QString id = desktopEntryStr(KeyNameId);</span>
+<span class="lineNum">     232 </span><span class="lineNoCov">          0 :     QString name = desktopEntryStr(KeyName);</span>
+<span class="lineNum">     233 </span><span class="lineNoCov">          0 :     if (qtTrId(qPrintable(id)) == id)</span>
+<span class="lineNum">     234 </span><span class="lineNoCov">          0 :         return (&quot;!! &quot; + name);</span>
+<span class="lineNum">     235 </span>            :     else
+<span class="lineNum">     236 </span><span class="lineNoCov">          0 :         return qtTrId(qPrintable(id));</span>
+<span class="lineNum">     237 </span>            : }
+<a name="238"><span class="lineNum">     238 </span>            : </a>
+<span class="lineNum">     239 </span>            : QString 
+<span class="lineNum">     240 </span><span class="lineCov">          2 : DcpAppletMetadata::text2 () const</span>
+<span class="lineNum">     241 </span>            : {
+<span class="lineNum">     242 </span>            :     /*
+<span class="lineNum">     243 </span>            :      * FIXME: This feature is not in the UI spec, we have no localization for
+<span class="lineNum">     244 </span>            :      * the string.
+<span class="lineNum">     245 </span>            :      */
+<span class="lineNum">     246 </span><span class="lineCov">          2 :     if (isDisabled())</span>
+<span class="lineNum">     247 </span><span class="lineCov">          1 :         return QString (&quot;Disabled&quot;);</span>
+<span class="lineNum">     248 </span>            :     // static way
+<span class="lineNum">     249 </span><span class="lineCov">          2 :     return desktopEntryStr(KeyText2);</span>
+<span class="lineNum">     250 </span>            : }
+<a name="251"><span class="lineNum">     251 </span>            : </a>
+<span class="lineNum">     252 </span>            : QString 
+<span class="lineNum">     253 </span><span class="lineCov">          1 : DcpAppletMetadata::imageName () const</span>
+<span class="lineNum">     254 </span>            : {
+<span class="lineNum">     255 </span><span class="lineCov">          1 :     return desktopEntryStr(KeyImage);</span>
+<span class="lineNum">     256 </span>            : }
+<a name="257"><span class="lineNum">     257 </span>            : </a>
+<span class="lineNum">     258 </span>            : QString 
+<span class="lineNum">     259 </span><span class="lineNoCov">          0 : DcpAppletMetadata::toggleIconId () const</span>
+<span class="lineNum">     260 </span>            : {
+<span class="lineNum">     261 </span><span class="lineNoCov">          0 :     return desktopEntryStr(KeyToggleIconId);</span>
+<span class="lineNum">     262 </span>            : }
+<a name="263"><span class="lineNum">     263 </span>            : </a>
+<span class="lineNum">     264 </span>            : bool 
+<span class="lineNum">     265 </span><span class="lineNoCov">          0 : DcpAppletMetadata::isUnique () const</span>
+<span class="lineNum">     266 </span>            : {
+<span class="lineNum">     267 </span>            :     DCP_DEBUG (&quot;Returning %s for %s&quot;,
+<span class="lineNum">     268 </span>            :             !desktopEntryStr(KeyUnique).isEmpty() ? &quot;true&quot; : &quot;false&quot;,
+<span class="lineNum">     269 </span>            :             DCP_STR (binary()));
+<span class="lineNum">     270 </span>            : 
+<span class="lineNum">     271 </span><span class="lineNoCov">          0 :     return !desktopEntryStr(KeyUnique).isEmpty();</span>
+<span class="lineNum">     272 </span>            : }
+<a name="273"><span class="lineNum">     273 </span>            : </a>
+<span class="lineNum">     274 </span>            : QString 
+<span class="lineNum">     275 </span><span class="lineCov">          1 : DcpAppletMetadata::part () const</span>
+<span class="lineNum">     276 </span>            : {
+<span class="lineNum">     277 </span><span class="lineCov">          1 :     return desktopEntryStr(KeyPart);</span>
+<span class="lineNum">     278 </span>            : }
+<a name="279"><span class="lineNum">     279 </span>            : </a>
+<span class="lineNum">     280 </span>            : int 
+<span class="lineNum">     281 </span><span class="lineCov">          3 : DcpAppletMetadata::order () const</span>
+<span class="lineNum">     282 </span>            : {
+<span class="lineNum">     283 </span><span class="lineCov">          3 :     return desktopEntry()-&gt;value(Keys[KeyOrder]).toInt();</span>
+<span class="lineNum">     284 </span>            : }
+<a name="285"><span class="lineNum">     285 </span>            : </a>
+<span class="lineNum">     286 </span>            : int 
+<span class="lineNum">     287 </span><span class="lineCov">          2 : DcpAppletMetadata::usage () const</span>
+<span class="lineNum">     288 </span>            : {
+<span class="lineNum">     289 </span>            :     return MostUsedCounter::instance()-&gt;getUsageCount (
+<span class="lineNum">     290 </span>            :             QFileInfo(fileName()).baseName()
+<span class="lineNum">     291 </span><span class="lineCov">          2 :     );</span>
+<span class="lineNum">     292 </span>            : }
+<a name="293"><span class="lineNum">     293 </span>            : </a>
+<span class="lineNum">     294 </span>            : void
+<span class="lineNum">     295 </span><span class="lineNoCov">          0 : DcpAppletMetadata::incrementUsage()</span>
+<span class="lineNum">     296 </span>            : { 
+<span class="lineNum">     297 </span>            :     MostUsedCounter::instance()-&gt;incrementUsageCount (
+<span class="lineNum">     298 </span>            :             QFileInfo(fileName()).baseName()
+<span class="lineNum">     299 </span><span class="lineNoCov">          0 :     );</span>
+<span class="lineNum">     300 </span><span class="lineNoCov">          0 : }</span>
+<a name="301"><span class="lineNum">     301 </span>            : </a>
+<span class="lineNum">     302 </span>            : MDesktopEntry *
+<span class="lineNum">     303 </span><span class="lineCov">         26 : DcpAppletMetadata::desktopEntry () const</span>
+<span class="lineNum">     304 </span>            : {
+<span class="lineNum">     305 </span><span class="lineCov">         26 :     return d_ptr-&gt;m_DesktopEntry;</span>
+<span class="lineNum">     306 </span>            : }
+<span class="lineNum">     307 </span>            : 
+<a name="308"><span class="lineNum">     308 </span>            : </a>
+<span class="lineNum">     309 </span>            : QString 
+<span class="lineNum">     310 </span><span class="lineCov">          1 : DcpAppletMetadata::name () const</span>
+<span class="lineNum">     311 </span>            : {
+<span class="lineNum">     312 </span><span class="lineCov">          1 :     return desktopEntry()-&gt;name().trimmed();</span>
+<span class="lineNum">     313 </span>            : }
+<a name="314"><span class="lineNum">     314 </span>            : </a>
+<span class="lineNum">     315 </span>            : QString 
+<span class="lineNum">     316 </span><span class="lineCov">          4 : DcpAppletMetadata::fileName () const</span>
+<span class="lineNum">     317 </span>            : {
+<span class="lineNum">     318 </span><span class="lineCov">          4 :     return desktopEntry()-&gt;fileName();</span>
+<span class="lineNum">     319 </span>            : }
+<span class="lineNum">     320 </span>            : 
+<a name="321"><span class="lineNum">     321 </span>            : QString </a>
+<span class="lineNum">     322 </span>            : DcpAppletMetadata::desktopEntryStr (
+<span class="lineNum">     323 </span><span class="lineCov">         16 :         int id) const</span>
+<span class="lineNum">     324 </span>            : {
+<span class="lineNum">     325 </span><span class="lineCov">         16 :     return desktopEntry()-&gt;value(Keys[id]).trimmed();</span>
+<span class="lineNum">     326 </span>            : }
+<span class="lineNum">     327 </span>            : 
+<a name="328"><span class="lineNum">     328 </span>            : void </a>
+<span class="lineNum">     329 </span>            : DcpAppletMetadata::setParent (
+<span class="lineNum">     330 </span><span class="lineCov">          2 :         DcpAppletMetadata *parent)</span>
+<span class="lineNum">     331 </span>            : {
+<span class="lineNum">     332 </span><span class="lineCov">          2 :     d_ptr-&gt;m_Parent = parent;</span>
+<span class="lineNum">     333 </span><span class="lineCov">          2 : }</span>
+<span class="lineNum">     334 </span>            : 
+<span class="lineNum">     335 </span>            : bool 
+<a name="336"><span class="lineNum">     336 </span>            : DcpAppletMetadata::orderLessThan (</a>
+<span class="lineNum">     337 </span>            :         DcpAppletMetadata *meta1,
+<span class="lineNum">     338 </span><span class="lineCov">          1 :         DcpAppletMetadata *meta2)</span>
+<span class="lineNum">     339 </span>            : {
+<span class="lineNum">     340 </span><span class="lineCov">          1 :     return meta1-&gt;order () &lt; meta2-&gt;order ();</span>
+<span class="lineNum">     341 </span>            : }
+<span class="lineNum">     342 </span>            : 
+<span class="lineNum">     343 </span>            : bool 
+<a name="344"><span class="lineNum">     344 </span>            : DcpAppletMetadata::usageGreatherThan (</a>
+<span class="lineNum">     345 </span>            :         DcpAppletMetadata *meta1,
+<span class="lineNum">     346 </span><span class="lineCov">          1 :         DcpAppletMetadata *meta2)</span>
+<span class="lineNum">     347 </span>            : {
+<span class="lineNum">     348 </span><span class="lineCov">          1 :     return meta1-&gt;usage() &gt; meta2-&gt;usage();</span>
+<span class="lineNum">     349 </span>            : }
+<a name="350"><span class="lineNum">     350 </span>            : </a>
+<span class="lineNum">     351 </span>            : bool
+<span class="lineNum">     352 </span><span class="lineCov">          3 : DcpAppletMetadata::isDisabled () const</span>
+<span class="lineNum">     353 </span>            : {
+<span class="lineNum">     354 </span>            :     DCP_DEBUG (&quot;*** %s is %s&quot;, 
+<span class="lineNum">     355 </span>            :             DCP_STR (name()),
+<span class="lineNum">     356 </span>            :             d_ptr-&gt;m_Disabled ? &quot;disabled&quot; : &quot;enabled&quot;);
+<span class="lineNum">     357 </span><span class="lineCov">          3 :     return d_ptr-&gt;m_Disabled; </span>
+<span class="lineNum">     358 </span>            : }
+<span class="lineNum">     359 </span>            : 
+<a name="360"><span class="lineNum">     360 </span>            : void</a>
+<span class="lineNum">     361 </span>            : DcpAppletMetadata::setDisabled (
+<span class="lineNum">     362 </span><span class="lineCov">          1 :         bool disabled)</span>
+<span class="lineNum">     363 </span>            : {
+<span class="lineNum">     364 </span>            :     DCP_DEBUG (&quot;*** setting %s to %s&quot;, 
+<span class="lineNum">     365 </span>            :             DCP_STR (name()),
+<span class="lineNum">     366 </span>            :             disabled ? &quot;disabled&quot; : &quot;enabled&quot;);
+<span class="lineNum">     367 </span><span class="lineCov">          1 :     d_ptr-&gt;m_Disabled = disabled;</span>
+<span class="lineNum">     368 </span><span class="lineCov">          1 : }</span>
+<span class="lineNum">     369 </span>            : 
+<span class="lineNum">     370 </span>            : 
+<span class="lineNum">     371 </span>            : /*! \brief Marks the plugin as active
+<span class="lineNum">     372 </span>            :  *
+<span class="lineNum">     373 </span>            :  * We mean by active that the plugin is somehow displayed on the screen,
+<span class="lineNum">     374 </span>            :  * used by some widget etc. Think of this as a reference counter,
+<span class="lineNum">     375 </span>            :  * when the plugin is referred by anyone, its translation will be loaded
+<span class="lineNum">     376 </span>            :  * etc.
+<a name="377"><span class="lineNum">     377 </span>            :  */</a>
+<span class="lineNum">     378 </span>            : void
+<span class="lineNum">     379 </span><span class="lineCov">          2 : DcpAppletMetadata::markActive()</span>
+<span class="lineNum">     380 </span>            : {
+<span class="lineNum">     381 </span><span class="lineCov">          2 :     d_ptr-&gt;m_Activated++;</span>
+<span class="lineNum">     382 </span><span class="lineCov">          2 : }</span>
+<span class="lineNum">     383 </span>            : 
+<span class="lineNum">     384 </span>            : /*! \brief Marks the plugin inactive
+<span class="lineNum">     385 </span>            :  *
+<span class="lineNum">     386 </span>            :  * See markActive().
+<a name="387"><span class="lineNum">     387 </span>            :  */</a>
+<span class="lineNum">     388 </span>            : void
+<span class="lineNum">     389 </span><span class="lineCov">          2 : DcpAppletMetadata::markInactive()</span>
+<span class="lineNum">     390 </span>            : {
+<span class="lineNum">     391 </span><span class="lineCov">          2 :     int&amp; count = d_ptr-&gt;m_Activated;</span>
+<span class="lineNum">     392 </span><span class="lineCov">          2 :     if (count &gt; 0) {</span>
+<span class="lineNum">     393 </span><span class="lineCov">          2 :         count --;</span>
+<span class="lineNum">     394 </span>            :     } else {
+<span class="lineNum">     395 </span>            :         DCP_WARNING(&quot;Internal error: plugin was inactivated &quot;
+<span class="lineNum">     396 </span><span class="lineNoCov">          0 :                     &quot;more times then activated (%s)&quot;, qPrintable(name()));</span>
+<span class="lineNum">     397 </span>            :     }
+<span class="lineNum">     398 </span><span class="lineCov">          2 : }</span>
+<span class="lineNum">     399 </span>            : 
+<span class="lineNum">     400 </span>            : /*! \brief Returns if the plugin is active or not
+<span class="lineNum">     401 </span>            :  *
+<span class="lineNum">     402 </span>            :  * See markActive().
+<a name="403"><span class="lineNum">     403 </span>            :  */</a>
+<span class="lineNum">     404 </span>            : bool
+<span class="lineNum">     405 </span><span class="lineCov">          4 : DcpAppletMetadata::isActive() const</span>
+<a name="406"><span class="lineNum">     406 </span>            : {</a>
+<span class="lineNum">     407 </span><span class="lineCov">          4 :     return d_ptr-&gt;m_Activated;</span>
+<span class="lineNum">     408 </span><span class="lineCov">          3 : }</span>
+<span class="lineNum">     409 </span>            : 
+<span class="lineNum">     410 </span>            : 
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.9 pre (CVS 1.47)</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

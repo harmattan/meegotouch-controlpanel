@@ -21,6 +21,8 @@ if [ -f Makefile ]; then
     make distclean
 fi
 
+rm -fr ./coverage/*
+
 qmake DCP_BUILD_FEATURES=coverage
 
 echo

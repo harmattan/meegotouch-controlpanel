@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>LCOV - libdcp and dcp unit test coverage - controlpanel/src/component/dcpcomponent.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../index.html">top level</a> - <a href="index.html">controlpanel/src/component</a> - dcpcomponent.cpp<span style="font-size: 80%;"> (source / <a href="dcpcomponent.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">libdcp and dcp unit test coverage</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2010-05-13</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /***************************************************************************</a>
+<span class="lineNum">       2 </span>            : **
+<span class="lineNum">       3 </span>            : ** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+<span class="lineNum">       4 </span>            : ** All rights reserved.
+<span class="lineNum">       5 </span>            : ** Contact: Karoliina T. Salminen &lt;karoliina.t.salminen@nokia.com&gt;
+<span class="lineNum">       6 </span>            : **
+<span class="lineNum">       7 </span>            : ** This file is part of duicontrolpanel.
+<span class="lineNum">       8 </span>            : **
+<span class="lineNum">       9 </span>            : **
+<span class="lineNum">      10 </span>            : ** This program is free software; you can redistribute it and/or
+<span class="lineNum">      11 </span>            : ** modify it under the terms of the GNU Lesser General Public
+<span class="lineNum">      12 </span>            : ** License version 2.1 as published by the Free Software Foundation
+<span class="lineNum">      13 </span>            : ** and appearing in the file LICENSE.LGPL included in the packaging
+<span class="lineNum">      14 </span>            : ** of this file.
+<span class="lineNum">      15 </span>            : **
+<span class="lineNum">      16 </span>            : ****************************************************************************/
+<span class="lineNum">      17 </span>            : 
+<span class="lineNum">      18 </span>            : /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+<span class="lineNum">      19 </span>            : /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino=&quot;(0,W2s,i2s,t0,l1,:0&quot; */
+<span class="lineNum">      20 </span>            : 
+<span class="lineNum">      21 </span>            : #include &quot;dcpcomponent.h&quot;
+<span class="lineNum">      22 </span>            : 
+<span class="lineNum">      23 </span>            : #include &lt;QGraphicsLayout&gt;
+<span class="lineNum">      24 </span>            : 
+<span class="lineNum">      25 </span>            : #include &quot;dcpdebug.h&quot;
+<span class="lineNum">      26 </span>            : 
+<span class="lineNum">      27 </span>            : DcpComponent::DcpComponent (
+<a name="28"><span class="lineNum">      28 </span>            :         DcpComponent *category, const QString&amp; title,</a>
+<span class="lineNum">      29 </span>            :                            QGraphicsWidget *parent,
+<span class="lineNum">      30 </span><span class="lineCov">          9 :                            const QString&amp; logicalId) :</span>
+<span class="lineNum">      31 </span>            :                 MWidget(parent),
+<span class="lineNum">      32 </span>            :                 m_Title(title),
+<span class="lineNum">      33 </span>            :                 m_LogicalId(logicalId),
+<span class="lineNum">      34 </span><span class="lineCov">          9 :                 m_Category(category)</span>
+<span class="lineNum">      35 </span>            : {
+<span class="lineNum">      36 </span><span class="lineCov">          9 : }</span>
+<a name="37"><span class="lineNum">      37 </span>            : </a>
+<span class="lineNum">      38 </span>            : QString 
+<span class="lineNum">      39 </span><span class="lineCov">          1 : DcpComponent::mattiID () const</span>
+<span class="lineNum">      40 </span>            : {
+<span class="lineNum">      41 </span><span class="lineCov">          1 :     return m_MattiID;</span>
+<span class="lineNum">      42 </span>            : }
+<span class="lineNum">      43 </span>            : 
+<a name="44"><span class="lineNum">      44 </span>            : void </a>
+<span class="lineNum">      45 </span>            : DcpComponent::setMattiID (
+<span class="lineNum">      46 </span><span class="lineCov">          5 :         const QString &amp;mattiID)</span>
+<span class="lineNum">      47 </span>            : {
+<span class="lineNum">      48 </span><span class="lineCov">          5 :     m_MattiID = mattiID;</span>
+<span class="lineNum">      49 </span><span class="lineCov">          5 : }</span>
+<span class="lineNum">      50 </span>            : 
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.9 pre (CVS 1.47)</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>
