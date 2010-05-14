@@ -18,6 +18,7 @@
 #include <QString>
 
 #include <dcpmostusedcounter.h>
+#include "mgconfitem-fake.h"
 
 
 #include "ut_dcpmostusedcounter.h"
@@ -31,6 +32,7 @@ void Ut_DcpMostUsedCounter::init()
 void Ut_DcpMostUsedCounter::cleanup()
 {
     MostUsedCounter::destroy();
+    emptyFakeGConf();
     m_subject = 0;
 }
 
