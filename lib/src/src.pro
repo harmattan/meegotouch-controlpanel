@@ -65,3 +65,4 @@ contains(DCP_BUILD_FEATURES,coverage) {
 }
 
 QMAKE_CLEAN += .objects/.* .objects/*
+

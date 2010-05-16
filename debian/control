@@ -18,11 +18,13 @@ Architecture: any
 Depends: libduicontrolpanel (= ${Source-Version}), libmeegotouch-dev (>= 0.20)
 Description: Development files for the control panel application and its applets
 
+# camera-l10n pkg contains the translation for controlpanel, hopefully temporarily
 Package: duicontrolpanel
 Section: x11
 Architecture: any
-# removed: duicontrolpanel-l10n-fake (= ${Source-Version}),
-Depends: ${shlibs:Depends}, ${misc:Depends}, libduicontrolpanel (= ${Source-Version}), duicontrolpanel-l10n-engineering-english (= ${Source-Version})
+Depends: ${shlibs:Depends}, ${misc:Depends}, libduicontrolpanel (= ${Source-Version}),
+         camera-l10n,
+         duicontrolpanel-l10n-engineering-english (= ${Source-Version})
 Description: Control Panel
 
 Package: duicontrolpanel-dbg
@@ -50,14 +52,4 @@ Section: devel
 Architecture: any
 Enhances: duicontrolpanel
 Description: Engineering English translations for duicontrolpanel
-
-#
-# Removed because the fake package could not be installed. 
-#
-Package: duicontrolpanel-l10n-fake
-Section: misc
-Architecture: any
-Conflicts: duicontrolpanel-l10n, duicontrolpanel-l10n-fi-fi, duicontrolpanel-l10n-en-gb, duicontrolpanel-l10n-zh-cn, duicontrolpanel-l10n-de
-Description: Fake translations for duicontrolpanel
- Makes it easier to demo the "on the fly" language change
 

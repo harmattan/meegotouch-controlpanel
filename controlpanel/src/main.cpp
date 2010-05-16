@@ -118,6 +118,12 @@ startApplication (int argc, char* argv[])
     // install the new translations if locale changes:
     QObject::connect(&app, SIGNAL(localeSettingsChanged()),
                      DcpRetranslator::instance(), SLOT(retranslate()));
+    /*
+     * the translations of duicontrolpanel turned out to be in catalog
+     * "settings"
+     */
+    DcpRetranslator::instance()->setMainCatalogName("settings");
+    DcpRetranslator::instance()->retranslate();
 
     // init servicefw api:
     DuiControlPanelService* service = new DuiControlPanelService();

@@ -38,6 +38,7 @@ public:
     QSet<QString> loadedTranslations;
     static DcpRetranslator* instance;
     static bool compatibleMode;
+    QString binaryName;
 };
 
 DcpRetranslator* DcpRetranslatorPriv::instance = 0;
@@ -45,10 +46,8 @@ bool DcpRetranslatorPriv::compatibleMode = true;
 
 DcpRetranslatorPriv::DcpRetranslatorPriv ()
 {
-/*
- * MGConfItem languageItem("/meegotouch/i18n/language");
- * lastLanguage = languageItem.value().toString();
- */
+    MApplication* mApp = MApplication::instance();
+    binaryName = mApp->binaryName();
 }
 
 DcpRetranslator::DcpRetranslator (): priv(new DcpRetranslatorPriv())
@@ -81,24 +80,21 @@ DcpRetranslator::retranslate ()
     /*
      * Protection against loading all applet translations multiple times
      */
-    MGConfItem languageItem("/meegotouch/i18n/Language");
+    MGConfItem languageItem("/meegotouch/i18n/language");
     QString language = languageItem.value().toString();
     if (priv->lastLanguage == language)
         return;
 
     priv->loadedTranslations.clear();
 
-    MApplication* mApp = MApplication::instance();
     MLocale locale(language);
 
-    QString binaryName = mApp->binaryName();
+    QString binaryName = priv->binaryName;
     DCP_DEBUG("%s %s", qPrintable(binaryName), qPrintable(language));
 
     // install engineering english
-    locale.installTrCatalog("libdui.qm");
     locale.installTrCatalog(binaryName + ".qm");
     // install real translation
-    locale.installTrCatalog("libdui");
     locale.installTrCatalog("common");
     locale.installTrCatalog(binaryName);
 
@@ -205,5 +201,12 @@ DcpRetranslator::instance()
         DcpRetranslatorPriv::instance = new DcpRetranslator();
     }
     return DcpRetranslatorPriv::instance;
+}
+
+
+void
+DcpRetranslator::setMainCatalogName (const QString& catalogName)
+{
+    priv->binaryName = catalogName;
 }
 

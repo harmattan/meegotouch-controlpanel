@@ -143,6 +143,8 @@ DcpAppletPage::load ()
      * when the user activates the applet by clicking on the brief.
      */
     if (!m_MissingLabel) {
+        // FIXME: these are temporary translation ids and not present anywhere
+
         //% "Plugin not available"
         m_MissingLabel = new MLabel (qtTrId("dcp_no_applet_name"));
         m_MissingLabel->setAlignment (Qt::AlignCenter);

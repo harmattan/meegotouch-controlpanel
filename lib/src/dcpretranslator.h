@@ -42,6 +42,7 @@ public:
     static DcpRetranslator* instance();
     DcpRetranslator(); // FIXME, this is deprecated, only for compatibility, suw uses it
 
+    void setMainCatalogName (const QString& catalogName);
     void ensureTranslationsAreLoaded(const DcpAppletMetadataList& list);
     void ensureTranslationLoaded(DcpAppletMetadata* metadata);
 

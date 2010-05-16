@@ -99,7 +99,7 @@ void Ut_DcpAppletCategoryPage::testRetranslateUi()
 {
     m_subject->m_TitleId = "abcd";
     m_subject->retranslateUi();
-    QCOMPARE(m_subject->title(), qtTrId("abcd"));
+    QCOMPARE(m_subject->title(), QString("abcd"));
 }
 
 void Ut_DcpAppletCategoryPage::testAddComponent()
