@@ -5,7 +5,8 @@ duicontrolpanel (0.7.19~unreleased) unstable; urgency=low
     be the toplevel window when DuiControlPanelIf::appletPage
   * Fixes: NB#165815 - Duicontrolpanel calls title function for an
     applet wrongly
-  * Fixes: Translation catalog name and dependency
+  * Fixes: NB#143519 - localization of duicontrolpanel is very outdated
+    (Translation catalog name and dependency)
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Sun, 16 May 2010 22:57:17 +0200
 
