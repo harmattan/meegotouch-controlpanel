@@ -35,7 +35,13 @@ private slots:
     void cleanup();
     void initTestCase();
     void cleanupTestCase();
-
+    void testCreateContents();
+    void testHasError();
+    void testHasWidget();
+    void testWidgetId();
+    void testBack();
+    void testLoad();
+    void testLoadWidget();
     
 
 private:

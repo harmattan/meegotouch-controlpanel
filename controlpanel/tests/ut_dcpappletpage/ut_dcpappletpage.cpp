@@ -19,13 +19,16 @@
 #include <QGraphicsSceneMouseEvent>
 
 #include <dcpappletpage.h>
+#include <dcpappletmetadata.h>
 #include <dcpappletobject.h>
 
 #include "ut_dcpappletpage.h"
 
 void Ut_DcpAppletPage::init()
 {
-    m_subject = new DcpAppletPage(0);
+    DcpAppletMetadata *metadata = new DcpAppletMetadata("dummy-binary");
+    DcpAppletObject *applet = new DcpAppletObject(metadata);
+    m_subject = new DcpAppletPage(applet);
 }
 
 void Ut_DcpAppletPage::cleanup()
@@ -35,6 +38,42 @@ void Ut_DcpAppletPage::cleanup()
 }
 
 void Ut_DcpAppletPage::initTestCase()
+{
+    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+}
+
+void Ut_DcpAppletPage::testCreateContents()
+{
+    QVERIFY(m_subject);
+    QVERIFY(m_subject->isContentCreated());
+}
+
+void Ut_DcpAppletPage::testHasError()
+{
+    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+}
+
+void Ut_DcpAppletPage::testHasWidget()
+{
+    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+}
+
+void Ut_DcpAppletPage::testWidgetId()
+{
+    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+}
+
+void Ut_DcpAppletPage::testBack()
+{
+    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+}
+
+void Ut_DcpAppletPage::testLoad()
+{
+    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+}
+
+void Ut_DcpAppletPage::testLoadWidget()
 {
     QSKIP("incomplete", SkipSingle);   // remove this when you've finished
 }

@@ -31,18 +31,18 @@
             <td class="headerValue">libdcp and dcp unit test coverage</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">10</td>
             <td class="headerCovTableEntry">80</td>
-            <td class="headerCovTableEntryLo">2.5 %</td>
+            <td class="headerCovTableEntryLo">12.5 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2010-05-13</td>
+            <td class="headerValue">2010-05-19</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">4</td>
             <td class="headerCovTableEntry">16</td>
-            <td class="headerCovTableEntryLo">12.5 %</td>
+            <td class="headerCovTableEntryLo">25.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Legend:</td>
@@ -107,25 +107,25 @@
 <span class="lineNum">      37 </span>            : #include &quot;mwidgetcreator.h&quot;
 <a name="38"><span class="lineNum">      38 </span><span class="lineCov">          1 : M_REGISTER_WIDGET_NO_CREATE(DcpAppletPage)</span></a>
 <span class="lineNum">      39 </span>            : 
-<span class="lineNum">      40 </span><span class="lineNoCov">          0 : DcpAppletPage::DcpAppletPage (DcpAppletObject *applet, int widgetId):</span>
+<span class="lineNum">      40 </span><span class="lineCov">          7 : DcpAppletPage::DcpAppletPage (DcpAppletObject *applet, int widgetId):</span>
 <span class="lineNum">      41 </span>            :     DcpPage (),
 <span class="lineNum">      42 </span>            :     m_Applet(applet),
 <span class="lineNum">      43 </span>            :     m_WidgetId(widgetId),
 <span class="lineNum">      44 </span>            :     m_MainWidget (0),
-<span class="lineNum">      45 </span><span class="lineNoCov">          0 :     m_MissingLabel (0)</span>
+<span class="lineNum">      45 </span><span class="lineCov">          7 :     m_MissingLabel (0)</span>
 <span class="lineNum">      46 </span>            : {
 <span class="lineNum">      47 </span>            :     // this is for being able to control leaving or not leaving the page
 <span class="lineNum">      48 </span>            :     // in response to clicking the back button
-<span class="lineNum">      49 </span><span class="lineNoCov">          0 :     setEscapeMode(MApplicationPageModel::EscapeManualBack);</span>
-<span class="lineNum">      50 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">      49 </span><span class="lineCov">          7 :     setEscapeMode(MApplicationPageModel::EscapeManualBack);</span>
+<span class="lineNum">      50 </span><span class="lineCov">          7 : }</span>
 <a name="51"><span class="lineNum">      51 </span>            : </a>
 <span class="lineNum">      52 </span>            : 
-<span class="lineNum">      53 </span><span class="lineNoCov">          0 : DcpAppletPage::~DcpAppletPage ()</span>
+<span class="lineNum">      53 </span><span class="lineCov">          7 : DcpAppletPage::~DcpAppletPage ()</span>
 <span class="lineNum">      54 </span>            : {
-<span class="lineNum">      55 </span><span class="lineNoCov">          0 :     if (m_Applet) {</span>
-<span class="lineNum">      56 </span><span class="lineNoCov">          0 :         m_Applet-&gt;metadata()-&gt;markInactive();</span>
+<span class="lineNum">      55 </span><span class="lineCov">          7 :     if (m_Applet) {</span>
+<span class="lineNum">      56 </span><span class="lineCov">          7 :         m_Applet-&gt;metadata()-&gt;markInactive();</span>
 <span class="lineNum">      57 </span>            :     }
-<span class="lineNum">      58 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">      58 </span><span class="lineCov">          7 : }</span>
 <a name="59"><span class="lineNum">      59 </span>            : </a>
 <span class="lineNum">      60 </span>            : void
 <span class="lineNum">      61 </span><span class="lineNoCov">          0 : DcpAppletPage::createContent ()</span>
@@ -213,116 +213,118 @@
 <span class="lineNum">     143 </span>            :      * when the user activates the applet by clicking on the brief.
 <span class="lineNum">     144 </span>            :      */
 <span class="lineNum">     145 </span><span class="lineNoCov">          0 :     if (!m_MissingLabel) {</span>
-<span class="lineNum">     146 </span>            :         //% &quot;Plugin not available&quot;
-<span class="lineNum">     147 </span><span class="lineNoCov">          0 :         m_MissingLabel = new MLabel (qtTrId(&quot;dcp_no_applet_name&quot;));</span>
-<span class="lineNum">     148 </span><span class="lineNoCov">          0 :         m_MissingLabel-&gt;setAlignment (Qt::AlignCenter);</span>
-<span class="lineNum">     149 </span><span class="lineNoCov">          0 :         appendWidget (m_MissingLabel);</span>
-<span class="lineNum">     150 </span>            :         //% &quot;Missing plugin&quot;
-<span class="lineNum">     151 </span><span class="lineNoCov">          0 :         setTitle (qtTrId(&quot;dcp_no_applet_title&quot;));</span>
-<span class="lineNum">     152 </span>            :     }
-<span class="lineNum">     153 </span>            : }
-<a name="154"><span class="lineNum">     154 </span>            : </a>
-<span class="lineNum">     155 </span>            : void
-<span class="lineNum">     156 </span><span class="lineNoCov">          0 : DcpAppletPage::back ()</span>
-<span class="lineNum">     157 </span>            : {
-<span class="lineNum">     158 </span>            :     DCP_DEBUG (&quot;&quot;);
-<span class="lineNum">     159 </span>            : 
-<span class="lineNum">     160 </span><span class="lineNoCov">          0 :     if (m_MainWidget) {</span>
-<span class="lineNum">     161 </span><span class="lineNoCov">          0 :         if (!m_MainWidget-&gt;back()) {</span>
-<span class="lineNum">     162 </span><span class="lineNoCov">          0 :             return;</span>
-<span class="lineNum">     163 </span>            :         }
-<span class="lineNum">     164 </span>            :     }
-<span class="lineNum">     165 </span>            : 
-<span class="lineNum">     166 </span><span class="lineNoCov">          0 :     if (handle().isStandalone)</span>
-<span class="lineNum">     167 </span>            :     {
-<span class="lineNum">     168 </span>            :        DCP_DEBUG(&quot;This is a standalone applet&quot;); 
-<span class="lineNum">     169 </span><span class="lineNoCov">          0 :        qApp-&gt;exit(0);</span>
-<span class="lineNum">     170 </span><span class="lineNoCov">          0 :        return;</span>
-<span class="lineNum">     171 </span>            :     }
-<span class="lineNum">     172 </span><span class="lineNoCov">          0 :     DcpPage::back();</span>
-<span class="lineNum">     173 </span>            : }
-<a name="174"><span class="lineNum">     174 </span>            : </a>
-<span class="lineNum">     175 </span>            : void
-<span class="lineNum">     176 </span><span class="lineNoCov">          0 : DcpAppletPage::loadWidget (int widgetId)</span>
-<span class="lineNum">     177 </span>            : {
-<span class="lineNum">     178 </span>            :     DcpWidget  *newMainWidget;
-<span class="lineNum">     179 </span>            : 
-<span class="lineNum">     180 </span>            :     /*
-<span class="lineNum">     181 </span>            :      * Creating the widget and setting its widgetId.
-<span class="lineNum">     182 </span>            :      */
-<span class="lineNum">     183 </span><span class="lineNoCov">          0 :     newMainWidget = m_Applet-&gt;applet()-&gt;constructWidget (widgetId);</span>
-<span class="lineNum">     184 </span>            : 
-<span class="lineNum">     185 </span>            :     /*
-<span class="lineNum">     186 </span>            :      * From now on, this is the widget we have. And if it is NULL, we just
-<span class="lineNum">     187 </span>            :      * return.
-<span class="lineNum">     188 </span>            :      */
-<span class="lineNum">     189 </span><span class="lineNoCov">          0 :     m_MainWidget = newMainWidget;</span>
-<span class="lineNum">     190 </span>            : 
-<span class="lineNum">     191 </span><span class="lineNoCov">          0 :     if (newMainWidget != 0 &amp;&amp; !newMainWidget-&gt;setWidgetId (widgetId) &amp;&amp;</span>
-<span class="lineNum">     192 </span>            :         newMainWidget-&gt;getWidgetId () != widgetId)
-<span class="lineNum">     193 </span>            :     {
-<span class="lineNum">     194 </span>            :         /*
-<span class="lineNum">     195 </span>            :         * We needed to set the widgetId, for it is a new widget, but we
-<span class="lineNum">     196 </span>            :         * could not set it.
-<span class="lineNum">     197 </span>            :         */
-<span class="lineNum">     198 </span>            :         DCP_WARNING (&quot;The widgetId could not be set for applet '%s' &quot;
-<span class="lineNum">     199 </span>            :                      &quot;widget %d it remains %d.&quot;,
-<span class="lineNum">     200 </span>            :                      DCP_STR (m_Applet-&gt;metadata()-&gt;name()),
-<span class="lineNum">     201 </span>            :                      widgetId,
-<span class="lineNum">     202 </span><span class="lineNoCov">          0 :                      newMainWidget-&gt;getWidgetId ());</span>
-<span class="lineNum">     203 </span>            :     }
-<span class="lineNum">     204 </span>            : 
-<span class="lineNum">     205 </span><span class="lineNoCov">          0 :     if (!m_MainWidget) {</span>
-<span class="lineNum">     206 </span><span class="lineNoCov">          0 :         return;</span>
-<span class="lineNum">     207 </span>            :     }
-<span class="lineNum">     208 </span>            : 
-<span class="lineNum">     209 </span><span class="lineNoCov">          0 :     setPannable (m_MainWidget-&gt;pagePans());</span>
+<span class="lineNum">     146 </span>            :         // FIXME: these are temporary translation ids and not present anywhere
+<span class="lineNum">     147 </span>            : 
+<span class="lineNum">     148 </span>            :         //% &quot;Plugin not available&quot;
+<span class="lineNum">     149 </span><span class="lineNoCov">          0 :         m_MissingLabel = new MLabel (qtTrId(&quot;dcp_no_applet_name&quot;));</span>
+<span class="lineNum">     150 </span><span class="lineNoCov">          0 :         m_MissingLabel-&gt;setAlignment (Qt::AlignCenter);</span>
+<span class="lineNum">     151 </span><span class="lineNoCov">          0 :         appendWidget (m_MissingLabel);</span>
+<span class="lineNum">     152 </span>            :         //% &quot;Missing plugin&quot;
+<span class="lineNum">     153 </span><span class="lineNoCov">          0 :         setTitle (qtTrId(&quot;dcp_no_applet_title&quot;));</span>
+<span class="lineNum">     154 </span>            :     }
+<span class="lineNum">     155 </span>            : }
+<a name="156"><span class="lineNum">     156 </span>            : </a>
+<span class="lineNum">     157 </span>            : void
+<span class="lineNum">     158 </span><span class="lineNoCov">          0 : DcpAppletPage::back ()</span>
+<span class="lineNum">     159 </span>            : {
+<span class="lineNum">     160 </span>            :     DCP_DEBUG (&quot;&quot;);
+<span class="lineNum">     161 </span>            : 
+<span class="lineNum">     162 </span><span class="lineNoCov">          0 :     if (m_MainWidget) {</span>
+<span class="lineNum">     163 </span><span class="lineNoCov">          0 :         if (!m_MainWidget-&gt;back()) {</span>
+<span class="lineNum">     164 </span><span class="lineNoCov">          0 :             return;</span>
+<span class="lineNum">     165 </span>            :         }
+<span class="lineNum">     166 </span>            :     }
+<span class="lineNum">     167 </span>            : 
+<span class="lineNum">     168 </span><span class="lineNoCov">          0 :     if (handle().isStandalone)</span>
+<span class="lineNum">     169 </span>            :     {
+<span class="lineNum">     170 </span>            :        DCP_DEBUG(&quot;This is a standalone applet&quot;); 
+<span class="lineNum">     171 </span><span class="lineNoCov">          0 :        qApp-&gt;exit(0);</span>
+<span class="lineNum">     172 </span><span class="lineNoCov">          0 :        return;</span>
+<span class="lineNum">     173 </span>            :     }
+<span class="lineNum">     174 </span><span class="lineNoCov">          0 :     DcpPage::back();</span>
+<span class="lineNum">     175 </span>            : }
+<a name="176"><span class="lineNum">     176 </span>            : </a>
+<span class="lineNum">     177 </span>            : void
+<span class="lineNum">     178 </span><span class="lineNoCov">          0 : DcpAppletPage::loadWidget (int widgetId)</span>
+<span class="lineNum">     179 </span>            : {
+<span class="lineNum">     180 </span>            :     DcpWidget  *newMainWidget;
+<span class="lineNum">     181 </span>            : 
+<span class="lineNum">     182 </span>            :     /*
+<span class="lineNum">     183 </span>            :      * Creating the widget and setting its widgetId.
+<span class="lineNum">     184 </span>            :      */
+<span class="lineNum">     185 </span><span class="lineNoCov">          0 :     newMainWidget = m_Applet-&gt;applet()-&gt;constructWidget (widgetId);</span>
+<span class="lineNum">     186 </span>            : 
+<span class="lineNum">     187 </span>            :     /*
+<span class="lineNum">     188 </span>            :      * From now on, this is the widget we have. And if it is NULL, we just
+<span class="lineNum">     189 </span>            :      * return.
+<span class="lineNum">     190 </span>            :      */
+<span class="lineNum">     191 </span><span class="lineNoCov">          0 :     m_MainWidget = newMainWidget;</span>
+<span class="lineNum">     192 </span>            : 
+<span class="lineNum">     193 </span><span class="lineNoCov">          0 :     if (newMainWidget != 0 &amp;&amp; !newMainWidget-&gt;setWidgetId (widgetId) &amp;&amp;</span>
+<span class="lineNum">     194 </span>            :         newMainWidget-&gt;getWidgetId () != widgetId)
+<span class="lineNum">     195 </span>            :     {
+<span class="lineNum">     196 </span>            :         /*
+<span class="lineNum">     197 </span>            :         * We needed to set the widgetId, for it is a new widget, but we
+<span class="lineNum">     198 </span>            :         * could not set it.
+<span class="lineNum">     199 </span>            :         */
+<span class="lineNum">     200 </span>            :         DCP_WARNING (&quot;The widgetId could not be set for applet '%s' &quot;
+<span class="lineNum">     201 </span>            :                      &quot;widget %d it remains %d.&quot;,
+<span class="lineNum">     202 </span>            :                      DCP_STR (m_Applet-&gt;metadata()-&gt;name()),
+<span class="lineNum">     203 </span>            :                      widgetId,
+<span class="lineNum">     204 </span><span class="lineNoCov">          0 :                      newMainWidget-&gt;getWidgetId ());</span>
+<span class="lineNum">     205 </span>            :     }
+<span class="lineNum">     206 </span>            : 
+<span class="lineNum">     207 </span><span class="lineNoCov">          0 :     if (!m_MainWidget) {</span>
+<span class="lineNum">     208 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">     209 </span>            :     }
 <span class="lineNum">     210 </span>            : 
-<span class="lineNum">     211 </span>            :     connect (m_MainWidget, SIGNAL (changeWidget(int)),
-<span class="lineNum">     212 </span><span class="lineNoCov">          0 :              m_Applet, SLOT(activateSlot(int)));</span>
-<span class="lineNum">     213 </span>            :     connect (m_MainWidget, SIGNAL (activatePluginByName (const QString &amp;)),
-<span class="lineNum">     214 </span><span class="lineNoCov">          0 :              m_Applet, SLOT (activatePluginByName (const QString &amp;)));</span>
-<span class="lineNum">     215 </span><span class="lineNoCov">          0 :     if (m_Applet-&gt;interfaceVersion() &gt;= 2) {</span>
-<span class="lineNum">     216 </span>            :         connect (m_MainWidget, SIGNAL (closePage()),
-<span class="lineNum">     217 </span><span class="lineNoCov">          0 :                  this, SLOT (back ()));</span>
-<span class="lineNum">     218 </span>            :     }
-<span class="lineNum">     219 </span>            : 
-<span class="lineNum">     220 </span>            :     // add the actions:
-<span class="lineNum">     221 </span><span class="lineNoCov">          0 :     foreach (MAction* action, m_Applet-&gt;applet()-&gt;viewMenuItems()) {</span>
-<span class="lineNum">     222 </span><span class="lineNoCov">          0 :         addAction(action);</span>
-<span class="lineNum">     223 </span><span class="lineNoCov">          0 :     }</span>
-<span class="lineNum">     224 </span>            : 
-<span class="lineNum">     225 </span><span class="lineNoCov">          0 :     appendWidget (m_MainWidget);</span>
-<span class="lineNum">     226 </span><span class="lineNoCov">          0 :     retranslateUi();</span>
-<span class="lineNum">     227 </span>            : }
-<a name="228"><span class="lineNum">     228 </span>            : </a>
-<span class="lineNum">     229 </span>            : void
-<span class="lineNum">     230 </span><span class="lineNoCov">          0 : DcpAppletPage::retranslateUi ()</span>
-<span class="lineNum">     231 </span>            : {
-<span class="lineNum">     232 </span>            :     DCP_DEBUG (&quot;&quot;);
-<span class="lineNum">     233 </span>            : 
-<span class="lineNum">     234 </span><span class="lineNoCov">          0 :     if (m_Applet &amp;&amp; m_Applet-&gt;applet()) {</span>
-<span class="lineNum">     235 </span><span class="lineNoCov">          0 :         QString title;</span>
-<span class="lineNum">     236 </span><span class="lineNoCov">          0 :         if (m_MainWidget &amp;&amp; m_Applet-&gt;interfaceVersion() &gt;= 3) {</span>
-<span class="lineNum">     237 </span>            :             // this is the new way to specify the title:
-<span class="lineNum">     238 </span><span class="lineNoCov">          0 :             title = m_MainWidget-&gt;title();</span>
-<span class="lineNum">     239 </span>            :         }
-<span class="lineNum">     240 </span><span class="lineNoCov">          0 :         if (title.isEmpty()) {</span>
-<span class="lineNum">     241 </span>            :             // this is the deprecated way:
-<span class="lineNum">     242 </span><span class="lineNoCov">          0 :             title = m_Applet-&gt;applet()-&gt;title();</span>
-<span class="lineNum">     243 </span><span class="lineNoCov">          0 :             if (title.isEmpty()) {</span>
-<span class="lineNum">     244 </span><span class="lineNoCov">          0 :                 title = m_Applet-&gt;text1();</span>
-<span class="lineNum">     245 </span>            :             }
-<span class="lineNum">     246 </span>            :         }
-<span class="lineNum">     247 </span><span class="lineNoCov">          0 :         setTitle(title);</span>
-<span class="lineNum">     248 </span>            :     }
-<a name="249"><span class="lineNum">     249 </span><span class="lineNoCov">          0 : }</span></a>
-<span class="lineNum">     250 </span>            : 
-<span class="lineNum">     251 </span><span class="lineNoCov">          0 : DcpAppletObject* DcpAppletPage::applet()</span>
-<a name="252"><span class="lineNum">     252 </span>            : {</a>
-<span class="lineNum">     253 </span><span class="lineNoCov">          0 :     return m_Applet;</span>
-<span class="lineNum">     254 </span><span class="lineCov">          3 : }</span>
-<span class="lineNum">     255 </span>            : 
+<span class="lineNum">     211 </span><span class="lineNoCov">          0 :     setPannable (m_MainWidget-&gt;pagePans());</span>
+<span class="lineNum">     212 </span>            : 
+<span class="lineNum">     213 </span>            :     connect (m_MainWidget, SIGNAL (changeWidget(int)),
+<span class="lineNum">     214 </span><span class="lineNoCov">          0 :              m_Applet, SLOT(activateSlot(int)));</span>
+<span class="lineNum">     215 </span>            :     connect (m_MainWidget, SIGNAL (activatePluginByName (const QString &amp;)),
+<span class="lineNum">     216 </span><span class="lineNoCov">          0 :              m_Applet, SLOT (activatePluginByName (const QString &amp;)));</span>
+<span class="lineNum">     217 </span><span class="lineNoCov">          0 :     if (m_Applet-&gt;interfaceVersion() &gt;= 2) {</span>
+<span class="lineNum">     218 </span>            :         connect (m_MainWidget, SIGNAL (closePage()),
+<span class="lineNum">     219 </span><span class="lineNoCov">          0 :                  this, SLOT (back ()));</span>
+<span class="lineNum">     220 </span>            :     }
+<span class="lineNum">     221 </span>            : 
+<span class="lineNum">     222 </span>            :     // add the actions:
+<span class="lineNum">     223 </span><span class="lineNoCov">          0 :     foreach (MAction* action, m_Applet-&gt;applet()-&gt;viewMenuItems()) {</span>
+<span class="lineNum">     224 </span><span class="lineNoCov">          0 :         addAction(action);</span>
+<span class="lineNum">     225 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">     226 </span>            : 
+<span class="lineNum">     227 </span><span class="lineNoCov">          0 :     appendWidget (m_MainWidget);</span>
+<span class="lineNum">     228 </span><span class="lineNoCov">          0 :     retranslateUi();</span>
+<span class="lineNum">     229 </span>            : }
+<a name="230"><span class="lineNum">     230 </span>            : </a>
+<span class="lineNum">     231 </span>            : void
+<span class="lineNum">     232 </span><span class="lineNoCov">          0 : DcpAppletPage::retranslateUi ()</span>
+<span class="lineNum">     233 </span>            : {
+<span class="lineNum">     234 </span>            :     DCP_DEBUG (&quot;&quot;);
+<span class="lineNum">     235 </span>            : 
+<span class="lineNum">     236 </span><span class="lineNoCov">          0 :     if (m_Applet &amp;&amp; m_Applet-&gt;applet()) {</span>
+<span class="lineNum">     237 </span><span class="lineNoCov">          0 :         QString title;</span>
+<span class="lineNum">     238 </span><span class="lineNoCov">          0 :         if (m_MainWidget &amp;&amp; m_Applet-&gt;interfaceVersion() &gt;= 3) {</span>
+<span class="lineNum">     239 </span>            :             // this is the new way to specify the title:
+<span class="lineNum">     240 </span><span class="lineNoCov">          0 :             title = m_MainWidget-&gt;title();</span>
+<span class="lineNum">     241 </span>            :         }
+<span class="lineNum">     242 </span><span class="lineNoCov">          0 :         if (title.isEmpty()) {</span>
+<span class="lineNum">     243 </span>            :             // this is the deprecated way:
+<span class="lineNum">     244 </span><span class="lineNoCov">          0 :             title = m_Applet-&gt;applet()-&gt;title();</span>
+<span class="lineNum">     245 </span><span class="lineNoCov">          0 :             if (title.isEmpty()) {</span>
+<span class="lineNum">     246 </span><span class="lineNoCov">          0 :                 title = m_Applet-&gt;text1();</span>
+<span class="lineNum">     247 </span>            :             }
+<span class="lineNum">     248 </span>            :         }
+<span class="lineNum">     249 </span><span class="lineNoCov">          0 :         setTitle(title);</span>
+<span class="lineNum">     250 </span>            :     }
+<a name="251"><span class="lineNum">     251 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     252 </span>            : 
+<span class="lineNum">     253 </span><span class="lineNoCov">          0 : DcpAppletObject* DcpAppletPage::applet()</span>
+<a name="254"><span class="lineNum">     254 </span>            : {</a>
+<span class="lineNum">     255 </span><span class="lineNoCov">          0 :     return m_Applet;</span>
+<span class="lineNum">     256 </span><span class="lineCov">          3 : }</span>
+<span class="lineNum">     257 </span>            : 
 </pre>
       </td>
     </tr>

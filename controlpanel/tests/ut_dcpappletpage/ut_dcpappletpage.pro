@@ -32,12 +32,13 @@ SOURCES += \
     $$STUBSDIR/dcpcontentitem-fake.cpp \
     $$STUBSDIR/mcontentitem-fake.cpp \
     $$STUBSDIR/mwidgetcontroller-fake.cpp \
-    $$LIBDCPFAKES/mgconfitem-fake.cpp \
+    $$STUBSDIR/mgconfitem-fake.cpp \
+    $$STUBSDIR/mdesktopentry-fake.cpp \
 #    $$STUBSDIR/dcppage-fake.cpp \
     $$STUBSDIR/dcpcomponent-fake.cpp \
     $$STUBSDIR/dcpappletdb-fake.cpp \
-    $$STUBSDIR/dcpappletmetadata-fake.cpp \
-    $$STUBSDIR/dcpappletplugin-fake.cpp \
+    $$STUBSDIR/dcpappletobject-fake.cpp \
+#    $$STUBSDIR/dcpappletmetadata-fake.cpp \
     $$STUBSDIR/dcpretranslator-fake.cpp \
     $$STUBSDIR/dcpsinglecomponent-fake.cpp \
     $$STUBSDIR/dcpcategorycomponent-fake.cpp \
