@@ -1,1 +1,4 @@
-include ($$[QT_INSTALL_DATA]/mkspecs/dcpconfig.pri)
+QMAKE_LIBDIR += ../../lib/lib
+LIBS += -L../lib/lib/ -L/usr/lib
+INCLUDEPATH += ../../../lib/src/include
+include (../lib/dcpconfig.pri)
