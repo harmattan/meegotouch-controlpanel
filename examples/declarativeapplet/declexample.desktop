@@ -1,0 +1,16 @@
+[Desktop Entry]
+Type=DUIApplet
+Name=Declarative Example 1
+X-logical-id=decl_exampl_1
+X-translation-catalog=duisettings
+Icon=
+Exec=
+
+[DUI]
+X-DUIApplet-Applet=libdeclarative.so
+
+[DCP]
+Category= Look & Feel
+Order=100
+Part=example1.xml
+

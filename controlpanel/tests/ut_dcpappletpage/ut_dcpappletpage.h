@@ -42,7 +42,7 @@ private slots:
     void testBack();
     void testLoad();
     void testLoadWidget();
-    
+    void testApplet();    
 
 private:
     DcpAppletPage* m_subject;

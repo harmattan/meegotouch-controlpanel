@@ -7,6 +7,7 @@
 #include <QtDebug>
 
 #include "dcpappletif.h"
+#include "dcpwidget.h"
 
 class DcpAppletPluginApplet : public QObject, public DcpAppletIf {
     Q_OBJECT
@@ -18,7 +19,11 @@ class DcpAppletPluginApplet : public QObject, public DcpAppletIf {
         virtual void init() { 
             m_Initialized = true;
         }
-        virtual DcpWidget *constructWidget(int) {return 0;};
+        virtual DcpWidget *constructWidget(int widgetId) 
+        {
+            DcpWidget * widget = new DcpWidget();
+            widget->setWidgetId(widgetId);
+        };
         virtual QString title() const { return 0; };
         virtual QVector<MAction *> viewMenuItems() {
             QVector<MAction*> empty;

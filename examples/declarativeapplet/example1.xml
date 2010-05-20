@@ -1,0 +1,20 @@
+<settings>
+  <group>
+    <text key="/apps/ControlPanel/Example/Text1" title="Please specify a text:" >
+    </text>
+    <selection key="/apps/ControlPanel/Example/Enum1">
+        <option title="first value" >1</option>
+        <option title="second value" >2</option>
+        <option title="third value" >3</option>
+        <option title="fourth value" >4</option>
+    </selection>
+  </group>
+  <group>
+    <boolean key="/apps/ControlPanel/Example/Bool1" title="Please switch me">
+    </boolean>
+    <integer key="/apps/ControlPanel/Example/Integer1"
+        title="Select a number" min="30" max="60">
+    </integer>
+  </group>
+</settings>
+

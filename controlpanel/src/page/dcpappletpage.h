@@ -56,6 +56,7 @@ private:
     int m_WidgetId;
     DcpWidget           *m_MainWidget;
     MLabel            *m_MissingLabel;
+    friend class Ut_DcpAppletPage;
 };
 
 #endif
