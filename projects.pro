@@ -5,7 +5,8 @@ CONFIG += build_all silent warn_on
 
 SUBDIRS += lib \
            controlpanel \
-           declapplet
+           declapplet \
+           examples \ 
 
 include(debian/deb.pri)
 include(gentests/gentests.pri)

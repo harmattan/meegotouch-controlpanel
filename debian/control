@@ -53,3 +53,19 @@ Architecture: any
 Enhances: duicontrolpanel
 Description: Engineering English translations for duicontrolpanel
 
+Package: duicontrolpanel-skeletonapplet
+Section: x11
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel, libduicontrolpanel, duicontrolpanel-skeletonapplet-l10n-engineering-english (= ${binary:Version})
+Description: Example applets for duicontrolpanel
+  This package contains examples for settings applets created by
+    - implementing a dynamic plugin,
+    - declarative ui,
+    - declaration of starting an external application
+
+Package: duicontrolpanel-skeletonapplet-l10n-engineering-english
+Section: devel
+Architecture: any
+Enhances: duicontrolpanel-skeletonapplet
+Description: Engineering english translations for the example applets
+
