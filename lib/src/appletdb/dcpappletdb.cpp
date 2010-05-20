@@ -151,15 +151,16 @@ DcpAppletDb::addFiles (
     QStringList nameFilters (filter);
     QDir        appDir (pathName);
 
+    bool success = true;
     appDir.setNameFilters (nameFilters);
     foreach (QString appFile, appDir.entryList (QDir::Files)) {
         DCP_DEBUG ("Adding file '%s'", 
                 DCP_STR (appDir.absoluteFilePath(appFile)));
         if (!addFile (appDir.absoluteFilePath(appFile)))
-            return false;
+            success = false;
     }
 
-    return true;
+    return success;
 }
 
 DcpAppletMetadataList 
