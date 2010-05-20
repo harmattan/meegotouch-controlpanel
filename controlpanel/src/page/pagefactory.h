@@ -50,6 +50,8 @@ public slots:
 
     void changePage (const PageHandle &handle);
 
+    void mainPageFirstShown (void);
+
 protected:
     PageFactory ();
     DcpPage* createMainPage ();
@@ -57,7 +59,6 @@ protected:
     DcpPage* createAppletCategoryPage (PageHandle::PageTypeId pageId);
 
 private slots:
-    void mainPageFirstShown (void);
     void pageChanged (MApplicationPage *page);
 
 private:

@@ -83,6 +83,8 @@ DuiControlPanelService::sheduleStart (
                 const PageHandle &handle)
 {
     DCP_DEBUG ("");
+    /* start contains the page to start when the window has appeared.
+     * After the window is already created, it is null */
     if (m_StartPage == 0) {
         startPageForReal(handle);
     } else {
@@ -121,8 +123,18 @@ DuiControlPanelService::createStartPage()
     DCP_DEBUG ("");
     // createStartPage should not be called twice
     Q_ASSERT(m_StartPage);
-    startPageForReal (*m_StartPage);
-    delete m_StartPage;
+
+    PageHandle* handle = m_StartPage;
     m_StartPage = 0;
+    startPageForReal (*handle);
+
+    if (handle->id != PageHandle::MAIN) {
+        /* Normally the applets get connected after the mainpage has
+         * been shown. But now we dont create a mainpage at all,
+         * so we create the connections here:
+         */
+        PageFactory::instance()->mainPageFirstShown();
+    }
+    delete handle;
 }
 

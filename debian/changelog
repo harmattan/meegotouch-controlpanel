@@ -9,8 +9,9 @@ duicontrolpanel (0.7.19~unreleased) unstable; urgency=low
     (Translation catalog name and dependency)
   * Fixes: NB#169767 - Synchronization application is not available in
     system settings
+  * Fixes: an applet can not request pages if started through servicefw
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 20 May 2010 11:51:03 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 20 May 2010 16:20:05 +0200
 
 duicontrolpanel (0.7.18) unstable; urgency=low
 
