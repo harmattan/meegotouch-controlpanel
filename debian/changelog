@@ -1,4 +1,4 @@
-duicontrolpanel (0.7.19~unreleased) unstable; urgency=low
+duicontrolpanel (0.7.19-1) unstable; urgency=low
 
   * Fixes endless recursion when there is no dbus available
   * Fixes: NB#166112 - DuiControlPanel should apply to swap itself to
