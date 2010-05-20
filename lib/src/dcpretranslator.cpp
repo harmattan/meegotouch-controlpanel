@@ -30,6 +30,11 @@
 
 #include <QHash>
 
+/* extremal value to differentiate the fact when retranslate was never
+ * run before. (Becase the loaded language gconf value can also be null or empty
+ * in some cases. */
+static const QString NO_LANGUAGE_IS_LOADED_YET = "***";
+
 class DcpRetranslatorPriv {
 public:
     DcpRetranslatorPriv();
@@ -44,7 +49,8 @@ public:
 DcpRetranslator* DcpRetranslatorPriv::instance = 0;
 bool DcpRetranslatorPriv::compatibleMode = true;
 
-DcpRetranslatorPriv::DcpRetranslatorPriv ()
+DcpRetranslatorPriv::DcpRetranslatorPriv ():
+    lastLanguage (NO_LANGUAGE_IS_LOADED_YET)
 {
     MApplication* mApp = MApplication::instance();
     binaryName = mApp->binaryName();
