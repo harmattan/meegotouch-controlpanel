@@ -46,6 +46,7 @@ void Ft_DcpAppletDb::initTestCase()
     testDesktopDir = dataDir + "desktops/";
     testDesktopDir2 = dataDir + "desktops2/";
     testDesktopDir3 = dataDir + "desktops3/";
+    testDesktopDir4 = dataDir + "desktops4/";
     desktopTestFile = testDesktopDir + "test.desktop";
     desktopTestFile2 = testDesktopDir + "test2.desktop";
     desktopDateTimeFile = testDesktopDir2 + "datetime.desktop";
@@ -154,6 +155,20 @@ void Ft_DcpAppletDb::testAppletNames()
     QVERIFY(m_subject->appletNames().contains(datetimeEntryName));
     QVERIFY(m_subject->appletNames().contains(displayEntryName));
 }
+
+/* This tests that an invalid desktop file does not stop the
+ * parsing of the remaining desktop files. */
+void Ft_DcpAppletDb::testAppletNamesIfWrongDesktopFile()
+{
+    // should return with an error:
+    QVERIFY(!m_subject->addPath(testDesktopDir4));
+
+    // should not stop parsing the other desktop files:
+    QVERIFY(m_subject->appletNames().length() == 2);
+    QVERIFY(m_subject->appletNames().contains(browserEntryName));
+    QVERIFY(m_subject->appletNames().contains(displayEntryName));
+}
+
 
 void Ft_DcpAppletDb::testApplet()
 {
