@@ -1,7 +1,7 @@
 duicontrolpanel (0.7.20~unreleased) unstable; urgency=low
 
   * changelog
-  * Fixes: NB#170026 - Emitting valuesChanged signal doesnt update
+  * Workaround for NB#170026 - Emitting valuesChanged signal doesnt update
     valueText displayed in Brief (temporary workaround for NB#170105 -
     showhideEvent of MContentItem does not get called)
 
