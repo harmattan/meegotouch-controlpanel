@@ -1,10 +1,13 @@
 include(../../lib/dcpconfig.pri)
 
+QMAKE_CXXFLAGS += -fPIC -fvisibility=hidden -fvisibility-inlines-hidden
+QMAKE_LFLAGS += -pie -rdynamic
+
 QMAKE_LIBDIR += ../../lib/lib/ 
 QMAKE_RPATH = -Wl
 message($$QMAKE_RPATH)
 TEMPLATE = app
-TARGET = ../duicontrolpanel
+TARGET = ../duicontrolpanel.launch
 DEPENDPATH += include ../../lib/src/include
 INCLUDEPATH += $$DEPENDPATH
 message($$INCLUDEPATH)
@@ -34,9 +37,14 @@ desktop_entry.files = duicontrolpanel.desktop
 rfs.files += controlpanel-rfs.sh
 rfs.path += $$system(pkg-config --variable osso_rfs_scripts_dir clean-device)
 
+starter.files += duicontrolpanel
+starter.path += $$DCP_PREFIX/bin
+
+
 INSTALLS += target \
             rfs \
-            desktop_entry
+            desktop_entry \
+            starter
 
 # FIXME, this is a temporary fix for an issue
 # You can enable delayed applet loading with uncommenting this line:
