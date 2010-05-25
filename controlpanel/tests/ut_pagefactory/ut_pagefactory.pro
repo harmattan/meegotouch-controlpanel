@@ -41,6 +41,7 @@ HEADERS += \
     $$SRCDIR/page/dcpappletcategorypage.h \
     $$SRCDIR/page/dcpappletpage.h \
     $$SRCDIR/appleterrorsdialog.h \
+    $$STUBSDIR/dcpappletplugin-applet.h \
 
 include(../common_bot.pri)
 

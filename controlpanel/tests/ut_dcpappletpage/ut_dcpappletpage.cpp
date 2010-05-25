@@ -78,6 +78,11 @@ void Ut_DcpAppletPage::testBack()
 
 void Ut_DcpAppletPage::testLoad()
 {
+    m_subject->createContent();
+    m_subject->load();
+    QVERIFY(m_subject->m_Applet);
+    QVERIFY(m_subject->m_Applet->metadata()->isActive());
+    QVERIFY(m_subject->m_Applet->isAppletLoaded());
     QSKIP("incomplete", SkipSingle);   // remove this when you've finished
 }
 

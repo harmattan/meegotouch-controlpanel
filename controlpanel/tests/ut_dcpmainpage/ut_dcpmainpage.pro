@@ -58,6 +58,7 @@ HEADERS += \
     $$SRCDIR/component/dcpcomponent.h \
     $$SRCDIR/component/dcpmaincategory.h \
     $$SRCDIR/component/dcpsinglecomponent.h \
+    $$STUBSDIR/dcpappletplugin-applet.h \
 
 # base classes
 HEADERS += \

@@ -23,6 +23,7 @@ class DcpAppletPluginApplet : public QObject, public DcpAppletIf {
         {
             DcpWidget * widget = new DcpWidget();
             widget->setWidgetId(widgetId);
+            return widget;
         };
         virtual QString title() const { return 0; };
         virtual QVector<MAction *> viewMenuItems() {

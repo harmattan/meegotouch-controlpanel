@@ -23,6 +23,7 @@ SOURCES += \
 # unit test and unit
 HEADERS += \
     ut_dcpcontentitem.h \
+    ../../../controlpanel/tests/doubles/dcpappletplugin-applet.h \
     $$SRCDIR/widget/dcpcontentitem.h \
 
 # base classes

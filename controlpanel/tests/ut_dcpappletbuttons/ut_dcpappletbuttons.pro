@@ -19,6 +19,7 @@ TEST_SOURCES = \
 # unit test and unit
 SOURCES += \
     ut_dcpappletbuttons.cpp \
+#    $$STUBSDIR/dcpappletplugin-fake.cpp \
     $$STUBSDIR/mgridlayoutpolicy-fake.cpp \
     $$STUBSDIR/maintranslations-fake.cpp \
     $$STUBSDIR/mabstractlayoutpolicy-fake.cpp \
@@ -27,7 +28,6 @@ SOURCES += \
     $$STUBSDIR/dcpappletdb-fake.cpp \
     $$LIBDCPFAKES/mgconfitem-fake.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
-    $$STUBSDIR/dcpappletplugin-fake.cpp \
     $$STUBSDIR/dcpretranslator-fake.cpp \
     $$STUBSDIR/mwidgetcontroller-fake.cpp \
     $$STUBSDIR/mcontentitem-fake.cpp \
@@ -41,6 +41,7 @@ SOURCES += \
 # unit test and unit
 HEADERS += \
     ut_dcpappletbuttons.h \
+    $$STUBSDIR/dcpappletplugin-applet.h \
     $$STUBSDIR/mgconfitem_priv.h \
     $$SRCDIR/page/dcpappletbuttons.h \
     $$SRCDIR/component/dcpmaincategory.h \

@@ -5,7 +5,7 @@
 #include "dcpappletobject.h"
 #include "dcpappletobject_p.h"
 #include "dcpappletmetadata.h"
-#include "dcpappletplugin-fake.h"
+#include "dcpappletplugin.h"
 #include "dcpwidgettypes.h"
 
 DcpAppletObject::DcpAppletObject(DcpAppletMetadata *metadata): DcpAppletPlugin(metadata),

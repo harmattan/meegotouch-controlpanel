@@ -46,14 +46,14 @@ SOURCES += \
 # unit test and unit
 HEADERS += \
     ut_dcpappletcategorypage.h \
+    $$STUBSDIR/dcpappletplugin-applet.h \
+    $$SRCDIR/page/dcpappletbuttons.h \
     $$SRCDIR/page/dcpappletcategorypage.h \
     $$SRCDIR/page/dcppage.h \
     $$SRCDIR/page/pages.h \
-    $$SRCDIR/page/dcpappletcategorypage.h \
     $$SRCDIR/component/dcpcomponent.h \
     $$SRCDIR/component/dcpmaincategory.h \
     $$SRCDIR/component/dcpsinglecomponent.h \
-    $$SRCDIR/page/dcpappletbuttons.h \
 
 # base classes
 HEADERS += \

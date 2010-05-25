@@ -15,6 +15,7 @@ SOURCES += \
     ../../../controlpanel/tests/doubles/dcpappletmetadata-fake.cpp \ # FIXME: move to lib/tests
     ../../../controlpanel/tests/doubles/dcpappletdb-fake.cpp \
     ../../../controlpanel/tests/doubles/dcpappletplugin-fake.cpp \
+    ../../../controlpanel/tests/doubles/dcpappletobject-fake.cpp \
     execinfo-fake.cpp \
     signal-fake.cpp \
     $$TEST_SOURCES \ 
@@ -22,4 +23,5 @@ SOURCES += \
 # unit test and unit
 HEADERS += \
     ut_dcpwrongapplets.h \
+    ../../../controlpanel/tests/doubles/dcpappletplugin-applet.h \
 

@@ -4,7 +4,8 @@
 #define DCPAPPLETPLUGIN_FAKE_H
 #include "dcpappletplugin.h"
 #include "dcpappletplugin_p.h"
-#include "dcpappletmetadata-fake.h"
+//#include "dcpappletmetadata-fake.h"
+#include "dcpappletmetadata.h"
 
 DcpAppletPlugin::DcpAppletPlugin(DcpAppletMetadata *metadata)
 

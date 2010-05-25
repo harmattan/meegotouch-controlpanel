@@ -16,11 +16,13 @@
 ****************************************************************************/
 
 #include "dcpappletplugin.h"
+#include "dcpappletplugin-applet.h"
 #include "dcpappletplugin_p.h"
 
 DcpAppletPlugin::DcpAppletPlugin(DcpAppletMetadata *metadata):
    d_ptr(new DcpAppletPluginPrivate(metadata))
 {
+    load();
 }
 
 DcpAppletPluginPrivate::DcpAppletPluginPrivate(DcpAppletMetadata* metadata):
@@ -77,6 +79,7 @@ DcpAppletPlugin::loadDslFile (
 void 
 DcpAppletPlugin::load ()
 {
+    d_ptr->appletInstance = new DcpAppletPluginApplet();
 }
 
 int

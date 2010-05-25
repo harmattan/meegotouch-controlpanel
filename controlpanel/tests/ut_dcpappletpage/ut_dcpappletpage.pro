@@ -37,8 +37,9 @@ SOURCES += \
 #    $$STUBSDIR/dcppage-fake.cpp \
     $$STUBSDIR/dcpcomponent-fake.cpp \
     $$STUBSDIR/dcpappletdb-fake.cpp \
+    $$STUBSDIR/dcpappletplugin-fake.cpp \
     $$STUBSDIR/dcpappletobject-fake.cpp \
-#    $$STUBSDIR/dcpappletmetadata-fake.cpp \
+    $$STUBSDIR/dcpappletmetadata-fake.cpp \
     $$STUBSDIR/dcpretranslator-fake.cpp \
     $$STUBSDIR/dcpsinglecomponent-fake.cpp \
     $$STUBSDIR/dcpcategorycomponent-fake.cpp \
@@ -53,6 +54,7 @@ SOURCES += \
 # unit test and unit
 HEADERS += \
     ut_dcpappletpage.h \
+    $$STUBSDIR/dcpappletplugin-applet.h \
     $$SRCDIR/page/dcpappletpage.h \
     $$SRCDIR/page/dcppage.h \
     $$SRCDIR/page/pages.h \

@@ -12,7 +12,7 @@ TEST_SOURCES = \
     ../doubles/pagefactory-fake.cpp \
     ../doubles/dcppage-fake.cpp \
     ../doubles/dcpcomponent-fake.cpp \
-    ../doubles/dcpappletplugin-fake.cpp \
+ #   ../doubles/dcpappletplugin-fake.cpp \
     ../doubles/mdesktopentry-fake.cpp \
     $$LIBDCPFAKES/mgconfitem-fake.cpp \
     ../doubles/mcontentitem-fake.cpp \

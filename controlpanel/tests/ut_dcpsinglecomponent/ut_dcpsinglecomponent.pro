@@ -36,6 +36,7 @@ HEADERS += \
     $$SRCDIR/page/pages.h \
     $$SRCDIR/page/dcppage.h \
     $$SRCDIR/page/pagefactory.h \
+    $$STUBSDIR/dcpappletplugin-applet.h \
 
 # base classes
 HEADERS += \

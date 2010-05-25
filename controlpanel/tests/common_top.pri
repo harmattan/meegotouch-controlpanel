@@ -30,8 +30,15 @@ LIBS += -L/usr/lib -lduicontrolpanel
 QMAKE_CXXFLAGS += -Werror -Wno-deprecated
 message($$target.path)
 
-OBJECTS_DIR=../.tmp
-MOC_DIR=../.tmp
+contains(DCP_BUILD_FEATURES,coverage) {
+    OBJECTS_DIR=.tmp
+    MOC_DIR=.tmp
+}
+else {
+    OBJECTS_DIR=../.tmp
+    MOC_DIR=../.tmp
+}
+
 
 INCLUDEPATH += $$LIBDCPINCLUDE
 
