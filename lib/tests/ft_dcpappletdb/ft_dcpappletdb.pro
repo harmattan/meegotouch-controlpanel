@@ -35,8 +35,10 @@ desktops2.files += ft_dcpappletdb-data/desktops2/*.desktop
 desktops2.path = $${DATADIR}/desktops2
 desktops3.files += ft_dcpappletdb-data/desktops3/*.desktop
 desktops3.path = $${DATADIR}/desktops3
+desktops4.files += ft_dcpappletdb-data/desktops4/*.desktop
+desktops4.path = $${DATADIR}/desktops4
 
-INSTALLS += desktops1 desktops2 desktops3
+INSTALLS += desktops1 desktops2 desktops3 desktops4
 
 include(../common_bot.pri)
 

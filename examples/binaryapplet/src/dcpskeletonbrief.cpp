@@ -6,7 +6,7 @@ SkeletonBrief::SkeletonBrief():
     m_ToggleState(true),
     m_Value(0)
 {
-    startTimer(20000);
+    startTimer(3000);
 }
 
 QString SkeletonBrief::valueText() const

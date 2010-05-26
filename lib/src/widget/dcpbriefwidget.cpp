@@ -245,23 +245,23 @@ DcpBriefWidget::constructToggle (
     return toggle;
 }
 
-void 
+void
 DcpBriefWidget::updateContents ()
 {
     if (!d_ptr->m_Applet)
         return;
 
     // for all:
-    d_ptr->m_RealWidget->setText2 (d_ptr->m_Applet->text2()); 
-    
+    d_ptr->m_RealWidget->setText2 (d_ptr->m_Applet->text2());
+
     // toggle specific:
     DcpButtonToggle *toggle = qobject_cast<DcpButtonToggle*>
         (d_ptr->m_RealWidget);
     if (toggle) {
         toggle->setSmallToggle (d_ptr->m_Applet->toggle());
         toggle->setIconId (d_ptr->m_Applet->toggleIconId());
-    } 
-    
+    }
+
     // image specific:
     DcpButtonImage *image = qobject_cast<DcpButtonImage*>(d_ptr->m_RealWidget);
     if (image) {
@@ -283,29 +283,29 @@ DcpBriefWidget::updateContents ()
     }
 }
 
-void 
+void
 DcpBriefWidget::showEvent (
         QShowEvent *event)
 {
     Q_UNUSED (event);
     Q_ASSERT (d_ptr->m_RealWidget);
 
-    if (d_ptr->m_Hidden) { 
+    if (d_ptr->m_Hidden) {
         // prevents multiple showEvents coming
         d_ptr->m_Hidden = false;
 
-        connect (d_ptr->m_RealWidget, SIGNAL(clicked()), 
+        connect (d_ptr->m_RealWidget, SIGNAL(clicked()),
                 this, SIGNAL(clicked()));
 
         if (d_ptr->m_Applet)
-            connect (d_ptr->m_Applet, SIGNAL (briefChanged ()), 
+            connect (d_ptr->m_Applet, SIGNAL (briefChanged ()),
                 this, SLOT (updateContents()));
 
         updateContents();
     }
 }
 
-void 
+void
 DcpBriefWidget::hideEvent (
         QHideEvent     *event)
 {
@@ -315,11 +315,11 @@ DcpBriefWidget::hideEvent (
     if (!d_ptr->m_Hidden) {// prevents multiple hideEvents coming
         d_ptr->m_Hidden = true;
 
-        disconnect (d_ptr->m_RealWidget, SIGNAL(clicked()), 
+        disconnect (d_ptr->m_RealWidget, SIGNAL(clicked()),
                 this, SIGNAL(clicked()));
 
         if (d_ptr->m_Applet)
-            disconnect (d_ptr->m_Applet, SIGNAL (briefChanged()), 
+            disconnect (d_ptr->m_Applet, SIGNAL (briefChanged()),
                 this, SLOT (updateContents()));
     }
 }

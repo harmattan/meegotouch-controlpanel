@@ -46,13 +46,15 @@ private slots:
     void testListByCategory();
     void testListMostUsed();
     void testRefresh();
+    void testAppletNamesIfWrongDesktopFile();
 
 private:
     void printAppletListForDebug (const QString &title) const;
     static void resetUsageCounters ();
     
     DcpAppletDb* m_subject;
-    QString  emptyDesktopDir, testDesktopDir, testDesktopDir2, testDesktopDir3;
+    QString  emptyDesktopDir, testDesktopDir, testDesktopDir2, testDesktopDir3,
+             testDesktopDir4;
     QString  desktopTestFile, desktopTestFile2;
     QString  desktopDateTimeFile, desktopDisplayFile;
     QString  browserEntryName, datetimeEntryName, displayEntryName;

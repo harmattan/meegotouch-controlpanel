@@ -24,6 +24,14 @@
 #include "dcpdebug.h"
 
 
+/* FIXME: this is a workaround against bug NB#170105 -
+ * show/hideEvent of MContentItem does not get called
+ *
+ * Remove it once the bug is solved.
+ */
+#define NB170105
+
+
 DcpContentItemPrivate::DcpContentItemPrivate ():
     m_Applet (0),
     m_WidgetTypeId (DcpWidgetType::Label),
@@ -115,6 +123,10 @@ DcpContentItem::setApplet (DcpAppletObject *applet)
          */
         connect (this, SIGNAL (clicked()),
                 d_ptr->m_Applet, SLOT (slotClicked()));
+#       ifdef NB170105
+        connect (d_ptr->m_Applet, SIGNAL (briefChanged ()), 
+                 this, SLOT (updateContents()));
+#       endif // NB170105
     }
 }
 
@@ -180,6 +192,7 @@ DcpContentItem::updateText ()
     setTitle (applet()->text1());
     setSubtitle (text2);
 }
+
 
 void DcpContentItem::updateImage ()
 {
@@ -279,10 +292,9 @@ DcpContentItem::setImageFromFile (const QString& fileName)
 }
 
 void
-DcpContentItem::showEvent (QShowEvent *event)
+DcpContentItem::showEvent (QShowEvent * event)
 {
-    Q_UNUSED (event);
-
+#       ifndef NB170105
     if (d_ptr->m_Hidden) {
         // prevents multiple showEvents coming
         d_ptr->m_Hidden = false;
@@ -293,13 +305,14 @@ DcpContentItem::showEvent (QShowEvent *event)
 
         updateContents();
     }
+#       endif // NB170105
+    MContentItem::showEvent(event);
 }
 
 void
-DcpContentItem::hideEvent (QHideEvent *event)
+DcpContentItem::hideEvent (QHideEvent * event)
 {
-    Q_UNUSED (event);
-
+#       ifndef NB170105
     if (!d_ptr->m_Hidden) {// prevents multiple hideEvents coming
         d_ptr->m_Hidden = true;
 
@@ -307,6 +320,8 @@ DcpContentItem::hideEvent (QHideEvent *event)
             disconnect (d_ptr->m_Applet, SIGNAL (briefChanged()),
                 this, SLOT (updateContents()));
     }
+#       endif // NB170105
+    MContentItem::hideEvent(event);
 }
 
 void DcpContentItem::setMattiID (const QString& mattid)

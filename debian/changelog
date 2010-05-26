@@ -1,8 +1,15 @@
 duicontrolpanel (0.7.20~unreleased) unstable; urgency=low
 
+  [ Robert Manner ]
   * changelog
+  * Workaround for NB#170026 - Emitting valuesChanged signal doesnt update
+    valueText displayed in Brief (temporary workaround for NB#170105 -
+    showhideEvent of MContentItem does not get called)
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 20 May 2010 19:48:15 +0300
+  [ Sandor Pinter ]
+  * Using applauncher to speed up startup
+
+ -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Tue, 25 May 2010 14:46:11 +0200
 
 duicontrolpanel (0.7.19-1) unstable; urgency=low
 
