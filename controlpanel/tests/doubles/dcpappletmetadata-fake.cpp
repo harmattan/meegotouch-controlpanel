@@ -90,7 +90,7 @@ DcpAppletMetadata::applicationCommand () const
 bool
 DcpAppletMetadata::hasApplicationCommand () const
 {
-    return false;
+    return true;
 }
 
 QString

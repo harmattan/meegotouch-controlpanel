@@ -71,10 +71,6 @@ void Ut_DcpAppletPage::testWidgetId()
     QCOMPARE(m_subject->widgetId(), 10);
 }
 
-void Ut_DcpAppletPage::testBack()
-{
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
-}
 
 void Ut_DcpAppletPage::testLoad()
 {
@@ -83,11 +79,21 @@ void Ut_DcpAppletPage::testLoad()
     QVERIFY(m_subject->m_Applet);
     QVERIFY(m_subject->m_Applet->metadata()->isActive());
     QVERIFY(m_subject->m_Applet->isAppletLoaded());
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+    QVERIFY(!m_subject->m_MissingLabel);
 }
 
-void Ut_DcpAppletPage::testLoadWidget()
+void Ut_DcpAppletPage::testLoadMissing()
 {
+    m_subject->createContent();
+    delete m_subject->m_Applet;
+    m_subject->m_Applet = 0;
+    m_subject->load();
+    QVERIFY(m_subject->m_MissingLabel);
+}
+void Ut_DcpAppletPage::testBack()
+{
+    m_subject->createContent();
+    m_subject->back();
     QSKIP("incomplete", SkipSingle);   // remove this when you've finished
 }
 

@@ -41,7 +41,8 @@ private slots:
     void testWidgetId();
     void testBack();
     void testLoad();
-    void testLoadWidget();
+    void testLoadMissing();
+//    void testLoadCommand();
     void testApplet();    
 
 private:
