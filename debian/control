@@ -24,7 +24,6 @@ Section: x11
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libduicontrolpanel (= ${Source-Version}),
          camera-l10n,
-         applauncherd,
          duicontrolpanel-l10n-engineering-english (= ${Source-Version})
 Description: Control Panel
 

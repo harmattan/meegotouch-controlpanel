@@ -21,7 +21,6 @@
 #include <sys/wait.h>
 #include <csignal>
 #include <MApplicationWindow>
-#include <MComponentCache>
 #include <DcpDebug>
 #include <DcpRetranslator>
 #include <MApplication>
@@ -112,12 +111,12 @@ startApplication (int argc, char* argv[])
 {
     DCP_DEBUG ("");
 
-    MApplication *app = MComponentCache::mApplication(argc, argv);
+    MApplication app(argc, argv);
     signal(SIGTERM, &onTermSignal);
     signal(SIGINT, &onTermSignal);
 
     // install the new translations if locale changes:
-    QObject::connect(app, SIGNAL(localeSettingsChanged()),
+    QObject::connect(&app, SIGNAL(localeSettingsChanged()),
                      DcpRetranslator::instance(), SLOT(retranslate()));
     /*
      * the translations of duicontrolpanel turned out to be in catalog
@@ -130,15 +129,15 @@ startApplication (int argc, char* argv[])
     DuiControlPanelService* service = new DuiControlPanelService();
 
     // mainwindow:
-    MApplicationWindow *win = MComponentCache::mApplicationWindow();
+    MApplicationWindow win;
     service->createStartPage();
-    win->show();
+    win.show();
 
-    return app->exec();
+    return app.exec();
 }
 
 
-M_EXPORT int main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
     // parse options
     QString desktopDir;

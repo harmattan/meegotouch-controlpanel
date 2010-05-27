@@ -2,5 +2,5 @@
 Type=Application
 Name=System settings
 Icon=icon-l-settings
-Exec=/usr/bin/invoker --type=m /usr/bin/duicontrolpanel.launch
+Exec=/usr/bin/duicontrolpanel
 
