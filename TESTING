@@ -11,3 +11,8 @@ maemo-sdk enter runtime
 
 testrunner.py -f /usr/share/duicontrolpanel-tests/tests.xml -o ak.xml
 
+--
+Servicefw interface:
+dbus-send --session --print-reply --dest=com.nokia.DuiControlPanel / com.nokia.DuiControlPanelIf.appletPage string:Battery
+dbus-send --session --print-reply --dest=com.nokia.DuiControlPanel / com.nokia.DuiControlPanelIf.appletPage "string:Display Language"
+
