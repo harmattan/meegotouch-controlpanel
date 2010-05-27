@@ -1,4 +1,4 @@
-duicontrolpanel (0.7.20~unreleased) unstable; urgency=low
+duicontrolpanel (0.7.20) unstable; urgency=low
 
   * changelog
   * Workaround for NB#170026 - Emitting valuesChanged signal doesnt update
