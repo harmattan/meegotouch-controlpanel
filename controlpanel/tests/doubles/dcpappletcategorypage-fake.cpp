@@ -19,7 +19,9 @@
 
 DcpAppletCategoryPage::DcpAppletCategoryPage (
         const DcpCategoryInfo  *categoryInfo) :
-    m_CategoryInfo (categoryInfo)
+    m_CategoryInfo (categoryInfo),
+    m_TitleId(0),
+    m_Category(0)
 {
 }
 

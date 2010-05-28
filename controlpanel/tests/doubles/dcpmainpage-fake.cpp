@@ -17,7 +17,11 @@
 
 #include "dcpmainpage.h"
 
-DcpMainPage::DcpMainPage()
+DcpMainPage::DcpMainPage():
+    m_RecentlyComp(0),
+    m_OtherComp(0),
+    m_HasContent(false),
+    m_WasHidden(false)
 {
 }
 

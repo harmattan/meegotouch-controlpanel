@@ -31,7 +31,8 @@ public:
 
 };
 
-MDesktopEntryPrivate::MDesktopEntryPrivate(const QString& fileName)
+MDesktopEntryPrivate::MDesktopEntryPrivate(const QString& fileName):
+    isValid(false)
 {
     this->fileName = fileName;
     this->values= fileDatas[fileName];

@@ -79,6 +79,8 @@ void Ft_DcpAppletObject::testApplet(const char *desktopfile)
 
     DcpBrief *brief = applet->constructBrief();
     DcpWidget *widget = applet->constructWidget(0);
+    QVERIFY(widget);
+    QVERIFY(brief);
 
     // FIXME deleting the widget causes crash in loadCSS!
     // delete widget;
