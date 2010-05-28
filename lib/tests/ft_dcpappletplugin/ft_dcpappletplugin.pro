@@ -10,8 +10,6 @@ TEST_SOURCES = \
 # unit test and unit
 SOURCES += \
     ft_dcpappletplugin.cpp \
-    ../doubles/mdesktopentry-fake.cpp \
-    ../doubles/fileDatas.cpp \
     $$TEST_SOURCES \ 
 
 # base classes
@@ -22,8 +20,6 @@ SOURCES += \
 HEADERS += \
     ft_dcpappletplugin.h \
     $$SRCDIR/appletdb/dcpappletplugin.h \
-    dcpappletplugin-applet.h \
-    qpluginloader-fake.h \
 
 # base classes
 HEADERS += \

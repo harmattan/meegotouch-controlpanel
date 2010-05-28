@@ -18,6 +18,7 @@
 /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #include "dcpretranslator.h"
+#include "dcpretranslator_p.h"
 
 #include <MLocale>
 #include <MGConfItem>
@@ -34,17 +35,6 @@
  * run before. (Becase the loaded language gconf value can also be null or empty
  * in some cases. */
 static const QString NO_LANGUAGE_IS_LOADED_YET = "***";
-
-class DcpRetranslatorPriv {
-public:
-    DcpRetranslatorPriv();
-
-    QString lastLanguage;
-    QSet<QString> loadedTranslations;
-    static DcpRetranslator* instance;
-    static bool compatibleMode;
-    QString binaryName;
-};
 
 DcpRetranslator* DcpRetranslatorPriv::instance = 0;
 bool DcpRetranslatorPriv::compatibleMode = true;

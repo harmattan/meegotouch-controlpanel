@@ -54,6 +54,7 @@ protected:
             MLocale               &locale,
             const DcpAppletMetadata *metadata);
     class DcpRetranslatorPriv* priv;
+    friend class Ut_DcpRetranslator;
 };
 
 #endif

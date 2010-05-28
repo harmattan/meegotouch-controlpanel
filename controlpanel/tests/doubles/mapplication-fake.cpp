@@ -32,3 +32,7 @@ MWindow * MApplication::activeWindow ()
     return activeApplicationWindow();
 }
 
+QString MApplication::binaryName()
+{
+    return "";
+}
