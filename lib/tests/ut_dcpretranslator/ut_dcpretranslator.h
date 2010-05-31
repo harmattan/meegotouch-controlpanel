@@ -40,11 +40,14 @@ private slots:
     void testEnsureTranslationsAreLoaded();
     void testEnsureTranslationLoaded();
     void testRetrenslate();
-    void testLoadAppletTranslation();
+    void testLoadAppletTranslationOK();
+    void testLoadAppletTranslationNOK();
     
     
 private:
     DcpRetranslator* m_subject;
+    QString desktopTestFile;
+    QString desktopBadTestFile;
 };
 
 #endif

@@ -12,6 +12,8 @@ SOURCES += \
     ut_dcpretranslator.cpp \
     ../../../controlpanel/tests/doubles/mapplication-fake.cpp \ 
     ../../../controlpanel/tests/doubles/mapplicationwindow-fake.cpp \ 
+    ../doubles/filedatas.cpp \
+    ../doubles/mdesktopentry-fake.cpp \
     $$TEST_SOURCES \ 
 
 # base classes
@@ -22,6 +24,7 @@ SOURCES += \
 HEADERS += \
     ut_dcpretranslator.h \
     $$SRCDIR/dcpretranslator.h \
+    ../doubles/filedatas.h \
 
 # base classes
 HEADERS += \
