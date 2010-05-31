@@ -1,8 +1,8 @@
 duicontrolpanel (0.7.21~unreleased) unstable; urgency=low
 
-  * changelog
+  * Fixing Coverity issues
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 27 May 2010 19:30:40 +0300
+ -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Fri, 28 May 2010 14:37:47 +0200
 
 duicontrolpanel (0.7.20) unstable; urgency=low
 

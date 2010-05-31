@@ -25,7 +25,9 @@ static bool qPluginLoaderFakeSuccessful = true;
 static const QString fakeErrorMsg("fake-error-msg");
 
 
-QPluginLoader::QPluginLoader(const QString &fileName, QObject *parent)
+QPluginLoader::QPluginLoader(const QString &fileName, QObject *parent) :
+    d(0),
+    did_load(false)
 {
     Q_UNUSED(fileName);
     Q_UNUSED(parent);

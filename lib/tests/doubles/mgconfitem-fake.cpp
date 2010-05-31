@@ -36,7 +36,8 @@ static QMap<const MGConfItem*, MGConfItemFake*> fakeMap;
 #define FAKE fakeMap[this]
 
 
-MGConfItem::MGConfItem(const QString &key, QObject *parent)
+MGConfItem::MGConfItem(const QString &key, QObject *parent) :
+    priv(0)
 {
     Q_UNUSED(parent);
     fakeMap.insert(this, new MGConfItemFake(key));

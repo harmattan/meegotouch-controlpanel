@@ -53,11 +53,11 @@ void Ut_DcpAppletPlugin::testLoadBinaryOk()
         DcpAppletMetadataFake::TYPE_BINARY;
     qPluginLoaderFakeSuccessful = true;
     DcpAppletMetadata *metadata = new DcpAppletMetadata("dummy-binary");
+    DcpAppletPluginApplet *appl = NULL;
     m_subject = new DcpAppletPlugin(metadata);
     QVERIFY(m_subject->applet());
-    QVERIFY(
-        dynamic_cast<DcpAppletPluginApplet*>(m_subject->applet())->initialized()
-        );
+    appl = dynamic_cast<DcpAppletPluginApplet*>(m_subject->applet());
+    QVERIFY(appl && appl->initialized());
     delete metadata;
     QVERIFY(m_subject->isAppletLoaded());
 }

@@ -36,6 +36,7 @@ DcpMainCategory::DcpMainCategory (
         QGraphicsWidget *parent,
         const QString& logicalId) 
 : DcpComponent (0, title, parent, logicalId),
+    m_MaxColumns(0),
     m_ColCount (0),
     m_RowCount (0),
     m_ItemCount (0),
