@@ -22,13 +22,15 @@
 #include <dcpretranslator_p.h>
 #include <dcpappletmetadata.h>
 #include <filedatas.h>
-#include <MLocale>
+#include "mlocale-fake.h"
+#include "dcpappletdb.h"
 
 #include "ut_dcpretranslator.h"
 
 void Ut_DcpRetranslator::init()
 {
     m_subject = DcpRetranslator::instance();
+    m_subject->priv->loadedTranslations.clear();
 }
 
 void Ut_DcpRetranslator::cleanup()
@@ -74,7 +76,8 @@ void Ut_DcpRetranslator::initTestCase()
     fileDatas[desktopBadTestFile]["DCP/WidgetType"] = "DcpLabel2";
     fileDatas[desktopBadTestFile]["DCP/Text2"] = "firefox";
     fileDatas[desktopBadTestFile]["isValid"] = "n";
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+
+    DcpAppletDb::instance()->addFile (desktopTestFile);
 }
 
 void Ut_DcpRetranslator::cleanupTestCase()
@@ -85,7 +88,6 @@ void Ut_DcpRetranslator::testInstance()
 {
     QVERIFY(m_subject);
     QCOMPARE((void*)m_subject, (void*)DcpRetranslator::instance());
-    QVERIFY(!DcpRetranslatorPriv::compatibleMode);
     QCOMPARE((void*)m_subject, (void*)m_subject->priv->instance);
 }
 
@@ -93,22 +95,57 @@ void Ut_DcpRetranslator::testMainCatalogName()
 {
     m_subject->setMainCatalogName("duisettings");
     QCOMPARE(m_subject->priv->binaryName, QString("duisettings"));
+    m_subject->setMainCatalogName("settings");
+    QCOMPARE(m_subject->priv->binaryName, QString("settings"));
 }
 
 void Ut_DcpRetranslator::testEnsureTranslationsAreLoaded()
 {
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+    DcpAppletMetadata metadata (desktopTestFile);
+    DcpAppletMetadataList list;
+    list << &metadata;
+
+    QVERIFY(!m_subject->priv->loadedTranslations.contains("duisettings"));
+    m_subject->ensureTranslationsAreLoaded (list);
+    QVERIFY(m_subject->priv->loadedTranslations.contains("duisettings"));
+    m_subject->priv->loadedTranslations.remove("duisettings");
+
+    // check that the default locale was correctly filled up:
+    QVERIFY (MLocale_installedCatalogs ().contains("duisettings"));
 }
 
 void Ut_DcpRetranslator::testEnsureTranslationLoaded()
 {
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+    DcpAppletMetadata metadata (desktopTestFile);
+
+    QVERIFY(!m_subject->priv->loadedTranslations.contains("duisettings"));
+    m_subject->ensureTranslationLoaded (&metadata);
+    QVERIFY(m_subject->priv->loadedTranslations.contains("duisettings"));
+    m_subject->priv->loadedTranslations.remove("duisettings");
+
+    // check that the default locale was correctly filled up:
+    QVERIFY (MLocale_installedCatalogs ().contains("duisettings"));
 }
 
 void Ut_DcpRetranslator::testRetrenslate()
 {
+    // cleanup
+    m_subject->priv->loadedTranslations.clear();
+    m_subject->priv->loadedTranslations.insert("shouldBeRemoved");
+    QCOMPARE (DcpAppletDb::instance()->list().count(), 1);
+    DcpAppletDb::instance()->list().at(0)->markActive();
+
     m_subject->retranslate();
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+
+    // emptied the list of loaded translations:
+    QVERIFY (!m_subject->priv->loadedTranslations.contains("shouldBeRemoved"));
+    // loaded the catalogs for the active items:
+    QVERIFY (m_subject->priv->loadedTranslations.contains("duisettings"));
+
+    // checks that it does not load the catalogs again if run several times
+    m_subject->priv->loadedTranslations.clear();
+    m_subject->retranslate();
+    QVERIFY (m_subject->priv->loadedTranslations.isEmpty());
 }
 
 void Ut_DcpRetranslator::testLoadAppletTranslationOK()
@@ -119,6 +156,11 @@ void Ut_DcpRetranslator::testLoadAppletTranslationOK()
     QVERIFY(m_subject->loadAppletTranslation(locale, metadata));
     QVERIFY(m_subject->priv->loadedTranslations.contains("duisettings"));
     m_subject->priv->loadedTranslations.remove("duisettings");
+
+    // check that the locale was correctly filled up:
+    QVERIFY (MLocale_catalogs (&locale).contains("duisettings"));
+
+    delete metadata;
 }
 
 void Ut_DcpRetranslator::testLoadAppletTranslationNOK()
@@ -128,6 +170,9 @@ void Ut_DcpRetranslator::testLoadAppletTranslationNOK()
     QVERIFY(!m_subject->priv->loadedTranslations.contains("duisettings"));
     QVERIFY(!m_subject->loadAppletTranslation(locale, metadata));
     QVERIFY(!m_subject->priv->loadedTranslations.contains("duisettings"));
+
+    delete metadata;
 }
 
 QTEST_APPLESS_MAIN(Ut_DcpRetranslator)
+

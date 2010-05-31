@@ -30,5 +30,6 @@ public:
     DcpBrief* m_Brief;
     DcpAppletMetadata *m_Metadata;
 };
+
 #endif // DCPAPPLETOBJECT_P_H
 

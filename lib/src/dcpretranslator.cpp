@@ -37,7 +37,6 @@
 static const QString NO_LANGUAGE_IS_LOADED_YET = "***";
 
 DcpRetranslator* DcpRetranslatorPriv::instance = 0;
-bool DcpRetranslatorPriv::compatibleMode = true;
 
 DcpRetranslatorPriv::DcpRetranslatorPriv ():
     lastLanguage (NO_LANGUAGE_IS_LOADED_YET)
@@ -48,11 +47,6 @@ DcpRetranslatorPriv::DcpRetranslatorPriv ():
 
 DcpRetranslator::DcpRetranslator (): priv(new DcpRetranslatorPriv())
 {
-    if (DcpRetranslatorPriv::compatibleMode) {
-        // load the translations of the applets:
-        DcpAppletDb *db = DcpAppletDb::instance();
-        ensureTranslationsAreLoaded(db->list());
-    }
 }
 
 /*
@@ -97,7 +91,7 @@ DcpRetranslator::retranslate ()
     // load the translations of the active applets:
     DcpAppletDb *db = DcpAppletDb::instance();
     foreach (DcpAppletMetadata* metadata, db->list()) {
-        if (metadata->isActive() || DcpRetranslatorPriv::compatibleMode) {
+        if (metadata->isActive()) {
             loadAppletTranslation (locale, metadata);
         }
     }
@@ -127,10 +121,8 @@ DcpRetranslator::loadAppletTranslation (
     if (catalog.isEmpty() ) return false;
 
     /* Do not load the translation if it is already loaded
-     * In compatible mode (for suw), it is skipped.
      */
-    if (!DcpRetranslatorPriv::compatibleMode &&
-        priv->loadedTranslations.contains(catalog)) return false;
+    if (priv->loadedTranslations.contains(catalog)) return false;
 
     locale.installTrCatalog(catalog + ".qm"); // install engineering english
     locale.installTrCatalog(catalog); // install real translation, if any
@@ -191,9 +183,8 @@ DcpRetranslator::ensureTranslationLoaded(DcpAppletMetadata* metadata)
 DcpRetranslator*
 DcpRetranslator::instance()
 {
-    if (DcpRetranslatorPriv::instance == NULL)
+    if (!DcpRetranslatorPriv::instance)
     {
-        DcpRetranslatorPriv::compatibleMode = false;
         DcpRetranslatorPriv::instance = new DcpRetranslator();
     }
     return DcpRetranslatorPriv::instance;

@@ -28,7 +28,6 @@ public:
     QString lastLanguage;
     QSet<QString> loadedTranslations;
     static DcpRetranslator* instance;
-    static bool compatibleMode;
     QString binaryName;
 };
 #endif // DCPRETRANSLATOR_P_H

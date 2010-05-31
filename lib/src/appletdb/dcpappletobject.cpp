@@ -33,9 +33,9 @@
 
 
 
-DcpAppletObjectPrivate::DcpAppletObjectPrivate ()
-    : m_Brief (0),
+DcpAppletObjectPrivate::DcpAppletObjectPrivate ():
     applet(0),
+    m_Brief (0),
     m_Metadata(0)
 {
 }

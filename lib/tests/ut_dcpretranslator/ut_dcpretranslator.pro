@@ -15,7 +15,8 @@ SOURCES += \
     ../doubles/filedatas.cpp \
     ../doubles/mdesktopentry-fake.cpp \
     ../doubles/mgconfitem-fake.cpp \
-    $$TEST_SOURCES \ 
+    ../doubles/mlocale-fake.cpp \
+    $$TEST_SOURCES \
 
 # base classes
 SOURCES += \
@@ -27,6 +28,7 @@ HEADERS += \
     $$SRCDIR/dcpretranslator.h \
     ../doubles/filedatas.h \
     ../doubles/mgconfitem-fake.h \
+    ../doubles/mlocale-fake.h \
 
 # base classes
 HEADERS += \

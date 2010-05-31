@@ -40,7 +40,6 @@ class DcpRetranslator : public QObject
     Q_OBJECT
 public:
     static DcpRetranslator* instance();
-    DcpRetranslator(); // FIXME, this is deprecated, only for compatibility, suw uses it
 
     void setMainCatalogName (const QString& catalogName);
     void ensureTranslationsAreLoaded(const DcpAppletMetadataList& list);
@@ -50,6 +49,7 @@ public slots:
    void retranslate();
 
 protected:
+    DcpRetranslator();
     bool loadAppletTranslation (
             MLocale               &locale,
             const DcpAppletMetadata *metadata);
