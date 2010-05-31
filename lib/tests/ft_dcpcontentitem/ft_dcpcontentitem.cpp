@@ -18,13 +18,18 @@
 #include "ft_dcpcontentitem.h"
 #include "dcpappletobject.h"
 #include "dcpappletmetadata.h"
+#include <MApplication>
 
 void Ft_DcpContentItem::initTestCase()
 {
+    int argc = 1;
+    char *argv = (char *) "./ft_dcpcontentitem";
+    app = new MApplication(argc, &argv);
 }
 
 void Ft_DcpContentItem::cleanupTestCase()
 {
+    delete app;
 }
 
 void Ft_DcpContentItem::init()

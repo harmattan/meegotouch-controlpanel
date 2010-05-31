@@ -23,6 +23,7 @@
 
 #include <dcpcontentitem.h>
 
+class MApplication;
 class Ft_DcpContentItem : public QObject
 {
     Q_OBJECT
@@ -38,7 +39,7 @@ private slots:
     void testMattiId();
 private:
     DcpContentItem* m_Target;
-
+    MApplication *app;
 };
 
 #endif // FT_DCPCONTENTITEM_H
