@@ -197,7 +197,7 @@ PageFactory::createAppletPage (PageHandle &handle)
     registerPage (appletPage);
 
     // we do this because we need to know if the page has a widget or not
-    // TODO XXX
+    // TODO
     appletPage->createContent();
 
     if (!appletPage->hasWidget() && !appletPage->hasError()) {
@@ -311,19 +311,6 @@ PageFactory::registerPage (
 {
     connect (page, SIGNAL(openSubPage (const PageHandle &)), 
         this, SLOT(changePage(const PageHandle &)));
-
-    if (page != m_MainPage) {
-        // closeAction TODO XXX on language change, move into to the page?
-        MAction *quitAction;
-
-        quitAction = new MAction (qtTrId(DcpMain::quitMenuItemTextId), page);
-        quitAction->setLocation(MAction::ApplicationMenuLocation);
-
-        connect(quitAction, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
-
-        // Add actions to page
-        page->addAction(quitAction);
-    }
 }
 
 /*!
