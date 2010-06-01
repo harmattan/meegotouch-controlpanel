@@ -18,12 +18,10 @@ Architecture: any
 Depends: libduicontrolpanel (= ${Source-Version}), libmeegotouch-dev (>= 0.20)
 Description: Development files for the control panel application and its applets
 
-# camera-l10n pkg contains the translation for controlpanel, hopefully temporarily
 Package: duicontrolpanel
 Section: x11
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libduicontrolpanel (= ${Source-Version}),
-         camera-l10n,
          duicontrolpanel-l10n-engineering-english (= ${Source-Version})
 Description: Control Panel
 
