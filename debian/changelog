@@ -1,8 +1,13 @@
 duicontrolpanel (0.7.21~unreleased) unstable; urgency=low
 
+  [ Sandor Pinter ]
   * Fixing Coverity issues
 
- -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Fri, 28 May 2010 14:37:47 +0200
+  [ Robert Manner ]
+  * Fixes: NB#171520 - The View Menu should not be available on Region
+    format setting view
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 02 Jun 2010 00:15:34 +0200
 
 duicontrolpanel (0.7.20) unstable; urgency=low
 
