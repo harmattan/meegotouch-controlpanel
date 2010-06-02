@@ -100,6 +100,11 @@ public:
     void markInactive();
     bool isActive() const;
 
+    /*! gets the last openned applet */
+    static DcpAppletMetadata* lastUsed ();
+    /*! sets the last openned applet */
+    static void setLastUsed (DcpAppletMetadata* metadata);
+
 protected:
     MDesktopEntry* desktopEntry () const;
     QString desktopEntryStr (int id) const;

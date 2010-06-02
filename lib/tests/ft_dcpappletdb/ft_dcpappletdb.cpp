@@ -267,3 +267,4 @@ void Ft_DcpAppletDb::testRefresh()
 }
 
 QTEST_APPLESS_MAIN(Ft_DcpAppletDb)
+

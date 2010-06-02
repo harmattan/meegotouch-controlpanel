@@ -29,6 +29,7 @@
 #include <MLocale>
 #include <mcollator.h>
 
+DcpAppletMetadata* DcpAppletMetadataPrivate::sm_LastUsed = 0;
 
 DcpAppletMetadataPrivate::DcpAppletMetadataPrivate ()
     :
@@ -299,6 +300,7 @@ DcpAppletMetadata::incrementUsage()
     MostUsedCounter::instance()->incrementUsageCount (
             QFileInfo(fileName()).baseName()
     );
+    setLastUsed (this);
 }
 
 MDesktopEntry *
@@ -416,6 +418,18 @@ bool
 DcpAppletMetadata::isActive() const
 {
     return d_ptr->m_Activated;
+}
+
+/*! \brief Returns the last openned applet's metadata
+ */
+DcpAppletMetadata* DcpAppletMetadata::lastUsed ()
+{
+    return DcpAppletMetadataPrivate::sm_LastUsed;
+}
+
+void DcpAppletMetadata::setLastUsed (DcpAppletMetadata* metadata)
+{
+    DcpAppletMetadataPrivate::sm_LastUsed = metadata;
 }
 
 

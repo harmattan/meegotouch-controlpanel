@@ -36,6 +36,7 @@ public:
     QString m_FileName;
     bool m_Disabled;
     int m_Activated;
+    static DcpAppletMetadata* sm_LastUsed;
 };
 
 enum  {

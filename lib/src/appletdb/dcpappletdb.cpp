@@ -26,20 +26,31 @@
 #include <QDir>
 #include <QDebug>
 #include <MLocale>
+#include <MGConfItem>
 
 #include "dcpdebug.h"
 
 const QString AppletFilter = "*.desktop";
 DcpAppletDb* DcpAppletDbPrivate::sm_Instance = 0;
 
-DcpAppletDbPrivate::DcpAppletDbPrivate()
+static const QString lastUsedAppletKey = QString(MOSTUSEDCOUNTER_GCONFKEY) +
+                                         "/lastUsed";
+
+
+DcpAppletDbPrivate::DcpAppletDbPrivate():
+    hasUniqueMetadata (false)
 {
-    hasUniqueMetadata = false;
+
 }
 
 
 DcpAppletDbPrivate::~DcpAppletDbPrivate()
 {
+    // store the last used applet:
+    DcpAppletMetadata* lastUsed = DcpAppletMetadata::lastUsed();
+    if (lastUsed) {
+        MGConfItem(lastUsedAppletKey).set (lastUsed->fileName());
+    }
 }
 
 
@@ -49,6 +60,12 @@ DcpAppletDb::DcpAppletDb (
 {
     if (!pathName.isEmpty())
         addFiles (pathName, nameFilter);
+
+    // try to restore the last used applet:
+    QString fileName = MGConfItem(lastUsedAppletKey).value ().toString ();
+    if (d_ptr->appletsByFile.contains (fileName)) {
+        DcpAppletMetadata::setLastUsed (d_ptr->appletsByFile.value (fileName));
+    }
 }
 
 DcpAppletDb::~DcpAppletDb()
@@ -269,16 +286,27 @@ DcpAppletMetadataList
 DcpAppletDb::listMostUsed ()
 {
     DcpAppletMetadataList mostUsed;
+    DcpAppletMetadata* lastUsed = DcpAppletMetadata::lastUsed();
 
     for (QMap<QString, DcpAppletMetadata*>::iterator iter =
-            d_ptr->appletsByName.begin(); iter != d_ptr->appletsByName.end(); iter++)
-        if (iter.value()->usage())
+            d_ptr->appletsByName.begin(); iter != d_ptr->appletsByName.end();
+            iter++)
+    {
+        // we skip not used items, and also the last used item
+        // (to avoid duplication)
+        if (iter.value()->usage() && iter.value() != lastUsed)
             mostUsed.push_back(iter.value());
+    }
 
    qSort (mostUsed.begin(), mostUsed.end(), 
-           DcpAppletMetadata::usageGreatherThan); 
+           DcpAppletMetadata::usageGreatherThan);
 
-   return mostUsed.mid (0, DcpApplet::MaxMostUsed);
+   // last clicked item should be the first item (see bug NB#169944)
+   if (lastUsed) {
+        mostUsed.prepend (lastUsed);
+   }
+   mostUsed = mostUsed.mid (0, DcpApplet::MaxMostUsed);
+   return mostUsed;
 }
 
 
