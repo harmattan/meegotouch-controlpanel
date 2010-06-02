@@ -169,10 +169,28 @@ DcpAppletDb::list() const
     return d_ptr->appletsByFile.values();
 }
 
+
+/*
+ * Categories should be ordered by the way it is specified in their
+ * desktop files, except the applications category, which should be ordered
+ * by the name of the items
+ */
+static void sortACategory (QList<DcpAppletMetadata*>& filtered,
+                           const QString& category)
+{
+    // FIXME: quick solution, we should remove this magic word and
+    //        export the category names (?)
+    qSort(filtered.begin(), filtered.end(),
+          category == "qtn_sett_main_application" ?
+                      DcpAppletMetadata::nameLessThan :
+                      DcpAppletMetadata::orderLessThan
+         );
+}
+
 /*!
  *
  */
-DcpAppletMetadataList 
+DcpAppletMetadataList
 DcpAppletDb::listByCategory (
         const QString &category)
 {
@@ -189,7 +207,7 @@ DcpAppletDb::listByCategory (
         }
     }
 
-    qSort(filtered.begin(), filtered.end(), DcpAppletMetadata::orderLessThan);
+    sortACategory (filtered, category);
     return filtered;
 }
 
@@ -243,7 +261,7 @@ DcpAppletDb::listByCategory (
         }
     }
 
-    qSort (filtered.begin(), filtered.end(), DcpAppletMetadata::orderLessThan);
+    sortACategory (filtered, n_categories > 0 ? category[0] : QString());
     return filtered;
 }
 

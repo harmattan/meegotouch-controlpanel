@@ -17,7 +17,6 @@
 
 /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
-#include <MLocale>
 
 #include "dcpappletmetadata.h"
 #include "dcpappletmetadata_p.h"
@@ -26,6 +25,9 @@
 #include "dcpwidgettypes.h"
 
 #include "dcpdebug.h"
+
+#include <MLocale>
+#include <mcollator.h>
 
 
 DcpAppletMetadataPrivate::DcpAppletMetadataPrivate ()
@@ -338,6 +340,15 @@ DcpAppletMetadata::orderLessThan (
         DcpAppletMetadata *meta2)
 {
     return meta1->order () < meta2->order ();
+}
+
+bool 
+DcpAppletMetadata::nameLessThan (
+        DcpAppletMetadata *meta1,
+        DcpAppletMetadata *meta2)
+{
+    return MCollator::compare (meta1->name (), meta2->name ())
+            == MLocale::LessThan;
 }
 
 bool 

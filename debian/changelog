@@ -9,8 +9,10 @@ duicontrolpanel (0.8.0~unreleased) unstable; urgency=low
   * Adds API for accessing the progress indicator of the page from
     DcpWidget
   * Removes the deprecated classes DcpButton* and DcpBriefWidget
+  * 'Applications' category is sorted by applet titles instead of the Order
+    specified in the desktop file (like other categories)
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 02 Jun 2010 12:48:22 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 02 Jun 2010 15:54:05 +0200
 
 duicontrolpanel (0.7.20) unstable; urgency=low
 

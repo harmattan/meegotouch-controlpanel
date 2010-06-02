@@ -89,7 +89,11 @@ public:
             DcpAppletMetadata *meta1,
             DcpAppletMetadata *meta2);
 
-    bool isDisabled () const;
+    static bool nameLessThan (
+            DcpAppletMetadata *meta1,
+            DcpAppletMetadata *meta2);
+
+     bool isDisabled () const;
     void setDisabled (bool disabled);
 
     void markActive();
