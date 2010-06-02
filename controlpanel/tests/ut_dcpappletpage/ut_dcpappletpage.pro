@@ -45,6 +45,7 @@ SOURCES += \
     $$STUBSDIR/dcpcategorycomponent-fake.cpp \
     $$STUBSDIR/dcpmaincategory-fake.cpp \
     $$STUBSDIR/qgraphicslinearlayout-fake.cpp \
+    $$STUBSDIR/qgraphicsobject-fake.cpp \
     $$TEST_SOURCES \ 
 
 # base classes

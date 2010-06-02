@@ -24,7 +24,8 @@
 
 
 DcpWidgetPrivate::DcpWidgetPrivate ():
-    m_WidgetId (-1)
+    m_WidgetId (-1),
+    isProgressIndicatorVisible (false)
 {
 }
 
@@ -124,4 +125,16 @@ DcpWidget::title() const
 {
     return QString();
 }
+
+void DcpWidget::setProgressIndicatorVisible(bool visible)
+{
+    d_ptr->isProgressIndicatorVisible = visible;
+    emit inProgress (visible);
+}
+
+bool DcpWidget::isProgressIndicatorVisible() const
+{
+    return d_ptr->isProgressIndicatorVisible;
+}
+
 

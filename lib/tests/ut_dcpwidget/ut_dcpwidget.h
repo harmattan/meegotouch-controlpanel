@@ -39,6 +39,7 @@ private slots:
     void testWidgetId();
     void testBack();
     void testPagePans();
+    void testProgressIndicator();
 private:
     DcpWidget* m_subject;
 };

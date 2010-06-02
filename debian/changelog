@@ -1,4 +1,4 @@
-duicontrolpanel (0.7.21~unreleased) unstable; urgency=low
+duicontrolpanel (0.8.0~unreleased) unstable; urgency=low
 
   [ Sandor Pinter ]
   * Fixing Coverity issues
@@ -6,8 +6,11 @@ duicontrolpanel (0.7.21~unreleased) unstable; urgency=low
   [ Robert Manner ]
   * Fixes: NB#171520 - The View Menu should not be available on Region
     format setting view
+  * Adds API for accessing the progress indicator of the page from
+    DcpWidget
+  * Removes the deprecated classes DcpButton* and DcpBriefWidget
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 02 Jun 2010 00:15:34 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 02 Jun 2010 12:48:22 +0200
 
 duicontrolpanel (0.7.20) unstable; urgency=low
 

@@ -19,22 +19,26 @@
 #define SKELETONWIDGET_H
 
 #include <DcpWidget>
- 
+
 class MLabel;
 
-class SkeletonWidget : public DcpWidget 
+class SkeletonWidget : public DcpWidget
 {
-	Q_OBJECT
-		
+    Q_OBJECT
+
 public:
-	SkeletonWidget(QGraphicsWidget *parent = 0);
-	virtual ~SkeletonWidget();
+    SkeletonWidget(QGraphicsWidget *parent = 0);
+    virtual ~SkeletonWidget();
 
 protected:
-	void initWidget();
-		
+    void initWidget();
+
+protected slots:
+    void loadingFinished();
+
 private:
-	MLabel    *m_aboutLabel;
-		
+    MLabel *m_aboutLabel;
 };
+
 #endif // SKELETONWIDGET_H
+

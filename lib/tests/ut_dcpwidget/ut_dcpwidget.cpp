@@ -17,6 +17,7 @@
 
 #include <QObject>
 #include <QGraphicsSceneMouseEvent>
+#include <QSignalSpy>
 
 #include <dcpwidget.h>
 #include <dcpwidget_p.h>
@@ -67,5 +68,26 @@ void Ut_DcpWidget::testPagePans()
     QVERIFY(m_subject->pagePans()); // default behaviour
 }
 
+void Ut_DcpWidget::testProgressIndicator()
+{
+    // default value:
+    QVERIFY(!m_subject->isProgressIndicatorVisible());
+
+    QSignalSpy spy (m_subject, SIGNAL(inProgress(bool)));
+
+    // show it:
+    m_subject->setProgressIndicatorVisible(true);
+    QVERIFY(m_subject->isProgressIndicatorVisible());
+    QCOMPARE(spy.count(), 1);
+    QVERIFY(spy.takeFirst().at(0).toBool());
+
+    // hide it:
+    m_subject->setProgressIndicatorVisible(false);
+    QVERIFY(!m_subject->isProgressIndicatorVisible());
+    QCOMPARE(spy.count(), 1);
+    QVERIFY(!spy.takeFirst().at(0).toBool());
+}
+
 
 QTEST_APPLESS_MAIN(Ut_DcpWidget)
+

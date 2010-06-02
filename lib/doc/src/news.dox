@@ -1,5 +1,13 @@
 /*! \page news What's New in DuiControlPanel
 
+\section v080 0.8.0
+\subsection new New features
+- New signal #DcpWidget::setProgressIndicatorVisible for accessing the progress
+  indicator of the page.
+\subsection rem Removed
+- Removed the already deprecated DcpBriefWidget, DcpButton, DcpButtonAlign,
+  DcpButtonToggle, DcpButtonImage
+
 \section v0719 0.7.19
 
 \subsection deprec Deprecated

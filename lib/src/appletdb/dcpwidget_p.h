@@ -21,5 +21,6 @@ class DcpWidgetPrivate {
 public:
     DcpWidgetPrivate ();
     int m_WidgetId;
+    bool isProgressIndicatorVisible;
 };
 #endif //DCPWIDGETPRIVATE_H 

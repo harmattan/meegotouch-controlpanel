@@ -93,6 +93,31 @@ public:
      * Name of the applet specified in the applet's desktop file.
      */
     virtual QString title() const;
+
+public slots:
+    /*!
+     * \brief Show a progress indicator
+     *
+     * With this function the widget can show a progress indicator
+     * indicating that a longer operation is running.
+     * Same as calling MApplicationPage::setProgressIndicatorVisible.
+     *
+     * \param visible   If true, the progress indicator becomes visible.
+     *                  If false, it will become hidden.
+     */
+    void setProgressIndicatorVisible (bool visible);
+
+public:
+    bool isProgressIndicatorVisible () const;
+
+signals:
+    /*!
+     * \brief Emitted when #setProgressIndicatorVisible gets called
+     *
+     * \param isInProgress If true, the progress indicator becomes visible.
+     *                     If false, it will become hidden.
+     */
+    void inProgress (bool isInProgress);
 };
 
 #endif

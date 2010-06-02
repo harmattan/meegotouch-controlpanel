@@ -217,6 +217,12 @@ DcpAppletPage::loadWidget (int widgetId)
     if (m_Applet->interfaceVersion() >= 2) {
         connect (m_MainWidget, SIGNAL (closePage()),
                  this, SLOT (back ()));
+        if (m_Applet->interfaceVersion() >= 4) {
+            connect (m_MainWidget, SIGNAL (inProgress (bool)),
+                     this, SLOT (setProgressIndicatorVisible (bool)));
+            setProgressIndicatorVisible (
+                    m_MainWidget->isProgressIndicatorVisible());
+        }
     }
 
     // add the actions:
