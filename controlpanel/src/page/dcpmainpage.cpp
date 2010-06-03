@@ -119,7 +119,7 @@ DcpMainPage::createContent ()
 
         button = new DcpSingleComponent(otherCategories, info->titleId,
                                         qtTrId(info->titleId));
-        button->setSubPage(PageHandle(info->subPageId, info->titleId));
+        button->setSubPage(PageHandle(info->subPageId, info->appletCategory));
         otherCategories->appendWidget(button);
         m_CategoryButtons.append(button);
     }

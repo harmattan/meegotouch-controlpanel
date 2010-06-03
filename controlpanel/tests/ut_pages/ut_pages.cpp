@@ -83,8 +83,6 @@ void Ut_PageHandle::testGetStringVariant()
     QVERIFY(h8.getStringVariant() == "REGIONALSETTING:///-1");
     PageHandle h9(PageHandle::DEVICESYSTEM);
     QVERIFY(h9.getStringVariant() == "DEVICESYSTEM:///-1");
-    PageHandle h10(PageHandle::ServiceAccounts);
-    QVERIFY(h10.getStringVariant() == "ServiceAccounts:///-1");
     PageHandle h11(PageHandle::Applications);
     QVERIFY(h11.getStringVariant() == "Applications:///-1");
     PageHandle h12(PageHandle::CATEGORY_PAGEID_END);

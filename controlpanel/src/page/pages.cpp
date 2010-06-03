@@ -71,10 +71,6 @@ PageHandle::getStringVariant () const
             typeName = "UTILITIES";
             break;
 
-        case ServiceAccounts:
-            typeName = "ServiceAccounts";
-            break;
-
         case Applications:
             typeName = "Applications";
             break;
