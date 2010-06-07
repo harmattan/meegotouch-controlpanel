@@ -102,3 +102,10 @@ DcpMainCategory::maxColumns ()
     return m_MaxColumns;
 }
 
+QGraphicsWidget*
+DcpMainCategory::widgetAt (int)
+{
+    return 0;
+}
+
+

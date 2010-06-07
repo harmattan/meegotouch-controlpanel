@@ -41,6 +41,8 @@ public:
 
     virtual void reload();
     void setTitleId(const char* titleId);
+    int appletCount();
+    DcpAppletMetadata* appletMetadata(int i);
 
 public slots:
     virtual void back();

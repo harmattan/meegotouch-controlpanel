@@ -210,6 +210,19 @@ PageFactory::createAppletPage (PageHandle &handle)
     }
 }
 
+
+/*!
+ * Creates the applet page based on the applet's metadata
+ */
+DcpPage*
+PageFactory::createAppletPage (DcpAppletMetadata* metadata)
+{
+    PageHandle handle;
+    handle.id = PageHandle::APPLET;
+    handle.param = metadata->name();
+    return createAppletPage (handle);
+}
+
 /*!
  * Creates an applet category page, a page that shows a group of applets the
  * same way the main page shows applets.
@@ -236,6 +249,22 @@ PageFactory::createAppletCategoryPage (
     }
 
     m_AppletCategoryPage->setTitleId (info->titleId);
+
+    /*
+     * If the category contains one applet only, then we do not require the user
+     * to click on that, but switch to the appletPage directly
+     *
+     * It is for service accounts page only, because that whole category gets
+     * provided by an applet.
+     */
+    if (id == PageHandle::ServiceAccounts &&
+        m_AppletCategoryPage->appletCount() == 1)
+    {
+        DcpAppletMetadata* metadata = m_AppletCategoryPage->appletMetadata(0);
+        if (metadata) {
+            return createAppletPage (metadata);
+        }
+    }
 
     return m_AppletCategoryPage;
 }

@@ -64,7 +64,40 @@ DcpAppletCategoryPage::setCategoryInfo (
     m_CategoryInfo = categoryInfo;
 }
 
-void 
+/*! \brief Returns the count of applets present in the active category.
+ *
+ * Note that it is not very cheap, because it forces the items (widgets) to be
+ * loaded. So only use it in case you want to load the items anyway
+ */
+int
+DcpAppletCategoryPage::appletCount()
+{
+    // this forces loading the items
+    if (!isContentCreated()) {
+        createContent();
+    } else if (m_LoadedAppletCategory != appletCategory()) {
+        m_Category->setCategoryInfo (m_CategoryInfo);
+    }
+
+    return m_Category->getItemCount();
+}
+
+/*! \brief Returns the metadata at the specified position.
+ *
+ * Note, the same applies as for appletCount().
+ */
+DcpAppletMetadata*
+DcpAppletCategoryPage::appletMetadata(int i)
+{
+    if (i < appletCount()) {
+        return m_Category->appletMetadata(i);
+    } else {
+        return 0;
+    }
+}
+
+
+void
 DcpAppletCategoryPage::reload ()
 {
     DCP_DEBUG ("");

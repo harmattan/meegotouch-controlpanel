@@ -72,6 +72,14 @@ DcpMainCategory::deleteItems ()
     }
 }
 
+
+QGraphicsWidget*
+DcpMainCategory::widgetAt (int i)
+{
+    if (i>layout()->count()) return 0;
+    return (QGraphicsWidget*)(layout()->itemAt(i)->graphicsItem());
+}
+
 void 
 DcpMainCategory::setHorizontalSpacing (
         int space)

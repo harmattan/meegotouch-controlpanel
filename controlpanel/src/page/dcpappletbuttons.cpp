@@ -105,6 +105,18 @@ DcpAppletButtons::createContents ()
     DcpRetranslator::instance()->ensureTranslationsAreLoaded(metadatas);
 }
 
+DcpAppletMetadata*
+DcpAppletButtons::appletMetadata (int pos)
+{
+    QGraphicsWidget* widget = widgetAt(pos);
+    if (!widget) return 0;
+    DcpContentItem* contentItem = qobject_cast<DcpContentItem*>(widget);
+    if (!contentItem) return 0;
+    DcpAppletObject* applet = contentItem->applet();
+    if (!applet) return 0;
+    return applet->metadata();
+}
+
 void
 DcpAppletButtons::addComponent (DcpAppletMetadata *metadata)
 {

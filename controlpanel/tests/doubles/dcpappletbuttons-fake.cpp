@@ -55,4 +55,8 @@ DcpAppletButtons::reload ()
     return true;
 }
 
+DcpAppletMetadata* DcpAppletButtons::appletMetadata(int)
+{
+    return 0;
+}
 

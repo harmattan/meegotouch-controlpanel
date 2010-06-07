@@ -69,3 +69,15 @@ DcpAppletCategoryPage::setTitleId(const char *titleId)
    Q_UNUSED(titleId);
 }
 
+int
+DcpAppletCategoryPage::appletCount()
+{
+    return 0;
+}
+
+DcpAppletMetadata*
+DcpAppletCategoryPage::appletMetadata(int)
+{
+    return 0;
+}
+

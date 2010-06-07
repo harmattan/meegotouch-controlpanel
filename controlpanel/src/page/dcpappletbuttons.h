@@ -45,6 +45,7 @@ public:
             DcpAppletMetadata *metadata);
 
     virtual bool reload();
+    DcpAppletMetadata* appletMetadata (int pos);
 
 protected:
     virtual void createContents();

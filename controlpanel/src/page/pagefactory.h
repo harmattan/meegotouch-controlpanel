@@ -56,6 +56,7 @@ protected:
     PageFactory ();
     DcpPage* createMainPage ();
     DcpPage* createAppletPage(PageHandle& applet);
+    DcpPage* createAppletPage (DcpAppletMetadata* metadata);
     DcpPage* createAppletCategoryPage (PageHandle::PageTypeId pageId);
 
 private slots:
