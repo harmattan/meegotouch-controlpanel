@@ -154,6 +154,7 @@ termination_signal_handler (
     raise (signum);
 }
 
+
 /*******************************************************************************
  * Other parts of the code.
  */
@@ -161,6 +162,23 @@ DcpWrongApplets::DcpWrongApplets ()
 {
     //Q_ASSERT (false);
     DCP_DEBUG ("");
+
+    // on dcp timestamp change, remove the list of bad applets
+    removeBadsOnDcpTimeStampChange();
+
+    // init cache:
+    m_BadApplets = queryBadApplets();
+}
+
+DcpWrongApplets::~DcpWrongApplets ()
+{
+}
+
+// this had to be separated from the constructor, because
+// the constructor has to be run after MApplication creation
+// and connecting the signals should be before it
+void DcpWrongApplets::connectSupervisorSignals()
+{
     if (!sm_Disabled) {
         signal (SIGTERM, termination_signal_handler);
         signal (SIGHUP,  termination_signal_handler);
@@ -173,16 +191,6 @@ DcpWrongApplets::DcpWrongApplets ()
         signal (SIGABRT, termination_signal_handler);
         signal (SIGFPE,  termination_signal_handler);
     }
-
-    // on dcp timestamp change, remove the list of bad applets
-    removeBadsOnDcpTimeStampChange();
-
-    // init cache:
-    m_BadApplets = queryBadApplets();
-}
-
-DcpWrongApplets::~DcpWrongApplets ()
-{
 }
 
 

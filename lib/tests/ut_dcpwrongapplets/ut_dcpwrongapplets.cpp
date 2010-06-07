@@ -180,6 +180,23 @@ void Ut_DcpWrongApplets::testDisabled()
 }
 
 
+void Ut_DcpWrongApplets::testConnectSupervisorSignals()
+{
+    // check if signals get connected:
+    DcpWrongApplets::connectSupervisorSignals();
+
+    QVERIFY(connectedSignals.contains(SIGTERM));
+    QVERIFY(connectedSignals.contains(SIGHUP));
+    QVERIFY(connectedSignals.contains(SIGINT));
+    QVERIFY(connectedSignals.contains(SIGQUIT));
+    QVERIFY(connectedSignals.contains(SIGILL));
+    QVERIFY(connectedSignals.contains(SIGSEGV));
+    QVERIFY(connectedSignals.contains(SIGBUS));
+    QVERIFY(connectedSignals.contains(SIGABRT));
+    QVERIFY(connectedSignals.contains(SIGFPE));
+}
+
+
 void Ut_DcpWrongApplets::testInstanceNDestroy()
 {
     // some cleanup:
@@ -193,17 +210,6 @@ void Ut_DcpWrongApplets::testInstanceNDestroy()
     DcpWrongApplets* wa = DcpWrongApplets::instance();
     QVERIFY (DcpWrongApplets::sm_Instance);
     QCOMPARE (wa, DcpWrongApplets::sm_Instance);
-
-    // check if signals get connected:
-    QVERIFY(connectedSignals.contains(SIGTERM));
-    QVERIFY(connectedSignals.contains(SIGHUP));
-    QVERIFY(connectedSignals.contains(SIGINT));
-    QVERIFY(connectedSignals.contains(SIGQUIT));
-    QVERIFY(connectedSignals.contains(SIGILL));
-    QVERIFY(connectedSignals.contains(SIGSEGV));
-    QVERIFY(connectedSignals.contains(SIGBUS));
-    QVERIFY(connectedSignals.contains(SIGABRT));
-    QVERIFY(connectedSignals.contains(SIGFPE));
 
     // ensure that removeBadsOnTimeStampChange gets called
     QVERIFY (conf.value().isValid());

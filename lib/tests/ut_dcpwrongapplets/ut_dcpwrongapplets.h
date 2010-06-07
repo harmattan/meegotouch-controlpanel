@@ -31,6 +31,7 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
 
+    void testConnectSupervisorSignals();
     void testBacktraceLineIsAnApplet();
     void testMarkAppletAsBad();
     void testSomeCrashHappened();

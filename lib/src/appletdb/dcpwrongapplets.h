@@ -38,6 +38,7 @@ class DcpWrongApplets:
 Q_OBJECT
 
 public:
+    static void connectSupervisorSignals();
     static DcpWrongApplets* instance ();
     static void destroyInstance();
     static void disable();
