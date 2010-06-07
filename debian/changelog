@@ -12,10 +12,8 @@ duicontrolpanel (0.8.0~unreleased) unstable; urgency=low
   * 'Applications' category is sorted by applet titles instead of the Order
     specified in the desktop file (like other categories)
   * Fixes: NB#169944 - Recently Used list in DCP is sorted improperly
-  * Service account page is not an applet category page anymore, it is
-    provided by a plugin Accounts-UI
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 03 Jun 2010 14:58:49 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 02 Jun 2010 17:36:26 +0200
 
 duicontrolpanel (0.7.20) unstable; urgency=low
 

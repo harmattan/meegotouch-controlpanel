@@ -65,8 +65,9 @@ DcpMain::CategoryInfos[] =
     {
         //% "Service accounts"
         QT_TRID_NOOP ("qtn_sett_main_account"),
-        "Accounts-UI",
-        PageHandle::APPLET,
+        "Accounts & Applications", /* FIXME we will need to deprecate it somehow
+                                      it is currently maintained for compatibility */
+        PageHandle::ServiceAccounts,
         NULL
     },
     {

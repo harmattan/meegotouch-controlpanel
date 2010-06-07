@@ -45,6 +45,7 @@ public:
 //        ACCOUNTSANDAPPLICATIONS,
         DEVICESYSTEM,
         UTILITIES,
+        ServiceAccounts,
         Applications,
         CATEGORY_PAGEID_END,    // ---
         APPLET,
