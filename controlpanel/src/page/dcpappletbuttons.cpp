@@ -26,7 +26,9 @@
 #include <DcpAppletMetadata>
 #include <DcpAppletObject>
 #include <DcpApplet>
+#include <DcpWidgetTypes>
 #include <DcpContentItem>
+#include <DcpContentButton>
 
 #include <MSceneManager>
 // #include <MGridLayoutPolicy>
@@ -123,12 +125,24 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata)
     metadata->markActive();
 
     // FIXME: we can avoid this additional lookup i guess
+    QGraphicsWidget *briefWidget;
     DcpAppletObject* applet = DcpAppletDb::instance ()->applet (metadata->name());
-    DcpContentItem* briefWidget = new DcpContentItem (applet, this);
-    briefWidget->setObjectName ("DcpContentItem");
-    briefWidget->setMattiID ("DcpContentItem::" + logicalId() + "::" +
+    int widgetId = metadata->widgetTypeID();
+    if (widgetId == DcpWidgetType::Button) {
+            DcpContentButton *button = new DcpContentButton (applet, this);
+            button->setObjectName ("DcpContentButton");
+            button->setMattiID ("DcpContentButton::" + logicalId() + "::" +
+                             metadata->category() + "::" + metadata->name());
+            briefWidget = button;
+        }
+        else {   
+            DcpContentItem *item = new DcpContentItem (applet, this);
+            item->setObjectName ("DcpContentItem");
+            item->setMattiID ("DcpContentItem::" + logicalId() + "::" +
                              metadata->category() + "::" + metadata->name());
 
+            briefWidget = item;
+    }
     appendWidget (briefWidget);
 }
 

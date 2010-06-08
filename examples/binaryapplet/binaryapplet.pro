@@ -1,6 +1,7 @@
 TEMPLATE      = subdirs
 
-SUBDIRS += src \
+SUBDIRS += itemlike \
+           buttonlike \
            translations
 
 # for check:

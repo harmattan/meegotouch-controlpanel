@@ -39,6 +39,7 @@ namespace DcpWidgetType
             Label,
             Toggle,
             Image,
+            Button,
             IdMax
         };
         const QString  
@@ -47,7 +48,8 @@ namespace DcpWidgetType
             "DcpBriefWidgetInvalid",
             "Label",
             "Toggle",
-            "Image"
+            "Image",
+            "Button"
         };
         bool isIdValid(int id); 
 };

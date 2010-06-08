@@ -78,7 +78,7 @@ void Ut_DcpContentItem::testRetranslateUi()
 
     // test if updateText gets called on retranslateUi
     m_Target->setTitle ("xxx");
-    m_Target->updateText();
+    m_Target->retranslateUi();
     QCOMPARE (m_Target->title(), applet->text1());
 }
 

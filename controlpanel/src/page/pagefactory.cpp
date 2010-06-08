@@ -29,6 +29,7 @@
 #include <DcpAppletMetadata>
 #include <DcpAppletObject>
 #include <DcpAppletCategoryPage>
+#include <DcpWidgetTypes>
 #include <MainTranslations>
 
 #include <MApplication>
@@ -177,7 +178,12 @@ DcpPage *
 PageFactory::createAppletPage (PageHandle &handle)
 {
     DcpAppletObject *applet = DcpAppletDb::instance()->applet (handle.param);
-
+    
+    if (applet->widgetTypeID() == DcpWidgetType::Button)
+    {
+        applet->setToggle(!applet->toggle());
+        return 0;
+    }
     /*
      * this prevents openning the same page multiple times,
      * if more signals are coming, for example if user clicks double
