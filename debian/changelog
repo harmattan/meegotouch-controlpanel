@@ -1,4 +1,4 @@
-duicontrolpanel (0.8.0~unreleased) unstable; urgency=low
+duicontrolpanel (0.8.0) unstable; urgency=low
 
   [ Sandor Pinter ]
   * Fixing Coverity issues
