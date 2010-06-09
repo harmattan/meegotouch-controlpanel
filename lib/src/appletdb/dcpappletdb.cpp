@@ -329,6 +329,7 @@ DcpAppletDb::applet (
         {
             obj = new DcpAppletObject(metadata);
             d_ptr->appletObjectsByName[name] = obj;
+            emit appletLoaded (obj);
         }
         else
             qWarning() << "No such applet:" << name;

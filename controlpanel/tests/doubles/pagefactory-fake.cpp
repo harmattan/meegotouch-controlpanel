@@ -81,3 +81,8 @@ PageFactory::appletWantsToStart (int)
 {
 }
 
+void
+PageFactory::onAppletLoaded (DcpAppletObject *)
+{
+}
+

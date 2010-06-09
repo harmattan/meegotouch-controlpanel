@@ -61,6 +61,7 @@ protected:
 
 private slots:
     void pageChanged (MApplicationPage *page);
+    void onAppletLoaded (DcpAppletObject *applet);
 
 private:
     bool tryOpenPageBackward (const PageHandle &handle);

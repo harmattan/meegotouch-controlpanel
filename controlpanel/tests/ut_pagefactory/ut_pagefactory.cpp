@@ -185,6 +185,8 @@ void Ut_PageFactory::testAppletWantsToStart()
      * an appletobject)
      */
     DcpAppletObject* applet = page->applet();
+    factory->onAppletLoaded (applet); // this is necessery because the fake db
+                                      // does not emit a signal for us
     applet->activateSlot(1);
     page = qobject_cast<DcpAppletPage*>(factory->currentPage());
     QVERIFY (page);

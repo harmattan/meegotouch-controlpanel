@@ -128,13 +128,6 @@ DuiControlPanelService::createStartPage()
     m_StartPage = 0;
     startPageForReal (*handle);
 
-    if (handle->id != PageHandle::MAIN) {
-        /* Normally the applets get connected after the mainpage has
-         * been shown. But now we dont create a mainpage at all,
-         * so we create the connections here:
-         */
-        PageFactory::instance()->mainPageFirstShown();
-    }
     delete handle;
 }
 

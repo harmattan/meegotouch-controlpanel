@@ -19,6 +19,8 @@
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #ifndef DCPAPPLETDB_H
 #define DCPAPPLETDB_H
+
+#include <QObject>
 #include <QList>
 #include <QMap>
 #include <QString>
@@ -41,8 +43,9 @@ typedef QList<DcpAppletMetadata*> DcpAppletMetadataList;
 typedef bool (*checkCategory)(const QString &);
 
 class DcpAppletDbPrivate;
-class DcpAppletDb
+class DcpAppletDb: public QObject
 {
+    Q_OBJECT
 public:
     /*!
      * \brief Gives back the db instance
@@ -107,13 +110,16 @@ public:
     void destroyData (void);
     static void destroy (void);
 
+signals:
+    void appletLoaded (DcpAppletObject *applet);
+
 protected:
     /*! \brief protected constructor for singleton*/
     DcpAppletDb (const QString &pathName, const QString &nameFilter);
 
 private:
     DcpAppletDbPrivate *const d_ptr;
-    Q_DISABLE_COPY(DcpAppletDb);  
+    Q_DISABLE_COPY(DcpAppletDb);
     friend class Ut_DcpAppletDb;
 };
 #endif // DCPAPPLETDB_H

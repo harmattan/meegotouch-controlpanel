@@ -51,6 +51,13 @@ PageFactory::PageFactory ():
     connect (MApplication::activeWindow (),
             SIGNAL(pageChanged(MApplicationPage *)),
             this, SLOT(pageChanged(MApplicationPage *)));
+
+    // FIXME XXX: move this back to mainPageFirstShown, because it loads all
+    // desktop files
+    // FIXME XXX appletdb can contain some applets at this state which are
+    // not connected
+    connect (DcpAppletDb::instance(), SIGNAL(appletLoaded(DcpAppletObject*)),
+             this, SLOT(onAppletLoaded(DcpAppletObject*)));
 }
 
 void
@@ -60,7 +67,25 @@ PageFactory::destroy()
       delete sm_Instance;
     sm_Instance=0;
 }
- 
+
+
+/*
+ * Whenever someone wants an applet to be activated (started, shown on the
+ * screen atc.) a signal is sent to the applet's metadata. Then the applets
+ * metadata will send a signal, so the pagefactory can open a new page for
+ * it.
+ *
+ * If an applet wants to start up an other applet we also got a signal here
+ * so we can start up the applet. In this case we will have an external
+ * referer for the applets main page.
+ */
+ void
+PageFactory::onAppletLoaded (DcpAppletObject *applet)
+{
+    connect (applet, SIGNAL (activate (int)),
+             this, SLOT (appletWantsToStart (int)));
+}
+
 /*!
  * This slotz should be called only once, when the main page has been shown, so
  * we can access the applet database without forcing it to be loaded early. It
@@ -70,30 +95,6 @@ PageFactory::destroy()
 void
 PageFactory::mainPageFirstShown ()
 {
-    QStringList list;
-
-    /*
-     * Whenever someone wants an applet to be activated (started, shown on the
-     * screen atc.) a signal is sent to the applet's metadata. Then the applets
-     * metadata will send a signal, so the pagefactory can open a new page for
-     * it.
-     *
-     * If an applet wants to start up an other applet we also got a signal here
-     * so we can start up the applet. In this case we will have an external
-     * referer for the applets main page.
-     *
-     * FIXME: this is not good, because when main page is not at all popped up,
-     * for example when starting with an appletpage because of a servicefw
-     * signal, then the applets are not connected, therefor not able to pop up
-     * there other pages, or another applet's page.
-     */
-    list = DcpAppletDb::instance()->appletNames();
-    foreach (QString name, list) {
-        DcpAppletObject *applet = DcpAppletDb::instance()->applet(name);
-        connect (applet, SIGNAL (activate (int)),
-                this, SLOT (appletWantsToStart (int)));
-    }
-
     AppletErrorsDialog::showAppletErrors();
 }
 
