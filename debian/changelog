@@ -1,4 +1,4 @@
-duicontrolpanel (0.8.1~unreleased) unstable; urgency=low
+duicontrolpanel (0.8.1) unstable; urgency=low
 
   [ Sandor Pinter ]
   * Enable booster usage, and remove the forking for this
