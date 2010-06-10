@@ -1,0 +1,18 @@
+[Desktop Entry]
+Type=DUIApplet
+Name=Button
+Icon=
+Exec=
+X-logical-id=qtn_sett_main_display
+X-translation-catalog=duicontrolpanel-skeletonapplet
+
+[DUI]
+X-DUIApplet-Applet=libdcpbuttonapplet.so
+X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
+X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
+
+[DCP]
+Category= Look & Feel
+Order=4
+WidgetType= Button
+
