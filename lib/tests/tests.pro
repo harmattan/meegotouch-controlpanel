@@ -1,5 +1,8 @@
 TEMPLATE    = subdirs
 
+# this is only necessery because subprojects uses one compilation directory
+CONFIG += ordered
+
 contains(DCP_BUILD_FEATURES,coverage) {
   SUBDIRS = $$system(ls -1d ut_*/)
 } else {

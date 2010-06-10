@@ -82,9 +82,7 @@ DcpRetranslator::retranslate ()
     QString binaryName = priv->binaryName;
     DCP_DEBUG("%s %s", qPrintable(binaryName), qPrintable(language));
 
-    // install engineering english
-    locale.installTrCatalog(binaryName + ".qm");
-    // install real translation
+    // install translation
     locale.installTrCatalog("common");
     locale.installTrCatalog(binaryName);
 
@@ -124,8 +122,7 @@ DcpRetranslator::loadAppletTranslation (
      */
     if (priv->loadedTranslations.contains(catalog)) return false;
 
-    locale.installTrCatalog(catalog + ".qm"); // install engineering english
-    locale.installTrCatalog(catalog); // install real translation, if any
+    locale.installTrCatalog(catalog); // install translation, if any
 
     // mark it as loaded:
     priv->loadedTranslations.insert(catalog);

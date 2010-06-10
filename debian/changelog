@@ -1,8 +1,13 @@
 duicontrolpanel (0.8.1~unreleased) unstable; urgency=low
 
+  [ Sandor Pinter ]
   * Enable booster usage, and remove the forking for this
 
- -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Thu, 10 Jun 2010 11:24:44 +0200
+  [ Robert Manner ]
+  * Fixes: NB#172559 - Time and Language UI display some hard coded
+    button (Display language and Keyboard languages)
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 10 Jun 2010 18:01:22 +0200
 
 duicontrolpanel (0.8.0) unstable; urgency=low
 

@@ -100,11 +100,13 @@ DcpAppletButtons::createContents ()
                     withUncategorized ? DcpMain::isCategoryNameEnlisted : NULL);
     }
 
+    // ensure that all needed catalogs are loaded for the applets before construction
+    DcpRetranslator::instance()->ensureTranslationsAreLoaded(metadatas);
+
     // adds the briefwidgets
     foreach (DcpAppletMetadata* item, metadatas) {
         addComponent (item);
     }
-    DcpRetranslator::instance()->ensureTranslationsAreLoaded(metadatas);
 }
 
 DcpAppletMetadata*
