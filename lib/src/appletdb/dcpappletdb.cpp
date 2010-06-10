@@ -46,11 +46,6 @@ DcpAppletDbPrivate::DcpAppletDbPrivate():
 
 DcpAppletDbPrivate::~DcpAppletDbPrivate()
 {
-    // store the last used applet:
-    DcpAppletMetadata* lastUsed = DcpAppletMetadata::lastUsed();
-    if (lastUsed) {
-        MGConfItem(lastUsedAppletKey).set (lastUsed->fileName());
-    }
 }
 
 
@@ -70,6 +65,15 @@ DcpAppletDb::DcpAppletDb (
 
 DcpAppletDb::~DcpAppletDb()
 {
+    // store the last used applet:
+    DcpAppletMetadata* lastUsed = DcpAppletMetadata::lastUsed();
+    if (lastUsed) {
+        MGConfItem(lastUsedAppletKey).set (lastUsed->fileName());
+    }
+
+    // free up metadatas and applets
+    destroyData();
+
     delete d_ptr;
 }
 
@@ -101,7 +105,6 @@ DcpAppletDb::destroy ()
         return;
     }
 
-    DcpAppletDbPrivate::sm_Instance->destroyData();
     delete DcpAppletDbPrivate::sm_Instance;
     DcpAppletDbPrivate::sm_Instance = 0;
 }
