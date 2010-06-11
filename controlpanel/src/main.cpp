@@ -21,6 +21,7 @@
 #include <sys/wait.h>
 #include <csignal>
 #include <MApplicationWindow>
+#include <MComponentCache>
 #include <DcpDebug>
 #include <DcpRetranslator>
 #include <MApplication>
@@ -31,64 +32,6 @@
 #include "dcpwrongapplets.h"
 
 #include "dcpdebug.h"
-
-/*!
- * In this function we fork to a child and then wait until the child is
- * terminated. Then we try to decide what happened with the child process, if it
- * is crashed then we for again.
- * Here we don't want to load use DcpWrongApplets::queryBadApplets() to
- * investigate the disabled applet's list, because that would lead to a
- * situation where we load all the applet *.desktop files in the parent and in
- * the child as well. That would slow down the initialization of the
- * application.
- */
-void 
-startSupervising()
-{
-    DCP_DEBUG ("");
-
-    while (fork() > 0) {
-        DCP_DEBUG ("FORKED a child");
-
-        /*
-         * We forked to a child that will do the actual job. We just wait until
-         * it exits.
-         */
-        int result = 0;
-        wait (&result);
-
-        /*
-         * If the child exited because of a signal and the signal shows that it
-         * was a crash we continue (fork again) to start up the program with the
-         * applet disabled. Please note that the child process will end up with
-         * these signals only if it found a fawlty applet. It catches all these
-         * signals and it will call exit() if the crash happened inside the
-         * duicontrolpanel code.
-         */
-        if (WIFSIGNALED(result)) {
-            switch (WTERMSIG(result)) {
-                case SIGILL:
-                case SIGSEGV:
-                case SIGBUS:
-                case SIGABRT:
-                case SIGFPE:
-                    DCP_WARNING ("Child has been aborted.");
-                    continue;
-            }
-        }
-
-        /*
-         * If this was not an applet crash we exit.
-         */
-        exit (result);
-    }
-
-    /* it was necessery to init wrongapplets because it connects the signals
-     * for the segfault, and otherwise segfaulting from DuiApplication for
-     * instance makes duicontrolpanel run in an endless loop
-     */
-    DcpWrongApplets::connectSupervisorSignals();
-}
 
 /* 
  * this redefines the signal handler for TERM and INT signals, so as to be able
@@ -111,12 +54,12 @@ startApplication (int argc, char* argv[])
 {
     DCP_DEBUG ("");
 
-    MApplication app(argc, argv);
+    MApplication *app = MComponentCache::mApplication(argc, argv);
     signal(SIGTERM, &onTermSignal);
     signal(SIGINT, &onTermSignal);
 
     // install the new translations if locale changes:
-    QObject::connect(&app, SIGNAL(localeSettingsChanged()),
+    QObject::connect(app, SIGNAL(localeSettingsChanged()),
                      DcpRetranslator::instance(), SLOT(retranslate()));
     /*
      * the translations of duicontrolpanel turned out to be in catalog
@@ -129,15 +72,15 @@ startApplication (int argc, char* argv[])
     DuiControlPanelService* service = new DuiControlPanelService();
 
     // mainwindow:
-    MApplicationWindow win;
+    MApplicationWindow *win = MComponentCache::mApplicationWindow();
     service->createStartPage();
-    win.show();
+    win->show();
 
-    return app.exec();
+    return app->exec();
 }
 
 
-int main(int argc, char *argv[])
+M_EXPORT int main(int argc, char *argv[])
 {
     // parse options
     QString desktopDir;
@@ -164,7 +107,7 @@ int main(int argc, char *argv[])
     }
 
     if (!DcpWrongApplets::isDisabled()) {
-        startSupervising();
+        DcpWrongApplets::connectSupervisorSignals();
     }
 
     /*!
