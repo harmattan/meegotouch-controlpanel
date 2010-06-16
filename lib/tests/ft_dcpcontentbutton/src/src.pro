@@ -1,20 +1,27 @@
+#include ($$[QT_INSTALL_DATA]/mkspecs/dcpconfig.pri)
 TOPDIR=../../..
-include($$TOPDIR/dcpconfig.pri)
-include($$TOPDIR/tests/common_top.pri)
 TEMPLATE      = app 
+QT += testlib
 INCLUDEPATH += $$system(find $$TOPDIR -type d)
-CONFIG       += testlib meegotouch silent debug
+CONFIG       += meegotouch silent debug
 DATADIR = /usr/lib/duicontrolpanel-tests/ft_dcpcontentbutton-data
 
 DEFINES += DATADIR=\\\"$$DATADIR\\\"
-TARGET = ../ft_dcpcontentbutton
+DEFINES += APPLET_LIBS=\\\"$$DATADIR\\\" DATADIR=\\\"$$DATADIR\\\" DESKTOP_DIR=\\\"$$DATADIR\\\" 
+DEFINES += MOSTUSEDCOUNTER_GCONFKEY=\\\"/apps/duicontrolpanel/usagecount\\\"
+
+# disable internal deprecation warnings:                                                                              DEFINES += DCP_DISABLE_DEPRECATION_WARNING
+TARGET = ft_dcpcontentbutton
 
 TEST_SOURCES = \
     $$TOPDIR/src/widget/dcpcontentbutton.cpp \
+    $$TOPDIR/src/widget/dcpwidgettypes.cpp \
     $$TOPDIR/src/appletdb/dcpappletmetadata.cpp \
     $$TOPDIR/src/appletdb/dcpappletplugin.cpp \
     $$TOPDIR/src/appletdb/dcpappletdb.cpp \
     $$TOPDIR/src/appletdb/dcpappletobject.cpp \
+    $$TOPDIR/src/dcpdebug.cpp \
+    $$TOPDIR/src/appletdb/dcpmostusedcounter.cpp \
 
 # unit test and unit
 SOURCES += \
@@ -32,7 +39,10 @@ HEADERS += \
     $$TOPDIR/src/appletdb/dcpappletmetadata.h \
     $$TOPDIR/src/appletdb/dcpappletplugin.h \
     $$TOPDIR/src/appletdb/dcpappletdb.h \
+    $$TOPDIR/src/appletdb/dcpmostusedcounter.h \
+    $$TOPDIR/src/widget/dcpwidgettypes.h \
     $$TOPDIR/src/appletdb/dcpappletobject.h \
+    $$TOPDIR/src/dcpdebug.h \
 
 # base classes
 HEADERS += \

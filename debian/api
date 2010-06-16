@@ -1,0 +1,7 @@
+interface: DuiControlPanel 
+libs-pkg: libduicontrolpanel0
+dev-pkg: libduicontrolpanel-dev
+type: library
+headers: /usr/include/duicontrolpanel/*
+state: unstable
+scope: Nokia MeeGo

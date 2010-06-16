@@ -58,7 +58,6 @@ void Ft_DcpContentButton::testSetApplet()
     QVERIFY(!m_Target->applet());
     DcpAppletMetadata *metadata = new DcpAppletMetadata(m_DesktopFile);
     
-    QCOMPARE(QString(), metadata->fullBinary());
     QVERIFY(metadata);
     DcpAppletObject* applet = new DcpAppletObject(metadata);
     QVERIFY(applet->applet());

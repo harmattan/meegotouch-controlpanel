@@ -1,5 +1,5 @@
 TOPDIR=../../..
-include($$TOPDIR/dcpconfig.pri)
+include ($$TOPDIR/dcpconfig.pri)
 TEMPLATE      = lib
 CONFIG       += plugin gui meegotouch silent debug
 INCLUDEPATH += $$system(find $$TOPDIR -type d)
