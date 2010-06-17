@@ -44,6 +44,7 @@ DcpCategoryComponent::DcpCategoryComponent (
     // at all, thus disabling margins.
     setContentsMargins(0,0,0,0);
     layout()->setContentsMargins(0,0,0,0);
+    retranslateUi();
 }
 
 
