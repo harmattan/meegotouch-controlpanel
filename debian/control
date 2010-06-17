@@ -55,6 +55,7 @@ Description: Engineering English translations for duicontrolpanel
 Package: duicontrolpanel-skeletonapplet
 Section: x11
 Architecture: any
+Replaces: duicontrolpanel-ui-tests
 Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel, libduicontrolpanel, duicontrolpanel-skeletonapplet-l10n-engineering-english (= ${binary:Version})
 Description: Example applets for duicontrolpanel
   This package contains examples for settings applets created by
