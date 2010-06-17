@@ -76,7 +76,7 @@ LUPDATE = $$targetPath($$[QT_INSTALL_BINS]/lupdate) $$LUPDATE_OPTIONS
 out = $$system($$LRELEASE -help)
 # the second parameter of contains can be a regexp!
 contains(out, .*markuntranslated.*) {
-    LRELEASE += -markuntranslated '!!\ '
+    LRELEASE += -markuntranslated '!!\\ '
 }
 
 TRANSLATIONS = $$prependAll(LANGUAGES, $$TRANSLATIONDIR/$${CATALOGNAME}_,.ts)
