@@ -3,7 +3,7 @@
 # some hack for some problems experienced before
 {
 	QMAKE_CXXFLAGS_RELEASE += -g                                                                                                                       
-	QMAKE_RPATH = -Wl
+	QMAKE_LFLAGS_RPATH = -Wl
 }
 
 # Directories

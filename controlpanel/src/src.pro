@@ -4,8 +4,7 @@ QMAKE_CXXFLAGS += -fPIC -fvisibility=hidden -fvisibility-inlines-hidden
 QMAKE_LFLAGS += -pie -rdynamic
 
 QMAKE_LIBDIR += ../../lib/lib/ 
-QMAKE_RPATH = -Wl
-message($$QMAKE_RPATH)
+message($$QMAKE_LFLAGS_RPATH)
 TEMPLATE = app
 TARGET = ../duicontrolpanel.launch
 DEPENDPATH += include ../../lib/src/include

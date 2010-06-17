@@ -3,7 +3,7 @@ CONFIG       += plugin gui meegotouch debug
 INCLUDEPATH  += $$system(find ./ -type d)
 MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects
-QMAKE_RPATH = -Wl
+QMAKE_LFLAGS_RPATH = -Wl
 include(../dcpconfig.pri)
 
 # this has to be above finds, because it generates .h .cpp files
