@@ -57,6 +57,7 @@ void
 DcpCategoryComponent::setTitle (
         const QString &title)
 {
+    m_AppletButtons->setTitle (title);
     m_Container->setTitle (title);
     DcpComponent::setTitle (title);
 }
