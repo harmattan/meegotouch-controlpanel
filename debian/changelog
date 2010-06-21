@@ -1,8 +1,22 @@
+duicontrolpanel (0.8.3) unstable; urgency=low
+
+  [ Laszlo Gal]
+  * Added api file to debian directory
+
+  [ Robert Manner ]
+  * Fixed compilation warnings
+
+ -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Mon, 21 Jun 2010 12:10:33 +0200
+
 duicontrolpanel (0.8.3~unreleased) unstable; urgency=low
 
-  * new version
+  [ Laszlo Gal]
+  * Added api file to debian directory
 
- -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Mon, 20 Jun 2010 10:54:00 +0200
+  [ Robert Manner ]
+  * Fixed compilation warnings
+
+ -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Mon, 21 Jun 2010 12:10:33 +0200
 
 duicontrolpanel (0.8.2) unstable; urgency=low
 
