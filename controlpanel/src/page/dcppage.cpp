@@ -55,7 +55,11 @@ DcpPage::createContent ()
 void
 DcpPage::createLayout ()
 {
-    new QGraphicsLinearLayout (Qt::Vertical, centralWidget());
+    QGraphicsLinearLayout* layout =
+        new QGraphicsLinearLayout (Qt::Vertical, centralWidget());
+
+    // we should not have margins around the mainwidget
+    layout->setContentsMargins (0,0,0,0);
 }
 
 void 

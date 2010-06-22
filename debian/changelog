@@ -1,8 +1,8 @@
 duicontrolpanel (0.8.3~unreleased) unstable; urgency=low
 
-  * new version
+  * Some margin fixes
 
- -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Mon, 20 Jun 2010 10:54:00 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 22 Jun 2010 15:57:07 +0200
 
 duicontrolpanel (0.8.2) unstable; urgency=low
 

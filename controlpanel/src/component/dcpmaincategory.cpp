@@ -46,9 +46,13 @@ DcpMainCategory::DcpMainCategory (
 
     m_LandscapeLayout = new MGridLayoutPolicy (m_Layout);
     m_PortraitLayout = new MLinearLayoutPolicy (m_Layout, Qt::Vertical);
-    
+
     m_Layout->setLandscapePolicy (m_LandscapeLayout);
     m_Layout->setPortraitPolicy (m_PortraitLayout);
+
+    // main category is an invisible "pure logical" widget, thats why we
+    // need no margins here
+    m_Layout->setContentsMargins (0,0,0,0);
 
     setLayout (m_Layout);
 }
