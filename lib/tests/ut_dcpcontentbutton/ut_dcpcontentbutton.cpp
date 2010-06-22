@@ -83,7 +83,6 @@ void Ut_DcpContentButton::testRetranslateUi()
 
 void Ut_DcpContentButton::testShowHideEvent()
 {
-    QSKIP ("NB#170105 meegotouch bug", SkipSingle);
     DcpAppletObject* applet =
         new DcpAppletObject(new DcpAppletMetadata("fake"));
     m_Target->setApplet (applet);

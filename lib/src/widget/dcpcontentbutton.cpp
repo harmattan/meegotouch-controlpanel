@@ -24,14 +24,6 @@
 #include "dcpdebug.h"
 
 
-/* FIXME: this is a workaround against bug NB#170105 -
- * show/hideEvent of MContentButton does not get called
- *
- * Remove it once the bug is solved.
- */
-#define NB170105
-
-
 DcpContentButtonPrivate::DcpContentButtonPrivate ():
     m_Applet (0),
     m_Hidden (true)
@@ -72,9 +64,6 @@ DcpContentButton::setApplet (DcpAppletObject *applet)
 
     connect (this, SIGNAL (clicked()),                                                         
              d_ptr->m_Applet, SLOT (slotClicked()));
-    connect (d_ptr->m_Applet, SIGNAL (briefChanged ()), 
-             this, SLOT (updateContents()));
-    updateContents();
 }
 
 void
@@ -110,7 +99,6 @@ DcpContentButton::updateContents ()
 void
 DcpContentButton::showEvent (QShowEvent * event)
 {
-#       ifndef NB170105
     if (d_ptr->m_Hidden) {
         // prevents multiple showEvents coming
         d_ptr->m_Hidden = false;
@@ -121,14 +109,12 @@ DcpContentButton::showEvent (QShowEvent * event)
 
         updateContents();
     }
-#       endif // NB170105
     MButton::showEvent(event);
 }
 
 void
 DcpContentButton::hideEvent (QHideEvent * event)
 {
-#       ifndef NB170105
     if (!d_ptr->m_Hidden) {// prevents multiple hideEvents coming
         d_ptr->m_Hidden = true;
 
@@ -136,7 +122,6 @@ DcpContentButton::hideEvent (QHideEvent * event)
             disconnect (d_ptr->m_Applet, SIGNAL (briefChanged()),
                 this, SLOT (updateContents()));
     }
-#       endif // NB170105
     MButton::hideEvent(event);
 }
 
