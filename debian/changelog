@@ -1,10 +1,20 @@
-duicontrolpanel (0.8.3~unreleased) unstable; urgency=low
+duicontrolpanel (0.8.4~unreleased) unstable; urgency=low
 
   * Some margin fixes
   * Fixes: NB#170026 - Emitting valuesChanged signal doesn't update
     valueText displayed in Brief (removes the workaround, because bug got fixed)
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 22 Jun 2010 15:57:07 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 22 Jun 2010 17:30:33 +0200
+
+duicontrolpanel (0.8.3) unstable; urgency=low
+
+  [ Laszlo Gal]
+  * Added api file to debian directory
+
+  [ Robert Manner ]
+  * Fixed compilation warnings
+
+ -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Mon, 21 Jun 2010 12:10:33 +0200
 
 duicontrolpanel (0.8.2) unstable; urgency=low
 
