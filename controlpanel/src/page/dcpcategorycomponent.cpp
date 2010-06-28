@@ -35,7 +35,8 @@ DcpCategoryComponent::DcpCategoryComponent (
 : DcpComponent (category, categoryInfo->appletCategory, parent, 
                 categoryInfo->titleId),
     m_AppletButtons(0),
-    m_CategoryInfo (categoryInfo)
+    m_CategoryInfo (categoryInfo),
+    m_Container(0)
 {
     createContents ();
     setMattiID (QString("DcpCategoryComponent::") + categoryInfo->titleId);
@@ -57,8 +58,12 @@ void
 DcpCategoryComponent::setTitle (
         const QString &title)
 {
-    m_AppletButtons->setTitle (title);
-    m_Container->setTitle (title);
+    if (m_AppletButtons) {
+        m_AppletButtons->setTitle (title);
+    }
+    if (m_Container) {
+        m_Container->setTitle (title);
+    }
     DcpComponent::setTitle (title);
 }
 

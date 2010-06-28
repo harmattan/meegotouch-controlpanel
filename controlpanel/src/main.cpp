@@ -54,7 +54,11 @@ startApplication (int argc, char* argv[])
 {
     DCP_DEBUG ("");
 
+#ifndef DISABLE_LAUNCHER
     MApplication *app = MComponentCache::mApplication(argc, argv);
+#else // USE_LAUNCHER
+    MApplication *app = new MApplication (argc, argv);
+#endif // USE_LAUNCHER
     signal(SIGTERM, &onTermSignal);
     signal(SIGINT, &onTermSignal);
 
@@ -72,7 +76,11 @@ startApplication (int argc, char* argv[])
     DuiControlPanelService* service = new DuiControlPanelService();
 
     // mainwindow:
+#ifndef DISABLE_LAUNCHER
     MApplicationWindow *win = MComponentCache::mApplicationWindow();
+#else // USE_LAUNCHER
+    MApplicationWindow *win = new MApplicationWindow();
+#endif // USE_LAUNCHER
     service->createStartPage();
     win->show();
 

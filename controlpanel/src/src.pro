@@ -1,7 +1,11 @@
 include(../../lib/dcpconfig.pri)
 
-QMAKE_CXXFLAGS += -fPIC -fvisibility=hidden -fvisibility-inlines-hidden
-QMAKE_LFLAGS += -pie -rdynamic
+DISABLE_LAUNCHER {
+    QMAKE_CXXFLAGS += -fPIC -fvisibility=hidden -fvisibility-inlines-hidden
+    QMAKE_LFLAGS += -pie -rdynamic
+} else {
+    DEFINES += DISABLE_LAUNCHER
+}
 
 QMAKE_LIBDIR += ../../lib/lib/ 
 message($$QMAKE_LFLAGS_RPATH)

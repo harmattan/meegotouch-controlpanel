@@ -3,8 +3,9 @@ duicontrolpanel (0.8.4~unreleased) unstable; urgency=low
   * Some margin fixes
   * Fixes: NB#170026 - Emitting valuesChanged signal doesn't update
     valueText displayed in Brief (removes the workaround, because bug got fixed)
+  * Fixes: NB#173054 - duicontrolpanel crashed
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 22 Jun 2010 17:30:33 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 28 Jun 2010 13:33:01 +0200
 
 duicontrolpanel (0.8.3) unstable; urgency=low
 

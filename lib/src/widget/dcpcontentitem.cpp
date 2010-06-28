@@ -52,6 +52,36 @@ DcpContentItem::~DcpContentItem ()
 }
 
 
+static MContentItem::ContentItemStyle invertTwoLineMode (
+        const MContentItem::ContentItemStyle& styl)
+{
+    MContentItem::ContentItemStyle newstyl;
+    switch (styl) {
+        case MContentItem::IconAndTwoTextLabels:
+            newstyl = MContentItem::IconAndSingleTextLabel;
+            break;
+        case MContentItem::SingleTextLabel:
+            newstyl = MContentItem::TwoTextLabels;
+            break;
+        case MContentItem::IconAndSingleTextLabel:
+            newstyl = MContentItem::IconAndTwoTextLabels;
+            break;
+        case MContentItem::TwoTextLabels:
+            newstyl = MContentItem::SingleTextLabel;
+            break;
+        case MContentItem::IconAndSingleTextLabelVertical:
+            newstyl = MContentItem::IconAndTwoTextLabelsVertical;
+            break;
+        case MContentItem::IconAndTwoTextLabelsVertical:
+            newstyl = MContentItem::IconAndSingleTextLabelVertical;
+            break;
+        default:
+            return styl; // do nothing bad at least :)
+    }
+    return newstyl;
+}
+
+
 /*
  * Constructs the content of the DcpContentItem according to the widget type.
  * This is a separate code so the inherited classes might use other code,
@@ -62,10 +92,11 @@ void
 DcpContentItem::constructRealWidget ()
 {
     d_ptr->m_WidgetTypeId = d_ptr->m_Applet->widgetTypeID();
+    MContentItem::ContentItemStyle styl;
     switch (d_ptr->m_WidgetTypeId) {
         case DcpWidgetType::Image:
             DCP_DEBUG ("### DcpWidgetType::Image ###");
-            model()->setItemStyle(IconAndSingleTextLabel);
+            styl = IconAndSingleTextLabel;
             break;
 
         case DcpWidgetType::Toggle:
@@ -74,9 +105,14 @@ DcpContentItem::constructRealWidget ()
                      qPrintable(applet()->metadata()->name()));
         default:
             DCP_DEBUG ("### DcpWidgetType::Label ###");
-            model()->setItemStyle(SingleTextLabel);
+            styl = SingleTextLabel;
             break;
     }
+
+    if (!d_ptr->m_Applet->text2().isEmpty()) {
+        styl = ::invertTwoLineMode (styl);
+    }
+    model()->setItemStyle(styl);
 }
 
 DcpAppletObject *
@@ -131,30 +167,8 @@ DcpContentItem::retranslateUi ()
 void
 DcpContentItem::invertTwoLineMode()
 {
-    int styl = model()->itemStyle();
-    MContentItem::ContentItemStyle newstyl;
-    switch (styl) {
-        case IconAndTwoTextLabels:
-            newstyl = IconAndSingleTextLabel;
-            break;
-        case SingleTextLabel:
-            newstyl = TwoTextLabels;
-            break;
-        case IconAndSingleTextLabel:
-            newstyl = IconAndTwoTextLabels;
-            break;
-        case TwoTextLabels:
-            newstyl = SingleTextLabel;
-            break;
-        case IconAndSingleTextLabelVertical:
-            newstyl = IconAndTwoTextLabelsVertical;
-            break;
-        case IconAndTwoTextLabelsVertical:
-            newstyl = IconAndSingleTextLabelVertical;
-            break;
-        default:
-            return; // do nothing bad at least :)
-    }
+    MContentItem::ContentItemStyle newstyl =
+        ::invertTwoLineMode ((MContentItem::ContentItemStyle)model()->itemStyle());
     model()->setItemStyle(newstyl);
 }
 
@@ -171,10 +185,10 @@ DcpContentItem::updateText ()
      * item will be in, because the widget sizes are set up at setupModel time
      * only, so currently MContentItem only supports changing the value at
      * construction time (bug/feature request to libdui if it is important)
-     */
     if (text2.isEmpty() != subtitle().isEmpty()) {
         invertTwoLineMode();
     }
+     */
     setTitle (applet()->text1());
     setSubtitle (text2);
 }
