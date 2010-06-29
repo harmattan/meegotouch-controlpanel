@@ -1,16 +1,28 @@
 include(../../lib/dcpconfig.pri)
 
 DISABLE_LAUNCHER {
+    TARGET = ../duicontrolpanel
+} else {
     QMAKE_CXXFLAGS += -fPIC -fvisibility=hidden -fvisibility-inlines-hidden
     QMAKE_LFLAGS += -pie -rdynamic
-} else {
     DEFINES += DISABLE_LAUNCHER
+    TARGET = ../duicontrolpanel.launch
+    invoker_trg = ../duicontrolpanel
+    invoker.depends = duicontrolpanel.invoker
+    invoker.commands = cp $$invoker.depends $$invoker_trg
+    QMAKE_EXTRA_TARGETS += invoker
+    # ugly hack that makes invoker_inst happy
+    system(touch $$invoker_trg)
+    invoker_inst.path = $$DCP_PREFIX/bin
+    invoker_inst.files = $$invoker_trg
+    invoker_inst.depends = invoker
+    INSTALLS += invoker_inst
+    QMAKE_CLEAN += $$invoker_trg
 }
 
 QMAKE_LIBDIR += ../../lib/lib/ 
 message($$QMAKE_LFLAGS_RPATH)
 TEMPLATE = app
-TARGET = ../duicontrolpanel.launch
 DEPENDPATH += include ../../lib/src/include
 INCLUDEPATH += $$DEPENDPATH
 message($$INCLUDEPATH)
@@ -40,14 +52,10 @@ desktop_entry.files = duicontrolpanel.desktop
 rfs.files += controlpanel-rfs.sh
 rfs.path += $$system(pkg-config --variable osso_rfs_scripts_dir clean-device)
 
-starter.files += duicontrolpanel
-starter.path += $$DCP_PREFIX/bin
-
 
 INSTALLS += target \
             rfs \
-            desktop_entry \
-            starter
+            desktop_entry 
 
 # You can enable delayed applet loading with uncommenting this line:
 DEFINES += DISABLE_DELAYED_LOADING
