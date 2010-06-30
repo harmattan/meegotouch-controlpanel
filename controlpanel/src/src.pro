@@ -2,10 +2,10 @@ include(../../lib/dcpconfig.pri)
 
 DISABLE_LAUNCHER {
     TARGET = ../duicontrolpanel
+    DEFINES += DISABLE_LAUNCHER
 } else {
     QMAKE_CXXFLAGS += -fPIC -fvisibility=hidden -fvisibility-inlines-hidden
     QMAKE_LFLAGS += -pie -rdynamic
-    DEFINES += DISABLE_LAUNCHER
     TARGET = ../duicontrolpanel.launch
     invoker_trg = ../duicontrolpanel
     invoker.depends = duicontrolpanel.invoker
