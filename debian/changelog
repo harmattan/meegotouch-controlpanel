@@ -1,4 +1,4 @@
-duicontrolpanel (0.8.4~unreleased) unstable; urgency=low
+duicontrolpanel (0.8.4) unstable; urgency=low
 
   * Some margin fixes
   * Fixes: NB#170026 - Emitting valuesChanged signal doesn't update
