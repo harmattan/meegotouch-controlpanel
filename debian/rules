@@ -21,11 +21,11 @@ else
 endif
 
 ifneq (,$(findstring debug,$(DEB_BUILD_OPTIONS)))
-    QMAKE_ARG = DEFINES+=DEBUG
+    QMAKE_ARG += DEFINES+=DEBUG
 endif
 
 ifneq (,$(findstring nolauncher,$(DEB_BUILD_OPTIONS)))
-    QMAKE_ARG = CONFIG+=DISABLE_LAUNCHER
+    QMAKE_ARG += CONFIG+=DISABLE_LAUNCHER
 endif
 
 configure: configure-stamp
