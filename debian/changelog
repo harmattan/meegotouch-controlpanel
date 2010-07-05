@@ -1,3 +1,9 @@
+duicontrolpanel (0.8.5~unreleased) unstable; urgency=low
+
+  * Fixes: height of contentitems are non constant
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 05 Jul 2010 14:50:02 +0200
+
 duicontrolpanel (0.8.4) unstable; urgency=low
 
   * Some margin fixes

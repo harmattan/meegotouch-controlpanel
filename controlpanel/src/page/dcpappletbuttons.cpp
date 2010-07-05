@@ -145,6 +145,7 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata)
 
             briefWidget = item;
     }
+    briefWidget->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
     appendWidget (briefWidget);
 }
 
