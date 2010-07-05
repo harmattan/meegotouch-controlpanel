@@ -21,20 +21,22 @@
 #ifndef DUICONTROLPANELSERVICE_H
 #define DUICONTROLPANELSERVICE_H
 
-#include <QObject>
+#include <MApplicationService>
 #include "pages.h"
 
-class DuiControlPanelService: public QObject
+class DuiControlPanelService: public MApplicationService
 {
     Q_OBJECT
 public:
     DuiControlPanelService();
+
     void createStartPage();
 
 public Q_SLOTS:
     bool appletPage(const QString& appletName);
     void categoryPage(const QString& category);
     void mainPage();
+    bool registerService ();
 
 private:
     void sheduleStart (const PageHandle &handle);
@@ -46,3 +48,4 @@ private:
 
 
 #endif
+

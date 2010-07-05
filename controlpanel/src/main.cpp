@@ -33,6 +33,8 @@
 
 #include "dcpdebug.h"
 
+static const QString appIdentifier = "settings";
+
 /* 
  * this redefines the signal handler for TERM and INT signals, so as to be able
  * to use aboutToQuit signal from qApp also in these cases 
@@ -49,15 +51,19 @@ onTermSignal (
     }
 }
 
-int 
+int
 startApplication (int argc, char* argv[])
 {
     DCP_DEBUG ("");
 
+    // init servicefw api:
+    DuiControlPanelService* service = new DuiControlPanelService ();
+
 #ifndef DISABLE_LAUNCHER
-    MApplication *app = MComponentCache::mApplication(argc, argv);
+    MApplication *app = MComponentCache::mApplication(argc, argv,
+                                                      appIdentifier, service);
 #else // USE_LAUNCHER
-    MApplication *app = new MApplication (argc, argv);
+    MApplication *app = new MApplication (argc, argv, appIdentifier, service);
 #endif // USE_LAUNCHER
     signal(SIGTERM, &onTermSignal);
     signal(SIGINT, &onTermSignal);
@@ -69,11 +75,9 @@ startApplication (int argc, char* argv[])
      * the translations of duicontrolpanel turned out to be in catalog
      * "settings"
      */
-    DcpRetranslator::instance()->setMainCatalogName("settings");
-    DcpRetranslator::instance()->retranslate();
-
-    // init servicefw api:
-    DuiControlPanelService* service = new DuiControlPanelService();
+    DcpRetranslator::instance()->setMainCatalogName(appIdentifier);
+// this is no more necessery, because MApplication loads the catalog already
+//    DcpRetranslator::instance()->retranslate();
 
     // mainwindow:
 #ifndef DISABLE_LAUNCHER

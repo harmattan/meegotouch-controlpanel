@@ -1,2 +1,11 @@
 #!/bin/sh
-exec /usr/bin/invoker --type=m --delay 1 $0.launch "$@"
+
+param=
+
+if [ "$1" = "-delay" ]; then
+    param="--delay $2"
+    shift 2
+fi
+
+exec /usr/bin/invoker $param --type=m $0.launch "$@"
+

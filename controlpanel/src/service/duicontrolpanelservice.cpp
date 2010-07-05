@@ -30,13 +30,20 @@ static const char* serviceName = "com.nokia.DuiControlPanel";
 
 #include "dcpdebug.h"
 
-DuiControlPanelService::DuiControlPanelService ()
+DuiControlPanelService::DuiControlPanelService ():
+    MApplicationService (serviceName),
+    m_StartPage (new PageHandle())
 {
     DCP_DEBUG ("");
-    // by default open the main page:
-    m_StartPage = new PageHandle ();
-    mainPage();
 
+    // by default open the main page:
+    mainPage();
+}
+
+
+bool
+DuiControlPanelService::registerService ()
+{
     // memory owned by QDBusAbstractAdaptor instance and must be on the heap
     new DuiControlPanelIfAdaptor(this);
 
@@ -49,6 +56,7 @@ DuiControlPanelService::DuiControlPanelService ()
     ret = connection.registerObject("/", this);
     qDebug() << "Registering object for service"
              << (ret ? "successfully" : "failed");
+    return ret;
 }
 
 bool
