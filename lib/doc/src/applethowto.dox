@@ -9,6 +9,8 @@ All applets have:
 <li>Some pages, which contains widgets to interact with the user in order to change the preferences.
 </ul>
 
+Applets can be declared and added to Dcp with creating their .desktop file. 
+See <a href="desktopformat.html">desktop file format for Dcp</a>.
 
 \section applettypes Applet types
 

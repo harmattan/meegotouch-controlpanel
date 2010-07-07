@@ -1,11 +1,11 @@
-/*! \page desktopformat Desktop file format of a plugin
+/*! \page desktopformat Desktop file format of a Dcp applet
 
 \section description Description
 
 Each applet should have a .desktop file. By default its location
-should be under . (This can be changed with the controlpanel parameter
--desktoppath.) The desktop file specifies information about the
-plugin.
+should be under /usr/lib/duicontrolpanel. (This can be changed with the controlpanel option
+-desktopdir.) The desktop file specifies information about the
+applet.
 
 \section format Format of the file
 
@@ -51,8 +51,10 @@ file name if your applet is under the default location:
 
 For a declarative applet, you have to specify "libdeclarative.so" here.
 
-\par X-DUIApplet-Dslfile
-TODO: document
+\if with_dsl
+  \par X-DUIApplet-Dslfile
+  TODO: document
+\endif
 
 \par X-DUIApplet-ApplicationCommand
 A command which gets executed when the user clicks on the applet launch button.
