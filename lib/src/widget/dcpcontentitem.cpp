@@ -224,8 +224,9 @@ void DcpContentItem::updateImage ()
         // no picture :(
         if (source.isEmpty()) return;
 
-        // if it is a filepath, it has an extension, otherwise we have an id
-        if (!source.contains('.')) {
+        // if it is a filepath, it has to be absolute, otherwise we have an id
+        // which we request from the theme
+        if (!source.contains('/')) {
             setImageName (source);
         } else {
             setImageFromFile (source);
