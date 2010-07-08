@@ -26,10 +26,14 @@
 
 #include "dcpdebug.h"
 
+#include <MGConfItem>
 #include <MLocale>
 #include <mcollator.h>
 
 DcpAppletMetadata* DcpAppletMetadataPrivate::sm_LastUsed = 0;
+
+static const QString lastUsedAppletKey = QString(MOSTUSEDCOUNTER_GCONFKEY) +
+                                         "/lastUsed";
 
 DcpAppletMetadataPrivate::DcpAppletMetadataPrivate ()
     :
@@ -430,6 +434,20 @@ DcpAppletMetadata* DcpAppletMetadata::lastUsed ()
 void DcpAppletMetadata::setLastUsed (DcpAppletMetadata* metadata)
 {
     DcpAppletMetadataPrivate::sm_LastUsed = metadata;
+
+    // store the last used applet:
+    DcpAppletMetadata* lastUsed = DcpAppletMetadata::lastUsed();
+    if (lastUsed) {
+        MGConfItem(lastUsedAppletKey).set (lastUsed->fileName());
+    }
+}
+
+/*!
+ * \brief Queries the path of the desktop file of the last used metadata
+ */
+QString DcpAppletMetadata::storedLastUsedItem ()
+{
+    return MGConfItem(lastUsedAppletKey).value ().toString ();
 }
 
 

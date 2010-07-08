@@ -26,15 +26,11 @@
 #include <QDir>
 #include <QDebug>
 #include <MLocale>
-#include <MGConfItem>
 
 #include "dcpdebug.h"
 
 const QString AppletFilter = "*.desktop";
 DcpAppletDb* DcpAppletDbPrivate::sm_Instance = 0;
-
-static const QString lastUsedAppletKey = QString(MOSTUSEDCOUNTER_GCONFKEY) +
-                                         "/lastUsed";
 
 
 DcpAppletDbPrivate::DcpAppletDbPrivate():
@@ -57,7 +53,7 @@ DcpAppletDb::DcpAppletDb (
         addFiles (pathName, nameFilter);
 
     // try to restore the last used applet:
-    QString fileName = MGConfItem(lastUsedAppletKey).value ().toString ();
+    QString fileName = DcpAppletMetadata::storedLastUsedItem();
     if (d_ptr->appletsByFile.contains (fileName)) {
         DcpAppletMetadata::setLastUsed (d_ptr->appletsByFile.value (fileName));
     }
@@ -65,12 +61,6 @@ DcpAppletDb::DcpAppletDb (
 
 DcpAppletDb::~DcpAppletDb()
 {
-    // store the last used applet:
-    DcpAppletMetadata* lastUsed = DcpAppletMetadata::lastUsed();
-    if (lastUsed) {
-        MGConfItem(lastUsedAppletKey).set (lastUsed->fileName());
-    }
-
     // free up metadatas and applets
     destroyData();
 

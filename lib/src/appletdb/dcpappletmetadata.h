@@ -104,6 +104,7 @@ public:
     static DcpAppletMetadata* lastUsed ();
     /*! sets the last openned applet */
     static void setLastUsed (DcpAppletMetadata* metadata);
+    static QString storedLastUsedItem();
 
 protected:
     MDesktopEntry* desktopEntry () const;
