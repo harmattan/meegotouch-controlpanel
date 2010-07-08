@@ -26,13 +26,6 @@ public:
 
 static QHash<const MContainer*, MContainerPrivate*> priv;
 
-void QGraphicsLayoutItem::setSizePolicy ( QSizePolicy::Policy hPolicy, QSizePolicy::Policy vPolicy, QSizePolicy::ControlType controlType)
-{
-    Q_UNUSED(hPolicy);
-    Q_UNUSED(vPolicy);
-    Q_UNUSED(controlType);
-}
-
 MContainer::MContainer(QGraphicsItem *parent) 
 {
     Q_UNUSED(parent);

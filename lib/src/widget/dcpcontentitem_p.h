@@ -37,7 +37,6 @@ public:
 
     // for the image widget:
     QString m_ImageName; // either the image id or path
-    const QPixmap* m_Pixmap;   // the pixmap requested from MTheme if any
 };
 
 #endif // DCPCONTENTITEMPRIVATE_H

@@ -26,6 +26,7 @@ class MContentItemFake
 public:
     QString m_Title;
     QString m_Subtitle;
+    QString m_ImageID;
 };
 
 static QHash<const MContentItem*, MContentItemFake*> f;
@@ -86,6 +87,17 @@ void MContentItem::setSubtitle(const QString &subtitle)
 {
     f[this]->m_Subtitle = subtitle;
 }
+
+void MContentItem::setImageID (const QString &id, const QSize &)
+{
+    f[this]->m_ImageID = id;
+}
+
+QString MContentItem::imageID () const
+{
+    return f[this]->m_ImageID;
+}
+
 void MContentItem::setItemMode(ContentItemMode){}
 void MContentItem::setAdditionalItem(MWidget*){}
 void MContentItem::enableProgressBar(){}

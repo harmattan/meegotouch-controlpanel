@@ -30,8 +30,9 @@ SOURCES += \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
     $$STUBSDIR/dcpretranslator-fake.cpp \
     $$STUBSDIR/mwidgetcontroller-fake.cpp \
-    $$STUBSDIR/mcontentitem-fake.cpp \
+    $$LIBDCPFAKES/mcontentitem-fake.cpp \
     $$STUBSDIR/dcpcontentitem-fake.cpp \
+    $$STUBSDIR/qgraphicsobject-fake.cpp \
     $$TEST_SOURCES \
 
 # base classes
@@ -42,7 +43,6 @@ SOURCES += \
 HEADERS += \
     ut_dcpappletbuttons.h \
     $$STUBSDIR/dcpappletplugin-applet.h \
-    $$STUBSDIR/mgconfitem_priv.h \
     $$SRCDIR/page/dcpappletbuttons.h \
     $$SRCDIR/component/dcpmaincategory.h \
     $$SRCDIR/component/dcpcomponent.h \

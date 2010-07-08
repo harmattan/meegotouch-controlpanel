@@ -138,9 +138,7 @@ void Ut_DcpContentItem::testUpdateImage()
     m_Target->updateImage ();
 
     // updates the values:
-    QCOMPARE (m_Target->d_ptr->m_ImageName, QString("fake-imageName"));
-    // it should store the pointer, because of the image release from mtheme
-    QVERIFY (m_Target->d_ptr->m_Pixmap);
+    QCOMPARE (m_Target->imageID(), QString("fake-imageName"));
 }
 
 void Ut_DcpContentItem::testSetImageFromFile()
@@ -157,17 +155,12 @@ void Ut_DcpContentItem::testSetImageFromFile()
 void Ut_DcpContentItem::testSetImageName()
 {
     m_Target->setImageName ("fake");
-    // it should store the pointer, because of the image release from mtheme
-    QVERIFY (m_Target->d_ptr->m_Pixmap);
+    QCOMPARE (m_Target->imageID(), QString("fake"));
 }
 
 void Ut_DcpContentItem::testReleaseImage()
 {
-    QVERIFY (!m_Target->d_ptr->m_Pixmap);
-    m_Target->setImageName ("fake");
-    QVERIFY (m_Target->d_ptr->m_Pixmap);
     m_Target->releaseImage ();
-    QVERIFY (!m_Target->d_ptr->m_Pixmap);
 }
 
 void Ut_DcpContentItem::testInvertTwoLineMode()

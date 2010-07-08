@@ -27,8 +27,7 @@
 DcpContentItemPrivate::DcpContentItemPrivate ():
     m_Applet (0),
     m_WidgetTypeId (DcpWidgetType::Label),
-    m_Hidden (true),
-    m_Pixmap (0)
+    m_Hidden (true)
 {
 }
 
@@ -255,11 +254,6 @@ DcpContentItem::updateContents ()
 void
 DcpContentItem::releaseImage ()
 {
-    const QPixmap*& pix = d_ptr->m_Pixmap;
-    if (pix) {
-        MTheme::releasePixmap (pix);
-        pix = 0;
-    }
 }
 
 
@@ -269,8 +263,7 @@ DcpContentItem::releaseImage ()
 void
 DcpContentItem::setImageName (const QString& name)
 {
-    d_ptr->m_Pixmap = MTheme::pixmap (name);
-    setPixmap (*(d_ptr->m_Pixmap)); // TODO XXX ??? it should not work
+    setImageID (name);
 }
 
 /*!

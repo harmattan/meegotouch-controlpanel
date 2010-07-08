@@ -37,6 +37,7 @@ SOURCES += \
     $$STUBSDIR/dcpretranslator-fake.cpp \
     $$STUBSDIR/dcpsinglecomponent-fake.cpp \
     $$STUBSDIR/dcpmaincategory-fake.cpp \
+    $$STUBSDIR/qgraphicsobject-fake.cpp \
     $$TEST_SOURCES \ 
 
 # base classes
