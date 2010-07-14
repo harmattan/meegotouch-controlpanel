@@ -1,0 +1,21 @@
+Start controlpanel through servicefw:
+dbus-send --session --print-reply --dest=com.nokia.DuiControlPanel / com.nokia.DuiControlPanelIf.appletPage string:Battery
+dbus-send --session --print-reply --dest=com.nokia.DuiControlPanel / com.nokia.DuiControlPanelIf.appletPage "string:Display Language"
+
+---
+
+Build a version without invoker:
+DEB_BUILD_OPTIONS=nolauncher dpkg-buildpackage -rfakeroot -b
+
+--
+
+Debugging controlpanel with invoker:
+gdb /usr/bin/applauncherd.bin $(pgrep booster-m)
+
+--
+
+Empty the recently used list:
+gconftool-2 --recursive-unset /apps/duicontrolpanel/usagecount
+
+--
+
