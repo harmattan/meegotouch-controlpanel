@@ -4,8 +4,9 @@ duicontrolpanel (0.8.5~unreleased) unstable; urgency=low
   * Fixes: NB#178814 -  Icon is not shown in the applet's brief
   * Fixes: NB#173756 - The order of the items in recently used list is
     not same after the device reboot
+  * Fixes: NB#180202 - Default value for DcpBrief is deprecated
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 08 Jul 2010 19:23:51 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 15 Jul 2010 10:43:03 +0200
 
 duicontrolpanel (0.8.4) unstable; urgency=low
 

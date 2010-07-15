@@ -19,5 +19,5 @@
 
 
 DcpDeclBrief::DcpDeclBrief(){
-        
+
 }

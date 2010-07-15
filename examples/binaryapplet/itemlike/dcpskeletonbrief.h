@@ -29,7 +29,10 @@ public:
 
     virtual bool toggle() const;
     virtual void setToggle (bool toggle);
+    /* You can specify the widgettype here if you need something else
+     * than Label
     virtual int widgetTypeID() const;
+     */
 
     virtual void timerEvent(QTimerEvent*);
 

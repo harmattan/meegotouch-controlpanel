@@ -78,7 +78,10 @@ DcpAppletObject::widgetTypeID () const
         if (DcpWidgetType::isIdValid(retval)) {
             DCP_DEBUG ("brief->widgetTypeID () provides a widget type.");
             return retval;
-        } else {
+
+            // invalid marks for us that the type is specified in the .desktop
+            // instead
+        } else if (retval != DcpWidgetType::BriefInvalid) {
             /* FIXME: for supporting old api,
              * please remove ones deprecated ids are removed */
             DCP_WARNING ("%s: brief->widgetTypeID () returned a DEPRECATED id"
