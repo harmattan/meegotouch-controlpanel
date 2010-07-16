@@ -220,15 +220,16 @@ DcpAppletMetadata::toggle () const
 }
 
 
-/*! @brief The name of the catalog file which contains the applet's translation
+/*! @brief The list of catalog names the applets needs
  *
- *  @returns For example duicontrolpanel-languageapplet if the translations are
- *  in the following files: duicontrolpanel-languageapplet_en_GB.qm ...
+ *  @returns The list of catalog names which contains the applet's translations.
  */
-QString
-DcpAppletMetadata::translationCatalog() const
+QStringList
+DcpAppletMetadata::translationCatalogs() const
 {
-    return desktopEntryStr(KeyNameCatalog);
+    // the catalogs are splitted with comma
+    // (and maybe some whitespace follows it)
+    return desktopEntryStr(KeyNameCatalog).split(QRegExp(",\\s*"));
 }
 
 

@@ -23,6 +23,7 @@
 
 #include <QObject>
 #include <QString>
+#include <QStringList>
 
 class MDesktopEntry;
 class DcpAppletMetadataPrivate;
@@ -68,7 +69,7 @@ public:
 
     QString text1 () const;
     QString text2 () const;
-    QString translationCatalog() const;
+    QStringList translationCatalogs() const;
 
     QString imageName() const;
 

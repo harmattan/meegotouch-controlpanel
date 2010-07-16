@@ -38,8 +38,21 @@ The translation id for the title of the applet. (The one you would write for
 qtTrid or trid.)
 
 \par X-translation-catalog
-The translation catalog for the applet. (The filename of its .qm file, without
-the extension and language ids.)
+The translation catalog(s) for the applet. (The filename(s) of its .qm file, without
+the extension and language ids.) More catalogs should be separated with a comma.
+Example:
+\code
+X-translation-catalog=catalog1,catalog2,catalog3
+\endcode
+
+NOTE: Please provide here all the catalog(s) the applet needs,
+instead of loading the catalogs through MLocale in the DcpAppletIf::init()
+function, because
+- each MLocale::setDefault() call will cause retranslateUi() methods to be called
+for all widgets which will have a big performance overhead if most applets are
+doing that amongs the list of a category
+- if you specify it though the desktop file, controlpanel can act if the
+language gets changed, and load the translated catalog for your applet.
 
 
 \subsection duisection [DUI]

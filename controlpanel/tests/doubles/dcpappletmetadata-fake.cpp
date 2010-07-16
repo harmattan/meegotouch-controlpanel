@@ -18,6 +18,8 @@
 #include "dcpappletmetadata.h"
 #include "dcpappletmetadata_p.h"
 
+#include <QStringList>
+
 /* Fake appletmetadata
  *
  * Works like a real one, but not using desktop files.
@@ -130,10 +132,10 @@ DcpAppletMetadata::toggle () const
 }
 
 
-QString
-DcpAppletMetadata::translationCatalog() const
+QStringList
+DcpAppletMetadata::translationCatalogs() const
 {
-    return d_ptr->m_FileName + "-translationCatalog";
+    return QStringList(d_ptr->m_FileName + "-translationCatalog");
 }
 
 

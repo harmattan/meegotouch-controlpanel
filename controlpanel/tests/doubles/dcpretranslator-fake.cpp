@@ -52,8 +52,8 @@ DcpRetranslator::loadAppletTranslation (
         MLocale                &,
         const DcpAppletMetadata  *metadata)
 {
-    QString catalog = metadata->translationCatalog();
-    priv->loadedTranslations.insert(catalog);
+    QStringList catalogList = metadata->translationCatalogs();
+    priv->loadedTranslations.unite(catalogList.toSet());
     return true;
 }
 
@@ -68,8 +68,8 @@ DcpRetranslator::ensureTranslationsAreLoaded(const DcpAppletMetadataList& list)
 void
 DcpRetranslator::ensureTranslationLoaded(DcpAppletMetadata* metadata)
 {
-    QString catalog = metadata->translationCatalog();
-    priv->loadedTranslations.insert(catalog);
+    QStringList catalogList = metadata->translationCatalogs();
+    priv->loadedTranslations.unite(catalogList.toSet());
 }
 
 

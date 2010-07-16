@@ -5,8 +5,10 @@ duicontrolpanel (0.8.5~unreleased) unstable; urgency=low
   * Fixes: NB#173756 - The order of the items in recently used list is
     not same after the device reboot
   * Fixes: NB#180202 - Default value for DcpBrief is deprecated
+  * Fixes: NB#180332 - Control panel applets: Way to load multiple
+    catalogs needed
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 15 Jul 2010 10:43:03 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 16 Jul 2010 15:32:48 +0200
 
 duicontrolpanel (0.8.4) unstable; urgency=low
 

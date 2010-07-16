@@ -46,7 +46,7 @@ void Ut_DcpAppletMetadata::initTestCase()
     fileDatas[desktopTestFile]["Desktop Entry/Icon"] = "";
     fileDatas[desktopTestFile]["Desktop Entry/Exec"] = "";
     fileDatas[desktopTestFile]["Desktop Entry/X-logical-id"] = "qtn_sett_main_browser";
-    fileDatas[desktopTestFile]["Desktop Entry/X-translation-catalog"] = "duisettings";
+    fileDatas[desktopTestFile]["Desktop Entry/X-translation-catalog"] = "duisettings1,duisettings2";
     fileDatas[desktopTestFile]["DUI/X-DUIApplet-Applet"] = "testapplet.so";
     fileDatas[desktopTestFile]["DUI/X-DUIApplet/ImageLandscape"] = "Widget_landscape_weather.png";
     fileDatas[desktopTestFile]["DUI/X-DUIApplet-ImagePortrait"] = "Widget_portrait_weather.png";
@@ -260,7 +260,9 @@ void Ut_DcpAppletMetadata::testApplicationCommand()
 void Ut_DcpAppletMetadata::testTranslationCatalog()
 {
     if (QTest::currentTestFailed()) return;
-    QCOMPARE(m_subject->translationCatalog(), QString("duisettings")); 
+    QStringList expected;
+    expected << "duisettings1" << "duisettings2";
+    QCOMPARE(m_subject->translationCatalogs(), expected);
 }
 
 void Ut_DcpAppletMetadata::testText2()

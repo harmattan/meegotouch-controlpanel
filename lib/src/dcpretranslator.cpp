@@ -115,20 +115,27 @@ DcpRetranslator::loadAppletTranslation (
 {
     Q_ASSERT(metadata);
 
-    QString catalog = metadata->translationCatalog();
-    if (catalog.isEmpty() ) return false;
+    QStringList catalogList = metadata->translationCatalogs();
+    bool hasChanged = false;
 
-    /* Do not load the translation if it is already loaded
-     */
-    if (priv->loadedTranslations.contains(catalog)) return false;
+    foreach (QString catalog, catalogList) {
+        if (catalog.isEmpty()) continue;
 
-    locale.installTrCatalog(catalog); // install translation, if any
+        /* Do not load the translation if it is already loaded
+         */
+        if (priv->loadedTranslations.contains(catalog)) continue;
 
-    // mark it as loaded:
-    priv->loadedTranslations.insert(catalog);
+        locale.installTrCatalog(catalog); // install translation, if any
+        hasChanged = true;
+        qDebug ("DcpRetranslator: loaded translation for %s: %s",
+                  qPrintable(metadata->name()),
+                  qPrintable(catalog));
 
-    DCP_DEBUG ("Translation %s loaded.", qPrintable(catalog));
-    return true;
+        // mark it as loaded:
+        priv->loadedTranslations.insert(catalog);
+    }
+
+    return hasChanged;
 }
 
 void
