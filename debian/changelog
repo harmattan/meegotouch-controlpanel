@@ -1,5 +1,6 @@
 duicontrolpanel (0.8.5~unreleased) unstable; urgency=low
 
+  [ Robert Manner ]
   * Fixes: height of contentitems are non constant
   * Fixes: NB#178814 -  Icon is not shown in the applet's brief
   * Fixes: NB#173756 - The order of the items in recently used list is
@@ -8,7 +9,10 @@ duicontrolpanel (0.8.5~unreleased) unstable; urgency=low
   * Fixes: NB#180332 - Control panel applets: Way to load multiple
     catalogs needed
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 16 Jul 2010 15:32:48 +0200
+  [ Viktor Nagy ]
+  * Fixes: NB#180791 - Invalid libs-pkg in duicontrolpanel API file
+
+ -- Viktor Nagy <viktor.nagy@blumsoft.eu>  Mon, 19 Jul 2010 19:08:43 +0200
 
 duicontrolpanel (0.8.4) unstable; urgency=low
 
