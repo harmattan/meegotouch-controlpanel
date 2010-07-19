@@ -1,5 +1,5 @@
 interface: DuiControlPanel 
-libs-pkg: libduicontrolpanel0
+libs-pkg: libduicontrolpanel
 dev-pkg: libduicontrolpanel-dev
 type: library
 headers: /usr/include/duicontrolpanel/*
