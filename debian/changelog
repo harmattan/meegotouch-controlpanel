@@ -11,8 +11,9 @@ duicontrolpanel (0.8.5~unreleased) unstable; urgency=low
 
   [ Viktor Nagy ]
   * Fixes: NB#180791 - Invalid libs-pkg in duicontrolpanel API file
+  * most used does not count button type applets like offline applet
 
- -- Viktor Nagy <viktor.nagy@blumsoft.eu>  Mon, 19 Jul 2010 19:08:43 +0200
+ -- Viktor Nagy <viktor.nagy@blumsoft.eu>  Thu, 22 Jul 2010 14:32:18 +0200
 
 duicontrolpanel (0.8.4) unstable; urgency=low
 
