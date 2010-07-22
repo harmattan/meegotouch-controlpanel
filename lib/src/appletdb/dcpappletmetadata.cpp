@@ -294,14 +294,19 @@ DcpAppletMetadata::order () const
 int 
 DcpAppletMetadata::usage () const
 {
+    if (widgetTypeID() == DcpWidgetType::Button)
+        return 0;
+    
     return MostUsedCounter::instance()->getUsageCount (
-            QFileInfo(fileName()).baseName()
+       QFileInfo(fileName()).baseName()
     );
 }
 
 void
 DcpAppletMetadata::incrementUsage()
 { 
+    if (widgetTypeID() == DcpWidgetType::Button)
+        return;
     MostUsedCounter::instance()->incrementUsageCount (
             QFileInfo(fileName()).baseName()
     );
