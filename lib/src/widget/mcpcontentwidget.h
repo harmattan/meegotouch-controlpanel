@@ -4,7 +4,7 @@
 ** All rights reserved.
 ** Contact: Karoliina T. Salminen <karoliina.t.salminen@nokia.com>
 **
-** This file is part of duicontrolpanel.
+** This file is part of mcontrolpanel.
 **
 **
 ** This library is free software; you can redistribute it and/or
@@ -17,15 +17,17 @@
 
 /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
-#ifndef DCPCONTENTITEM_H
-#define DCPCONTENTITEM_H
+#ifndef MCPCONTENTWIDGET_H
+#define MCPCONTENTWIDGET_H
 
-#include <MContentItem>
+#include <MListItem>
 
 class DcpAppletObject;
 class QShowEvent;
 class QHideEvent;
-class DcpContentItemPrivate;
+class McpContentWidgetPrivate;
+class MLayout;
+class MGridLayoutPolicy;
 
 /*!
  * \brief An activatable entry in the control panel.
@@ -42,19 +44,7 @@ class DcpContentItemPrivate;
  * about the changes, see DcpBrief::valuesChanged().
  *
  */
-
-/**
- *   This class was DEPRECATED because MContentItem does not support the
- *   necessery functionality for us (see NB#178164).
- *   It will be removed in near future.
- *
- *   Please use #McpContentWidget instead.
- */
-#   ifdef DCP_DISABLE_DEPRECATION_WARNING
-class DcpContentItem: public MContentItem
-#   else
-class Q_DECL_DEPRECATED DcpContentItem: public MContentItem
-#   endif
+class McpContentWidget: public MListItem
 {
     Q_OBJECT
 
@@ -68,20 +58,20 @@ public:
      * If you do not set an applet here, be sure to do that before the widget
      * gets shown on the screen. See #setApplet().
      */
-    DcpContentItem (
+    McpContentWidget (
             DcpAppletObject *applet = 0,
             QGraphicsItem *parent = 0);
 
-    ~DcpContentItem ();
+    ~McpContentWidget ();
 
-    /*! \brief Sets the applet the DcpContentItem should handle.
+    /*! \brief Sets the applet the McpContentWidget should handle.
      *
      * Currently you can only call it before the ContentItem is popped up,
      * due to limitations of MContentItem.
      */
     void setApplet (DcpAppletObject *applet);
 
-    /*! \brief Returns the applet the DcpContentItem visualizes. */
+    /*! \brief Returns the applet the McpContentWidget visualizes. */
     DcpAppletObject *applet () const;
 
     //! @cond
@@ -115,16 +105,27 @@ protected:
     void setImageFromFile (const QString& fileName);
     void setImageName (const QString& name);
 
-    void releaseImage ();
+    // getters about applet properties:
+    int widgetType() const;
+    bool hasTwoTextLines() const;
+    bool isChecked() const;
+    QString text1() const;
+    QString text2() const;
 
 private:
-    void invertTwoLineMode ();
+    // creating widgets, layouts:
+    void ensureLayoutIsCreated(MLayout*& layout, MGridLayoutPolicy*& grid);
+    void ensureImageIsCreated();
+    void ensureToggleIsCreated();
+    void ensureTextsAreCreated();
+    void ensureWidgetsAreLayouted();
 
-    DcpContentItemPrivate* const d_ptr;
+    McpContentWidgetPrivate* const d_ptr;
 
-    friend class Ut_DcpContentItem;
+    friend class Ut_McpContentWidget;
 };
 
 
 #endif
+
 

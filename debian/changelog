@@ -1,8 +1,10 @@
 duicontrolpanel (0.8.6~unreleased) unstable; urgency=low
 
-  * new version
+  * Fixes: NB#178164 - The using AP is displayed inconsistently on
+    Settings page
+  * Implements support for the new applet briefwidget (switch type)
 
- -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Fri, 23 Jul 2010 07:24:13 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 29 Jul 2010 14:25:17 +0200
 
 duicontrolpanel (0.8.5) unstable; urgency=low
 
@@ -21,24 +23,6 @@ duicontrolpanel (0.8.5) unstable; urgency=low
   * most used does not count button type applets like offline applet
 
  -- Laszlo Gal <laszlo.gal@blumsoft.eu>  Thu, 22 Jul 2010 17:33:19 +0200
-
-duicontrolpanel (0.8.5~unreleased) unstable; urgency=low
-
-  [ Robert Manner ]
-  * Fixes: height of contentitems are non constant
-  * Fixes: NB#178814 -  Icon is not shown in the applet's brief
-  * Fixes: NB#173756 - The order of the items in recently used list is
-    not same after the device reboot
-  * Fixes: NB#180202 - Default value for DcpBrief is deprecated
-  * Fixes: NB#180332 - Control panel applets: Way to load multiple
-    catalogs needed
-
-  [ Viktor Nagy ]
-  * Fixes: NB#180791 - Invalid libs-pkg in duicontrolpanel API file
-  [ Laszlo Gal]
-  * most used does not count button type applets like offline applet
-
- -- Viktor Nagy <viktor.nagy@blumsoft.eu>  Thu, 22 Jul 2010 14:32:18 +0200
 
 duicontrolpanel (0.8.4) unstable; urgency=low
 
