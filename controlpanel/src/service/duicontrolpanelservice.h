@@ -38,6 +38,8 @@ public Q_SLOTS:
     void mainPage();
     bool registerService ();
 
+    void handleServiceRegistrationFailure();
+
 private:
     void sheduleStart (const PageHandle &handle);
     void startPageForReal(const PageHandle &handle);

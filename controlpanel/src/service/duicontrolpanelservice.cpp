@@ -25,6 +25,7 @@
 #include <QtDebug>
 #include <MApplication>
 #include <MWindow>
+#include "duicontrolpanelif.h"
 
 static const char* serviceName = "com.nokia.DuiControlPanel";
 
@@ -50,12 +51,18 @@ DuiControlPanelService::registerService ()
     QDBusConnection connection = QDBusConnection::sessionBus();
 
     bool ret = connection.registerService(serviceName);
-    qDebug() << "Registering service" << serviceName
-             << (ret ? "successfully" : "failed");
+    if (ret) {
+        ret = connection.registerObject("/", this);
+        if (!ret) {
+            qWarning ("Error while registering the service object");
+        }
+    } else {
+        qWarning ("Error while registering the service name");
+    }
 
-    ret = connection.registerObject("/", this);
-    qDebug() << "Registering object for service"
-             << (ret ? "successfully" : "failed");
+    if (!ret) {
+        handleServiceRegistrationFailure();
+    }
     return ret;
 }
 
@@ -79,8 +86,13 @@ DuiControlPanelService::startPageForReal(
                 const PageHandle &handle)
 {
     PageFactory::instance()->changePage(handle);
-    if (MApplication::activeWindow ()) {
-        MApplication::activeWindow ()->raise();
+
+    MWindow *win = MApplication::activeWindow();
+
+    if (win) {
+        win->activateWindow();
+        win->show();
+        win->raise();
     }
 }
 
@@ -137,5 +149,18 @@ DuiControlPanelService::createStartPage()
     startPageForReal (*handle);
 
     delete handle;
+}
+
+void
+DuiControlPanelService::handleServiceRegistrationFailure()
+{
+    // raise the mainpage of controlpanel:
+    DuiControlPanelIf iface;
+    if (iface.isValid()) {
+        iface.mainPage();
+    }
+
+    // quit:
+    exit();
 }
 

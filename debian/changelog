@@ -3,8 +3,10 @@ duicontrolpanel (0.8.6~unreleased) unstable; urgency=low
   * Fixes: NB#178164 - The using AP is displayed inconsistently on
     Settings page
   * Implements support for the new applet briefwidget (switch type)
+  * Fixes: NB#182605 - multiple instances of DCP can be opened at the
+    same time
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 29 Jul 2010 14:25:17 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 29 Jul 2010 16:04:52 +0200
 
 duicontrolpanel (0.8.5) unstable; urgency=low
 
