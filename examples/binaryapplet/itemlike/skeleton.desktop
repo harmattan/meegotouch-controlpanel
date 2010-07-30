@@ -8,11 +8,9 @@ X-translation-catalog=skeletonapplet1,skeletonapplet2
 
 [DUI]
 X-DUIApplet-Applet=libdcpskeletonapplet.so
-X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
-X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
 Category= Look & Feel
 Order=4
-WidgetType= DcpLabel2
+WidgetType= Label
 

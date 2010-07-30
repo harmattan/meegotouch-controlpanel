@@ -48,6 +48,13 @@ class McpContentWidget: public MListItem
 {
     Q_OBJECT
 
+    // some readonly properties, can be used for matti tests
+    Q_PROPERTY (QString title READ title)
+    Q_PROPERTY (QString subtitle READ subtitle)
+    Q_PROPERTY (QString checked READ isChecked)
+    Q_PROPERTY (QString widgetType READ widgetType)
+    Q_PROPERTY (QString imageID READ imageID)
+
     //! @cond
     Q_PROPERTY (QString mattiID READ mattiID WRITE setMattiID)
     //! @endcond
@@ -109,8 +116,9 @@ protected:
     int widgetType() const;
     bool hasTwoTextLines() const;
     bool isChecked() const;
-    QString text1() const;
-    QString text2() const;
+    QString title() const;
+    QString subtitle() const;
+    QString imageID() const;
 
 private:
     // creating widgets, layouts:
