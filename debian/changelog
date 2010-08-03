@@ -1,12 +1,18 @@
 duicontrolpanel (0.8.6~unreleased) unstable; urgency=low
 
+  [ Robert Manner ]
   * Fixes: NB#178164 - The using AP is displayed inconsistently on
     Settings page
   * Implements support for the new applet briefwidget (switch type)
   * Fixes: NB#182605 - multiple instances of DCP can be opened at the
     same time
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 29 Jul 2010 16:04:52 +0200
+  [ Viktor Nagy ]
+  * Redirect standard io channels of applications launched by
+    control panel to /dev/null
+    Fixes: NB#182372 - The script "/usr/share/csd-call/csd-call-backup" fails while taking backup
+
+ -- Viktor Nagy <viktor.nagy@blumsoft.eu>  Tue, 03 Aug 2010 21:40:30 +0200
 
 duicontrolpanel (0.8.5) unstable; urgency=low
 

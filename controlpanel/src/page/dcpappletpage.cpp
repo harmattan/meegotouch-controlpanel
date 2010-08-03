@@ -122,6 +122,16 @@ DcpAppletPage::load ()
             QString command = m_Applet->metadata()->applicationCommand();
             QProcess *process = new QProcess();
 
+            /* redirect std io channels to /dev/null
+             * because otherwise if command is applauncher's invoker 
+             * it will pass pipes created by QProcess to the launched 
+             * application, which are not valid anymore 
+             * see bug 182372
+             */            
+            process->setStandardInputFile("/dev/null");
+            process->setStandardOutputFile("/dev/null");
+            process->setStandardErrorFile("/dev/null");
+
             // this will free up the QProcess when the process ended:
             connect (process, SIGNAL(finished ( int, QProcess::ExitStatus)),
                      process, SLOT(deleteLater()));
