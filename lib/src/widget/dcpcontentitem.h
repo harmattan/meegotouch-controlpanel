@@ -42,19 +42,7 @@ class DcpContentItemPrivate;
  * about the changes, see DcpBrief::valuesChanged().
  *
  */
-
-/**
- *   This class was DEPRECATED because MContentItem does not support the
- *   necessery functionality for us (see NB#178164).
- *   It will be removed in near future.
- *
- *   Please use #McpContentWidget instead.
- */
-#   ifdef DCP_DISABLE_DEPRECATION_WARNING
 class DcpContentItem: public MContentItem
-#   else
-class Q_DECL_DEPRECATED DcpContentItem: public MContentItem
-#   endif
 {
     Q_OBJECT
 
