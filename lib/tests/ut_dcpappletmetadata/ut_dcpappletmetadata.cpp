@@ -189,7 +189,9 @@ void Ut_DcpAppletMetadata::testToggle()
     QSKIP("!!!! UnableToLoadAnyApplet bug under fixxing by Lgal !!!!",
             SkipSingle);
 
+/*    
     if (QTest::currentTestFailed()) return;
+ */
 }
 
 void Ut_DcpAppletMetadata::testImageName()
@@ -210,9 +212,11 @@ void Ut_DcpAppletMetadata::testUsage()
 {
     QSKIP("!!!! RelativePath bug under fixxing by Retsoft !!!!", SkipSingle);
 
+/*    
     if (QTest::currentTestFailed()) return;
 
     qWarning() <<"\n@@" <<m_subject->usage() <<"@@\n";
+ */
 }
 
 void Ut_DcpAppletMetadata::testPart()

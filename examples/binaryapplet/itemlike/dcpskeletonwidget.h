@@ -21,8 +21,6 @@
 #include <DcpWidget>
 
 class MLabel;
-class MLayout;
-class MLinearLayoutPolicy;
 
 class SkeletonWidget : public DcpWidget
 {
@@ -39,8 +37,6 @@ protected slots:
     void loadingFinished();
 
 private:
-    MLayout *m_MainLayout;
-    MLinearLayoutPolicy *m_MainLayoutPolicy;
     MLabel *m_aboutLabel;
 };
 
