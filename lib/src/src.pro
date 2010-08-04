@@ -39,7 +39,7 @@ install_headers.files += $$system(echo include/D*) \
     widget/dcpbuttontoggle.h \
     widget/dcpbuttonimage.h \
     widget/dcpbriefwidget.h \
-    widget/mcpcontentwidget.h \
+    widget/dcpcontentitem.h \
     widget/dcpwidgettypes.h \
     dcpdebug.h \
     dcpretranslator.h \

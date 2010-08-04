@@ -11,6 +11,12 @@ X-translation-catalog=duisettings
 # The plugin binary file. Not used in this example.
 #
 #X-DUIApplet-Applet=libXXX.so
+X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
+X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
+#
+# Not implemented yet.
+#
+X-DUIApplet-Dslfile=trythisone.xml
 #
 # If this property is declared, and the applet is not loaded using the 
 # X-DUIApplet-Applet property, the command will be executed when the 
@@ -21,5 +27,5 @@ X-DUIApplet-ApplicationCommand=widgetsgallery
 [DCP]
 Category= Look & Feel
 Order=3
-WidgetType= Label
+WidgetType= DcpLabel2
 

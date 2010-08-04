@@ -1,11 +1,15 @@
 [Desktop Entry]
 Type=DUIApplet
 Name=SkelButton
+Icon=
+Exec=
 X-logical-id=qtn_sett_main_display
 X-translation-catalog=duicontrolpanel-skeletonapplet
 
 [DUI]
 X-DUIApplet-Applet=libdcpskelbuttonapplet.so
+X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
+X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
 Category= Look & Feel
