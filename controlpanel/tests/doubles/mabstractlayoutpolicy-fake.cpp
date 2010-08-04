@@ -42,7 +42,7 @@ MAbstractLayoutPolicy::MAbstractLayoutPolicy(
 {
 }
 
-MAbstractLayoutPolicy::~MAbstractLayoutPolicy(){}
+MAbstractLayoutPolicy::~MAbstractLayoutPolicy(){ delete d_ptr;}
 void MAbstractLayoutPolicy::setContentsMargins(qreal, qreal, qreal, qreal){}
 void MAbstractLayoutPolicy::unsetContentsMargins(){}
 void MAbstractLayoutPolicy::getContentsMargins(qreal*, qreal*, qreal*, qreal*) const{}

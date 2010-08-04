@@ -147,10 +147,10 @@ void Ft_DcpAppletMetadata::testAlign()
 
 void Ft_DcpAppletMetadata::testToggle()
 {
+    if (QTest::currentTestFailed()) return;
     QSKIP("!!!! UnableToLoadAnyApplet bug under fixxing by Lgal !!!!",
             SkipSingle);
 
-    if (QTest::currentTestFailed()) return;
 }
 
 
@@ -170,11 +170,11 @@ void Ft_DcpAppletMetadata::testOrder()
 
 void Ft_DcpAppletMetadata::testUsage()
 {
-    QSKIP("!!!! RelativePath bug under fixxing by Retsoft !!!!", SkipSingle);
 
     if (QTest::currentTestFailed()) return;
 
     qWarning() <<"\n@@" <<m_subject->usage() <<"@@\n";
+    QSKIP("!!!! RelativePath bug under fixxing by Retsoft !!!!", SkipSingle);
 }
 
 void Ft_DcpAppletMetadata::testPart()

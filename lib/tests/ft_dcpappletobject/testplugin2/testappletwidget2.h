@@ -20,6 +20,9 @@
 
 #include <DcpWidget>
 
+class MLayout;
+class MLinearLayoutPolicy;
+class MLabel; 
 class TestAppletWidget2 : public DcpWidget
 {
    Q_OBJECT
@@ -27,6 +30,10 @@ class TestAppletWidget2 : public DcpWidget
     public:
        TestAppletWidget2(QGraphicsWidget *parent=0);
        virtual ~TestAppletWidget2();
+    private:   
+       MLayout *m_Layout; 
+       MLinearLayoutPolicy *m_LayoutPolicy;
+       MLabel *m_Widget; 
 };
 
 #endif

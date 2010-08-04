@@ -80,38 +80,38 @@ bool
 some_crash_happened (
         void)
 {
-    void     *backtrace_array [BACKTRACE_SIZE];
-    char    **backtrace_strings;
-    size_t    backtrace_size;
-    const char     *start, *end;
+//  void     *backtrace_array [BACKTRACE_SIZE];
+//  char    **backtrace_strings;
+//  size_t    backtrace_size;
+//  const char     *start, *end;
 
-    DCP_WARNING ("Crash...");
-    backtrace_size = backtrace (backtrace_array, BACKTRACE_SIZE);
-    backtrace_strings = backtrace_symbols (backtrace_array, backtrace_size);
+//  DCP_WARNING ("Crash...");
+//  backtrace_size = backtrace (backtrace_array, BACKTRACE_SIZE);
+//  backtrace_strings = backtrace_symbols (backtrace_array, backtrace_size);
 
-    /*
-     * Let's print the backtrace from the stack.
-     */
-    fprintf (stderr, "--- Crash backtrace of DuiControlPanel ---\n");
-    for (size_t i = 0; i < backtrace_size; i++) {
-        fprintf (stderr, "%03u %s\n", i, backtrace_strings[i]);
-    }
-    fprintf (stderr, "------------------------------------------\n");
-    fflush (stderr);
+//  /*
+//   * Let's print the backtrace from the stack.
+//   */
+//  fprintf (stderr, "--- Crash backtrace of DuiControlPanel ---\n");
+//  for (size_t i = 0; i < backtrace_size; i++) {
+//      fprintf (stderr, "%03u %s\n", i, backtrace_strings[i]);
+//  }
+//  fprintf (stderr, "------------------------------------------\n");
+//  fflush (stderr);
 
-    /*
-     * Let's see if any of the functions is actually in some applet.
-     */
-    for (size_t i = 0; i < backtrace_size; i++) {
-        if (!backtrace_line_is_an_applet (backtrace_strings[i], &start, &end))
-            continue;
+//  /*
+//   * Let's see if any of the functions is actually in some applet.
+//   */
+//  for (size_t i = 0; i < backtrace_size; i++) {
+//      if (!backtrace_line_is_an_applet (backtrace_strings[i], &start, &end))
+//          continue;
 
-        *const_cast<char*>(end) = '\0';
-        DCP_WARNING ("*** Marking this applet: '%s'", start);
-        mark_applet_as_bad (start);
-        DCP_WARNING ("*** Done");
-        return true;
-    }
+//      *const_cast<char*>(end) = '\0';
+//      DCP_WARNING ("*** Marking this applet: '%s'", start);
+//      mark_applet_as_bad (start);
+//      DCP_WARNING ("*** Done");
+//      return true;
+//  }
 
     return false;
 }

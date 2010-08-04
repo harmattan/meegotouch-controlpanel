@@ -102,6 +102,7 @@ DcpContentItem::constructRealWidget ()
             qWarning("Support for toggle type as briefwidget was removed from "
                      "controlpanel according to the latest specifications (%s)",
                      qPrintable(applet()->metadata()->name()));
+            break;
         default:
             DCP_DEBUG ("### DcpWidgetType::Label ###");
             styl = SingleTextLabel;

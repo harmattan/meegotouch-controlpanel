@@ -26,18 +26,23 @@
 TestAppletWidget2::TestAppletWidget2(QGraphicsWidget *parent)
     : DcpWidget(parent)
 {
-    MLayout *layout = new MLayout(this);
-    MLinearLayoutPolicy *layoutPolicy = 
-        new MLinearLayoutPolicy(layout, Qt::Vertical);
-    layout->setPolicy(layoutPolicy);
+    m_Layout = new MLayout(this);
+    m_LayoutPolicy = new MLinearLayoutPolicy(m_Layout, Qt::Vertical);
+    m_Layout->setPolicy(m_LayoutPolicy);
 
-    MLabel *widget = new MLabel("Test applet2", this);
-    layoutPolicy->addItem(widget, Qt::AlignLeft);
+    MLabel *m_Widget = new MLabel("Test applet2", this);
+    m_LayoutPolicy->addItem(m_Widget, Qt::AlignLeft);
 
-    setLayout(layout);
+    setLayout(m_Layout);
 
 }
 
 TestAppletWidget2::~TestAppletWidget2()
 {
+    if (m_Layout)
+        delete m_Layout;
+    if (m_LayoutPolicy)
+        delete m_LayoutPolicy;
+    if (m_Widget)
+        m_Widget->deleteLater();
 }
