@@ -1,3 +1,10 @@
+duicontrolpanel (0.8.7~unreleased) unstable; urgency=low
+
+  * Fixes: NB#183023 - Settings page is displaying as prefix of Service
+    accounts as less debian/changelog Service accounts
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 05 Aug 2010 16:35:09 +0200
+
 duicontrolpanel (0.8.6) unstable; urgency=low
 
   [ Robert Manner ]

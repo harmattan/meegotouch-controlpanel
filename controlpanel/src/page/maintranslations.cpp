@@ -63,15 +63,15 @@ DcpMain::CategoryInfos[] =
         NULL
     },
     {
-        //% "Service accounts"
-        QT_TRID_NOOP ("qtn_sett_main_account"),
+        //% "Accounts"
+        QT_TRID_NOOP ("qtn_comm_command_accounts"),
         "Accounts & Applications", /* FIXME we will need to deprecate it somehow
                                       it is currently maintained for compatibility */
         PageHandle::ServiceAccounts,
         NULL
     },
     {
-        //% "Applications"
+        //% "Application settings"
         QT_TRID_NOOP ("qtn_sett_main_application"),
         "Applications",
         PageHandle::Applications,
