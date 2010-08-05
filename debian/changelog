@@ -1,4 +1,4 @@
-duicontrolpanel (0.8.6~unreleased) unstable; urgency=low
+duicontrolpanel (0.8.6) unstable; urgency=low
 
   [ Robert Manner ]
   * Fixes: NB#182605 - multiple instances of DCP can be opened at the
@@ -9,7 +9,7 @@ duicontrolpanel (0.8.6~unreleased) unstable; urgency=low
     control panel to /dev/null
     Fixes: NB#182372 - The script "/usr/share/csd-call/csd-call-backup" fails while taking backup
 
- -- Viktor Nagy <viktor.nagy@blumsoft.eu>  Tue, 03 Aug 2010 21:40:30 +0200
+ -- Viktor Nagy <viktor.nagy@blumsoft.eu>  Thu, 05 Aug 2010 15:59:40 +0200
 
 duicontrolpanel (0.8.5) unstable; urgency=low
 
