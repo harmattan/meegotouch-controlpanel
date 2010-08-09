@@ -161,8 +161,8 @@ McpContentWidget::ensureTextsAreCreated()
     }
 
     // update their texts:
-    d_ptr->m_Text1W->setText (text1());
-    QString text2 = this->text2();
+    d_ptr->m_Text1W->setText (title());
+    QString text2 = this->subtitle();
     if (d_ptr->m_Text2W->text().isEmpty() != text2.isEmpty()) {
         d_ptr->m_LayoutIsToBeChanged = true;
     }
@@ -240,14 +240,14 @@ McpContentWidget::constructRealWidget ()
 }
 
 QString
-McpContentWidget::text1() const
+McpContentWidget::title() const
 {
     if (applet()) return applet()->text1();
     return QString();
 }
 
 QString
-McpContentWidget::text2() const
+McpContentWidget::subtitle() const
 {
     if (applet()) return applet()->text2();
     return QString();
@@ -286,7 +286,7 @@ McpContentWidget::setApplet (DcpAppletObject *applet)
          * This will count the activations and activate the applet.
          */
         connect (this, SIGNAL (clicked()),
-                d_ptr->m_Applet, SLOT (slotClicked()));
+                 d_ptr->m_Applet, SLOT (slotClicked()));
     }
 }
 
@@ -306,6 +306,11 @@ McpContentWidget::updateText ()
     ensureWidgetsAreLayouted();
 }
 
+QString McpContentWidget::imageID() const
+{
+    if (d_ptr->m_ImageW) return d_ptr->m_ImageW->image();
+    return QString();
+}
 
 void McpContentWidget::updateImage ()
 {
@@ -354,9 +359,8 @@ McpContentWidget::updateContents ()
 void
 McpContentWidget::setImageName (const QString& name)
 {
-    if (d_ptr->m_ImageW) { // XXX move create here?
-        d_ptr->m_ImageW->setImage (name); // FIXME XXX why is it not working???
-    }
+    Q_ASSERT (d_ptr->m_ImageW);
+    d_ptr->m_ImageW->setImage (name); // FIXME XXX why is it not working???
 }
 
 /*!
@@ -367,6 +371,7 @@ McpContentWidget::setImageFromFile (const QString& fileName)
 {
     bool    success;
     QImage  image;
+    Q_ASSERT (d_ptr->m_ImageW);
 
     success = image.load (fileName);
     if (!success) {
@@ -374,9 +379,7 @@ McpContentWidget::setImageFromFile (const QString& fileName)
         return;
     }
 
-    if (d_ptr->m_ImageW) { // XXX move create here?
-        d_ptr->m_ImageW->setImage (image);
-    }
+    d_ptr->m_ImageW->setImage (image);
 }
 
 void
