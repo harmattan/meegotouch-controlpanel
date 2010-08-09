@@ -2,15 +2,15 @@ duicontrolpanel (0.8.7~unreleased) unstable; urgency=low
 
   * Fixes: NB#183023 - Settings page is displaying as prefix of Service
     accounts as less debian/changelog Service accounts
+  * Fixes: NB#178164 - The using AP is displayed inconsistently on
+    Settings page
+  * Implements support for the new applet briefwidget (switch type)
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 05 Aug 2010 16:35:09 +0200
 
 duicontrolpanel (0.8.6) unstable; urgency=low
 
   [ Robert Manner ]
-  * Fixes: NB#178164 - The using AP is displayed inconsistently on
-    Settings page
-  * Implements support for the new applet briefwidget (switch type)
   * Fixes: NB#182605 - multiple instances of DCP can be opened at the
     same time
 
