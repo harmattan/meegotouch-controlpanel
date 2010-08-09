@@ -415,27 +415,10 @@ PageFactory::tryOpenPageBackward (
      * We close all the pages that are above the requested page.
      */
     while (m_Pages.size() > foundAtIndex + 1) {
-        int s = m_Pages.size();
-
-        MApplicationPage *mPage = m_Pages.last();
+        MApplicationPage *mPage = m_Pages.takeLast();
         mPage->dismiss();
-
-        /*
-         * This is rather unfortunate, but we need this becouse otherwise the
-         * libdui will not refresh the screen correctly.
-         */
-        QTime dieTime = QTime::currentTime().addMSecs(250);
-        while( QTime::currentTime() < dieTime )
-        	QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-        /*
-         * This is a protection so we _never_ fall into an endless loop.
-         */
-        if (m_Pages.size() == s) {
-            DCP_WARNING ("Could not close page.");
-            return false;
-        }
     }
-   
+
     /*
      * A simple debug tool to print the page stack.
      */

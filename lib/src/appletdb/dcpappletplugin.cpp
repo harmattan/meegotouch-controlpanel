@@ -25,6 +25,9 @@
 #include "dcpwrongapplets.h"
 
 #include "dcpdebug.h"
+#include <QTime>
+
+static const int APPLETINIT_TIMEOUT = 400;
 
 DcpAppletPlugin::DcpAppletPlugin(DcpAppletMetadata *metadata):
    d_ptr(new DcpAppletPluginPrivate(metadata))
@@ -46,7 +49,7 @@ DcpAppletPlugin::~DcpAppletPlugin()
     /*
      * I had to remove this code, because the libdui will cause serius segfaults
      * when the applet has been reloaded and the loadCSS() method is called. We
-     * have to find a solution for this problem.
+     * have to find a solution for this problem. TODO
      *
      * lpere@blumsoft.eu
      */
@@ -159,7 +162,9 @@ DcpAppletPlugin::loadPluginFile (
             return false;
         } else {
             DCP_DEBUG ("Initializing %s", DCP_STR (binaryPath));
+            QTime start = QTime::currentTime();
             d_ptr->appletInstance->init ();
+            timeoutWarning (start, APPLETINIT_TIMEOUT,  "DcpAppletIf::init()");
         }
     }
 
@@ -207,4 +212,22 @@ DcpAppletPlugin::interfaceVersion()
         return -1;
     }
 }
+
+/*
+ * Show a warning if an operation takes longer than expected.
+ */
+void DcpAppletPlugin::timeoutWarning (const QTime& startTime, int maxMs,
+                                      const QString& msg) const
+{
+    QString name = metadata() ? metadata()->name() : "???";
+    int msecs = startTime.msecsTo(QTime::currentTime());
+    if (msecs > maxMs) {
+        qWarning () << "SLOW applet" << name
+                    << "(" << msg << "took" << msecs << "ms )";
+    } else {
+        qDebug () << msg << "for the applet" << name
+                  << "took" << msecs << "ms";
+    }
+}
+
 

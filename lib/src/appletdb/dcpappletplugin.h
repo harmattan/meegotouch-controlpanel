@@ -25,6 +25,7 @@
 class DcpAppletMetadata;
 class DcpAppletIf;
 class DcpAppletPluginPrivate;
+class QTime;
 
 /*!
  * \brief This class loads the binary plugin (if any) based on its metadata.
@@ -48,11 +49,14 @@ protected:
     virtual void load ();
     virtual bool loadPluginFile (const QString &binaryPath);
     virtual bool loadDslFile    (const QString &dslPath);
+    void timeoutWarning (const QTime& startTime,
+                         int maxMs, const QString& msg) const;
 
 private:
     DcpAppletPluginPrivate *const d_ptr;
     Q_DISABLE_COPY(DcpAppletPlugin);
     friend class Ut_DcpAppletPlugin;
+
 };
 
 #endif

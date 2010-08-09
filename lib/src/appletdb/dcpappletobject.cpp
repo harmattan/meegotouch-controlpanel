@@ -29,8 +29,10 @@
 #include "dcpappletif.h"
 #include "dcpwidget.h"
 
+#include <QTime>
 #include "dcpdebug.h"
 
+static const int CONSTRUCTBRIEF_TIMEOUT = 200;
 
 
 DcpAppletObjectPrivate::DcpAppletObjectPrivate ():
@@ -276,11 +278,14 @@ DcpAppletObject::getMainWidgetId () const
     return applet()->partID(metadata()->part());
 }
 
+
 DcpBrief *
 DcpAppletObject::brief () const
 {
     if (d_ptr->m_Brief == 0 && applet() != 0) {
+        QTime start = QTime::currentTime();
         d_ptr->m_Brief = applet()->constructBrief (getMainWidgetId());
+        timeoutWarning (start, CONSTRUCTBRIEF_TIMEOUT, "brief creation");
 
         if (d_ptr->m_Brief != 0) {
             connect (d_ptr->m_Brief, SIGNAL (valuesChanged ()), 
