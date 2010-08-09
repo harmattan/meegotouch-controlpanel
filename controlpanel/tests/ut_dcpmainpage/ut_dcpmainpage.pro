@@ -28,7 +28,7 @@ SOURCES += \
     $$STUBSDIR/mlayout-fake.cpp \
     $$STUBSDIR/mlinearlayoutpolicy-fake.cpp \
     $$STUBSDIR/mcontainer-fake.cpp \
-    $$STUBSDIR/dcpcontentitem-fake.cpp \
+    $$STUBSDIR/mcpcontentwidget-fake.cpp \
     $$LIBDCPFAKES/mcontentitem-fake.cpp \
     $$STUBSDIR/mwidgetcontroller-fake.cpp \
     $$LIBDCPFAKES/mgconfitem-fake.cpp \
