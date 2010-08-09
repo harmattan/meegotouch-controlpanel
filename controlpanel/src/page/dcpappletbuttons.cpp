@@ -28,7 +28,7 @@
 #include <DcpApplet>
 #include <DcpWidgetTypes>
 #include <DcpContentButton>
-#include <McpContentWidget>
+#include <DcpContentItem>
 
 #include <MSceneManager>
 // #include <MGridLayoutPolicy>
@@ -67,7 +67,7 @@ DcpAppletButtons::markAllInactive()
         QGraphicsItem* item = layout()->itemAt(i)->graphicsItem();
         if (!item || !item->isWidget()) continue;
         QGraphicsWidget* widget = (QGraphicsWidget*) item;
-        McpContentWidget* briefWidget = qobject_cast<McpContentWidget*>(widget);
+        DcpContentItem* briefWidget = qobject_cast<DcpContentItem*>(widget);
         if (!briefWidget) continue;
         briefWidget->applet()->metadata()->markInactive();
     }
@@ -114,7 +114,7 @@ DcpAppletButtons::appletMetadata (int pos)
 {
     QGraphicsWidget* widget = widgetAt(pos);
     if (!widget) return 0;
-    McpContentWidget* contentItem = qobject_cast<McpContentWidget*>(widget);
+    DcpContentItem* contentItem = qobject_cast<DcpContentItem*>(widget);
     if (!contentItem) return 0;
     DcpAppletObject* applet = contentItem->applet();
     if (!applet) return 0;
@@ -138,8 +138,8 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata)
             briefWidget = button;
         }
         else {   
-            McpContentWidget *item = new McpContentWidget (applet, this);
-            item->setObjectName ("McpContentWidget");
+            DcpContentItem *item = new DcpContentItem (applet, this);
+            item->setObjectName ("DcpContentItem");
             item->setMattiID ("DcpContentItem::" + logicalId() + "::" +
                              metadata->category() + "::" + metadata->name());
 

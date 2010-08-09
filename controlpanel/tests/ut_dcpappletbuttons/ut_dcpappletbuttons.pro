@@ -30,7 +30,7 @@ SOURCES += \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
     $$STUBSDIR/dcpretranslator-fake.cpp \
     $$STUBSDIR/mwidgetcontroller-fake.cpp \
-    $$STUBSDIR/mcpcontentwidget-fake.cpp \
+    $$STUBSDIR/dcpcontentitem-fake.cpp \
     $$STUBSDIR/qgraphicsobject-fake.cpp \
     $$TEST_SOURCES \
 

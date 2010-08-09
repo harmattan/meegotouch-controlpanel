@@ -4,7 +4,7 @@
 ** All rights reserved.
 ** Contact: Karoliina T. Salminen <karoliina.t.salminen@nokia.com>
 **
-** This file is part of duicontrolpanel.
+** This file is part of mcontrolpanel.
 **
 **
 ** This library is free software; you can redistribute it and/or
@@ -20,12 +20,14 @@
 #ifndef DCPCONTENTITEM_H
 #define DCPCONTENTITEM_H
 
-#include <MContentItem>
+#include <MListItem>
 
 class DcpAppletObject;
 class QShowEvent;
 class QHideEvent;
 class DcpContentItemPrivate;
+class MLayout;
+class MGridLayoutPolicy;
 
 /*!
  * \brief An activatable entry in the control panel.
@@ -42,21 +44,16 @@ class DcpContentItemPrivate;
  * about the changes, see DcpBrief::valuesChanged().
  *
  */
-
-/**
- *   This class was DEPRECATED because MContentItem does not support the
- *   necessery functionality for us (see NB#178164).
- *   It will be removed in near future.
- *
- *   Please use #McpContentWidget instead.
- */
-#   ifdef DCP_DISABLE_DEPRECATION_WARNING
-class DcpContentItem: public MContentItem
-#   else
-class Q_DECL_DEPRECATED DcpContentItem: public MContentItem
-#   endif
+class DcpContentItem: public MListItem
 {
     Q_OBJECT
+
+    // some readonly properties, can be used for matti tests
+    Q_PROPERTY (QString title READ title)
+    Q_PROPERTY (QString subtitle READ subtitle)
+    Q_PROPERTY (QString checked READ isChecked)
+    Q_PROPERTY (QString widgetType READ widgetType)
+    Q_PROPERTY (QString imageID READ imageID)
 
     //! @cond
     Q_PROPERTY (QString mattiID READ mattiID WRITE setMattiID)
@@ -115,10 +112,21 @@ protected:
     void setImageFromFile (const QString& fileName);
     void setImageName (const QString& name);
 
-    void releaseImage ();
+    // getters about applet properties:
+    int widgetType() const;
+    bool hasTwoTextLines() const;
+    bool isChecked() const;
+    QString title() const;
+    QString subtitle() const;
+    QString imageID() const;
 
 private:
-    void invertTwoLineMode ();
+    // creating widgets, layouts:
+    void ensureLayoutIsCreated(MLayout*& layout, MGridLayoutPolicy*& grid);
+    void ensureImageIsCreated();
+    void ensureToggleIsCreated();
+    void ensureTextsAreCreated();
+    void ensureWidgetsAreLayouted();
 
     DcpContentItemPrivate* const d_ptr;
 
@@ -127,4 +135,5 @@ private:
 
 
 #endif
+
 

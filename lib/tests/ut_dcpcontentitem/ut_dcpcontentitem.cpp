@@ -17,7 +17,9 @@
 
 #include "ut_dcpcontentitem.h"
 #include "dcpcontentitem_p.h"
-#include "mcontentitemmodel.h"
+
+#include <MImageWidget>
+#include <QPixmap>
 
 void Ut_DcpContentItem::initTestCase()
 {
@@ -43,6 +45,7 @@ void Ut_DcpContentItem::testConstructor()
     QVERIFY (!m_Target->parentItem());
     DcpContentItem* child = new DcpContentItem(0, m_Target);
     QCOMPARE (child->parentItem(), m_Target);
+    delete child;
 }
 
 void Ut_DcpContentItem::testSetApplet()
@@ -67,7 +70,7 @@ void Ut_DcpContentItem::testMattiId()
 
 void Ut_DcpContentItem::testUpdateContents()
 {
-    
+    QSKIP ("Not implemented", SkipAll);
 }
 
 void Ut_DcpContentItem::testRetranslateUi()
@@ -77,9 +80,9 @@ void Ut_DcpContentItem::testRetranslateUi()
     m_Target->setApplet (applet);
 
     // test if updateText gets called on retranslateUi
-    m_Target->setTitle ("xxx");
+    m_Target->d_ptr->m_Text1W->setText ("xxx");
     m_Target->retranslateUi();
-    QCOMPARE (m_Target->title(), applet->text1());
+    QCOMPARE (m_Target->d_ptr->m_Text1W->text(), applet->text1());
 }
 
 void Ut_DcpContentItem::testShowHideEvent()
@@ -87,11 +90,12 @@ void Ut_DcpContentItem::testShowHideEvent()
     DcpAppletObject* applet =
         new DcpAppletObject(new DcpAppletMetadata("fake"));
     m_Target->setApplet (applet);
+    m_Target->hideEvent(0);
 
     // check if the widget updates on showEvent
-    m_Target->setTitle ("xxx");
+    m_Target->d_ptr->m_Text1W->setText ("xxx");
     m_Target->showEvent(0);
-    QCOMPARE (m_Target->title(), applet->text1());
+    QCOMPARE (m_Target->d_ptr->m_Text1W->text(), applet->text1());
 
     // check if signals gets reconnected on showEvent
     // ... TODO
@@ -104,10 +108,8 @@ void Ut_DcpContentItem::testConstructRealWidget()
     m_Target->d_ptr->m_Applet = applet;
     m_Target->constructRealWidget();
 
-    // check if itemStyle is ok
-    // TODO maybe we could check here with 2 plugins with different widgetTypeIDs
-    QCOMPARE (m_Target->d_ptr->m_WidgetTypeId, (int)DcpWidgetType::Label);
-    QCOMPARE (m_Target->model()->itemStyle(), (int)MContentItem::TwoTextLabels);
+    // TODO implement checks
+    QCOMPARE (m_Target->widgetType(), (int)DcpWidgetType::Label);
 }
 
 void Ut_DcpContentItem::testUpdateText()
@@ -115,17 +117,19 @@ void Ut_DcpContentItem::testUpdateText()
     DcpAppletObject* applet =
         new DcpAppletObject(new DcpAppletMetadata("fake"));
     m_Target->setApplet (applet);
-    m_Target->setTitle ("xxx");
+    m_Target->d_ptr->m_Text1W->setText ("xxx");
 
     m_Target->updateText();
 
     // updates the texts:
     QCOMPARE (m_Target->title(), QString("fake-text1"));
     QCOMPARE (m_Target->subtitle(), QString("fake-text2"));
+    QCOMPARE (m_Target->d_ptr->m_Text1W->text(), QString("fake-text1"));
+    QCOMPARE (m_Target->d_ptr->m_Text2W->text(), QString("fake-text2"));
+
 
     // changes the itemstyle into two line mode correctly:
-    QCOMPARE ((int)m_Target->model()->itemStyle(),
-              (int)MContentItem::TwoTextLabels);
+    QVERIFY (m_Target->hasTwoTextLines());
 }
 
 void Ut_DcpContentItem::testUpdateImage()
@@ -133,57 +137,82 @@ void Ut_DcpContentItem::testUpdateImage()
     DcpAppletObject* applet =
         new DcpAppletObject(new DcpAppletMetadata("fake"));
     m_Target->setApplet (applet);
-    m_Target->d_ptr->m_WidgetTypeId = DcpWidgetType::Image;
 
+    // does not update if the type is not image:
     m_Target->updateImage ();
 
-    // updates the values:
-    QCOMPARE (m_Target->imageID(), QString("fake-imageName"));
+
+    QSKIP ("Not implemented", SkipAll);
+
+    // QCOMPARE (m_Target->imageID(), QString("fake-imageName"));
+    // TODO check that it calls the appropriate image setters
 }
+
 
 void Ut_DcpContentItem::testSetImageFromFile()
 {
-    m_Target->setImage(QImage(10,10, QImage::Format_ARGB32));
+    m_Target->d_ptr->m_ImageW = new MImageWidget();
 
     // it changes correctly to a null image (image could not be loaded)
-    m_Target->setImageFromFile("fake");
-    QCOMPARE (m_Target->image(), QImage());
+    m_Target->setImageFromFile("image");
+    QCOMPARE (m_Target->d_ptr->m_ImageW->image(), QString("image"));
 
     // TODO: a test with a succesful image maybe: needs a fake QFile?
 }
 
 void Ut_DcpContentItem::testSetImageName()
 {
+    m_Target->d_ptr->m_ImageW = new MImageWidget();
     m_Target->setImageName ("fake");
-    QCOMPARE (m_Target->imageID(), QString("fake"));
+    QCOMPARE (m_Target->d_ptr->m_ImageW->image(), QString("fake"));
 }
 
-void Ut_DcpContentItem::testReleaseImage()
+void Ut_DcpContentItem::testWidgetType()
 {
-    m_Target->releaseImage ();
+    QSKIP ("Not implemented.", SkipAll);
 }
 
-void Ut_DcpContentItem::testInvertTwoLineMode()
+void Ut_DcpContentItem::testHasTwoTextLines()
 {
-    m_Target->model()->setItemStyle(MContentItem::IconAndTwoTextLabels);
-    m_Target->invertTwoLineMode ();
-    QCOMPARE ((int)m_Target->model()->itemStyle(),
-              (int)MContentItem::IconAndSingleTextLabel);
-    m_Target->invertTwoLineMode ();
-    QCOMPARE ((int)m_Target->model()->itemStyle(),
-              (int)MContentItem::IconAndTwoTextLabels);
-
-    m_Target->model()->setItemStyle(
-              MContentItem::SingleTextLabel);
-    m_Target->invertTwoLineMode ();
-    QCOMPARE ((int)m_Target->model()->itemStyle(),
-              (int)MContentItem::TwoTextLabels);
-    m_Target->invertTwoLineMode ();
-    QCOMPARE ((int)m_Target->model()->itemStyle(),
-              (int)MContentItem::SingleTextLabel);
+    QSKIP ("Not implemented.", SkipAll);
 }
 
+void Ut_DcpContentItem::testIsChecked()
+{
+    QSKIP ("Not implemented.", SkipAll);
+}
+
+void Ut_DcpContentItem::testTextGetters()
+{
+    QSKIP ("Not implemented.", SkipAll);
+}
+
+void Ut_DcpContentItem::testEnsureLayoutIsCreated()
+{
+    QSKIP ("Not implemented.", SkipAll);
+}
+
+void Ut_DcpContentItem::testEnsureImageIsCreated()
+{
+    QSKIP ("Not implemented.", SkipAll);
+}
+
+void Ut_DcpContentItem::testEnsureToggleIsCreated()
+{
+    QSKIP ("Not implemented.", SkipAll);
+}
+
+void Ut_DcpContentItem::testEnsureTextsAreCreated()
+{
+    QSKIP ("Not implemented.", SkipAll);
+}
+
+void Ut_DcpContentItem::testEnsureWidgetsAreLayouted()
+{
+    QSKIP ("Not implemented.", SkipAll);
+}
 
 
 QTEST_APPLESS_MAIN(Ut_DcpContentItem)
+
 

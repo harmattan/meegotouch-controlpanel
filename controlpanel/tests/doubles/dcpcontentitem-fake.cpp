@@ -4,7 +4,7 @@
 ** All rights reserved.
 ** Contact: Karoliina T. Salminen <karoliina.t.salminen@nokia.com>
 **
-** This file is part of duicontrolpanel.
+** This file is part of mcontrolpanel.
 **
 **
 ** This program is free software; you can redistribute it and/or
@@ -46,6 +46,4 @@ void DcpContentItem::updateText(){}
 void DcpContentItem::updateImage(){}
 void DcpContentItem::setImageFromFile(const QString&){}
 void DcpContentItem::setImageName(const QString&){}
-void DcpContentItem::releaseImage(){}
-void DcpContentItem::invertTwoLineMode(){}
 

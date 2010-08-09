@@ -4,7 +4,7 @@
 ** All rights reserved.
 ** Contact: Karoliina T. Salminen <karoliina.t.salminen@nokia.com>
 **
-** This file is part of duicontrolpanel.
+** This file is part of mcontrolpanel.
 **
 **
 ** This library is free software; you can redistribute it and/or
@@ -22,22 +22,28 @@
 #include "dcpcontentitem_p.h"
 
 #include "dcpdebug.h"
+#include <MGridLayoutPolicy>
+#include <MLayout>
 
 
 DcpContentItemPrivate::DcpContentItemPrivate ():
     m_Applet (0),
-    m_WidgetTypeId (DcpWidgetType::Label),
-    m_Hidden (true)
+    m_Hidden (false),
+    m_LayoutIsToBeChanged (true),
+    m_ImageW (0),
+    m_Text1W (0),
+    m_Text2W (0),
+    m_ButtonW (0)
 {
 }
 
-/******************************************************************************
+/*
  * Stuff for the DcpContentItem class.
  */
 DcpContentItem::DcpContentItem (
         DcpAppletObject *applet,
         QGraphicsItem   *parent):
-    MContentItem (MContentItem::IconAndTwoTextLabels, parent),
+    MListItem (parent),
     d_ptr (new DcpContentItemPrivate)
 {
     setApplet (applet);
@@ -46,38 +52,166 @@ DcpContentItem::DcpContentItem (
 
 DcpContentItem::~DcpContentItem ()
 {
-    releaseImage();
     delete d_ptr;
 }
 
-
-static MContentItem::ContentItemStyle invertTwoLineMode (
-        const MContentItem::ContentItemStyle& styl)
+int
+DcpContentItem::widgetType() const
 {
-    MContentItem::ContentItemStyle newstyl;
-    switch (styl) {
-        case MContentItem::IconAndTwoTextLabels:
-            newstyl = MContentItem::IconAndSingleTextLabel;
-            break;
-        case MContentItem::SingleTextLabel:
-            newstyl = MContentItem::TwoTextLabels;
-            break;
-        case MContentItem::IconAndSingleTextLabel:
-            newstyl = MContentItem::IconAndTwoTextLabels;
-            break;
-        case MContentItem::TwoTextLabels:
-            newstyl = MContentItem::SingleTextLabel;
-            break;
-        case MContentItem::IconAndSingleTextLabelVertical:
-            newstyl = MContentItem::IconAndTwoTextLabelsVertical;
-            break;
-        case MContentItem::IconAndTwoTextLabelsVertical:
-            newstyl = MContentItem::IconAndSingleTextLabelVertical;
-            break;
-        default:
-            return styl; // do nothing bad at least :)
+    if (d_ptr->m_Applet) {
+        return d_ptr->m_Applet->widgetTypeID();
+    } else {
+        return DcpWidgetType::BriefInvalid;
     }
-    return newstyl;
+}
+
+bool
+DcpContentItem::hasTwoTextLines() const
+{
+    return applet() && !applet()->text2().isEmpty();
+}
+
+bool
+DcpContentItem::isChecked() const
+{
+    return applet() && applet()->toggle();
+}
+
+void
+DcpContentItem::ensureLayoutIsCreated (MLayout*& layout,
+                                       MGridLayoutPolicy*& grid)
+{
+    // create the layout:
+    layout = static_cast<MLayout*>(this->layout());
+    if (!layout) {
+        layout = new MLayout(this);
+        grid = new MGridLayoutPolicy(layout);
+        layout->setContentsMargins (0,0,10,0); // TODO could be moved to style
+        grid->setSpacing(0);
+        d_ptr->m_LayoutIsToBeChanged = true;
+    } else {
+        grid = static_cast<MGridLayoutPolicy*>(
+                layout->registeredPolicies().at(0));
+    }
+}
+
+void
+DcpContentItem::ensureImageIsCreated()
+{
+    // create / free up image:
+    if (widgetType() == DcpWidgetType::Image) {
+        MImageWidget* &image = d_ptr->m_ImageW;
+        if (!image) {
+            image = new MImageWidget();
+            image->setObjectName ("ContentItemImage");
+            image->setSizePolicy (QSizePolicy::Fixed, QSizePolicy::Fixed);
+            d_ptr->m_LayoutIsToBeChanged = true;
+        }
+        updateImage();
+    } else {
+        if (d_ptr->m_ImageW) {
+            delete d_ptr->m_ImageW;
+            d_ptr->m_ImageW = 0;
+            d_ptr->m_LayoutIsToBeChanged = true;
+        }
+    }
+}
+
+void
+DcpContentItem::ensureToggleIsCreated()
+{
+    // create / free up toggle:
+    if (widgetType() == DcpWidgetType::Toggle) {
+        MButton* &button = d_ptr->m_ButtonW;
+        if (!button) {
+            button = new MButton();
+            connect (button, SIGNAL (clicked(bool)),
+                     applet(), SLOT(setToggle(bool)));
+            button->setViewType(MButton::switchType);
+            button->setCheckable(true);
+            d_ptr->m_LayoutIsToBeChanged = true;
+        }
+        // update switch state:
+        button->setChecked (isChecked());
+    } else {
+        if (d_ptr->m_ButtonW) {
+            delete d_ptr->m_ButtonW;
+            d_ptr->m_ButtonW = 0;
+            d_ptr->m_LayoutIsToBeChanged = true;
+        }
+    }
+}
+
+void
+DcpContentItem::ensureTextsAreCreated()
+{
+    // create the text widgets:
+    if (!d_ptr->m_Text1W) {
+        d_ptr->m_Text1W = new MLabel();
+        // TODO maybe we could find a better solution than using the objectnames
+        // of the elements in MContentItem, because it can break in the future
+        // if MContentItem changes
+        d_ptr->m_Text1W->setObjectName("ContentItemTitle");
+        d_ptr->m_LayoutIsToBeChanged = true;
+    }
+    if (!d_ptr->m_Text2W) {
+        d_ptr->m_Text2W = new MLabel();
+        d_ptr->m_Text2W->setObjectName("ContentItemSubtitle");
+        d_ptr->m_LayoutIsToBeChanged = true;
+    }
+
+    // update their texts:
+    d_ptr->m_Text1W->setText (title());
+    QString text2 = this->subtitle();
+    if (d_ptr->m_Text2W->text().isEmpty() != text2.isEmpty()) {
+        d_ptr->m_LayoutIsToBeChanged = true;
+    }
+    d_ptr->m_Text2W->setText (text2);
+}
+
+
+void
+DcpContentItem::ensureWidgetsAreLayouted()
+{
+    // if there is no layout change do not do anything:
+    if (!d_ptr->m_LayoutIsToBeChanged) return;
+    d_ptr->m_LayoutIsToBeChanged = false;
+
+    // we create the main layout if it is not yet created:
+    MLayout* layout;
+    MGridLayoutPolicy* grid;
+    ensureLayoutIsCreated(layout, grid);
+
+    // clear the layout:
+    for (int i=layout->count()-1; i>=0; i--) {
+        layout->removeAt(i);
+    }
+    Q_ASSERT (layout->count() == 0);
+    Q_ASSERT (grid->count() == 0);
+
+    // layout the items again:
+    int textX = d_ptr->m_ImageW ? 1 : 0;
+    int textLinesCount = hasTwoTextLines() ? 2 : 1;
+    Qt::Alignment text1Align =
+        hasTwoTextLines() ? Qt::AlignBottom : Qt::AlignVCenter;
+
+    if (d_ptr->m_ImageW) {
+        grid->addItem (d_ptr->m_ImageW, 0,0,
+                       textLinesCount+2, 1, Qt::AlignCenter);
+    }
+    grid->addItem(new QGraphicsWidget(), 0, textX);
+    grid->addItem (d_ptr->m_Text1W, 1, textX, text1Align);
+    if (hasTwoTextLines()) {
+        d_ptr->m_Text2W->show();
+        grid->addItem (d_ptr->m_Text2W, 2, textX, Qt::AlignTop);
+    } else {
+        d_ptr->m_Text2W->hide();
+    }
+    grid->addItem(new QGraphicsWidget(), textLinesCount+1, textX);
+    if (d_ptr->m_ButtonW) {
+        grid->addItem (d_ptr->m_ButtonW, 0, textX+1,
+                       textLinesCount+2, 1, Qt::AlignCenter);
+    }
 }
 
 
@@ -90,29 +224,33 @@ static MContentItem::ContentItemStyle invertTwoLineMode (
 void
 DcpContentItem::constructRealWidget ()
 {
-    d_ptr->m_WidgetTypeId = d_ptr->m_Applet->widgetTypeID();
-    MContentItem::ContentItemStyle styl;
-    switch (d_ptr->m_WidgetTypeId) {
-        case DcpWidgetType::Image:
-            DCP_DEBUG ("### DcpWidgetType::Image ###");
-            styl = IconAndSingleTextLabel;
-            break;
+    // this markes that readding the items to the layout is not yet
+    // necessery. The ensure functions changes it to true if they detected the
+    // need for it
+    d_ptr->m_LayoutIsToBeChanged = false;
 
-        case DcpWidgetType::Toggle:
-            qWarning("Support for toggle type as briefwidget was removed from "
-                     "controlpanel according to the latest specifications (%s)",
-                     qPrintable(applet()->metadata()->name()));
-            break;
-        default:
-            DCP_DEBUG ("### DcpWidgetType::Label ###");
-            styl = SingleTextLabel;
-            break;
-    }
+    // we create the widgets (if not created yet)
+    // and update their contents if necessery
+    ensureImageIsCreated();
+    ensureToggleIsCreated();
+    ensureTextsAreCreated();
 
-    if (!d_ptr->m_Applet->text2().isEmpty()) {
-        styl = ::invertTwoLineMode (styl);
-    }
-    model()->setItemStyle(styl);
+    // we set them in the layout correctly
+    ensureWidgetsAreLayouted();
+}
+
+QString
+DcpContentItem::title() const
+{
+    if (applet()) return applet()->text1();
+    return QString();
+}
+
+QString
+DcpContentItem::subtitle() const
+{
+    if (applet()) return applet()->text2();
+    return QString();
 }
 
 DcpAppletObject *
@@ -148,7 +286,7 @@ DcpContentItem::setApplet (DcpAppletObject *applet)
          * This will count the activations and activate the applet.
          */
         connect (this, SIGNAL (clicked()),
-                d_ptr->m_Applet, SLOT (slotClicked()));
+                 d_ptr->m_Applet, SLOT (slotClicked()));
     }
 }
 
@@ -160,57 +298,26 @@ DcpContentItem::retranslateUi ()
     }
 }
 
-/*
- * this function is a helper, it switches from two-line-mode into one-line-mode
- * and back
- */
-void
-DcpContentItem::invertTwoLineMode()
-{
-    MContentItem::ContentItemStyle newstyl =
-        ::invertTwoLineMode ((MContentItem::ContentItemStyle)model()->itemStyle());
-    model()->setItemStyle(newstyl);
-}
 
 void
 DcpContentItem::updateText ()
 {
-    // --------- label specific ------------
-    QString text2 = applet()->text2();
-    /*
-     * if emptyness of text2 changes, we will have to switch from twolinemode,
-     * so that the labels remains centered
-     *
-     * FIXME: this is not working, the first time determines which mode the
-     * item will be in, because the widget sizes are set up at setupModel time
-     * only, so currently MContentItem only supports changing the value at
-     * construction time (bug/feature request to libdui if it is important)
-    if (text2.isEmpty() != subtitle().isEmpty()) {
-        invertTwoLineMode();
-    }
-     */
-    setTitle (applet()->text1());
-    setSubtitle (text2);
+    ensureTextsAreCreated();
+    ensureWidgetsAreLayouted();
 }
 
+QString DcpContentItem::imageID() const
+{
+    if (d_ptr->m_ImageW) return d_ptr->m_ImageW->image();
+    return QString();
+}
 
 void DcpContentItem::updateImage ()
 {
     // ----------- image specific: -------------
-    if (d_ptr->m_WidgetTypeId == DcpWidgetType::Image) {
-        QString   source;
+    if (widgetType() == DcpWidgetType::Image) {
 
-        /*
-         * If the applet provides an image file name we set the image from that,
-         * otherwise we try to set the image from the icon name.
-         *
-         * TODO we should clean this up. Is there a difference, or we just
-         * keeping it for compatibility?
-         */
-        source = d_ptr->m_Applet->imageName();
-        if (source.isEmpty()) {
-            source = d_ptr->m_Applet->iconName();
-        }
+        QString source = d_ptr->m_Applet->iconName();
 
         /*
          * The image file might be big, so we need a little speed up here, otherwise
@@ -218,9 +325,6 @@ void DcpContentItem::updateImage ()
          */
         if (source == d_ptr->m_ImageName)
             return;
-
-        /* we release the original pixmap, if any */
-        releaseImage();
 
         // no picture :(
         if (source.isEmpty()) return;
@@ -246,18 +350,8 @@ DcpContentItem::updateContents ()
     if (!d_ptr->m_Applet)
         return;
 
-    updateText();
-    updateImage();
+    constructRealWidget();
 }
-
-/*!
- * releases the cached image if any
- */
-void
-DcpContentItem::releaseImage ()
-{
-}
-
 
 /*!
  * sets the image with the given name (id)
@@ -265,7 +359,8 @@ DcpContentItem::releaseImage ()
 void
 DcpContentItem::setImageName (const QString& name)
 {
-    setImageID (name);
+    Q_ASSERT (d_ptr->m_ImageW);
+    d_ptr->m_ImageW->setImage (name); // FIXME XXX why is it not working???
 }
 
 /*!
@@ -276,6 +371,7 @@ DcpContentItem::setImageFromFile (const QString& fileName)
 {
     bool    success;
     QImage  image;
+    Q_ASSERT (d_ptr->m_ImageW);
 
     success = image.load (fileName);
     if (!success) {
@@ -283,7 +379,7 @@ DcpContentItem::setImageFromFile (const QString& fileName)
         return;
     }
 
-    setImage (image);
+    d_ptr->m_ImageW->setImage (image);
 }
 
 void
@@ -294,12 +390,12 @@ DcpContentItem::showEvent (QShowEvent * event)
         d_ptr->m_Hidden = false;
 
         if (d_ptr->m_Applet)
-            connect (d_ptr->m_Applet, SIGNAL (briefChanged ()), 
+            connect (d_ptr->m_Applet, SIGNAL (briefChanged ()),
                 this, SLOT (updateContents()));
 
         updateContents();
     }
-    MContentItem::showEvent(event);
+    MListItem::showEvent(event);
 }
 
 void
@@ -312,7 +408,7 @@ DcpContentItem::hideEvent (QHideEvent * event)
             disconnect (d_ptr->m_Applet, SIGNAL (briefChanged()),
                 this, SLOT (updateContents()));
     }
-    MContentItem::hideEvent(event);
+    MListItem::hideEvent(event);
 }
 
 void DcpContentItem::setMattiID (const QString& mattid)

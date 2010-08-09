@@ -2,18 +2,19 @@ include(../common_top.pri)
 
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
 
-TARGET = ut_dcpcontentitem
-
 TEST_SOURCES = \
     $$SRCDIR/widget/dcpcontentitem.cpp \
 
 # unit test and unit
 SOURCES += \
     ut_dcpcontentitem.cpp \
-    ../doubles/mcontentitem-fake.cpp \
     ../doubles/mtheme-fake.cpp \
     ../../../controlpanel/tests/doubles/dcpappletmetadata-fake.cpp \
     ../../../controlpanel/tests/doubles/dcpappletplugin-fake.cpp \
+    ../../../controlpanel/tests/doubles/mlayout-fake.cpp \
+    ../../../controlpanel/tests/doubles/mgridlayoutpolicy-fake.cpp \
+    ../../../controlpanel/tests/doubles/mabstractlayoutpolicy-fake.cpp \
+    ../doubles/mimagewidget-fake.cpp \
     $$TEST_SOURCES \
 
 # base classes

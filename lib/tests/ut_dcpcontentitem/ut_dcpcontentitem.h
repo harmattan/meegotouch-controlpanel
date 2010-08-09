@@ -44,8 +44,16 @@ private slots:
     void testUpdateImage();
     void testSetImageFromFile();
     void testSetImageName();
-    void testReleaseImage();
-    void testInvertTwoLineMode();
+
+    void testWidgetType();
+    void testHasTwoTextLines();
+    void testIsChecked();
+    void testTextGetters();
+    void testEnsureLayoutIsCreated();
+    void testEnsureImageIsCreated();
+    void testEnsureToggleIsCreated();
+    void testEnsureTextsAreCreated();
+    void testEnsureWidgetsAreLayouted();
 
 private:
     DcpContentItem* m_Target;
@@ -53,4 +61,5 @@ private:
 };
 
 #endif // UT_DCPCONTENTITEM_H
+
 
