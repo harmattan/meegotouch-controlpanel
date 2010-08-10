@@ -28,7 +28,7 @@
 
 DcpContentItemPrivate::DcpContentItemPrivate ():
     m_Applet (0),
-    m_Hidden (false),
+    m_Hidden (true),
     m_LayoutIsToBeChanged (true),
     m_ImageW (0),
     m_Text1W (0),
@@ -281,7 +281,10 @@ DcpContentItem::setApplet (DcpAppletObject *applet)
      * we can connect some signals.
      */
     if (d_ptr->m_Applet) {
-        constructRealWidget ();
+        // we only update if we are visible, since showEvent also updates
+        if (isVisible()) {
+            constructRealWidget ();
+        }
         /*
          * This will count the activations and activate the applet.
          */
@@ -360,7 +363,7 @@ void
 DcpContentItem::setImageName (const QString& name)
 {
     Q_ASSERT (d_ptr->m_ImageW);
-    d_ptr->m_ImageW->setImage (name); // FIXME XXX why is it not working???
+    d_ptr->m_ImageW->setImage (name);
 }
 
 /*!
