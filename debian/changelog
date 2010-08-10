@@ -1,7 +1,7 @@
-duicontrolpanel (0.8.7~unreleased) unstable; urgency=low
+duicontrolpanel (0.8.7) unstable; urgency=low
 
-  * Fixes: NB#183023 - Settings page is displaying as prefix of Service
-    accounts as less debian/changelog Service accounts
+  * Fixes: NB#183023 - Settings page is displaying !! as prefix of Service
+    accounts
   * Fixes: NB#178164 - The using AP is displayed inconsistently on
     Settings page
   * Implements support for the new applet briefwidget (switch type)
