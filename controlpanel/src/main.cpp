@@ -85,8 +85,9 @@ startApplication (int argc, char* argv[])
 #else // USE_LAUNCHER
     MApplicationWindow *win = new MApplicationWindow();
 #endif // USE_LAUNCHER
+
+    // we create the start page here
     service->createStartPage();
-    win->show();
 
     return app->exec();
 }
@@ -106,6 +107,8 @@ M_EXPORT int main(int argc, char *argv[])
             out << "  -nosupervisor       Disables applet supervisor";
             out << "\n\n";
             break;
+        } else if (s == "-servicefw") {
+            DuiControlPanelService::isStartedByServiceFw = true;
         } else if (s == "-nosupervisor") {
             qDebug() << "Applet supervisor is disabled.";
             DcpWrongApplets::disable();

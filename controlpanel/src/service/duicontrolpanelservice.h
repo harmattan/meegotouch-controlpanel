@@ -32,6 +32,8 @@ public:
 
     void createStartPage();
 
+    static bool isStartedByServiceFw;
+
 public Q_SLOTS:
     bool appletPage(const QString& appletName);
     void categoryPage(const QString& category);
@@ -45,7 +47,7 @@ private:
     void startPageForReal(const PageHandle &handle);
 
     // stores the startpage until the app is not started, after that it is 0
-    PageHandle *m_StartPage; 
+    PageHandle *m_StartPage;
 };
 
 

@@ -5,8 +5,9 @@ duicontrolpanel (0.8.7~unreleased) unstable; urgency=low
   * Fixes: NB#178164 - The using AP is displayed inconsistently on
     Settings page
   * Implements support for the new applet briefwidget (switch type)
+  * Fixes: if invoked by dbus, mainPage was shown for a sec
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 05 Aug 2010 16:35:09 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 10 Aug 2010 15:27:20 +0200
 
 duicontrolpanel (0.8.6) unstable; urgency=low
 

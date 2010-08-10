@@ -1,5 +1,5 @@
 [D-BUS Service]
 Interface=com.nokia.DuiControlPanelIf
 Name=com.nokia.DuiControlPanel
-Exec=/usr/bin/duicontrolpanel -delay 1
+Exec=/usr/bin/duicontrolpanel -delay 1 -servicefw
 

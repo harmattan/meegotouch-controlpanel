@@ -28,6 +28,7 @@
 #include "duicontrolpanelif.h"
 
 static const char* serviceName = "com.nokia.DuiControlPanel";
+bool DuiControlPanelService::isStartedByServiceFw = false;
 
 #include "dcpdebug.h"
 
@@ -38,7 +39,9 @@ DuiControlPanelService::DuiControlPanelService ():
     DCP_DEBUG ("");
 
     // by default open the main page:
-    mainPage();
+    if (! isStartedByServiceFw) {
+        mainPage();
+    }
 }
 
 
@@ -146,7 +149,12 @@ DuiControlPanelService::createStartPage()
 
     PageHandle* handle = m_StartPage;
     m_StartPage = 0;
-    startPageForReal (*handle);
+
+    // if started through servicefw we can end up not receiving the
+    // servicefw call at this point, so taking no action yet
+    if (handle->id != PageHandle::NOPAGE) {
+        startPageForReal (*handle);
+    }
 
     delete handle;
 }
