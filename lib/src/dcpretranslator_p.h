@@ -29,7 +29,9 @@ public:
     QSet<QString> loadedTranslations;
     static DcpRetranslator* instance;
     QString binaryName;
+    bool filterEvent;
 };
+
 #endif // DCPRETRANSLATOR_P_H
 
 
