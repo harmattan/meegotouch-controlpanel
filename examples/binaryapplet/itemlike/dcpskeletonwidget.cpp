@@ -30,7 +30,6 @@ SkeletonWidget::~SkeletonWidget()
 void SkeletonWidget::initWidget()
 {
     MLayout *mainLayout = new MLayout(this);
-    mainLayout->setAnimation(0);
     MLinearLayoutPolicy *mainLayoutPolicy =
             new MLinearLayoutPolicy(mainLayout, Qt::Horizontal);
     mainLayout->setPolicy(mainLayoutPolicy);

@@ -2,8 +2,10 @@ duicontrolpanel (0.8.8~unreleased) unstable; urgency=low
 
   * Optimization: block unnecessery languageChange events on category
     page openings
+  * Example update: Itemlike binaryplugin shows an example about how to load
+    stylesheet for its widget
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 17 Aug 2010 10:28:02 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 17 Aug 2010 13:43:59 +0200
 
 duicontrolpanel (0.8.7) unstable; urgency=low
 

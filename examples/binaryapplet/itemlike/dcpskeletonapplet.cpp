@@ -8,11 +8,25 @@
 #include "dcpskeleton.h"
 #include "dcpskeletonbrief.h"
 
+#include <MLibrary>
+
 Q_EXPORT_PLUGIN2(skeletonapplet, SkeletonApplet)
+
+/*
+ * For loading our own stylesheet, we have to put this macro here,
+ * it creates a static MLibrary object.
+ *
+ * The stylesheet should be installed in this path:
+ * /usr/share/themes/base/meegotouch/<libraryname>/style/
+ */
+M_LIBRARY
 
 void SkeletonApplet::init()
 {
-    MTheme::loadCSS(QString(CSSDIR) + "skeletonapplet.css");
+    /* Do not do this, as this wont support switching themes
+    MTheme::loadCSS("/usr/share/themes/base/meegotouch/"
+                    "libdcpskeletonapplet/style/libdcpskeletonapplet.css");
+     */
 };
 
 DcpWidget* SkeletonApplet::constructWidget(int widgetId)

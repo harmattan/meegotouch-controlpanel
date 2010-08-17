@@ -11,7 +11,6 @@ Q_EXPORT_PLUGIN2(skelbuttonapplet, SkelButtonApplet)
 
 void SkelButtonApplet::init()
 {
-    MTheme::loadCSS(QString(CSSDIR) + "skelbuttonapplet.css");
 };
 
 DcpWidget* SkelButtonApplet::constructWidget(int widgetId)
