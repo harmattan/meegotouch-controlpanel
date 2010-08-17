@@ -51,8 +51,8 @@ class DcpContentItem: public MListItem
     // some readonly properties, can be used for matti tests
     Q_PROPERTY (QString title READ title)
     Q_PROPERTY (QString subtitle READ subtitle)
-    Q_PROPERTY (QString checked READ isChecked)
-    Q_PROPERTY (QString widgetType READ widgetType)
+    Q_PROPERTY (bool checked READ isChecked)
+    Q_PROPERTY (int widgetType READ widgetType)
     Q_PROPERTY (QString imageID READ imageID)
 
     //! @cond
