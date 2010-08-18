@@ -1,11 +1,15 @@
 duicontrolpanel (0.8.8~unreleased) unstable; urgency=low
 
+  [ Robert Manner ]
   * Optimization: block unnecessery languageChange events on category
     page openings
   * Example update: Itemlike binaryplugin shows an example about how to load
     stylesheet for its widget
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 17 Aug 2010 13:43:59 +0200
+  [ Viktor Nagy ]
+  * Fixes: NB#186249 - duicontrolpanel navigation within settings menus lower than the initial depth crashes MATTI
+
+ -- Viktor Nagy <viktor.nagy@blumsoft.eu>  Wed, 18 Aug 2010 14:29:19 +0200
 
 duicontrolpanel (0.8.7) unstable; urgency=low
 
