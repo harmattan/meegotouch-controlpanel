@@ -69,10 +69,8 @@ startApplication (int argc, char* argv[])
     signal(SIGINT, &onTermSignal);
 
     // install the new translations if locale changes:
-    DcpRetranslator* retranslator = DcpRetranslator::instance();
     QObject::connect(app, SIGNAL(localeSettingsChanged()),
-                     retranslator, SLOT(retranslate()));
-
+                     DcpRetranslator::instance(), SLOT(retranslate()));
     /*
      * the translations of duicontrolpanel turned out to be in catalog
      * "settings"
@@ -87,8 +85,6 @@ startApplication (int argc, char* argv[])
 #else // USE_LAUNCHER
     MApplicationWindow *win = new MApplicationWindow();
 #endif // USE_LAUNCHER
-
-    win->installEventFilter(retranslator);
 
     // we create the start page here
     service->createStartPage();

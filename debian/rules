@@ -9,9 +9,6 @@
 # Uncomment this to turn on verbose mode.
 # export DH_VERBOSE=1
 
-
-
-
 CFLAGS = -Wall -g --disable-rpath
 
 ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
@@ -28,6 +25,15 @@ ifneq (,$(findstring nolauncher,$(DEB_BUILD_OPTIONS)))
     QMAKE_ARG += CONFIG+=DISABLE_LAUNCHER
 endif
 
+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+    ifneq (,$(findstring arm,$(ARCH)))
+        NUMJOBS = 1
+    else
+        NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+    endif
+    PARALLEL_MAKEFLAGS += -j$(NUMJOBS)
+endif
+
 configure: configure-stamp
 configure-stamp:
 	dh_testdir
@@ -40,7 +46,7 @@ build-stamp: configure-stamp
 	dh_testdir
 
 	DEBIAN_DESTDIR=$(CURDIR)/debian/tmp qmake $(QMAKE_ARG)
-	DEBIAN_DESTDIR=$(CURDIR)/debian/tmp $(MAKE)
+	DEBIAN_DESTDIR=$(CURDIR)/debian/tmp $(MAKE) $(PARALLEL_MAKEFLAGS)
 	touch $@
 
 clean:
@@ -49,7 +55,7 @@ clean:
 	rm -f build-stamp configure-stamp
 
 	qmake 2>/dev/null >/dev/null
-	$(MAKE) distclean
+	$(MAKE) $(PARALLEL_MAKEFLAGS) distclean
 
 	dh_clean 
 
