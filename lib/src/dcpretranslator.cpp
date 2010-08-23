@@ -39,7 +39,8 @@ static const QString NO_LANGUAGE_IS_LOADED_YET = "***";
 DcpRetranslator* DcpRetranslatorPriv::instance = 0;
 
 DcpRetranslatorPriv::DcpRetranslatorPriv ():
-    lastLanguage (NO_LANGUAGE_IS_LOADED_YET)
+    lastLanguage (NO_LANGUAGE_IS_LOADED_YET),
+    filterEvent (true)
 {
     MApplication* mApp = MApplication::instance();
     binaryName = mApp->binaryName();
@@ -94,6 +95,8 @@ DcpRetranslator::retranslate ()
         }
     }
 
+    // we enable one retramslateEvent pass, see filterEvent()
+    priv->filterEvent = false;
     MLocale::setDefault(locale);
 
     running = false;
@@ -200,4 +203,48 @@ DcpRetranslator::setMainCatalogName (const QString& catalogName)
 {
     priv->binaryName = catalogName;
 }
+
+
+/*! Filters out unnecessery LanguageChange events
+ *
+ * If installed on a QApplication it will filter out all LanguageChange events
+ * which are not intentional in the sence that they are not caused by the
+ * #retranslateUi. This can cause problems of course, so dont use it ;)
+ */
+bool
+DcpRetranslator::eventFilter(QObject *obj, QEvent *event)
+{
+    /*
+     * This is an optimization, so that LanguageChange event only occur
+     * when needed (heavy operation, goes through all visible and nonvisible
+     * widgets).
+     *
+     * The event is only needed when the current locale changes, so
+     * we eat it every time an applet (or controlpanel) calls
+     * MLocale::setDefault to load a translation. We can do it because
+     * the widgets for which the translation will be used get created
+     * after the catalog loading, both for
+     * - brief view
+     * - and applet view
+     *
+     * One case is there, on the fly translation change, which will need
+     * the event so DcpRetranslator::retranslate() disables the filtering
+     * for one time through priv->filterEvent
+     *
+     * Applications other than controlpanel do not install this as eventfilter,
+     * or they are warned at least.
+     */
+    if (event->type() == QEvent::LanguageChange) {
+        if (priv->filterEvent) {
+            qDebug ("Filtered out a languageChange event");
+            return true;
+        } else {
+            // lets one event pass out
+            qDebug ("Let one languageChange event pass");
+            priv->filterEvent = true;
+        }
+    }
+    return QObject::eventFilter (obj, event);
+}
+
 

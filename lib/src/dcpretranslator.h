@@ -50,6 +50,7 @@ public slots:
 
 protected:
     DcpRetranslator();
+    bool eventFilter(QObject *obj, QEvent *event);
     bool loadAppletTranslation (
             MLocale               &locale,
             const DcpAppletMetadata *metadata);
