@@ -21,7 +21,6 @@
 #include "dcpretranslator_p.h"
 
 #include <MLocale>
-#include <MGConfItem>
 #include <MApplication>
 #include "dcpdebug.h"
 #include "dcpappletdb.h"
@@ -39,9 +38,11 @@ static const QString NO_LANGUAGE_IS_LOADED_YET = "***";
 DcpRetranslator* DcpRetranslatorPriv::instance = 0;
 
 DcpRetranslatorPriv::DcpRetranslatorPriv ():
-    lastLanguage (NO_LANGUAGE_IS_LOADED_YET),
-    filterEvent (true)
+    filterEvent (true),
+    languageItem(new MGConfItem("/meegotouch/i18n/language"))
 {
+    lastLanguage = languageItem->value().toString();
+
     MApplication* mApp = MApplication::instance();
     binaryName = mApp->binaryName();
 }
@@ -71,10 +72,11 @@ DcpRetranslator::retranslate ()
     /*
      * Protection against loading all applet translations multiple times
      */
-    MGConfItem languageItem("/meegotouch/i18n/language");
-    QString language = languageItem.value().toString();
-    if (priv->lastLanguage == language)
+    QString language = priv->languageItem->value().toString();
+    if (priv->lastLanguage == language) {
+        running = false;
         return;
+    }
 
     priv->loadedTranslations.clear();
 

@@ -1,8 +1,8 @@
 duicontrolpanel (0.8.9~unreleased) unstable; urgency=low
 
-  * DUMMY
+  * Optimization: filter out unnecessery languageChange events
 
- -- Viktor Nagy <viktor.nagy@blumsoft.eu>  Thu, 19 Aug 2010 20:04:31 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 23 Aug 2010 14:20:43 +0200
 
 duicontrolpanel (0.8.8) unstable; urgency=low
 
