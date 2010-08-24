@@ -25,9 +25,12 @@
 #include <MGridLayoutPolicy>
 #include <MLayout>
 
+#include "dcpappletdb.h"
+
 
 DcpContentItemPrivate::DcpContentItemPrivate ():
     m_Applet (0),
+    m_Metadata (0),
     m_Hidden (true),
     m_LayoutIsToBeChanged (true),
     m_ImageW (0),
@@ -60,6 +63,8 @@ DcpContentItem::widgetType() const
 {
     if (d_ptr->m_Applet) {
         return d_ptr->m_Applet->widgetTypeID();
+    } else if (d_ptr->m_Metadata) {
+        return DcpWidgetType::Label;
     } else {
         return DcpWidgetType::BriefInvalid;
     }
@@ -243,6 +248,7 @@ QString
 DcpContentItem::title() const
 {
     if (applet()) return applet()->text1();
+    if (d_ptr->m_Metadata) return d_ptr->m_Metadata->text1();
     return QString();
 }
 
@@ -259,22 +265,38 @@ DcpContentItem::applet() const
     return d_ptr->m_Applet;
 }
 
+DcpAppletMetadata *
+DcpContentItem::metadata() const
+{
+    return d_ptr->m_Metadata;
+}
+
 void
-DcpContentItem::setApplet (DcpAppletObject *applet)
+DcpContentItem::clearAppletData ()
 {
     /*
      * If we had an old applet object.
      */
     if (d_ptr->m_Applet) {
         /*
-         * Metadata is owned by the appletdb, so not removed, only disconnected
+         * Metadata is owned by the applet db, so not removed, only disconnected
          * both ways, but only the signals between the two participants.
          */
         disconnect (d_ptr->m_Applet, 0, this, 0);
         disconnect (this, 0, d_ptr->m_Applet, 0);
     }
+    d_ptr->m_Applet = 0;
+    d_ptr->m_Metadata = 0;
+}
 
-    d_ptr->m_Applet = applet;
+void
+DcpContentItem::setApplet (DcpAppletObject *applet)
+{
+    clearAppletData();
+    if (applet) {
+        d_ptr->m_Applet = applet;
+        d_ptr->m_Metadata = applet->metadata();
+    }
 
     /*
      * If we have a applet object we can construct a widget for that and then
@@ -294,11 +316,26 @@ DcpContentItem::setApplet (DcpAppletObject *applet)
 }
 
 void
+DcpContentItem::setMetadata (DcpAppletMetadata* metadata)
+{
+    clearAppletData();
+    d_ptr->m_Metadata = metadata;
+
+    /*
+     * If we have an applet object we can construct a widget for that
+     */
+    if (metadata) {
+        // we only update if we are visible, since showEvent also updates
+        if (isVisible()) {
+            constructRealWidget ();
+        }
+    }
+}
+
+void
 DcpContentItem::retranslateUi ()
 {
-    if (d_ptr->m_Applet) {
-        updateText ();
-    }
+    updateText ();
 }
 
 
@@ -319,7 +356,7 @@ void DcpContentItem::updateImage ()
 {
     // ----------- image specific: -------------
     if (widgetType() == DcpWidgetType::Image) {
-
+        Q_ASSERT (d_ptr->m_Applet);
         QString source = d_ptr->m_Applet->iconName();
 
         /*
@@ -350,9 +387,6 @@ void DcpContentItem::updateImage ()
 void
 DcpContentItem::updateContents ()
 {
-    if (!d_ptr->m_Applet)
-        return;
-
     constructRealWidget();
 }
 
@@ -392,9 +426,10 @@ DcpContentItem::showEvent (QShowEvent * event)
         // prevents multiple showEvents coming
         d_ptr->m_Hidden = false;
 
-        if (d_ptr->m_Applet)
+        if (d_ptr->m_Applet) {
             connect (d_ptr->m_Applet, SIGNAL (briefChanged ()),
                 this, SLOT (updateContents()));
+        }
 
         updateContents();
     }
@@ -407,9 +442,10 @@ DcpContentItem::hideEvent (QHideEvent * event)
     if (!d_ptr->m_Hidden) {// prevents multiple hideEvents coming
         d_ptr->m_Hidden = true;
 
-        if (d_ptr->m_Applet)
+        if (d_ptr->m_Applet) {
             disconnect (d_ptr->m_Applet, SIGNAL (briefChanged()),
-                this, SLOT (updateContents()));
+                        this, SLOT (updateContents()));
+        }
     }
     MListItem::hideEvent(event);
 }
@@ -422,5 +458,17 @@ void DcpContentItem::setMattiID (const QString& mattid)
 QString DcpContentItem::mattiID () const
 {
     return d_ptr->m_MattiID;
+}
+
+void DcpContentItem::loadApplet()
+{
+    // do nothing if the metadata is already loaded:
+    if (applet()) return;
+
+    // do nothing if there is no metadata
+    if (!metadata()) return;
+
+    // load the applet:
+    setApplet (DcpAppletDb::instance()->applet (metadata()->name()));
 }
 

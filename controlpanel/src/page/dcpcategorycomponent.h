@@ -53,12 +53,15 @@ public:
 
     bool reload();
 
-    // ! Can be misleading, because it returns the count of the items already
-    // loaded
     int getItemCount ();
-//signals:
-    // emit after reloading contents
-  //  void reloaded(); 
+
+public slots:
+    void startLoading ();
+
+signals:
+    //! emitted after loading the applets has finished
+    void loadingFinished();
+
 private:
     DcpAppletButtons *m_AppletButtons;
     const DcpCategoryInfo  *m_CategoryInfo;

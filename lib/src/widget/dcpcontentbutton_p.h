@@ -29,6 +29,7 @@ class DcpContentButtonPrivate {
 public:
     DcpContentButtonPrivate ();
     DcpAppletObject *m_Applet;
+    DcpAppletMetadata *m_Metadata;
     bool m_Hidden;
     QString m_MattiID;
 };

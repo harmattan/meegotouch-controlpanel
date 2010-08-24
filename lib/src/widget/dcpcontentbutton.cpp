@@ -22,10 +22,12 @@
 #include "dcpcontentbutton_p.h"
 
 #include "dcpdebug.h"
+#include "dcpappletdb.h"
 
 
 DcpContentButtonPrivate::DcpContentButtonPrivate ():
     m_Applet (0),
+    m_Metadata (0),
     m_Hidden (true)
 {
 }
@@ -58,18 +60,23 @@ DcpContentButton::applet() const
 void
 DcpContentButton::setApplet (DcpAppletObject *applet)
 {
+    // currently the button only supports setting the applet once, but
+    // we do not use this anyway again
+    Q_ASSERT (!d_ptr->m_Applet);
+
     d_ptr->m_Applet = applet;
+    d_ptr->m_Metadata = applet ? applet->metadata() : 0;
     if (!d_ptr->m_Applet)
         return;
 
-    connect (this, SIGNAL (clicked()),                                                         
+    connect (this, SIGNAL (clicked()),
              d_ptr->m_Applet, SLOT (slotClicked()));
 }
 
 void
 DcpContentButton::retranslateUi ()
 {
-    if (d_ptr->m_Applet) {
+    if (metadata()) {
         updateText ();
     }
 }
@@ -78,8 +85,9 @@ DcpContentButton::retranslateUi ()
 void
 DcpContentButton::updateText ()
 {
-    setText(applet()->text2());
-    qDebug() << applet()->text2();
+    QString text = applet() ? applet()->text2() :
+                   metadata () ? metadata()->text2() : "...";
+    setText(text);
 }
 
 
@@ -89,7 +97,7 @@ DcpContentButton::updateText ()
 void
 DcpContentButton::updateContents ()
 {
-    if (!d_ptr->m_Applet)
+    if (!metadata())
         return;
 
     updateText();
@@ -133,5 +141,31 @@ void DcpContentButton::setMattiID (const QString& mattid)
 QString DcpContentButton::mattiID () const
 {
     return d_ptr->m_MattiID;
+}
+
+void DcpContentButton::setMetadata(DcpAppletMetadata* metadata)
+{
+    // only supports setting this once for now
+    Q_ASSERT (!d_ptr->m_Metadata);
+    Q_ASSERT (!d_ptr->m_Applet);
+
+    d_ptr->m_Metadata = metadata;
+}
+
+DcpAppletMetadata* DcpContentButton::metadata()
+{
+    return d_ptr->m_Metadata;
+}
+
+void DcpContentButton::loadApplet()
+{
+    // do nothing if the metadata is already loaded:
+    if (applet()) return;
+
+    // do nothing if there is no metadata
+    if (!metadata()) return;
+
+    // load the applet:
+    setApplet (DcpAppletDb::instance()->applet (metadata()->name()));
 }
 

@@ -33,7 +33,10 @@ class DcpContentItemPrivate {
 public:
     DcpContentItemPrivate ();
 
+    // one of these is non null
     DcpAppletObject *m_Applet;
+    DcpAppletMetadata *m_Metadata;
+
     bool m_Hidden;
 
     QString m_MattiID;

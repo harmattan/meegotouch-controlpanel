@@ -135,6 +135,9 @@ void Ut_DcpRetranslator::testRetrenslate()
     QCOMPARE (DcpAppletDb::instance()->list().count(), 1);
     DcpAppletDb::instance()->list().at(0)->markActive();
 
+    // this ensures that there is a language change
+    m_subject->priv->lastLanguage = "xxx";
+
     m_subject->retranslate();
 
     // emptied the list of loaded translations:

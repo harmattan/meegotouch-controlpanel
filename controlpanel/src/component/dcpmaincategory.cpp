@@ -81,7 +81,9 @@ QGraphicsWidget*
 DcpMainCategory::widgetAt (int i)
 {
     if (i>layout()->count()) return 0;
-    return (QGraphicsWidget*)(layout()->itemAt(i)->graphicsItem());
+    QGraphicsLayoutItem* item = layout()->itemAt(i);
+    if (! item) return 0;
+    return (QGraphicsWidget*)(item->graphicsItem());
 }
 
 void 

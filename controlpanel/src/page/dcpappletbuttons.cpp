@@ -36,13 +36,13 @@
 #include <DcpRetranslator>
 #include <QGraphicsLayout>
 
-
 DcpAppletButtons::DcpAppletButtons (
         const DcpCategoryInfo  *categoryInfo,
         const QString          &title,
         QGraphicsWidget        *parent)
 : DcpMainCategory (title, parent, categoryInfo->titleId),
-    m_CategoryInfo (categoryInfo)
+    m_CategoryInfo (categoryInfo),
+    m_AppletLoaderPos (0)
 {
     setCreateSeparators (false);
     setMaxColumns (1);
@@ -63,13 +63,11 @@ DcpAppletButtons::~DcpAppletButtons()
 void
 DcpAppletButtons::markAllInactive()
 {
-    for(int i=0; i<layout()->count(); i++) {
-        QGraphicsItem* item = layout()->itemAt(i)->graphicsItem();
-        if (!item || !item->isWidget()) continue;
-        QGraphicsWidget* widget = (QGraphicsWidget*) item;
-        DcpContentItem* briefWidget = qobject_cast<DcpContentItem*>(widget);
-        if (!briefWidget) continue;
-        briefWidget->applet()->metadata()->markInactive();
+    for(int i=0; i<getItemCount(); i++) {
+        DcpAppletMetadata* metadata = this->appletMetadata(i);
+        if (metadata) {
+            metadata->markInactive();
+        }
     }
 }
 
@@ -109,16 +107,53 @@ DcpAppletButtons::createContents ()
     }
 }
 
+void
+DcpAppletButtons::startLoading()
+{
+    m_AppletLoaderPos = 0;
+    m_AppletLoaderTimer = startTimer (0);
+}
+
+void
+DcpAppletButtons::timerEvent(QTimerEvent *event)
+{
+    if (m_AppletLoaderTimer == event->timerId()) {
+
+        // stop if loading finished:
+        if (m_AppletLoaderPos >= getItemCount()) {
+            killTimer (m_AppletLoaderTimer);
+            emit loadingFinished();
+            return;
+        }
+
+        // load the next applet:
+        loadApplet (widgetAt (m_AppletLoaderPos));
+        m_AppletLoaderPos++;
+    }
+}
+
 DcpAppletMetadata*
 DcpAppletButtons::appletMetadata (int pos)
 {
     QGraphicsWidget* widget = widgetAt(pos);
     if (!widget) return 0;
+
     DcpContentItem* contentItem = qobject_cast<DcpContentItem*>(widget);
-    if (!contentItem) return 0;
-    DcpAppletObject* applet = contentItem->applet();
-    if (!applet) return 0;
-    return applet->metadata();
+    if (contentItem) return contentItem->metadata();
+
+    DcpContentButton* contentWidget = qobject_cast<DcpContentButton*>(widget);
+    if (contentWidget) return contentWidget->metadata();
+
+    return 0;
+}
+
+void DcpAppletButtons::loadApplet (QGraphicsObject* item)
+{
+    if (qobject_cast<DcpContentButton*> (item)) {
+        qobject_cast<DcpContentButton*>(item)->loadApplet ();
+    } else {
+        qobject_cast<DcpContentItem*>(item)->loadApplet ();
+    }
 }
 
 void
@@ -126,20 +161,19 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata)
 {
     metadata->markActive();
 
-    // FIXME: we can avoid this additional lookup i guess
     QGraphicsWidget *briefWidget;
-    DcpAppletObject* applet = DcpAppletDb::instance ()->applet (metadata->name());
     int widgetId = metadata->widgetTypeID();
     if (widgetId == DcpWidgetType::Button) {
-            DcpContentButton *button = new DcpContentButton (applet, this);
+            DcpContentButton *button = new DcpContentButton (0, this);
             button->setObjectName ("DcpContentButton");
+            button->setMetadata (metadata);
             button->setMattiID ("DcpContentButton::" + logicalId() + "::" +
                              metadata->category() + "::" + metadata->name());
             briefWidget = button;
-        }
-        else {   
-            DcpContentItem *item = new DcpContentItem (applet, this);
+    } else {
+            DcpContentItem *item = new DcpContentItem (0, this);
             item->setObjectName ("DcpContentItem");
+            item->setMetadata (metadata);
             item->setMattiID ("DcpContentItem::" + logicalId() + "::" +
                              metadata->category() + "::" + metadata->name());
 

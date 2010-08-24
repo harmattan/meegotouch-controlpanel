@@ -19,7 +19,9 @@
 #include <QHash>
 
 class DcpAppletObject;
+class DcpAppletMetadatas;
 static QHash<const DcpContentItem*, DcpAppletObject*> applets;
+static QHash<const DcpContentItem*, DcpAppletMetadata*> metadatas;
 
 DcpContentItem::DcpContentItem(DcpAppletObject* applet, QGraphicsItem*): d_ptr(0)
 {
@@ -34,6 +36,16 @@ void DcpContentItem::setApplet(DcpAppletObject* applet)
 }
 
 DcpAppletObject* DcpContentItem::applet() const{ return applets[this]; }
+
+void DcpContentItem::setMetadata(DcpAppletMetadata* metadata)
+{
+    metadatas[this] = metadata;
+}
+
+DcpAppletMetadata* DcpContentItem::metadata() const
+{
+    return metadatas[this];
+}
 
 void DcpContentItem::setMattiID(const QString&) {}
 QString DcpContentItem::mattiID() const {return QString(); }

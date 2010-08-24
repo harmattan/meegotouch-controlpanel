@@ -18,8 +18,8 @@ TEST_SOURCES = \
 
 # unit test and unit
 SOURCES += \
-    ut_dcpappletbuttons.cpp \
-#    $$STUBSDIR/dcpappletplugin-fake.cpp \
+    *.cpp \
+    $$STUBSDIR/dcpappletplugin-fake.cpp \
     $$STUBSDIR/mgridlayoutpolicy-fake.cpp \
     $$STUBSDIR/maintranslations-fake.cpp \
     $$STUBSDIR/mabstractlayoutpolicy-fake.cpp \

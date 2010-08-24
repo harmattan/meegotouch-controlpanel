@@ -23,6 +23,7 @@
 #include <MButton>
 
 class DcpAppletObject;
+class DcpAppletMetadata;
 class QShowEvent;
 class QHideEvent;
 class DcpContentButtonPrivate;
@@ -68,6 +69,10 @@ public:
      * due to limitations of MContentItem.
      */
     void setApplet (DcpAppletObject *applet);
+
+    void setMetadata (DcpAppletMetadata *metadata);
+    DcpAppletMetadata *metadata();
+    void loadApplet();
 
     /*! \brief Returns the applet the DcpContentButton represents */
     DcpAppletObject *applet () const;

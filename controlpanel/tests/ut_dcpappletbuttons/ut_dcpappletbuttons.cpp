@@ -64,7 +64,7 @@ void Ut_DcpAppletButtons::testCreation()
     //      -> checks if the right widgets were added to the layout:
     QCOMPARE (buttons1.m_PortraitLayout->count(), 1);
     QCOMPARE (((DcpContentItem*)buttons1.m_PortraitLayout->
-                itemAt(0))->applet()->metadata()->name(),
+                itemAt(0))->metadata()->name(),
               QString("fake-name"));
 
     // if we create with mostrecentused
@@ -73,7 +73,7 @@ void Ut_DcpAppletButtons::testCreation()
     //      -> checks if the right widgets were added to the layout:
     QCOMPARE (buttons2.m_PortraitLayout->count(), 1);
     QCOMPARE (((DcpContentItem*)buttons2.m_PortraitLayout->
-                itemAt(0))->applet()->metadata()->name(),
+                itemAt(0))->metadata()->name(),
               QString("mostUsed-name"));
 }
 
@@ -88,7 +88,7 @@ void Ut_DcpAppletButtons::testAddComponent()
     buttons1.addComponent(metadata);
     QCOMPARE (buttons1.m_PortraitLayout->count(), 1);
     QCOMPARE (((DcpContentItem*)buttons1.m_PortraitLayout->
-                itemAt(0))->applet()->metadata()->name(),
+                itemAt(0))->metadata()->name(),
               QString("fake-name"));
 }
 
@@ -104,7 +104,7 @@ void Ut_DcpAppletButtons::testReload()
     buttons1.reload();
     QCOMPARE (buttons1.m_PortraitLayout->count(), 1);
     QCOMPARE (((DcpContentItem*)buttons1.m_PortraitLayout->
-                itemAt(0))->applet()->metadata()->name(),
+                itemAt(0))->metadata()->name(),
               QString("fake-name"));
 
     // change to mostuseditems and reload: applet count should stay the same,
@@ -117,7 +117,7 @@ void Ut_DcpAppletButtons::testReload()
     // not sure how to fix it
     QCOMPARE (buttons1.m_PortraitLayout->count(), 2);
     QCOMPARE (((DcpContentItem*)buttons1.m_PortraitLayout->
-                itemAt(1))->applet()->metadata()->name(),
+                itemAt(1))->metadata()->name(),
               QString("mostUsed-name"));
 }
 

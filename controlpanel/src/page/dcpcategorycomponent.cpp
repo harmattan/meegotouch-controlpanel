@@ -91,9 +91,19 @@ DcpCategoryComponent::createContents ()
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 
     m_AppletButtons = new DcpAppletButtons (m_CategoryInfo, title());
+    connect (m_AppletButtons, SIGNAL (loadingFinished()),
+             this, SIGNAL (loadingFinished()));
 
     m_Container->setCentralWidget (m_AppletButtons);
 }
+
+void
+DcpCategoryComponent::startLoading ()
+{
+    Q_ASSERT (m_AppletButtons); // FIXME XXX ensure that this happens right time?
+    m_AppletButtons->startLoading();
+}
+
 
 bool 
 DcpCategoryComponent::reload ()

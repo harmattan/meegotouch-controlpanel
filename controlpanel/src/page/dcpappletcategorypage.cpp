@@ -49,6 +49,14 @@ DcpAppletCategoryPage::createContent ()
 
     m_Category = new DcpAppletButtons(m_CategoryInfo);
     setCentralWidget (m_Category);
+
+     /* TODO XXX a progress indicator can be shown if needed
+    connect (m_Category, SIGNAL (loadingFinished()),
+             this, SLOT (onLoadingFinished()));
+             */
+
+    // this starts the loading of the applets if when the page animation finishes:
+    connect (this, SIGNAL(appeared()), m_Category, SLOT(startLoading()));
 }
 
 const QString 

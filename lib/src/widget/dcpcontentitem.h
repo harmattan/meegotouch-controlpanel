@@ -23,8 +23,7 @@
 #include <MListItem>
 
 class DcpAppletObject;
-class QShowEvent;
-class QHideEvent;
+class DcpAppletMetadata;
 class DcpContentItemPrivate;
 class MLayout;
 class MGridLayoutPolicy;
@@ -77,9 +76,13 @@ public:
      * due to limitations of MContentItem.
      */
     void setApplet (DcpAppletObject *applet);
+    void setMetadata (DcpAppletMetadata *metadata);
 
     /*! \brief Returns the applet the DcpContentItem visualizes. */
     DcpAppletObject *applet () const;
+    DcpAppletMetadata *metadata () const;
+
+    void loadApplet();
 
     //! @cond
     void setMattiID (const QString& mattid);
@@ -127,6 +130,7 @@ private:
     void ensureToggleIsCreated();
     void ensureTextsAreCreated();
     void ensureWidgetsAreLayouted();
+    void clearAppletData();
 
     DcpContentItemPrivate* const d_ptr;
 

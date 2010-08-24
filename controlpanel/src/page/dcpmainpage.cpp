@@ -72,14 +72,12 @@ DcpMainPage::shown ()
             m_WasHidden = false;
             reload ();
         }
+        m_RecentlyComp->startLoading();
         return;
     }
 
+    m_RecentlyComp->startLoading();
     m_HasContent = true;
-
-#ifndef DISABLE_DELAYED_LOADING
-    createContentsLate ();
-#endif
 
     emit firstShown ();
 }
@@ -128,12 +126,10 @@ DcpMainPage::createContent ()
     layout->addItem(m_OtherComp);
     retranslateUi();
 
-#ifdef DISABLE_DELAYED_LOADING
     createContentsLate ();
-#endif
 }
 
-/*!
+/*! TODO XXX remove this
  * The main page is usually the first page to start, so we want to show it as
  * soon as possible. First we show the page without the applet brief widgets in
  * it, then when it appeared on the screen we load the content. This second step
@@ -154,6 +150,10 @@ DcpMainPage::createContentsLate ()
      */
     m_RecentlyComp = new DcpCategoryComponent (0, &DcpMain::mostUsedCategory,
                                                centralWidget());
+    /* TODO XXX a progress indicator can be shown if needed
+    connect (m_RecentlyComp, SIGNAL (loadingFinished()),
+             this, SLOT (onLoadingFinished()));
+             */
 
     if (!m_RecentlyComp->getItemCount()) {
         m_RecentlyComp->hide();

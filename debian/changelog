@@ -1,8 +1,12 @@
 duicontrolpanel (0.8.9~unreleased) unstable; urgency=low
 
   * Optimization: filter out unnecessery languageChange events
+  * Implements two-step applet loading: static content gets shown until
+    the applet is not yet loaded
+  * Fixes: NB#183938 - UI freeze when connectivity opened for the first
+    time after device flash
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 23 Aug 2010 14:20:43 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 24 Aug 2010 17:49:54 +0200
 
 duicontrolpanel (0.8.8) unstable; urgency=low
 
