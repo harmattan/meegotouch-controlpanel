@@ -1,4 +1,4 @@
-duicontrolpanel (0.8.9~unreleased) unstable; urgency=low
+duicontrolpanel (0.8.9) unstable; urgency=low
 
   * Optimization: filter out unnecessery languageChange events
   * Implements two-step applet loading: static content gets shown until
