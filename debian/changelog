@@ -1,3 +1,9 @@
+duicontrolpanel (0.8.10) unstable; urgency=low
+
+  * new version
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 26 Aug 2010 15:18:11 +0200
+
 duicontrolpanel (0.8.9) unstable; urgency=low
 
   * Optimization: filter out unnecessery languageChange events

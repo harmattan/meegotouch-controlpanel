@@ -95,7 +95,7 @@ const DcpCategoryInfo DcpMain::mostUsedCategory =
 //% "Settings"
 const char* DcpMain::settingsTitleId = QT_TRID_NOOP("qtn_sett_main_title");
 
-//% "Other settings"
+//% "All settings"
 const char* DcpMain::otherCategoriesTitleId = QT_TRID_NOOP("qtn_sett_main_other");
 //% "Exit"
 const char* DcpMain::quitMenuItemTextId = QT_TRID_NOOP("qtn_comm_exit");
