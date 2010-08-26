@@ -306,7 +306,10 @@ DcpContentItem::setApplet (DcpAppletObject *applet)
         // we only update if we are visible, since showEvent also updates
         if (isVisible()) {
             constructRealWidget ();
+            connect (d_ptr->m_Applet, SIGNAL (briefChanged ()),
+                this, SLOT (updateContents()));
         }
+
         /*
          * This will count the activations and activate the applet.
          */

@@ -71,6 +71,13 @@ DcpContentButton::setApplet (DcpAppletObject *applet)
 
     connect (this, SIGNAL (clicked()),
              d_ptr->m_Applet, SLOT (slotClicked()));
+
+    // we only update if we are visible, since showEvent also updates
+    if (isVisible()) {
+        updateContents ();
+        connect (d_ptr->m_Applet, SIGNAL (briefChanged ()),
+                 this, SLOT (updateContents()));
+    }
 }
 
 void
@@ -111,9 +118,10 @@ DcpContentButton::showEvent (QShowEvent * event)
         // prevents multiple showEvents coming
         d_ptr->m_Hidden = false;
 
-        if (d_ptr->m_Applet)
-            connect (d_ptr->m_Applet, SIGNAL (briefChanged ()), 
-                this, SLOT (updateContents()));
+        if (d_ptr->m_Applet) {
+            connect (d_ptr->m_Applet, SIGNAL (briefChanged ()),
+                     this, SLOT (updateContents()));
+        }
 
         updateContents();
     }
@@ -150,6 +158,13 @@ void DcpContentButton::setMetadata(DcpAppletMetadata* metadata)
     Q_ASSERT (!d_ptr->m_Applet);
 
     d_ptr->m_Metadata = metadata;
+
+    if (metadata) {
+        // we only update if we are visible, since showEvent also updates
+        if (isVisible()) {
+            updateContents ();
+        }
+    }
 }
 
 DcpAppletMetadata* DcpContentButton::metadata()
