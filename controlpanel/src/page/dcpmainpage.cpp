@@ -123,25 +123,6 @@ DcpMainPage::createContent ()
     }
     m_OtherComp->setCentralWidget(otherCategories);
 
-    layout->addItem(m_OtherComp);
-    retranslateUi();
-
-    createContentsLate ();
-}
-
-/*! TODO XXX remove this
- * The main page is usually the first page to start, so we want to show it as
- * soon as possible. First we show the page without the applet brief widgets in
- * it, then when it appeared on the screen we load the content. This second step
- * is implemented here.
- */
-void
-DcpMainPage::createContentsLate ()
-{
-    Q_ASSERT(isContentCreated());
-    QGraphicsLinearLayout *layout = mainLayout();
-    Q_ASSERT(layout);
-
     /*
      * Creating the most recent used items.
      * Use
@@ -150,17 +131,32 @@ DcpMainPage::createContentsLate ()
      */
     m_RecentlyComp = new DcpCategoryComponent (0, &DcpMain::mostUsedCategory,
                                                centralWidget());
-    /* TODO XXX a progress indicator can be shown if needed
+
+#ifdef PROGRESS_INDICATOR
+    // show progress indicator
     connect (m_RecentlyComp, SIGNAL (loadingFinished()),
              this, SLOT (onLoadingFinished()));
-             */
+    setProgressIndicatorVisible (true);
+#endif
 
     if (!m_RecentlyComp->getItemCount()) {
         m_RecentlyComp->hide();
     } else {
-        mainLayout ()->insertItem (0,m_RecentlyComp);
-        m_RecentlyComp->show();
+        mainLayout ()->addItem (m_RecentlyComp);
     }
+
+    layout->addItem(m_OtherComp);
+    retranslateUi();
+
+}
+
+
+void
+DcpMainPage::onLoadingFinished ()
+{
+#ifdef PROGRESS_INDICATOR
+    setProgressIndicatorVisible (false);
+#endif
 }
 
 void

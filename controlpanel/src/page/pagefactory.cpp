@@ -52,10 +52,6 @@ PageFactory::PageFactory ():
             SIGNAL(pageChanged(MApplicationPage *)),
             this, SLOT(pageChanged(MApplicationPage *)));
 
-    // FIXME XXX: move this back to mainPageFirstShown, because it loads all
-    // desktop files
-    // FIXME XXX appletdb can contain some applets at this state which are
-    // not connected
     connect (DcpAppletDb::instance(), SIGNAL(appletLoaded(DcpAppletObject*)),
              this, SLOT(onAppletLoaded(DcpAppletObject*)));
 }

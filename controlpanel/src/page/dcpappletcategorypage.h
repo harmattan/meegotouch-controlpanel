@@ -50,6 +50,9 @@ public slots:
 protected:
     virtual void retranslateUi();
 
+protected slots:
+    void onLoadingFinished ();
+
 private:
     // the appletcategory that has already been
     // loaded. same as m_CategoryInfo->appletCategory if the

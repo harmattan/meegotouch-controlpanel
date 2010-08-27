@@ -81,3 +81,9 @@ DcpAppletCategoryPage::appletMetadata(int)
     return 0;
 }
 
+void
+DcpAppletCategoryPage::onLoadingFinished ()
+{
+}
+
+

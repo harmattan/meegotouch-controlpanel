@@ -50,10 +50,12 @@ DcpAppletCategoryPage::createContent ()
     m_Category = new DcpAppletButtons(m_CategoryInfo);
     setCentralWidget (m_Category);
 
-     /* TODO XXX a progress indicator can be shown if needed
+#ifdef PROGRESS_INDICATOR
+    // show progress indicator
     connect (m_Category, SIGNAL (loadingFinished()),
              this, SLOT (onLoadingFinished()));
-             */
+    setProgressIndicatorVisible (true);
+#endif
 
     // this starts the loading of the applets if when the page animation finishes:
     connect (this, SIGNAL(appeared()), m_Category, SLOT(startLoading()));
@@ -135,4 +137,14 @@ DcpAppletCategoryPage::setTitleId(const char* titleId)
     m_TitleId = titleId;
     retranslateUi();
 }
+
+
+void
+DcpAppletCategoryPage::onLoadingFinished ()
+{
+#ifdef PROGRESS_INDICATOR
+    setProgressIndicatorVisible (false);
+#endif
+}
+
 

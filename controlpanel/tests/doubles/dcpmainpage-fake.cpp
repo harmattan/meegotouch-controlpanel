@@ -36,7 +36,7 @@ DcpMainPage::hideEvent(QHideEvent*)
 }
 
 void
-DcpMainPage::createContentsLate ()
+DcpMainPage::onLoadingFinished ()
 {
 }
 

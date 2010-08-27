@@ -37,7 +37,6 @@ public:
     DcpMainPage();
     
     virtual void createContent ();
-    virtual void createContentsLate ();
 
     virtual void reload();
 
@@ -51,6 +50,9 @@ public slots:
 protected:
     virtual void retranslateUi();
     virtual void hideEvent(class QHideEvent*);
+
+protected slots:
+    void onLoadingFinished ();
 
 private:
     DcpCategoryComponent *m_RecentlyComp;
