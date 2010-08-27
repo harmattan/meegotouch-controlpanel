@@ -106,6 +106,10 @@ public:
         in the db */
     bool containsName(const QString& name);
 
+    /*! \brief checks if the applet with this name is loaded already
+     */
+    bool isAppletLoaded (const QString& name);
+
     /*! \brief destroys all the contents (metadata) of the db */
     void destroyData (void);
     static void destroy (void);

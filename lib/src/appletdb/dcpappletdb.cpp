@@ -355,3 +355,8 @@ DcpAppletDb::destroyData ()
     d_ptr->appletObjectsByName.clear();
 }
 
+bool DcpAppletDb::isAppletLoaded (const QString& name)
+{
+    return d_ptr->appletObjectsByName.contains (name);
+}
+

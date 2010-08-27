@@ -111,24 +111,67 @@ void
 DcpAppletButtons::startLoading()
 {
     m_AppletLoaderPos = 0;
-    m_AppletLoaderTimer = startTimer (0);
+    if (getItemCount() > 0) {
+        m_AppletLoaderTimer = startTimer (0);
+    }
+}
+
+bool
+DcpAppletButtons::loadingStepNext()
+{
+    // stop if loading finished:
+    if (m_AppletLoaderPos >= getItemCount()) {
+        killTimer (m_AppletLoaderTimer);
+        emit loadingFinished();
+        return false;
+    }
+    m_AppletLoaderPos++;
+    return true;
+}
+
+/*
+ * loads the applet of the specified widget.
+ * item can be DcpContentButton or DcpContentItem
+ * returns true if the loading was necessery, otherwise
+ *         false (the applet was already loaded)
+ */
+bool DcpAppletButtons::loadApplet (QGraphicsObject* item)
+{
+    DcpContentButton* cbutton = qobject_cast<DcpContentButton*> (item);
+    DcpContentItem* citem = qobject_cast<DcpContentItem*> (item);
+
+    if (cbutton) {
+
+        // if an applet is already loaded, we have to do nothing:
+        if (cbutton->applet()) return false;
+
+        cbutton->loadApplet ();
+
+        // if no applet got loaded, we did nothing:
+        if (!cbutton->applet()->isAppletLoaded()) return false;
+
+    } else if (citem) {
+        if (citem->applet()) return false;
+        citem->loadApplet ();
+        if (!citem->applet()->isAppletLoaded()) return false;
+    }
+    return true;
 }
 
 void
 DcpAppletButtons::timerEvent(QTimerEvent *event)
 {
     if (m_AppletLoaderTimer == event->timerId()) {
-
-        // stop if loading finished:
-        if (m_AppletLoaderPos >= getItemCount()) {
-            killTimer (m_AppletLoaderTimer);
-            emit loadingFinished();
-            return;
-        }
-
-        // load the next applet:
-        loadApplet (widgetAt (m_AppletLoaderPos));
-        m_AppletLoaderPos++;
+        // this loads the next applet (which is not loaded), exactly one in
+        // every event
+        bool wasLoadingNecessary;
+        bool hasMoreItems;
+        do {
+            wasLoadingNecessary =
+                loadApplet (widgetAt (m_AppletLoaderPos));
+            hasMoreItems = loadingStepNext ();
+            // end loop if an applet was loaded, or if there is no more items:
+        } while (!wasLoadingNecessary && hasMoreItems);
     }
 }
 
@@ -147,15 +190,6 @@ DcpAppletButtons::appletMetadata (int pos)
     return 0;
 }
 
-void DcpAppletButtons::loadApplet (QGraphicsObject* item)
-{
-    if (qobject_cast<DcpContentButton*> (item)) {
-        qobject_cast<DcpContentButton*>(item)->loadApplet ();
-    } else {
-        qobject_cast<DcpContentItem*>(item)->loadApplet ();
-    }
-}
-
 void
 DcpAppletButtons::addComponent (DcpAppletMetadata *metadata)
 {
@@ -163,19 +197,33 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata)
 
     QGraphicsWidget *briefWidget;
     int widgetId = metadata->widgetTypeID();
+
+    // if the applet is already loaded, we skip the two step, and
+    // set the applet directly instead of its metadata only
+    DcpAppletObject* applet = 0;
+    DcpAppletDb* db = DcpAppletDb::instance();
+    QString name = metadata->name();
+    if (db->isAppletLoaded (name)) {
+        applet = db->applet (name);
+    }
+
     if (widgetId == DcpWidgetType::Button) {
-            DcpContentButton *button = new DcpContentButton (0, this);
+            DcpContentButton *button = new DcpContentButton (applet, this);
             button->setObjectName ("DcpContentButton");
-            button->setMetadata (metadata);
+            if (!applet) {
+                button->setMetadata (metadata);
+            }
             button->setMattiID ("DcpContentButton::" + logicalId() + "::" +
-                             metadata->category() + "::" + metadata->name());
+                             metadata->category() + "::" + name);
             briefWidget = button;
     } else {
-            DcpContentItem *item = new DcpContentItem (0, this);
+            DcpContentItem *item = new DcpContentItem (applet, this);
             item->setObjectName ("DcpContentItem");
-            item->setMetadata (metadata);
+            if (!applet) {
+                item->setMetadata (metadata);
+            }
             item->setMattiID ("DcpContentItem::" + logicalId() + "::" +
-                             metadata->category() + "::" + metadata->name());
+                             metadata->category() + "::" + name);
 
             briefWidget = item;
     }

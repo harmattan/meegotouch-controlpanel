@@ -56,7 +56,8 @@ signals:
 
 protected:
     virtual void createContents();
-    void loadApplet(QGraphicsObject* item);
+    bool loadApplet(QGraphicsObject* item);
+    bool loadingStepNext();
     void timerEvent(QTimerEvent* event);
 
 private:
