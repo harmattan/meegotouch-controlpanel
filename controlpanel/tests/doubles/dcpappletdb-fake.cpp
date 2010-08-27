@@ -133,9 +133,9 @@ DcpAppletDb::applet (
     return d_ptr->appletObjectsByName[name];
 }
 
-bool DcpAppletDb::isAppletLoaded (const QString& name)
+bool DcpAppletDb::isAppletLoaded (const QString&)
 {
-    return d_ptr->appletObjectsByName.contains (name);
+    return false;
 }
 
 #endif // DCPAPPLETDB_FAKE_H
