@@ -36,7 +36,7 @@ SOURCES += \
     $$STUBSDIR/dcpappletplugin-fake.cpp \
     $$STUBSDIR/dcpretranslator-fake.cpp \
     $$STUBSDIR/dcpsinglecomponent-fake.cpp \
-    $$STUBSDIR/dcpmaincategory_with_layout-fake.cpp \
+    $$STUBSDIR/dcpmaincategory-fake.cpp \
     $$TEST_SOURCES \ 
 
 # base classes

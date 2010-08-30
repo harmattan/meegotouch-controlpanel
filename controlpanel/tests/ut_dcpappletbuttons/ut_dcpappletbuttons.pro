@@ -20,11 +20,7 @@ TEST_SOURCES = \
 SOURCES += \
     *.cpp \
     $$STUBSDIR/dcpappletplugin-fake.cpp \
-    $$STUBSDIR/mgridlayoutpolicy-fake.cpp \
     $$STUBSDIR/maintranslations-fake.cpp \
-    $$STUBSDIR/mabstractlayoutpolicy-fake.cpp \
-    $$STUBSDIR/mlayout-fake.cpp \
-    $$STUBSDIR/mlinearlayoutpolicy-fake.cpp \
     $$STUBSDIR/dcpappletdb-fake.cpp \
     $$LIBDCPFAKES/mgconfitem-fake.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \

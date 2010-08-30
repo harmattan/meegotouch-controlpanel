@@ -22,7 +22,7 @@
 
 #include "ut_dcpappletbuttons.h"
 #include "maintranslations.h"
-#include <mlinearlayoutpolicy.h>
+#include <qlayout.h>
 #include <DcpAppletMetadata>
 #include <DcpAppletObject>
 #include <DcpContentItem>
@@ -59,20 +59,20 @@ void Ut_DcpAppletButtons::cleanupTestCase()
 void Ut_DcpAppletButtons::testCreation()
 {
     // if we create with a category other then mostrecentused
-    DcpAppletButtons buttons1(&fakeInfo, "fake-category");
+    DcpAppletButtons buttons1(&fakeInfo);
     QCOMPARE (&fakeInfo, buttons1.m_CategoryInfo);
     //      -> checks if the right widgets were added to the layout:
-    QCOMPARE (buttons1.m_PortraitLayout->count(), 1);
-    QCOMPARE (((DcpContentItem*)buttons1.m_PortraitLayout->
+    QCOMPARE (buttons1.layout()->count(), 1);
+    QCOMPARE (((DcpContentItem*)buttons1.layout()->
                 itemAt(0))->metadata()->name(),
               QString("fake-name"));
 
     // if we create with mostrecentused
-    DcpAppletButtons buttons2(&DcpMain::mostUsedCategory, "MostUsed");
+    DcpAppletButtons buttons2(&DcpMain::mostUsedCategory);
     QCOMPARE (&DcpMain::mostUsedCategory, buttons2.m_CategoryInfo);
     //      -> checks if the right widgets were added to the layout:
-    QCOMPARE (buttons2.m_PortraitLayout->count(), 1);
-    QCOMPARE (((DcpContentItem*)buttons2.m_PortraitLayout->
+    QCOMPARE (buttons2.layout()->count(), 1);
+    QCOMPARE (((DcpContentItem*)buttons2.layout()->
                 itemAt(0))->metadata()->name(),
               QString("mostUsed-name"));
 }
@@ -80,14 +80,14 @@ void Ut_DcpAppletButtons::testCreation()
 void Ut_DcpAppletButtons::testAddComponent()
 {
     // create an empty appletbuttons:
-    DcpAppletButtons buttons1(&zeroCategory, "null");
-    QCOMPARE (buttons1.m_PortraitLayout->count(), 0);
+    DcpAppletButtons buttons1(&zeroCategory);
+    QCOMPARE (buttons1.layout()->count(), 0);
 
     // add a button:
     DcpAppletMetadata* metadata = new DcpAppletMetadata("fake");
     buttons1.addComponent(metadata);
-    QCOMPARE (buttons1.m_PortraitLayout->count(), 1);
-    QCOMPARE (((DcpContentItem*)buttons1.m_PortraitLayout->
+    QCOMPARE (buttons1.layout()->count(), 1);
+    QCOMPARE (((DcpContentItem*)buttons1.layout()->
                 itemAt(0))->metadata()->name(),
               QString("fake-name"));
 }
@@ -95,15 +95,15 @@ void Ut_DcpAppletButtons::testAddComponent()
 void Ut_DcpAppletButtons::testReload()
 {
     // create an empty appletbuttons:
-    DcpAppletButtons buttons1(&zeroCategory, "null");
-    QCOMPARE (buttons1.m_PortraitLayout->count(), 0);
+    DcpAppletButtons buttons1(&zeroCategory);
+    QCOMPARE (buttons1.layout()->count(), 0);
 
     // change the categoryname to the test one and reload:
     // the fake applet should be loaded
     buttons1.m_CategoryInfo = &fakeInfo;
     buttons1.reload();
-    QCOMPARE (buttons1.m_PortraitLayout->count(), 1);
-    QCOMPARE (((DcpContentItem*)buttons1.m_PortraitLayout->
+    QCOMPARE (buttons1.layout()->count(), 1);
+    QCOMPARE (((DcpContentItem*)buttons1.layout()->
                 itemAt(0))->metadata()->name(),
               QString("fake-name"));
 
@@ -112,12 +112,9 @@ void Ut_DcpAppletButtons::testReload()
     buttons1.m_CategoryInfo = &DcpMain::mostUsedCategory;
     buttons1.reload();
 
-    // note, this is 2 because the widgets are deleted with deleteLater
-    // and there is no eventloop :(
-    // not sure how to fix it
-    QCOMPARE (buttons1.m_PortraitLayout->count(), 2);
-    QCOMPARE (((DcpContentItem*)buttons1.m_PortraitLayout->
-                itemAt(1))->metadata()->name(),
+    QCOMPARE (buttons1.layout()->count(), 1);
+    QCOMPARE (((DcpContentItem*)buttons1.layout()->
+                itemAt(0))->metadata()->name(),
               QString("mostUsed-name"));
 }
 

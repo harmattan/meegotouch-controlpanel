@@ -90,7 +90,7 @@ DcpCategoryComponent::createContents ()
     layout->addItem (m_Container);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-    m_AppletButtons = new DcpAppletButtons (m_CategoryInfo, title());
+    m_AppletButtons = new DcpAppletButtons (m_CategoryInfo);
     connect (m_AppletButtons, SIGNAL (loadingFinished()),
              this, SIGNAL (loadingFinished()));
 

@@ -35,7 +35,6 @@ class DcpAppletButtons :
 public:
     DcpAppletButtons (
             const DcpCategoryInfo  *categoryInfo,
-            const QString          &title = "",
             QGraphicsWidget        *parent = 0);
     ~DcpAppletButtons ();
 

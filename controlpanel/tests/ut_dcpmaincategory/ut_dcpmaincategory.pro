@@ -16,10 +16,6 @@ SOURCES += \
     ../doubles/mapplication-fake.cpp \
     ../doubles/mapplicationwindow-fake.cpp \
     ../doubles/mwindow-fake.h \
-    ../doubles/mlayout-fake.cpp \
-    ../doubles/mabstractlayoutpolicy-fake.cpp \
-    ../doubles/mlinearlayoutpolicy-fake.cpp \
-    ../doubles/mgridlayoutpolicy-fake.cpp \
     $$TEST_SOURCES \ 
 
 # base classes

@@ -22,7 +22,7 @@
 
 #include "dcpcomponent.h"
 
-class MLayout;
+#include <QGraphicsLinearLayout>
 
 /*!
  * A rectangular table like widget inside the main page and the category pages.
@@ -33,52 +33,38 @@ class DcpMainCategory : public /*DcpCategory*/ DcpComponent
 
 public:
     DcpMainCategory(
-            const QString    &title,
             QGraphicsWidget  *parent = 0,
             const QString    &logicalId = "");
 
     virtual void appendWidget (QGraphicsWidget *component);
     QGraphicsWidget* widgetAt (int i);
-    virtual int  maxColumns ();
-    virtual void setMaxColumns (int columns);
-    MLayout* mLayout() const { return m_Layout; }
-
-    void setHorizontalSpacing (int space);
-    void setVerticalSpacing (int space);
-    void setCreateSeparators (bool create = true);
-
-    int getItemCount () { return m_ItemCount; };
+    int getItemCount () { return layout()->count(); };
     void deleteItems();
 
 protected:
-    virtual void createContents ();
-
-    MLayout                    *m_Layout;
-    class MGridLayoutPolicy    *m_LandscapeLayout;
-    class MLinearLayoutPolicy  *m_PortraitLayout;
+    QGraphicsLinearLayout* mLayout() const;
 
 private:
-    void appendSeparatorsIfNeeded ();
-    void incrementRowAndCol ();
-
-    int m_MaxColumns;
-
-    /*
-     * These will point to the first empty coordinate available for inserting a
-     * new item.
-     */
-    int m_ColCount;
-    int m_RowCount;
-    /*
-     * The number of real items added (not the separators).
-     * FIXME: We can implement the whole stuff without this, can't we?
-     */
-    int m_ItemCount;
-
-    bool m_CreateSeparators;
-    static const QString sm_SeparatorObjectName;
     friend class Ut_DcpMainCategory;
 };
+
+inline QGraphicsLinearLayout*
+DcpMainCategory::mLayout() const
+{
+    return (QGraphicsLinearLayout*)layout();
+}
+
+/*!
+ * Appends a new item to the widget. Handles two column layout automatically.
+ * There is no function to add a long line, but as I see we don't need that
+ * feature right now. Anyway, it is easy to implement such a function.
+ */
+inline void
+DcpMainCategory::appendWidget ( QGraphicsWidget *component)
+{
+    mLayout()->addItem (component);
+    mLayout()->setAlignment (component, Qt::AlignCenter); // TODO XXX
+}
 
 #endif
 

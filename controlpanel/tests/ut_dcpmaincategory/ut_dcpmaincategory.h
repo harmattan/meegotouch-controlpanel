@@ -36,17 +36,10 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
     void testCreation();
-    void testAppendWidget(); 
-    void testMaxColums(); 
-    void testGetItemCount(); 
-    void testMLayout(); 
-    void testHorizontalSpacing(); 
-    void testVerticalSpacing(); 
-    void testCreateSeparators(); 
-    void testDeleteItems(); 
-    void testCreateContents(); 
-    void testAppendSeparatorsIfNeeded(); 
-    void testIncrementRowAndCol(); 
+    void testAppendWidget();
+    void testGetItemCount();
+    void testMLayout();
+    void testDeleteItems();
 
 private:
     DcpMainCategory* m_subject;

@@ -103,10 +103,8 @@ DcpMainPage::createContent ()
 
     m_OtherComp = new MContainer();
     DcpMainCategory *otherCategories = new DcpMainCategory(
-            DcpMain::otherCategoriesTitleId,
             0,
             DcpMain::otherCategoriesTitleId);
-    otherCategories->setMaxColumns(1);
     for (int i = 0;; i++) {
         DcpSingleComponent *button;
         const DcpCategoryInfo  *info;

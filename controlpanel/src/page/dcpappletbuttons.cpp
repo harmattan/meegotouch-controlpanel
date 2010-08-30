@@ -38,14 +38,11 @@
 
 DcpAppletButtons::DcpAppletButtons (
         const DcpCategoryInfo  *categoryInfo,
-        const QString          &title,
         QGraphicsWidget        *parent)
-: DcpMainCategory (title, parent, categoryInfo->titleId),
+: DcpMainCategory (parent, categoryInfo->titleId),
     m_CategoryInfo (categoryInfo),
     m_AppletLoaderPos (0)
 {
-    setCreateSeparators (false);
-    setMaxColumns (1);
     createContents ();
     setMattiID (
             QString ("DcpAppletButtons::") + 
