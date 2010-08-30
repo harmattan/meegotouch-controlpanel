@@ -12,7 +12,10 @@ TARGET = ft_dcpappletobject
 CONFIG += meegotouch
 
 DATADIR = /usr/lib/duicontrolpanel-tests/ft_dcpappletobject-data
-DEFINES += APPLET_LIBS=\\\"$$DATADIR\\\" DATADIR=\\\"$$DATADIR\\\" DESKTOP_DIR=\\\"$$DATADIR\\\" MOSTUSEDCOUNTER_GCONFKEY=\\\"/apps/duicontrolpanel/usagecount\\\"
+DEFINES += APPLET_LIBS=\\\"$$DATADIR\\\" \
+           DATADIR=\\\"$$DATADIR\\\" \
+           DESKTOP_DIR=\\\"$$DATADIR\\\" \
+           MOSTUSEDCOUNTER_GCONFKEY=\\\"/apps/duicontrolpanel/usagecount\\\"
 
 # disable internal deprecation warnings:
 DEFINES += DCP_DISABLE_DEPRECATION_WARNING

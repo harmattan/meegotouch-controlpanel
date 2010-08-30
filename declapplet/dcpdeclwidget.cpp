@@ -35,7 +35,7 @@ DcpDeclWidget::DcpDeclWidget(const QString& xmlPath)
     QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(
                                       Qt::Vertical, this);
 
-    QString filePath = xmlPath.startsWith('/') ? xmlPath 
+    QString filePath = xmlPath.startsWith('/') ? xmlPath
                                                : defaultPath + xmlPath;
     QFile file(filePath);
     if (!file.open(QIODevice::ReadOnly)) {

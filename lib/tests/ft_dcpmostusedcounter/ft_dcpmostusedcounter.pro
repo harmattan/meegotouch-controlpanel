@@ -19,7 +19,7 @@ SOURCES += \
 # unit test and unit
 HEADERS += \
     ft_dcpmostusedcounter.h \
-    $$SRCDIR/dcpmostusedcounter.h \
+    $$SRCDIR/appletdb/dcpmostusedcounter.h \
 
 # base classes
 HEADERS += \

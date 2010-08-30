@@ -38,7 +38,6 @@ private slots:
     void cleanupTestCase();
     void testCreation();
     void testCreateContent();
-    void testCreateContentLate();
 //    void testReload();
     void testShown();
 //    void testBack();

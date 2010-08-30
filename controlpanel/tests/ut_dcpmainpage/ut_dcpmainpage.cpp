@@ -55,20 +55,17 @@ void Ut_DcpMainPage::testCreation()
 void Ut_DcpMainPage::testCreateContent()
 {
     m_subject->createContent(); 
+    QVERIFY(m_subject->isContentCreated());
+    QVERIFY(m_subject->mainLayout());
     QVERIFY(m_subject->m_OtherComp);
     QCOMPARE((void*)(m_subject->m_OtherComp),
         (void*)((QGraphicsWidget*)(m_subject->mainLayout()->itemAt(0))));
     QGraphicsWidget *otherCategories = m_subject->m_OtherComp->centralWidget();
     QVERIFY(otherCategories);
-}
 
-void Ut_DcpMainPage::testCreateContentLate()
-{
-    m_subject->createContentsLate();
-    QVERIFY(m_subject->isContentCreated());
-    QVERIFY(m_subject->mainLayout());
     QVERIFY(m_subject->m_RecentlyComp);
 }
+
 
 /*
 void Ut_DcpMainPage::testReload()
@@ -108,7 +105,6 @@ void Ut_DcpMainPage::testRetranslateUi()
 {
     // first we need to create all the contents
     m_subject->createContent();
-    m_subject->createContentsLate();
     m_subject->retranslateUi();
     QCOMPARE(m_subject->title(), qtTrId(QT_TRID_NOOP("qtn_sett_main_title")));
     QCOMPARE(m_subject->m_RecentlyComp->title(),

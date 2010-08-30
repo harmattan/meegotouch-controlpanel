@@ -35,7 +35,7 @@ void TestApplet::init()
     MTheme::loadCSS(DATADIR "/testapplet.css");
 }
 
-DcpWidget *TestApplet::constructWidget(int widgetId)
+DcpWidget *TestApplet::constructWidget(int)
 {
     return new TestAppletWidget();
 }

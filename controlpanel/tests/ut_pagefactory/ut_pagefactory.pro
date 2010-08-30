@@ -32,7 +32,6 @@ SOURCES += \
 # unit test and unit
 HEADERS += \
     *.h \
-    $$STUBSDIR/mgconfitem_priv.h \
     $$STUBSDIR/mapplicationwindow-fake.h \
     $$STUBSDIR/mwindow-fake.h \
     $$SRCDIR/page/pagefactory.h \

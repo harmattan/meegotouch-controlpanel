@@ -113,6 +113,8 @@ DcpAppletButtons::startLoading()
     m_AppletLoaderPos = 0;
     if (getItemCount() > 0) {
         m_AppletLoaderTimer = startTimer (0);
+    } else {
+        emit loadingFinished();
     }
 }
 
