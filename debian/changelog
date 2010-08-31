@@ -3,8 +3,9 @@ duicontrolpanel (0.8.11~unreleased) unstable; urgency=low
   * new version
   * Fixes: declarative applet could not modify gconf keys
   * Adds credential for Cellular usage
+  * Theme loading support for the binary applets
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 31 Aug 2010 16:28:30 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 01 Sep 2010 10:16:43 +0200
 
 duicontrolpanel (0.8.10) unstable; urgency=low
 

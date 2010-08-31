@@ -1,0 +1,78 @@
+#include "appletthemes.h"
+
+#include <QFileInfo>
+#include <MTheme>
+#include <QString>
+#include <QSet>
+
+static QSet<QString> loadedThemes;
+static AppletThemes* instance = 0;
+
+// default dirs:
+static const QString commonCssDir = CSSDIR;
+static const QString baseCssDir = "/usr/share/themes/";
+
+AppletThemes::AppletThemes()
+{
+    // watch for theme change signal:
+    connect (MTheme::instance(), SIGNAL (themeIsChanging()),
+             this, SLOT(onThemeIsChanging()));
+}
+
+AppletThemes::~AppletThemes()
+{
+    ::instance = 0;
+}
+
+void AppletThemes::onThemeIsChanging()
+{
+    // clears the applet name list for which the themes are loaded,
+    // so that they will be reloaded when the applet gets openned again
+    loadedThemes.clear();
+}
+
+inline static void loadCssIfExists (const QString& filePath)
+{
+    if (QFileInfo(filePath).exists()) {
+        qDebug ("XXX loading css %s", qPrintable(filePath));
+        MTheme::instance()->loadCSS (filePath);
+    } else {
+        qDebug ("XXX applet did not provide css at %s", qPrintable(filePath));
+    }
+}
+
+/*! @brief Ensures that the css for the lib is loaded.
+ *
+ * This function will ensure that the .css for the applet got loaded.
+ * Css file must be under either
+ * - the "base" theme directory, from which every theme inherits
+ * - the current theme directory
+ */
+void AppletThemes::ensureCssLoaded(const QString& libName)
+{
+    // do not load the theme if it is already loaded:
+    if (loadedThemes.contains (libName)) return;
+    loadedThemes.insert (libName);
+
+    // compute filename (eg.: dcpskeleton.css for libdcpskeletonapplet.so.0.0.1)
+    int start = libName.startsWith ("lib") ? 3 : 0;
+    int end = libName.lastIndexOf (".so");
+    QString fileName = end > start ? libName.mid (start, end - start) : libName;
+    fileName += ".css";
+
+    // check if file exists in common dir:
+    loadCssIfExists ( commonCssDir + fileName);
+
+    // check if file exists in theme specific dir:
+    loadCssIfExists ( baseCssDir + MTheme::instance()->currentTheme()
+                                 + "/style/" + fileName);
+}
+
+AppletThemes* AppletThemes::instance()
+{
+    if (! ::instance) {
+        ::instance = new AppletThemes();
+    }
+    return ::instance;
+}
+

@@ -28,11 +28,8 @@ SOURCES += \
     $$STUBSDIR/mabstractlayoutpolicy-fake.cpp \
     $$STUBSDIR/mlayout-fake.cpp \
     $$STUBSDIR/mlinearlayoutpolicy-fake.cpp \
-    $$STUBSDIR/mcontainer-fake.cpp \
     $$STUBSDIR/dcpcontentitem-fake.cpp \
     $$STUBSDIR/mwidgetcontroller-fake.cpp \
-    $$STUBSDIR/mgconfitem-fake.cpp \
-    $$STUBSDIR/mdesktopentry-fake.cpp \
 #    $$STUBSDIR/dcppage-fake.cpp \
     $$STUBSDIR/dcpcomponent-fake.cpp \
     $$STUBSDIR/dcpappletdb-fake.cpp \
@@ -45,6 +42,7 @@ SOURCES += \
     $$STUBSDIR/dcpmaincategory-fake.cpp \
     $$STUBSDIR/qgraphicslinearlayout-fake.cpp \
     $$STUBSDIR/qgraphicsobject-fake.cpp \
+    $$STUBSDIR/appletthemes-fake.cpp \
     $$TEST_SOURCES \ 
 
 # base classes
@@ -57,6 +55,7 @@ HEADERS += \
     $$STUBSDIR/dcpappletplugin-applet.h \
     $$SRCDIR/page/dcpappletpage.h \
     $$SRCDIR/page/dcppage.h \
+    $$SRCDIR/appletthemes.h \
     $$SRCDIR/page/pages.h \
     $$SRCDIR/page/dcpcategorycomponent.h \
     $$SRCDIR/component/dcpcomponent.h \

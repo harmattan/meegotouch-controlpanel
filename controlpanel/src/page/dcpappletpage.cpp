@@ -25,6 +25,7 @@
 #include <DcpAppletMetadata>
 #include <DcpAppletObject>
 #include <DcpRetranslator>
+#include "appletthemes.h"
 
 #include <MLabel>
 #include <MLocale>
@@ -188,6 +189,11 @@ void
 DcpAppletPage::loadWidget (int widgetId)
 {
     DcpWidget  *newMainWidget;
+
+    /*
+     * Load the stylesheet for the applet (if any)
+     */
+    AppletThemes::instance()->ensureCssLoaded (m_Applet->metadata()->binary());
 
     /*
      * Creating the widget and setting its widgetId.
