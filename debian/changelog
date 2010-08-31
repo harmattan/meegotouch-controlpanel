@@ -1,6 +1,5 @@
-duicontrolpanel (0.8.10~unreleased) unstable; urgency=low
+duicontrolpanel (0.8.10) unstable; urgency=low
 
-  * new version
   * Fixes: Avoid showing the briefview in two step in case the applet is
     already loaded
 
