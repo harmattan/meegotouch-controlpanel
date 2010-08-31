@@ -1,9 +1,15 @@
+duicontrolpanel (0.8.11~unreleased) unstable; urgency=low
+
+  * new version
+  * Fixes: declarative applet could not modify gconf keys
+  * Adds credential for Cellular usage
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 31 Aug 2010 16:28:30 +0200
+
 duicontrolpanel (0.8.10) unstable; urgency=low
 
   * Fixes: Avoid showing the briefview in two step in case the applet is
     already loaded
-  * Fixes: declarative applet could not modify gconf keys
-  * Adds credential for Cellular usage
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 31 Aug 2010 16:25:57 +0200
 
