@@ -1,7 +1,8 @@
 <settings>
   <group>
-    <text key="/apps/ControlPanel/Example/Text1" title="Please specify a text:" >
-    </text>
+      <text key="/apps/ControlPanel/Example/Text1" title="Please specify a text:" >
+          something
+      </text>
     <selection key="/apps/ControlPanel/Example/Enum1">
         <option title="first value" >1</option>
         <option title="second value" >2</option>

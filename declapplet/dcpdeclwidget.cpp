@@ -23,9 +23,9 @@
 #include <MSettingsLanguageBinary>
 #include <MSettingsLanguageWidget>
 #include <MSettingsLanguageWidgetFactory>
-#include <MGConfDataStore>
 #include <MLabel>
 
+#include "dynamicgconfdatastore.h"
 #include <dcpdebug.h>
 
 static const QString defaultPath = "/usr/lib/duicontrolpanel/uidescriptions/";
@@ -59,15 +59,7 @@ DcpDeclWidget::DcpDeclWidget(const QString& xmlPath)
         return;
     }
 
-    QString gpath = binary->keys().first();
-    MGConfDataStore* datastore = 0;
-    if (gpath.startsWith("/")) {
-        // TODO this is only working when all keys are in same dir
-        gpath = gpath.left(gpath.lastIndexOf("/"));
-        datastore = new MGConfDataStore(gpath);
-    } else {
-        DCP_WARNING("Fix gconf key paths in your xml: %s", qPrintable(filePath));
-    }
+    MDataStore* datastore = new DynamicGConfDataStore (this);
 
     MSettingsLanguageWidget* widget =
         MSettingsLanguageWidgetFactory::createWidget(*binary, datastore );

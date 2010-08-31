@@ -3,8 +3,9 @@ duicontrolpanel (0.8.10~unreleased) unstable; urgency=low
   * new version
   * Fixes: Avoid showing the briefview in two step in case the applet is
     already loaded
+  * Fixes: declarative applet could not modify gconf keys
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 27 Aug 2010 13:53:55 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 31 Aug 2010 12:04:09 +0200
 
 duicontrolpanel (0.8.9) unstable; urgency=low
 

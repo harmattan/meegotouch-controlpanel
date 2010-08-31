@@ -63,7 +63,6 @@ inline void
 DcpMainCategory::appendWidget ( QGraphicsWidget *component)
 {
     mLayout()->addItem (component);
-    mLayout()->setAlignment (component, Qt::AlignCenter); // TODO XXX
 }
 
 #endif
