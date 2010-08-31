@@ -1,0 +1,7 @@
+<aegis>
+  <request>
+    <credential name="Cellular" />
+    <for path="duicontrolpanel::/usr/bin/duicontrolpanel" />
+  </request>
+</aegis>
+

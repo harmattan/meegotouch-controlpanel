@@ -9,6 +9,9 @@
 # Uncomment this to turn on verbose mode.
 # export DH_VERBOSE=1
 
+	
+
+
 CFLAGS = -Wall -g --disable-rpath
 
 ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
@@ -106,7 +109,11 @@ binary-arch: build install
 	dh_shlibdeps 
 	dh_gencontrol
 	dh_md5sums
+	
 	dh_builddeb
+
+	# for the security framework
+	aegis-deb-add -control debian/duicontrolpanel/DEBIAN/control .. debian/duicontrolpanel.aegis=_aegis
 
 binary: binary-indep binary-arch
 .PHONY: build clean binary-indep binary-arch binary install configure
