@@ -2,11 +2,8 @@
 
 #include <QFileInfo>
 #include <MTheme>
-#include <QString>
-#include <QSet>
 
-static QSet<QString> loadedThemes;
-static AppletThemes* instance = 0;
+AppletThemes* AppletThemes::sm_Instance = 0;
 
 // default dirs:
 static const QString commonCssDir = CSSDIR;
@@ -21,14 +18,14 @@ AppletThemes::AppletThemes()
 
 AppletThemes::~AppletThemes()
 {
-    ::instance = 0;
+    sm_Instance = 0;
 }
 
 void AppletThemes::onThemeIsChanging()
 {
     // clears the applet name list for which the themes are loaded,
     // so that they will be reloaded when the applet gets openned again
-    loadedThemes.clear();
+    m_LoadedThemes.clear();
 }
 
 inline static void loadCssIfExists (const QString& filePath)
@@ -52,8 +49,8 @@ inline static void loadCssIfExists (const QString& filePath)
 void AppletThemes::ensureCssLoaded(const QString& libName)
 {
     // do not load the theme if it is already loaded:
-    if (loadedThemes.contains (libName)) return;
-    loadedThemes.insert (libName);
+    if (m_LoadedThemes.contains (libName)) return;
+    m_LoadedThemes.insert (libName);
 
     // compute filename (eg.: dcpskeleton.css for libdcpskeletonapplet.so.0.0.1)
     int start = libName.startsWith ("lib") ? 3 : 0;
@@ -71,9 +68,9 @@ void AppletThemes::ensureCssLoaded(const QString& libName)
 
 AppletThemes* AppletThemes::instance()
 {
-    if (! ::instance) {
-        ::instance = new AppletThemes();
+    if (! sm_Instance) {
+        sm_Instance = new AppletThemes();
     }
-    return ::instance;
+    return sm_Instance;
 }
 

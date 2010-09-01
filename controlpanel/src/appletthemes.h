@@ -2,6 +2,8 @@
 #define APPLETTHEMES_H
 
 #include <QObject>
+#include <QSet>
+#include <QString>
 
 class AppletThemes: public QObject
 {
@@ -17,6 +19,11 @@ protected slots:
 
 protected:
     AppletThemes();
+
+    QSet<QString> m_LoadedThemes;
+    static AppletThemes* sm_Instance;
+
+    friend class Ut_AppletThemes;
 };
 
 
