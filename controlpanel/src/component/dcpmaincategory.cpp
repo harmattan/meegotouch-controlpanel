@@ -26,11 +26,13 @@ DcpMainCategory::DcpMainCategory (
         const QString& logicalId)
 : DcpComponent (0, "", parent, logicalId)
 {
-    QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(this);
+    QGraphicsLinearLayout* layout =
+        new QGraphicsLinearLayout(Qt::Vertical, this);
 
     // main category is an invisible "pure logical" widget, thats why we
     // need no margins here
     layout->setContentsMargins (0,0,0,0);
+    layout->setSpacing (0);
 }
 
 
