@@ -1,8 +1,7 @@
-duicontrolpanel (0.8.11~unreleased) unstable; urgency=low
+duicontrolpanel (0.8.11) unstable; urgency=low
 
-  * new version
   * Fixes: declarative applet could not modify gconf keys
-  * Adds credential for Cellular usage
+  * Adds credential for Cellular usage, and for datetime applet
   * Theme loading support for the binary applets
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 01 Sep 2010 10:16:43 +0200
