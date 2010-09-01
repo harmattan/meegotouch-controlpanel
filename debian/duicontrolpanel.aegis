@@ -1,7 +1,8 @@
 <aegis>
   <request>
     <credential name="Cellular" />
-    <for path="duicontrolpanel::/usr/bin/duicontrolpanel" />
+    <credential name="timed::TimeControl" />
+    <for path="/usr/bin/duicontrolpanel.launch" />
   </request>
 </aegis>
 
