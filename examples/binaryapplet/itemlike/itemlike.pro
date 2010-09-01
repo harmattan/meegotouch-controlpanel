@@ -19,7 +19,7 @@ TARGET        = $$qtLibraryTarget(dcpskeletonapplet)
 desktop.files += *.desktop
 desktop.path = $$DCP_DESKTOP_DIR
 target.path += $$DCP_APPLET_DIR
-css.path    += /usr/share/themes/base/meegotouch/libdcpskeletonapplet/style/
+css.path    += /usr/share/themes/base/meegotouch/duicontrolpanel/style/
 
 message("The plugin will be installed to: " $$target.path)
 message("CSS path will be: " $$css.path)

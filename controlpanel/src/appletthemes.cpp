@@ -34,10 +34,11 @@ void AppletThemes::onThemeIsChanging()
 inline static void loadCssIfExists (const QString& filePath)
 {
     if (QFileInfo(filePath).exists()) {
-        qDebug ("XXX loading css %s", qPrintable(filePath));
+        qDebug ("%s: loading css %s", Q_FUNC_INFO, qPrintable(filePath));
         MTheme::instance()->loadCSS (filePath);
     } else {
-        qDebug ("XXX applet did not provide css at %s", qPrintable(filePath));
+        qDebug ("%s: fortunately the applet did not provide css at %s",
+                Q_FUNC_INFO, qPrintable(filePath));
     }
 }
 
@@ -65,7 +66,7 @@ void AppletThemes::ensureCssLoaded(const QString& libName)
 
     // check if file exists in theme specific dir:
     loadCssIfExists ( baseCssDir + MTheme::instance()->currentTheme()
-                                 + "/style/" + fileName);
+                      + "/meegotouch/duicontrolpanel/style/" + fileName);
 }
 
 AppletThemes* AppletThemes::instance()

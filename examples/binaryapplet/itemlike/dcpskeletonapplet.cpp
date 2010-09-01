@@ -8,22 +8,14 @@
 #include "dcpskeleton.h"
 #include "dcpskeletonbrief.h"
 
-#include <MLibrary>
-
 Q_EXPORT_PLUGIN2(skeletonapplet, SkeletonApplet)
-
-/*
- * For loading our own stylesheet, we have to put this macro here,
- * it creates a static MLibrary object.
- *
- * The stylesheet should be installed in this path:
- * /usr/share/themes/base/meegotouch/<libraryname>/style/
- */
-M_LIBRARY
 
 void SkeletonApplet::init()
 {
-    /* Do not do this, as this wont support switching themes
+    /* Do not do this, as this wont support switching themes and will cause
+     * performance problems when loading the category pages.
+     * See the documentation package for details.
+     *
     MTheme::loadCSS("/usr/share/themes/base/meegotouch/"
                     "libdcpskeletonapplet/style/libdcpskeletonapplet.css");
      */

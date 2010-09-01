@@ -133,9 +133,10 @@ them later with live ones.
 
 \subsection styles Loading your custom styles
 
-If you need your own styles for your plugin, you should use meegotouch API
-for that, see their documentation under section "Styling / Theming support for
-external libraries".
+Duicontrolpanel provides a convenient way for the binary applets to load their
+styles from .css.
+See <a href="styles.html">Using custom styles from binaryapplets</a> section
+for details.
 
 
 */

@@ -41,6 +41,9 @@
     <td>
       <ul>
       <li><a href="binaryplugins.html">Binary applets</a></li>
+      <li><a href="styles.html">
+                Custom style for a binary applet
+          </a></li>
       <li><a href="declarativeplugins.html">Declarative applets</a></li>
       <li><a href="externalplugins.html">External applets</a></li>
       <li><a href="servicefw.html">ServiceFw API - Controlling controlpanel</a></li>
