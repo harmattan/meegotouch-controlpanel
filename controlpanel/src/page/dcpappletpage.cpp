@@ -29,7 +29,6 @@
 
 #include <MLabel>
 #include <MLocale>
-#include <MApplication>
 #include <MAction>
 #include <QProcess>
 
@@ -45,9 +44,11 @@ DcpAppletPage::DcpAppletPage (DcpAppletObject *applet, int widgetId):
     m_MainWidget (0),
     m_MissingLabel (0)
 {
+#ifdef STANDALONE_CLOSES
     // this is for being able to control leaving or not leaving the page
     // in response to clicking the back button
     setEscapeMode(MApplicationPageModel::EscapeManualBack);
+#endif
 }
 
 
@@ -176,12 +177,21 @@ DcpAppletPage::back ()
         }
     }
 
+    /*
+     * Disabled this because of bug NB#184916
+     * Did not remove the support though, because it might turn out that we
+     * have to lower the window here, if the behaviour in this case becomes
+     * clear. Do not remove message this until then.
+     */
+#ifdef STANDALONE_CLOSES
     if (handle().isStandalone)
     {
        DCP_DEBUG("This is a standalone applet"); 
        qApp->exit(0);
        return;
     }
+#endif
+
     DcpPage::back();
 }
 
