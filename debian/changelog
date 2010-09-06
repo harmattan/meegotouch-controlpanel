@@ -1,10 +1,13 @@
 duicontrolpanel (0.8.12~unreleased) unstable; urgency=low
 
-  * new version
   * Fixes: NB#184916 - Back button closes the controlpanel in this
     scenario
+  * Fixes: NB#188215 -  Look and feel settings uses wrong object names
+  * Fixes: NB#188203 -  System Settings main view uses wrong object
+    names
+  * Adds icons to category menus (updated ui to spec 1.5)
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 02 Sep 2010 11:51:10 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 06 Sep 2010 16:51:14 +0200
 
 duicontrolpanel (0.8.11) unstable; urgency=low
 

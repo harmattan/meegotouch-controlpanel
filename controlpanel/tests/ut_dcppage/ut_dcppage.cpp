@@ -53,9 +53,8 @@ void Ut_DcpPage::testCreateContents()
 {
     m_subject->createContent();
     QVERIFY(m_subject->isContentCreated());
-    QVERIFY(m_subject->objectName() == "DcpPage");
-    
 }
+
 void Ut_DcpPage::testHandle()
 {
     PageHandle handle(PageHandle::MAIN, "param", 1, true);

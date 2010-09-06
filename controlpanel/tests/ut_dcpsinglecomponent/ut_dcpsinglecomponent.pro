@@ -14,8 +14,9 @@ TEST_SOURCES = \
     ../doubles/dcppage-fake.cpp \
     ../doubles/dcpappletplugin-fake.cpp \
     ../doubles/mdesktopentry-fake.cpp \
+    ../doubles/mbasiclistitem-fake.cpp \
     $$LIBDCPFAKES/mgconfitem-fake.cpp \
-    $$LIBDCPFAKES/mcontentitem-fake.cpp \
+    $$LIBDCPFAKES/mimagewidget-fake.cpp \
     ../doubles/mapplication-fake.cpp \
     ../doubles/mapplicationpage-fake.cpp \
     ../doubles/mapplicationwindow-fake.cpp \

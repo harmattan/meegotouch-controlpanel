@@ -114,7 +114,7 @@ DcpMainPage::createContent ()
              break;
 
         button = new DcpSingleComponent(otherCategories, info->titleId,
-                                        qtTrId(info->titleId));
+                                        qtTrId(info->titleId), info->iconId);
         button->setSubPage(PageHandle(info->subPageId, info->titleId));
         otherCategories->appendWidget(button);
         m_CategoryButtons.append(button);

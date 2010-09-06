@@ -25,12 +25,14 @@ DcpSingleComponent::DcpSingleComponent (
         QGraphicsWidget     *category,
         const QString       &logicalId,
         const QString       &title,
+        const QString       &iconId,
         const QString       &subTitle)
-: MContentItem (MContentItem::TwoTextLabels)
+: MBasicListItem (MBasicListItem::TitleWithSubtitle)
 {
     Q_UNUSED(category);
     Q_UNUSED(logicalId);
     Q_UNUSED(title);
+    Q_UNUSED(iconId);
     Q_UNUSED(subTitle);
 }
 

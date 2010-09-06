@@ -50,6 +50,7 @@ public:
     MImageWidget* m_ImageW;
     MLabel* m_Text1W;
     MLabel* m_Text2W;
+    QGraphicsWidget* m_Spacer;
     MButton* m_ButtonW;
 };
 

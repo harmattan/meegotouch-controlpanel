@@ -42,6 +42,7 @@ struct DcpCategoryInfo
     const char               *titleId;
     const char               *appletCategory;
     PageHandle::PageTypeId    subPageId;
+    const char               *iconId;
     const DcpCategoryInfo    *staticElements;
 };
 

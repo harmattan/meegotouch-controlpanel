@@ -22,17 +22,20 @@
 #include "pages.h"
 
 #include "dcpdebug.h"
+#include <MImageWidget>
 
 
 DcpSingleComponent::DcpSingleComponent (
         QGraphicsWidget     *parent,
         const QString       &logicalId,
         const QString       &title,
+        const QString       &imageId,
         const QString       &subTitle)
-: MContentItem(subTitle.isEmpty() ? MContentItem::SingleTextLabel:
-                                MContentItem::TwoTextLabels, parent)
+: MBasicListItem(subTitle.isEmpty() ? MBasicListItem::IconWithTitle:
+                 MBasicListItem::IconWithTitleAndSubtitle, parent)
 {
     setTitle(title);
+    imageWidget()->setImage (imageId);
     setSubtitle(subTitle);
 
     connect(this, SIGNAL (clicked()),

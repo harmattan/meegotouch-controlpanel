@@ -21,10 +21,10 @@
 #ifndef DCPSINGLECOMPONENT_H
 #define DCPSINGLECOMPONENT_H
 
-#include <MContentItem>
+#include <MBasicListItem>
 #include "pages.h"
 
-class DcpSingleComponent: public MContentItem
+class DcpSingleComponent: public MBasicListItem
 {
     Q_OBJECT
     Q_PROPERTY (QString mattiID READ mattiID)
@@ -33,7 +33,8 @@ public:
     DcpSingleComponent(QGraphicsWidget* parent,
                        const QString &logicalId,
                        const QString &title,
-                       const QString &subTitle="");
+                       const QString &iconId = QString(),
+                       const QString &subTitle = QString());
     ~DcpSingleComponent ();
 
     void setSubPage (const PageHandle &subPage) { m_SubPage = subPage; }

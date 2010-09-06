@@ -32,53 +32,60 @@ DcpMain::CategoryInfos[] =
         QT_TRID_NOOP ("qtn_sett_main_look"),
         "Look & Feel",
         PageHandle::LOOKANDFEEL,
-        NULL
+        "icon-m-settings-personalize",
+        0
     },
     {
         //% "Connectivity"
         QT_TRID_NOOP ("qtn_sett_main_connectivity"),
         "Connectivity",
         PageHandle::CONNECTIVITY,
-        NULL
+        "icon-m-common-wlan",
+        0
     },
     {
         //% "Time & Language"
         QT_TRID_NOOP ("qtn_sett_main_region"),
         "Regional settings",
         PageHandle::REGIONALSETTING,
-        NULL
+        "icon-m-common-clock",
+        0
     },
     {
         //% "Device system"
         QT_TRID_NOOP ("qtn_sett_main_data"),
         "Device system",
         PageHandle::DEVICESYSTEM,
-        NULL
+        "icon-m-common-device-root",
+        0
     },
     {
         //% "Utilities"
         QT_TRID_NOOP ("qtn_sett_main_utilities"),
         "Utilities",
         PageHandle::UTILITIES,
-        NULL
+        "icon-m-settings-utilities",
+        0
     },
     {
         //% "Accounts"
         QT_TRID_NOOP ("qtn_comm_command_accounts"),
         "qtn_sett_main_account", // this is for backward compatibility only
         PageHandle::ServiceAccounts,
-        NULL
+        "icon-m-settings-account",
+        0
     },
     {
         //% "Application settings"
         QT_TRID_NOOP ("qtn_sett_main_application"),
         "Applications",
         PageHandle::Applications,
-        NULL
+        "icon-m-settings-applications",
+        0
     },
     {
         // The last element must have the .titleId == 0
-        0, 0, PageHandle::NOPAGE, NULL
+        0, 0, PageHandle::NOPAGE, 0, 0
     }
 };
 
@@ -88,7 +95,8 @@ const DcpCategoryInfo DcpMain::mostUsedCategory =
     QT_TRID_NOOP("qtn_sett_main_most"),
     "MostUsed",
     PageHandle::NOPAGE,
-    NULL
+    0,
+    0
 };
 
 
@@ -157,7 +165,7 @@ DcpMain::findCategoryInfo (
     /*
      * The default place to find infos.
      */
-    if (info == NULL) {
+    if (info == 0) {
         info = DcpMain::CategoryInfos;
     }
 
@@ -178,7 +186,7 @@ DcpMain::findCategoryInfo (
         /*
          * If we have a chance to search recursively.
          */
-        if (info[n].staticElements != NULL) {
+        if (info[n].staticElements != 0) {
             const DcpCategoryInfo *retval;
 
             retval = findCategoryInfo (name, info[n].staticElements);
@@ -187,7 +195,7 @@ DcpMain::findCategoryInfo (
         }
     }
 
-    return NULL;
+    return 0;
 }
 
 /*!

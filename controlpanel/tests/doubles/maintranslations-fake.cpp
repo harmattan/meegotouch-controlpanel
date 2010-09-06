@@ -27,17 +27,19 @@ DcpMain::CategoryInfos[] =
         "qtn-fake",
         "fake-category",
         PageHandle::LOOKANDFEEL,
-        NULL
+        0,
+        0
     },
     {
         "qtn-fake-2",
         "fake-category-2",
         PageHandle::LOOKANDFEEL,
-        NULL
+        0,
+        0
     },
     {
         // The last element must have the .titleId == 0
-        0, 0, PageHandle::NOPAGE, NULL
+        0, 0, PageHandle::NOPAGE, 0, 0
     }
 };
 
@@ -46,7 +48,8 @@ const DcpCategoryInfo DcpMain::mostUsedCategory =
     "qtn_sett_main_most",
     "mostUsed-category",
     PageHandle::NOPAGE,
-    NULL
+    0,
+    0
 };
 
 
@@ -59,7 +62,7 @@ DcpMain::findCategoryInfo (
         PageHandle::PageTypeId,
         const DcpCategoryInfo*)
 {
-    return NULL;
+    return 0;
 }
 
 const DcpCategoryInfo *
@@ -67,7 +70,7 @@ DcpMain::findCategoryInfo (
         const QString&,
         const DcpCategoryInfo*)
 {
-    return NULL;
+    return 0;
 }
 
 bool

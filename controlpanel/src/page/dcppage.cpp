@@ -47,7 +47,6 @@ void
 DcpPage::createContent ()
 {
     MApplicationPage::createContent ();
-    setObjectName ("DcpPage");
 
     createLayout ();
 }

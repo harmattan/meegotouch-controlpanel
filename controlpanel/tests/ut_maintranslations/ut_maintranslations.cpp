@@ -42,16 +42,17 @@ void Ut_maintranslations::cleanupTestCase()
 void Ut_maintranslations::testFindCategoyInfo()
 {
     const DcpCategoryInfo otherInfos[] = {
-    {                                                                           
-        //% "Applications"                                                      
-        QT_TRID_NOOP ("qtn_sett_main_applications"),                            
-        "Applications",                                                         
-        PageHandle::Applications,                                               
-        NULL                                                                    
-    },                                                                          
-    {                                                                           
-        // The last element must have the .titleId == 0                         
-        0, 0, PageHandle::NOPAGE, NULL                                          
+    {
+        //% "Applications"
+        QT_TRID_NOOP ("qtn_sett_main_applications"),
+        "Applications",
+        PageHandle::Applications,
+        0,
+        0
+    },
+    {
+        // The last element must have the .titleId == 0
+        0, 0, PageHandle::NOPAGE, 0, 0
     }};
  
     QCOMPARE(DcpMain::findCategoryInfo(PageHandle::LOOKANDFEEL),

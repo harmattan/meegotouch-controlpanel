@@ -28,7 +28,8 @@
 
 void Ft_DcpSingleComponent::init()
 {
-    m_subject = new DcpSingleComponent(0, "Logical ID", "title1", "title2");
+    m_subject =
+        new DcpSingleComponent(0, "Logical ID", "title1", "icon", "title2");
     m_subject->setSubPage(PageHandle(PageHandle::LOOKANDFEEL, "Look & Feel"));
 }
 
@@ -77,3 +78,4 @@ void Ft_DcpSingleComponent::testActivate()
 
 
 QTEST_APPLESS_MAIN(Ft_DcpSingleComponent)
+

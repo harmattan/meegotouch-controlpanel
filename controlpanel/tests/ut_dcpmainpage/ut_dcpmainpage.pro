@@ -29,15 +29,16 @@ SOURCES += \
     $$STUBSDIR/mlinearlayoutpolicy-fake.cpp \
     $$STUBSDIR/mcontainer-fake.cpp \
     $$STUBSDIR/dcpcontentitem-fake.cpp \
-    $$LIBDCPFAKES/mcontentitem-fake.cpp \
     $$STUBSDIR/mwidgetcontroller-fake.cpp \
     $$LIBDCPFAKES/mgconfitem-fake.cpp \
+    $$LIBDCPFAKES/mimagewidget-fake.cpp \
 #    $$STUBSDIR/dcppage-fake.cpp \
     $$STUBSDIR/dcpcomponent-fake.cpp \
     $$STUBSDIR/dcpappletdb-fake.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
     $$STUBSDIR/dcpappletplugin-fake.cpp \
     $$STUBSDIR/dcpretranslator-fake.cpp \
+    $$STUBSDIR/mbasiclistitem-fake.cpp \
     $$STUBSDIR/dcpsinglecomponent-fake.cpp \
     $$STUBSDIR/dcpcategorycomponent-fake.cpp \
     $$STUBSDIR/dcpmaincategory-fake.cpp \

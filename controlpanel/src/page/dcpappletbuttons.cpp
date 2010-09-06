@@ -208,7 +208,6 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata)
 
     if (widgetId == DcpWidgetType::Button) {
             DcpContentButton *button = new DcpContentButton (applet, this);
-            button->setObjectName ("DcpContentButton");
             if (!applet) {
                 button->setMetadata (metadata);
             }
@@ -217,7 +216,6 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata)
             briefWidget = button;
     } else {
             DcpContentItem *item = new DcpContentItem (applet, this);
-            item->setObjectName ("DcpContentItem");
             if (!applet) {
                 item->setMetadata (metadata);
             }

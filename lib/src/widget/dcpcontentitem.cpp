@@ -27,6 +27,11 @@
 
 #include "dcpappletdb.h"
 
+static const QString titleObjectName = "CommonTitle";
+static const QString subtitleObjectName = "CommonSubTitle";
+static const QString singleTitleObjectName = "CommonSingleTitle";
+static const QString iconObjectName = "CommonMainIcon";
+static const QString toggleObjectName = "CommonSwitch";
 
 DcpContentItemPrivate::DcpContentItemPrivate ():
     m_Applet (0),
@@ -36,6 +41,7 @@ DcpContentItemPrivate::DcpContentItemPrivate ():
     m_ImageW (0),
     m_Text1W (0),
     m_Text2W (0),
+    m_Spacer (0),
     m_ButtonW (0)
 {
 }
@@ -49,6 +55,7 @@ DcpContentItem::DcpContentItem (
     MListItem (parent),
     d_ptr (new DcpContentItemPrivate)
 {
+    setObjectName ("CommonPanel");
     setApplet (applet);
 }
 
@@ -91,7 +98,7 @@ DcpContentItem::ensureLayoutIsCreated (MLayout*& layout,
     if (!layout) {
         layout = new MLayout(this);
         grid = new MGridLayoutPolicy(layout);
-        layout->setContentsMargins (0,0,10,0); // TODO could be moved to style
+        layout->setContentsMargins (0,0,0,0);
         grid->setSpacing(0);
         d_ptr->m_LayoutIsToBeChanged = true;
     } else {
@@ -108,7 +115,7 @@ DcpContentItem::ensureImageIsCreated()
         MImageWidget* &image = d_ptr->m_ImageW;
         if (!image) {
             image = new MImageWidget();
-            image->setObjectName ("ContentItemImage");
+            image->setObjectName (iconObjectName);
             image->setSizePolicy (QSizePolicy::Fixed, QSizePolicy::Fixed);
             d_ptr->m_LayoutIsToBeChanged = true;
         }
@@ -133,6 +140,7 @@ DcpContentItem::ensureToggleIsCreated()
             connect (button, SIGNAL (clicked(bool)),
                      applet(), SLOT(setToggle(bool)));
             button->setViewType(MButton::switchType);
+            button->setObjectName (toggleObjectName);
             button->setCheckable(true);
             d_ptr->m_LayoutIsToBeChanged = true;
         }
@@ -150,25 +158,32 @@ DcpContentItem::ensureToggleIsCreated()
 void
 DcpContentItem::ensureTextsAreCreated()
 {
+    QString text2 = this->subtitle();
+
     // create the text widgets:
     if (!d_ptr->m_Text1W) {
         d_ptr->m_Text1W = new MLabel();
         // TODO maybe we could find a better solution than using the objectnames
-        // of the elements in MContentItem, because it can break in the future
-        // if MContentItem changes
-        d_ptr->m_Text1W->setObjectName("ContentItemTitle");
+        // of the elements in MBasicListItem, because it can break in the future
+        // if MBasicListItem changes
+        d_ptr->m_Text1W->setObjectName(text2.isEmpty() ? singleTitleObjectName
+                                       : titleObjectName);
         d_ptr->m_LayoutIsToBeChanged = true;
     }
     if (!d_ptr->m_Text2W) {
         d_ptr->m_Text2W = new MLabel();
-        d_ptr->m_Text2W->setObjectName("ContentItemSubtitle");
+        d_ptr->m_Text2W->setObjectName(subtitleObjectName);
         d_ptr->m_LayoutIsToBeChanged = true;
+    }
+    if (!d_ptr->m_Spacer) {
+        d_ptr->m_Spacer = new QGraphicsWidget();
     }
 
     // update their texts:
     d_ptr->m_Text1W->setText (title());
-    QString text2 = this->subtitle();
     if (d_ptr->m_Text2W->text().isEmpty() != text2.isEmpty()) {
+        d_ptr->m_Text1W->setObjectName(text2.isEmpty() ? singleTitleObjectName
+                                       : titleObjectName);
         d_ptr->m_LayoutIsToBeChanged = true;
     }
     d_ptr->m_Text2W->setText (text2);
@@ -202,20 +217,21 @@ DcpContentItem::ensureWidgetsAreLayouted()
 
     if (d_ptr->m_ImageW) {
         grid->addItem (d_ptr->m_ImageW, 0,0,
-                       textLinesCount+2, 1, Qt::AlignCenter);
+                       textLinesCount+1, 1, Qt::AlignCenter);
     }
-    grid->addItem(new QGraphicsWidget(), 0, textX);
-    grid->addItem (d_ptr->m_Text1W, 1, textX, text1Align);
+//    grid->addItem(new QGraphicsWidget(), 0, textX);
+    grid->addItem (d_ptr->m_Text1W, 0, textX, text1Align);
     if (hasTwoTextLines()) {
+        grid->addItem (d_ptr->m_Text2W, 1, textX, Qt::AlignTop);
+        grid->addItem (d_ptr->m_Spacer, textLinesCount, textX);
         d_ptr->m_Text2W->show();
-        grid->addItem (d_ptr->m_Text2W, 2, textX, Qt::AlignTop);
     } else {
+        d_ptr->m_Spacer->hide();
         d_ptr->m_Text2W->hide();
     }
-    grid->addItem(new QGraphicsWidget(), textLinesCount+1, textX);
     if (d_ptr->m_ButtonW) {
         grid->addItem (d_ptr->m_ButtonW, 0, textX+1,
-                       textLinesCount+2, 1, Qt::AlignCenter);
+                       textLinesCount+1, 1, Qt::AlignCenter);
     }
 }
 
