@@ -1,4 +1,4 @@
-duicontrolpanel (0.8.12~unreleased) unstable; urgency=low
+duicontrolpanel (0.8.12) unstable; urgency=low
 
   * Fixes: NB#184916 - Back button closes the controlpanel in this
     scenario
