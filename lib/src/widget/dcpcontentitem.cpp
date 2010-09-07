@@ -55,7 +55,7 @@ DcpContentItem::DcpContentItem (
     MListItem (parent),
     d_ptr (new DcpContentItemPrivate)
 {
-    setStyleName ("CommonPanel");
+    setObjectName ("CommonPanel");
     setApplet (applet);
 }
 
@@ -115,7 +115,7 @@ DcpContentItem::ensureImageIsCreated()
         MImageWidget* &image = d_ptr->m_ImageW;
         if (!image) {
             image = new MImageWidget();
-            image->setStyleName (iconObjectName);
+            image->setObjectName (iconObjectName);
             image->setSizePolicy (QSizePolicy::Fixed, QSizePolicy::Fixed);
             d_ptr->m_LayoutIsToBeChanged = true;
         }
@@ -140,7 +140,7 @@ DcpContentItem::ensureToggleIsCreated()
             connect (button, SIGNAL (clicked(bool)),
                      applet(), SLOT(setToggle(bool)));
             button->setViewType(MButton::switchType);
-            button->setStyleName (toggleObjectName);
+            button->setObjectName (toggleObjectName);
             button->setCheckable(true);
             d_ptr->m_LayoutIsToBeChanged = true;
         }
@@ -166,13 +166,13 @@ DcpContentItem::ensureTextsAreCreated()
         // TODO maybe we could find a better solution than using the objectnames
         // of the elements in MBasicListItem, because it can break in the future
         // if MBasicListItem changes
-        d_ptr->m_Text1W->setStyleName(text2.isEmpty() ? singleTitleObjectName
+        d_ptr->m_Text1W->setObjectName(text2.isEmpty() ? singleTitleObjectName
                                        : titleObjectName);
         d_ptr->m_LayoutIsToBeChanged = true;
     }
     if (!d_ptr->m_Text2W) {
         d_ptr->m_Text2W = new MLabel();
-        d_ptr->m_Text2W->setStyleName(subtitleObjectName);
+        d_ptr->m_Text2W->setObjectName(subtitleObjectName);
         d_ptr->m_LayoutIsToBeChanged = true;
     }
     if (!d_ptr->m_Spacer) {
@@ -182,7 +182,7 @@ DcpContentItem::ensureTextsAreCreated()
     // update their texts:
     d_ptr->m_Text1W->setText (title());
     if (d_ptr->m_Text2W->text().isEmpty() != text2.isEmpty()) {
-        d_ptr->m_Text1W->setStyleName(text2.isEmpty() ? singleTitleObjectName
+        d_ptr->m_Text1W->setObjectName(text2.isEmpty() ? singleTitleObjectName
                                        : titleObjectName);
         d_ptr->m_LayoutIsToBeChanged = true;
     }

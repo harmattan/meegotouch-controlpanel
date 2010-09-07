@@ -44,6 +44,7 @@ void SkeletonWidget::initWidget()
     mainLayout->setPolicy(mainLayoutPolicy);
 	
 	m_aboutLabel = new MLabel("About", this);
+	m_aboutLabel->setObjectName("LabelAbout");
 	
 	mainLayoutPolicy->addItem(m_aboutLabel, Qt::AlignLeft);
     setLayout(mainLayout);
