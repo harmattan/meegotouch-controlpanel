@@ -36,7 +36,7 @@ void SkeletonWidget::initWidget()
 	
     //% "This is a skeleton applet, a minimal binaryapplet for controlpanel"
 	m_aboutLabel = new MLabel(qtTrId("dcp_skel_appl_label"), this);
-	m_aboutLabel->setObjectName("LabelAbout");
+	m_aboutLabel->setStyleName("LabelAbout");
 	
 	mainLayoutPolicy->addItem(m_aboutLabel, Qt::AlignLeft);
     setLayout(mainLayout);

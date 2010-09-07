@@ -20,5 +20,6 @@
 void MWidgetController::setView(MWidgetView*) {}
 MWidgetController::MWidgetController(QGraphicsItem *parent){ QGraphicsItem::setParentItem(parent); }
 void MWidgetController::setObjectName (const QString&) {}
+void MWidgetController::setStyleName (const QString&) {}
 MWidgetController::~MWidgetController() {}
 
