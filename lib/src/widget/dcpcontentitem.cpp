@@ -126,6 +126,7 @@ DcpContentItem::ensureImageIsCreated()
             d_ptr->m_ImageW = 0;
             d_ptr->m_LayoutIsToBeChanged = true;
         }
+        d_ptr->m_ImageName = "";
     }
 }
 
@@ -319,12 +320,10 @@ DcpContentItem::setApplet (DcpAppletObject *applet)
      * we can connect some signals.
      */
     if (d_ptr->m_Applet) {
-        // we only update if we are visible, since showEvent also updates
-        if (isVisible()) {
-            constructRealWidget ();
-            connect (d_ptr->m_Applet, SIGNAL (briefChanged ()),
-                this, SLOT (updateContents()));
-        }
+        // update
+        constructRealWidget ();
+        connect (d_ptr->m_Applet, SIGNAL (briefChanged ()),
+                 this, SLOT (updateContents()));
 
         /*
          * This will count the activations and activate the applet.
@@ -344,10 +343,8 @@ DcpContentItem::setMetadata (DcpAppletMetadata* metadata)
      * If we have an applet object we can construct a widget for that
      */
     if (metadata) {
-        // we only update if we are visible, since showEvent also updates
-        if (isVisible()) {
-            constructRealWidget ();
-        }
+        // update
+        constructRealWidget ();
     }
 }
 
@@ -377,6 +374,8 @@ void DcpContentItem::updateImage ()
     if (widgetType() == DcpWidgetType::Image) {
         Q_ASSERT (d_ptr->m_Applet);
         QString source = d_ptr->m_Applet->iconName();
+        qDebug ("Image %s from %s", qPrintable(source),
+                qPrintable(d_ptr->m_Applet->metadata()->name()));
 
         /*
          * The image file might be big, so we need a little speed up here, otherwise
@@ -441,31 +440,12 @@ DcpContentItem::setImageFromFile (const QString& fileName)
 void
 DcpContentItem::showEvent (QShowEvent * event)
 {
-    if (d_ptr->m_Hidden) {
-        // prevents multiple showEvents coming
-        d_ptr->m_Hidden = false;
-
-        if (d_ptr->m_Applet) {
-            connect (d_ptr->m_Applet, SIGNAL (briefChanged ()),
-                this, SLOT (updateContents()));
-        }
-
-        updateContents();
-    }
     MListItem::showEvent(event);
 }
 
 void
 DcpContentItem::hideEvent (QHideEvent * event)
 {
-    if (!d_ptr->m_Hidden) {// prevents multiple hideEvents coming
-        d_ptr->m_Hidden = true;
-
-        if (d_ptr->m_Applet) {
-            disconnect (d_ptr->m_Applet, SIGNAL (briefChanged()),
-                        this, SLOT (updateContents()));
-        }
-    }
     MListItem::hideEvent(event);
 }
 

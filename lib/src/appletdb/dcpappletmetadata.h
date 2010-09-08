@@ -28,6 +28,7 @@
 class MDesktopEntry;
 class DcpAppletMetadataPrivate;
 
+
 /*!
  * \brief This class contains all the information coming from the desktop file
  *        of the applet.
@@ -115,6 +116,7 @@ private:
     Q_DISABLE_COPY (DcpAppletMetadata);
     friend class Ut_DcpAppletMetadata;
 };
+
 
 #endif
 

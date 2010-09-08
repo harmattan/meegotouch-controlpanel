@@ -85,22 +85,6 @@ void Ut_DcpContentItem::testRetranslateUi()
     QCOMPARE (m_Target->d_ptr->m_Text1W->text(), applet->text1());
 }
 
-void Ut_DcpContentItem::testShowHideEvent()
-{
-    DcpAppletObject* applet =
-        new DcpAppletObject(new DcpAppletMetadata("fake"));
-    m_Target->setApplet (applet);
-    m_Target->hideEvent(0);
-
-    // check if the widget updates on showEvent
-    m_Target->d_ptr->m_Text1W->setText ("xxx");
-    m_Target->showEvent(0);
-    QCOMPARE (m_Target->d_ptr->m_Text1W->text(), applet->text1());
-
-    // check if signals gets reconnected on showEvent
-    // ... TODO
-}
-
 void Ut_DcpContentItem::testConstructRealWidget()
 {
     DcpAppletObject* applet =

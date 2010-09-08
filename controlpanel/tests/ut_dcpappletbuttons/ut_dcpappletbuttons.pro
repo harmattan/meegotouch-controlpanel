@@ -27,7 +27,11 @@ SOURCES += \
     $$STUBSDIR/dcpretranslator-fake.cpp \
     $$STUBSDIR/mwidgetcontroller-fake.cpp \
     $$STUBSDIR/dcpcontentitem-fake.cpp \
+    $$STUBSDIR/dcpcontentitemcellcreator-fake.cpp \
     $$STUBSDIR/qgraphicsobject-fake.cpp \
+    $$STUBSDIR/mlist-fake.cpp \
+    $$STUBSDIR/mtheme-fake.cpp \
+    $$STUBSDIR/qgraphicslinearlayout-fake.cpp \
     $$TEST_SOURCES \
 
 # base classes
@@ -41,6 +45,7 @@ HEADERS += \
     $$SRCDIR/page/dcpappletbuttons.h \
     $$SRCDIR/component/dcpmaincategory.h \
     $$SRCDIR/component/dcpcomponent.h \
+    $$SRCDIR/page/dcpcontentitemcellcreator.h \
 
 # base classes
 HEADERS += \

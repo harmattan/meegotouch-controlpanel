@@ -20,33 +20,39 @@
 #include "dcpappletbuttons.h"
 #include "maintranslations.h"
 #include "dcpdebug.h"
+#include "dcpcontentitemcellcreator.h"
 
 #include <Pages>
 #include <DcpAppletDb>
 #include <DcpAppletMetadata>
 #include <DcpAppletObject>
 #include <DcpApplet>
-#include <DcpWidgetTypes>
 #include <DcpContentButton>
-#include <DcpContentItem>
+#include <DcpWidgetTypes>
 
-#include <MSceneManager>
-// #include <MGridLayoutPolicy>
-// #include <MLinearLayoutPolicy>
 #include <DcpRetranslator>
-#include <QGraphicsLayout>
+
+#include <MList>
+#include <QStandardItemModel>
+#include <QStandardItem>
+#include <QVariant>
 
 DcpAppletButtons::DcpAppletButtons (
         const DcpCategoryInfo  *categoryInfo,
         QGraphicsWidget        *parent)
-: DcpMainCategory (parent, categoryInfo->titleId),
+: DcpMainCategory (parent),
     m_CategoryInfo (categoryInfo),
-    m_AppletLoaderPos (0)
+    m_AppletLoaderPos (0),
+    m_List (new MList(this))
 {
+    DcpContentItemCellCreator* cellCreator = new DcpContentItemCellCreator();
+    m_List->setCellCreator(cellCreator);
+    appendWidget (m_List);
+
     createContents ();
     setMattiID (
-            QString ("DcpAppletButtons::") + 
-            categoryInfo->titleId + "::" + 
+            QString ("DcpAppletButtons::") +
+            categoryInfo->titleId + "::" +
             categoryInfo->appletCategory);
 }
 
@@ -60,7 +66,7 @@ DcpAppletButtons::~DcpAppletButtons()
 void
 DcpAppletButtons::markAllInactive()
 {
-    for(int i=0; i<getItemCount(); i++) {
+    for(int i=0; i<metadataCount(); i++) {
         DcpAppletMetadata* metadata = this->appletMetadata(i);
         if (metadata) {
             metadata->markInactive();
@@ -95,20 +101,27 @@ DcpAppletButtons::createContents ()
                     withUncategorized ? DcpMain::isCategoryNameEnlisted : NULL);
     }
 
-    // ensure that all needed catalogs are loaded for the applets before construction
+
+    // ensure that all needed catalogs are loaded for the applets before
     DcpRetranslator::instance()->ensureTranslationsAreLoaded(metadatas);
 
-    // adds the briefwidgets
-    foreach (DcpAppletMetadata* item, metadatas) {
-        addComponent (item);
+    // add the elements:
+    QStandardItemModel* model = new QStandardItemModel(m_List);
+    foreach (DcpAppletMetadata* metadata, metadatas) {
+        addComponent (metadata, model);
     }
+
+    QAbstractItemModel* prevModel = m_List->itemModel();
+    m_List->setItemModel (model);
+    delete prevModel;
 }
 
 void
 DcpAppletButtons::startLoading()
 {
     m_AppletLoaderPos = 0;
-    if (getItemCount() > 0) {
+
+    if (metadataCount() > 0) {
         m_AppletLoaderTimer = startTimer (0);
     } else {
         emit loadingFinished();
@@ -119,7 +132,7 @@ bool
 DcpAppletButtons::loadingStepNext()
 {
     // stop if loading finished:
-    if (m_AppletLoaderPos >= getItemCount()) {
+    if (m_AppletLoaderPos >= metadataCount()-1) {
         killTimer (m_AppletLoaderTimer);
         emit loadingFinished();
         return false;
@@ -129,33 +142,35 @@ DcpAppletButtons::loadingStepNext()
 }
 
 /*
- * loads the applet of the specified widget.
- * item can be DcpContentButton or DcpContentItem
+ * loads the applet of the widget in the specified row
  * returns true if the loading was necessery, otherwise
  *         false (the applet was already loaded)
  */
-bool DcpAppletButtons::loadApplet (QGraphicsObject* item)
+bool DcpAppletButtons::loadApplet (int row)
 {
-    DcpContentButton* cbutton = qobject_cast<DcpContentButton*> (item);
-    DcpContentItem* citem = qobject_cast<DcpContentItem*> (item);
+    DcpAppletMetadata* metadata = appletMetadata (row);
+    DcpAppletDb* db = DcpAppletDb::instance();
+    QString appletId = metadata->name();
 
-    if (cbutton) {
+    // if an applet is already loaded, we have to do nothing:
+    if (db->isAppletLoaded(appletId)) return false;
 
-        // if an applet is already loaded, we have to do nothing:
-        if (cbutton->applet()) return false;
-
-        cbutton->loadApplet ();
-
+    DcpAppletObject* applet = db->applet (appletId);
+    if (applet->isAppletLoaded()) {
+        QStandardItemModel* model =
+            qobject_cast<QStandardItemModel*>(m_List->itemModel());
+        Q_ASSERT (model);
+        QStandardItem* item = model->item (row);
+        item->setData (QVariant::fromValue(applet), Qt::UserRole + 2);
+    } else {
         // if no applet got loaded, we did nothing:
-        if (!cbutton->applet()->isAppletLoaded()) return false;
-
-    } else if (citem) {
-        if (citem->applet()) return false;
-        citem->loadApplet ();
-        if (!citem->applet()->isAppletLoaded()) return false;
+        return false;
     }
+
     return true;
 }
+
+
 
 void
 DcpAppletButtons::timerEvent(QTimerEvent *event)
@@ -166,35 +181,42 @@ DcpAppletButtons::timerEvent(QTimerEvent *event)
         bool wasLoadingNecessary;
         bool hasMoreItems;
         do {
-            wasLoadingNecessary =
-                loadApplet (widgetAt (m_AppletLoaderPos));
+            wasLoadingNecessary = loadApplet (m_AppletLoaderPos);
             hasMoreItems = loadingStepNext ();
             // end loop if an applet was loaded, or if there is no more items:
         } while (!wasLoadingNecessary && hasMoreItems);
     }
 }
 
+int
+DcpAppletButtons::metadataCount () const
+{
+    QStandardItemModel* model =
+        qobject_cast<QStandardItemModel*>(m_List->itemModel());
+    if (!model) return 0;
+    return model->rowCount();
+}
+
 DcpAppletMetadata*
 DcpAppletButtons::appletMetadata (int pos)
 {
-    QGraphicsWidget* widget = widgetAt(pos);
-    if (!widget) return 0;
+    QStandardItemModel* model =
+        qobject_cast<QStandardItemModel*>(m_List->itemModel());
+    if (!model) return 0;
 
-    DcpContentItem* contentItem = qobject_cast<DcpContentItem*>(widget);
-    if (contentItem) return contentItem->metadata();
+    Q_ASSERT (pos < model->rowCount());
+    Q_ASSERT (pos >= 0);
 
-    DcpContentButton* contentWidget = qobject_cast<DcpContentButton*>(widget);
-    if (contentWidget) return contentWidget->metadata();
-
-    return 0;
+    return model->item (pos)->data().value<DcpAppletMetadata*>();
 }
 
+
 void
-DcpAppletButtons::addComponent (DcpAppletMetadata *metadata)
+DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
+                                QStandardItemModel* model)
 {
     metadata->markActive();
 
-    QGraphicsWidget *briefWidget;
     int widgetId = metadata->widgetTypeID();
 
     // if the applet is already loaded, we skip the two step, and
@@ -207,38 +229,42 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata)
     }
 
     if (widgetId == DcpWidgetType::Button) {
-            DcpContentButton *button = new DcpContentButton (applet, this);
-            if (!applet) {
-                button->setMetadata (metadata);
-            }
-            button->setMattiID ("DcpContentButton::" + logicalId() + "::" +
-                             metadata->category() + "::" + name);
-            briefWidget = button;
-    } else {
-            DcpContentItem *item = new DcpContentItem (applet, this);
-            if (!applet) {
-                item->setMetadata (metadata);
-            }
-            item->setMattiID ("DcpContentItem::" + logicalId() + "::" +
-                             metadata->category() + "::" + name);
+        DcpContentButton *button = new DcpContentButton (applet, this);
+        if (!applet) {
+//            in case it is needed we can load it later also
+//            button->setMetadata (metadata);
+            button->setApplet (db->applet(name));
+        }
+        button->setMattiID ("DcpContentButton::" + logicalId() + "::" +
+                         metadata->category() + "::" + name);
+        button->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
 
-            briefWidget = item;
+        // put it before the mlist:
+        mLayout()->insertItem (getItemCount()-1, button);
+
+    } else {
+        QString mattiID = "DcpContentItem::" + logicalId() + "::" +
+                          metadata->category() + "::" + name;
+
+        QStandardItem* item = new QStandardItem();
+        item->setData (QVariant::fromValue(metadata));
+        item->setData (QVariant::fromValue(applet), Qt::UserRole+2);
+        item->setData (mattiID, Qt::UserRole+3);
+        model->appendRow(item);
     }
-    briefWidget->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
-    appendWidget (briefWidget);
 }
 
 
 bool
 DcpAppletButtons::reload ()
 {
-//    FIXME, maybe we could make it more optimal with reusing the existing
-//    widgets (at most one additional widget is coming, at most one is to be
-//    removed)
-//
-
     markAllInactive();
-    deleteItems ();
+
+    // delete DcpContentButtons:
+    for (int i=0; i<getItemCount()-1; i++) {
+        QGraphicsWidget* w = widgetAt (i);
+        delete w;
+    }
     createContents ();
     return true;
 }

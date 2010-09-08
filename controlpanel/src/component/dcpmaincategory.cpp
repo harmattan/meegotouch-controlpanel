@@ -42,8 +42,6 @@ DcpMainCategory::deleteItems ()
     QGraphicsLinearLayout* layout = mLayout();
     if (!layout) return;
 
-    // delete all items in all policies:
-
     for (int i = layout->count() - 1; i >= 0; i--){
         QGraphicsWidget* widget = (QGraphicsWidget*)
                                   (layout->itemAt(i)->graphicsItem());

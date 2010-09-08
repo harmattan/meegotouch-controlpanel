@@ -89,7 +89,7 @@ DcpAppletCategoryPage::appletCount()
         m_Category->setCategoryInfo (m_CategoryInfo);
     }
 
-    return m_Category->getItemCount();
+    return m_Category->metadataCount();
 }
 
 /*! \brief Returns the metadata at the specified position.

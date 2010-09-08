@@ -26,6 +26,7 @@
 #include "maintranslations.h"
 
 class DcpAppletMetadata;
+class QStandardItemModel;
 
 class DcpAppletButtons :
     public DcpMainCategory
@@ -44,6 +45,7 @@ public:
             DcpAppletMetadata *metadata);
 
     virtual bool reload();
+    int metadataCount () const;
     DcpAppletMetadata* appletMetadata (int pos);
 
 public slots:
@@ -55,9 +57,10 @@ signals:
 
 protected:
     virtual void createContents();
-    bool loadApplet(QGraphicsObject* item);
+    bool loadApplet(int row);
     bool loadingStepNext();
     void timerEvent(QTimerEvent* event);
+    void addComponent (DcpAppletMetadata *metadata, QStandardItemModel* model);
 
 private:
     void markAllInactive();
@@ -68,6 +71,8 @@ private:
     // shows the progress of the applet loading process:
     int m_AppletLoaderTimer;
     int m_AppletLoaderPos;
+
+    class MList* m_List;
 };
 
 #endif

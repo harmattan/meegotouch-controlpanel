@@ -116,6 +116,6 @@ DcpCategoryComponent::reload ()
 int
 DcpCategoryComponent::getItemCount ()
 {
-    return m_AppletButtons ? m_AppletButtons->getItemCount () : 0;
+    return m_AppletButtons ? m_AppletButtons->metadataCount () : 0;
 }
 

@@ -63,3 +63,10 @@ void DcpAppletButtons::timerEvent(QTimerEvent*) {}
 
 void DcpAppletButtons::startLoading () {}
 
+int
+DcpAppletButtons::metadataCount () const
+{
+    return 0;
+}
+
+

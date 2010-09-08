@@ -38,7 +38,6 @@ private slots:
     void testMattiId();
     void testUpdateContents();
     void testRetranslateUi();
-    void testShowHideEvent();
     void testConstructRealWidget();
     void testUpdateText();
     void testUpdateImage();
