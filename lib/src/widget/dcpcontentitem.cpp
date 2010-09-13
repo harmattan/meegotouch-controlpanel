@@ -55,6 +55,7 @@ DcpContentItem::DcpContentItem (
     MListItem (parent),
     d_ptr (new DcpContentItemPrivate)
 {
+    connect (this, SIGNAL (clicked()), this, SLOT (onClicked()));
     setObjectName ("CommonPanel");
     setApplet (applet);
 }
@@ -138,17 +139,21 @@ DcpContentItem::ensureToggleIsCreated()
         MButton* &button = d_ptr->m_ButtonW;
         if (!button) {
             button = new MButton();
-            connect (button, SIGNAL (clicked(bool)),
-                     applet(), SLOT(setToggle(bool)));
             button->setViewType(MButton::switchType);
             button->setObjectName (toggleObjectName);
             button->setCheckable(true);
+            connect (button, SIGNAL (clicked(bool)),
+                     applet(), SLOT(setToggle(bool)));
             d_ptr->m_LayoutIsToBeChanged = true;
         }
         // update switch state:
         button->setChecked (isChecked());
     } else {
         if (d_ptr->m_ButtonW) {
+            if (applet()) {
+                disconnect (d_ptr->m_ButtonW, SIGNAL (clicked(bool)),
+                            applet(), SLOT(setToggle(bool)));
+            }
             delete d_ptr->m_ButtonW;
             d_ptr->m_ButtonW = 0;
             d_ptr->m_LayoutIsToBeChanged = true;
@@ -325,13 +330,22 @@ DcpContentItem::setApplet (DcpAppletObject *applet)
         connect (d_ptr->m_Applet, SIGNAL (briefChanged ()),
                  this, SLOT (updateContents()));
 
-        /*
-         * This will count the activations and activate the applet.
-         */
-        connect (this, SIGNAL (clicked()),
-                 d_ptr->m_Applet, SLOT (slotClicked()));
     }
 }
+
+void DcpContentItem::onClicked ()
+{
+    Q_ASSERT (metadata());
+
+    // force loading the applet in case it is not yet loaded
+    if (!applet()) loadApplet();
+
+    /*
+     * This will count the activations and activate the applet.
+     */
+    applet()->slotClicked ();
+}
+
 
 void
 DcpContentItem::setMetadata (DcpAppletMetadata* metadata)

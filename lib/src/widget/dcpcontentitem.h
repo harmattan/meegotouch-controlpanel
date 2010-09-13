@@ -96,6 +96,8 @@ protected slots:
      */
     void updateContents ();
 
+    void onClicked ();
+
 protected:
     virtual void retranslateUi ();
     virtual void showEvent (QShowEvent *event);

@@ -45,6 +45,14 @@ DuiControlPanelService::DuiControlPanelService ():
 }
 
 
+void
+DuiControlPanelService::launch ()
+{
+    mainPage();
+    MApplicationService::launch ();
+}
+
+
 bool
 DuiControlPanelService::registerService ()
 {

@@ -161,7 +161,8 @@ bool DcpAppletButtons::loadApplet (int row)
             qobject_cast<QStandardItemModel*>(m_List->itemModel());
         Q_ASSERT (model);
         QStandardItem* item = model->item (row);
-        item->setData (QVariant::fromValue(applet), Qt::UserRole + 2);
+        item->setData (QVariant::fromValue(applet),
+                       DcpContentItemCellCreator::AppletRole);
     } else {
         // if no applet got loaded, we did nothing:
         return false;
@@ -228,6 +229,9 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
         applet = db->applet (name);
     }
 
+    QString mattiPostfix = QString(m_CategoryInfo->titleId) +
+                           "::" + metadata->category() + "::" + name;
+
     if (widgetId == DcpWidgetType::Button) {
         DcpContentButton *button = new DcpContentButton (applet, this);
         if (!applet) {
@@ -235,21 +239,21 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
 //            button->setMetadata (metadata);
             button->setApplet (db->applet(name));
         }
-        button->setMattiID ("DcpContentButton::" + logicalId() + "::" +
-                         metadata->category() + "::" + name);
+        button->setMattiID ("DcpContentButton::" + mattiPostfix);
         button->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
 
         // put it before the mlist:
         mLayout()->insertItem (getItemCount()-1, button);
 
     } else {
-        QString mattiID = "DcpContentItem::" + logicalId() + "::" +
-                          metadata->category() + "::" + name;
+        QString mattiID = "DcpContentItem::" + mattiPostfix;
 
         QStandardItem* item = new QStandardItem();
-        item->setData (QVariant::fromValue(metadata));
-        item->setData (QVariant::fromValue(applet), Qt::UserRole+2);
-        item->setData (mattiID, Qt::UserRole+3);
+        item->setData (QVariant::fromValue(metadata),
+                       DcpContentItemCellCreator::MetadataRole);
+        item->setData (QVariant::fromValue(applet),
+                       DcpContentItemCellCreator::AppletRole);
+        item->setData (mattiID, DcpContentItemCellCreator::MattiRole);
         model->appendRow(item);
     }
 }

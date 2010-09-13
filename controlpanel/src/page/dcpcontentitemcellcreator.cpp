@@ -22,10 +22,10 @@ void DcpContentItemCellCreator::updateCell (
     DcpContentItem * contentItem = qobject_cast<DcpContentItem *>(cell);
 
     DcpAppletMetadata* metadata =
-        index.data(Qt::UserRole + 1).value<DcpAppletMetadata*>();
+        index.data(MetadataRole).value<DcpAppletMetadata*>();
     DcpAppletObject* applet =
-        index.data(Qt::UserRole + 2).value<DcpAppletObject*>();
-    QString mattiID = index.data(Qt::UserRole + 3).toString();
+        index.data(AppletRole).value<DcpAppletObject*>();
+    QString mattiID = index.data(MattiRole).toString();
 
     if (applet) {
         contentItem->setApplet (applet);

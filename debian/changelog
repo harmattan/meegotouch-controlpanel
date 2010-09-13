@@ -1,9 +1,12 @@
 duicontrolpanel (0.8.13~unreleased) unstable; urgency=low
 
-  * delayed widget creation at applet list makes it possible to create long
+  * Changes: delayed widget creation at applet list makes it possible to create long
     applet lists
+  * Fixes: DcpContentItem could not be clicked until the applet got loaded
+  * Fixes: NB#189265 - Tapping Settings button in status menu does not
+    open settings view
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 09 Sep 2010 16:32:09 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 13 Sep 2010 15:02:15 +0200
 
 duicontrolpanel (0.8.12.1) unstable; urgency=low
 
