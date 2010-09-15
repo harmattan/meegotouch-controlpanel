@@ -6,8 +6,10 @@ duicontrolpanel (0.8.13~unreleased) unstable; urgency=low
   * Fixes: NB#189265 - Tapping Settings button in status menu does not
     open settings view
   * Changes: Adds tracker::TrackerReadAccess credential
+  * Fixes: NB#191373 -  Source package 'duicontrolpanel' interfaces not
+    frozen in 0.2010.36-5
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 15 Sep 2010 11:19:49 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 15 Sep 2010 11:22:20 +0200
 
 duicontrolpanel (0.8.12.1) unstable; urgency=low
 
