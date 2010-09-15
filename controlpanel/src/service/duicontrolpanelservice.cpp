@@ -22,10 +22,12 @@
 #include "pagefactory.h"
 
 #include "duicontrolpanelifadaptor.h"
+#include "duicontrolpanelif.h"
+
+#include <MApplicationIfAdaptor>
 #include <QtDebug>
 #include <MApplication>
 #include <MWindow>
-#include "duicontrolpanelif.h"
 
 static const char* serviceName = "com.nokia.DuiControlPanel";
 bool DuiControlPanelService::isStartedByServiceFw = false;
@@ -44,26 +46,39 @@ DuiControlPanelService::DuiControlPanelService ():
     }
 }
 
-
 void
 DuiControlPanelService::launch ()
 {
-    mainPage();
     MApplicationService::launch ();
+    mainPage();
+}
+
+void
+DuiControlPanelService::launch (const QStringList &parameters)
+{
+    if (parameters.isEmpty()) {
+        mainPage();
+    } else {
+        appletPage (parameters.at(0));
+    }
 }
 
 
 bool
 DuiControlPanelService::registerService ()
 {
+//    MApplicationService::registerService();
     // memory owned by QDBusAbstractAdaptor instance and must be on the heap
     new DuiControlPanelIfAdaptor(this);
+    new MApplicationIfAdaptor(this);
 
     QDBusConnection connection = QDBusConnection::sessionBus();
 
     bool ret = connection.registerService(serviceName);
     if (ret) {
-        ret = connection.registerObject("/", this);
+        ret = connection.registerObject("/", this)
+              && connection.registerObject("/org/maemo/m", this);
+
         if (!ret) {
             qWarning ("Error while registering the service object");
         }
@@ -87,7 +102,8 @@ DuiControlPanelService::appletPage (
     sheduleStart(handle);
 
     // TODO this hack prevents a servicefw issue, that the app does not get the
-    // first query Result means nothing...
+    // first query
+    // Result means nothing...
     return true;
 }
 

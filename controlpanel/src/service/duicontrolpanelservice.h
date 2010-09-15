@@ -29,15 +29,15 @@ class DuiControlPanelService: public MApplicationService
     Q_OBJECT
 public:
     DuiControlPanelService();
-
     void createStartPage();
 
     static bool isStartedByServiceFw;
 
 public Q_SLOTS:
+    void launch ();
+    void launch (const QStringList &parameters);
     bool appletPage(const QString& appletName);
     void categoryPage(const QString& category);
-    void launch();
     void mainPage();
     bool registerService ();
 
