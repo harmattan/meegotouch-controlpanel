@@ -2,6 +2,7 @@
   <request>
     <credential name="Cellular" />
     <credential name="timed::TimeControl" />
+    <credential name="tracker::TrackerReadAccess" />
     <for path="/usr/bin/duicontrolpanel.launch" />
   </request>
 </aegis>

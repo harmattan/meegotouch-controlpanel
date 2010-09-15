@@ -5,8 +5,9 @@ duicontrolpanel (0.8.13~unreleased) unstable; urgency=low
   * Fixes: DcpContentItem could not be clicked until the applet got loaded
   * Fixes: NB#189265 - Tapping Settings button in status menu does not
     open settings view
+  * Changes: Adds tracker::TrackerReadAccess credential
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 13 Sep 2010 15:02:15 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 15 Sep 2010 11:19:49 +0200
 
 duicontrolpanel (0.8.12.1) unstable; urgency=low
 
