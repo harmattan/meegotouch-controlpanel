@@ -9,8 +9,10 @@ duicontrolpanel (0.8.13) unstable; urgency=low
   * Fixes: NB#191373 -  Source package 'duicontrolpanel' interfaces not
     frozen in 0.2010.36-5
   * Workarounds: 188565 -  Offline mode button is left aligned...
+  * Fixes: NB#192086 - Glitch in applet name when returning from an
+    applet
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 15 Sep 2010 12:28:02 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 15 Sep 2010 13:16:27 +0200
 
 duicontrolpanel (0.8.12.1) unstable; urgency=low
 
