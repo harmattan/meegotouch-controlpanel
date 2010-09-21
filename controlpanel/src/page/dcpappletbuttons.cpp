@@ -243,7 +243,7 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
         button->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
 
         // put it before the mlist:
-#if 0
+#ifdef NB188565
         mLayout()->insertItem (getItemCount()-1, button);
 #else
         // FIXME: this is a workaround for 188565 -  Offline mode button is left aligned...
@@ -281,7 +281,11 @@ DcpAppletButtons::reload ()
 
     // delete DcpContentButtons:
     for (int i=0; i<getItemCount()-1; i++) {
+#ifdef NB188565
         QGraphicsWidget* w = widgetAt (i);
+#else
+        QGraphicsLayoutItem* w = layout()->itemAt (i);
+#endif
         delete w;
     }
     createContents ();
