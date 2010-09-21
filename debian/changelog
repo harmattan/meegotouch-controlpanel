@@ -1,4 +1,4 @@
-duicontrolpanel (0.8.14~unreleased) unstable; urgency=low
+duicontrolpanel (0.8.14) unstable; urgency=low
 
   * Fixes: NB#192485 - Settings app view switches back from applet view
     to main view when we try to open the settings app once again
