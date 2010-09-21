@@ -50,7 +50,9 @@ private slots:
 //    void testText1(); it can't be tested
     void testImageName();
     void testOrder();
+#ifdef MOSTUSED
     void testUsage();
+#endif
     void testPart();
     void testSetGetParent();
     void testParentName();

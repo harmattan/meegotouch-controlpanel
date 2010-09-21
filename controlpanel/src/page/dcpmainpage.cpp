@@ -47,7 +47,9 @@ M_REGISTER_WIDGET_NO_CREATE(DcpMainPage)
  */
 DcpMainPage::DcpMainPage() :
     DcpPage (),
+#ifdef MOSTUSED
     m_RecentlyComp (0),
+#endif
     m_HasContent (false),
     m_WasHidden (false)
 {
@@ -72,11 +74,15 @@ DcpMainPage::shown ()
             m_WasHidden = false;
             reload ();
         }
+#ifdef MOSTUSED
         m_RecentlyComp->startLoading();
+#endif
         return;
     }
 
+#ifdef MOSTUSED
     m_RecentlyComp->startLoading();
+#endif
     m_HasContent = true;
 
     emit firstShown ();
@@ -121,6 +127,7 @@ DcpMainPage::createContent ()
     }
     m_OtherComp->setCentralWidget(otherCategories);
 
+#ifdef MOSTUSED
     /*
      * Creating the most recent used items.
      * Use
@@ -142,7 +149,7 @@ DcpMainPage::createContent ()
     } else {
         mainLayout ()->addItem (m_RecentlyComp);
     }
-
+#endif // MOSTUSED
     layout->addItem(m_OtherComp);
     retranslateUi();
 
@@ -162,12 +169,14 @@ DcpMainPage::retranslateUi ()
 {
     setTitle (qtTrId(DcpMain::settingsTitleId));
 
+#ifdef MOSTUSED
     /*
      * We always retranslate the 'most used' category, see NB #156882.
      */
     if (m_RecentlyComp) {
         m_RecentlyComp->retranslateUi ();
     }
+#endif
 
     m_OtherComp->setTitle(qtTrId(DcpMain::otherCategoriesTitleId));
 
@@ -182,7 +191,8 @@ void
 DcpMainPage::reload ()
 {
     DCP_DEBUG ("WARNING: RELOADING");
-    /*
+#ifdef MOSTUSED
+     /*
      * Refreshing the 'most recently used' category. This category category will
      * be turned off when it just become empty (a highly unlikely event), and
      * will be turned on if it was empty and now become non-empty.
@@ -208,7 +218,7 @@ DcpMainPage::reload ()
             m_RecentlyComp->retranslateUi ();
         }
     }
-
+#endif 
     /*
      * DcpBriefWidget should take care of updating their contents in showEvent
      */

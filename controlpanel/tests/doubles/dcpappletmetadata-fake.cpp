@@ -181,6 +181,7 @@ DcpAppletMetadata::order () const
     return 1;
 }
 
+#ifdef MOSTUSED
 int 
 DcpAppletMetadata::usage () const
 {
@@ -191,6 +192,15 @@ void
 DcpAppletMetadata::incrementUsage()
 { 
 }
+
+bool 
+DcpAppletMetadata::usageGreatherThan (
+        DcpAppletMetadata *meta1,
+        DcpAppletMetadata *meta2)
+{
+    return meta1->usage() > meta2->usage();
+}
+#endif
 
 MDesktopEntry *
 DcpAppletMetadata::desktopEntry () const
@@ -232,13 +242,6 @@ DcpAppletMetadata::orderLessThan (
     return meta1->order () < meta2->order ();
 }
 
-bool 
-DcpAppletMetadata::usageGreatherThan (
-        DcpAppletMetadata *meta1,
-        DcpAppletMetadata *meta2)
-{
-    return meta1->usage() > meta2->usage();
-}
 
 bool
 DcpAppletMetadata::isDisabled () const

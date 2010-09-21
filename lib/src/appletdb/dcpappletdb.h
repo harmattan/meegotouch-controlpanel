@@ -83,9 +83,11 @@ public:
                     int             n_categories,
                     checkCategory   checkFunction = 0);
 
+#ifdef MOSTUSED
     /*! \brief List the six most used applets
         \details gives backt the most used componnents but six*/
     DcpAppletMetadataList listMostUsed();
+#endif
 
     /*! \return the object of an applet by name*/
     DcpAppletObject *applet(const QString& name);

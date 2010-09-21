@@ -62,8 +62,9 @@ void Ut_DcpMainPage::testCreateContent()
         (void*)((QGraphicsWidget*)(m_subject->mainLayout()->itemAt(0))));
     QGraphicsWidget *otherCategories = m_subject->m_OtherComp->centralWidget();
     QVERIFY(otherCategories);
-
+#ifdef MOSTUSED
     QVERIFY(m_subject->m_RecentlyComp);
+#endif
 }
 
 
@@ -107,8 +108,10 @@ void Ut_DcpMainPage::testRetranslateUi()
     m_subject->createContent();
     m_subject->retranslateUi();
     QCOMPARE(m_subject->title(), qtTrId(QT_TRID_NOOP("qtn_sett_main_title")));
+#ifdef MOSTUSED
     QCOMPARE(m_subject->m_RecentlyComp->title(),
              qtTrId(QT_TRID_NOOP("qtn_sett_main_most")));
+#endif
 //    QCOMPARE(m_subject->m_OtherComp->title(),
 //             qtTrId(QT_TRID_NOOP("qtn_sett_main_other")));
 /*    for (int i=0; i<m_subject->m_CategoryButtons.count(); i++) {

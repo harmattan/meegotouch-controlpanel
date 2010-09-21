@@ -99,13 +99,14 @@ DcpAppletObject::brief () const
     return 0;
 }
 
-
+#ifdef MOSTUSED
 void 
 DcpAppletObject::slotClicked ()
 {
     metadata()->incrementUsage();
     activateSlot();
 }
+#endif
 
 void
 DcpAppletObject::activateSlot (int pageId)

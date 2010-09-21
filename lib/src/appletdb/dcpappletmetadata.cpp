@@ -291,6 +291,7 @@ DcpAppletMetadata::order () const
     return desktopEntry()->value(Keys[KeyOrder]).toInt();
 }
 
+#ifdef MOSTUSED
 int 
 DcpAppletMetadata::usage () const
 {
@@ -312,7 +313,7 @@ DcpAppletMetadata::incrementUsage()
     );
     setLastUsed (this);
 }
-
+#endif
 MDesktopEntry *
 DcpAppletMetadata::desktopEntry () const
 {
@@ -363,6 +364,7 @@ DcpAppletMetadata::nameLessThan (
             == MLocale::LessThan;
 }
 
+#ifdef MOSTUSED
 bool 
 DcpAppletMetadata::usageGreatherThan (
         DcpAppletMetadata *meta1,
@@ -370,6 +372,7 @@ DcpAppletMetadata::usageGreatherThan (
 {
     return meta1->usage() > meta2->usage();
 }
+#endif
 
 bool
 DcpAppletMetadata::isDisabled () const

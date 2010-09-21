@@ -44,7 +44,9 @@ private slots:
     void testApplet();
     void testEraseEntry();
     void testListByCategory();
+#ifdef MOSTUSED
     void testListMostUsed();
+#endif
     void testRefresh();
     void testAppletNamesIfWrongDesktopFile();
 

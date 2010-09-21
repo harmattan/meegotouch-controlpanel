@@ -50,7 +50,10 @@ private slots:
 //    void testText1(); it can't be tested
     void testImageName();
     void testOrder();
+#ifdef MOSTUSED
     void testUsage();
+    void testUsageGreatherThan();
+#endif
     void testPart();
     void testSetGetParent();
     void testParentName();
@@ -61,7 +64,6 @@ private slots:
     void testIncrementUsage();
     void testDisabled();
     void testOrderLessThan();
-    void testUsageGreatherThan();
     void testActive();
 private:
     DcpAppletMetadata* m_subject;

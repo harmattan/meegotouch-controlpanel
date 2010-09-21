@@ -29,3 +29,7 @@ contains(DCP_BUILD_FEATURES,coverage) {
   QMAKE_DISTCLEAN += -r coverage/*
 }
 
+MOSTUSED {
+    DEFINES += MOSTUSED
+    message("with Most Used category support")
+}

@@ -308,7 +308,9 @@ DcpAppletObject::brief () const
 void 
 DcpAppletObject::slotClicked ()
 {
+#ifdef MOSTUSED
     metadata()->incrementUsage();
+#endif
 
     if (metadata()->isDisabled()) {
         DCP_DEBUG ("Enabling debug.");

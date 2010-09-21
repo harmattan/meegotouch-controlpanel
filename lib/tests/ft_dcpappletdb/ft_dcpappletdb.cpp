@@ -229,6 +229,7 @@ Ft_DcpAppletDb::printAppletListForDebug (
 }
 
 
+#ifdef MOSTUSED
 void Ft_DcpAppletDb::testListMostUsed()
 {
     m_subject->addPath (testDesktopDir3);
@@ -258,7 +259,7 @@ void Ft_DcpAppletDb::testListMostUsed()
     
     printAppletListForDebug ("After the test");
 }
-
+#endif
 void Ft_DcpAppletDb::testRefresh()
 {
     if (QTest::currentTestFailed()) return;

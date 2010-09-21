@@ -19,7 +19,7 @@
 #define DCPAPPLETMETADATA_FAKE_H__
 
 #include "dcpappletmetadata.h"
-
+#ifdef MOSTUSED
 static QMap<const DcpAppletMetadata *, int> appletStat;
 
 void DcpAppletMetadata::incrementUsage()
@@ -31,5 +31,5 @@ int DcpAppletMetadata::usage() const
 {
     return appletStat.value(this);
 }
-
+#endif
 #endif

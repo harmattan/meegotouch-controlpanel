@@ -84,9 +84,12 @@ DcpAppletButtons::createContents ()
      * this widget.
      */
     DcpAppletMetadataList metadatas;
+#ifdef MOSTUSED
     if (m_CategoryInfo == &DcpMain::mostUsedCategory) {
         metadatas = DcpAppletDb::instance()->listMostUsed ();
-    } else {
+    } else 
+#endif
+    {
         bool        withUncategorized;
         const char *names[3];
 

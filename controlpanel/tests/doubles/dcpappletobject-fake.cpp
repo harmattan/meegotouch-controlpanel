@@ -86,7 +86,9 @@ DcpAppletObject::brief () const
 void 
 DcpAppletObject::slotClicked ()
 {
+#ifdef MOSTUSED
     metadata()->incrementUsage();
+#endif
     activateSlot();
 }
 

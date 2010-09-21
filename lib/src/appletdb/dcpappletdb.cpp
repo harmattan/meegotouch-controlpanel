@@ -275,6 +275,7 @@ DcpAppletDb::listByCategory (
     return filtered;
 }
 
+#ifdef MOSTUSED
 DcpAppletMetadataList 
 DcpAppletDb::listMostUsed ()
 {
@@ -301,7 +302,7 @@ DcpAppletDb::listMostUsed ()
    mostUsed = mostUsed.mid (0, DcpApplet::MaxMostUsed);
    return mostUsed;
 }
-
+#endif
 
 /*!
  * \brief Returns the applet found in the database by its name.

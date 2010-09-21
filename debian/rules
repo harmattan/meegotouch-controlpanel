@@ -28,6 +28,9 @@ ifneq (,$(findstring nolauncher,$(DEB_BUILD_OPTIONS)))
     QMAKE_ARG += CONFIG+=DISABLE_LAUNCHER
 endif
 
+ifneq (,$(findstring mostused,$(DEB_BUILD_OPTIONS)))
+    QMAKE_ARG += CONFIG+=MOSTUSED
+endif
 ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
     ifneq (,$(findstring arm,$(ARCH)))
         NUMJOBS = 1

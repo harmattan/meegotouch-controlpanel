@@ -208,6 +208,7 @@ void Ut_DcpAppletMetadata::testOrder()
     QCOMPARE(m_subject->order(), 1);
 }
 
+#ifdef MOSTUSED
 void Ut_DcpAppletMetadata::testUsage()
 {
     QSKIP("!!!! RelativePath bug under fixxing by Retsoft !!!!", SkipSingle);
@@ -218,6 +219,17 @@ void Ut_DcpAppletMetadata::testUsage()
     qWarning() <<"\n@@" <<m_subject->usage() <<"@@\n";
  */
 }
+
+void Ut_DcpAppletMetadata::testUsageGreatherThan()
+{
+    DcpAppletMetadata *metadata = new DcpAppletMetadata(desktopBadTestFile);
+    MostUsedCounter::instance()->incrementUsageCount (
+            QFileInfo(desktopTestFile).baseName()
+    );
+    QVERIFY(DcpAppletMetadata::usageGreatherThan(m_subject, metadata));
+    delete metadata;
+}
+#endif
 
 void Ut_DcpAppletMetadata::testPart()
 {
@@ -299,15 +311,6 @@ void Ut_DcpAppletMetadata::testOrderLessThan()
     delete metadata;
 }
 
-void Ut_DcpAppletMetadata::testUsageGreatherThan()
-{
-    DcpAppletMetadata *metadata = new DcpAppletMetadata(desktopBadTestFile);
-    MostUsedCounter::instance()->incrementUsageCount (
-            QFileInfo(desktopTestFile).baseName()
-    );
-    QVERIFY(DcpAppletMetadata::usageGreatherThan(m_subject, metadata));
-    delete metadata;
-}
 
 void Ut_DcpAppletMetadata::testActive()
 {

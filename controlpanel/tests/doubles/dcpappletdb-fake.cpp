@@ -115,6 +115,7 @@ DcpAppletDb::listByCategory (
     return list;
 }
 
+#ifdef MOSTUSED
 DcpAppletMetadataList
 DcpAppletDb::listMostUsed ()
 {
@@ -124,7 +125,7 @@ DcpAppletDb::listMostUsed ()
    }
    return mostUsed;
 }
-
+#endif
 
 DcpAppletObject *
 DcpAppletDb::applet (

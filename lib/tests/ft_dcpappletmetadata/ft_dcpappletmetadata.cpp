@@ -168,6 +168,7 @@ void Ft_DcpAppletMetadata::testOrder()
     QCOMPARE(m_subject->order(), 1);
 }
 
+#ifdef MOSTUSED
 void Ft_DcpAppletMetadata::testUsage()
 {
 
@@ -176,6 +177,7 @@ void Ft_DcpAppletMetadata::testUsage()
     qWarning() <<"\n@@" <<m_subject->usage() <<"@@\n";
     QSKIP("!!!! RelativePath bug under fixxing by Retsoft !!!!", SkipSingle);
 }
+#endif
 
 void Ft_DcpAppletMetadata::testPart()
 {
