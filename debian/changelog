@@ -1,3 +1,9 @@
+duicontrolpanel (0.8.14~unreleased) unstable; urgency=low
+
+  * new version
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 21 Sep 2010 07:34:52 +0200
+
 duicontrolpanel (0.8.13) unstable; urgency=low
 
   * Changes: delayed widget creation at applet list makes it possible to create long
