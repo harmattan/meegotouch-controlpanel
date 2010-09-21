@@ -246,21 +246,24 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
         button->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
 
         // put it before the mlist:
-#if 0
+#ifdef NB188565
         mLayout()->insertItem (getItemCount()-1, button);
 #else
         // FIXME: this is a workaround for 188565 -  Offline mode button is left aligned...
         // It is a layout bug in Qt, please remove this, after NB#188780 gets fixed.
 
+        QGraphicsWidget* c = new QGraphicsWidget();
         QGraphicsWidget* spacer1 = new QGraphicsWidget();
         QGraphicsWidget* spacer2 = new QGraphicsWidget();
+        c->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
         spacer1->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
         spacer2->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
-        QGraphicsLinearLayout* wlayout = new QGraphicsLinearLayout();
+        QGraphicsLinearLayout* wlayout = new QGraphicsLinearLayout(c);
+        wlayout->setContentsMargins(0,0,0,0);
         wlayout->addItem (spacer1);
         wlayout->addItem (button);
         wlayout->addItem (spacer2);
-        mLayout()->insertItem (getItemCount()-1, wlayout);
+        mLayout()->insertItem (getItemCount()-1, c);
 #endif
 
     } else {

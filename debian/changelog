@@ -1,9 +1,18 @@
-duicontrolpanel (0.8.14~unreleased) unstable; urgency=low
+duicontrolpanel (0.8.15~unreleased) unstable; urgency=low
 
   * new version
   * disables Most Used Category at compile time by default (DUI-3920)
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 21 Sep 2010 15:39:28 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 21 Sep 2010 15:58:21 +0200
+
+duicontrolpanel (0.8.14) unstable; urgency=low
+
+  * Fixes: NB#192485 - Settings app view switches back from applet view
+    to main view when we try to open the settings app once again
+  * Fixes: NB#192478 - Activate Offline mode button is shown in all views of
+    control panel applets in a given scenario
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 21 Sep 2010 10:24:07 +0200
 
 duicontrolpanel (0.8.13) unstable; urgency=low
 

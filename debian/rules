@@ -76,8 +76,6 @@ install: build
 	(cd lib;make  $(PARALLEL_MAKEFLAGS) doc; cd ..)
 	mkdir -p $(CURDIR)/debian/tmp/usr/share/doc/libduicontrolpanel/api
 	cp -r lib/doc/html/*  $(CURDIR)/debian/tmp/usr/share/doc/libduicontrolpanel/api/
-	install -m 644 -D -p $(CURDIR)/controlpanel/translations/settings.ts $(CURDIR)/debian/tmp/usr/share/doc/duicontrolpanel-l10n-engineering-english/settings.ts
-	install -m 644 -D -p $(CURDIR)/examples/binaryapplet/translations/duicontrolpanel-skeletonapplet.ts $(CURDIR)/debian/tmp/usr/share/doc/duicontrolpanel-l10n-engineering-english/duicontrolpanel-skeletonapplet.ts
 
 # Build architecture-independent files here.
 binary-indep: build install
