@@ -27,7 +27,7 @@
 #include <MApplicationIfAdaptor>
 #include <QtDebug>
 #include <MApplication>
-#include <MWindow>
+#include <MApplicationWindow>
 
 static const char* serviceName = "com.nokia.DuiControlPanel";
 bool DuiControlPanelService::isStartedByServiceFw = false;
@@ -54,7 +54,11 @@ DuiControlPanelService::launch ()
     /* this method not supposed to change the current page,
      * so we only setup a default if there is not any yet
      */
-    if (m_StartPage.id == PageHandle::NOPAGE) {
+
+    MApplicationWindow *win = MApplication::activeApplicationWindow();
+    if ((m_StartPage && m_StartPage->id == PageHandle::NOPAGE) ||
+        (!m_StartPage && win && !win->currentPage()))
+    {
         mainPage();
     }
 }
