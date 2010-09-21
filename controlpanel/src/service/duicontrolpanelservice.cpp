@@ -50,14 +50,20 @@ void
 DuiControlPanelService::launch ()
 {
     MApplicationService::launch ();
-    mainPage();
+
+    /* this method not supposed to change the current page,
+     * so we only setup a default if there is not any yet
+     */
+    if (m_StartPage.id == PageHandle::NOPAGE) {
+        mainPage();
+    }
 }
 
 void
 DuiControlPanelService::launch (const QStringList &parameters)
 {
     if (parameters.isEmpty()) {
-        mainPage();
+        launch();
     } else {
         appletPage (parameters.at(0));
     }
