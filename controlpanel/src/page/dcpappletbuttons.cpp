@@ -256,6 +256,7 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
         spacer1->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
         spacer2->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
         QGraphicsLinearLayout* wlayout = new QGraphicsLinearLayout(c);
+        wlayout->setContentsMargins(0,0,0,0);
         wlayout->addItem (spacer1);
         wlayout->addItem (button);
         wlayout->addItem (spacer2);
