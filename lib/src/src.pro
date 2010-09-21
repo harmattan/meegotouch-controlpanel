@@ -5,7 +5,10 @@ MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects
 QMAKE_LFLAGS_RPATH = -Wl
 include(../dcpconfig.pri)
+MOSTUSED {
 
+    DEFINES += MOSTUSED
+}
 # this has to be above finds, because it generates .h .cpp files
 include(service_interface/service_interface.pri)
 
