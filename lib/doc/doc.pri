@@ -10,4 +10,11 @@ isEmpty(DOXYGEN_BIN) {
     doc.commands = @$${DOXYGEN_BIN} doc/doxygen.cfg  ;
     doc.commands+= ./doc/xmlize.pl ;
 }
+
+install_doc.path  += /usr/share/doc/libduicontrolpanel/
+install_doc.files += doc/html
+install_doc.depends += doc
+INSTALLS += install_doc
+
 doc.depends = FORCE
+

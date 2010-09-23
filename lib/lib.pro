@@ -4,12 +4,14 @@ CONFIG += ordered debug
 CONFIG += build_all silent warn_on
 
 SUBDIRS += src
+
 !minimal {
     SUBDIRS += tests
     include(doc/doc.pri)
 }
 
 include(libconfig.pri)
+
 # for check:
 check.target = check
 check.CONFIG = recursive
@@ -24,3 +26,4 @@ contains(DCP_BUILD_FEATURES,coverage) {
   coverage.target = coverage
   coverage.CONFIG = recursive
 }
+
