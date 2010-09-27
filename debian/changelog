@@ -4,8 +4,10 @@ duicontrolpanel (0.8.15~unreleased) unstable; urgency=low
   * disables Most Used Category at compile time by default (DUI-3920)
   * Fixes: NB#194199 -  modification of libmeegocontrolpanel-doc
     installation method
+  * Fixes: NB#193715 -  duicontrolpanel-soundsettingsapplet has no aegis
+    manifest
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 23 Sep 2010 15:20:21 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 27 Sep 2010 10:46:49 +0200
 
 duicontrolpanel (0.8.14) unstable; urgency=low
 
