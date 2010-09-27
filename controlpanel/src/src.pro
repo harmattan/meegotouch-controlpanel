@@ -1,7 +1,9 @@
 include(../../lib/dcpconfig.pri)
+
 MOSTUSED {
     DEFINES += MOSTUSED
 }
+
 DISABLE_LAUNCHER {
     TARGET = ../duicontrolpanel
     DEFINES += DISABLE_LAUNCHER

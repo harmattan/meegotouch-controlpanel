@@ -4,6 +4,8 @@
     <credential name="timed::TimeControl" />
     <credential name="TrackerReadAccess" />
     <for path="/usr/bin/duicontrolpanel.launch" />
+    <for path="/usr/bin/duicontrolpanel" />
+    <for path="applauncherd-launcher::/usr/bin/applauncherd.bin" />
   </request>
 </aegis>
 

@@ -5,8 +5,11 @@ MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects
 QMAKE_LFLAGS_RPATH = -Wl
 include(../dcpconfig.pri)
-MOSTUSED {
 
+# we can not disable functions from the lib since our api is considered stable
+# CONFIG += MOSTUSED
+
+MOSTUSED {
     DEFINES += MOSTUSED
 }
 # this has to be above finds, because it generates .h .cpp files
