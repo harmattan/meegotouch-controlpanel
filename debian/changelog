@@ -1,4 +1,4 @@
-duicontrolpanel (0.8.15~unreleased) unstable; urgency=low
+duicontrolpanel (0.8.15) unstable; urgency=low
 
   * disables Most Used Category at compile time by default (DUI-3920)
   * Fixes: NB#194199 -  modification of libmeegocontrolpanel-doc
