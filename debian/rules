@@ -24,9 +24,10 @@ ifneq (,$(findstring debug,$(DEB_BUILD_OPTIONS)))
     QMAKE_ARG += DEFINES+=DEBUG
 endif
 
-ifneq (,$(findstring nolauncher,$(DEB_BUILD_OPTIONS)))
+# disabled launcher support as a workaround for bug NB#194541
+# ifneq (,$(findstring nolauncher,$(DEB_BUILD_OPTIONS)))
     QMAKE_ARG += CONFIG+=DISABLE_LAUNCHER
-endif
+# endif
 
 ifneq (,$(findstring mostused,$(DEB_BUILD_OPTIONS)))
     QMAKE_ARG += CONFIG+=MOSTUSED
@@ -73,6 +74,10 @@ install: build
 
 	(cd lib;make  $(PARALLEL_MAKEFLAGS) doc; cd ..)
 	INSTALL_ROOT=$(CURDIR)/debian/tmp $(MAKE) install
+
+	# create symlink for duicontrolpanel.launch in case we build without invoker
+	test -f "debian/tmp/usr/bin/duicontrolpanel.launcher" \
+		|| ln -s duicontrolpanel debian/tmp/usr/bin/duicontrolpanel.launcher
 
 # Build architecture-independent files here.
 binary-indep: build install

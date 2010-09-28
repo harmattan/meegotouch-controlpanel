@@ -5,8 +5,8 @@ MOSTUSED {
 }
 
 DISABLE_LAUNCHER {
-    TARGET = ../duicontrolpanel
     DEFINES += DISABLE_LAUNCHER
+    TARGET = ../duicontrolpanel
 } else {
     QMAKE_CXXFLAGS += -fPIC -fvisibility=hidden -fvisibility-inlines-hidden
     QMAKE_LFLAGS += -pie -rdynamic

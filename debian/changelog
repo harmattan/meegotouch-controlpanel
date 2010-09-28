@@ -1,13 +1,16 @@
 duicontrolpanel (0.8.15~unreleased) unstable; urgency=low
 
-  * new version
   * disables Most Used Category at compile time by default (DUI-3920)
   * Fixes: NB#194199 -  modification of libmeegocontrolpanel-doc
     installation method
   * Fixes: NB#193715 -  duicontrolpanel-soundsettingsapplet has no aegis
     manifest
+  * Workarounds: NB#193806 -  Not able to set Date and time zone for
+    device
+  * Known issues: introduces startup time regression because of the
+    workaround
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 27 Sep 2010 10:46:49 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 28 Sep 2010 13:27:34 +0200
 
 duicontrolpanel (0.8.14) unstable; urgency=low
 
