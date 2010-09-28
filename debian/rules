@@ -76,8 +76,8 @@ install: build
 	INSTALL_ROOT=$(CURDIR)/debian/tmp $(MAKE) install
 
 	# create symlink for duicontrolpanel.launch in case we build without invoker
-	test -f "debian/tmp/usr/bin/duicontrolpanel.launcher" \
-		|| ln -s duicontrolpanel debian/tmp/usr/bin/duicontrolpanel.launcher
+	test -f "debian/tmp/usr/bin/duicontrolpanel" \
+		|| ln -s duicontrolpanel.launcher debian/tmp/usr/bin/duicontrolpanel
 
 # Build architecture-independent files here.
 binary-indep: build install
