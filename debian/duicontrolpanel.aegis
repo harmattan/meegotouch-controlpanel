@@ -3,13 +3,8 @@
     <credential name="Cellular" />
     <credential name="timed::TimeControl" />
     <credential name="TrackerReadAccess" />
-    <for path="/usr/bin/duicontrolpanel" />
-  </request>
-  <request>
-    <credential name="Cellular" />
-    <credential name="timed::TimeControl" />
-    <credential name="TrackerReadAccess" />
     <for path="/usr/bin/duicontrolpanel.launch" />
+    <for path="applauncherd-launcher::/usr/bin/applauncherd.bin" />
   </request>
 </aegis>
 
