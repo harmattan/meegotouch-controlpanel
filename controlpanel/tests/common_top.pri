@@ -27,7 +27,7 @@ INSTALLS += target
 include(check.pri)
 include(coverage.pri)
 LIBS += -L/usr/lib -lduicontrolpanel
-QMAKE_CXXFLAGS += -Werror -Wno-deprecated
+QMAKE_CXXFLAGS += -Wno-deprecated
 message($$target.path)
 
 contains(DCP_BUILD_FEATURES,coverage) {

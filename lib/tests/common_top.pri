@@ -28,7 +28,6 @@ INSTALLS += target
 include(check.pri)
 include(coverage.pri)
 LIBS += -L../../lib/ -L/usr/lib -lduicontrolpanel
-QMAKE_CXXFLAGS += -Werror
 message($$target.path)
 
 contains(DCP_BUILD_FEATURES,coverage) {
