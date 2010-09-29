@@ -21,10 +21,11 @@
 #include <QHash>
 #include <QFileInfo>
 #include <QString>
+#include <QSharedData>
 
 static QSet<QString> existingFiles;
 static QHash<const QFileInfo*, QString> priv;
-class QFileInfoPrivate {};
+class QFileInfoPrivate: public QSharedData {};
 
 void qfileinfo_setExists (const QString& filePath, bool exists)
 {
