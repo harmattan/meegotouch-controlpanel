@@ -40,8 +40,6 @@ QAbstractItemModel* MList::itemModel() const
 
 void MList::setCellCreator(MCellCreator*){}
 const MCellCreator* MList::cellCreator() const{ return 0; }
-void MList::setHeaderCreator(MCellCreator*){}
-const MCellCreator* MList::headerCreator() const{ return 0; }
 void MList::setColumns(int){}
 int MList::columns() const{ return 1; }
 QItemSelectionModel* MList::selectionModel() const { return 0; }
