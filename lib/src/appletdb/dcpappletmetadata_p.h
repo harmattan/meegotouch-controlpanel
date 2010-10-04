@@ -32,7 +32,6 @@ public:
     // last modification time of the desktop entry:
     QTime m_LastModified;
     MDesktopEntry* m_DesktopEntry;
-    DcpAppletMetadata *m_Parent;
     QString m_FileName;
     bool m_Disabled;
     int m_Activated;
@@ -59,7 +58,6 @@ enum  {
 
     KeyPart,
     KeyUnique,
-    KeyParent,
     KeyCount
 };
 
@@ -81,8 +79,7 @@ const QString Keys[KeyCount] = {
     "Desktop Entry/X-logical-id",
     "Desktop Entry/X-translation-catalog",
     "DCP/Part",
-    "DCP/Unique",
-    "DCP/Parent"
+    "DCP/Unique"
 };
 
 #endif // DCPAPPLETMETADATA_P_H

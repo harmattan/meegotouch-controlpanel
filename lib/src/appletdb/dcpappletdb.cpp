@@ -209,12 +209,6 @@ DcpAppletDb::listByCategory (
     foreach (DcpAppletMetadata *item, d_ptr->appletsByFile) {
         if (category.compare (item->category(), Qt::CaseInsensitive) == 0)
             filtered.append (item);
-
-        // FIXME: This should not be done here!
-        QString parentName = item->parentName ();
-        if (parentName != "" && !item->parent()) {
-            item->setParent (d_ptr->appletsByName[parentName]);
-        }
     }
 
     sortACategory (filtered, category);
@@ -261,13 +255,6 @@ DcpAppletDb::listByCategory (
                 filtered.append (item);
                 break;
             }
-        }
-
-        // FIXME: This should not be done here!
-        QString parentName = item->parentName ();
-        if (parentName != "" && !item->parent()) {
-            item->setParent(d_ptr->appletsByName[parentName]);
-
         }
     }
 

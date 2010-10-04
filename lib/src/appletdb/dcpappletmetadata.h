@@ -85,11 +85,6 @@ public:
 #endif
     QString part () const;
 
-    void setParent (DcpAppletMetadata *parent);
-    DcpAppletMetadata* parent () const;
-    QString parentName () const;
-
-
     static bool orderLessThan (
             DcpAppletMetadata *meta1,
             DcpAppletMetadata *meta2);

@@ -239,23 +239,6 @@ void Ut_DcpAppletMetadata::testPart()
 }
 
 
-void Ut_DcpAppletMetadata::testSetGetParent()
-{
-    if (QTest::currentTestFailed()) return;
-
-    m_subject->setParent(m_subject);
-
-    QCOMPARE(m_subject, m_subject->parent());
-
-    m_subject->setParent(0);
-}
-
-void Ut_DcpAppletMetadata::testParentName()
-{
-    if (QTest::currentTestFailed()) return;
-
-    QCOMPARE(m_subject->parentName(), QString("RobiJonMegKutyaraDer_II"));
-}
 void Ut_DcpAppletMetadata::testDslFilename()
 {
     if (QTest::currentTestFailed()) return;

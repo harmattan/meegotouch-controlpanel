@@ -54,8 +54,6 @@ private slots:
     void testUsage();
 #endif
     void testPart();
-    void testSetGetParent();
-    void testParentName();
 
 private:
     DcpAppletMetadata* m_subject;

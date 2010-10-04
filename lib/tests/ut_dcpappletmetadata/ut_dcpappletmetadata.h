@@ -55,8 +55,6 @@ private slots:
     void testUsageGreatherThan();
 #endif
     void testPart();
-    void testSetGetParent();
-    void testParentName();
     void testDslFilename();
     void testApplicationCommand();
     void testTranslationCatalog();

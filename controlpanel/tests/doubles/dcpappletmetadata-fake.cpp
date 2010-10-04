@@ -31,7 +31,6 @@
 DcpAppletMetadataPrivate::DcpAppletMetadataPrivate ()
     :
       m_DesktopEntry (0),
-      m_Parent (0),
       m_Disabled (false),
       m_Activated (0)
 {
@@ -101,12 +100,6 @@ DcpAppletMetadata::fullBinary () const
     return d_ptr->m_FileName + "-fullBinary";
 }
 
-QString 
-DcpAppletMetadata::parentName () const
-{
-    return d_ptr->m_FileName + "-parentName";
-}
-
 int 
 DcpAppletMetadata::widgetTypeID () const
 {
@@ -117,12 +110,6 @@ Qt::Alignment
 DcpAppletMetadata::align () const
 {
     return Qt::AlignLeft;
-}
-
-DcpAppletMetadata *
-DcpAppletMetadata::parent () const
-{
-    return d_ptr->m_Parent;
 }
 
 bool 
@@ -225,13 +212,6 @@ QString
 DcpAppletMetadata::desktopEntryStr (int) const
 {
     return QString();
-}
-
-void 
-DcpAppletMetadata::setParent (
-        DcpAppletMetadata *parent)
-{
-    d_ptr->m_Parent = parent;
 }
 
 bool 

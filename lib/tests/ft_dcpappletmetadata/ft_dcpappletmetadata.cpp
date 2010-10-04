@@ -187,23 +187,4 @@ void Ft_DcpAppletMetadata::testPart()
 }
 
 
-void Ft_DcpAppletMetadata::testSetGetParent()
-{
-    if (QTest::currentTestFailed()) return;
-
-    m_subject->setParent(m_subject);
-
-    QCOMPARE(m_subject, m_subject->parent());
-
-    m_subject->setParent(0);
-}
-
-void Ft_DcpAppletMetadata::testParentName()
-{
-    if (QTest::currentTestFailed()) return;
-
-    QCOMPARE(m_subject->parentName(), QString("RobiJonMegKutyaraDer_II"));
-}
-
-
 QTEST_APPLESS_MAIN(Ft_DcpAppletMetadata)

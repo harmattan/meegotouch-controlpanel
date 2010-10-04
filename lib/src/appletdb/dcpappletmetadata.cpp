@@ -38,7 +38,6 @@ static const QString lastUsedAppletKey = QString(MOSTUSEDCOUNTER_GCONFKEY) +
 DcpAppletMetadataPrivate::DcpAppletMetadataPrivate ()
     :
       m_DesktopEntry (0),
-      m_Parent (0),
       m_Disabled (false),
       m_Activated (0)
 {
@@ -159,12 +158,6 @@ DcpAppletMetadata::fullBinary () const
     return APPLET_LIBS "/" + filename;
 }
 
-QString 
-DcpAppletMetadata::parentName () const
-{
-    return desktopEntryStr (KeyParent);
-}
-
 /*!
  * \brief Returns what type of brief widget shall an applet variant use.
  *
@@ -205,12 +198,6 @@ DcpAppletMetadata::align () const
 
     qWarning() << Q_FUNC_INFO << "no data"; // default
     return Qt::AlignLeft;
-}
-
-DcpAppletMetadata *
-DcpAppletMetadata::parent () const
-{
-    return d_ptr->m_Parent;
 }
 
 bool 
@@ -340,12 +327,6 @@ DcpAppletMetadata::desktopEntryStr (
     return desktopEntry()->value(Keys[id]).trimmed();
 }
 
-void 
-DcpAppletMetadata::setParent (
-        DcpAppletMetadata *parent)
-{
-    d_ptr->m_Parent = parent;
-}
 
 bool 
 DcpAppletMetadata::orderLessThan (
