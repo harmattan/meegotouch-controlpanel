@@ -1,8 +1,10 @@
 duicontrolpanel (0.8.16~unreleased) unstable; urgency=low
 
   * Little compile fix for meego 1.1
+  * Fixes: NB#195911 - controlpanel crashing if its called via servicefw
+    with invalid parameter
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 01 Oct 2010 11:11:10 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 04 Oct 2010 14:06:14 +0200
 
 duicontrolpanel (0.8.15.1) unstable; urgency=low
 

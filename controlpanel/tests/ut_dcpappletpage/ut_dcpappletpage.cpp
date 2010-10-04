@@ -84,10 +84,9 @@ void Ut_DcpAppletPage::testLoad()
 
 void Ut_DcpAppletPage::testLoadMissing()
 {
-    m_subject->createContent();
     delete m_subject->m_Applet;
     m_subject->m_Applet = 0;
-    m_subject->load();
+    m_subject->createContent();
     QVERIFY(m_subject->m_MissingLabel);
 }
 void Ut_DcpAppletPage::testBack()

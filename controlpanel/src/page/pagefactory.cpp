@@ -175,17 +175,18 @@ DcpPage *
 PageFactory::createAppletPage (PageHandle &handle)
 {
     DcpAppletObject *applet = DcpAppletDb::instance()->applet (handle.param);
-    
-    if (applet->widgetTypeID() == DcpWidgetType::Button)
+
+    if (applet && applet->widgetTypeID() == DcpWidgetType::Button)
     {
         applet->setToggle(!applet->toggle());
         return 0;
     }
+
     /*
      * this prevents openning the same page multiple times,
      * if more signals are coming, for example if user clicks double
      */
-    if (handle.widgetId < 0) { // fixup unknown widgetid for the comparing
+    if (applet && handle.widgetId < 0) { // fixup unknown widgetid for the comparing
         handle.widgetId = applet->getMainWidgetId();
     }
     if (m_LastAppletPage && m_LastAppletPage->handle() == handle) {

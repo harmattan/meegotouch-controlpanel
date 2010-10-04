@@ -75,6 +75,10 @@ void Ut_PageFactory::testCreatePage()
     page = factory->createPage(PageHandle(PageHandle::APPLET, "fake-name"));
     QVERIFY(page);
 
+    // an appletpage with nonexistant applet:
+    page = factory->createPage(PageHandle(PageHandle::APPLET, "xxx"));
+    QVERIFY(page);
+
     // applet category pages:
     for (int i = PageHandle::CATEGORY_PAGEID_START+1;
              i < PageHandle::CATEGORY_PAGEID_END; i++)
