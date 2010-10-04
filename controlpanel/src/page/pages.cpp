@@ -86,6 +86,11 @@ PageHandle::getStringVariant () const
         case APPLET:
             typeName = "APPLET";
             break;
+
+        case APPLETCATEGORY:
+	    typeName = "APPLETCATEGORY";
+	    break;
+
         case PAGEID_COUNT:
             typeName = "PAGEID_COUNT";
             break;

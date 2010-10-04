@@ -118,19 +118,22 @@ void Ut_PageFactory::testCreateAppletCategoryPage()
 {
     PageFactory *factory = PageFactory::instance();
     QVERIFY(factory->m_AppletCategoryPage == 0);
-    DcpPage *page = factory->createAppletCategoryPage(PageHandle::LOOKANDFEEL);
+    DcpPage *page = factory->createAppletCategoryPage(
+            PageHandle(PageHandle::LOOKANDFEEL));
     QVERIFY(page);
     QCOMPARE((void*)factory->m_AppletCategoryPage, (void*) page);
 
     // Second call should just return the existing m_AppletCategoryPage
     void* lastPage = factory->m_AppletCategoryPage;
     QCOMPARE(lastPage,
-            (void*) factory->createAppletCategoryPage(PageHandle::LOOKANDFEEL));
+            (void*) factory->createAppletCategoryPage(
+                PageHandle(PageHandle::LOOKANDFEEL)));
 
     // Ensures that no second categorypage gets created, but the existing one
     // is used again:
     QCOMPARE(lastPage,
-             (void*)factory->createAppletCategoryPage(PageHandle::DEVICESYSTEM));
+             (void*)factory->createAppletCategoryPage(
+                 PageHandle(PageHandle::DEVICESYSTEM)));
 }
 
 

@@ -122,14 +122,18 @@ void
 DuiControlPanelService::startPageForReal(
                 const PageHandle &handle)
 {
-    PageFactory::instance()->changePage(handle);
+    bool success = PageFactory::instance()->changePage(handle);
 
     MWindow *win = MApplication::activeWindow();
 
     if (win) {
-        win->activateWindow();
-        win->show();
-        win->raise();
+        if (success) {
+            win->activateWindow();
+            win->show();
+            win->raise();
+        } else {
+            win->close();
+        }
     }
 }
 
@@ -154,12 +158,9 @@ DuiControlPanelService::categoryPage (const QString& category)
 {
     DCP_DEBUG ("");
     Q_UNUSED (category);
-    /* FIXME implement it
+
     PageHandle handle (PageHandle::APPLETCATEGORY, category, 0, true);
     sheduleStart(handle);
-     */
-    DCP_WARNING("Openning a categoryPage is not implemented yet.");
-    mainPage();
 }
 
 void

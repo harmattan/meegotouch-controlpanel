@@ -49,7 +49,7 @@ public:
         Applications,
         CATEGORY_PAGEID_END,    // ---
         APPLET,
-//        APPLETCATEGORY,
+        APPLETCATEGORY,
         PAGEID_COUNT
     } PageTypeId;
 
@@ -68,3 +68,4 @@ public:
 };
 
 #endif
+

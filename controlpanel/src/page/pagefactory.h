@@ -48,7 +48,7 @@ public:
 public slots:
     void appletWantsToStart (int widgetId = -1);
 
-    void changePage (const PageHandle &handle);
+    bool changePage (const PageHandle &handle);
 
     void mainPageFirstShown (void);
 
@@ -57,7 +57,7 @@ protected:
     DcpPage* createMainPage ();
     DcpPage* createAppletPage(PageHandle& applet);
     DcpPage* createAppletPage (DcpAppletMetadata* metadata);
-    DcpPage* createAppletCategoryPage (PageHandle::PageTypeId pageId);
+    DcpPage* createAppletCategoryPage (const PageHandle& pageId);
 
 private slots:
     void pageChanged (MApplicationPage *page);

@@ -1,7 +1,11 @@
 Start controlpanel through servicefw:
+# pop up an applet:
 dbus-send --session --print-reply --dest=com.nokia.DuiControlPanel / com.nokia.DuiControlPanelIf.appletPage string:Battery
 dbus-send --session --print-reply --dest=com.nokia.DuiControlPanel / com.nokia.DuiControlPanelIf.appletPage "string:Display Language"
+# bring dcp to front as it is:
 dbus-send --session --print-reply --dest=com.nokia.DuiControlPanel /org/maemo/m com.nokia.MApplicationIf.launch
+# pop up a category page:
+dbus-send --session --print-reply --dest=com.nokia.DuiControlPanel / com.nokia.DuiControlPanelIf.categoryPage "string:Look & Feel"
 
 ---
 

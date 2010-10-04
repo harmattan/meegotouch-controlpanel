@@ -130,10 +130,9 @@ PageFactory::createPage (
             page = createAppletPage (myHandle);
             break;
 
+        case PageHandle::APPLETCATEGORY:
         default:
-            Q_ASSERT(myHandle.id > PageHandle::CATEGORY_PAGEID_START
-                     && myHandle.id < PageHandle::CATEGORY_PAGEID_END);
-            page = createAppletCategoryPage (myHandle.id);
+            page = createAppletCategoryPage (myHandle);
     }
 
     if (page) {
@@ -227,19 +226,22 @@ PageFactory::createAppletPage (DcpAppletMetadata* metadata)
     return createAppletPage (handle);
 }
 
+
 /*!
  * Creates an applet category page, a page that shows a group of applets the
  * same way the main page shows applets.
  */
 DcpPage *
-PageFactory::createAppletCategoryPage (
-        PageHandle::PageTypeId id)
+PageFactory::createAppletCategoryPage (const PageHandle& handle)
 {
     const DcpCategoryInfo *info;
 
-    DCP_DEBUG ("*** id = %d", (int) id);
+    PageHandle::PageTypeId id = handle.id;
 
-    info = DcpMain::findCategoryInfo(id);
+    info = id==PageHandle::APPLETCATEGORY ?
+                DcpMain::findCategoryInfo(handle.param) :
+                DcpMain::findCategoryInfo(id);
+
     if (!info) {
         DCP_WARNING ("Category info for page type %d not found.", (int) id);
         return 0;
@@ -284,14 +286,17 @@ PageFactory::currentPage ()
 
 /*!
  * Creates a new page and sets as the current page.
+ *
+ * Returns true if the page change was successful, otherwise it
+ * returns false.
  */
-void 
+bool
 PageFactory::changePage (const PageHandle &handle)
 {
     DcpPage *page;
 
     if (tryOpenPageBackward(handle))
-        return;
+        return true;
 
     DCP_DEBUG ("Creating page %s",
             DCP_STR (handle.getStringVariant()));
@@ -302,7 +307,7 @@ PageFactory::changePage (const PageHandle &handle)
     page = createPage (handle);
     if (!page) {
         DCP_DEBUG ("Page is not created...");
-        return;
+        return false;
     }
 
     /*
@@ -317,6 +322,7 @@ PageFactory::changePage (const PageHandle &handle)
     } else {
         page->appear (MSceneWindow::KeepWhenDone);
     }
+    return true;
 }
 
 void

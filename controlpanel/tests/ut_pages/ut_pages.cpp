@@ -91,6 +91,8 @@ void Ut_PageHandle::testGetStringVariant()
     QVERIFY(h12.getStringVariant() == "CATEGORY_PAGEID_END:///-1");
     PageHandle h13(PageHandle::APPLET);
     QVERIFY(h13.getStringVariant() == "APPLET:///-1");
+    PageHandle h15(PageHandle::APPLETCATEGORY, "Connectivity" );
+    QCOMPARE(h15.getStringVariant(), QString("APPLETCATEGORY://Connectivity/-1"));
     PageHandle h14(PageHandle::PAGEID_COUNT);
     QVERIFY(h14.getStringVariant() == "PAGEID_COUNT:///-1");
 };
