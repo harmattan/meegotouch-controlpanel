@@ -20,7 +20,7 @@ which is a file under /usr/lib/duicontrolpanel/*.desktop. For example you find t
 
 \code
 [Desktop Entry]
-Type=DUIApplet
+Type=ControlPanelApplet
 Name=I have a silly name
 X-logical-id=qtn_sett_main_silly_name
 ...

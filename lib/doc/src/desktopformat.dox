@@ -21,6 +21,30 @@ In each section there are key-value entries, separated by an equal sign:
 Key=Value
 \endcode
 
+\section mandatorykeys Mandatory keys
+These keys are mandatory for any applet in order for the .desktop file to be
+able to function as a content action, and other applications to know how to
+pop up the applet (for example the search).
+See libcontentaction-doc if you are interested in the details, if not, just
+include the following in the .desktop file of the applet:
+
+\subsection mandatorykeyse Mandatory keys for an external applet
+\code
+[Desktop Entry]
+Type=ControlPanelApplet
+Exec=<the command to execute>
+\endcode
+
+\subsection mandatorykeysb Mandatory keys for any other applet
+\code
+[Desktop Entry]
+Type=ControlPanelApplet
+X-Maemo-Service=com.nokia.DuiControlPanel
+X-Maemo-Method=com.nokia.DuiControlPanelIf.appletPage
+X-Maemo-Object-Path=/
+X-Maemo-Fixed-Args=<the name of the applet, see Name section>
+
+\endcode
 
 \section keys The keys controlpanel understands
 
@@ -145,7 +169,12 @@ the desktop file can look like this:
 
 \code
 [Desktop Entry]
-Type=DUIApplet
+# Some common things to specify:
+Type=ControlPanelApplet
+X-Maemo-Service=com.nokia.DuiControlPanel
+X-Maemo-Method=com.nokia.DuiControlPanelIf.appletPage
+X-Maemo-Object-Path=/
+X-Maemo-Fixed-Args=Date & Time
 
 # Name of the applet
 Name=Date & Time

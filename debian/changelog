@@ -6,8 +6,10 @@ duicontrolpanel (0.8.16~unreleased) unstable; urgency=low
   * Adds support for popping up categorypage through servicefw
   * Fixes: Popping up a button type applet through servicefw, moves to
     the categorypage (the applet has no view)
+  * Changes: Additional requirements of the .desktop format for
+    libcontentaction support
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 05 Oct 2010 10:35:10 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 05 Oct 2010 14:32:40 +0200
 
 duicontrolpanel (0.8.15.1) unstable; urgency=low
 

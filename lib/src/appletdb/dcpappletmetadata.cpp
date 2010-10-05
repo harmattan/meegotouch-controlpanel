@@ -50,6 +50,34 @@ DcpAppletMetadataPrivate::~DcpAppletMetadataPrivate ()
 }
 
 
+bool DcpAppletMetadataPrivate::caWarningIfNotMatch (
+        int key, const QString &expected1, const QString &expected2)
+{
+    QString value = m_DesktopEntry->value(Keys[key]);
+
+    if (expected1 == value) {
+        // it has good value
+        return true;
+    }
+
+    if (!expected2.isNull() && expected2 == value+"") {
+        // it has good value
+        return true;
+    }
+
+    // it has bad value:
+    qWarning ("The .desktop file of \"%s\" applet is not prepared to "
+              "be used as an action, because of key \"%s\" "
+              "(should be: \"%s\", but it is: \"%s\")",
+              qPrintable (m_DesktopEntry->name()),
+              qPrintable (Keys[key]),
+              qPrintable (expected2.isNull() ? expected1 :
+                          expected2 + "\" or \""+ expected1),
+              qPrintable (value));
+    return false;
+}
+
+
 DcpAppletMetadata::DcpAppletMetadata (
         const QString& filename)
 : d_ptr (new DcpAppletMetadataPrivate)
@@ -59,6 +87,23 @@ DcpAppletMetadata::DcpAppletMetadata (
     d_ptr->m_FileName = filename;
     d_ptr->m_DesktopEntry = new MDesktopEntry(filename);
     d_ptr->m_LastModified = QFileInfo(filename).lastModified().time();
+
+    /* These warnings ensures that applet developers notices when the
+     * .desktop file of their applet is not prepared for used as an
+     * action (see libcontentaction-doc)
+     *
+     * To avoid zillions of warnings, we stop at the first one
+     */
+    if (!hasApplicationCommand()) {
+        QString name = this->name();
+        d_ptr->caWarningIfNotMatch (KeyService, "com.nokia.DuiControlPanel") &&
+        d_ptr->caWarningIfNotMatch (KeyMethod,
+                "com.nokia.DuiControlPanelIf.appletPage") &&
+        d_ptr->caWarningIfNotMatch (KeyObjectPath, "/", "") &&
+        d_ptr->caWarningIfNotMatch (KeyFixedArgs, name, name+";");
+    } else {
+        d_ptr->caWarningIfNotMatch (KeyExec, applicationCommand());
+    }
 }
 
 DcpAppletMetadata::~DcpAppletMetadata ()
@@ -129,7 +174,9 @@ DcpAppletMetadata::dslFilename () const
 QString 
 DcpAppletMetadata::applicationCommand () const
 {
-    return desktopEntryStr (KeyApplicationCommand);
+    QString command = desktopEntryStr(KeyExec);
+    return command.isEmpty() ? desktopEntryStr (KeyApplicationCommand)
+        : command;
 }
 
 /*!

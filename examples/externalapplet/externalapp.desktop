@@ -1,8 +1,16 @@
 [Desktop Entry]
-Type=DUIApplet
+Type=ControlPanelApplet
 Name=Example External Application
 Icon=
-Exec=
+
+# If this property is declared, and the applet is not loaded using the 
+# X-DUIApplet-Applet property, the command will be executed when the 
+# user activates the plugin in the control panel.
+# This has to be specified in order that the .desktop file can also be
+# used as an action (for example for search to know how to
+# open the "applet")
+Exec=widgetsgallery
+
 X-logical-id=duicontrolpanel_example_applet
 X-translation-catalog=duisettings
 
@@ -10,13 +18,10 @@ X-translation-catalog=duisettings
 #
 # The plugin binary file. Not used in this example.
 #
-#X-DUIApplet-Applet=libXXX.so
-#
-# If this property is declared, and the applet is not loaded using the 
-# X-DUIApplet-Applet property, the command will be executed when the 
-# user activates the plugin in the control panel.
-#
-X-DUIApplet-ApplicationCommand=widgetsgallery
+# X-DUIApplet-Applet=libXXX.so
+
+# This becomes deprecated, use Exec instead
+# X-DUIApplet-ApplicationCommand=widgetsgallery
 
 [DCP]
 Category= Look & Feel

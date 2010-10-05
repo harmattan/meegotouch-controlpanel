@@ -14,7 +14,7 @@ For this to work you will need a .desktop file for your application
 "/usr/lib/duicontrolpanel".
 
 The important key is that you will need to specify the application you
-want to start in the key "X-DUIApplet-ApplicationCommand".
+want to start in the key "Exec".
 
 See also <a href="desktopformat.html">Desktop file format</a> for details.
 
@@ -23,17 +23,17 @@ Here is an example for the desktop file:
 
 \code
 [Desktop Entry]
-Type=DUIApplet
+Type=ControlPanelApplet
+
 Name=Example External Application
 X-logical-id=duicontrolpanel_example_applet
 X-translation-catalog=duisettings
 
-[DUI]
 # If this property is declared, and the applet is not loaded using the 
 # X-DUIApplet-Applet property, the command will be executed when the 
 # user activates the plugin in the control panel.
 #
-X-DUIApplet-ApplicationCommand=widgetsgallery
+Exec=widgetsgallery
 
 [DCP]
 Category= Look & Feel
@@ -42,5 +42,5 @@ WidgetType= label
 \endcode
 
 
-*/
+*/Date & Time
 

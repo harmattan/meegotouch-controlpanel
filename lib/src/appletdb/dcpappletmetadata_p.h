@@ -29,6 +29,9 @@ public:
     DcpAppletMetadataPrivate();
     ~DcpAppletMetadataPrivate();
 
+    bool caWarningIfNotMatch (int key,const QString& expected1,
+                              const QString& expected2 = QString());
+
     // last modification time of the desktop entry:
     QTime m_LastModified;
     MDesktopEntry* m_DesktopEntry;
@@ -58,6 +61,13 @@ enum  {
 
     KeyPart,
     KeyUnique,
+
+    KeyService,
+    KeyMethod,
+    KeyObjectPath,
+    KeyFixedArgs,
+    KeyExec,
+
     KeyCount
 };
 
@@ -79,7 +89,16 @@ const QString Keys[KeyCount] = {
     "Desktop Entry/X-logical-id",
     "Desktop Entry/X-translation-catalog",
     "DCP/Part",
-    "DCP/Unique"
+
+    "DCP/Unique",
+
+    // these have to be filled correctly in order for the .desktop file to be
+    // able to function as an action
+    "Desktop Entry/X-Maemo-Service",
+    "Desktop Entry/X-Maemo-Method",
+    "Desktop Entry/X-Maemo-Object-Path",
+    "Desktop Entry/X-Maemo-Fixed-Args",
+    "Desktop Entry/Exec"
 };
 
 #endif // DCPAPPLETMETADATA_P_H
