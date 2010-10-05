@@ -63,7 +63,7 @@ PageFactory::currentPage ()
     return sCurrentPage;
 }
 
-void
+bool
 PageFactory::changePage (const PageHandle &handle)
 {
     delete sCurrentPage;
