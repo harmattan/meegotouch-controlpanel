@@ -132,7 +132,10 @@ DuiControlPanelService::startPageForReal(
             win->show();
             win->raise();
         } else {
-            win->close();
+            qWarning ("Failed to switch page (wrong page id?)");
+            if (!win->isOnDisplay()) {
+                win->close();
+            }
         }
     }
 }

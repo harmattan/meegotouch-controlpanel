@@ -177,8 +177,9 @@ PageFactory::createAppletPage (PageHandle &handle)
 
     if (applet && applet->widgetTypeID() == DcpWidgetType::Button)
     {
-        applet->setToggle(!applet->toggle());
-        return 0;
+        Q_ASSERT (applet->metadata());
+        PageHandle handle (PageHandle::APPLETCATEGORY, applet->metadata()->category());
+        return createAppletCategoryPage(handle);
     }
 
     /*
