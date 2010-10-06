@@ -1,4 +1,4 @@
-duicontrolpanel (0.8.16~unreleased) unstable; urgency=low
+duicontrolpanel (0.8.16) unstable; urgency=low
 
   * Little compile fix for meego 1.1
   * Fixes: NB#195911 - controlpanel crashing if its called via servicefw
