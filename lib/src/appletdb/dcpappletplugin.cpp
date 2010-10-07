@@ -204,7 +204,7 @@ DcpAppletPlugin::load ()
 }
 
 int
-DcpAppletPlugin::interfaceVersion()
+DcpAppletPlugin::interfaceVersion() const
 {
     if (applet()) {
         return applet()->interfaceVersion();

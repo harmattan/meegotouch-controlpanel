@@ -68,6 +68,8 @@ enum  {
     KeyFixedArgs,
     KeyExec,
 
+    KeyHelpId,
+
     KeyCount
 };
 
@@ -98,7 +100,9 @@ const QString Keys[KeyCount] = {
     "Desktop Entry/X-Maemo-Method",
     "Desktop Entry/X-Maemo-Object-Path",
     "Desktop Entry/X-Maemo-Fixed-Args",
-    "Desktop Entry/Exec"
+    "Desktop Entry/Exec",
+
+    "DCP/HelpId"
 };
 
 #endif // DCPAPPLETMETADATA_P_H

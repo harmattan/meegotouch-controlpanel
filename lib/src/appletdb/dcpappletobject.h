@@ -60,6 +60,8 @@ public:
     QString imageName() const;
     int getMainWidgetId () const;
 
+    QString helpId () const;
+
 signals:
     void briefChanged ();
     void activate (int pageId);

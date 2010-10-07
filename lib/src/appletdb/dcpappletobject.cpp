@@ -178,6 +178,21 @@ DcpAppletObject::text2 () const
 }
 
 /*!
+ * Returns the help id of the applet. Value which comes from DcpBrief overrides
+ * the value from the desktop file.
+ */
+QString
+DcpAppletObject::helpId () const
+{
+    if (interfaceVersion () < 5) return QString();
+
+    QString result = brief() ? brief()->helpId() : QString();
+    if (result.isNull()) result = metadata()->helpId();
+    return result;
+}
+
+
+/*!
  * Returns the icon name for the applet by calling the DcpBrief::icon() or
  * DcpBrief::image() virtual method.
  * If the applet returns the empty string (default implementation) the

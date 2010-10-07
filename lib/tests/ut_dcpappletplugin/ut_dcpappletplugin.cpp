@@ -110,7 +110,7 @@ void Ut_DcpAppletPlugin::testInterfaceVersion()
     DcpAppletMetadata *metadata = new DcpAppletMetadata("dummy-binary");
     m_subject = new DcpAppletPlugin(metadata);
     QVERIFY(m_subject->applet());
-    QCOMPARE(m_subject->interfaceVersion(), 4);
+    QCOMPARE(m_subject->interfaceVersion(), 5);
     delete m_subject->d_ptr->appletInstance;
     m_subject->d_ptr->appletInstance = 0;
     QCOMPARE(m_subject->interfaceVersion(), -1);

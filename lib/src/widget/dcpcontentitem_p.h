@@ -25,6 +25,7 @@
 #include <MImageWidget>
 #include <MButton>
 #include <MLabel>
+#include <HelpButton>
 
 /******************************************************************************
  * Private data class for the DcpContentItem class.
@@ -50,6 +51,7 @@ public:
     MImageWidget* m_ImageW;
     MLabel* m_Text1W;
     MLabel* m_Text2W;
+    HelpButton* m_Help;
     QGraphicsWidget* m_Spacer;
     MButton* m_ButtonW;
 };

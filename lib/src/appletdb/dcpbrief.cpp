@@ -92,3 +92,10 @@ DcpBrief::activate ()
 {
     emit activateSignal();
 }
+
+QString DcpBrief::helpId() const
+{
+    // default is no help
+    return QString();
+}
+

@@ -30,11 +30,13 @@ public:
     virtual bool toggle() const;
     virtual void setToggle (bool toggle);
     /* You can specify the widgettype here if you need something else
-     * than Label
+     * than Label */
     virtual int widgetTypeID() const;
-     */
 
     virtual void timerEvent(QTimerEvent*);
+
+    // this returns the id of the applet's help
+    virtual QString helpId () const;
 
 private:
     bool m_ToggleState;

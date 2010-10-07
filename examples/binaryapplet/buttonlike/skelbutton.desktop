@@ -20,4 +20,5 @@ X-DUIApplet-Applet=libdcpskelbuttonapplet.so
 Category= Look & Feel
 Order=4
 WidgetType= Button
+HelpId=IDUG_MEEGO_CONN_CLOSE.html
 

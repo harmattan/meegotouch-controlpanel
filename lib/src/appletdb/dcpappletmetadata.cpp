@@ -487,4 +487,12 @@ QString DcpAppletMetadata::storedLastUsedItem ()
     return MGConfItem(lastUsedAppletKey).value ().toString ();
 }
 
+/*!
+ * \brief Quieries the help id of the applet.
+ */
+QString DcpAppletMetadata::helpId() const
+{
+    return desktopEntryStr(KeyHelpId);
+}
+
 

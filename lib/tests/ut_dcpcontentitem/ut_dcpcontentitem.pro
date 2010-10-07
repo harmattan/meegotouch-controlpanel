@@ -1,5 +1,7 @@
 include(../common_top.pri)
 
+CONFIG += userguide
+
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
 
 TEST_SOURCES = \
@@ -15,6 +17,7 @@ SOURCES += \
     ../../../controlpanel/tests/doubles/mgridlayoutpolicy-fake.cpp \
     ../../../controlpanel/tests/doubles/mabstractlayoutpolicy-fake.cpp \
     ../doubles/mimagewidget-fake.cpp \
+    ../doubles/mhelpbutton-fake.cpp \
     $$TEST_SOURCES \
 
 # base classes

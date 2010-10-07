@@ -41,6 +41,7 @@ DcpContentItemPrivate::DcpContentItemPrivate ():
     m_ImageW (0),
     m_Text1W (0),
     m_Text2W (0),
+    m_Help (0),
     m_Spacer (0),
     m_ButtonW (0)
 {
@@ -162,6 +163,34 @@ DcpContentItem::ensureToggleIsCreated()
 }
 
 void
+DcpContentItem::ensureHelpIsCreated()
+{
+    QString helpId = helpID();
+    HelpButton* &help = d_ptr->m_Help;
+
+    if (helpId.isEmpty()) {
+        if (help) {
+            // delete help button:
+            delete help;
+            help = 0;
+            d_ptr->m_LayoutIsToBeChanged = true;
+        }
+
+    } else {
+        if (!help) {
+            // FIXME: this will be MHelpButton once the feature got into libmeegotouch
+            help = new HelpButton(helpID());
+            help->setViewType(MButton::iconType);
+            help->setIconID ("icon-m-content-description");
+            d_ptr->m_LayoutIsToBeChanged = true;
+
+        } else {
+            help->setPageID (helpID());
+        }
+    }
+}
+
+void
 DcpContentItem::ensureTextsAreCreated()
 {
     QString text2 = this->subtitle();
@@ -235,8 +264,14 @@ DcpContentItem::ensureWidgetsAreLayouted()
         d_ptr->m_Spacer->hide();
         d_ptr->m_Text2W->hide();
     }
+    int toggleX = textX+1;
+    if (d_ptr->m_Help) {
+        grid->addItem (d_ptr->m_Help, 0, toggleX,
+                       textLinesCount+1, 1, Qt::AlignCenter);
+        toggleX++;
+    }
     if (d_ptr->m_ButtonW) {
-        grid->addItem (d_ptr->m_ButtonW, 0, textX+1,
+        grid->addItem (d_ptr->m_ButtonW, 0, toggleX,
                        textLinesCount+1, 1, Qt::AlignCenter);
     }
 }
@@ -258,6 +293,7 @@ DcpContentItem::constructRealWidget ()
 
     // we create the widgets (if not created yet)
     // and update their contents if necessery
+    ensureHelpIsCreated();
     ensureImageIsCreated();
     ensureToggleIsCreated();
     ensureTextsAreCreated();
@@ -483,5 +519,12 @@ void DcpContentItem::loadApplet()
 
     // load the applet:
     setApplet (DcpAppletDb::instance()->applet (metadata()->name()));
+}
+
+QString DcpContentItem::helpID() const
+{
+    if (applet()) return applet()->helpId();
+    if (d_ptr->m_Metadata) return d_ptr->m_Metadata->helpId();
+    return QString();
 }
 

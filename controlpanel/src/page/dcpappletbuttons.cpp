@@ -36,6 +36,7 @@
 #include <QStandardItemModel>
 #include <QStandardItem>
 #include <QVariant>
+#include <HelpButton>
 
 DcpAppletButtons::DcpAppletButtons (
         const DcpCategoryInfo  *categoryInfo,
@@ -237,21 +238,18 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
 
     if (widgetId == DcpWidgetType::Button) {
         DcpContentButton *button = new DcpContentButton (applet, this);
+
         if (!applet) {
 //            in case it is needed we can load it later also
 //            button->setMetadata (metadata);
-            button->setApplet (db->applet(name));
+            applet = db->applet(name);
+            button->setApplet (applet);
         }
+
         button->setMattiID ("DcpContentButton::" + mattiPostfix);
         button->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
 
         // put it before the mlist:
-#ifdef NB188565
-        mLayout()->insertItem (getItemCount()-1, button);
-#else
-        // FIXME: this is a workaround for 188565 -  Offline mode button is left aligned...
-        // It is a layout bug in Qt, please remove this, after NB#188780 gets fixed.
-
         QGraphicsWidget* c = new QGraphicsWidget();
         QGraphicsWidget* spacer1 = new QGraphicsWidget();
         QGraphicsWidget* spacer2 = new QGraphicsWidget();
@@ -260,11 +258,19 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
         spacer2->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
         QGraphicsLinearLayout* wlayout = new QGraphicsLinearLayout(c);
         wlayout->setContentsMargins(0,0,0,0);
+        QString helpId = applet ? applet->helpId():
+                         metadata ? metadata->helpId():
+                         QString();
+        if (!helpId.isEmpty()) {
+            HelpButton* help = new HelpButton (helpId);
+            help->setViewType(MButton::iconType);
+            help->setIconID ("icon-m-content-description");
+            wlayout->addItem (help);
+        }
         wlayout->addItem (spacer1);
         wlayout->addItem (button);
         wlayout->addItem (spacer2);
         mLayout()->insertItem (getItemCount()-1, c);
-#endif
 
     } else {
         QString mattiID = "DcpContentItem::" + mattiPostfix;

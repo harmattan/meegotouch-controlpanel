@@ -42,6 +42,7 @@ HEADERS += include/*
 SOURCES += $$system(find ./ -name \'*.cpp\')
 
 CONFIG += meegotouch build_all warn_on debug
+CONFIG += userguide
 LIBS += -lduicontrolpanel
 
 # a fake check target so as not to stop the testing:

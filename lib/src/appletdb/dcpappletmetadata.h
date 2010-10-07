@@ -106,6 +106,8 @@ public:
     static void setLastUsed (DcpAppletMetadata* metadata);
     static QString storedLastUsedItem();
 
+    QString helpId() const;
+
 protected:
     MDesktopEntry* desktopEntry () const;
     QString desktopEntryStr (int id) const;

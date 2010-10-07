@@ -83,7 +83,7 @@ DcpAppletPlugin::load ()
 }
 
 int
-DcpAppletPlugin::interfaceVersion()
+DcpAppletPlugin::interfaceVersion() const
 {
     return 999999;
 }

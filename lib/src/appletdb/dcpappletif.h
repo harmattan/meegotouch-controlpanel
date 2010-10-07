@@ -94,7 +94,7 @@ public:
      * the interface the plugin was compiled with. It lets controlpanel
      * extend the interface without the need to recompile all applets.
      */
-    virtual int interfaceVersion() { return 4; }
+    virtual int interfaceVersion() { return 5; }
 };
 
 Q_DECLARE_INTERFACE (DcpAppletIf, "com.nokia.m.core.DcpAppletIf/1.0")

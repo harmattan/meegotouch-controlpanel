@@ -43,7 +43,7 @@ public:
     bool isAppletLoaded() const;
     DcpAppletMetadata *metadata() const;
     const QString errorMsg () const;
-    int interfaceVersion();
+    int interfaceVersion() const;
 
 protected:
     virtual void load ();

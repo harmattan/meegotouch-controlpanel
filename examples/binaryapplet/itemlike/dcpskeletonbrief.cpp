@@ -47,16 +47,21 @@ void SkeletonBrief::setToggle (bool toggle)
     qDebug() << "Skeleton brief got toggle state:" << toggle;
 }
 
-/* The plugin can specify that it has an image (icon) like this:
+/* The plugin can specify that it has a toggle like this:
+ */
 int SkeletonBrief::widgetTypeID() const
 {
-    return DcpWidgetType::Image;
+    return DcpWidgetType::Toggle;
 }
-*/
 
 void SkeletonBrief::timerEvent(QTimerEvent*)
 {
     ++m_Value;
     emit valuesChanged();
+}
+
+QString SkeletonBrief::helpId () const
+{
+    return "test.cfg";
 }
 

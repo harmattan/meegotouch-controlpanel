@@ -124,6 +124,7 @@ protected:
     QString title() const;
     QString subtitle() const;
     QString imageID() const;
+    QString helpID() const;
 
 private:
     // creating widgets, layouts:
@@ -132,6 +133,7 @@ private:
     void ensureToggleIsCreated();
     void ensureTextsAreCreated();
     void ensureWidgetsAreLayouted();
+    void ensureHelpIsCreated();
     void clearAppletData();
 
     DcpContentItemPrivate* const d_ptr;

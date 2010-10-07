@@ -140,6 +140,14 @@ public:
      * in the desktop file.
      */
     virtual QString titleText () const;
+
+    /*!
+     * If the applet has a help, it can override this function and return
+     * the id, so controlpanel can put a help button next to its briefview.
+     *
+     * By default it is null, so there is no help button.
+     */
+    virtual QString helpId () const;
 };
 
 

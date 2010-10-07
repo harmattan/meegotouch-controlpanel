@@ -1,6 +1,7 @@
 include(../common_top.pri)
 
 CONFIG += meegotouch
+CONFIG += userguide
 
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
 INCLUDEPATH += $${LIBDCPINCLUDE}
@@ -23,6 +24,7 @@ SOURCES += \
     $$STUBSDIR/maintranslations-fake.cpp \
     $$STUBSDIR/dcpappletdb-fake.cpp \
     $$LIBDCPFAKES/mgconfitem-fake.cpp \
+    $$LIBDCPFAKES/mhelpbutton-fake.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
     $$STUBSDIR/dcpretranslator-fake.cpp \
     $$STUBSDIR/mwidgetcontroller-fake.cpp \
