@@ -123,6 +123,9 @@ The widget type of the launch button. Can be one of the following:
 <li>Image - Like Label, and an image
 </ul>
 
+\par HelpId
+This can contain a help page id (see userguide's documentation) for the applet. If specified, a help button will be put on the icon / next to the icon of the applet, and if the user presses it, the requested page of the current help application gets openned.
+
 \par Align
 DEPRECATED, it used to specify on which side the image is for an image type of
 launch button. According to current UI specs for every launch button the image
