@@ -2,8 +2,9 @@ duicontrolpanel (0.8.17~unreleased) unstable; urgency=low
 
   * Changes: help content can be specified for the icon of a plugin
     through .desktop file or DcpBrief
+  * Adds credential for mce usage
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 07 Oct 2010 17:22:28 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 08 Oct 2010 14:49:45 +0200
 
 duicontrolpanel (0.8.16) unstable; urgency=low
 

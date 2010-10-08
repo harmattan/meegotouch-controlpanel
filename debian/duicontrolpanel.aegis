@@ -1,5 +1,6 @@
 <aegis>
   <request>
+    <credential name="dsme::DeviceStateControl" />
     <credential name="Cellular" />
     <credential name="timed::TimeControl" />
     <credential name="TrackerReadAccess" />
