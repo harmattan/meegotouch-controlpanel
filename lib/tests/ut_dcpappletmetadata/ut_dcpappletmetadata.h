@@ -55,6 +55,7 @@ private slots:
     void testUsageGreatherThan();
 #endif
     void testPart();
+    void testHelpId();
     void testDslFilename();
     void testApplicationCommand();
     void testTranslationCatalog();
@@ -71,3 +72,4 @@ private:
 };
 
 #endif
+

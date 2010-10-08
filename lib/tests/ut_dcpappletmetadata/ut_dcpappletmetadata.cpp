@@ -54,6 +54,7 @@ void Ut_DcpAppletMetadata::initTestCase()
     fileDatas[desktopTestFile]["DUI/X-DUIApplet-Dslfile"] = "dslfile";
     fileDatas[desktopTestFile]["DCP/Category"] = "Application";
     fileDatas[desktopTestFile]["DCP/Order"] = "1";
+    fileDatas[desktopTestFile]["DCP/HelpId"] = "helpid";
     fileDatas[desktopTestFile]["DCP/WidgetType"] = "DcpLabel2";
     fileDatas[desktopTestFile]["DCP/Text2"] = "firefox";
     fileDatas[desktopTestFile]["DCP/Align"] = "RIGHT";
@@ -236,6 +237,13 @@ void Ut_DcpAppletMetadata::testPart()
     if (QTest::currentTestFailed()) return;
 
     QCOMPARE(m_subject->part(), QString("RobiJonMegKutyaraDer"));
+}
+
+void Ut_DcpAppletMetadata::testHelpId()
+{
+    if (QTest::currentTestFailed()) return;
+
+    QCOMPARE(m_subject->helpId(), QString("helpid"));
 }
 
 
