@@ -1,7 +1,11 @@
 include(../common_top.pri)
 
 CONFIG += meegotouch
-CONFIG += userguide
+
+# FIXME: this has to be removed if the functionality has merged into meegotouch
+INCLUDEPATH += /usr/include/userguide
+DEPENDPATH += /usr/include/userguide
+LIBS += -luserguide
 
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
 INCLUDEPATH += $${LIBDCPINCLUDE}

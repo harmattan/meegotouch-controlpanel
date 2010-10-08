@@ -42,8 +42,12 @@ HEADERS += include/*
 SOURCES += $$system(find ./ -name \'*.cpp\')
 
 CONFIG += meegotouch build_all warn_on debug
-CONFIG += userguide
 LIBS += -lduicontrolpanel
+
+# FIXME: this has to be removed if the functionality has merged into meegotouch
+INCLUDEPATH += /usr/include/userguide
+DEPENDPATH += /usr/include/userguide
+LIBS += -luserguide
 
 # a fake check target so as not to stop the testing:
 QMAKE_EXTRA_TARGETS += check
