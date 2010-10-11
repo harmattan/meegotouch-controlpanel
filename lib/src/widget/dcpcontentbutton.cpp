@@ -41,6 +41,9 @@ DcpContentButton::DcpContentButton (
     MButton ("...", parent),
     d_ptr (new DcpContentButtonPrivate)
 {
+    connect (this, SIGNAL (clicked()),
+             this, SLOT (onClicked()));
+
     setApplet (applet);
 }
 
@@ -68,9 +71,6 @@ DcpContentButton::setApplet (DcpAppletObject *applet)
     d_ptr->m_Metadata = applet ? applet->metadata() : 0;
     if (!d_ptr->m_Applet)
         return;
-
-    connect (this, SIGNAL (clicked()),
-             d_ptr->m_Applet, SLOT (slotClicked()));
 
     // we only update if we are visible, since showEvent also updates
     if (isVisible()) {
@@ -182,5 +182,11 @@ void DcpContentButton::loadApplet()
 
     // load the applet:
     setApplet (DcpAppletDb::instance()->applet (metadata()->name()));
+}
+
+void DcpContentButton::onClicked ()
+{
+    if (!applet()) return;
+    applet ()->setToggle (!applet ()->toggle());
 }
 

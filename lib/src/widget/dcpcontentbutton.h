@@ -88,6 +88,7 @@ protected slots:
      * It is connected on the DcpBrief::valuesChanged() signal if any.
      */
     void updateContents ();
+    void onClicked ();
 
 protected:
     virtual void retranslateUi ();
