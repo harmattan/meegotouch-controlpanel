@@ -59,7 +59,7 @@ message("The install path for the executable will be: "$$target.path)
 desktop_entry.path = $$DCP_PREFIX/share/applications
 desktop_entry.files = duicontrolpanel.desktop
 rfs.files += controlpanel-rfs.sh
-rfs.path += $$system(pkg-config --variable osso_rfs_scripts_dir clean-device)
+rfs.path += $$system(pkg-config --variable rfs_scripts_dir clean-device)
 
 
 INSTALLS += target \
