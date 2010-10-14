@@ -1,12 +1,13 @@
 duicontrolpanel (0.8.17~unreleased) unstable; urgency=low
 
+  [ Robert Manner ]
   * Changes: help content can be specified for the icon of a plugin
     through .desktop file or DcpBrief
-  * Adds credential for mce usage
+  * Adds credential for dsme usage
   * Fixes: applet does not get the new toggle state in case of button
     type applet
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 11 Oct 2010 14:01:14 +0200
+ -- Viktor Nagy <viktor.nagy@blumsoft.eu>  Thu, 14 Oct 2010 15:30:11 +0200
 
 duicontrolpanel (0.8.16) unstable; urgency=low
 
