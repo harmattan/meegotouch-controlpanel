@@ -1,4 +1,4 @@
-duicontrolpanel (0.8.17~unreleased) unstable; urgency=low
+duicontrolpanel (0.8.17) unstable; urgency=low
 
   [ Robert Manner ]
   * Changes: help content can be specified for the icon of a plugin
