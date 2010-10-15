@@ -4,13 +4,34 @@
 Controlpanel has a servicefw interface, with which you can control it from other
 applications through dbus.
 
+\code
+<node>
+    <interface name="com.nokia.DuiControlPanelIf">
+        <method name="launch">
+        </method>
+        <method name="mainPage">
+        </method>
+        <method name="categoryPage">
+            <arg name="category" type="s" direction="in"/>
+        </method>
+        <method name="appletPage">
+            <arg name="appletName" type="s" direction="in"/>
+            <arg name="" type="b" direction="out"/>
+        </method>
+    </interface>
+</node>
+\endcode com.nokia.DuiControlPanelIf.xml describes Controlpanel's servicefw interface
+\n
+\n
+
 For this you have to link with libduicontrolpanel, and
-<cl>
+<ul>
 <li>create an instance of DuiControlPanelIf,
 <li>optionally check if the interface is valid (DuiControlPanelIf::isValid()),
 <li>request the page you need.
-</cl>
+</ul>
 You can either pop up the mainpage, an applet or an appletcategory.
+
 
 \subsection applet Popping up an applet
 Use DuiControlPanelIf::appletPage() with the applet name as parameter.
@@ -21,14 +42,31 @@ which is a file under /usr/lib/duicontrolpanel/*.desktop. For example you find t
 \code
 [Desktop Entry]
 Type=ControlPanelApplet
-Name=I have a silly name
-X-logical-id=qtn_sett_main_silly_name
+Name=This is my name
+X-logical-id=qtn_sett_main_my_name
 ...
 \endcode
 
-Than the applet's name is "I have a silly name".
+Than the applet's name is "This is my name".
 
 \subsection mainpage Popping up the main page
 Use DuiControlPanelIf::mainPage().
-
+\n
+\n
+\code
+//Be sure to include this 
+#include <duicontrolpanelif.h>
+...
+{
+  DuiControlPanelIf *dcpIf = new DuiControlPanelIf();
+  if (dcpIf->isValid()) {
+    dcpIf->mainPage(); //To show main page
+    //or
+    dcpIf->appletPage("Internet"); //To show "internet applet" for example 
+    //or
+    dcpIf->categoryPage("Look & Feel"); //To show "Look & Feel" category
+  }
+  delete dcpIf;
+}
+\endcode above example demonstrates how to show up different pages/categories
 */

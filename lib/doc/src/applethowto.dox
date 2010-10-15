@@ -23,11 +23,351 @@ An applet which is implemented as a shared object, which is
 loaded by duicontrolpanel.
 
 This is the best way if you want all flexibility.
-See <a href="binaryplugins.html">binary applets</a> section for details.
+
+Now let's write a simple, binary applet. Let's call it skeleton applet.
+We will need the following files
+
+\code
+#ifndef SKELETONAPPLET_H
+#define SKELETONAPPLET_H
+
+#include <DcpAppletIf>
+#include <QObject>
+class DcpWidget;
+class MAction;
+
+class SkeletonApplet : public QObject, public DcpAppletIf 
+{
+	Q_OBJECT
+	Q_INTERFACES(DcpAppletIf)
+
+public:
+    virtual void init();
+	virtual DcpWidget* constructWidget(int widgetId);
+
+	virtual DcpWidget* pageMain();
+/*  Applet can have more 'pages'. Each page must be a DcpWidget subclass
+	virtual DcpWidget* page1();
+	virtual DcpWidget* page2();
+*/
+    virtual QString title() const;
+    virtual QVector<MAction *> viewMenuItems();
+    virtual DcpBrief* constructBrief(int);
+};
+#endif // SKELETONAPPLET_H
+\endcode dcpskeletonapplet.h
+\n
+\n
+\code
+#include <QtGui>
+#include <QDebug>
+#include <MAction>
+#include <MTheme>
+#include <DcpWidget>
+#include "dcpskeletonapplet.h"
+#include "dcpskeletonwidget.h"
+#include "dcpskeleton.h"
+#include "dcpskeletonbrief.h"
+
+Q_EXPORT_PLUGIN2(skeletonapplet, SkeletonApplet)
+
+void SkeletonApplet::init()
+{
+    MTheme::loadCSS(QString(CSSDIR) + "skeletonapplet.css");
+};
+
+DcpWidget* SkeletonApplet::constructWidget(int widgetId)
+{
+	switch (widgetId)
+    {
+        case DcpSkeleton::Main:
+                    return pageMain();
+                    break;
+        // more cases here if applet has more pages
+        default:
+                    qDebug() << "Page Unknown";
+                    return 0;
+                    break;
+    };
+}
+
+DcpWidget* SkeletonApplet::pageMain()
+{
+	return new SkeletonWidget();
+}
+
+
+
+QString SkeletonApplet::title() const
+{
+    //% "Skeleton applet"
+    return qtTrId("dcp_skel_appl_titl");
+}
+
+QVector<MAction*> SkeletonApplet::viewMenuItems()
+{
+    QVector<MAction*> vector(1);
+    //% "Example action"
+    vector[0] = new MAction(qtTrId("dcp_skel_appl_action"), this);
+    vector[0]->setLocation(MAction::ApplicationMenuLocation);
+    return vector;
+}
+
+DcpBrief* SkeletonApplet::constructBrief(int)
+{
+    return new SkeletonBrief();
+}
+\endcode dcpskeletonapplet.cpp
+\n
+\n
+\code
+#ifndef SKELETONBRIEF_H
+#define SKELETONBRIEF_H
+
+#include <DcpBrief>
+
+class SkeletonBrief: public DcpBrief{
+    Q_OBJECT
+public:
+    SkeletonBrief();
+    virtual QString valueText() const;
+    virtual QString titleText() const;
+
+    virtual bool toggle() const;
+    virtual void setToggle (bool toggle);
+    virtual int widgetTypeID() const;
+
+    virtual void timerEvent(QTimerEvent*);
+
+private:
+    bool m_ToggleState;
+    int m_Value;
+};
+
+
+#endif // SKELETONBRIEF
+\endcode dcpskeletonbrief.h
+\n
+\n
+\code
+#include <DcpWidgetTypes>
+#include "dcpskeletonbrief.h"
+#include <QtDebug>
+
+SkeletonBrief::SkeletonBrief():
+    m_ToggleState(true),
+    m_Value(0)
+{
+    startTimer(20000);
+}
+
+QString SkeletonBrief::valueText() const
+{
+    return "value text " + QString::number(m_Value);
+}
+
+QString SkeletonBrief::titleText() const
+{
+    return "title text " + QString::number(m_Value);
+}
+
+bool SkeletonBrief::toggle() const
+{
+    return m_ToggleState;
+}
+
+void SkeletonBrief::setToggle (bool toggle)
+{
+    m_ToggleState = toggle;
+    qDebug() << "Skeleton brief got toggle state:" << toggle;
+}
+
+int SkeletonBrief::widgetTypeID() const
+{
+    return DCPLABELBUTTON;
+}
+
+void SkeletonBrief::timerEvent(QTimerEvent*)
+{
+    ++m_Value;
+    emit valuesChanged();
+}
+\endcode dcpskeletonbrief.cpp
+\n
+\n
+\code
+#ifndef SKELETONWIDGET_H
+#define SKELETONWIDGET_H
+
+#include <DcpWidget>
+ 
+class MLabel;
+
+class SkeletonWidget : public DcpWidget 
+{
+	Q_OBJECT
+		
+public:
+	SkeletonWidget(QGraphicsWidget *parent = 0);
+	virtual ~SkeletonWidget();
+
+protected:
+	void initWidget();
+		
+private:
+	MLabel    *m_aboutLabel;
+		
+};
+#endif // SKELETONWIDGET_H
+\endcode dcpskeletonwidget.h
+\n
+\n
+\code
+#ifndef SKELETONWIDGET_H
+#define SKELETONWIDGET_H
+
+#include <DcpWidget>
+ 
+class MLabel;
+
+class SkeletonWidget : public DcpWidget 
+{
+	Q_OBJECT
+		
+public:
+	SkeletonWidget(QGraphicsWidget *parent = 0);
+	virtual ~SkeletonWidget();
+
+protected:
+	void initWidget();
+		
+private:
+	MLabel    *m_aboutLabel;
+		
+};
+#endif // SKELETONWIDGET_H
+\endcode dcpskeletonwidget.cpp
+\n
+\n
+\code
+#ifndef DCPSKELETON_H
+#define DCPSKELETON_H
+namespace DcpSkeleton
+{
+    enum
+     {
+        Main = 0 
+     // Here go ids of more applet pages if any
+     // Page1 = 1,
+     // Page2 = 2,
+    };
+    const int NoReferer = -1;
+}
+#endif // DCPSKELETON_H
+\endcode dcpskeleton.h
+\n
+\n
+\code
+#LabelAbout {
+        color: #FFFFFF;
+        font: "Nokia Sans Cn" 16;
+}
+\endcode skeletonapplet.css
+\n
+\n
+\code
+[Desktop Entry]
+Type=DUIApplet
+Name=Skeleton
+Icon=
+Exec=
+X-logical-id=qtn_sett_main_display
+X-translation-catalog=duicontrolpanel-skeletonapplet
+
+[DUI]
+X-DUIApplet-Applet=libdcpskeletonapplet.so
+X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
+X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
+
+[DCP]
+Category= Look & Feel
+Order=4
+WidgetType= DcpLabel2
+\endcode skeleton.desktop
+\n
+\n
+\code
+TEMPLATE      = lib
+CONFIG       += plugin gui meegotouch duicontrolpanel silent debug
+
+MOC_DIR	      = .moc
+OBJECTS_DIR   = .objects
+
+HEADERS       = dcpskeletonapplet.h \
+		dcpskeletonwidget.h \
+                dcpskeletonbrief.h
+
+SOURCES       = dcpskeletonapplet.cpp \
+		dcpskeletonwidget.cpp \
+                dcpskeletonbrief.cpp
+
+css.files     = skeletonapplet.css
+DESTDIR       = ./lib
+TARGET        = $$qtLibraryTarget(dcpskeletonapplet)
+desktop.files += *.desktop
+desktop.path = /usr/lib/duicontrolpanel
+target.path += /usr/lib/duicontrolpanel/applet
+css.path    += /usr/share/themes/base/meegotouch/duicontrolpanel/style
+
+message("The plugin will be installed to: " $$target.path)
+message("CSS path will be: " $$css.path)
+
+INSTALLS += \
+	target \
+	css \
+        desktop
+\endcode skeleton.pro
+\n
+\n
+\n
+After unpacking them you can build, compile, and install 
+\code
+qmake skeleton.pro
+make
+make install
+\endcode
+After that you can start it from controlpanel.
+You can find it under "Look & Feel" category
+
+
+See also <a href="binaryplugins.html">binary applets</a> section for details.
 
 \subsection declarativeapplet Declarative applet
 An applet which is implemented as a ui description in an xml file, using
 DirectUI's Declarative Settings Language.
+
+\code
+<settings>
+  <group>
+    <text key="/apps/ControlPanel/Example/Text1" title="Please specify a text:" >
+    </text>
+    <selection key="/apps/ControlPanel/Example/Enum1">
+        <option title="first value" >1</option>
+        <option title="second value" >2</option>
+        <option title="third value" >3</option>
+        <option title="fourth value" >4</option>
+    </selection>
+  </group>
+  <group>
+    <boolean key="/apps/ControlPanel/Example/Bool1" title="Please switch me">
+    </boolean>
+    <integer key="/apps/ControlPanel/Example/Integer1"
+        title="Select a number" min="30" max="60">
+    </integer>
+  </group>
+</settings>
+\endcode
+example1.xml defines a declarative applet
 
 This is the easiest way of creating an applet, but it is less flexible (currently):
     <ul>
@@ -43,6 +383,40 @@ An applet which is implemented as a separate application. When your applet's
     launch button is pressed, controlpanel will start your application.
     Avoid using it if you can,
     because the user experience will be different.</dd>
+
+\code
+[Desktop Entry]
+Type=DUIApplet
+Name=Example External Application
+Icon=
+Exec=
+X-logical-id=duicontrolpanel_example_applet
+X-translation-catalog=duisettings
+
+[DUI]
+#
+# The plugin binary file. Not used in this example.
+#
+#X-DUIApplet-Applet=libXXX.so
+X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
+X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
+#
+# Not implemented yet.
+#
+X-DUIApplet-Dslfile=trythisone.xml
+#
+# If this property is declared, and the applet is not loaded using the 
+# X-DUIApplet-Applet property, the command will be executed when the 
+# user activates the plugin in the control panel.
+#
+X-DUIApplet-ApplicationCommand=widgetsgallery
+
+[DCP]
+Category= Look & Feel
+Order=3
+WidgetType= DcpLabel2
+\endcode This example .desktop file starts "widgetsgallery" as eternal applet
+
 
 See <a href="externalplugins.html">external applets</a> section for details.
 

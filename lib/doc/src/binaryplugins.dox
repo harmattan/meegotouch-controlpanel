@@ -13,6 +13,26 @@ the things it needs.
 Like every other applet, the binary applet also needs a
 <a href="desktopformat.html">.desktop</a> file.
 
+\code
+[Desktop Entry]
+Type=DUIApplet
+Name=Skeleton
+Icon=
+Exec=
+X-logical-id=qtn_sett_main_display
+X-translation-catalog=duicontrolpanel-skeletonapplet
+
+[DUI]
+X-DUIApplet-Applet=libdcpskeletonapplet.so
+X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
+X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
+
+[DCP]
+Category= Look & Feel
+Order=4
+WidgetType= DcpLabel2
+\endcode
+
 \section viewhandling View handling: DcpWidgets
 
 When launching an applet, DuiControlpanel displays it on one special page,
@@ -29,6 +49,17 @@ which is a DuiWidget descendant with a few services:
     <li>Notified if controlpanel's back button gets pressed...
 </ul>
 
+\code
+class DcpWidget: public MWidget
+{
+public:
+    virtual bool back ();
+...
+signals:
+    void changeWidget (int widgetId);
+...
+}
+\endcode
 
 \section multipage Having multiple pages
 
@@ -38,16 +69,42 @@ When an applet has multiple pages (widgets), it associates every one of
 them with an id. DcpAppletIf::constructWidget() gets the id as parameter,
 and creates the widget for that id. These ids are referred to as partIds.
 
+\code
+{
+    DcpWidget * widget = m_Applet->constructWidget (WallpaperApplet::MainWidget);
+    QVERIFY (widget);
+
+    DcpWidget * editorWidget = m_Applet->constructWidget (WallpaperApplet::EditorWidget);
+    QVERIFY (editorWidget);
+...
+}
+\endcode
+
 These ids meant to be internal to the applet, outside the applet people
 refer to pages of the applet as a string. For example a part of the date
 applet is possibly "Clock". The DcpAppletIf::partID() call translates this
 string into the integer partId.
+
+\code
+{
+    QVERIFY(m_applet->partID(QString("Time")) == View::Time);
+    QVERIFY(m_applet->partID(QString("TimeZone")) == View::TimeZone);
+    QVERIFY(m_applet->partID(QString("Date")) == View::Date);
+    QVERIFY(m_applet->partID(QString("Main")) == View::Main);
+}
+\endcode
 
 \subsection changepage Changing between the applet's pages
 
 The current widget can request changing to another widget by emitting
 DcpWidget::changeWidget(), where widgetId is the id of another widget,
 defined by the applet itself.
+
+\code
+...
+emit changeWidget(View::TimeZone);
+...
+\endcode
 
 \subsection backbutton Back button handling
 
@@ -58,6 +115,12 @@ which is called by the page. (For example stopping threads or such.)
 
 The back function's return value determines if the page gets closed or stays
 visible. By default it gets closed. See DcpWidget::back().
+
+\code
+...
+bool backAccepted = widget->back();
+...
+\endcode
 
 \section launchbuttons Applet Launch Buttons
 
@@ -135,9 +198,10 @@ them later with live ones.
 
 Duicontrolpanel provides a convenient way for the binary applets to load their
 styles from .css.
-See <a href="styles.html">Using custom styles from binaryapplets</a> section
-for details.
+
 
 
 */
 
+See <a href="styles.html">Using custom styles from binaryapplets</a> section
+for details.
