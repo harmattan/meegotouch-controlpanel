@@ -69,6 +69,7 @@ PageFactory::changePage (const PageHandle &handle)
     delete sCurrentPage;
     sCurrentPage = new DcpPage();
     sCurrentPage->setHandle (handle.id, handle.param);
+    return true;
 }
 
 void
