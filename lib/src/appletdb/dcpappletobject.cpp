@@ -184,9 +184,7 @@ DcpAppletObject::text2 () const
 QString
 DcpAppletObject::helpId () const
 {
-    if (interfaceVersion () < 5) return QString();
-
-    QString result = brief() ? brief()->helpId() : QString();
+    QString result = brief() && interfaceVersion () >= 5 ? brief()->helpId() : QString();
     if (result.isNull()) result = metadata()->helpId();
     return result;
 }
