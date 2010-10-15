@@ -1,3 +1,9 @@
+duicontrolpanel (0.8.17.1) unstable; urgency=low
+
+  * Little fix for helpid
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 15 Oct 2010 12:59:50 +0200
+
 duicontrolpanel (0.8.17) unstable; urgency=low
 
   [ Robert Manner ]
