@@ -1,3 +1,10 @@
+duicontrolpanel (0.8.18~unreleased) unstable; urgency=low
+
+  [ Tamas Balogh ]
+  * Documentation improvements
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 19 Oct 2010 10:26:11 +0200
+
 duicontrolpanel (0.8.17.1) unstable; urgency=low
 
   * Little fix for helpid
