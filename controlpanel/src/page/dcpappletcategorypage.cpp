@@ -56,9 +56,6 @@ DcpAppletCategoryPage::createContent ()
              this, SLOT (onLoadingFinished()));
     setProgressIndicatorVisible (true);
 #endif
-
-    // this starts the loading of the applets if when the page animation finishes:
-    connect (this, SIGNAL(appeared()), m_Category, SLOT(startLoading()));
 }
 
 const QString 

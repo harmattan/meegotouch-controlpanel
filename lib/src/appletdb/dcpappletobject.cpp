@@ -32,8 +32,6 @@
 #include <QTime>
 #include "dcpdebug.h"
 
-static const int CONSTRUCTBRIEF_TIMEOUT = 200;
-
 
 DcpAppletObjectPrivate::DcpAppletObjectPrivate ():
     applet(0),
@@ -49,8 +47,14 @@ DcpAppletObjectPrivate::~DcpAppletObjectPrivate ()
 }
 
 
-DcpAppletObject::DcpAppletObject(DcpAppletMetadata *metadata):
-      DcpAppletPlugin(metadata),
+DcpAppletObject::DcpAppletObject (DcpAppletMetadata *metadata):
+      DcpAppletPlugin (metadata),
+      d_ptr (new DcpAppletObjectPrivate)
+{
+}
+
+DcpAppletObject::DcpAppletObject (DcpAppletMetadata *metadata, bool tryLoad):
+      DcpAppletPlugin (metadata, tryLoad),
       d_ptr (new DcpAppletObjectPrivate)
 {
 }
@@ -141,17 +145,18 @@ DcpAppletObject::toggle () const
 QString
 DcpAppletObject::text1 () const
 {
+    QString text1;
+
     DcpAppletIf* applet = this->applet();
+    DcpBrief* brief = this->brief();
+
+    // use DcpBrief::titleText() if specified:
+    if (brief) {
+        text1 = brief->titleText();
+        if (!text1.isEmpty()) return text1;
+    }
+
     if (applet) {
-        // use DcpBrief::titleText() if specified:
-        QString text1;
-
-        DcpBrief* brief = this->brief();
-        if (brief) {
-            text1 = brief->titleText();
-            if (!text1.isEmpty()) return text1;
-        }
-
         // use DcpAppletIf::title() by default:
         // FIXME: deprecated to avoid confusion
         text1 = applet->title();
@@ -295,21 +300,24 @@ DcpBrief *
 DcpAppletObject::brief () const
 {
     if (d_ptr->m_Brief == 0 && applet() != 0) {
-        QTime start = QTime::currentTime();
-        d_ptr->m_Brief = applet()->constructBrief (getMainWidgetId());
-        timeoutWarning (start, CONSTRUCTBRIEF_TIMEOUT, "brief creation");
-
-        if (d_ptr->m_Brief != 0) {
-            connect (d_ptr->m_Brief, SIGNAL (valuesChanged ()), 
-                    this, SIGNAL (briefChanged ()));
-            connect (d_ptr->m_Brief, SIGNAL (activateSignal ()), 
-                    this, SLOT (activateSlot ()));
-        }
+        const_cast<DcpAppletObject*>(this)->setBrief (
+                applet()->constructBrief (getMainWidgetId()));
     }
 
     return d_ptr->m_Brief;
 }
 
+void
+DcpAppletObject::setBrief (DcpBrief* brief)
+{
+    d_ptr->m_Brief = brief;
+    if (d_ptr->m_Brief != 0) {
+        connect (d_ptr->m_Brief, SIGNAL (valuesChanged ()), 
+                this, SIGNAL (briefChanged ()));
+        connect (d_ptr->m_Brief, SIGNAL (activateSignal ()), 
+                this, SLOT (activateSlot ()));
+    }
+}
 
 
 
@@ -339,5 +347,4 @@ DcpAppletObject::activateSlot (int pageId)
     DCP_DEBUG ("Emitting activate(%d)", pageId);
     emit activate(pageId);
 }
-
 

@@ -97,13 +97,6 @@ DcpCategoryComponent::createContents ()
     m_Container->setCentralWidget (m_AppletButtons);
 }
 
-void
-DcpCategoryComponent::startLoading ()
-{
-    Q_ASSERT (m_AppletButtons); // FIXME XXX ensure that this happens right time?
-    m_AppletButtons->startLoading();
-}
-
 
 bool 
 DcpCategoryComponent::reload ()

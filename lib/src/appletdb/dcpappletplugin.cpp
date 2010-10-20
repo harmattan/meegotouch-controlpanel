@@ -27,12 +27,30 @@
 #include "dcpdebug.h"
 #include <QTime>
 
-static const int APPLETINIT_TIMEOUT = 400;
-
+/*!
+ * \brief creates an applet from the metadata and loads the plugin
+ *
+ * Equivalent with DcpAppletPlugin(metadata, true).
+ */
 DcpAppletPlugin::DcpAppletPlugin(DcpAppletMetadata *metadata):
    d_ptr(new DcpAppletPluginPrivate(metadata))
 {
     load();
+}
+
+/*!
+ * \brief creates an applet from the metadata
+ *
+ * Depending on the value of tryLoad this constructor tries to load the
+ * plugin's library as well.
+ *
+ */
+DcpAppletPlugin::DcpAppletPlugin(DcpAppletMetadata *metadata, bool tryLoad):
+   d_ptr(new DcpAppletPluginPrivate(metadata))
+{
+    if (tryLoad) {
+        load();
+    }
 }
 
 DcpAppletPluginPrivate::DcpAppletPluginPrivate(DcpAppletMetadata* metadata):
@@ -162,9 +180,7 @@ DcpAppletPlugin::loadPluginFile (
             return false;
         } else {
             DCP_DEBUG ("Initializing %s", DCP_STR (binaryPath));
-            QTime start = QTime::currentTime();
             d_ptr->appletInstance->init ();
-            timeoutWarning (start, APPLETINIT_TIMEOUT,  "DcpAppletIf::init()");
         }
     }
 
@@ -210,23 +226,6 @@ DcpAppletPlugin::interfaceVersion() const
         return applet()->interfaceVersion();
     } else {
         return -1;
-    }
-}
-
-/*
- * Show a warning if an operation takes longer than expected.
- */
-void DcpAppletPlugin::timeoutWarning (const QTime& startTime, int maxMs,
-                                      const QString& msg) const
-{
-    QString name = metadata() ? metadata()->name() : "???";
-    int msecs = startTime.msecsTo(QTime::currentTime());
-    if (msecs > maxMs) {
-        qWarning () << "SLOW applet" << name
-                    << "(" << msg << "took" << msecs << "ms )";
-    } else {
-        qDebug () << msg << "for the applet" << name
-                  << "took" << msecs << "ms";
     }
 }
 

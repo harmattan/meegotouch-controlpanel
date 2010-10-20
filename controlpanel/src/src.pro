@@ -40,8 +40,10 @@ include (service/service.pri)
 HEADERS += $$system(find ./ -name \'*.h\')
 HEADERS += include/*
 SOURCES += $$system(find ./ -name \'*.cpp\')
+SOURCES += ../../briefsupplier/src/bsuppliercommands.cpp
 
 CONFIG += meegotouch build_all warn_on debug
+QT += network
 LIBS += -lduicontrolpanel
 
 # FIXME: this has to be removed if the functionality has merged into meegotouch

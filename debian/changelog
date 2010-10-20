@@ -3,7 +3,11 @@ duicontrolpanel (0.8.18~unreleased) unstable; urgency=low
   [ Tamas Balogh ]
   * Documentation improvements
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 19 Oct 2010 10:26:11 +0200
+  [ Robert Manner ]
+  * Changes: handles the applet briefs in separate process so that
+    controlpanel does not stop responding while appelts are loading
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 20 Oct 2010 17:21:07 +0200
 
 duicontrolpanel (0.8.17.1) unstable; urgency=low
 

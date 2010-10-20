@@ -48,18 +48,12 @@ public:
     int metadataCount () const;
     DcpAppletMetadata* appletMetadata (int pos);
 
-public slots:
-    void startLoading();
-
 signals:
     //! emitted after loading the applets has finished
     void loadingFinished();
 
 protected:
     virtual void createContents();
-    bool loadApplet(int row);
-    bool loadingStepNext();
-    void timerEvent(QTimerEvent* event);
     void addComponent (DcpAppletMetadata *metadata, QStandardItemModel* model);
 
 private:
@@ -67,10 +61,6 @@ private:
 
     const DcpCategoryInfo  *m_CategoryInfo;
     friend class Ut_DcpAppletButtons;
-
-    // shows the progress of the applet loading process:
-    int m_AppletLoaderTimer;
-    int m_AppletLoaderPos;
 
     class MList* m_List;
 };

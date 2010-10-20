@@ -56,13 +56,13 @@ public:
     static DcpAppletDb *instance (
             const QString &pathName = DcpApplet::DefaultPath,
             const QString &nameFilter = "*.desktop");
-    
+
     /*! \brief adds files at a specified path pathName to the db */
     bool addPath (const QString &pathName);
 
     /* \brief adds files at specified pathName with specific name filter */
     bool addFiles (const QString &path, const QString &filter);
- 
+
     /*! \brief Database destructor */
     virtual ~DcpAppletDb();
 
@@ -77,9 +77,9 @@ public:
     */
     DcpAppletMetadataList listByCategory(
                     const QString &category);
-    
+
     DcpAppletMetadataList listByCategory (
-                    const char    **category, 
+                    const char    **category,
                     int             n_categories,
                     checkCategory   checkFunction = 0);
 

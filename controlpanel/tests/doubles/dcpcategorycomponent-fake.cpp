@@ -80,8 +80,3 @@ DcpCategoryComponent::getItemCount ()
     return 0;
 }
 
-void
-DcpCategoryComponent::startLoading ()
-{
-}
-

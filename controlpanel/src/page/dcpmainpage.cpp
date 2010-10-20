@@ -29,6 +29,7 @@
 #include <MContainer>
 
 #include "dcpcategorycomponent.h"
+#include "dcpremotebriefreceiver.h"
 #include "maintranslations.h"
 
 #include "mwidgetcreator.h"
@@ -84,6 +85,10 @@ DcpMainPage::shown ()
     m_RecentlyComp->startLoading();
 #endif
     m_HasContent = true;
+
+    // this loads the helper process a little bit earlier so that it can preload
+    // some applets
+    DcpRemoteBriefReceiver::instance ();
 
     emit firstShown ();
 }

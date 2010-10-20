@@ -44,6 +44,7 @@ class DcpAppletObject : public DcpAppletPlugin
     Q_OBJECT
 public:
     DcpAppletObject(DcpAppletMetadata *metadata);
+    DcpAppletObject(DcpAppletMetadata *metadata, bool tryLoad);
     virtual ~DcpAppletObject();
 
     QString toggleIconId () const;
@@ -55,12 +56,14 @@ public:
 
     QString text1 () const;
     QString text2 () const;
-    
+
     QString iconName() const;
     QString imageName() const;
     int getMainWidgetId () const;
 
     QString helpId () const;
+
+    DcpBrief* brief() const;
 
 signals:
     void briefChanged ();
@@ -73,9 +76,8 @@ public slots:
     void activateSlot(int widgetId = -1);
 
 protected:
-    DcpBrief* brief() const;
+    void setBrief (DcpBrief* brief);
 
-private:
     DcpAppletObjectPrivate *const d_ptr;
     Q_DISABLE_COPY (DcpAppletObject);
 };

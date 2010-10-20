@@ -55,9 +55,6 @@ public:
 
     int getItemCount ();
 
-public slots:
-    void startLoading ();
-
 signals:
     //! emitted after loading the applets has finished
     void loadingFinished();

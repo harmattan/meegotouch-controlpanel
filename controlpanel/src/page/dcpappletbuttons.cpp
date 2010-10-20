@@ -21,11 +21,11 @@
 #include "maintranslations.h"
 #include "dcpdebug.h"
 #include "dcpcontentitemcellcreator.h"
+#include "dcpremoteappletobject.h"
 
 #include <Pages>
 #include <DcpAppletDb>
 #include <DcpAppletMetadata>
-#include <DcpAppletObject>
 #include <DcpApplet>
 #include <DcpContentButton>
 #include <DcpWidgetTypes>
@@ -43,7 +43,6 @@ DcpAppletButtons::DcpAppletButtons (
         QGraphicsWidget        *parent)
 : DcpMainCategory (parent),
     m_CategoryInfo (categoryInfo),
-    m_AppletLoaderPos (0),
     m_List (new MList(this))
 {
     DcpContentItemCellCreator* cellCreator = new DcpContentItemCellCreator();
@@ -88,7 +87,7 @@ DcpAppletButtons::createContents ()
 #ifdef MOSTUSED
     if (m_CategoryInfo == &DcpMain::mostUsedCategory) {
         metadatas = DcpAppletDb::instance()->listMostUsed ();
-    } else 
+    } else
 #endif
     {
         bool        withUncategorized;
@@ -105,7 +104,6 @@ DcpAppletButtons::createContents ()
                     withUncategorized ? DcpMain::isCategoryNameEnlisted : NULL);
     }
 
-
     // ensure that all needed catalogs are loaded for the applets before
     DcpRetranslator::instance()->ensureTranslationsAreLoaded(metadatas);
 
@@ -120,78 +118,6 @@ DcpAppletButtons::createContents ()
     delete prevModel;
 }
 
-void
-DcpAppletButtons::startLoading()
-{
-    m_AppletLoaderPos = 0;
-
-    if (metadataCount() > 0) {
-        m_AppletLoaderTimer = startTimer (0);
-    } else {
-        emit loadingFinished();
-    }
-}
-
-bool
-DcpAppletButtons::loadingStepNext()
-{
-    // stop if loading finished:
-    if (m_AppletLoaderPos >= metadataCount()-1) {
-        killTimer (m_AppletLoaderTimer);
-        emit loadingFinished();
-        return false;
-    }
-    m_AppletLoaderPos++;
-    return true;
-}
-
-/*
- * loads the applet of the widget in the specified row
- * returns true if the loading was necessery, otherwise
- *         false (the applet was already loaded)
- */
-bool DcpAppletButtons::loadApplet (int row)
-{
-    DcpAppletMetadata* metadata = appletMetadata (row);
-    DcpAppletDb* db = DcpAppletDb::instance();
-    QString appletId = metadata->name();
-
-    // if an applet is already loaded, we have to do nothing:
-    if (db->isAppletLoaded(appletId)) return false;
-
-    DcpAppletObject* applet = db->applet (appletId);
-    if (applet->isAppletLoaded()) {
-        QStandardItemModel* model =
-            qobject_cast<QStandardItemModel*>(m_List->itemModel());
-        Q_ASSERT (model);
-        QStandardItem* item = model->item (row);
-        item->setData (QVariant::fromValue(applet),
-                       DcpContentItemCellCreator::AppletRole);
-    } else {
-        // if no applet got loaded, we did nothing:
-        return false;
-    }
-
-    return true;
-}
-
-
-
-void
-DcpAppletButtons::timerEvent(QTimerEvent *event)
-{
-    if (m_AppletLoaderTimer == event->timerId()) {
-        // this loads the next applet (which is not loaded), exactly one in
-        // every event
-        bool wasLoadingNecessary;
-        bool hasMoreItems;
-        do {
-            wasLoadingNecessary = loadApplet (m_AppletLoaderPos);
-            hasMoreItems = loadingStepNext ();
-            // end loop if an applet was loaded, or if there is no more items:
-        } while (!wasLoadingNecessary && hasMoreItems);
-    }
-}
 
 int
 DcpAppletButtons::metadataCount () const
@@ -221,30 +147,35 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
                                 QStandardItemModel* model)
 {
     metadata->markActive();
-
     int widgetId = metadata->widgetTypeID();
 
     // if the applet is already loaded, we skip the two step, and
     // set the applet directly instead of its metadata only
     DcpAppletObject* applet = 0;
-    DcpAppletDb* db = DcpAppletDb::instance();
     QString name = metadata->name();
-    if (db->isAppletLoaded (name)) {
+    DcpAppletDb* db = DcpAppletDb::instance();
+    if (db->isAppletLoaded (name) || metadata->binary().isEmpty()
+
+        /*
+         * TODO the outprocess implementation supports handling of the toggle
+         * state, but currently offline applet wants to create dialog and
+         * notification which requires it to be loaded. We could make an
+         * api for doing so, and then we could load this kind of applet icon
+         * in separate process as well
+         */
+        || widgetId == DcpWidgetType::Button
+
+       ) {
         applet = db->applet (name);
+    } else {
+        applet = new DcpRemoteAppletObject (metadata, model);
     }
 
     QString mattiPostfix = QString(m_CategoryInfo->titleId) +
                            "::" + metadata->category() + "::" + name;
 
     if (widgetId == DcpWidgetType::Button) {
-        DcpContentButton *button = new DcpContentButton (applet, this);
-
-        if (!applet) {
-//            in case it is needed we can load it later also
-//            button->setMetadata (metadata);
-            applet = db->applet(name);
-            button->setApplet (applet);
-        }
+        DcpContentButton *button = new DcpContentButton (applet);
 
         button->setMattiID ("DcpContentButton::" + mattiPostfix);
         button->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
@@ -289,7 +220,7 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
 bool
 DcpAppletButtons::reload ()
 {
-    markAllInactive();
+    markAllInactive ();
 
     // delete DcpContentButtons:
     for (int i=0; i<getItemCount()-1; i++) {

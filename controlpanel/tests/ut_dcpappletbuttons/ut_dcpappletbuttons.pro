@@ -25,6 +25,7 @@ TEST_SOURCES = \
 SOURCES += \
     *.cpp \
     $$STUBSDIR/dcpappletplugin-fake.cpp \
+    $$STUBSDIR/dcpremoteappletobject-fake.cpp \
     $$STUBSDIR/maintranslations-fake.cpp \
     $$STUBSDIR/dcpappletdb-fake.cpp \
     $$LIBDCPFAKES/mgconfitem-fake.cpp \
@@ -52,6 +53,7 @@ HEADERS += \
     $$SRCDIR/component/dcpmaincategory.h \
     $$SRCDIR/component/dcpcomponent.h \
     $$SRCDIR/page/dcpcontentitemcellcreator.h \
+    $$SRCDIR/remote/dcpremoteappletobject.h \
 
 # base classes
 HEADERS += \

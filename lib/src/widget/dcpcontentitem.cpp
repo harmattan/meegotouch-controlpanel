@@ -365,7 +365,6 @@ DcpContentItem::setApplet (DcpAppletObject *applet)
         constructRealWidget ();
         connect (d_ptr->m_Applet, SIGNAL (briefChanged ()),
                  this, SLOT (updateContents()));
-
     }
 }
 

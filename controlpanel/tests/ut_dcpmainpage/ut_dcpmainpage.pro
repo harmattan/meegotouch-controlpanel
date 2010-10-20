@@ -27,6 +27,7 @@ SOURCES += \
     $$STUBSDIR/mabstractlayoutpolicy-fake.cpp \
     $$STUBSDIR/mlayout-fake.cpp \
     $$STUBSDIR/mlinearlayoutpolicy-fake.cpp \
+    $$STUBSDIR/dcpremotebriefreceiver-fake.cpp \
     $$STUBSDIR/mcontainer-fake.cpp \
     $$STUBSDIR/dcpcontentitem-fake.cpp \
     $$STUBSDIR/mwidgetcontroller-fake.cpp \

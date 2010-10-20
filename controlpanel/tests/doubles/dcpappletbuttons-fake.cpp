@@ -59,10 +59,6 @@ DcpAppletMetadata* DcpAppletButtons::appletMetadata(int)
     return 0;
 }
 
-void DcpAppletButtons::timerEvent(QTimerEvent*) {}
-
-void DcpAppletButtons::startLoading () {}
-
 int
 DcpAppletButtons::metadataCount () const
 {

@@ -37,6 +37,7 @@ class QTime;
 
 public:
     explicit DcpAppletPlugin(DcpAppletMetadata *metadata);
+    DcpAppletPlugin(DcpAppletMetadata *metadata, bool tryLoad);
     virtual ~DcpAppletPlugin();
 
     DcpAppletIf *applet() const;
@@ -49,8 +50,6 @@ protected:
     virtual void load ();
     virtual bool loadPluginFile (const QString &binaryPath);
     virtual bool loadDslFile    (const QString &dslPath);
-    void timeoutWarning (const QTime& startTime,
-                         int maxMs, const QString& msg) const;
 
 private:
     DcpAppletPluginPrivate *const d_ptr;
