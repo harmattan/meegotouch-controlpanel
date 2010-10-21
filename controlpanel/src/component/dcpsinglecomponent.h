@@ -44,6 +44,8 @@ public:
 
 public slots:
     void activate ();
+protected:
+    virtual QGraphicsLayout *createLayout();
 
 private:
     QString m_MattiID;

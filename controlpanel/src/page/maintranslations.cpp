@@ -30,6 +30,7 @@ DcpMain::CategoryInfos[] =
     {
         //% "Look & Feel"
         QT_TRID_NOOP ("qtn_sett_main_look"),
+        QT_TRID_NOOP ("qtn_sett_main_look"),
         "Look & Feel",
         PageHandle::LOOKANDFEEL,
         "icon-m-settings-personalize",
@@ -37,6 +38,7 @@ DcpMain::CategoryInfos[] =
     },
     {
         //% "Connectivity"
+        QT_TRID_NOOP ("qtn_sett_main_connectivity"),
         QT_TRID_NOOP ("qtn_sett_main_connectivity"),
         "Connectivity",
         PageHandle::CONNECTIVITY,
@@ -46,6 +48,7 @@ DcpMain::CategoryInfos[] =
     {
         //% "Time & Language"
         QT_TRID_NOOP ("qtn_sett_main_region"),
+        QT_TRID_NOOP ("qtn_sett_main_region"),
         "Regional settings",
         PageHandle::REGIONALSETTING,
         "icon-m-common-clock",
@@ -53,6 +56,7 @@ DcpMain::CategoryInfos[] =
     },
     {
         //% "Device system"
+        QT_TRID_NOOP ("qtn_sett_main_data"),
         QT_TRID_NOOP ("qtn_sett_main_data"),
         "Device system",
         PageHandle::DEVICESYSTEM,
@@ -62,6 +66,7 @@ DcpMain::CategoryInfos[] =
     {
         //% "Utilities"
         QT_TRID_NOOP ("qtn_sett_main_utilities"),
+        QT_TRID_NOOP ("qtn_sett_main_utilities"),
         "Utilities",
         PageHandle::UTILITIES,
         "icon-m-settings-utilities",
@@ -69,6 +74,7 @@ DcpMain::CategoryInfos[] =
     },
     {
         //% "Accounts"
+        QT_TRID_NOOP ("qtn_comm_command_accounts"),
         QT_TRID_NOOP ("qtn_comm_command_accounts"),
         "qtn_sett_main_account", // this is for backward compatibility only
         PageHandle::ServiceAccounts,
@@ -78,6 +84,7 @@ DcpMain::CategoryInfos[] =
     {
         //% "Application settings"
         QT_TRID_NOOP ("qtn_sett_main_application"),
+        QT_TRID_NOOP ("qtn_sett_main_application"),
         "Applications",
         PageHandle::Applications,
         "icon-m-settings-applications",
@@ -85,13 +92,14 @@ DcpMain::CategoryInfos[] =
     },
     {
         // The last element must have the .titleId == 0
-        0, 0, PageHandle::NOPAGE, 0, 0
+        0, 0, 0, PageHandle::NOPAGE, 0, 0
     }
 };
 
 const DcpCategoryInfo DcpMain::mostUsedCategory =
 {
     //% "Recently used"
+    QT_TRID_NOOP("qtn_sett_main_most"),
     QT_TRID_NOOP("qtn_sett_main_most"),
     "MostUsed",
     PageHandle::NOPAGE,

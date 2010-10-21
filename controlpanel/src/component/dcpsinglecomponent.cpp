@@ -22,6 +22,11 @@
 #include "pages.h"
 
 #include "dcpdebug.h"
+
+#include <QtGui/QGraphicsGridLayout>
+
+#include <MImageWidget>
+#include <MLabel>
 #include <MImageWidget>
 
 
@@ -34,6 +39,8 @@ DcpSingleComponent::DcpSingleComponent (
 : MBasicListItem(subTitle.isEmpty() ? MBasicListItem::IconWithTitle:
                  MBasicListItem::IconWithTitleAndSubtitle, parent)
 {
+    setStyleName("CommonPanel");
+
     setTitle(title);
     imageWidget()->setImage (imageId);
     setSubtitle(subTitle);
@@ -46,6 +53,32 @@ DcpSingleComponent::DcpSingleComponent (
 
 DcpSingleComponent::~DcpSingleComponent()
 {
+}
+
+QGraphicsLayout *DcpSingleComponent::createLayout()
+{
+    QGraphicsGridLayout *layout = new QGraphicsGridLayout(this);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(0);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+    imageWidget()->setStyleName("CommonMainIcon");
+    layout->addItem(imageWidget(), 0, 0, 2, 1);
+    layout->setAlignment(imageWidget(), Qt::AlignVCenter | Qt::AlignLeft);
+
+    titleLabelWidget()->setStyleName("CommonTitle");
+    layout->addItem(titleLabelWidget(), 0, 1);
+    layout->setAlignment(titleLabelWidget(), Qt::AlignTop | Qt::AlignLeft);
+
+    subtitleLabelWidget()->setStyleName("CommonSubTitle");
+    layout->addItem(subtitleLabelWidget(), 1, 1);
+
+    MImageWidget *drillImage = new MImageWidget("icon-m-common-drilldown-arrow", this);
+    drillImage->setStyleName("CommonMainIcon");
+    layout->addItem(drillImage, 0, 2, 2, 1);
+    layout->setAlignment(drillImage, Qt::AlignVCenter | Qt::AlignRight);
+
+    return layout;
 }
 
 void
