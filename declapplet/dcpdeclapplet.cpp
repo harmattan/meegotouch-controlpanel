@@ -52,7 +52,7 @@ QVector<MAction*> DcpDeclApplet::viewMenuItems()
 
 DcpBrief* DcpDeclApplet::constructBrief(int)
 {
-    return new DcpDeclBrief(); // TODO
+    return 0;
 }
 
 int DcpDeclApplet::partID(const QString& partStr)
