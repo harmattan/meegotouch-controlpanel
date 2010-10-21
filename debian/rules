@@ -35,7 +35,7 @@ ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
     ifneq (,$(findstring arm,$(ARCH)))
         NUMJOBS = 1
     else
-        NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+        NUMJOBS = $(shell echo "$(DEB_BUILD_OPTIONS)" | awk -F ',' '{ for (Nix=1 ; Nix <= NF ; Nix++) { n_fields = split ($$Nix, fields, "="); if (fields[1] == "parallel" && n_fields == 2) print(fields[2]);}}')
     endif
     PARALLEL_MAKEFLAGS += -j$(NUMJOBS)
 endif
