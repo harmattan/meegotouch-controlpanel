@@ -25,12 +25,14 @@ DcpMain::CategoryInfos[] =
 {
     {
         "qtn-fake",
+        "qtn-fake",
         "fake-category",
         PageHandle::LOOKANDFEEL,
         0,
         0
     },
     {
+        "qtn-fake-2",
         "qtn-fake-2",
         "fake-category-2",
         PageHandle::LOOKANDFEEL,
@@ -39,12 +41,13 @@ DcpMain::CategoryInfos[] =
     },
     {
         // The last element must have the .titleId == 0
-        0, 0, PageHandle::NOPAGE, 0, 0
+        0, 0, 0, PageHandle::NOPAGE, 0, 0
     }
 };
 
 const DcpCategoryInfo DcpMain::mostUsedCategory =
 {
+    "qtn_sett_main_most",
     "qtn_sett_main_most",
     "mostUsed-category",
     PageHandle::NOPAGE,

@@ -45,6 +45,7 @@ void Ut_maintranslations::testFindCategoyInfo()
     {
         //% "Applications"
         QT_TRID_NOOP ("qtn_sett_main_applications"),
+        QT_TRID_NOOP ("qtn_sett_main_applications"),
         "Applications",
         PageHandle::Applications,
         0,
@@ -52,7 +53,7 @@ void Ut_maintranslations::testFindCategoyInfo()
     },
     {
         // The last element must have the .titleId == 0
-        0, 0, PageHandle::NOPAGE, 0, 0
+        0, 0, 0, PageHandle::NOPAGE, 0, 0
     }};
  
     QCOMPARE(DcpMain::findCategoryInfo(PageHandle::LOOKANDFEEL),

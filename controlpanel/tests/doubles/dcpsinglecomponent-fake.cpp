@@ -45,3 +45,8 @@ DcpSingleComponent::activate ()
 {
 }
 
+QGraphicsLayout *DcpSingleComponent::createLayout()
+{
+    return 0;
+}
+

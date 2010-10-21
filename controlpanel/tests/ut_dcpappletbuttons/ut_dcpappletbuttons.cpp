@@ -35,6 +35,7 @@
 const DcpCategoryInfo zeroCategory =
 {
     "qtn_bla_bla",
+    "qtn_bla_bla",
     "zero-category",
     PageHandle::NOPAGE,
     0,
