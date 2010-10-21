@@ -23,6 +23,7 @@ protected slots:
     void onCommandArrival (const QString& command);
     void onBriefChanged ();
     void onNewConnection ();
+    void onLocaleChange ();
 
 protected:
     // commands:
@@ -36,7 +37,7 @@ protected:
     void outputEnd ();
     void output (const char* key, const QString& value);
     void output (const char* key, int value);
-    void outputBrief (DcpAppletObject* applet);
+    void outputBrief (DcpAppletObject* applet, bool textOnly = false);
 
     // loading in the background:
     void startLoading ();

@@ -18,6 +18,9 @@ int main (int argc, char* argv[])
                      retranslator, SLOT(retranslate()));
 
     BriefSupplier supplier;
+    QObject::connect(&app, SIGNAL(localeSettingsChanged()),
+                     &supplier, SLOT(onLocaleChange()));
+
     return app.exec();
 }
 

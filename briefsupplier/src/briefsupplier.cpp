@@ -132,7 +132,7 @@ void BriefSupplier::onBriefChanged ()
     outputBrief (applet);
 }
 
-void BriefSupplier::outputBrief (DcpAppletObject* applet)
+void BriefSupplier::outputBrief (DcpAppletObject* applet, bool textOnly)
 {
     Q_ASSERT (applet);
 
@@ -146,41 +146,49 @@ void BriefSupplier::outputBrief (DcpAppletObject* applet)
     // the applet name is the id we use:
     returnIf (appletName.isEmpty(), "Applet without name", appletName);
 
-    int widgetTypeID = brief->widgetTypeID();
     QString titleText = brief->titleText();
     QString valueText = brief->valueText();
-    QString helpId =
-        applet->interfaceVersion() < 5 ? QString() : brief->helpId();
-
+    int widgetTypeID = -1;
+    QString helpId;
     QString icon;
     QString image;
     bool toggle;
-    switch (widgetTypeID) {
-        case DcpWidgetType::Toggle:
-        case DcpWidgetType::Button:
-            toggle = brief->toggle();
-            break;
-        case DcpWidgetType::Image:
-            icon = brief->icon();
-            image = brief->image();
-            break;
-        default:
-            break;
+
+    if (!textOnly) {
+        brief->widgetTypeID();
+        helpId = applet->interfaceVersion() < 5 ? QString() : brief->helpId();
+
+        switch (widgetTypeID) {
+            case DcpWidgetType::Toggle:
+            case DcpWidgetType::Button:
+                toggle = brief->toggle();
+                break;
+            case DcpWidgetType::Image:
+                icon = brief->icon();
+                image = brief->image();
+                break;
+            default:
+                break;
+        }
     }
 
     // send them:
     outputStart();
     output (OutputName, appletName);
-    output (OutputWidgetTypeID, widgetTypeID);
-    output (OutputValueText, valueText);
-    output (OutputIcon, image.isEmpty() ? icon : image);
-    if (widgetTypeID == DcpWidgetType::Toggle ||
-        widgetTypeID == DcpWidgetType::Button)
-    {
-        output (OutputToggle, (int)toggle);
-    }
     output (OutputTitleText, titleText);
-    output (OutputHelpId, helpId);
+    output (OutputValueText, valueText);
+
+    if (!textOnly) {
+        output (OutputWidgetTypeID, widgetTypeID);
+        output (OutputIcon, image.isEmpty() ? icon : image);
+        if (widgetTypeID == DcpWidgetType::Toggle ||
+            widgetTypeID == DcpWidgetType::Button)
+        {
+            output (OutputToggle, (int)toggle);
+        }
+        output (OutputHelpId, helpId);
+    }
+
     outputEnd();
 }
 
@@ -191,6 +199,18 @@ void BriefSupplier::switchToggle (const QString& appletName)
     returnIf (!applet, "No such applet", appletName);
 
     applet->setToggle (!applet->toggle());
+}
+
+void BriefSupplier::onLocaleChange ()
+{
+    DcpAppletDb* db = DcpAppletDb::instance();
+    DcpAppletMetadataList metadataList = db->list ();
+    foreach (DcpAppletMetadata* metadata, metadataList) {
+        if (metadata->isActive ()) {
+            DcpAppletObject* applet = db->applet (metadata->name());
+            outputBrief (applet, true);
+        }
+    }
 }
 
 void BriefSupplier::outputStart ()
