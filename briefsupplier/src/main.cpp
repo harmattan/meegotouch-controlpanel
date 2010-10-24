@@ -4,6 +4,7 @@
 #include "briefsupplier.h"
 #include "fakeapplicationservice.h"
 
+
 int main (int argc, char* argv[])
 {
     MApplication app(argc, argv, new FakeApplicationService());

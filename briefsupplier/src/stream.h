@@ -1,19 +1,23 @@
-#ifndef READER_H
-#define READER_H
+#ifndef STREAM_H
+#define STREAM_H
 
 class QTextStream;
 class QIODevice;
 #include <QThread>
+#include <QMutex>
 
-class Reader: public QThread
+class Stream: public QThread
 {
     Q_OBJECT
 
 public:
-    Reader (QObject* parent);
+    Stream (QObject* parent);
+    ~Stream ();
     void run();
 
     void setIODevice (QIODevice* device);
+    void flush ();
+    void writeLine (const QString& st);
 
 signals:
     void newCommand (const QString& command);
@@ -22,9 +26,10 @@ protected slots:
     void onReadyRead ();
 
 private:
-    QTextStream* m_Input;
-
+    QTextStream* m_Text;
+    QMutex m_Lock;
 };
 
 
-#endif // READER_H
+#endif // STREAM_H
+

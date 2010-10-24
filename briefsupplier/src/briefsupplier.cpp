@@ -1,11 +1,9 @@
 #include "briefsupplier.h"
 
 #include <QtDebug>
-#include <QTimerEvent>
 #include <QCoreApplication>
 #include <QLocalServer>
 #include <QLocalSocket>
-#include <QTextStream>
 
 #include <dcpappletdb.h>
 #include <dcpappletobject.h>
@@ -15,7 +13,7 @@
 #include <dcpretranslator.h>
 
 #include "bsuppliercommands.h"
-#include "reader.h"
+#include "stream.h"
 
 using namespace BSupplier;
 
@@ -23,12 +21,10 @@ using namespace BSupplier;
     if (test) { qWarning(st ": \"%s\"",qPrintable(param)); return; }
 
 BriefSupplier::BriefSupplier():
-    m_Input (new Reader(this)),
-    m_Output (new QTextStream (stdout, QIODevice::WriteOnly))
+    m_Stream (new Stream(this))
 {
     // init the stream:
-    m_Output->setCodec ("UTF-8");
-    connect (m_Input, SIGNAL (newCommand(QString)),
+    connect (m_Stream, SIGNAL (newCommand(QString)),
              this, SLOT (onCommandArrival(QString)));
 
     // init the server:
@@ -49,7 +45,7 @@ BriefSupplier::BriefSupplier():
 
 BriefSupplier::~BriefSupplier()
 {
-    delete m_Output;
+    delete m_Stream;
 }
 
 void BriefSupplier::onNewConnection ()
@@ -76,11 +72,6 @@ void BriefSupplier::onCommandArrival (const QString& command)
         qWarning ("Brief supplier: could not understand %s",
                   qPrintable (command));
     }
-}
-
-void BriefSupplier::preload (const QString& appletName)
-{
-    m_PreloadApplets.append (appletName); // TODO XXX implement
 }
 
 void BriefSupplier::watch (const QString& appletName)
@@ -155,7 +146,7 @@ void BriefSupplier::outputBrief (DcpAppletObject* applet, bool textOnly)
     bool toggle;
 
     if (!textOnly) {
-        brief->widgetTypeID();
+        widgetTypeID = brief->widgetTypeID();
         helpId = applet->interfaceVersion() < 5 ? QString() : brief->helpId();
 
         switch (widgetTypeID) {
@@ -215,21 +206,20 @@ void BriefSupplier::onLocaleChange ()
 
 void BriefSupplier::outputStart ()
 {
-    *m_Output << OutputBegin << "\n";
+    m_Stream->writeLine (OutputBegin);
 }
 
 void BriefSupplier::outputEnd ()
 {
-    *m_Output << OutputEnd << "\n";
-    m_Output->flush();
-    qobject_cast<QLocalSocket*>(m_Output->device())->flush();
+    m_Stream->writeLine (OutputEnd);
+    m_Stream->flush ();
 }
 
 void BriefSupplier::output (const char* key, const QString& value)
 {
     if (!value.isEmpty ()) {
         // the key and value is separated by the first "="
-        *m_Output << key << "=" << value << "\n";
+        m_Stream->writeLine (QString(key) + "=" + value);
     }
 }
 
@@ -238,49 +228,8 @@ void BriefSupplier::output (const char* key, int value)
     output (key, QString::number (value));
 }
 
-// starts loading the briefs in the background:
-void BriefSupplier::startLoading ()
-{
-    startTimer (0);
-}
-
-// loads a briefs in the background if there is nothing else to do
-void BriefSupplier::timerEvent ( QTimerEvent * event )
-{
-    Q_UNUSED (event);
-#if 0
-    // if there is nothing else to do, then lets load an applet:
-    while (!qApp->hasPendingEvents())  {
-        // if there is no more applet, then stop:
-        if (m_LoadingPos >= m_AppletNames.count ()) {
-            killTimer (event->timerId ());
-            break;
-        }
-
-        QString name = m_AppletNames.at(m_LoadingPos);
-        m_LoadingPos++;
-
-        DcpAppletDb* db = DcpAppletDb::instance();
-        if (db->isAppletLoaded (name)) continue;
-
-        DcpAppletObject* applet = db->applet (name);
-        if (applet) {
-            applet->brief ();
-        }
-
-        // only load one applet
-        if (applet->applet() != 0) {
-            qWarning ("XXX preloaded: %s", qPrintable (name));
-            break;
-        }
-    }
-#endif
-}
-
 void BriefSupplier::setIODevice (QIODevice* device)
 {
-    m_Output->setDevice (device);
-    m_Input->setIODevice (device);
-    m_Input->start ();
+    m_Stream->setIODevice (device);
 }
 

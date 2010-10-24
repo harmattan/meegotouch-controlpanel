@@ -2,12 +2,10 @@
 #define BRIEFSUPPLIER_H
 
 #include <QObject>
-#include <QStringList>
-#include <QHash>
 
 class DcpBrief;
 class DcpAppletObject;
-class QTextStream;
+class QIODevice;
 
 class BriefSupplier: public QObject
 {
@@ -27,7 +25,6 @@ protected slots:
 
 protected:
     // commands:
-    void preload (const QString& appletName);
     void watch (const QString& appletName);
     void unwatch (const QString& appletName);
     void switchToggle (const QString& appletName);
@@ -39,15 +36,8 @@ protected:
     void output (const char* key, int value);
     void outputBrief (DcpAppletObject* applet, bool textOnly = false);
 
-    // loading in the background:
-    void startLoading ();
-    void timerEvent ( QTimerEvent * event );
-
 private:
-    class Reader* m_Input;
-    QTextStream* m_Output;
-
-    QStringList m_PreloadApplets;
+    class Stream* m_Stream;
 };
 
 
