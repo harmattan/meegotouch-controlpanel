@@ -30,7 +30,7 @@ void Ut_DcpSingleComponent::init()
 {
     m_subject = new DcpSingleComponent(0, "Logical ID", "title1", "icon",
                                        "title2");
-    m_subject->setSubPage(PageHandle(PageHandle::LOOKANDFEEL, "Look & Feel"));
+    m_subject->setSubPage(PageHandle(PageHandle::PERSONALIZE, "Personalize"));
 }
 
 void Ut_DcpSingleComponent::cleanup()
@@ -72,8 +72,8 @@ void Ut_DcpSingleComponent::testActivate()
     QVERIFY(page == 0);
     m_subject->activate();
     page = PageFactory::instance()->currentPage();
-    QVERIFY(page->handle().id == PageHandle::LOOKANDFEEL);
-    QVERIFY(page->handle().param == "Look & Feel");
+    QVERIFY(page->handle().id == PageHandle::PERSONALIZE);
+    QVERIFY(page->handle().param == "Personalize");
 }
 
 

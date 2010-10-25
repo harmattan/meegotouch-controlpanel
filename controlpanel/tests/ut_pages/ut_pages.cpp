@@ -75,14 +75,8 @@ void Ut_PageHandle::testGetStringVariant()
     QVERIFY(h4.getStringVariant() == "NOPAGE:///-1");
     PageHandle h5(PageHandle::CATEGORY_PAGEID_START);
     QVERIFY(h5.getStringVariant() == "CATEGORY_PAGEID_START:///-1");
-    PageHandle h6(PageHandle::LOOKANDFEEL);
-    QVERIFY(h6.getStringVariant() == "LOOKANDFEEL:///-1");
     PageHandle h7(PageHandle::CONNECTIVITY);
-    QVERIFY(h7.getStringVariant() == "CONNECTIVITY:///-1");
-    PageHandle h8(PageHandle::REGIONALSETTING);
-    QVERIFY(h8.getStringVariant() == "REGIONALSETTING:///-1");
-    PageHandle h9(PageHandle::DEVICESYSTEM);
-    QVERIFY(h9.getStringVariant() == "DEVICESYSTEM:///-1");
+    QVERIFY(h7.getStringVariant() == "Connections:///-1");
     PageHandle h10(PageHandle::ServiceAccounts);
     QVERIFY(h10.getStringVariant() == "ServiceAccounts:///-1");
     PageHandle h11(PageHandle::Applications);

@@ -27,7 +27,7 @@ DcpMain::CategoryInfos[] =
         "qtn-fake",
         "qtn-fake",
         "fake-category",
-        PageHandle::LOOKANDFEEL,
+        PageHandle::PERSONALIZE,
         0,
         0
     },
@@ -35,7 +35,7 @@ DcpMain::CategoryInfos[] =
         "qtn-fake-2",
         "qtn-fake-2",
         "fake-category-2",
-        PageHandle::LOOKANDFEEL,
+        PageHandle::PERSONALIZE,
         0,
         0
     },

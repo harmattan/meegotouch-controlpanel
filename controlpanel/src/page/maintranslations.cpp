@@ -28,66 +28,133 @@ const DcpCategoryInfo
 DcpMain::CategoryInfos[] = 
 {
     {
-        //% "Look & Feel"
-        QT_TRID_NOOP ("qtn_sett_main_look"),
-        QT_TRID_NOOP ("qtn_sett_main_look"),
-        "Look & Feel",
-        PageHandle::LOOKANDFEEL,
-        "icon-m-settings-personalize",
-        0
-    },
-    {
-        //% "Connectivity"
-        QT_TRID_NOOP ("qtn_sett_main_connectivity"),
-        QT_TRID_NOOP ("qtn_sett_main_connectivity"),
-        "Connectivity",
+        //% "Connections"
+        QT_TRID_NOOP ("qtn_sett_main_connections"),
+        //% "Internet, Bluetooth, Network"
+        QT_TRID_NOOP ("qtn_sett_main_connections_sub"),
+        "Connections",
         PageHandle::CONNECTIVITY,
         "icon-m-common-wlan",
         0
     },
     {
-        //% "Time & Language"
-        QT_TRID_NOOP ("qtn_sett_main_region"),
-        QT_TRID_NOOP ("qtn_sett_main_region"),
-        "Regional settings",
+        //% "Phone"
+        QT_TRID_NOOP ("qtn_sett_main_phone"),
+        //% "Call, SIM card"
+        QT_TRID_NOOP ("qtn_sett_main_phone_sub"),
+        "Phone",
+        PageHandle::PHONE,
+        "icon-m-content-call",
+        0
+    },
+    {
+        //% "Applications"
+        QT_TRID_NOOP ("qtn_sett_main_applications"),
+        //% "Installations, Application settings"
+        QT_TRID_NOOP ("qtn_sett_main_applications_sub"),
+        "Applications",
+        PageHandle::Applications,
+        "icon-m-settings-applications",
+        0
+    },
+    {
+        //% "Notifications"
+        QT_TRID_NOOP ("qtn_sett_main_notifications"),
+        //% "Home screen feed, Alerts"
+        QT_TRID_NOOP ("qtn_sett_main_notifications_sub"),
+        "Notifications",
+        PageHandle::NOTIFICATIONS,
+        "icon-m-common-notification",
+        0
+    },
+    {
+        //% "Personalize"
+        QT_TRID_NOOP ("qtn_sett_main_personalize"),
+        //% "Wallpaper, Theme, Sounds"
+        QT_TRID_NOOP ("qtn_sett_main_personalize_sub"),
+        "Personalize",
+        PageHandle::PERSONALIZE,
+        "icon-m-settings-personalize",
+        0
+    },
+    {
+        //% "Battery"
+        QT_TRID_NOOP ("qtn_sett_main_battery"),
+        //% "Display, battery"
+        QT_TRID_NOOP ("qtn_sett_main_battery_sub"),
+        "Battery",
+        PageHandle::BATTERY,
+        "icon-m-energy-management-battery-low",
+        0
+    },
+    {
+        //% "Security"
+        QT_TRID_NOOP ("qtn_sett_main_security"),
+        //% "Lock code, Passwords & Certificates"
+        QT_TRID_NOOP ("qtn_sett_main_security_sub"),
+        "Security",
+        PageHandle::SECURITY,
+        "icon-m-settings-personalize",
+        0
+    },
+    {
+        //% "Time & Date"
+        QT_TRID_NOOP ("qtn_sett_main_timedate"),
+        //% "Time, Date, Region"
+        QT_TRID_NOOP ("qtn_sett_main_timedate_sub"),
+        "Time & Date",
         PageHandle::REGIONALSETTING,
         "icon-m-common-clock",
         0
     },
     {
-        //% "Device system"
-        QT_TRID_NOOP ("qtn_sett_main_data"),
-        QT_TRID_NOOP ("qtn_sett_main_data"),
-        "Device system",
-        PageHandle::DEVICESYSTEM,
+        //% "Language & Keyboard"
+        QT_TRID_NOOP ("qtn_sett_main_language"),
+        //% "Language, Text input"
+        QT_TRID_NOOP ("qtn_sett_main_language_sub"),
+        "Language & Keyboard",
+        PageHandle::LANGUAGEKEYBOARD,
+        "icon-m-common-keyboard",
+        0
+    },
+    {
+        //% "Accessories"
+        QT_TRID_NOOP ("qtn_sett_main_accessories"),
+        //% "USB, TV-out, Tele coil"
+        QT_TRID_NOOP ("qtn_sett_main_accessories_sub"),
+        "Accessories",
+        PageHandle::ACCESSORIES,
+        "icon-m-settings-accessories",
+        0
+    },
+    {
+        //% "Sync & Backup"
+        QT_TRID_NOOP ("qtn_sett_main_backup"),
+        //% "Device synchronization, Backup"
+        QT_TRID_NOOP ("qtn_sett_main_backup_sub"),
+        "Sync & Backup",
+        PageHandle::BACKUP,
         "icon-m-common-device-root",
         0
     },
     {
-        //% "Utilities"
-        QT_TRID_NOOP ("qtn_sett_main_utilities"),
-        QT_TRID_NOOP ("qtn_sett_main_utilities"),
-        "Utilities",
-        PageHandle::UTILITIES,
-        "icon-m-settings-utilities",
+        //% "About my device"
+        QT_TRID_NOOP ("qtn_sett_main_about"),
+        //% "Warranty, About product"
+        QT_TRID_NOOP ("qtn_sett_main_about_sub"),
+        "About my device",
+        PageHandle::ABOUT,
+        "icon-m-common-device-root",
         0
     },
     {
         //% "Accounts"
         QT_TRID_NOOP ("qtn_comm_command_accounts"),
-        QT_TRID_NOOP ("qtn_comm_command_accounts"),
+        //% "Accounts"
+        QT_TRID_NOOP ("qtn_comm_command_accounts_sub"),
         "qtn_sett_main_account", // this is for backward compatibility only
         PageHandle::ServiceAccounts,
         "icon-m-settings-account",
-        0
-    },
-    {
-        //% "Application settings"
-        QT_TRID_NOOP ("qtn_sett_main_application"),
-        QT_TRID_NOOP ("qtn_sett_main_application"),
-        "Applications",
-        PageHandle::Applications,
-        "icon-m-settings-applications",
         0
     },
     {

@@ -56,15 +56,15 @@ void Ut_maintranslations::testFindCategoyInfo()
         0, 0, 0, PageHandle::NOPAGE, 0, 0
     }};
  
-    QCOMPARE(DcpMain::findCategoryInfo(PageHandle::LOOKANDFEEL),
+    QCOMPARE(DcpMain::findCategoryInfo(PageHandle::CONNECTIVITY),
              &DcpMain::CategoryInfos[0]);
     
     QCOMPARE(DcpMain::findCategoryInfo(PageHandle::Applications, &otherInfos[0]),
              &otherInfos[0]);
 
-    QVERIFY(!DcpMain::findCategoryInfo(PageHandle::LOOKANDFEEL, &otherInfos[0]));
+    QVERIFY(!DcpMain::findCategoryInfo(PageHandle::CONNECTIVITY, &otherInfos[0]));
 
-    QCOMPARE(DcpMain::findCategoryInfo("qtn_sett_main_look"),
+    QCOMPARE(DcpMain::findCategoryInfo("qtn_sett_main_connections"),
              &DcpMain::CategoryInfos[0]);
     QVERIFY(!DcpMain::findCategoryInfo("unknown"));
     
@@ -75,7 +75,7 @@ void Ut_maintranslations::testFindCategoyInfo()
 
 void Ut_maintranslations::testIsCategoryNameEnlisted()
 {
-    QVERIFY(DcpMain::isCategoryNameEnlisted("qtn_sett_main_look"));
+    QVERIFY(DcpMain::isCategoryNameEnlisted("qtn_sett_main_personalize"));
     QVERIFY(!DcpMain::isCategoryNameEnlisted("qtn_sett_unknown"));
     QVERIFY(DcpMain::isCategoryNameEnlisted("Startup"));
     

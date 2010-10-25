@@ -53,30 +53,56 @@ PageHandle::getStringVariant () const
             typeName = "CATEGORY_PAGEID_START";
             break;
 
-        case LOOKANDFEEL:
-            typeName = "LOOKANDFEEL";
-            break;
-
         case CONNECTIVITY:
-            typeName = "CONNECTIVITY";
-            break;
-        case REGIONALSETTING:
-            typeName = "REGIONALSETTING";
-            break;
-        case DEVICESYSTEM:
-            typeName = "DEVICESYSTEM";
+            typeName = "Connections";
             break;
 
-        case UTILITIES:
-            typeName = "UTILITIES";
-            break;
-
-        case ServiceAccounts:
-            typeName = "ServiceAccounts";
+        case PHONE:
+            typeName = "Phone";
             break;
 
         case Applications:
             typeName = "Applications";
+            break;
+
+        case NOTIFICATIONS:
+            typeName = "Notifications";
+            break;
+
+        case PERSONALIZE:
+            typeName = "Personalize";
+            break;
+
+        case BATTERY:
+            typeName = "Battery";
+            break;
+
+        case SECURITY:
+            typeName = "Security";
+            break;
+
+        case REGIONALSETTING:
+            typeName = "Time & Date";
+            break;
+
+        case LANGUAGEKEYBOARD:
+            typeName = "Language & Keyboard";
+            break;
+
+        case ACCESSORIES:
+            typeName = "Accessories";
+            break;
+
+        case BACKUP:
+            typeName = "BACKUP";
+            break;
+
+        case ABOUT:
+            typeName = "About my device";
+            break;
+
+        case ServiceAccounts:
+            typeName = "ServiceAccounts";
             break;
 
         case CATEGORY_PAGEID_END:
