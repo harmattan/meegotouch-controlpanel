@@ -46,6 +46,7 @@ signals:
 public slots:
     void back();
     void shown ();
+    void realShown ();
 
 protected:
     virtual void retranslateUi();

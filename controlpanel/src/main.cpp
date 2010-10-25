@@ -30,6 +30,7 @@
 #include "dcpappletdb.h"
 #include "appleterrorsdialog.h"
 #include "dcpwrongapplets.h"
+#include "dcpremotebriefreceiver.h"
 
 #include "dcpdebug.h"
 
@@ -99,6 +100,8 @@ startApplication (int argc, char* argv[])
 
 M_EXPORT int main(int argc, char *argv[])
 {
+    DcpRemoteBriefReceiver::setArguments (argc, argv);
+
     // parse options
     QString desktopDir;
     for (int i = 1; i < argc; ++i) {

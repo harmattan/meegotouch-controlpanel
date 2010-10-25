@@ -4,11 +4,13 @@
 #include <bsuppliercommands.h>
 #include <QCoreApplication>
 #include <QTimer>
+#include <dcpdebug.h>
 
 // the millisec after which the connection trial will be retried on failure
 static const int RETRY_TIME = 500;
 
 DcpRemoteBriefReceiver* DcpRemoteBriefReceiverPriv::instance = 0;
+QStringList DcpRemoteBriefReceiverPriv::args;
 
 
 DcpRemoteBriefReceiverPriv::DcpRemoteBriefReceiverPriv ():
@@ -30,10 +32,7 @@ DcpRemoteBriefReceiver::DcpRemoteBriefReceiver():
              this, SLOT (onFinished (int, QProcess::ExitStatus)));
 
     setProcessChannelMode (QProcess::ForwardedChannels);
-
-    QStringList args = qApp->arguments();
-    args.removeFirst();
-    start ("duicontrolpanel-briefsupplier", args);
+    start ("duicontrolpanel-briefsupplier", DcpRemoteBriefReceiverPriv::args);
 
     connect (qApp, SIGNAL (aboutToQuit()),
              this, SLOT (suicide()));
@@ -45,6 +44,18 @@ DcpRemoteBriefReceiver::~DcpRemoteBriefReceiver()
 {
     DcpRemoteBriefReceiverPriv::instance = 0;
     delete priv;
+}
+
+/*
+ * Sets the arguments which are passed to the helper process
+ */
+void DcpRemoteBriefReceiver::setArguments (int argc, char** argv)
+{
+    if (argc > 1) {
+        for (int i=1; i<argc; i++) {
+            DcpRemoteBriefReceiverPriv::args << argv[i];
+        }
+    }
 }
 
 void DcpRemoteBriefReceiver::onStarted ()

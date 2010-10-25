@@ -1,3 +1,11 @@
+duicontrolpanel (0.8.19~unreleased) unstable; urgency=low
+
+  * Fixes: applet debugs/warnings were not coming from brief supplier
+    process, even with -output-level
+  * Fixes: NB#199886 - Startup time of dcp increased a bit
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 25 Oct 2010 16:47:28 +0200
+
 duicontrolpanel (0.8.18) unstable; urgency=low
 
   [ Tamas Balogh ]

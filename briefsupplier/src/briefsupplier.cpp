@@ -11,6 +11,7 @@
 #include <dcpwidgettypes.h>
 #include <dcpappletmetadata.h>
 #include <dcpretranslator.h>
+#include <dcpdebug.h>
 
 #include "bsuppliercommands.h"
 #include "stream.h"
@@ -39,6 +40,7 @@ BriefSupplier::BriefSupplier():
 
     // init the db:
     DcpAppletMetadataList list = DcpAppletDb::instance ()->list ();
+
     // load all applet translations:
     DcpRetranslator::instance()->ensureTranslationsAreLoaded(list);
 }

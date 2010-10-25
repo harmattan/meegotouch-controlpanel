@@ -33,6 +33,11 @@ DcpMainPage::createContent ()
 }
 
 void
+DcpMainPage::realShown ()
+{
+}
+
+void
 DcpMainPage::hideEvent(QHideEvent*)
 {
 }

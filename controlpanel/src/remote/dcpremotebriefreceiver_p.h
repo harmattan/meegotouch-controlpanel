@@ -5,6 +5,7 @@
 #include "dcpremotebrief.h"
 #include <QHash>
 #include <QLocalSocket>
+#include <QStringList>
 
 class DcpRemoteBriefReceiver;
 
@@ -20,6 +21,7 @@ public:
     QHash<QString, DcpRemoteBrief*> briefs;
 
     static DcpRemoteBriefReceiver* instance;
+    static QStringList args;
 };
 
 

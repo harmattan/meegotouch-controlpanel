@@ -21,12 +21,14 @@
 
 #include <QtDebug>
 #include <MApplication>
+#include <MApplicationWindow>
 #include <DcpSingleComponent>
 #include <DcpMainCategory>
 #include <Pages>
 #include <DcpApplet>
 #include <QGraphicsLinearLayout>
 #include <MContainer>
+#include <QTimer>
 
 #include "dcpcategorycomponent.h"
 #include "dcpremotebriefreceiver.h"
@@ -86,11 +88,17 @@ DcpMainPage::shown ()
 #endif
     m_HasContent = true;
 
+    emit firstShown ();
+    QTimer::singleShot (750, this, SLOT(realShown()));
+}
+
+// unfortunately appeared signal comes before the page becomes visible on
+// the screen so this function gets called after a delay to start some heavier
+void DcpMainPage::realShown ()
+{
     // this loads the helper process a little bit earlier so that it can preload
     // some applets
     DcpRemoteBriefReceiver::instance ();
-
-    emit firstShown ();
 }
 
 void

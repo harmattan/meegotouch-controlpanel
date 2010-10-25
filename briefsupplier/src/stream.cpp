@@ -1,7 +1,7 @@
 #include "stream.h"
 
 #include <QTextStream>
-#include <QIODevice>
+#include <QLocalSocket>
 #include <QMutexLocker>
 
 
@@ -66,6 +66,8 @@ void Stream::flush ()
 {
     QMutexLocker (&this->m_Lock);
     m_Text->flush ();
+    QLocalSocket* socket = qobject_cast<QLocalSocket*>(m_Text->device());
+    if (socket) socket->flush ();
 }
 
 void Stream::writeLine (const QString& st)
