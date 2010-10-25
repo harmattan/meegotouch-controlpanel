@@ -273,10 +273,11 @@ DcpContentItem::ensureWidgetsAreLayouted()
     if (d_ptr->m_ButtonW) {
         grid->addItem (d_ptr->m_ButtonW, 0, toggleX,
                        textLinesCount+1, 1, Qt::AlignCenter);
+        toggleX++;
     }
     MImageWidget *drillImage = new MImageWidget("icon-m-common-drilldown-arrow", this);
     drillImage->setStyleName("CommonMainIcon");
-    grid->addItem(drillImage, 0, 2, 2, 1);
+    grid->addItem(drillImage, 0, toggleX, textLinesCount+1, 1);
     grid->setAlignment(drillImage, Qt::AlignVCenter | Qt::AlignRight);
 }
 
