@@ -29,6 +29,12 @@ class MImageWidgetFake
 
 static QHash<const MImageWidget*, MImageWidgetFake*> fake;
 
+MImageWidget::MImageWidget(QString const& id, QGraphicsItem*)
+{
+    fake.insert (this, new MImageWidgetFake());
+    setImage (id);
+}
+
 MImageWidget::MImageWidget(QGraphicsItem*)
 {
     fake.insert (this, new MImageWidgetFake());

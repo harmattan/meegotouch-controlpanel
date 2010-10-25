@@ -39,6 +39,7 @@ DcpContentItemPrivate::DcpContentItemPrivate ():
     m_Hidden (true),
     m_LayoutIsToBeChanged (true),
     m_ImageW (0),
+    m_DrillImage (0),
     m_Text1W (0),
     m_Text2W (0),
     m_Help (0),
@@ -275,10 +276,13 @@ DcpContentItem::ensureWidgetsAreLayouted()
                        textLinesCount+1, 1, Qt::AlignCenter);
         toggleX++;
     }
-    MImageWidget *drillImage = new MImageWidget("icon-m-common-drilldown-arrow", this);
-    drillImage->setStyleName("CommonMainIcon");
-    grid->addItem(drillImage, 0, toggleX, textLinesCount+1, 1);
-    grid->setAlignment(drillImage, Qt::AlignVCenter | Qt::AlignRight);
+
+    if (!d_ptr->m_DrillImage) {
+        d_ptr->m_DrillImage = new MImageWidget("icon-m-common-drilldown-arrow", this);
+        d_ptr->m_DrillImage->setStyleName("CommonMainIcon");
+    }
+    grid->addItem(d_ptr->m_DrillImage, 0, toggleX, textLinesCount+1, 1);
+    grid->setAlignment(d_ptr->m_DrillImage, Qt::AlignVCenter | Qt::AlignRight);
 }
 
 

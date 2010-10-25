@@ -80,6 +80,7 @@ void Ut_DcpContentItem::testRetranslateUi()
     m_Target->setApplet (applet);
 
     // test if updateText gets called on retranslateUi
+    QVERIFY (m_Target->d_ptr->m_Text1W);
     m_Target->d_ptr->m_Text1W->setText ("xxx");
     m_Target->retranslateUi();
     QCOMPARE (m_Target->d_ptr->m_Text1W->text(), applet->text1());

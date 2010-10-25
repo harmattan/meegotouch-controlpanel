@@ -49,6 +49,7 @@ public:
 
     // widgets:
     MImageWidget* m_ImageW;
+    MImageWidget* m_DrillImage;
     MLabel* m_Text1W;
     MLabel* m_Text2W;
     HelpButton* m_Help;
