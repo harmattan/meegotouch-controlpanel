@@ -63,7 +63,7 @@ QGraphicsLayout *DcpSingleComponent::createLayout()
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
     imageWidget()->setStyleName("CommonMainIcon");
-    layout->addItem(imageWidget(), 0, 0, 2, 1);
+    layout->addItem(imageWidget(), 0, 0, 3, 1);
     layout->setAlignment(imageWidget(), Qt::AlignVCenter | Qt::AlignLeft);
 
     titleLabelWidget()->setStyleName("CommonTitle");
@@ -73,9 +73,11 @@ QGraphicsLayout *DcpSingleComponent::createLayout()
     subtitleLabelWidget()->setStyleName("CommonSubTitle");
     layout->addItem(subtitleLabelWidget(), 1, 1);
 
+    layout->addItem(new QGraphicsWidget(), 2, 1);
+
     MImageWidget *drillImage = new MImageWidget("icon-m-common-drilldown-arrow", this);
     drillImage->setStyleName("CommonMainIcon");
-    layout->addItem(drillImage, 0, 2, 2, 1);
+    layout->addItem(drillImage, 0, 2, 3, 1);
     layout->setAlignment(drillImage, Qt::AlignVCenter | Qt::AlignRight);
 
     return layout;

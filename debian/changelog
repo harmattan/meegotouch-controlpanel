@@ -1,10 +1,16 @@
 duicontrolpanel (0.8.19~unreleased) unstable; urgency=low
 
+  [ Sandor Pinter ]
   * Fixes: applet debugs/warnings were not coming from brief supplier
     process, even with -output-level
-  * Fixes: NB#199886 - Startup time of dcp increased a bit
+  * Drilldown menus, new categories
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 25 Oct 2010 16:47:28 +0200
+  [ Robert Manner ]
+  * Fixes: NB#199886 - Startup time of dcp increased a bit
+  * Fixes: NB#199006 - The Accounts entry has to be removed from the
+    controlpanel
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 25 Oct 2010 18:22:26 +0200
 
 duicontrolpanel (0.8.18) unstable; urgency=low
 
