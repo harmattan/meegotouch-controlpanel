@@ -24,6 +24,8 @@
 
 #include <QGraphicsLinearLayout>
 
+#include <MSeparator>
+
 /*!
  * A rectangular table like widget inside the main page and the category pages.
  */
@@ -62,6 +64,11 @@ DcpMainCategory::mLayout() const
 inline void
 DcpMainCategory::appendWidget ( QGraphicsWidget *component)
 {
+    if (mLayout()->count() > 0) {
+        MSeparator *sep = new MSeparator(this);
+        sep->setStyleName("CommonGroupDivider");
+        mLayout()->addItem (sep);
+    }
     mLayout()->addItem (component);
 }
 
