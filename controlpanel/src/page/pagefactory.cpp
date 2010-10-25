@@ -261,11 +261,8 @@ PageFactory::createAppletCategoryPage (const PageHandle& handle)
      * If the category contains one applet only, then we do not require the user
      * to click on that, but switch to the appletPage directly
      *
-     * It is for service accounts page only, because that whole category gets
-     * provided by an applet.
      */
-    if (id == PageHandle::ServiceAccounts &&
-        m_AppletCategoryPage->appletCount() == 1)
+    if (m_AppletCategoryPage->appletCount() == 1)
     {
         DcpAppletMetadata* metadata = m_AppletCategoryPage->appletMetadata(0);
         if (metadata) {

@@ -77,9 +77,7 @@ void Ut_PageHandle::testGetStringVariant()
     QVERIFY(h5.getStringVariant() == "CATEGORY_PAGEID_START:///-1");
     PageHandle h7(PageHandle::CONNECTIVITY);
     QVERIFY(h7.getStringVariant() == "Connections:///-1");
-    PageHandle h10(PageHandle::ServiceAccounts);
-    QVERIFY(h10.getStringVariant() == "ServiceAccounts:///-1");
-    PageHandle h11(PageHandle::Applications);
+   PageHandle h11(PageHandle::Applications);
     QVERIFY(h11.getStringVariant() == "Applications:///-1");
     PageHandle h12(PageHandle::CATEGORY_PAGEID_END);
     QVERIFY(h12.getStringVariant() == "CATEGORY_PAGEID_END:///-1");

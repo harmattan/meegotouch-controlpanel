@@ -101,10 +101,6 @@ PageHandle::getStringVariant () const
             typeName = "About my device";
             break;
 
-        case ServiceAccounts:
-            typeName = "ServiceAccounts";
-            break;
-
         case CATEGORY_PAGEID_END:
             typeName = "CATEGORY_PAGEID_END";
             break;

@@ -49,7 +49,6 @@ public:
         ACCESSORIES,
         BACKUP,
         ABOUT,
-        ServiceAccounts,
         CATEGORY_PAGEID_END,    // ---
         APPLET,
         APPLETCATEGORY,

@@ -148,16 +148,6 @@ DcpMain::CategoryInfos[] =
         0
     },
     {
-        //% "Accounts"
-        QT_TRID_NOOP ("qtn_comm_command_accounts"),
-        //% "Accounts"
-        QT_TRID_NOOP ("qtn_comm_command_accounts_sub"),
-        "qtn_sett_main_account", // this is for backward compatibility only
-        PageHandle::ServiceAccounts,
-        "icon-m-settings-account",
-        0
-    },
-    {
         // The last element must have the .titleId == 0
         0, 0, 0, PageHandle::NOPAGE, 0, 0
     }
