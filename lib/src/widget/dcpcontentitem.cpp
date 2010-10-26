@@ -83,7 +83,8 @@ DcpContentItem::widgetType() const
 bool
 DcpContentItem::hasTwoTextLines() const
 {
-    return applet() && !applet()->text2().isEmpty();
+    bool result = applet() && !applet()->text2().isEmpty();
+    return result;
 }
 
 bool
@@ -261,6 +262,7 @@ DcpContentItem::ensureWidgetsAreLayouted()
         grid->addItem (d_ptr->m_Text2W, 1, textX, Qt::AlignTop);
         grid->addItem (d_ptr->m_Spacer, textLinesCount, textX);
         d_ptr->m_Text2W->show();
+        textLinesCount++; // this additional is for the spacer
     } else {
         d_ptr->m_Spacer->hide();
         d_ptr->m_Text2W->hide();
@@ -268,12 +270,12 @@ DcpContentItem::ensureWidgetsAreLayouted()
     int toggleX = textX+1;
     if (d_ptr->m_Help) {
         grid->addItem (d_ptr->m_Help, 0, toggleX,
-                       textLinesCount+1, 1, Qt::AlignCenter);
+                       textLinesCount, 1, Qt::AlignCenter);
         toggleX++;
     }
     if (d_ptr->m_ButtonW) {
         grid->addItem (d_ptr->m_ButtonW, 0, toggleX,
-                       textLinesCount+1, 1, Qt::AlignCenter);
+                       textLinesCount, 1, Qt::AlignCenter);
         toggleX++;
     }
 
@@ -281,7 +283,7 @@ DcpContentItem::ensureWidgetsAreLayouted()
         d_ptr->m_DrillImage = new MImageWidget("icon-m-common-drilldown-arrow", this);
         d_ptr->m_DrillImage->setStyleName("CommonMainIcon");
     }
-    grid->addItem(d_ptr->m_DrillImage, 0, toggleX, textLinesCount+1, 1);
+    grid->addItem(d_ptr->m_DrillImage, 0, toggleX, textLinesCount, 1);
     grid->setAlignment(d_ptr->m_DrillImage, Qt::AlignVCenter | Qt::AlignRight);
 }
 

@@ -127,7 +127,6 @@ DcpAppletObject::align () const
         return brief()->align();
     }
 
-    qWarning() << Q_FUNC_INFO << "no data"; // default
     return Qt::AlignLeft;
 }
 
@@ -138,7 +137,7 @@ DcpAppletObject::toggle () const
         return brief()->toggle ();
     }
 
-    qWarning() << Q_FUNC_INFO << "no brief"; 
+    qDebug() << Q_FUNC_INFO << "no brief"; 
     return false;
 }
 
