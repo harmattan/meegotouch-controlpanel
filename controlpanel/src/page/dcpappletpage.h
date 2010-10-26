@@ -44,6 +44,7 @@ public:
 
 protected:
     virtual void retranslateUi ();
+    virtual void polishEvent ();
 
 protected slots:
     virtual void back ();

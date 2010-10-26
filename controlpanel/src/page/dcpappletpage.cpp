@@ -30,11 +30,12 @@
 #include <MLabel>
 #include <MLocale>
 #include <MAction>
+#include <MSceneManager>
+#include <mwidgetcreator.h>
 #include <QProcess>
 
 #include "dcpdebug.h"
 
-#include "mwidgetcreator.h"
 M_REGISTER_WIDGET_NO_CREATE(DcpAppletPage)
 
 DcpAppletPage::DcpAppletPage (DcpAppletObject *applet, int widgetId):
@@ -44,11 +45,6 @@ DcpAppletPage::DcpAppletPage (DcpAppletObject *applet, int widgetId):
     m_MainWidget (0),
     m_MissingLabel (0)
 {
-#ifdef STANDALONE_CLOSES
-    // this is for being able to control leaving or not leaving the page
-    // in response to clicking the back button
-    setEscapeMode(MApplicationPageModel::EscapeManualBack);
-#endif
 }
 
 
@@ -64,6 +60,18 @@ DcpAppletPage::createContent ()
 {
     DcpPage::createContent ();
     load();
+}
+
+void
+DcpAppletPage::polishEvent ()
+{
+    MSceneManager* manager = sceneManager();
+
+    if (!manager || !manager->pageHistory().isEmpty()) {
+        // this is for being able to control leaving or not leaving the page
+        // in response to DcpWidget::back()
+        setEscapeMode(MApplicationPageModel::EscapeManualBack);
+    }
 }
 
 bool 

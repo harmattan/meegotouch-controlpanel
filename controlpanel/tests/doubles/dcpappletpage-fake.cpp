@@ -36,6 +36,11 @@ DcpAppletPage::createContent ()
 {
 }
 
+void
+DcpAppletPage::polishEvent ()
+{
+}
+
 bool 
 DcpAppletPage::hasWidget ()
 {
