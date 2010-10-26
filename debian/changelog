@@ -1,4 +1,4 @@
-duicontrolpanel (0.8.19) unstable; urgency=low
+duicontrolpanel (0.9.0) unstable; urgency=low
 
   [ Sandor Pinter ]
   * Fixes: applet debugs/warnings were not coming from brief supplier

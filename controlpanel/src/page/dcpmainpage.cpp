@@ -196,6 +196,7 @@ DcpMainPage::retranslateUi ()
     for (int i=0; i<m_CategoryButtons.count(); i++) {
         DcpSingleComponent* comp = m_CategoryButtons.at(i);
         comp->setTitle(qtTrId(DcpMain::CategoryInfos[i].titleId));
+        comp->setSubtitle(qtTrId(DcpMain::CategoryInfos[i].subtitleId));
     }
 }
 
