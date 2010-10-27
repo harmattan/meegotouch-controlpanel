@@ -22,7 +22,7 @@ Package: duicontrolpanel
 Section: x11
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libduicontrolpanel (= ${Source-Version}),
-         applauncherd,
+         applauncherd-launcher, clean-device, dsme, timed,
          duicontrolpanel-l10n-engineering-english (= ${Source-Version})
 Description: Control Panel
 
