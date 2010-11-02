@@ -36,7 +36,10 @@
 #include <QStandardItemModel>
 #include <QStandardItem>
 #include <QVariant>
+
+#ifdef USE_USERGUIDE
 #include <HelpButton>
+#endif // USE_USERGUIDE
 
 DcpAppletButtons::DcpAppletButtons (
         const DcpCategoryInfo  *categoryInfo,
@@ -189,6 +192,8 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
         spacer2->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
         QGraphicsLinearLayout* wlayout = new QGraphicsLinearLayout(c);
         wlayout->setContentsMargins(0,0,0,0);
+
+#ifdef USE_USERGUIDE
         QString helpId = applet ? applet->helpId():
                          metadata ? metadata->helpId():
                          QString();
@@ -198,6 +203,8 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
             help->setIconID ("icon-m-content-description");
             wlayout->addItem (help);
         }
+#endif // USE_USERGUIDE
+
         wlayout->addItem (spacer1);
         wlayout->addItem (button);
         wlayout->addItem (spacer2);

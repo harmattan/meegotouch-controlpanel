@@ -40,6 +40,11 @@ ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
     PARALLEL_MAKEFLAGS += -j$(NUMJOBS)
 endif
 
+
+ifeq (,$(filter nouserguide,$(DEB_BUILD_OPTIONS)))
+    QMAKE_ARG += DEFINES+=USE_USERGUIDE
+endif
+
 configure: configure-stamp
 configure-stamp:
 	dh_testdir

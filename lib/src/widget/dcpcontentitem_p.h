@@ -25,7 +25,10 @@
 #include <MImageWidget>
 #include <MButton>
 #include <MLabel>
+
+#ifdef USE_USERGUIDE
 #include <HelpButton>
+#endif // USE_USERGUIDE
 
 /******************************************************************************
  * Private data class for the DcpContentItem class.
@@ -52,7 +55,9 @@ public:
     MImageWidget* m_DrillImage;
     MLabel* m_Text1W;
     MLabel* m_Text2W;
+#ifdef USE_USERGUIDE
     HelpButton* m_Help;
+#endif // USE_USERGUIDE
     QGraphicsWidget* m_Spacer;
     MButton* m_ButtonW;
 };

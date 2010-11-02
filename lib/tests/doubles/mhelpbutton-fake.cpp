@@ -1,3 +1,4 @@
+#ifdef USE_USERGUIDE
 #include <HelpButton>
 
 HelpButton::HelpButton(const QString& pageID, QGraphicsItem* p)
@@ -19,4 +20,6 @@ void HelpButton::setPageID(const QString& id)
 void HelpButton::onClicked()
 {
 }
+
+#endif // USE_USERGUIDE
 

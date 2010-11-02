@@ -21,7 +21,6 @@ DEFINES += UNIT_TEST
 # disable internal deprecation warnings:
 DEFINES += DCP_DISABLE_DEPRECATION_WARNING
 
-
 DCP_TESTS_INSTALL_LIB = $${DCP_INSTALL_LIB}/duicontrolpanel-tests                                  
 target.path = $${DCP_TESTS_INSTALL_LIB}                                 
 INSTALLS += target                                                              

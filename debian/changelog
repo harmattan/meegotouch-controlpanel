@@ -4,8 +4,9 @@ duicontrolpanel (0.9.1~unreleased) unstable; urgency=low
     prevent page closing
   * Fixes: NB#200663 - SECURITY - duicontrolpanel should depend on
     clean-device
+  * Fixes: NB#201666 - mcp can't be compiled on meego
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 27 Oct 2010 23:52:52 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 02 Nov 2010 15:04:17 +0100
 
 duicontrolpanel (0.9.0) unstable; urgency=low
 
