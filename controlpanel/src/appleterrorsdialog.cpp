@@ -22,6 +22,8 @@
 
 #include <QGraphicsLinearLayout>
 #include <MLabel>
+#include <MApplication>
+#include <MWindow>
 
 static const QString 
 description = "The following applets were disabled due to crash:";
@@ -48,8 +50,10 @@ AppletErrorsDialog::AppletErrorsDialog():
 void 
 AppletErrorsDialog::showAppletErrors()
 {
+    MWindow* window = MApplication::activeWindow();
+    Q_ASSERT (window);
     if (!DcpWrongApplets::instance()->badApplets().isEmpty()) {
-        (new AppletErrorsDialog)->appear(MSceneWindow::DestroyWhenDone);
+        (new AppletErrorsDialog)->appear(window,MSceneWindow::DestroyWhenDone);
     }
 }
 

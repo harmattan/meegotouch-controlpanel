@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
         MApplicationWindow* win = new MApplicationWindow();
         win->show();
         MApplicationPage* page = new MApplicationPage();
-        page->appear();
+        page->appear(win);
         MDialog* dialog = new MDialog();
         dialog->addButton("start");
         dialog->exec();

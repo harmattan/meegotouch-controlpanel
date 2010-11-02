@@ -47,7 +47,7 @@ void Ut_DcpMainPage::testCreation()
 
     QSignalSpy spy(m_subject, SIGNAL(appeared()));
     m_subject->createContent();
-    m_subject->appear();
+    m_subject->appear((MWindow*)0);
     QVERIFY(spy.count() == 1);
 
 }

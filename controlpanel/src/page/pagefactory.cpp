@@ -308,6 +308,9 @@ PageFactory::changePage (const PageHandle &handle)
         return false;
     }
 
+    MWindow* win = MApplication::instance()->activeWindow();
+    Q_ASSERT (win);
+
     /*
      * Time to show the new page.
      *
@@ -316,9 +319,9 @@ PageFactory::changePage (const PageHandle &handle)
      * to ensure there is no leak
      */
     if (handle.id == PageHandle::APPLET) {
-        page->appear (MSceneWindow::DestroyWhenDismissed);
+        page->appear (win,MSceneWindow::DestroyWhenDismissed);
     } else {
-        page->appear (MSceneWindow::KeepWhenDone);
+        page->appear (win,MSceneWindow::KeepWhenDone);
     }
     return true;
 }

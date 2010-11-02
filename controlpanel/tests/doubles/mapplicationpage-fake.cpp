@@ -82,13 +82,8 @@ void MApplicationPage::actionEvent(QActionEvent *){}
 
 void MSceneWindow::appear (MWindow *, MSceneWindow::DeletionPolicy)
 {
-    this->appear();
-    emit appeared();
-}
-
-void MSceneWindow::appear (MSceneWindow::DeletionPolicy)
-{
-    MApplication::activeApplicationWindow()->setCurrentPage((MApplicationPage*)this);
+    MApplication::activeApplicationWindow()->setCurrentPage(
+            (MApplicationPage*)this);
     emit appeared();
 }
 

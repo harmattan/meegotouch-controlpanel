@@ -36,3 +36,4 @@ QString MApplication::binaryName()
 {
     return "";
 }
+
