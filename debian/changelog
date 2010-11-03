@@ -1,4 +1,4 @@
-duicontrolpanel (0.9.1~unreleased) unstable; urgency=low
+duicontrolpanel (0.9.1) unstable; urgency=low
 
   * Fixes: NB#200458 - Returning false from DcpWidget::back() doesn't
     prevent page closing
