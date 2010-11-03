@@ -1,3 +1,9 @@
+duicontrolpanel (0.9.2~unreleased) unstable; urgency=low
+
+  * new version
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 03 Nov 2010 12:04:17 +0100
+
 duicontrolpanel (0.9.1) unstable; urgency=low
 
   * Fixes: NB#200458 - Returning false from DcpWidget::back() doesn't

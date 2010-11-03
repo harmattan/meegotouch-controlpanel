@@ -1,3 +1,26 @@
+= BUILDING CONTROLPANEL =
+
+Possible build options when creating debian package:
+
+noopt           do not use O2 optimization
+
+debug           build a more verbose controlpanel with lots of debug output
+
+mostused        have a most recently used items category on top of main page
+
+nolauncher      disable booster support (for example for debugging)
+
+parallel=X      build on X threads
+
+nouserguide     disable help icon support for applet briefs (and avoids linking
+                to the non opensource libuserguide)
+
+For example to build a version without invoker on 4 threads:
+DEB_BUILD_OPTIONS=nolauncher,parallel=4 dpkg-buildpackage -rfakeroot -b
+
+
+= RUNNING CONTROLPANEL =
+
 Start controlpanel through servicefw:
 # pop up an applet:
 dbus-send --session --print-reply --dest=com.nokia.DuiControlPanel / com.nokia.DuiControlPanelIf.appletPage string:Battery
@@ -9,20 +32,19 @@ dbus-send --session --print-reply --dest=com.nokia.DuiControlPanel / com.nokia.D
 # pop up a category page:
 dbus-send --session --print-reply --dest=com.nokia.DuiControlPanel / com.nokia.DuiControlPanelIf.categoryPage "string:Look & Feel"
 
----
 
-Build a version without invoker:
-DEB_BUILD_OPTIONS=nolauncher dpkg-buildpackage -rfakeroot -b
-
---
+= DEBUGGING =
 
 Debugging controlpanel with invoker:
 gdb /usr/bin/applauncherd.bin $(pgrep booster-m)
 
---
+The other option is to build a version without invoker, see nolauncher build
+option.
+
+
+= MISC =
 
 Empty the recently used list:
 gconftool-2 --recursive-unset /apps/duicontrolpanel/usagecount
 
---
 
