@@ -22,6 +22,8 @@ public:
 
     static DcpRemoteBriefReceiver* instance;
     static QStringList args;
+
+    QStringList waitingCommands;
 };
 
 

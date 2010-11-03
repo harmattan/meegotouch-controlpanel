@@ -38,12 +38,28 @@ DcpRemoteBriefReceiver::DcpRemoteBriefReceiver():
              this, SLOT (suicide()));
     connect (& priv->socket, SIGNAL (error (QLocalSocket::LocalSocketError)),
              this, SLOT (onConnectError ()));
+    connect (& priv->socket, SIGNAL (connected ()),
+             this, SLOT (onConnected ()));
 }
 
 DcpRemoteBriefReceiver::~DcpRemoteBriefReceiver()
 {
     DcpRemoteBriefReceiverPriv::instance = 0;
     delete priv;
+}
+
+void
+DcpRemoteBriefReceiver::onConnected ()
+{
+    // runs all the commands which arrived when we were not connected:
+    if (!priv->waitingCommands.isEmpty()) {
+        foreach (QString command, priv->waitingCommands) {
+            priv->send << command << endl;
+        }
+        priv->send.flush ();
+        priv->socket.flush ();
+        priv->waitingCommands.clear();
+    }
 }
 
 /*
@@ -103,9 +119,13 @@ void DcpRemoteBriefReceiver::switchToggle(const QString& appletName)
 void DcpRemoteBriefReceiver::cmd (
         const QString& command, const QString& appletName)
 {
-    priv->send << command << appletName << endl;
-    priv->send.flush ();
-    priv->socket.flush ();
+    if (priv->socket.state() == QLocalSocket::ConnectedState) {
+        priv->send << command << appletName << endl;
+        priv->send.flush ();
+        priv->socket.flush ();
+    } else {
+        priv->waitingCommands.append (command + appletName);
+    }
 }
 
 bool tryMatch (const QString& key, const QString& line, QString& argument)

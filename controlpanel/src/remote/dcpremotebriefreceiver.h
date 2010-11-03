@@ -22,6 +22,7 @@ public:
 protected slots:
     void onReadyRead ();
     void onFinished ( int exitCode, QProcess::ExitStatus exitStatus );
+    void onConnected ();
     void suicide ();
     void onStarted ();
     void onConnectError ();
