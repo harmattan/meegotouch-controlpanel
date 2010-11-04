@@ -2,6 +2,7 @@ duicontrolpanel (0.9.2~unreleased) unstable; urgency=low
 
   * Fixes: applet icon value texts are not appearing sometimes
   * Changes: controlpanel turns black (uses inverted theme)
+  * Fixes: NB#202583 - duicontrolpanel: built without optimizations
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 03 Nov 2010 12:04:17 +0100
 

@@ -1,6 +1,5 @@
 include(../lib/dcpconfig.pri)
 QMAKE_LIBDIR += ../lib/lib/ 
-message($$QMAKE_LFLAGS_RPATH)
 TEMPLATE = lib
 TARGET = lib/declarative
 DEPENDPATH += .

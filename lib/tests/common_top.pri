@@ -27,7 +27,6 @@ INSTALLS += target
 include(check.pri)
 include(coverage.pri)
 LIBS += -L../../lib/ -L/usr/lib -lduicontrolpanel
-message($$target.path)
 
 contains(DCP_BUILD_FEATURES,coverage) {
 

@@ -25,11 +25,10 @@ DISABLE_LAUNCHER {
 }
 
 QMAKE_LIBDIR += ../../lib/lib/ 
-message($$QMAKE_LFLAGS_RPATH)
+
 TEMPLATE = app
 DEPENDPATH += include ../../lib/src/include
 INCLUDEPATH += $$DEPENDPATH
-message($$INCLUDEPATH)
 OBJECTS_DIR = ../tmp
 MOC_DIR = ../tmp
 

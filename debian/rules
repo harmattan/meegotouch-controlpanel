@@ -12,7 +12,7 @@
 	
 
 
-CFLAGS = -Wall -g --disable-rpath
+CFLAGS = -Wall -g
 
 ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
 	CFLAGS += -O0
@@ -44,6 +44,8 @@ endif
 ifeq (,$(filter nouserguide,$(DEB_BUILD_OPTIONS)))
     QMAKE_ARG += DEFINES+=USE_USERGUIDE
 endif
+
+QMAKE_ARG += QMAKE_CXXFLAGS+="$(CFLAGS)"
 
 configure: configure-stamp
 configure-stamp:
