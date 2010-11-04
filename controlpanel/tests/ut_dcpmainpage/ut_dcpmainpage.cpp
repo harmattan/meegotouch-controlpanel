@@ -58,8 +58,6 @@ void Ut_DcpMainPage::testCreateContent()
     QVERIFY(m_subject->isContentCreated());
     QVERIFY(m_subject->mainLayout());
     QVERIFY(m_subject->m_OtherComp);
-    QCOMPARE((void*)(m_subject->m_OtherComp),
-        (void*)((QGraphicsWidget*)(m_subject->mainLayout()->itemAt(0))));
     QGraphicsWidget *otherCategories = m_subject->m_OtherComp->centralWidget();
     QVERIFY(otherCategories);
 #ifdef MOSTUSED

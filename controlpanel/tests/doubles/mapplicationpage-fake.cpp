@@ -29,6 +29,9 @@ MSceneWindow::MSceneWindow(class MSceneWindowPrivate*,
                    MSceneWindow::WindowType,
                    const QString&, QGraphicsItem*){}
 MSceneWindow::MSceneWindow(QGraphicsItem*){}
+MSceneWindow::~MSceneWindow(){}
+
+
 MApplicationPage::MApplicationPage(QGraphicsItem *){}
 MApplicationPage::~MApplicationPage(){}
 void MApplicationPage::createContent(){

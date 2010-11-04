@@ -84,7 +84,8 @@ DcpMain::CategoryInfos[] =
         QT_TRID_NOOP ("qtn_sett_main_battery_sub"),
         "Battery",
         PageHandle::BATTERY,
-        "icon-m-energy-management-battery-low",
+        "icon-m-energy-management-battery-verylow",
+//        "icon-m-energy-management-battery-low",
         0
     },
     {

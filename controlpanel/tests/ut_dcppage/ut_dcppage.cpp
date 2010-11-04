@@ -36,7 +36,7 @@ void Ut_DcpPage::init()
 
 void Ut_DcpPage::cleanup()
 {
-    delete m_subject;
+    m_subject->deleteLater();
     m_subject = 0;
 }
 

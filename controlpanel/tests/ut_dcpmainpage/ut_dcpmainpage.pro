@@ -19,8 +19,9 @@ TEST_SOURCES = \
 # unit test and unit
 SOURCES += \
     ut_dcpmainpage.cpp \
-    $$STUBSDIR/mapplicationpage-fake.cpp \
     $$STUBSDIR/mapplication-fake.cpp \
+    $$STUBSDIR/mapplicationpage-fake.cpp \
+    $$STUBSDIR/qgraphicsobject-fake.cpp \
     $$STUBSDIR/mapplicationwindow-fake.cpp \
     $$STUBSDIR/mgridlayoutpolicy-fake.cpp \
     $$STUBSDIR/maintranslations-fake.cpp \

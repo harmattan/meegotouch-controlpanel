@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
     // check the interface is valid
     if (!m_DcpIf->isValid()) {
         qDebug() << "Err: Service unavailable";
-        exit(0);
+        exit(1);
     }
 
     qDebug() << "Using service:" << m_DcpIf->serviceName();

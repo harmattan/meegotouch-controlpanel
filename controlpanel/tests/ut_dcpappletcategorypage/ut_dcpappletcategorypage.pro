@@ -14,11 +14,11 @@ TARGET = ut_dcpappletcategorypage
 TEST_SOURCES = \
     $$SRCDIR/page/dcpappletcategorypage.cpp \
     $$SRCDIR/page/pages.cpp \
+    $$SRCDIR/page/dcppage.cpp \
 
 # unit test and unit
 SOURCES += \
     ut_dcpappletcategorypage.cpp \
-    $$STUBSDIR/mapplicationpage-fake.cpp \
     $$STUBSDIR/mapplication-fake.cpp \
     $$STUBSDIR/mapplicationwindow-fake.cpp \
     $$STUBSDIR/mgridlayoutpolicy-fake.cpp \
@@ -28,7 +28,6 @@ SOURCES += \
     $$STUBSDIR/mlinearlayoutpolicy-fake.cpp \
     $$STUBSDIR/mcontainer-fake.cpp \
     $$LIBDCPFAKES/mgconfitem-fake.cpp \
-    $$STUBSDIR/dcppage-fake.cpp \
     $$STUBSDIR/dcpcomponent-fake.cpp \
     $$STUBSDIR/dcpappletdb-fake.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
