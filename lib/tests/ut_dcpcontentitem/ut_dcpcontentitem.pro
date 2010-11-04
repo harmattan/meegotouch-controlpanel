@@ -1,9 +1,9 @@
 include(../common_top.pri)
 
 # FIXME: temporary solution, it will be in meegotouch
-INCLUDEPATH += /usr/include/userguide
-DEPENDPATH += /usr/include/userguide
-LIBS += -luserguide
+contains(DEFINES,USE_USERGUIDE) {
+    CONFIG+=userguide
+}
 
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
 

@@ -10,9 +10,9 @@ include(../dcpconfig.pri)
 CONFIG += MOSTUSED
 
 # FIXME: this has to be removed if the functionality has merged into meegotouch
-INCLUDEPATH += /usr/include/userguide
-DEPENDPATH += /usr/include/userguide
-LIBS += -luserguide
+contains(DEFINES,USE_USERGUIDE) {
+    CONFIG+=userguide
+}
 
 MOSTUSED {
     DEFINES += MOSTUSED
