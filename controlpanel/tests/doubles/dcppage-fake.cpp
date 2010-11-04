@@ -109,3 +109,9 @@ DcpPage::appendWidget(QGraphicsWidget* widget)
 {
     mainLayout()->addItem(widget);
 }
+
+void
+DcpPage::setTitleLabel ()
+{
+}
+

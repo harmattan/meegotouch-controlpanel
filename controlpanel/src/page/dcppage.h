@@ -22,6 +22,7 @@
 #include <Pages>
 
 class QGraphicsLinearLayout;
+class MLabel;
 
 /*
  * FIXME: This is a public hader, it should not contain inline functions and
@@ -60,14 +61,17 @@ signals:
     void openSubPageWithReferer (const PageHandle &, const QString &, int);
 
 protected:
+    void setTitleLabel ();
     void appendWidget (QGraphicsWidget *widget);
 
 private:
     void createLayout();
 
+    MLabel* m_TitleLabel;
     PageHandle m_Handle;
     PageHandle m_Referer;
     friend class Ut_DcpPage;
 };
 
 #endif
+

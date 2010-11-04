@@ -39,7 +39,7 @@ DcpSingleComponent::DcpSingleComponent (
 : MBasicListItem(subTitle.isEmpty() ? MBasicListItem::IconWithTitle:
                  MBasicListItem::IconWithTitleAndSubtitle, parent)
 {
-    setStyleName("CommonPanel");
+    setStyleName("CommonPanelInverted");
 
     setTitle(title);
     imageWidget()->setImage (imageId);
@@ -66,11 +66,11 @@ QGraphicsLayout *DcpSingleComponent::createLayout()
     layout->addItem(imageWidget(), 0, 0, 3, 1);
     layout->setAlignment(imageWidget(), Qt::AlignVCenter | Qt::AlignLeft);
 
-    titleLabelWidget()->setStyleName("CommonTitle");
+    titleLabelWidget()->setStyleName("CommonTitleInverted");
     layout->addItem(titleLabelWidget(), 0, 1);
     layout->setAlignment(titleLabelWidget(), Qt::AlignTop | Qt::AlignLeft);
 
-    subtitleLabelWidget()->setStyleName("CommonSubTitle");
+    subtitleLabelWidget()->setStyleName("CommonSubTitleInverted");
     layout->addItem(subtitleLabelWidget(), 1, 1);
 
     layout->addItem(new QGraphicsWidget(), 2, 1);

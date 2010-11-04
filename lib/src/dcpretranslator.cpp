@@ -204,6 +204,9 @@ void
 DcpRetranslator::setMainCatalogName (const QString& catalogName)
 {
     priv->binaryName = catalogName;
+    MLocale loc;
+    loc.installTrCatalog (catalogName);
+    MLocale::setDefault (loc);
 }
 
 

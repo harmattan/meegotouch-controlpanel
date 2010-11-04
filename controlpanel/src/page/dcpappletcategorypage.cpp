@@ -48,7 +48,7 @@ DcpAppletCategoryPage::createContent ()
     DcpPage::createContent ();
 
     m_Category = new DcpAppletButtons(m_CategoryInfo);
-    setCentralWidget (m_Category);
+    mainLayout()->addItem (m_Category);
 
 #ifdef PROGRESS_INDICATOR
     // show progress indicator
@@ -56,6 +56,8 @@ DcpAppletCategoryPage::createContent ()
              this, SLOT (onLoadingFinished()));
     setProgressIndicatorVisible (true);
 #endif
+
+    retranslateUi();
 }
 
 const QString 
@@ -126,6 +128,9 @@ DcpAppletCategoryPage::retranslateUi()
 {
     // briefwidgets take care of themselves, so we only update title here
     setTitle(qtTrId(m_TitleId));
+    if (isContentCreated()) {
+        setTitleLabel ();
+    }
 }
 
 void

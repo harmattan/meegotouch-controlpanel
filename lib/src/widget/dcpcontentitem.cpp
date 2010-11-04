@@ -27,11 +27,11 @@
 
 #include "dcpappletdb.h"
 
-static const QString titleObjectName = "CommonTitle";
-static const QString subtitleObjectName = "CommonSubTitle";
-static const QString singleTitleObjectName = "CommonSingleTitle";
+static const QString titleObjectName = "CommonTitleInverted";
+static const QString subtitleObjectName = "CommonSubTitleInverted";
+static const QString singleTitleObjectName = "CommonSingleTitleInverted";
 static const QString iconObjectName = "CommonMainIcon";
-static const QString toggleObjectName = "CommonSwitch";
+static const QString toggleObjectName = "CommonSwitchInverted";
 
 DcpContentItemPrivate::DcpContentItemPrivate ():
     m_Applet (0),
@@ -60,7 +60,7 @@ DcpContentItem::DcpContentItem (
     d_ptr (new DcpContentItemPrivate)
 {
     connect (this, SIGNAL (clicked()), this, SLOT (onClicked()));
-    setObjectName ("CommonPanel");
+    setStyleName ("CommonPanelInverted");
     setApplet (applet);
 }
 
@@ -121,7 +121,7 @@ DcpContentItem::ensureImageIsCreated()
         MImageWidget* &image = d_ptr->m_ImageW;
         if (!image) {
             image = new MImageWidget();
-            image->setObjectName (iconObjectName);
+            image->setStyleName (iconObjectName);
             image->setSizePolicy (QSizePolicy::Fixed, QSizePolicy::Fixed);
             d_ptr->m_LayoutIsToBeChanged = true;
         }
@@ -145,7 +145,7 @@ DcpContentItem::ensureToggleIsCreated()
         if (!button) {
             button = new MButton();
             button->setViewType(MButton::switchType);
-            button->setObjectName (toggleObjectName);
+            button->setStyleName (toggleObjectName);
             button->setCheckable(true);
             connect (button, SIGNAL (clicked(bool)),
                      applet(), SLOT(setToggle(bool)));
@@ -207,13 +207,13 @@ DcpContentItem::ensureTextsAreCreated()
         // TODO maybe we could find a better solution than using the objectnames
         // of the elements in MBasicListItem, because it can break in the future
         // if MBasicListItem changes
-        d_ptr->m_Text1W->setObjectName(text2.isEmpty() ? singleTitleObjectName
+        d_ptr->m_Text1W->setStyleName(text2.isEmpty() ? singleTitleObjectName
                                        : titleObjectName);
         d_ptr->m_LayoutIsToBeChanged = true;
     }
     if (!d_ptr->m_Text2W) {
         d_ptr->m_Text2W = new MLabel();
-        d_ptr->m_Text2W->setObjectName(subtitleObjectName);
+        d_ptr->m_Text2W->setStyleName(subtitleObjectName);
         d_ptr->m_LayoutIsToBeChanged = true;
     }
     if (!d_ptr->m_Spacer) {
@@ -223,7 +223,7 @@ DcpContentItem::ensureTextsAreCreated()
     // update their texts:
     d_ptr->m_Text1W->setText (title());
     if (d_ptr->m_Text2W->text().isEmpty() != text2.isEmpty()) {
-        d_ptr->m_Text1W->setObjectName(text2.isEmpty() ? singleTitleObjectName
+        d_ptr->m_Text1W->setStyleName(text2.isEmpty() ? singleTitleObjectName
                                        : titleObjectName);
         d_ptr->m_LayoutIsToBeChanged = true;
     }
@@ -287,7 +287,7 @@ DcpContentItem::ensureWidgetsAreLayouted()
 
     if (!d_ptr->m_DrillImage) {
         d_ptr->m_DrillImage = new MImageWidget("icon-m-common-drilldown-arrow", this);
-        d_ptr->m_DrillImage->setStyleName("CommonMainIcon");
+        d_ptr->m_DrillImage->setStyleName(iconObjectName);
     }
     grid->addItem(d_ptr->m_DrillImage, 0, toggleX, textLinesCount, 1);
     grid->setAlignment(d_ptr->m_DrillImage, Qt::AlignVCenter | Qt::AlignRight);

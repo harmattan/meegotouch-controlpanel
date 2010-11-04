@@ -34,7 +34,7 @@
 
 #include "dcpdebug.h"
 
-static const QString appIdentifier = "settings";
+static const QString appIdentifier = "duicontrolpanel";
 
 /* 
  * this redefines the signal handler for TERM and INT signals, so as to be able
@@ -78,9 +78,7 @@ startApplication (int argc, char* argv[])
      * the translations of duicontrolpanel turned out to be in catalog
      * "settings"
      */
-    DcpRetranslator::instance()->setMainCatalogName(appIdentifier);
-// this is no more necessery, because MApplication loads the catalog already
-//    DcpRetranslator::instance()->retranslate();
+    DcpRetranslator::instance()->setMainCatalogName("settings");
 
     // mainwindow:
 #ifndef DISABLE_LAUNCHER

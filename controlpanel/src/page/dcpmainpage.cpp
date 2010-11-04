@@ -162,6 +162,8 @@ DcpMainPage::createContent ()
     } else {
         mainLayout ()->addItem (m_RecentlyComp);
     }
+#else // MOSTUSED
+    m_OtherComp->setHeaderVisible (false);
 #endif // MOSTUSED
     layout->addItem(m_OtherComp);
     retranslateUi();
@@ -181,6 +183,7 @@ void
 DcpMainPage::retranslateUi ()
 {
     setTitle (qtTrId(DcpMain::settingsTitleId));
+    setTitleLabel ();
 
 #ifdef MOSTUSED
     /*
@@ -189,9 +192,9 @@ DcpMainPage::retranslateUi ()
     if (m_RecentlyComp) {
         m_RecentlyComp->retranslateUi ();
     }
-#endif
 
     m_OtherComp->setTitle(qtTrId(DcpMain::otherCategoriesTitleId));
+#endif
 
     for (int i=0; i<m_CategoryButtons.count(); i++) {
         DcpSingleComponent* comp = m_CategoryButtons.at(i);

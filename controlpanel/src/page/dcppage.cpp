@@ -25,6 +25,9 @@
 #include <MSceneManager>
 #include <MApplication>
 #include <MApplicationWindow>
+#include <MLabel>
+#include <MSeparator>
+#include <MContainer>
 
 #include "mwidgetcreator.h"
 M_REGISTER_WIDGET(DcpPage)
@@ -33,9 +36,11 @@ M_REGISTER_WIDGET(DcpPage)
 
 
 DcpPage::DcpPage () :
-    MApplicationPage ()
+    MApplicationPage (),
+    m_TitleLabel (0)
 {
     DCP_DEBUG ("");
+    setStyleName ("DcpPage");
 
     // back button handling:
     connect (this, SIGNAL(backButtonClicked()),
@@ -187,5 +192,47 @@ QGraphicsLinearLayout *
 DcpPage::mainLayout ()
 {
     return (QGraphicsLinearLayout*)(centralWidget()->layout());
+}
+
+/*!
+ * sets the title label to the title of the page
+ * If there is no title label yet, it creates it.
+ */
+void
+DcpPage::setTitleLabel ()
+{
+    if (! mainLayout()) return;
+
+    if (title().isEmpty()) {
+        if (m_TitleLabel) {
+            QGraphicsLayoutItem* title = mainLayout()->itemAt(0);
+            QGraphicsLayoutItem* separator = mainLayout()->itemAt(1);
+            delete title;
+            delete separator;
+            m_TitleLabel = 0;
+        }
+        return;
+    }
+
+    if (!m_TitleLabel) {
+        // FIXME MStylableWidget* container = new MStylableWidget();
+        MContainer* container = new MContainer();
+        container->setStyleName ("CommonXLargeGroupHeaderPanelInverted");
+        container->setHeaderVisible (false);
+        container->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
+// FIXME        QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(container);
+//        layout->setContentsMargins (0,0,0,0);
+        m_TitleLabel = new MLabel(container);
+        m_TitleLabel->setStyleName ("CommonXLargeGroupHeaderInverted");
+//        layout->addItem (m_TitleLabel);
+//        container->setLayout (layout);
+        container->setCentralWidget (m_TitleLabel);
+        mainLayout()->insertItem (0, container);
+
+        MSeparator* separator = new MSeparator();
+        separator->setStyleName ("CommonSmallSpacer");
+        mainLayout()->insertItem (1, separator);
+    }
+    m_TitleLabel->setText (title ());
 }
 

@@ -171,6 +171,7 @@ DcpAppletPage::load ()
         appendWidget (m_MissingLabel);
         //% "Missing plugin"
         setTitle (qtTrId("dcp_no_applet_title"));
+        setTitleLabel();
     }
 }
 
@@ -276,17 +277,10 @@ DcpAppletPage::retranslateUi ()
     if (m_Applet && m_Applet->applet()) {
         QString title;
         if (m_MainWidget && m_Applet->interfaceVersion() >= 3) {
-            // this is the new way to specify the title:
             title = m_MainWidget->title();
         }
-        if (title.isEmpty()) {
-            // this is the deprecated way:
-            title = m_Applet->applet()->title();
-            if (title.isEmpty()) {
-                title = m_Applet->text1();
-            }
-        }
         setTitle(title);
+        setTitleLabel();
     }
 }
 
