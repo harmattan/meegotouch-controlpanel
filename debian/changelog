@@ -1,3 +1,9 @@
+duicontrolpanel (0.9.3~unreleased) unstable; urgency=low
+
+  * changelog up
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 08 Nov 2010 14:53:25 +0100
+
 duicontrolpanel (0.9.2) unstable; urgency=low
 
   * Fixes: applet icon value texts are not appearing sometimes
