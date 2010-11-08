@@ -57,8 +57,15 @@ target.path += $$DCP_PREFIX/bin
 
 message("The install path for the executable will be: "$$target.path)
 
+# install desktop file:
+APPEAR_IN_MENU {
+    system(cp duicontrolpanel.desktop.2 duicontrolpanel.desktop)
+} else {
+    system(cp duicontrolpanel.desktop.1 duicontrolpanel.desktop)
+}
 desktop_entry.path = $$DCP_PREFIX/share/applications
 desktop_entry.files = duicontrolpanel.desktop
+
 rfs.files += controlpanel-rfs.sh
 rfs.path += $$system(pkg-config --variable rfs_scripts_dir clean-device)
 

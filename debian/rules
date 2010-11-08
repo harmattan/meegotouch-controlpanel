@@ -47,6 +47,10 @@ endif
 
 QMAKE_ARG += QMAKE_CXXFLAGS+="$(CFLAGS)"
 
+# this specifies that in case of debian build dcp should appear
+# in the application launcher menu
+QMAKE_ARG += CONFIG+=APPEAR_IN_MENU
+
 configure: configure-stamp
 configure-stamp:
 	dh_testdir
