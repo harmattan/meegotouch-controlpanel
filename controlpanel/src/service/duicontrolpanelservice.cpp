@@ -197,16 +197,3 @@ DuiControlPanelService::createStartPage()
     delete handle;
 }
 
-void
-DuiControlPanelService::handleServiceRegistrationFailure()
-{
-    // raise the mainpage of controlpanel:
-    DuiControlPanelIf iface;
-    if (iface.isValid()) {
-        iface.mainPage();
-    }
-
-    // quit:
-    exit();
-}
-

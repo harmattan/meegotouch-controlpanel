@@ -39,6 +39,7 @@ DcpSingleComponent::DcpSingleComponent (
 : MBasicListItem(subTitle.isEmpty() ? MBasicListItem::IconWithTitle:
                  MBasicListItem::IconWithTitleAndSubtitle, parent)
 {
+    setObjectName (QString());
     setStyleName("CommonPanelInverted");
 
     setTitle(title);

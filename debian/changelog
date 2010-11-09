@@ -1,8 +1,11 @@
 duicontrolpanel (0.9.3~unreleased) unstable; urgency=low
 
   * changelog up
+  * Fixes: NB#199641 - Settings app view switches back from applet view
+    to main view when we try to open the settings app once again from
+    launcher
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 08 Nov 2010 14:53:25 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 09 Nov 2010 17:28:40 +0100
 
 duicontrolpanel (0.9.2) unstable; urgency=low
 
