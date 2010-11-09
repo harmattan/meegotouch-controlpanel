@@ -27,7 +27,7 @@
 #include <MApplicationWindow>
 #include <MLabel>
 #include <MSeparator>
-#include <MContainer>
+#include <MStylableWidget>
 
 #include "mwidgetcreator.h"
 M_REGISTER_WIDGET(DcpPage)
@@ -215,18 +215,15 @@ DcpPage::setTitleLabel ()
     }
 
     if (!m_TitleLabel) {
-        // FIXME MStylableWidget* container = new MStylableWidget();
-        MContainer* container = new MContainer();
+        MStylableWidget* container = new MStylableWidget();
         container->setStyleName ("CommonXLargeGroupHeaderPanelInverted");
-        container->setHeaderVisible (false);
         container->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
-// FIXME        QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(container);
-//        layout->setContentsMargins (0,0,0,0);
+        QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(container);
+        layout->setContentsMargins (0,0,0,0);
         m_TitleLabel = new MLabel(container);
         m_TitleLabel->setStyleName ("CommonXLargeGroupHeaderInverted");
-//        layout->addItem (m_TitleLabel);
-//        container->setLayout (layout);
-        container->setCentralWidget (m_TitleLabel);
+        layout->addItem (m_TitleLabel);
+        container->setLayout (layout);
         mainLayout()->insertItem (0, container);
 
         MSeparator* separator = new MSeparator();
