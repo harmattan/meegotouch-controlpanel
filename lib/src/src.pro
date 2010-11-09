@@ -1,5 +1,5 @@
 TEMPLATE      = lib
-CONFIG       += plugin gui meegotouch debug
+CONFIG       += gui meegotouchcore debug
 INCLUDEPATH  += $$system(find ./ -type d)
 MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects
@@ -25,6 +25,7 @@ include(service_interface/service_interface.pri)
 HEADERS += $$system(find ./ -name \'*.h\')
 SOURCES += $$system(find ./ -name \'*.cpp\' -not -name \'moc_*\')
 
+VERSION       = 0.9.0
 TARGET        = $$qtLibraryTarget(duicontrolpanel)
 DESTDIR       = ../lib
 
@@ -76,4 +77,15 @@ contains(DCP_BUILD_FEATURES,coverage) {
 }
 
 QMAKE_CLEAN += .objects/.* .objects/*
+
+# create pkg-config info:
+CONFIG += create_pc create_prl no_install_prl
+
+QMAKE_PKGCONFIG_NAME = meegotouch-controlpanel
+QMAKE_PKGCONFIG_DESCRIPTION = MeeGo Control Panel
+PKG_CONFIG_PATH = $$[QT_INSTALL_LIBS]/pkgconfig
+QMAKE_PKGCONFIG_REQUIRES = meegotouch
+QMAKE_PKGCONFIG_LIBDIR = $$target.path
+QMAKE_PKGCONFIG_INCDIR = $$install_headers.path
+QMAKE_PKGCONFIG_DESTDIR = pkgconfig
 
