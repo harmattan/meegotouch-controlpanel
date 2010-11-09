@@ -46,9 +46,7 @@ void Ut_DcpAppletPage::initTestCase()
 void Ut_DcpAppletPage::testCreateContents()
 {
     QVERIFY(m_subject);
-    QVERIFY(!m_subject->isContentCreated());
     m_subject->createContent();
-    QVERIFY(m_subject->isContentCreated());
 }
 
 void Ut_DcpAppletPage::testHasError()

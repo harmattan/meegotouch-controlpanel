@@ -21,6 +21,7 @@ TEST_SOURCES = \
 SOURCES += \
     ut_dcpappletpage.cpp \
     $$STUBSDIR/mapplication-fake.cpp \
+    $$STUBSDIR/mapplicationpage-fake.cpp \
     $$STUBSDIR/mapplicationwindow-fake.cpp \
     $$STUBSDIR/mgridlayoutpolicy-fake.cpp \
     $$STUBSDIR/maintranslations-fake.cpp \

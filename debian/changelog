@@ -1,6 +1,6 @@
 duicontrolpanel (0.9.3~unreleased) unstable; urgency=low
 
-  * changelog up
+  * Fixes: BMC#7195 - App is shown on the tray and in the launcher
   * Fixes: NB#199641 - Settings app view switches back from applet view
     to main view when we try to open the settings app once again from
     launcher
