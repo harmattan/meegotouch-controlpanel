@@ -1,5 +1,5 @@
 TEMPLATE      = lib
-CONFIG       += gui meegotouchcore debug
+CONFIG       += gui meegotouch debug
 INCLUDEPATH  += $$system(find ./ -type d)
 MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects
