@@ -1,4 +1,4 @@
-duicontrolpanel (0.9.3~unreleased) unstable; urgency=low
+duicontrolpanel (0.9.3) unstable; urgency=low
 
   * Fixes: BMC#7195 - App is shown on the tray and in the launcher
   * Fixes: NB#199641 - Settings app view switches back from applet view
