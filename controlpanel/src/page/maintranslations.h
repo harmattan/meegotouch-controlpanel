@@ -51,6 +51,7 @@ namespace DcpMain {
    extern const DcpCategoryInfo CategoryInfos[];
    extern const char *settingsTitleId;
    extern const DcpCategoryInfo mostUsedCategory;
+   extern const DcpCategoryInfo mainPageCategory;
    extern const char *otherCategoriesTitleId;
    extern const char *quitMenuItemTextId;
 

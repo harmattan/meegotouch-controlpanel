@@ -55,6 +55,16 @@ const DcpCategoryInfo DcpMain::mostUsedCategory =
     0
 };
 
+const DcpCategoryInfo DcpMain::mainPageCategory =
+{
+    "MainPage",
+    "MainPage",
+    "MainPage",
+    PageHandle::NOPAGE,
+    0,
+    0
+};
+
 
 const char* DcpMain::settingsTitleId = "qtn_sett_main_title";
 const char* DcpMain::otherCategoriesTitleId = "qtn_sett_main_other";

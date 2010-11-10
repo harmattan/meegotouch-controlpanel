@@ -18,7 +18,7 @@ X-Maemo-Fixed-Args=SpecialApplet
 X-DUIApplet-Applet=libdcpspecialapplet.so
 
 [DCP]
-Category= MainScreen
+Category= MainPage
 Order=1
 WidgetType=Special
 

@@ -31,6 +31,7 @@
 #include <QTimer>
 
 #include "dcpcategorycomponent.h"
+#include "dcpappletbuttons.h"
 #include "dcpremotebriefreceiver.h"
 #include "maintranslations.h"
 
@@ -99,6 +100,11 @@ void DcpMainPage::realShown ()
     // this loads the helper process a little bit earlier so that it can preload
     // some applets
     DcpRemoteBriefReceiver::instance ();
+
+    // this adds the MainPage category if needed:
+    DcpAppletButtons* category =
+        new DcpAppletButtons (&DcpMain::mainPageCategory);
+    mainLayout()->addItem (category);
 }
 
 void

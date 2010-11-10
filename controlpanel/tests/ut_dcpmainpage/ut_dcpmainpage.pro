@@ -21,6 +21,7 @@ SOURCES += \
     ut_dcpmainpage.cpp \
     $$STUBSDIR/mapplication-fake.cpp \
     $$STUBSDIR/mapplicationpage-fake.cpp \
+    $$STUBSDIR/dcpappletbuttons-fake.cpp \
     $$STUBSDIR/qgraphicsobject-fake.cpp \
     $$STUBSDIR/mapplicationwindow-fake.cpp \
     $$STUBSDIR/mgridlayoutpolicy-fake.cpp \
@@ -55,6 +56,7 @@ SOURCES += \
 HEADERS += \
     ut_dcpmainpage.h \
     $$SRCDIR/page/dcpmainpage.h \
+    $$SRCDIR/page/dcpappletbuttons.h \
     $$SRCDIR/page/dcppage.h \
     $$SRCDIR/page/pages.h \
     $$SRCDIR/page/dcpcategorycomponent.h \

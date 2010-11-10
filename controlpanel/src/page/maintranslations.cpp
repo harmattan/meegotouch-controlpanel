@@ -165,6 +165,17 @@ const DcpCategoryInfo DcpMain::mostUsedCategory =
     0
 };
 
+// logical category for the mainpage
+const DcpCategoryInfo DcpMain::mainPageCategory =
+{
+    "MainPage",
+    "MainPage",
+    "MainPage",
+    PageHandle::NOPAGE,
+    0,
+    0
+};
+
 
 //% "Settings"
 const char* DcpMain::settingsTitleId = QT_TRID_NOOP("qtn_sett_main_title");
