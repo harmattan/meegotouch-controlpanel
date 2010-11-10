@@ -257,6 +257,7 @@ PageFactory::createAppletCategoryPage (const PageHandle& handle)
 
     m_AppletCategoryPage->setTitleId (info->titleId);
 
+#ifdef SKIP_CATEGORIES_WITH_ONE_APPLET
     /*
      * If the category contains one applet only, then we do not require the user
      * to click on that, but switch to the appletPage directly
@@ -269,6 +270,7 @@ PageFactory::createAppletCategoryPage (const PageHandle& handle)
             return createAppletPage (metadata);
         }
     }
+#endif
 
     return m_AppletCategoryPage;
 }
