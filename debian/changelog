@@ -1,3 +1,9 @@
+duicontrolpanel (0.9.3.1) unstable; urgency=low
+
+  * Reverts adding a title on applet pages
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 10 Nov 2010 11:30:41 +0100
+
 duicontrolpanel (0.9.3) unstable; urgency=low
 
   * Fixes: BMC#7195 - App is shown on the tray and in the launcher
