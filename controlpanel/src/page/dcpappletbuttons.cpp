@@ -22,6 +22,9 @@
 #include "dcpdebug.h"
 #include "dcpcontentitemcellcreator.h"
 #include "dcpremoteappletobject.h"
+#include "dcpappletif.h"
+#include "dcpwidget.h"
+#include "dcpappletpage.h"
 
 #include <Pages>
 #include <DcpAppletDb>
@@ -168,6 +171,12 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
          */
         || widgetId == DcpWidgetType::Button
 
+        /*
+         * Special type applet gives back its own brief widget. Lets hope that
+         * noone uses it.
+         */
+        || widgetId == DcpWidgetType::Special
+
        ) {
         applet = db->applet (name);
     } else {
@@ -209,6 +218,26 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
         wlayout->addItem (button);
         wlayout->addItem (spacer2);
         mLayout()->insertItem (getItemCount()-1, c);
+
+    /*
+     * The special type of applet brief creates its own icon,
+     * please do not use it.
+     */
+    } else if (widgetId == DcpWidgetType::Special) {
+        if (!applet || !applet->applet()) {
+            qWarning ("Warning: no applet for special type of briefview, skipped");
+            return;
+        }
+        
+        int widgetId = applet->getMainWidgetId();
+        // we can specify the page here if we need support for menu items, progress indicator etc
+        QGraphicsWidget* icon =
+            DcpAppletPage::constructAppletWidget (applet, 0, widgetId);
+        if (!icon) {
+            qWarning ("Warning: special type of briefview did not supply an icon, skipped");
+            return;
+        }
+        mLayout()->insertItem (getItemCount()-1, icon);
 
     } else {
         QString mattiID = "DcpContentItem::" + mattiPostfix;

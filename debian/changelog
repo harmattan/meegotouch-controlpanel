@@ -1,3 +1,9 @@
+duicontrolpanel (0.9.4~unreleased) unstable; urgency=low
+
+  * Changes: new type of briefview: special
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 10 Nov 2010 15:54:38 +0100
+
 duicontrolpanel (0.9.3.1) unstable; urgency=low
 
   * Reverts adding a title on applet pages

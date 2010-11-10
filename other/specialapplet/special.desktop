@@ -1,0 +1,24 @@
+[Desktop Entry]
+Type=ControlPanelApplet
+Name=SpecialApplet
+Icon=
+Exec=
+
+# This has to be specified in order that the .desktop file can also be
+# used as an action (for example for search to know how to
+# open the applet)
+X-Maemo-Service=com.nokia.DuiControlPanel
+X-Maemo-Method=com.nokia.DuiControlPanelIf.appletPage
+X-Maemo-Object-Path=/
+# this has to be the same as Name
+X-Maemo-Fixed-Args=SpecialApplet
+
+
+[DUI]
+X-DUIApplet-Applet=libdcpspecialapplet.so
+
+[DCP]
+Category= MainScreen
+Order=1
+WidgetType=Special
+

@@ -203,11 +203,69 @@ DcpAppletPage::back ()
     DcpPage::back();
 }
 
+
+/*! \brief Constructs the applet's widget
+ *
+ * \param applet    The applet
+ * \param page      If not null, then the page gets initialized with the
+ *                  actions, etc the applet specifies
+ * \param widgetId  The id of the widget to create.
+ *
+ * \returns the constructed, initialized DcpWidget.
+ */
+DcpWidget*
+DcpAppletPage::constructAppletWidget (DcpAppletObject* applet,
+                                      DcpPage* page, int widgetId)
+{
+    if (!applet || !applet->applet()) return 0;
+
+    DcpWidget* widget = applet->applet()->constructWidget (widgetId);
+
+    if (!widget) return widget;
+
+    if (!widget->setWidgetId (widgetId) &&
+        widget->getWidgetId () != widgetId)
+    {
+        /*
+        * We needed to set the widgetId, for it is a new widget, but we
+        * could not set it.
+        */
+        DCP_WARNING ("The widgetId could not be set for applet '%s' "
+                     "widget %d it remains %d.",
+                     DCP_STR (applet->metadata()->name()),
+                     widgetId,
+                     widget->getWidgetId ());
+    }
+
+    connect (widget, SIGNAL (changeWidget(int)),
+             applet, SLOT(activateSlot(int)));
+    connect (widget, SIGNAL (activatePluginByName (const QString &)),
+             applet, SLOT (activatePluginByName (const QString &)));
+
+    if (page) {
+        if (applet->interfaceVersion() >= 2) {
+            connect (widget, SIGNAL (closePage()),
+                     page, SLOT (back ()));
+            if (applet->interfaceVersion() >= 4) {
+                connect (widget, SIGNAL (inProgress (bool)),
+                         page, SLOT (setProgressIndicatorVisible (bool)));
+                page->setProgressIndicatorVisible (
+                        widget->isProgressIndicatorVisible());
+            }
+        }
+
+        // add the actions:
+        foreach (MAction* action, applet->applet()->viewMenuItems()) {
+            page->addAction(action);
+        }
+    }
+
+    return widget;
+}
+
 void
 DcpAppletPage::loadWidget (int widgetId)
 {
-    DcpWidget  *newMainWidget;
-
     /*
      * Load the stylesheet for the applet (if any)
      */
@@ -216,53 +274,10 @@ DcpAppletPage::loadWidget (int widgetId)
     /*
      * Creating the widget and setting its widgetId.
      */
-    newMainWidget = m_Applet->applet()->constructWidget (widgetId);
-
-    /*
-     * From now on, this is the widget we have. And if it is NULL, we just
-     * return.
-     */
-    m_MainWidget = newMainWidget;
-
-    if (newMainWidget != 0 && !newMainWidget->setWidgetId (widgetId) &&
-        newMainWidget->getWidgetId () != widgetId)
-    {
-        /*
-        * We needed to set the widgetId, for it is a new widget, but we
-        * could not set it.
-        */
-        DCP_WARNING ("The widgetId could not be set for applet '%s' "
-                     "widget %d it remains %d.",
-                     DCP_STR (m_Applet->metadata()->name()),
-                     widgetId,
-                     newMainWidget->getWidgetId ());
-    }
-
-    if (!m_MainWidget) {
-        return;
-    }
+    m_MainWidget = constructAppletWidget (m_Applet, this, widgetId);
+    if (!m_MainWidget) return;
 
     setPannable (m_MainWidget->pagePans());
-
-    connect (m_MainWidget, SIGNAL (changeWidget(int)),
-             m_Applet, SLOT(activateSlot(int)));
-    connect (m_MainWidget, SIGNAL (activatePluginByName (const QString &)),
-             m_Applet, SLOT (activatePluginByName (const QString &)));
-    if (m_Applet->interfaceVersion() >= 2) {
-        connect (m_MainWidget, SIGNAL (closePage()),
-                 this, SLOT (back ()));
-        if (m_Applet->interfaceVersion() >= 4) {
-            connect (m_MainWidget, SIGNAL (inProgress (bool)),
-                     this, SLOT (setProgressIndicatorVisible (bool)));
-            setProgressIndicatorVisible (
-                    m_MainWidget->isProgressIndicatorVisible());
-        }
-    }
-
-    // add the actions:
-    foreach (MAction* action, m_Applet->applet()->viewMenuItems()) {
-        addAction(action);
-    }
 
     appendWidget (m_MainWidget);
     retranslateUi();

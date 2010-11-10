@@ -41,6 +41,8 @@ public:
     bool hasError ();
     int widgetId ();
     DcpAppletObject* applet();
+    static DcpWidget* constructAppletWidget (DcpAppletObject* applet,
+                                             DcpPage* page, int widgetId);
 
 protected:
     virtual void retranslateUi ();

@@ -333,8 +333,8 @@ PageFactory::appletWantsToStart (int pageId)
 
     Q_ASSERT (applet);
 
-    DCP_DEBUG ("Applet '%s' wants to start, widgetId: %d",
-               DCP_STR(applet->metadata()->name()), pageId);
+    qDebug ("Applet '%s' wants to start, widgetId: %d",
+             DCP_STR(applet->metadata()->name()), pageId);
 
     PageHandle handle (PageHandle::APPLET, applet->metadata()->name(), pageId);
     changePage (handle);
