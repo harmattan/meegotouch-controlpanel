@@ -11,61 +11,77 @@ Section: libs
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libuserguide
 Description: library for the control panel application and its applets
+ The library contains functions, classes related to handling duicontrolpanel
+ applets:
+    - various interfaces plugins implement to communicate with controlpanel
+    - showing them on another application
+    - control controlpanel through D-Bus (pop up plugins)
 
 Package: libduicontrolpanel-dev
-Section: devel
+Section: libdevel
 Architecture: any
 Depends: libduicontrolpanel (= ${Source-Version}), libmeegotouch-dev (>= 0.20)
 Description: Development files for the control panel application and its applets
+ Contains files needed for development related to controlpanel and its applets.
 
 Package: duicontrolpanel
 Section: x11
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libduicontrolpanel (= ${Source-Version}),
+Depends: ${shlibs:Depends}, ${misc:Depends},
+         libduicontrolpanel (= ${Source-Version}),
          applauncherd-launcher, clean-device, dsme, timed,
          duicontrolpanel-l10n-engineering-english (= ${Source-Version})
 Description: Control Panel
+ Control Panel provides an application which uses various plugins to present
+ configuration possibilities for the user.
 
 Package: duicontrolpanel-dbg
 Section: devel
 Architecture: any
 Depends: duicontrolpanel (= ${binary:Version})
 Description: Control Panel - debug symbols
+ Debug symbols for duicontrolpanel.
 
 Package: libduicontrolpanel-doc
 Section: doc
 Architecture: all
 Description: API documentation for libduicontrolpanel
+ Contains the documentation for libduicontrolpanel and applet development.
 
 Package: duicontrolpanel-tests
 Section: misc
 Architecture: any
-Depends: ${shlibs:Depends}, duicontrolpanel (= ${Source-Version}), libqtgui4, meegotestrunner
+Depends: ${shlibs:Depends}, duicontrolpanel (= ${Source-Version}), libqtgui4,
+         meegotestrunner
 XB-Maemo-CI-Packages: duicontrolpanel
 XB-Maemo-CI-Stage: fast, staging
 Description: libduicontrolpanel unit tests
- Functional and Unit testing binaries and shellscripts for testing duicontrolpanel / libduicontrolpanel library
+ Functional and Unit testing binaries and shellscripts for testing
+ duicontrolpanel / libduicontrolpanel library
 
 Package: duicontrolpanel-l10n-engineering-english
-Section: devel
+Section: misc
 Architecture: any
 Enhances: duicontrolpanel
 Description: Engineering English translations for duicontrolpanel
+ Contains the engineering translation for duicontrolpanel
 
 Package: duicontrolpanel-skeletonapplet
-Section: x11
+Section: misc
 Architecture: any
 Replaces: duicontrolpanel-ui-tests
-Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel, libduicontrolpanel, duicontrolpanel-skeletonapplet-l10n-engineering-english (= ${binary:Version})
+Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel,
+         libduicontrolpanel, duicontrolpanel-skeletonapplet-l10n-engineering-english (= ${binary:Version})
 Description: Example applets for duicontrolpanel
-  This package contains examples for settings applets created by
+ This package contains examples for settings applets created by
     - implementing a dynamic plugin,
     - declarative ui,
     - declaration of starting an external application
 
 Package: duicontrolpanel-skeletonapplet-l10n-engineering-english
-Section: devel
+Section: misc
 Architecture: any
 Enhances: duicontrolpanel-skeletonapplet
-Description: Engineering english translations for the example applets
+Description: Engineering English translations for the example applets
+ Example engineering package for the example applets for controlpanel.
 

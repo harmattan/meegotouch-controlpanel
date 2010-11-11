@@ -13,5 +13,6 @@ conf.files += theme/duicontrolpanel.conf
 conf.path = $$DCP_THEME_DIR
 
 message ("Theme path will be: "$$DCP_THEME_DIR)
-INSTALLS += images svg style conf
+# INSTALLS += images svg style conf
+INSTALLS += style
 
