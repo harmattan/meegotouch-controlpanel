@@ -1,4 +1,4 @@
-duicontrolpanel (0.9.4~unreleased) unstable; urgency=low
+duicontrolpanel (0.9.4) unstable; urgency=low
 
   * Changes: new type of briefview: special
   * Changes: a logical MainPage category to add applet icons to the
