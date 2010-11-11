@@ -1,3 +1,9 @@
+duicontrolpanel (0.9.5~unreleased) unstable; urgency=low
+
+  * up
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 11 Nov 2010 10:36:48 +0100
+
 duicontrolpanel (0.9.4) unstable; urgency=low
 
   * Changes: new type of briefview: special

@@ -1,7 +1,5 @@
 include($$[QT_INSTALL_DATA]/mkspecs/dcpconfig.pri)
 
-QMAKE_LFLAGS_RPATH = -Wl
-
 # extending include path
 INCLUDEPATH += $$DCP_INSTALL_HEADERS
 DEPENDPATH += $$DCP_INSTALL_HEADERS

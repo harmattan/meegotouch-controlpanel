@@ -1,10 +1,5 @@
 !dcpconfig {
     CONFIG += dcpconfig
-# some hack for some problems experienced before
-{
-	QMAKE_CXXFLAGS_RELEASE += -g                                                                                                                       
-	QMAKE_LFLAGS_RPATH = -Wl
-}
 
 # Directories
 {
@@ -43,4 +38,3 @@
 	DEFINES += MOSTUSEDCOUNTER_GCONFKEY=\\\"\"$$DCP_MOSTUSEDCOUNTER_GCONFKEY\"\\\"
 }
 }
-

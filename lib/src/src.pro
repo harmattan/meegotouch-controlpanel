@@ -4,7 +4,6 @@ INCLUDEPATH  += $$system(find ./ -type d)
 MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects
 
-QMAKE_LFLAGS_RPATH = -Wl
 include(../dcpconfig.pri)
 
 # we can not disable functions from the lib since our api is considered stable
