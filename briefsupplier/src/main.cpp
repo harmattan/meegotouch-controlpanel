@@ -1,6 +1,7 @@
 #include <MApplication>
 
 #include <DcpRetranslator>
+#include "dcpwrongapplets.h"
 #include "briefsupplier.h"
 #include "fakeapplicationservice.h"
 
@@ -22,6 +23,22 @@ int main (int argc, char* argv[])
     DcpRetranslator* retranslator = DcpRetranslator::instance();
     QObject::connect(&app, SIGNAL(localeSettingsChanged()),
                      retranslator, SLOT(retranslate()));
+
+    // handle the arguments:
+    for (int i = 1; i < argc; ++i) {
+        QString s(argv[i]);
+
+        if (s == "-nosupervisor") {
+            qDebug() << "Applet supervisor is disabled.";
+            DcpWrongApplets::disable();
+        }
+    }
+
+    // start supervisor:
+    if (!DcpWrongApplets::isDisabled()) {
+        DcpWrongApplets::connectSupervisorSignals();
+        DcpWrongApplets::instance();
+    }
 
     BriefSupplier supplier;
     QObject::connect(&app, SIGNAL(localeSettingsChanged()),

@@ -30,6 +30,7 @@ protected slots:
 protected:
     void cmd (const QString& command, const QString& appletName);
     DcpRemoteBriefReceiver();
+    void startProcess ();
 
 private:
     class DcpRemoteBriefReceiverPriv* priv;

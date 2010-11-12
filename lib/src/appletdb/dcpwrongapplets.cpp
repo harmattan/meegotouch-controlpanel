@@ -77,41 +77,42 @@ mark_applet_as_bad (
  * Returns true if an applet crash has been discovered.
  */
 bool
-some_crash_happened (
-        void)
+some_crash_happened (void)
 {
-//  void     *backtrace_array [BACKTRACE_SIZE];
-//  char    **backtrace_strings;
-//  size_t    backtrace_size;
-//  const char     *start, *end;
+    void     *backtrace_array [BACKTRACE_SIZE];
+    char    **backtrace_strings;
+    size_t    backtrace_size;
+    const char     *start, *end;
 
-//  DCP_WARNING ("Crash...");
-//  backtrace_size = backtrace (backtrace_array, BACKTRACE_SIZE);
-//  backtrace_strings = backtrace_symbols (backtrace_array, backtrace_size);
+    DCP_WARNING ("Crash...");
+    backtrace_size = backtrace (backtrace_array, BACKTRACE_SIZE);
+    backtrace_strings = backtrace_symbols (backtrace_array, backtrace_size);
 
-//  /*
-//   * Let's print the backtrace from the stack.
-//   */
-//  fprintf (stderr, "--- Crash backtrace of DuiControlPanel ---\n");
-//  for (size_t i = 0; i < backtrace_size; i++) {
-//      fprintf (stderr, "%03u %s\n", i, backtrace_strings[i]);
-//  }
-//  fprintf (stderr, "------------------------------------------\n");
-//  fflush (stderr);
+    /*
+     * Let's print the backtrace from the stack.
+     */
+    fprintf (stderr, "--- Crash backtrace of DuiControlPanel ---\n");
+    for (size_t i = 0; i < backtrace_size; i++) {
+          fprintf (stderr, "%03u %s\n", i, backtrace_strings[i]);
+    }
+    fprintf (stderr, "------------------------------------------\n");
+    fflush (stderr);
 
-//  /*
-//   * Let's see if any of the functions is actually in some applet.
-//   */
-//  for (size_t i = 0; i < backtrace_size; i++) {
-//      if (!backtrace_line_is_an_applet (backtrace_strings[i], &start, &end))
-//          continue;
+    /*
+     * Let's see if any of the functions is actually in some applet.
+     */
+    for (size_t i = 0; i < backtrace_size; i++) {
+          if (!backtrace_line_is_an_applet (backtrace_strings[i], &start, &end))
+              continue;
 
-//      *const_cast<char*>(end) = '\0';
-//      DCP_WARNING ("*** Marking this applet: '%s'", start);
-//      mark_applet_as_bad (start);
-//      DCP_WARNING ("*** Done");
-//      return true;
-//  }
+          uint len = end > start ? end - start + sizeof(char) : 0;
+          char name [len + sizeof(char)];
+          qstrncpy (name, start, len);
+          qWarning ("*** Marking this applet as bad: '%s'", name);
+          mark_applet_as_bad (name);
+          qWarning ("*** Done");
+          return true;
+    }
 
     return false;
 }
@@ -183,18 +184,18 @@ void DcpWrongApplets::connectSupervisorSignals()
         signal (SIGTERM, termination_signal_handler);
         signal (SIGHUP,  termination_signal_handler);
         signal (SIGINT,  termination_signal_handler);
-        signal (SIGQUIT,  termination_signal_handler);
+        signal (SIGQUIT, termination_signal_handler);
 
         signal (SIGILL,  termination_signal_handler);
         signal (SIGSEGV, termination_signal_handler);
-        signal (SIGBUS, termination_signal_handler);
+        signal (SIGBUS,  termination_signal_handler);
         signal (SIGABRT, termination_signal_handler);
         signal (SIGFPE,  termination_signal_handler);
     }
 }
 
 
-QSet <QString> 
+QSet <QString>
 DcpWrongApplets::queryBadApplets ()
 {
     QSet <QString> badApplets;
@@ -212,14 +213,14 @@ DcpWrongApplets::queryBadApplets ()
             metadata->setDisabled (true);
         }
     }
-    
+
     return badApplets;
 }
 
 DcpWrongApplets *
 DcpWrongApplets::instance ()
 {
-    if (!sm_Instance) 
+    if (!sm_Instance)
         sm_Instance = new DcpWrongApplets();
 
     return sm_Instance;

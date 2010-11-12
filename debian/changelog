@@ -1,8 +1,11 @@
 duicontrolpanel (0.9.5~unreleased) unstable; urgency=low
 
-  * up
+  * Fixes lintian errors
+  * Restores protection for segfaulting briefs: helper process gets
+    restarted and does not try to reload the bad applet
+  * Fixes: background theme id
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 11 Nov 2010 10:36:48 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 11 Nov 2010 20:22:31 +0100
 
 duicontrolpanel (0.9.4) unstable; urgency=low
 

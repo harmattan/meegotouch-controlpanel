@@ -32,7 +32,7 @@ DcpRemoteBriefReceiver::DcpRemoteBriefReceiver():
              this, SLOT (onFinished (int, QProcess::ExitStatus)));
 
     setProcessChannelMode (QProcess::ForwardedChannels);
-    start ("duicontrolpanel-briefsupplier", DcpRemoteBriefReceiverPriv::args);
+    startProcess();
 
     connect (qApp, SIGNAL (aboutToQuit()),
              this, SLOT (suicide()));
@@ -46,6 +46,12 @@ DcpRemoteBriefReceiver::~DcpRemoteBriefReceiver()
 {
     DcpRemoteBriefReceiverPriv::instance = 0;
     delete priv;
+}
+
+void
+DcpRemoteBriefReceiver::startProcess ()
+{
+    start ("duicontrolpanel-briefsupplier", DcpRemoteBriefReceiverPriv::args);
 }
 
 void
@@ -199,8 +205,20 @@ void DcpRemoteBriefReceiver::onFinished (
     Q_UNUSED (exitCode);
     Q_UNUSED (exitStatus);
 
-    DcpRemoteBriefReceiverPriv::instance = 0;
-    this->deleteLater ();
+    if (exitStatus == QProcess::CrashExit) {
+        // process crashed, we need to resend the watches to be in sync
+        // (crash protection will ensure that the crashed applet wont be loaded
+        // again)
+        foreach (QString appletName, priv->briefs.keys()) {
+            cmd (BSupplier::CmdWatch, appletName);
+        }
+        priv->currentBrief = 0;
+        startProcess ();
+
+    } else {
+        DcpRemoteBriefReceiverPriv::instance = 0;
+        this->deleteLater ();
+    }
 }
 
 DcpRemoteBriefReceiver* DcpRemoteBriefReceiver::instance ()

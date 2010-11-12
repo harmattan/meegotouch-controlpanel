@@ -100,6 +100,9 @@ M_EXPORT int main(int argc, char *argv[])
 {
     DcpRemoteBriefReceiver::setArguments (argc, argv);
 
+    // disables applet supervisor since only the helper process needs it
+    DcpWrongApplets::disable();
+
     // parse options
     QString desktopDir;
     for (int i = 1; i < argc; ++i) {
@@ -114,9 +117,6 @@ M_EXPORT int main(int argc, char *argv[])
             break;
         } else if (s == "-servicefw") {
             DuiControlPanelService::isStartedByServiceFw = true;
-        } else if (s == "-nosupervisor") {
-            qDebug() << "Applet supervisor is disabled.";
-            DcpWrongApplets::disable();
         } else if (s == "-desktopdir") {
             if (i + 1 < argc) {
                 i++;
@@ -124,10 +124,6 @@ M_EXPORT int main(int argc, char *argv[])
                 qDebug() << "Using desktopdir:" << desktopDir;
             }
         }
-    }
-
-    if (!DcpWrongApplets::isDisabled()) {
-        DcpWrongApplets::connectSupervisorSignals();
     }
 
     /*!
