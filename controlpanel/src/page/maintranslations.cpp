@@ -31,7 +31,7 @@ DcpMain::CategoryInfos[] =
         //% "Connections"
         QT_TRID_NOOP ("qtn_sett_main_connections"),
         //% "Internet, Bluetooth, Network"
-        QT_TRID_NOOP ("qtn_sett_main_connections_sub"),
+        QT_TRID_NOOP ("qtn_sett_main_connections_label2"),
         "Connections",
         PageHandle::CONNECTIVITY,
         "icon-m-common-wlan",
@@ -41,7 +41,7 @@ DcpMain::CategoryInfos[] =
         //% "Phone"
         QT_TRID_NOOP ("qtn_sett_main_phone"),
         //% "Call, SIM card"
-        QT_TRID_NOOP ("qtn_sett_main_phone_sub"),
+        QT_TRID_NOOP ("qtn_sett_main_phone_label2"),
         "Phone",
         PageHandle::PHONE,
         "icon-m-content-call",
@@ -51,7 +51,7 @@ DcpMain::CategoryInfos[] =
         //% "Applications"
         QT_TRID_NOOP ("qtn_sett_main_applications"),
         //% "Installations, Application settings"
-        QT_TRID_NOOP ("qtn_sett_main_applications_sub"),
+        QT_TRID_NOOP ("qtn_sett_main_applictions_label2"),
         "Applications",
         PageHandle::Applications,
         "icon-m-settings-applications",
@@ -61,7 +61,7 @@ DcpMain::CategoryInfos[] =
         //% "Notifications"
         QT_TRID_NOOP ("qtn_sett_main_notifications"),
         //% "Home screen feed, Alerts"
-        QT_TRID_NOOP ("qtn_sett_main_notifications_sub"),
+        QT_TRID_NOOP ("qtn_sett_main_notifications_label2"),
         "Notifications",
         PageHandle::NOTIFICATIONS,
         "icon-m-common-notification",
@@ -71,7 +71,7 @@ DcpMain::CategoryInfos[] =
         //% "Personalize"
         QT_TRID_NOOP ("qtn_sett_main_personalize"),
         //% "Wallpaper, Theme, Sounds"
-        QT_TRID_NOOP ("qtn_sett_main_personalize_sub"),
+        QT_TRID_NOOP ("qtn_sett_main_presonalize_label2"),
         "Personalize",
         PageHandle::PERSONALIZE,
         "icon-m-settings-personalize",
@@ -81,7 +81,7 @@ DcpMain::CategoryInfos[] =
         //% "Battery"
         QT_TRID_NOOP ("qtn_sett_main_battery"),
         //% "Display, battery"
-        QT_TRID_NOOP ("qtn_sett_main_battery_sub"),
+        QT_TRID_NOOP ("qtn_sett_main_battery_label2"),
         "Battery",
         PageHandle::BATTERY,
         "icon-m-energy-management-battery-verylow",
@@ -92,7 +92,7 @@ DcpMain::CategoryInfos[] =
         //% "Security"
         QT_TRID_NOOP ("qtn_sett_main_security"),
         //% "Lock code, Passwords & Certificates"
-        QT_TRID_NOOP ("qtn_sett_main_security_sub"),
+        QT_TRID_NOOP ("qtn_sett_main_security_label2"),
         "Security",
         PageHandle::SECURITY,
         "icon-m-settings-personalize",
@@ -102,7 +102,7 @@ DcpMain::CategoryInfos[] =
         //% "Time & Date"
         QT_TRID_NOOP ("qtn_sett_main_timedate"),
         //% "Time, Date, Region"
-        QT_TRID_NOOP ("qtn_sett_main_timedate_sub"),
+        QT_TRID_NOOP ("qtn_sett_main_clock_label2"),
         "Time & Date",
         PageHandle::REGIONALSETTING,
         "icon-m-common-clock",
@@ -112,7 +112,7 @@ DcpMain::CategoryInfos[] =
         //% "Language & Keyboard"
         QT_TRID_NOOP ("qtn_sett_main_language"),
         //% "Language, Text input"
-        QT_TRID_NOOP ("qtn_sett_main_language_sub"),
+        QT_TRID_NOOP ("qtn_sett_main_language_label2"),
         "Language & Keyboard",
         PageHandle::LANGUAGEKEYBOARD,
         "icon-m-common-keyboard",
@@ -122,7 +122,7 @@ DcpMain::CategoryInfos[] =
         //% "Accessories"
         QT_TRID_NOOP ("qtn_sett_main_accessories"),
         //% "USB, TV-out, Tele coil"
-        QT_TRID_NOOP ("qtn_sett_main_accessories_sub"),
+        QT_TRID_NOOP ("qtn_sett_main_accessories_label2"),
         "Accessories",
         PageHandle::ACCESSORIES,
         "icon-m-settings-accessories",
