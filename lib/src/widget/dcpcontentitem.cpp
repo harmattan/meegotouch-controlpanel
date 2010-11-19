@@ -30,7 +30,8 @@
 static const QString titleObjectName = "CommonTitleInverted";
 static const QString subtitleObjectName = "CommonSubTitleInverted";
 static const QString singleTitleObjectName = "CommonSingleTitleInverted";
-static const QString iconObjectName = "CommonDrillDownIcon";
+static const QString iconObjectName = "CommonMainIcon";
+static const QString drillDownObjectName = "CommonDrillDownIcon";
 static const QString toggleObjectName = "CommonSwitchInverted";
 
 DcpContentItemPrivate::DcpContentItemPrivate ():
@@ -287,7 +288,7 @@ DcpContentItem::ensureWidgetsAreLayouted()
 
     if (!d_ptr->m_DrillImage) {
         d_ptr->m_DrillImage = new MImageWidget("icon-m-common-drilldown-arrow", this);
-        d_ptr->m_DrillImage->setStyleName(iconObjectName);
+        d_ptr->m_DrillImage->setStyleName(drillDownObjectName);
     }
     grid->addItem(d_ptr->m_DrillImage, 0, toggleX, textLinesCount, 1);
     grid->setAlignment(d_ptr->m_DrillImage, Qt::AlignVCenter | Qt::AlignRight);
