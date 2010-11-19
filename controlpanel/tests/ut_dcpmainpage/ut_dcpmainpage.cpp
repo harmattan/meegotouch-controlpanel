@@ -57,10 +57,10 @@ void Ut_DcpMainPage::testCreateContent()
     m_subject->createContent(); 
     QVERIFY(m_subject->isContentCreated());
     QVERIFY(m_subject->mainLayout());
+#ifdef MOSTUSED
     QVERIFY(m_subject->m_OtherComp);
     QGraphicsWidget *otherCategories = m_subject->m_OtherComp->centralWidget();
     QVERIFY(otherCategories);
-#ifdef MOSTUSED
     QVERIFY(m_subject->m_RecentlyComp);
 #endif
 }

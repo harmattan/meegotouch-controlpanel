@@ -20,8 +20,8 @@
 DcpMainPage::DcpMainPage():
 #ifdef MOSTUSED
     m_RecentlyComp(0),
-#endif
     m_OtherComp(0),
+#endif
     m_HasContent(false),
     m_WasHidden(false)
 {
