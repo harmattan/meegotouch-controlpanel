@@ -81,7 +81,7 @@ DcpMain::CategoryInfos[] =
         //% "Battery"
         QT_TRID_NOOP ("qtn_sett_main_battery"),
         //% "Display, battery"
-        QT_TRID_NOOP ("qtn_sett_main_battery_label2"),
+        QT_TRID_NOOP ("qtn_sett_main_battery__label2"),
         "Battery",
         PageHandle::BATTERY,
         "icon-m-energy-management-battery-verylow",
@@ -140,12 +140,12 @@ DcpMain::CategoryInfos[] =
     },
     {
         //% "About my device"
-        QT_TRID_NOOP ("qtn_sett_main_about"),
+        QT_TRID_NOOP ("qtn_sett_main_aboutmy"),
         //% "Warranty, About product"
-        QT_TRID_NOOP ("qtn_sett_main_about_sub"),
+        QT_TRID_NOOP ("qtn_sett_main_aboutmy_label2"),
         "About my device",
         PageHandle::ABOUT,
-        "icon-m-common-device-root",
+        "icon-m-content-description",
         0
     },
     {

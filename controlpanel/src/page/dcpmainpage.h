@@ -58,8 +58,8 @@ protected slots:
 private:
 #ifdef MOSTUSED
     DcpCategoryComponent *m_RecentlyComp;
-#endif
     MContainer *m_OtherComp;
+#endif
     bool                  m_HasContent;
     bool                  m_WasHidden;
     QList<DcpSingleComponent *> m_CategoryButtons;

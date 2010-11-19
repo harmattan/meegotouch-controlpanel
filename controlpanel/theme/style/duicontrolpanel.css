@@ -1,4 +1,11 @@
-#DcpPage {
+@import "../../../../blanco/meegotouch/libmeegotouchviews/style/inverted/mnavigationbarinvertedstyle.css";
+
+#DcpPage.Landscape {
     background-image: "meegotouch-applicationpage-background-inverted";
 }
+
+#DcpPage.Portrait {
+    background-image: "meegotouch-applicationpage-portrait-background-inverted";
+}
+
 

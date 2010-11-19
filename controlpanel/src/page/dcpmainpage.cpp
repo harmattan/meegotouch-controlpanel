@@ -126,7 +126,9 @@ DcpMainPage::createContent ()
     layout = mainLayout ();
     Q_ASSERT(layout);
 
+#ifdef MOSTUSED
     m_OtherComp = new MContainer();
+#endif
     DcpMainCategory *otherCategories = new DcpMainCategory(
             0,
             DcpMain::otherCategoriesTitleId);
@@ -144,9 +146,9 @@ DcpMainPage::createContent ()
         otherCategories->appendWidget(button);
         m_CategoryButtons.append(button);
     }
-    m_OtherComp->setCentralWidget(otherCategories);
 
 #ifdef MOSTUSED
+    m_OtherComp->setCentralWidget(otherCategories);
     /*
      * Creating the most recent used items.
      * Use
@@ -168,10 +170,10 @@ DcpMainPage::createContent ()
     } else {
         mainLayout ()->addItem (m_RecentlyComp);
     }
-#else // MOSTUSED
-    m_OtherComp->setHeaderVisible (false);
-#endif // MOSTUSED
     layout->addItem(m_OtherComp);
+#else // MOSTUSED
+    layout->addItem(otherCategories);
+#endif // MOSTUSED
     retranslateUi();
 
 }

@@ -78,7 +78,7 @@ QGraphicsLayout *DcpSingleComponent::createLayout()
 
     MImageWidget *drillImage =
         new MImageWidget("icon-m-common-drilldown-arrow", this);
-    drillImage->setStyleName("CommonMainIcon");
+    drillImage->setStyleName("CommonDrillDownIcon");
     layout->addItem(drillImage, 0, 2, 3, 1);
     layout->setAlignment(drillImage, Qt::AlignVCenter | Qt::AlignRight);
 

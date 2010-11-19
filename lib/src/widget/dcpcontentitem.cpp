@@ -30,7 +30,7 @@
 static const QString titleObjectName = "CommonTitleInverted";
 static const QString subtitleObjectName = "CommonSubTitleInverted";
 static const QString singleTitleObjectName = "CommonSingleTitleInverted";
-static const QString iconObjectName = "CommonMainIcon";
+static const QString iconObjectName = "CommonDrillDownIcon";
 static const QString toggleObjectName = "CommonSwitchInverted";
 
 DcpContentItemPrivate::DcpContentItemPrivate ():

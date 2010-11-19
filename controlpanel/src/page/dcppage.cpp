@@ -216,12 +216,12 @@ DcpPage::setTitleLabel ()
 
     if (!m_TitleLabel) {
         MStylableWidget* container = new MStylableWidget();
-        container->setStyleName ("CommonXLargeGroupHeaderPanelInverted");
+        container->setStyleName ("CommonXLargeHeaderPanelInverted");
         container->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
         QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(container);
         layout->setContentsMargins (0,0,0,0);
         m_TitleLabel = new MLabel(container);
-        m_TitleLabel->setStyleName ("CommonXLargeGroupHeaderInverted");
+        m_TitleLabel->setStyleName ("CommonXLargeHeaderInverted");
         layout->addItem (m_TitleLabel);
         container->setLayout (layout);
         mainLayout()->insertItem (0, container);
