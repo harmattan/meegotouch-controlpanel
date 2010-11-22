@@ -1,4 +1,4 @@
-duicontrolpanel (0.9.5~unreleased) unstable; urgency=low
+duicontrolpanel (0.9.5) unstable; urgency=low
 
   [ Robert Manner ]
   * Fixes lintian errors
