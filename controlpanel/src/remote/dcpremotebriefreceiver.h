@@ -10,6 +10,7 @@ class DcpRemoteBriefReceiver: public QProcess
 
 public:
     static void setArguments (int argc, char** argv);
+    static void disable ();
     static DcpRemoteBriefReceiver* instance ();
     ~DcpRemoteBriefReceiver();
 

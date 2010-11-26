@@ -21,6 +21,7 @@ public:
     QHash<QString, DcpRemoteBrief*> briefs;
 
     static DcpRemoteBriefReceiver* instance;
+    static bool disabled;
     static QStringList args;
 
     QStringList waitingCommands;

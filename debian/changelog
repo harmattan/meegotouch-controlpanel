@@ -7,8 +7,10 @@ duicontrolpanel (0.9.6~unreleased) unstable; urgency=low
   * Changes: adds DBus method "appletName (QStringList)" so that search
     becomes able to pop up the applets
   * Changes: adds credential for devicelock::DeviceLockControl
+  * Changes: Added parameter "-nobriefs" which disables using dynamic
+    value lines on applet icons
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 26 Nov 2010 12:24:29 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 26 Nov 2010 12:38:57 +0200
 
 duicontrolpanel (0.9.5) unstable; urgency=low
 

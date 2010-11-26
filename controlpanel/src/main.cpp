@@ -113,10 +113,16 @@ M_EXPORT int main(int argc, char *argv[])
                 " [LIBM OPTION]... [-desktopdir DIR]\n\n";
             out << "  -desktopdir DIR     Load .desktop files from DIR\n";
             out << "  -nosupervisor       Disables applet supervisor";
+            out << "  -nobriefs           Disables dynamic briefs";
             out << "\n\n";
             break;
+
+        } else if (s == "-nobriefs") {
+            DcpRemoteBriefReceiver::disable ();
+
         } else if (s == "-servicefw") {
             DuiControlPanelService::isStartedByServiceFw = true;
+
         } else if (s == "-desktopdir") {
             if (i + 1 < argc) {
                 i++;
@@ -130,10 +136,7 @@ M_EXPORT int main(int argc, char *argv[])
      * FIXME: If we have a desktop directory we have to load the desktop files
      * now. We could delay it by changing the DcpAppletDb class implementation.
      */
-    if (desktopDir.isEmpty()) {
-        DCP_DEBUG ("### Not creating DcpAppletDb, we can do it later.");
-         //DcpAppletDb::instance ();
-    } else {
+    if (!desktopDir.isEmpty()) {
         DCP_DEBUG ("### Creating DcpAppletDb in directory '%s'.", 
                 DCP_STR(desktopDir));
         DcpAppletDb::instance (desktopDir);

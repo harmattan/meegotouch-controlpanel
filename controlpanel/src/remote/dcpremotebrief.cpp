@@ -14,21 +14,26 @@ DcpRemoteBrief::DcpRemoteBrief (const QString& appletName, QObject* parent):
     priv (new DcpRemoteBriefPriv (appletName))
 {
     setParent (parent);
-    DcpRemoteBriefReceiver::instance ()->watch (this);
+    DcpRemoteBriefReceiver* receiver = DcpRemoteBriefReceiver::instance();
+    if (receiver) {
+        receiver->watch (this);
+    }
 }
 
 DcpRemoteBrief::~DcpRemoteBrief ()
 {
-    DcpRemoteBriefReceiver::instance ()->unwatch (this);
-
-    /*
-     * This is disabled because restarting the process takes time, so
-     * it is only destroyed at controlpanel closing by the opsystem
-     *
-    if (DcpRemoteBriefReceiver::instance ()->watchCount () == 0) {
-        delete DcpRemoteBriefReceiver::instance ();
+    DcpRemoteBriefReceiver* receiver = DcpRemoteBriefReceiver::instance();
+    if (receiver) {
+        receiver->unwatch (this);
+        /*
+         * This is disabled because restarting the process takes time, so
+         * it is only destroyed at controlpanel closing by the opsystem
+         *
+        if (receiver->watchCount () == 0) {
+            delete receiver;
+        }
+        */
     }
-    */
 
     delete priv;
 }
@@ -65,7 +70,10 @@ bool DcpRemoteBrief::toggle () const
 void DcpRemoteBrief::setToggle (bool toggle)
 {
     if (this->toggle () != toggle) {
-        DcpRemoteBriefReceiver::instance ()->switchToggle (name ());
+        DcpRemoteBriefReceiver* receiver = DcpRemoteBriefReceiver::instance();
+        if (receiver) {
+            receiver->switchToggle (name ());
+        }
     }
 }
 

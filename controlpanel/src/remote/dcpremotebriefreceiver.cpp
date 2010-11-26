@@ -10,6 +10,7 @@
 static const int RETRY_TIME = 500;
 
 DcpRemoteBriefReceiver* DcpRemoteBriefReceiverPriv::instance = 0;
+bool DcpRemoteBriefReceiverPriv::disabled = false;
 QStringList DcpRemoteBriefReceiverPriv::args;
 
 
@@ -79,6 +80,18 @@ void DcpRemoteBriefReceiver::setArguments (int argc, char** argv)
         }
     }
 }
+
+/*!
+ * \brief Disables using the brief supplier process.
+ *
+ * Stops it if it is running, and disables starting it again.
+ */
+void DcpRemoteBriefReceiver::disable ()
+{
+    delete instance();
+    DcpRemoteBriefReceiverPriv::disabled = true;
+}
+
 
 void DcpRemoteBriefReceiver::onStarted ()
 {
@@ -223,6 +236,9 @@ void DcpRemoteBriefReceiver::onFinished (
 
 DcpRemoteBriefReceiver* DcpRemoteBriefReceiver::instance ()
 {
+    if (DcpRemoteBriefReceiverPriv::disabled) {
+        return 0;
+    }
     if (!DcpRemoteBriefReceiverPriv::instance) {
         DcpRemoteBriefReceiverPriv::instance = new DcpRemoteBriefReceiver ();
     }
