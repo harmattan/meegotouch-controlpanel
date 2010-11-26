@@ -37,6 +37,7 @@ public Q_SLOTS:
     void launch ();
     void launch (const QStringList &parameters);
     bool appletPage(const QString& appletName);
+    bool appletPage(const QStringList& params);
     void categoryPage(const QString& category);
     void mainPage();
     bool registerService ();

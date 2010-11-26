@@ -117,6 +117,16 @@ DuiControlPanelService::appletPage (
     return true;
 }
 
+bool
+DuiControlPanelService::appletPage (const QStringList& params)
+{
+    if (params.isEmpty()) return false;
+
+    // TODO we could add the other parameters to the applet
+    QString appletName = params.at(0);
+    return appletPage (appletName);
+}
+
 /* Starts the page through PageFactory */
 void
 DuiControlPanelService::startPageForReal(

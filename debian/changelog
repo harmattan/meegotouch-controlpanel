@@ -1,8 +1,13 @@
 duicontrolpanel (0.9.6~unreleased) unstable; urgency=low
 
+  [ Sandor Pinter ]
   * UP
 
- -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Mon, 22 Nov 2010 15:50:09 +0100
+  [ Robert Manner ]
+  * Changes: adds DBus method "appletName (QStringList)" so that search
+    becomes able to pop up the applets
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 26 Nov 2010 10:46:42 +0200
 
 duicontrolpanel (0.9.5) unstable; urgency=low
 

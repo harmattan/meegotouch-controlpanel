@@ -9,7 +9,11 @@
             <arg name="category" type="s" direction="in"/>
         </method>
         <method name="appletPage">
-            <arg name="appletName" type="s" direction="in"/>
+            <arg name="params" type="s" direction="in"/>
+            <arg name="" type="b" direction="out"/>
+        </method>
+        <method name="appletPage">
+            <arg name="params" type="as" direction="in"/>
             <arg name="" type="b" direction="out"/>
         </method>
     </interface>
