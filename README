@@ -22,13 +22,18 @@ DEB_BUILD_OPTIONS=nolauncher,parallel=4 dpkg-buildpackage -rfakeroot -b
 = RUNNING CONTROLPANEL =
 
 Start controlpanel through servicefw:
+
 # pop up an applet:
 dbus-send --session --print-reply --dest=com.nokia.DuiControlPanel / com.nokia.DuiControlPanelIf.appletPage string:Battery
 dbus-send --session --print-reply --dest=com.nokia.DuiControlPanel / com.nokia.DuiControlPanelIf.appletPage "string:Display Language"
+dbus-send --session --print-reply --dest=com.nokia.DuiControlPanel / com.nokia.DuiControlPanelIf.appletPage array:string:"Display Language","param1","param2"
+
 # bring dcp to front as it is:
 dbus-send --session --print-reply --dest=com.nokia.DuiControlPanel /org/maemo/m com.nokia.MApplicationIf.launch
+
 # pop up mainpage:
 dbus-send --session --print-reply --dest=com.nokia.DuiControlPanel / com.nokia.DuiControlPanelIf.mainPage
+
 # pop up a category page:
 dbus-send --session --print-reply --dest=com.nokia.DuiControlPanel / com.nokia.DuiControlPanelIf.categoryPage "string:Look & Feel"
 
@@ -38,7 +43,7 @@ dbus-send --session --print-reply --dest=com.nokia.DuiControlPanel / com.nokia.D
 Debugging controlpanel with invoker:
 gdb /usr/bin/applauncherd.bin $(pgrep booster-m)
 
-The other option is to build a version without invoker, see nolauncher build
+The other option is to build a version without invoker, see "nolauncher" build
 option.
 
 
