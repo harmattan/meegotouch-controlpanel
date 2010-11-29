@@ -15,31 +15,5 @@
 **
 ****************************************************************************/
 
-#ifndef UT_APPLETTHEMES_H
-#define UT_APPLETTHEMES_H
-
-#include <QtTest/QtTest>
-#include <QObject>
-
-// the real unit/AppletThemes class declaration
-#include <appletthemes.h>
-
-Q_DECLARE_METATYPE(AppletThemes*);
-
-class Ut_AppletThemes : public QObject
-{
-    Q_OBJECT
-
-private slots:
-    void init();
-    void cleanup();
-    void initTestCase();
-    void cleanupTestCase();
-
-    void testConstructDestruct();
-    void testEnsureCssLoaded();
-    void testOnThemeIsChanging();
-};
-
-#endif
+#include "../component/dcpappletwidget.h"
 

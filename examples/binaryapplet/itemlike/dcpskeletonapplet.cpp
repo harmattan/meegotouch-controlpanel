@@ -18,13 +18,15 @@
 #include <QtGui>
 #include <QDebug>
 #include <MAction>
-#include <MTheme>
-#include <DcpWidget>
+#include <MLibrary>
+
+#include <DcpStylableWidget>
 #include "dcpskeletonapplet.h"
 #include "dcpskeletonwidget.h"
 #include "dcpskeleton.h"
 #include "dcpskeletonbrief.h"
 
+M_LIBRARY
 Q_EXPORT_PLUGIN2(skeletonapplet, SkeletonApplet)
 
 void SkeletonApplet::init()
@@ -38,7 +40,7 @@ void SkeletonApplet::init()
      */
 };
 
-DcpWidget* SkeletonApplet::constructWidget(int widgetId)
+DcpStylableWidget* SkeletonApplet::constructStylableWidget(int widgetId)
 {
 	switch (widgetId)
     {
@@ -53,7 +55,7 @@ DcpWidget* SkeletonApplet::constructWidget(int widgetId)
     };
 }
 
-DcpWidget* SkeletonApplet::pageMain()
+DcpStylableWidget* SkeletonApplet::pageMain()
 {
 	return new SkeletonWidget();
 }

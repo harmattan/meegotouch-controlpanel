@@ -7,7 +7,7 @@
 ** This file is part of duicontrolpanel.
 **
 **
-** This program is free software; you can redistribute it and/or
+** This library is free software; you can redistribute it and/or
 ** modify it under the terms of the GNU Lesser General Public
 ** License version 2.1 as published by the Free Software Foundation
 ** and appearing in the file LICENSE.LGPL included in the packaging
@@ -15,20 +15,15 @@
 **
 ****************************************************************************/
 
-#include "appletthemes.h"
+#ifndef DCPSTYLABLEWIDGETPRIVATE_H 
+#define DCPSTYLABLEWIDGETPRIVATE_H 
 
-static AppletThemes* instance = 0;
+class DcpStylableWidgetPrivate {
+public:
+    DcpStylableWidgetPrivate ();
+    int m_WidgetId;
+    bool isProgressIndicatorVisible;
+};
 
-AppletThemes::~AppletThemes(){}
-AppletThemes* AppletThemes::instance()
-{
-    if (!::instance) {
-        ::instance = new AppletThemes();
-    }
-    return ::instance;
-}
-
-void AppletThemes::ensureCssLoaded(const QString&){}
-void AppletThemes::onThemeIsChanging(){}
-AppletThemes::AppletThemes(){}
+#endif //DCPSTYLABLEWIDGETPRIVATE_H 
 

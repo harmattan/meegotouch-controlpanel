@@ -18,7 +18,7 @@ X-Maemo-Fixed-Args=Declarative Example 1
 X-DUIApplet-Applet=libdeclarative.so
 
 [DCP]
-Category= Look & Feel
+Category= Applications
 Order=100
 Part=example1.xml
 

@@ -20,7 +20,7 @@
 
 #include <DcpAppletIf>
 #include <QObject>
-class DcpWidget;
+class DcpStylableWidget;
 class MAction;
 
 class SkeletonApplet : public QObject, public DcpAppletIf 
@@ -30,15 +30,18 @@ class SkeletonApplet : public QObject, public DcpAppletIf
 
 public:
     virtual void init();
-	virtual DcpWidget* constructWidget(int widgetId);
+	virtual DcpWidget* constructWidget(int) { return 0; } // FIXME XXX
+	virtual DcpStylableWidget* constructStylableWidget(int widgetId);
 
-	virtual DcpWidget* pageMain();
-/*  Applet can have more 'pages'. Each page must be a DcpWidget subclass
-	virtual DcpWidget* page1();
-	virtual DcpWidget* page2();
+	virtual DcpStylableWidget* pageMain();
+/*  Applet can have more 'pages'. Each page must be a DcpStylableWidget subclass
+	virtual DcpStylableWidget* page1();
+	virtual DcpStylableWidget* page2();
 */
     virtual QString title() const;
     virtual QVector<MAction *> viewMenuItems();
     virtual DcpBrief* constructBrief(int);
 };
+
 #endif // SKELETONAPPLET_H
+

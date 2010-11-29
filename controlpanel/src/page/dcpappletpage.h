@@ -22,7 +22,7 @@
 #include <Pages>
 #include <QVector>
 
-class DcpWidget;
+class DcpAppletWidget;
 class DcpAppletObject;
 class MLabel;
 class MAction;
@@ -41,7 +41,7 @@ public:
     bool hasError ();
     int widgetId ();
     DcpAppletObject* applet();
-    static DcpWidget* constructAppletWidget (DcpAppletObject* applet,
+    static DcpAppletWidget* constructAppletWidget (DcpAppletObject* applet,
                                              DcpPage* page, int widgetId);
 
 protected:
@@ -56,9 +56,10 @@ private:
     void load ();
 
     DcpAppletObject   *m_Applet;
-    int m_WidgetId;
-    DcpWidget           *m_MainWidget;
+    int                m_WidgetId;
+    DcpAppletWidget   *m_MainWidget;
     MLabel            *m_MissingLabel;
+
     friend class Ut_DcpAppletPage;
 };
 

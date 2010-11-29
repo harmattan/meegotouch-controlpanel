@@ -20,7 +20,7 @@ X-Maemo-Fixed-Args=Skeleton
 X-DUIApplet-Applet=libdcpskeletonapplet.so
 
 [DCP]
-Category= Look & Feel
+Category=Applications
 Order=4
 WidgetType= Label
 

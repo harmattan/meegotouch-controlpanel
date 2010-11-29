@@ -17,7 +17,7 @@ X-Maemo-Fixed-Args=Declarative Example 1
 X-DUIApplet-Applet=libdcpskelbuttonapplet.so
 
 [DCP]
-Category= Look & Feel
+Category=Applications
 Order=4
 WidgetType= Button
 HelpId=IDUG_MEEGO_CONN_CLOSE.html

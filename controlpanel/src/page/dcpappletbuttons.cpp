@@ -23,7 +23,7 @@
 #include "dcpcontentitemcellcreator.h"
 #include "dcpremoteappletobject.h"
 #include "dcpappletif.h"
-#include "dcpwidget.h"
+#include "dcpappletwidget.h"
 #include "dcpappletpage.h"
 
 #include <Pages>
@@ -228,16 +228,17 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
             qWarning ("Warning: no applet for special type of briefview, skipped");
             return;
         }
-        
+
         int widgetId = applet->getMainWidgetId();
         // we can specify the page here if we need support for menu items, progress indicator etc
-        QGraphicsWidget* icon =
+        DcpAppletWidget* widget =
             DcpAppletPage::constructAppletWidget (applet, 0, widgetId);
-        if (!icon) {
+        if (!widget) {
             qWarning ("Warning: special type of briefview did not supply an icon, skipped");
             return;
         }
-        mLayout()->insertItem (getItemCount()-1, icon);
+        widget->setParent (this);
+        mLayout()->insertItem (getItemCount()-1, widget->graphicsWidget());
 
     } else {
         QString mattiID = "DcpContentItem::" + mattiPostfix;

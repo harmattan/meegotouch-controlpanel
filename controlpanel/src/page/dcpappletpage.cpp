@@ -20,12 +20,11 @@
 
 #include "dcpappletpage.h"
 
-#include <DcpWidget>
+#include "dcpappletwidget.h"
 #include <DcpAppletIf>
 #include <DcpAppletMetadata>
 #include <DcpAppletObject>
 #include <DcpRetranslator>
-#include "appletthemes.h"
 
 #include <MLabel>
 #include <MLocale>
@@ -213,13 +212,27 @@ DcpAppletPage::back ()
  *
  * \returns the constructed, initialized DcpWidget.
  */
-DcpWidget*
+DcpAppletWidget*
 DcpAppletPage::constructAppletWidget (DcpAppletObject* applet,
                                       DcpPage* page, int widgetId)
 {
     if (!applet || !applet->applet()) return 0;
 
-    DcpWidget* widget = applet->applet()->constructWidget (widgetId);
+    DcpAppletWidget* widget = 0;
+    if (applet->interfaceVersion () >= 6) {
+        DcpStylableWidget* w =
+            applet->applet()->constructStylableWidget (widgetId);
+        if (w != 0) {
+            widget = new DcpAppletWidget (w);
+        }
+    }
+    if (widget == 0) {
+        DcpWidget* w =
+            applet->applet()->constructWidget (widgetId);
+        if (w != 0) {
+            widget = new DcpAppletWidget (w);
+        }
+    }
 
     if (!widget) return widget;
 
@@ -267,11 +280,6 @@ void
 DcpAppletPage::loadWidget (int widgetId)
 {
     /*
-     * Load the stylesheet for the applet (if any)
-     */
-    AppletThemes::instance()->ensureCssLoaded (m_Applet->metadata()->binary());
-
-    /*
      * Creating the widget and setting its widgetId.
      */
     m_MainWidget = constructAppletWidget (m_Applet, this, widgetId);
@@ -279,7 +287,7 @@ DcpAppletPage::loadWidget (int widgetId)
 
     setPannable (m_MainWidget->pagePans());
 
-    appendWidget (m_MainWidget);
+    appendWidget (m_MainWidget->graphicsWidget());
     retranslateUi();
 }
 

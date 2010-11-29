@@ -21,6 +21,7 @@
 #include <QtPlugin>
 
 class DcpWidget;
+class DcpStylableWidget;
 class MAction;
 class DcpBrief;
 
@@ -94,7 +95,19 @@ public:
      * the interface the plugin was compiled with. It lets controlpanel
      * extend the interface without the need to recompile all applets.
      */
-    virtual int interfaceVersion() { return 5; }
+    virtual int interfaceVersion() { return 6; }
+
+    /*!
+     * \brief Contstructs the widget specified by widgetId that the applet
+     *   provides
+     * \param widgetId the Id of the widget implemented by the applet that we
+     *   want to show. This widget is usually a container or a dialog
+     *
+     * \details The "entrance" widget (that is displayed on first page) will be
+     *   queried with 0 id. Further applet pages can be requested through the
+     *   DcpWidget::changeWidget signal.
+     */
+    virtual DcpStylableWidget *constructStylableWidget (int widgetId) = 0;
 };
 
 Q_DECLARE_INTERFACE (DcpAppletIf, "com.nokia.m.core.DcpAppletIf/1.0")

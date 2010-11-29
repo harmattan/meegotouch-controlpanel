@@ -24,7 +24,7 @@ X-translation-catalog=duisettings
 # X-DUIApplet-ApplicationCommand=widgetsgallery
 
 [DCP]
-Category= Look & Feel
+Category=Applications
 Order=3
 WidgetType= Label
 

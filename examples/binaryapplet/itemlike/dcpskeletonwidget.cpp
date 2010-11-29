@@ -22,9 +22,12 @@
 #include <mlinearlayoutpolicy.h>
 #include <mlabel.h>
 #include <QTimer>
+#include <mwidgetcreator.h>
+
+M_REGISTER_WIDGET_NO_CREATE (SkeletonWidget)
 
 SkeletonWidget::SkeletonWidget(QGraphicsWidget *parent)
-	    :DcpWidget(parent)
+	    :DcpStylableWidget(parent)
 {
     setReferer(DcpSkeleton::NoReferer);
     initWidget();

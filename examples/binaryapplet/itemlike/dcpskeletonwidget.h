@@ -18,11 +18,11 @@
 #ifndef SKELETONWIDGET_H
 #define SKELETONWIDGET_H
 
-#include <DcpWidget>
+#include <DcpStylableWidget>
 
 class MLabel;
 
-class SkeletonWidget : public DcpWidget
+class SkeletonWidget : public DcpStylableWidget
 {
     Q_OBJECT
 
