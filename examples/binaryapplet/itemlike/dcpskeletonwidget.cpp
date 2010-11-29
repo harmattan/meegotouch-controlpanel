@@ -23,6 +23,7 @@
 #include <mlabel.h>
 #include <QTimer>
 
+
 SkeletonWidget::SkeletonWidget(QGraphicsWidget *parent)
 	    :DcpWidget(parent)
 {

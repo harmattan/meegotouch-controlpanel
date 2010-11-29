@@ -18,13 +18,15 @@
 #include <QtGui>
 #include <QDebug>
 #include <MAction>
-#include <MTheme>
+#include <MLibrary>
+
 #include <DcpWidget>
 #include "dcpskeletonapplet.h"
 #include "dcpskeletonwidget.h"
 #include "dcpskeleton.h"
 #include "dcpskeletonbrief.h"
 
+M_LIBRARY
 Q_EXPORT_PLUGIN2(skeletonapplet, SkeletonApplet)
 
 void SkeletonApplet::init()
