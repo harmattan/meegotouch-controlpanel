@@ -239,6 +239,10 @@ DcpMain::findCategoryInfo (
         const QString           &name,
         const DcpCategoryInfo   *info)
 {
+    if (name == mainPageCategory.titleId) {
+        return &mainPageCategory;
+    }
+
     /*
      * The default place to find infos.
      */

@@ -9,8 +9,10 @@ duicontrolpanel (0.9.6~unreleased) unstable; urgency=low
   * Changes: adds credential for devicelock::DeviceLockControl
   * Changes: Added parameter "-nobriefs" which disables using dynamic
     value lines on applet icons
+  * Fixes: NB#208104 - Reset and clear device buttons are not seen in
+    settings main view
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 26 Nov 2010 12:38:57 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 29 Nov 2010 16:09:11 +0100
 
 duicontrolpanel (0.9.5) unstable; urgency=low
 
