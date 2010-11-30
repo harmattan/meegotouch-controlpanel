@@ -52,7 +52,11 @@ public:
      *   queried with 0 id. Further applet pages can be requested through the
      *   DcpWidget::changeWidget signal.
      */
+#   ifdef DCP_DISABLE_DEPRECATION_WARNING
     virtual DcpWidget *constructWidget (int widgetId) {
+#   else
+    virtual DcpWidget* Q_DECL_DEPRECATED constructWidget (int widgetId) {
+#   endif
             Q_UNUSED (widgetId); return 0;
     }
 
