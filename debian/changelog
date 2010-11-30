@@ -1,3 +1,9 @@
+duicontrolpanel (0.9.7~unreleased) unstable; urgency=low
+
+  * new version
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 30 Nov 2010 10:16:39 +0100
+
 duicontrolpanel (0.9.6) unstable; urgency=low
 
   * Changes: adds DBus method "appletName (QStringList)" so that search
