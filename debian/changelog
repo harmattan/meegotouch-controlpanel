@@ -1,9 +1,5 @@
-duicontrolpanel (0.9.6~unreleased) unstable; urgency=low
+duicontrolpanel (0.9.6) unstable; urgency=low
 
-  [ Sandor Pinter ]
-  * UP
-
-  [ Robert Manner ]
   * Changes: adds DBus method "appletName (QStringList)" so that search
     becomes able to pop up the applets
   * Changes: adds credential for devicelock::DeviceLockControl
