@@ -2,8 +2,10 @@ duicontrolpanel (0.9.7~unreleased) unstable; urgency=low
 
   * Fixes: NB#203963 - duicontrolpanel calls MTheme::loadCSS()
   * Added new interface for creating stylable applets
+  * Fixes: NB#208452 - Category view is still down the page on reopening
+    it
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 30 Nov 2010 13:28:33 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 30 Nov 2010 16:32:47 +0100
 
 duicontrolpanel (0.9.6) unstable; urgency=low
 

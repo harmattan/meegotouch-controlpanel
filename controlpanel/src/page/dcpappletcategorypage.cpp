@@ -29,6 +29,8 @@
 
 #include "dcpdebug.h"
 
+#include <MPannableViewport>
+
 DcpAppletCategoryPage::DcpAppletCategoryPage (
         const DcpCategoryInfo  *categoryInfo) :
     DcpPage (),
@@ -115,6 +117,7 @@ DcpAppletCategoryPage::reload ()
         m_Category->setCategoryInfo (m_CategoryInfo);
     }
 
+    pannableViewport()->setPosition (QPointF(0,0));
     DcpPage::reload();
 }
 
