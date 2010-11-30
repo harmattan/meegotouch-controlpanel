@@ -49,6 +49,8 @@ DcpAppletMetadata* DcpContentItem::metadata() const
 
 void DcpContentItem::setMattiID(const QString&) {}
 QString DcpContentItem::mattiID() const {return QString(); }
+void DcpContentItem::setTDriverID(const QString&) {}
+QString DcpContentItem::TDriverID() const {return QString(); }
 void DcpContentItem::updateContents(){}
 void DcpContentItem::retranslateUi(){}
 void DcpContentItem::showEvent(QShowEvent*){}

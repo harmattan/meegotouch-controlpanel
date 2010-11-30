@@ -47,7 +47,7 @@ class DcpContentItem: public MListItem
 {
     Q_OBJECT
 
-    // some readonly properties, can be used for matti tests
+    // some readonly properties, can be used for tdriver tests
     Q_PROPERTY (QString title READ title)
     Q_PROPERTY (QString subtitle READ subtitle)
     Q_PROPERTY (bool checked READ isChecked)
@@ -56,6 +56,7 @@ class DcpContentItem: public MListItem
 
     //! @cond
     Q_PROPERTY (QString mattiID READ mattiID WRITE setMattiID)
+    Q_PROPERTY (QString TDriverID READ TDriverID WRITE setTDriverID)
     //! @endcond
 
 public:
@@ -87,6 +88,8 @@ public:
     //! @cond
     void setMattiID (const QString& mattid);
     QString mattiID () const;
+    void setTDriverID (const QString& tdriverid);
+    QString TDriverID () const;
     //! @endcond
 
 protected slots:

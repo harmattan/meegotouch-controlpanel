@@ -35,7 +35,7 @@ private slots:
 
     void testConstructor();
     void testSetApplet();
-    void testMattiId();
+    void testTDriverID();
     void testUpdateContents();
     void testRetranslateUi();
     void testShowHideEvent();

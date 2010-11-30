@@ -35,16 +35,23 @@ DcpComponent::DcpComponent (
 {
 }
 
-QString 
-DcpComponent::mattiID () const
+QString DcpComponent::mattiID () const
 {
-    return m_MattiID;
+    return m_TDriverID;
 }
 
-void 
-DcpComponent::setMattiID (
-        const QString &mattiID)
+void DcpComponent::setMattiID (const QString &mattiID)
 {
-    m_MattiID = mattiID;
+    m_TDriverID = mattiID;
+}
+
+QString DcpComponent::TDriverID () const
+{
+    return m_TDriverID;
+}
+
+void DcpComponent::setTDriverID (const QString &tdriverID)
+{
+    m_TDriverID = tdriverID;
 }
 

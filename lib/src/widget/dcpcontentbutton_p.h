@@ -31,7 +31,7 @@ public:
     DcpAppletObject *m_Applet;
     DcpAppletMetadata *m_Metadata;
     bool m_Hidden;
-    QString m_MattiID;
+    QString m_TDriverID;
 };
 
 #endif // DCPCONTENTBUTTONPRIVATE_H

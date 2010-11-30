@@ -27,7 +27,7 @@ public:
     enum DataRole {
         MetadataRole = Qt::UserRole + 1,
         AppletRole,
-        MattiRole
+        TDriverRole
     };
 
     virtual MWidget * createCell (const QModelIndex &index,

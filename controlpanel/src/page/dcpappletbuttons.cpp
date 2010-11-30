@@ -56,7 +56,7 @@ DcpAppletButtons::DcpAppletButtons (
     appendWidget (m_List);
 
     createContents ();
-    setMattiID (
+    setTDriverID (
             QString ("DcpAppletButtons::") +
             categoryInfo->titleId + "::" +
             categoryInfo->appletCategory);
@@ -183,13 +183,13 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
         applet = new DcpRemoteAppletObject (metadata, model);
     }
 
-    QString mattiPostfix = QString(m_CategoryInfo->titleId) +
+    QString tdriverPostfix = QString(m_CategoryInfo->titleId) +
                            "::" + metadata->category() + "::" + name;
 
     if (widgetId == DcpWidgetType::Button) {
         DcpContentButton *button = new DcpContentButton (applet);
 
-        button->setMattiID ("DcpContentButton::" + mattiPostfix);
+        button->setTDriverID ("DcpContentButton::" + tdriverPostfix);
         button->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
 
         // put it before the mlist:
@@ -240,14 +240,14 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
         mLayout()->insertItem (getItemCount()-1, icon);
 
     } else {
-        QString mattiID = "DcpContentItem::" + mattiPostfix;
+        QString tdriverID = "DcpContentItem::" + tdriverPostfix;
 
         QStandardItem* item = new QStandardItem();
         item->setData (QVariant::fromValue(metadata),
                        DcpContentItemCellCreator::MetadataRole);
         item->setData (QVariant::fromValue(applet),
                        DcpContentItemCellCreator::AppletRole);
-        item->setData (mattiID, DcpContentItemCellCreator::MattiRole);
+        item->setData (tdriverID, DcpContentItemCellCreator::TDriverRole);
         model->appendRow(item);
     }
 }

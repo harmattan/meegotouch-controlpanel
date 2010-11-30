@@ -43,7 +43,7 @@ public:
 
     bool m_Hidden;
 
-    QString m_MattiID;
+    QString m_TDriverID;
 
     // for the image widget:
     QString m_ImageName; // either the image id or path
