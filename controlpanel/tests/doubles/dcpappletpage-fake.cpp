@@ -81,7 +81,7 @@ DcpAppletPage::retranslateUi()
 {
 }
 
-DcpWidget*
+DcpAppletWidget*
 DcpAppletPage::constructAppletWidget(DcpAppletObject*, DcpPage*, int)
 {
     return 0;

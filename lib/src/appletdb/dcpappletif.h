@@ -40,7 +40,7 @@ public:
      * \param part The part name of the applet, if it implements more dialogs or
      *   views (parts) and it needs only one part
      */ 
-    virtual void init () = 0;
+    virtual void init () {}
     
     /*! 
      * \brief Contstructs the widget specified by widgetId that the applet
@@ -52,8 +52,10 @@ public:
      *   queried with 0 id. Further applet pages can be requested through the
      *   DcpWidget::changeWidget signal.
      */
-    virtual DcpWidget *constructWidget (int widgetId) = 0;
-    
+    virtual DcpWidget *constructWidget (int widgetId) {
+            Q_UNUSED (widgetId); return 0;
+    }
+
     /*!
      * \brief Title of the applet that displayed in title row of applet page
      * \return A title which is displayed in title row of page. It can vary by
@@ -63,9 +65,9 @@ public:
      *   use DcpBrief::title() and DcpWidget::title() instead.
      */
 #   ifdef DCP_DISABLE_DEPRECATION_WARNING
-    virtual QString title () const = 0;
+    virtual QString title () const { return QString(); }
 #   else
-    virtual QString Q_DECL_DEPRECATED title () const = 0;
+    virtual QString Q_DECL_DEPRECATED title () const { return QString(); }
 #   endif
 
     /*!
@@ -81,7 +83,10 @@ public:
      *   Value must be provided and formatted by the applet implementation.
      *   Clicking on the widget displays the applet itself.
      */
-    virtual DcpBrief *constructBrief (int partId = 0) = 0;
+    virtual DcpBrief *constructBrief (int partId = 0) {
+        Q_UNUSED (partId);
+        return 0;
+    }
 
     /*!
      * Translates Part strings which are present in the desktop file of the 
@@ -106,8 +111,15 @@ public:
      * \details The "entrance" widget (that is displayed on first page) will be
      *   queried with 0 id. Further applet pages can be requested through the
      *   DcpWidget::changeWidget signal.
+     *
+     * This is the same as the constructWidget() call, but gives back an
+     * MStylableWidget instead of an MWidget which can be necessery in case
+     * of using themes (.css files).
      */
-    virtual DcpStylableWidget *constructStylableWidget (int widgetId) = 0;
+    virtual DcpStylableWidget *constructStylableWidget (int widgetId) {
+        Q_UNUSED (widgetId);
+        return 0;
+    }
 };
 
 Q_DECLARE_INTERFACE (DcpAppletIf, "com.nokia.m.core.DcpAppletIf/1.0")

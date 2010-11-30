@@ -19,7 +19,7 @@
 #include <QGraphicsSceneMouseEvent>
 
 #include <dcpappletpage.h>
-#include <dcpwidget.h>
+#include <dcpappletwidget.h>
 #include <dcpappletmetadata.h>
 #include <dcpappletobject.h>
 
@@ -59,7 +59,7 @@ void Ut_DcpAppletPage::testHasError()
 void Ut_DcpAppletPage::testHasWidget()
 {
     QVERIFY(!(m_subject->m_MainWidget || m_subject->hasWidget()));
-    m_subject->m_MainWidget = new DcpWidget(); //not 0
+    m_subject->m_MainWidget = new DcpAppletWidget((DcpWidget*)0); //not 0
     QVERIFY(m_subject->hasWidget());
 }
 

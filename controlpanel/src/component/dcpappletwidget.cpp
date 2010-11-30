@@ -10,16 +10,21 @@
 #define RETURN(function) \
             return m_Widget ? m_Widget->function : m_StylableWidget->function
 
+#define CONNECT_WIDGET(widget) \
+    if (widget) { \
+        CONNECT_SIG (widget, changeWidget (int)); \
+        CONNECT_SIG (widget, activatePluginByName (QString)); \
+        CONNECT_SIG (widget, closePage ()); \
+        CONNECT_SIG (widget, inProgress (bool)); \
+    }
+
 
 DcpAppletWidget::DcpAppletWidget(DcpWidget* widget, QObject* parent):
     QObject (parent),
     m_Widget (widget),
     m_StylableWidget (0)
 {
-    CONNECT_SIG (widget, changeWidget (int));
-    CONNECT_SIG (widget, activatePluginByName (QString));
-    CONNECT_SIG (widget, closePage ());
-    CONNECT_SIG (widget, inProgress (bool));
+    CONNECT_WIDGET (widget)
 }
 
 DcpAppletWidget::DcpAppletWidget(DcpStylableWidget* widget, QObject* parent):
@@ -27,10 +32,7 @@ DcpAppletWidget::DcpAppletWidget(DcpStylableWidget* widget, QObject* parent):
     m_Widget (0),
     m_StylableWidget (widget)
 {
-    CONNECT_SIG (widget, changeWidget (int));
-    CONNECT_SIG (widget, activatePluginByName (QString));
-    CONNECT_SIG (widget, closePage ());
-    CONNECT_SIG (widget, inProgress (bool));
+    CONNECT_WIDGET (widget)
 }
 
 DcpAppletWidget::~DcpAppletWidget()

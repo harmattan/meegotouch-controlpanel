@@ -20,6 +20,7 @@ TEST_SOURCES = \
     $$SRCDIR/page/pages.cpp \
     $$SRCDIR/component/dcpmaincategory.cpp \
     $$SRCDIR/component/dcpcomponent.cpp \
+    $$SRCDIR/component/dcpappletwidget.cpp \
 
 # unit test and unit
 SOURCES += \
@@ -52,6 +53,7 @@ HEADERS += \
     $$SRCDIR/page/dcpappletbuttons.h \
     $$SRCDIR/component/dcpmaincategory.h \
     $$SRCDIR/component/dcpcomponent.h \
+    $$SRCDIR/component/dcpappletwidget.h \
     $$SRCDIR/page/dcpcontentitemcellcreator.h \
     $$SRCDIR/remote/dcpremoteappletobject.h \
 

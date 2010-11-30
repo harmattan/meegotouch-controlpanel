@@ -16,6 +16,7 @@ TEST_SOURCES = \
     $$SRCDIR/page/dcpappletpage.cpp \
     $$SRCDIR/page/pages.cpp \
     $$SRCDIR/page/dcppage.cpp \
+    $$SRCDIR/component/dcpappletwidget.cpp \
 
 # unit test and unit
 SOURCES += \
@@ -59,6 +60,7 @@ HEADERS += \
     $$SRCDIR/component/dcpcomponent.h \
     $$SRCDIR/component/dcpmaincategory.h \
     $$SRCDIR/component/dcpsinglecomponent.h \
+    $$SRCDIR/component/dcpappletwidget.h \
 
 # base classes
 HEADERS += \

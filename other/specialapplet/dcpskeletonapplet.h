@@ -33,11 +33,6 @@ public:
     virtual void init();
     virtual DcpWidget* constructWidget(int widgetId);
 
-    // TODO: we might consider not making these pure virtual
-    virtual QString title() const { return QString(); }
-    virtual QVector<MAction*> viewMenuItems() { return QVector<MAction*>(); }
-    virtual DcpBrief* constructBrief(int) { return 0; }
-
 protected:
     DcpWidget* pageMain();
 };
