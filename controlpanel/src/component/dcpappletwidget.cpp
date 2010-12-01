@@ -37,8 +37,11 @@ DcpAppletWidget::DcpAppletWidget(DcpStylableWidget* widget, QObject* parent):
 
 DcpAppletWidget::~DcpAppletWidget()
 {
+    /*
+     * We should not delete these, since they will be removed by the layout
     delete m_Widget;
     delete m_StylableWidget;
+     */
 }
 
 

@@ -21,8 +21,10 @@ int main (int argc, char* argv[])
 
     // install the new translations if locale changes:
     DcpRetranslator* retranslator = DcpRetranslator::instance();
+    /*
     QObject::connect(&app, SIGNAL(localeSettingsChanged()),
                      retranslator, SLOT(retranslate()));
+     */
 
     // handle the arguments:
     for (int i = 1; i < argc; ++i) {
@@ -44,6 +46,7 @@ int main (int argc, char* argv[])
     QObject::connect(&app, SIGNAL(localeSettingsChanged()),
                      &supplier, SLOT(onLocaleChange()));
 
+    delete retranslator;
     return app.exec();
 }
 

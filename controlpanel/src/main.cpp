@@ -92,7 +92,10 @@ startApplication (int argc, char* argv[])
     // we create the start page here
     service->createStartPage();
 
-    return app->exec();
+    int result = app->exec();
+    delete win;
+    delete retranslator;
+    delete app;
 }
 
 
