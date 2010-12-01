@@ -49,7 +49,7 @@ DcpSingleComponent::DcpSingleComponent (
     connect(this, SIGNAL (clicked()),
             this, SLOT (activate()));
 
-    m_MattiID = "DcpSingleComponent::" + logicalId;
+    m_TDriverID = "DcpSingleComponent::" + logicalId;
 }
 
 DcpSingleComponent::~DcpSingleComponent()

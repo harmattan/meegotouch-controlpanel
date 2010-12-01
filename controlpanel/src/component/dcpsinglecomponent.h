@@ -28,6 +28,7 @@ class DcpSingleComponent: public MBasicListItem
 {
     Q_OBJECT
     Q_PROPERTY (QString mattiID READ mattiID)
+    Q_PROPERTY (QString TDriverID READ TDriverID)
 
 public:
     DcpSingleComponent(QGraphicsWidget* parent,
@@ -40,7 +41,8 @@ public:
     void setSubPage (const PageHandle &subPage) { m_SubPage = subPage; }
     const PageHandle &subPage() const { return m_SubPage; }
 
-    QString mattiID() const { return m_MattiID; }
+    QString mattiID() const { return m_TDriverID; }
+    QString TDriverID() const { return m_TDriverID; }
 
 public slots:
     void activate ();
@@ -48,7 +50,7 @@ protected:
     virtual QGraphicsLayout *createLayout();
 
 private:
-    QString m_MattiID;
+    QString m_TDriverID;
     PageHandle m_SubPage;
 
     friend class Ut_DcpSingleComponent;

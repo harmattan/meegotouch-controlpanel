@@ -49,6 +49,7 @@ class DcpContentButton: public MButton
 
     //! @cond
     Q_PROPERTY (QString mattiID READ mattiID WRITE setMattiID)
+    Q_PROPERTY (QString TDriverID READ TDriverID WRITE setTDriverID)
     //! @endcond
 
 public:
@@ -80,6 +81,8 @@ public:
     //! @cond
     void setMattiID (const QString& mattid);
     QString mattiID () const;
+    void setTDriverID (const QString& tdriverid);
+    QString TDriverID () const;
     //! @endcond
 
 protected slots:

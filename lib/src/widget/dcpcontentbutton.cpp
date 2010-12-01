@@ -143,12 +143,22 @@ DcpContentButton::hideEvent (QHideEvent * event)
 
 void DcpContentButton::setMattiID (const QString& mattid)
 {
-    d_ptr->m_MattiID = mattid;
+    d_ptr->m_TDriverID = mattid;
 }
 
 QString DcpContentButton::mattiID () const
 {
-    return d_ptr->m_MattiID;
+    return d_ptr->m_TDriverID;
+}
+
+void DcpContentButton::setTDriverID (const QString& tdriverid)
+{
+    d_ptr->m_TDriverID = tdriverid;
+}
+
+QString DcpContentButton::TDriverID () const
+{
+    return d_ptr->m_TDriverID;
 }
 
 void DcpContentButton::setMetadata(DcpAppletMetadata* metadata)

@@ -39,7 +39,7 @@ private slots:
     void testTitle();
     void testCategory();
     void testLogicalId();    
-    void testMattiID();
+    void testTDriverID();
 private:    
     DcpComponent *m_subject;    
 };

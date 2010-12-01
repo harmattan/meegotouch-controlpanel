@@ -101,10 +101,10 @@ void Ut_DcpComponent::testLogicalId()
     QCOMPARE(m_subject->logicalId(), logicalId);
 }
 
-void Ut_DcpComponent::testMattiID()    
+void Ut_DcpComponent::testTDriverID()    
 {
-    m_subject->setMattiID("matti id"); 
-    QCOMPARE(m_subject->mattiID(), QString("matti id"));
+    m_subject->setTDriverID("tdriver id"); 
+    QCOMPARE(m_subject->TDriverID(), QString("tdriver id"));
 }
 
 QTEST_APPLESS_MAIN(Ut_DcpComponent)

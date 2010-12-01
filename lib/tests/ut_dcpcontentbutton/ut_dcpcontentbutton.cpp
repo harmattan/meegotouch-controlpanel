@@ -57,11 +57,11 @@ void Ut_DcpContentButton::testSetApplet()
     // ... TODO: briefChanged from the applet and clicked to the applet
 }
 
-void Ut_DcpContentButton::testMattiId()
+void Ut_DcpContentButton::testTDriverID()
 {
-    QString matti = "12345";
-    m_Target->setMattiID(matti);
-    QCOMPARE (m_Target->mattiID(), matti);
+    QString tdriver = "12345";
+    m_Target->setTDriverID(tdriver);
+    QCOMPARE (m_Target->TDriverID(), tdriver);
 }
 
 void Ut_DcpContentButton::testUpdateContents()
