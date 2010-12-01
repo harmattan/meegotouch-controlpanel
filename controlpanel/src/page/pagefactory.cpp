@@ -175,9 +175,9 @@ PageFactory::createAppletPage (PageHandle &handle)
 {
     DcpAppletObject *applet = DcpAppletDb::instance()->applet (handle.param);
 
-    if (applet && applet->widgetTypeID() == DcpWidgetType::Button)
+    if (applet && applet->metadata() &&
+        applet->metadata()->widgetTypeID() == DcpWidgetType::Button)
     {
-        Q_ASSERT (applet->metadata());
         PageHandle handle (PageHandle::APPLETCATEGORY, applet->metadata()->category());
         return createAppletCategoryPage(handle);
     }

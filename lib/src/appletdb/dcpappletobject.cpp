@@ -301,6 +301,7 @@ DcpAppletObject::brief () const
     if (d_ptr->m_Brief == 0 && applet() != 0) {
         const_cast<DcpAppletObject*>(this)->setBrief (
                 applet()->constructBrief (getMainWidgetId()));
+//        qDebug ("created brief for %s", qPrintable(text1()));
     }
 
     return d_ptr->m_Brief;

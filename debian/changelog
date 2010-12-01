@@ -4,8 +4,10 @@ duicontrolpanel (0.9.7~unreleased) unstable; urgency=low
   * Added new interface for creating stylable applets
   * Fixes: NB#208452 - Category view is still down the page on reopening
     it
+  * Fixes: NB#206199 - Controlpanel constructs the brief, even if not
+    needed
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 30 Nov 2010 16:32:47 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 01 Dec 2010 11:43:09 +0100
 
 duicontrolpanel (0.9.6) unstable; urgency=low
 
