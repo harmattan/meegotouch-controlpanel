@@ -2,12 +2,12 @@ Source: duicontrolpanel-badapplets
 Section: devel
 Priority: extra
 Maintainer: Viktor Nagy <viktor.nagy@blumsoft.eu>
-Build-Depends: debhelper (>= 5), libduicontrolpanel-dev (>= 0.5.9), libdui-dev
+Build-Depends: debhelper (>= 5), libduicontrolpanel-dev (>= 0.5.9), libmeegotouch-dev
 Standards-Version: 3.7.2
 
 
 Package: duicontrolpanel-badapplets
 Section: x11
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libdui0, duicontrolpanel (>= 0.6.1), libduicontrolpanel (>= 0.6.1), libdui0
+Depends: ${shlibs:Depends}, ${misc:Depends}, duicontrolpanel (>= 0.6.1), libduicontrolpanel (>= 0.6.1)
 Description: Crashing applets for demonstration purposes
