@@ -36,7 +36,7 @@ private slots:
 
     void testConstructor();
     void testSetApplet();
-    void testMattiId();
+    void testTDriverID();
     void testButtonPhases();
 
 private:

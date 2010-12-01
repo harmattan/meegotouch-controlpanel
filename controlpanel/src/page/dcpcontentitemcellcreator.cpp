@@ -42,13 +42,13 @@ void DcpContentItemCellCreator::updateCell (
         index.data(MetadataRole).value<DcpAppletMetadata*>();
     DcpAppletObject* applet =
         index.data(AppletRole).value<DcpAppletObject*>();
-    QString mattiID = index.data(MattiRole).toString();
+    QString tdriverID = index.data(TDriverRole).toString();
 
     if (applet) {
         contentItem->setApplet (applet);
     } else {
         contentItem->setMetadata (metadata);
     }
-    contentItem->setMattiID (mattiID);
+    contentItem->setTDriverID (tdriverID);
 }
 

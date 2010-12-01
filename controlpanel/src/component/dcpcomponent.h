@@ -25,6 +25,7 @@ class DcpComponent : public MWidget
 {
     Q_OBJECT
     Q_PROPERTY (QString mattiID READ mattiID WRITE setMattiID)
+    Q_PROPERTY (QString TDriverID READ TDriverID WRITE setTDriverID)
 
 public:
     explicit DcpComponent(DcpComponent *category,
@@ -48,11 +49,13 @@ public:
 
     QString mattiID() const;
     void setMattiID(const QString &mattiID);
+    QString TDriverID() const;
+    void setTDriverID(const QString &tdriverID);
 
 private:
     QString m_Title;
     QString m_LogicalId;
-    QString m_MattiID;
+    QString m_TDriverID;
     DcpComponent* m_Category;
     PageHandle m_SubPage;
 };

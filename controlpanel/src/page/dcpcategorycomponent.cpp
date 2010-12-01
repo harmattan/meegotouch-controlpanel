@@ -39,7 +39,7 @@ DcpCategoryComponent::DcpCategoryComponent (
     m_Container(0)
 {
     createContents ();
-    setMattiID (QString("DcpCategoryComponent::") + categoryInfo->titleId);
+    setTDriverID (QString("DcpCategoryComponent::") + categoryInfo->titleId);
 
     // this component is a convenience one and should not be visible for the user
     // at all, thus disabling margins.

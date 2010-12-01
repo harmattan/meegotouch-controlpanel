@@ -48,7 +48,7 @@ void Ut_DcpCategoryComponent::cleanupTestCase()
 void Ut_DcpCategoryComponent::testCreation()
 {
     QCOMPARE(m_subject->m_CategoryInfo, &DcpMain::CategoryInfos[0]);
-    QCOMPARE(m_subject->mattiID(), QString("DcpCategoryComponent::") + DcpMain::CategoryInfos[0].titleId);
+    QCOMPARE(m_subject->TDriverID(), QString("DcpCategoryComponent::") + DcpMain::CategoryInfos[0].titleId);
 }
 
 void Ut_DcpCategoryComponent::testCreateContents()

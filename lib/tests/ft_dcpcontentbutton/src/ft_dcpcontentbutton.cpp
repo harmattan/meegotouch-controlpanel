@@ -66,11 +66,12 @@ void Ft_DcpContentButton::testSetApplet()
     QCOMPARE(m_Target->applet(), applet);
 }
 
-void Ft_DcpContentButton::testMattiId()
+void Ft_DcpContentButton::testTDriverID()
 {
-    QString matti = "12345";
-    m_Target->setMattiID(matti);
-    QCOMPARE (m_Target->mattiID(), matti);
+    QString tdriver = "12345";
+    m_Target->setTDriverID(tdriver);
+
+    QCOMPARE (m_Target->TDriverID(), tdriver);
 }
 
 void Ft_DcpContentButton::testButtonPhases()
