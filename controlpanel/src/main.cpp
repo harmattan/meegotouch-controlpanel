@@ -96,6 +96,8 @@ startApplication (int argc, char* argv[])
     delete win;
     delete retranslator;
     delete app;
+
+    return result;
 }
 
 
