@@ -38,20 +38,17 @@ install_headers.files += $$system(echo include/D*) \
     appletdb/dcpapplet.h \
     appletdb/dcpappletif.h \
     appletdb/dcpwidget.h \
-    appletdb/dcpmetadata.h \
+    appletdb/dcpstylablewidget.h \
+    appletdb/dcpappletmetadata.h \
     appletdb/dcpbrief.h \
     appletdb/dcpappletdb.h \
     appletdb/dcpappletplugin.h \
     appletdb/dcpappletobject.h \
     appletdb/dcpappletmetadata.h \
     appletdb/dcpmostusedcounter.h \
-    appletdb/dcpmostusedcounter.h \
-    widget/dcpbutton.h \
-    widget/dcpbuttonalign.h \
-    widget/dcpbuttontoggle.h \
-    widget/dcpbuttonimage.h \
-    widget/dcpbriefwidget.h \
     widget/dcpwidgettypes.h \
+    widget/dcpcontentbutton.h \
+    widget/dcpcontentitem.h \
     dcpdebug.h \
     dcpretranslator.h \
     service_interface/duicontrolpanelif.h \
