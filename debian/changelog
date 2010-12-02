@@ -1,4 +1,4 @@
-duicontrolpanel (0.9.7~unreleased) unstable; urgency=low
+duicontrolpanel (0.9.7) unstable; urgency=low
 
   * Fixes: NB#203963 - duicontrolpanel calls MTheme::loadCSS()
   * Added new interface for creating stylable applets
