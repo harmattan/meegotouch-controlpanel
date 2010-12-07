@@ -29,6 +29,7 @@ DcpMain::CategoryInfos[] =
         "fake-category",
         PageHandle::PERSONALIZE,
         0,
+        0,
         0
     },
     {
@@ -37,11 +38,12 @@ DcpMain::CategoryInfos[] =
         "fake-category-2",
         PageHandle::PERSONALIZE,
         0,
+        0,
         0
     },
     {
         // The last element must have the .titleId == 0
-        0, 0, 0, PageHandle::NOPAGE, 0, 0
+        0, 0, 0, PageHandle::NOPAGE, 0, 0, 0
     }
 };
 
@@ -52,6 +54,7 @@ const DcpCategoryInfo DcpMain::mostUsedCategory =
     "mostUsed-category",
     PageHandle::NOPAGE,
     0,
+    0,
     0
 };
 
@@ -61,6 +64,7 @@ const DcpCategoryInfo DcpMain::mainPageCategory =
     "MainPage",
     "MainPage",
     PageHandle::NOPAGE,
+    0,
     0,
     0
 };

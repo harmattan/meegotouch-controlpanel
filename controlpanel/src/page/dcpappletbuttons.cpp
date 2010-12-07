@@ -97,16 +97,17 @@ DcpAppletButtons::createContents ()
 #endif
     {
         bool        withUncategorized;
-        const char *names[3];
+        const char *names[4];
 
         withUncategorized =
             m_CategoryInfo->subPageId == PageHandle::Applications;
 
         names[0] = m_CategoryInfo->titleId;
         names[1] = m_CategoryInfo->appletCategory;
-        names[2] = 0;
+        names[2] = m_CategoryInfo->compatibilityId;
+        names[3] = 0;
 
-        metadatas = DcpAppletDb::instance()->listByCategory (names, 2,
+        metadatas = DcpAppletDb::instance()->listByCategory (names, 3,
                     withUncategorized ? DcpMain::isCategoryNameEnlisted : NULL);
     }
 

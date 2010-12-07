@@ -1,8 +1,10 @@
 duicontrolpanel (0.9.8~unreleased) unstable; urgency=low
 
   * new version
+  * Fixes: NB#210162 - Wrong logical ID & Icon on Sync & Backup on
+    control panel maintranslations.cpp
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 03 Dec 2010 16:51:01 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 07 Dec 2010 16:21:29 +0100
 
 duicontrolpanel (0.9.7) unstable; urgency=low
 

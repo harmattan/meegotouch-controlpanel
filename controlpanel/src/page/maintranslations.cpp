@@ -35,6 +35,7 @@ DcpMain::CategoryInfos[] =
         "Connections",
         PageHandle::CONNECTIVITY,
         "icon-m-common-wlan",
+        0,
         0
     },
     {
@@ -45,6 +46,7 @@ DcpMain::CategoryInfos[] =
         "Phone",
         PageHandle::PHONE,
         "icon-m-content-call",
+        0,
         0
     },
     {
@@ -55,6 +57,7 @@ DcpMain::CategoryInfos[] =
         "Applications",
         PageHandle::Applications,
         "icon-m-settings-applications",
+        0,
         0
     },
     {
@@ -65,6 +68,7 @@ DcpMain::CategoryInfos[] =
         "Notifications",
         PageHandle::NOTIFICATIONS,
         "icon-m-common-notification",
+        0,
         0
     },
     {
@@ -75,17 +79,19 @@ DcpMain::CategoryInfos[] =
         "Personalize",
         PageHandle::PERSONALIZE,
         "icon-m-settings-personalize",
+        0,
         0
     },
     {
         //% "Battery"
         QT_TRID_NOOP ("qtn_sett_main_battery"),
         //% "Display, battery"
-        QT_TRID_NOOP ("qtn_sett_main_battery__label2"),
+        QT_TRID_NOOP ("qtn_sett_main_battery_label2"),
         "Battery",
         PageHandle::BATTERY,
         "icon-m-energy-management-battery-verylow",
 //        "icon-m-energy-management-battery-low",
+        0,
         0
     },
     {
@@ -95,7 +101,8 @@ DcpMain::CategoryInfos[] =
         QT_TRID_NOOP ("qtn_sett_main_security_label2"),
         "Security",
         PageHandle::SECURITY,
-        "icon-m-settings-personalize",
+        "icon-m-common-passcode",
+        0,
         0
     },
     {
@@ -106,6 +113,7 @@ DcpMain::CategoryInfos[] =
         "Time & Date",
         PageHandle::REGIONALSETTING,
         "icon-m-common-clock",
+        0,
         0
     },
     {
@@ -116,6 +124,7 @@ DcpMain::CategoryInfos[] =
         "Language & Keyboard",
         PageHandle::LANGUAGEKEYBOARD,
         "icon-m-common-keyboard",
+        0,
         0
     },
     {
@@ -126,16 +135,18 @@ DcpMain::CategoryInfos[] =
         "Accessories",
         PageHandle::ACCESSORIES,
         "icon-m-settings-accessories",
+        0,
         0
     },
     {
         //% "Sync & Backup"
-        QT_TRID_NOOP ("qtn_sett_main_backup"),
+        QT_TRID_NOOP ("qtn_sett_main_syncbackup"),
         //% "Device synchronization, Backup"
-        QT_TRID_NOOP ("qtn_sett_main_backup_sub"),
+        QT_TRID_NOOP ("qtn_sett_main_syncbackup_label2"),
         "Sync & Backup",
         PageHandle::BACKUP,
-        "icon-m-common-device-root",
+        "icon-m-transfer-sync",
+        "qtn_sett_main_backup",
         0
     },
     {
@@ -146,11 +157,12 @@ DcpMain::CategoryInfos[] =
         "About my device",
         PageHandle::ABOUT,
         "icon-m-content-description",
+        0,
         0
     },
     {
         // The last element must have the .titleId == 0
-        0, 0, 0, PageHandle::NOPAGE, 0, 0
+        0, 0, 0, PageHandle::NOPAGE, 0, 0, 0
     }
 };
 
@@ -162,6 +174,7 @@ const DcpCategoryInfo DcpMain::mostUsedCategory =
     "MostUsed",
     PageHandle::NOPAGE,
     0,
+    0,
     0
 };
 
@@ -172,6 +185,7 @@ const DcpCategoryInfo DcpMain::mainPageCategory =
     "MainPage",
     "MainPage",
     PageHandle::NOPAGE,
+    0,
     0,
     0
 };
@@ -261,7 +275,9 @@ DcpMain::findCategoryInfo (
          * If found it.
          */
         if (!name.compare (info[n].titleId, Qt::CaseInsensitive) ||
-                !name.compare (info[n].appletCategory, Qt::CaseInsensitive)) 
+            (info[n].appletCategory && !name.compare (info[n].appletCategory, Qt::CaseInsensitive)) ||
+            (info[n].compatibilityId && !name.compare (info[n].compatibilityId, Qt::CaseInsensitive))
+           )
             return &info[n];
 
         /*
