@@ -1,6 +1,5 @@
-duicontrolpanel (0.9.8~unreleased) unstable; urgency=low
+duicontrolpanel (0.9.8) unstable; urgency=low
 
-  * new version
   * Fixes: NB#210162 - Wrong logical ID & Icon on Sync & Backup on
     control panel maintranslations.cpp
 
