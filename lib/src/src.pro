@@ -85,3 +85,7 @@ QMAKE_PKGCONFIG_LIBDIR = $$target.path
 QMAKE_PKGCONFIG_INCDIR = $$install_headers.path
 QMAKE_PKGCONFIG_DESTDIR = pkgconfig
 
+pcfilelink.commands += $(SYMLINK) "$$TARGET".pc "$$QMAKE_PKGCONFIG_NAME".pc && mv "$$QMAKE_PKGCONFIG_NAME".pc $(INSTALL_ROOT)/$$[QT_INSTALL_LIBS]/pkgconfig/
+pcfilelink.path += $$[QT_INSTALL_LIBS]/pkgconfig
+
+INSTALLS += pcfilelink
