@@ -65,6 +65,7 @@ DcpAppletDb::~DcpAppletDb()
     destroyData();
 
     delete d_ptr;
+    DcpAppletDbPrivate::sm_Instance = 0;
 }
 
 
@@ -91,7 +92,6 @@ void
 DcpAppletDb::destroy ()
 {
     if (!DcpAppletDbPrivate::sm_Instance) {
-        DCP_WARNING ("There is no instance to destroy.");
         return;
     }
 
@@ -318,6 +318,12 @@ DcpAppletDb::applet (
     return obj;
 }
 
+DcpAppletMetadata*
+DcpAppletDb::metadata (const QString& name)
+{
+    return d_ptr->appletsByName.value(name);
+}
+
 void 
 DcpAppletDb::eraseEntry (
         DcpAppletMetadata *metadata)
@@ -327,20 +333,24 @@ DcpAppletDb::eraseEntry (
     metadata->deleteLater();
 }
 
-void 
+void
 DcpAppletDb::destroyData ()
 {
+    DCP_DEBUG ("Destroying DcpAppletObjects");
+    foreach(DcpAppletObject *applet, d_ptr->appletObjectsByName) {
+        delete applet;
+    }
+    d_ptr->appletObjectsByName.clear();
+
     DCP_DEBUG ("Destroying all metadata.");
     foreach(DcpAppletMetadata *metadata, d_ptr->appletsByName) {
         delete metadata;
     }
     d_ptr->appletsByName.clear();
 
-    DCP_DEBUG ("Destroying DcpAppletObjects");
-    foreach(DcpAppletObject *applet, d_ptr->appletObjectsByName) {
-        delete applet;
-    }
-    d_ptr->appletObjectsByName.clear();
+    // clear indexes:
+    d_ptr->appletsByFile.clear();
+    d_ptr->paths.clear();
 }
 
 bool DcpAppletDb::isAppletLoaded (const QString& name)

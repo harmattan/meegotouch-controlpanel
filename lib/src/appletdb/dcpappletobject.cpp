@@ -24,7 +24,6 @@
 #include "dcpappletmetadata.h"
 #include "dcpapplet.h"
 #include "dcpwidgettypes.h"
-#include "dcpappletdb.h"
 #include "dcpbrief.h"
 #include "dcpappletif.h"
 #include "dcpwidget.h"
@@ -34,16 +33,14 @@
 
 
 DcpAppletObjectPrivate::DcpAppletObjectPrivate ():
-    applet(0),
-    m_Brief (0),
-    m_Metadata(0)
+    m_Brief (0)
 {
 }
 
 DcpAppletObjectPrivate::~DcpAppletObjectPrivate ()
 {
     if (m_Brief)
-        m_Brief->deleteLater ();
+        delete m_Brief;
 }
 
 
@@ -61,7 +58,6 @@ DcpAppletObject::DcpAppletObject (DcpAppletMetadata *metadata, bool tryLoad):
 
 DcpAppletObject::~DcpAppletObject ()
 {
-    DCP_DEBUG ("Destroying %p", this);
     delete d_ptr;
 }
 
@@ -240,29 +236,16 @@ DcpAppletObject::toggleIconId () const
  * \brief A slot for the inter plugin activation.
  * \param appletName The name of the applet to activate.
  * 
- * \details This slot will activate an other applet. First the function will
- * find the applet using the applet database then it will emit a signal for it,
- * so it is going to be started.
- *
- * FIXME: to be moved to DcpAppletDb ?
+ * \details This slot will request activation of an other applet.
+ * (Emits the requestPluginActivation() signal.
  */
 bool 
 DcpAppletObject::activatePluginByName (
         const QString &appletName) const
 {
-    Q_UNUSED(appletName);
-    DcpAppletObject  *otherApplet;
-
-    DCP_WARNING ("Want to start '%s'", DCP_STR (appletName));
-
-    otherApplet = DcpAppletDb::instance()->applet (appletName);
-    if (otherApplet) {
-        otherApplet->activateSlot ();
-        return true;
-    }
-
-    DCP_WARNING ("Applet with name '%s' not found.", DCP_STR (appletName));
-    return false;
+    // FIXME unfortunately could not remove const yet because it would be ABI break
+    emit const_cast<DcpAppletObject*>(this)->requestPluginActivation (appletName);
+    return true;
 }
 
 void 

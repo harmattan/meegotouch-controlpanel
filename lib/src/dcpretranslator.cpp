@@ -47,8 +47,19 @@ DcpRetranslatorPriv::DcpRetranslatorPriv ():
     binaryName = mApp->binaryName();
 }
 
+DcpRetranslatorPriv::~DcpRetranslatorPriv ()
+{
+    delete languageItem;
+}
+
 DcpRetranslator::DcpRetranslator (): priv(new DcpRetranslatorPriv())
 {
+}
+
+DcpRetranslator::~DcpRetranslator()
+{
+    delete priv;
+    DcpRetranslatorPriv::instance = 0;
 }
 
 /*
@@ -250,6 +261,17 @@ DcpRetranslator::eventFilter(QObject *obj, QEvent *event)
         }
     }
     return QObject::eventFilter (obj, event);
+}
+
+/*!
+ * Destroys the instance if any.
+ */
+void DcpRetranslator::destroy()
+{
+    if (DcpRetranslatorPriv::instance) {
+        delete DcpRetranslatorPriv::instance;
+        DcpRetranslatorPriv::instance = 0;
+    }
 }
 
 

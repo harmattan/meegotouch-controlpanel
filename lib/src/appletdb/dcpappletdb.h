@@ -92,6 +92,9 @@ public:
     /*! \return the object of an applet by name*/
     DcpAppletObject *applet(const QString& name);
 
+    /*! \return the metadata of an applet by name*/
+    DcpAppletMetadata *metadata(const QString& name);
+
     /*! \brief add one file to the db */
     bool addFile(const QString& filename);
 
@@ -128,5 +131,6 @@ private:
     Q_DISABLE_COPY(DcpAppletDb);
     friend class Ut_DcpAppletDb;
 };
+
 #endif // DCPAPPLETDB_H
 

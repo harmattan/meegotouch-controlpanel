@@ -33,6 +33,8 @@ public:
     virtual void init();
     virtual DcpWidget* constructWidget(int widgetId);
 
+    virtual QVector<MAction*> viewMenuItems() { return QVector<MAction*>(); }
+
 protected:
     DcpWidget* pageMain();
 };

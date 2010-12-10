@@ -34,6 +34,7 @@
 #include "dcpappletbuttons.h"
 #include "dcpremotebriefreceiver.h"
 #include "maintranslations.h"
+#include "pagefactory.h"
 
 #include "mwidgetcreator.h"
 M_REGISTER_WIDGET_NO_CREATE(DcpMainPage)
@@ -99,7 +100,11 @@ void DcpMainPage::realShown ()
 {
     // this loads the helper process a little bit earlier so that it can preload
     // some applets
-    DcpRemoteBriefReceiver::instance ();
+    DcpRemoteBriefReceiver* receiver = DcpRemoteBriefReceiver::instance ();
+
+    // this preloads an applet launcher process when the receiver has finished
+    connect (receiver, SIGNAL (firstConnected()),
+             PageFactory::instance(), SLOT (preloadAppletLauncher()));
 
     // this adds the MainPage category if needed:
     DcpAppletButtons* category =

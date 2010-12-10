@@ -17,55 +17,70 @@
 
 /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
-#include <cstdio>
-#include <sys/wait.h>
-#include <csignal>
-#include <MApplicationWindow>
-#include <MComponentCache>
-#include <DcpDebug>
+
 #include <DcpRetranslator>
-#include <MApplication>
-#include <MLocale>
 #include "service/duicontrolpanelservice.h"
+#include "service/dcpappletlauncherservice.h"
 #include "dcpappletdb.h"
 #include "appleterrorsdialog.h"
 #include "dcpwrongapplets.h"
 #include "dcpremotebriefreceiver.h"
+#include "pagefactory.h"
+#include "dcpmostusedcounter.h"
 
 #include "dcpdebug.h"
 
+#include <cstdio>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <csignal>
+#include <MApplicationWindow>
+#include <MComponentCache>
+#include <MApplication>
+#include <MLocale>
+
 static const QString appIdentifier = "duicontrolpanel";
 
-/* 
+/*
  * this redefines the signal handler for TERM and INT signals, so as to be able
- * to use aboutToQuit signal from qApp also in these cases 
+ * to use aboutToQuit signal from qApp also in these cases
  */
-void 
-onTermSignal (
-        int param)
+void onTermSignal (int)
 {
-    DCP_DEBUG ("");
-
-    Q_UNUSED(param);
     if (qApp) {
         qApp->quit();
     }
 }
 
+static inline MApplication* createApplication (int argc, char** argv,
+                                               MApplicationService* service)
+{
+#ifndef DISABLE_LAUNCHER
+    return MComponentCache::mApplication(argc, argv, appIdentifier, service);
+#else // USE_LAUNCHER
+    return new MApplication (argc, argv, appIdentifier, service);
+#endif // USE_LAUNCHER
+}
+
+static inline MApplicationWindow* createApplicationWindow ()
+{
+#ifndef DISABLE_LAUNCHER
+    return MComponentCache::mApplicationWindow();
+#else // USE_LAUNCHER
+    return new MApplicationWindow();
+#endif // USE_LAUNCHER
+}
+
+
 int
-startApplication (int argc, char* argv[])
+startMainApplication (int argc, char* argv[])
 {
     DCP_DEBUG ("");
 
     // init servicefw api:
     DuiControlPanelService* service = new DuiControlPanelService ();
 
-#ifndef DISABLE_LAUNCHER
-    MApplication *app = MComponentCache::mApplication(argc, argv,
-                                                      appIdentifier, service);
-#else // USE_LAUNCHER
-    MApplication *app = new MApplication (argc, argv, appIdentifier, service);
-#endif // USE_LAUNCHER
+    MApplication *app = createApplication (argc, argv, service);
     signal(SIGTERM, &onTermSignal);
     signal(SIGINT, &onTermSignal);
 
@@ -81,11 +96,7 @@ startApplication (int argc, char* argv[])
     DcpRetranslator::instance()->setMainCatalogName("settings");
 
     // mainwindow:
-#ifndef DISABLE_LAUNCHER
-    MApplicationWindow *win = MComponentCache::mApplicationWindow();
-#else // USE_LAUNCHER
-    MApplicationWindow *win = new MApplicationWindow();
-#endif // USE_LAUNCHER
+    MApplicationWindow *win = createApplicationWindow ();
 
     win->installEventFilter(retranslator);
 
@@ -93,23 +104,63 @@ startApplication (int argc, char* argv[])
     service->createStartPage();
 
     int result = app->exec();
-    delete win;
-    delete retranslator;
-    delete app;
 
     return result;
+}
+
+int
+startAppletLoader (int argc, char* argv[])
+{
+    DCP_DEBUG ("");
+
+    // init servicefw api:
+    DcpAppletLauncherService* service = new DcpAppletLauncherService ();
+
+    MApplication *app = createApplication (argc, argv, service);
+    signal(SIGTERM, &onTermSignal);
+    signal(SIGINT, &onTermSignal);
+
+    // mainwindow:
+    MApplicationWindow *win = createApplicationWindow ();
+    win->hide ();
+    service->maybeAppletRealStart ();
+
+    // we sleep until an applet gets requested through dbus:
+    int result = app->exec();
+
+    return result;
+}
+
+void cleanup ()
+{
+    // delete windows and pages:
+    PageFactory::destroy();
+    foreach (MWindow* win, MApplication::windows()) {
+        delete win;
+    }
+
+    // free up singletons:
+    DcpRemoteBriefReceiver::destroy();
+    DcpRetranslator::destroy();
+    DcpAppletDb::destroy();
+    DcpWrongApplets::destroyInstance();
+    MostUsedCounter::destroy();
+
+    // free up application:
+    delete MApplication::instance();
 }
 
 
 M_EXPORT int main(int argc, char *argv[])
 {
-    DcpRemoteBriefReceiver::setArguments (argc, argv);
-
     // disables applet supervisor since only the helper process needs it
     DcpWrongApplets::disable();
 
     // parse options
     QString desktopDir;
+    bool isAppletLoader = false; // are we the appletloader process?
+    bool isOutprocess = false; // should we run applets outprocess?
+
     for (int i = 1; i < argc; ++i) {
         QString s(argv[i]);
         if (s == "-h" || s == "-help" || s == "--help" ) {
@@ -119,6 +170,7 @@ M_EXPORT int main(int argc, char *argv[])
             out << "  -desktopdir DIR     Load .desktop files from DIR\n";
             out << "  -nosupervisor       Disables applet supervisor";
             out << "  -nobriefs           Disables dynamic briefs";
+            out << "  -outprocess         Run the applets in a separate process";
             out << "\n\n";
             break;
 
@@ -134,24 +186,42 @@ M_EXPORT int main(int argc, char *argv[])
                 desktopDir = argv[i];
                 qDebug() << "Using desktopdir:" << desktopDir;
             }
+        } else if (s == "-outprocess") {
+            isOutprocess = true;
+            PageFactory::setInProcessApplets (!isOutprocess);
+
+        } else if (s == "-appletloader") {
+            isAppletLoader = true;
+            isOutprocess = true;
+            PageFactory::setInProcessApplets (!isOutprocess);
         }
     }
 
-    /*!
-     * FIXME: If we have a desktop directory we have to load the desktop files
-     * now. We could delay it by changing the DcpAppletDb class implementation.
-     */
-    if (!desktopDir.isEmpty()) {
-        DCP_DEBUG ("### Creating DcpAppletDb in directory '%s'.", 
-                DCP_STR(desktopDir));
-        DcpAppletDb::instance (desktopDir);
+    int result;
+
+    if (isAppletLoader) {
+        // start the appletloader process here:
+        result = startAppletLoader (argc, argv);
+
+    } else 
+    {
+        // start the main process here:
+        DcpRemoteBriefReceiver::setArguments (argc, argv);
+
+        /*!
+         * FIXME: If we have a desktop directory we have to load the desktop files
+         * now. We could delay it by changing the DcpAppletDb class implementation.
+         */
+        if (!desktopDir.isEmpty()) {
+            DCP_DEBUG ("### Creating DcpAppletDb in directory '%s'.", 
+                    DCP_STR(desktopDir));
+            DcpAppletDb::instance (desktopDir);
+        }
+
+        result = startMainApplication (argc, argv);
     }
 
-    DCP_DEBUG ("### Starting up application.");
-    int st = startApplication (argc, argv);
-
-    DcpAppletDb::destroy();
-
-    return st;
+    cleanup ();
+    return result;
 }
 

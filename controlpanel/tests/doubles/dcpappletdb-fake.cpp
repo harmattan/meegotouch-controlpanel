@@ -134,6 +134,12 @@ DcpAppletDb::applet (
     return d_ptr->appletObjectsByName[name];
 }
 
+DcpAppletMetadata *
+DcpAppletDb::metadata (const QString &name)
+{
+    return d_ptr->appletsByName[name];
+}
+
 bool DcpAppletDb::isAppletLoaded (const QString&)
 {
     return false;

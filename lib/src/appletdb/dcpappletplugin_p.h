@@ -33,4 +33,6 @@ public:
     QString errorMsg;
     QPluginLoader loader;
 };
+
 #endif // DCPAPPLETPLUGINPRIVATE_H
+

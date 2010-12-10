@@ -51,6 +51,8 @@ install_headers.files += $$system(echo include/D*) \
     widget/dcpcontentitem.h \
     dcpdebug.h \
     dcpretranslator.h \
+    service_interface/dcpappletlauncherif.h \
+    service_interface/dcpappletlauncherifproxy.h \
     service_interface/duicontrolpanelif.h \
     service_interface/duicontrolpanelifproxy.h
 

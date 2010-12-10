@@ -15,29 +15,4 @@
 **
 ****************************************************************************/
 
-/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
-/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
-#ifndef DCPRETRANSLATOR_P_H
-#define DCPRETRANSLATOR_P_H
-
-#include <QSet>
-#include <QString>
-#include <MGConfItem>
-
-class DcpRetranslatorPriv
-{
-public:
-    DcpRetranslatorPriv();
-    ~DcpRetranslatorPriv();
-
-    QSet<QString> loadedTranslations;
-    static DcpRetranslator* instance;
-    QString binaryName;
-    bool filterEvent;
-    MGConfItem* languageItem;
-    QString lastLanguage;
-};
-
-#endif // DCPRETRANSLATOR_P_H
-
-
+#include "../service_interface/dcpappletlauncherif.h"

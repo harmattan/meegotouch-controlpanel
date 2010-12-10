@@ -35,8 +35,6 @@ DcpRemoteBriefReceiver::DcpRemoteBriefReceiver():
     setProcessChannelMode (QProcess::ForwardedChannels);
     startProcess();
 
-    connect (qApp, SIGNAL (aboutToQuit()),
-             this, SLOT (suicide()));
     connect (& priv->socket, SIGNAL (error (QLocalSocket::LocalSocketError)),
              this, SLOT (onConnectError ()));
     connect (& priv->socket, SIGNAL (connected ()),
@@ -66,6 +64,14 @@ DcpRemoteBriefReceiver::onConnected ()
         priv->send.flush ();
         priv->socket.flush ();
         priv->waitingCommands.clear();
+    } else {
+        static bool firstTime = true;
+        if (firstTime) {
+            // this signal is used for determining when to preload
+            // an applet launcher instance
+            emit firstConnected ();
+            firstTime = false;
+        }
     }
 }
 
@@ -245,12 +251,10 @@ DcpRemoteBriefReceiver* DcpRemoteBriefReceiver::instance ()
     return DcpRemoteBriefReceiverPriv::instance;
 }
 
-/*
- * Detached or not, unfortunately linux does not close our process
- * when the main termintes. This callback is a workaround for that.
- */
-void DcpRemoteBriefReceiver::suicide ()
+void DcpRemoteBriefReceiver::destroy ()
 {
-    delete this;
+    if (DcpRemoteBriefReceiverPriv::instance) {
+        delete DcpRemoteBriefReceiverPriv::instance;
+    }
 }
 

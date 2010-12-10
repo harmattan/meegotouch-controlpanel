@@ -20,7 +20,6 @@
 
 #include "pagefactory.h"
 
-#include <QTime>
 #include <DcpPage>
 #include <DcpMainPage>
 #include <DcpAppletPage>
@@ -31,12 +30,20 @@
 #include <DcpAppletCategoryPage>
 #include <DcpWidgetTypes>
 #include <MainTranslations>
+#include "dcpappletlauncherif.h"
 
 #include <MApplication>
 #include <MApplicationWindow>
-#include <MAction>
+#include <QTimer>
 
 #include "appleterrorsdialog.h"
+
+// this also specifies if the applet views should be shown inprocess or outprocess
+DcpAppletLauncherIf * PageFactory::sm_AppletLauncher = 0;
+
+// after this millisec will be an applet launcher process instance prestarted
+// in case it is needed (after the category page opening)
+#define APPLET_LAUNCHER_PRELOAD_DELAY 3000
 
 #include "dcpdebug.h"
 
@@ -51,9 +58,19 @@ PageFactory::PageFactory ():
     connect (MApplication::activeWindow (),
             SIGNAL(pageChanged(MApplicationPage *)),
             this, SLOT(pageChanged(MApplicationPage *)));
+    connect (MApplication::activeWindow (), SIGNAL(displayEntered()),
+            this, SLOT(onDisplayEntered()));
 
     connect (DcpAppletDb::instance(), SIGNAL(appletLoaded(DcpAppletObject*)),
              this, SLOT(onAppletLoaded(DcpAppletObject*)));
+}
+
+PageFactory::~PageFactory ()
+{
+    delete m_MainPage;
+    delete m_AppletCategoryPage;
+    delete sm_AppletLauncher;
+    sm_Instance = 0;
 }
 
 void
@@ -61,7 +78,7 @@ PageFactory::destroy()
 {
     if (sm_Instance)
       delete sm_Instance;
-    sm_Instance=0;
+    sm_Instance = 0;
 }
 
 
@@ -80,6 +97,8 @@ PageFactory::onAppletLoaded (DcpAppletObject *applet)
 {
     connect (applet, SIGNAL (activate (int)),
              this, SLOT (appletWantsToStart (int)));
+    connect (applet, SIGNAL (requestPluginActivation (QString)),
+             this, SLOT (changeToAppletPage (QString)));
 }
 
 /*!
@@ -227,6 +246,14 @@ PageFactory::createAppletPage (DcpAppletMetadata* metadata)
     return createAppletPage (handle);
 }
 
+bool
+PageFactory::changeToAppletPage (const QString& appletName)
+{
+    PageHandle handle;
+    handle.id = PageHandle::APPLET;
+    handle.param = appletName;
+    return changePage (handle);
+}
 
 /*!
  * Creates an applet category page, a page that shows a group of applets the
@@ -275,7 +302,7 @@ PageFactory::createAppletCategoryPage (const PageHandle& handle)
     return m_AppletCategoryPage;
 }
 
-DcpPage*
+    DcpPage*
 PageFactory::currentPage ()
 {
     MApplicationWindow* win = MApplication::activeApplicationWindow();
@@ -285,16 +312,68 @@ PageFactory::currentPage ()
 }
 
 /*!
+ * If applets should run out of process, this method ensures
+ * (through dbus) that an appletlauncher instance will soon be
+ * running.s
+ */
+void PageFactory::preloadAppletLauncher ()
+{
+    if (!sm_AppletLauncher) return;
+    Q_ASSERT (sm_AppletLauncher->isValid());
+    sm_AppletLauncher->prestart ();
+}
+
+bool PageFactory::maybeRunOutOfProcess (const QString& appletName)
+{
+    DcpAppletDb* db = DcpAppletDb::instance();
+    DcpAppletMetadata* metadata = db->metadata(appletName);
+    if (!metadata || !metadata->isValid()) return false;
+    QString binary = metadata->binary();
+
+    /* 
+     * Only run out of process if:
+     *    - applet launcher interface is created (means: we have to)
+     *    - we have an applet binary (shared object)
+     *    - the shared object is not already loaded into the process
+     *    - the applet is not declarative
+     */
+    bool runOutProcess = sm_AppletLauncher &&
+        !binary.isEmpty() &&
+        !db->isAppletLoaded (appletName) &&
+        binary != "libdeclarative.so";
+
+    qDebug ("XXX maybeOutOfProcess 2 %d because %d %d %d", runOutProcess,
+            sm_AppletLauncher != 0,
+            !binary.isEmpty(),
+            !db->isAppletLoaded (appletName)
+           );
+
+    if (runOutProcess) {
+        Q_ASSERT (sm_AppletLauncher->isValid());
+        sm_AppletLauncher->appletPage (appletName);
+    }
+
+    return runOutProcess;
+}
+
+
+/*!
  * Creates a new page and sets as the current page.
  *
  * Returns true if the page change was successful, otherwise it
  * returns false.
  */
-bool
+    bool
 PageFactory::changePage (const PageHandle &handle)
 {
+    // if we could run it out of process then we do not change the page:
+    if (handle.id == PageHandle::APPLET && maybeRunOutOfProcess(handle.param)) {
+        return false;
+    }
+
     DcpPage *page;
 
+    // if it is already open, we switch back to it:
     if (tryOpenPageBackward(handle))
         return true;
 
@@ -328,17 +407,19 @@ PageFactory::changePage (const PageHandle &handle)
     return true;
 }
 
-void
+    void
 PageFactory::appletWantsToStart (int pageId)
 {
     DcpAppletObject *applet = qobject_cast<DcpAppletObject*> (sender());
 
     Q_ASSERT (applet);
 
-    qDebug ("Applet '%s' wants to start, widgetId: %d",
-             DCP_STR(applet->metadata()->name()), pageId);
+    QString appletName = applet->metadata()->name();
 
-    PageHandle handle (PageHandle::APPLET, applet->metadata()->name(), pageId);
+    qDebug ("Applet '%s' wants to start, widgetId: %d",
+            DCP_STR(appletName), pageId);
+
+    PageHandle handle (PageHandle::APPLET, appletName, pageId);
     changePage (handle);
 }
 
@@ -352,7 +433,7 @@ PageFactory::registerPage (
         DcpPage* page)
 {
     connect (page, SIGNAL(openSubPage (const PageHandle &)), 
-        this, SLOT(changePage(const PageHandle &)));
+            this, SLOT(changePage(const PageHandle &)));
 }
 
 /*!
@@ -361,9 +442,8 @@ PageFactory::registerPage (
  * in the stack. This is needed so the duicontrolpanel can page back to a
  * requested page.
  */
-void
-PageFactory::pageChanged (
-        MApplicationPage *page)
+    void
+PageFactory::pageChanged (MApplicationPage *page)
 {
     if (m_Pages.empty()) {
         DCP_DEBUG ("List is empty, adding");
@@ -437,5 +517,25 @@ PageFactory::tryOpenPageBackward (
     #endif
 
     return true;
+}
+
+void PageFactory::setInProcessApplets (bool inProcess)
+{
+    if (!inProcess && !sm_AppletLauncher) {
+        sm_AppletLauncher = new DcpAppletLauncherIf();
+    } else
+    if (inProcess && sm_AppletLauncher) {
+        delete sm_AppletLauncher;
+        sm_AppletLauncher = 0;
+    }
+}
+
+void PageFactory::onDisplayEntered ()
+{
+    qDebug ("XXX displayEntered");
+    if (!m_Pages.isEmpty() && m_Pages.last() == m_AppletCategoryPage) {
+        qDebug ("XXX categoryPage!!!!");
+        preloadAppletLauncher();
+    }
 }
 

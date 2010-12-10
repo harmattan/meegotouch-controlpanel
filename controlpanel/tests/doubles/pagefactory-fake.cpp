@@ -31,6 +31,10 @@ PageFactory::PageFactory ():
 {
 }
 
+PageFactory::~PageFactory ()
+{
+}
+
 void
 PageFactory::destroy()
 {
@@ -84,6 +88,21 @@ PageFactory::appletWantsToStart (int)
 
 void
 PageFactory::onAppletLoaded (DcpAppletObject *)
+{
+}
+
+bool
+PageFactory::changeToAppletPage (const QString& appletName)
+{
+    Q_UNUSED (appletName);
+    return true;
+}
+
+void PageFactory::preloadAppletLauncher ()
+{
+}
+
+void PageFactory::onDisplayEntered ()
 {
 }
 

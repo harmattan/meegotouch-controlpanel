@@ -68,6 +68,7 @@ public:
 signals:
     void briefChanged ();
     void activate (int pageId);
+    void requestPluginActivation (const QString& pluginName);
 
 public slots:
     void slotClicked ();

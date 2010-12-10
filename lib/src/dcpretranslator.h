@@ -40,6 +40,8 @@ class DcpRetranslator : public QObject
     Q_OBJECT
 public:
     static DcpRetranslator* instance();
+    ~DcpRetranslator();
+    static void destroy();
 
     void setMainCatalogName (const QString& catalogName);
     void ensureTranslationsAreLoaded(const DcpAppletMetadataList& list);

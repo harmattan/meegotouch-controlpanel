@@ -12,6 +12,7 @@ public:
     static void setArguments (int argc, char** argv);
     static void disable ();
     static DcpRemoteBriefReceiver* instance ();
+    static void destroy ();
     ~DcpRemoteBriefReceiver();
 
     void watch (DcpRemoteBrief* brief);
@@ -20,11 +21,13 @@ public:
     void switchToggle (const QString& appletName);
     void preload (const QString& appletName);
 
+signals:
+    void firstConnected ();
+
 protected slots:
     void onReadyRead ();
     void onFinished ( int exitCode, QProcess::ExitStatus exitStatus );
     void onConnected ();
-    void suicide ();
     void onStarted ();
     void onConnectError ();
 

@@ -7,5 +7,5 @@ if [ "$1" = "-delay" ]; then
     shift 2
 fi
 
-exec /usr/bin/invoker $param --type=m $0.launch "$@"
+exec /usr/bin/invoker $param --type=m $0.launch "$@" -outprocess
 

@@ -1,4 +1,5 @@
 usr/bin/duicontrolpanel*
+usr/bin/dcpappletlauncher
 usr/share/themes/base/meegotouch/duicontrolpanel/style/duicontrolpanel.*
 # usr/share/themes/base/meegotouch/duicontrolpanel/images
 # usr/share/themes/base/meegotouch/duicontrolpanel/svg

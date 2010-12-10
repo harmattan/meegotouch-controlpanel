@@ -12,9 +12,6 @@ public:
 protected:
     virtual bool loadPluginFile (const QString &binaryPath);
 
-private slots:
-    void onActivated (int pageId);
-
 private:
 	
 };

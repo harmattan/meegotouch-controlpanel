@@ -390,9 +390,6 @@ void DcpContentItem::onClicked ()
 {
     Q_ASSERT (metadata());
 
-    // force loading the applet in case it is not yet loaded
-    if (!applet()) loadApplet();
-
     /*
      * This will count the activations and activate the applet.
      */

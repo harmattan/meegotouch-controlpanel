@@ -22,12 +22,12 @@
 #include "pagefactory.h"
 
 #include "duicontrolpanelifadaptor.h"
-#include "duicontrolpanelif.h"
 
 #include <MApplicationIfAdaptor>
 #include <QtDebug>
 #include <MApplication>
 #include <MApplicationWindow>
+#include <dcpappletdb.h>
 
 static const char* serviceName = "com.nokia.DuiControlPanel";
 bool DuiControlPanelService::isStartedByServiceFw = false;
@@ -132,9 +132,19 @@ void
 DuiControlPanelService::startPageForReal(
                 const PageHandle &handle)
 {
-    bool success = PageFactory::instance()->changePage(handle);
+    /*
+     * in case this is the first applet pop up and we are invoked by
+     * servicefw, we should load the applet inprocess, because starting
+     * two programs would be painful slow (= starting it outprocess).
+     */
+    MApplicationWindow *win = MApplication::activeApplicationWindow();
+    if (handle.id == PageHandle::APPLET && isStartedByServiceFw
+        && (!win || !win->currentPage()))
+    {
+        DcpAppletDb::instance()->applet (handle.param);
+    }
 
-    MWindow *win = MApplication::activeWindow();
+    bool success = PageFactory::instance()->changePage(handle);
 
     if (win) {
         if (success) {

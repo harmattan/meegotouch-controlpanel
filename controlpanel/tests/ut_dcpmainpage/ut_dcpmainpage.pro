@@ -45,6 +45,7 @@ SOURCES += \
     $$STUBSDIR/dcpsinglecomponent-fake.cpp \
     $$STUBSDIR/dcpcategorycomponent-fake.cpp \
     $$STUBSDIR/dcpmaincategory-fake.cpp \
+    $$STUBSDIR/pagefactory-fake.cpp \
     $$STUBSDIR/qgraphicslinearlayout-fake.cpp \
     $$TEST_SOURCES \ 
 
@@ -58,6 +59,7 @@ HEADERS += \
     $$SRCDIR/page/dcpmainpage.h \
     $$SRCDIR/page/dcpappletbuttons.h \
     $$SRCDIR/page/dcppage.h \
+    $$SRCDIR/page/pagefactory.h \
     $$SRCDIR/page/pages.h \
     $$SRCDIR/page/dcpcategorycomponent.h \
     $$SRCDIR/component/dcpcomponent.h \
