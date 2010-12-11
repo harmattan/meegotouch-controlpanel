@@ -9,11 +9,6 @@ include(../dcpconfig.pri)
 # we can not disable functions from the lib since our api is considered stable
 CONFIG += MOSTUSED
 
-# FIXME: this has to be removed if the functionality has merged into meegotouch
-contains(DEFINES,USE_USERGUIDE) {
-    CONFIG+=userguide
-}
-
 MOSTUSED {
     DEFINES += MOSTUSED
 }

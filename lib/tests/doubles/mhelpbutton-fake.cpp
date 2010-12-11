@@ -1,25 +1,19 @@
-#ifdef USE_USERGUIDE
-#include <HelpButton>
+#include <MHelpButton>
 
-HelpButton::HelpButton(const QString& pageID, QGraphicsItem* p)
+MHelpButton::MHelpButton(const QString& pageID, QGraphicsItem* p)
 {
     Q_UNUSED (pageID); // TODO
     Q_UNUSED (p);
 }
 
-QString HelpButton::pageID() const
+QString MHelpButton::pageID() const
 {
     return QString();
 }
 
-void HelpButton::setPageID(const QString& id)
+void MHelpButton::setPageID(const QString& id)
 {
     Q_UNUSED (id);
 }
 
-void HelpButton::onClicked()
-{
-}
-
-#endif // USE_USERGUIDE
 

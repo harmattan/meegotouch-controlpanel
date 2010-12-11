@@ -1,9 +1,9 @@
-duicontrolpanel (0.9.9~unreleased) unstable; urgency=low
+duicontrolpanel (0.10.0~unreleased) unstable; urgency=low
 
-  * new version
   * Changes: runs most binary applets in separate process
+  * New: Help button support for meego
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 10 Dec 2010 20:51:29 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Sat, 11 Dec 2010 11:46:49 +0100
 
 duicontrolpanel (0.9.8) unstable; urgency=low
 

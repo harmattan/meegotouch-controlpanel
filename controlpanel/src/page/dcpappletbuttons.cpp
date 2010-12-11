@@ -40,9 +40,7 @@
 #include <QStandardItem>
 #include <QVariant>
 
-#ifdef USE_USERGUIDE
-#include <HelpButton>
-#endif // USE_USERGUIDE
+#include <MHelpButton>
 
 DcpAppletButtons::DcpAppletButtons (
         const DcpCategoryInfo  *categoryInfo,
@@ -203,17 +201,15 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
         QGraphicsLinearLayout* wlayout = new QGraphicsLinearLayout(c);
         wlayout->setContentsMargins(0,0,0,0);
 
-#ifdef USE_USERGUIDE
         QString helpId = applet ? applet->helpId():
                          metadata ? metadata->helpId():
                          QString();
         if (!helpId.isEmpty()) {
-            HelpButton* help = new HelpButton (helpId);
+            MHelpButton* help = new MHelpButton (helpId);
             help->setViewType(MButton::iconType);
             help->setIconID ("icon-m-content-description");
             wlayout->addItem (help);
         }
-#endif // USE_USERGUIDE
 
         wlayout->addItem (spacer1);
         wlayout->addItem (button);

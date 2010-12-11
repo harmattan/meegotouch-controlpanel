@@ -12,9 +12,6 @@ nolauncher      disable booster support (for example for debugging)
 
 parallel=X      build on X threads
 
-nouserguide     disable help icon support for applet briefs (and avoids linking
-                to the non opensource libuserguide)
-
 For example to build a version without invoker on 4 threads:
 DEB_BUILD_OPTIONS=nolauncher,parallel=4 dpkg-buildpackage -rfakeroot -b
 

@@ -2,11 +2,6 @@ include(../common_top.pri)
 
 CONFIG += meegotouch
 
-# FIXME: this has to be removed if the functionality has merged into meegotouch
-contains(DEFINES,USE_USERGUIDE) {
-    CONFIG+=userguide
-}
-
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
 INCLUDEPATH += $${LIBDCPINCLUDE}
 APPLETDBINCLUDE = $${LIBDCPINCLUDE}/../appletdb

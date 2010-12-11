@@ -41,10 +41,6 @@ ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 endif
 
 
-ifeq (,$(filter nouserguide,$(DEB_BUILD_OPTIONS)))
-    QMAKE_ARG += DEFINES+=USE_USERGUIDE
-endif
-
 QMAKE_ARG += QMAKE_CXXFLAGS+="$(CFLAGS)"
 
 # this specifies that in case of debian build dcp should appear

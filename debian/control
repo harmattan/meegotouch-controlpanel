@@ -2,14 +2,14 @@ Source: duicontrolpanel
 Section: devel
 Priority: extra
 Maintainer: Robert Manner <robert.manner@blumsoft.eu>
-Build-Depends: debhelper (>= 5), libmeegotouch-dev (>= 0.20), doxygen, clean-device-dev, aegis-builder,
-               libuserguide-dev
+Build-Depends: debhelper (>= 5), libmeegotouch-dev (>= 0.20), doxygen,
+               clean-device-dev, aegis-builder
 Standards-Version: 3.7.2
 
 Package: libduicontrolpanel
 Section: libs
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libuserguide
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: library for the control panel application and its applets
  The library contains functions, classes related to handling duicontrolpanel
  applets:

@@ -43,9 +43,7 @@ DcpContentItemPrivate::DcpContentItemPrivate ():
     m_DrillImage (0),
     m_Text1W (0),
     m_Text2W (0),
-#ifdef USE_USERGUIDE
     m_Help (0),
-#endif // USE_USERGUIDE
     m_Spacer (0),
     m_ButtonW (0)
 {
@@ -170,9 +168,8 @@ DcpContentItem::ensureToggleIsCreated()
 void
 DcpContentItem::ensureHelpIsCreated()
 {
-#ifdef USE_USERGUIDE
     QString helpId = helpID();
-    HelpButton* &help = d_ptr->m_Help;
+    MHelpButton* &help = d_ptr->m_Help;
 
     if (helpId.isEmpty()) {
         if (help) {
@@ -184,8 +181,8 @@ DcpContentItem::ensureHelpIsCreated()
 
     } else {
         if (!help) {
-            // FIXME: this will be MHelpButton once the feature got into libmeegotouch
-            help = new HelpButton(helpID());
+            // FIXME: this will be MMHelpButton once the feature got into libmeegotouch
+            help = new MHelpButton(helpID());
             help->setViewType(MButton::iconType);
             help->setIconID ("icon-m-content-description");
             d_ptr->m_LayoutIsToBeChanged = true;
@@ -194,7 +191,6 @@ DcpContentItem::ensureHelpIsCreated()
             help->setPageID (helpID());
         }
     }
-#endif // USE_USERGUIDE
 }
 
 void
@@ -273,13 +269,11 @@ DcpContentItem::ensureWidgetsAreLayouted()
         d_ptr->m_Text2W->hide();
     }
     int toggleX = textX+1;
-#ifdef USE_USERGUIDE
     if (d_ptr->m_Help) {
         grid->addItem (d_ptr->m_Help, 0, toggleX,
                        textLinesCount, 1, Qt::AlignCenter);
         toggleX++;
     }
-#endif // USE_USERGUIDE
     if (d_ptr->m_ButtonW) {
         grid->addItem (d_ptr->m_ButtonW, 0, toggleX,
                        textLinesCount, 1, Qt::AlignCenter);

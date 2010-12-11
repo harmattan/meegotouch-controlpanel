@@ -1,10 +1,5 @@
 include(../common_top.pri)
 
-# FIXME: temporary solution, it will be in meegotouch
-contains(DEFINES,USE_USERGUIDE) {
-    CONFIG+=userguide
-}
-
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
 
 TEST_SOURCES = \
