@@ -298,8 +298,7 @@ DcpAppletDb::listMostUsed ()
  * settings are changed. This might cause some problems in the future.
  */
 DcpAppletObject *
-DcpAppletDb::applet (
-        const QString &name)
+DcpAppletDb::applet (const QString &name)
 {
     DcpAppletObject *obj = d_ptr->appletObjectsByName.value(name, 0);
 

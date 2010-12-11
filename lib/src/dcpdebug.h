@@ -136,6 +136,7 @@ inline void DcpDebug::end(const QString& msg = "") {}
 #define DCP_FUNC_START DcpDebug::start(Q_FUNC_INFO);
 #define DCP_FUNC_END DcpDebug::end(Q_FUNC_INFO);
 
+
 #endif
 
 #endif // DCPDEBUG_H

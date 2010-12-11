@@ -1,7 +1,9 @@
 #include <MApplication>
 
 #include <DcpRetranslator>
+#include "dcpappletdb.h"
 #include "dcpwrongapplets.h"
+#include "dcpmostusedcounter.h"
 #include "briefsupplier.h"
 #include "fakeapplicationservice.h"
 
@@ -11,13 +13,26 @@
 #include <dcpdebug.h>
 #define LOW_PRIORITY
 
+void cleanup ()
+{
+    // free up singletons:
+    DcpRetranslator::destroy();
+    DcpAppletDb::destroy();
+    DcpWrongApplets::destroyInstance();
+    MostUsedCounter::destroy();
+
+    // free up application:
+    delete MApplication::instance();
+}
+
+
 int main (int argc, char* argv[])
 {
 #ifdef LOW_PRIORITY
     setpriority(PRIO_PROCESS, 0, 19);
 #endif // LOW_PRIORITY
 
-    MApplication app(argc, argv, new FakeApplicationService());
+    MApplication* app = new MApplication(argc, argv, new FakeApplicationService());
 
     // install the new translations if locale changes:
     DcpRetranslator* retranslator = DcpRetranslator::instance();
@@ -26,6 +41,7 @@ int main (int argc, char* argv[])
                      retranslator, SLOT(retranslate()));
      */
 
+#ifdef SUPERVISOR
     // handle the arguments:
     for (int i = 1; i < argc; ++i) {
         QString s(argv[i]);
@@ -41,12 +57,17 @@ int main (int argc, char* argv[])
         DcpWrongApplets::connectSupervisorSignals();
         DcpWrongApplets::instance();
     }
+#else
+    DcpWrongApplets::disable();
+#endif
 
     BriefSupplier supplier;
-    QObject::connect(&app, SIGNAL(localeSettingsChanged()),
+    QObject::connect(app, SIGNAL(localeSettingsChanged()),
                      &supplier, SLOT(onLocaleChange()));
 
-    delete retranslator;
-    return app.exec();
+    int result = app->exec();
+
+    cleanup ();
+    return result;
 }
 

@@ -25,6 +25,7 @@
 #include "dcpwrongapplets.h"
 
 #include "dcpdebug.h"
+#include "syslog.h"
 #include <QTime>
 
 /*!
@@ -61,23 +62,36 @@ DcpAppletPluginPrivate::DcpAppletPluginPrivate(DcpAppletMetadata* metadata):
 
 DcpAppletPluginPrivate::~DcpAppletPluginPrivate ()
 {
-    delete appletInstance;
-    /*
-     * I had to remove this code, because the libdui will cause serius segfaults
-     * when the applet has been reloaded and the loadCSS() method is called. We
-     * have to find a solution for this problem. TODO XXX
-     *
-     * lpere@blumsoft.eu
-     */
-    #if 1
+/* 
+ * I uncommented this because the instance is a singleton, so it could lead
+ * to double free when two plugins are using the same shared object.
+ *
+ * "When the library is finally unloaded, the root component will automatically
+ *  be deleted." /Qt/
+ *
+ *     delete appletInstance;
+ */
+    appletInstance = 0;
     if (loader.isLoaded()) {
         loader.unload();
     }
-    #endif
+}
+
+void dcpSyslog (const QString& log)
+{
+    static bool firstRun = true;
+    if (firstRun) {
+        firstRun = false;
+        openlog ("dcpappletdb", LOG_PID, LOG_USER);
+    }
+    syslog (LOG_DEBUG, qPrintable(log));
 }
 
 DcpAppletPlugin::~DcpAppletPlugin()
 {
+    if (metadata()) {
+        dcpSyslog ("unloading " + metadata()->binary());
+    }
     delete d_ptr;
 }
 
@@ -126,8 +140,7 @@ DcpAppletPlugin::errorMsg () const
  * function. Returns true if the object was loaded and initialized.
  */
 bool 
-DcpAppletPlugin::loadPluginFile (
-        const QString &binaryPath)
+DcpAppletPlugin::loadPluginFile (const QString &binaryPath)
 {
     /*
      * The external program applets does not use binary file to load. Here is a
@@ -163,6 +176,7 @@ DcpAppletPlugin::loadPluginFile (
      * We need this so our application won't abort on an unresolved symbol in
      * the plugin.
      */
+    dcpSyslog ("loading " + binaryPath);
     d_ptr->loader.setLoadHints(QLibrary::ResolveAllSymbolsHint);
     d_ptr->loader.setFileName (binaryPath);
     if (!d_ptr->loader.load ()) {

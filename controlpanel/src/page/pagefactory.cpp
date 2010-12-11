@@ -67,8 +67,10 @@ PageFactory::PageFactory ():
 
 PageFactory::~PageFactory ()
 {
+    // delete the cached pages if any
     delete m_MainPage;
     delete m_AppletCategoryPage;
+
     delete sm_AppletLauncher;
     sm_Instance = 0;
 }
