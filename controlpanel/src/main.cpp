@@ -168,9 +168,9 @@ M_EXPORT int main(int argc, char *argv[])
             out << "Usage: " << argv[0] <<
                 " [LIBM OPTION]... [-desktopdir DIR]\n\n";
             out << "  -desktopdir DIR     Load .desktop files from DIR\n";
-            out << "  -nosupervisor       Disables applet supervisor";
-            out << "  -nobriefs           Disables dynamic briefs";
-            out << "  -outprocess         Run the applets in a separate process";
+            out << "  -nosupervisor       Disables applet supervisor\n";
+            out << "  -nobriefs           Disables dynamic briefs\n";
+            out << "  -outprocess         Run the applets in a separate process\n";
             out << "\n\n";
             break;
 

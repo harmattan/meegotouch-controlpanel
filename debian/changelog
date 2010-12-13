@@ -3,8 +3,9 @@ duicontrolpanel (0.10.0~unreleased) unstable; urgency=low
   * Changes: runs most binary applets in separate process
   * Implemented: SWP#DUI-4492
   * New: Help button support for meego
+  * Updates icon ids to spec 0.7
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Sat, 11 Dec 2010 11:46:49 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 13 Dec 2010 15:25:11 +0100
 
 duicontrolpanel (0.9.8) unstable; urgency=low
 

@@ -67,7 +67,7 @@ DcpMain::CategoryInfos[] =
         QT_TRID_NOOP ("qtn_sett_main_notifications_label2"),
         "Notifications",
         PageHandle::NOTIFICATIONS,
-        "icon-m-common-notification",
+        "icon-m-settings-notification",
         0,
         0
     },
@@ -89,8 +89,7 @@ DcpMain::CategoryInfos[] =
         QT_TRID_NOOP ("qtn_sett_main_battery_label2"),
         "Battery",
         PageHandle::BATTERY,
-        "icon-m-energy-management-battery-verylow",
-//        "icon-m-energy-management-battery-low",
+        "icon-m-settings-battery",
         0,
         0
     },
@@ -112,7 +111,7 @@ DcpMain::CategoryInfos[] =
         QT_TRID_NOOP ("qtn_sett_main_clock_label2"),
         "Time & Date",
         PageHandle::REGIONALSETTING,
-        "icon-m-common-clock",
+        "icon-m-settings-time-date",
         0,
         0
     },
