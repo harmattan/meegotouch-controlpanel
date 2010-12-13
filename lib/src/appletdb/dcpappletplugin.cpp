@@ -82,7 +82,7 @@ void dcpSyslog (const QString& log)
     static bool firstRun = true;
     if (firstRun) {
         firstRun = false;
-        openlog ("dcpappletdb", LOG_PID, LOG_USER);
+// TODO XXX       openlog ("dcpappletdb", LOG_PID, LOG_USER);
     }
     syslog (LOG_DEBUG, qPrintable(log));
 }

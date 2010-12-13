@@ -344,12 +344,6 @@ bool PageFactory::maybeRunOutOfProcess (const QString& appletName)
         !db->isAppletLoaded (appletName) &&
         binary != "libdeclarative.so";
 
-    qDebug ("XXX maybeOutOfProcess 2 %d because %d %d %d", runOutProcess,
-            sm_AppletLauncher != 0,
-            !binary.isEmpty(),
-            !db->isAppletLoaded (appletName)
-           );
-
     if (runOutProcess) {
         Q_ASSERT (sm_AppletLauncher->isValid());
         sm_AppletLauncher->appletPage (appletName);
@@ -534,9 +528,7 @@ void PageFactory::setInProcessApplets (bool inProcess)
 
 void PageFactory::onDisplayEntered ()
 {
-    qDebug ("XXX displayEntered");
     if (!m_Pages.isEmpty() && m_Pages.last() == m_AppletCategoryPage) {
-        qDebug ("XXX categoryPage!!!!");
         preloadAppletLauncher();
     }
 }

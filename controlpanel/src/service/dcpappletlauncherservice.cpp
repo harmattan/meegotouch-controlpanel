@@ -56,7 +56,7 @@ void DcpAppletLauncherService::sheduleApplet (const QString& appletName)
     m_PageHandle.id = PageHandle::APPLET;
     m_PageHandle.param = appletName;
     m_PageHandle.widgetId = 0;
-    m_PageHandle.isStandalone = true;
+    m_PageHandle.isStandalone = false;
 }
 
 

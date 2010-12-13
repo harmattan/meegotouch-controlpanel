@@ -96,7 +96,7 @@ QString DcpRemoteBrief::helpId () const
 
 QString DcpRemoteBrief::value (const char* id) const
 {
-    return priv->values.value (id).trimmed(); // FIXME XXX why oh why
+    return priv->values.value (id).trimmed();
 }
 
 void DcpRemoteBrief::setValue (const char* id, const QString& value)
