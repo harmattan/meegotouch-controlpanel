@@ -24,7 +24,7 @@ SOURCES += $$system(find ./ -name \'*.cpp\')
 SOURCES += ../../briefsupplier/src/bsuppliercommands.cpp
 
 CONFIG += meegotouch build_all warn_on debug
-QT += network
+QT += network dbus
 LIBS += -lduicontrolpanel
 
 # a fake check target so as not to stop the testing:
