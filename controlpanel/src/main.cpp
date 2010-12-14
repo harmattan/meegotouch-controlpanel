@@ -38,6 +38,7 @@
 #include <MComponentCache>
 #include <MApplication>
 #include <MLocale>
+#include "syslog.h"
 
 static const QString appIdentifier = "duicontrolpanel";
 
@@ -76,6 +77,7 @@ int
 startMainApplication (int argc, char* argv[])
 {
     DCP_DEBUG ("");
+    openlog ("dcp-main", LOG_PID, LOG_USER);
 
     // init servicefw api:
     DuiControlPanelService* service = new DuiControlPanelService ();
@@ -112,6 +114,7 @@ int
 startAppletLoader (int argc, char* argv[])
 {
     DCP_DEBUG ("");
+    openlog ("dcp-appletloader", LOG_PID, LOG_USER);
 
     // init servicefw api:
     DcpAppletLauncherService* service = new DcpAppletLauncherService ();

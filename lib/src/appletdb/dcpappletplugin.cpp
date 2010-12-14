@@ -79,11 +79,6 @@ DcpAppletPluginPrivate::~DcpAppletPluginPrivate ()
 
 void dcpSyslog (const QString& log)
 {
-    static bool firstRun = true;
-    if (firstRun) {
-        firstRun = false;
-// TODO XXX       openlog ("dcpappletdb", LOG_PID, LOG_USER);
-    }
     syslog (LOG_DEBUG, qPrintable(log));
 }
 

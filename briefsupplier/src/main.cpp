@@ -11,6 +11,7 @@
 #include <sys/resource.h>
 
 #include <dcpdebug.h>
+#include "syslog.h"
 #define LOW_PRIORITY
 
 void cleanup ()
@@ -28,6 +29,7 @@ void cleanup ()
 
 int main (int argc, char* argv[])
 {
+    openlog ("dcp-briefsupplier", LOG_PID, LOG_USER);
 #ifdef LOW_PRIORITY
     setpriority(PRIO_PROCESS, 0, 19);
 #endif // LOW_PRIORITY
