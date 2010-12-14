@@ -9,7 +9,7 @@ sb2 -Re dpkg -i duicontrolpanel-tests*.deb
 maemo-sdk start gui
 maemo-sdk enter runtime
 
-testrunner.py -f /usr/share/duicontrolpanel-tests/tests.xml -o ak.xml
+testrunner-lite -f /usr/share/duicontrolpanel-tests/tests.xml -o ak.xml
 
 --
 

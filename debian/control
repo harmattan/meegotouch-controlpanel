@@ -52,7 +52,7 @@ Package: duicontrolpanel-tests
 Section: misc
 Architecture: any
 Depends: ${shlibs:Depends}, duicontrolpanel (= ${Source-Version}), libqtgui4,
-         meegotestrunner
+         testrunner-lite
 XB-Maemo-CI-Packages: duicontrolpanel
 XB-Maemo-CI-Stage: fast, staging
 Description: libduicontrolpanel unit tests
