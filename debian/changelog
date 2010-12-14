@@ -1,3 +1,9 @@
+duicontrolpanel (0.10.1~unreleased) unstable; urgency=low
+
+  * new version
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 14 Dec 2010 10:38:27 +0100
+
 duicontrolpanel (0.10.0) unstable; urgency=low
 
   * Changes: runs most binary applets in separate process
