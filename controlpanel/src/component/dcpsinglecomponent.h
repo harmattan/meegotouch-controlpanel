@@ -33,7 +33,6 @@ class DcpSingleComponent: public MBasicListItem
 public:
     DcpSingleComponent(QGraphicsWidget* parent,
                        const QString &logicalId,
-                       const QString &title,
                        const QString &iconId = QString(),
                        const QString &subTitle = QString());
     ~DcpSingleComponent ();
@@ -48,9 +47,12 @@ public slots:
     void activate ();
 protected:
     virtual QGraphicsLayout *createLayout();
+    virtual void retranslateUi();
 
 private:
     QString m_TDriverID;
+    QString m_TitleID;
+    QString m_SubtitleID;
     PageHandle m_SubPage;
 
     friend class Ut_DcpSingleComponent;

@@ -22,19 +22,19 @@
 #include <QtDebug>
 #include <MApplication>
 #include <MApplicationWindow>
-#include <DcpSingleComponent>
-#include <DcpMainCategory>
-#include <Pages>
+#include <dcpsinglecomponent.h>
+#include <dcpmaincategory.h>
+#include <pages.h>
 #include <DcpApplet>
 #include <QGraphicsLinearLayout>
 #include <MContainer>
 #include <QTimer>
 
-#include "dcpcategorycomponent.h"
 #include "dcpappletbuttons.h"
 #include "dcpremotebriefreceiver.h"
-#include "maintranslations.h"
 #include "pagefactory.h"
+#include "category.h"
+#include "dcpcategories.h"
 
 #include "mwidgetcreator.h"
 M_REGISTER_WIDGET_NO_CREATE(DcpMainPage)
@@ -52,9 +52,6 @@ M_REGISTER_WIDGET_NO_CREATE(DcpMainPage)
  */
 DcpMainPage::DcpMainPage() :
     DcpPage (),
-#ifdef MOSTUSED
-    m_RecentlyComp (0),
-#endif
     m_HasContent (false),
     m_WasHidden (false)
 {
@@ -79,18 +76,11 @@ DcpMainPage::shown ()
             m_WasHidden = false;
             reload ();
         }
-#ifdef MOSTUSED
-        m_RecentlyComp->startLoading();
-#endif
         return;
     }
 
-#ifdef MOSTUSED
-    m_RecentlyComp->startLoading();
-#endif
     m_HasContent = true;
 
-    emit firstShown ();
     QTimer::singleShot (750, this, SLOT(realShown()));
 }
 
@@ -108,7 +98,7 @@ void DcpMainPage::realShown ()
 
     // this adds the MainPage category if needed:
     DcpAppletButtons* category =
-        new DcpAppletButtons (&DcpMain::mainPageCategory);
+        new DcpAppletButtons (DcpCategories::instance()->mainPageCategory());
     mainLayout()->addItem (category);
 }
 
@@ -131,56 +121,23 @@ DcpMainPage::createContent ()
     layout = mainLayout ();
     Q_ASSERT(layout);
 
-#ifdef MOSTUSED
-    m_OtherComp = new MContainer();
-#endif
-    DcpMainCategory *otherCategories = new DcpMainCategory(
-            0,
-            DcpMain::otherCategoriesTitleId);
-    for (int i = 0;; i++) {
+    DcpMainCategory *otherCategories = new DcpMainCategory();
+    DcpCategories* categoryDb = DcpCategories::instance();
+    QList<const Category*> categoryList =
+        categoryDb->categoryChildren (DcpCategories::mainPageCategoryName());
+
+    foreach (const Category *info, categoryList) {
         DcpSingleComponent *button;
-        const DcpCategoryInfo  *info;
 
-        info = &DcpMain::CategoryInfos[i];
-        if (info->titleId == 0)
-             break;
-
-        button = new DcpSingleComponent(otherCategories, info->titleId,
-                                        qtTrId(info->titleId), info->iconId, qtTrId(info->subtitleId));
-        button->setSubPage(PageHandle(info->subPageId, info->titleId));
+        button = new DcpSingleComponent(otherCategories, info->titleId(),
+                                        info->iconId(), info->subtitleId());
+        button->setSubPage(PageHandle(PageHandle::APPLETCATEGORY, info->name()));
         otherCategories->appendWidget(button);
         m_CategoryButtons.append(button);
     }
 
-#ifdef MOSTUSED
-    m_OtherComp->setCentralWidget(otherCategories);
-    /*
-     * Creating the most recent used items.
-     * Use
-     * # gconftool-2 --recursive-unset /apps/duicontrolpanel/usagecount
-     * to test this piece of code.
-     */
-    m_RecentlyComp = new DcpCategoryComponent (0, &DcpMain::mostUsedCategory,
-                                               centralWidget());
-
-#ifdef PROGRESS_INDICATOR
-    // show progress indicator
-    connect (m_RecentlyComp, SIGNAL (loadingFinished()),
-             this, SLOT (onLoadingFinished()));
-    setProgressIndicatorVisible (true);
-#endif
-
-    if (!m_RecentlyComp->getItemCount()) {
-        m_RecentlyComp->hide();
-    } else {
-        mainLayout ()->addItem (m_RecentlyComp);
-    }
-    layout->addItem(m_OtherComp);
-#else // MOSTUSED
     layout->addItem(otherCategories);
-#endif // MOSTUSED
     retranslateUi();
-
 }
 
 
@@ -195,60 +152,15 @@ DcpMainPage::onLoadingFinished ()
 void
 DcpMainPage::retranslateUi ()
 {
-    setTitle (qtTrId(DcpMain::settingsTitleId));
+    const Category* mainCategory = DcpCategories::instance()->mainPageCategory();
+    setTitle (mainCategory ? mainCategory->title(): QString());
     setTitleLabel ();
-
-#ifdef MOSTUSED
-    /*
-     * We always retranslate the 'most used' category, see NB #156882.
-     */
-    if (m_RecentlyComp) {
-        m_RecentlyComp->retranslateUi ();
-    }
-
-    m_OtherComp->setTitle(qtTrId(DcpMain::otherCategoriesTitleId));
-#endif
-
-    for (int i=0; i<m_CategoryButtons.count(); i++) {
-        DcpSingleComponent* comp = m_CategoryButtons.at(i);
-        comp->setTitle(qtTrId(DcpMain::CategoryInfos[i].titleId));
-        comp->setSubtitle(qtTrId(DcpMain::CategoryInfos[i].subtitleId));
-    }
 }
 
 
 void
 DcpMainPage::reload ()
 {
-    DCP_DEBUG ("WARNING: RELOADING");
-#ifdef MOSTUSED
-     /*
-     * Refreshing the 'most recently used' category. This category category will
-     * be turned off when it just become empty (a highly unlikely event), and
-     * will be turned on if it was empty and now become non-empty.
-     */
-    if (m_RecentlyComp) {
-        bool was_visible;
-
-        was_visible = m_RecentlyComp->getItemCount() != 0;
-
-        m_RecentlyComp->reload ();
-        bool should_be_visible = m_RecentlyComp->getItemCount() != 0;
-
-        /*
-         * If the 'most recetly used' category is empty we hide it, if not empty
-         * we show it.
-         */
-        if (!should_be_visible && was_visible) {
-            mainLayout ()->removeItem (m_RecentlyComp);
-            m_RecentlyComp->hide();
-        } else if (should_be_visible && !was_visible) {
-            mainLayout ()->insertItem (0, m_RecentlyComp);
-            m_RecentlyComp->show();
-            m_RecentlyComp->retranslateUi ();
-        }
-    }
-#endif 
     /*
      * DcpBriefWidget should take care of updating their contents in showEvent
      */

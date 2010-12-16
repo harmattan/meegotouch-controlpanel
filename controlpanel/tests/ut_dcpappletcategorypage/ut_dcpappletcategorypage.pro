@@ -22,13 +22,11 @@ SOURCES += \
     $$STUBSDIR/mapplication-fake.cpp \
     $$STUBSDIR/mapplicationwindow-fake.cpp \
     $$STUBSDIR/mgridlayoutpolicy-fake.cpp \
-    $$STUBSDIR/maintranslations-fake.cpp \
     $$STUBSDIR/mabstractlayoutpolicy-fake.cpp \
     $$STUBSDIR/mlayout-fake.cpp \
     $$STUBSDIR/mlinearlayoutpolicy-fake.cpp \
     $$STUBSDIR/mcontainer-fake.cpp \
     $$LIBDCPFAKES/mgconfitem-fake.cpp \
-    $$STUBSDIR/dcpcomponent-fake.cpp \
     $$STUBSDIR/dcpappletdb-fake.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
     $$STUBSDIR/dcpappletbuttons-fake.cpp \
@@ -36,6 +34,9 @@ SOURCES += \
     $$STUBSDIR/dcpretranslator-fake.cpp \
     $$STUBSDIR/dcpsinglecomponent-fake.cpp \
     $$STUBSDIR/dcpmaincategory-fake.cpp \
+    $$STUBSDIR/dcpcategories-fake.cpp \
+    $$STUBSDIR/category-fake.cpp \
+    $$STUBSDIR/qgraphicsobject-fake.cpp \
     $$TEST_SOURCES \ 
 
 # base classes
@@ -50,7 +51,6 @@ HEADERS += \
     $$SRCDIR/page/dcpappletcategorypage.h \
     $$SRCDIR/page/dcppage.h \
     $$SRCDIR/page/pages.h \
-    $$SRCDIR/component/dcpcomponent.h \
     $$SRCDIR/component/dcpmaincategory.h \
     $$SRCDIR/component/dcpsinglecomponent.h \
 

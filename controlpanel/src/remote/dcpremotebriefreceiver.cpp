@@ -1,7 +1,7 @@
 #include "dcpremotebriefreceiver.h"
 #include "dcpremotebriefreceiver_p.h"
 
-#include <bsuppliercommands.h>
+#include <../../briefsupplier/src/bsuppliercommands.h>
 #include <QCoreApplication>
 #include <QTimer>
 #include <dcpdebug.h>

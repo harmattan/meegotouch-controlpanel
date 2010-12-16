@@ -20,13 +20,17 @@
 
 #include <dcpappletcategorypage.h>
 #include <dcpmaincategory.h>
-#include <maintranslations.h>
+#include <category.h>
+#include <dcpcategories.h>
+
+#define CATEGORY DcpCategories::instance()->categoryById("fake-category")
+#define CATEGORY2 DcpCategories::instance()->categoryById("ZERO")
 
 #include "ut_dcpappletcategorypage.h"
 
 void Ut_DcpAppletCategoryPage::init()
 {
-    m_subject = new DcpAppletCategoryPage(&DcpMain::CategoryInfos[0]);
+    m_subject = new DcpAppletCategoryPage(CATEGORY);
 
 }
 
@@ -48,8 +52,7 @@ void Ut_DcpAppletCategoryPage::cleanupTestCase()
 void Ut_DcpAppletCategoryPage::testCreation()
 {
     QVERIFY(m_subject);
-    QCOMPARE((void*)m_subject->m_CategoryInfo, 
-        (void*)(&DcpMain::CategoryInfos[0]));
+    QCOMPARE((void*)m_subject->m_CategoryInfo, (void*)(CATEGORY));
 //    QCOMPARE(m_subject->m_Category->maxColumns(), 2);
 }
 
@@ -60,16 +63,15 @@ void Ut_DcpAppletCategoryPage::testCreateContent()
 
 void Ut_DcpAppletCategoryPage::testAppletCategory()
 {
-    QCOMPARE(m_subject->appletCategory(), QString("fake-category"));
-    m_subject->setCategoryInfo(&DcpMain::CategoryInfos[1]);
-    QCOMPARE(m_subject->appletCategory(), QString("fake-category-2"));
+    QCOMPARE(m_subject->appletCategory(), QString("FAKE-CATEGORY"));
+    m_subject->setCategoryInfo(CATEGORY2);
+    QCOMPARE(m_subject->appletCategory(), QString("ZERO"));
 }
 
 void Ut_DcpAppletCategoryPage::testCategoryInfo()
 {
-    m_subject->setCategoryInfo(&DcpMain::CategoryInfos[1]);
-    QCOMPARE((void*)m_subject->m_CategoryInfo, 
-        (void*)(&DcpMain::CategoryInfos[1]));
+    m_subject->setCategoryInfo(CATEGORY2);
+    QCOMPARE((void*)m_subject->m_CategoryInfo, (void*)(CATEGORY2));
   
 }
 
@@ -84,12 +86,6 @@ void Ut_DcpAppletCategoryPage::testCleanup()
     QSKIP("incomplete", SkipSingle);   // remove this when you've finished
 }
 
-void Ut_DcpAppletCategoryPage::testSetTitleId()
-{
-    m_subject->setTitleId("abcd");
-    QCOMPARE(m_subject->m_TitleId, "abcd");
-}
-
 void Ut_DcpAppletCategoryPage::testBack()
 {
     m_subject->back();
@@ -97,9 +93,9 @@ void Ut_DcpAppletCategoryPage::testBack()
 
 void Ut_DcpAppletCategoryPage::testRetranslateUi()
 {
-    m_subject->m_TitleId = "abcd";
+    m_subject->m_CategoryInfo = CATEGORY2;
     m_subject->retranslateUi();
-    QCOMPARE(m_subject->title(), QString("abcd"));
+    QCOMPARE(m_subject->title(), QString("Zero title"));
 }
 
 void Ut_DcpAppletCategoryPage::testAddComponent()
@@ -108,3 +104,4 @@ void Ut_DcpAppletCategoryPage::testAddComponent()
 }
 
 QTEST_APPLESS_MAIN(Ut_DcpAppletCategoryPage)
+

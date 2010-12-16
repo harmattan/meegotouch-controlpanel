@@ -25,28 +25,23 @@ SOURCES += \
     $$STUBSDIR/qgraphicsobject-fake.cpp \
     $$STUBSDIR/mapplicationwindow-fake.cpp \
     $$STUBSDIR/mgridlayoutpolicy-fake.cpp \
-    $$STUBSDIR/maintranslations-fake.cpp \
     $$STUBSDIR/mabstractlayoutpolicy-fake.cpp \
     $$STUBSDIR/mlayout-fake.cpp \
     $$STUBSDIR/mlinearlayoutpolicy-fake.cpp \
     $$STUBSDIR/dcpremotebriefreceiver-fake.cpp \
-    $$STUBSDIR/mcontainer-fake.cpp \
-    $$STUBSDIR/dcpcontentitem-fake.cpp \
     $$STUBSDIR/mwidgetcontroller-fake.cpp \
-    $$LIBDCPFAKES/mgconfitem-fake.cpp \
-    $$LIBDCPFAKES/mimagewidget-fake.cpp \
 #    $$STUBSDIR/dcppage-fake.cpp \
-    $$STUBSDIR/dcpcomponent-fake.cpp \
     $$STUBSDIR/dcpappletdb-fake.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
     $$STUBSDIR/dcpappletplugin-fake.cpp \
     $$STUBSDIR/dcpretranslator-fake.cpp \
     $$STUBSDIR/mbasiclistitem-fake.cpp \
     $$STUBSDIR/dcpsinglecomponent-fake.cpp \
-    $$STUBSDIR/dcpcategorycomponent-fake.cpp \
     $$STUBSDIR/dcpmaincategory-fake.cpp \
     $$STUBSDIR/pagefactory-fake.cpp \
     $$STUBSDIR/qgraphicslinearlayout-fake.cpp \
+    $$STUBSDIR/dcpcategories-fake.cpp \
+    $$STUBSDIR/category-fake.cpp \
     $$TEST_SOURCES \ 
 
 # base classes
@@ -61,8 +56,6 @@ HEADERS += \
     $$SRCDIR/page/dcppage.h \
     $$SRCDIR/page/pagefactory.h \
     $$SRCDIR/page/pages.h \
-    $$SRCDIR/page/dcpcategorycomponent.h \
-    $$SRCDIR/component/dcpcomponent.h \
     $$SRCDIR/component/dcpmaincategory.h \
     $$SRCDIR/component/dcpsinglecomponent.h \
     $$STUBSDIR/dcpappletplugin-applet.h \

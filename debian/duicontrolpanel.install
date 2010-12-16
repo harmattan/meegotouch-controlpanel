@@ -8,3 +8,4 @@ usr/share/applications/duicontrolpanel.desktop
 usr/lib/duicontrolpanel/applets/libdeclarative.so
 usr/share/dbus-1
 etc/osso-rfs-scripts/controlpanel-rfs.sh
+usr/share/duicontrolpanel/categories

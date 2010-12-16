@@ -21,7 +21,7 @@
 #ifndef DCPMAINPAGE_H
 #define DCPMAINPAGE_H
 
-#include <DcpPage>
+#include "dcppage.h"
 #include <QList>
 
 class DcpMainCategory;
@@ -39,9 +39,6 @@ public:
     virtual void createContent ();
 
     virtual void reload();
-
-signals:
-    void firstShown (void);
 
 public slots:
     void back();

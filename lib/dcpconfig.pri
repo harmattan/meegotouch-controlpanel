@@ -12,6 +12,7 @@
 	DCP_APPLET_DIR = $$DCP_PREFIX/lib/duicontrolpanel/applets
 	DCP_UIDESC_DIR = $$DCP_PREFIX/lib/duicontrolpanel/uidescriptions
 	DCP_TRANSLATIONS_DIR = $$DCP_PREFIX/share/l10n/meegotouch
+    DCP_CATEGORY_DIR = $$DCP_PREFIX/share/duicontrolpanel/categories
 }
 
 # Gconf keys 
@@ -36,5 +37,7 @@
 	DEFINES += TRANSLATIONS_DIR=\\\"\"$$DCP_TRANSLATIONS_DIR\"\\\"
 
 	DEFINES += MOSTUSEDCOUNTER_GCONFKEY=\\\"\"$$DCP_MOSTUSEDCOUNTER_GCONFKEY\"\\\"
+
+	DEFINES += DCP_CATEGORY_DIR=\\\"\"$$DCP_CATEGORY_DIR\"\\\"
 }
 }

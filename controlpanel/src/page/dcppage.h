@@ -19,7 +19,7 @@
 #define DCPPAGE_H
 
 #include <MApplicationPage>
-#include <Pages>
+#include "pages.h"
 
 class QGraphicsLinearLayout;
 class MLabel;

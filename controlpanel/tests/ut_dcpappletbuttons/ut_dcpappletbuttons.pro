@@ -14,7 +14,6 @@ TEST_SOURCES = \
     $$SRCDIR/page/dcpappletbuttons.cpp \
     $$SRCDIR/page/pages.cpp \
     $$SRCDIR/component/dcpmaincategory.cpp \
-    $$SRCDIR/component/dcpcomponent.cpp \
     $$SRCDIR/component/dcpappletwidget.cpp \
 
 # unit test and unit
@@ -22,7 +21,6 @@ SOURCES += \
     *.cpp \
     $$STUBSDIR/dcpappletplugin-fake.cpp \
     $$STUBSDIR/dcpremoteappletobject-fake.cpp \
-    $$STUBSDIR/maintranslations-fake.cpp \
     $$STUBSDIR/dcpappletdb-fake.cpp \
     $$LIBDCPFAKES/mgconfitem-fake.cpp \
     $$LIBDCPFAKES/mhelpbutton-fake.cpp \
@@ -34,6 +32,8 @@ SOURCES += \
     $$STUBSDIR/qgraphicsobject-fake.cpp \
     $$STUBSDIR/mlist-fake.cpp \
     $$STUBSDIR/mtheme-fake.cpp \
+    $$STUBSDIR/category-fake.cpp \
+    $$STUBSDIR/dcpcategories-fake.cpp \
     $$STUBSDIR/qgraphicslinearlayout-fake.cpp \
     $$TEST_SOURCES \
 
@@ -47,8 +47,9 @@ HEADERS += \
     $$STUBSDIR/dcpappletplugin-applet.h \
     $$SRCDIR/page/dcpappletbuttons.h \
     $$SRCDIR/component/dcpmaincategory.h \
-    $$SRCDIR/component/dcpcomponent.h \
     $$SRCDIR/component/dcpappletwidget.h \
+    $$SRCDIR/categories/category.h \
+    $$SRCDIR/categories/dcpcategories.h \
     $$SRCDIR/page/dcpcontentitemcellcreator.h \
     $$SRCDIR/remote/dcpremoteappletobject.h \
 

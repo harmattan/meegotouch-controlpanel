@@ -229,38 +229,40 @@ DcpAppletDb::listByCategory (
         int          n_categories,
         checkCategory   checkFunction)
 {
+    QStringList categories;
+    for (int n = 0; n < n_categories && category[n] != 0; ++n) {
+        categories << category[n];
+    }
+    return listByCategory (categories, checkFunction);
+}
+
+
+DcpAppletMetadataList
+DcpAppletDb::listByCategory (const QStringList& categories,
+                             checkCategory   checkFunction)
+{
     QList<DcpAppletMetadata*> filtered;
 
     foreach (DcpAppletMetadata *item, d_ptr->appletsByFile) {
-        for (int n = 0; n < n_categories && category[n] != 0; ++n) {
+        foreach (QString category, categories) {
             /*
              * We add this item if we asked to include the uncategorized
              * items and this is an uncategorized item or if the item is in the
              * category we are requested for.
              */
-            #if 0
-            DCP_WARNING ("------------------------------");
-            DCP_WARNING ("applet        = %s", DCP_STR(item->name()));
-            DCP_WARNING ("category      = %s", DCP_STR(item->category()));
-            DCP_WARNING ("checkFunction = %p", checkFunction);
-            DCP_WARNING ("checked       = %s", 
-                    checkFunction && checkFunction (item->category ()) ?
-                    "true" : "false");
-            #endif
-
             if ((checkFunction && !checkFunction (item->category ())) ||
                     !item->category().compare (
-                        QString(category[n]), Qt::CaseInsensitive)) {
-                //DCP_WARNING ("Adding applet %s", DCP_STR(item->name()));
+                        QString(category), Qt::CaseInsensitive)) {
                 filtered.append (item);
                 break;
             }
         }
     }
 
-    sortACategory (filtered, n_categories > 0 ? category[0] : QString());
+    sortACategory (filtered, categories.count() > 0 ? categories.at(0) : QString());
     return filtered;
 }
+
 
 #ifdef MOSTUSED
 DcpAppletMetadataList 

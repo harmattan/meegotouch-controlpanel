@@ -16,6 +16,7 @@ SUBDIRS += src \
 include (common.pri)
 include(theme/theme.pri)
 include(desktop/desktop.pri)
+include (categories/categories.pri)
 
 # for check:
 

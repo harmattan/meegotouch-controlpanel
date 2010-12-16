@@ -9,8 +9,10 @@ QMAKE_LIBDIR += ../../lib/lib/
 include (launchers.pri)
 
 TEMPLATE = app
-DEPENDPATH += include ../../lib/src/include
+DEPENDPATH += $$system(find . -type d) \
+              ../../lib/src/include
 INCLUDEPATH += $$DEPENDPATH
+
 OBJECTS_DIR = ../tmp
 MOC_DIR = ../tmp
 
@@ -19,7 +21,6 @@ include (service/service.pri)
 
 # Input
 HEADERS += $$system(find ./ -name \'*.h\')
-HEADERS += include/*
 SOURCES += $$system(find ./ -name \'*.cpp\')
 SOURCES += ../../briefsupplier/src/bsuppliercommands.cpp
 

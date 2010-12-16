@@ -20,14 +20,14 @@
 #include "dcpappletbuttons.h"
 
 DcpAppletButtons::DcpAppletButtons (
-        const DcpCategoryInfo  *categoryInfo,
+        const Category  *categoryInfo,
         QGraphicsWidget        *parent)
-: DcpMainCategory (parent, categoryInfo->titleId),
+: DcpMainCategory (parent),
     m_CategoryInfo (categoryInfo)
 {
 }
 
-void DcpAppletButtons::setCategoryInfo(DcpCategoryInfo const*)
+void DcpAppletButtons::setCategoryInfo(const Category*)
 {
 }
 
@@ -42,7 +42,7 @@ DcpAppletButtons::createContents ()
 
 void
 DcpAppletButtons::addComponent (
-        DcpAppletMetadata *metadata)
+        DcpAppletMetadata *metadata, QStandardItemModel*)
 {
     Q_UNUSED(metadata);
 }
@@ -65,4 +65,21 @@ DcpAppletButtons::metadataCount () const
     return 0;
 }
 
+QString DcpAppletButtons::mattiID() const
+{
+    return QString();
+}
+
+QString DcpAppletButtons::TDriverID() const
+{
+    return QString();
+}
+
+void DcpAppletButtons::setMattiID(QString const&)
+{
+}
+
+void DcpAppletButtons::setTDriverID(QString const&)
+{
+}
 

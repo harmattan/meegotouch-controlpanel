@@ -73,14 +73,6 @@ void Ut_PageHandle::testGetStringVariant()
     QVERIFY(h3.getStringVariant() == "APPLET://datetime/1");
     PageHandle h4(PageHandle::NOPAGE);
     QVERIFY(h4.getStringVariant() == "NOPAGE:///-1");
-    PageHandle h5(PageHandle::CATEGORY_PAGEID_START);
-    QVERIFY(h5.getStringVariant() == "CATEGORY_PAGEID_START:///-1");
-    PageHandle h7(PageHandle::CONNECTIVITY);
-    QVERIFY(h7.getStringVariant() == "Connections:///-1");
-   PageHandle h11(PageHandle::Applications);
-    QVERIFY(h11.getStringVariant() == "Applications:///-1");
-    PageHandle h12(PageHandle::CATEGORY_PAGEID_END);
-    QVERIFY(h12.getStringVariant() == "CATEGORY_PAGEID_END:///-1");
     PageHandle h13(PageHandle::APPLET);
     QVERIFY(h13.getStringVariant() == "APPLET:///-1");
     PageHandle h15(PageHandle::APPLETCATEGORY, "Connectivity" );

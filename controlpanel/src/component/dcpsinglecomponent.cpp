@@ -33,27 +33,34 @@
 DcpSingleComponent::DcpSingleComponent (
         QGraphicsWidget     *parent,
         const QString       &logicalId,
-        const QString       &title,
         const QString       &imageId,
-        const QString       &subTitle)
-: MBasicListItem(subTitle.isEmpty() ? MBasicListItem::IconWithTitle:
-                 MBasicListItem::IconWithTitleAndSubtitle, parent)
+        const QString       &subTitleId)
+: MBasicListItem(subTitleId.isEmpty() ? MBasicListItem::IconWithTitle:
+                 MBasicListItem::IconWithTitleAndSubtitle, parent),
+                 m_TDriverID ("DcpSingleComponent::" + logicalId),
+                 m_TitleID (logicalId),
+                 m_SubtitleID (subTitleId)
 {
     setObjectName (QString());
     setStyleName("CommonPanelInverted");
 
-    setTitle(title);
     imageWidget()->setImage (imageId);
-    setSubtitle(subTitle);
 
     connect(this, SIGNAL (clicked()),
             this, SLOT (activate()));
 
-    m_TDriverID = "DcpSingleComponent::" + logicalId;
+    retranslateUi ();
 }
 
 DcpSingleComponent::~DcpSingleComponent()
 {
+}
+
+void DcpSingleComponent::retranslateUi()
+{
+    // TODO XXX this can lead to showing ids in case of there is no translation
+    setTitle (qtTrId(qPrintable(m_TitleID)));
+    setSubtitle (qtTrId(qPrintable(m_SubtitleID)));
 }
 
 QGraphicsLayout *DcpSingleComponent::createLayout()

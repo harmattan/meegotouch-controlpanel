@@ -21,9 +21,8 @@
 #define DCPAPPLETDB_H
 
 #include <QObject>
-#include <QList>
+#include <QStringList>
 #include <QMap>
-#include <QString>
 #include "dcpapplet.h"
 
 /*!
@@ -81,6 +80,10 @@ public:
     DcpAppletMetadataList listByCategory (
                     const char    **category,
                     int             n_categories,
+                    checkCategory   checkFunction = 0);
+
+    DcpAppletMetadataList listByCategory (
+                    const QStringList& categories,
                     checkCategory   checkFunction = 0);
 
 #ifdef MOSTUSED

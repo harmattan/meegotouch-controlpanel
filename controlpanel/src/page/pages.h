@@ -36,20 +36,6 @@ public:
     typedef enum {
         NOPAGE = -1,
         MAIN,
-        CATEGORY_PAGEID_START,  // ---
-        CONNECTIVITY,
-        PHONE,
-        Applications,
-        NOTIFICATIONS,
-        PERSONALIZE,
-        BATTERY,
-        SECURITY,
-        REGIONALSETTING,
-        LANGUAGEKEYBOARD,
-        ACCESSORIES,
-        BACKUP,
-        ABOUT,
-        CATEGORY_PAGEID_END,    // ---
         APPLET,
         APPLETCATEGORY,
         PAGEID_COUNT

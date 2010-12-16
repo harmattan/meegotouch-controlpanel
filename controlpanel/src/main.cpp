@@ -22,7 +22,6 @@
 #include "service/duicontrolpanelservice.h"
 #include "service/dcpappletlauncherservice.h"
 #include "dcpappletdb.h"
-#include "appleterrorsdialog.h"
 #include "dcpwrongapplets.h"
 #include "dcpremotebriefreceiver.h"
 #include "pagefactory.h"

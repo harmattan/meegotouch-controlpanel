@@ -99,22 +99,6 @@ DcpAppletDb::addFiles (
     return true;
 }
 
-DcpAppletMetadataList
-DcpAppletDb::listByCategory (
-        const char **category,
-        int          n_categories,
-        checkCategory   checkFunction)
-{
-    Q_UNUSED(checkFunction);
-    DcpAppletMetadataList list;
-    foreach(DcpAppletMetadata* m, d_ptr->appletsByFile.values()) {
-        if (n_categories && category[1] == m->category()) {
-            list.append (m);
-        }
-    }
-    return list;
-}
-
 #ifdef MOSTUSED
 DcpAppletMetadataList
 DcpAppletDb::listMostUsed ()

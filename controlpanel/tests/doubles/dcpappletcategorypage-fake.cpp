@@ -16,11 +16,11 @@
 ****************************************************************************/
 
 #include "dcpappletcategorypage.h"
+#include "category.h"
 
 DcpAppletCategoryPage::DcpAppletCategoryPage (
-        const DcpCategoryInfo  *categoryInfo) :
+        const Category *categoryInfo) :
     m_CategoryInfo (categoryInfo),
-    m_TitleId(0),
     m_Category(0)
 {
 }
@@ -38,12 +38,12 @@ DcpAppletCategoryPage::createContent ()
 const QString 
 DcpAppletCategoryPage::appletCategory() const 
 {
-    return m_CategoryInfo->appletCategory;
+    return m_CategoryInfo->name();
 }
 
 void 
 DcpAppletCategoryPage::setCategoryInfo (
-        const DcpCategoryInfo *categoryInfo) 
+        const Category *categoryInfo) 
 {
     m_CategoryInfo = categoryInfo;
 }
@@ -61,12 +61,6 @@ void DcpAppletCategoryPage::back ()
 void
 DcpAppletCategoryPage::retranslateUi()
 {
-}
-
-void
-DcpAppletCategoryPage::setTitleId(const char *titleId)
-{
-   Q_UNUSED(titleId);
 }
 
 int

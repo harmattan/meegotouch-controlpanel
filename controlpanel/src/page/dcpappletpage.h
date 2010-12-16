@@ -18,8 +18,9 @@
 #ifndef DCPAPPLETPAGE_H
 #define DCPAPPLETPAGE_H
 
-#include <DcpPage>
-#include <Pages>
+#include "dcppage.h"
+#include "pages.h"
+
 #include <QVector>
 
 class DcpAppletWidget;

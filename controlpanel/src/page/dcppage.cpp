@@ -203,6 +203,7 @@ DcpPage::setTitleLabel ()
 {
     if (! mainLayout()) return;
 
+    qDebug ("XXX %s", qPrintable (title()));
     if (title().isEmpty()) {
         if (m_TitleLabel) {
             QGraphicsLayoutItem* title = mainLayout()->itemAt(0);

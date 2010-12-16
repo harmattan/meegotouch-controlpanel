@@ -18,29 +18,27 @@
 #ifndef DCPAPPLETCATEGORYPAGE_H
 #define DCPAPPLETCATEGORYPAGE_H
 
-#include <DcpPage>
-#include <Pages>
-#include "maintranslations.h"
+#include "dcppage.h"
+#include "pages.h"
 
 class DcpAppletMetadata;
 class DcpAppletButtons;
+class Category;
 
-class DcpAppletCategoryPage :
-        public DcpPage
+class DcpAppletCategoryPage : public DcpPage
 {
     Q_OBJECT
 
 public:
-    DcpAppletCategoryPage (const DcpCategoryInfo *categoryInfo);
+    DcpAppletCategoryPage (const Category *categoryInfo);
     virtual ~DcpAppletCategoryPage ();
 
 
     virtual void createContent ();
     const QString appletCategory () const;
-    void setCategoryInfo (const DcpCategoryInfo *categoryInfo);
+    void setCategoryInfo (const Category *categoryInfo);
 
     virtual void reload();
-    void setTitleId(const char* titleId);
     int appletCount();
     DcpAppletMetadata* appletMetadata(int i);
 
@@ -58,8 +56,7 @@ private:
     // loaded. same as m_CategoryInfo->appletCategory if the
     // page's content is loaded
     QString m_LoadedAppletCategory;
-    const DcpCategoryInfo  *m_CategoryInfo;
-    const char* m_TitleId;
+    const Category *m_CategoryInfo;
     DcpAppletButtons* m_Category;
     friend class Ut_DcpAppletCategoryPage;
 };

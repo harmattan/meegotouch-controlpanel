@@ -1,7 +1,7 @@
 #ifndef DCPREMOTEBRIEF_P_H
 #define DCPREMOTEBRIEF_P_H
 
-#include <bsuppliercommands.h>
+#include <../../briefsupplier/src/bsuppliercommands.h>
 #include <QString>
 #include <QHash>
 

@@ -12,7 +12,6 @@ TEST_SOURCES = \
 SOURCES += \
     ut_dcpmaincategory.cpp \
     $$SRCDIR/page/pages.cpp \
-    ../doubles/dcpcomponent-fake.cpp \
     ../doubles/mapplication-fake.cpp \
     ../doubles/mapplicationwindow-fake.cpp \
     ../doubles/mwindow-fake.h \
@@ -26,7 +25,6 @@ SOURCES += \
 HEADERS += \
     ut_dcpmaincategory.h \
     $$SRCDIR/component/dcpmaincategory.h \
-    $$SRCDIR/component/dcpcomponent.h \
     $$SRCDIR/page/pages.h \
 
 # base classes

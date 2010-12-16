@@ -22,7 +22,6 @@
 
 
 #include "ut_dcpmaincategory.h"
-#include <DcpComponent>
 
 void Ut_DcpMainCategory::init()
 {
@@ -49,7 +48,7 @@ void Ut_DcpMainCategory::testCreation()
 
 void Ut_DcpMainCategory::testAppendWidget() 
 {
-    DcpComponent *component1 = new DcpComponent(0, "test");
+    QGraphicsWidget *component1 = new QGraphicsWidget();
     QGraphicsLayoutItem *item1 = 0;
     m_subject->appendWidget(component1);
     item1 = m_subject->layout()->itemAt(0);
@@ -61,9 +60,9 @@ void Ut_DcpMainCategory::testGetItemCount()
 {
     QCOMPARE(m_subject->getItemCount(), 0);
 
-    DcpComponent* component1 = new DcpComponent(0, "test");
-    DcpComponent* component2 = new DcpComponent(0, "test");
-    DcpComponent* component3 = new DcpComponent(0, "test");
+    QGraphicsWidget* component1 = new QGraphicsWidget();
+    QGraphicsWidget* component2 = new QGraphicsWidget();
+    QGraphicsWidget* component3 = new QGraphicsWidget();
     m_subject->appendWidget(component1);
     QCOMPARE(m_subject->getItemCount(), 1);
 
@@ -86,9 +85,9 @@ void Ut_DcpMainCategory::testMLayout()
 
 void Ut_DcpMainCategory::testDeleteItems() 
 {
-    DcpComponent *component1 = new DcpComponent(0, "test1");
+    QGraphicsWidget *component1 = new QGraphicsWidget();
     m_subject->appendWidget(component1);
-    DcpComponent *component2 = new DcpComponent(0, "test2");
+    QGraphicsWidget *component2 = new QGraphicsWidget();
     m_subject->appendWidget(component2);
     QVERIFY(m_subject->layout()->count() != 0); 
     m_subject->deleteItems();

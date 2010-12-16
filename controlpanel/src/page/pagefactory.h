@@ -55,7 +55,6 @@ public slots:
     bool changePage (const PageHandle &handle);
     bool changeToAppletPage (const QString& appletName);
 
-    void mainPageFirstShown (void);
     void onAppletLoaded (DcpAppletObject *applet);
     void preloadAppletLauncher ();
 

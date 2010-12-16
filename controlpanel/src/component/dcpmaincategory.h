@@ -20,23 +20,19 @@
 #ifndef DCPMAINCATEGORY_H
 #define DCPMAINCATEGORY_H
 
-#include "dcpcomponent.h"
-
 #include <QGraphicsLinearLayout>
-
 #include <MSeparator>
+#include <QGraphicsWidget>
 
 /*!
  * A rectangular table like widget inside the main page and the category pages.
  */
-class DcpMainCategory : public /*DcpCategory*/ DcpComponent
+class DcpMainCategory : public QGraphicsWidget
 {
     Q_OBJECT
 
 public:
-    DcpMainCategory(
-            QGraphicsWidget  *parent = 0,
-            const QString    &logicalId = "");
+    DcpMainCategory(QGraphicsWidget  *parent = 0);
 
     virtual void appendWidget (QGraphicsWidget *component);
     QGraphicsWidget* widgetAt (int i);

@@ -40,11 +40,6 @@ PageFactory::destroy()
 {
 }
 
-void
-PageFactory::mainPageFirstShown ()
-{
-}
-
 
 PageFactory *
 PageFactory::instance ()

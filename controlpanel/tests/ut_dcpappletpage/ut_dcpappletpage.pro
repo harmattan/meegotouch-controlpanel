@@ -25,21 +25,15 @@ SOURCES += \
     $$STUBSDIR/mapplicationpage-fake.cpp \
     $$STUBSDIR/mapplicationwindow-fake.cpp \
     $$STUBSDIR/mgridlayoutpolicy-fake.cpp \
-    $$STUBSDIR/maintranslations-fake.cpp \
     $$STUBSDIR/mabstractlayoutpolicy-fake.cpp \
     $$STUBSDIR/mlayout-fake.cpp \
     $$STUBSDIR/mlinearlayoutpolicy-fake.cpp \
-    $$STUBSDIR/dcpcontentitem-fake.cpp \
     $$STUBSDIR/mwidgetcontroller-fake.cpp \
-    $$STUBSDIR/dcpcomponent-fake.cpp \
     $$STUBSDIR/dcpappletdb-fake.cpp \
     $$STUBSDIR/dcpappletplugin-fake.cpp \
     $$STUBSDIR/dcpappletobject-fake.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
     $$STUBSDIR/dcpretranslator-fake.cpp \
-    $$STUBSDIR/dcpsinglecomponent-fake.cpp \
-    $$STUBSDIR/dcpcategorycomponent-fake.cpp \
-    $$STUBSDIR/dcpmaincategory-fake.cpp \
     $$STUBSDIR/qgraphicslinearlayout-fake.cpp \
     $$STUBSDIR/qgraphicsobject-fake.cpp \
     $$TEST_SOURCES \ 
@@ -54,12 +48,7 @@ HEADERS += \
     $$STUBSDIR/dcpappletplugin-applet.h \
     $$SRCDIR/page/dcpappletpage.h \
     $$SRCDIR/page/dcppage.h \
-    $$SRCDIR/appletthemes.h \
     $$SRCDIR/page/pages.h \
-    $$SRCDIR/page/dcpcategorycomponent.h \
-    $$SRCDIR/component/dcpcomponent.h \
-    $$SRCDIR/component/dcpmaincategory.h \
-    $$SRCDIR/component/dcpsinglecomponent.h \
     $$SRCDIR/component/dcpappletwidget.h \
 
 # base classes

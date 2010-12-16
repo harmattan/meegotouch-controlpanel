@@ -19,7 +19,6 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QtGlobal> 
 #include <dcpmainpage.h>
-#include "dcpcategorycomponent.h"
 #include "dcpsinglecomponent.h"
 #include <QSignalSpy>
 #include <MContainer>
@@ -75,22 +74,18 @@ void Ut_DcpMainPage::testReload()
 void Ut_DcpMainPage::testShown()
 {
 // case 1: No contents yet
-    QSignalSpy spy(m_subject, SIGNAL(firstShown()));
 //    QSignalSpy spyReloaded((QObject*)(m_subject->m_RecentlyComp), SIGNAL(reloaded()));
     m_subject->shown();
     QVERIFY(m_subject->m_HasContent);
-    QCOMPARE(spy.count(), 1);
 // case 2: there is content yet
     m_subject->m_WasHidden = true;
     m_subject->shown();
     QVERIFY(m_subject->m_WasHidden == false);
-    QCOMPARE(spy.count(), 1); // not incrementing
 //    QCOMPARE(spyReloaded.count(), 1);
 // case 3: there is content and visible
     m_subject->m_WasHidden = false;
     m_subject->shown();
     QVERIFY(m_subject->m_WasHidden == false);
-    QCOMPARE(spy.count(), 1); // not incrementing
 //    QCOMPARE(spyReloaded.count(), 1);// not incrementing
 }
 /*
@@ -105,7 +100,7 @@ void Ut_DcpMainPage::testRetranslateUi()
     // first we need to create all the contents
     m_subject->createContent();
     m_subject->retranslateUi();
-    QCOMPARE(m_subject->title(), qtTrId(QT_TRID_NOOP("qtn_sett_main_title")));
+    QCOMPARE(m_subject->title(), QString("MainPage Title"));
 #ifdef MOSTUSED
     QCOMPARE(m_subject->m_RecentlyComp->title(),
              qtTrId(QT_TRID_NOOP("qtn_sett_main_most")));

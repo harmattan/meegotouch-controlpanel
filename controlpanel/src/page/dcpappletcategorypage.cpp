@@ -20,6 +20,7 @@
 
 #include "dcpappletcategorypage.h"
 #include "dcpappletbuttons.h"
+#include "category.h"
 #include <QDebug>
 
 #include <DcpAppletDb>
@@ -32,10 +33,9 @@
 #include <MPannableViewport>
 
 DcpAppletCategoryPage::DcpAppletCategoryPage (
-        const DcpCategoryInfo  *categoryInfo) :
+        const Category *categoryInfo) :
     DcpPage (),
     m_CategoryInfo (categoryInfo),
-    m_TitleId(0),
     m_Category(0)
 {
 }
@@ -65,12 +65,12 @@ DcpAppletCategoryPage::createContent ()
 const QString 
 DcpAppletCategoryPage::appletCategory() const 
 {
-    return m_CategoryInfo->appletCategory;
+    return m_CategoryInfo->name();
 }
 
 void 
 DcpAppletCategoryPage::setCategoryInfo (
-        const DcpCategoryInfo *categoryInfo) 
+        const Category *categoryInfo) 
 {
     m_CategoryInfo = categoryInfo;
 }
@@ -115,6 +115,7 @@ DcpAppletCategoryPage::reload ()
 
     if (m_LoadedAppletCategory != appletCategory()) {
         m_Category->setCategoryInfo (m_CategoryInfo);
+        retranslateUi();
     }
 
     pannableViewport()->setPosition (QPointF(0,0));
@@ -130,17 +131,10 @@ void
 DcpAppletCategoryPage::retranslateUi()
 {
     // briefwidgets take care of themselves, so we only update title here
-    setTitle(qtTrId(m_TitleId));
+    setTitle(m_CategoryInfo ? m_CategoryInfo->title() : QString());
     if (isContentCreated()) {
         setTitleLabel ();
     }
-}
-
-void
-DcpAppletCategoryPage::setTitleId(const char* titleId)
-{
-    m_TitleId = titleId;
-    retranslateUi();
 }
 
 

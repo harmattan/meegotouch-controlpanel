@@ -20,23 +20,22 @@
 
 #include "pagefactory.h"
 
-#include <DcpPage>
-#include <DcpMainPage>
-#include <DcpAppletPage>
+#include "dcpmainpage.h"
+#include "dcpappletpage.h"
+#include "dcpappletcategorypage.h"
+#include "dcpcategories.h"
+#include "category.h"
+
 #include <DcpAppletDb>
 #include <DcpAppletIf>
 #include <DcpAppletMetadata>
 #include <DcpAppletObject>
-#include <DcpAppletCategoryPage>
 #include <DcpWidgetTypes>
-#include <MainTranslations>
 #include "dcpappletlauncherif.h"
 
 #include <MApplication>
 #include <MApplicationWindow>
 #include <QTimer>
-
-#include "appleterrorsdialog.h"
 
 // this also specifies if the applet views should be shown inprocess or outprocess
 DcpAppletLauncherIf * PageFactory::sm_AppletLauncher = 0;
@@ -103,18 +102,6 @@ PageFactory::onAppletLoaded (DcpAppletObject *applet)
              this, SLOT (changeToAppletPage (QString)));
 }
 
-/*!
- * This slotz should be called only once, when the main page has been shown, so
- * we can access the applet database without forcing it to be loaded early. It
- * is also important, that we have a window on the screen, so we can show a
- * dialog if we want.
- */
-void
-PageFactory::mainPageFirstShown ()
-{
-    AppletErrorsDialog::showAppletErrors();
-}
-
 
 PageFactory * 
 PageFactory::instance ()
@@ -175,9 +162,6 @@ PageFactory::createMainPage ()
 {
     if (!m_MainPage) {
         m_MainPage = new DcpMainPage ();
-        connect (m_MainPage, SIGNAL (firstShown(void)),
-                this, SLOT(mainPageFirstShown (void)));
-
         registerPage (m_MainPage);
     }
     else
@@ -264,16 +248,15 @@ PageFactory::changeToAppletPage (const QString& appletName)
 DcpPage *
 PageFactory::createAppletCategoryPage (const PageHandle& handle)
 {
-    const DcpCategoryInfo *info;
-
     PageHandle::PageTypeId id = handle.id;
+    Q_ASSERT (id == PageHandle::APPLETCATEGORY);
 
-    info = id==PageHandle::APPLETCATEGORY ?
-                DcpMain::findCategoryInfo(handle.param) :
-                DcpMain::findCategoryInfo(id);
+    const Category *info = 
+        DcpCategories::instance()->categoryById (handle.param);
 
     if (!info) {
-        DCP_WARNING ("Category info for page type %d not found.", (int) id);
+        DCP_WARNING ("Category info for page %s not found.",
+                     qPrintable (handle.param));
         return 0;
     }
 
@@ -283,8 +266,6 @@ PageFactory::createAppletCategoryPage (const PageHandle& handle)
     } else {
         m_AppletCategoryPage->setCategoryInfo (info);
     }
-
-    m_AppletCategoryPage->setTitleId (info->titleId);
 
 #ifdef SKIP_CATEGORIES_WITH_ONE_APPLET
     /*

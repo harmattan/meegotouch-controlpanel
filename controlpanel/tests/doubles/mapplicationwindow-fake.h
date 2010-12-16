@@ -48,6 +48,7 @@ public:
 
 signals:
     void pageChanged(MApplicationPage *);
+    void displayEntered();
 
 protected:
     MApplicationPage* m_CurrentPage;

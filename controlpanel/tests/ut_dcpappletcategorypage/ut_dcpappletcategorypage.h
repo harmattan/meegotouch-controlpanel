@@ -41,7 +41,6 @@ private slots:
     void testCategoryInfo();
     void testReload();
     void testCleanup();
-    void testSetTitleId();
     void testBack();
     void testRetranslateUi();
     void testAddComponent();

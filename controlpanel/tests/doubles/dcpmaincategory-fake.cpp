@@ -22,10 +22,8 @@
 #include <QGraphicsLinearLayout>
 #include "dcpdebug.h"
 
-DcpMainCategory::DcpMainCategory (
-        QGraphicsWidget *parent,
-        const QString& logicalId)
-: DcpComponent (0, "", parent, logicalId)
+DcpMainCategory::DcpMainCategory (QGraphicsWidget *parent)
+: QGraphicsWidget (parent)
 {
     new QGraphicsLinearLayout(this);
 }

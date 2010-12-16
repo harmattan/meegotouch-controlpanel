@@ -15,33 +15,21 @@
 **
 ****************************************************************************/
 
+#include <dcpappletbuttons.h>
+#include "ut_dcpappletbuttons.h"
+#include <DcpAppletMetadata>
+#include "dcpcontentitemcellcreator.h"
+#include "category.h"
+#include "dcpcategories.h"
+
 #include <QObject>
 #include <QGraphicsSceneMouseEvent>
-
-#include <dcpappletbuttons.h>
-
-#include "ut_dcpappletbuttons.h"
-#include "maintranslations.h"
-#include <DcpAppletMetadata>
-
 #include <QStandardItemModel>
 #include <QStandardItem>
 
-#include "dcpcontentitemcellcreator.h"
-
-#define fakeInfo DcpMain::CategoryInfos[0]
-
-/* a nonexistent category */
-const DcpCategoryInfo zeroCategory =
-{
-    "qtn_bla_bla",
-    "qtn_bla_bla",
-    "zero-category",
-    PageHandle::NOPAGE,
-    0,
-    0
-};
-
+#define fakeInfo *(DcpCategories::instance()->categoryById("fake-category"))
+#define zeroCategory *(DcpCategories::instance()->categoryById("ZERO"))
+#define mostUsedCategory *(DcpCategories::instance()->categoryById("mostUsed"))
 
 void Ut_DcpAppletButtons::init()
 {
@@ -69,13 +57,15 @@ void Ut_DcpAppletButtons::testCreation()
     QCOMPARE (buttons1.appletMetadata(0)->name(),
               QString("fake-name"));
 
-    // if we create with mostrecentused
-    DcpAppletButtons buttons2(&DcpMain::mostUsedCategory);
-    QCOMPARE (&DcpMain::mostUsedCategory, buttons2.m_CategoryInfo);
+#ifdef MOSTUSED
+    // if we create with mostUsed
+    DcpAppletButtons buttons2(&mostUsedCategory);
+    QCOMPARE (&mostUsedCategory, buttons2.m_CategoryInfo);
     //      -> checks if the right items were added to the model:
     QCOMPARE (buttons2.metadataCount(), 1);
     QCOMPARE (buttons2.appletMetadata(0)->name(),
               QString("mostUsed-name"));
+#endif
 }
 
 void Ut_DcpAppletButtons::testAddComponent()
@@ -109,14 +99,11 @@ void Ut_DcpAppletButtons::testReload()
     QCOMPARE (buttons1.appletMetadata(0)->name(),
               QString("fake-name"));
 
-    // change to mostuseditems and reload: applet count should stay the same,
-    // but the one applet changes
-    buttons1.m_CategoryInfo = &DcpMain::mostUsedCategory;
+    // change to zero category and reload: applet should be removed
+    buttons1.m_CategoryInfo = &zeroCategory;
     buttons1.reload();
 
-    QCOMPARE (buttons1.metadataCount(), 1);
-    QCOMPARE (buttons1.appletMetadata(0)->name(),
-              QString("mostUsed-name"));
+    QCOMPARE (buttons1.metadataCount(), 0);
 }
 
 QTEST_APPLESS_MAIN(Ut_DcpAppletButtons)

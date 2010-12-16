@@ -21,32 +21,35 @@
 #ifndef DCPAPPLETBUTTONS_H
 #define DCPAPPLETBUTTONS_H
 
-#include <DcpMainCategory>
-
-#include "maintranslations.h"
+#include "dcpmaincategory.h"
 
 class DcpAppletMetadata;
 class QStandardItemModel;
+class Category;
 
 class DcpAppletButtons :
     public DcpMainCategory
 {
     Q_OBJECT
+    Q_PROPERTY (QString mattiID READ mattiID WRITE setMattiID)
+    Q_PROPERTY (QString TDriverID READ TDriverID WRITE setTDriverID)
 
 public:
     DcpAppletButtons (
-            const DcpCategoryInfo  *categoryInfo,
-            QGraphicsWidget        *parent = 0);
+            const Category  *categoryInfo,
+            QGraphicsWidget *parent = 0);
     ~DcpAppletButtons ();
 
-    void setCategoryInfo (const DcpCategoryInfo  *categoryInfo);
-
-    void addComponent (
-            DcpAppletMetadata *metadata);
+    void setCategoryInfo (const Category *categoryInfo);
 
     virtual bool reload();
     int metadataCount () const;
     DcpAppletMetadata* appletMetadata (int pos);
+
+    QString mattiID() const;
+    void setMattiID(const QString &mattiID);
+    QString TDriverID() const;
+    void setTDriverID(const QString &tdriverID);
 
 signals:
     //! emitted after loading the applets has finished
@@ -59,10 +62,11 @@ protected:
 private:
     void markAllInactive();
 
-    const DcpCategoryInfo  *m_CategoryInfo;
+    const Category *m_CategoryInfo;
     friend class Ut_DcpAppletButtons;
 
     class MList* m_List;
+    QString m_TDriverID;
 };
 
 #endif

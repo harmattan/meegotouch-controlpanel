@@ -18,15 +18,16 @@
 /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #include "dcpappletbuttons.h"
-#include "maintranslations.h"
 #include "dcpdebug.h"
 #include "dcpcontentitemcellcreator.h"
 #include "dcpremoteappletobject.h"
 #include "dcpappletif.h"
 #include "dcpappletwidget.h"
 #include "dcpappletpage.h"
+#include "category.h"
+#include "dcpcategories.h"
 
-#include <Pages>
+#include "pages.h"
 #include <DcpAppletDb>
 #include <DcpAppletMetadata>
 #include <DcpApplet>
@@ -43,7 +44,7 @@
 #include <MHelpButton>
 
 DcpAppletButtons::DcpAppletButtons (
-        const DcpCategoryInfo  *categoryInfo,
+        const Category *categoryInfo,
         QGraphicsWidget        *parent)
 : DcpMainCategory (parent),
     m_CategoryInfo (categoryInfo),
@@ -54,16 +55,32 @@ DcpAppletButtons::DcpAppletButtons (
     appendWidget (m_List);
 
     createContents ();
-    setTDriverID (
-            QString ("DcpAppletButtons::") +
-            categoryInfo->titleId + "::" +
-            categoryInfo->appletCategory);
 }
 
 
 DcpAppletButtons::~DcpAppletButtons()
 {
     markAllInactive();
+}
+
+QString DcpAppletButtons::mattiID () const
+{
+    return m_TDriverID;
+}
+
+void DcpAppletButtons::setMattiID (const QString &mattiID)
+{
+    m_TDriverID = mattiID;
+}
+
+QString DcpAppletButtons::TDriverID () const
+{
+    return m_TDriverID;
+}
+
+void DcpAppletButtons::setTDriverID (const QString &tdriverID)
+{
+    m_TDriverID = tdriverID;
 }
 
 // marks all the appletmetadatas inactive, so they know they are "released"
@@ -82,32 +99,18 @@ DcpAppletButtons::markAllInactive()
 void
 DcpAppletButtons::createContents ()
 {
+    if (!m_CategoryInfo) return;
+
     DCP_DEBUG ("");
     /*
      * Getting the list of applet variants (metadata objects) that will go into
      * this widget.
      */
     DcpAppletMetadataList metadatas;
-#ifdef MOSTUSED
-    if (m_CategoryInfo == &DcpMain::mostUsedCategory) {
-        metadatas = DcpAppletDb::instance()->listMostUsed ();
-    } else
-#endif
-    {
-        bool        withUncategorized;
-        const char *names[4];
-
-        withUncategorized =
-            m_CategoryInfo->subPageId == PageHandle::Applications;
-
-        names[0] = m_CategoryInfo->titleId;
-        names[1] = m_CategoryInfo->appletCategory;
-        names[2] = m_CategoryInfo->compatibilityId;
-        names[3] = 0;
-
-        metadatas = DcpAppletDb::instance()->listByCategory (names, 3,
-                    withUncategorized ? DcpMain::isCategoryNameEnlisted : NULL);
-    }
+    bool withUncategorized = m_CategoryInfo->containsUncategorized();
+    metadatas =
+        DcpAppletDb::instance()->listByCategory (m_CategoryInfo->referenceIds(),
+                    withUncategorized ? DcpCategories::hasCategory : NULL);
 
     // ensure that all needed catalogs are loaded for the applets before
     DcpRetranslator::instance()->ensureTranslationsAreLoaded(metadatas);
@@ -121,6 +124,11 @@ DcpAppletButtons::createContents ()
     QAbstractItemModel* prevModel = m_List->itemModel();
     m_List->setItemModel (model);
     delete prevModel;
+
+    setTDriverID (
+            QString ("DcpAppletButtons::") +
+            m_CategoryInfo->titleId() + "::" +
+            m_CategoryInfo->name());
 }
 
 
@@ -182,7 +190,7 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
         applet = new DcpRemoteAppletObject (metadata, model);
     }
 
-    QString tdriverPostfix = QString(m_CategoryInfo->titleId) +
+    QString tdriverPostfix = QString(m_CategoryInfo->titleId()) +
                            "::" + metadata->category() + "::" + name;
 
     if (widgetId == DcpWidgetType::Button) {
@@ -266,7 +274,7 @@ DcpAppletButtons::reload ()
 }
 
 void
-DcpAppletButtons::setCategoryInfo (const DcpCategoryInfo  *categoryInfo)
+DcpAppletButtons::setCategoryInfo (const Category *categoryInfo)
 {
     if (m_CategoryInfo != categoryInfo) {
         m_CategoryInfo = categoryInfo;

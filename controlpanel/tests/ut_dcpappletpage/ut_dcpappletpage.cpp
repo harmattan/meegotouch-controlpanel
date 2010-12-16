@@ -40,7 +40,6 @@ void Ut_DcpAppletPage::cleanup()
 
 void Ut_DcpAppletPage::initTestCase()
 {
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
 }
 
 void Ut_DcpAppletPage::testCreateContents()
