@@ -48,7 +48,7 @@ DcpCategories::DcpCategories()
 {
     // add the main category:
     add (new MemoryCategory (mainPageCategoryName(), // <- name
-                             "qtn_sett_main_title", "Settings" // <- translation
+                             "qtn_sett_main_title"   // <- translation id
                             ));
 
     // load the available categories:
@@ -69,12 +69,19 @@ DcpCategories::DcpCategories()
 
     // build the parent - child relationships:
     foreach (const Category* category, m_Categories) {
-        categoryById (category->parentId())->addChild (category);
+        QString parentId = category->parentId();
+        if (parentId.isEmpty()) continue;
+        Category* parent = categoryById (parentId);
+        if (parent) {
+            parent->addChild (category);
+        } else if (!parentId.isEmpty()) {
+            qWarning ("XXX could not find the parent (%s) for the category %s",
+                      qPrintable (category->parentId()),
+                      qPrintable (category->name()));
+        }
     }
-
-    // sort by order:
-    qSort (m_Categories.begin(), m_Categories.end(), Category::orderLessThan);
 }
+
 
 /*!
  * Little helper for the constructor,
@@ -86,7 +93,9 @@ void DcpCategories::add (Category* category)
 
     // hash by their ids:
     foreach (QString id, category->referenceIds()) {
-        m_CategoryById.insert (id, category);
+        if (!id.isEmpty()) {
+            m_CategoryById.insert (id, category);
+        }
     }
 }
 

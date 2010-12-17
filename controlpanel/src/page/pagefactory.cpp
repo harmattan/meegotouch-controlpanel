@@ -20,11 +20,11 @@
 
 #include "pagefactory.h"
 
-#include "dcpmainpage.h"
 #include "dcpappletpage.h"
 #include "dcpappletcategorypage.h"
 #include "dcpcategories.h"
 #include "category.h"
+#include "dcpremotebriefreceiver.h"
 
 #include <DcpAppletDb>
 #include <DcpAppletIf>
@@ -154,6 +154,30 @@ PageFactory::createPage (
     return page;
 }
 
+
+void PageFactory::preloadBriefReceiver ()
+{
+    // this loads the helper process a little bit earlier so that it can preload
+    // some applets
+    DcpRemoteBriefReceiver* receiver = DcpRemoteBriefReceiver::instance ();
+
+    // this preloads an applet launcher process when the receiver has finished
+    connect (receiver, SIGNAL (firstConnected()),
+             this, SLOT (preloadAppletLauncher()));
+}
+
+void PageFactory::mainPageFirstShown()
+{
+    // disconnect so as not to receive this event any more:
+    disconnect (m_MainPage, SIGNAL(appeared()),
+                this, SLOT(mainPageFirstShown()));
+
+    // unfortunately appeared signal comes before the page becomes visible on
+    // the screen so this function gets called after a delay to start some
+    // heavier
+    QTimer::singleShot (1000, this, SLOT(preloadBriefReceiver()));
+}
+
 /*!
  * Creates the main page that shows most of the applets.
  */
@@ -161,11 +185,14 @@ DcpPage *
 PageFactory::createMainPage ()
 {
     if (!m_MainPage) {
-        m_MainPage = new DcpMainPage ();
+        m_MainPage = new DcpAppletCategoryPage (
+                DcpCategories::instance()->mainPageCategory());
         registerPage (m_MainPage);
-    }
-    else
+        connect (m_MainPage, SIGNAL(appeared()),
+                 this, SLOT(mainPageFirstShown()));
+    } else {
         m_MainPage->reload();
+    }
 
     return m_MainPage;
 }

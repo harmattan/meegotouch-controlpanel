@@ -47,6 +47,7 @@ public slots:
 
 protected:
     virtual void retranslateUi();
+    void createCategories ();
 
 protected slots:
     void onLoadingFinished ();

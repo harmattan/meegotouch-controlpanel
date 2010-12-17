@@ -10,6 +10,7 @@
 class Category
 {
 public:
+    Category();
     virtual ~Category();
 
     QString parentId () const;
@@ -53,6 +54,7 @@ protected:
 
 private:
     QList<const Category*> m_Children;
+    bool m_IsChildComputed;
 };
 
 

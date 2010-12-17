@@ -97,6 +97,14 @@ void PageFactory::preloadAppletLauncher ()
 {
 }
 
+void PageFactory::preloadBriefReceiver()
+{
+}
+
+void PageFactory::mainPageFirstShown()
+{
+}
+
 void PageFactory::onDisplayEntered ()
 {
 }

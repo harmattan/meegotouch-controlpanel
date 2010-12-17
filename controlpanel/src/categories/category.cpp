@@ -1,5 +1,12 @@
 #include "category.h"
 
+#include <QSet>
+
+Category::Category():
+    m_IsChildComputed (false)
+{
+}
+
 Category::~Category ()
 {
 }
@@ -85,6 +92,18 @@ void Category::addChild(const Category* child)
 
 QList<const Category*> Category::children() const
 {
+    // this is the last step computing the children:
+    if (!m_IsChildComputed) {
+        Category* self = const_cast<Category*>(this);
+        self->m_IsChildComputed = true;
+
+        // make the list uniq:
+        self->m_Children = m_Children.toSet().toList();
+
+        // sort by order:
+        qSort (self->m_Children.begin(), self->m_Children.end(), orderLessThan);
+    }
+
     return m_Children;
 }
 

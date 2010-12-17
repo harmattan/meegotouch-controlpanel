@@ -27,7 +27,6 @@ class MApplicationPage;
 class DcpPage;
 class DcpAppletMetadata;
 class DcpAppletObject;
-class DcpMainPage;
 class DcpAppletPage;
 class DcpAppletCategoryPage;
 class DcpAppletLauncherIf;
@@ -57,6 +56,7 @@ public slots:
 
     void onAppletLoaded (DcpAppletObject *applet);
     void preloadAppletLauncher ();
+    void preloadBriefReceiver ();
 
 protected:
     PageFactory ();
@@ -68,13 +68,14 @@ protected:
 private slots:
     void pageChanged (MApplicationPage *page);
     void onDisplayEntered ();
+    void mainPageFirstShown ();
 
 private:
     bool tryOpenPageBackward (const PageHandle &handle);
     void registerPage (DcpPage *page);
 
     static PageFactory     *sm_Instance;
-    DcpMainPage            *m_MainPage;
+    DcpAppletCategoryPage  *m_MainPage;
     DcpAppletCategoryPage  *m_AppletCategoryPage;
     QPointer<DcpAppletPage> m_LastAppletPage;
     QList<MApplicationPage *> m_Pages;
