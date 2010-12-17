@@ -1,5 +1,6 @@
 #include "dcpcategories.h"
-#include "category.h"
+#include "memorycategory.h"
+#include "filecategory.h"
 
 #include <QDir>
 
@@ -45,25 +46,22 @@ QList<const Category*> DcpCategories::categoryChildren(const QString& id) const
 
 DcpCategories::DcpCategories()
 {
+    // add the main category:
+    add (new MemoryCategory (mainPageCategoryName(), // <- name
+                             "qtn_sett_main_title", "Settings" // <- translation
+                            ));
+
     // load the available categories:
     QDir dir (DCP_CATEGORY_DIR);
-    QStringList nameFilters(QString("*.cfg"));
+    QStringList nameFilters(QString("*.cpcategory"));
     foreach (QString fileName,
              dir.entryList (nameFilters, QDir::Readable | QDir::Files))
     {
-        qDebug ("XXX trying %s", qPrintable (fileName));
-        Category* category = new Category (DCP_CATEGORY_DIR "/" + fileName);
+        Category* category = new FileCategory (DCP_CATEGORY_DIR "/" + fileName);
 
         if (category->isValid()) {
-            qDebug ("XXX valid!");
-            m_Categories.append (category);
-
-            // hash by their ids:
-            foreach (QString id, category->referenceIds()) {
-                m_CategoryById.insert (id, category);
-            }
+            add (category);
         } else {
-            qDebug ("XXX non-valid");
             qWarning ("Non valid category: %s", qPrintable(fileName));
             delete category;
         }
@@ -78,6 +76,19 @@ DcpCategories::DcpCategories()
     qSort (m_Categories.begin(), m_Categories.end(), Category::orderLessThan);
 }
 
+/*!
+ * Little helper for the constructor,
+ * do not use it to add more categories later
+ */
+void DcpCategories::add (Category* category)
+{
+    m_Categories.append (category);
+
+    // hash by their ids:
+    foreach (QString id, category->referenceIds()) {
+        m_CategoryById.insert (id, category);
+    }
+}
 
 bool DcpCategories::hasCategory (const QString& id)
 {

@@ -100,7 +100,7 @@ void Ut_DcpMainPage::testRetranslateUi()
     // first we need to create all the contents
     m_subject->createContent();
     m_subject->retranslateUi();
-    QCOMPARE(m_subject->title(), QString("MainPage Title"));
+    QCOMPARE(m_subject->title(), QString("!! MainPage"));
 #ifdef MOSTUSED
     QCOMPARE(m_subject->m_RecentlyComp->title(),
              qtTrId(QT_TRID_NOOP("qtn_sett_main_most")));

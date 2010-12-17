@@ -2,7 +2,6 @@
 #define CATEGORY_H
 
 #include <QStringList>
-class QSettings;
 
 /*!
  * A class that describes an applet category that should appear inside the
@@ -11,8 +10,7 @@ class QSettings;
 class Category
 {
 public:
-    Category(const QString& fileName);
-    ~Category();
+    virtual ~Category();
 
     QString parentId () const;
 
@@ -29,7 +27,7 @@ public:
 
     bool idMatch (const QString& id) const;
 
-    bool isValid () const;
+    virtual bool isValid () const;
     void addChild (const Category* child);
     QList<const Category*> children () const;
 
@@ -37,11 +35,23 @@ public:
     static bool orderLessThan (const Category* cat1, const Category* cat2);
 
 protected:
-    QString value (int key) const;
+    virtual QString value (int key) const = 0;
     QStringList valueList (int key) const;
 
+    enum {
+        ParentId,
+        NameId,
+        NameLogicalId,
+        ValueId,
+        ValueLogicalId,
+        IconId,
+        AliasesId,
+        TranslationId,
+        OrderId,
+        KeyIdMax
+    };
+
 private:
-    QSettings* m_Settings;
     QList<const Category*> m_Children;
 };
 

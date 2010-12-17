@@ -15,6 +15,8 @@ TEST_SOURCES = \
     $$SRCDIR/page/dcpappletcategorypage.cpp \
     $$SRCDIR/page/pages.cpp \
     $$SRCDIR/page/dcppage.cpp \
+    $$SRCDIR/categories/category.cpp \
+    $$SRCDIR/categories/memorycategory.cpp \
 
 # unit test and unit
 SOURCES += \
@@ -35,7 +37,6 @@ SOURCES += \
     $$STUBSDIR/dcpsinglecomponent-fake.cpp \
     $$STUBSDIR/dcpmaincategory-fake.cpp \
     $$STUBSDIR/dcpcategories-fake.cpp \
-    $$STUBSDIR/category-fake.cpp \
     $$STUBSDIR/qgraphicsobject-fake.cpp \
     $$TEST_SOURCES \ 
 

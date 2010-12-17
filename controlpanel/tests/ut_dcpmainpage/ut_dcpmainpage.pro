@@ -15,6 +15,8 @@ TEST_SOURCES = \
     $$SRCDIR/page/dcpmainpage.cpp \
     $$SRCDIR/page/pages.cpp \
     $$SRCDIR/page/dcppage.cpp \
+    $$SRCDIR/categories/category.cpp \
+    $$SRCDIR/categories/memorycategory.cpp \
 
 # unit test and unit
 SOURCES += \
@@ -41,7 +43,6 @@ SOURCES += \
     $$STUBSDIR/pagefactory-fake.cpp \
     $$STUBSDIR/qgraphicslinearlayout-fake.cpp \
     $$STUBSDIR/dcpcategories-fake.cpp \
-    $$STUBSDIR/category-fake.cpp \
     $$TEST_SOURCES \ 
 
 # base classes

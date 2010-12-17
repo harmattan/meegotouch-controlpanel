@@ -95,7 +95,7 @@ void Ut_DcpAppletCategoryPage::testRetranslateUi()
 {
     m_subject->m_CategoryInfo = CATEGORY2;
     m_subject->retranslateUi();
-    QCOMPARE(m_subject->title(), QString("Zero title"));
+    QCOMPARE(m_subject->title(), QString("!! ZERO"));
 }
 
 void Ut_DcpAppletCategoryPage::testAddComponent()

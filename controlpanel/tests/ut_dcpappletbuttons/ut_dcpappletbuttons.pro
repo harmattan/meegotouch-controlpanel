@@ -13,6 +13,8 @@ TARGET = ut_dcpappletbuttons
 TEST_SOURCES = \
     $$SRCDIR/page/dcpappletbuttons.cpp \
     $$SRCDIR/page/pages.cpp \
+    $$SRCDIR/categories/category.cpp \
+    $$SRCDIR/categories/memorycategory.cpp \
     $$SRCDIR/component/dcpmaincategory.cpp \
     $$SRCDIR/component/dcpappletwidget.cpp \
 
@@ -32,7 +34,6 @@ SOURCES += \
     $$STUBSDIR/qgraphicsobject-fake.cpp \
     $$STUBSDIR/mlist-fake.cpp \
     $$STUBSDIR/mtheme-fake.cpp \
-    $$STUBSDIR/category-fake.cpp \
     $$STUBSDIR/dcpcategories-fake.cpp \
     $$STUBSDIR/qgraphicslinearlayout-fake.cpp \
     $$TEST_SOURCES \

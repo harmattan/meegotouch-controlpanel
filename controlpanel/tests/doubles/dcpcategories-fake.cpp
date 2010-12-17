@@ -1,6 +1,5 @@
 #include "dcpcategories.h"
-#include "category.h"
-#include "category-fake.h"
+#include "memorycategory.h"
 
 DcpCategories* DcpCategories::sm_Instance = 0;
 
@@ -44,42 +43,40 @@ QList<const Category*> DcpCategories::categoryChildren(const QString& id) const
 
 DcpCategories::DcpCategories()
 {
-    Category_setData ("file1",
+    add (new MemoryCategory (
                       "FAKE-CATEGORY",
-                      "MainPage",
-                      "Title",
                       "fake-category",
-                      "Value line",
+                      "MainPage",
                       "qtn_subtitle",
-                      "icon");
-    Category_setData ("file2",
+                      "Value line",
+                      "icon"));
+
+    add (new MemoryCategory (
                       "ZERO",
-                      "MainPage",
-                      "Zero title",
                       "",
                       "",
-                      "",
-                      "");
-    Category_setData ("file3",
                       "MainPage",
                       "",
-                      "MainPage Title",
+                      ""));
+
+    add (new MemoryCategory (
+                      "MainPage",
                       "qtn_sett_main_title",
                       "",
                       "",
-                      "");
-
-    m_Categories.append (new Category ("file1"));
-    m_Categories.append (new Category ("file2"));
-    m_Categories.append (new Category ("file3"));
-
-    foreach (Category* cat, m_Categories) {
-        foreach (QString id, cat->referenceIds()) {
-            m_CategoryById.insert (id, cat);
-        }
-    }
+                      "",
+                      ""));
 }
 
+void DcpCategories::add (Category* category)
+{
+    m_Categories.append (category);
+
+    // hash by their ids:
+    foreach (QString id, category->referenceIds()) {
+        m_CategoryById.insert (id, category);
+    }
+}
 
 bool DcpCategories::hasCategory (const QString& id)
 {

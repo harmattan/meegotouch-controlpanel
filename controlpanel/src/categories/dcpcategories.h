@@ -26,6 +26,7 @@ public:
 private:
     DcpCategories();
     static DcpCategories* sm_Instance;
+    void add (Category* category);
 
     QList<Category*> m_Categories;
     QHash<QString, Category*> m_CategoryById;

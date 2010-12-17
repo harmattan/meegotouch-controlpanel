@@ -10,6 +10,8 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 
+#include <unistd.h>
+#include <csignal>
 #include <dcpdebug.h>
 #include "syslog.h"
 #define LOW_PRIORITY

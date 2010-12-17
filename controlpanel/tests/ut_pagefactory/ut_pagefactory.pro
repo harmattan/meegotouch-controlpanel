@@ -23,11 +23,12 @@ SOURCES += \
     $$LIBDCPFAKES/mgconfitem-fake.cpp \
     $$STUBSDIR/dcpappletdb-fake.cpp \
     $$STUBSDIR/dcpcategories-fake.cpp \
-    $$STUBSDIR/category-fake.cpp \
     $$STUBSDIR/dcpappletplugin-fake.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
     $$SRCDIR/page/pages.cpp \
     $$SRCDIR/page/pagefactory.cpp \
+    $$SRCDIR/categories/category.cpp \
+    $$SRCDIR/categories/memorycategory.cpp \
 
 # unit test and unit
 HEADERS += \

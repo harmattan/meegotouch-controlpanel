@@ -1,48 +1,10 @@
 #include "category.h"
 
-#include <QSettings>
-
-enum {
-    ParentId,
-    NameId,
-    NameLogicalId,
-    ValueId,
-    ValueLogicalId,
-    IconId,
-    AliasesId,
-    TranslationId,
-    OrderId,
-    KeyIdMax
-};
-
-const char* keys[KeyIdMax] = {
-    "Parent",
-    "Name",
-    "Name-logical-id",
-    "Value",
-    "Value-logical-id",
-    "Icon",
-    "Aliases",
-    "Translation-catalogs",
-    "Order"
-};
-
-Category::Category(const QString& fileName):
-    m_Settings (new QSettings (fileName, QSettings::IniFormat))
-{
-}
-
 Category::~Category ()
 {
-    delete m_Settings;
 }
 
-inline QString Category::value (int key) const
-{
-    return m_Settings->value (keys[key]).toString();
-}
-
-inline QStringList Category::valueList (int key) const
+QStringList Category::valueList (int key) const
 {
     return value (key).split(QChar(','));
 }
@@ -112,11 +74,7 @@ bool Category::idMatch(const QString& id) const
 
 bool Category::isValid() const
 {
-    qDebug ("XXX valid? %p %d %s", m_Settings, m_Settings->status(),
-           qPrintable(name()));
-
-    return m_Settings && (m_Settings->status() == QSettings::NoError) &&
-           !name().isEmpty();
+    return !name().isEmpty();
 }
 
 
@@ -132,7 +90,9 @@ QList<const Category*> Category::children() const
 
 int Category::order () const
 {
-    return m_Settings->value (keys[OrderId], 9999).toInt();
+    bool ok;
+    int result = value (OrderId).toInt(&ok);
+    return ok ? result : 999999;
 }
 
 bool Category::containsUncategorized () const
