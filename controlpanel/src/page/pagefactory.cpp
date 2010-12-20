@@ -46,9 +46,7 @@ DcpAppletLauncherIf * PageFactory::sm_AppletLauncher = 0;
 PageFactory *PageFactory::sm_Instance = 0;
 
 PageFactory::PageFactory (): 
-    QObject (),
-    m_MainPage (0), 
-    m_AppletCategoryPage (0)
+    QObject ()
 {
     connect (MApplication::activeWindow (),
             SIGNAL(pageChanged(MApplicationPage *)),
@@ -62,10 +60,6 @@ PageFactory::PageFactory ():
 
 PageFactory::~PageFactory ()
 {
-    // delete the cached pages if any
-    delete m_MainPage;
-    delete m_AppletCategoryPage;
-
     delete sm_AppletLauncher;
     sm_Instance = 0;
 }
@@ -164,8 +158,11 @@ void PageFactory::preloadBriefReceiver ()
 
 void PageFactory::mainPageFirstShown()
 {
+    MApplicationPage* mainPage = qobject_cast<MApplicationPage*>(sender());
+    if (!mainPage) return;
+
     // disconnect so as not to receive this event any more:
-    disconnect (m_MainPage, SIGNAL(appeared()),
+    disconnect (mainPage, SIGNAL(appeared()),
                 this, SLOT(mainPageFirstShown()));
 
     // unfortunately appeared signal comes before the page becomes visible on
@@ -180,17 +177,13 @@ void PageFactory::mainPageFirstShown()
 DcpPage *
 PageFactory::createMainPage ()
 {
-    if (!m_MainPage) {
-        m_MainPage = new DcpAppletCategoryPage (
+    DcpPage* mainPage = new DcpAppletCategoryPage (
                 DcpCategories::instance()->mainPageCategory());
-        registerPage (m_MainPage);
-        connect (m_MainPage, SIGNAL(appeared()),
-                 this, SLOT(mainPageFirstShown()));
-    } else {
-        m_MainPage->reload();
-    }
+    registerPage (mainPage);
+    connect (mainPage, SIGNAL(appeared()),
+             this, SLOT(mainPageFirstShown()));
 
-    return m_MainPage;
+    return mainPage;
 }
 
 /*!
@@ -283,12 +276,8 @@ PageFactory::createAppletCategoryPage (const PageHandle& handle)
         return 0;
     }
 
-    if (!m_AppletCategoryPage){
-        m_AppletCategoryPage = new DcpAppletCategoryPage (info);
-        registerPage (m_AppletCategoryPage);
-    } else {
-        m_AppletCategoryPage->setCategoryInfo (info);
-    }
+    DcpAppletCategoryPage* appletCategoryPage = new DcpAppletCategoryPage (info);
+    registerPage (appletCategoryPage);
 
 #ifdef SKIP_CATEGORIES_WITH_ONE_APPLET
     /*
@@ -296,16 +285,16 @@ PageFactory::createAppletCategoryPage (const PageHandle& handle)
      * to click on that, but switch to the appletPage directly
      *
      */
-    if (m_AppletCategoryPage->appletCount() == 1)
+    if (appletCategoryPage->appletCount() == 1)
     {
-        DcpAppletMetadata* metadata = m_AppletCategoryPage->appletMetadata(0);
+        DcpAppletMetadata* metadata = appletCategoryPage->appletMetadata(0);
         if (metadata) {
             return createAppletPage (metadata);
         }
     }
 #endif
 
-    return m_AppletCategoryPage;
+    return appletCategoryPage;
 }
 
 DcpPage*
@@ -348,6 +337,12 @@ bool PageFactory::maybeRunOutOfProcess (const QString& appletName)
         !db->isAppletLoaded (appletName) &&
         binary != "libdeclarative.so";
 
+    /*
+    qDebug ("running applet out of process: %d %d %d",
+            !binary.isEmpty(), !db->isAppletLoaded (appletName),
+            binary != "libdeclarative.so");
+     */
+
     if (runOutProcess) {
         Q_ASSERT (sm_AppletLauncher->isValid());
         sm_AppletLauncher->appletPage (appletName);
@@ -383,8 +378,6 @@ PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
             delete page;
         }
         m_Pages.clear ();
-        m_MainPage = 0;
-        m_AppletCategoryPage = 0;
     }
 
     /*
@@ -493,7 +486,7 @@ PageFactory::tryOpenPageBackward (const PageHandle &handle)
             break;
         }
     }
-    
+
     /*
      * If not found we return false. This means a new page has to be created in
      * order to open the requested applet widget.
@@ -538,7 +531,12 @@ void PageFactory::setInProcessApplets (bool inProcess)
 
 void PageFactory::onDisplayEntered ()
 {
-    if (!m_Pages.isEmpty() && m_Pages.last() == m_AppletCategoryPage) {
+    // we preload an appletlauncher instance in case we are again
+    // on the categorypage (most likely the user tapped the back button
+    // on an applet)
+    if (!m_Pages.isEmpty() &&
+        qobject_cast<DcpAppletCategoryPage*>(m_Pages.last()))
+    {
         preloadAppletLauncher();
     }
 }

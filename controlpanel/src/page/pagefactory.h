@@ -75,8 +75,6 @@ private:
     void registerPage (DcpPage *page);
 
     static PageFactory     *sm_Instance;
-    DcpAppletCategoryPage  *m_MainPage;
-    DcpAppletCategoryPage  *m_AppletCategoryPage;
     QPointer<DcpAppletPage> m_LastAppletPage;
     QList<MApplicationPage *> m_Pages;
     static DcpAppletLauncherIf *sm_AppletLauncher;

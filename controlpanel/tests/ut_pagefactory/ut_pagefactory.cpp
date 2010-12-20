@@ -64,12 +64,10 @@ void Ut_PageFactory::testCreatePage()
     // a mainpage:
     page = factory->createPage(PageHandle(PageHandle::MAIN));
     QVERIFY(page);
-    QCOMPARE((void*)factory->m_MainPage, (void*)page);
 
     // an invalid page:
     page = factory->createPage(PageHandle(PageHandle::NOPAGE));
-    QVERIFY(page);
-    QCOMPARE((void*)factory->m_MainPage, (void*)page);
+    QVERIFY(page); // TODO this should return NULL, shouldnt it?
 
     // an appletpage:
     page = factory->createPage(PageHandle(PageHandle::APPLET, "fake-name"));
@@ -92,21 +90,14 @@ void Ut_PageFactory::testCreateMainPage()
 {
     PageFactory *factory = PageFactory::instance();
 
-    QVERIFY(factory->m_MainPage == 0);
-
     DcpPage *page = factory->createMainPage();
     QVERIFY(page);
-    QCOMPARE((void*)factory->m_MainPage, (void*) page);
-
-    // Second call should just return existing m_MainPage
-    void* lastPage = (void*)factory->m_MainPage;
-    QCOMPARE(lastPage, (void*) factory->createMainPage());
+    QCOMPARE((void*)factory->currentPage(), (void*) page);
 }
 
 void Ut_PageFactory::testCreateAppletPage()
 {
     PageFactory *factory = PageFactory::instance();
-    QCOMPARE((void*)factory->m_MainPage, (void*)0);
     PageHandle handle(PageHandle::APPLET, "fake-name");
     DcpPage *page =
         factory->createAppletPage(handle);
@@ -116,23 +107,9 @@ void Ut_PageFactory::testCreateAppletPage()
 void Ut_PageFactory::testCreateAppletCategoryPage()
 {
     PageFactory *factory = PageFactory::instance();
-    QVERIFY(factory->m_AppletCategoryPage == 0);
     DcpPage *page = factory->createAppletCategoryPage(
             PageHandle(PageHandle::APPLETCATEGORY, "ZERO"));
     QVERIFY(page);
-    QCOMPARE((void*)factory->m_AppletCategoryPage, (void*) page);
-
-    // Second call should just return the existing m_AppletCategoryPage
-    void* lastPage = factory->m_AppletCategoryPage;
-    QCOMPARE(lastPage,
-            (void*) factory->createAppletCategoryPage(
-            PageHandle(PageHandle::APPLETCATEGORY, "ZERO")));
-
-    // Ensures that no second categorypage gets created, but the existing one
-    // is used again:
-    QCOMPARE(lastPage,
-             (void*)factory->createAppletCategoryPage(
-             PageHandle(PageHandle::APPLETCATEGORY, "fake-category")));
 }
 
 
@@ -156,19 +133,14 @@ void Ut_PageFactory::testCurrentPage()
 
 void Ut_PageFactory::testChangePage()
 {
-    // for testing that the window was raised on page switch:
-    MApplication::activeApplicationWindow()->lower();
-    QCOMPARE (MApplication::activeApplicationWindow()->isRaised(), false);
-
     PageFactory *factory = PageFactory::instance();
     QCOMPARE(factory->currentPage(), (void*)0);
 
     factory->changePage (PageHandle(PageHandle::MAIN));
-    QCOMPARE((void*)factory->currentPage(), (void*)factory->m_MainPage);
-    //QCOMPARE (MApplication::activeApplicationWindow()->isRaised(), true);
+    QVERIFY((void*)factory->currentPage());
 
     factory->changePage (PageHandle(PageHandle::APPLETCATEGORY, "ZERO"));
-    QCOMPARE((void*)factory->currentPage(), (void*)factory->m_AppletCategoryPage);
+    QVERIFY((void*)factory->currentPage());
 }
 
 void Ut_PageFactory::testAppletWantsToStart()

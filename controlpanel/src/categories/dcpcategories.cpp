@@ -75,7 +75,7 @@ DcpCategories::DcpCategories()
         if (parent) {
             parent->addChild (category);
         } else if (!parentId.isEmpty()) {
-            qWarning ("XXX could not find the parent (%s) for the category %s",
+            qWarning ("Warning: could not find the parent (%s) for the category %s",
                       qPrintable (category->parentId()),
                       qPrintable (category->name()));
         }
