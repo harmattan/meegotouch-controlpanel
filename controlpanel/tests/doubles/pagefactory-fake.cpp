@@ -25,9 +25,7 @@ PageFactory *PageFactory::sm_Instance = 0;
 static DcpPage* sCurrentPage = 0;
 
 PageFactory::PageFactory ():
-    QObject (),
-    m_MainPage (0),
-    m_AppletCategoryPage (0)
+    QObject ()
 {
 }
 

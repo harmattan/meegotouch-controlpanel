@@ -1,4 +1,4 @@
-duicontrolpanel (0.11.0~unreleased) unstable; urgency=low
+duicontrolpanel (0.11.0) unstable; urgency=low
 
   * Changes: applet categories became declarative (non-hardcoded)
   * Fixes: NB#205701 - Control panel does not launch to main view when

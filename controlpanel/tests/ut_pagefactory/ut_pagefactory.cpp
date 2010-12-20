@@ -92,7 +92,6 @@ void Ut_PageFactory::testCreateMainPage()
 
     DcpPage *page = factory->createMainPage();
     QVERIFY(page);
-    QCOMPARE((void*)factory->currentPage(), (void*) page);
 }
 
 void Ut_PageFactory::testCreateAppletPage()
