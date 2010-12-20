@@ -1,9 +1,12 @@
 duicontrolpanel (0.11.0~unreleased) unstable; urgency=low
 
-  * new version
   * Changes: applet categories became declarative (non-hardcoded)
+  * Fixes: NB#205701 - Control panel does not launch to main view when
+    started from launcher and it is already open
+  * Fixes: NB#208942 - If no settings panels open, opening the main
+    settings screen scrambles
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 16 Dec 2010 15:01:43 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 20 Dec 2010 13:44:56 +0100
 
 duicontrolpanel (0.10.0) unstable; urgency=low
 

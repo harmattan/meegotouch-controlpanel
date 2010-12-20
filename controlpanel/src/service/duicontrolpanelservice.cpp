@@ -55,9 +55,11 @@ DuiControlPanelService::launch ()
      * so we only setup a default if there is not any yet
      */
 
+#ifdef NO_PAGE_DROPPING
     MApplicationWindow *win = MApplication::activeApplicationWindow();
     if ((m_StartPage && m_StartPage->id == PageHandle::NOPAGE) ||
         (!m_StartPage && win && !win->currentPage()))
+#endif
     {
         mainPage();
     }
@@ -103,10 +105,8 @@ DuiControlPanelService::registerService ()
 }
 
 bool
-DuiControlPanelService::appletPage (
-        const QString& appletName)
+DuiControlPanelService::appletPage (const QString& appletName)
 {
-
     DCP_DEBUG ("");
     PageHandle handle (PageHandle::APPLET, appletName, 0, false);
     sheduleStart(handle);
@@ -128,23 +128,26 @@ DuiControlPanelService::appletPage (const QStringList& params)
 }
 
 /* Starts the page through PageFactory */
-void
-DuiControlPanelService::startPageForReal(
-                const PageHandle &handle)
+void DuiControlPanelService::startPageForReal(const PageHandle &handle)
 {
     /*
      * in case this is the first applet pop up and we are invoked by
      * servicefw, we should load the applet inprocess, because starting
      * two programs would be painful slow (= starting it outprocess).
      */
+
     MApplicationWindow *win = MApplication::activeApplicationWindow();
+    PageFactory* pf = PageFactory::instance();
+#ifdef NO_PAGE_DROPPING
     if (handle.id == PageHandle::APPLET && isStartedByServiceFw
         && (!win || !win->currentPage()))
+#endif
     {
         DcpAppletDb::instance()->applet (handle.param);
     }
 
-    bool success = PageFactory::instance()->changePage(handle);
+    // true means that it drops all the other pages
+    bool success = pf->changePage(handle, true); 
 
     if (win) {
         if (success) {

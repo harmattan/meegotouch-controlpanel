@@ -51,7 +51,7 @@ public:
 public slots:
     void appletWantsToStart (int widgetId = -1);
 
-    bool changePage (const PageHandle &handle);
+    bool changePage (const PageHandle &handle, bool dropOtherPages = false);
     bool changeToAppletPage (const QString& appletName);
 
     void onAppletLoaded (DcpAppletObject *applet);

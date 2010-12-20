@@ -63,7 +63,7 @@ PageFactory::currentPage ()
 }
 
 bool
-PageFactory::changePage (const PageHandle &handle)
+PageFactory::changePage (const PageHandle &handle, bool)
 {
     delete sCurrentPage;
     sCurrentPage = new DcpPage();

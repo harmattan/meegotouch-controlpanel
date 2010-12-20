@@ -40,10 +40,6 @@
 // this also specifies if the applet views should be shown inprocess or outprocess
 DcpAppletLauncherIf * PageFactory::sm_AppletLauncher = 0;
 
-// after this millisec will be an applet launcher process instance prestarted
-// in case it is needed (after the category page opening)
-#define APPLET_LAUNCHER_PRELOAD_DELAY 3000
-
 #include "dcpdebug.h"
 
 
@@ -312,7 +308,7 @@ PageFactory::createAppletCategoryPage (const PageHandle& handle)
     return m_AppletCategoryPage;
 }
 
-    DcpPage*
+DcpPage*
 PageFactory::currentPage ()
 {
     MApplicationWindow* win = MApplication::activeApplicationWindow();
@@ -367,8 +363,8 @@ bool PageFactory::maybeRunOutOfProcess (const QString& appletName)
  * Returns true if the page change was successful, otherwise it
  * returns false.
  */
-    bool
-PageFactory::changePage (const PageHandle &handle)
+bool
+PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
 {
     // if we could run it out of process then we do not change the page:
     if (handle.id == PageHandle::APPLET && maybeRunOutOfProcess(handle.param)) {
@@ -381,8 +377,15 @@ PageFactory::changePage (const PageHandle &handle)
     if (tryOpenPageBackward(handle))
         return true;
 
-    DCP_DEBUG ("Creating page %s",
-            DCP_STR (handle.getStringVariant()));
+    // we drop all the other pages if needed:
+    if (dropOtherPages) {
+        foreach (MApplicationPage* page, m_Pages) {
+            delete page;
+        }
+        m_Pages.clear ();
+        m_MainPage = 0;
+        m_AppletCategoryPage = 0;
+    }
 
     /*
      * Creating the page with the given handle.
@@ -411,7 +414,7 @@ PageFactory::changePage (const PageHandle &handle)
     return true;
 }
 
-    void
+void
 PageFactory::appletWantsToStart (int pageId)
 {
     DcpAppletObject *applet = qobject_cast<DcpAppletObject*> (sender());
@@ -446,7 +449,7 @@ PageFactory::registerPage (
  * in the stack. This is needed so the duicontrolpanel can page back to a
  * requested page.
  */
-    void
+void
 PageFactory::pageChanged (MApplicationPage *page)
 {
     if (m_Pages.empty()) {
@@ -473,8 +476,7 @@ PageFactory::pageChanged (MApplicationPage *page)
  * requested page is on top.
  */
 bool 
-PageFactory::tryOpenPageBackward (
-        const PageHandle &handle)
+PageFactory::tryOpenPageBackward (const PageHandle &handle)
 {
     DcpPage *page;
     int foundAtIndex = -1;
