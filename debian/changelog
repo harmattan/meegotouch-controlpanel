@@ -1,8 +1,12 @@
+duicontrolpanel (0.11.1~unreleased) unstable; urgency=low
+
+  * Changes: one line applet brief is top aligned
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 22 Dec 2010 13:48:10 +0100
+
 duicontrolpanel (0.11.0) unstable; urgency=low
 
   * Changes: applet categories became declarative (non-hardcoded)
-  * Fixes: NB#205701 - Control panel does not launch to main view when
-    started from launcher and it is already open
   * Fixes: NB#208942 - If no settings panels open, opening the main
     settings screen scrambles
 
@@ -11,12 +15,19 @@ duicontrolpanel (0.11.0) unstable; urgency=low
 duicontrolpanel (0.10.0) unstable; urgency=low
 
   * Changes: runs most binary applets in separate process
-  * Implemented: SWP#DUI-4492
-  * New: Help button support for meego
-  * Updates icon ids to spec 0.7
   * Changes: removes meegotestrunner dependency from unit tests
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 14 Dec 2010 10:29:45 +0100
+
+duicontrolpanel (0.9.9.1) unstable; urgency=low
+
+  * Fixes: NB#205701 - Control panel does not launch to main view when
+    started from launcher and it is already open
+  * Updates icon ids to spec 0.7
+  * New: Help button support for meego
+  * New: meegotouch-controlpanel.pc symlink into pkconfig directory
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 21 Dec 2010 10:33:26 +0100
 
 duicontrolpanel (0.9.8) unstable; urgency=low
 
