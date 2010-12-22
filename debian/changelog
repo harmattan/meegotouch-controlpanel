@@ -1,8 +1,9 @@
 duicontrolpanel (0.11.1~unreleased) unstable; urgency=low
 
   * Changes: one line applet brief is top aligned
+  * Changes: two new icon ids for mainpage
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 22 Dec 2010 13:48:10 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 22 Dec 2010 16:18:31 +0100
 
 duicontrolpanel (0.11.0) unstable; urgency=low
 
