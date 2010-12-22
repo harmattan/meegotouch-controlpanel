@@ -129,7 +129,7 @@ DcpRetranslator::loadAppletTranslation (
         MLocale                &locale,
         const DcpAppletMetadata  *metadata)
 {
-    Q_ASSERT(metadata);
+    dcp_failfunc_unless (metadata, false);
 
     QStringList catalogList = metadata->translationCatalogs();
     bool hasChanged = false;

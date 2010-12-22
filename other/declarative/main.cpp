@@ -30,7 +30,7 @@
 
 int main(int argc, char** argv)
 {
-    Q_ASSERT(argc > 1);
+    Q_ASSERT (argc > 1);
     
     DuiApplication app(argc, argv);
     DuiApplicationWindow win;

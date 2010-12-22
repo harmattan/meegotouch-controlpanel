@@ -18,6 +18,7 @@
 #include "dynamicgconfdatastore.h"
 
 #include <MGConfItem>
+#include <dcpdebug.h>
 
 DynamicGConfDataStore::DynamicGConfDataStore(QObject* parent):
     MDataStore ()
@@ -93,7 +94,7 @@ void DynamicGConfDataStore::clear()
 void DynamicGConfDataStore::gconfValueChanged()
 {
     MGConfItem* sender = qobject_cast<MGConfItem*>(this->sender());
-    Q_ASSERT (sender);
+    dcp_failfunc_unless (sender);
     emit valueChanged (sender->key(), sender->value());
 }
 

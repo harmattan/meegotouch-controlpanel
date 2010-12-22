@@ -70,7 +70,7 @@ void
 DcpPage::appendWidget (
         QGraphicsWidget *widget)
 {
-    Q_ASSERT (mainLayout());
+    dcp_failfunc_unless (mainLayout());
     DCP_DEBUG ("*** adding   widget at %p", widget);
     /*
      * FIXME: Because we called the hide() in the removeWidget() method we have

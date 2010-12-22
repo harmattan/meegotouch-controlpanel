@@ -9,6 +9,7 @@
 #include <MApplicationWindow>
 #include <QDBusError>
 #include <DcpAppletDb>
+#include <dcpdebug.h>
 
 static const char* serviceName = "com.nokia.DcpAppletLauncher";
 
@@ -30,7 +31,7 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
     if (MApplication::windows().isEmpty())  return true;
 
     MWindow *win = MApplication::windows().at(0);
-    Q_ASSERT (win);
+    dcp_failfunc_unless (win, false);
 
     // FIXME XXX: the instance() call makes the .desktop files parsed unnecesserily
     PageFactory* pageFactory = PageFactory::instance();

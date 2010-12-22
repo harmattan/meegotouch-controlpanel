@@ -148,7 +148,7 @@ void Ut_DcpWrongApplets::testQueryBadApplets()
     // the applet gets disabled:
     DcpAppletObject* applet =
         DcpAppletDb::instance()->applet(QString("fake-name"));
-    Q_ASSERT (applet);
+    QVERIFY (applet);
     QVERIFY (applet->metadata()->isDisabled());
 }
 

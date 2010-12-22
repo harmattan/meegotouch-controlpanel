@@ -43,7 +43,10 @@ DcpMainCategory::deleteItems ()
     for (int i = layout->count() - 1; i >= 0; i--){
         QGraphicsWidget* widget = (QGraphicsWidget*)
                                   (layout->itemAt(i)->graphicsItem());
-        Q_ASSERT (widget);
+        if (!widget) {
+            qWarning ("%s: the layout is broken", Q_FUNC_INFO);
+            continue;
+        }
         layout->removeItem (widget);
         widget->deleteLater ();
     }

@@ -176,7 +176,7 @@ void DcpRemoteBriefReceiver::onReadyRead()
         if (line.isEmpty()) continue;
         QString arg;
         if (tryMatch (BSupplier::OutputBegin, line, arg)) {
-            Q_ASSERT (!priv->currentBrief);
+            dcp_failfunc_unless (!priv->currentBrief);
 
         } else if (tryMatch (BSupplier::OutputEnd, line, arg)) {
             if (priv->currentBrief) {
@@ -185,7 +185,7 @@ void DcpRemoteBriefReceiver::onReadyRead()
             priv->currentBrief = 0;
 
         } else if (tryMatch (BSupplier::OutputName, line, arg)) {
-            Q_ASSERT (!priv->currentBrief);
+            dcp_failfunc_unless (!priv->currentBrief);
             priv->currentBrief = priv->briefs.value(arg);
 
         } else {
@@ -205,7 +205,7 @@ void DcpRemoteBriefReceiver::onReadyRead()
             int i;
             for (i=0; i<keyCount; i++) {
                 if (tryMatch (keys[i], line, arg)) {
-                    Q_ASSERT (priv->currentBrief);
+                    dcp_failfunc_unless (priv->currentBrief);
                     priv->currentBrief->setValue (keys[i],arg);
                     break;
                 }

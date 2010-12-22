@@ -235,8 +235,6 @@ DcpContentItem::ensureWidgetsAreLayouted()
     for (int i=layout->count()-1; i>=0; i--) {
         layout->removeAt(i);
     }
-    Q_ASSERT (layout->count() == 0);
-    Q_ASSERT (grid->count() == 0);
 
     // layout the items again:
     int textX = d_ptr->m_ImageW ? 1 : 0;
@@ -363,7 +361,7 @@ DcpContentItem::setApplet (DcpAppletObject *applet)
 
 void DcpContentItem::onClicked ()
 {
-    Q_ASSERT (metadata());
+    dcp_failfunc_unless (metadata());
 
     /*
      * This will count the activations and activate the applet.
@@ -414,7 +412,7 @@ void DcpContentItem::updateImage ()
 
     // ----------- image specific: -------------
     if (widgetType() == DcpWidgetType::Image) {
-        Q_ASSERT (metadata());
+        dcp_failfunc_unless (metadata());
         QString source = applet() ? applet()->iconName()
                                   : metadata()->imageName();
         qDebug ("Image %s from %s", qPrintable(source),
@@ -457,7 +455,7 @@ DcpContentItem::updateContents ()
 void
 DcpContentItem::setImageName (const QString& name)
 {
-    Q_ASSERT (d_ptr->m_ImageW);
+    dcp_failfunc_unless (d_ptr->m_ImageW);
     d_ptr->m_ImageW->setImage (name);
 }
 
@@ -469,7 +467,7 @@ DcpContentItem::setImageFromFile (const QString& fileName)
 {
     bool    success;
     QImage  image;
-    Q_ASSERT (d_ptr->m_ImageW);
+    dcp_failfunc_unless (d_ptr->m_ImageW);
 
     success = image.load (fileName);
     if (!success) {

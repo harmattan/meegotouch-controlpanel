@@ -161,7 +161,6 @@ termination_signal_handler (
  */
 DcpWrongApplets::DcpWrongApplets ()
 {
-    //Q_ASSERT (false);
     DCP_DEBUG ("");
 
     // on dcp timestamp change, remove the list of bad applets

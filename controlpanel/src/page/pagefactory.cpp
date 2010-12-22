@@ -265,7 +265,7 @@ DcpPage *
 PageFactory::createAppletCategoryPage (const PageHandle& handle)
 {
     PageHandle::PageTypeId id = handle.id;
-    Q_ASSERT (id == PageHandle::APPLETCATEGORY);
+    dcp_failfunc_unless (id == PageHandle::APPLETCATEGORY, 0);
 
     const Category *info = 
         DcpCategories::instance()->categoryById (handle.param);
@@ -314,7 +314,7 @@ PageFactory::currentPage ()
 void PageFactory::preloadAppletLauncher ()
 {
     if (!sm_AppletLauncher) return;
-    Q_ASSERT (sm_AppletLauncher->isValid());
+    dcp_failfunc_unless (sm_AppletLauncher->isValid());
     sm_AppletLauncher->prestart ();
 }
 
@@ -344,7 +344,7 @@ bool PageFactory::maybeRunOutOfProcess (const QString& appletName)
      */
 
     if (runOutProcess) {
-        Q_ASSERT (sm_AppletLauncher->isValid());
+        dcp_failfunc_unless (sm_AppletLauncher->isValid(), false);
         sm_AppletLauncher->appletPage (appletName);
     }
 
@@ -390,7 +390,7 @@ PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
     }
 
     MWindow* win = MApplication::instance()->activeWindow();
-    Q_ASSERT (win);
+    dcp_failfunc_unless (win, false);
 
     /*
      * Time to show the new page.
@@ -412,7 +412,7 @@ PageFactory::appletWantsToStart (int pageId)
 {
     DcpAppletObject *applet = qobject_cast<DcpAppletObject*> (sender());
 
-    Q_ASSERT (applet);
+    dcp_failfunc_unless (applet);
 
     QString appletName = applet->metadata()->name();
 

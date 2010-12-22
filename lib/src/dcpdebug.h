@@ -124,20 +124,28 @@ namespace DcpDebug
         ...);
 };
 
-#if 0
-inline void DcpDebug::time(const QString& msg = "") {}
-inline void DcpDebug::start(const QString& msg = "") {}
-inline void DcpDebug::end(const QString& msg = "") {}
-
-#else
-
 /*! \brief convenience macros for debugging how long time a function takes.
  * \details The start and the end of the function should be marked with it. */
 #define DCP_FUNC_START DcpDebug::start(Q_FUNC_INFO);
 #define DCP_FUNC_END DcpDebug::end(Q_FUNC_INFO);
 
+/* In debug mode this macro is a synonym for assert,
+ * otherwise just outputs a waring message (as we are expected not to assert
+ * in a release build */
+#ifdef DEBUG
 
-#endif
+#define dcp_failfunc_unless(x, return_value...) \
+    Q_ASSERT (x)
+
+#else // DEBUG
+
+#define dcp_failfunc_unless(x, return_value...) \
+    if (!(x)) { \
+        qWarning (#x " is false at %s", Q_FUNC_INFO); \
+        return return_value; \
+    }
+
+#endif // DEBUG
 
 #endif // DCPDEBUG_H
 

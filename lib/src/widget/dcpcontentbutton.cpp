@@ -65,7 +65,7 @@ DcpContentButton::setApplet (DcpAppletObject *applet)
 {
     // currently the button only supports setting the applet once, but
     // we do not use this anyway again
-    Q_ASSERT (!d_ptr->m_Applet);
+    dcp_failfunc_unless (!d_ptr->m_Applet);
 
     d_ptr->m_Applet = applet;
     d_ptr->m_Metadata = applet ? applet->metadata() : 0;
@@ -164,8 +164,8 @@ QString DcpContentButton::TDriverID () const
 void DcpContentButton::setMetadata(DcpAppletMetadata* metadata)
 {
     // only supports setting this once for now
-    Q_ASSERT (!d_ptr->m_Metadata);
-    Q_ASSERT (!d_ptr->m_Applet);
+    dcp_failfunc_unless (!d_ptr->m_Metadata);
+    dcp_failfunc_unless (!d_ptr->m_Applet);
 
     d_ptr->m_Metadata = metadata;
 

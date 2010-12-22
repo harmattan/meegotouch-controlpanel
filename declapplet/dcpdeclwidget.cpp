@@ -63,7 +63,7 @@ DcpDeclWidget::DcpDeclWidget(const QString& xmlPath)
 
     MSettingsLanguageWidget* widget =
         MSettingsLanguageWidgetFactory::createWidget(*binary, datastore );
-    Q_ASSERT(widget);
+    dcp_failfunc_unless(widget);
     layout->addItem(widget);
 }
 

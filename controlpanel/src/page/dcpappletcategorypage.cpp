@@ -52,7 +52,7 @@ void
 DcpAppletCategoryPage::createCategories ()
 {
     QGraphicsLinearLayout *layout = mainLayout ();
-    Q_ASSERT(layout);
+    dcp_failfunc_unless(layout);
 
     DcpMainCategory *otherCategories = new DcpMainCategory();
     QList<const Category*> categoryList;

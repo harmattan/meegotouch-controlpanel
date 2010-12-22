@@ -56,7 +56,7 @@ void BriefSupplier::onNewConnection ()
     connectionCount++;
     if (connectionCount == 1) {
         QLocalServer* server = qobject_cast<QLocalServer*>(sender());
-        Q_ASSERT (server);
+        dcp_failfunc_unless (server);
         QLocalSocket* socket = server->nextPendingConnection ();
         setIODevice (socket);
     }
@@ -127,7 +127,7 @@ void BriefSupplier::onBriefChanged ()
 
 void BriefSupplier::outputBrief (DcpAppletObject* applet, bool textOnly)
 {
-    Q_ASSERT (applet);
+    dcp_failfunc_unless (applet);
 
     DcpBrief* brief = applet->brief();
     if (!brief) return;

@@ -206,7 +206,7 @@ DuiControlPanelService::createStartPage()
 {
     DCP_DEBUG ("");
     // createStartPage should not be called twice
-    Q_ASSERT(m_StartPage);
+    dcp_failfunc_unless (m_StartPage);
 
     PageHandle* handle = m_StartPage;
     m_StartPage = 0;

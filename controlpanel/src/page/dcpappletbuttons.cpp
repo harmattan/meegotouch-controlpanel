@@ -148,8 +148,8 @@ DcpAppletButtons::appletMetadata (int pos)
         qobject_cast<QStandardItemModel*>(m_List->itemModel());
     if (!model) return 0;
 
-    Q_ASSERT (pos < model->rowCount());
-    Q_ASSERT (pos >= 0);
+    dcp_failfunc_unless (pos < model->rowCount(), 0);
+    dcp_failfunc_unless (pos >= 0, 0);
 
     return model->item (pos)->data().value<DcpAppletMetadata*>();
 }

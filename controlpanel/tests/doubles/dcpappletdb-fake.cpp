@@ -111,6 +111,7 @@ DcpAppletDb::listMostUsed ()
 }
 #endif
 
+
 DcpAppletObject *
 DcpAppletDb::applet (
         const QString &name)
