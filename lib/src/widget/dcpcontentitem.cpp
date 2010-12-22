@@ -27,7 +27,6 @@
 
 #include "dcpappletdb.h"
 
-static const QString titleObjectName = "CommonTitleInverted";
 static const QString subtitleObjectName = "CommonSubTitleInverted";
 static const QString singleTitleObjectName = "CommonSingleTitleInverted";
 static const QString iconObjectName = "CommonMainIcon";
@@ -44,7 +43,6 @@ DcpContentItemPrivate::DcpContentItemPrivate ():
     m_Text1W (0),
     m_Text2W (0),
     m_Help (0),
-    m_Spacer (0),
     m_ButtonW (0)
 {
 }
@@ -116,7 +114,10 @@ void
 DcpContentItem::ensureImageIsCreated()
 {
     // create / free up image:
-    if (widgetType() == DcpWidgetType::Image) {
+    if (widgetType() == DcpWidgetType::Image &&
+       ((applet() && !applet()->iconName().isEmpty()) ||
+        (metadata() && !metadata()->imageName().isEmpty())))
+     {
         MImageWidget* &image = d_ptr->m_ImageW;
         if (!image) {
             image = new MImageWidget();
@@ -201,29 +202,19 @@ DcpContentItem::ensureTextsAreCreated()
     // create the text widgets:
     if (!d_ptr->m_Text1W) {
         d_ptr->m_Text1W = new MLabel();
-        // TODO maybe we could find a better solution than using the objectnames
-        // of the elements in MBasicListItem, because it can break in the future
-        // if MBasicListItem changes
-        d_ptr->m_Text1W->setStyleName(text2.isEmpty() ? singleTitleObjectName
-                                       : titleObjectName);
         d_ptr->m_LayoutIsToBeChanged = true;
+        d_ptr->m_Text1W->setStyleName(singleTitleObjectName);
+        d_ptr->m_Text1W->setAlignment (Qt::AlignBottom);
     }
     if (!d_ptr->m_Text2W) {
         d_ptr->m_Text2W = new MLabel();
         d_ptr->m_Text2W->setStyleName(subtitleObjectName);
+        d_ptr->m_Text2W->setAlignment (Qt::AlignTop);
         d_ptr->m_LayoutIsToBeChanged = true;
-    }
-    if (!d_ptr->m_Spacer) {
-        d_ptr->m_Spacer = new QGraphicsWidget();
     }
 
     // update their texts:
     d_ptr->m_Text1W->setText (title());
-    if (d_ptr->m_Text2W->text().isEmpty() != text2.isEmpty()) {
-        d_ptr->m_Text1W->setStyleName(text2.isEmpty() ? singleTitleObjectName
-                                       : titleObjectName);
-        d_ptr->m_LayoutIsToBeChanged = true;
-    }
     d_ptr->m_Text2W->setText (text2);
 }
 
@@ -249,25 +240,15 @@ DcpContentItem::ensureWidgetsAreLayouted()
 
     // layout the items again:
     int textX = d_ptr->m_ImageW ? 1 : 0;
-    int textLinesCount = hasTwoTextLines() ? 2 : 1;
-    Qt::Alignment text1Align =
-        hasTwoTextLines() ? Qt::AlignBottom : Qt::AlignVCenter;
-
+    int textLinesCount = 2;
     if (d_ptr->m_ImageW) {
         grid->addItem (d_ptr->m_ImageW, 0,0,
                        textLinesCount+1, 1, Qt::AlignCenter);
     }
 //    grid->addItem(new QGraphicsWidget(), 0, textX);
-    grid->addItem (d_ptr->m_Text1W, 0, textX, text1Align);
-    if (hasTwoTextLines()) {
-        grid->addItem (d_ptr->m_Text2W, 1, textX, Qt::AlignTop);
-        grid->addItem (d_ptr->m_Spacer, textLinesCount, textX);
-        d_ptr->m_Text2W->show();
-        textLinesCount++; // this additional is for the spacer
-    } else {
-        d_ptr->m_Spacer->hide();
-        d_ptr->m_Text2W->hide();
-    }
+    grid->addItem (d_ptr->m_Text1W, 0, textX, Qt::AlignBottom);
+    grid->addItem (d_ptr->m_Text2W, 1, textX, Qt::AlignTop);
+
     int toggleX = textX+1;
     if (d_ptr->m_Help) {
         grid->addItem (d_ptr->m_Help, 0, toggleX,
@@ -428,12 +409,16 @@ QString DcpContentItem::imageID() const
 
 void DcpContentItem::updateImage ()
 {
+    // we have nothing to update:
+    if (!d_ptr->m_ImageW) return;
+
     // ----------- image specific: -------------
     if (widgetType() == DcpWidgetType::Image) {
-        Q_ASSERT (d_ptr->m_Applet);
-        QString source = d_ptr->m_Applet->iconName();
+        Q_ASSERT (metadata());
+        QString source = applet() ? applet()->iconName()
+                                  : metadata()->imageName();
         qDebug ("Image %s from %s", qPrintable(source),
-                qPrintable(d_ptr->m_Applet->metadata()->name()));
+                qPrintable(metadata()->name()));
 
         /*
          * The image file might be big, so we need a little speed up here, otherwise

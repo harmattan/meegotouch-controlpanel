@@ -53,7 +53,6 @@ public:
     MLabel* m_Text1W;
     MLabel* m_Text2W;
     MHelpButton* m_Help;
-    QGraphicsWidget* m_Spacer;
     MButton* m_ButtonW;
 };
 
