@@ -2,11 +2,10 @@
 
 #include <QTextStream>
 #include <QLocalSocket>
-#include <QMutexLocker>
 
 
 Stream::Stream(QObject* parent):
-    QThread (parent),
+    QObject (parent),
     m_Text (new QTextStream ())
 {
 }
@@ -16,17 +15,11 @@ Stream::~Stream ()
     delete m_Text;
 }
 
-void Stream::run()
-{
-    exec ();
-}
-
 void Stream::onReadyRead ()
 {
     QString st;
     do {
         {
-            QMutexLocker (&this->m_Lock);
             st = m_Text->readLine ();
         }
         if (!st.isEmpty()) {
@@ -42,7 +35,6 @@ void Stream::onReadyRead ()
 
 void Stream::setIODevice (QIODevice* device)
 {
-    QMutexLocker (&this->m_Lock);
     QIODevice* lastDevice = m_Text->device ();
 
     device->open (QIODevice::Text | QIODevice::ReadWrite);
@@ -64,7 +56,6 @@ void Stream::setIODevice (QIODevice* device)
 
 void Stream::flush ()
 {
-    QMutexLocker (&this->m_Lock);
     m_Text->flush ();
     QLocalSocket* socket = qobject_cast<QLocalSocket*>(m_Text->device());
     if (socket) socket->flush ();
@@ -72,7 +63,6 @@ void Stream::flush ()
 
 void Stream::writeLine (const QString& st)
 {
-    QMutexLocker (&this->m_Lock);
     *m_Text << st << "\n";
 }
 

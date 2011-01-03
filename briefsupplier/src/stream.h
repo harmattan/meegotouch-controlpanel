@@ -3,17 +3,15 @@
 
 class QTextStream;
 class QIODevice;
-#include <QThread>
-#include <QMutex>
+#include <QObject>
 
-class Stream: public QThread
+class Stream: public QObject
 {
     Q_OBJECT
 
 public:
     Stream (QObject* parent);
     ~Stream ();
-    void run();
 
     void setIODevice (QIODevice* device);
     void flush ();
@@ -27,7 +25,6 @@ protected slots:
 
 private:
     QTextStream* m_Text;
-    QMutex m_Lock;
 };
 
 
