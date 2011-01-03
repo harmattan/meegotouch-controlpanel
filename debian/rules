@@ -9,34 +9,29 @@
 # Uncomment this to turn on verbose mode.
 # export DH_VERBOSE=1
 
-	
-
 
 CFLAGS = -Wall -g
 
-ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
 	CFLAGS += -O0
 else
 	CFLAGS += -O2
 endif
 
-ifneq (,$(findstring debug,$(DEB_BUILD_OPTIONS)))
+ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
     QMAKE_ARG += DEFINES+=DEBUG
 endif
 
-ifneq (,$(findstring nolauncher,$(DEB_BUILD_OPTIONS)))
+ifneq (,$(filter nolauncher,$(DEB_BUILD_OPTIONS)))
     QMAKE_ARG += CONFIG+=DISABLE_LAUNCHER
 endif
 
-ifneq (,$(findstring mostused,$(DEB_BUILD_OPTIONS)))
+ifneq (,$(filter mostused,$(DEB_BUILD_OPTIONS)))
     QMAKE_ARG += CONFIG+=MOSTUSED
 endif
+
 ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-    ifneq (,$(findstring arm,$(ARCH)))
-        NUMJOBS = 1
-    else
-        NUMJOBS = $(shell echo "$(DEB_BUILD_OPTIONS)" | awk -F ',' '{ for (Nix=1 ; Nix <= NF ; Nix++) { n_fields = split ($$Nix, fields, "="); if (fields[1] == "parallel" && n_fields == 2) print(fields[2]);}}')
-    endif
+    NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
     PARALLEL_MAKEFLAGS += -j$(NUMJOBS)
 endif
 
