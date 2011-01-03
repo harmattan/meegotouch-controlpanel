@@ -7,9 +7,14 @@ CONFIG += conf
 
 SUBDIRS += src \
 
-!minimal {
-       SUBDIRS += translations \
-                  tests
+minimal {
+    CONFIG += NOTESTS
+} else {
+    SUBDIRS += translations
+}
+
+!NOTESTS {
+    SUBDIRS += tests
 }
 
 # install targets:

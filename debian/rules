@@ -9,34 +9,51 @@
 # Uncomment this to turn on verbose mode.
 # export DH_VERBOSE=1
 
+# this makes us compatible with also the deb options which are
+# separated by commas instead of spaces
+comma=,
+nothing=
+space=$(nothing) $(nothing)
+TMP_BUILD_OPTS=$(subst $(comma),$(space),$(DEB_BUILD_OPTIONS))
 
 CFLAGS = -Wall -g
 
-ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
+ifneq (,$(filter noopt,$(TMP_BUILD_OPTS)))
 	CFLAGS += -O0
 else
 	CFLAGS += -O2
 endif
 
-ifneq (,$(filter nodocs,$(DEB_BUILD_OPTIONS)))
+ifneq (,$(filter nodocs,$(TMP_BUILD_OPTS)))
     QMAKE_ARG += CONFIG+=NODOC
-    EXCLUDE_FILES = --exclude usr/share/doc/libduicontrolpanel
+    EXCLUDE += -Nlibduicontrolpanel-doc
 endif
 
-ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
+ifneq (,$(filter notests,$(TMP_BUILD_OPTS)))
+    QMAKE_ARG += CONFIG+=NOTESTS
+    EXCLUDE += -Nduicontrolpanel-tests
+endif
+
+ifneq (,$(filter minimal,$(TMP_BUILD_OPTS)))
+    QMAKE_ARG += CONFIG+=minimal
+    EXCLUDE += -Nlibduicontrolpanel-doc
+    EXCLUDE += -Nduicontrolpanel-tests
+endif
+
+ifneq (,$(filter debug,$(TMP_BUILD_OPTS)))
     QMAKE_ARG += DEFINES+=DEBUG
 endif
 
-ifneq (,$(filter nolauncher,$(DEB_BUILD_OPTIONS)))
+ifneq (,$(filter nolauncher,$(TMP_BUILD_OPTS)))
     QMAKE_ARG += CONFIG+=DISABLE_LAUNCHER
 endif
 
-ifneq (,$(filter mostused,$(DEB_BUILD_OPTIONS)))
+ifneq (,$(filter mostused,$(TMP_BUILD_OPTS)))
     QMAKE_ARG += CONFIG+=MOSTUSED
 endif
 
-ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-    NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+ifneq (,$(filter parallel=%,$(TMP_BUILD_OPTS)))
+    NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(TMP_BUILD_OPTS)))
     PARALLEL_MAKEFLAGS += -j$(NUMJOBS)
 endif
 
@@ -65,12 +82,13 @@ build-stamp: configure-stamp
 clean:
 	dh_testdir
 	dh_testroot
+
 	rm -f build-stamp configure-stamp
 
-	qmake 2>/dev/null >/dev/null
+	qmake 2>/dev/null >/dev/null $(QMAKE_ARG)
 	$(MAKE) $(PARALLEL_MAKEFLAGS) distclean
 
-	dh_clean 
+	dh_clean
 
 install: build
 	dh_testdir
@@ -97,7 +115,7 @@ binary-arch: build install
 	dh_installdocs
 	dh_installexamples
 
-	dh_install --sourcedir=debian/tmp -v $(EXCLUDE_FILES)
+	dh_install --sourcedir=debian/tmp -v $(EXCLUDE)
 
 #	dh_installmenu
 #	dh_installdebconf	
@@ -112,19 +130,20 @@ binary-arch: build install
 	dh_installman
 	dh_link
 	dh_strip --dbg-package=duicontrolpanel-dbg
-	dh_compress
+	dh_compress $(EXCLUDE)
 	dh_fixperms
 #	dh_perl
 	dh_makeshlibs
-	dh_installdeb
-	dh_shlibdeps 
-	dh_gencontrol
-	dh_md5sums
+	dh_installdeb $(EXCLUDE)
+	dh_shlibdeps
+	dh_gencontrol $(EXCLUDE)
+	dh_md5sums $(EXCLUDE)
 	
-	dh_builddeb
+	dh_builddeb $(EXCLUDE)
 
 	# for the security framework
 	aegis-deb-add -control debian/duicontrolpanel/DEBIAN/control .. debian/duicontrolpanel.aegis=_aegis
 
 binary: binary-indep binary-arch
 .PHONY: build clean binary-indep binary-arch binary install configure
+

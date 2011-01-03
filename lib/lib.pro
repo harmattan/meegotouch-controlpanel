@@ -1,15 +1,19 @@
 TEMPLATE = subdirs
 
 CONFIG += ordered debug
-CONFIG += build_all silent warn_on
+CONFIG += silent warn_on
 
 SUBDIRS += src
 
-!minimal {
-    SUBDIRS += tests
-    include(doc/doc.pri)
+minimal {
+    CONFIG += NOTESTS NODOC
 }
 
+! NOTESTS {
+    SUBDIRS += tests
+}
+
+include(doc/doc.pri)
 include(libconfig.pri)
 
 # for check:

@@ -5,6 +5,8 @@ Possible build options when creating debian package:
 noopt           do not use O2 optimization
 
 nodocs          do not build the doc package
+notests         do not build the tests packages
+minimal         do not build all the above + engineering translations
 
 debug           build a more verbose controlpanel with lots of debug output
 

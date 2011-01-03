@@ -4,7 +4,8 @@ duicontrolpanel (0.11.1~unreleased) unstable; urgency=low
   * Changes: two new icon ids for mainpage
   * Fixes: NB#215724 - 'duicontrolpanel' package requests non-existing
     security token
-  * New: Building docs can be disabled through DEB_BUILD_OPTIONS
+  * New: Building docs,tests,translations can be disabled through
+    DEB_BUILD_OPTIONS
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 03 Jan 2011 14:30:18 +0100
 
