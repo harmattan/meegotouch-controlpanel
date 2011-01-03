@@ -38,6 +38,7 @@ ifneq (,$(filter minimal,$(TMP_BUILD_OPTS)))
     QMAKE_ARG += CONFIG+=minimal
     EXCLUDE += -Nlibduicontrolpanel-doc
     EXCLUDE += -Nduicontrolpanel-tests
+    EXCLUDE += -Nduicontrolpanel-l10n-engineering-english
 endif
 
 ifneq (,$(filter debug,$(TMP_BUILD_OPTS)))
