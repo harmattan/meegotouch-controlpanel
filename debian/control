@@ -29,7 +29,7 @@ Section: x11
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
          libduicontrolpanel (= ${Source-Version}),
-         applauncherd-launcher, clean-device, dsme, timed,
+         applauncherd-launcher, clean-device, dsme, timed, devicelock,
          duicontrolpanel-l10n-engineering-english (= ${Source-Version})
 Description: Control Panel
  Control Panel provides an application which uses various plugins to present
