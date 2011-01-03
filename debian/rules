@@ -18,6 +18,11 @@ else
 	CFLAGS += -O2
 endif
 
+ifneq (,$(filter nodocs,$(DEB_BUILD_OPTIONS)))
+    QMAKE_ARG += CONFIG+=NODOC
+    EXCLUDE_FILES = --exclude usr/share/doc/libduicontrolpanel
+endif
+
 ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
     QMAKE_ARG += DEFINES+=DEBUG
 endif
@@ -91,7 +96,9 @@ binary-arch: build install
 	dh_installchangelogs 
 	dh_installdocs
 	dh_installexamples
-	dh_install --sourcedir=debian/tmp
+
+	dh_install --sourcedir=debian/tmp -v $(EXCLUDE_FILES)
+
 #	dh_installmenu
 #	dh_installdebconf	
 #	dh_installlogrotate
