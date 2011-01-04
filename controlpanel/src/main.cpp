@@ -29,10 +29,6 @@
 
 #include "dcpdebug.h"
 
-#include <cstdio>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <csignal>
 #include <MApplicationWindow>
 #include <MComponentCache>
 #include <MApplication>
@@ -40,17 +36,6 @@
 #include "syslog.h"
 
 static const QString appIdentifier = "duicontrolpanel";
-
-/*
- * this redefines the signal handler for TERM and INT signals, so as to be able
- * to use aboutToQuit signal from qApp also in these cases
- */
-void onTermSignal (int)
-{
-    if (qApp) {
-        qApp->quit();
-    }
-}
 
 static inline MApplication* createApplication (int argc, char** argv,
                                                MApplicationService* service)
@@ -82,8 +67,6 @@ startMainApplication (int argc, char* argv[])
     DuiControlPanelService* service = new DuiControlPanelService ();
 
     MApplication *app = createApplication (argc, argv, service);
-    signal(SIGTERM, &onTermSignal);
-    signal(SIGINT, &onTermSignal);
 
     // install the new translations if locale changes:
     DcpRetranslator* retranslator = DcpRetranslator::instance();
@@ -119,8 +102,6 @@ startAppletLoader (int argc, char* argv[])
     DcpAppletLauncherService* service = new DcpAppletLauncherService ();
 
     MApplication *app = createApplication (argc, argv, service);
-    signal(SIGTERM, &onTermSignal);
-    signal(SIGINT, &onTermSignal);
 
     // mainwindow:
     MApplicationWindow *win = createApplicationWindow ();

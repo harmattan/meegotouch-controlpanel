@@ -6,14 +6,12 @@
 #include "dcpmostusedcounter.h"
 #include "briefsupplier.h"
 #include "fakeapplicationservice.h"
+#include <dcpdebug.h>
 
 #include <sys/time.h>
 #include <sys/resource.h>
-
-#include <unistd.h>
-#include <csignal>
-#include <dcpdebug.h>
 #include "syslog.h"
+
 #define LOW_PRIORITY
 
 void cleanup ()
@@ -28,17 +26,6 @@ void cleanup ()
     delete MApplication::instance();
 }
 
-/*
- * this redefines the signal handler for TERM and INT signals, so as to be able
- * to use aboutToQuit signal from qApp also in these cases
- */
-void onTermSignal (int)
-{
-    if (qApp) {
-        qApp->quit();
-    }
-}
-
 int main (int argc, char* argv[])
 {
     openlog ("dcp-briefsupplier", LOG_PID, LOG_USER);
@@ -47,9 +34,6 @@ int main (int argc, char* argv[])
 #endif // LOW_PRIORITY
 
     MApplication* app = new MApplication(argc, argv, new FakeApplicationService());
-
-    signal(SIGTERM, &onTermSignal);
-    signal(SIGINT, &onTermSignal);
 
     // install the new translations if locale changes:
     DcpRetranslator* retranslator = DcpRetranslator::instance();
