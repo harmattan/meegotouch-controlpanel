@@ -86,11 +86,8 @@ clean:
 
 	rm -f build-stamp configure-stamp
 
-	# we only distclean if there is a makefile,
-	# this saves the time of distcleaning the clean sources
-	test -f "Makefile" && \
-	$(MAKE) $(PARALLEL_MAKEFLAGS) distclean \
-	|| true
+	qmake 2>/dev/null >/dev/null $(QMAKE_ARG)
+	$(MAKE) $(PARALLEL_MAKEFLAGS) distclean
 
 	dh_clean
 
