@@ -17,6 +17,7 @@ public:
 public slots:
     bool appletPage (const QString& appletName);
     void prestart ();
+    void close ();
 
 private:
     void sheduleApplet (const QString& appletName);

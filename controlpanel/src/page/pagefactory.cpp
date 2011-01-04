@@ -60,6 +60,9 @@ PageFactory::PageFactory ():
 
 PageFactory::~PageFactory ()
 {
+    if (sm_AppletLauncher) {
+        sm_AppletLauncher->close();
+    }
     delete sm_AppletLauncher;
     sm_Instance = 0;
 }

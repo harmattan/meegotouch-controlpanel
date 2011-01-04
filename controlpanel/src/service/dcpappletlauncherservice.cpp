@@ -109,3 +109,11 @@ void DcpAppletLauncherService::prestart ()
 {
 }
 
+void DcpAppletLauncherService::close ()
+{
+    MApplication* app = MApplication::instance();
+    if (app) {
+        app->exit (0);
+    }
+}
+
