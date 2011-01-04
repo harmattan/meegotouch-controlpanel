@@ -60,9 +60,14 @@ DcpAppletPluginPrivate::DcpAppletPluginPrivate(DcpAppletMetadata* metadata):
 {
 }
 
+void dcpSyslog (const QString& log)
+{
+    syslog (LOG_DEBUG, qPrintable(log));
+}
+
 DcpAppletPluginPrivate::~DcpAppletPluginPrivate ()
 {
-/* 
+/*
  * I uncommented this because the instance is a singleton, so it could lead
  * to double free when two plugins are using the same shared object.
  *
@@ -73,20 +78,15 @@ DcpAppletPluginPrivate::~DcpAppletPluginPrivate ()
  */
     appletInstance = 0;
     if (loader.isLoaded()) {
+        if (appletMetadata) {
+            dcpSyslog ("unloading " + appletMetadata->binary());
+        }
         loader.unload();
     }
 }
 
-void dcpSyslog (const QString& log)
-{
-    syslog (LOG_DEBUG, qPrintable(log));
-}
-
 DcpAppletPlugin::~DcpAppletPlugin()
 {
-    if (metadata()) {
-        dcpSyslog ("unloading " + metadata()->binary());
-    }
     delete d_ptr;
 }
 

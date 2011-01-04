@@ -22,8 +22,7 @@
 #include "dcpcontentitem_p.h"
 
 #include "dcpdebug.h"
-#include <MGridLayoutPolicy>
-#include <MLayout>
+#include <QGraphicsGridLayout>
 
 #include "dcpappletdb.h"
 
@@ -31,6 +30,8 @@ static const QString subtitleObjectName = "CommonSubTitleInverted";
 static const QString singleTitleObjectName = "CommonSingleTitleInverted";
 static const QString iconObjectName = "CommonMainIcon";
 static const QString drillDownObjectName = "CommonDrillDownIcon";
+// FIXME, replace when becomes available:
+// static const QString drillDownObjectName = "CommonDrillDownIconInverted";
 static const QString toggleObjectName = "CommonSwitchInverted";
 
 DcpContentItemPrivate::DcpContentItemPrivate ():
@@ -93,20 +94,15 @@ DcpContentItem::isChecked() const
 }
 
 void
-DcpContentItem::ensureLayoutIsCreated (MLayout*& layout,
-                                       MGridLayoutPolicy*& grid)
+DcpContentItem::ensureLayoutIsCreated (QGraphicsGridLayout*& grid)
 {
     // create the layout:
-    layout = static_cast<MLayout*>(this->layout());
-    if (!layout) {
-        layout = new MLayout(this);
-        grid = new MGridLayoutPolicy(layout);
-        layout->setContentsMargins (0,0,0,0);
+    grid = static_cast<QGraphicsGridLayout*>(this->layout());
+    if (!grid) {
+        grid = new QGraphicsGridLayout (this);
+        grid->setContentsMargins (0,0,0,0);
         grid->setSpacing(0);
         d_ptr->m_LayoutIsToBeChanged = true;
-    } else {
-        grid = static_cast<MGridLayoutPolicy*>(
-                layout->registeredPolicies().at(0));
     }
 }
 
@@ -227,13 +223,12 @@ DcpContentItem::ensureWidgetsAreLayouted()
     d_ptr->m_LayoutIsToBeChanged = false;
 
     // we create the main layout if it is not yet created:
-    MLayout* layout;
-    MGridLayoutPolicy* grid;
-    ensureLayoutIsCreated(layout, grid);
+    QGraphicsGridLayout* grid;
+    ensureLayoutIsCreated(grid);
 
     // clear the layout:
-    for (int i=layout->count()-1; i>=0; i--) {
-        layout->removeAt(i);
+    for (int i=grid->count()-1; i>=0; i--) {
+        grid->removeAt(i);
     }
 
     // layout the items again:

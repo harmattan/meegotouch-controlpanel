@@ -7,7 +7,7 @@ duicontrolpanel (0.11.1~unreleased) unstable; urgency=low
   * New: Building docs,tests,translations can be disabled through
     DEB_BUILD_OPTIONS
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 03 Jan 2011 14:30:18 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 04 Jan 2011 15:09:12 +0100
 
 duicontrolpanel (0.11.0) unstable; urgency=low
 

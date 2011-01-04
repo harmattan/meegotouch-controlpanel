@@ -27,6 +27,7 @@ class DcpAppletMetadata;
 class DcpContentItemPrivate;
 class MLayout;
 class MGridLayoutPolicy;
+class QGraphicsGridLayout;
 
 /*!
  * \brief An activatable entry in the control panel.
@@ -131,7 +132,7 @@ protected:
 
 private:
     // creating widgets, layouts:
-    void ensureLayoutIsCreated(MLayout*& layout, MGridLayoutPolicy*& grid);
+    void ensureLayoutIsCreated(QGraphicsGridLayout*& layout);
     void ensureImageIsCreated();
     void ensureToggleIsCreated();
     void ensureTextsAreCreated();
