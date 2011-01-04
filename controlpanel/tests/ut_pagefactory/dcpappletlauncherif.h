@@ -6,9 +6,9 @@ class DcpAppletLauncherIf
 public:
     void appletPage( const QString &) {}
     void prestart () {}
+    void close () {}
     DcpAppletLauncherIf() {}
     bool isValid () const { return true; }
-
 };
 
 #endif
