@@ -1,4 +1,4 @@
-duicontrolpanel (0.11.1~unreleased) unstable; urgency=low
+duicontrolpanel (0.11.1) unstable; urgency=low
 
   * Changes: one line applet brief is top aligned
   * Changes: two new icon ids for mainpage
@@ -6,8 +6,9 @@ duicontrolpanel (0.11.1~unreleased) unstable; urgency=low
     security token
   * New: Building docs,tests,translations can be disabled through
     DEB_BUILD_OPTIONS
+  * Fixes: NB#211971 - meegotestrunner will be deprecated
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 04 Jan 2011 15:09:12 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 05 Jan 2011 11:23:36 +0100
 
 duicontrolpanel (0.11.0) unstable; urgency=low
 
