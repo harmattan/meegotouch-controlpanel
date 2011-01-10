@@ -1,8 +1,8 @@
 duicontrolpanel (0.11.2~unreleased) unstable; urgency=low
 
-  * new version
+  * Fixes: NB#194151 - <coverity> defects from libdialerui/0.0.6.30_0m6
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 05 Jan 2011 13:56:46 +0100
+ -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Mon, 10 Jan 2011 14:02:28 +0100
 
 duicontrolpanel (0.11.1) unstable; urgency=low
 

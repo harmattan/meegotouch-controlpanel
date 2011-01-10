@@ -29,7 +29,7 @@ ifneq (,$(filter nodocs,$(TMP_BUILD_OPTS)))
     EXCLUDE += -Nlibduicontrolpanel-doc
 endif
 
-ifneq (,$(filter notests,$(TMP_BUILD_OPTS)))
+ifneq (,$(filter nocheck,$(TMP_BUILD_OPTS)))
     QMAKE_ARG += CONFIG+=NOTESTS
     EXCLUDE += -Nduicontrolpanel-tests
 endif
