@@ -15,7 +15,7 @@ Like every other applet, the binary applet also needs a
 
 \code
 [Desktop Entry]
-Type=DUIApplet
+Type=ControlPanelApplet
 Name=Skeleton
 Icon=
 Exec=
@@ -24,13 +24,11 @@ X-translation-catalog=duicontrolpanel-skeletonapplet
 
 [DUI]
 X-DUIApplet-Applet=libdcpskeletonapplet.so
-X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
-X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
 Category= Look & Feel
 Order=4
-WidgetType= DcpLabel2
+WidgetType=Label
 \endcode
 
 \section viewhandling View handling: DcpWidgets

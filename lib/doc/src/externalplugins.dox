@@ -23,7 +23,9 @@ Here is an example for the desktop file:
 
 \code
 [Desktop Entry]
-Type=ControlPanelApplet
+# The "Type" is necessery for libcontentaction to be able to open the "plugin"
+# which is used by for example search:
+Type=Application
 
 Name=Example External Application
 X-logical-id=duicontrolpanel_example_applet
@@ -38,9 +40,9 @@ Exec=widgetsgallery
 [DCP]
 Category= Look & Feel
 Order=3
-WidgetType= label
+WidgetType= Label
 \endcode
 
 
-*/Date & Time
+*/
 

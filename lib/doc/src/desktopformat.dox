@@ -31,7 +31,7 @@ include the following in the .desktop file of the applet:
 \subsection mandatorykeyse Mandatory keys for an external applet
 \code
 [Desktop Entry]
-Type=ControlPanelApplet
+Type=Application
 Exec=<the command to execute>
 \endcode
 
@@ -104,9 +104,9 @@ X-DUIApplet-Applet will be ignored.
 
 \par Category
 The category name in which the launch button of the applet will be displayed.
-It can be one of the followings: "Look & Feel", "Sound", "Connectivity",
-"Regional settings", "Device utilities", "Device system",
-"Accounts & Applications"
+The list of categories are described in .cpcategory ini files under
+/usr/share/duicontrolpanel/categories. You can identify a category by its Name
+or Name-logical-id.
 
 \par Order
 A number which specifies the position of the launch button inside its category.
@@ -121,6 +121,8 @@ The widget type of the launch button. Can be one of the following:
 <ul>
 <li>Label - Button with the applet title and optionally a value text
 <li>Image - Like Label, and an image
+<li>Toggle - Like Label with a toggle button on the right
+<li>Button - A big button with the applet title on it which can be toggled.
 </ul>
 
 \par HelpId

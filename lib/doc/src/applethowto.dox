@@ -277,7 +277,7 @@ namespace DcpSkeleton
 \n
 \code
 [Desktop Entry]
-Type=DUIApplet
+Type=ControlPanelApplet
 Name=Skeleton
 Icon=
 Exec=
@@ -286,13 +286,11 @@ X-translation-catalog=duicontrolpanel-skeletonapplet
 
 [DUI]
 X-DUIApplet-Applet=libdcpskeletonapplet.so
-X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
-X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
 Category= Look & Feel
 Order=4
-WidgetType= DcpLabel2
+WidgetType=Label
 \endcode skeleton.desktop
 \n
 \n
@@ -386,10 +384,16 @@ An applet which is implemented as a separate application. When your applet's
 
 \code
 [Desktop Entry]
-Type=DUIApplet
+Type=Application
 Name=Example External Application
 Icon=
-Exec=
+
+# If this property is declared, and the applet is not loaded using the 
+# X-DUIApplet-Applet property, the command will be executed when the 
+# user activates the plugin in the control panel.
+#
+Exec=widgetsgallery
+
 X-logical-id=duicontrolpanel_example_applet
 X-translation-catalog=duisettings
 
@@ -398,23 +402,11 @@ X-translation-catalog=duisettings
 # The plugin binary file. Not used in this example.
 #
 #X-DUIApplet-Applet=libXXX.so
-X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
-X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 #
-# Not implemented yet.
-#
-X-DUIApplet-Dslfile=trythisone.xml
-#
-# If this property is declared, and the applet is not loaded using the 
-# X-DUIApplet-Applet property, the command will be executed when the 
-# user activates the plugin in the control panel.
-#
-X-DUIApplet-ApplicationCommand=widgetsgallery
-
 [DCP]
 Category= Look & Feel
 Order=3
-WidgetType= DcpLabel2
+WidgetType=Label
 \endcode This example .desktop file starts "widgetsgallery" as eternal applet
 
 
