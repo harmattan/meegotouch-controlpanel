@@ -45,8 +45,12 @@ private:
     static DcpCategories* sm_Instance;
     void add (Category* category);
 
+    void buildParentChildRelations ();
+
     QList<Category*> m_Categories;
     QHash<QString, Category*> m_CategoryById;
+
+    friend class Ut_DcpCategories;
 };
 
 #endif // DCPCATEGORIES_H

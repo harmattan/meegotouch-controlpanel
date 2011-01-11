@@ -84,7 +84,12 @@ DcpCategories::DcpCategories()
         }
     }
 
-    // build the parent - child relationships:
+    buildParentChildRelations();
+}
+
+// build the parent - child relationships:
+void DcpCategories::buildParentChildRelations ()
+{
     foreach (const Category* category, m_Categories) {
         QString parentId = category->parentId();
         if (parentId.isEmpty()) continue;
@@ -98,7 +103,6 @@ DcpCategories::DcpCategories()
         }
     }
 }
-
 
 /*!
  * Little helper for the constructor,
