@@ -1,20 +1,41 @@
-/*! \page applethowto How to write a control panel applet
+/*! \page applethowto Creating a control panel applet
 
-\section whatis What is a Dcp Applet?
+\section whatis Introduction
 
-A control panel applet is a program that can be launched from the control panel
-and can change some settings, like language, display settings, etc.
+In control panel, applets provides interface for the user to modify some
+configurations of the device.
+
 All applets have:
-<ul>
-<li>A launch button, which is a button on control panel's main page.</li>
-<li>Some pages, which contains widgets to interact with the user in order to
-change the preferences.
-</ul>
+\li
+A launch button, which is a button in an applet list
+\li
+Several pages which contain widgets that enable the user to change preferences.
 
-Applets can be declared and added to Dcp with creating their .desktop file.
-See <a href="desktopformat.html">desktop file format for Dcp</a>.
+You can create three types of control panel applets:
 
-\section applettypes Applet types
+\li
+Binary applet: An applet that is implemented as a shared object and loaded by
+duicontrolpanel. Select this applet type to
+achieve maximum flexibility. For more information, see
+<a href="#binaryapplet">Binary applets</a>.
+
+\li
+Declarative applet: An applet that is implemented as a UI description in an
+XML file based on the MeeGo Touch declarative language.
+For more information, see
+<a href="#declarativeapplet">Declarative applets</a>.
+
+\li
+External applet: An applet that is implemented as a separate application.
+When the user taps your applet's launch button, the control panel starts
+your application. This applet is not recommended, since the user experience
+is not consistent. For more information, see
+<a href="#externalapplet">External applets</a>.
+
+To declare applets and add applets to Dcp, create a .desktop file. For instructions,
+see <a href="desktopformat.html">desktop file format of applets</a>.
+
+\section applettypes Creating applets
 
 \note
 You can find examples/skeletons from each applet type under controlpanel's
@@ -22,316 +43,71 @@ gitorious repository or by checking the source package of
 duicontrolpanel-skeletonapplet.
 
 \subsection binaryapplet Binary applet
-An applet which is implemented as a shared object, which is
-loaded by control panel.
 
-This is the best way if you want all flexibility.
+The following example shows how to create a simple binary applet called
+'skeleton applet'. You need the following files:
 
-Now let's write a simple, binary applet. Let's call it skeleton applet.
-We will need the following files
-
-\code
-#ifndef SKELETONAPPLET_H
-#define SKELETONAPPLET_H
-
-#include <DcpAppletIf>
-#include <QObject>
-class DcpWidget;
-class MAction;
-
-class SkeletonApplet : public QObject, public DcpAppletIf 
-{
-	Q_OBJECT
-	Q_INTERFACES(DcpAppletIf)
-
-public:
-    virtual void init();
-	virtual DcpWidget* constructWidget(int widgetId);
-
-	virtual DcpWidget* pageMain();
-/*  Applet can have more 'pages'. Each page must be a DcpWidget subclass
-	virtual DcpWidget* page1();
-	virtual DcpWidget* page2();
-*/
-    virtual QString title() const;
-    virtual QVector<MAction *> viewMenuItems();
-    virtual DcpBrief* constructBrief(int);
-};
-#endif // SKELETONAPPLET_H
-\endcode dcpskeletonapplet.h
+\include binaryapplet/itemlike/dcpskeletonapplet.h
+dcpskeletonapplet.h
 \n
 \n
-\code
-#include <QtGui>
-#include <QDebug>
-#include <MAction>
-#include <MTheme>
-#include <DcpWidget>
-#include "dcpskeletonapplet.h"
-#include "dcpskeletonwidget.h"
-#include "dcpskeleton.h"
-#include "dcpskeletonbrief.h"
 
-Q_EXPORT_PLUGIN2(skeletonapplet, SkeletonApplet)
-
-void SkeletonApplet::init()
-{
-    MTheme::loadCSS(QString(CSSDIR) + "skeletonapplet.css");
-};
-
-DcpWidget* SkeletonApplet::constructWidget(int widgetId)
-{
-	switch (widgetId)
-    {
-        case DcpSkeleton::Main:
-                    return pageMain();
-                    break;
-        // more cases here if applet has more pages
-        default:
-                    qDebug() << "Page Unknown";
-                    return 0;
-                    break;
-    };
-}
-
-DcpWidget* SkeletonApplet::pageMain()
-{
-	return new SkeletonWidget();
-}
-
-
-
-QString SkeletonApplet::title() const
-{
-    //% "Skeleton applet"
-    return qtTrId("dcp_skel_appl_titl");
-}
-
-QVector<MAction*> SkeletonApplet::viewMenuItems()
-{
-    QVector<MAction*> vector(1);
-    //% "Example action"
-    vector[0] = new MAction(qtTrId("dcp_skel_appl_action"), this);
-    vector[0]->setLocation(MAction::ApplicationMenuLocation);
-    return vector;
-}
-
-DcpBrief* SkeletonApplet::constructBrief(int)
-{
-    return new SkeletonBrief();
-}
-\endcode dcpskeletonapplet.cpp
+\include binaryapplet/itemlike/dcpskeletonapplet.cpp
+dcpskeletonapplet.cpp
 \n
 \n
-\code
-#ifndef SKELETONBRIEF_H
-#define SKELETONBRIEF_H
 
-#include <DcpBrief>
-
-class SkeletonBrief: public DcpBrief{
-    Q_OBJECT
-public:
-    SkeletonBrief();
-    virtual QString valueText() const;
-    virtual QString titleText() const;
-
-    virtual bool toggle() const;
-    virtual void setToggle (bool toggle);
-    virtual int widgetTypeID() const;
-
-    virtual void timerEvent(QTimerEvent*);
-
-private:
-    bool m_ToggleState;
-    int m_Value;
-};
-
-
-#endif // SKELETONBRIEF
-\endcode dcpskeletonbrief.h
+\include binaryapplet/itemlike/dcpskeletonbrief.h
+dcpskeletonbrief.h
 \n
 \n
-\code
-#include <DcpWidgetTypes>
-#include "dcpskeletonbrief.h"
-#include <QtDebug>
 
-SkeletonBrief::SkeletonBrief():
-    m_ToggleState(true),
-    m_Value(0)
-{
-    startTimer(20000);
-}
-
-QString SkeletonBrief::valueText() const
-{
-    return "value text " + QString::number(m_Value);
-}
-
-QString SkeletonBrief::titleText() const
-{
-    return "title text " + QString::number(m_Value);
-}
-
-bool SkeletonBrief::toggle() const
-{
-    return m_ToggleState;
-}
-
-void SkeletonBrief::setToggle (bool toggle)
-{
-    m_ToggleState = toggle;
-    qDebug() << "Skeleton brief got toggle state:" << toggle;
-}
-
-int SkeletonBrief::widgetTypeID() const
-{
-    return DCPLABELBUTTON;
-}
-
-void SkeletonBrief::timerEvent(QTimerEvent*)
-{
-    ++m_Value;
-    emit valuesChanged();
-}
-\endcode dcpskeletonbrief.cpp
+\include binaryapplet/itemlike/dcpskeletonbrief.cpp
+dcpskeletonbrief.cpp
 \n
 \n
-\code
-#ifndef SKELETONWIDGET_H
-#define SKELETONWIDGET_H
 
-#include <DcpWidget>
- 
-class MLabel;
+\include binaryapplet/itemlike/dcpskeletonwidget.h
+dcpskeletonwidget.h
+\n
+\n
 
-class SkeletonWidget : public DcpWidget 
-{
-	Q_OBJECT
-		
-public:
-	SkeletonWidget(QGraphicsWidget *parent = 0);
-	virtual ~SkeletonWidget();
+\include binaryapplet/itemlike/dcpskeletonwidget.cpp
+dcpskeletonwidget.cpp
+\n
+\n
 
-protected:
-	void initWidget();
-		
-private:
-	MLabel    *m_aboutLabel;
-		
-};
-#endif // SKELETONWIDGET_H
-\endcode dcpskeletonwidget.h
+\include binaryapplet/itemlike/skeleton.desktop
+skeleton.desktop
 \n
 \n
-\code
-#ifndef SKELETONWIDGET_H
-#define SKELETONWIDGET_H
 
-#include <DcpWidget>
- 
-class MLabel;
-
-class SkeletonWidget : public DcpWidget 
-{
-	Q_OBJECT
-		
-public:
-	SkeletonWidget(QGraphicsWidget *parent = 0);
-	virtual ~SkeletonWidget();
-
-protected:
-	void initWidget();
-		
-private:
-	MLabel    *m_aboutLabel;
-		
-};
-#endif // SKELETONWIDGET_H
-\endcode dcpskeletonwidget.cpp
-\n
-\n
-\code
-#ifndef DCPSKELETON_H
-#define DCPSKELETON_H
-namespace DcpSkeleton
-{
-    enum
-     {
-        Main = 0 
-     // Here go ids of more applet pages if any
-     // Page1 = 1,
-     // Page2 = 2,
-    };
-    const int NoReferer = -1;
-}
-#endif // DCPSKELETON_H
-\endcode dcpskeleton.h
-\n
-\n
-\code
-#LabelAbout {
-        color: #FFFFFF;
-        font: "Nokia Sans Cn" 16;
-}
-\endcode skeletonapplet.css
-\n
-\n
-\code
-[Desktop Entry]
-Type=ControlPanelApplet
-Name=Skeleton
-Icon=
-Exec=
-X-logical-id=qtn_sett_main_display
-X-translation-catalog=duicontrolpanel-skeletonapplet
-
-[DUI]
-X-DUIApplet-Applet=libdcpskeletonapplet.so
-
-[DCP]
-Category=Applications
-Order=4
-WidgetType=Label
-\endcode skeleton.desktop
-\n
-\n
 \code
 TEMPLATE      = lib
 CONFIG       += plugin gui meegotouch duicontrolpanel silent debug
 
-MOC_DIR	      = .moc
-OBJECTS_DIR   = .objects
-
 HEADERS       = dcpskeletonapplet.h \
-		dcpskeletonwidget.h \
+                dcpskeletonwidget.h \
                 dcpskeletonbrief.h
 
 SOURCES       = dcpskeletonapplet.cpp \
-		dcpskeletonwidget.cpp \
+                dcpskeletonwidget.cpp \
                 dcpskeletonbrief.cpp
 
-css.files     = skeletonapplet.css
 DESTDIR       = ./lib
 TARGET        = $$qtLibraryTarget(dcpskeletonapplet)
 desktop.files += *.desktop
 desktop.path = /usr/lib/duicontrolpanel
 target.path += /usr/lib/duicontrolpanel/applet
-css.path    += /usr/share/themes/base/meegotouch/duicontrolpanel/style
 
-message("The plugin will be installed to: " $$target.path)
-message("CSS path will be: " $$css.path)
+INSTALLS += target \
+            desktop
 
-INSTALLS += \
-	target \
-	css \
-        desktop
 \endcode skeleton.pro
 \n
 \n
 \n
-After unpacking them you can build, compile, and install 
+After unpacking them you can build, compile, and install
 \code
 qmake skeleton.pro
 make
@@ -344,74 +120,25 @@ You can find it under "Applications" category
 See also <a href="binaryplugins.html">binary applets</a> section for details.
 
 \subsection declarativeapplet Declarative applet
-An applet which is implemented as a ui description in an xml file, using
-MeeGo Touch declarative language.
 
-\code
-<settings>
-  <group>
-    <text key="/apps/ControlPanel/Example/Text1" title="Please specify a text:" >
-    </text>
-    <selection key="/apps/ControlPanel/Example/Enum1">
-        <option title="first value" >1</option>
-        <option title="second value" >2</option>
-        <option title="third value" >3</option>
-        <option title="fourth value" >4</option>
-    </selection>
-  </group>
-  <group>
-    <boolean key="/apps/ControlPanel/Example/Bool1" title="Please switch me">
-    </boolean>
-    <integer key="/apps/ControlPanel/Example/Integer1"
-        title="Select a number" min="30" max="60">
-    </integer>
-  </group>
-</settings>
-\endcode
-example1.xml defines a declarative applet
+The following example illustrates how to create a declarative applet.
+
+\include declarativeapplet/example1.xml
 
 This is the easiest way of creating an applet, but it is less flexible (currently):
     <ul>
-        <li>You can not create a custom launch button, the launch button of your applet will contain only the applet's title.
-        <li>You can only use some predefined widgets, the ones which are supported by declarative language.
+        <li>You cannot create a custom launch button. The launch button of your applet only contains the applet's title. 
+        <li>You can only use predefined widgets that are supported by the declarative language.
         <li>You can only store your preferences in GConf.
     </ul>
 
 See <a href="declarativeplugins.html">declarative applets</a> section for details.
 
 \subsection externalapplet External applet
-An applet which is implemented as a separate application. When your applet's
-    launch button is pressed, control panel will start your application.
-    Avoid using it if you can,
-    because the user experience will be different.</dd>
 
-\code
-[Desktop Entry]
-Type=Application
-Name=Example External Application
-Icon=
+The following example illustrates how to create an external applet.
 
-# If this property is declared, and the applet is not loaded using the 
-# X-DUIApplet-Applet property, the command will be executed when the 
-# user activates the plugin in the control panel.
-#
-Exec=widgetsgallery
-
-X-logical-id=controlpanel_example_applet
-X-translation-catalog=examplecatalog
-
-[DUI]
-#
-# The plugin binary file. Not used in this example.
-#
-#X-DUIApplet-Applet=libXXX.so
-#
-[DCP]
-Category=Applications
-Order=3
-WidgetType=Label
-\endcode This example .desktop file starts "widgetsgallery" as eternal applet
-
+\include externalapplet/externalapp.desktop
 
 See <a href="externalplugins.html">external applets</a> section for details.
 

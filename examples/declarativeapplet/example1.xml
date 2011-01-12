@@ -27,25 +27,5 @@
             title="Select a number" min="30" max="60">
         </integer>
     </group>
-    <group>
-        <!-- With the following node we can check if MeeGo will tolerate a 
-             node attribute before we create an implementation for it. -->
-        <text 
-            key="/apps/ControlPanel/Example/TextUnsupported1" 
-            title="text with promp"
-            prompt="The Prompt"/>
-        <!-- With the following node we can test if MeeGo will tolerate a 
-             sub-node before we create an implementation that actually 
-             handles it. -->
-        <text 
-            key="/apps/ControlPanel/Example/TextUnsupported" 
-            title="text with style">
-            <property 
-                target="label" 
-                name="StyleName" 
-                type="string"
-                value="CommonTitleInverted"/>
-        </text>
-    </group>
 </settings>
 

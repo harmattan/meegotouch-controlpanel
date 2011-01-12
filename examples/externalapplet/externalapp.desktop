@@ -1,6 +1,6 @@
 [Desktop Entry]
-Type=ControlPanelApplet
-Name=Example External Application
+Type=Application
+Name="Example External Application"
 Icon=
 
 # If this property is declared, and the applet is not loaded using the 
@@ -11,20 +11,11 @@ Icon=
 # open the "applet")
 Exec=widgetsgallery
 
-X-logical-id=duicontrolpanel_example_applet
-X-translation-catalog=duisettings
-
-[DUI]
-#
-# The plugin binary file. Not used in this example.
-#
-# X-DUIApplet-Applet=libXXX.so
-
-# This becomes deprecated, use Exec instead
-# X-DUIApplet-ApplicationCommand=widgetsgallery
+X-logical-id=controlpanel_example_applet
+X-translation-catalog=catalog1
 
 [DCP]
 Category=Applications
 Order=3
-WidgetType= Label
+WidgetType=Label
 
