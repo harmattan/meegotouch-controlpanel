@@ -1,8 +1,13 @@
 duicontrolpanel (0.11.2~unreleased) unstable; urgency=low
 
+  [ Sandor Pinter ]
   * Fixes: NB#194151 - <coverity> defects from libdialerui/0.0.6.30_0m6
 
- -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Mon, 10 Jan 2011 14:02:28 +0100
+  [ Robert Manner ]
+  * documentation fixes
+  * Fixes: no exec right for duicontrolpanel on meego
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 12 Jan 2011 15:08:48 +0100
 
 duicontrolpanel (0.11.1) unstable; urgency=low
 
