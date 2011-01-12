@@ -53,6 +53,11 @@ QString Category::name () const
     return value (NameId);
 }
 
+QStringList Category::translationCategories () const
+{
+    return valueList (TranslationId);
+}
+
 QString Category::title() const
 {
     QString id = titleId();

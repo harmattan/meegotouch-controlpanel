@@ -132,6 +132,13 @@ DcpRetranslator::loadAppletTranslation (
     dcp_failfunc_unless (metadata, false);
 
     QStringList catalogList = metadata->translationCatalogs();
+
+    return loadTranslations (locale, catalogList);
+}
+
+bool DcpRetranslator::loadTranslations (MLocale& locale,
+                                        const QStringList& catalogList)
+{
     bool hasChanged = false;
 
     foreach (QString catalog, catalogList) {
@@ -143,9 +150,6 @@ DcpRetranslator::loadAppletTranslation (
 
         locale.installTrCatalog(catalog); // install translation, if any
         hasChanged = true;
-        qDebug ("DcpRetranslator: loaded translation for %s: %s",
-                  qPrintable(metadata->name()),
-                  qPrintable(catalog));
 
         // mark it as loaded:
         priv->loadedTranslations.insert(catalog);
@@ -184,6 +188,19 @@ DcpRetranslator::ensureTranslationLoaded(DcpAppletMetadata* metadata)
      * retranslateUi calls
      */
     if (loadAppletTranslation(locale, metadata)) {
+        MLocale::setDefault(locale);
+    }
+}
+
+void
+DcpRetranslator::ensureTranslationsAreLoaded (const QStringList& catalogs)
+{
+    MLocale locale;
+    /*
+     * we only set the locale if it was modified, to avoid unnecessery
+     * retranslateUi calls
+     */
+    if (loadTranslations(locale, catalogs)) {
         MLocale::setDefault(locale);
     }
 }

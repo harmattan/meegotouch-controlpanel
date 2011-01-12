@@ -61,6 +61,8 @@ DcpAppletCategoryPage::createCategories ()
     }
 
     foreach (const Category *info, categoryList) {
+        DcpRetranslator::instance()->ensureTranslationsAreLoaded (
+                info->translationCategories());
         DcpSingleComponent *button;
 
         button = new DcpSingleComponent(otherCategories, info->titleId(),

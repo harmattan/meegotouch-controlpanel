@@ -37,6 +37,7 @@ public:
     QString name () const;
     QString title () const;
     QString subtitle () const;
+    QStringList translationCategories () const;
 
     QString iconId () const;
     int order () const;

@@ -46,6 +46,7 @@ public:
     void setMainCatalogName (const QString& catalogName);
     void ensureTranslationsAreLoaded(const DcpAppletMetadataList& list);
     void ensureTranslationLoaded(DcpAppletMetadata* metadata);
+    void ensureTranslationsAreLoaded(const QStringList& catalogs);
 
 public slots:
    void retranslate();
@@ -56,6 +57,8 @@ protected:
     bool loadAppletTranslation (
             MLocale               &locale,
             const DcpAppletMetadata *metadata);
+    bool loadTranslations (MLocale& locale,
+                           const QStringList& catalogList);
     class DcpRetranslatorPriv* priv;
     friend class Ut_DcpRetranslator;
 };
