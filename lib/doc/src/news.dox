@@ -1,5 +1,16 @@
 /*! \page news What's New in DuiControlPanel
 
+\section v0A0 0.11.0
+\subsection new New features
+- New applet categories can be added through ini files, see
+  <a href="categories.html"> this for details</a>.
+
+\section v0A0 0.10.0
+\subsection new New features
+- Applets can be run out of process with specifying -outprocess option to
+  duicontrolpanel. This is also the default when user starts control panel
+  from the application grid or through servicefw.
+
 \section v080 0.8.0
 \subsection new New features
 - New signal #DcpWidget::setProgressIndicatorVisible for accessing the progress

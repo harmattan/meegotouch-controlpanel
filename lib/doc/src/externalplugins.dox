@@ -3,14 +3,14 @@
 \section description Description
 
 External applet is an applet which is implemented as a separate application.
-When your applet's launch button is pressed, controlpanel will start your
+When your applet's launch button is pressed, control panel will start your
 application.
 
 
 \section howto Required things
 
 For this to work you will need a .desktop file for your application
-(like for any other controlpanel applet) and install it under
+(like for any other control panel applet) and install it under
 "/usr/lib/duicontrolpanel".
 
 The important key is that you will need to specify the application you
@@ -28,8 +28,8 @@ Here is an example for the desktop file:
 Type=Application
 
 Name=Example External Application
-X-logical-id=duicontrolpanel_example_applet
-X-translation-catalog=duisettings
+X-logical-id=controlpanel_example_applet
+X-translation-catalog=examplecatalog
 
 # If this property is declared, and the applet is not loaded using the 
 # X-DUIApplet-Applet property, the command will be executed when the 
@@ -38,7 +38,7 @@ X-translation-catalog=duisettings
 Exec=widgetsgallery
 
 [DCP]
-Category= Look & Feel
+Category=Applications
 Order=3
 WidgetType= Label
 \endcode

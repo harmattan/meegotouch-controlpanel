@@ -3,7 +3,8 @@
 \section description Description
 
 Each applet should have a .desktop file. By default its location
-should be under /usr/lib/duicontrolpanel. (This can be changed with the controlpanel option
+should be under /usr/lib/duicontrolpanel. (This can be changed with the
+control panel option
 -desktopdir.) The desktop file specifies information about the
 applet.
 
@@ -46,13 +47,13 @@ X-Maemo-Fixed-Args=<the name of the applet, see Name section>
 
 \endcode
 
-\section keys The keys controlpanel understands
+\section keys The keys control panel understands
 
 \subsection desection [Desktop Entry]
 
 \par Name
 The name of the applet. Must be unique, other applets and programs will refer
-to the applet with its name, for example when they request duicontrolpanel to
+to the applet with its name, for example when they request control panel to
 pop up the applet.
 
 Also suits as the engineering english translation of the applet's title.
@@ -75,7 +76,7 @@ function, because
 - each MLocale::setDefault() call will cause retranslateUi() methods to be called
 for all widgets which will have a big performance overhead if most applets are
 doing that amongs the list of a category
-- if you specify it though the desktop file, controlpanel can act if the
+- if you specify it though the desktop file, control panel can act if the
 language gets changed, and load the translated catalog for your applet.
 
 
@@ -113,7 +114,7 @@ A number which specifies the position of the launch button inside its category.
 For example if according to the design your button is at the 3rd row in
 portrait mode, and in the 2nd row 1st column in landscape mode, than you should
 specify 3 here. However if an applet is missing which would have a lower order
-value, than your applet will move upper, because controlpanel does not put
+value, than your applet will move upper, because control panel does not put
 holes in place of non installed applets.
 
 \par WidgetType
@@ -155,7 +156,7 @@ describes the content of their main widget.
 
 \par Unique
 Only for testing. The first applet which has a 1 here, will be alone,
-and controlpanel will not load the others.
+and control panel will not load the others.
 This key will most likely be removed soon.
 
 \par Parent
@@ -188,7 +189,7 @@ Name=Date & Time
 X-logical-id=qtn_sett_main_date_time
 
 # catalog for localization
-X-translation-catalog=duisettings-datetime
+X-translation-catalog=settings-datetime
 
 [DUI]
 # applet binary

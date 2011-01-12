@@ -453,3 +453,14 @@ table.mainIndex TD {
    vertical-align: top;
    padding-top: 1em;
 }
+
+table.normal {
+    margin: auto auto;
+    border-width: 1px;
+    border-style:solid;
+}
+
+table.normal TH {
+    background-color: #ffe489;
+}
+

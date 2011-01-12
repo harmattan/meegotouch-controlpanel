@@ -4,10 +4,11 @@
 
     QMAKE_EXTRA_TARGETS += doc
     doc.target = doc
+    doc.commands+= ./doc/genCategories.sh >doc/defaultcategories.html ;
     isEmpty(DOXYGEN_BIN) {
-        doc.commands = @echo "Unable to detect doxygen in PATH"
+        doc.commands+= echo "Unable to detect doxygen in PATH"
     } else {
-        doc.commands = @$${DOXYGEN_BIN} doc/doxygen.cfg  ;
+        doc.commands+= $${DOXYGEN_BIN} doc/doxygen.cfg ;
         doc.commands+= ./doc/xmlize.pl ;
     }
 

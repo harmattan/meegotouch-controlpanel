@@ -1,26 +1,29 @@
-/*! \page applethowto How to write a controlpanel applet
+/*! \page applethowto How to write a control panel applet
 
 \section whatis What is a Dcp Applet?
 
-A DuiControlPanel (Dcp for short) applet is a program that can be launched from the Control Panel and can change some settings, like language, display settings, etc.
+A control panel applet is a program that can be launched from the control panel
+and can change some settings, like language, display settings, etc.
 All applets have:
 <ul>
-<li>A launch button, which is a button on controlpanel's main page.</li>
-<li>Some pages, which contains widgets to interact with the user in order to change the preferences.
+<li>A launch button, which is a button on control panel's main page.</li>
+<li>Some pages, which contains widgets to interact with the user in order to
+change the preferences.
 </ul>
 
-Applets can be declared and added to Dcp with creating their .desktop file. 
+Applets can be declared and added to Dcp with creating their .desktop file.
 See <a href="desktopformat.html">desktop file format for Dcp</a>.
 
 \section applettypes Applet types
 
 \note
-You can find examples/skeletons from each applet type under af/duicontrolpanel-skeleton-applets
-repository or by checking the source package of duicontrolpanel-skeleton-applet.
+You can find examples/skeletons from each applet type under controlpanel's
+gitorious repository or by checking the source package of
+duicontrolpanel-skeletonapplet.
 
 \subsection binaryapplet Binary applet
 An applet which is implemented as a shared object, which is
-loaded by duicontrolpanel.
+loaded by control panel.
 
 This is the best way if you want all flexibility.
 
@@ -288,7 +291,7 @@ X-translation-catalog=duicontrolpanel-skeletonapplet
 X-DUIApplet-Applet=libdcpskeletonapplet.so
 
 [DCP]
-Category= Look & Feel
+Category=Applications
 Order=4
 WidgetType=Label
 \endcode skeleton.desktop
@@ -334,15 +337,15 @@ qmake skeleton.pro
 make
 make install
 \endcode
-After that you can start it from controlpanel.
-You can find it under "Look & Feel" category
+After that you can start it from control panel.
+You can find it under "Applications" category
 
 
 See also <a href="binaryplugins.html">binary applets</a> section for details.
 
 \subsection declarativeapplet Declarative applet
 An applet which is implemented as a ui description in an xml file, using
-DirectUI's Declarative Settings Language.
+MeeGo Touch declarative language.
 
 \code
 <settings>
@@ -378,7 +381,7 @@ See <a href="declarativeplugins.html">declarative applets</a> section for detail
 
 \subsection externalapplet External applet
 An applet which is implemented as a separate application. When your applet's
-    launch button is pressed, controlpanel will start your application.
+    launch button is pressed, control panel will start your application.
     Avoid using it if you can,
     because the user experience will be different.</dd>
 
@@ -394,8 +397,8 @@ Icon=
 #
 Exec=widgetsgallery
 
-X-logical-id=duicontrolpanel_example_applet
-X-translation-catalog=duisettings
+X-logical-id=controlpanel_example_applet
+X-translation-catalog=examplecatalog
 
 [DUI]
 #
@@ -404,7 +407,7 @@ X-translation-catalog=duisettings
 #X-DUIApplet-Applet=libXXX.so
 #
 [DCP]
-Category= Look & Feel
+Category=Applications
 Order=3
 WidgetType=Label
 \endcode This example .desktop file starts "widgetsgallery" as eternal applet

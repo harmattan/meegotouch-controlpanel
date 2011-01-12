@@ -9,20 +9,17 @@
     <td>
       <ul>
       <li><strong><a href="news.html">Changes in libduicontrolpanel</a></strong></li>
-      <li><a href="applethowto.html">How to write a controlpanel applet</a></li>
+      <li><a href="applethowto.html">How to write a control panel applet</a></li>
       <li><a href="servicefw.html">How to pop up an applet from other applications</a></li>
       </ul>
     </td>
     <td>
       <ul>
       <li><a href="binaryplugins.html">Binary applets</a></li>
-      <li><a href="styles.html">
-                Custom style for a binary applet
-          </a></li>
       <li><a href="declarativeplugins.html">Declarative applets</a></li>
       <li><a href="externalplugins.html">External applets</a></li>
-      <li><a href="servicefw.html">ServiceFw API - Controlling controlpanel</a></li>
-      <li><a href="supervisor.html">Applet supervisor</a></li>
+      <li><a href="servicefw.html">ServiceFw API - Controlling control panel</a></li>
+      <li><a href="categories.html">Applet categories</a></li>
       <li><a href="desktopformat.html">Desktop file format</a></li>
       </ul>
     </td>

@@ -3,7 +3,7 @@
 \section description Description
 A declarative applet has all of its content declared in user readable file formats.
 It has a .desktop file, like all applets, and an .xml file which describes its
-main widgets content using DirectUI's Declarative Settings Language.
+main widgets content using MeeGo Touch declarative language.
 
 This is the easiest way of creating an applet, but it is less flexible (currently):
 
@@ -66,7 +66,7 @@ describes the content of their main widget.
 Type=ControlPanelApplet
 Name=Declarative Example 1
 X-logical-id=decl_exampl_1
-X-translation-catalog=duisettings
+X-translation-catalog=examplecatalog
 Icon=
 
 # This has to be specified in order that the .desktop file can also be
@@ -82,7 +82,7 @@ X-Maemo-Fixed-Args=Declarative Example 1
 X-DUIApplet-Applet=libdeclarative.so
 
 [DCP]
-Category= Look & Feel
+Category=Applications
 Order=100
 Part=example1.xml
 \endcode
@@ -99,7 +99,7 @@ Declarative Settings Language.
 All keys of the input widgets are considered as GConf paths, where the
 value of the user feedback gets stored.
 
-For an example, check duicontrolpanel-skeleton-applet package, or the git repo under
-af/duicontrolpanel-skeleton-applet.
+For an example, check duicontrolpanel-skeletonapplet package, or the
+directory examples/binaryapplet/itemlike in control panel repository.
 
 */

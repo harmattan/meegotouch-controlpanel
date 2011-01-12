@@ -2,8 +2,8 @@
 
 \section description Description
 A binary controlpanel applet is an applet which is implemented as a
-shared object. You can find a very basic example at
-af/duicontrolpanel-skeleton-applet package, which can be a good starting
+shared object. You can find some examples under examples/binaryapplet
+in the repository of control panel, which can be a good starting
 point for creating a new binary applet.
 
 The applet should inherit from DcpAppletIf, and compiled into
@@ -20,20 +20,20 @@ Name=Skeleton
 Icon=
 Exec=
 X-logical-id=qtn_sett_main_display
-X-translation-catalog=duicontrolpanel-skeletonapplet
+X-translation-catalog=controlpanel-skeletonapplet
 
 [DUI]
 X-DUIApplet-Applet=libdcpskeletonapplet.so
 
 [DCP]
-Category= Look & Feel
+Category=Applications
 Order=4
 WidgetType=Label
 \endcode
 
 \section viewhandling View handling: DcpWidgets
 
-When launching an applet, DuiControlpanel displays it on one special page,
+When launching an applet, control panel displays it on one special page,
 that provides title, menu, and back-mechanism which is handled internally,
 so applet developers has nothing to do with it. Thus, applet has no pages
 but widgets. Each widget is displayed on this special page as the main widget,
@@ -42,9 +42,9 @@ so it looks like that each widget is a new "page view" of an applet.
 To provide this mechanism, these widgets must be inherited by DcpWidget,
 which is a DuiWidget descendant with a few services:
 <ul>
-    <li>It can request pages from controlpanel (own pages, or pages of other
+    <li>It can request pages from control panel (own pages, or pages of other
         applets)...
-    <li>Notified if controlpanel's back button gets pressed...
+    <li>Notified if control panel's back button gets pressed...
 </ul>
 
 \code
@@ -122,7 +122,7 @@ bool backAccepted = widget->back();
 
 \section launchbuttons Applet Launch Buttons
 
-Applets are launched from DuiControlPanel when user presses one of the launch
+Applets are launched from control panel when user presses one of the launch
 buttons. A button like these contains applet name, optionally a picture or a
 toggle button, and the current value of an applet setting.
 
@@ -131,7 +131,7 @@ from different places, and may need to format differently for each applet.
 For example Date & Time applet can display a value (the system time) and
 formats it according to the regional datetime format.
 
-Also the values can change, then the applet has to notify controlpanel
+Also the values can change, then the applet has to notify control panel
 about that change. For example Date & Time applet's value
 can be updated in each second.
 
@@ -194,12 +194,11 @@ them later with live ones.
 
 \subsection styles Loading your custom styles
 
-Duicontrolpanel provides a convenient way for the binary applets to load their
-styles from .css.
-
+If the applet needs to use custom styles, its widget should inherit from
+DcpStylableWidget instead of DcpWidget and should be returned in
+DcpAppletIf::createStylableWidget(). This way you can use the common library
+theming way of meegotouch, see their documentation on the limitations.
 
 
 */
 
-See <a href="styles.html">Using custom styles from binaryapplets</a> section
-for details.

@@ -7,7 +7,7 @@ Classes binary plugins needs to implement:
 <li>DcpBrief
 </ul>
 
-Controling duicontrolpanel:
+Controling control panel:
 <ul>
 <li>DuiControlPanelIf
 </ul>

@@ -1,7 +1,7 @@
-/*! \page servicefw Controlling controlpanel
+/*! \page servicefw Controlling control panel
 
 \section description Description
-Controlpanel has a servicefw interface, with which you can control it from other
+Control panel has a servicefw interface, with which you can control it from other
 applications through dbus.
 
 \code
@@ -20,7 +20,7 @@ applications through dbus.
         </method>
     </interface>
 </node>
-\endcode com.nokia.DuiControlPanelIf.xml describes Controlpanel's servicefw interface
+\endcode com.nokia.DuiControlPanelIf.xml describes control panel's servicefw interface
 \n
 \n
 
@@ -64,7 +64,7 @@ Use DuiControlPanelIf::mainPage().
     //or
     dcpIf->appletPage("Internet"); //To show "internet applet" for example 
     //or
-    dcpIf->categoryPage("Look & Feel"); //To show "Look & Feel" category
+    dcpIf->categoryPage("Applications"); //To show "Applications" category
   }
   delete dcpIf;
 }
