@@ -6,8 +6,9 @@ duicontrolpanel (0.11.2~unreleased) unstable; urgency=low
   [ Robert Manner ]
   * documentation fixes
   * Fixes: no exec right for duicontrolpanel on meego
+  * Changes: new category "Events feed", accessible from Notifications
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 12 Jan 2011 15:08:48 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 12 Jan 2011 16:37:13 +0100
 
 duicontrolpanel (0.11.1) unstable; urgency=low
 
