@@ -1,4 +1,4 @@
-duicontrolpanel (0.11.2~unreleased) unstable; urgency=low
+duicontrolpanel (0.11.2) unstable; urgency=low
 
   [ Sandor Pinter ]
   * Fixes: NB#194151 - <coverity> defects from libdialerui/0.0.6.30_0m6
