@@ -1,4 +1,4 @@
-duicontrolpanel (0.11.3~unreleased) unstable; urgency=low
+duicontrolpanel (0.11.2.1) unstable; urgency=low
 
   * Temporarily disables running applets outprocess by default, since it
     still causes some problems. It can be enabled with using -outprocess
