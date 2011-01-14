@@ -361,9 +361,13 @@ void DcpContentItem::onClicked ()
     dcp_failfunc_unless (metadata());
 
     /*
-     * This will count the activations and activate the applet.
+     * Activate the applet.
+     * Toggle type is
+     * 'Non-interactive item (tapping the item will not open a sub view)'
      */
-    applet()->slotClicked ();
+    if (widgetType() != DcpWidgetType::Toggle) {
+        applet()->slotClicked ();
+    }
 }
 
 

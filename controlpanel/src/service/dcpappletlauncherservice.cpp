@@ -59,12 +59,11 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
 
     if (success) {
         unregisterService ();
+        win->show();
+
+        win->activateWindow();
+        win->raise();
     }
-
-    win->show();
-
-    win->activateWindow();
-    win->raise();
 
     return success;
 }
