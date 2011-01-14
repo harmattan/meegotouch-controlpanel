@@ -49,11 +49,6 @@ DcpAppletCategoryPage::setCategoryInfo (
 }
 
 
-void 
-DcpAppletCategoryPage::reload ()
-{
-}
-
 void DcpAppletCategoryPage::back ()
 {
 }
@@ -80,4 +75,8 @@ DcpAppletCategoryPage::onLoadingFinished ()
 {
 }
 
+void
+DcpAppletCategoryPage::mostUsedAppears ()
+{
+}
 

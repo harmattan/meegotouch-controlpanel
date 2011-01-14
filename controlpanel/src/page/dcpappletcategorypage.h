@@ -24,6 +24,7 @@
 class DcpAppletMetadata;
 class DcpAppletButtons;
 class Category;
+class DcpMostUsed;
 
 class DcpAppletCategoryPage : public DcpPage
 {
@@ -38,7 +39,6 @@ public:
     const QString appletCategory () const;
     void setCategoryInfo (const Category *categoryInfo);
 
-    virtual void reload();
     int appletCount();
     DcpAppletMetadata* appletMetadata(int i);
 
@@ -47,10 +47,13 @@ public slots:
 
 protected:
     virtual void retranslateUi();
-    void createCategories ();
+    QGraphicsWidget* createCategories ();
 
 protected slots:
     void onLoadingFinished ();
+
+private slots:
+    void mostUsedAppears ();
 
 private:
     // the appletcategory that has already been
@@ -59,6 +62,7 @@ private:
     QString m_LoadedAppletCategory;
     const Category *m_CategoryInfo;
     DcpAppletButtons* m_Category;
+    DcpMostUsed *m_MostUsed;
     friend class Ut_DcpAppletCategoryPage;
 };
 

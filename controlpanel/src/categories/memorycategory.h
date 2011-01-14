@@ -34,11 +34,15 @@ public:
                     int order = 0,
                     const QStringList& compatibilityIds = QStringList());
 
+    void enableMostUsed () { mostUsed = true; }
+    virtual bool hasMostUsed () const { return mostUsed; }
+
 protected:
     virtual QString value (int key) const;
 
 private:
     QHash<int, QString> data;
+    bool mostUsed;
 };
 
 

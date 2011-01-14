@@ -53,6 +53,8 @@ public:
     bool containsUncategorized () const;
     static bool orderLessThan (const Category* cat1, const Category* cat2);
 
+    virtual bool hasMostUsed () const { return false; }
+
 protected:
     virtual QString value (int key) const = 0;
     QStringList valueList (int key) const;
@@ -75,6 +77,9 @@ private:
     bool m_IsChildComputed;
 };
 
+// a logical category:
+#define MostUsed "Recently used"
+#define MostUsedId "qtn_sett_main_most"
 
 #endif // CATEGORY_H
 

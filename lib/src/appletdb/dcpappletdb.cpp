@@ -264,11 +264,11 @@ DcpAppletDb::listByCategory (const QStringList& categories,
 }
 
 
-#ifdef MOSTUSED
 DcpAppletMetadataList 
 DcpAppletDb::listMostUsed ()
 {
     DcpAppletMetadataList mostUsed;
+#ifdef MOSTUSED
     DcpAppletMetadata* lastUsed = DcpAppletMetadata::lastUsed();
 
     for (QMap<QString, DcpAppletMetadata*>::iterator iter =
@@ -289,9 +289,9 @@ DcpAppletDb::listMostUsed ()
         mostUsed.prepend (lastUsed);
    }
    mostUsed = mostUsed.mid (0, DcpApplet::MaxMostUsed);
+#endif
    return mostUsed;
 }
-#endif
 
 /*!
  * \brief Returns the applet found in the database by its name.

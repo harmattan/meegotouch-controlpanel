@@ -11,7 +11,7 @@ INCLUDEPATH += $${STUBSDIR}
 TARGET = ut_dcpappletbuttons
 
 TEST_SOURCES = \
-    $$SRCDIR/page/dcpappletbuttons.cpp \
+    $$SRCDIR/component/dcpappletbuttons.cpp \
     $$SRCDIR/page/pages.cpp \
     $$SRCDIR/categories/category.cpp \
     $$SRCDIR/categories/memorycategory.cpp \
@@ -46,12 +46,12 @@ SOURCES += \
 HEADERS += \
     ut_dcpappletbuttons.h \
     $$STUBSDIR/dcpappletplugin-applet.h \
-    $$SRCDIR/page/dcpappletbuttons.h \
+    $$SRCDIR/component/dcpappletbuttons.h \
     $$SRCDIR/component/dcpmaincategory.h \
     $$SRCDIR/component/dcpappletwidget.h \
     $$SRCDIR/categories/category.h \
     $$SRCDIR/categories/dcpcategories.h \
-    $$SRCDIR/page/dcpcontentitemcellcreator.h \
+    $$SRCDIR/component/dcpcontentitemcellcreator.h \
     $$SRCDIR/remote/dcpremoteappletobject.h \
 
 # base classes

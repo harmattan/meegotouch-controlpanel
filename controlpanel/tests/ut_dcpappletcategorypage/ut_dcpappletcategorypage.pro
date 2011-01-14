@@ -32,6 +32,7 @@ SOURCES += \
     $$STUBSDIR/dcpappletdb-fake.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
     $$STUBSDIR/dcpappletbuttons-fake.cpp \
+    $$STUBSDIR/dcpmostused-fake.cpp \
     $$STUBSDIR/dcpappletplugin-fake.cpp \
     $$STUBSDIR/dcpretranslator-fake.cpp \
     $$STUBSDIR/dcpsinglecomponent-fake.cpp \
@@ -48,11 +49,12 @@ SOURCES += \
 HEADERS += \
     ut_dcpappletcategorypage.h \
     $$STUBSDIR/dcpappletplugin-applet.h \
-    $$SRCDIR/page/dcpappletbuttons.h \
+    $$SRCDIR/component/dcpappletbuttons.h \
     $$SRCDIR/page/dcpappletcategorypage.h \
     $$SRCDIR/page/dcppage.h \
     $$SRCDIR/page/pages.h \
     $$SRCDIR/component/dcpmaincategory.h \
+    $$SRCDIR/component/dcpmostused.h \
     $$SRCDIR/component/dcpsinglecomponent.h \
 
 # base classes

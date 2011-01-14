@@ -107,10 +107,15 @@ DcpAppletButtons::createContents ()
      * this widget.
      */
     DcpAppletMetadataList metadatas;
-    bool withUncategorized = m_CategoryInfo->containsUncategorized();
-    metadatas =
-        DcpAppletDb::instance()->listByCategory (m_CategoryInfo->referenceIds(),
+    if (m_CategoryInfo->name() == MostUsed) {
+        metadatas = DcpAppletDb::instance()->listMostUsed();
+    } else {
+        bool withUncategorized = m_CategoryInfo->containsUncategorized();
+        metadatas =
+            DcpAppletDb::instance()->listByCategory (
+                    m_CategoryInfo->referenceIds(),
                     withUncategorized ? DcpCategories::hasCategory : NULL);
+    }
 
     // ensure that all needed catalogs are loaded for the applets before
     DcpRetranslator::instance()->ensureTranslationsAreLoaded(metadatas);

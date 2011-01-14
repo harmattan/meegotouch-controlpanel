@@ -86,11 +86,15 @@ public:
                     const QStringList& categories,
                     checkCategory   checkFunction = 0);
 
-#ifdef MOSTUSED
-    /*! \brief List the six most used applets
-        \details gives backt the most used componnents but six*/
+    /*! \brief List the four most used applets
+        \details
+        The first element will be the applet used last time,
+        the next three will be the most frequently used ones.
+
+        Returns an empty list in case nost used item handling
+        is disabled.
+     */
     DcpAppletMetadataList listMostUsed();
-#endif
 
     /*! \return the object of an applet by name*/
     DcpAppletObject *applet(const QString& name);

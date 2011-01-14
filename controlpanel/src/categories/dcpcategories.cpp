@@ -64,9 +64,17 @@ QList<const Category*> DcpCategories::categoryChildren(const QString& id) const
 DcpCategories::DcpCategories()
 {
     // add the main category:
-    add (new MemoryCategory (mainPageCategoryName(), // <- name
-                             "qtn_sett_main_title"   // <- translation id
-                            ));
+    MemoryCategory* mainCat =
+        new MemoryCategory (mainPageCategoryName(), // <- name
+                            "qtn_sett_main_title"   // <- translation id
+    );
+    add (mainCat);
+
+// this is the central place where mostUsed gets enabled (and the lib):
+#ifdef MOSTUSED
+    mainCat->enableMostUsed();
+    add (new MemoryCategory (MostUsed, MostUsedId));
+#endif
 
     // load the available categories:
     QDir dir (DCP_CATEGORY_DIR);

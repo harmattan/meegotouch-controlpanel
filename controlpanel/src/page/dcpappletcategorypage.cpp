@@ -24,6 +24,7 @@
 #include "dcpmaincategory.h"
 #include "category.h"
 #include "pages.h"
+#include "dcpmostused.h"
 #include "dcpdebug.h"
 
 #include <DcpAppletDb>
@@ -32,7 +33,6 @@
 #include <DcpRetranslator>
 
 #include <QtDebug>
-#include <MPannableViewport>
 #include <QGraphicsLinearLayout>
 
 
@@ -40,7 +40,8 @@ DcpAppletCategoryPage::DcpAppletCategoryPage (
         const Category *categoryInfo) :
     DcpPage (),
     m_CategoryInfo (categoryInfo),
-    m_Category(0)
+    m_Category (0),
+    m_MostUsed (0)
 {
 }
 
@@ -48,12 +49,9 @@ DcpAppletCategoryPage::~DcpAppletCategoryPage ()
 {
 }
 
-void
+QGraphicsWidget*
 DcpAppletCategoryPage::createCategories ()
 {
-    QGraphicsLinearLayout *layout = mainLayout ();
-    dcp_failfunc_unless(layout);
-
     DcpMainCategory *otherCategories = new DcpMainCategory();
     QList<const Category*> categoryList;
     if (m_CategoryInfo) {
@@ -67,11 +65,22 @@ DcpAppletCategoryPage::createCategories ()
 
         button = new DcpSingleComponent(otherCategories, info->titleId(),
                                         info->iconId(), info->subtitleId());
-        button->setSubPage(PageHandle(PageHandle::APPLETCATEGORY, info->name()));
+        button->setSubPage(
+                PageHandle(PageHandle::APPLETCATEGORY, info->name()));
         otherCategories->appendWidget(button);
     }
 
-    layout->addItem(otherCategories);
+    return otherCategories;
+}
+
+void
+DcpAppletCategoryPage::mostUsedAppears ()
+{
+    dcp_failfunc_unless (m_MostUsed);
+    QGraphicsLinearLayout* layout = mainLayout();
+    dcp_failfunc_unless (layout);
+    layout->insertItem (1, m_MostUsed);
+    m_MostUsed->show();
 }
 
 void
@@ -79,12 +88,48 @@ DcpAppletCategoryPage::createContent ()
 {
     DcpPage::createContent ();
 
+    // Most Used Items:
+    bool hasMostUsed = m_CategoryInfo->hasMostUsed();
+    if (hasMostUsed) {
+        m_MostUsed = new DcpMostUsed(this);
+        m_MostUsed->hide ();
+        connect (m_MostUsed, SIGNAL (itemsBecameAvailable()),
+                 this, SLOT (mostUsedAppears()));
+        if (m_MostUsed->itemsAvailable()) {
+            mostUsedAppears();
+        }
+        // TODO XXX check that this does not cause double refresh on startup
+        connect (this, SIGNAL (appearing()), m_MostUsed, SLOT(refresh()));
+    }
+
     // create the categories:
-    createCategories();
+    QGraphicsWidget* categoryWidget = createCategories();
 
     // create the applet list:
     m_Category = new DcpAppletButtons(m_CategoryInfo);
-    mainLayout()->addItem (m_Category);
+
+    // add them to the layout:
+    if (hasMostUsed) {
+        // box around them:
+        MContainer* container = new MContainer();
+        container->setStyleName ("CommonContainerInverted");
+        // TODO no retranslateUi is implemented for this -V
+        //% "All settings"
+        container->setTitle (qtTrId("qtn_sett_main_other"));
+        mainLayout()->addItem(container);
+
+        // put them in the box:
+        QGraphicsLinearLayout* clayout =
+            new QGraphicsLinearLayout (Qt::Vertical,
+                                       container->centralWidget());
+        clayout->addItem (categoryWidget);
+        clayout->addItem (m_Category);
+
+    } else {
+        // just add them to the layout without box:
+        mainLayout()->addItem(categoryWidget);
+        mainLayout()->addItem (m_Category);
+    }
 
 #ifdef PROGRESS_INDICATOR
     // show progress indicator while loading the applets:
@@ -141,23 +186,6 @@ DcpAppletCategoryPage::appletMetadata(int i)
     }
 }
 
-
-void
-DcpAppletCategoryPage::reload ()
-{
-    DCP_DEBUG ("");
-
-    if (m_LoadedAppletCategory != appletCategory()) {
-        m_Category->setCategoryInfo (m_CategoryInfo);
-        retranslateUi();
-    }
-
-    // move the page to the top:
-    pannableViewport()->setPosition (QPointF(0,0));
-
-    DcpPage::reload();
-}
-
 void DcpAppletCategoryPage::back ()
 {
     DcpPage::back();
@@ -166,7 +194,7 @@ void DcpAppletCategoryPage::back ()
 void
 DcpAppletCategoryPage::retranslateUi()
 {
-    // briefwidgets take care of themselves, so we only update title here
+    // briefwidgets take care of themselves, so we only update titles here
     setTitle(m_CategoryInfo ? m_CategoryInfo->title() : QString());
     if (isContentCreated()) {
         setTitleLabel ();

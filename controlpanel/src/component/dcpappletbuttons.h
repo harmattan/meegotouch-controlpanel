@@ -41,6 +41,7 @@ public:
     ~DcpAppletButtons ();
 
     void setCategoryInfo (const Category *categoryInfo);
+    const Category* categoryInfo () const { return m_CategoryInfo; }
 
     virtual bool reload();
     int metadataCount () const;
