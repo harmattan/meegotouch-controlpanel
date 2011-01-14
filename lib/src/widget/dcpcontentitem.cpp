@@ -254,12 +254,14 @@ DcpContentItem::ensureWidgetsAreLayouted()
         toggleX++;
     }
 
-    if (!d_ptr->m_DrillImage) {
+    if (!d_ptr->m_ButtonW && !d_ptr->m_DrillImage) {
         d_ptr->m_DrillImage = new MImageWidget("icon-m-common-drilldown-arrow", this);
         d_ptr->m_DrillImage->setStyleName(drillDownObjectName);
     }
-    grid->addItem(d_ptr->m_DrillImage, 0, toggleX, textLinesCount, 1);
-    grid->setAlignment(d_ptr->m_DrillImage, Qt::AlignVCenter | Qt::AlignRight);
+    if (!d_ptr->m_ButtonW) {
+        grid->addItem(d_ptr->m_DrillImage, 0, toggleX, textLinesCount, 1);
+        grid->setAlignment(d_ptr->m_DrillImage, Qt::AlignVCenter | Qt::AlignRight);
+    }
 }
 
 
