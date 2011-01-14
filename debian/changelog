@@ -1,8 +1,9 @@
 duicontrolpanel (0.11.3~unreleased) unstable; urgency=low
 
   * new version
+  * Changes: mostused build option is working again
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 14 Jan 2011 13:09:22 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 14 Jan 2011 13:27:54 +0100
 
 duicontrolpanel (0.11.2.1) unstable; urgency=low
 
