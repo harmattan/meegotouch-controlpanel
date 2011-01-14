@@ -2,7 +2,15 @@ duicontrolpanel (0.11.3~unreleased) unstable; urgency=low
 
   * new version
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 13 Jan 2011 10:56:09 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 14 Jan 2011 13:09:22 +0100
+
+duicontrolpanel (0.11.2.1) unstable; urgency=low
+
+  * Temporarily disables running applets outprocess by default, since it
+    still causes some problems. It can be enabled with using -outprocess
+    parameter
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 13 Jan 2011 15:27:44 +0100
 
 duicontrolpanel (0.11.2) unstable; urgency=low
 
