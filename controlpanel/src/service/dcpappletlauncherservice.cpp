@@ -27,6 +27,8 @@
 #include <QDBusError>
 #include <DcpAppletDb>
 #include <dcpdebug.h>
+#include <DuiControlPanelIf>
+#include <QDBusServiceWatcher>
 
 static const char* serviceName = "com.nokia.DcpAppletLauncher";
 
@@ -34,6 +36,25 @@ static const char* serviceName = "com.nokia.DcpAppletLauncher";
 DcpAppletLauncherService::DcpAppletLauncherService ():
     MApplicationService (serviceName)
 {
+    DuiControlPanelIf* iface = new DuiControlPanelIf ("", this);
+    // this makes us die if the main process dies anyhow:
+#if 0
+    // TODO this would be nicer, but does not work:
+    connect (iface, SIGNAL (serviceUnavailable(QString)),
+             this, SLOT (close()));
+#else
+    QDBusServiceWatcher* watcher =
+        new QDBusServiceWatcher ("com.nokia.DuiControlPanel",
+                QDBusConnection::sessionBus(),
+                QDBusServiceWatcher::WatchForUnregistration, this);
+    connect (watcher, SIGNAL (serviceUnregistered(QString)),
+             this, SLOT (close()));
+#endif
+
+    // the main process will be able able to close us down if needed even if
+    // the appletlauncher does not provide the service anymore,
+    // through its (main process's) own service:
+    connect (iface, SIGNAL (reset()), this, SLOT (close()));
 }
 
 /*
@@ -45,10 +66,16 @@ DcpAppletLauncherService::DcpAppletLauncherService ():
 bool DcpAppletLauncherService::maybeAppletRealStart ()
 {
     if (m_PageHandle.id == PageHandle::NOPAGE)  return true;
-    if (MApplication::windows().isEmpty())  return true;
 
-    MWindow *win = MApplication::windows().at(0);
-    dcp_failfunc_unless (win, false);
+    // mainwindow:
+    MApplicationWindow *win;
+    if (MApplication::windows().isEmpty())  {
+        win = new MApplicationWindow();
+        win->setAttribute( Qt::WA_DeleteOnClose, true );
+    } else {
+        win = qobject_cast<MApplicationWindow*>(MApplication::windows().at(0));
+        dcp_failfunc_unless (win, false);
+    }
 
     // FIXME XXX: the instance() call makes the .desktop files parsed unnecesserily
     PageFactory* pageFactory = PageFactory::instance();
@@ -60,7 +87,6 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
     if (success) {
         unregisterService ();
         win->show();
-
         win->activateWindow();
         win->raise();
     }
@@ -80,7 +106,6 @@ void DcpAppletLauncherService::sheduleApplet (const QString& appletName)
 bool DcpAppletLauncherService::appletPage (const QString& appletName)
 {
     sheduleApplet (appletName);
-
     return maybeAppletRealStart();
 }
 
@@ -123,6 +148,9 @@ bool DcpAppletLauncherService::unregisterService ()
 
 void DcpAppletLauncherService::prestart ()
 {
+    MApplicationWindow *win = new MApplicationWindow();
+    win->setAttribute( Qt::WA_DeleteOnClose, true );
+    win->hide();
 }
 
 void DcpAppletLauncherService::close ()

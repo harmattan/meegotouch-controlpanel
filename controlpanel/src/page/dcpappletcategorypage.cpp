@@ -98,7 +98,6 @@ DcpAppletCategoryPage::createContent ()
         if (m_MostUsed->itemsAvailable()) {
             mostUsedAppears();
         }
-        // TODO XXX check that this does not cause double refresh on startup
         connect (this, SIGNAL (appearing()), m_MostUsed, SLOT(refresh()));
     }
 

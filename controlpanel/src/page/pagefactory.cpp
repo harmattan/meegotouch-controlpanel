@@ -60,9 +60,6 @@ PageFactory::PageFactory ():
 
 PageFactory::~PageFactory ()
 {
-    if (sm_AppletLauncher) {
-        sm_AppletLauncher->close();
-    }
     delete sm_AppletLauncher;
     sm_Instance = 0;
 }
@@ -316,9 +313,11 @@ PageFactory::currentPage ()
  */
 void PageFactory::preloadAppletLauncher ()
 {
+#if 1
     if (!sm_AppletLauncher) return;
     dcp_failfunc_unless (sm_AppletLauncher->isValid());
     sm_AppletLauncher->prestart ();
+#endif
 }
 
 bool PageFactory::maybeRunOutOfProcess (const QString& appletName)
@@ -366,8 +365,9 @@ PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
     DcpPage *page;
 
     // if it is already open, we switch back to it:
-    if (tryOpenPageBackward(handle))
+    if (tryOpenPageBackward(handle)) {
         return true;
+    }
 
     // we drop all the other pages if needed:
     if (dropOtherPages) {
@@ -375,6 +375,11 @@ PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
             delete page;
         }
         m_Pages.clear ();
+
+        // drop pages running in other instances (if any):
+        if (sm_AppletLauncher) {
+            emit resetAppletLauncherProcesses ();
+        }
     }
 
     /*
