@@ -39,12 +39,15 @@ DcpSingleComponent::DcpSingleComponent (
                  MBasicListItem::IconWithTitleAndSubtitle, parent),
                  m_TDriverID ("DcpSingleComponent::" + logicalId),
                  m_TitleID (logicalId),
-                 m_SubtitleID (subTitleId)
+                 m_SubtitleID (subTitleId),
+                 m_HasImage(!imageId.isEmpty())
 {
     setObjectName (QString());
     setStyleName("CommonPanelInverted");
 
-    imageWidget()->setImage (imageId);
+    if (m_HasImage) {
+        imageWidget()->setImage (imageId);
+    }
 
     connect(this, SIGNAL (clicked()),
             this, SLOT (activate()));
@@ -70,9 +73,11 @@ QGraphicsLayout *DcpSingleComponent::createLayout()
     layout->setSpacing(0);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
-    imageWidget()->setStyleName("CommonMainIcon");
-    layout->addItem(imageWidget(), 0, 0, 3, 1);
-    layout->setAlignment(imageWidget(), Qt::AlignVCenter | Qt::AlignLeft);
+    if (m_HasImage) {
+        imageWidget()->setStyleName("CommonMainIcon");
+        layout->addItem(imageWidget(), 0, 0, 3, 1);
+        layout->setAlignment(imageWidget(), Qt::AlignVCenter | Qt::AlignLeft);
+    }
 
     titleLabelWidget()->setStyleName("CommonTitleInverted");
     layout->addItem(titleLabelWidget(), 0, 1);

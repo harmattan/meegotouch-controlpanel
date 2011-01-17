@@ -53,6 +53,7 @@ private:
     QString m_TDriverID;
     QString m_TitleID;
     QString m_SubtitleID;
+    bool    m_HasImage;
     PageHandle m_SubPage;
 
     friend class Ut_DcpSingleComponent;
