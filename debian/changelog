@@ -1,4 +1,4 @@
-duicontrolpanel (0.11.3~unreleased) unstable; urgency=low
+duicontrolpanel (0.11.3) unstable; urgency=low
 
   [ Robert Manner ]
   * Changes: mostused build option is working again
