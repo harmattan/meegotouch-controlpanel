@@ -16,7 +16,7 @@
             <arg name="params" type="as" direction="in"/>
             <arg name="" type="b" direction="out"/>
         </method>
-        <signal name="reset">
+        <signal name="closeAppletLaunchers">
         </signal>
     </interface>
 </node>

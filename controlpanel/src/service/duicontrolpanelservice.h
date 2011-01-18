@@ -34,7 +34,7 @@ public:
     static bool isStartedByServiceFw;
 
 Q_SIGNALS:
-    void reset ();
+    void closeAppletLaunchers ();
 
 public Q_SLOTS:
     void launch ();

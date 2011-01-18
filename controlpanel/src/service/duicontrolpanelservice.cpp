@@ -80,7 +80,7 @@ bool
 DuiControlPanelService::registerService ()
 {
     // memory owned by QDBusAbstractAdaptor instance and must be on the heap
-    DuiControlPanelIfAdaptor* dcpAdaptor = new DuiControlPanelIfAdaptor(this);
+    new DuiControlPanelIfAdaptor(this);
     new MApplicationIfAdaptor(this);
 
     QDBusConnection connection = QDBusConnection::sessionBus();
@@ -92,8 +92,6 @@ DuiControlPanelService::registerService ()
 
         if (!ret) {
             qWarning ("Error while registering the service object");
-        } else {
-            connect (this, SIGNAL (reset()), dcpAdaptor, SIGNAL (reset()));
         }
     } else {
         qWarning ("Error while registering the service name");
@@ -138,6 +136,7 @@ void DuiControlPanelService::startPageForReal(const PageHandle &handle)
      */
 
     MApplicationWindow *win = MApplication::activeApplicationWindow();
+    dcp_failfunc_unless (win);
     PageFactory* pf = PageFactory::instance();
 #ifdef NO_PAGE_DROPPING
     if (handle.id == PageHandle::APPLET && isStartedByServiceFw
@@ -212,12 +211,13 @@ DuiControlPanelService::createStartPage()
     PageHandle* handle = m_StartPage;
     m_StartPage = 0;
 
+    PageFactory* pf = PageFactory::instance();
+    connect (pf, SIGNAL (resetAppletLauncherProcesses()),
+             this, SIGNAL (closeAppletLaunchers()));
+
     // if started through servicefw we can end up not receiving the
     // servicefw call at this point, so taking no action yet
     if (handle->id != PageHandle::NOPAGE) {
-        PageFactory* pf = PageFactory::instance();
-        connect (pf, SIGNAL (resetAppletLauncherProcesses()),
-                 this, SIGNAL (reset()));
         startPageForReal (*handle);
     }
 

@@ -36,7 +36,7 @@ static const char* serviceName = "com.nokia.DcpAppletLauncher";
 DcpAppletLauncherService::DcpAppletLauncherService ():
     MApplicationService (serviceName)
 {
-    DuiControlPanelIf* iface = new DuiControlPanelIf ("", this);
+//    DuiControlPanelIf* iface = new DuiControlPanelIf ("", this);
     // this makes us die if the main process dies anyhow:
 #if 0
     // TODO this would be nicer, but does not work:
@@ -54,7 +54,13 @@ DcpAppletLauncherService::DcpAppletLauncherService ():
     // the main process will be able able to close us down if needed even if
     // the appletlauncher does not provide the service anymore,
     // through its (main process's) own service:
-    connect (iface, SIGNAL (reset()), this, SLOT (close()));
+#if 0
+    // TODO why is this not working?
+    connect (iface, SIGNAL (closeAppletLaunchers()), this, SLOT (close()));
+#else
+    QDBusConnection::sessionBus().connect ("","/","com.nokia.DuiControlPanelIf",
+            "closeAppletLaunchers", this, SLOT(close()));
+#endif
 }
 
 /*
