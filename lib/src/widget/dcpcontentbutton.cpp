@@ -43,6 +43,7 @@ DcpContentButton::DcpContentButton (
 {
     connect (this, SIGNAL (clicked()),
              this, SLOT (onClicked()));
+    setStyleName("CommonSingleButtonInverted");
 
     setApplet (applet);
 }
