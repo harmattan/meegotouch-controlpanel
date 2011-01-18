@@ -107,7 +107,7 @@ DcpAppletDb::addFile (
         return false;
 
     DcpAppletMetadata *metadata = new DcpAppletMetadata(filename);
-    if (metadata->isValid()) {
+    if (metadata->isValid() && !metadata->isHidden()) {
         if (metadata->isUnique()) {
              d_ptr->appletsByName.clear();
              d_ptr->appletsByFile.clear();

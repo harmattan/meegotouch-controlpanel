@@ -70,6 +70,9 @@ enum  {
 
     KeyHelpId,
 
+    KeyDoNotShowOn,
+    KeyOnlyShowOn,
+
     KeyCount
 };
 
@@ -102,7 +105,9 @@ const QString Keys[KeyCount] = {
     "Desktop Entry/X-Maemo-Fixed-Args",
     "Desktop Entry/Exec",
 
-    "DCP/HelpId"
+    "DCP/HelpId",
+    "DCP/DoNotShowOnProduct",
+    "DCP/OnlyShowOnProduct"
 };
 
 #endif // DCPAPPLETMETADATA_P_H

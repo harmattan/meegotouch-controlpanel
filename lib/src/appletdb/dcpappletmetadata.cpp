@@ -495,4 +495,58 @@ QString DcpAppletMetadata::helpId() const
     return desktopEntryStr(KeyHelpId);
 }
 
+/* Extracts the product version string from /proc. */
+inline const QString& product()
+{
+    static QString result;
+    if (result.isNull()) {
+        // this disables another trial in the future:
+        result = "";
+
+        // parse the needed value:
+        QFile source ("/proc/component_version");
+        if (!source.open (QIODevice::ReadOnly | QIODevice::Text)) {
+            return result;
+        }
+        QTextStream stream (&source);
+
+        QString line;
+        do {
+            line = stream.readLine ();
+            static const QString lineBeginning = "product";
+            if (line.startsWith (lineBeginning)) {
+                result = line.mid(lineBeginning.count()).trimmed();
+                break;
+            }
+        } while (!line.isNull());
+        source.close ();
+        qDebug ("XXX product is: \"%s\"", qPrintable(result));
+    }
+    return result;
+}
+
+bool DcpAppletMetadata::isHidden() const
+{
+    QString doNotShowOn = desktopEntryStr (KeyDoNotShowOn);
+    QString onlyShowOn = desktopEntryStr (KeyOnlyShowOn);
+    const QString& productStr = product();
+
+    // under scratchbox or on unknown product we do not hide:
+    if (productStr.isEmpty()) return false;
+
+    // we hide if onlyShowOn list does not contain the product
+    if (!onlyShowOn.isEmpty()) {
+        return !onlyShowOn.split(",").contains (productStr);
+    }
+
+    // match do not show on:
+    if (!doNotShowOn.isEmpty()) {
+        if (doNotShowOn.split(",").contains (productStr)) {
+            return true;
+        }
+    }
+
+    // the default is visible:
+    return false;
+}
 

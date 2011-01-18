@@ -159,8 +159,16 @@ Only for testing. The first applet which has a 1 here, will be alone,
 and control panel will not load the others.
 This key will most likely be removed soon.
 
-\par Parent
-TODO
+\par DoNotShowOnProduct
+It can contain a list of product names
+(see /proc/component_version | grep product), on which the applet should be
+hidden by controlpanel. An invisible applet will not be displayed in
+any of the categories.
+
+\par OnlyShowOnProduct
+It can contain a list of product names, the only ones on which the applet
+should be visible. Overrides DoNotShowOnProduct.
+
 
 \section specialities Other
 

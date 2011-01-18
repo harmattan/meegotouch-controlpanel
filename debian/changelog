@@ -6,6 +6,8 @@ duicontrolpanel (0.11.3~unreleased) unstable; urgency=low
     item in the Notifications view
   * Fixes: NB#218900 - settings UI is shown in applet view when tried to
     relaunch in a given scenario
+  * Fixes: NB#214650 - It is not possible for an applet to disable
+    itself run-time
 
   [ Sandor Pinter ]
   * Fixes: NB#219212 - 'Events feeds' not aligned properly in
@@ -15,7 +17,7 @@ duicontrolpanel (0.11.3~unreleased) unstable; urgency=low
   * Fixes: NB#219156 - Activate/Deactivate Offline mode button in
     connections is not consistent with the inverted theme.
 
- -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Tue, 18 Jan 2011 14:37:13 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 18 Jan 2011 17:28:13 +0100
 
 duicontrolpanel (0.11.2.1) unstable; urgency=low
 

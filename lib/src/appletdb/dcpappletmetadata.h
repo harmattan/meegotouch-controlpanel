@@ -100,6 +100,8 @@ public:
     void markInactive();
     bool isActive() const;
 
+    bool isHidden() const;
+
     /*! gets the last openned applet */
     static DcpAppletMetadata* lastUsed ();
     /*! sets the last openned applet */
