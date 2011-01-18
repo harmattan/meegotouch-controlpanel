@@ -357,6 +357,12 @@ bool PageFactory::maybeRunOutOfProcess (const QString& appletName)
 bool
 PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
 {
+    // in outprocess mode we should also drop pages running in other instances
+    // (if any):
+    if (dropOtherPages && sm_AppletLauncher) {
+        emit resetAppletLauncherProcesses ();
+    }
+
     // if we could run it out of process then we do not change the page:
     if (handle.id == PageHandle::APPLET && maybeRunOutOfProcess(handle.param)) {
         return false;
@@ -375,11 +381,6 @@ PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
             delete page;
         }
         m_Pages.clear ();
-
-        // drop pages running in other instances (if any):
-        if (sm_AppletLauncher) {
-            emit resetAppletLauncherProcesses ();
-        }
     }
 
     /*

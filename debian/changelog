@@ -4,6 +4,8 @@ duicontrolpanel (0.11.3~unreleased) unstable; urgency=low
   * Changes: mostused build option is working again
   * Fixes: NB#218906 - Settings app goes invisible when we tap on Feeds
     item in the Notifications view
+  * Fixes: NB#218900 - settings UI is shown in applet view when tried to
+    relaunch in a given scenario
 
   [ Sandor Pinter ]
   * Fixes: NB#219212 - 'Events feeds' not aligned properly in
@@ -11,7 +13,7 @@ duicontrolpanel (0.11.3~unreleased) unstable; urgency=low
   * Fixes: NB#219608 - drilldown icon is black in the list items which
     use the style when it should be white
 
- -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Tue, 18 Jan 2011 10:55:46 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 18 Jan 2011 12:24:47 +0100
 
 duicontrolpanel (0.11.2.1) unstable; urgency=low
 

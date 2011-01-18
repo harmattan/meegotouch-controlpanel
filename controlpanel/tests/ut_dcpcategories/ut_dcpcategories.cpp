@@ -33,7 +33,6 @@ void Ut_DcpCategories::cleanup()
 
 void Ut_DcpCategories::initTestCase()
 {
-    qWarning ("XXX");
     m_subject = new DcpCategories();
     // in C1:
     m_c11 = new MemoryCategory ("C11","id11", "C1");

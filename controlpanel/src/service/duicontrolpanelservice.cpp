@@ -211,10 +211,6 @@ DuiControlPanelService::createStartPage()
     PageHandle* handle = m_StartPage;
     m_StartPage = 0;
 
-    PageFactory* pf = PageFactory::instance();
-    connect (pf, SIGNAL (resetAppletLauncherProcesses()),
-             this, SIGNAL (closeAppletLaunchers()));
-
     // if started through servicefw we can end up not receiving the
     // servicefw call at this point, so taking no action yet
     if (handle->id != PageHandle::NOPAGE) {
@@ -222,5 +218,11 @@ DuiControlPanelService::createStartPage()
     }
 
     delete handle;
+
+    // From now on, pagefactory will be able to notify the applets running
+    // in separate process to close down through this:
+    PageFactory* pf = PageFactory::instance();
+    connect (pf, SIGNAL (resetAppletLauncherProcesses()),
+             this, SIGNAL (closeAppletLaunchers()));
 }
 
