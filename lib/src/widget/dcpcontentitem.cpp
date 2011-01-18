@@ -30,8 +30,6 @@ static const QString subtitleObjectName = "CommonSubTitleInverted";
 static const QString singleTitleObjectName = "CommonSingleTitleInverted";
 static const QString iconObjectName = "CommonMainIcon";
 static const QString drillDownObjectName = "CommonDrillDownIcon";
-// FIXME, replace when becomes available:
-// static const QString drillDownObjectName = "CommonDrillDownIconInverted";
 static const QString toggleObjectName = "CommonSwitchInverted";
 
 DcpContentItemPrivate::DcpContentItemPrivate ():
@@ -255,7 +253,8 @@ DcpContentItem::ensureWidgetsAreLayouted()
     }
 
     if (!d_ptr->m_ButtonW && !d_ptr->m_DrillImage) {
-        d_ptr->m_DrillImage = new MImageWidget("icon-m-common-drilldown-arrow", this);
+        d_ptr->m_DrillImage =
+            new MImageWidget("icon-m-common-drilldown-arrow-inverse", this);
         d_ptr->m_DrillImage->setStyleName(drillDownObjectName);
     }
     if (!d_ptr->m_ButtonW) {
