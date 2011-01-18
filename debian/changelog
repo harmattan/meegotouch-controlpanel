@@ -12,8 +12,10 @@ duicontrolpanel (0.11.3~unreleased) unstable; urgency=low
     Notifications view.
   * Fixes: NB#219608 - drilldown icon is black in the list items which
     use the style when it should be white
+  * Fixes: NB#219156 - Activate/Deactivate Offline mode button in
+    connections is not consistent with the inverted theme.
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 18 Jan 2011 12:24:47 +0100
+ -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Tue, 18 Jan 2011 14:37:13 +0100
 
 duicontrolpanel (0.11.2.1) unstable; urgency=low
 
