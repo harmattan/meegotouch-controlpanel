@@ -58,6 +58,9 @@ public slots:
     void preloadAppletLauncher ();
     void preloadBriefReceiver ();
 
+signals:
+    void resetAppletLauncherProcesses ();
+
 protected:
     PageFactory ();
     DcpPage* createMainPage ();

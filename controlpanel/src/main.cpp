@@ -122,14 +122,8 @@ startAppletLoader (int argc, char* argv[])
     signal(SIGTERM, &onTermSignal);
     signal(SIGINT, &onTermSignal);
 
-    // mainwindow:
-    MApplicationWindow *win = createApplicationWindow ();
-    win->hide ();
-    service->maybeAppletRealStart ();
-
     // we sleep until an applet gets requested through dbus:
     int result = app->exec();
-
     return result;
 }
 

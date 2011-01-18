@@ -162,7 +162,7 @@ void BriefSupplier::outputBrief (DcpAppletObject* applet, bool textOnly)
     QString helpId;
     QString icon;
     QString image;
-    bool toggle;
+    bool toggle = false;
 
     if (!textOnly) {
         widgetTypeID = brief->widgetTypeID();

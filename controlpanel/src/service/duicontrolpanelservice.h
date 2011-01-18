@@ -33,6 +33,9 @@ public:
 
     static bool isStartedByServiceFw;
 
+Q_SIGNALS:
+    void reset ();
+
 public Q_SLOTS:
     void launch ();
     void launch (const QStringList &parameters);

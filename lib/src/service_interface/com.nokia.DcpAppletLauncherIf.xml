@@ -7,7 +7,7 @@
         </method>
         <method name="prestart" chainTask="true" asyncTask="true">
         </method>
-        <method name="close" asyncTask="true">
+        <method name="close" asyncTask="false">
         </method>
     </interface>
 </node>
