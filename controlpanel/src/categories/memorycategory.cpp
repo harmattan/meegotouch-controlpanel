@@ -25,7 +25,8 @@ MemoryCategory::MemoryCategory(const QString& name,
                                const QString& subtitle,
                                const QString& iconId,
                                int order,
-                               const QStringList& compatibilityIds)
+                               const QStringList& compatibilityIds):
+    mostUsed (false)
 {
     data.insert (ParentId, parentId);
     data.insert (NameId, name);
