@@ -221,7 +221,7 @@ DcpPage::setTitleLabel ()
         QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(container);
         layout->setContentsMargins (0,0,0,0);
         m_TitleLabel = new MLabel(container);
-        m_TitleLabel->setStyleName ("CommonXLargeHeaderInverted");
+        m_TitleLabel->setStyleName ("CommonApplicationHeaderInverted");
         layout->addItem (m_TitleLabel);
         container->setLayout (layout);
         mainLayout()->insertItem (0, container);
