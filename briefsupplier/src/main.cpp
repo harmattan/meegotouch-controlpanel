@@ -75,19 +75,30 @@ int main (int argc, char* argv[])
                      retranslator, SLOT(retranslate()));
      */
 
-#ifdef SUPERVISOR
     // handle the arguments:
+    QString desktopDir;
+    bool noSupervisor = false;
+
     for (int i = 1; i < argc; ++i) {
         QString s(argv[i]);
 
         if (s == "-nosupervisor") {
-            qDebug() << "Applet supervisor is disabled.";
-            DcpWrongApplets::disable();
+            noSupervisor = true;
+        } else if (s == "-desktopdir") {
+            if (i + 1 < argc) {
+                i++;
+                desktopDir = argv[i];
+                qDebug() << "Using desktopdir:" << desktopDir;
+            }
         }
     }
 
-    // start supervisor:
-    if (!DcpWrongApplets::isDisabled()) {
+#ifdef SUPERVISOR
+    if (noSupervisor) {
+        qDebug() << "Applet supervisor is disabled.";
+        DcpWrongApplets::disable();
+    } else {
+        // start supervisor:
         DcpWrongApplets::connectSupervisorSignals();
         DcpWrongApplets::instance();
     }
@@ -95,7 +106,7 @@ int main (int argc, char* argv[])
     DcpWrongApplets::disable();
 #endif
 
-    BriefSupplier supplier;
+    BriefSupplier supplier(desktopDir);
     QObject::connect(app, SIGNAL(localeSettingsChanged()),
                      &supplier, SLOT(onLocaleChange()));
 

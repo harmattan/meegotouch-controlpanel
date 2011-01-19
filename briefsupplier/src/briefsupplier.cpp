@@ -38,7 +38,7 @@ using namespace BSupplier;
 #define returnIf(test, st, param)  \
     if (test) { qWarning(st ": \"%s\"",qPrintable(param)); return; }
 
-BriefSupplier::BriefSupplier():
+BriefSupplier::BriefSupplier(const QString &desktopDir):
     m_Stream (new Stream(this))
 {
     // init the stream:
@@ -56,7 +56,9 @@ BriefSupplier::BriefSupplier():
     }
 
     // init the db:
-    DcpAppletMetadataList list = DcpAppletDb::instance ()->list ();
+    DcpAppletDb *db = desktopDir.isEmpty() ? DcpAppletDb::instance() :
+        DcpAppletDb::instance(desktopDir);
+    DcpAppletMetadataList list = db->list ();
 
     // load all applet translations:
     DcpRetranslator::instance()->ensureTranslationsAreLoaded(list);
@@ -251,4 +253,3 @@ void BriefSupplier::setIODevice (QIODevice* device)
 {
     m_Stream->setIODevice (device);
 }
-

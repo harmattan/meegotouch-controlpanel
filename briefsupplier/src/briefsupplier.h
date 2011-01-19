@@ -29,7 +29,7 @@ class BriefSupplier: public QObject
     Q_OBJECT
 
 public:
-    BriefSupplier();
+    BriefSupplier(const QString &desktopDir = QString());
     ~BriefSupplier();
 
     void setIODevice (QIODevice* device);
