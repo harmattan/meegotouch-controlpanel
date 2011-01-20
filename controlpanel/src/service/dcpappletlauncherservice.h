@@ -21,6 +21,8 @@
 #include <MApplicationService>
 #include "pages.h"
 
+class MApplicationWindow;
+
 class DcpAppletLauncherService: public MApplicationService
 {
         Q_OBJECT
@@ -38,6 +40,7 @@ public slots:
 
 private:
     void sheduleApplet (const QString& appletPath);
+    MApplicationWindow* window();
     PageHandle m_PageHandle;
     QString m_AppletPath;
 };

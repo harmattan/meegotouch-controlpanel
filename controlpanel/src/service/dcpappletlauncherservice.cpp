@@ -58,6 +58,20 @@ DcpAppletLauncherService::DcpAppletLauncherService ():
     connect (iface, SIGNAL (closeAppletLaunchers()), this, SLOT (close()));
 }
 
+MApplicationWindow* DcpAppletLauncherService::window()
+{
+    MApplicationWindow *win;
+    if (MApplication::windows().isEmpty())  {
+        win = new MApplicationWindow();
+        win->setStyleName ("ControlPanel");
+        win->setAttribute( Qt::WA_DeleteOnClose, true );
+    } else {
+        win = qobject_cast<MApplicationWindow*>(MApplication::windows().at(0));
+    }
+    return win;
+}
+
+
 /*
  * Pops up the applet's page if the window is already created
  * and raises it
@@ -69,15 +83,8 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
     if (m_PageHandle.id == PageHandle::NOPAGE)  return true;
 
     // mainwindow:
-    MApplicationWindow *win;
-    if (MApplication::windows().isEmpty())  {
-        win = new MApplicationWindow();
-        win->setAttribute( Qt::WA_DeleteOnClose, true );
-    } else {
-        win = qobject_cast<MApplicationWindow*>(MApplication::windows().at(0));
-        dcp_failfunc_unless (win, false);
-    }
-
+    MApplicationWindow* win = window();
+    dcp_failfunc_unless (win, false);
     PageFactory* pageFactory = PageFactory::instance();
 
     // the db is empty, so we add the started applet into it:
@@ -164,8 +171,8 @@ bool DcpAppletLauncherService::unregisterService ()
 
 void DcpAppletLauncherService::prestart ()
 {
-    MApplicationWindow *win = new MApplicationWindow();
-    win->setAttribute( Qt::WA_DeleteOnClose, true );
+    MApplicationWindow* win = window();
+    dcp_failfunc_unless (win);
     win->hide();
 }
 

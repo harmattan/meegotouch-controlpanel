@@ -98,6 +98,7 @@ startMainApplication (int argc, char* argv[])
 
     // mainwindow:
     MApplicationWindow *win = createApplicationWindow ();
+    win->setStyleName ("ControlPanel");
 
     win->installEventFilter(retranslator);
 

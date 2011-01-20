@@ -1,4 +1,6 @@
-@import "../../../../blanco/meegotouch/libmeegotouchviews/style/inverted/mnavigationbarinvertedstyle.css";
+MApplicationWindowStyle#ControlPanel {
+    navigation-bar-style-name:"MNavigationBarStyleInverted";
+}
 
 #DcpPage.Landscape {
     background-image: "meegotouch-applicationpage-background-inverted";
