@@ -341,7 +341,7 @@ bool PageFactory::maybeRunOutOfProcess (const QString& appletName)
 
     if (runOutProcess) {
         dcp_failfunc_unless (sm_AppletLauncher->isValid(), false);
-        sm_AppletLauncher->appletPage (appletName);
+        sm_AppletLauncher->appletPage (metadata->fileName());
     }
 
     return runOutProcess;

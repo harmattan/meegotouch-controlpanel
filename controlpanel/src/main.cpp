@@ -115,6 +115,10 @@ startAppletLoader (int argc, char* argv[])
     DCP_DEBUG ("");
     openlog ("dcp-appletloader", LOG_PID, LOG_USER);
 
+    // force the db to be empty, so that we do not popuplate it on the
+    // instance call (and parse the .desktop files)
+    DcpAppletDb::initEmptyDb();
+
     // init servicefw api:
     DcpAppletLauncherService* service = new DcpAppletLauncherService ();
 

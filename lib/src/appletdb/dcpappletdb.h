@@ -56,6 +56,14 @@ public:
             const QString &pathName = DcpApplet::DefaultPath,
             const QString &nameFilter = "*.desktop");
 
+    /*!
+     * \brief Initializes an empty db.
+     *
+     * It can be used to avoid parsing the .desktop files on the instance
+     * call. If db is already initialized, it just outputs a warning.
+     */
+    static void initEmptyDb ();
+
     /*! \brief adds files at a specified path pathName to the db */
     bool addPath (const QString &pathName);
 
@@ -132,6 +140,8 @@ signals:
 protected:
     /*! \brief protected constructor for singleton*/
     DcpAppletDb (const QString &pathName, const QString &nameFilter);
+    /*! \brief Creates an empty db. */
+    DcpAppletDb ();
 
 private:
     DcpAppletDbPrivate *const d_ptr;

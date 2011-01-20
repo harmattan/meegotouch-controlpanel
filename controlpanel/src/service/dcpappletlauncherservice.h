@@ -32,14 +32,16 @@ public:
     bool maybeAppletRealStart ();
 
 public slots:
-    bool appletPage (const QString& appletName);
+    bool appletPage (const QString& appletPath);
     void prestart ();
     void close ();
 
 private:
-    void sheduleApplet (const QString& appletName);
+    void sheduleApplet (const QString& appletPath);
     PageHandle m_PageHandle;
+    QString m_AppletPath;
 };
 
 
 #endif // DCPAPPLETLAUNCHERSERVICE_H
+

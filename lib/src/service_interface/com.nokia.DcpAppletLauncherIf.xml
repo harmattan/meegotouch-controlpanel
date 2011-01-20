@@ -3,7 +3,7 @@
 <node>
     <interface name="com.nokia.DcpAppletLauncherIf">
         <method name="appletPage" chainTask="true" asyncTask="true">
-            <arg name="appletName" type="s" direction="in" />
+            <arg name="appletPath" type="s" direction="in" />
         </method>
         <method name="prestart" chainTask="true" asyncTask="true">
         </method>

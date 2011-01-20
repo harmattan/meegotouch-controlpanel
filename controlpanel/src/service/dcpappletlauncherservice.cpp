@@ -29,6 +29,7 @@
 #include <dcpdebug.h>
 #include <DuiControlPanelIf>
 #include <QDBusServiceWatcher>
+#include <DcpAppletMetadata>
 
 static const char* serviceName = "com.nokia.DcpAppletLauncher";
 
@@ -77,8 +78,20 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
         dcp_failfunc_unless (win, false);
     }
 
-    // FIXME XXX: the instance() call makes the .desktop files parsed unnecesserily
     PageFactory* pageFactory = PageFactory::instance();
+
+    // the db is empty, so we add the started applet into it:
+    DcpAppletDb* db = DcpAppletDb::instance();
+    qWarning ("XXX %s", qPrintable (m_AppletPath));
+    if (!db->addFile (m_AppletPath)) {
+        close ();
+    }
+
+    // we get the name of the applet:
+    DcpAppletMetadataList list = db->list();
+    dcp_failfunc_unless (list.count() >= 1, false);
+    m_PageHandle.param = list.last()->name();
+
     // the pagefactory starts the applet out of process and refuses to load it,
     // in case it is not already loaded, so we load it here:
     DcpAppletDb::instance()->applet (m_PageHandle.param);
@@ -89,23 +102,26 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
         win->show();
         win->activateWindow();
         win->raise();
+    } else {
+        close ();
     }
 
     return success;
 }
 
-void DcpAppletLauncherService::sheduleApplet (const QString& appletName)
+void DcpAppletLauncherService::sheduleApplet (const QString& appletPath)
 {
     m_PageHandle.id = PageHandle::APPLET;
-    m_PageHandle.param = appletName;
+    m_PageHandle.param = QString();
     m_PageHandle.widgetId = 0;
     m_PageHandle.isStandalone = false;
+    m_AppletPath = appletPath;
 }
 
 
-bool DcpAppletLauncherService::appletPage (const QString& appletName)
+bool DcpAppletLauncherService::appletPage (const QString& appletPath)
 {
-    sheduleApplet (appletName);
+    sheduleApplet (appletPath);
     return maybeAppletRealStart();
 }
 

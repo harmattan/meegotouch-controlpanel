@@ -59,6 +59,10 @@ DcpAppletDb::DcpAppletDb (
     }
 }
 
+DcpAppletDb::DcpAppletDb () : d_ptr(new DcpAppletDbPrivate())
+{
+}
+
 DcpAppletDb::~DcpAppletDb()
 {
     // free up metadatas and applets
@@ -87,6 +91,11 @@ DcpAppletDb::instance (
     return DcpAppletDbPrivate::sm_Instance;
 }
 
+void DcpAppletDb::initEmptyDb ()
+{
+    dcp_failfunc_unless (!DcpAppletDbPrivate::sm_Instance);
+    DcpAppletDbPrivate::sm_Instance = new DcpAppletDb ();
+}
 
 void 
 DcpAppletDb::destroy ()
