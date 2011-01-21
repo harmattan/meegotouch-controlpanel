@@ -7,8 +7,10 @@ duicontrolpanel (0.11.4~unreleased) unstable; urgency=low
   [ Robert Manner ]
   * Fixes: NB#220539 - toolbar at the bottom is not inverted, but
     becomes inverted when you click on a connection or phone applet
+  * Fixes: NB#220868 - Constant memory usage inclureas memory leak could
+    be seen in duicontrolpanel
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 20 Jan 2011 14:33:31 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 21 Jan 2011 12:35:15 +0100
 
 duicontrolpanel (0.11.3) unstable; urgency=low
 

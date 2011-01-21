@@ -34,6 +34,7 @@ class DcpPage : public MApplicationPage
 
 public:
     DcpPage();
+    ~DcpPage();
 
     virtual void createContent();
 

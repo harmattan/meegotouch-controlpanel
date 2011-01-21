@@ -89,7 +89,6 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
 
     // the db is empty, so we add the started applet into it:
     DcpAppletDb* db = DcpAppletDb::instance();
-    qWarning ("XXX %s", qPrintable (m_AppletPath));
     if (!db->addFile (m_AppletPath)) {
         close ();
     }

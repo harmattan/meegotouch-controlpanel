@@ -397,16 +397,8 @@ PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
 
     /*
      * Time to show the new page.
-     *
-     * Destroy policy: cached pages should not be destroyed,
-     * applet pages should be destroyed only when coming back from them
-     * to ensure there is no leak
      */
-    if (handle.id == PageHandle::APPLET) {
-        page->appear (win,MSceneWindow::DestroyWhenDismissed);
-    } else {
-        page->appear (win,MSceneWindow::KeepWhenDone);
-    }
+    page->appear (win,MSceneWindow::DestroyWhenDismissed);
     return true;
 }
 

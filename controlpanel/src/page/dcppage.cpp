@@ -39,7 +39,6 @@ DcpPage::DcpPage () :
     MApplicationPage (),
     m_TitleLabel (0)
 {
-    DCP_DEBUG ("");
     setStyleName ("DcpPage");
 
     // back button handling:
@@ -47,6 +46,9 @@ DcpPage::DcpPage () :
              this, SLOT(back()));
 }
 
+DcpPage::~DcpPage ()
+{
+}
 
 void 
 DcpPage::createContent ()

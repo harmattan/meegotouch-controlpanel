@@ -520,7 +520,7 @@ inline const QString& product()
             }
         } while (!line.isNull());
         source.close ();
-        qDebug ("XXX product is: \"%s\"", qPrintable(result));
+        qDebug ("Product is: \"%s\"", qPrintable(result));
     }
     return result;
 }
