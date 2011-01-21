@@ -29,6 +29,9 @@ DcpPage::DcpPage() : MApplicationPage()
     createLayout();
 }
 
+DcpPage::~DcpPage ()
+{
+}
 
 QGraphicsLinearLayout*
 DcpPage::mainLayout()
