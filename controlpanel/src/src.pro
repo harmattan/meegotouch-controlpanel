@@ -4,9 +4,9 @@ MOSTUSED {
     DEFINES += MOSTUSED
 }
 
-QMAKE_LIBDIR += ../../lib/lib/ 
+QMAKE_LIBDIR += ../../lib/lib/
 
-include (launchers.pri)
+include (launchers/launchers.pri)
 
 TEMPLATE = app
 DEPENDPATH += $$system(find . -type d) \
@@ -35,7 +35,6 @@ target.path += $$DCP_PREFIX/bin
 
 message("The install path for the executable will be: "$$target.path)
 
-include (desktop.pri)
 include (rfs.pri)
 
 INSTALLS += target

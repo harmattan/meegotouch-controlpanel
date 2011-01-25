@@ -13,6 +13,8 @@ debug           build a more verbose controlpanel with lots of debug output
 mostused        have a most recently used items category on top of main page
 
 nolauncher      disable booster support (for example for debugging)
+software        run duicontrolpanel in software mode by default
+                (might be good for testing in scratchbox)
 
 parallel=X      build on X threads
 

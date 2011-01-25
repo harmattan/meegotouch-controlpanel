@@ -49,6 +49,10 @@ ifneq (,$(filter nolauncher,$(TMP_BUILD_OPTS)))
     QMAKE_ARG += CONFIG+=DISABLE_LAUNCHER
 endif
 
+ifneq (,$(filter software,$(TMP_BUILD_OPTS)))
+    QMAKE_ARG += CONFIG+=SOFTWARE
+endif
+
 ifneq (,$(filter mostused,$(TMP_BUILD_OPTS)))
     QMAKE_ARG += CONFIG+=MOSTUSED
 endif
@@ -102,10 +106,6 @@ install: build
 
 	(cd lib;make  $(PARALLEL_MAKEFLAGS) doc; cd ..)
 	INSTALL_ROOT=$(CURDIR)/debian/tmp $(MAKE) install
-
-	# create symlink for duicontrolpanel.launch in case we build without invoker
-	test -f "debian/tmp/usr/bin/duicontrolpanel" \
-		|| ln -s duicontrolpanel.launcher debian/tmp/usr/bin/duicontrolpanel
 
 # Build architecture-independent files here.
 binary-indep: build install
