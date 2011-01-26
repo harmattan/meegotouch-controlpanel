@@ -108,9 +108,7 @@ void
 DcpContentItem::ensureImageIsCreated()
 {
     // create / free up image:
-    if (widgetType() == DcpWidgetType::Image &&
-       ((applet() && !applet()->iconName().isEmpty()) ||
-        (metadata() && !metadata()->imageName().isEmpty())))
+    if (widgetType() == DcpWidgetType::Image)
      {
         MImageWidget* &image = d_ptr->m_ImageW;
         if (!image) {

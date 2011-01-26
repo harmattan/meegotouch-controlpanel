@@ -1,8 +1,9 @@
 duicontrolpanel (0.11.5~unreleased) unstable; urgency=low
 
-  * new version
+  * Fixes: NB#220905 - Personalise settings menu looks different on
+    second opening
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 24 Jan 2011 09:54:25 +0100
+ -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Wed, 26 Jan 2011 11:02:43 +0100
 
 duicontrolpanel (0.11.4) unstable; urgency=low
 
