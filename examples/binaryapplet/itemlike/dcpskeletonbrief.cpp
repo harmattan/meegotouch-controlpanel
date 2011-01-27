@@ -36,6 +36,12 @@ QString SkeletonBrief::titleText() const
     return "title text " + QString::number(m_Value);
 }
 
+/* The plugin can specify that it has a toggle like this:
+int SkeletonBrief::widgetTypeID() const
+{
+    return DcpWidgetType::Toggle;
+}
+
 bool SkeletonBrief::toggle() const
 {
     return m_ToggleState;
@@ -46,13 +52,7 @@ void SkeletonBrief::setToggle (bool toggle)
     m_ToggleState = toggle;
     qDebug() << "Skeleton brief got toggle state:" << toggle;
 }
-
-/* The plugin can specify that it has a toggle like this:
- */
-int SkeletonBrief::widgetTypeID() const
-{
-    return DcpWidgetType::Toggle;
-}
+*/
 
 void SkeletonBrief::timerEvent(QTimerEvent*)
 {
