@@ -314,7 +314,7 @@ PageFactory::currentPage ()
 void PageFactory::preloadAppletLauncher ()
 {
 #if 1
-    if (!sm_AppletLauncher) return;
+    if (!isInProcessApplets()) return;
     dcp_failfunc_unless (sm_AppletLauncher->isValid());
     sm_AppletLauncher->prestart ();
 #endif
@@ -334,7 +334,7 @@ bool PageFactory::maybeRunOutOfProcess (const QString& appletName)
      *    - the shared object is not already loaded into the process
      *    - the applet is not declarative
      */
-    bool runOutProcess = sm_AppletLauncher &&
+    bool runOutProcess = !isInProcessApplets() &&
         !binary.isEmpty() &&
         !db->isAppletLoaded (appletName) &&
         binary != "libdeclarative.so";
@@ -359,7 +359,7 @@ PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
 {
     // in outprocess mode we should also drop pages running in other instances
     // (if any):
-    if (dropOtherPages && sm_AppletLauncher) {
+    if (dropOtherPages && !isInProcessApplets()) {
         emit resetAppletLauncherProcesses ();
     }
 
