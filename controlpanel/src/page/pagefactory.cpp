@@ -45,7 +45,7 @@ DcpAppletLauncherIf * PageFactory::sm_AppletLauncher = 0;
 
 PageFactory *PageFactory::sm_Instance = 0;
 
-PageFactory::PageFactory (): 
+PageFactory::PageFactory ():
     QObject ()
 {
     connect (MApplication::activeWindow (),
@@ -61,6 +61,7 @@ PageFactory::PageFactory ():
 PageFactory::~PageFactory ()
 {
     delete sm_AppletLauncher;
+    sm_AppletLauncher = 0;
     sm_Instance = 0;
 }
 
@@ -314,7 +315,7 @@ PageFactory::currentPage ()
 void PageFactory::preloadAppletLauncher ()
 {
 #if 1
-    if (!isInProcessApplets()) return;
+    if (isInProcessApplets()) return;
     dcp_failfunc_unless (sm_AppletLauncher->isValid());
     sm_AppletLauncher->prestart ();
 #endif
