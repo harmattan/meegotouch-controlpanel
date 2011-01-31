@@ -2,6 +2,7 @@ TARGET = ../duicontrolpanel.launch
 DCP_SH = ../../duicontrolpanel
 APPLAUNCH_SH = ../../dcpappletlauncher
 SERVICE = ../service/com.nokia.duicontrolpanel.service
+APPLAUNCH_SERVICE = ../service/com.nokia.dcpappletlauncher.service
 DESKTOP = duicontrolpanel.desktop
 PREFIX =
 POSTFIX =
@@ -31,9 +32,10 @@ system ( \
     cp duicontrolpanel.invoker $$DCP_SH; \
     cp dcpappletlauncher.invoker $$APPLAUNCH_SH; \
     cp com.nokia.duicontrolpanel.service.1 $$SERVICE; \
+    cp com.nokia.dcpappletlauncher.service.1 $$APPLAUNCH_SERVICE; \
     sed -i -e \"s|PREFIX|$$PREFIX|\" \
         -e \"s|POSTFIX|$$POSTFIX|\" \
-        $$DCP_SH $$APPLAUNCH_SH $$DESKTOP $$SERVICE; \
+        $$DCP_SH $$APPLAUNCH_SH $$DESKTOP $$SERVICE $$APPLAUNCH_SERVICE; \
     chmod +x $$DCP_SH $$APLAUNCH_SH \
 )
 

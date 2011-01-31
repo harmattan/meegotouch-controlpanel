@@ -1,8 +1,6 @@
 #! /bin/sh
 
-exec duicontrolpanel.launch -appletloader "$@" POSTFIX
+# exec duicontrolpanel.launch -appletloader "$@" POSTFIX
 
-# FIXME: launcher is disabled for the appletlauncher process
-# until NB#220018 gets solved
-# exec PREFIX duicontrolpanel.launch -appletloader "$@" POSTFIX
+exec PREFIX/usr/bin/duicontrolpanel.launch -appletloader "$@" POSTFIX
 
