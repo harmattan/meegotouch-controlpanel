@@ -550,3 +550,22 @@ bool DcpAppletMetadata::isHidden() const
     return false;
 }
 
+bool DcpAppletMetadata::hasMainView () const
+{
+    QString has = desktopEntryStr(KeyHasMainView);
+    if (has == "1") return true;
+    if (has == "0") return false;
+    if (!has.isEmpty()) {
+        qWarning ("Unknown value for key %s in %s",
+                  qPrintable (Keys[KeyHasMainView]),
+                  qPrintable (fileName()));
+    }
+    // return default:
+    int type = widgetTypeID();
+    if (type == DcpWidgetType::Toggle || type == DcpWidgetType::Button) {
+        return false;
+    } else {
+        return true;
+    }
+}
+

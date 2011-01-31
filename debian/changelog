@@ -7,8 +7,10 @@ duicontrolpanel (0.11.5~unreleased) unstable; urgency=low
   [ Robert Manner ]
   * Fixes some little DBus API problems when running in outprocess mode
     (on appletpage requests)
+  * New: the applet can specify in its .desktop file if it has a
+    mainview through DCP/HasMainView key
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 28 Jan 2011 16:36:53 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 31 Jan 2011 16:47:41 +0100
 
 duicontrolpanel (0.11.4) unstable; urgency=low
 

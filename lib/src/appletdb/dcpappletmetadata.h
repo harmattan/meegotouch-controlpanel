@@ -110,6 +110,8 @@ public:
 
     QString helpId() const;
 
+    bool hasMainView () const;
+
 protected:
     MDesktopEntry* desktopEntry () const;
     QString desktopEntryStr (int id) const;
