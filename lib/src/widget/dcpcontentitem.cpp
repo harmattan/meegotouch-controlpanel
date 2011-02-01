@@ -139,7 +139,7 @@ DcpContentItem::ensureToggleIsCreated()
             button->setViewType(MButton::switchType);
             button->setStyleName (toggleObjectName);
             button->setCheckable(true);
-            connect (button, SIGNAL (clicked(bool)),
+            connect (button, SIGNAL (toggled(bool)),
                      applet(), SLOT(setToggle(bool)));
             d_ptr->m_LayoutIsToBeChanged = true;
         }
@@ -148,7 +148,7 @@ DcpContentItem::ensureToggleIsCreated()
     } else {
         if (d_ptr->m_ButtonW) {
             if (applet()) {
-                disconnect (d_ptr->m_ButtonW, SIGNAL (clicked(bool)),
+                disconnect (d_ptr->m_ButtonW, SIGNAL (toggled(bool)),
                             applet(), SLOT(setToggle(bool)));
             }
             delete d_ptr->m_ButtonW;
