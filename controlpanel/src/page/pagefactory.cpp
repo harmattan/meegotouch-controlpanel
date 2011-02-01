@@ -136,10 +136,6 @@ PageFactory::createPage (
 
     if (page) {
         page->setHandle (myHandle);
-
-        if (page->isContentCreated ()) {
-            page->reload ();
-        }
     }
 
     return page;

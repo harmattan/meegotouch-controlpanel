@@ -24,6 +24,7 @@
 #include <QtDebug>
 #include <MApplication>
 #include <MApplicationWindow>
+#include <MComponentCache>
 #include <QDBusError>
 #include <DcpAppletDb>
 #include <dcpdebug.h>
@@ -62,7 +63,11 @@ MApplicationWindow* DcpAppletLauncherService::window()
 {
     MApplicationWindow *win;
     if (MApplication::windows().isEmpty())  {
+#ifndef DISABLE_LAUNCHER
+        win = MComponentCache::mApplicationWindow();
+#else // USE_LAUNCHER
         win = new MApplicationWindow();
+#endif // USE_LAUNCHER
         win->setStyleName ("ControlPanel");
         win->setAttribute( Qt::WA_DeleteOnClose, true );
     } else {

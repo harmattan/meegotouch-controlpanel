@@ -26,6 +26,7 @@
 #include "dcpremotebriefreceiver.h"
 #include "pagefactory.h"
 #include "dcpmostusedcounter.h"
+#include "dcpcategories.h"
 
 #include "dcpdebug.h"
 
@@ -146,6 +147,7 @@ void cleanup ()
     DcpAppletDb::destroy();
     DcpWrongApplets::destroyInstance();
     MostUsedCounter::destroy();
+    DcpCategories::destroy();
 
     // free up application:
     delete MApplication::instance();
