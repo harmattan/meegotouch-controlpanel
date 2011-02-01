@@ -220,7 +220,7 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
         if (!helpId.isEmpty()) {
             MHelpButton* help = new MHelpButton (helpId);
             help->setViewType(MButton::iconType);
-            help->setIconID ("icon-m-content-description");
+            help->setIconID ("icon-s-description-inverse");
             wlayout->addItem (help);
         }
 

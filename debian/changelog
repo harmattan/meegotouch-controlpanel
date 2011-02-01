@@ -5,6 +5,8 @@ duicontrolpanel (0.11.5~unreleased) unstable; urgency=low
     second opening
   * Fixes: NB#220590 - Toggle button doesn't always reflect the real
     setting value
+  * Fixes: NB#223192 - Context sensitive help icon is shown as if it is
+    inactive.
 
   [ Robert Manner ]
   * Fixes some little DBus API problems when running in outprocess mode
@@ -12,7 +14,7 @@ duicontrolpanel (0.11.5~unreleased) unstable; urgency=low
   * New: the applet can specify in its .desktop file if it has a
     mainview through DCP/HasMainView key
 
- -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Tue, 01 Feb 2011 12:48:42 +0100
+ -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Tue, 01 Feb 2011 13:35:22 +0100
 
 duicontrolpanel (0.11.4) unstable; urgency=low
 
