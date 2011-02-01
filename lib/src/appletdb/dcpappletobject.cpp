@@ -87,8 +87,7 @@ DcpAppletObject::widgetTypeID () const
             /* FIXME: for supporting old api,
              * please remove ones deprecated ids are removed */
             DCP_WARNING ("%s: brief->widgetTypeID () returned a DEPRECATED id"
-                         ", please use DcpWidgetType::Label or "
-                         "DcpWidgetType::Image instead", qPrintable(text1()));
+                         ", please use DcpWidgetType::* instead", qPrintable(text1()));
             switch (retval) {
                 case DCPLABELBUTTON:
                 case DCPLABEL2BUTTON:

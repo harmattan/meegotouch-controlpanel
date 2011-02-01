@@ -44,13 +44,16 @@ public Q_SLOTS:
     void categoryPage(const QString& category);
     void mainPage();
     bool registerService ();
+    bool unregisterService ();
 
 private:
     void sheduleStart (const PageHandle &handle);
     void startPageForReal(const PageHandle &handle);
+    void receiveCloseSignal ();
 
     // stores the startpage until the app is not started, after that it is 0
     PageHandle *m_StartPage;
+    bool m_IsRegistered;
 };
 
 

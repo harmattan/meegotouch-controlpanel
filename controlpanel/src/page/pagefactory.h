@@ -43,6 +43,7 @@ public:
     ~PageFactory ();
     static PageFactory *instance ();
     static void setInProcessApplets (bool inProcess);;
+    static bool isInProcessApplets () { return sm_AppletLauncher == 0; }
     static void destroy();
     DcpPage* createPage (const PageHandle &handle);
     DcpPage* currentPage ();

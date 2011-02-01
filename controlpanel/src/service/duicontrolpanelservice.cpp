@@ -22,11 +22,13 @@
 #include "pagefactory.h"
 
 #include "duicontrolpanelifadaptor.h"
+#include "duicontrolpanelif.h"
 
 #include <MApplicationIfAdaptor>
 #include <QtDebug>
 #include <MApplication>
 #include <MApplicationWindow>
+#include <QDBusServiceWatcher>
 #include <dcpappletdb.h>
 
 static const char* serviceName = "com.nokia.DuiControlPanel";
@@ -36,10 +38,9 @@ bool DuiControlPanelService::isStartedByServiceFw = false;
 
 DuiControlPanelService::DuiControlPanelService ():
     MApplicationService (serviceName),
-    m_StartPage (new PageHandle())
+    m_StartPage (new PageHandle()),
+    m_IsRegistered (false)
 {
-    DCP_DEBUG ("");
-
     // by default open the main page:
     if (! isStartedByServiceFw) {
         mainPage();
@@ -79,6 +80,8 @@ DuiControlPanelService::launch (const QStringList &parameters)
 bool
 DuiControlPanelService::registerService ()
 {
+    if (m_IsRegistered) return true;
+
     // memory owned by QDBusAbstractAdaptor instance and must be on the heap
     new DuiControlPanelIfAdaptor(this);
     new MApplicationIfAdaptor(this);
@@ -100,13 +103,36 @@ DuiControlPanelService::registerService ()
     if (!ret) {
         handleServiceRegistrationFailure();
     }
+
+    m_IsRegistered = ret;
     return ret;
 }
 
 bool
 DuiControlPanelService::appletPage (const QString& appletName)
 {
-    DCP_DEBUG ("");
+    MApplicationWindow* win = MApplication::activeApplicationWindow();
+    if (!PageFactory::isInProcessApplets()) {
+        // if we have no page yet and this is the first applet start,
+        // then we run it inprocess and behave like an appletlauncher
+        if (isStartedByServiceFw && (!win || !win->currentPage()))
+        {
+            bool success = unregisterService ();
+            dcp_failfunc_unless (success, false);
+            receiveCloseSignal ();
+            DcpAppletDb::instance()->applet (appletName);
+        } else {
+            // if we already have a page, then we start another instance,
+            // and exit from mainloop:
+            unregisterService ();
+            DuiControlPanelIf iface;
+            dcp_failfunc_unless (iface.isValid(), false);
+            iface.appletPage (appletName);
+            qApp->exit ();
+            return true;
+        }
+    }
+
     PageHandle handle (PageHandle::APPLET, appletName, 0, false);
     sheduleStart(handle);
 
@@ -114,6 +140,37 @@ DuiControlPanelService::appletPage (const QString& appletName)
     // first query
     // Result means nothing...
     return true;
+}
+
+// this function makes us close if the main process arrives:
+void
+DuiControlPanelService::receiveCloseSignal ()
+{
+    QDBusServiceWatcher* watcher =
+        new QDBusServiceWatcher ("com.nokia.DuiControlPanel",
+                QDBusConnection::sessionBus(),
+                QDBusServiceWatcher::WatchForRegistration, this);
+    connect (watcher, SIGNAL (serviceRegistered(QString)),
+             qApp, SLOT (quit()));
+}
+
+// FIXME XXX we should consider a common base class with DcpAppletLauncherService
+bool DuiControlPanelService::unregisterService ()
+{
+    if (!m_IsRegistered) return true;
+    QDBusConnection connection = QDBusConnection::sessionBus();
+
+    connection.unregisterObject("/");
+    connection.unregisterObject("/org/maemo/m");
+    bool ret = connection.unregisterService (serviceName);
+    if (!ret) {
+        QDBusError error = connection.lastError();
+        qWarning ("Unregistering the service failed (%s): %s",
+                qPrintable (error.name()), qPrintable (error.message()));
+    }
+
+    m_IsRegistered = !ret;
+    return ret;
 }
 
 bool
@@ -136,29 +193,20 @@ void DuiControlPanelService::startPageForReal(const PageHandle &handle)
      */
 
     MApplicationWindow *win = MApplication::activeApplicationWindow();
-    dcp_failfunc_unless (win);
+    dcp_failfunc_unless (win); // pagefactory needs a window
     PageFactory* pf = PageFactory::instance();
-#ifdef NO_PAGE_DROPPING
-    if (handle.id == PageHandle::APPLET && isStartedByServiceFw
-        && (!win || !win->currentPage()))
-#endif
-    {
-        DcpAppletDb::instance()->applet (handle.param);
-    }
 
     // true means that it drops all the other pages
-    bool success = pf->changePage(handle, true); 
+    bool success = pf->changePage(handle, true);
 
-    if (win) {
-        if (success) {
-            win->activateWindow();
-            win->show();
-            win->raise();
-        } else {
-            qWarning ("Failed to switch page (wrong page id?)");
-            if (!win->isOnDisplay()) {
-                win->close();
-            }
+    if (success) {
+        win->activateWindow();
+        win->show();
+        win->raise();
+    } else {
+        qWarning ("Failed to switch page (wrong page id?)");
+        if (!win->isOnDisplay()) {
+            win->close();
         }
     }
 }
@@ -169,7 +217,6 @@ void
 DuiControlPanelService::sheduleStart (
                 const PageHandle &handle)
 {
-    DCP_DEBUG ("");
     /* start contains the page to start when the window has appeared.
      * After the window is already created, it is null */
     if (m_StartPage == 0) {
@@ -182,9 +229,6 @@ DuiControlPanelService::sheduleStart (
 void
 DuiControlPanelService::categoryPage (const QString& category)
 {
-    DCP_DEBUG ("");
-    Q_UNUSED (category);
-
     PageHandle handle (PageHandle::APPLETCATEGORY, category, 0, false);
     sheduleStart(handle);
 }
@@ -192,7 +236,6 @@ DuiControlPanelService::categoryPage (const QString& category)
 void
 DuiControlPanelService::mainPage()
 {
-    DCP_DEBUG ("");
     PageHandle handle;
     handle.id = PageHandle::MAIN;
     handle.param = "";
@@ -204,7 +247,6 @@ DuiControlPanelService::mainPage()
 void
 DuiControlPanelService::createStartPage()
 {
-    DCP_DEBUG ("");
     // createStartPage should not be called twice
     dcp_failfunc_unless (m_StartPage);
 
@@ -217,12 +259,15 @@ DuiControlPanelService::createStartPage()
         startPageForReal (*handle);
     }
 
-    delete handle;
-
     // From now on, pagefactory will be able to notify the applets running
-    // in separate process to close down through this:
-    PageFactory* pf = PageFactory::instance();
-    connect (pf, SIGNAL (resetAppletLauncherProcesses()),
-             this, SIGNAL (closeAppletLaunchers()));
+    // in separate process to close down through this, but only if we
+    // are the main process (not an appletlauncher)
+    if (m_IsRegistered && handle->id != PageHandle::NOPAGE) {
+        PageFactory* pf = PageFactory::instance();
+        connect (pf, SIGNAL (resetAppletLauncherProcesses()),
+                 this, SIGNAL (closeAppletLaunchers()));
+    }
+
+    delete handle;
 }
 

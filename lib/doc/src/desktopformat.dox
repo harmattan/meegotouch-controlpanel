@@ -129,11 +129,6 @@ The widget type of the launch button. Can be one of the following:
 \par HelpId
 This can contain a help page id (see userguide's documentation) for the applet. If specified, a help button will be put on the icon / next to the icon of the applet, and if the user presses it, the requested page of the current help application gets openned.
 
-\par Align
-DEPRECATED, it used to specify on which side the image is for an image type of
-launch button. According to current UI specs for every launch button the image
-is on the left side.
-
 \par Text2
 Specifies the text on the second line of the launch button.
 It is mainly for demonstrating purposes
@@ -168,6 +163,13 @@ any of the categories.
 \par OnlyShowOnProduct
 It can contain a list of product names, the only ones on which the applet
 should be visible. Overrides DoNotShowOnProduct.
+
+\par HasMainView
+Through the value of this key the plugin can specify if it has a main view
+(the applet can be openned or not). If false, the controlpanel will not show
+the mainpage of the applet when the user clicks on it in the list. Default is
+true for most, except for Button and Toggle type of applets, the letters
+default to having no main view.
 
 
 \section specialities Other

@@ -73,6 +73,8 @@ enum  {
     KeyDoNotShowOn,
     KeyOnlyShowOn,
 
+    KeyHasMainView,
+
     KeyCount
 };
 
@@ -107,7 +109,8 @@ const QString Keys[KeyCount] = {
 
     "DCP/HelpId",
     "DCP/DoNotShowOnProduct",
-    "DCP/OnlyShowOnProduct"
+    "DCP/OnlyShowOnProduct",
+    "DCP/HasMainView"
 };
 
 #endif // DCPAPPLETMETADATA_P_H

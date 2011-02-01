@@ -1,9 +1,16 @@
 duicontrolpanel (0.11.5~unreleased) unstable; urgency=low
 
+  [ Sandor Pinter ]
   * Fixes: NB#220905 - Personalise settings menu looks different on
     second opening
   * Fixes: NB#220590 - Toggle button doesn't always reflect the real
     setting value
+
+  [ Robert Manner ]
+  * Fixes some little DBus API problems when running in outprocess mode
+    (on appletpage requests)
+  * New: the applet can specify in its .desktop file if it has a
+    mainview through DCP/HasMainView key
 
  -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Tue, 01 Feb 2011 12:48:42 +0100
 
