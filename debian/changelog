@@ -1,4 +1,4 @@
-duicontrolpanel (0.11.5~unreleased) unstable; urgency=low
+duicontrolpanel (0.11.5) unstable; urgency=low
 
   [ Sandor Pinter ]
   * Fixes: NB#220905 - Personalise settings menu looks different on
