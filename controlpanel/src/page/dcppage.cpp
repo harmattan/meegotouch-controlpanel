@@ -28,6 +28,8 @@
 #include <MLabel>
 #include <MSeparator>
 #include <MStylableWidget>
+#include <MPannableViewport>
+#include <MPositionIndicator>
 
 #include "mwidgetcreator.h"
 M_REGISTER_WIDGET(DcpPage)
@@ -39,11 +41,15 @@ DcpPage::DcpPage () :
     MApplicationPage (),
     m_TitleLabel (0)
 {
-    setStyleName ("DcpPage");
-
     // back button handling:
     connect (this, SIGNAL(backButtonClicked()),
              this, SLOT(back()));
+
+    setStyleName("CommonApplicationPageInverted");
+    dcp_failfunc_unless (pannableViewport());
+    dcp_failfunc_unless (pannableViewport()->positionIndicator());
+    pannableViewport()->positionIndicator()->setStyleName(
+            "CommonPositionIndicatorInverted");
 }
 
 DcpPage::~DcpPage ()

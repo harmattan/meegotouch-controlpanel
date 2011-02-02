@@ -2,14 +2,6 @@ MApplicationWindowStyle#ControlPanel {
     navigation-bar-style-name:"MNavigationBarStyleInverted";
 }
 
-#DcpPage.Landscape {
-    background-image: "meegotouch-applicationpage-background-inverted";
-}
-
-#DcpPage.Portrait {
-    background-image: "meegotouch-applicationpage-portrait-background-inverted";
-}
-
 MWindowStyle {
     x11-startup-pixmap: ;
     startup-fill-color: ;
