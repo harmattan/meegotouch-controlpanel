@@ -8,7 +8,7 @@ PREFIX =
 POSTFIX =
 
 # This can enable the outprocess applets by default:
-# POSTFIX = "-outprocess"
+POSTFIX = "-outprocess"
 
 # this config can add that software mode gets used by default
 # in case dcp gets run through shell script / dbus / its icon
