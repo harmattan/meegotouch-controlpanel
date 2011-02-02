@@ -13,8 +13,9 @@ duicontrolpanel (0.11.5~unreleased) unstable; urgency=low
     (on appletpage requests)
   * New: the applet can specify in its .desktop file if it has a
     mainview through DCP/HasMainView key
+  * Fixes flickering at applet mainview opening in outprocess mode
 
- -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Tue, 01 Feb 2011 13:35:22 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 02 Feb 2011 13:35:10 +0100
 
 duicontrolpanel (0.11.4) unstable; urgency=low
 

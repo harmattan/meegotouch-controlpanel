@@ -70,6 +70,7 @@ MApplicationWindow* DcpAppletLauncherService::window()
 #endif // USE_LAUNCHER
         win->setStyleName ("ControlPanel");
         win->setAttribute( Qt::WA_DeleteOnClose, true );
+
     } else {
         win = qobject_cast<MApplicationWindow*>(MApplication::windows().at(0));
     }
