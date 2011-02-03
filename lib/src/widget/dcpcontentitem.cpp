@@ -248,6 +248,7 @@ DcpContentItem::ensureWidgetsAreLayouted()
         grid->addItem (d_ptr->m_ButtonW, 0, toggleX,
                        textLinesCount, 1, Qt::AlignCenter);
         toggleX++;
+        setAcceptedMouseButtons(0);
     }
 
     if (!d_ptr->m_ButtonW && !d_ptr->m_DrillImage) {
@@ -364,9 +365,6 @@ void DcpContentItem::onClicked ()
         if (applet()) {
             applet()->slotClicked ();
         }
-    } else if (widgetType() == DcpWidgetType::Toggle
-               && d_ptr->m_ButtonW) {
-        d_ptr->m_ButtonW->click();
     }
 }
 

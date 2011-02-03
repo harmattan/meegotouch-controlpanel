@@ -1,8 +1,9 @@
 duicontrolpanel (0.11.6~unreleased) unstable; urgency=low
 
-  * new version
+  * Fixes: NB#224500 - Highlight shown when pressing a static label in
+    Notification settings
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 03 Feb 2011 00:15:57 +0100
+ -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Thu, 03 Feb 2011 13:19:33 +0100
 
 duicontrolpanel (0.11.5) unstable; urgency=low
 
