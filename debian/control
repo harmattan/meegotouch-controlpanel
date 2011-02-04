@@ -3,7 +3,7 @@ Section: devel
 Priority: extra
 Maintainer: Robert Manner <robert.manner@blumsoft.eu>
 Build-Depends: debhelper (>= 5), libmeegotouch-dev (>= 0.20), doxygen,
-               clean-device-dev, aegis-builder
+               clean-device-dev, aegis-builder, libsysinfo-dev
 Standards-Version: 3.7.2
 
 Package: libduicontrolpanel

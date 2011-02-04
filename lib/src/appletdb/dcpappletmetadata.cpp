@@ -29,6 +29,7 @@
 #include <MGConfItem>
 #include <MLocale>
 #include <mcollator.h>
+#include <sysinfo.h>
 
 DcpAppletMetadata* DcpAppletMetadataPrivate::sm_LastUsed = 0;
 
@@ -495,32 +496,27 @@ QString DcpAppletMetadata::helpId() const
     return desktopEntryStr(KeyHelpId);
 }
 
-/* Extracts the product version string from /proc. */
+/* Returns the product version string */
 inline const QString& product()
 {
     static QString result;
+
     if (result.isNull()) {
-        // this disables another trial in the future:
-        result = "";
-
-        // parse the needed value:
-        QFile source ("/proc/component_version");
-        if (!source.open (QIODevice::ReadOnly | QIODevice::Text)) {
-            return result;
-        }
-        QTextStream stream (&source);
-
-        QString line;
-        do {
-            line = stream.readLine ();
-            static const QString lineBeginning = "product";
-            if (line.startsWith (lineBeginning)) {
-                result = line.mid(lineBeginning.count()).trimmed();
-                break;
+        struct system_config *sc = 0;
+        if( sysinfo_init(&sc) == 0 ) {
+            uint8_t *data = 0;
+            unsigned long size = 0;
+            if( sysinfo_get_value(sc, "/component/product", &data, &size) == 0 ) {
+                result = QString::fromLatin1 ((const char*)data, size);
+                free(data);
             }
-        } while (!line.isNull());
-        source.close ();
-        qDebug ("Product is: \"%s\"", qPrintable(result));
+        }
+        sysinfo_finish(sc);
+
+        // this prevents that this block runs twice:
+        if (result.isNull()) result = "";
+
+        qDebug ("Product is \"%s\"", qPrintable(result));
     }
     return result;
 }
