@@ -1,13 +1,13 @@
-MApplicationWindowStyle#ControlPanel {
-    navigation-bar-style-name:"MNavigationBarStyleInverted";
-}
+MApplicationWindowStyle {
+    navigation-bar-style-name: "MNavigationBarStyleInverted";
+    tool-bar-style-name: "MToolBarStyleInverted";
+    tab-bar-style-name: "MToolbarTabStyleInverted";
 
-MWindowStyle {
     x11-startup-pixmap: ;
     startup-fill-color: ;
 }
 
-MWindowStyle.Landscape {
+MApplicationWindowStyle.Landscape {
     x11-startup-pixmap: ;
     startup-fill-color: ;
 }
