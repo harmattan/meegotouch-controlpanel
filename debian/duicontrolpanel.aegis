@@ -6,7 +6,7 @@
     <credential name="timed::TimeControl" />
     <credential name="TrackerReadAccess" />
     <credential name="clean-device::CUDOrRFS" />
-    <for path="/usr/bin/duicontrolpanel.launch" />
+    <for path="/usr/bin/duicontrolpanel" />
     <for path="/usr/bin/duicontrolpanel-briefsupplier" />
     <for path="applauncherd-launcher::/usr/bin/applauncherd.bin" />
   </request>

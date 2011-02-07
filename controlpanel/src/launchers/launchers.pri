@@ -1,6 +1,4 @@
-TARGET = ../duicontrolpanel.launch
-DCP_SH = ../../duicontrolpanel
-APPLAUNCH_SH = ../../dcpappletlauncher
+TARGET = ../duicontrolpanel
 SERVICE = ../service/com.nokia.duicontrolpanel.service
 APPLAUNCH_SERVICE = ../service/com.nokia.dcpappletlauncher.service
 DESKTOP = duicontrolpanel.desktop
@@ -29,27 +27,17 @@ DISABLE_LAUNCHER {
 # make the shell scripts:
 system ( \
     cp $${DESKTOP}.1 $$DESKTOP; \
-    cp duicontrolpanel.invoker $$DCP_SH; \
-    cp dcpappletlauncher.invoker $$APPLAUNCH_SH; \
     cp com.nokia.duicontrolpanel.service.1 $$SERVICE; \
     cp com.nokia.dcpappletlauncher.service.1 $$APPLAUNCH_SERVICE; \
     sed -i -e \"s|PREFIX|$$PREFIX|\" \
         -e \"s|POSTFIX|$$POSTFIX|\" \
-        $$DCP_SH $$APPLAUNCH_SH $$DESKTOP $$SERVICE $$APPLAUNCH_SERVICE; \
-    chmod +x $$DCP_SH $$APLAUNCH_SH \
+        $$DESKTOP $$SERVICE $$APPLAUNCH_SERVICE; \
 )
 
 # configure .desktop file:
 ! APPEAR_IN_MENU {
     system(echo \"NotShowIn=X-DUI;X-MEEGO;X-MeeGoTouch;\" >>$$DESKTOP)
 }
-
-# create the install target:
-appletlauncher.files += $$DCP_SH \
-                        $$APPLAUNCH_SH \
-
-appletlauncher.path += $$DCP_PREFIX/bin
-INSTALLS += appletlauncher
 
 # create the install target for the .desktop file:
 desktop_entry.path = $$DCP_PREFIX/share/applications
