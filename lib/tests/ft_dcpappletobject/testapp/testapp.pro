@@ -1,13 +1,15 @@
 QT += testlib
 SRCDIR = ../../../src
 DCP_TESTS_INSTALL_LIB = /usr/lib/duicontrolpanel-tests                
+QMAKE_LIBDIR += ../../../lib
+LIBS += -L../../../lib/ -lduicontrolpanel
 TARGET = ft_dcpappletobject
 target.path = $${DCP_TESTS_INSTALL_LIB}
 INSTALLS += target
 
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
 
-TARGET = ft_dcpappletobject
+TARGET = ../ft_dcpappletobject
 
 CONFIG += meegotouch
 
@@ -63,3 +65,8 @@ HEADERS += \
 
 # service classes
 HEADERS += \
+
+# TODO FIXME
+# include (../../check.pri)
+include (../../coverage.pri)
+

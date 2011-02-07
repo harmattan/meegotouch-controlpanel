@@ -349,6 +349,7 @@ DcpAppletMetadata::incrementUsage()
     setLastUsed (this);
 }
 #endif
+
 MDesktopEntry *
 DcpAppletMetadata::desktopEntry () const
 {

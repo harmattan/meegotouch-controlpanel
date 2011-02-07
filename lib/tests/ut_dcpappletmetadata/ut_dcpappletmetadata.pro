@@ -11,6 +11,7 @@ SOURCES += ut_dcpappletmetadata.cpp \
            ../doubles/mdesktopentry-fake.cpp \
            ../doubles/fileDatas.cpp \
            ../doubles/mgconfitem-fake.cpp \
+           ../doubles/sysinfo-fake.cpp \
            $$TEST_SOURCES
 
 # base classes

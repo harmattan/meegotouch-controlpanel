@@ -1,10 +1,10 @@
-#include ($$[QT_INSTALL_DATA]/mkspecs/dcpconfig.pri)
 TOPDIR=../../..
 TEMPLATE      = app 
 QT += testlib
 INCLUDEPATH += $$system(find $$TOPDIR -type d)
 CONFIG       += meegotouch silent debug
 DATADIR = /usr/lib/duicontrolpanel-tests/ft_dcpcontentbutton-data
+LIBS += -L../../lib/ -lduicontrolpanel
 
 DEFINES += DATADIR=\\\"$$DATADIR\\\"
 DEFINES += APPLET_LIBS=\\\"$$DATADIR\\\" DATADIR=\\\"$$DATADIR\\\" DESKTOP_DIR=\\\"$$DATADIR\\\" 
@@ -13,7 +13,7 @@ DEFINES += MOSTUSEDCOUNTER_GCONFKEY=\\\"/apps/duicontrolpanel/usagecount\\\"
 # disable internal deprecation warnings:
 DEFINES += DCP_DISABLE_DEPRECATION_WARNING
 
-TARGET = ft_dcpcontentbutton
+TARGET = ../ft_dcpcontentbutton
 
 TEST_SOURCES = \
     $$TOPDIR/src/widget/dcpcontentbutton.cpp \
@@ -52,5 +52,8 @@ HEADERS += \
 
 # service classes
 HEADERS += \
+
+include (../../check.pri)
+include (../../coverage.pri)
 
 

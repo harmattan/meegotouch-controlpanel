@@ -6,7 +6,7 @@ SRCDIR = ./../../src
 
 DEPENDPATH = $$INCLUDEPATH
 
-QMAKE_LIBDIR += ../../lib/ /usr/lib/
+QMAKE_LIBDIR += ../../lib
 
 CONFIG += debug meegotouch
 
@@ -26,7 +26,7 @@ target.path = $${DCP_TESTS_INSTALL_LIB}
 INSTALLS += target                                                              
 include(check.pri)
 include(coverage.pri)
-LIBS += -L../../lib/ -L/usr/lib -lduicontrolpanel
+LIBS += -L../../lib/ -lduicontrolpanel
 
 contains(DCP_BUILD_FEATURES,coverage) {
 
