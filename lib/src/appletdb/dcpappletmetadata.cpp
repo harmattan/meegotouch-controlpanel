@@ -32,6 +32,7 @@
 #include <sysinfo.h>
 
 DcpAppletMetadata* DcpAppletMetadataPrivate::sm_LastUsed = 0;
+QString DcpAppletMetadataPrivate::sm_SOPath = APPLET_LIBS "/";
 
 static const QString lastUsedAppletKey = QString(MOSTUSEDCOUNTER_GCONFKEY) +
                                          "/lastUsed";
@@ -203,7 +204,17 @@ DcpAppletMetadata::fullBinary () const
     if (filename.isEmpty())
         return filename;
 
-    return APPLET_LIBS "/" + filename;
+    return DcpAppletMetadataPrivate::sm_SOPath + filename;
+}
+
+QString DcpAppletMetadata::defaultSOPath () {
+    return DcpAppletMetadataPrivate::sm_SOPath;
+}
+
+void DcpAppletMetadata::setDefaultSOPath (const QString& path) {
+    DcpAppletMetadataPrivate::sm_SOPath = path;
+    // ensure it ends with "/" :
+    if (!path.endsWith ("/")) DcpAppletMetadataPrivate::sm_SOPath += "/";
 }
 
 /*!

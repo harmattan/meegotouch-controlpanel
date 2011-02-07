@@ -66,7 +66,6 @@ HEADERS += \
 # service classes
 HEADERS += \
 
-# TODO FIXME
-# include (../../check.pri)
+include (../../check.pri)
 include (../../coverage.pri)
 

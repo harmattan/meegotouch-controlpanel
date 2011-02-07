@@ -112,6 +112,9 @@ public:
 
     bool hasMainView () const;
 
+    static QString defaultSOPath ();
+    static void setDefaultSOPath (const QString& path);
+
 protected:
     MDesktopEntry* desktopEntry () const;
     QString desktopEntryStr (int id) const;

@@ -18,7 +18,6 @@
 #include <QtGui>
 #include <QDebug>
 #include <MAction>
-#include <MTheme>
 #include <DcpWidget>
 #include "buttonapplet.h"
 #include "button.h"
@@ -28,7 +27,6 @@ Q_EXPORT_PLUGIN2(buttonapplet, ButtonApplet)
 
 void ButtonApplet::init()
 {
-    MTheme::loadCSS(DATADIR "/buttonapplet.css");
 };
 
 DcpWidget* ButtonApplet::constructWidget(int widgetId)

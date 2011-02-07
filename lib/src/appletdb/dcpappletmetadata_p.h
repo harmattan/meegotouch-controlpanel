@@ -39,6 +39,7 @@ public:
     bool m_Disabled;
     int m_Activated;
     static DcpAppletMetadata* sm_LastUsed;
+    static QString sm_SOPath;
 };
 
 enum  {

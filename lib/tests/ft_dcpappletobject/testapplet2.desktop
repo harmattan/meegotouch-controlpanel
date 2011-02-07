@@ -3,7 +3,7 @@ Type=DUIApplet
 Name=TestApplet2
 Icon=
 Exec=
-X-logical-id=qtn_sett_main_display
+X-logical-id=qtn_sett_main_display2
 X-translation-catalog=duisettings
 
 [DUI]

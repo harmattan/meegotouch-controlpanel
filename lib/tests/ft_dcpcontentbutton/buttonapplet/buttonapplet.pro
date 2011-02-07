@@ -12,7 +12,7 @@ HEADERS       = buttonapplet.h \
 SOURCES       = buttonapplet.cpp \
                 buttonbrief.cpp
 
-TARGET        = $$qtLibraryTarget(dcpbuttonapplet)
+TARGET        = ../$$qtLibraryTarget(dcpbuttonapplet)
 
                                                                                                                       
 DATADIR = /usr/lib/duicontrolpanel-tests/ft_dcpcontentbutton-data

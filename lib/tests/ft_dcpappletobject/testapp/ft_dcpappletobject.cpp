@@ -22,11 +22,13 @@
 #include "dcpappletmetadata.h"
 #include "dcpappletif.h"
 #include "dcpwidgettypes.h"
+#include "dcpwidget.h"
+#include "dcpbrief.h"
 
 #include "ft_dcpappletobject.h"
 
-#define DESKTOPFILE DATADIR "/testapplet.desktop"
-#define DESKTOPFILE2 DATADIR "/testapplet2.desktop"
+#define DESKTOPFILE "testapplet.desktop"
+#define DESKTOPFILE2 "testapplet2.desktop"
 
 /**
  * TODO
@@ -54,6 +56,22 @@ void Ft_DcpAppletObject::cleanupTestCase()
     delete m_app;
 }
 
+// this function ensures that the test can be run locally:
+DcpAppletMetadata* createMetadata (const char* fname) {
+    QString fpath = DATADIR + QString("/") + fname;
+    QString fpathLocal = qApp->applicationDirPath ()+ "/"+fname;
+    // First we try to run it on the one from the current directory::
+    if (QFileInfo(fpathLocal).exists()) {
+        qWarning ("XXXApplet was run from the current dir");
+        DcpAppletMetadata::setDefaultSOPath (qApp->applicationDirPath ());
+        return new DcpAppletMetadata (fpathLocal);
+    }
+    // else we use an installed version:
+    qWarning ("XXXApplet was run from installed");
+    return new DcpAppletMetadata (fpath);
+}
+
+
 void Ft_DcpAppletObject::testLoad()
 {
     testApplet(DESKTOPFILE);
@@ -70,7 +88,7 @@ void Ft_DcpAppletObject::testLoadManyTimes()
 
 void Ft_DcpAppletObject::testApplet(const char *desktopfile)
 {
-    DcpAppletMetadata *metadata = new DcpAppletMetadata(desktopfile);
+    DcpAppletMetadata *metadata = createMetadata(desktopfile);
     DcpAppletObject *appletObj = new DcpAppletObject(metadata);
     QVERIFY2(appletObj->isAppletLoaded(), "applet not loaded");
 
@@ -82,10 +100,7 @@ void Ft_DcpAppletObject::testApplet(const char *desktopfile)
     QVERIFY(widget);
     QVERIFY(brief);
 
-    // FIXME deleting the widget causes crash in loadCSS!
-    // delete widget;
-
-    delete metadata;
+    delete widget;
     delete appletObj;
 
     // FIXME: test if the applet's destructor has been called
@@ -94,7 +109,7 @@ void Ft_DcpAppletObject::testApplet(const char *desktopfile)
 
 void Ft_DcpAppletObject::testGetters()
 {
-    DcpAppletMetadata *metadata = new DcpAppletMetadata(DESKTOPFILE);
+    DcpAppletMetadata *metadata = createMetadata(DESKTOPFILE);
     DcpAppletObject *appletObj = new DcpAppletObject(metadata);
     QCOMPARE(appletObj->widgetTypeID(), static_cast<int>(DcpWidgetType::Label));
     // string coming from testplugin/testapplet.cpp
@@ -109,10 +124,8 @@ void Ft_DcpAppletObject::testGetters()
     QCOMPARE(appletObj->toggleIconId(), QString());
 
 
-    delete metadata;
     delete appletObj;
 }
 
-
-
 QTEST_APPLESS_MAIN(Ft_DcpAppletObject)
+

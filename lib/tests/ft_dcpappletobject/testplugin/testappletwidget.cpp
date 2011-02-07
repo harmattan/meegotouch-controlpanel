@@ -34,22 +34,11 @@ TestAppletWidget::TestAppletWidget(QGraphicsWidget *parent)
     MLabel *widget = new MLabel("Test applet1", this);
     m_layoutPolicy->addItem(widget, Qt::AlignLeft);
 
-    /*
-    MContainer *container = new MContainer("Test container", this);
-    layoutPolicy->addItem(container);
-
-    MButtonGroup *buttongrp = new MButtonGroup();
-    for (int i = 0; i < 3; ++i) {
-        MButton *button = new MButton(QString("%1").arg(i));
-        buttongrp->addButton(button);
-        layoutPolicy->addItem(button);
-    }
-*/
     setLayout(layout);
 
 }
 
 TestAppletWidget::~TestAppletWidget()
 {
-    delete m_layoutPolicy;
 }
+

@@ -39,10 +39,5 @@ TestAppletWidget2::TestAppletWidget2(QGraphicsWidget *parent)
 
 TestAppletWidget2::~TestAppletWidget2()
 {
-    if (m_Layout)
-        delete m_Layout;
-    if (m_LayoutPolicy)
-        delete m_LayoutPolicy;
-    if (m_Widget)
-        m_Widget->deleteLater();
 }
+

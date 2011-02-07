@@ -18,6 +18,8 @@
 #include "ft_dcpcontentbutton.h"
 #include <DcpAppletMetadata>
 #include <DcpAppletObject>
+#include <QFileInfo>
+#include <QCoreApplication>
 
 const QString DesktopFile("/buttonapplet.desktop");
 
@@ -29,8 +31,14 @@ void Ft_DcpContentButton::initTestCase()
 
     qap = new QCoreApplication(c, &argp);
     qInstallMsgHandler (0);
-    m_DesktopFile = QString(DATADIR) + DesktopFile;
 
+    // this makes the test able to run locally or installed:
+    m_DesktopFile = QCoreApplication::applicationDirPath() + DesktopFile;
+    if (!QFileInfo (m_DesktopFile).exists ()) {
+        m_DesktopFile = QString(DATADIR) + DesktopFile;
+    } else {
+        DcpAppletMetadata::setDefaultSOPath (QCoreApplication::applicationDirPath());
+    }
 }
 
 void Ft_DcpContentButton::cleanupTestCase()

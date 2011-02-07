@@ -18,16 +18,17 @@ SOURCES = \
 # disable internal deprecation warnings:
 DEFINES += DCP_DISABLE_DEPRECATION_WARNING
 
-TARGET = $$qtLibraryTarget(testapplet)
+TARGET = ../$$qtLibraryTarget(testapplet)
 
 DATADIR = /usr/lib/duicontrolpanel-tests/ft_dcpappletobject-data
 
 DEFINES += DATADIR=\\\"$$DATADIR\\\"
 
-desktop.files = testapplet.desktop
+desktop.files = ../testapplet.desktop
 desktop.path = $$DATADIR
 target.path = $$DATADIR
 css.files = testapplet.css
 css.path = $$DATADIR
 
 INSTALLS += target desktop css
+

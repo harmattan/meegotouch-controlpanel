@@ -29,3 +29,4 @@ namespace DcpApplet {
 };
 
 #endif // DCPAPPLET_H
+

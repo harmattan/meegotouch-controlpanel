@@ -15,7 +15,6 @@
 **
 ****************************************************************************/
 
-#include <MTheme>
 #include <QtDebug>
 #include <DcpWidget>
 #include <DcpBrief>
@@ -32,7 +31,6 @@ TestApplet2::~TestApplet2()
 void TestApplet2::init()
 {
     qDebug() << "TestApplet2 init";
-    MTheme::loadCSS(DATADIR "/testapplet2.css");
 }
 
 DcpWidget *TestApplet2::constructWidget(int)
