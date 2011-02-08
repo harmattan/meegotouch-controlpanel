@@ -3,7 +3,7 @@ DCP_SH = ../../duicontrolpanel
 APPLAUNCH_SH = ../../dcpappletlauncher
 SERVICE = ../service/com.nokia.duicontrolpanel.service
 APPLAUNCH_SERVICE = ../service/com.nokia.dcpappletlauncher.service
-DESKTOP = duicontrolpanel.desktop
+DESKTOP = duicontrolpanel.launch.desktop
 PREFIX =
 POSTFIX =
 
