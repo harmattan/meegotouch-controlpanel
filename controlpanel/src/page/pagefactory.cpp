@@ -389,9 +389,11 @@ PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
         return false;
     }
 
+    DcpDebug::end("activate_applet");
+
     MWindow* win = MApplication::instance()->activeWindow();
     dcp_failfunc_unless (win, false);
-
+    
     /*
      * Time to show the new page.
      */
