@@ -213,19 +213,25 @@ void
 Ft_DcpAppletDb::printAppletListForDebug (
         const QString &title) const
 {
-    #ifdef DEBUG
+#ifdef DEBUG
     DcpAppletMetadataList applets = m_subject->list();
 
     DCP_DEBUG ("-------------- The applet list %12s ---------------", 
             DCP_STR(title));
+#ifdef MOSTUSED    
     DCP_DEBUG ("Usage | Name");
     foreach (DcpAppletMetadata *metadata, applets) {
         DCP_DEBUG (" %4d | %s", metadata->usage(), DCP_STR(metadata->name()));
     }
+#else // !MOSTUSED
+    foreach (DcpAppletMetadata *metadata, applets) {
+        DCP_DEBUG ("%s", DCP_STR(metadata->name()));
+    }
+#endif // MOSTUSED
     DCP_DEBUG ("----------------------------------------------------------");
-    #else
+#else // !DEBUG
     Q_UNUSED (title);
-    #endif
+#endif // DEBUG
 }
 
 
