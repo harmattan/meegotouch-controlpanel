@@ -326,6 +326,7 @@ DcpAppletObject::slotClicked ()
 void
 DcpAppletObject::activateSlot (int pageId)
 {
+    DcpDebug::start("activate_applet");
     DCP_DEBUG ("Emitting activate(%d)", pageId);
     emit activate(pageId);
 }
