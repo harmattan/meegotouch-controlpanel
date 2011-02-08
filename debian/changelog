@@ -9,8 +9,10 @@ duicontrolpanel (0.11.6~unreleased) unstable; urgency=low
     /proc/component_version
   * Fixes: NB#225161 - Incorrect title on dialog when Settings does not
     respond anymore
+  * Fixes: NB#225295 - [TASK] On relaunching the settings app, the view
+    is still showing the bottom list of categories
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 07 Feb 2011 16:50:59 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 08 Feb 2011 12:18:11 +0100
 
 duicontrolpanel (0.11.5) unstable; urgency=low
 

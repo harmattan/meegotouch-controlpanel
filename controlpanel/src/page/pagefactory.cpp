@@ -35,6 +35,7 @@
 
 #include <MApplication>
 #include <MApplicationWindow>
+#include <MPannableViewport>
 #include <QTimer>
 
 // this also specifies if the applet views should be shown inprocess or outprocess
@@ -477,6 +478,10 @@ PageFactory::tryOpenPageBackward (const PageHandle &handle)
 
         if (page && page->handle() == handle) {
             foundAtIndex = n;
+            
+            // move the page to its top
+            MPannableViewport* pannv = page->pannableViewport();
+            if (pannv) pannv->setPosition (QPointF(0,0));
             break;
         }
     }
