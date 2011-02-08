@@ -56,4 +56,7 @@ HEADERS += \
 include (../../check.pri)
 include (../../coverage.pri)
 
+target.path = /usr/lib/duicontrolpanel-tests
+INSTALLS += target
+
 

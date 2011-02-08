@@ -26,6 +26,4 @@ css.files = buttonapplet.css
 css.path = $$DATADIR
                                                                                                                       
 INSTALLS += target desktop css                   
-INSTALLS += \
-	    target \
 

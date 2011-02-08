@@ -22,7 +22,7 @@ DEFINES += UNIT_TEST
 DEFINES += DCP_DISABLE_DEPRECATION_WARNING
 
 DCP_TESTS_INSTALL_LIB = $${DCP_INSTALL_LIB}/duicontrolpanel-tests                                  
-target.path = $${DCP_TESTS_INSTALL_LIB}                                 
+target.path = $${DCP_TESTS_INSTALL_LIB}
 INSTALLS += target                                                              
 include(check.pri)
 include(coverage.pri)
