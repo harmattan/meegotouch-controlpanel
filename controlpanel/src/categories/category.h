@@ -55,7 +55,15 @@ public:
 
     virtual bool hasMostUsed () const { return false; }
 
+    enum ComponentOrderType {
+        CategoriesFirst,
+        AppletsFirst
+    };
+    ComponentOrderType componentOrder () const;
+
 protected:
+    static const char* componentOrderToString (ComponentOrderType order);
+
     virtual QString value (int key) const = 0;
     QStringList valueList (int key) const;
 
@@ -69,6 +77,7 @@ protected:
         AliasesId,
         TranslationId,
         OrderId,
+        ComponentOrderId,
         KeyIdMax
     };
 

@@ -43,3 +43,8 @@ QString MemoryCategory::value(int key) const
     return data.value (key);
 }
 
+void MemoryCategory::setComponentOrder (ComponentOrderType order)
+{
+    data [ComponentOrderId] = componentOrderToString (order);
+}
+

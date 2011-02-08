@@ -83,6 +83,25 @@ DcpAppletCategoryPage::mostUsedAppears ()
     m_MostUsed->show();
 }
 
+/*
+ * Helper function which adds the "categories" and the "applets"
+ * in the correct order to the layout
+ */
+void
+DcpAppletCategoryPage::addCategoryToLayoutOrdered (
+        QGraphicsLinearLayout* layout,
+        QGraphicsWidget* category,
+        QGraphicsWidget* appletBriefs)
+{
+    if (m_CategoryInfo->componentOrder() == Category::CategoriesFirst) {
+        layout->addItem (category);
+        layout->addItem (appletBriefs);
+    } else {
+        layout->addItem (appletBriefs);
+        layout->addItem (category);
+    }
+}
+
 void
 DcpAppletCategoryPage::createContent ()
 {
@@ -121,13 +140,11 @@ DcpAppletCategoryPage::createContent ()
         QGraphicsLinearLayout* clayout =
             new QGraphicsLinearLayout (Qt::Vertical,
                                        container->centralWidget());
-        clayout->addItem (categoryWidget);
-        clayout->addItem (m_Category);
+        addCategoryToLayoutOrdered (clayout, categoryWidget, m_Category);
 
     } else {
         // just add them to the layout without box:
-        mainLayout()->addItem(categoryWidget);
-        mainLayout()->addItem (m_Category);
+        addCategoryToLayoutOrdered (mainLayout(), categoryWidget, m_Category);
     }
 
 #ifdef PROGRESS_INDICATOR

@@ -37,6 +37,8 @@ public:
     void enableMostUsed () { mostUsed = true; }
     virtual bool hasMostUsed () const { return mostUsed; }
 
+    void setComponentOrder (ComponentOrderType order);
+
 protected:
     virtual QString value (int key) const;
 

@@ -68,6 +68,7 @@ DcpCategories::DcpCategories()
         new MemoryCategory (mainPageCategoryName(), // <- name
                             "qtn_sett_main_title"   // <- translation id
     );
+    mainCat->setComponentOrder (Category::AppletsFirst);
     add (mainCat);
 
 // this is the central place where mostUsed gets enabled (and the lib):

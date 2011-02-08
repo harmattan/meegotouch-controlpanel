@@ -71,6 +71,14 @@ A number which will determine the position of the launch button in the
 category list. Lower numbers will be on upper positions (closer to top),
 higher numbers will be at the bottom.
 
+\par ComponentOrder
+The category both contains applets and other categories.
+This key defines the sequence of those in the
+list which represents the category content. If it has the value
+"AppletsFirst", the list will contain the applets above the categories.
+If it contains any other value ("CategoriesFirst", the default), the
+categories will be above the applets.
+
 Example:
 \code
 Parent=MainPage

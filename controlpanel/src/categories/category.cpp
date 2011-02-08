@@ -129,6 +129,31 @@ QList<const Category*> Category::children() const
     return m_Children;
 }
 
+const char* Category::componentOrderToString (ComponentOrderType order)
+{
+    return order == AppletsFirst ? "AppletsFirst" : "CategoriesFirst";
+}
+
+/*! \brief Specifies the order of the categories and applets inside the category.
+ *
+ * \returns CategoriesFirst (default) if the categories should be above the
+ * applets, or returns AppletsFirst if the applets should be above the categories.
+ */
+Category::ComponentOrderType Category::componentOrder () const
+{
+    QString compOrder = value (ComponentOrderId);
+    if (compOrder == componentOrderToString (AppletsFirst)) {
+        return AppletsFirst;
+    }
+    // default:
+    return CategoriesFirst;
+}
+
+/*! \brief Specifies the order of the category in a list.
+ *
+ * The category with lower order has to be above a category with higher order
+ * if they are put in a list.
+ */
 int Category::order () const
 {
     bool ok;

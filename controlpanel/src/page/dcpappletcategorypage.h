@@ -56,6 +56,11 @@ private slots:
     void mostUsedAppears ();
 
 private:
+    void addCategoryToLayoutOrdered (
+                    QGraphicsLinearLayout* layout,
+                    QGraphicsWidget* category,
+                    QGraphicsWidget* appletBriefs);
+
     // the appletcategory that has already been
     // loaded. same as m_CategoryInfo->appletCategory if the
     // page's content is loaded
