@@ -1,4 +1,4 @@
-duicontrolpanel (0.11.6~unreleased) unstable; urgency=low
+duicontrolpanel (0.11.6) unstable; urgency=low
 
   [ Sandor Pinter ]
   * Fixes: NB#224500 - Highlight shown when pressing a static label in
@@ -14,10 +14,9 @@ duicontrolpanel (0.11.6~unreleased) unstable; urgency=low
   * Changes: It is now configurable if the category icons are above or
     below the applet icons using the ComponentOrder key in the
     .cpcategory files
-  * Changes: The applets are now above the categories on the hardcoded
-    "MainPage" category
+  * Changes: Makes -outprocess mode default on usual running ways
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 08 Feb 2011 15:12:55 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 09 Feb 2011 20:47:25 +0100
 
 duicontrolpanel (0.11.5) unstable; urgency=low
 

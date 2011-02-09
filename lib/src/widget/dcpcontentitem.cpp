@@ -142,18 +142,27 @@ DcpContentItem::ensureToggleIsCreated()
             connect (button, SIGNAL (toggled(bool)),
                      applet(), SLOT(setToggle(bool)));
             d_ptr->m_LayoutIsToBeChanged = true;
+
+            // clicking on the item is disabled (only toggle is clickable)
+            if (!metadata() || !metadata()->hasMainView()) {
+                setAcceptedMouseButtons (Qt::NoButton);
+            }
         }
         // update switch state:
         button->setChecked (isChecked());
     } else {
         if (d_ptr->m_ButtonW) {
-            if (applet()) {
-                disconnect (d_ptr->m_ButtonW, SIGNAL (toggled(bool)),
-                            applet(), SLOT(setToggle(bool)));
-            }
             delete d_ptr->m_ButtonW;
             d_ptr->m_ButtonW = 0;
             d_ptr->m_LayoutIsToBeChanged = true;
+
+            // clicking on the item is enabled
+            if (!metadata() || metadata()->hasMainView()) {
+                setAcceptedMouseButtons (
+                        Qt::LeftButton | Qt::RightButton | Qt::MidButton |
+                        Qt::XButton1 | Qt::XButton2
+                );
+            }
         }
     }
 }
@@ -248,7 +257,6 @@ DcpContentItem::ensureWidgetsAreLayouted()
         grid->addItem (d_ptr->m_ButtonW, 0, toggleX,
                        textLinesCount, 1, Qt::AlignCenter);
         toggleX++;
-        setAcceptedMouseButtons(0);
     }
 
     if (!d_ptr->m_ButtonW && !d_ptr->m_DrillImage) {
