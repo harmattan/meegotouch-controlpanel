@@ -36,6 +36,7 @@ void Ft_DcpContentButton::initTestCase()
     m_DesktopFile = QCoreApplication::applicationDirPath() + DesktopFile;
     if (!QFileInfo (m_DesktopFile).exists ()) {
         m_DesktopFile = QString(DATADIR) + DesktopFile;
+        DcpAppletMetadata::setDefaultSOPath (DATADIR);
     } else {
         DcpAppletMetadata::setDefaultSOPath (QCoreApplication::applicationDirPath());
     }

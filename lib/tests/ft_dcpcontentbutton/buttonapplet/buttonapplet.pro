@@ -19,7 +19,7 @@ DATADIR = /usr/lib/duicontrolpanel-tests/ft_dcpcontentbutton-data
 
 DEFINES += DATADIR=\\\"$$DATADIR\\\"
 
-desktop.files = buttonapplet.desktop
+desktop.files = ../buttonapplet.desktop
 desktop.path = $$DATADIR
 target.path = $$DATADIR
 css.files = buttonapplet.css
