@@ -1,3 +1,9 @@
+duicontrolpanel (0.11.6.2~unreleased) unstable; urgency=low
+
+  * Fixes the flashing before the appletpage openings
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 10 Feb 2011 11:40:50 +0100
+
 duicontrolpanel (0.11.6.1) unstable; urgency=low
 
   [ Sandor Pinter ]
