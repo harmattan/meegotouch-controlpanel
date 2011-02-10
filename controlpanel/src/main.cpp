@@ -99,7 +99,10 @@ startMainApplication (int argc, char* argv[])
 
     // mainwindow:
     MApplicationWindow *win = createApplicationWindow ();
-    win->setStyleName ("ControlPanel");
+#ifndef FREE_ORIENTATION
+    win->setPortraitOrientation();
+    win->setOrientationLocked(true);
+#endif // FREE_ORIENTATION
 
     win->installEventFilter(retranslator);
 

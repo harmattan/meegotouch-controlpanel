@@ -68,7 +68,10 @@ MApplicationWindow* DcpAppletLauncherService::window()
 #else // USE_LAUNCHER
         win = new MApplicationWindow();
 #endif // USE_LAUNCHER
-        win->setStyleName ("ControlPanel");
+#ifndef FREE_ORIENTATION
+        win->setPortraitOrientation();
+        win->setOrientationLocked(true);
+#endif // FREE_ORIENTATION
         win->setAttribute( Qt::WA_DeleteOnClose, true );
 
     } else {
