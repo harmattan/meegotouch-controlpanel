@@ -1,6 +1,6 @@
-duicontrolpanel (0.11.7~unreleased) unstable; urgency=low
+duicontrolpanel (0.11.6.3) unstable; urgency=low
 
-  * new version
+  * disables ft_dcpappletobject temporarily
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 10 Feb 2011 12:19:21 +0100
 
