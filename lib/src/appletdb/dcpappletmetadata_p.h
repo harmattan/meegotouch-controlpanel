@@ -79,6 +79,8 @@ enum  {
     KeySliderLeftImage,
     KeySliderRightImage,
 
+    KeyTextOrientation,
+
     KeyCount
 };
 
@@ -116,7 +118,8 @@ const QString Keys[KeyCount] = {
     "DCP/OnlyShowOnProduct",
     "DCP/HasMainView",
     "DCP/SliderLeftImage",
-    "DCP/SliderRightImage"
+    "DCP/SliderRightImage",
+    "DCP/TextOrientation"
 };
 
 #endif // DCPAPPLETMETADATA_P_H

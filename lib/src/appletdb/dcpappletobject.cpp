@@ -166,14 +166,10 @@ DcpAppletObject::text1 () const
 QString 
 DcpAppletObject::text2 () const
 {
-    /*
-     * FIXME: This feature is not in the UI spec, we have no localization for
-     * the string.
-     */
-    if (metadata()->isDisabled())
-        return QString ("Disabled");
-
-    return (brief() ? brief()->valueText() : metadata()->text2());
+    QString text2;
+    if (brief()) text2 = brief()->valueText();
+    if (text2.isNull()) text2 = metadata()->text2();
+    return text2;
 }
 
 /*!

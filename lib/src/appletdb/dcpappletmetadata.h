@@ -118,6 +118,8 @@ public:
     QString sliderLeftImage () const;
     QString sliderRightImage () const;
 
+    Qt::Orientation textOrientation () const;
+
 protected:
     MDesktopEntry* desktopEntry () const;
     QString desktopEntryStr (int id) const;

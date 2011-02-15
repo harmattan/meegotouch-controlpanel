@@ -45,7 +45,8 @@ DcpContentItemPrivate::DcpContentItemPrivate ():
     m_Text2W (0),
     m_Help (0),
     m_ButtonW (0),
-    m_Slider (0)
+    m_Slider (0),
+    m_Spacer (0)
 {
 }
 
@@ -250,6 +251,7 @@ DcpContentItem::ensureHelpIsCreated()
 void
 DcpContentItem::ensureTextsAreCreated()
 {
+    dcp_failfunc_unless (metadata());
     QString text2 = this->subtitle();
 
     // create the text widgets:
@@ -262,7 +264,11 @@ DcpContentItem::ensureTextsAreCreated()
     if (!d_ptr->m_Text2W) {
         d_ptr->m_Text2W = new MLabel();
         d_ptr->m_Text2W->setStyleName(subtitleObjectName);
-        d_ptr->m_Text2W->setAlignment (Qt::AlignTop);
+
+        d_ptr->m_Text2W->setAlignment (
+                metadata()->textOrientation() == Qt::Horizontal ?
+                Qt::AlignRight | Qt::AlignTop : Qt::AlignTop);
+
         d_ptr->m_LayoutIsToBeChanged = true;
     }
 
@@ -275,6 +281,8 @@ DcpContentItem::ensureTextsAreCreated()
 void
 DcpContentItem::ensureWidgetsAreLayouted()
 {
+    dcp_failfunc_unless (metadata());
+
     // if there is no layout change do not do anything:
     if (!d_ptr->m_LayoutIsToBeChanged) return;
     d_ptr->m_LayoutIsToBeChanged = false;
@@ -290,6 +298,7 @@ DcpContentItem::ensureWidgetsAreLayouted()
 
     // layout the items again:
     int textX = d_ptr->m_ImageW ? 1 : 0;
+    bool isTextHorizontal = metadata()->textOrientation() == Qt::Horizontal;
     int textLinesCount = d_ptr->m_Slider ? 1 : 2;
     if (d_ptr->m_ImageW) {
         grid->addItem (d_ptr->m_ImageW, 0,0,
@@ -297,8 +306,21 @@ DcpContentItem::ensureWidgetsAreLayouted()
     }
     // slider does not have the labels:
     if (!d_ptr->m_Slider) {
-        grid->addItem (d_ptr->m_Text1W, 0, textX, Qt::AlignBottom);
-        grid->addItem (d_ptr->m_Text2W, 1, textX, Qt::AlignTop);
+        if (!isTextHorizontal) {
+            grid->addItem (d_ptr->m_Text1W, 0, textX, Qt::AlignBottom);
+            grid->addItem (d_ptr->m_Text2W, 1, textX, Qt::AlignTop);
+            if (d_ptr->m_Spacer) {
+                d_ptr->m_Spacer->deleteLater();
+                d_ptr->m_Spacer = 0;
+            }
+        } else {
+            // this hack lets the labels start at the same y even in horizontal mode
+            if (!d_ptr->m_Spacer) d_ptr->m_Spacer = new MLabel("");
+            grid->addItem (d_ptr->m_Text1W, 0, textX, Qt::AlignBottom);
+            grid->addItem (d_ptr->m_Text2W, 0, textX+1, Qt::AlignBottom);
+            grid->addItem (d_ptr->m_Spacer, 1, textX, 1, 2, Qt::AlignTop);
+            textX++;
+        }
     } else {
         grid->addItem (d_ptr->m_Slider, 0, textX, Qt::AlignCenter);
     }

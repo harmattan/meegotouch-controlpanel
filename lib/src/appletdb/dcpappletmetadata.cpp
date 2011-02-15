@@ -246,6 +246,16 @@ DcpAppletMetadata::widgetTypeID () const
     return DcpWidgetType::Label;
 }
 
+Qt::Orientation
+DcpAppletMetadata::textOrientation () const
+{
+    QString ori = desktopEntryStr(KeyTextOrientation).toUpper();
+    if (ori == "HORIZONTAL")
+        return Qt::Horizontal;
+
+    return Qt::Vertical;
+}
+
 Qt::Alignment 
 DcpAppletMetadata::align () const
 {
