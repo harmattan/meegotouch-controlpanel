@@ -37,7 +37,6 @@ HEADERS += \
     $$STUBSDIR/mwindow-fake.h \
     $$SRCDIR/page/pagefactory.h \
     $$SRCDIR/page/dcppage.h \
-    $$SRCDIR/page/dcpmainpage.h \
     $$SRCDIR/page/dcpappletcategorypage.h \
     $$SRCDIR/page/dcpappletpage.h \
     $$STUBSDIR/dcpappletplugin-applet.h \

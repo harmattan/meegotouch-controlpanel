@@ -115,6 +115,9 @@ public:
     static QString defaultSOPath ();
     static void setDefaultSOPath (const QString& path);
 
+    QString sliderLeftImage () const;
+    QString sliderRightImage () const;
+
 protected:
     MDesktopEntry* desktopEntry () const;
     QString desktopEntryStr (int id) const;

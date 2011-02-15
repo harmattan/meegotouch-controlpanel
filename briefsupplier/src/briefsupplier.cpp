@@ -89,6 +89,8 @@ void BriefSupplier::onCommandArrival (const QString& command)
         unwatch (command.mid (CmdUnwatch.count()));
     } else if (command.startsWith(CmdSwitchToggle)) {
         switchToggle (command.mid (CmdSwitchToggle.count()));
+    } else if (command.startsWith(CmdSetValue)) {
+        setValue (command.mid (CmdSetValue.count()));
     } else {
         qWarning ("Brief supplier: could not understand %s",
                   qPrintable (command));
@@ -165,10 +167,14 @@ void BriefSupplier::outputBrief (DcpAppletObject* applet, bool textOnly)
     QString icon;
     QString image;
     bool toggle = false;
+    QVariant value;
+    int minValue = 0;
+    int maxValue = 0;
+    int sliderSteps = 0;
 
     if (!textOnly) {
         widgetTypeID = brief->widgetTypeID();
-        helpId = applet->interfaceVersion() < 5 ? QString() : brief->helpId();
+        helpId = applet->briefVersion() < 5 ? QString() : brief->helpId();
 
         switch (widgetTypeID) {
             case DcpWidgetType::Toggle:
@@ -179,6 +185,11 @@ void BriefSupplier::outputBrief (DcpAppletObject* applet, bool textOnly)
                 icon = brief->icon();
                 image = brief->image();
                 break;
+            case DcpWidgetType::Slider:
+                minValue = brief->minValue();
+                maxValue = brief->maxValue();
+                sliderSteps = brief->sliderSteps();
+                value = brief->value();
             default:
                 break;
         }
@@ -198,6 +209,14 @@ void BriefSupplier::outputBrief (DcpAppletObject* applet, bool textOnly)
         {
             output (OutputToggle, (int)toggle);
         }
+        if (widgetTypeID == DcpWidgetType::Slider) {
+            // TODO we could minimize the traffic by remembering the last sent
+            // values and only output them if they have changed
+            if (minValue != 0) output (OutputMinValue, minValue);
+            if (maxValue != 100) output (OutputMaxValue, maxValue);
+            if (sliderSteps != 0) output (OutputValueStep, sliderSteps);
+            output (OutputValue, value.toString());
+        }
         output (OutputHelpId, helpId);
     }
 
@@ -211,6 +230,23 @@ void BriefSupplier::switchToggle (const QString& appletName)
     returnIf (!applet, "No such applet", appletName);
 
     applet->setToggle (!applet->toggle());
+}
+
+void BriefSupplier::setValue (const QString& params)
+{
+    // parse the params:
+    QStringList paramList = params.split (BSupplier::ParamSeparator);
+    returnIf (paramList.count() != 2, "Wrong parameters for setValue", params);
+    const QString& appletName = paramList.at(0);
+    const QString& newValue = paramList.at(1);
+
+    // get the applet:
+    returnIf (appletName.isEmpty(), "No appletName was specified", appletName);
+    DcpAppletObject* applet = DcpAppletDb::instance ()->applet (appletName);
+    returnIf (!applet, "No such applet", appletName);
+
+    // set the new value:
+    applet->setValue (newValue);
 }
 
 void BriefSupplier::onLocaleChange ()

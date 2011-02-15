@@ -19,6 +19,7 @@
 #define BSUPPLIERCOMMANDS
 
 #include <QString>
+#include <QChar>
 
 namespace BSupplier
 {
@@ -30,6 +31,7 @@ extern const QString BServerId;
 extern const QString CmdWatch;
 extern const QString CmdUnwatch;
 extern const QString CmdSwitchToggle;
+extern const QString CmdSetValue;
 
 // available responses (output):
 extern const char* OutputBegin;
@@ -43,7 +45,13 @@ extern const char* OutputIcon;
 extern const char* OutputToggle;
 extern const char* OutputTitleText;
 extern const char* OutputHelpId;
+extern const char* OutputValue;
+extern const char* OutputMinValue;
+extern const char* OutputMaxValue;
+extern const char* OutputValueStep;
 
+// parameter separator:
+extern const QChar ParamSeparator;
 
 }
 

@@ -23,6 +23,7 @@
 
 #include "dcpdebug.h"
 #include <QGraphicsGridLayout>
+#include <QVariant>
 
 #include "dcpappletdb.h"
 
@@ -31,6 +32,7 @@ static const QString singleTitleObjectName = "CommonSingleTitleInverted";
 static const QString iconObjectName = "CommonMainIcon";
 static const QString drillDownObjectName = "CommonDrillDownIcon";
 static const QString toggleObjectName = "CommonSwitchInverted";
+static const QString sliderObjectName = "CommonSliderInverted";
 
 DcpContentItemPrivate::DcpContentItemPrivate ():
     m_Applet (0),
@@ -42,7 +44,8 @@ DcpContentItemPrivate::DcpContentItemPrivate ():
     m_Text1W (0),
     m_Text2W (0),
     m_Help (0),
-    m_ButtonW (0)
+    m_ButtonW (0),
+    m_Slider (0)
 {
 }
 
@@ -57,6 +60,7 @@ DcpContentItem::DcpContentItem (
 {
     connect (this, SIGNAL (clicked()), this, SLOT (onClicked()));
     setStyleName ("CommonPanelInverted");
+    setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
     setApplet (applet);
 }
 
@@ -98,6 +102,7 @@ DcpContentItem::ensureLayoutIsCreated (QGraphicsGridLayout*& grid)
     grid = static_cast<QGraphicsGridLayout*>(this->layout());
     if (!grid) {
         grid = new QGraphicsGridLayout (this);
+        grid->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
         grid->setContentsMargins (0,0,0,0);
         grid->setSpacing(0);
         d_ptr->m_LayoutIsToBeChanged = true;
@@ -125,6 +130,53 @@ DcpContentItem::ensureImageIsCreated()
             d_ptr->m_LayoutIsToBeChanged = true;
         }
         d_ptr->m_ImageName = "";
+    }
+}
+
+void
+DcpContentItem::ensureSliderIsCreated()
+{
+    // create / free up image:
+    if (widgetType() == DcpWidgetType::Slider)
+     {
+        MSlider* &slider = d_ptr->m_Slider;
+        if (!slider) {
+            slider = new MSlider();
+            slider->setStyleName (sliderObjectName);
+            slider->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
+            slider->setMaximumWidth (-1);
+            connect(slider, SIGNAL(valueChanged(int)), this, SLOT(sliderChanged(int)));
+
+            // min and max icons:
+            QString image = metadata()->sliderLeftImage();
+            if (!image.isEmpty()) {
+                slider->setMinLabelIconID (image);
+                slider->setMinLabelVisible (true);
+            } else {
+                slider->setMinLabelVisible (false);
+            }
+            image = metadata()->sliderRightImage();
+            if (!image.isEmpty()) {
+                slider->setMaxLabelIconID (image);
+                slider->setMaxLabelVisible (true);
+            } else {
+                slider->setMaxLabelVisible (false);
+            }
+
+            d_ptr->m_LayoutIsToBeChanged = true;
+        }
+
+        // TODO XXX: it would be better to only update the value here
+        slider->setRange(applet()->minValue(), applet()->maxValue());
+        slider->setSteps(applet()->sliderSteps());
+        slider->setValue(applet()->value().toInt());
+
+    } else {
+        if (d_ptr->m_Slider) {
+            delete d_ptr->m_Slider;
+            d_ptr->m_Slider = 0;
+            d_ptr->m_LayoutIsToBeChanged = true;
+        }
     }
 }
 
@@ -238,14 +290,18 @@ DcpContentItem::ensureWidgetsAreLayouted()
 
     // layout the items again:
     int textX = d_ptr->m_ImageW ? 1 : 0;
-    int textLinesCount = 2;
+    int textLinesCount = d_ptr->m_Slider ? 1 : 2;
     if (d_ptr->m_ImageW) {
         grid->addItem (d_ptr->m_ImageW, 0,0,
-                       textLinesCount+1, 1, Qt::AlignCenter);
+                       textLinesCount, 1, Qt::AlignCenter);
     }
-//    grid->addItem(new QGraphicsWidget(), 0, textX);
-    grid->addItem (d_ptr->m_Text1W, 0, textX, Qt::AlignBottom);
-    grid->addItem (d_ptr->m_Text2W, 1, textX, Qt::AlignTop);
+    // slider does not have the labels:
+    if (!d_ptr->m_Slider) {
+        grid->addItem (d_ptr->m_Text1W, 0, textX, Qt::AlignBottom);
+        grid->addItem (d_ptr->m_Text2W, 1, textX, Qt::AlignTop);
+    } else {
+        grid->addItem (d_ptr->m_Slider, 0, textX, Qt::AlignCenter);
+    }
 
     int toggleX = textX+1;
     if (d_ptr->m_Help) {
@@ -259,14 +315,17 @@ DcpContentItem::ensureWidgetsAreLayouted()
         toggleX++;
     }
 
-    if (!d_ptr->m_ButtonW && !d_ptr->m_DrillImage) {
-        d_ptr->m_DrillImage =
-            new MImageWidget("icon-m-common-drilldown-arrow-inverse", this);
-        d_ptr->m_DrillImage->setStyleName(drillDownObjectName);
-    }
-    if (!d_ptr->m_ButtonW) {
+    if (!d_ptr->m_ButtonW && !d_ptr->m_Slider) {
+        if (!d_ptr->m_DrillImage) {
+            d_ptr->m_DrillImage =
+                new MImageWidget("icon-m-common-drilldown-arrow-inverse", this);
+            d_ptr->m_DrillImage->setStyleName(drillDownObjectName);
+        }
+
         grid->addItem(d_ptr->m_DrillImage, 0, toggleX, textLinesCount, 1);
         grid->setAlignment(d_ptr->m_DrillImage, Qt::AlignVCenter | Qt::AlignRight);
+    } else {
+        delete d_ptr->m_DrillImage;
     }
 }
 
@@ -291,6 +350,7 @@ DcpContentItem::constructRealWidget ()
     ensureImageIsCreated();
     ensureToggleIsCreated();
     ensureTextsAreCreated();
+    ensureSliderIsCreated();
 
     // we set them in the layout correctly
     ensureWidgetsAreLayouted();
@@ -299,7 +359,10 @@ DcpContentItem::constructRealWidget ()
 QString
 DcpContentItem::title() const
 {
-    if (applet()) return applet()->text1();
+    if (applet()) {
+        if (widgetType() == DcpWidgetType::Slider) return QString();
+        return applet()->text1();
+    }
     if (d_ptr->m_Metadata) return d_ptr->m_Metadata->text1();
     return QString();
 }
@@ -307,7 +370,10 @@ DcpContentItem::title() const
 QString
 DcpContentItem::subtitle() const
 {
-    if (applet()) return applet()->text2();
+    if (applet()) {
+        if (widgetType() == DcpWidgetType::Slider) return QString();
+        return applet()->text2();
+    }
     return QString();
 }
 
@@ -534,5 +600,10 @@ QString DcpContentItem::helpID() const
     if (applet()) return applet()->helpId();
     if (d_ptr->m_Metadata) return d_ptr->m_Metadata->helpId();
     return QString();
+}
+
+void DcpContentItem::sliderChanged(int value)
+{
+    if (applet()) applet()->setValue(QVariant(value));
 }
 

@@ -24,6 +24,7 @@
 
 #include <MImageWidget>
 #include <MButton>
+#include <MSlider>
 #include <MLabel>
 #include <MHelpButton>
 
@@ -54,6 +55,7 @@ public:
     MLabel* m_Text2W;
     MHelpButton* m_Help;
     MButton* m_ButtonW;
+    MSlider* m_Slider;
 };
 
 #endif // DCPCONTENTITEMPRIVATE_H

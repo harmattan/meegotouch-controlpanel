@@ -34,10 +34,15 @@ public:
     virtual bool toggle() const;
     virtual QString titleText() const;
     virtual QString helpId() const;
+    virtual int minValue() const;
+    virtual int maxValue() const;
+    virtual QVariant value() const;
+    virtual int sliderSteps() const;
+    virtual void setValue(const QVariant& value);
 
     QString name () const;
-    QString value (const char* id) const;
-    void setValue (const char* id, const QString& value);
+    QString get (const char* id) const;
+    void set (const char* id, const QString& value);
     void emitChange ();
 
 public slots:

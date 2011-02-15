@@ -68,7 +68,7 @@ DcpCategories::DcpCategories()
         new MemoryCategory (mainPageCategoryName(), // <- name
                             "qtn_sett_main_title"   // <- translation id
     );
-#if NEW_UI
+#ifndef OLD_UI
     mainCat->setComponentOrder (Category::AppletsFirst);
 #endif
     add (mainCat);

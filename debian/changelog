@@ -1,3 +1,9 @@
+duicontrolpanel (0.11.7~unreleased) unstable; urgency=low
+
+  * Changes: new briefview type - Slider
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 15 Feb 2011 13:31:32 +0100
+
 duicontrolpanel (0.11.6.3) unstable; urgency=low
 
   * disables ft_dcpappletobject temporarily

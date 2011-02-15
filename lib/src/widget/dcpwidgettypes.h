@@ -41,6 +41,7 @@ namespace DcpWidgetType
             Image,
             Button,
             Special,
+	    Slider,
             IdMax
         };
         const QString  
@@ -51,7 +52,8 @@ namespace DcpWidgetType
             "Toggle",
             "Image",
             "Button",
-            "Special"
+            "Special",
+            "Slider"
         };
         bool isIdValid(int id); 
 };

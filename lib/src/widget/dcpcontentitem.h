@@ -101,6 +101,7 @@ protected slots:
     void updateContents ();
 
     void onClicked ();
+    void sliderChanged(int value);
 
 protected:
     virtual void retranslateUi ();
@@ -138,6 +139,7 @@ private:
     void ensureTextsAreCreated();
     void ensureWidgetsAreLayouted();
     void ensureHelpIsCreated();
+    void ensureSliderIsCreated();
     void clearAppletData();
 
     DcpContentItemPrivate* const d_ptr;

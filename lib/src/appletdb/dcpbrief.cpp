@@ -22,7 +22,7 @@
 #include "dcpwidgettypes.h"
 
 #include "dcpdebug.h"
-
+#include <QVariant>
 DcpBrief::~DcpBrief()
 {
 }
@@ -97,5 +97,30 @@ QString DcpBrief::helpId() const
 {
     // default is no help
     return QString();
+}
+
+int DcpBrief::minValue() const
+{
+    return 0;
+}
+
+int DcpBrief::maxValue() const
+{
+    return 100;
+}
+
+int DcpBrief::sliderSteps() const
+{
+    return 0;
+}
+
+void DcpBrief::setValue(const QVariant& value)
+{
+    Q_UNUSED(value);
+}
+
+QVariant DcpBrief::value() const
+{
+    return QVariant();
 }
 

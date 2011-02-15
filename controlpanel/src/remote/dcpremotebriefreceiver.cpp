@@ -158,6 +158,12 @@ void DcpRemoteBriefReceiver::switchToggle(const QString& appletName)
     cmd (BSupplier::CmdSwitchToggle, appletName);
 }
 
+void DcpRemoteBriefReceiver::setValue(const QString& appletName,
+                                      const QVariant& value)
+{
+    cmd (BSupplier::CmdSetValue, appletName + BSupplier::ParamSeparator + value.toString());
+}
+
 void DcpRemoteBriefReceiver::cmd (
         const QString& command, const QString& appletName)
 {
@@ -216,14 +222,18 @@ void DcpRemoteBriefReceiver::onReadyRead()
                 BSupplier::OutputIcon,
                 BSupplier::OutputToggle,
                 BSupplier::OutputTitleText,
-                BSupplier::OutputHelpId
+                BSupplier::OutputHelpId,
+                BSupplier::OutputValue,
+                BSupplier::OutputMinValue,
+                BSupplier::OutputMaxValue,
+                BSupplier::OutputValueStep
             };
             int keyCount = sizeof(keys)/sizeof(const char*);
             int i;
             for (i=0; i<keyCount; i++) {
                 if (tryMatch (keys[i], line, arg)) {
                     dcp_failfunc_unless (priv->currentBrief);
-                    priv->currentBrief->setValue (keys[i],arg);
+                    priv->currentBrief->set (keys[i],arg);
                     break;
                 }
             }

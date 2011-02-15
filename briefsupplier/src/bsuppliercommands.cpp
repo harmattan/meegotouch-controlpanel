@@ -23,6 +23,7 @@ const QString BSupplier::BServerId = "dcpbriefs";
 const QString BSupplier::CmdWatch = "watch ";
 const QString BSupplier::CmdUnwatch = "unwatch ";
 const QString BSupplier::CmdSwitchToggle = "toggle ";
+const QString BSupplier::CmdSetValue = "setvalue ";
 
 // available responses (output):
 const char* BSupplier::OutputBegin = "BEGIN";
@@ -36,5 +37,11 @@ const char* BSupplier::OutputIcon = "icon";
 const char* BSupplier::OutputToggle = "toggle";
 const char* BSupplier::OutputTitleText = "titleText";
 const char* BSupplier::OutputHelpId = "helpId";
+const char* BSupplier::OutputValue = "value";
+const char* BSupplier::OutputMinValue = "minValue";
+const char* BSupplier::OutputMaxValue = "maxValue";
+const char* BSupplier::OutputValueStep = "sliderSteps";
 
+
+const QChar BSupplier::ParamSeparator;
 

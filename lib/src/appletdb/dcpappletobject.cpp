@@ -183,7 +183,7 @@ DcpAppletObject::text2 () const
 QString
 DcpAppletObject::helpId () const
 {
-    QString result = brief() && interfaceVersion () >= 5 ? brief()->helpId() : QString();
+    QString result = briefVersion() >= 5 ? brief()->helpId() : QString();
     if (result.isNull()) result = metadata()->helpId();
     return result;
 }
@@ -329,5 +329,59 @@ DcpAppletObject::activateSlot (int pageId)
     DcpDebug::start("activate_applet");
     DCP_DEBUG ("Emitting activate(%d)", pageId);
     emit activate(pageId);
+}
+
+int DcpAppletObject::minValue() const
+{
+    if (brief())
+	return brief()->minValue();
+    else
+        return 0;
+}
+
+int DcpAppletObject::maxValue() const
+{
+    if (briefVersion()>=8) {
+        return brief()->maxValue();
+    } else {
+        return 100;
+    }
+}
+
+int DcpAppletObject::sliderSteps() const
+{
+    if (briefVersion()>=8) {
+        return brief()->sliderSteps();
+    } else {
+        return 0;
+    }
+}
+
+void DcpAppletObject::setValue(const QVariant& value)
+{
+    if (briefVersion()>=8) {
+        return brief()->setValue(value);
+    }
+}
+
+QVariant DcpAppletObject::value() const
+{
+    if (briefVersion() >= 8) {
+        return brief()->value();
+    }
+    return QVariant();
+}
+
+/*! \brief Version of the DcpBrief of the applet.
+ *
+ * Similar to interfaceVersion(), except that this function returns the
+ * version of the DcpBrief instead of the applet.
+ * -1 if the applet does not have a brief, but
+ * big enough if the appletObject does not have an applet, but has a brief.
+ */
+int DcpAppletObject::briefVersion () const
+{
+    if (!brief()) return -1;
+    return applet() ? interfaceVersion() : 999999;
 }
 

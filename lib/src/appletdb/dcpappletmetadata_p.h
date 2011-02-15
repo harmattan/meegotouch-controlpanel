@@ -76,6 +76,9 @@ enum  {
 
     KeyHasMainView,
 
+    KeySliderLeftImage,
+    KeySliderRightImage,
+
     KeyCount
 };
 
@@ -111,7 +114,9 @@ const QString Keys[KeyCount] = {
     "DCP/HelpId",
     "DCP/DoNotShowOnProduct",
     "DCP/OnlyShowOnProduct",
-    "DCP/HasMainView"
+    "DCP/HasMainView",
+    "DCP/SliderLeftImage",
+    "DCP/SliderRightImage"
 };
 
 #endif // DCPAPPLETMETADATA_P_H

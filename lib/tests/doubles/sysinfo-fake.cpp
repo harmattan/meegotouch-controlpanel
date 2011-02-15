@@ -15,7 +15,7 @@ int sysinfo_get_value (struct system_config *,
                        const char *, uint8_t **val_out,
                        unsigned long *len_out)
 {
-    static const char* id = "XXX-DEVICE";
+    static const char* id = "X-DEVICE";
     *val_out = (uint8_t*) strdup (id);
     *len_out = strlen (id);
     return 0;

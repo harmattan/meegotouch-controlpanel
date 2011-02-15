@@ -20,6 +20,8 @@
 
 #include "dcpremotebriefreceiver.h"
 
+#include <QVariant>
+
 
 DcpRemoteBriefPriv::DcpRemoteBriefPriv (const QString& name):
     appletName (name)
@@ -59,27 +61,27 @@ DcpRemoteBrief::~DcpRemoteBrief ()
 int DcpRemoteBrief::widgetTypeID () const
 {
     bool ok;
-    int value = this->value (BSupplier::OutputWidgetTypeID).toInt (&ok);
+    int value = this->get (BSupplier::OutputWidgetTypeID).toInt (&ok);
     return ok ? value : DcpBrief::widgetTypeID ();
 }
 
 
 QString DcpRemoteBrief::valueText () const
 {
-    QString st = value (BSupplier::OutputValueText);
+    QString st = get (BSupplier::OutputValueText);
     return st;
 }
 
 
 QString DcpRemoteBrief::icon () const
 {
-    return value (BSupplier::OutputIcon);
+    return get (BSupplier::OutputIcon);
 }
 
 
 bool DcpRemoteBrief::toggle () const
 {
-    QString value = this->value (BSupplier::OutputToggle);
+    QString value = this->get (BSupplier::OutputToggle);
     return value == "1";
 }
 
@@ -94,6 +96,42 @@ void DcpRemoteBrief::setToggle (bool toggle)
     }
 }
 
+void DcpRemoteBrief::setValue (const QVariant& value)
+{
+    if (this->value() != value) {
+        DcpRemoteBriefReceiver* receiver = DcpRemoteBriefReceiver::instance();
+        if (receiver) {
+            receiver->setValue (name (), value);
+        }
+    }
+}
+
+QVariant DcpRemoteBrief::value () const
+{
+    int val = get (BSupplier::OutputValue).toInt();
+    return val;
+}
+
+int DcpRemoteBrief::minValue () const
+{
+    bool ok;
+    int value = this->get (BSupplier::OutputMinValue).toInt (&ok);
+    return ok ? value : DcpBrief::minValue ();
+}
+
+int DcpRemoteBrief::maxValue () const
+{
+    bool ok;
+    int value = this->get (BSupplier::OutputMaxValue).toInt (&ok);
+    return ok ? value : DcpBrief::maxValue ();
+}
+
+int DcpRemoteBrief::sliderSteps () const
+{
+    bool ok;
+    int value = this->get (BSupplier::OutputValueStep).toInt (&ok);
+    return ok ? value : DcpBrief::sliderSteps ();
+}
 
 QString DcpRemoteBrief::name () const
 {
@@ -102,21 +140,21 @@ QString DcpRemoteBrief::name () const
 
 QString DcpRemoteBrief::titleText () const
 {
-    return value (BSupplier::OutputTitleText);
+    return get (BSupplier::OutputTitleText);
 }
 
 
 QString DcpRemoteBrief::helpId () const
 {
-    return value (BSupplier::OutputHelpId);
+    return get (BSupplier::OutputHelpId);
 }
 
-QString DcpRemoteBrief::value (const char* id) const
+QString DcpRemoteBrief::get (const char* id) const
 {
     return priv->values.value (id).trimmed();
 }
 
-void DcpRemoteBrief::setValue (const char* id, const QString& value)
+void DcpRemoteBrief::set (const char* id, const QString& value)
 {
     priv->values[id] = value;
 }

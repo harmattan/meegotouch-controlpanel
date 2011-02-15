@@ -62,12 +62,12 @@ DcpAppletMetadata* createMetadata (const char* fname) {
     QString fpathLocal = qApp->applicationDirPath ()+ "/"+fname;
     // First we try to run it on the one from the current directory::
     if (QFileInfo(fpathLocal).exists()) {
-        qWarning ("XXXApplet was run from the current dir");
+        qDebug ("Applet was run from the current dir");
         DcpAppletMetadata::setDefaultSOPath (qApp->applicationDirPath ());
         return new DcpAppletMetadata (fpathLocal);
     }
     // else we use an installed version:
-    qWarning ("XXXApplet was run from installed");
+    qDebug ("Applet was run from installed");
     return new DcpAppletMetadata (fpath);
 }
 

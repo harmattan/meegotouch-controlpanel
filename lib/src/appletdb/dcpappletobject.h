@@ -23,6 +23,7 @@
 
 #include "dcpappletplugin.h" 
 #include <QString>
+#include <QVariant>
 class DcpAppletIf;
 class DcpAppletMetadata;
 class DcpBrief;
@@ -64,6 +65,12 @@ public:
     QString helpId () const;
 
     DcpBrief* brief() const;
+    QVariant value() const;
+    int minValue() const;
+    int maxValue() const;
+    int sliderSteps() const;
+
+    int briefVersion() const;
 
 signals:
     void briefChanged ();
@@ -75,6 +82,7 @@ public slots:
     void setToggle (bool checked);
     bool activatePluginByName (const QString &name) const;
     void activateSlot(int widgetId = -1);
+    void setValue(const QVariant& value);
 
 protected:
     void setBrief (DcpBrief* brief);

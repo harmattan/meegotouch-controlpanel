@@ -570,10 +570,24 @@ bool DcpAppletMetadata::hasMainView () const
     }
     // return default:
     int type = widgetTypeID();
-    if (type == DcpWidgetType::Toggle || type == DcpWidgetType::Button) {
+    if (type == DcpWidgetType::Toggle || type == DcpWidgetType::Button ||
+        type == DcpWidgetType::Slider)
+    {
         return false;
     } else {
         return true;
     }
 }
+
+QString DcpAppletMetadata::sliderLeftImage () const
+{
+    return desktopEntryStr(KeySliderLeftImage);
+}
+
+QString DcpAppletMetadata::sliderRightImage () const
+{
+    return desktopEntryStr(KeySliderRightImage);
+}
+
+
 

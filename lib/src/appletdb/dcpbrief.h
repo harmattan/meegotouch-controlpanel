@@ -23,6 +23,7 @@
 
 #include <QObject>
 #include <QString>
+#include <QVariant>
 
 /*!
  * \class DcpBrief
@@ -148,7 +149,44 @@ public:
      * By default it is null, so there is no help button.
      */
     virtual QString helpId () const;
+	
+    /*!
+     * Returns the minimum integer value allowed
+     * It is used when brief has a slider
+     * Default is 0
+     */
+    virtual int minValue() const;
+
+    /*!
+     * Returns the maximum integer value allowed
+     * It is used when brief has a slider
+     * Default is 100
+     */
+    virtual int maxValue() const;
+
+    /*!
+     * Returns the steps of the slider
+     * It is used when brief has a slider
+     * For details, see MSlider::steps()
+     * Default is 0
+     */
+    virtual int sliderSteps() const;
+
+    /*!
+     * sets simple value of an applet
+     * It is used currently for the slider to receive its new position if
+     * the user changes it.
+     */
+    virtual void setValue(const QVariant& value);
+
+    /*!
+     * returns simple value of an applet
+     * It is used currently for the slider to return its current position.
+     */
+    virtual QVariant value() const;
+
 };
+
 
 
 #endif
