@@ -200,7 +200,7 @@ static void sortACategory (QList<DcpAppletMetadata*>& filtered,
     // FIXME: quick solution, we should remove this magic word and
     //        export the category names (?)
     qSort(filtered.begin(), filtered.end(),
-          category == "qtn_sett_main_application" ?
+          category == "qtn_sett_main_applications" ?
                       DcpAppletMetadata::nameLessThan :
                       DcpAppletMetadata::orderLessThan
          );

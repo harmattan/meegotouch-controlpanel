@@ -1,8 +1,13 @@
 duicontrolpanel (0.11.7~unreleased) unstable; urgency=low
 
+  [ Robert Manner ]
   * Changes: new briefview type - Slider
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 15 Feb 2011 13:31:32 +0100
+  [ Sandor Pinter ]
+  * Fixes: NB#227727 - Applications list in Settings is not sorted
+    alphabetic
+
+ -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Tue, 15 Feb 2011 14:08:46 +0100
 
 duicontrolpanel (0.11.6.3) unstable; urgency=low
 
