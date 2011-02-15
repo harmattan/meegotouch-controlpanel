@@ -176,12 +176,16 @@ public:
      * sets simple value of an applet
      * It is used currently for the slider to receive its new position if
      * the user changes it.
+     * Do not emit valuesChanged() from this function, as the value change
+     * has already been noticed by controlpanel.
      */
     virtual void setValue(const QVariant& value);
 
     /*!
      * returns simple value of an applet
      * It is used currently for the slider to return its current position.
+     * The applet should emit valuesChanged() if the value changes and the
+     * slider has to be updated.
      */
     virtual QVariant value() const;
 

@@ -1,5 +1,25 @@
 /*! \page news What's New in DuiControlPanel
 
+\section v0A7 0.11.7
+\subsection new New features
+- New briefview type "Slider". To use it, an applet has to reimplement
+  DcpBrief::setValue(), DcpBrief::value() etc., and specify "Slider" as its
+  type in the .desktop file.
+- Support for briefviews with horizontal layouted value line. To use it, the
+  applet has to specify "TextOrientation=Horizontal" in the [DCP] section of
+  its .desktop file.
+
+\section v0A6 0.11.6
+\subsection new New features
+- It is now configurable if the category icons are above or
+  below the applet icons using the ComponentOrder key in the
+  .cpcategory files
+
+\section v0A5 0.11.5
+\subsection new New features
+- the applet can specify in its .desktop file if it has a
+  mainview through DCP/HasMainView key
+
 \section v0A0 0.11.0
 \subsection new New features
 - New applet categories can be added through ini files, see

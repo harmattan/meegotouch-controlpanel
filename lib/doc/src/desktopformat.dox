@@ -124,6 +124,7 @@ The widget type of the launch button. Can be one of the following:
 <li>Image - Like Label, and an image
 <li>Toggle - Like Label with a toggle button on the right
 <li>Button - A big button with the applet title on it which can be toggled.
+<li>Slider - A slider, optionally with two icons on the left and right side without any labels
 </ul>
 
 \par HelpId
@@ -170,6 +171,17 @@ Through the value of this key the plugin can specify if it has a main view
 the mainpage of the applet when the user clicks on it in the list. Default is
 true for most, except for Button and Toggle type of applets, the letters
 default to having no main view.
+
+\par SliderLeftImage, SliderRightImage
+It can define a static icon on the left and right side of a "Slider" type
+briefview. Similarly to "Image", its value can be a theme id, or a path to
+an image.
+
+\par TextOrientation
+Defines the orientation of the two text label of the icon. It can have the
+value "Vertical" (which is the default), in which case the two labels (title
+and value line) will be under each other, or it can have the value "Horizontal",
+in which case the two labels will be next to each other.
 
 
 \section specialities Other
