@@ -265,10 +265,16 @@ DcpContentItem::ensureTextsAreCreated()
         d_ptr->m_Text2W = new MLabel();
         d_ptr->m_Text2W->setStyleName(subtitleObjectName);
 
-        d_ptr->m_Text2W->setAlignment (
-                metadata()->textOrientation() == Qt::Horizontal ?
-                Qt::AlignRight | Qt::AlignTop : Qt::AlignTop);
+        d_ptr->m_LayoutIsToBeChanged = true;
+    }
 
+    Qt::Alignment text2Align =
+        metadata()->textOrientation() == Qt::Horizontal ?
+        Qt::AlignRight | Qt::AlignTop : Qt::AlignTop;
+    if (d_ptr->m_Text2W->alignment() != text2Align) {
+        // this means that the text orientation has changed,
+        // so we will need to relayout
+        d_ptr->m_Text2W->setAlignment (text2Align);
         d_ptr->m_LayoutIsToBeChanged = true;
     }
 
