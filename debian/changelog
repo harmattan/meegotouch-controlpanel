@@ -1,7 +1,12 @@
 duicontrolpanel (0.11.7~unreleased) unstable; urgency=low
 
+  [ Robert Manner ]
   * Changes: new briefview type - Slider
   * Changes: Support for briefviews with horizontal layouted value line
+
+  [ Sandor Pinter ]
+  * Fixes: NB#227727 - Applications list in Settings is not sorted
+    alphabetic
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 15 Feb 2011 16:57:31 +0100
 
