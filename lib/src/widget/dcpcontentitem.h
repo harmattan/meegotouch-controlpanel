@@ -102,6 +102,7 @@ protected slots:
 
     void onClicked ();
     void sliderChanged(int value);
+    void onToggleChanged (bool toggle);
 
 protected:
     virtual void retranslateUi ();

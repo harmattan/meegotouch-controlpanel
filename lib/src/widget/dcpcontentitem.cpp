@@ -182,6 +182,13 @@ DcpContentItem::ensureSliderIsCreated()
 }
 
 void
+DcpContentItem::onToggleChanged (bool toggle)
+{
+    dcp_failfunc_unless (applet());
+    applet()->setToggle (toggle);
+}
+
+void
 DcpContentItem::ensureToggleIsCreated()
 {
     // create / free up toggle:
@@ -193,7 +200,7 @@ DcpContentItem::ensureToggleIsCreated()
             button->setStyleName (toggleObjectName);
             button->setCheckable(true);
             connect (button, SIGNAL (toggled(bool)),
-                     applet(), SLOT(setToggle(bool)));
+                     this, SLOT(onToggleChanged(bool)));
             d_ptr->m_LayoutIsToBeChanged = true;
 
             // clicking on the item is disabled (only toggle is clickable)
