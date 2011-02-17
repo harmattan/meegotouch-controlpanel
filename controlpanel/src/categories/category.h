@@ -55,6 +55,12 @@ public:
 
     virtual bool hasMostUsed () const { return false; }
 
+    enum SortType {
+        SortByOrder,
+        SortByTitle
+    };
+    SortType appletSort () const;
+
     enum ComponentOrderType {
         CategoriesFirst,
         AppletsFirst
@@ -78,6 +84,7 @@ protected:
         TranslationId,
         OrderId,
         ComponentOrderId,
+        AppletSortId,
         KeyIdMax
     };
 

@@ -189,23 +189,6 @@ DcpAppletDb::list() const
 }
 
 
-/*
- * Categories should be ordered by the way it is specified in their
- * desktop files, except the applications category, which should be ordered
- * by the name of the items
- */
-static void sortACategory (QList<DcpAppletMetadata*>& filtered,
-                           const QString& category)
-{
-    // FIXME: quick solution, we should remove this magic word and
-    //        export the category names (?)
-    qSort(filtered.begin(), filtered.end(),
-          category == "qtn_sett_main_applications" ?
-                      DcpAppletMetadata::nameLessThan :
-                      DcpAppletMetadata::orderLessThan
-         );
-}
-
 /*!
  *
  */
@@ -220,7 +203,6 @@ DcpAppletDb::listByCategory (
             filtered.append (item);
     }
 
-    sortACategory (filtered, category);
     return filtered;
 }
 
@@ -246,9 +228,9 @@ DcpAppletDb::listByCategory (
 }
 
 
-DcpAppletMetadataList
+    DcpAppletMetadataList
 DcpAppletDb::listByCategory (const QStringList& categories,
-                             checkCategory   checkFunction)
+        checkCategory   checkFunction)
 {
     QList<DcpAppletMetadata*> filtered;
 
@@ -268,12 +250,11 @@ DcpAppletDb::listByCategory (const QStringList& categories,
         }
     }
 
-    sortACategory (filtered, categories.count() > 0 ? categories.at(0) : QString());
     return filtered;
 }
 
 
-DcpAppletMetadataList 
+    DcpAppletMetadataList 
 DcpAppletDb::listMostUsed ()
 {
     DcpAppletMetadataList mostUsed;
@@ -290,7 +271,7 @@ DcpAppletDb::listMostUsed ()
             mostUsed.push_back(iter.value());
     }
 
-   qSort (mostUsed.begin(), mostUsed.end(), 
+    qSort (mostUsed.begin(), mostUsed.end(), 
            DcpAppletMetadata::usageGreatherThan);
 
    // last clicked item should be the first item (see bug NB#169944)

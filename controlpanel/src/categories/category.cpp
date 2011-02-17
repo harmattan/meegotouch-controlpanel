@@ -129,6 +129,18 @@ QList<const Category*> Category::children() const
     return m_Children;
 }
 
+/*! \brief Specifies in which order the applets in the category should be sorted.
+ *
+ * Default is SortByOrder, in which case the applets will be sorted by what
+ * "Order" they specify in their .desktop files.
+ * If SortByTitle, then applets should be sorted by their translated title.
+ */
+Category::SortType Category::appletSort () const
+{
+    QString sort = value (AppletSortId);
+    return sort == "SortByTitle" ? SortByTitle : SortByOrder;
+}
+
 const char* Category::componentOrderToString (ComponentOrderType order)
 {
     return order == AppletsFirst ? "AppletsFirst" : "CategoriesFirst";

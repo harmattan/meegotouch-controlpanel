@@ -417,6 +417,15 @@ DcpAppletMetadata::nameLessThan (
             == MLocale::LessThan;
 }
 
+bool 
+DcpAppletMetadata::titleLessThan (
+        DcpAppletMetadata *meta1,
+        DcpAppletMetadata *meta2)
+{
+    return MCollator::compare (meta1->text1 (), meta2->text1 ())
+            == MLocale::LessThan;
+}
+
 #ifdef MOSTUSED
 bool 
 DcpAppletMetadata::usageGreatherThan (
@@ -523,10 +532,10 @@ QString DcpAppletMetadata::helpId() const
 /* Returns the product version string */
 inline const QString& product()
 {
-#ifdef MEEGO
-	return QString();
-#else
     static QString result;
+#ifdef MEEGO
+    return result;
+#else
     if (result.isNull()) {
         struct system_config *sc = 0;
         if( sysinfo_init(&sc) == 0 ) {

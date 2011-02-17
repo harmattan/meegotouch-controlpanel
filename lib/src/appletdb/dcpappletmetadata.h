@@ -78,7 +78,7 @@ public:
 #ifdef MOSTUSED
     int usage () const;
     void incrementUsage();
-    
+
     static bool usageGreatherThan (
             DcpAppletMetadata *meta1,
             DcpAppletMetadata *meta2);
@@ -93,7 +93,11 @@ public:
             DcpAppletMetadata *meta1,
             DcpAppletMetadata *meta2);
 
-     bool isDisabled () const;
+    static bool titleLessThan (
+            DcpAppletMetadata *meta1,
+            DcpAppletMetadata *meta2);
+
+    bool isDisabled () const;
     void setDisabled (bool disabled);
 
     void markActive();
