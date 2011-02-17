@@ -1,3 +1,4 @@
+#ifndef MEEGO
 #include <sysinfo.h>
 
 #include <string.h>
@@ -20,4 +21,4 @@ int sysinfo_get_value (struct system_config *,
     *len_out = strlen (id);
     return 0;
 }
-
+#endif

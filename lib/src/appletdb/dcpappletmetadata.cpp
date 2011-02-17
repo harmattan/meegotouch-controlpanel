@@ -29,7 +29,9 @@
 #include <MGConfItem>
 #include <MLocale>
 #include <mcollator.h>
+#ifndef MEEGO
 #include <sysinfo.h>
+#endif
 
 DcpAppletMetadata* DcpAppletMetadataPrivate::sm_LastUsed = 0;
 QString DcpAppletMetadataPrivate::sm_SOPath = APPLET_LIBS "/";
@@ -521,8 +523,10 @@ QString DcpAppletMetadata::helpId() const
 /* Returns the product version string */
 inline const QString& product()
 {
+#ifdef MEEGO
+	return QString();
+#else
     static QString result;
-
     if (result.isNull()) {
         struct system_config *sc = 0;
         if( sysinfo_init(&sc) == 0 ) {
@@ -541,6 +545,7 @@ inline const QString& product()
         qDebug ("Product is \"%s\"", qPrintable(result));
     }
     return result;
+#endif
 }
 
 bool DcpAppletMetadata::isHidden() const

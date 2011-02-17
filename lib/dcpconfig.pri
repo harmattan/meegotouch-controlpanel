@@ -1,3 +1,4 @@
+include(../platform.pri)
 !dcpconfig {
     CONFIG += dcpconfig
 

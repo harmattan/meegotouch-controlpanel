@@ -1,4 +1,5 @@
 include(./../../dcpconfig.pri)
+include(./../../../platform.pri)
 
 INCLUDEPATH += ../doubles
 

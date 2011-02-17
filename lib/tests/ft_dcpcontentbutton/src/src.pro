@@ -1,10 +1,15 @@
 TOPDIR=../../..
+include(../$$TOPDIR/platform.pri)
 TEMPLATE      = app 
 QT += testlib
 INCLUDEPATH += $$system(find $$TOPDIR -type d)
 CONFIG       += meegotouch silent debug
 DATADIR = /usr/lib/duicontrolpanel-tests/ft_dcpcontentbutton-data
-LIBS += -L../../../lib/ -lduicontrolpanel -lsysinfo
+LIBS += -L../../../lib/ -lduicontrolpanel
+!meego {
+LIBS += -lsysinfo
+}
+
 
 DEFINES += DATADIR=\\\"$$DATADIR\\\"
 DEFINES += APPLET_LIBS=\\\"$$DATADIR\\\" DATADIR=\\\"$$DATADIR\\\" DESKTOP_DIR=\\\"$$DATADIR\\\" 
