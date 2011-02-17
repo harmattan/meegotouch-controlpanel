@@ -29,7 +29,8 @@ const char* FileCategory::keys[KeyIdMax] = {
     "Aliases",
     "Translation-catalogs",
     "Order",
-    "ComponentOrder"
+    "ComponentOrder",
+    "AppletSort"
 };
 
 FileCategory::FileCategory(const QString& fileName):

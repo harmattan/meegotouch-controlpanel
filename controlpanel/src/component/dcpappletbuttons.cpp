@@ -101,13 +101,13 @@ DcpAppletButtons::createContents ()
 {
     if (!m_CategoryInfo) return;
 
-    DCP_DEBUG ("");
     /*
      * Getting the list of applet variants (metadata objects) that will go into
      * this widget.
      */
     DcpAppletMetadataList metadatas;
-    if (m_CategoryInfo->name() == MostUsed) {
+    bool isMostUsed = m_CategoryInfo->name() == MostUsed;
+    if (isMostUsed) {
         metadatas = DcpAppletDb::instance()->listMostUsed();
     } else {
         bool withUncategorized = m_CategoryInfo->containsUncategorized();
@@ -119,6 +119,15 @@ DcpAppletButtons::createContents ()
 
     // ensure that all needed catalogs are loaded for the applets before
     DcpRetranslator::instance()->ensureTranslationsAreLoaded(metadatas);
+
+    // sort it: (mostused is already sorted)
+    if (!isMostUsed) {
+        qSort (metadatas.begin(), metadatas.end(),
+               m_CategoryInfo->appletSort() == Category::SortByTitle ?
+               DcpAppletMetadata::titleLessThan :
+               DcpAppletMetadata::orderLessThan
+        );
+    }
 
     // add the elements:
     QStandardItemModel* model = new QStandardItemModel(m_List);

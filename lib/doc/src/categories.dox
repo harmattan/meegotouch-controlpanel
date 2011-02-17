@@ -79,6 +79,13 @@ list which represents the category content. If it has the value
 If it contains any other value ("CategoriesFirst", the default), the
 categories will be above the applets.
 
+\par AppletSort
+Defines the way the applets in the category are sorted.
+Its value can be "SortByTitle" or "SortByOrder" (default). First one means that
+the applets will be sorted by their translated title, second is that the
+applets themselves defines their sequence through the "Order" key in their
+.desktop file.
+
 Example:
 \code
 Parent=MainPage

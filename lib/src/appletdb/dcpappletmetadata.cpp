@@ -417,6 +417,15 @@ DcpAppletMetadata::nameLessThan (
             == MLocale::LessThan;
 }
 
+bool 
+DcpAppletMetadata::titleLessThan (
+        DcpAppletMetadata *meta1,
+        DcpAppletMetadata *meta2)
+{
+    return MCollator::compare (meta1->text1 (), meta2->text1 ())
+            == MLocale::LessThan;
+}
+
 #ifdef MOSTUSED
 bool 
 DcpAppletMetadata::usageGreatherThan (
