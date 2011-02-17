@@ -532,10 +532,10 @@ QString DcpAppletMetadata::helpId() const
 /* Returns the product version string */
 inline const QString& product()
 {
-#ifdef MEEGO
-	return QString();
-#else
     static QString result;
+#ifdef MEEGO
+    return result;
+#else
     if (result.isNull()) {
         struct system_config *sc = 0;
         if( sysinfo_init(&sc) == 0 ) {
