@@ -63,16 +63,19 @@ MApplicationWindow* DcpAppletLauncherService::window()
 {
     MApplicationWindow *win;
     if (MApplication::windows().isEmpty())  {
-#ifndef DISABLE_LAUNCHER
+#if 0
+        // TODO for the window creation, launcher has to be disabled for now,
+        // if running chained.
+        // See bug NB#220018, reenable this if it gets healed
+ifndef DISABLE_LAUNCHER
         win = MComponentCache::mApplicationWindow();
-#else // USE_LAUNCHER
+#else // DISABLE_LAUNCHER
         win = new MApplicationWindow();
-#endif // USE_LAUNCHER
+#endif
 #ifndef FREE_ORIENTATION
         win->setPortraitOrientation();
         win->setOrientationLocked(true);
 #endif // FREE_ORIENTATION
-        win->setAttribute( Qt::WA_DeleteOnClose, true );
 
     } else {
         win = qobject_cast<MApplicationWindow*>(MApplication::windows().at(0));

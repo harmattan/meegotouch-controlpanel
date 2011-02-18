@@ -1,5 +1,5 @@
 #! /bin/sh
 
-exec /usr/bin/duicontrolpanel.launch -appletloader "$@" POSTFIX
-# exec PREFIX/usr/bin/duicontrolpanel.launch -appletloader "$@" POSTFIX
+# exec /usr/bin/duicontrolpanel.launch -appletloader "$@" POSTFIX
+exec PREFIX/usr/bin/duicontrolpanel.launch -appletloader "$@" POSTFIX
 
