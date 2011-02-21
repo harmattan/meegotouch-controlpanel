@@ -8,7 +8,7 @@ Value-logical-id=qtn_sett_main_phone_label2
 
 Icon=icon-m-settings-call
 
-Aliases=qtn_sett_main_battery
+Aliases=qtn_sett_main_battery,Personalize
 Translation-catalogs=
 
 Order=10
