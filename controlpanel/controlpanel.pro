@@ -19,6 +19,7 @@ minimal {
 
 # install targets:
 include (common.pri)
+include (../platform.pri)
 include(theme/theme.pri)
 include(desktop/desktop.pri)
 include (categories/categories.pri)

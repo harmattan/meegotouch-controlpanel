@@ -3,8 +3,14 @@ duicontrolpanel (0.11.8~unreleased) unstable; urgency=low
   * Fixes: NB#227727 - Applications list in Settings is not sorted
     alphabetic (now it is sorted by translated title and not engineering
     translation)
+  * Fixes: NB#228764 - Settings categories implementation not according
+    to new requirements
+  * New: applet auto starting if a category contains one applet only can
+    be customized via AutoStartApplet key
+  * Changes: category names have changed for non-meego targets, applets
+    have to recheck their categories
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 17 Feb 2011 13:08:52 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 21 Feb 2011 14:33:37 +0100
 
 duicontrolpanel (0.11.7.1) unstable; urgency=low
 

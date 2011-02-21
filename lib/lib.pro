@@ -13,8 +13,9 @@ minimal {
     SUBDIRS += tests
 }
 
-include(doc/doc.pri)
-include(libconfig.pri)
+include (../platform.pri)
+include (doc/doc.pri)
+include (libconfig.pri)
 
 # for check:
 check.target = check

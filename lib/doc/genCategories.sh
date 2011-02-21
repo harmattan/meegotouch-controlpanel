@@ -9,7 +9,7 @@ echo "
     <th>Ids maintained for compatibility</th>
   </tr>"
 
-for i in ../controlpanel/categories/*.cpcategory; do
+for i in "$1"/*cpcategory; do
     echo "  <tr>"
     grep -E '^Name|^Aliases' "$i" \
     | cut -f 2 -d '=' | sed 's_^_     <td>_;s_$_</td>_'

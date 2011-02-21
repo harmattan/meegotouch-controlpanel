@@ -1,3 +1,5 @@
+isEmpty(HOST_ARCH) {
+
 HOST_ARCH=$$system(dpkg-architecture -qDEB_HOST_GNU_TYPE || echo meego)
 message("arch $$HOST_ARCH")
 contains(HOST_ARCH,meego){
@@ -11,3 +13,6 @@ meego {
 } else {
 message("NON-MEEGO")
 }
+
+}
+

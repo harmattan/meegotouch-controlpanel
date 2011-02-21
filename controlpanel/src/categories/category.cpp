@@ -183,3 +183,9 @@ bool Category::orderLessThan (const Category *c1, const Category *c2)
     return c1->order() < c2->order();
 }
 
+bool Category::appletAutoStart () const
+{
+    QString autoSt = value (AppletAutoStartId);
+    return autoSt == "1";
+}
+

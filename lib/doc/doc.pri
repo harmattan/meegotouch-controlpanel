@@ -4,7 +4,14 @@
 
     QMAKE_EXTRA_TARGETS += doc
     doc.target = doc
-    doc.commands+= ./doc/genCategories.sh >doc/defaultcategories.html ;
+
+    meego {
+        CATEGORY_PATH=../controlpanel/categories/meego_variant
+    } else {
+        CATEGORY_PATH=../controlpanel/categories/harm_variant
+    }
+
+    doc.commands+= ./doc/genCategories.sh $$CATEGORY_PATH >doc/defaultcategories.html ;
     isEmpty(DOXYGEN_BIN) {
         doc.commands+= echo "Unable to detect doxygen in PATH"
     } else {

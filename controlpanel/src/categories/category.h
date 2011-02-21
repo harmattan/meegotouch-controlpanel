@@ -67,6 +67,8 @@ public:
     };
     ComponentOrderType componentOrder () const;
 
+    bool appletAutoStart () const;
+
 protected:
     static const char* componentOrderToString (ComponentOrderType order);
 
@@ -85,6 +87,7 @@ protected:
         OrderId,
         ComponentOrderId,
         AppletSortId,
+        AppletAutoStartId,
         KeyIdMax
     };
 

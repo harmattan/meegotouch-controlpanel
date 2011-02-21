@@ -1,0 +1,18 @@
+Parent=MainPage
+
+Name=Wallpaper
+Name-logical-id=qtn_sett_main_wallpaper
+
+Value="Lock screen background"
+Value-logical-id=qtn_sett_main_wallpaper_label2
+
+# TODO we need an icon id
+Icon=icon-m-applet-settings
+
+Aliases=
+Translation-catalogs=
+
+AutoStartApplet=1
+
+Order=50
+

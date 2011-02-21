@@ -86,6 +86,13 @@ the applets will be sorted by their translated title, second is that the
 applets themselves defines their sequence through the "Order" key in their
 .desktop file.
 
+\par AutoStartApplet
+This key can override applet autostarting.
+If it has the value "1", autostart is on, in which case the applet list will not
+be shown for the user if the category has only 1 applet, but instead, the applet
+will be opened directly. Default value is "0", by default autostarting is
+disabled.
+
 Example:
 \code
 Parent=MainPage

@@ -1,5 +1,13 @@
 /*! \page news What's New in DuiControlPanel
 
+\section v0A8 0.11.8
+\subsection new New features
+Applet auto starting if a category contains one applet only can
+    be customized via AutoStartApplet key
+\subsection changes Changes
+Category names have changed for non-meego targets, applets
+    have to recheck their categories
+
 \section v0A7 0.11.7
 \subsection new New features
 - New briefview type "Slider". To use it, an applet has to reimplement

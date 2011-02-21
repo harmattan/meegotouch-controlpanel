@@ -1,0 +1,16 @@
+Parent=MainPage
+
+Name="Sounds & Vibra"
+Name-logical-id=qtn_sett_main_sounds
+
+Value="Ringtones, vibration"
+Value-logical-id=qtn_sett_main_sounds_label2
+
+# TODO we need an icon id
+Icon=icon-m-applet-settings
+
+Aliases=
+Translation-catalogs=
+
+Order=40
+

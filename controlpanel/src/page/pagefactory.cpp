@@ -274,23 +274,28 @@ PageFactory::createAppletCategoryPage (const PageHandle& handle)
         return 0;
     }
 
-    DcpAppletCategoryPage* appletCategoryPage = new DcpAppletCategoryPage (info);
-    registerPage (appletCategoryPage);
-
-#ifdef SKIP_CATEGORIES_WITH_ONE_APPLET
     /*
      * If the category contains one applet only, then we do not require the user
      * to click on that, but switch to the appletPage directly
-     *
+     * This functionality has to be enabled from the category config file.
      */
-    if (appletCategoryPage->appletCount() == 1)
-    {
-        DcpAppletMetadata* metadata = appletCategoryPage->appletMetadata(0);
-        if (metadata) {
-            return createAppletPage (metadata);
+    qDebug ("XXX autostart %d %d", info->appletAutoStart(), info->children().count());
+    if (info->appletAutoStart() && info->children().count() == 0) {
+        // TODO might make sense to move this to class Category
+        DcpAppletDb* db = DcpAppletDb::instance();
+        bool withUncategorized = info->containsUncategorized();
+        DcpAppletMetadataList list = db->listByCategory (info->referenceIds(),
+                    withUncategorized ? DcpCategories::hasCategory : NULL);
+        if (list.count() == 1) {
+            DcpAppletMetadata* metadata = list.at(0);
+            if (metadata->hasMainView()) {
+                return createAppletPage (metadata);
+            }
         }
     }
-#endif
+
+    DcpAppletCategoryPage* appletCategoryPage = new DcpAppletCategoryPage (info);
+    registerPage (appletCategoryPage);
 
     return appletCategoryPage;
 }
