@@ -35,6 +35,7 @@ public:
     DcpMainCategory(QGraphicsWidget  *parent = 0);
 
     virtual void appendWidget (QGraphicsWidget *component);
+    virtual void appendSeparator ();
     QGraphicsWidget* widgetAt (int i);
     int getItemCount () { return layout()->count(); };
     void deleteItems();
@@ -60,12 +61,15 @@ DcpMainCategory::mLayout() const
 inline void
 DcpMainCategory::appendWidget ( QGraphicsWidget *component)
 {
-    if (mLayout()->count() > 0) {
-        MSeparator *sep = new MSeparator(this);
-        sep->setStyleName("CommonHeaderDividerInverted");
-        mLayout()->addItem (sep);
-    }
     mLayout()->addItem (component);
+}
+
+inline void
+DcpMainCategory::appendSeparator ()
+{
+    MSeparator *sep = new MSeparator(this);
+    sep->setStyleName("CommonHeaderDividerInverted");
+    mLayout()->addItem (sep);
 }
 
 #endif

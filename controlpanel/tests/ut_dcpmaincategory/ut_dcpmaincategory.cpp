@@ -67,10 +67,10 @@ void Ut_DcpMainCategory::testGetItemCount()
     QCOMPARE(m_subject->getItemCount(), 1);
 
     m_subject->appendWidget(component2);
-    QCOMPARE(m_subject->getItemCount(), 3);
+    QCOMPARE(m_subject->getItemCount(), 2);
 
     m_subject->appendWidget(component3);
-    QCOMPARE(m_subject->getItemCount(), 5);
+    QCOMPARE(m_subject->getItemCount(), 3);
 
     delete component1;
     delete component2;

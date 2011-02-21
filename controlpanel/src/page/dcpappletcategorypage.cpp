@@ -70,6 +70,10 @@ DcpAppletCategoryPage::createCategories ()
         otherCategories->appendWidget(button);
     }
 
+    if (!categoryList.isEmpty()) {
+        otherCategories->appendSeparator();
+    }
+
     return otherCategories;
 }
 
