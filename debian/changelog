@@ -1,4 +1,4 @@
-duicontrolpanel (0.11.8~unreleased) unstable; urgency=low
+duicontrolpanel (0.11.8) unstable; urgency=low
 
   * Fixes: NB#227727 - Applications list in Settings is not sorted
     alphabetic (now it is sorted by translated title and not engineering
