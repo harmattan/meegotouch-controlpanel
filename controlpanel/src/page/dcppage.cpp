@@ -209,6 +209,7 @@ DcpPage::mainLayout ()
 void
 DcpPage::setTitleLabel ()
 {
+#ifndef MEEGO
     if (! mainLayout()) return;
 
     if (title().isEmpty()) {
@@ -239,5 +240,6 @@ DcpPage::setTitleLabel ()
         mainLayout()->insertItem (1, separator);
     }
     m_TitleLabel->setText (title ());
+#endif
 }
 
