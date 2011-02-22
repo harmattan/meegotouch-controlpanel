@@ -54,8 +54,13 @@ DcpAppletCategoryPage::createCategories ()
 {
     DcpMainCategory *otherCategories = new DcpMainCategory();
     QList<const Category*> categoryList;
-    if (m_CategoryInfo) {
-        categoryList = m_CategoryInfo->children();
+    if (m_CategoryInfo) categoryList = m_CategoryInfo->children();
+    if (categoryList.isEmpty()) {
+        return otherCategories;
+    }
+
+    if (m_CategoryInfo->componentOrder() == Category::AppletsFirst) {
+        otherCategories->appendSeparator();
     }
 
     foreach (const Category *info, categoryList) {
@@ -70,7 +75,7 @@ DcpAppletCategoryPage::createCategories ()
         otherCategories->appendWidget(button);
     }
 
-    if (!categoryList.isEmpty()) {
+    if (m_CategoryInfo->componentOrder() == Category::CategoriesFirst) {
         otherCategories->appendSeparator();
     }
 
