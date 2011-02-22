@@ -279,7 +279,6 @@ PageFactory::createAppletCategoryPage (const PageHandle& handle)
      * to click on that, but switch to the appletPage directly
      * This functionality has to be enabled from the category config file.
      */
-    qDebug ("XXX autostart %d %d", info->appletAutoStart(), info->children().count());
     if (info->appletAutoStart() && info->children().count() == 0) {
         // TODO might make sense to move this to class Category
         DcpAppletDb* db = DcpAppletDb::instance();
@@ -289,7 +288,8 @@ PageFactory::createAppletCategoryPage (const PageHandle& handle)
         if (list.count() == 1) {
             DcpAppletMetadata* metadata = list.at(0);
             if (metadata->hasMainView()) {
-                return createAppletPage (metadata);
+                changeToAppletPage (metadata->name());
+                return 0;
             }
         }
     }
