@@ -1,8 +1,8 @@
 duicontrolpanel (0.11.9~unreleased) unstable; urgency=low
 
-  * New version
+  * Using default loadHints for loading a plugin
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 22 Feb 2011 11:05:27 +0100
+ -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Wed, 23 Feb 2011 14:15:32 +0100
 
 duicontrolpanel (0.11.8) unstable; urgency=low
 
