@@ -8,7 +8,7 @@ Value-logical-id=qtn_sett_main_aboutmy_label2
 
 Icon=icon-m-settings-description
 
-Aliases=About,About my device,About my NXX
+Aliases="About,About my device,About my NXX"
 Translation-catalogs=
 
 AutoStartApplet=1

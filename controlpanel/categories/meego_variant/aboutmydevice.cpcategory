@@ -8,7 +8,7 @@ Value-logical-id=qtn_sett_main_aboutmy_label2
 
 Icon=icon-m-settings-description
 
-Aliases=About,About my device
+Aliases="About,About my device"
 Translation-catalogs=
 
 Order=120
