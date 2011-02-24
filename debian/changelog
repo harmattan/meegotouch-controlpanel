@@ -7,8 +7,10 @@ duicontrolpanel (0.12.0~unreleased) unstable; urgency=low
   * Fixes: category for "Security" and "Tactile feedback"
   * Fixes: NB#230474 - Order of Settings categories in Settings main
     view needs to be updated
+  * Fixes: NB#230505 - 2nd row labels should be removed from Settings
+    main view
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 24 Feb 2011 17:08:31 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 24 Feb 2011 17:21:53 +0100
 
 duicontrolpanel (0.11.8) unstable; urgency=low
 
