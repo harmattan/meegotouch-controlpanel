@@ -112,7 +112,8 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
 
     // the pagefactory starts the applet out of process and refuses to load it,
     // in case it is not already loaded, so we load it here:
-    DcpAppletDb::instance()->applet (m_PageHandle.param);
+    DcpAppletDb::instance()->loadAppletRestricted (m_PageHandle.param);
+
     bool success = pageFactory->changePage (m_PageHandle);
 
     if (success) {

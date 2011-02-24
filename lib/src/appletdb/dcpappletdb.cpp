@@ -228,7 +228,7 @@ DcpAppletDb::listByCategory (
 }
 
 
-    DcpAppletMetadataList
+DcpAppletMetadataList
 DcpAppletDb::listByCategory (const QStringList& categories,
         checkCategory   checkFunction)
 {
@@ -254,7 +254,7 @@ DcpAppletDb::listByCategory (const QStringList& categories,
 }
 
 
-    DcpAppletMetadataList 
+DcpAppletMetadataList 
 DcpAppletDb::listMostUsed ()
 {
     DcpAppletMetadataList mostUsed;
@@ -347,5 +347,12 @@ DcpAppletDb::destroyData ()
 bool DcpAppletDb::isAppletLoaded (const QString& name)
 {
     return d_ptr->appletObjectsByName.contains (name);
+}
+
+bool DcpAppletDb::loadAppletRestricted (const QString& name)
+{
+    DcpAppletMetadata* metadata = metadata(name);
+    dcp_failfunc_unless (metadata, false);
+    ...
 }
 
