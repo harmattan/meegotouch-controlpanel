@@ -3,9 +3,6 @@ Parent=MainPage
 Name=Security
 Name-logical-id=qtn_sett_main_security
 
-Value="Lock code, Passwords & Certificates"
-Value-logical-id=qtn_sett_main_security_label2
-
 Icon=icon-m-common-passcode
 
 Aliases=

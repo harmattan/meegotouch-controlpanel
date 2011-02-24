@@ -3,9 +3,6 @@ Parent=Notifications
 Name="Events feed"
 Name-logical-id=qtn_home_events_settings_title
 
-Value=
-Value-logical-id=
-
 Icon=
 
 Aliases=
