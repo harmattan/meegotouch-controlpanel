@@ -9,8 +9,10 @@ duicontrolpanel (0.12.0~unreleased) unstable; urgency=low
     view needs to be updated
   * Fixes: NB#230505 - 2nd row labels should be removed from Settings
     main view
+  * Fixes: NB#230445 - Settings main level should contain a category
+    named "Security"
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 24 Feb 2011 17:21:53 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 24 Feb 2011 17:40:22 +0100
 
 duicontrolpanel (0.11.8) unstable; urgency=low
 
