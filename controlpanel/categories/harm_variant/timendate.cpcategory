@@ -12,5 +12,5 @@ Icon=icon-m-applet-settings
 Aliases="qtn_sett_main_timedate,Time & Date"
 Translation-catalogs=
 
-Order=90
+Order=50
 
