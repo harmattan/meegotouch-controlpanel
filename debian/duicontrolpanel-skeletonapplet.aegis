@@ -1,7 +1,6 @@
 <aegis>
   <request>
     <credential name="TrackerReadAccess" />
-    <credential name="mce::LEDControl" />
     <for path="/usr/lib/duicontrolpanel/applets/libdcpskeletonapplet.so" />
   </request>
 </aegis>

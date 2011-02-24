@@ -1,4 +1,5 @@
 #include "security.h"
+#include "pagefactory.h"
 
 #include <sys/creds.h>
 #include <QString>
@@ -6,10 +7,14 @@
 #include <DcpAppletMetadata>
 #include <dcpdebug.h>
 
+#include <syslog.h>
+
 void Security::restrictTo (DcpAppletMetadata* metadata)
 {
-    long result = creds_confine (qPrintable(metadata->fullBinary()));
-    qDebug ("XXX %ld", result);
+    if (!PageFactory::isInProcessApplets()) {
+        long result = creds_confine (qPrintable(metadata->fullBinary()));
+        syslog (LOG_DEBUG, "XXX %ld", result);
+    }
 }
 
 void Security::loadAppletRestricted (const QString& appletName)
@@ -18,6 +23,11 @@ void Security::loadAppletRestricted (const QString& appletName)
     dcp_failfunc_unless (db);
     DcpAppletMetadata* metadata = db->metadata (appletName);
     dcp_failfunc_unless (metadata);
+
+    // restrict:
     restrictTo (metadata);
+    
+    // load:
+    db->applet (appletName);
 }
 
