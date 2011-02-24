@@ -1,0 +1,16 @@
+Parent=qtn_sett_main_sounds
+
+Name="Tactile feedback"
+Name-logical-id=
+
+Value=
+Value-logical-id=
+
+# TODO we need an icon id
+Icon=icon-m-applet-settings
+
+Aliases=
+Translation-catalogs=
+
+Order=10
+
