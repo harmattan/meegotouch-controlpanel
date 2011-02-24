@@ -134,8 +134,6 @@ public:
     void destroyData (void);
     static void destroy (void);
 
-    void loadAppletRestricted ();
-
 signals:
     void appletLoaded (DcpAppletObject *applet);
 

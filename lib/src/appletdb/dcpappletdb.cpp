@@ -349,10 +349,3 @@ bool DcpAppletDb::isAppletLoaded (const QString& name)
     return d_ptr->appletObjectsByName.contains (name);
 }
 
-bool DcpAppletDb::loadAppletRestricted (const QString& name)
-{
-    DcpAppletMetadata* metadata = metadata(name);
-    dcp_failfunc_unless (metadata, false);
-    ...
-}
-

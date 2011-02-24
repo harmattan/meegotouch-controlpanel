@@ -18,6 +18,7 @@
 #include "dcpappletlauncherservice.h"
 
 #include "pagefactory.h"
+#include "security.h"
 
 #include "dcpappletlauncherifadaptor.h"
 
@@ -112,7 +113,7 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
 
     // the pagefactory starts the applet out of process and refuses to load it,
     // in case it is not already loaded, so we load it here:
-    DcpAppletDb::instance()->loadAppletRestricted (m_PageHandle.param);
+    Security::loadAppletRestricted (m_PageHandle.param);
 
     bool success = pageFactory->changePage (m_PageHandle);
 

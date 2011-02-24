@@ -23,6 +23,7 @@
 
 #include "duicontrolpanelifadaptor.h"
 #include "duicontrolpanelif.h"
+#include "security.h"
 
 #include <MApplicationIfAdaptor>
 #include <QtDebug>
@@ -120,7 +121,7 @@ DuiControlPanelService::appletPage (const QString& appletName)
             bool success = unregisterService ();
             dcp_failfunc_unless (success, false);
             receiveCloseSignal ();
-            DcpAppletDb::instance()->loadAppletRestricted (appletName);
+            Security::loadAppletRestricted (appletName);
         } else {
             // if we already have a page, then we start another instance,
             // and exit from mainloop:

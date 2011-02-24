@@ -28,6 +28,9 @@ CONFIG += meegotouch build_all warn_on debug
 QT += network dbus
 LIBS += -lduicontrolpanel
 
+# libcreds2
+LIBS += -lcreds
+
 # a fake check target so as not to stop the testing:
 QMAKE_EXTRA_TARGETS += check
 
