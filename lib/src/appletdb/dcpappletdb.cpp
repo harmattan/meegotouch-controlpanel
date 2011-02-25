@@ -349,3 +349,10 @@ bool DcpAppletDb::isAppletLoaded (const QString& name)
     return d_ptr->appletObjectsByName.contains (name);
 }
 
+QList<DcpAppletObject*> DcpAppletDb::loadedApplets () const
+{
+    return d_ptr->appletObjectsByName.values();
+}
+
+
+

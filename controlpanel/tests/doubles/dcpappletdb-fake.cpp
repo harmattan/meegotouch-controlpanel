@@ -130,5 +130,10 @@ bool DcpAppletDb::isAppletLoaded (const QString&)
     return false;
 }
 
+QList<DcpAppletObject*> DcpAppletDb::loadedApplets () const
+{
+    return QList<DcpAppletObject*>();
+}
+
 #endif // DCPAPPLETDB_FAKE_H
 

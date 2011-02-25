@@ -55,8 +55,14 @@ PageFactory::PageFactory ():
     connect (MApplication::activeWindow (), SIGNAL(displayEntered()),
             this, SLOT(onDisplayEntered()));
 
-    connect (DcpAppletDb::instance(), SIGNAL(appletLoaded(DcpAppletObject*)),
+    // run appletLoaded for all applets:
+    DcpAppletDb* db = DcpAppletDb::instance();
+    connect (db, SIGNAL(appletLoaded(DcpAppletObject*)),
              this, SLOT(onAppletLoaded(DcpAppletObject*)));
+    QList<DcpAppletObject*> loadedApplets = db->loadedApplets();
+    foreach (DcpAppletObject* applet, loadedApplets) {
+        onAppletLoaded (applet);
+    }
 }
 
 PageFactory::~PageFactory ()
