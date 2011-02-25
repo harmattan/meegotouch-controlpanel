@@ -1,4 +1,4 @@
-duicontrolpanel (0.12.0~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.0) unstable; urgency=low
 
   [ Sandor Pinter ]
   * Using default loadHints for loading a plugin
