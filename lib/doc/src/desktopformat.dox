@@ -190,7 +190,7 @@ in which case the two labels will be next to each other.
 A binary plugin can override some values specified in the desktop file by
 its interface (DcpBrief, DcpAppletIf).
 
-\section example An example desktop file
+\section desktopexample An example desktop file
 
 In case of a binary plugin for Date & Time applet,
 the desktop file can look like this:

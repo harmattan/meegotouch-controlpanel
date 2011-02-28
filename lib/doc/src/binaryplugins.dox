@@ -19,7 +19,7 @@ Type=ControlPanelApplet
 Name=Skeleton
 Icon=
 Exec=
-X-logical-id=qtn_sett_main_display
+X-logical-id=qtn_sett_main_example
 X-translation-catalog=controlpanel-skeletonapplet
 
 [DUI]
@@ -199,6 +199,8 @@ DcpStylableWidget instead of DcpWidget and should be returned in
 DcpAppletIf::createStylableWidget(). This way you can use the common library
 theming way of meegotouch, see their documentation on the limitations.
 
+\section accesssecurity Requesting access to security restricted functinalities
+<a href="security.html">Please refer to here.</a>
 
 */
 
