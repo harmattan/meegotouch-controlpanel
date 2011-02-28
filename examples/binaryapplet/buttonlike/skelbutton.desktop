@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=ControlPanelApplet
 Name=SkelButton
-X-logical-id=qtn_sett_main_display
+X-logical-id=qtn_sett_main_skelbutton_title
 X-translation-catalog=duicontrolpanel-skeletonapplet
 
 # This has to be specified in order that the .desktop file can also be
