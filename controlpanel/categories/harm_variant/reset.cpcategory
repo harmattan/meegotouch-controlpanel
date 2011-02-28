@@ -3,14 +3,11 @@ Parent=MainPage
 Name=Reset
 Name-logical-id=qtn_sett_main_reset
 
-Value="Restore settings, Clear device"
-Value-logical-id=qtn_sett_main_reset_label2
-
 # TODO we need an icon id
 Icon=icon-m-applet-settings
 
 Aliases=qtn_sett_main_reset
 Translation-catalogs=
 
-Order=120
+Order=110
 

@@ -63,7 +63,10 @@ void DcpSingleComponent::retranslateUi()
 {
     // TODO XXX this can lead to showing ids in case of there is no translation
     setTitle (qtTrId(qPrintable(m_TitleID)));
-    setSubtitle (qtTrId(qPrintable(m_SubtitleID)));
+
+    if (!m_SubtitleID.isEmpty()) {
+        setSubtitle (qtTrId(qPrintable(m_SubtitleID)));
+    }
 }
 
 QGraphicsLayout *DcpSingleComponent::createLayout()
@@ -73,25 +76,30 @@ QGraphicsLayout *DcpSingleComponent::createLayout()
     layout->setSpacing(0);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
+    bool hasTwoLabels = !subtitleLabelWidget()->text().isEmpty();
+    int maxRowCount = hasTwoLabels ? 3 : 1;
+
     if (m_HasImage) {
         imageWidget()->setStyleName("CommonMainIcon");
-        layout->addItem(imageWidget(), 0, 0, 3, 1);
+        layout->addItem(imageWidget(), 0, 0, maxRowCount, 1);
         layout->setAlignment(imageWidget(), Qt::AlignVCenter | Qt::AlignLeft);
     }
 
     titleLabelWidget()->setStyleName("CommonTitleInverted");
     layout->addItem(titleLabelWidget(), 0, 1);
-    layout->setAlignment(titleLabelWidget(), Qt::AlignTop | Qt::AlignLeft);
 
-    subtitleLabelWidget()->setStyleName("CommonSubTitleInverted");
-    layout->addItem(subtitleLabelWidget(), 1, 1);
+    if (hasTwoLabels) {
+        layout->setAlignment(titleLabelWidget(), Qt::AlignTop | Qt::AlignLeft);
+        subtitleLabelWidget()->setStyleName("CommonSubTitleInverted");
+        layout->addItem(subtitleLabelWidget(), 1, 1);
 
-    layout->addItem(new QGraphicsWidget(), 2, 1);
+        layout->addItem(new QGraphicsWidget(), 2, 1);
+    }
 
     MImageWidget *drillImage =
         new MImageWidget("icon-m-common-drilldown-arrow-inverse", this);
     drillImage->setStyleName("CommonDrillDownIcon"); //FIXME: inverted
-    layout->addItem(drillImage, 0, 2, 3, 1);
+    layout->addItem(drillImage, 0, 2, maxRowCount, 1);
     layout->setAlignment(drillImage, Qt::AlignVCenter | Qt::AlignRight);
 
     return layout;

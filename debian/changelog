@@ -1,12 +1,18 @@
-duicontrolpanel (0.11.9~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.0) unstable; urgency=low
 
   [ Sandor Pinter ]
   * Using default loadHints for loading a plugin
 
   [ Robert Manner ]
   * Fixes: category for "Security" and "Tactile feedback"
+  * Fixes: NB#230474 - Order of Settings categories in Settings main
+    view needs to be updated
+  * Fixes: NB#230505 - 2nd row labels should be removed from Settings
+    main view
+  * Fixes: NB#230541 - on staging images from week 8 onward, using D-Bus
+    call to go directly to applets makes it behave erratically
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 24 Feb 2011 10:56:35 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 25 Feb 2011 11:09:16 +0100
 
 duicontrolpanel (0.11.8) unstable; urgency=low
 

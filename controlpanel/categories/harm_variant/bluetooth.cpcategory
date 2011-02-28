@@ -3,9 +3,6 @@ Parent=MainPage
 Name=Bluetooth
 Name-logical-id=qtn_sett_main_bluetooth
 
-Value="Manage BT connections"
-Value-logical-id=qtn_sett_main_bluetooth_label2
-
 # TODO we need an icon id
 Icon=icon-m-applet-settings
 
@@ -14,5 +11,5 @@ Translation-catalogs=
 
 AutoStartApplet=1
 
-Order=30
+Order=20
 

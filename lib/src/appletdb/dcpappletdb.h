@@ -130,6 +130,10 @@ public:
      */
     bool isAppletLoaded (const QString& name);
 
+    /*! \brief Lists the loaded applets
+     */
+    QList<DcpAppletObject*> loadedApplets () const;
+
     /*! \brief destroys all the contents (metadata) of the db */
     void destroyData (void);
     static void destroy (void);
