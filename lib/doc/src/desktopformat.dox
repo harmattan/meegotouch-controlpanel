@@ -132,8 +132,12 @@ This can contain a help page id (see userguide's documentation) for the applet. 
 
 \par Text2
 Specifies the text on the second line of the launch button.
-It is mainly for demonstrating purposes
-only, but you can use it if you want to display a constant as a value.
+It can be used for displaying a static value line, eg. explanation about what
+the applet is, and also with a dynamic value line, as a placeholder until the
+applet got loaded and supplies its value from the DcpBrief.
+
+\par Text2-logical-id
+Specifies the logical id for Text2 in the translation catalogs.
 
 \par Image
 Specifies the image name for the image type launch button. Preferably its value

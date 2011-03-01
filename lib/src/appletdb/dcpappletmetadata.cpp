@@ -295,24 +295,30 @@ QString
 DcpAppletMetadata::text1 () const
 {
     QString id = desktopEntryStr(KeyNameId);
-    QString name = desktopEntryStr(KeyName);
-    if (qtTrId(qPrintable(id)) == id)
-        return ("!! " + name);
-    else
+    if (qtTrId(qPrintable(id)) == id) {
+        QString name = desktopEntryStr(KeyName);
+        return "!! " + name;
+    } else {
         return qtTrId(qPrintable(id));
+    }
 }
 
-QString 
+QString
 DcpAppletMetadata::text2 () const
 {
-    /*
-     * FIXME: This feature is not in the UI spec, we have no localization for
-     * the string.
-     */
-    if (isDisabled())
-        return QString ("Disabled");
-    // static way
-    return desktopEntryStr(KeyText2);
+    QString id = desktopEntryStr(KeyText2Id);
+    if (id.isEmpty() || qtTrId(qPrintable(id)) == id) {
+        QString text = desktopEntryStr(KeyText2);
+        if (text.isEmpty()) {
+            // no text 2
+            return text;
+        } else {
+            // no translation for text 2
+            return "!! " + text;
+        }
+    } else {
+        return qtTrId(qPrintable(id));
+    }
 }
 
 QString 

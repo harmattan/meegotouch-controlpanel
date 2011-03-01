@@ -1,8 +1,9 @@
 duicontrolpanel (0.12.1~unreleased) unstable; urgency=low
 
-  * up
+  * New: static (localized) value line (second line) can be specified for the
+    applet icon from .desktop file
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 28 Feb 2011 12:03:27 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 01 Mar 2011 12:14:00 +0100
 
 duicontrolpanel (0.12.0) unstable; urgency=low
 

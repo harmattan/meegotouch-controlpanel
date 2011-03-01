@@ -24,3 +24,8 @@ Category=Applications
 Order=4
 WidgetType= Label
 
+# this text will be shown as second label,
+# until the applet gets loaded and supplies its value from DcpBrief:
+Text2=Loading...
+Text2-logical-id=qtn_sett_skeletonvalue
+
