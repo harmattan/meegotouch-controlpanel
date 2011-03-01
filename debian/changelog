@@ -1,3 +1,9 @@
+duicontrolpanel (0.13.0) unstable; urgency=low
+
+  * Security restrictions on the applets, see doc
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 01 Mar 2011 10:00:36 +0100
+
 duicontrolpanel (0.12.0) unstable; urgency=low
 
   [ Sandor Pinter ]
