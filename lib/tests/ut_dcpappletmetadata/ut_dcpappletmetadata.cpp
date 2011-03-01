@@ -275,7 +275,7 @@ void Ut_DcpAppletMetadata::testTranslationCatalog()
 void Ut_DcpAppletMetadata::testText2()
 {
     if (QTest::currentTestFailed()) return;
-    QCOMPARE(m_subject->text2(), QString("firefox")); 
+    QCOMPARE(m_subject->text2(), QString("!! firefox")); 
     m_subject->d_ptr->m_Disabled = true;
     QCOMPARE(m_subject->text2(), QString("Disabled")); 
 }

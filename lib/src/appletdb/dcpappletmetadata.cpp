@@ -306,6 +306,10 @@ DcpAppletMetadata::text1 () const
 QString
 DcpAppletMetadata::text2 () const
 {
+    if (isDisabled()) {
+        return QString ("Disabled");
+    }
+
     QString id = desktopEntryStr(KeyText2Id);
     if (id.isEmpty() || qtTrId(qPrintable(id)) == id) {
         QString text = desktopEntryStr(KeyText2);
