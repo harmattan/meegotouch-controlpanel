@@ -2,8 +2,10 @@ duicontrolpanel (0.12.1~unreleased) unstable; urgency=low
 
   * New: static (localized) value line (second line) can be specified for the
     applet icon from .desktop file
+  * Fixes: translation id appears on category button instead of engineering
+    translation in case there is no translation available (ex: meego)
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 01 Mar 2011 12:14:00 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 02 Mar 2011 14:32:44 +0100
 
 duicontrolpanel (0.12.0) unstable; urgency=low
 

@@ -22,6 +22,7 @@
 #include "pages.h"
 
 #include "dcpdebug.h"
+#include "category.h"
 
 #include <QtGui/QGraphicsGridLayout>
 
@@ -32,26 +33,16 @@
 
 DcpSingleComponent::DcpSingleComponent (
         QGraphicsWidget     *parent,
-        const QString       &logicalId,
-        const QString       &imageId,
-        const QString       &subTitleId)
-: MBasicListItem(subTitleId.isEmpty() ? MBasicListItem::IconWithTitle:
+        const Category      *category )
+: MBasicListItem(category->subtitleId().isEmpty() ? MBasicListItem::IconWithTitle:
                  MBasicListItem::IconWithTitleAndSubtitle, parent),
-                 m_TDriverID ("DcpSingleComponent::" + logicalId),
-                 m_TitleID (logicalId),
-                 m_SubtitleID (subTitleId),
-                 m_HasImage(!imageId.isEmpty())
+                 m_TDriverID ("DcpSingleComponent::" + category->titleId()),
+                 m_Category (category)
 {
     setObjectName (QString());
     setStyleName("CommonPanelInverted");
 
-    if (m_HasImage) {
-        imageWidget()->setImage (imageId);
-    }
-
-    connect(this, SIGNAL (clicked()),
-            this, SLOT (activate()));
-
+    connect(this, SIGNAL (clicked()), this, SLOT (activate()));
     retranslateUi ();
 }
 
@@ -61,11 +52,12 @@ DcpSingleComponent::~DcpSingleComponent()
 
 void DcpSingleComponent::retranslateUi()
 {
-    // TODO XXX this can lead to showing ids in case of there is no translation
-    setTitle (qtTrId(qPrintable(m_TitleID)));
+    dcp_failfunc_unless (m_Category);
 
-    if (!m_SubtitleID.isEmpty()) {
-        setSubtitle (qtTrId(qPrintable(m_SubtitleID)));
+    setTitle (m_Category->title());
+    QString subtitle = m_Category->subtitle();
+    if (!subtitle.isEmpty()) {
+        setSubtitle (subtitle);
     }
 }
 
@@ -79,8 +71,11 @@ QGraphicsLayout *DcpSingleComponent::createLayout()
     bool hasTwoLabels = !subtitleLabelWidget()->text().isEmpty();
     int maxRowCount = hasTwoLabels ? 3 : 1;
 
-    if (m_HasImage) {
+    QString imageId = m_Category->iconId();
+    bool hasImage = !imageId.isEmpty();
+    if (hasImage) {
         imageWidget()->setStyleName("CommonMainIcon");
+        imageWidget()->setImage (imageId);
         layout->addItem(imageWidget(), 0, 0, maxRowCount, 1);
         layout->setAlignment(imageWidget(), Qt::AlignVCenter | Qt::AlignLeft);
     }
@@ -98,7 +93,7 @@ QGraphicsLayout *DcpSingleComponent::createLayout()
 
     MImageWidget *drillImage =
         new MImageWidget("icon-m-common-drilldown-arrow-inverse", this);
-    drillImage->setStyleName("CommonDrillDownIcon"); //FIXME: inverted
+    drillImage->setStyleName("CommonDrillDownIcon");
     layout->addItem(drillImage, 0, 2, maxRowCount, 1);
     layout->setAlignment(drillImage, Qt::AlignVCenter | Qt::AlignRight);
 

@@ -8,17 +8,11 @@ TARGET = ft_dcpsinglecomponent
 
 TEST_SOURCES = \
     $$SRCDIR/component/dcpsinglecomponent.cpp \
+    $$SRCDIR/categories/category.cpp \
+    $$SRCDIR/categories/memorycategory.cpp \
     $$SRCDIR/page/pages.cpp \
+    $$SRCDIR/page/dcppage.cpp \
     ../doubles/pagefactory-fake.cpp \
-    ../doubles/dcppage-fake.cpp \
- #   ../doubles/dcpappletplugin-fake.cpp \
-    ../doubles/mdesktopentry-fake.cpp \
-    $$LIBDCPFAKES/mgconfitem-fake.cpp \
-    $$LIBDCPFAKES/mimagewidget-fake.cpp \
-    ../doubles/mbasiclistitem-fake.cpp \
-    ../doubles/mapplication-fake.cpp \
-    ../doubles/mapplicationpage-fake.cpp \
-    ../doubles/mapplicationwindow-fake.cpp \
 
 # unit test and unit
 SOURCES += \
@@ -36,6 +30,8 @@ HEADERS += \
     $$SRCDIR/page/pages.h \
     $$SRCDIR/page/dcppage.h \
     $$SRCDIR/page/pagefactory.h \
+    $$SRCDIR/categories/category.h \
+    $$SRCDIR/categories/memorycategory.h \
 
 # base classes
 HEADERS += \

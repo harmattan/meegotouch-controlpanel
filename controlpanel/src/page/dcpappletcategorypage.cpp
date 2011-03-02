@@ -66,10 +66,8 @@ DcpAppletCategoryPage::createCategories ()
     foreach (const Category *info, categoryList) {
         DcpRetranslator::instance()->ensureTranslationsAreLoaded (
                 info->translationCategories());
-        DcpSingleComponent *button;
-
-        button = new DcpSingleComponent(otherCategories, info->titleId(),
-                                        info->iconId(), info->subtitleId());
+        DcpSingleComponent *button =
+            new DcpSingleComponent(otherCategories, info);
         button->setSubPage(
                 PageHandle(PageHandle::APPLETCATEGORY, info->name()));
         otherCategories->appendWidget(button);
