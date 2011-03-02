@@ -96,8 +96,8 @@ void Ut_Category::testSubtitle()
 {
     // title
     QCOMPARE (memCat->subtitle(), QString("!! Subtitle"));
-    QCOMPARE (invalidMemCat->subtitle(), QString("!! "));
-    QCOMPARE (fileCat->subtitle(), QString("!! "));
+    QCOMPARE (invalidMemCat->subtitle(), QString(""));
+    QCOMPARE (fileCat->subtitle(), QString(""));
 
     // subtitleId
     QCOMPARE (memCat->subtitleId(), QString("SubtitleId"));
