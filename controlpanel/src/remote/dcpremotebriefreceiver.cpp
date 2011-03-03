@@ -161,7 +161,8 @@ void DcpRemoteBriefReceiver::switchToggle(const QString& appletName)
 void DcpRemoteBriefReceiver::setValue(const QString& appletName,
                                       const QVariant& value)
 {
-    cmd (BSupplier::CmdSetValue, appletName + BSupplier::ParamSeparator + value.toString());
+    cmd (BSupplier::CmdSetValue,
+         appletName + BSupplier::ParamSeparator + value.toString());
 }
 
 void DcpRemoteBriefReceiver::cmd (

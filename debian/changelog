@@ -1,4 +1,4 @@
-duicontrolpanel (0.12.1~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.1) unstable; urgency=low
 
   * New: static (localized) value line (second line) can be specified for the
     applet icon from .desktop file

@@ -110,12 +110,6 @@ DcpAppletPage::load ()
         m_Applet->metadata()->markActive();
         DcpRetranslator::instance()->ensureTranslationLoaded(
                m_Applet->metadata());
-        /*
-         * this ensures that the translation gets loaded before widget creation
-         * so that we get the page translated even if retranslateUi calls are
-         * not implemented
-         */
-        QCoreApplication::processEvents();
 
        if (m_Applet->isAppletLoaded()) {
 
