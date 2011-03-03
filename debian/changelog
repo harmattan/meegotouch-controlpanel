@@ -1,8 +1,9 @@
 duicontrolpanel (0.12.2~unreleased) unstable; urgency=low
 
-  * new version
+  * Fixes: NB#225161 - Incorrect title on dialog when Settings does not
+    respond anymore
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 03 Mar 2011 11:09:21 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 03 Mar 2011 16:14:54 +0100
 
 duicontrolpanel (0.12.1) unstable; urgency=low
 
@@ -89,8 +90,10 @@ duicontrolpanel (0.11.6.1) unstable; urgency=low
     below the applet icons using the ComponentOrder key in the
     .cpcategory files
   * Changes: Makes -outprocess mode default on usual running ways
+  * Fixes: NB#225300 - duicontrol panel refers to deprecated
+    /proc/component_version
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 09 Feb 2011 20:47:25 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 04 Feb 2011 13:50:17 +0100
 
 duicontrolpanel (0.11.5) unstable; urgency=low
 
