@@ -8,6 +8,7 @@ duicontrolpanel (0.12.2~unreleased) unstable; urgency=low
 
   [ Sandor Pinter ]
   * Fixing iconIds
+  * Adding Applications/Installations, and Applications/Manage applications categories
 
  -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Mon, 07 Mar 2011 10:14:04 +0100
 
