@@ -114,7 +114,9 @@ void cleanup ()
     DcpAppletDb::destroy();
 
     // free up application:
-    delete MApplication::instance();
+    // This was disabled as a temporary workaround for a bug which I could not
+    // reproduce, but which keeps coming on coreweb (NB#223592)
+    // delete MApplication::instance();
 }
 
 

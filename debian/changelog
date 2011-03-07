@@ -10,8 +10,11 @@ duicontrolpanel (0.12.2~unreleased) unstable; urgency=low
     launcher, the previous subview is shown
   * Fixes: NB#220633 - T-coil hearing aid is mentioned in settings main
     menu
+  * Fixes: NB#223592 - COREWEB: /usr/bin/duicontrolpanel
+    'qt_call_post_routines QApplication::~QApplication
+    MApplication::~MApplication cleanup'
 
- -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Mon, 07 Mar 2011 10:14:04 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 07 Mar 2011 12:04:04 +0100
 
 duicontrolpanel (0.12.1) unstable; urgency=low
 
