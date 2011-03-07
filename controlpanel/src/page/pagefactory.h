@@ -30,6 +30,7 @@ class DcpAppletObject;
 class DcpAppletPage;
 class DcpAppletCategoryPage;
 class DcpAppletLauncherIf;
+class MApplicationWindow;
 
 /*!
  * Implements methods to create new views (pages), show views and change between
@@ -48,10 +49,12 @@ public:
     DcpPage* createPage (const PageHandle &handle);
     DcpPage* currentPage ();
     bool maybeRunOutOfProcess (const QString& appletName);
+    MApplicationWindow* window ();
 
 public slots:
     void appletWantsToStart (int widgetId = -1);
 
+    void raiseMainWindow();
     bool changePage (const PageHandle &handle, bool dropOtherPages = false);
     bool changeToAppletPage (const QString& appletName);
 
@@ -68,6 +71,7 @@ protected:
     DcpPage* createAppletPage(PageHandle& applet);
     DcpPage* createAppletPage (DcpAppletMetadata* metadata);
     DcpPage* createAppletCategoryPage (const PageHandle& pageId);
+    void appear (MApplicationPage* page);
 
 private slots:
     void pageChanged (MApplicationPage *page);
@@ -77,11 +81,14 @@ private slots:
 private:
     bool tryOpenPageBackward (const PageHandle &handle);
     void registerPage (DcpPage *page);
+    void newWin ();
+    bool isCurrentPage (const PageHandle &handle);
 
     static PageFactory     *sm_Instance;
     QPointer<DcpAppletPage> m_LastAppletPage;
     QList<MApplicationPage *> m_Pages;
     static DcpAppletLauncherIf *sm_AppletLauncher;
+    QPointer<MApplicationWindow> m_Win;
 
     // for testability
     friend class Ut_PageFactory;

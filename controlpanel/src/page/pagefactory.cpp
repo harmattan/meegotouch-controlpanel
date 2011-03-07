@@ -31,11 +31,14 @@
 #include <DcpAppletMetadata>
 #include <DcpAppletObject>
 #include <DcpWidgetTypes>
+#include <DcpRetranslator>
 #include "dcpappletlauncherif.h"
 
 #include <MApplication>
+#include <MComponentCache>
 #include <MApplicationWindow>
 #include <MPannableViewport>
+#include <MSceneManager>
 #include <QTimer>
 
 // this also specifies if the applet views should be shown inprocess or outprocess
@@ -47,14 +50,9 @@ DcpAppletLauncherIf * PageFactory::sm_AppletLauncher = 0;
 PageFactory *PageFactory::sm_Instance = 0;
 
 PageFactory::PageFactory ():
-    QObject ()
+    QObject (),
+    m_Win (0)
 {
-    connect (MApplication::activeWindow (),
-            SIGNAL(pageChanged(MApplicationPage *)),
-            this, SLOT(pageChanged(MApplicationPage *)));
-    connect (MApplication::activeWindow (), SIGNAL(displayEntered()),
-            this, SLOT(onDisplayEntered()));
-
     // run appletLoaded for all applets:
     DcpAppletDb* db = DcpAppletDb::instance();
     connect (db, SIGNAL(appletLoaded(DcpAppletObject*)),
@@ -70,6 +68,10 @@ PageFactory::~PageFactory ()
     delete sm_AppletLauncher;
     sm_AppletLauncher = 0;
     sm_Instance = 0;
+    if (m_Win) {
+        // delete the m_Win if not already deleted:
+        m_Win->close ();
+    }
 }
 
 void
@@ -309,10 +311,10 @@ PageFactory::createAppletCategoryPage (const PageHandle& handle)
 DcpPage*
 PageFactory::currentPage ()
 {
-    MApplicationWindow* win = MApplication::activeApplicationWindow();
-    if (win == 0) return 0;
-
-    return qobject_cast<DcpPage*>(win->currentPage());
+    qWarning ("XXX currentpage 1");
+    if (m_Win == 0) return 0;
+    qWarning ("XXX currentpage 2");
+    return qobject_cast<DcpPage*>(m_Win->currentPage());
 }
 
 /*!
@@ -379,17 +381,14 @@ PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
 
     DcpPage *page;
 
+    // we drop the window if needed
+    if (dropOtherPages && !isCurrentPage (handle)) {
+        newWin ();
+    }
+
     // if it is already open, we switch back to it:
     if (tryOpenPageBackward(handle)) {
         return true;
-    }
-
-    // we drop all the other pages if needed:
-    if (dropOtherPages) {
-        foreach (MApplicationPage* page, m_Pages) {
-            delete page;
-        }
-        m_Pages.clear ();
     }
 
     /*
@@ -403,14 +402,50 @@ PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
 
     DcpDebug::end("activate_applet");
 
-    MWindow* win = MApplication::instance()->activeWindow();
-    dcp_failfunc_unless (win, false);
-    
     /*
      * Time to show the new page.
      */
-    page->appear (win,MSceneWindow::DestroyWhenDismissed);
+    appear (page);
     return true;
+}
+
+bool
+PageFactory::isCurrentPage (const PageHandle &handle)
+{
+    DcpPage* page = currentPage();
+    if (page && page->handle() == handle) {
+        return true;
+    }
+    return false;
+}
+
+void
+PageFactory::raiseMainWindow()
+{
+    MApplicationWindow* win = window();
+    dcp_failfunc_unless (win);
+    win->show();
+    win->raise();
+    win->activateWindow();
+}
+
+void
+PageFactory::appear (MApplicationPage* page)
+{
+    dcp_failfunc_unless (page);
+    MApplicationWindow* win = window ();
+    dcp_failfunc_unless (win);
+
+    MApplicationPage* currentPage = win->currentPage();
+    if (currentPage == 0 || currentPage == page) {
+        // make it appear without animation:
+        MSceneManager* smanager = win->sceneManager();
+        dcp_failfunc_unless (smanager);
+        smanager->appearSceneWindowNow (page, MSceneWindow::DestroyWhenDismissed);
+    } else {
+        // with animation:
+        page->appear (win,MSceneWindow::DestroyWhenDismissed);
+    }
 }
 
 void
@@ -474,7 +509,7 @@ PageFactory::pageChanged (MApplicationPage *page)
  * This function will return true if the operation was successfull, the
  * requested page is on top.
  */
-bool 
+bool
 PageFactory::tryOpenPageBackward (const PageHandle &handle)
 {
     DcpPage *page;
@@ -489,7 +524,7 @@ PageFactory::tryOpenPageBackward (const PageHandle &handle)
 
         if (page && page->handle() == handle) {
             foundAtIndex = n;
-            
+
             // move the page to its top
             MPannableViewport* pannv = page->pannableViewport();
             if (pannv) pannv->setPosition (QPointF(0,0));
@@ -549,5 +584,54 @@ void PageFactory::onDisplayEntered ()
     {
         preloadAppletLauncher();
     }
+}
+
+MApplicationWindow* PageFactory::window ()
+{
+    if (!m_Win && !MApplication::windows().isEmpty()) {
+        m_Win =
+            qobject_cast<MApplicationWindow*>(MApplication::windows().at(0));
+    }
+    if (!m_Win) newWin();
+    return m_Win;
+}
+
+void PageFactory::newWin ()
+{
+    if (!m_Win && !MApplication::windows().isEmpty()) {
+        m_Win =
+            qobject_cast<MApplicationWindow*>(MApplication::windows().at(0));
+    }
+    if (m_Win) {
+        m_LastAppletPage = 0;
+        m_Pages.clear();
+        m_Win->close(); // Qt::WA_DeleteOnClose makes it deleted also
+        m_Win = 0;
+    }
+
+#if 0
+    // TODO for the window creation, launcher has to be disabled for now,
+    // if running chained.
+    // See bug NB#220018, reenable this if it gets healed
+ifndef DISABLE_LAUNCHER
+    m_Win = MComponentCache::mApplicationWindow();
+#else // DISABLE_LAUNCHER
+    m_Win = new MApplicationWindow();
+    m_Win->setAttribute (Qt::WA_DeleteOnClose, true);
+#endif
+
+#ifndef FREE_ORIENTATION
+    // Fixes the orientation to portrait mode
+    m_Win->setPortraitOrientation();
+    m_Win->setOrientationLocked(true);
+#endif // FREE_ORIENTATION
+
+    // Connect some signals for the new window:
+    connect (m_Win, SIGNAL(pageChanged(MApplicationPage *)),
+            this, SLOT(pageChanged(MApplicationPage *)));
+    connect (m_Win, SIGNAL(displayEntered()), this, SLOT(onDisplayEntered()));
+
+    // filters out unnecessery retranslate events:
+    m_Win->installEventFilter(DcpRetranslator::instance());
 }
 

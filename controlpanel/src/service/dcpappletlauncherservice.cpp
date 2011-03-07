@@ -24,7 +24,6 @@
 #include <QtDebug>
 #include <MApplication>
 #include <MApplicationWindow>
-#include <MComponentCache>
 #include <QDBusError>
 #include <DcpAppletDb>
 #include <dcpdebug.h>
@@ -59,30 +58,6 @@ DcpAppletLauncherService::DcpAppletLauncherService ():
     connect (iface, SIGNAL (closeAppletLaunchers()), this, SLOT (close()));
 }
 
-MApplicationWindow* DcpAppletLauncherService::window()
-{
-    MApplicationWindow *win;
-    if (MApplication::windows().isEmpty())  {
-#if 0
-        // TODO for the window creation, launcher has to be disabled for now,
-        // if running chained.
-        // See bug NB#220018, reenable this if it gets healed
-ifndef DISABLE_LAUNCHER
-        win = MComponentCache::mApplicationWindow();
-#else // DISABLE_LAUNCHER
-        win = new MApplicationWindow();
-#endif
-#ifndef FREE_ORIENTATION
-        win->setPortraitOrientation();
-        win->setOrientationLocked(true);
-#endif // FREE_ORIENTATION
-
-    } else {
-        win = qobject_cast<MApplicationWindow*>(MApplication::windows().at(0));
-    }
-    return win;
-}
-
 
 /*
  * Pops up the applet's page if the window is already created
@@ -94,9 +69,6 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
 {
     if (m_PageHandle.id == PageHandle::NOPAGE)  return true;
 
-    // mainwindow:
-    MApplicationWindow* win = window();
-    dcp_failfunc_unless (win, false);
     PageFactory* pageFactory = PageFactory::instance();
 
     // the db is empty, so we add the started applet into it:
@@ -117,9 +89,7 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
 
     if (success) {
         unregisterService ();
-        win->show();
-        win->activateWindow();
-        win->raise();
+        pageFactory->raiseMainWindow ();
     } else {
         close ();
     }
@@ -182,7 +152,7 @@ bool DcpAppletLauncherService::unregisterService ()
 
 void DcpAppletLauncherService::prestart ()
 {
-    MApplicationWindow* win = window();
+    MApplicationWindow* win = PageFactory::instance()->window();
     dcp_failfunc_unless (win);
     win->hide();
 }

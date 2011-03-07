@@ -22,9 +22,6 @@
 
 #include "dcppage.h"
 #include <QGraphicsLinearLayout>
-#include <MSceneManager>
-#include <MApplication>
-#include <MApplicationWindow>
 #include <MLabel>
 #include <MSeparator>
 #include <MStylableWidget>

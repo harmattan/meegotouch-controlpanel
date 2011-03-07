@@ -85,6 +85,7 @@ void MApplicationPage::actionEvent(QActionEvent *){}
 
 void MSceneWindow::appear (MWindow *, MSceneWindow::DeletionPolicy)
 {
+    qWarning ("XXX page");
     MApplication::activeApplicationWindow()->setCurrentPage(
             (MApplicationPage*)this);
     emit appeared();

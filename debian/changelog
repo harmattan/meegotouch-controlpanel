@@ -2,8 +2,10 @@ duicontrolpanel (0.12.2~unreleased) unstable; urgency=low
 
   * Fixes: NB#225161 - Incorrect title on dialog when Settings does not
     respond anymore
+  * Fixes: NB#228255 - When reopening the settings application from
+    launcher, the previous subview is shown
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 03 Mar 2011 16:14:54 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 07 Mar 2011 11:24:34 +0100
 
 duicontrolpanel (0.12.1) unstable; urgency=low
 
