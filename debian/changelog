@@ -1,5 +1,9 @@
 duicontrolpanel (0.12.2~unreleased) unstable; urgency=low
 
+  [ Sandor Pinter ]
+  * Fixing iconIds
+
+  [ Robert Manner ]
   * Fixes: NB#225161 - Incorrect title on dialog when Settings does not
     respond anymore
   * Fixes: NB#228255 - When reopening the settings application from

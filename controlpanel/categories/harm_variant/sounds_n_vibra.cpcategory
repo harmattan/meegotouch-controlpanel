@@ -3,8 +3,7 @@ Parent=MainPage
 Name="Sounds & Vibra"
 Name-logical-id=qtn_sett_main_sounds
 
-# TODO we need an icon id
-Icon=icon-m-applet-settings
+Icon=icon-m-settings-feedback
 
 Aliases=
 Translation-catalogs=
