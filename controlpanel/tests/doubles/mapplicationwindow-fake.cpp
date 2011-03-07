@@ -19,6 +19,8 @@
 #include "mapplicationpage.h"
 #include "mapplication.h"
 
+#include <MSceneManager>
+
 /*
  * See header on what this is about.
  */
@@ -58,5 +60,45 @@ void MWindow::lower() {
 
 bool MWindow::isRaised() {
     return m_IsRaised;
+}
+
+void MWindow::setPortraitOrientation()
+{
+}
+
+void MWindow::setOrientationLocked(bool)
+{
+}
+
+bool QWidget::close ()
+{
+    return true;
+}
+
+MSceneManager * MWindow::sceneManager () const
+{
+    static MSceneManager* manager = new MSceneManager (0,0);
+
+    return manager;
+}
+
+MSceneManager * MWindow::sceneManager ()
+{
+    return ((const MWindow*) this)->sceneManager();
+}
+
+MSceneManager::MSceneManager (MScene *, QObject *parent):
+    QObject (parent), d_ptr (0)
+{
+}
+
+MSceneManager::~MSceneManager ()
+{
+}
+
+void MSceneManager::appearSceneWindowNow (MSceneWindow *win, MSceneWindow::DeletionPolicy policy)
+{
+    qWarning ("XXX manager");
+    win->appear ((MWindow*)0, policy);
 }
 

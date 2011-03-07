@@ -107,3 +107,23 @@ void PageFactory::onDisplayEntered ()
 {
 }
 
+bool
+PageFactory::isCurrentPage (const PageHandle &)
+{
+    return false;
+}
+
+MApplicationWindow* PageFactory::window ()
+{
+    return 0;
+}
+
+void PageFactory::newWin ()
+{
+}
+
+void
+PageFactory::raiseMainWindow()
+{
+}
+

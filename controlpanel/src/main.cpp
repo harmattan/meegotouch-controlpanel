@@ -33,7 +33,6 @@
 #include <cstdio>
 #include <sys/wait.h>
 #include <unistd.h>
-#include <MApplicationWindow>
 #include <MComponentCache>
 #include <MApplication>
 #include <MLocale>
@@ -50,16 +49,6 @@ static inline MApplication* createApplication (int argc, char** argv,
     return new MApplication (argc, argv, appIdentifier, service);
 #endif // USE_LAUNCHER
 }
-
-static inline MApplicationWindow* createApplicationWindow ()
-{
-#ifndef DISABLE_LAUNCHER
-    return MComponentCache::mApplicationWindow();
-#else // USE_LAUNCHER
-    return new MApplicationWindow();
-#endif // USE_LAUNCHER
-}
-
 
 int
 startMainApplication (int argc, char* argv[])
@@ -82,15 +71,6 @@ startMainApplication (int argc, char* argv[])
      * "settings"
      */
     DcpRetranslator::instance()->setMainCatalogName("settings");
-
-    // mainwindow:
-    MApplicationWindow *win = createApplicationWindow ();
-#ifndef FREE_ORIENTATION
-    win->setPortraitOrientation();
-    win->setOrientationLocked(true);
-#endif // FREE_ORIENTATION
-
-    win->installEventFilter(retranslator);
 
     // we create the start page here
     service->createStartPage();
@@ -124,9 +104,6 @@ void cleanup ()
 {
     // delete windows and pages:
     PageFactory::destroy();
-    foreach (MWindow* win, MApplication::windows()) {
-        delete win;
-    }
 
     // free up singletons:
     DcpRemoteBriefReceiver::destroy();
@@ -137,7 +114,9 @@ void cleanup ()
     DcpAppletDb::destroy();
 
     // free up application:
-    delete MApplication::instance();
+    // This was disabled as a temporary workaround for a bug which I could not
+    // reproduce, but which keeps coming on coreweb (NB#223592)
+    // delete MApplication::instance();
 }
 
 

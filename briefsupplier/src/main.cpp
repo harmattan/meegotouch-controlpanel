@@ -55,10 +55,14 @@ int main (int argc, char* argv[])
 
     // install the new translations if locale changes:
     DcpRetranslator* retranslator = DcpRetranslator::instance();
+#if RETRANSLATE_ON_THE_FLY
     /*
     QObject::connect(&app, SIGNAL(localeSettingsChanged()),
                      retranslator, SLOT(retranslate()));
      */
+#else
+    Q_UNUSED (retranslator);
+#endif
 
     // handle the arguments:
     QString desktopDir;

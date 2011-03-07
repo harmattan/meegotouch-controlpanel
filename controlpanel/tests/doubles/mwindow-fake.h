@@ -24,12 +24,19 @@
  *
  */
 
+class MSceneManager;
+
 class MWindow: public QObject {
     public:
         void raise();
         void lower();
 
         bool isRaised();
+        void setOrientationLocked (bool);
+        void setPortraitOrientation ();
+
+        MSceneManager *     sceneManager () const;
+        MSceneManager *     sceneManager ();
 
     private:
         bool m_IsRaised;
