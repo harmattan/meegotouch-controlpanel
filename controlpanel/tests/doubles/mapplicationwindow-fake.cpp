@@ -98,7 +98,6 @@ MSceneManager::~MSceneManager ()
 
 void MSceneManager::appearSceneWindowNow (MSceneWindow *win, MSceneWindow::DeletionPolicy policy)
 {
-    qWarning ("XXX manager");
     win->appear ((MWindow*)0, policy);
 }
 

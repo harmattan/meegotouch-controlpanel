@@ -289,10 +289,10 @@ void
 DcpAppletObject::setBrief (DcpBrief* brief)
 {
     d_ptr->m_Brief = brief;
-    if (d_ptr->m_Brief != 0) {
-        connect (d_ptr->m_Brief, SIGNAL (valuesChanged ()), 
+    if (brief != 0) {
+        connect (brief, SIGNAL (valuesChanged ()), 
                 this, SIGNAL (briefChanged ()));
-        connect (d_ptr->m_Brief, SIGNAL (activateSignal ()), 
+        connect (brief, SIGNAL (activateSignal ()), 
                 this, SLOT (activateSlot ()));
     }
 }

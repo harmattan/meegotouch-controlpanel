@@ -311,9 +311,7 @@ PageFactory::createAppletCategoryPage (const PageHandle& handle)
 DcpPage*
 PageFactory::currentPage ()
 {
-    qWarning ("XXX currentpage 1");
     if (m_Win == 0) return 0;
-    qWarning ("XXX currentpage 2");
     return qobject_cast<DcpPage*>(m_Win->currentPage());
 }
 

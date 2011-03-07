@@ -56,6 +56,7 @@ protected:
 
 private:
     class DcpRemoteBriefReceiverPriv* priv;
+    void unregister (const QString& appletName);
 
 };
 

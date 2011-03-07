@@ -31,10 +31,17 @@ DcpRemoteAppletObject::DcpRemoteAppletObject (DcpAppletMetadata* metadata,
 
     // We will not have an applet, only a brief:
     DcpRemoteBrief* brief = new DcpRemoteBrief (metadata->name());
+    connect (brief, SIGNAL (destroyed()),
+             this, SLOT (onBriefDestroyed()));
     setBrief (brief);
     PageFactory::instance()->onAppletLoaded (this);
 }
 
+void DcpRemoteAppletObject::onBriefDestroyed()
+{
+    setBrief (0);
+    emit briefChanged ();
+}
 
 bool DcpRemoteAppletObject::loadPluginFile (const QString &binaryPath)
 {

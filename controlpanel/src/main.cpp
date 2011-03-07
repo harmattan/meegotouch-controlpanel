@@ -102,11 +102,13 @@ startAppletLoader (int argc, char* argv[])
 
 void cleanup ()
 {
+    // close the connection with briefsupplier:
+    DcpRemoteBriefReceiver::destroy();
+
     // delete windows and pages:
     PageFactory::destroy();
 
     // free up singletons:
-    DcpRemoteBriefReceiver::destroy();
     DcpRetranslator::destroy();
     DcpWrongApplets::destroyInstance();
     MostUsedCounter::destroy();
