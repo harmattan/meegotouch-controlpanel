@@ -1,0 +1,14 @@
+Parent=Applications
+
+Name="Installations"
+Name-logical-id=qtn_pmgr_appname
+
+Icon=
+
+Aliases=
+Translation-catalogs=packagemanager
+
+AutoStartApplet=1
+
+Order=20
+
