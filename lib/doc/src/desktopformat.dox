@@ -187,7 +187,6 @@ value "Vertical" (which is the default), in which case the two labels (title
 and value line) will be under each other, or it can have the value "Horizontal",
 in which case the two labels will be next to each other.
 
-
 \section specialities Other
 
 \subsection brief Binary plugin's overrides

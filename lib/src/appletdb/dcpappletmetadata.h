@@ -115,6 +115,7 @@ public:
     QString helpId() const;
 
     bool hasMainView () const;
+    bool hasInProcessBrief () const;
 
     static QString defaultSOPath ();
     static void setDefaultSOPath (const QString& path);

@@ -623,5 +623,26 @@ QString DcpAppletMetadata::sliderRightImage () const
     return desktopEntryStr(KeySliderRightImage);
 }
 
+bool DcpAppletMetadata::hasInProcessBrief () const
+{
+    // of we have no library, we can be "inprocess" (who cares)
+    if (binary().isEmpty()) {
+        return true;
+    }
 
+    // if we are special type, we have no other choice:
+    if (widgetTypeID() == DcpWidgetType::Special) {
+        return true;
+    }
+
+    /*
+     * If an applet wants to create dialog and
+     * notification which requires it to be loaded, it can override
+     * that it should not be handled out of process from its .desktop file.
+     *
+     * However, we could make an api for dialog requests
+     * and then it would make this unecessery
+     */
+    return desktopEntryStr(KeyForceInProcessBrief) == "1";
+}
 

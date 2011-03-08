@@ -181,24 +181,7 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
     DcpAppletObject* applet = 0;
     QString name = metadata->name();
     DcpAppletDb* db = DcpAppletDb::instance();
-    if (db->isAppletLoaded (name) || metadata->binary().isEmpty()
-
-        /*
-         * TODO the outprocess implementation supports handling of the toggle
-         * state, but currently offline applet wants to create dialog and
-         * notification which requires it to be loaded. We could make an
-         * api for doing so, and then we could load this kind of applet icon
-         * in separate process as well
-         */
-        || widgetId == DcpWidgetType::Button
-
-        /*
-         * Special type applet gives back its own brief widget. Lets hope that
-         * noone uses it.
-         */
-        || widgetId == DcpWidgetType::Special
-
-       ) {
+    if (db->isAppletLoaded (name) || metadata->hasInProcessBrief()) {
         applet = db->applet (name);
     } else {
         applet = new DcpRemoteAppletObject (metadata, model);
