@@ -64,6 +64,7 @@ endif
 
 
 QMAKE_ARG += QMAKE_CXXFLAGS+="$(CFLAGS)"
+QMAKE_ARG += QMAKE_LFLAGS="-Wl,--as-needed"
 
 # this specifies that in case of debian build dcp should appear
 # in the application launcher menu

@@ -1,8 +1,9 @@
 duicontrolpanel (0.12.4~unreleased) unstable; urgency=low
 
   * Fixes: NB#234151 - White screen is shown on startup
+  * Removes linking to unnecessery libraries
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 09 Mar 2011 13:10:50 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 09 Mar 2011 15:28:27 +0100
 
 duicontrolpanel (0.12.3) unstable; urgency=low
 
