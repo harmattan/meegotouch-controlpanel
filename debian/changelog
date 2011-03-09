@@ -1,9 +1,14 @@
 duicontrolpanel (0.12.3~unreleased) unstable; urgency=low
 
+  [ Robert Manner ]
   * New: control panel can be forced to load the DcpBrief inprocess
     through ForceInProcessBrief key from the .desktop file
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 08 Mar 2011 16:49:51 +0100
+  [ Sandor Pinter ]
+  * Fixes: NB#234383 - duicontrolpanel startup triggers gconf update
+    that results in 402 bytes written to flash
+
+ -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Wed, 09 Mar 2011 13:42:56 +0100
 
 duicontrolpanel (0.12.2) unstable; urgency=low
 

@@ -6,9 +6,6 @@ OBJECTS_DIR   = .objects
 
 include(../dcpconfig.pri)
 
-# we can not disable functions from the lib since our api is considered stable
-CONFIG += MOSTUSED
-
 !meego {
 	LIBS += -lsysinfo
 }
