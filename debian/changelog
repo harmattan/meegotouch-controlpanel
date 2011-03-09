@@ -1,4 +1,4 @@
-duicontrolpanel (0.12.3~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.3) unstable; urgency=low
 
   * Fixes: NB#234416 - Controlpanel provides no way to force running an applet
     brief inprocess
