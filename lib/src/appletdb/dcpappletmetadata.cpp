@@ -631,7 +631,14 @@ bool DcpAppletMetadata::hasInProcessBrief () const
     }
 
     // if we are special type, we have no other choice:
-    if (widgetTypeID() == DcpWidgetType::Special) {
+    int widgetType = widgetTypeID();
+    if (widgetType == DcpWidgetType::Special ||
+
+            // FIXME XXX this is only for compatibility until Offline applet
+            // disappears:
+        widgetType == DcpWidgetType::Button
+
+       ) {
         return true;
     }
 

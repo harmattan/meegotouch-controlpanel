@@ -1,7 +1,7 @@
 duicontrolpanel (0.12.3~unreleased) unstable; urgency=low
 
-  * New: control panel can be forced to load the DcpBrief inprocess
-    through ForceInProcessBrief key from the .desktop file
+  * Fixes: NB#234416 - Controlpanel provides no way to force running an applet
+    brief inprocess
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 08 Mar 2011 16:49:51 +0100
 
