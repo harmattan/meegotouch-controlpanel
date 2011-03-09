@@ -359,29 +359,33 @@ DcpAppletMetadata::order () const
     return desktopEntry()->value(Keys[KeyOrder]).toInt();
 }
 
-#ifdef MOSTUSED
 int 
 DcpAppletMetadata::usage () const
 {
+#ifdef MOSTUSED
     if (widgetTypeID() == DcpWidgetType::Button)
         return 0;
     
     return MostUsedCounter::instance()->getUsageCount (
        QFileInfo(fileName()).baseName()
     );
+#else
+    return 0;
+#endif
 }
 
 void
 DcpAppletMetadata::incrementUsage()
 { 
+#ifdef MOSTUSED
     if (widgetTypeID() == DcpWidgetType::Button)
         return;
     MostUsedCounter::instance()->incrementUsageCount (
             QFileInfo(fileName()).baseName()
     );
     setLastUsed (this);
-}
 #endif
+}
 
 MDesktopEntry *
 DcpAppletMetadata::desktopEntry () const
@@ -436,15 +440,20 @@ DcpAppletMetadata::titleLessThan (
             == MLocale::LessThan;
 }
 
-#ifdef MOSTUSED
 bool 
 DcpAppletMetadata::usageGreatherThan (
         DcpAppletMetadata *meta1,
         DcpAppletMetadata *meta2)
 {
+#ifdef MOSTUSED
     return meta1->usage() > meta2->usage();
-}
+#else
+    Q_UNUSED(meta1);
+    Q_UNUSED(meta2);
+
+    return false;
 #endif
+}
 
 bool
 DcpAppletMetadata::isDisabled () const

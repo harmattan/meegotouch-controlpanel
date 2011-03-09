@@ -75,14 +75,12 @@ public:
     QString imageName() const;
 
     int order () const;
-#ifdef MOSTUSED
     int usage () const;
     void incrementUsage();
 
     static bool usageGreatherThan (
             DcpAppletMetadata *meta1,
             DcpAppletMetadata *meta2);
-#endif
     QString part () const;
 
     static bool orderLessThan (

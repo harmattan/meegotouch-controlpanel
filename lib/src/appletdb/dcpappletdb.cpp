@@ -52,11 +52,13 @@ DcpAppletDb::DcpAppletDb (
     if (!pathName.isEmpty())
         addFiles (pathName, nameFilter);
 
+#ifdef MOSTUSED
     // try to restore the last used applet:
     QString fileName = DcpAppletMetadata::storedLastUsedItem();
     if (d_ptr->appletsByFile.contains (fileName)) {
         DcpAppletMetadata::setLastUsed (d_ptr->appletsByFile.value (fileName));
     }
+#endif
 }
 
 DcpAppletDb::DcpAppletDb () : d_ptr(new DcpAppletDbPrivate())
