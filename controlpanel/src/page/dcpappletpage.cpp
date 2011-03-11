@@ -33,6 +33,8 @@
 #include <mwidgetcreator.h>
 #include <QProcess>
 #include <QCoreApplication>
+#include <MDismissEvent>
+#include <QCloseEvent>
 
 #include "dcpdebug.h"
 
@@ -60,18 +62,6 @@ DcpAppletPage::createContent ()
 {
     DcpPage::createContent ();
     load();
-}
-
-void
-DcpAppletPage::polishEvent ()
-{
-    MSceneManager* manager = sceneManager();
-
-    if (!manager || !manager->pageHistory().isEmpty()) {
-        // this is for being able to control leaving or not leaving the page
-        // in response to DcpWidget::back()
-        setEscapeMode(MApplicationPageModel::EscapeManualBack);
-    }
 }
 
 bool 
@@ -174,35 +164,19 @@ DcpAppletPage::load ()
     }
 }
 
+// This function might prevent closing the window for the applet
+// in a normal back button pressed situation (when not the last page)
 void
-DcpAppletPage::back ()
+DcpAppletPage::dismissEvent (MDismissEvent *event)
 {
-    DCP_DEBUG ("");
-
     if (m_MainWidget) {
         if (!m_MainWidget->back()) {
+            event->ignore();
             return;
         }
     }
-
-    /*
-     * Disabled this because of bug NB#184916
-     * Did not remove the support though, because it might turn out that we
-     * have to lower the window here, if the behaviour in this case becomes
-     * clear. Do not remove message this until then.
-     */
-#ifdef STANDALONE_CLOSES
-    if (handle().isStandalone)
-    {
-       DCP_DEBUG("This is a standalone applet"); 
-       qApp->exit(0);
-       return;
-    }
-#endif
-
-    DcpPage::back();
+    DcpPage::dismissEvent (event);
 }
-
 
 /*! \brief Constructs the applet's widget
  *
@@ -259,7 +233,7 @@ DcpAppletPage::constructAppletWidget (DcpAppletObject* applet,
     if (page) {
         if (applet->interfaceVersion() >= 2) {
             connect (widget, SIGNAL (closePage()),
-                     page, SLOT (back ()));
+                     page, SLOT (dismiss ()));
             if (applet->interfaceVersion() >= 4) {
                 connect (widget, SIGNAL (inProgress (bool)),
                          page, SLOT (setProgressIndicatorVisible (bool)));

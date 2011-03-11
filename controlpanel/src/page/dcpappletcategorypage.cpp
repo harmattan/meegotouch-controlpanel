@@ -209,11 +209,6 @@ DcpAppletCategoryPage::appletMetadata(int i)
     }
 }
 
-void DcpAppletCategoryPage::back ()
-{
-    DcpPage::back();
-}
-
 void
 DcpAppletCategoryPage::retranslateUi()
 {

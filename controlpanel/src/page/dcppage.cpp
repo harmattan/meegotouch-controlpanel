@@ -38,10 +38,6 @@ DcpPage::DcpPage () :
     MApplicationPage (),
     m_TitleLabel (0)
 {
-    // back button handling:
-    connect (this, SIGNAL(backButtonClicked()),
-             this, SLOT(back()));
-
     setStyleName("CommonApplicationPageInverted");
     dcp_failfunc_unless (pannableViewport());
     dcp_failfunc_unless (pannableViewport()->positionIndicator());
@@ -171,18 +167,6 @@ DcpPage::setReferer (
     DCP_DEBUG ("*** m_Handle  = %s", DCP_STR (m_Handle.getStringVariant()));
     DCP_DEBUG ("*** m_Referer = %s", DCP_STR (m_Referer.getStringVariant()));
 }
-
-/*!
- * A virtual function that is executed when the top right corner 'back' button
- * is clicked on a page. The default implementation will call dismiss,
- * so back will be handled by libdui.
- */
-void 
-DcpPage::back ()
-{
-    dismiss();
-}
-
 
 /*! 
  * This is called automatically for cached pages to reload their content when

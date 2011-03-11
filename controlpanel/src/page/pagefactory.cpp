@@ -273,7 +273,7 @@ PageFactory::createAppletCategoryPage (const PageHandle& handle)
     PageHandle::PageTypeId id = handle.id;
     dcp_failfunc_unless (id == PageHandle::APPLETCATEGORY, 0);
 
-    const Category *info = 
+    const Category *info =
         DcpCategories::instance()->categoryById (handle.param);
 
     if (!info) {
@@ -544,7 +544,10 @@ PageFactory::tryOpenPageBackward (const PageHandle &handle)
      */
     while (m_Pages.size() > foundAtIndex + 1) {
         MApplicationPage *mPage = m_Pages.takeLast();
-        mPage->dismiss();
+        if (!mPage->dismiss ()) {
+            m_Pages.append (mPage);
+            break;
+        }
     }
 
     /*

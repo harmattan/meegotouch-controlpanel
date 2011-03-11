@@ -5,12 +5,13 @@ duicontrolpanel (0.12.4~unreleased) unstable; urgency=low
   * Removes linking to unnecessery libraries
   * Fixes: NB#235605 - Reset settings should have buttons centered
   * Fixes: NB#235602 - Extra step to Sound settings needs to be removed
+  * Fixes: NB#235762 - overriding back() in DcpWidget does not help
 
   [ Sandor Pinter ]
   * Fixes: NB#234383 - duicontrolpanel startup triggers gconf update
     that results in 402 bytes written to flash
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 11 Mar 2011 11:42:20 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 11 Mar 2011 16:39:01 +0100
 
 duicontrolpanel (0.12.3) unstable; urgency=low
 
