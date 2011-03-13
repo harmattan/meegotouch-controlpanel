@@ -30,7 +30,7 @@ public:
     SkeletonWidget(QGraphicsWidget *parent = 0);
     virtual ~SkeletonWidget();
 
-//    virtual bool back() { return false; }
+    virtual bool back() { return false; }
 
 protected:
     void initWidget();

@@ -46,6 +46,8 @@ public:
     static DcpAppletWidget* constructAppletWidget (DcpAppletObject* applet,
                                              DcpPage* page, int widgetId);
 
+    bool preventQuit();
+
 protected:
     virtual void retranslateUi ();
     virtual void dismissEvent (MDismissEvent *event);

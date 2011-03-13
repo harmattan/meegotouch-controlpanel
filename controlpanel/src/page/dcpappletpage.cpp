@@ -164,16 +164,27 @@ DcpAppletPage::load ()
     }
 }
 
+/*!
+ * This function returns if the page would like to prevent its closing,
+ * when the user presses the close or back button.
+ */
+bool
+DcpAppletPage::preventQuit ()
+{
+    if (m_MainWidget && !m_MainWidget->back()) {
+        return true;
+    }
+    return false;
+}
+
 // This function might prevent closing the window for the applet
 // in a normal back button pressed situation (when not the last page)
 void
 DcpAppletPage::dismissEvent (MDismissEvent *event)
 {
-    if (m_MainWidget) {
-        if (!m_MainWidget->back()) {
-            event->ignore();
-            return;
-        }
+    if (preventQuit ()) {
+        event->ignore();
+        return;
     }
     DcpPage::dismissEvent (event);
 }

@@ -88,12 +88,6 @@ void Ut_DcpAppletPage::testLoadMissing()
     m_subject->createContent();
     QVERIFY(m_subject->m_MissingLabel);
 }
-void Ut_DcpAppletPage::testBack()
-{
-    m_subject->createContent();
-    m_subject->back();
-    QSKIP("incomplete", SkipSingle);   // remove this when you've finished
-}
 
 void Ut_DcpAppletPage::testApplet()
 {

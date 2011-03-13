@@ -73,6 +73,8 @@ protected:
     DcpPage* createAppletCategoryPage (const PageHandle& pageId);
     void appear (MApplicationPage* page);
 
+    bool eventFilter(QObject *obj, QEvent *event);
+
 private slots:
     void pageChanged (MApplicationPage *page);
     void onDisplayEntered ();

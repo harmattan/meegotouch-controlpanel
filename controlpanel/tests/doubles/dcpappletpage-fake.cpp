@@ -36,11 +36,6 @@ DcpAppletPage::createContent ()
 {
 }
 
-void
-DcpAppletPage::polishEvent ()
-{
-}
-
 bool 
 DcpAppletPage::hasWidget ()
 {
@@ -71,11 +66,6 @@ DcpAppletPage::load ()
 {
 }
 
-void 
-DcpAppletPage::back ()
-{
-}
-
 void
 DcpAppletPage::retranslateUi()
 {
@@ -90,5 +80,11 @@ DcpAppletPage::constructAppletWidget(DcpAppletObject*, DcpPage*, int)
 void
 DcpAppletPage::dismissEvent (MDismissEvent *)
 {
+}
+
+bool
+DcpAppletPage::preventQuit()
+{
+    return false;
 }
 

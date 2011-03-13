@@ -86,11 +86,6 @@ void Ut_DcpAppletCategoryPage::testCleanup()
     QSKIP("incomplete", SkipSingle);   // remove this when you've finished
 }
 
-void Ut_DcpAppletCategoryPage::testBack()
-{
-    m_subject->back();
-}
-
 void Ut_DcpAppletCategoryPage::testRetranslateUi()
 {
     m_subject->m_CategoryInfo = CATEGORY2;

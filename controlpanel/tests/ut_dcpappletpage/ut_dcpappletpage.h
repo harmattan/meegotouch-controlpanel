@@ -39,7 +39,6 @@ private slots:
     void testHasError();
     void testHasWidget();
     void testWidgetId();
-    void testBack();
     void testLoad();
     void testLoadMissing();
 //    void testLoadCommand();
