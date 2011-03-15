@@ -1,4 +1,4 @@
-duicontrolpanel (0.12.4~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.4) unstable; urgency=low
 
   [ Robert Manner ]
   * Fixes: NB#234151 - White screen is shown on startup
