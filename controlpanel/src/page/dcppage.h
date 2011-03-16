@@ -54,9 +54,6 @@ public:
 
     virtual void reload();
 
-public slots:
-    virtual void back ();
-
 signals:
     void openSubPage (PageHandle handle);
     void openSubPageWithReferer (const PageHandle &, const QString &, int);

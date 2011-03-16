@@ -273,7 +273,7 @@ PageFactory::createAppletCategoryPage (const PageHandle& handle)
     PageHandle::PageTypeId id = handle.id;
     dcp_failfunc_unless (id == PageHandle::APPLETCATEGORY, 0);
 
-    const Category *info = 
+    const Category *info =
         DcpCategories::instance()->categoryById (handle.param);
 
     if (!info) {
@@ -544,7 +544,10 @@ PageFactory::tryOpenPageBackward (const PageHandle &handle)
      */
     while (m_Pages.size() > foundAtIndex + 1) {
         MApplicationPage *mPage = m_Pages.takeLast();
-        mPage->dismiss();
+        if (!mPage->dismiss ()) {
+            m_Pages.append (mPage);
+            break;
+        }
     }
 
     /*
@@ -603,7 +606,7 @@ void PageFactory::newWin ()
     if (m_Win) {
         m_LastAppletPage = 0;
         m_Pages.clear();
-        m_Win->close(); // Qt::WA_DeleteOnClose makes it deleted also
+        delete m_Win;
         m_Win = 0;
     }
 
@@ -615,8 +618,8 @@ ifndef DISABLE_LAUNCHER
     m_Win = MComponentCache::mApplicationWindow();
 #else // DISABLE_LAUNCHER
     m_Win = new MApplicationWindow();
-    m_Win->setAttribute (Qt::WA_DeleteOnClose, true);
 #endif
+    m_Win->setAttribute (Qt::WA_DeleteOnClose, true);
 
 #ifndef FREE_ORIENTATION
     // Fixes the orientation to portrait mode
@@ -631,5 +634,23 @@ ifndef DISABLE_LAUNCHER
 
     // filters out unnecessery retranslate events:
     m_Win->installEventFilter(DcpRetranslator::instance());
+    // filters out close event if the page would refuse it:
+    m_Win->installEventFilter(this);
+}
+
+/*! This function is a filter on the MApplicationWindow
+ * Its purpose is to filter out close event in case the page would refuse it.
+ */
+bool PageFactory::eventFilter(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::Close) {
+        DcpAppletPage* appletPage = qobject_cast<DcpAppletPage*>(currentPage());
+        if (appletPage && appletPage->preventQuit()) {
+            event->ignore ();
+            return false;
+        }
+    }
+    // standard event processing
+    return QObject::eventFilter(obj, event);
 }
 

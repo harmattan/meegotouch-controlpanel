@@ -241,6 +241,7 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
         }
         widget->setParent (this);
         mLayout()->insertItem (getItemCount()-1, widget->graphicsWidget());
+        mLayout()->setAlignment (widget->graphicsWidget(), Qt::AlignHCenter);
 
     } else {
         QString tdriverID = "DcpContentItem::" + tdriverPostfix;

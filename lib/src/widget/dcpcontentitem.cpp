@@ -361,6 +361,7 @@ DcpContentItem::ensureWidgetsAreLayouted()
         grid->setAlignment(d_ptr->m_DrillImage, Qt::AlignVCenter | Qt::AlignRight);
     } else {
         delete d_ptr->m_DrillImage;
+        d_ptr->m_DrillImage = 0;
     }
 }
 

@@ -49,10 +49,6 @@ DcpAppletCategoryPage::setCategoryInfo (
 }
 
 
-void DcpAppletCategoryPage::back ()
-{
-}
-
 void
 DcpAppletCategoryPage::retranslateUi()
 {

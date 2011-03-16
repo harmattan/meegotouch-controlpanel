@@ -97,12 +97,6 @@ DcpPage::setReferer (
 }
 
 void 
-DcpPage::back ()
-{
-}
-
-
-void 
 DcpPage::reload ()
 {
 }

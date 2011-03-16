@@ -8,5 +8,7 @@ Icon=icon-m-settings-feedback
 Aliases=
 Translation-catalogs=
 
+AutoStartApplet=1
+
 Order=30
 

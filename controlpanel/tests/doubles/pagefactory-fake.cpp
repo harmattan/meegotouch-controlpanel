@@ -127,3 +127,8 @@ PageFactory::raiseMainWindow()
 {
 }
 
+bool PageFactory::eventFilter(QObject *obj, QEvent *event)
+{
+    return QObject::eventFilter (obj, event);
+}
+
