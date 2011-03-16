@@ -160,6 +160,7 @@ DcpAppletCategoryPage::createContent ()
              this, SLOT (onLoadingFinished()));
     setProgressIndicatorVisible (true);
 #endif
+    mainLayout()->addStretch();
 
     retranslateUi();
 }
