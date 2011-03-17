@@ -1,4 +1,4 @@
-duicontrolpanel (0.12.5~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.5) unstable; urgency=low
 
   [ Sandor Pinter ]
   * Fixes: NB#235033 - Settings: Indonesian translation of
