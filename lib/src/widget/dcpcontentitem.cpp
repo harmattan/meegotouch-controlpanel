@@ -248,7 +248,7 @@ DcpContentItem::ensureHelpIsCreated()
             help->setViewType(MButton::iconType);
             help->setIconID ("icon-m-content-description");
             d_ptr->m_LayoutIsToBeChanged = true;
-
+	    connect(help, SIGNAL(clicked()), this, SLOT(helpClicked));
         } else {
             help->setPageID (helpID());
         }
@@ -641,5 +641,13 @@ QString DcpContentItem::helpID() const
 void DcpContentItem::sliderChanged(int value)
 {
     if (applet()) applet()->setValue(QVariant(value));
+}
+/*!
+ * emits a signal if help button is pressed
+ */
+void
+DcpContentItem::helpClicked()
+{
+    emit helpPageOpened(helpID());
 }
 

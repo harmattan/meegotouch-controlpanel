@@ -146,6 +146,11 @@ private:
     DcpContentItemPrivate* const d_ptr;
 
     friend class Ut_DcpContentItem;
+
+signals:
+    void helpPageOpened(const QString& helpId);
+public slots:
+    void helpClicked();
 };
 
 

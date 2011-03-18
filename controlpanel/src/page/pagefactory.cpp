@@ -51,7 +51,8 @@ PageFactory *PageFactory::sm_Instance = 0;
 
 PageFactory::PageFactory ():
     QObject (),
-    m_Win (0)
+    m_Win (0),
+    m_LastHelpId("")
 {
     // run appletLoaded for all applets:
     DcpAppletDb* db = DcpAppletDb::instance();

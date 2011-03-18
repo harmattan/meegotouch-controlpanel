@@ -50,7 +50,8 @@ public:
     DcpPage* currentPage ();
     bool maybeRunOutOfProcess (const QString& appletName);
     MApplicationWindow* window ();
-
+    const QString lastHelpID() {return m_LastHelpId;}
+    void setLastHelpID(const QString& helpId) {m_LastHelpId = helpId;}
 public slots:
     void appletWantsToStart (int widgetId = -1);
 
@@ -91,7 +92,7 @@ private:
     QList<MApplicationPage *> m_Pages;
     static DcpAppletLauncherIf *sm_AppletLauncher;
     QPointer<MApplicationWindow> m_Win;
-
+    QString m_LastHelpId;
     // for testability
     friend class Ut_PageFactory;
 };
