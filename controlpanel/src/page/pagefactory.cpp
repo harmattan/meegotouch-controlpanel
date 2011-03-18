@@ -610,11 +610,7 @@ void PageFactory::newWin ()
         m_Win = 0;
     }
 
-#if 0
-    // TODO for the window creation, launcher has to be disabled for now,
-    // if running chained.
-    // See bug NB#220018, reenable this if it gets healed
-ifndef DISABLE_LAUNCHER
+#ifndef DISABLE_LAUNCHER
     m_Win = MComponentCache::mApplicationWindow();
 #else // DISABLE_LAUNCHER
     m_Win = new MApplicationWindow();
