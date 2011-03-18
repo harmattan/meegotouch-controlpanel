@@ -1,3 +1,14 @@
+duicontrolpanel (0.12.5) unstable; urgency=low
+
+  [ Sandor Pinter ]
+  * Fixes: NB#235033 - Settings: Indonesian translation of
+    qtn_sett_main_notifications (Pemberitahuan
+
+  [ Robert Manner ]
+  * Fixes: help icon on applet briefview is not inverted
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 16 Mar 2011 16:43:11 +0100
+
 duicontrolpanel (0.12.4) unstable; urgency=low
 
   [ Robert Manner ]
