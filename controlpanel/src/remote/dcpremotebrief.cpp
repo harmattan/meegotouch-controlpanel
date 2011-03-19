@@ -108,8 +108,10 @@ void DcpRemoteBrief::setValue (const QVariant& value)
 
 QVariant DcpRemoteBrief::value () const
 {
-    int val = get (BSupplier::OutputValue).toInt();
-    return val;
+    bool ok;
+    QString valStr = get (BSupplier::OutputValue);
+    int result = valStr.toInt(&ok);
+    return ok ? result : QVariant();
 }
 
 int DcpRemoteBrief::minValue () const

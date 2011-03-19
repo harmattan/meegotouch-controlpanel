@@ -1,8 +1,8 @@
 duicontrolpanel (0.12.6~unreleased) unstable; urgency=low
 
-  * new version
+  * Fixes: NB#
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 18 Mar 2011 13:44:24 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Sat, 19 Mar 2011 15:06:16 +0100
 
 duicontrolpanel (0.12.5) unstable; urgency=low
 
