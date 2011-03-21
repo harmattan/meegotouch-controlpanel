@@ -14,3 +14,8 @@ MWindowStyle.Landscape {
     startup-fill-color: black;
 }
 
+#CommonSliderInverted:disabled {
+    handle-pixmap: ;
+    background-elapsed-image: ;
+}
+

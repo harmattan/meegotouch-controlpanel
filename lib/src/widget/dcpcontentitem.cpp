@@ -167,11 +167,24 @@ DcpContentItem::ensureSliderIsCreated()
             d_ptr->m_LayoutIsToBeChanged = true;
         }
 
-        // TODO XXX: it would be better to only update the value here
-        slider->setRange(applet()->minValue(), applet()->maxValue());
-        slider->setSteps(applet()->sliderSteps());
-        slider->setValue(applet()->value().toInt());
+        QVariant value;
+        if (applet()) value = applet()->value();
+        if (!value.isNull() && value.isValid()) {
+            // TODO XXX: it would be better to only update the value here
+            slider->setRange(applet()->minValue(), applet()->maxValue());
+            slider->setSteps(applet()->sliderSteps());
+            slider->setValue(applet()->value().toInt());
 
+            if (!slider->isEnabled()) {
+                slider->setEnabled(true);
+            }
+        } else {
+            // disabling the slider because its value is not yet available
+            // (eg. applet is not yet loaded)
+            if (slider->isEnabled()) {
+                slider->setEnabled (false);
+            }
+        }
     } else {
         if (d_ptr->m_Slider) {
             delete d_ptr->m_Slider;
