@@ -132,7 +132,7 @@ DcpAppletCategoryPage::createContent ()
 
     // create the applet list:
     m_Category = new DcpAppletButtons(m_CategoryInfo);
-
+    
     // add them to the layout:
     if (hasMostUsed) {
         // box around them:
@@ -154,6 +154,8 @@ DcpAppletCategoryPage::createContent ()
         addCategoryToLayoutOrdered (mainLayout(), categoryWidget, m_Category);
     }
 
+   connect(m_Category, SIGNAL(helpPageOpened(const QString&)),
+           this, SIGNAL(helpPageOpened(const QString&)));
 #ifdef PROGRESS_INDICATOR
     // show progress indicator while loading the applets:
     connect (m_Category, SIGNAL (loadingFinished()),

@@ -19,6 +19,7 @@
 
 #include <QModelIndex>
 #include <MWidgetRecycler>
+#include <pagefactory.h>
 
 MWidget * DcpContentItemCellCreator::createCell (const QModelIndex &index,
                                               MWidgetRecycler &recycler) const
@@ -28,6 +29,8 @@ MWidget * DcpContentItemCellCreator::createCell (const QModelIndex &index,
     if (!cell) {
         cell = new DcpContentItem();
         cell->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
+        QObject::connect(cell, SIGNAL(helpPageOpened(const QString)),
+	  PageFactory::instance(), SLOT(helpClicked(const QString)));
     }
     updateCell(index, cell);
     return cell;

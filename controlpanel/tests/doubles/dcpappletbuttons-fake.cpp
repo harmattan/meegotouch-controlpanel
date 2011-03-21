@@ -83,3 +83,4 @@ void DcpAppletButtons::setTDriverID(QString const&)
 {
 }
 
+void DcpAppletButtons::helpClicked(){}

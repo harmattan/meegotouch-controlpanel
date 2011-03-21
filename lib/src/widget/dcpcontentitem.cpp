@@ -249,7 +249,7 @@ DcpContentItem::ensureHelpIsCreated()
             help->setStyleName ("CommonSwitchIcon");
             help->setIconID ("icon-m-content-description-inverse");
             d_ptr->m_LayoutIsToBeChanged = true;
-	    connect(help, SIGNAL(clicked()), this, SLOT(helpClicked));
+	    connect(help, SIGNAL(pressed()), this, SLOT(helpClicked()));
         } else {
             help->setPageID (helpID());
         }
@@ -649,6 +649,7 @@ void DcpContentItem::sliderChanged(int value)
 void
 DcpContentItem::helpClicked()
 {
+    qDebug() << Q_FUNC_INFO;
     emit helpPageOpened(helpID());
 }
 

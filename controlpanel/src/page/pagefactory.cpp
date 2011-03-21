@@ -18,6 +18,7 @@
 /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 
+#include <QtDBus>
 #include "pagefactory.h"
 
 #include "dcpappletpage.h"
@@ -189,6 +190,8 @@ PageFactory::createMainPage ()
     registerPage (mainPage);
     connect (mainPage, SIGNAL(appeared()),
              this, SLOT(mainPageFirstShown()));
+    connect(mainPage, SIGNAL(helpPageOpened(const QString&)),
+           this, SLOT(helpClicked(const QString&)));
 
     return mainPage;
 }
@@ -305,6 +308,9 @@ PageFactory::createAppletCategoryPage (const PageHandle& handle)
 
     DcpAppletCategoryPage* appletCategoryPage = new DcpAppletCategoryPage (info);
     registerPage (appletCategoryPage);
+    qDebug() << "connecting helpPageOpened";
+    connect(appletCategoryPage, SIGNAL(helpPageOpened(const QString&)),
+           this, SLOT(helpClicked(const QString&)));
 
     return appletCategoryPage;
 }
@@ -367,11 +373,15 @@ bool PageFactory::maybeRunOutOfProcess (const QString& appletName)
 bool
 PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
 {
-    // in outprocess mode we should also drop pages running in other instances
-    // (if any):
-    if (dropOtherPages && !isInProcessApplets()) {
-        emit resetAppletLauncherProcesses ();
+    if (dropOtherPages)
+     {
+        closeHelpPage();
+        // in outprocess mode we should also drop pages running in other instances
+        // (if any):
+        if (!isInProcessApplets()) {
+            emit resetAppletLauncherProcesses ();
     }
+     } 
 
     // if we could run it out of process then we do not change the page:
     if (handle.id == PageHandle::APPLET && maybeRunOutOfProcess(handle.param)) {
@@ -655,3 +665,21 @@ bool PageFactory::eventFilter(QObject *obj, QEvent *event)
     return QObject::eventFilter(obj, event);
 }
 
+void PageFactory::helpClicked(const QString& helpId)
+{
+    qDebug() << "HELP clicked" << helpId;
+    setLastHelpId(helpId);
+}
+void 
+PageFactory::closeHelpPage()
+{
+    QDBusConnection connection = QDBusConnection::sessionBus();
+    QDBusMessage message = QDBusMessage::createMethodCall(
+        "com.nokia.userguide", "/", "com.nokia.UserGuideIf", "closePage");
+    QList<QVariant> args;
+    args.append(lastHelpId());
+    message.setArguments(args);
+    QDBusMessage reply = connection.call(message);
+    if (!reply.errorMessage().isEmpty())	
+        qDebug() << reply.errorName() << reply.errorMessage();
+}
