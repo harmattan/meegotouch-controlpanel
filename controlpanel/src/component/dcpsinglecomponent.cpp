@@ -80,7 +80,7 @@ QGraphicsLayout *DcpSingleComponent::createLayout()
         layout->setAlignment(imageWidget(), Qt::AlignVCenter | Qt::AlignLeft);
     }
 
-    titleLabelWidget()->setStyleName("CommonTitleInverted");
+    titleLabelWidget()->setStyleName("CommonSingleTitleInverted");
     layout->addItem(titleLabelWidget(), 0, 1);
 
     if (hasTwoLabels) {
@@ -88,7 +88,7 @@ QGraphicsLayout *DcpSingleComponent::createLayout()
         subtitleLabelWidget()->setStyleName("CommonSubTitleInverted");
         layout->addItem(subtitleLabelWidget(), 1, 1);
 
-        layout->addItem(new QGraphicsWidget(), 2, 1);
+        layout->addItem(new QGraphicsWidget, 2, 1);
     }
 
     MImageWidget *drillImage =

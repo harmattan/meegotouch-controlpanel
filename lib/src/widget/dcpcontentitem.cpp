@@ -326,7 +326,7 @@ DcpContentItem::ensureWidgetsAreLayouted()
     // layout the items again:
     int textX = d_ptr->m_ImageW ? 1 : 0;
     bool isTextHorizontal = metadata()->textOrientation() == Qt::Horizontal;
-    int textLinesCount = d_ptr->m_Slider ? 1 : 2;
+    int textLinesCount = d_ptr->m_Slider ? 1 : 3;
     if (d_ptr->m_ImageW) {
         grid->addItem (d_ptr->m_ImageW, 0,0,
                        textLinesCount, 1, Qt::AlignCenter);
@@ -334,8 +334,13 @@ DcpContentItem::ensureWidgetsAreLayouted()
     // slider does not have the labels:
     if (!d_ptr->m_Slider) {
         if (!isTextHorizontal) {
-            grid->addItem (d_ptr->m_Text1W, 0, textX, Qt::AlignBottom);
-            grid->addItem (d_ptr->m_Text2W, 1, textX, Qt::AlignTop);
+            grid->addItem (new QGraphicsWidget, 0, textX);
+            grid->addItem (d_ptr->m_Text1W, 1, textX/*, Qt::AlignBottom*/);
+            if (!d_ptr->m_ButtonW) {
+                grid->addItem (d_ptr->m_Text2W, 2, textX, Qt::AlignTop);
+            } else {
+                grid->addItem (new QGraphicsWidget, 2, textX);
+            }
             if (d_ptr->m_Spacer) {
                 d_ptr->m_Spacer->deleteLater();
                 d_ptr->m_Spacer = 0;

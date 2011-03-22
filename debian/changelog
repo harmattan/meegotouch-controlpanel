@@ -1,8 +1,18 @@
 duicontrolpanel (0.12.6~unreleased) unstable; urgency=low
 
+  [ Robert Manner ]
   * Fixes: NB#237302 - Brightness control level
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Sat, 19 Mar 2011 15:06:16 +0100
+  [ Sandor Pinter ]
+  * Fixes: NB#238276 - Settings; 'Flight mode' toggle button layout is
+    not align with the label
+  * Fixes: NB#238251 - Settings; layout of Arrows are inconsistent;
+    supposed to be vertical center with label option
+  * Fixes: NB#230172 - Connectivity, internet connections view, labels
+    are not aligned correctly when in offline mode and also after
+    deactivating offline mode.
+
+ -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Tue, 22 Mar 2011 09:00:51 +0100
 
 duicontrolpanel (0.12.5) unstable; urgency=low
 
