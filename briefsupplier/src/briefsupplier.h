@@ -39,6 +39,7 @@ protected slots:
     void onBriefChanged ();
     void onNewConnection ();
     void onLocaleChange ();
+    void onConnectionDisconnected();
 
 protected:
     // commands:
@@ -56,6 +57,7 @@ protected:
 
 private:
     class Stream* m_Stream;
+    class QLocalServer* m_Server;
 };
 
 
