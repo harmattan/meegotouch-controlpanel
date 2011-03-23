@@ -634,6 +634,8 @@ void PageFactory::newWin ()
     m_Win->setOrientationLocked(true);
 #endif // FREE_ORIENTATION
 
+    m_Win->setStyleName ("CommonApplicationWindowInverted");
+
     // Connect some signals for the new window:
     connect (m_Win, SIGNAL(pageChanged(MApplicationPage *)),
             this, SLOT(pageChanged(MApplicationPage *)));
