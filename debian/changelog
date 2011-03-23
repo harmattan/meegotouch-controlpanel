@@ -1,8 +1,9 @@
 duicontrolpanel (0.12.7~unreleased) unstable; urgency=low
 
-  * version up
+  * Fixes: NB#238601 - Notifications and Events feed settings are not
+    implemented according to the UI specs
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 22 Mar 2011 11:57:30 +0100
+ -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Wed, 23 Mar 2011 08:33:55 +0100
 
 duicontrolpanel (0.12.6) unstable; urgency=low
 
@@ -17,10 +18,8 @@ duicontrolpanel (0.12.6) unstable; urgency=low
   * Fixes: NB#230172 - Connectivity, internet connections view, labels
     are not aligned correctly when in offline mode and also after
     deactivating offline mode.
-  * Fixes: NB#238601 - Notifications and Events feed settings are not
-    implemented according to the UI specs
 
- -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Wed, 23 Mar 2011 08:33:55 +0100
+ -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Tue, 22 Mar 2011 09:00:51 +0100
 
 duicontrolpanel (0.12.5) unstable; urgency=low
 
