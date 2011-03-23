@@ -28,12 +28,10 @@ public:
     virtual QString titleText() const;
 
     /* You can specify the widgettype here if you need something else
-     * than Label
+     * than Label */
     virtual int widgetTypeID() const;
-
     virtual bool toggle() const;
     virtual void setToggle (bool toggle);
-    */
 
     virtual void timerEvent(QTimerEvent*);
 

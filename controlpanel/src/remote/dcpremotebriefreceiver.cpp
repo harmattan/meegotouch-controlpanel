@@ -60,6 +60,10 @@ DcpRemoteBriefReceiver::DcpRemoteBriefReceiver():
 
 DcpRemoteBriefReceiver::~DcpRemoteBriefReceiver()
 {
+    foreach (QString name, priv->briefs.keys()) {
+        unregister (name);
+    }
+
     DcpRemoteBriefReceiverPriv::instance = 0;
     delete priv;
 }
@@ -67,7 +71,8 @@ DcpRemoteBriefReceiver::~DcpRemoteBriefReceiver()
 void
 DcpRemoteBriefReceiver::startProcess ()
 {
-    start ("duicontrolpanel-briefsupplier", DcpRemoteBriefReceiverPriv::args);
+    start ("duicontrolpanel-briefsupplier",
+           DcpRemoteBriefReceiverPriv::args);
 }
 
 void
@@ -111,7 +116,15 @@ void DcpRemoteBriefReceiver::setArguments (int argc, char** argv)
  */
 void DcpRemoteBriefReceiver::disable ()
 {
-    delete instance();
+    DcpRemoteBriefReceiver * rbr = DcpRemoteBriefReceiverPriv::instance;
+    if (rbr) {
+        foreach (QString name, rbr->priv->briefs.keys()) {
+            DcpRemoteBrief* brief = rbr->priv->briefs.value(name);
+            rbr->unregister (name);
+            delete brief;
+        }
+        destroy();
+    }
     DcpRemoteBriefReceiverPriv::disabled = true;
 }
 
@@ -132,9 +145,20 @@ void DcpRemoteBriefReceiver::onConnectError ()
 void DcpRemoteBriefReceiver::watch (DcpRemoteBrief* brief)
 {
     QString appletName = brief->name();
-    if (priv->briefs.contains (appletName)) {
-        return;
+
+    /* The applets are identified by name, so we stop tracking
+     * this brief if a same name is already registered, and notify
+     * the brief that his tracking was stopped.
+     */
+    DcpRemoteBrief* oldTrackedBrief = priv->briefs.value (appletName);
+    if (oldTrackedBrief != 0) {
+        if (oldTrackedBrief == brief) return;
+        unregister (appletName);
+        // this is for the DcpRemoteApplet so that it gets notified about the
+        // fact that it became non dynamic
+        delete oldTrackedBrief;
     }
+
     priv->briefs.insert (appletName, brief);
     cmd (BSupplier::CmdWatch, appletName);
 }
@@ -144,12 +168,22 @@ int DcpRemoteBriefReceiver::watchCount ()
     return priv->briefs.count();
 }
 
+void DcpRemoteBriefReceiver::unregister (const QString& appletName)
+{
+    DcpRemoteBrief* brief = priv->briefs.take (appletName);
+    if (!brief && brief == priv->currentBrief) {
+        priv->currentBrief = 0;
+    }
+}
+
 void DcpRemoteBriefReceiver::unwatch(DcpRemoteBrief* brief)
 {
     QString appletName = brief->name();
-    if (!priv->briefs.contains (appletName)) return;
 
-    priv->briefs.remove (appletName);
+    // this handles the case when an applet is not tracked anymore:
+    if (priv->briefs.value (appletName) != brief) return;
+
+    unregister (appletName);
     cmd (BSupplier::CmdUnwatch, appletName);
 }
 
@@ -161,7 +195,8 @@ void DcpRemoteBriefReceiver::switchToggle(const QString& appletName)
 void DcpRemoteBriefReceiver::setValue(const QString& appletName,
                                       const QVariant& value)
 {
-    cmd (BSupplier::CmdSetValue, appletName + BSupplier::ParamSeparator + value.toString());
+    cmd (BSupplier::CmdSetValue,
+         appletName + BSupplier::ParamSeparator + value.toString());
 }
 
 void DcpRemoteBriefReceiver::cmd (
@@ -199,7 +234,9 @@ void DcpRemoteBriefReceiver::onReadyRead()
         if (line.isEmpty()) continue;
         QString arg;
         if (tryMatch (BSupplier::OutputBegin, line, arg)) {
-            dcp_failfunc_unless (!priv->currentBrief);
+            if (priv->currentBrief) {
+                qWarning ("Bad formatted message from briefsupplier at BEGIN");
+            }
 
         } else if (tryMatch (BSupplier::OutputEnd, line, arg)) {
             if (priv->currentBrief) {
@@ -208,7 +245,9 @@ void DcpRemoteBriefReceiver::onReadyRead()
             priv->currentBrief = 0;
 
         } else if (tryMatch (BSupplier::OutputName, line, arg)) {
-            dcp_failfunc_unless (!priv->currentBrief);
+            if (priv->currentBrief) {
+                qWarning ("Bad formatted msg came from briefsupplier at NAME");
+            }
             priv->currentBrief = priv->briefs.value(arg);
 
         } else {
@@ -232,26 +271,33 @@ void DcpRemoteBriefReceiver::onReadyRead()
             int i;
             for (i=0; i<keyCount; i++) {
                 if (tryMatch (keys[i], line, arg)) {
-                    dcp_failfunc_unless (priv->currentBrief);
                     priv->currentBrief->set (keys[i],arg);
                     break;
                 }
             }
             if (i>=keyCount) {
-                qFatal ("Communication protocol failure with brief supplier:"
+                qWarning ("Communication protocol failure with brief supplier:"
                         "\n%s", qPrintable(line));
             }
         }
-    } while (!line.isNull()); // XXX TODO exit gracefully
+    } while (!line.isNull());
 }
 
 void DcpRemoteBriefReceiver::onFinished (
         int exitCode, QProcess::ExitStatus exitStatus )
 {
     Q_UNUSED (exitCode);
-    Q_UNUSED (exitStatus);
 
-    if (exitStatus == QProcess::CrashExit) {
+    static int maxRestart = 10;
+    if (exitStatus & QProcess::CrashExit) {
+        maxRestart--;
+        if (maxRestart < 0) {
+            qWarning ("Dynamic briefs were disabled due to frequent crashes.");
+            disable ();
+            return;
+        }
+        qWarning ("briefsupplier crashed, restarting (has %d chances left",
+                  maxRestart);
         // process crashed, we need to resend the watches to be in sync
         // (crash protection will ensure that the crashed applet wont be loaded
         // again)

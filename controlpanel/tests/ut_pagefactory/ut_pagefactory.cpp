@@ -118,11 +118,11 @@ void Ut_PageFactory::testCurrentPage()
     QCOMPARE((void*)factory->currentPage(), (void*) 0);
 
     DcpPage* page = new DcpPage();;
-    page->appear(MApplication::activeWindow());
+    page->appear(factory->window());
     QCOMPARE((void*)factory->currentPage(), (void*)page);
 
     DcpPage* page2 = new DcpPage();;
-    page2->appear(MApplication::activeWindow());
+    page2->appear(factory->window());
     QCOMPARE((void*)factory->currentPage(), (void*)page2);
 
     // cleanup

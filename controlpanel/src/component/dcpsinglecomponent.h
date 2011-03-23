@@ -23,6 +23,7 @@
 
 #include <MBasicListItem>
 #include "pages.h"
+class Category;
 
 class DcpSingleComponent: public MBasicListItem
 {
@@ -32,9 +33,7 @@ class DcpSingleComponent: public MBasicListItem
 
 public:
     DcpSingleComponent(QGraphicsWidget* parent,
-                       const QString &logicalId,
-                       const QString &iconId = QString(),
-                       const QString &subTitle = QString());
+                       const Category* category);
     ~DcpSingleComponent ();
 
     void setSubPage (const PageHandle &subPage) { m_SubPage = subPage; }
@@ -51,10 +50,9 @@ protected:
 
 private:
     QString m_TDriverID;
-    QString m_TitleID;
-    QString m_SubtitleID;
-    bool    m_HasImage;
     PageHandle m_SubPage;
+
+    const Category* m_Category;
 
     friend class Ut_DcpSingleComponent;
 };

@@ -10,6 +10,8 @@ TARGET = ut_dcpsinglecomponent
 TEST_SOURCES = \
     $$SRCDIR/component/dcpsinglecomponent.cpp \
     $$SRCDIR/page/pages.cpp \
+    $$SRCDIR/categories/category.cpp \
+    $$SRCDIR/categories/memorycategory.cpp \
     ../doubles/pagefactory-fake.cpp \
     ../doubles/dcppage-fake.cpp \
     ../doubles/dcpappletplugin-fake.cpp \
@@ -37,6 +39,8 @@ HEADERS += \
     $$SRCDIR/page/pages.h \
     $$SRCDIR/page/dcppage.h \
     $$SRCDIR/page/pagefactory.h \
+    $$SRCDIR/categories/category.h \
+    $$SRCDIR/categories/memorycategory.h \
     $$STUBSDIR/dcpappletplugin-applet.h \
 
 # base classes

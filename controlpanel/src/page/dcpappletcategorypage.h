@@ -42,13 +42,13 @@ public:
     int appletCount();
     DcpAppletMetadata* appletMetadata(int i);
 
-public slots:
-    virtual void back();
-
 protected:
     virtual void retranslateUi();
     QGraphicsWidget* createCategories ();
 
+signals:
+    void helpPageOpened(const QString&);
+ 
 protected slots:
     void onLoadingFinished ();
 

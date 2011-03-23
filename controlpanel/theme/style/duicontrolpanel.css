@@ -6,11 +6,16 @@ MApplicationWindowStyle {
 
 MWindowStyle {
     x11-startup-pixmap: ;
-    startup-fill-color: ;
+    startup-fill-color: black;
 }
 
 MWindowStyle.Landscape {
     x11-startup-pixmap: ;
-    startup-fill-color: ;
+    startup-fill-color: black;
+}
+
+#CommonSliderInverted:disabled {
+    handle-pixmap: ;
+    background-elapsed-image: ;
 }
 

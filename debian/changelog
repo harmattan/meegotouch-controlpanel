@@ -4,6 +4,97 @@ duicontrolpanel (0.13.0) unstable; urgency=low
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 01 Mar 2011 10:00:36 +0100
 
+duicontrolpanel (0.12.7.2) unstable; urgency=low
+
+  [ Sandor Pinter ]
+  * Fixes: NB#238601 - Notifications and Events feed settings are not
+    implemented according to the UI specs
+
+  [ Robert Manner ]
+  * Workaround for NB#239045 - Settings application shows toolbar
+    background in white color
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 23 Mar 2011 12:14:15 +0100
+
+duicontrolpanel (0.12.6) unstable; urgency=low
+
+  [ Robert Manner ]
+  * Fixes: NB#237302 - Brightness control level
+
+  [ Sandor Pinter ]
+  * Fixes: NB#238276 - Settings; 'Flight mode' toggle button layout is
+    not align with the label
+  * Fixes: NB#238251 - Settings; layout of Arrows are inconsistent;
+    supposed to be vertical center with label option
+  * Fixes: NB#230172 - Connectivity, internet connections view, labels
+    are not aligned correctly when in offline mode and also after
+    deactivating offline mode.
+
+ -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Tue, 22 Mar 2011 09:00:51 +0100
+
+duicontrolpanel (0.12.5) unstable; urgency=low
+
+  [ Sandor Pinter ]
+  * Fixes: NB#235033 - Settings: Indonesian translation of
+    qtn_sett_main_notifications (Pemberitahuan
+
+  [ Robert Manner ]
+  * Fixes: help icon on applet briefview is not inverted
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 16 Mar 2011 16:43:11 +0100
+
+duicontrolpanel (0.12.4) unstable; urgency=low
+
+  [ Robert Manner ]
+  * Fixes: NB#234151 - White screen is shown on startup
+  * Removes linking to unnecessery libraries
+  * Fixes: NB#235605 - Reset settings should have buttons centered
+  * Fixes: NB#235602 - Extra step to Sound settings needs to be removed
+  * Fixes: NB#235762 - overriding back() in DcpWidget does not help
+  * Fixes: NB#236209 - segfault from DcpContentItem::ensureWidgetsAreLayouted
+  * Fixes: NB#223777 - segfault from DcpAppletWidget::back
+
+  [ Sandor Pinter ]
+  * Fixes: NB#234383 - duicontrolpanel startup triggers gconf update
+    that results in 402 bytes written to flash
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 15 Mar 2011 19:35:05 +0100
+
+duicontrolpanel (0.12.3) unstable; urgency=low
+
+  * Fixes: NB#234416 - Controlpanel provides no way to force running an applet
+    brief inprocess
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 08 Mar 2011 16:49:51 +0100
+
+duicontrolpanel (0.12.2) unstable; urgency=low
+
+  [ Sandor Pinter ]
+  * Fixing iconIds
+  * Adding Applications/Installations, and Applications/Manage applications categories
+
+  [ Robert Manner ]
+  * Fixes: NB#225161 - Incorrect title on dialog when Settings does not
+    respond anymore
+  * Fixes: NB#228255 - When reopening the settings application from
+    launcher, the previous subview is shown
+  * Fixes: NB#220633 - T-coil hearing aid is mentioned in settings main
+    menu
+  * Fixes: NB#223592 - COREWEB: /usr/bin/duicontrolpanel
+    'qt_call_post_routines QApplication::~QApplication
+    MApplication::~MApplication cleanup'
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 07 Mar 2011 12:04:04 +0100
+
+duicontrolpanel (0.12.1) unstable; urgency=low
+
+  * New: static (localized) value line (second line) can be specified for the
+    applet icon from .desktop file
+  * Fixes: translation id appears on category button instead of engineering
+    translation in case there is no translation available (ex: meego)
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 02 Mar 2011 14:32:44 +0100
+
 duicontrolpanel (0.12.0) unstable; urgency=low
 
   [ Sandor Pinter ]
@@ -80,8 +171,10 @@ duicontrolpanel (0.11.6.1) unstable; urgency=low
     below the applet icons using the ComponentOrder key in the
     .cpcategory files
   * Changes: Makes -outprocess mode default on usual running ways
+  * Fixes: NB#225300 - duicontrol panel refers to deprecated
+    /proc/component_version
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 09 Feb 2011 20:47:25 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 04 Feb 2011 13:50:17 +0100
 
 duicontrolpanel (0.11.5) unstable; urgency=low
 

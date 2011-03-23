@@ -22,16 +22,12 @@
 
 
 DcpSingleComponent::DcpSingleComponent (
-        QGraphicsWidget     *category,
-        const QString       &logicalId,
-        const QString       &iconId,
-        const QString       &subTitle)
+        QGraphicsWidget     *parent,
+        const Category      *category)
 : MBasicListItem (MBasicListItem::TitleWithSubtitle)
 {
+    Q_UNUSED(parent);
     Q_UNUSED(category);
-    Q_UNUSED(logicalId);
-    Q_UNUSED(iconId);
-    Q_UNUSED(subTitle);
 }
 
 DcpSingleComponent::~DcpSingleComponent()
@@ -51,3 +47,4 @@ QGraphicsLayout *DcpSingleComponent::createLayout()
 void DcpSingleComponent::retranslateUi()
 {
 }
+

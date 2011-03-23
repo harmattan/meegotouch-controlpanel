@@ -53,3 +53,8 @@ contains(DCP_BUILD_FEATURES,coverage) {
 # disable internal deprecation warnings:
 DEFINES += DCP_DISABLE_DEPRECATION_WARNING
 
+# Meego specific configurations:
+meego {
+    DEFINES += FREE_ORIENTATION
+}
+

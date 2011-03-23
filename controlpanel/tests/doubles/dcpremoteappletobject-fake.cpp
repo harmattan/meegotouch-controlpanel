@@ -34,4 +34,7 @@ bool DcpRemoteAppletObject::loadPluginFile (const QString &binaryPath)
     return false;
 }
 
+void DcpRemoteAppletObject::onBriefDestroyed ()
+{
+}
 

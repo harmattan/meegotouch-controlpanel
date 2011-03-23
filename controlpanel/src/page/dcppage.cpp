@@ -22,9 +22,6 @@
 
 #include "dcppage.h"
 #include <QGraphicsLinearLayout>
-#include <MSceneManager>
-#include <MApplication>
-#include <MApplicationWindow>
 #include <MLabel>
 #include <MSeparator>
 #include <MStylableWidget>
@@ -41,10 +38,6 @@ DcpPage::DcpPage () :
     MApplicationPage (),
     m_TitleLabel (0)
 {
-    // back button handling:
-    connect (this, SIGNAL(backButtonClicked()),
-             this, SLOT(back()));
-
     setStyleName("CommonApplicationPageInverted");
     dcp_failfunc_unless (pannableViewport());
     dcp_failfunc_unless (pannableViewport()->positionIndicator());
@@ -175,18 +168,6 @@ DcpPage::setReferer (
     DCP_DEBUG ("*** m_Referer = %s", DCP_STR (m_Referer.getStringVariant()));
 }
 
-/*!
- * A virtual function that is executed when the top right corner 'back' button
- * is clicked on a page. The default implementation will call dismiss,
- * so back will be handled by libdui.
- */
-void 
-DcpPage::back ()
-{
-    dismiss();
-}
-
-
 /*! 
  * This is called automatically for cached pages to reload their content when
  * they are openned again.
@@ -224,16 +205,10 @@ DcpPage::setTitleLabel ()
     }
 
     if (!m_TitleLabel) {
-        MStylableWidget* container = new MStylableWidget();
-        container->setStyleName ("CommonXLargeHeaderPanelInverted");
-        container->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
-        QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(container);
-        layout->setContentsMargins (0,0,0,0);
-        m_TitleLabel = new MLabel(container);
+        m_TitleLabel = new MLabel();
+        m_TitleLabel->setWordWrap(true);
         m_TitleLabel->setStyleName ("CommonApplicationHeaderInverted");
-        layout->addItem (m_TitleLabel);
-        container->setLayout (layout);
-        mainLayout()->insertItem (0, container);
+        mainLayout()->insertItem (0, m_TitleLabel);
 
         MSeparator* separator = new MSeparator();
         separator->setStyleName ("CommonSmallSpacer");

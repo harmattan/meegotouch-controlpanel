@@ -25,10 +25,14 @@
 #include "ut_dcpsinglecomponent.h"
 #include "dcppage.h"
 #include "pagefactory.h"
+#include "memorycategory.h"
 
 void Ut_DcpSingleComponent::init()
 {
-    m_subject = new DcpSingleComponent(0, "title1", "icon", "title2");
+    Category* exampleCategory = new MemoryCategory ("title1", "title1Id", "mainPage",
+                                                    "title2Id", "title2", "icon");
+    m_subject =
+        new DcpSingleComponent(0, exampleCategory);
     m_subject->setSubPage(PageHandle(PageHandle::APPLETCATEGORY, "Personalize"));
 }
 
@@ -53,14 +57,14 @@ void Ut_DcpSingleComponent::testCreation()
 
 void Ut_DcpSingleComponent::testTitle()
 {
-    QCOMPARE(m_subject->title(), QString("title1"));
+    QCOMPARE(m_subject->title(), QString("!! title1"));
     m_subject->setTitle("another title");
     QCOMPARE(m_subject->title(), QString("another title"));
 }
 
 void Ut_DcpSingleComponent::testSubtitle()
 {
-    QVERIFY(m_subject->subtitle() == "title2");
+    QVERIFY(m_subject->subtitle() == "!! title2");
     m_subject->setSubtitle("another subtitle");
     QVERIFY(m_subject->subtitle() == "another subtitle");
 }

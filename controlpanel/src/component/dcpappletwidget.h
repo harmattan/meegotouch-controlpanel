@@ -19,6 +19,7 @@
 #define DCPAPPLETWIDGET_H
 
 #include <QObject>
+#include <QPointer>
 class DcpWidget;
 class DcpStylableWidget;
 class QGraphicsWidget;
@@ -56,8 +57,8 @@ signals:
     void inProgress (bool isInProgress);
 
 private:
-    DcpWidget* m_Widget;
-    DcpStylableWidget* m_StylableWidget;
+    QPointer<DcpWidget> m_Widget;
+    QPointer<DcpStylableWidget> m_StylableWidget;
 };
 
 

@@ -181,24 +181,7 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
     DcpAppletObject* applet = 0;
     QString name = metadata->name();
     DcpAppletDb* db = DcpAppletDb::instance();
-    if (db->isAppletLoaded (name) || metadata->binary().isEmpty()
-
-        /*
-         * TODO the outprocess implementation supports handling of the toggle
-         * state, but currently offline applet wants to create dialog and
-         * notification which requires it to be loaded. We could make an
-         * api for doing so, and then we could load this kind of applet icon
-         * in separate process as well
-         */
-        || widgetId == DcpWidgetType::Button
-
-        /*
-         * Special type applet gives back its own brief widget. Lets hope that
-         * noone uses it.
-         */
-        || widgetId == DcpWidgetType::Special
-
-       ) {
+    if (db->isAppletLoaded (name) || metadata->hasInProcessBrief()) {
         applet = db->applet (name);
     } else {
         applet = new DcpRemoteAppletObject (metadata, model);
@@ -230,6 +213,9 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
             MHelpButton* help = new MHelpButton (helpId);
             help->setViewType(MButton::iconType);
             help->setIconID ("icon-s-description-inverse");
+	    qDebug() << Q_FUNC_INFO << "connecting help pressed()";
+	    connect(help, SIGNAL(pressed()),
+		    this, SLOT(helpClicked()));
             wlayout->addItem (help);
         }
 
@@ -258,6 +244,7 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
         }
         widget->setParent (this);
         mLayout()->insertItem (getItemCount()-1, widget->graphicsWidget());
+        mLayout()->setAlignment (widget->graphicsWidget(), Qt::AlignHCenter);
 
     } else {
         QString tdriverID = "DcpContentItem::" + tdriverPostfix;
@@ -296,3 +283,10 @@ DcpAppletButtons::setCategoryInfo (const Category *categoryInfo)
     }
 }
 
+void
+DcpAppletButtons::helpClicked()
+{
+    qDebug() << Q_FUNC_INFO;
+    MHelpButton *help = qobject_cast<MHelpButton*>(sender());
+    emit helpPageOpened(help->pageID());
+}

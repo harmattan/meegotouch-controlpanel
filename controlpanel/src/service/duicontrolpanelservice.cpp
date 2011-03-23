@@ -51,7 +51,7 @@ DuiControlPanelService::DuiControlPanelService ():
 void
 DuiControlPanelService::launch ()
 {
-    MApplicationService::launch ();
+//    MApplicationService::launch ();
 
     /* this method not supposed to change the current page,
      * so we only setup a default if there is not any yet
@@ -187,28 +187,15 @@ DuiControlPanelService::appletPage (const QStringList& params)
 /* Starts the page through PageFactory */
 void DuiControlPanelService::startPageForReal(const PageHandle &handle)
 {
-    /*
-     * in case this is the first applet pop up and we are invoked by
-     * servicefw, we should load the applet inprocess, because starting
-     * two programs would be painful slow (= starting it outprocess).
-     */
-
-    MApplicationWindow *win = MApplication::activeApplicationWindow();
-    dcp_failfunc_unless (win); // pagefactory needs a window
     PageFactory* pf = PageFactory::instance();
 
     // true means that it drops all the other pages
     bool success = pf->changePage(handle, true);
 
     if (success) {
-        win->activateWindow();
-        win->show();
-        win->raise();
+        pf->raiseMainWindow ();
     } else {
         qWarning ("Failed to switch page (wrong page id?)");
-        if (!win->isOnDisplay()) {
-            win->close();
-        }
     }
 }
 

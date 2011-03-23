@@ -28,7 +28,14 @@ SkeletonBrief::SkeletonBrief():
 
 QString SkeletonBrief::valueText() const
 {
+    /* Here we can return a custom value line if needed.
+     * In case we do not do that, the static one from the .desktop file will be
+     * used. */
+#if 0
     return "value text " + QString::number(m_Value);
+#else
+    return QString();
+#endif
 }
 
 QString SkeletonBrief::titleText() const
@@ -37,6 +44,7 @@ QString SkeletonBrief::titleText() const
 }
 
 /* The plugin can specify that it has a toggle like this:
+ */
 int SkeletonBrief::widgetTypeID() const
 {
     return DcpWidgetType::Toggle;
@@ -52,7 +60,6 @@ void SkeletonBrief::setToggle (bool toggle)
     m_ToggleState = toggle;
     qDebug() << "Skeleton brief got toggle state:" << toggle;
 }
-*/
 
 void SkeletonBrief::timerEvent(QTimerEvent*)
 {

@@ -66,10 +66,8 @@ DcpAppletCategoryPage::createCategories ()
     foreach (const Category *info, categoryList) {
         DcpRetranslator::instance()->ensureTranslationsAreLoaded (
                 info->translationCategories());
-        DcpSingleComponent *button;
-
-        button = new DcpSingleComponent(otherCategories, info->titleId(),
-                                        info->iconId(), info->subtitleId());
+        DcpSingleComponent *button =
+            new DcpSingleComponent(otherCategories, info);
         button->setSubPage(
                 PageHandle(PageHandle::APPLETCATEGORY, info->name()));
         otherCategories->appendWidget(button);
@@ -134,7 +132,7 @@ DcpAppletCategoryPage::createContent ()
 
     // create the applet list:
     m_Category = new DcpAppletButtons(m_CategoryInfo);
-
+    
     // add them to the layout:
     if (hasMostUsed) {
         // box around them:
@@ -156,12 +154,15 @@ DcpAppletCategoryPage::createContent ()
         addCategoryToLayoutOrdered (mainLayout(), categoryWidget, m_Category);
     }
 
+   connect(m_Category, SIGNAL(helpPageOpened(const QString&)),
+           this, SIGNAL(helpPageOpened(const QString&)));
 #ifdef PROGRESS_INDICATOR
     // show progress indicator while loading the applets:
     connect (m_Category, SIGNAL (loadingFinished()),
              this, SLOT (onLoadingFinished()));
     setProgressIndicatorVisible (true);
 #endif
+    mainLayout()->addStretch();
 
     retranslateUi();
 }
@@ -209,11 +210,6 @@ DcpAppletCategoryPage::appletMetadata(int i)
     } else {
         return 0;
     }
-}
-
-void DcpAppletCategoryPage::back ()
-{
-    DcpPage::back();
 }
 
 void

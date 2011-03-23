@@ -27,6 +27,7 @@ class DcpAppletWidget;
 class DcpAppletObject;
 class MLabel;
 class MAction;
+class MDismissEvent;
 
 class DcpAppletPage : public DcpPage
 {
@@ -45,12 +46,11 @@ public:
     static DcpAppletWidget* constructAppletWidget (DcpAppletObject* applet,
                                              DcpPage* page, int widgetId);
 
+    bool preventQuit();
+
 protected:
     virtual void retranslateUi ();
-    virtual void polishEvent ();
-
-protected slots:
-    virtual void back ();
+    virtual void dismissEvent (MDismissEvent *event);
 
 private:
     void loadWidget (int widgetId);

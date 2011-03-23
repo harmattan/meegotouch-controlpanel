@@ -26,6 +26,9 @@ class DcpRemoteAppletObject: public DcpAppletObject
 public:
     DcpRemoteAppletObject(DcpAppletMetadata* metadata, QObject* parent = 0);
 
+protected slots:
+    void onBriefDestroyed ();
+
 protected:
     virtual bool loadPluginFile (const QString &binaryPath);
 
@@ -35,3 +38,4 @@ private:
 
 
 #endif // DCPREMOTEAPPLETOBJECT_H
+

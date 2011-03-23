@@ -28,7 +28,6 @@
 #include <sys/resource.h>
 
 #include <unistd.h>
-#include <csignal>
 #include <dcpdebug.h>
 #include "syslog.h"
 #define LOW_PRIORITY
@@ -37,23 +36,12 @@ void cleanup ()
 {
     // free up singletons:
     DcpRetranslator::destroy();
-    DcpAppletDb::destroy();
     DcpWrongApplets::destroyInstance();
     MostUsedCounter::destroy();
+    DcpAppletDb::destroy();
 
     // free up application:
     delete MApplication::instance();
-}
-
-/*
- * this redefines the signal handler for TERM and INT signals, so as to be able
- * to use aboutToQuit signal from qApp also in these cases
- */
-void onTermSignal (int)
-{
-    if (qApp) {
-        qApp->quit();
-    }
 }
 
 int main (int argc, char* argv[])
@@ -65,15 +53,16 @@ int main (int argc, char* argv[])
 
     MApplication* app = new MApplication(argc, argv, new FakeApplicationService());
 
-    signal(SIGTERM, &onTermSignal);
-    signal(SIGINT, &onTermSignal);
-
     // install the new translations if locale changes:
     DcpRetranslator* retranslator = DcpRetranslator::instance();
+#if RETRANSLATE_ON_THE_FLY
     /*
     QObject::connect(&app, SIGNAL(localeSettingsChanged()),
                      retranslator, SLOT(retranslate()));
      */
+#else
+    Q_UNUSED (retranslator);
+#endif
 
     // handle the arguments:
     QString desktopDir;

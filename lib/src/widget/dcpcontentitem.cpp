@@ -31,7 +31,7 @@ static const QString subtitleObjectName = "CommonSubTitleInverted";
 static const QString singleTitleObjectName = "CommonSingleTitleInverted";
 static const QString iconObjectName = "CommonMainIcon";
 static const QString drillDownObjectName = "CommonDrillDownIcon";
-static const QString toggleObjectName = "CommonSwitchInverted";
+static const QString toggleObjectName = "CommonRightSwitchInverted";
 static const QString sliderObjectName = "CommonSliderInverted";
 
 DcpContentItemPrivate::DcpContentItemPrivate ():
@@ -167,11 +167,24 @@ DcpContentItem::ensureSliderIsCreated()
             d_ptr->m_LayoutIsToBeChanged = true;
         }
 
-        // TODO XXX: it would be better to only update the value here
-        slider->setRange(applet()->minValue(), applet()->maxValue());
-        slider->setSteps(applet()->sliderSteps());
-        slider->setValue(applet()->value().toInt());
+        QVariant value;
+        if (applet()) value = applet()->value();
+        if (!value.isNull() && value.isValid()) {
+            // TODO XXX: it would be better to only update the value here
+            slider->setRange(applet()->minValue(), applet()->maxValue());
+            slider->setSteps(applet()->sliderSteps());
+            slider->setValue(applet()->value().toInt());
 
+            if (!slider->isEnabled()) {
+                slider->setEnabled(true);
+            }
+        } else {
+            // disabling the slider because its value is not yet available
+            // (eg. applet is not yet loaded)
+            if (slider->isEnabled()) {
+                slider->setEnabled (false);
+            }
+        }
     } else {
         if (d_ptr->m_Slider) {
             delete d_ptr->m_Slider;
@@ -246,9 +259,10 @@ DcpContentItem::ensureHelpIsCreated()
             // FIXME: this will be MMHelpButton once the feature got into libmeegotouch
             help = new MHelpButton(helpID());
             help->setViewType(MButton::iconType);
-            help->setIconID ("icon-m-content-description");
+            help->setStyleName ("CommonSwitchIcon");
+            help->setIconID ("icon-m-content-description-inverse");
             d_ptr->m_LayoutIsToBeChanged = true;
-
+	    connect(help, SIGNAL(pressed()), this, SLOT(helpClicked()));
         } else {
             help->setPageID (helpID());
         }
@@ -312,7 +326,7 @@ DcpContentItem::ensureWidgetsAreLayouted()
     // layout the items again:
     int textX = d_ptr->m_ImageW ? 1 : 0;
     bool isTextHorizontal = metadata()->textOrientation() == Qt::Horizontal;
-    int textLinesCount = d_ptr->m_Slider ? 1 : 2;
+    int textLinesCount = d_ptr->m_Slider ? 1 : 3;
     if (d_ptr->m_ImageW) {
         grid->addItem (d_ptr->m_ImageW, 0,0,
                        textLinesCount, 1, Qt::AlignCenter);
@@ -320,8 +334,13 @@ DcpContentItem::ensureWidgetsAreLayouted()
     // slider does not have the labels:
     if (!d_ptr->m_Slider) {
         if (!isTextHorizontal) {
-            grid->addItem (d_ptr->m_Text1W, 0, textX, Qt::AlignBottom);
-            grid->addItem (d_ptr->m_Text2W, 1, textX, Qt::AlignTop);
+            grid->addItem (new QGraphicsWidget, 0, textX);
+            grid->addItem (d_ptr->m_Text1W, 1, textX/*, Qt::AlignBottom*/);
+            if (!d_ptr->m_ButtonW) {
+                grid->addItem (d_ptr->m_Text2W, 2, textX, Qt::AlignTop);
+            } else {
+                grid->addItem (new QGraphicsWidget, 2, textX);
+            }
             if (d_ptr->m_Spacer) {
                 d_ptr->m_Spacer->deleteLater();
                 d_ptr->m_Spacer = 0;
@@ -361,6 +380,7 @@ DcpContentItem::ensureWidgetsAreLayouted()
         grid->setAlignment(d_ptr->m_DrillImage, Qt::AlignVCenter | Qt::AlignRight);
     } else {
         delete d_ptr->m_DrillImage;
+        d_ptr->m_DrillImage = 0;
     }
 }
 
@@ -640,5 +660,14 @@ QString DcpContentItem::helpID() const
 void DcpContentItem::sliderChanged(int value)
 {
     if (applet()) applet()->setValue(QVariant(value));
+}
+/*!
+ * emits a signal if help button is pressed
+ */
+void
+DcpContentItem::helpClicked()
+{
+    qDebug() << Q_FUNC_INFO;
+    emit helpPageOpened(helpID());
 }
 

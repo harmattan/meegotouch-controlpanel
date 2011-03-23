@@ -33,25 +33,12 @@
 #include <cstdio>
 #include <sys/wait.h>
 #include <unistd.h>
-#include <csignal>
-#include <MApplicationWindow>
 #include <MComponentCache>
 #include <MApplication>
 #include <MLocale>
 #include "syslog.h"
 
 static const QString appIdentifier = "duicontrolpanel";
-
-/*
- * this redefines the signal handler for TERM and INT signals, so as to be able
- * to use aboutToQuit signal from qApp also in these cases
- */
-void onTermSignal (int)
-{
-    if (qApp) {
-        qApp->quit();
-    }
-}
 
 static inline MApplication* createApplication (int argc, char** argv,
                                                MApplicationService* service)
@@ -63,16 +50,6 @@ static inline MApplication* createApplication (int argc, char** argv,
 #endif // USE_LAUNCHER
 }
 
-static inline MApplicationWindow* createApplicationWindow ()
-{
-#ifndef DISABLE_LAUNCHER
-    return MComponentCache::mApplicationWindow();
-#else // USE_LAUNCHER
-    return new MApplicationWindow();
-#endif // USE_LAUNCHER
-}
-
-
 int
 startMainApplication (int argc, char* argv[])
 {
@@ -83,8 +60,6 @@ startMainApplication (int argc, char* argv[])
     DuiControlPanelService* service = new DuiControlPanelService ();
 
     MApplication *app = createApplication (argc, argv, service);
-    signal(SIGTERM, &onTermSignal);
-    signal(SIGINT, &onTermSignal);
 
     // install the new translations if locale changes:
     DcpRetranslator* retranslator = DcpRetranslator::instance();
@@ -96,15 +71,6 @@ startMainApplication (int argc, char* argv[])
      * "settings"
      */
     DcpRetranslator::instance()->setMainCatalogName("settings");
-
-    // mainwindow:
-    MApplicationWindow *win = createApplicationWindow ();
-#ifndef FREE_ORIENTATION
-    win->setPortraitOrientation();
-    win->setOrientationLocked(true);
-#endif // FREE_ORIENTATION
-
-    win->installEventFilter(retranslator);
 
     // we create the start page here
     service->createStartPage();
@@ -128,8 +94,6 @@ startAppletLoader (int argc, char* argv[])
     DcpAppletLauncherService* service = new DcpAppletLauncherService ();
 
     MApplication *app = createApplication (argc, argv, service);
-    signal(SIGTERM, &onTermSignal);
-    signal(SIGINT, &onTermSignal);
 
     // we sleep until an applet gets requested through dbus:
     int result = app->exec();
@@ -138,22 +102,23 @@ startAppletLoader (int argc, char* argv[])
 
 void cleanup ()
 {
+    // close the connection with briefsupplier:
+    DcpRemoteBriefReceiver::destroy();
+
     // delete windows and pages:
     PageFactory::destroy();
-    foreach (MWindow* win, MApplication::windows()) {
-        delete win;
-    }
 
     // free up singletons:
-    DcpRemoteBriefReceiver::destroy();
     DcpRetranslator::destroy();
-    DcpAppletDb::destroy();
     DcpWrongApplets::destroyInstance();
     MostUsedCounter::destroy();
     DcpCategories::destroy();
+    DcpAppletDb::destroy();
 
     // free up application:
-    delete MApplication::instance();
+    // This was disabled as a temporary workaround for a bug which I could not
+    // reproduce, but which keeps coming on coreweb (NB#223592)
+    // delete MApplication::instance();
 }
 
 

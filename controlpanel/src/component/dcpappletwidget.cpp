@@ -23,9 +23,11 @@
 #define CONNECT_SIG(widget, signature) \
             connect (widget, SIGNAL(signature), this, SIGNAL(signature))
 #define CALL(function) \
-            if (m_Widget) { m_Widget->function; } else m_StylableWidget->function
-#define RETURN(function) \
-            return m_Widget ? m_Widget->function : m_StylableWidget->function
+            if (m_Widget) { m_Widget->function; } \
+            else if (m_StylableWidget) { m_StylableWidget->function; }
+#define RETURN(function,defaultValue) \
+            return m_Widget ? m_Widget->function : \
+                   (m_StylableWidget ? m_StylableWidget->function: defaultValue)
 
 #define CONNECT_WIDGET(widget) \
     if (widget) { \
@@ -70,37 +72,37 @@ void DcpAppletWidget::setReferer(int widgetId)
 
 bool DcpAppletWidget::back()
 {
-    RETURN (back());
+    RETURN (back(), true);
 }
 
 
 bool DcpAppletWidget::pagePans() const
 {
-    RETURN (pagePans());
+    RETURN (pagePans(), true);
 }
 
 
 int DcpAppletWidget::getWidgetId()
 {
-    RETURN (getWidgetId());
+    RETURN (getWidgetId(), -1);
 }
 
 
 bool DcpAppletWidget::setWidgetId(int widgetId)
 {
-    RETURN (setWidgetId(widgetId));
+    RETURN (setWidgetId(widgetId), false);
 }
 
 
 QString DcpAppletWidget::title() const
 {
-    RETURN (title());
+    RETURN (title(), QString());
 }
 
 
 bool DcpAppletWidget::isProgressIndicatorVisible() const
 {
-    RETURN (isProgressIndicatorVisible());
+    RETURN (isProgressIndicatorVisible(), false);
 }
 
 

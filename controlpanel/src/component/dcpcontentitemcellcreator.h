@@ -33,7 +33,8 @@ public:
     virtual MWidget * createCell (const QModelIndex &index,
                                   MWidgetRecycler &recycler) const;
     virtual void updateCell(const QModelIndex& index, MWidget * cell) const;
-
+signals:                                                                       
+    void helpPageOpened(const QString&);
 private:
 	
 };

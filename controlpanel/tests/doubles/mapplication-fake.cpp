@@ -19,6 +19,8 @@
 #include "mapplicationwindow-fake.h"
 #include "mwindow.h"
 
+#include <QList>
+
 static MApplicationWindow* win = 0;
 
 MApplicationWindow * MApplication::activeApplicationWindow ()
@@ -30,6 +32,12 @@ MApplicationWindow * MApplication::activeApplicationWindow ()
 MWindow * MApplication::activeWindow ()
 {
     return activeApplicationWindow();
+}
+
+QList< MWindow * > MApplication::windows () {
+    QList<MWindow*> list;
+    list.append (win);
+    return list;
 }
 
 QString MApplication::binaryName()

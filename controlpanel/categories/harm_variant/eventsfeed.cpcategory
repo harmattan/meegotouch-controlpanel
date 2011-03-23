@@ -1,4 +1,4 @@
-Parent=Notifications
+Parent=Notifications & Events
 
 Name="Events feed"
 Name-logical-id=qtn_home_events_settings_title
@@ -8,5 +8,7 @@ Icon=
 Aliases=
 Translation-catalogs=home
 
-Order=10
+AutoStartApplet=1
+
+Order=20
 

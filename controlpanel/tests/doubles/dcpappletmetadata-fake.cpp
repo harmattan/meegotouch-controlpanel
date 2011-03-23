@@ -253,4 +253,9 @@ DcpAppletMetadata::isActive() const
     return d_ptr->m_Activated;
 }
 
+bool
+DcpAppletMetadata::hasInProcessBrief () const
+{
+    return true;
+}
 

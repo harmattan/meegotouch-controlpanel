@@ -3,8 +3,7 @@ Parent=MainPage
 Name=Reset
 Name-logical-id=qtn_sett_main_reset
 
-# TODO we need an icon id
-Icon=icon-m-applet-settings
+Icon=icon-m-settings-reset
 
 Aliases=qtn_sett_main_reset
 Translation-catalogs=

@@ -3,12 +3,14 @@ DCP_SH = ../../duicontrolpanel
 APPLAUNCH_SH = ../../dcpappletlauncher
 SERVICE = ../service/com.nokia.duicontrolpanel.service
 APPLAUNCH_SERVICE = ../service/com.nokia.dcpappletlauncher.service
-DESKTOP = duicontrolpanel.launch.desktop
+DESKTOP = duicontrolpanel.desktop
 PREFIX =
 POSTFIX =
 
 # This can enable the outprocess applets by default:
-POSTFIX = "-outprocess"
+! meego {
+    POSTFIX = "-outprocess"
+}
 
 # this config can add that software mode gets used by default
 # in case dcp gets run through shell script / dbus / its icon

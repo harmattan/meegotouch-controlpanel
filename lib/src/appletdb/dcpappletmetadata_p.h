@@ -80,6 +80,9 @@ enum  {
     KeySliderRightImage,
 
     KeyTextOrientation,
+    KeyText2Id,
+
+    KeyForceInProcessBrief,
 
     KeyCount
 };
@@ -119,7 +122,9 @@ const QString Keys[KeyCount] = {
     "DCP/HasMainView",
     "DCP/SliderLeftImage",
     "DCP/SliderRightImage",
-    "DCP/TextOrientation"
+    "DCP/TextOrientation",
+    "DCP/Text2-logical-id",
+    "DCP/ForceInProcessBrief"
 };
 
 #endif // DCPAPPLETMETADATA_P_H

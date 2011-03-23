@@ -107,3 +107,31 @@ void PageFactory::onDisplayEntered ()
 {
 }
 
+bool
+PageFactory::isCurrentPage (const PageHandle &)
+{
+    return false;
+}
+
+MApplicationWindow* PageFactory::window ()
+{
+    return 0;
+}
+
+void PageFactory::newWin ()
+{
+}
+
+void
+PageFactory::raiseMainWindow()
+{
+}
+
+bool PageFactory::eventFilter(QObject *obj, QEvent *event)
+{
+    return QObject::eventFilter (obj, event);
+}
+
+void PageFactory::helpClicked(const QString&){}
+
+

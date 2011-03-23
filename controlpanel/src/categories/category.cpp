@@ -72,12 +72,14 @@ QString Category::title() const
 QString Category::subtitle() const
 {
     QString id = subtitleId();
+    if (id.isEmpty()) return id;
     QString translated = qtTrId(qPrintable(id));
 
-    if (translated == id)
+    if (translated == id) {
         return "!! " + value (ValueId);
-    else
+    } else {
         return translated;
+    }
 }
 
 QString Category::iconId() const

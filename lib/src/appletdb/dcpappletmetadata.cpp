@@ -295,24 +295,34 @@ QString
 DcpAppletMetadata::text1 () const
 {
     QString id = desktopEntryStr(KeyNameId);
-    QString name = desktopEntryStr(KeyName);
-    if (qtTrId(qPrintable(id)) == id)
-        return ("!! " + name);
-    else
+    if (qtTrId(qPrintable(id)) == id) {
+        QString name = desktopEntryStr(KeyName);
+        return "!! " + name;
+    } else {
         return qtTrId(qPrintable(id));
+    }
 }
 
-QString 
+QString
 DcpAppletMetadata::text2 () const
 {
-    /*
-     * FIXME: This feature is not in the UI spec, we have no localization for
-     * the string.
-     */
-    if (isDisabled())
+    if (isDisabled()) {
         return QString ("Disabled");
-    // static way
-    return desktopEntryStr(KeyText2);
+    }
+
+    QString id = desktopEntryStr(KeyText2Id);
+    if (id.isEmpty() || qtTrId(qPrintable(id)) == id) {
+        QString text = desktopEntryStr(KeyText2);
+        if (text.isEmpty()) {
+            // no text 2
+            return text;
+        } else {
+            // no translation for text 2
+            return "!! " + text;
+        }
+    } else {
+        return qtTrId(qPrintable(id));
+    }
 }
 
 QString 
@@ -349,29 +359,33 @@ DcpAppletMetadata::order () const
     return desktopEntry()->value(Keys[KeyOrder]).toInt();
 }
 
-#ifdef MOSTUSED
 int 
 DcpAppletMetadata::usage () const
 {
+#ifdef MOSTUSED
     if (widgetTypeID() == DcpWidgetType::Button)
         return 0;
     
     return MostUsedCounter::instance()->getUsageCount (
        QFileInfo(fileName()).baseName()
     );
+#else
+    return 0;
+#endif
 }
 
 void
 DcpAppletMetadata::incrementUsage()
 { 
+#ifdef MOSTUSED
     if (widgetTypeID() == DcpWidgetType::Button)
         return;
     MostUsedCounter::instance()->incrementUsageCount (
             QFileInfo(fileName()).baseName()
     );
     setLastUsed (this);
-}
 #endif
+}
 
 MDesktopEntry *
 DcpAppletMetadata::desktopEntry () const
@@ -426,15 +440,20 @@ DcpAppletMetadata::titleLessThan (
             == MLocale::LessThan;
 }
 
-#ifdef MOSTUSED
 bool 
 DcpAppletMetadata::usageGreatherThan (
         DcpAppletMetadata *meta1,
         DcpAppletMetadata *meta2)
 {
+#ifdef MOSTUSED
     return meta1->usage() > meta2->usage();
-}
+#else
+    Q_UNUSED(meta1);
+    Q_UNUSED(meta2);
+
+    return false;
 #endif
+}
 
 bool
 DcpAppletMetadata::isDisabled () const
@@ -613,5 +632,33 @@ QString DcpAppletMetadata::sliderRightImage () const
     return desktopEntryStr(KeySliderRightImage);
 }
 
+bool DcpAppletMetadata::hasInProcessBrief () const
+{
+    // of we have no library, we can be "inprocess" (who cares)
+    if (binary().isEmpty()) {
+        return true;
+    }
 
+    // if we are special type, we have no other choice:
+    int widgetType = widgetTypeID();
+    if (widgetType == DcpWidgetType::Special ||
+
+            // FIXME XXX this is only for compatibility until Offline applet
+            // disappears:
+        widgetType == DcpWidgetType::Button
+
+       ) {
+        return true;
+    }
+
+    /*
+     * If an applet wants to create dialog and
+     * notification which requires it to be loaded, it can override
+     * that it should not be handled out of process from its .desktop file.
+     *
+     * However, we could make an api for dialog requests
+     * and then it would make this unecessery
+     */
+    return desktopEntryStr(KeyForceInProcessBrief) == "1";
+}
 

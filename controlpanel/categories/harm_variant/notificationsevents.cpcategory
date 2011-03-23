@@ -1,0 +1,12 @@
+Parent=MainPage
+
+Name="Notifications & Events"
+Name-logical-id=qtn_sett_main_notifications
+
+Icon=icon-m-settings-notification
+
+Aliases=
+Translation-catalogs=
+
+Order=60
+
