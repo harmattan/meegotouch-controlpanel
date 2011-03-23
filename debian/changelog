@@ -1,4 +1,4 @@
-duicontrolpanel (0.12.7~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.7) unstable; urgency=low
 
   * Fixes: NB#238601 - Notifications and Events feed settings are not
     implemented according to the UI specs
