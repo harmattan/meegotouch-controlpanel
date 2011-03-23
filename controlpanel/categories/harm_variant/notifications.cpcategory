@@ -1,12 +1,14 @@
-Parent=MainPage
+Parent=Notifications & Events
 
-Name="Notifications & Events"
-Name-logical-id=qtn_sett_main_notifications
+Name="Notifications"
+Name-logical-id=qtn_noti_settings_title 
 
-Icon=icon-m-settings-notification
+Icon=
 
-Aliases=Notifications
-Translation-catalogs=
+Aliases=
+Translation-catalogs=notification
 
-Order=60
+AutoStartApplet=1
+
+Order=10
 
