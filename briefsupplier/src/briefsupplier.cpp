@@ -33,6 +33,8 @@
 #include "bsuppliercommands.h"
 #include "stream.h"
 
+#include <syslog.h>
+
 using namespace BSupplier;
 
 #define returnIf(test, st, param)  \
@@ -46,13 +48,19 @@ BriefSupplier::BriefSupplier(const QString &desktopDir):
              this, SLOT (onCommandArrival(QString)));
 
     // init the server:
-    QLocalServer* server = new QLocalServer (this);
-    connect (server, SIGNAL (newConnection()),
+    m_Server = new QLocalServer (this);
+    connect (m_Server, SIGNAL (newConnection()),
              this, SLOT (onNewConnection()));
-    QLocalServer::removeServer (BServerId);
-    bool ok = server->listen (BServerId);
+    bool ok = m_Server->listen (BServerId);
+    if (!ok) {
+        syslog (LOG_WARNING, "can not listen on localsocket, trying cleanup");
+        QLocalServer::removeServer (BServerId);
+        ok = m_Server->listen (BServerId);
+    }
     if (!ok) {
         qWarning ("Brief supplier process is not able to listen");
+        qApp->exit(1);
+        return;
     }
 
     // init the db:
@@ -66,6 +74,7 @@ BriefSupplier::BriefSupplier(const QString &desktopDir):
 
 BriefSupplier::~BriefSupplier()
 {
+    m_Server->close();
     delete m_Stream;
 }
 
@@ -78,7 +87,14 @@ void BriefSupplier::onNewConnection ()
         dcp_failfunc_unless (server);
         QLocalSocket* socket = server->nextPendingConnection ();
         setIODevice (socket);
+        connect (socket, SIGNAL (disconnected ()),
+                 this, SLOT (onConnectionDisconnected()));
     }
+}
+
+void BriefSupplier::onConnectionDisconnected()
+{
+    qApp->exit(0);
 }
 
 void BriefSupplier::onCommandArrival (const QString& command)
@@ -289,3 +305,4 @@ void BriefSupplier::setIODevice (QIODevice* device)
 {
     m_Stream->setIODevice (device);
 }
+

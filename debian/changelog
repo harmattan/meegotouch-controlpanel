@@ -1,4 +1,10 @@
-duicontrolpanel (0.12.6~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.7~unreleased) unstable; urgency=low
+
+  * version up
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 22 Mar 2011 11:57:30 +0100
+
+duicontrolpanel (0.12.6) unstable; urgency=low
 
   [ Robert Manner ]
   * Fixes: NB#237302 - Brightness control level
