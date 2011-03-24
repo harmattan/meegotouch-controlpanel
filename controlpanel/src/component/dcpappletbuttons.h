@@ -55,10 +55,7 @@ public:
 signals:
     //! emitted after loading the applets has finished
     void loadingFinished();
-    void helpPageOpened(const QString& helpId);
 
-public slots:
-    void helpClicked();
 protected:
     virtual void createContents();
     void addComponent (DcpAppletMetadata *metadata, QStandardItemModel* model);

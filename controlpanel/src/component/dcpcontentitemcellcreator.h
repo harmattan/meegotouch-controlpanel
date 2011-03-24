@@ -33,8 +33,7 @@ public:
     virtual MWidget * createCell (const QModelIndex &index,
                                   MWidgetRecycler &recycler) const;
     virtual void updateCell(const QModelIndex& index, MWidget * cell) const;
-signals:                                                                       
-    void helpPageOpened(const QString&);
+
 private:
 	
 };
@@ -42,5 +41,5 @@ private:
 Q_DECLARE_METATYPE (DcpAppletMetadata*)
 Q_DECLARE_METATYPE (DcpAppletObject*)
 
-
 #endif // DCPCONTENTITEMCELLCREATOR_H
+

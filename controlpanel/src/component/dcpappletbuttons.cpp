@@ -213,9 +213,6 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
             MHelpButton* help = new MHelpButton (helpId);
             help->setViewType(MButton::iconType);
             help->setIconID ("icon-s-description-inverse");
-	    qDebug() << Q_FUNC_INFO << "connecting help pressed()";
-	    connect(help, SIGNAL(pressed()),
-		    this, SLOT(helpClicked()));
             wlayout->addItem (help);
         }
 
@@ -283,10 +280,3 @@ DcpAppletButtons::setCategoryInfo (const Category *categoryInfo)
     }
 }
 
-void
-DcpAppletButtons::helpClicked()
-{
-    qDebug() << Q_FUNC_INFO;
-    MHelpButton *help = qobject_cast<MHelpButton*>(sender());
-    emit helpPageOpened(help->pageID());
-}
