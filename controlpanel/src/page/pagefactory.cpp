@@ -668,13 +668,19 @@ void PageFactory::helpClicked(const QString& helpId)
     qDebug() << "HELP clicked" << helpId;
     setLastHelpId(helpId);
 }
-void 
+
+void
 PageFactory::closeHelpPage()
 {
+    if (!m_Win) return;
+
     QDBusConnection connection = QDBusConnection::sessionBus();
     QDBusMessage message = QDBusMessage::createMethodCall(
-        "com.nokia.userguide", "/", "com.nokia.UserGuideIf", "closeChainedPages");
-    QDBusMessage reply = connection.call(message);
-    if (!reply.errorMessage().isEmpty())	
-        qDebug() << reply.errorName() << reply.errorMessage();
+        "com.nokia.userguide", "/", "com.nokia.UserGuideIf", "closePage");
+    QList<QVariant> args;
+    args.append((uint)m_Win->winId());
+    message.setArguments(args);
+
+    connection.asyncCall(message);
 }
+
