@@ -1,8 +1,30 @@
-duicontrolpanel (0.12.6~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.7.2) unstable; urgency=low
 
+  [ Sandor Pinter ]
+  * Fixes: NB#238601 - Notifications and Events feed settings are not
+    implemented according to the UI specs
+
+  [ Robert Manner ]
+  * Workaround for NB#239045 - Settings application shows toolbar
+    background in white color
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 23 Mar 2011 12:14:15 +0100
+
+duicontrolpanel (0.12.6) unstable; urgency=low
+
+  [ Robert Manner ]
   * Fixes: NB#237302 - Brightness control level
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Sat, 19 Mar 2011 15:06:16 +0100
+  [ Sandor Pinter ]
+  * Fixes: NB#238276 - Settings; 'Flight mode' toggle button layout is
+    not align with the label
+  * Fixes: NB#238251 - Settings; layout of Arrows are inconsistent;
+    supposed to be vertical center with label option
+  * Fixes: NB#230172 - Connectivity, internet connections view, labels
+    are not aligned correctly when in offline mode and also after
+    deactivating offline mode.
+
+ -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Tue, 22 Mar 2011 09:00:51 +0100
 
 duicontrolpanel (0.12.5) unstable; urgency=low
 

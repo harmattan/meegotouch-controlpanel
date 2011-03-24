@@ -46,6 +46,8 @@ public:
     MApplicationPage* currentPage() const;
     void setCurrentPage(MApplicationPage* currentPage);
 
+    void setStyleName (const QString&) {}
+
 signals:
     void pageChanged(MApplicationPage *);
     void displayEntered();
