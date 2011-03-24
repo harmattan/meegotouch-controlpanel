@@ -1,8 +1,9 @@
 duicontrolpanel (0.12.8~unreleased) unstable; urgency=low
 
-  * new version
+  * Fixes: NB#231725 - Help view is shown on relaunching the settings
+    application, it doesn't switch back
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 24 Mar 2011 15:54:52 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 24 Mar 2011 16:57:01 +0100
 
 duicontrolpanel (0.12.7.2) unstable; urgency=low
 
