@@ -31,7 +31,6 @@ class DcpAppletPage;
 class DcpAppletCategoryPage;
 class DcpAppletLauncherIf;
 class MApplicationWindow;
-
 /*!
  * Implements methods to create new views (pages), show views and change between
  * views.

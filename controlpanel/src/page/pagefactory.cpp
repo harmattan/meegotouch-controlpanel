@@ -671,10 +671,7 @@ PageFactory::closeHelpPage()
 {
     QDBusConnection connection = QDBusConnection::sessionBus();
     QDBusMessage message = QDBusMessage::createMethodCall(
-        "com.nokia.userguide", "/", "com.nokia.UserGuideIf", "closePage");
-    QList<QVariant> args;
-    args.append(lastHelpId());
-    message.setArguments(args);
+        "com.nokia.userguide", "/", "com.nokia.UserGuideIf", "closeChainedPages");
     QDBusMessage reply = connection.call(message);
     if (!reply.errorMessage().isEmpty())	
         qDebug() << reply.errorName() << reply.errorMessage();
