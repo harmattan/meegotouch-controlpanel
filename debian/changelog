@@ -1,4 +1,4 @@
-duicontrolpanel (0.12.8~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.8) unstable; urgency=low
 
   * Fixes: NB#231725 - Help view is shown on relaunching the settings
     application, it doesn't switch back
