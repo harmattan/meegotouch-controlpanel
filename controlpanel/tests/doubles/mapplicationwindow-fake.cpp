@@ -75,6 +75,11 @@ bool QWidget::close ()
     return true;
 }
 
+WId QWidget::winId () const
+{
+    return 0;
+}
+
 MSceneManager * MWindow::sceneManager () const
 {
     static MSceneManager* manager = new MSceneManager (0,0);
