@@ -67,9 +67,13 @@ PageFactory::PageFactory ():
 PageFactory::~PageFactory ()
 {
     delete sm_AppletLauncher;
+
     sm_AppletLauncher = 0;
     sm_Instance = 0;
     if (m_Win) {
+        // close help pages if any:
+        closeHelpPage();
+
         // delete the m_Win if not already deleted:
         m_Win->close ();
     }
