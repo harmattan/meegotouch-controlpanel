@@ -70,11 +70,6 @@ PageFactory::changePage (const PageHandle &handle, bool)
 }
 
 void
-PageFactory::pageChanged (MApplicationPage *)
-{
-}
-
-void
 PageFactory::appletWantsToStart (int)
 {
 }
