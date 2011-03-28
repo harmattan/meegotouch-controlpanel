@@ -4,7 +4,6 @@ INCLUDEPATH += ../doubles
 
 SRCDIR = ./../../src
 
-QMAKE_LIBDIR += ../../../lib/lib/ /usr/lib/
 LIBDCPSRC =../../../lib/src
 LIBDCPINCLUDE=../../../lib/src/include
 LIBDCPFAKES=../../../lib/tests/doubles
@@ -26,7 +25,7 @@ target.path = $${DCP_INSTALL_LIB}/duicontrolpanel-tests
 INSTALLS += target
 include(check.pri)
 include(coverage.pri)
-LIBS += -L/usr/lib -lduicontrolpanel
+LIBS += -L../../../lib/lib -lduicontrolpanel
 QMAKE_CXXFLAGS += -Wno-deprecated
 message($$target.path)
 
