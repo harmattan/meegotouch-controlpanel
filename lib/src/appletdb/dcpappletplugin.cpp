@@ -167,17 +167,14 @@ DcpAppletPlugin::loadPluginFile (const QString &binaryPath)
         return false;
     }
 
-    /*
-     * We need this so our application won't abort on an unresolved symbol in
-     * the plugin.
-     */
     dcpSyslog ("loading " + binaryPath);
     d_ptr->loader.setFileName (binaryPath);
     if (!d_ptr->loader.load ()) {
         d_ptr->errorMsg = "Loading of the '" + binaryPath + "/" +
             d_ptr->appletMetadata->name() +
             "' applet failed: " + d_ptr->loader.errorString();
-        DCP_WARNING ("%s", DCP_STR (d_ptr->errorMsg));
+        syslog (LOG_WARNING, qPrintable(d_ptr->errorMsg));
+        return false;
     } else {
         QObject *object = d_ptr->loader.instance();
         d_ptr->appletInstance = qobject_cast<DcpAppletIf*>(object);
@@ -186,7 +183,7 @@ DcpAppletPlugin::loadPluginFile (const QString &binaryPath)
             d_ptr->errorMsg = "Loading of the '" + binaryPath + "/" +
                 metadata()->name() +
                 "' applet failed: Invalid ExampleAppletInterface object.";
-            DCP_WARNING ("%s", DCP_STR (d_ptr->errorMsg));
+            syslog (LOG_WARNING, qPrintable(d_ptr->errorMsg));
             return false;
         } else {
             DCP_DEBUG ("Initializing %s", DCP_STR (binaryPath));

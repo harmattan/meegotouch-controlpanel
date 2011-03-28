@@ -244,7 +244,10 @@ DcpAppletPage::constructAppletWidget (DcpAppletObject* applet,
     if (page) {
         if (applet->interfaceVersion() >= 2) {
             connect (widget, SIGNAL (closePage()),
-                     page, SLOT (dismiss ()));
+// This is not working on the mainPage if running chained. Moves to a window
+// with no page)
+//                     page, SLOT (dismiss ()));
+                     page, SIGNAL (backButtonClicked ()));
             if (applet->interfaceVersion() >= 4) {
                 connect (widget, SIGNAL (inProgress (bool)),
                          page, SLOT (setProgressIndicatorVisible (bool)));
