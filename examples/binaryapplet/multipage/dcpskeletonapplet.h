@@ -15,31 +15,29 @@
 **
 ****************************************************************************/
 
-#ifndef DCPCONTENTITEMCELLCREATOR_H
-#define DCPCONTENTITEMCELLCREATOR_H
+#ifndef SKELETONAPPLET_H
+#define SKELETONAPPLET_H
 
-#include <MAbstractCellCreator>
-#include <DcpContentItem>
+#include <DcpAppletIf>
+#include <QObject>
+class DcpStylableWidget;
+class MAction;
 
-class DcpContentItemCellCreator: public MAbstractCellCreator<DcpContentItem>
+class SkeletonApplet : public QObject, public DcpAppletIf
 {
+	Q_OBJECT
+	Q_INTERFACES(DcpAppletIf)
+
 public:
-    enum DataRole {
-        MetadataRole = Qt::UserRole + 1,
-        AppletRole,
-        TDriverRole
-    };
+    virtual void init();
+    virtual DcpStylableWidget* constructStylableWidget(int widgetId);
 
-    virtual MWidget * createCell (const QModelIndex &index,
-                                  MWidgetRecycler &recycler) const;
-    virtual void updateCell(const QModelIndex& index, MWidget * cell) const;
+    virtual QString title() const;
+    virtual QVector<MAction *> viewMenuItems();
 
-private:
-	
+protected slots:
+    void startLanguageApplet();
 };
 
-Q_DECLARE_METATYPE (DcpAppletMetadata*)
-Q_DECLARE_METATYPE (DcpAppletObject*)
-
-#endif // DCPCONTENTITEMCELLCREATOR_H
+#endif // SKELETONAPPLET_H
 

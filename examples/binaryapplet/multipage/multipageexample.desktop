@@ -1,0 +1,30 @@
+[Desktop Entry]
+Type=ControlPanelApplet
+Name=MultiPage
+Icon=
+Exec=
+X-logical-id=qtn_sett_main_multipage
+X-translation-catalog=
+
+# This has to be specified in order that the .desktop file can also be
+# used as an action (for example for search to know how to
+# open the applet)
+X-Maemo-Service=com.nokia.DuiControlPanel
+X-Maemo-Method=com.nokia.DuiControlPanelIf.appletPage
+X-Maemo-Object-Path=/
+# this has to be the same as Name
+X-Maemo-Fixed-Args=MultiPage
+
+
+[DUI]
+X-DUIApplet-Applet=libdcpmultipageapplet.so
+
+[DCP]
+Category=MainPage
+Order=0
+WidgetType=Label
+
+# this text will be shown as second label,
+# until the applet gets loaded and supplies its value from DcpBrief:
+Text2=Example applet with multiple pages
+

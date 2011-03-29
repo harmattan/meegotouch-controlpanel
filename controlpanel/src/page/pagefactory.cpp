@@ -52,8 +52,7 @@ PageFactory *PageFactory::sm_Instance = 0;
 
 PageFactory::PageFactory ():
     QObject (),
-    m_Win (0),
-    m_LastHelpId("")
+    m_Win (0)
 {
     // run appletLoaded for all applets:
     DcpAppletDb* db = DcpAppletDb::instance();
@@ -68,9 +67,13 @@ PageFactory::PageFactory ():
 PageFactory::~PageFactory ()
 {
     delete sm_AppletLauncher;
+
     sm_AppletLauncher = 0;
     sm_Instance = 0;
     if (m_Win) {
+        // close help pages if any:
+        closeHelpPage();
+
         // delete the m_Win if not already deleted:
         m_Win->close ();
     }
@@ -190,8 +193,6 @@ PageFactory::createMainPage ()
     registerPage (mainPage);
     connect (mainPage, SIGNAL(appeared()),
              this, SLOT(mainPageFirstShown()));
-    connect(mainPage, SIGNAL(helpPageOpened(const QString&)),
-           this, SLOT(helpClicked(const QString&)));
 
     return mainPage;
 }
@@ -221,7 +222,7 @@ PageFactory::createAppletPage (PageHandle &handle)
         handle.widgetId = applet->getMainWidgetId();
     }
     if (m_LastAppletPage && m_LastAppletPage->handle() == handle) {
-        return 0; // m_LastAppletPage.data();
+        return 0;
     }
 
     /*
@@ -308,9 +309,6 @@ PageFactory::createAppletCategoryPage (const PageHandle& handle)
 
     DcpAppletCategoryPage* appletCategoryPage = new DcpAppletCategoryPage (info);
     registerPage (appletCategoryPage);
-    qDebug() << "connecting helpPageOpened";
-    connect(appletCategoryPage, SIGNAL(helpPageOpened(const QString&)),
-           this, SLOT(helpClicked(const QString&)));
 
     return appletCategoryPage;
 }
@@ -373,15 +371,14 @@ bool PageFactory::maybeRunOutOfProcess (const QString& appletName)
 bool
 PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
 {
-    if (dropOtherPages)
-     {
+    if (dropOtherPages) {
         closeHelpPage();
         // in outprocess mode we should also drop pages running in other instances
         // (if any):
         if (!isInProcessApplets()) {
             emit resetAppletLauncherProcesses ();
+        }
     }
-     } 
 
     // if we could run it out of process then we do not change the page:
     if (handle.id == PageHandle::APPLET && maybeRunOutOfProcess(handle.param)) {
@@ -486,28 +483,19 @@ PageFactory::registerPage (
             this, SLOT(changePage(const PageHandle &)));
 }
 
+
 /*!
- * This function will be called when the current page has been changed. It will
- * maintain a list of pages so the pagefactory will always know what pages are
- * in the stack. This is needed so the duicontrolpanel can page back to a
- * requested page.
+ * Returns the page history including the current page
  */
-void
-PageFactory::pageChanged (MApplicationPage *page)
+QList< MSceneWindow * > PageFactory::pageHistory ()
 {
-    if (m_Pages.empty()) {
-        DCP_DEBUG ("List is empty, adding");
-        m_Pages.append (page);
-    } else if (m_Pages.size() >= 2 && 
-            page == m_Pages.at(m_Pages.size() - 2)) {
-        DCP_DEBUG ("Last page removed, removing...");
-        m_Pages.takeLast();
-    } else if (m_Pages.contains(page)) {
-        DCP_WARNING ("It should not contain this page!");
-    } else {
-        DCP_DEBUG ("New page added!");
-        m_Pages.append (page);
-    }
+    QList< MSceneWindow * > pageList;
+    if (!m_Win) return pageList;
+    MSceneManager* manager = m_Win->sceneManager();
+    if (!manager) return pageList;
+    pageList = manager->pageHistory();
+    pageList.append (m_Win->currentPage()); // TODO might want to avoid this (PERF)
+    return pageList;
 }
 
 /*!
@@ -528,8 +516,9 @@ PageFactory::tryOpenPageBackward (const PageHandle &handle)
     /*
      * We try to find the requested page in the stack.
      */
-    for (n = 0; n < m_Pages.size(); ++n) {
-        page = qobject_cast<DcpPage*> (m_Pages[n]);
+    QList< MSceneWindow * > history = pageHistory();
+    for (n = 0; n < history.count(); n++) {
+        page = qobject_cast<DcpPage*> (history.at(n));
 
         if (page && page->handle() == handle) {
             foundAtIndex = n;
@@ -553,10 +542,11 @@ PageFactory::tryOpenPageBackward (const PageHandle &handle)
     /*
      * We close all the pages that are above the requested page.
      */
-    while (m_Pages.size() > foundAtIndex + 1) {
-        MApplicationPage *mPage = m_Pages.takeLast();
+    while (history.count() > foundAtIndex + 1) {
+        MSceneWindow *mPage = history.takeLast();
+
+        // the page can refuse its closing, then we stop:
         if (!mPage->dismiss ()) {
-            m_Pages.append (mPage);
             break;
         }
     }
@@ -565,8 +555,8 @@ PageFactory::tryOpenPageBackward (const PageHandle &handle)
      * A simple debug tool to print the page stack.
      */
     #ifdef DEBUG
-    for (n = 0; n < m_Pages.size(); ++n) {
-        page = qobject_cast<DcpPage*> (m_Pages[n]);
+    for (n = 0; n < history.size(); ++n) {
+        page = qobject_cast<DcpPage*> (history[n]);
         DCP_DEBUG ("page[%d] = %s", n,
                 DCP_STR(page->handle().getStringVariant()));
     }
@@ -591,8 +581,7 @@ void PageFactory::onDisplayEntered ()
     // we preload an appletlauncher instance in case we are again
     // on the categorypage (most likely the user tapped the back button
     // on an applet)
-    if (!m_Pages.isEmpty() &&
-        qobject_cast<DcpAppletCategoryPage*>(m_Pages.last()))
+    if (qobject_cast<DcpAppletCategoryPage*>(currentPage()))
     {
         preloadAppletLauncher();
     }
@@ -616,7 +605,6 @@ void PageFactory::newWin ()
     }
     if (m_Win) {
         m_LastAppletPage = 0;
-        m_Pages.clear();
         delete m_Win;
         m_Win = 0;
     }
@@ -656,28 +644,25 @@ bool PageFactory::eventFilter(QObject *obj, QEvent *event)
         DcpAppletPage* appletPage = qobject_cast<DcpAppletPage*>(currentPage());
         if (appletPage && appletPage->preventQuit()) {
             event->ignore ();
-            return false;
+            return true;
         }
     }
     // standard event processing
     return QObject::eventFilter(obj, event);
 }
 
-void PageFactory::helpClicked(const QString& helpId)
-{
-    qDebug() << "HELP clicked" << helpId;
-    setLastHelpId(helpId);
-}
-void 
+void
 PageFactory::closeHelpPage()
 {
+    if (!m_Win) return;
+
     QDBusConnection connection = QDBusConnection::sessionBus();
     QDBusMessage message = QDBusMessage::createMethodCall(
         "com.nokia.userguide", "/", "com.nokia.UserGuideIf", "closePage");
     QList<QVariant> args;
-    args.append(lastHelpId());
+    args.append((uint)m_Win->winId());
     message.setArguments(args);
-    QDBusMessage reply = connection.call(message);
-    if (!reply.errorMessage().isEmpty())	
-        qDebug() << reply.errorName() << reply.errorMessage();
+
+    connection.asyncCall(message);
 }
+

@@ -154,8 +154,6 @@ DcpAppletCategoryPage::createContent ()
         addCategoryToLayoutOrdered (mainLayout(), categoryWidget, m_Category);
     }
 
-   connect(m_Category, SIGNAL(helpPageOpened(const QString&)),
-           this, SIGNAL(helpPageOpened(const QString&)));
 #ifdef PROGRESS_INDICATOR
     // show progress indicator while loading the applets:
     connect (m_Category, SIGNAL (loadingFinished()),

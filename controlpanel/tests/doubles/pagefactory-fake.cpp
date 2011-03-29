@@ -70,11 +70,6 @@ PageFactory::changePage (const PageHandle &handle, bool)
 }
 
 void
-PageFactory::pageChanged (MApplicationPage *)
-{
-}
-
-void
 PageFactory::appletWantsToStart (int)
 {
 }
@@ -131,7 +126,5 @@ bool PageFactory::eventFilter(QObject *obj, QEvent *event)
 {
     return QObject::eventFilter (obj, event);
 }
-
-void PageFactory::helpClicked(const QString&){}
 
 

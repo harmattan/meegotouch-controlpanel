@@ -46,9 +46,6 @@ protected:
     virtual void retranslateUi();
     QGraphicsWidget* createCategories ();
 
-signals:
-    void helpPageOpened(const QString&);
- 
 protected slots:
     void onLoadingFinished ();
 

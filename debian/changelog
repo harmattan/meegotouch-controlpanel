@@ -4,6 +4,23 @@ duicontrolpanel (0.13.0) unstable; urgency=low
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 01 Mar 2011 10:00:36 +0100
 
+duicontrolpanel (0.12.9~unreleased) unstable; urgency=low
+
+  * Fixes: emitting DcpWidget::closePage on first page of the applet
+    leads to a window without pages
+  * Fixes: DcpWidget::back() can not prevent closing the first page of
+    the applet
+  * New: example applet for multiple page situation
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 28 Mar 2011 13:04:21 +0200
+
+duicontrolpanel (0.12.8.1) unstable; urgency=low
+
+  * Fixes: NB#231725 - Help view is shown on relaunching the settings
+    application, it doesn't switch back
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 24 Mar 2011 16:57:01 +0100
+
 duicontrolpanel (0.12.7.2) unstable; urgency=low
 
   [ Sandor Pinter ]

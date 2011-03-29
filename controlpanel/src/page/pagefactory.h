@@ -24,6 +24,7 @@
 #include <QPointer>
 
 class MApplicationPage;
+class MSceneWindow;
 class DcpPage;
 class DcpAppletMetadata;
 class DcpAppletObject;
@@ -31,7 +32,6 @@ class DcpAppletPage;
 class DcpAppletCategoryPage;
 class DcpAppletLauncherIf;
 class MApplicationWindow;
-
 /*!
  * Implements methods to create new views (pages), show views and change between
  * views.
@@ -50,8 +50,6 @@ public:
     DcpPage* currentPage ();
     bool maybeRunOutOfProcess (const QString& appletName);
     MApplicationWindow* window ();
-    const QString lastHelpId() {return m_LastHelpId;}
-    void setLastHelpId(const QString& helpId) {m_LastHelpId = helpId;}
 public slots:
     void appletWantsToStart (int widgetId = -1);
 
@@ -62,7 +60,6 @@ public slots:
     void onAppletLoaded (DcpAppletObject *applet);
     void preloadAppletLauncher ();
     void preloadBriefReceiver ();
-    void helpClicked(const QString& helpId);
 
 signals:
     void resetAppletLauncherProcesses ();
@@ -78,7 +75,6 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event);
 
 private slots:
-    void pageChanged (MApplicationPage *page);
     void onDisplayEntered ();
     void mainPageFirstShown ();
 
@@ -89,12 +85,12 @@ private:
     bool isCurrentPage (const PageHandle &handle);
     void closeHelpPage();
 
+    QList< MSceneWindow * > pageHistory ();
+
     static PageFactory     *sm_Instance;
     QPointer<DcpAppletPage> m_LastAppletPage;
-    QList<MApplicationPage *> m_Pages;
     static DcpAppletLauncherIf *sm_AppletLauncher;
     QPointer<MApplicationWindow> m_Win;
-    QString m_LastHelpId;
     // for testability
     friend class Ut_PageFactory;
 };

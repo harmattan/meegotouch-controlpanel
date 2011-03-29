@@ -3,6 +3,7 @@ TEMPLATE      = subdirs
 SUBDIRS += itemlike \
            buttonlike \
            sliderlike \
+           multipage \
            translations
 
 # for check:
