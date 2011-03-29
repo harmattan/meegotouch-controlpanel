@@ -66,6 +66,7 @@ signals:
 protected:
     PageFactory ();
     DcpPage* createMainPage ();
+    DcpAppletCategoryPage* createMainPageIncomplete ();
     DcpPage* createAppletPage(PageHandle& applet);
     DcpPage* createAppletPage (DcpAppletMetadata* metadata);
     DcpPage* createAppletCategoryPage (const PageHandle& pageId);
@@ -77,8 +78,10 @@ private slots:
     void pageChanged (MApplicationPage *page);
     void onDisplayEntered ();
     void mainPageFirstShown ();
+    void completeMainPage ();
 
 private:
+    void registerAppletDb ();
     bool tryOpenPageBackward (const PageHandle &handle);
     void registerPage (DcpPage *page);
     void newWin ();
@@ -90,6 +93,7 @@ private:
     QList<MApplicationPage *> m_Pages;
     static DcpAppletLauncherIf *sm_AppletLauncher;
     QPointer<MApplicationWindow> m_Win;
+    DcpAppletCategoryPage *m_PageWithDelayedContent;
     // for testability
     friend class Ut_PageFactory;
 };

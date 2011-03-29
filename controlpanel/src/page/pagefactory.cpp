@@ -52,16 +52,9 @@ PageFactory *PageFactory::sm_Instance = 0;
 
 PageFactory::PageFactory ():
     QObject (),
-    m_Win (0)
+    m_Win (0),
+    m_PageWithDelayedContent (0)
 {
-    // run appletLoaded for all applets:
-    DcpAppletDb* db = DcpAppletDb::instance();
-    connect (db, SIGNAL(appletLoaded(DcpAppletObject*)),
-             this, SLOT(onAppletLoaded(DcpAppletObject*)));
-    QList<DcpAppletObject*> loadedApplets = db->loadedApplets();
-    foreach (DcpAppletObject* applet, loadedApplets) {
-        onAppletLoaded (applet);
-    }
 }
 
 PageFactory::~PageFactory ()
@@ -136,7 +129,14 @@ PageFactory::createPage (
              * when closed.
              */
             DCP_DEBUG ("## MAIN ##");
-            page = createMainPage();
+//            page = createMainPage();
+            if (m_PageWithDelayedContent) {
+                qCritical() << "request for re-creating a main page while another one is being built";
+                break;
+            }
+            m_PageWithDelayedContent = createMainPageIncomplete ();
+            page = qobject_cast<DcpPage *>(m_PageWithDelayedContent);
+            QTimer::singleShot(1000, this, SLOT(completeMainPage())); // XXX
             break;
         case PageHandle::APPLET:
             DCP_DEBUG ("## APPLET ##");
@@ -182,6 +182,22 @@ void PageFactory::mainPageFirstShown()
     QTimer::singleShot (1000, this, SLOT(preloadBriefReceiver()));
 }
 
+void
+PageFactory::completeMainPage ()
+{
+    DcpDebug::start("completeMainPage");
+    DcpDebug::start("registerAppletDb");
+    registerAppletDb();
+    DcpDebug::end("registerAppletDb");
+    if (m_PageWithDelayedContent) {
+        DcpDebug::start("createBody");
+        m_PageWithDelayedContent->createBody();
+        DcpDebug::end("createBody");
+        m_PageWithDelayedContent = 0;
+    }
+    DcpDebug::end("completeMainPage");
+}
+
 /*!
  * Creates the main page that shows most of the applets.
  */
@@ -196,6 +212,20 @@ PageFactory::createMainPage ()
 
     return mainPage;
 }
+
+/*!
+ * Creates an empty main page, its content will be created later.
+ */
+DcpAppletCategoryPage *
+PageFactory::createMainPageIncomplete ()
+{
+    DcpAppletCategoryPage *mainPage =
+        new DcpAppletCategoryPage(
+                DcpCategories::instance()->mainPageCategory());
+    mainPage->setDelayedContent(true);
+    return mainPage;
+}
+
 
 /*!
  * Creates an applet page for the default widget of the applet variant
@@ -508,6 +538,23 @@ PageFactory::pageChanged (MApplicationPage *page)
 }
 
 /*!
+ * Run onAppletLoaded for all the applets that are already loaded
+ * and run it later for the applets loaded in the future.
+ */
+void
+PageFactory::registerAppletDb () 
+{
+    // run appletLoaded for all applets:
+    DcpAppletDb* db = DcpAppletDb::instance();
+    connect (db, SIGNAL(appletLoaded(DcpAppletObject*)),
+             this, SLOT(onAppletLoaded(DcpAppletObject*)));
+    QList<DcpAppletObject*> loadedApplets = db->loadedApplets();
+    foreach (DcpAppletObject* applet, loadedApplets) {
+        onAppletLoaded (applet);
+    }
+}
+
+/*!
  * This function will try to activate the page by dismissing pages, that is if a
  * page with the given handle is already opened the function will dismiss all
  * the pages that are on the top of the requested page.
@@ -674,4 +721,5 @@ PageFactory::closeHelpPage()
 
     connection.asyncCall(message);
 }
+
 

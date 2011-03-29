@@ -41,6 +41,8 @@ public:
 
     int appletCount();
     DcpAppletMetadata* appletMetadata(int i);
+    void setDelayedContent(bool);
+    void createBody();
 
 protected:
     virtual void retranslateUi();
@@ -66,6 +68,7 @@ private:
     DcpAppletButtons* m_Category;
     DcpMostUsed *m_MostUsed;
     friend class Ut_DcpAppletCategoryPage;
+    bool m_DelayedContent;
 };
 
 #endif

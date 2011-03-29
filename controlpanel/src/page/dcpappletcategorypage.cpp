@@ -41,7 +41,8 @@ DcpAppletCategoryPage::DcpAppletCategoryPage (
     DcpPage (),
     m_CategoryInfo (categoryInfo),
     m_Category (0),
-    m_MostUsed (0)
+    m_MostUsed (0),
+    m_DelayedContent (0)
 {
 }
 
@@ -113,7 +114,76 @@ void
 DcpAppletCategoryPage::createContent ()
 {
     DcpPage::createContent ();
+    if (!m_DelayedContent) {
+        createBody();
+    }
+    retranslateUi();
+    mainLayout()->addStretch();
+}
 
+const QString 
+DcpAppletCategoryPage::appletCategory() const 
+{
+    return m_CategoryInfo->name();
+}
+
+void
+DcpAppletCategoryPage::setCategoryInfo (
+        const Category *categoryInfo)
+{
+    m_CategoryInfo = categoryInfo;
+}
+
+/*! \brief Returns the count of applets present in the active category.
+ *
+ * Note that it is not very cheap, because it forces the items (widgets) to be
+ * loaded. So only use it in case you want to load the items anyway
+ */
+int
+DcpAppletCategoryPage::appletCount()
+{
+    // this forces loading the items
+    if (!isContentCreated()) {
+        createContent();
+    } else if (m_LoadedAppletCategory != appletCategory()) {
+        m_Category->setCategoryInfo (m_CategoryInfo);
+    }
+
+    return m_Category->metadataCount();
+}
+
+/*! \brief Returns the metadata at the specified position.
+ *
+ * Note, the same applies as for appletCount().
+ */
+DcpAppletMetadata*
+DcpAppletCategoryPage::appletMetadata(int i)
+{
+    if (i < appletCount()) {
+        return m_Category->appletMetadata(i);
+    } else {
+        return 0;
+    }
+}
+
+/*!
+ * If delayed is true, createContent creates an empty page that contains
+ * the header label only. The body can be created later with createBody();
+ *
+ * The default behaviour is not delaying the creation of the body.
+ */
+void
+DcpAppletCategoryPage::setDelayedContent(bool delayed)
+{
+    m_DelayedContent = delayed;
+}
+
+/*!
+ * Create and show the body content of the page.
+ */
+void
+DcpAppletCategoryPage::createBody()
+{
     // Most Used Items:
     bool hasMostUsed = m_CategoryInfo->hasMostUsed();
     if (hasMostUsed) {
@@ -161,53 +231,6 @@ DcpAppletCategoryPage::createContent ()
     setProgressIndicatorVisible (true);
 #endif
     mainLayout()->addStretch();
-
-    retranslateUi();
-}
-
-const QString 
-DcpAppletCategoryPage::appletCategory() const 
-{
-    return m_CategoryInfo->name();
-}
-
-void
-DcpAppletCategoryPage::setCategoryInfo (
-        const Category *categoryInfo)
-{
-    m_CategoryInfo = categoryInfo;
-}
-
-/*! \brief Returns the count of applets present in the active category.
- *
- * Note that it is not very cheap, because it forces the items (widgets) to be
- * loaded. So only use it in case you want to load the items anyway
- */
-int
-DcpAppletCategoryPage::appletCount()
-{
-    // this forces loading the items
-    if (!isContentCreated()) {
-        createContent();
-    } else if (m_LoadedAppletCategory != appletCategory()) {
-        m_Category->setCategoryInfo (m_CategoryInfo);
-    }
-
-    return m_Category->metadataCount();
-}
-
-/*! \brief Returns the metadata at the specified position.
- *
- * Note, the same applies as for appletCount().
- */
-DcpAppletMetadata*
-DcpAppletCategoryPage::appletMetadata(int i)
-{
-    if (i < appletCount()) {
-        return m_Category->appletMetadata(i);
-    } else {
-        return 0;
-    }
 }
 
 void
