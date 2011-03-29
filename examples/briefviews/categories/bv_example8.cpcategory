@@ -1,0 +1,15 @@
+Parent=Examples
+
+Name="second label and icon"
+Name-logical-id=qtn_sett_example_category
+
+Value="icon + second label"
+Value-logical-id=qtn_sett_example_category
+
+Icon=icon-m-settings-applications
+
+Aliases=Category4
+Translation-catalogs="catalog1,catalog2"
+
+Order=50
+

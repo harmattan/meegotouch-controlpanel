@@ -10,3 +10,6 @@ usr/lib/duicontrolpanel/declexample.desktop
 usr/lib/duicontrolpanel/uidescriptions/example1.xml
 usr/lib/duicontrolpanel/externalapp.desktop
 usr/share/themes/base/meegotouch/libdcpskeletonapplet/style/libdcpskeletonapplet.css
+usr/lib/duicontrolpanel/bv_example*.desktop
+usr/share/duicontrolpanel/categories/examples/bv_example* usr/share/duicontrolpanel/categories
+

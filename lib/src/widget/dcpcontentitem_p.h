@@ -39,8 +39,6 @@ public:
     DcpAppletObject *m_Applet;
     DcpAppletMetadata *m_Metadata;
 
-    bool m_Hidden;
-
     QString m_TDriverID;
 
     // for the image widget:
@@ -56,7 +54,6 @@ public:
     MHelpButton* m_Help;
     MButton* m_ButtonW;
     MSlider* m_Slider;
-    QGraphicsWidget* m_Spacer;
 };
 
 #endif // DCPCONTENTITEMPRIVATE_H

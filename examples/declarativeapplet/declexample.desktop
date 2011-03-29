@@ -18,7 +18,8 @@ X-Maemo-Fixed-Args=Declarative Example 1
 X-DUIApplet-Applet=libdeclarative.so
 
 [DCP]
-Category= Applications
+# Category= Applications
+Category=Examples
 Order=100
 Part=example1.xml
 

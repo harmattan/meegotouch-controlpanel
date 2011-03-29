@@ -209,10 +209,6 @@ DcpPage::setTitleLabel ()
         m_TitleLabel->setWordWrap(true);
         m_TitleLabel->setStyleName ("CommonApplicationHeaderInverted");
         mainLayout()->insertItem (0, m_TitleLabel);
-
-        MSeparator* separator = new MSeparator();
-        separator->setStyleName ("CommonSmallSpacer");
-        mainLayout()->insertItem (1, separator);
     }
     m_TitleLabel->setText (title ());
 #endif
