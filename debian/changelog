@@ -1,12 +1,17 @@
 duicontrolpanel (0.12.9~unreleased) unstable; urgency=low
 
+  [ Robert Manner ]
   * Fixes: emitting DcpWidget::closePage on first page of the applet
     leads to a window without pages
   * Fixes: DcpWidget::back() can not prevent closing the first page of
     the applet
   * New: example applet for multiple page situation
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 28 Mar 2011 13:04:21 +0200
+  [ Sandor Pinter ]
+  * Fixes: NB#239966 - Bluetooth icon in settings
+  * Fixes: NB#239969 - Device icon in Settings is incorrect
+
+ -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Tue, 29 Mar 2011 13:16:36 +0200
 
 duicontrolpanel (0.12.8.1) unstable; urgency=low
 
