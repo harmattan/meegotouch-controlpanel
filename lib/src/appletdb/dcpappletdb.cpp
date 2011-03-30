@@ -288,8 +288,6 @@ DcpAppletDb::listMostUsed ()
 /*!
  * \brief Returns the applet found in the database by its name.
  *
- * FIXME: This is actually a localized name, that is changed when the language
- * settings are changed. This might cause some problems in the future.
  */
 DcpAppletObject *
 DcpAppletDb::applet (const QString &name)
