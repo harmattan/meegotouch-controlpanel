@@ -106,3 +106,8 @@ void MSceneManager::appearSceneWindowNow (MSceneWindow *win, MSceneWindow::Delet
     win->appear ((MWindow*)0, policy);
 }
 
+QList< MSceneWindow * > MSceneManager::pageHistory () const
+{
+    return QList< MSceneWindow* >();
+}
+

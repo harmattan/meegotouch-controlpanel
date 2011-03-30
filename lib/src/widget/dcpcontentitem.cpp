@@ -27,13 +27,15 @@
 
 #include "dcpappletdb.h"
 
-static const QString subtitleObjectName = "CommonSubTitleInverted";
-static const QString singleTitleObjectName = "CommonSingleTitleInverted";
-static const QString titleObjectName = "CommonTitleInverted";
-static const QString iconObjectName = "CommonMainIcon";
-static const QString drillDownObjectName = "CommonDrillDownIcon";
-static const QString toggleObjectName = "CommonRightSwitchInverted";
-static const QString sliderObjectName = "CommonSliderInverted";
+static const char* subtitleObjectName = "CommonSubTitleInverted";
+static const char* singleTitleObjectName = "CommonSingleTitleInverted";
+static const char* titleObjectName = "CommonTitleInverted";
+static const char* iconObjectName = "CommonMainIcon";
+static const char* drillDownObjectName = "CommonDrillDownIcon";
+static const char* toggleObjectName = "CommonRightSwitchInverted";
+static const char* sliderObjectName = "CommonSliderInverted";
+static const char* commonPanelObjectName = "CommonPanelInverted";
+static const char* largePanelObjectName = "CommonLargePanelInverted";
 
 DcpContentItemPrivate::DcpContentItemPrivate ():
     m_Applet (0),
@@ -59,8 +61,7 @@ DcpContentItem::DcpContentItem (
     d_ptr (new DcpContentItemPrivate)
 {
     connect (this, SIGNAL (clicked()), this, SLOT (onClicked()));
-    setStyleName ("CommonPanelInverted");
-    setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
+//    setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Minimum);
     setApplet (applet);
 }
 
@@ -102,8 +103,9 @@ DcpContentItem::ensureLayoutIsCreated (QGraphicsGridLayout*& grid)
     grid = static_cast<QGraphicsGridLayout*>(this->layout());
     if (!grid) {
         grid = new QGraphicsGridLayout (this);
-        grid->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
+//        grid->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Minimum);
         grid->setContentsMargins (0,0,0,0);
+        grid->setMaximumSize (QSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX));
         grid->setSpacing(0);
         d_ptr->m_LayoutIsToBeChanged = true;
     }
@@ -143,7 +145,7 @@ DcpContentItem::ensureSliderIsCreated()
         if (!slider) {
             slider = new MSlider();
             slider->setStyleName (sliderObjectName);
-            slider->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
+//            slider->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
             slider->setMaximumWidth (-1);
             connect(slider, SIGNAL(valueChanged(int)), this, SLOT(sliderChanged(int)));
 
@@ -325,12 +327,13 @@ DcpContentItem::ensureWidgetsAreLayouted()
     // layout the items again:
     int textX = d_ptr->m_ImageW ? 1 : 0;
     bool isTextHorizontal = metadata()->textOrientation() == Qt::Horizontal;
-    int textLinesCount = d_ptr->m_Slider || d_ptr->m_Text2W->text().isEmpty() ? 1 : 2;
+    int textLinesCount =
+        (!d_ptr->m_Slider) && d_ptr->m_Text2W->text().isEmpty() ? 1 : 2;
     if (d_ptr->m_ImageW) {
         grid->addItem (d_ptr->m_ImageW, 0,0,
                        textLinesCount, 1, Qt::AlignCenter);
     }
-    // slider does not have the labels:
+    // slider is somewhat special:
     if (!d_ptr->m_Slider) {
         if (!isTextHorizontal) {
             // vertical mode:
@@ -350,8 +353,15 @@ DcpContentItem::ensureWidgetsAreLayouted()
             grid->addItem (d_ptr->m_Text2W, 0, textX+1, Qt::AlignVCenter);
             textX++;
         }
+        if (styleName() != commonPanelObjectName) {
+            setStyleName (commonPanelObjectName);
+        }
     } else {
-        grid->addItem (d_ptr->m_Slider, 0, textX, Qt::AlignCenter);
+        grid->addItem (d_ptr->m_Text1W, 0, textX);
+        grid->addItem (d_ptr->m_Slider, 1, textX, Qt::AlignCenter);
+        if (styleName() != largePanelObjectName) {
+            setStyleName (largePanelObjectName);
+        }
     }
 
     int toggleX = textX+1;
@@ -412,7 +422,6 @@ QString
 DcpContentItem::title() const
 {
     if (applet()) {
-        if (widgetType() == DcpWidgetType::Slider) return QString();
         return applet()->text1();
     }
     if (d_ptr->m_Metadata) return d_ptr->m_Metadata->text1();
