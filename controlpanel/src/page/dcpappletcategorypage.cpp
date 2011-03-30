@@ -27,7 +27,6 @@
 #include "dcpmostused.h"
 #include "dcpdebug.h"
 
-#include <DcpAppletDb>
 #include <DcpAppletMetadata>
 #include <DcpAppletObject>
 #include <DcpRetranslator>

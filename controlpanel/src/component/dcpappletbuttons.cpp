@@ -28,7 +28,7 @@
 #include "dcpcategories.h"
 
 #include "pages.h"
-#include <DcpAppletDb>
+#include "dcpappletmanager.h"
 #include <DcpAppletMetadata>
 #include <DcpApplet>
 #include <DcpContentButton>
@@ -108,11 +108,11 @@ DcpAppletButtons::createContents ()
     DcpAppletMetadataList metadatas;
     bool isMostUsed = m_CategoryInfo->name() == MostUsed;
     if (isMostUsed) {
-        metadatas = DcpAppletDb::instance()->listMostUsed();
+        metadatas = DcpAppletManager::instance()->listMostUsed();
     } else {
         bool withUncategorized = m_CategoryInfo->containsUncategorized();
         metadatas =
-            DcpAppletDb::instance()->listByCategory (
+            DcpAppletManager::instance()->listByCategory (
                     m_CategoryInfo->referenceIds(),
                     withUncategorized ? DcpCategories::hasCategory : NULL);
     }
@@ -180,9 +180,9 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
     // set the applet directly instead of its metadata only
     DcpAppletObject* applet = 0;
     QString name = metadata->name();
-    DcpAppletDb* db = DcpAppletDb::instance();
-    if (db->isAppletLoaded (name) || metadata->hasInProcessBrief()) {
-        applet = db->applet (name);
+    DcpAppletManager* mng = DcpAppletManager::instance();
+    if (mng->isAppletLoaded (name) || metadata->hasInProcessBrief()) {
+        applet = mng->applet (name);
     } else {
         applet = new DcpRemoteAppletObject (metadata, model);
     }

@@ -70,6 +70,7 @@ protected:
     DcpPage* createAppletPage(PageHandle& applet);
     DcpPage* createAppletPage (DcpAppletMetadata* metadata);
     DcpPage* createAppletCategoryPage (const PageHandle& pageId);
+    DcpPage* createCategoryPageIncomplete (const PageHandle& pageId);
     void appear (MApplicationPage* page);
 
     bool eventFilter(QObject *obj, QEvent *event);
@@ -78,10 +79,11 @@ private slots:
     void pageChanged (MApplicationPage *page);
     void onDisplayEntered ();
     void mainPageFirstShown ();
-    void completeMainPage ();
+    void completeCategoryPage ();
+    void startAppletsRegistration();
+    void onMetadataLoaded ();
 
 private:
-    void registerAppletDb ();
     bool tryOpenPageBackward (const PageHandle &handle);
     void registerPage (DcpPage *page);
     void newWin ();
@@ -93,7 +95,11 @@ private:
     QList<MApplicationPage *> m_Pages;
     static DcpAppletLauncherIf *sm_AppletLauncher;
     QPointer<MApplicationWindow> m_Win;
+    /*! The page of which body needs to be created after the applets are
+        registered */
     DcpAppletCategoryPage *m_PageWithDelayedContent;
+    bool m_AppletsRegistered;
+
     // for testability
     friend class Ut_PageFactory;
 };

@@ -26,8 +26,8 @@
 #include "dcpcategories.h"
 #include "category.h"
 #include "dcpremotebriefreceiver.h"
+#include "dcpappletmanager.h"
 
-#include <DcpAppletDb>
 #include <DcpAppletIf>
 #include <DcpAppletMetadata>
 #include <DcpAppletObject>
@@ -53,8 +53,10 @@ PageFactory *PageFactory::sm_Instance = 0;
 PageFactory::PageFactory ():
     QObject (),
     m_Win (0),
-    m_PageWithDelayedContent (0)
+    m_PageWithDelayedContent (0),
+    m_AppletsRegistered (false)
 {
+    startAppletsRegistration();
 }
 
 PageFactory::~PageFactory ()
@@ -129,22 +131,34 @@ PageFactory::createPage (
              * when closed.
              */
             DCP_DEBUG ("## MAIN ##");
-//            page = createMainPage();
-            if (m_PageWithDelayedContent) {
-                qCritical() << "request for re-creating a main page while another one is being built";
-                break;
+            if (m_AppletsRegistered) {
+                page = qobject_cast<DcpPage *>(createMainPage());
+            } else {
+                if (m_PageWithDelayedContent) {
+                    qCritical() << "request for re-creating a main page while another one is being built";
+                    break;
+                }
+                m_PageWithDelayedContent = createMainPageIncomplete ();
+                page = qobject_cast<DcpPage *>(m_PageWithDelayedContent);
             }
-            m_PageWithDelayedContent = createMainPageIncomplete ();
-            page = qobject_cast<DcpPage *>(m_PageWithDelayedContent);
-            QTimer::singleShot(1000, this, SLOT(completeMainPage())); // XXX
             break;
         case PageHandle::APPLET:
             DCP_DEBUG ("## APPLET ##");
+            // applets are already registered if this is shown
+            // from a category page or the desktop file was loaded from
+            // DcpAppletLauncherService
             page = createAppletPage (myHandle);
             break;
 
         case PageHandle::APPLETCATEGORY:
         default:
+            if (!m_AppletsRegistered) {
+                // we have to wait until the desktop files are loaded
+                DCP_DEBUG ("wait until manager finished with loading of applets");
+            }
+            while (!m_AppletsRegistered) {
+                QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+            }
             page = createAppletCategoryPage (myHandle);
     }
 
@@ -183,19 +197,16 @@ void PageFactory::mainPageFirstShown()
 }
 
 void
-PageFactory::completeMainPage ()
+PageFactory::completeCategoryPage ()
 {
-    DcpDebug::start("completeMainPage");
-    DcpDebug::start("registerAppletDb");
-    registerAppletDb();
-    DcpDebug::end("registerAppletDb");
+    DcpDebug::start("completeCategoryPage");
     if (m_PageWithDelayedContent) {
         DcpDebug::start("createBody");
         m_PageWithDelayedContent->createBody();
         DcpDebug::end("createBody");
         m_PageWithDelayedContent = 0;
     }
-    DcpDebug::end("completeMainPage");
+    DcpDebug::end("completeCategoryPage");
 }
 
 /*!
@@ -235,7 +246,7 @@ PageFactory::createMainPageIncomplete ()
 DcpPage *
 PageFactory::createAppletPage (PageHandle &handle)
 {
-    DcpAppletObject *applet = DcpAppletDb::instance()->applet (handle.param);
+    DcpAppletObject *applet = DcpAppletManager::instance()->applet (handle.param);
 
     if (applet && applet->metadata() &&
         applet->metadata()->widgetTypeID() == DcpWidgetType::Button)
@@ -324,9 +335,9 @@ PageFactory::createAppletCategoryPage (const PageHandle& handle)
      */
     if (info->appletAutoStart() && info->children().count() == 0) {
         // TODO might make sense to move this to class Category
-        DcpAppletDb* db = DcpAppletDb::instance();
+        DcpAppletManager* mng = DcpAppletManager::instance();
         bool withUncategorized = info->containsUncategorized();
-        DcpAppletMetadataList list = db->listByCategory (info->referenceIds(),
+        DcpAppletMetadataList list = mng->listByCategory (info->referenceIds(),
                     withUncategorized ? DcpCategories::hasCategory : NULL);
         if (list.count() == 1) {
             DcpAppletMetadata* metadata = list.at(0);
@@ -366,8 +377,8 @@ void PageFactory::preloadAppletLauncher ()
 
 bool PageFactory::maybeRunOutOfProcess (const QString& appletName)
 {
-    DcpAppletDb* db = DcpAppletDb::instance();
-    DcpAppletMetadata* metadata = db->metadata(appletName);
+    DcpAppletManager* mng = DcpAppletManager::instance();
+    DcpAppletMetadata* metadata = mng->metadata(appletName);
     if (!metadata || !metadata->isValid()) return false;
     QString binary = metadata->binary();
 
@@ -380,7 +391,7 @@ bool PageFactory::maybeRunOutOfProcess (const QString& appletName)
      */
     bool runOutProcess = !isInProcessApplets() &&
         !binary.isEmpty() &&
-        !db->isAppletLoaded (appletName) &&
+        !mng->isAppletLoaded (appletName) &&
         binary != "libdeclarative.so";
 
     if (runOutProcess) {
@@ -542,16 +553,23 @@ PageFactory::pageChanged (MApplicationPage *page)
  * and run it later for the applets loaded in the future.
  */
 void
-PageFactory::registerAppletDb () 
+PageFactory::startAppletsRegistration () 
 {
+    DcpDebug::start("applet reg");
     // run appletLoaded for all applets:
-    DcpAppletDb* db = DcpAppletDb::instance();
-    connect (db, SIGNAL(appletLoaded(DcpAppletObject*)),
+    DcpAppletManager* mng = DcpAppletManager::instance();
+    connect (mng, SIGNAL(appletLoaded(DcpAppletObject*)),
              this, SLOT(onAppletLoaded(DcpAppletObject*)));
-    QList<DcpAppletObject*> loadedApplets = db->loadedApplets();
-    foreach (DcpAppletObject* applet, loadedApplets) {
-        onAppletLoaded (applet);
-    }
+    connect (mng, SIGNAL(metadataLoaded()), 
+             this, SLOT(onMetadataLoaded()));
+    mng->loadMetadataAsync();
+}
+
+void PageFactory::onMetadataLoaded ()
+{
+    DcpDebug::end("applet reg");
+    m_AppletsRegistered = true;
+    completeCategoryPage();
 }
 
 /*!

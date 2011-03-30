@@ -22,6 +22,8 @@
 #include "service/duicontrolpanelservice.h"
 #include "service/dcpappletlauncherservice.h"
 #include "dcpappletdb.h"
+#include "dcpappletmanager.h"
+#include "dcpapplet.h"
 #include "dcpwrongapplets.h"
 #include "dcpremotebriefreceiver.h"
 #include "pagefactory.h"
@@ -87,10 +89,6 @@ startAppletLoader (int argc, char* argv[])
 {
     DCP_DEBUG ("");
     openlog ("dcp-appletloader", LOG_PID, LOG_USER);
-
-    // force the db to be empty, so that we do not popuplate it on the
-    // instance call (and parse the .desktop files)
-    DcpAppletDb::initEmptyDb();
 
     // init servicefw api:
     DcpAppletLauncherService* service = new DcpAppletLauncherService ();
@@ -188,11 +186,13 @@ M_EXPORT int main(int argc, char *argv[])
          * FIXME: If we have a desktop directory we have to load the desktop files
          * now. We could delay it by changing the DcpAppletDb class implementation.
          */
-        if (!desktopDir.isEmpty()) {
-            DCP_DEBUG ("### Creating DcpAppletDb in directory '%s'.", 
-                    DCP_STR(desktopDir));
-            DcpAppletDb::instance (desktopDir);
+        if (desktopDir.isEmpty()) {
+            desktopDir = DcpApplet::DefaultPath;
         }
+        DCP_DEBUG ("### Using desktopdir '%s'.", 
+                   DCP_STR(desktopDir));
+        DcpAppletManager *mng = DcpAppletManager::instance();
+        mng->addDesktopDir(desktopDir);
 
         result = startMainApplication (argc, argv);
     }
