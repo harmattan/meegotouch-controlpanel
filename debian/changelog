@@ -1,4 +1,4 @@
-duicontrolpanel (0.12.9~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.9) unstable; urgency=low
 
   [ Robert Manner ]
   * Fixes: emitting DcpWidget::closePage on first page of the applet
