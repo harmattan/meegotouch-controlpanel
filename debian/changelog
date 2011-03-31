@@ -12,7 +12,10 @@ duicontrolpanel (0.12.9~unreleased) unstable; urgency=low
   * Fixes: NB#239966 - Bluetooth icon in settings
   * Fixes: NB#239969 - Device icon in Settings is incorrect
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 30 Mar 2011 12:21:58 +0200
+  [ Robert Manner ]
+  * Support for an additional .desktop file directory under /usr/share
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 31 Mar 2011 14:57:46 +0200
 
 duicontrolpanel (0.12.8.1) unstable; urgency=low
 
