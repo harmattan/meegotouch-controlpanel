@@ -48,7 +48,8 @@ DcpContentItemPrivate::DcpContentItemPrivate ():
     m_Help (0),
     m_ButtonW (0),
     m_Slider (0),
-    m_Spacer (0)
+    m_Spacer (0),
+    m_Separator (0)
 {
 }
 
@@ -145,11 +146,18 @@ DcpContentItem::ensureSliderIsCreated()
 {
     // create / free up image:
     if (widgetType() == DcpWidgetType::Slider)
-     {
+    {
+        if (!d_ptr->m_Separator) {
+            d_ptr->m_Separator = new MSeparator();
+            d_ptr->m_Separator->
+                setStyleName("CommonHorizontalSeparatorInverted");
+        }
+
         MSlider* &slider = d_ptr->m_Slider;
         if (!slider) {
             slider = new MSlider();
             slider->setStyleName (sliderObjectName);
+
 //            slider->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
             slider->setMaximumWidth (-1);
             connect(slider, SIGNAL(valueChanged(int)), this, SLOT(sliderChanged(int)));
@@ -197,6 +205,8 @@ DcpContentItem::ensureSliderIsCreated()
             d_ptr->m_Slider = 0;
             d_ptr->m_LayoutIsToBeChanged = true;
         }
+        delete d_ptr->m_Separator;
+        d_ptr->m_Separator = 0;
     }
 }
 
@@ -288,9 +298,17 @@ DcpContentItem::ensureTextsAreCreated()
         d_ptr->m_LayoutIsToBeChanged = true;
     }
 
-    // if the row count of the texts are changing:
-    if (hadTwoLine == text2.isEmpty()) {
-        if (text2.isEmpty()) {
+    /*
+     * we have to set some styleNames based on
+     * - the row count of the texts
+     * - if we have are a slider
+     */
+    bool rowCountChanged = (hadTwoLine == text2.isEmpty());
+    bool hadSlider = d_ptr->m_Slider;
+    bool willHaveSlider = (widgetType() == DcpWidgetType::Slider);
+    bool havingSliderChanged = (hadSlider != willHaveSlider);
+    if (rowCountChanged || havingSliderChanged) {
+        if (text2.isEmpty() && !willHaveSlider) {
             label1->setStyleName (singleTitleObjectName);
         } else {
             label1->setStyleName (titleObjectName);
@@ -339,8 +357,7 @@ DcpContentItem::ensureWidgetsAreLayouted()
     bool isTextHorizontal = metadata()->textOrientation() == Qt::Horizontal;
 
     int rowCount = 1;
-    if (d_ptr->m_Slider) rowCount=2;
-    else if (secondLineHasText && !isTextHorizontal) rowCount=3;
+    if (!d_ptr->m_Slider && secondLineHasText && !isTextHorizontal) rowCount=3;
 
     // icon:
     if (d_ptr->m_ImageW) {
@@ -374,8 +391,11 @@ DcpContentItem::ensureWidgetsAreLayouted()
             setStyleName (commonPanelObjectName);
         }
     } else {
-        grid->addItem (d_ptr->m_Text1W, 0, textX);
-        grid->addItem (d_ptr->m_Slider, 1, textX, Qt::AlignCenter);
+        int columnCount = d_ptr->m_Help ? 2 : 1;
+        grid->addItem (d_ptr->m_Separator, 0, textX, 1, columnCount);
+        grid->addItem (d_ptr->m_Text1W, 1, textX);
+        grid->addItem (d_ptr->m_Slider, 2, textX, 1,
+                       columnCount, Qt::AlignCenter);
         if (styleName() != largePanelObjectName) {
             setStyleName (largePanelObjectName);
         }
@@ -383,7 +403,7 @@ DcpContentItem::ensureWidgetsAreLayouted()
 
     int toggleX = textX+1;
     if (d_ptr->m_Help) {
-        grid->addItem (d_ptr->m_Help, 0, toggleX,
+        grid->addItem (d_ptr->m_Help, d_ptr->m_Slider ? 1 : 0, toggleX,
                        rowCount, 1, Qt::AlignCenter);
         toggleX++;
     }
