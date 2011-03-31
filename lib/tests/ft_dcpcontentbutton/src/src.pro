@@ -12,7 +12,8 @@ LIBS += -lsysinfo
 
 
 DEFINES += DATADIR=\\\"$$DATADIR\\\"
-DEFINES += APPLET_LIBS=\\\"$$DATADIR\\\" DATADIR=\\\"$$DATADIR\\\" DESKTOP_DIR=\\\"$$DATADIR\\\" 
+DEFINES += APPLET_LIBS=\\\"$$DATADIR\\\" DATADIR=\\\"$$DATADIR\\\" DESKTOP_DIR=\\\"$$DATADIR\\\"
+DEFINES += DESKTOP_DIR2=\\\"\\\"
 DEFINES += MOSTUSEDCOUNTER_GCONFKEY=\\\"/apps/duicontrolpanel/usagecount\\\"
 
 # disable internal deprecation warnings:
