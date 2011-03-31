@@ -54,6 +54,7 @@ public:
     MHelpButton* m_Help;
     MButton* m_ButtonW;
     MSlider* m_Slider;
+    QGraphicsWidget* m_Spacer;
 };
 
 #endif // DCPCONTENTITEMPRIVATE_H
