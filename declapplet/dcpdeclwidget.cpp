@@ -28,7 +28,7 @@
 #include "dynamicgconfdatastore.h"
 #include <dcpdebug.h>
 
-static const QString defaultPath = "/usr/lib/duicontrolpanel/uidescriptions/";
+static const QString defaultPath = DCP_UIDESC_DIR "/";
 
 DcpDeclWidget::DcpDeclWidget(const QString& xmlPath)
 {

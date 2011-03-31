@@ -51,6 +51,7 @@ public:
      *
      * This function has two optional arguments, so the path and the filter can
      * be initialized as the very first step.
+     * Pathname can also be a list of paths separated by ':'.
      */
     static DcpAppletDb *instance (
             const QString &pathName = DcpApplet::DefaultPath,
