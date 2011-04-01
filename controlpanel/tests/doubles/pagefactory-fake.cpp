@@ -132,4 +132,14 @@ bool PageFactory::eventFilter(QObject *obj, QEvent *event)
     return QObject::eventFilter (obj, event);
 }
 
+void PageFactory::completeCategoryPage()
+{
+}
 
+void PageFactory::startAppletsRegistration()
+{
+}
+
+void PageFactory::onMetadataLoaded()
+{
+}

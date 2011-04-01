@@ -29,9 +29,18 @@ DcpAppletCategoryPage::~DcpAppletCategoryPage ()
 {
 }
 
+void
+DcpAppletCategoryPage::setDelayedContent (bool)
+{
+}
 
 void 
 DcpAppletCategoryPage::createContent ()
+{
+}
+
+void
+DcpAppletCategoryPage::createBody ()
 {
 }
 
