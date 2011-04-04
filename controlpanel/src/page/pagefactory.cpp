@@ -163,8 +163,10 @@ void PageFactory::preloadBriefReceiver ()
     DcpRemoteBriefReceiver* receiver = DcpRemoteBriefReceiver::instance ();
 
     // this preloads an applet launcher process when the receiver has finished
-    connect (receiver, SIGNAL (firstConnected()),
-             this, SLOT (preloadAppletLauncher()));
+    if (receiver) {
+        connect (receiver, SIGNAL (firstConnected()),
+                 this, SLOT (preloadAppletLauncher()));
+    }
 }
 
 void PageFactory::mainPageFirstShown()
@@ -625,8 +627,6 @@ void PageFactory::newWin ()
     m_Win->setStyleName ("CommonApplicationWindowInverted");
 
     // Connect some signals for the new window:
-    connect (m_Win, SIGNAL(pageChanged(MApplicationPage *)),
-            this, SLOT(pageChanged(MApplicationPage *)));
     connect (m_Win, SIGNAL(displayEntered()), this, SLOT(onDisplayEntered()));
 
     // filters out unnecessery retranslate events:
