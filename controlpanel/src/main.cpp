@@ -118,7 +118,8 @@ void cleanup ()
     // free up application:
     // This was disabled as a temporary workaround for a bug which I could not
     // reproduce, but which keeps coming on coreweb (NB#223592)
-    // delete MApplication::instance();
+    // Again enabled because disabling it makes NB#235703 crash more frequent
+    delete MApplication::instance();
 }
 
 

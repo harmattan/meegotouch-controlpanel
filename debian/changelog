@@ -1,6 +1,6 @@
 duicontrolpanel (0.12.10~unreleased) unstable; urgency=low
 
-  * version up
+  * Fixes: NB#235703 - COREWEB
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 04 Apr 2011 15:31:36 +0200
 
