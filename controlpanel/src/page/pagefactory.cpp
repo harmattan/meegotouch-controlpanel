@@ -56,7 +56,17 @@ PageFactory::PageFactory ():
     m_PageWithDelayedContent (0),
     m_AppletsRegistered (false)
 {
-    startAppletsRegistration();
+    // Run onAppletLoaded for all the applets that are already loaded
+    // and run it later for the applets loaded in the future.
+    DcpAppletManager* mng = DcpAppletManager::instance();
+    connect (mng, SIGNAL(appletLoaded(DcpAppletObject*)),
+             this, SLOT(onAppletLoaded(DcpAppletObject*)));
+    QList<DcpAppletObject*> loadedApplets = mng->loadedApplets();
+    foreach (DcpAppletObject* applet, loadedApplets) {
+        onAppletLoaded (applet);
+    }
+
+    connect (mng, SIGNAL(metadataLoaded()), this, SLOT(onMetadataLoaded()));
 }
 
 PageFactory::~PageFactory ()
@@ -117,6 +127,7 @@ PageFactory::createPage (
 {
     PageHandle myHandle = handle;
     DcpPage *page = 0;
+    DcpAppletManager *mng = DcpAppletManager::instance();
 
     DCP_DEBUG ("****************************");
     DCP_DEBUG ("*** handle = %s", DCP_STR (myHandle.getStringVariant()));
@@ -131,35 +142,49 @@ PageFactory::createPage (
              * when closed.
              */
             DCP_DEBUG ("## MAIN ##");
-            if (m_AppletsRegistered) {
+            if (mng->isMetadataLoaded()) {
                 page = qobject_cast<DcpPage *>(createMainPage());
             } else {
+                if (!mng->isMetadataLoadStarted()) {
+                    // start loading the desktop files
+                    mng->loadMetadataAsync(); 
+                }
                 if (m_PageWithDelayedContent) {
-                    qCritical() << "request for re-creating a main page while another one is being built";
+                    qWarning() << "request for re-creating a main page while another one is being built";
                     break;
                 }
-                m_PageWithDelayedContent = createMainPageIncomplete ();
+                const Category *mainCat = 
+                    DcpCategories::instance()->mainPageCategory();
+                m_PageWithDelayedContent = 
+                    createAppletCategoryPageIncomplete(mainCat);
                 page = qobject_cast<DcpPage *>(m_PageWithDelayedContent);
             }
             break;
         case PageHandle::APPLET:
             DCP_DEBUG ("## APPLET ##");
             // applets are already registered if this is shown
-            // from a category page or the desktop file was loaded from
-            // DcpAppletLauncherService
+            // from a category page or the single desktop file was loaded 
             page = createAppletPage (myHandle);
             break;
 
         case PageHandle::APPLETCATEGORY:
         default:
-            if (!m_AppletsRegistered) {
-                // we have to wait until the desktop files are loaded
-                DCP_DEBUG ("wait until manager finished with loading of applets");
+            if (mng->isMetadataLoaded()) {
+                page = createAppletCategoryPage (myHandle);
+            } else {
+                if (!mng->isMetadataLoadStarted()) {
+                    mng->loadMetadataAsync();
+                }
+                if (m_PageWithDelayedContent) {
+                    qWarning() << "request for re-creating a main page while another one is being built";
+                    break;
+                }
+                const Category *info =
+                    DcpCategories::instance()->categoryById (myHandle.param);
+                m_PageWithDelayedContent = 
+                    createAppletCategoryPageIncomplete(info);
+                page = qobject_cast<DcpPage *>(m_PageWithDelayedContent);
             }
-            while (!m_AppletsRegistered) {
-                QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
-            }
-            page = createAppletCategoryPage (myHandle);
     }
 
     if (page) {
@@ -225,16 +250,14 @@ PageFactory::createMainPage ()
 }
 
 /*!
- * Creates an empty main page, its content will be created later.
+ * Creates an empty category page, its content will be created later.
  */
 DcpAppletCategoryPage *
-PageFactory::createMainPageIncomplete ()
+PageFactory::createAppletCategoryPageIncomplete (const Category *category)
 {
-    DcpAppletCategoryPage *mainPage =
-        new DcpAppletCategoryPage(
-                DcpCategories::instance()->mainPageCategory());
-    mainPage->setDelayedContent(true);
-    return mainPage;
+    DcpAppletCategoryPage *page = new DcpAppletCategoryPage(category);
+    page->setDelayedContent(true);
+    return page;
 }
 
 
@@ -546,23 +569,6 @@ PageFactory::pageChanged (MApplicationPage *page)
         DCP_DEBUG ("New page added!");
         m_Pages.append (page);
     }
-}
-
-/*!
- * Run onAppletLoaded for all the applets that are already loaded
- * and run it later for the applets loaded in the future.
- */
-void
-PageFactory::startAppletsRegistration () 
-{
-    DcpDebug::start("applet reg");
-    // run appletLoaded for all applets:
-    DcpAppletManager* mng = DcpAppletManager::instance();
-    connect (mng, SIGNAL(appletLoaded(DcpAppletObject*)),
-             this, SLOT(onAppletLoaded(DcpAppletObject*)));
-    connect (mng, SIGNAL(metadataLoaded()), 
-             this, SLOT(onMetadataLoaded()));
-    mng->loadMetadataAsync();
 }
 
 void PageFactory::onMetadataLoaded ()

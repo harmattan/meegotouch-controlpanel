@@ -59,6 +59,8 @@ class DcpAppletManager : public QObject
         void addDesktopDir(const QString &dir);
         void loadMetadata();
         void loadMetadataAsync();
+        bool isMetadataLoaded();
+        bool isMetadataLoadStarted();
         bool loadDesktopFile(const QString &path);
 
         DcpAppletMetadataList list() const;
@@ -95,6 +97,8 @@ class DcpAppletManager : public QObject
         DcpAppletObjectMap m_AppletObjectsByName;
         QList<QString> m_DesktopDirs;
         QStringList m_DesktopFilesToProcess;
+        bool m_IsMetadataLoaded;
+        bool m_IsMetadataLoadStarted;
 
         friend class Ut_DcpAppletManager;
 };

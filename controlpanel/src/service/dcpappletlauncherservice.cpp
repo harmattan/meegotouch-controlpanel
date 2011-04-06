@@ -18,6 +18,7 @@
 #include "dcpappletlauncherservice.h"
 
 #include "pagefactory.h"
+#include "dcpappletmanager.h"
 
 #include "dcpappletlauncherifadaptor.h"
 
@@ -25,7 +26,6 @@
 #include <MApplication>
 #include <MApplicationWindow>
 #include <QDBusError>
-#include <DcpAppletDb>
 #include <dcpdebug.h>
 #include <DuiControlPanelIf>
 #include <QDBusServiceWatcher>
@@ -72,19 +72,19 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
     PageFactory* pageFactory = PageFactory::instance();
 
     // the db is empty, so we add the started applet into it:
-    DcpAppletDb* db = DcpAppletDb::instance();
-    if (!db->addFile (m_AppletPath)) {
+    DcpAppletManager* mng = DcpAppletManager::instance();
+    if (!mng->loadDesktopFile (m_AppletPath)) {
         close ();
     }
 
     // we get the name of the applet:
-    DcpAppletMetadataList list = db->list();
+    DcpAppletMetadataList list = mng->list();
     dcp_failfunc_unless (list.count() >= 1, false);
     m_PageHandle.param = list.last()->name();
 
     // the pagefactory starts the applet out of process and refuses to load it,
     // in case it is not already loaded, so we load it here:
-    DcpAppletDb::instance()->applet (m_PageHandle.param);
+    mng->applet (m_PageHandle.param);
     bool success = pageFactory->changePage (m_PageHandle);
 
     if (success) {

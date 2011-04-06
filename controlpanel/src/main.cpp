@@ -113,7 +113,7 @@ void cleanup ()
     DcpWrongApplets::destroyInstance();
     MostUsedCounter::destroy();
     DcpCategories::destroy();
-    DcpAppletDb::destroy();
+    DcpAppletManager::destroyInstance();
 
     // free up application:
     // This was disabled as a temporary workaround for a bug which I could not
@@ -182,10 +182,6 @@ M_EXPORT int main(int argc, char *argv[])
         // start the main process here:
         DcpRemoteBriefReceiver::setArguments (argc, argv);
 
-        /*!
-         * FIXME: If we have a desktop directory we have to load the desktop files
-         * now. We could delay it by changing the DcpAppletDb class implementation.
-         */
         if (desktopDir.isEmpty()) {
             desktopDir = DcpApplet::DefaultPath;
         }

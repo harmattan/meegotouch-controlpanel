@@ -20,6 +20,7 @@
 
 #include "duicontrolpanelservice.h"
 #include "pagefactory.h"
+#include "dcpappletmanager.h"
 
 #include "duicontrolpanelifadaptor.h"
 #include "duicontrolpanelif.h"
@@ -120,7 +121,9 @@ DuiControlPanelService::appletPage (const QString& appletName)
             bool success = unregisterService ();
             dcp_failfunc_unless (success, false);
             receiveCloseSignal ();
-            DcpAppletDb::instance()->applet (appletName);
+            DcpAppletManager *mng = DcpAppletManager::instance();
+            mng->loadMetadata ();
+            mng->applet (appletName);
         } else {
             // if we already have a page, then we start another instance,
             // and exit from mainloop:

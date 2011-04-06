@@ -31,6 +31,8 @@ class DcpAppletPage;
 class DcpAppletCategoryPage;
 class DcpAppletLauncherIf;
 class MApplicationWindow;
+class Category;
+
 /*!
  * Implements methods to create new views (pages), show views and change between
  * views.
@@ -66,11 +68,11 @@ signals:
 protected:
     PageFactory ();
     DcpPage* createMainPage ();
-    DcpAppletCategoryPage* createMainPageIncomplete ();
+    DcpAppletCategoryPage* createAppletCategoryPageIncomplete (
+         const Category *);
     DcpPage* createAppletPage(PageHandle& applet);
     DcpPage* createAppletPage (DcpAppletMetadata* metadata);
     DcpPage* createAppletCategoryPage (const PageHandle& pageId);
-    DcpPage* createCategoryPageIncomplete (const PageHandle& pageId);
     void appear (MApplicationPage* page);
 
     bool eventFilter(QObject *obj, QEvent *event);
@@ -80,7 +82,6 @@ private slots:
     void onDisplayEntered ();
     void mainPageFirstShown ();
     void completeCategoryPage ();
-    void startAppletsRegistration();
     void onMetadataLoaded ();
 
 private:

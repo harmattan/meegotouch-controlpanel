@@ -44,7 +44,9 @@ void DcpAppletManager::destroyInstance()
     sm_Instance = 0;
 }
 
-DcpAppletManager::DcpAppletManager() 
+DcpAppletManager::DcpAppletManager() :
+    m_IsMetadataLoaded(false),
+    m_IsMetadataLoadStarted(false)
 {
 }
 
@@ -84,6 +86,8 @@ void DcpAppletManager::loadMetadata()
  */
 void DcpAppletManager::loadMetadataAsync()
 {
+    m_IsMetadataLoadStarted = true;
+    m_IsMetadataLoaded = false;
     QStringList nameFilters(AppletFilter);
     foreach (QString dirName, m_DesktopDirs) {
         QDir dir(dirName);
@@ -93,6 +97,16 @@ void DcpAppletManager::loadMetadataAsync()
         }
     }
     QTimer::singleShot(0, this, SLOT(processSingleDesktopFile()));
+}
+
+bool DcpAppletManager::isMetadataLoaded()
+{
+    return m_IsMetadataLoaded;
+}
+
+bool DcpAppletManager::isMetadataLoadStarted()
+{
+    return m_IsMetadataLoadStarted;
 }
 
 /*! \brief Adds a single applet defined in path to the manager
@@ -249,6 +263,8 @@ void DcpAppletManager::processSingleDesktopFile()
 {
     if (m_DesktopFilesToProcess.isEmpty()) {
         DCP_DEBUG ("metadata load finished");
+        m_IsMetadataLoaded = true;
+        m_IsMetadataLoadStarted = false;
         emit metadataLoaded();
         return;
     }
