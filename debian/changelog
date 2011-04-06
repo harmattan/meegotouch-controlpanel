@@ -1,8 +1,10 @@
 duicontrolpanel (0.12.10~unreleased) unstable; urgency=low
 
   * Fixes: NB#235703 - COREWEB
+  * Fixes: NB#243609 - ResetApplet: Missing info icon in header
+  * New: HelpId can be specified for a category, see doc for details
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 04 Apr 2011 15:31:36 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 06 Apr 2011 16:10:37 +0200
 
 duicontrolpanel (0.12.9) unstable; urgency=low
 

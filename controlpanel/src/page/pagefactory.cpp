@@ -544,7 +544,7 @@ PageFactory::tryOpenPageBackward (const PageHandle &handle)
     /*
      * We close all the pages that are above the requested page.
      */
-    while (history.count() > foundAtIndex + 1) {
+    while (history.count() > foundAtIndex+1) {
         MSceneWindow *mPage = history.takeLast();
 
         // the page can refuse its closing, then we stop:

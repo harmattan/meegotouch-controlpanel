@@ -108,7 +108,7 @@ DcpPage::appendWidget(QGraphicsWidget* widget)
 }
 
 void
-DcpPage::setTitleLabel ()
+DcpPage::setTitleLabel (const QString&)
 {
 }
 
