@@ -136,10 +136,6 @@ void PageFactory::completeCategoryPage()
 {
 }
 
-void PageFactory::startAppletsRegistration()
-{
-}
-
 void PageFactory::onMetadataLoaded()
 {
 }

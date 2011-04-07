@@ -130,6 +130,18 @@ DcpAppletManager::loadMetadataAsync()
 }
 
 bool
+DcpAppletManager::isMetadataLoaded()
+{
+    return true;
+}
+
+bool
+DcpAppletManager::isMetadataLoadStarted()
+{
+    return false;
+}
+
+bool
 DcpAppletManager::loadDesktopFile(const QString &path)
 {
     return true;
