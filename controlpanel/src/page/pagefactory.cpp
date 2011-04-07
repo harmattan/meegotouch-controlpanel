@@ -202,8 +202,10 @@ void PageFactory::preloadBriefReceiver ()
     DcpRemoteBriefReceiver* receiver = DcpRemoteBriefReceiver::instance ();
 
     // this preloads an applet launcher process when the receiver has finished
-    connect (receiver, SIGNAL (firstConnected()),
-             this, SLOT (preloadAppletLauncher()));
+    if (receiver) {
+        connect (receiver, SIGNAL (firstConnected()),
+                 this, SLOT (preloadAppletLauncher()));
+    }
 }
 
 void PageFactory::mainPageFirstShown()
@@ -613,7 +615,7 @@ PageFactory::tryOpenPageBackward (const PageHandle &handle)
     /*
      * We close all the pages that are above the requested page.
      */
-    while (history.count() > foundAtIndex + 1) {
+    while (history.count() > foundAtIndex+1) {
         MSceneWindow *mPage = history.takeLast();
 
         // the page can refuse its closing, then we stop:
@@ -696,8 +698,6 @@ void PageFactory::newWin ()
     m_Win->setStyleName ("CommonApplicationWindowInverted");
 
     // Connect some signals for the new window:
-    connect (m_Win, SIGNAL(pageChanged(MApplicationPage *)),
-            this, SLOT(pageChanged(MApplicationPage *)));
     connect (m_Win, SIGNAL(displayEntered()), this, SLOT(onDisplayEntered()));
 
     // filters out unnecessery retranslate events:

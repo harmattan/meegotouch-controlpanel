@@ -18,6 +18,8 @@ DEFINES += APPLET_LIBS=\\\"$$DATADIR\\\" \
            DATADIR=\\\"$$DATADIR\\\" \
            DESKTOP_DIR=\\\"$$DATADIR\\\" \
            MOSTUSEDCOUNTER_GCONFKEY=\\\"/apps/duicontrolpanel/usagecount\\\"
+DEFINES += DESKTOP_DIR2=\\\"\\\"
+
 
 # disable internal deprecation warnings:
 DEFINES += DCP_DISABLE_DEPRECATION_WARNING

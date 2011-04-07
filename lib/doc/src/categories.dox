@@ -93,6 +93,11 @@ be shown for the user if the category has only 1 applet, but instead, the applet
 will be opened directly. Default value is "0", by default autostarting is
 disabled.
 
+\par HelpId
+Its value can define a help id for the category. If it is present, a help button
+will appear next to the title of the page, and if the user clicks on that, the
+specified help content will be opened in the current userguide application.
+
 Example:
 \code
 Parent=MainPage

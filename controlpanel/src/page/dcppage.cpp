@@ -23,6 +23,7 @@
 #include "dcppage.h"
 #include <QGraphicsLinearLayout>
 #include <MLabel>
+#include <MHelpButton>
 #include <MSeparator>
 #include <MStylableWidget>
 #include <MPannableViewport>
@@ -36,7 +37,8 @@ M_REGISTER_WIDGET(DcpPage)
 
 DcpPage::DcpPage () :
     MApplicationPage (),
-    m_TitleLabel (0)
+    m_TitleLabel (0),
+    m_HelpButton (0)
 {
     setStyleName("CommonApplicationPageInverted");
     dcp_failfunc_unless (pannableViewport());
@@ -188,7 +190,7 @@ DcpPage::mainLayout ()
  * If there is no title label yet, it creates it.
  */
 void
-DcpPage::setTitleLabel ()
+DcpPage::setTitleLabel (const QString& helpId)
 {
 #ifndef MEEGO
     if (! mainLayout()) return;
@@ -197,9 +199,10 @@ DcpPage::setTitleLabel ()
         if (m_TitleLabel) {
             QGraphicsLayoutItem* title = mainLayout()->itemAt(0);
             QGraphicsLayoutItem* separator = mainLayout()->itemAt(1);
-            delete title;
+            delete title; // this deletes the helpbutton (if any) & title
             delete separator;
             m_TitleLabel = 0;
+            m_HelpButton = 0;
         }
         return;
     }
@@ -208,8 +211,24 @@ DcpPage::setTitleLabel ()
         m_TitleLabel = new MLabel();
         m_TitleLabel->setWordWrap(true);
         m_TitleLabel->setStyleName ("CommonApplicationHeaderInverted");
-        mainLayout()->insertItem (0, m_TitleLabel);
+        if (!helpId.isEmpty()) {
+            // this can be here, because the help button does not need
+            // retranslation. But it also meens that recalling the setTitleLabel
+            // will not refresh the help id (currently not used)
+            m_HelpButton = new MHelpButton (helpId);
+            m_HelpButton->setStyleName ("CommonRightIcon");
+            QGraphicsLinearLayout* labelLayout = new QGraphicsLinearLayout();
+            labelLayout->addItem (m_TitleLabel);
+            labelLayout->addItem (m_HelpButton);
+            labelLayout->setAlignment (m_HelpButton, Qt::AlignVCenter);
+            m_TitleLabel->setSizePolicy (QSizePolicy::Expanding,
+                                         QSizePolicy::Fixed);
+            mainLayout()->insertItem (0, labelLayout);
+        } else {
+            mainLayout()->insertItem (0, m_TitleLabel);
+        }
     }
+
     m_TitleLabel->setText (title ());
 #endif
 }

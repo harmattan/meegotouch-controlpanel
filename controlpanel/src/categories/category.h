@@ -69,6 +69,8 @@ public:
 
     bool appletAutoStart () const;
 
+    QString helpId () const;
+
 protected:
     static const char* componentOrderToString (ComponentOrderType order);
 
@@ -88,6 +90,7 @@ protected:
         ComponentOrderId,
         AppletSortId,
         AppletAutoStartId,
+        HelpId,
         KeyIdMax
     };
 

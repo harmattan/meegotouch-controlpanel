@@ -23,11 +23,8 @@
 
 class QGraphicsLinearLayout;
 class MLabel;
+class MHelpButton;
 
-/*
- * FIXME: This is a public hader, it should not contain inline functions and
- * class members that are subject to change.
- */
 class DcpPage : public MApplicationPage
 {
     Q_OBJECT
@@ -59,13 +56,14 @@ signals:
     void openSubPageWithReferer (const PageHandle &, const QString &, int);
 
 protected:
-    void setTitleLabel ();
+    void setTitleLabel (const QString& helpId = QString());
     void appendWidget (QGraphicsWidget *widget);
 
 private:
     void createLayout();
 
     MLabel* m_TitleLabel;
+    MHelpButton* m_HelpButton;
     PageHandle m_Handle;
     PageHandle m_Referer;
     friend class Ut_DcpPage;

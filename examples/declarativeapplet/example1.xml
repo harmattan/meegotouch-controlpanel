@@ -1,31 +1,28 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <settings>
-    <group>
-        <text 
-            key="/apps/ControlPanel/Example/Text1" 
-            title="Example text:" >
+  <group title="Group 1">
+      <text key="/apps/ControlPanel/Example/Text1"
+            title="Please specify a text" >
           something
-        </text>
-        <text 
-            key="/apps/ControlPanel/Example/Text2" 
-            title="Please specify a text:">
-        </text>
-        <selection key="/apps/ControlPanel/Example/Enum1">
-            <option title="first value">1</option>
-            <option title="second value">2</option>
-            <option title="third value">3</option>
-            <option title="fourth value">4</option>
-        </selection>
-    </group>
-    <group>
-        <boolean 
-            key="/apps/ControlPanel/Example/Bool1" 
-            title="Boolean value example">
-        </boolean>
-        <integer 
-            key="/apps/ControlPanel/Example/Integer1"
-            title="Select a number" min="30" max="60">
-        </integer>
-    </group>
+      </text>
+      <text key="/apps/ControlPanel/Example/Text2"
+            title="Please specify a text" >
+          something
+      </text>
+      <selection key="/apps/ControlPanel/Example/Enum1"
+                 title="Please select a value">
+        <option title="1" >1</option>
+        <option title="2" >2</option>
+        <option title="3" >3</option>
+        <option title="4" >4</option>
+    </selection>
+  </group>
+  <group title="Group 2">
+    <boolean key="/apps/ControlPanel/Example/Bool1" title="Please switch me">
+    </boolean>
+    <integer key="/apps/ControlPanel/Example/Integer1"
+             title="Please select a number" min="30" max="60">
+    </integer>
+  </group>
 </settings>
 

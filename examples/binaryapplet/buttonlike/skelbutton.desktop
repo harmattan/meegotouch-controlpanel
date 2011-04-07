@@ -11,7 +11,7 @@ X-Maemo-Service=com.nokia.DuiControlPanel
 X-Maemo-Method=com.nokia.DuiControlPanelIf.appletPage
 X-Maemo-Object-Path=/
 # this has to be the same as Name
-X-Maemo-Fixed-Args=Declarative Example 1
+X-Maemo-Fixed-Args=SkelButton
 
 [DUI]
 X-DUIApplet-Applet=libdcpskelbuttonapplet.so

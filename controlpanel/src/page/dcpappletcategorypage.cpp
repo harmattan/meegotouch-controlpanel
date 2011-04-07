@@ -238,7 +238,7 @@ DcpAppletCategoryPage::retranslateUi()
     // briefwidgets take care of themselves, so we only update titles here
     setTitle(m_CategoryInfo ? m_CategoryInfo->title() : QString());
     if (isContentCreated()) {
-        setTitleLabel ();
+        setTitleLabel (m_CategoryInfo->helpId());
     }
 }
 

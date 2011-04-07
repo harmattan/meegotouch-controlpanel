@@ -31,7 +31,8 @@ const char* FileCategory::keys[KeyIdMax] = {
     "Order",
     "ComponentOrder",
     "AppletSort",
-    "AutoStartApplet"
+    "AutoStartApplet",
+    "HelpId"
 };
 
 FileCategory::FileCategory(const QString& fileName):

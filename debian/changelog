@@ -1,4 +1,12 @@
-duicontrolpanel (0.12.9~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.10~unreleased) unstable; urgency=low
+
+  * Fixes: NB#235703 - COREWEB
+  * Fixes: NB#243609 - ResetApplet: Missing info icon in header
+  * New: HelpId can be specified for a category, see doc for details
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 06 Apr 2011 16:10:37 +0200
+
+duicontrolpanel (0.12.9) unstable; urgency=low
 
   [ Robert Manner ]
   * Fixes: emitting DcpWidget::closePage on first page of the applet
@@ -7,15 +15,14 @@ duicontrolpanel (0.12.9~unreleased) unstable; urgency=low
     the applet
   * New: example applet for multiple page situation
   * Updates according to the layout guide
+  * Support for an additional .desktop file directory under /usr/share
+  * Updates the declarative example to have group titles
 
   [ Sandor Pinter ]
   * Fixes: NB#239966 - Bluetooth icon in settings
   * Fixes: NB#239969 - Device icon in Settings is incorrect
 
-  [ Robert Manner ]
-  * Support for an additional .desktop file directory under /usr/share
-
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 31 Mar 2011 14:57:46 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 31 Mar 2011 16:18:41 +0200
 
 duicontrolpanel (0.12.8.1) unstable; urgency=low
 

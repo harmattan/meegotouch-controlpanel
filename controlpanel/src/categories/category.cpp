@@ -87,6 +87,11 @@ QString Category::iconId() const
     return value (IconId);
 }
 
+QString Category::helpId () const
+{
+    return value (HelpId);
+}
+
 QStringList Category::referenceIds() const
 {
     QStringList result = valueList (AliasesId);
