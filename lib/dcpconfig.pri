@@ -8,9 +8,15 @@
 	DCP_INSTALL_HEADERS = $$DCP_PREFIX/include/duicontrolpanel
 	DCP_THEME_DIR = $$DCP_PREFIX/share/themes/base/meegotouch/duicontrolpanel
 	DCP_CSS_DIR = $$DCP_THEME_DIR/style/
+meego {
+	DCP_DESKTOP_DIR2 = $$DCP_PREFIX/lib/duicontrolpanel
+	DCP_DESKTOP_DIR = $$DCP_PREFIX/share/duicontrolpanel/desktops
+} else {
+	DCP_DESKTOP_DIR2 = $$DCP_PREFIX/share/duicontrolpanel/desktops
 	DCP_DESKTOP_DIR = $$DCP_PREFIX/lib/duicontrolpanel
+}
 	DCP_APPLET_DIR = $$DCP_PREFIX/lib/duicontrolpanel/applets
-	DCP_UIDESC_DIR = $$DCP_PREFIX/lib/duicontrolpanel/uidescriptions
+	DCP_UIDESC_DIR = $$DCP_PREFIX/share/duicontrolpanel/uidescriptions
 	DCP_TRANSLATIONS_DIR = $$DCP_PREFIX/share/l10n/meegotouch
     DCP_CATEGORY_DIR = $$DCP_PREFIX/share/duicontrolpanel/categories
 }
@@ -33,6 +39,8 @@
 
 	# APPLET_DATA determines where the .desktop files are located
 	DEFINES += DESKTOP_DIR=\\\"\"$$DCP_DESKTOP_DIR\"\\\"
+	DEFINES += DESKTOP_DIR2=\\\"\"$$DCP_DESKTOP_DIR2\"\\\"
+	DEFINES += DCP_UIDESC_DIR=\\\"\"$$DCP_UIDESC_DIR\"\\\"
 
 	DEFINES += TRANSLATIONS_DIR=\\\"\"$$DCP_TRANSLATIONS_DIR\"\\\"
 

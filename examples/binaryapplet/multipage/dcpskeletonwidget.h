@@ -21,23 +21,24 @@
 #include <DcpStylableWidget>
 
 class MLabel;
+class MButton;
 
 class SkeletonWidget : public DcpStylableWidget
 {
     Q_OBJECT
 
 public:
-    SkeletonWidget(QGraphicsWidget *parent = 0);
+    SkeletonWidget(int num, QGraphicsWidget *parent = 0);
     virtual ~SkeletonWidget();
 
-protected:
-    void initWidget();
+    virtual bool back ();
 
 protected slots:
-    void loadingFinished();
+    void onPageOpenRequest ();
 
 private:
-    MLabel *m_aboutLabel;
+    MButton* createButton (const QString& title, const char* method);
+    MButton* m_PreventQuitToggle;
 };
 
 #endif // SKELETONWIDGET_H

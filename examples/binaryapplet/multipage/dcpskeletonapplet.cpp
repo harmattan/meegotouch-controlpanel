@@ -15,30 +15,38 @@
 **
 ****************************************************************************/
 
-#ifndef SKELETONWIDGET_H
-#define SKELETONWIDGET_H
+#include <QDebug>
+#include <MAction>
+#include <MLibrary>
 
 #include <DcpStylableWidget>
+#include "dcpskeletonapplet.h"
+#include "dcpskeletonwidget.h"
 
-class MLabel;
+M_LIBRARY
+Q_EXPORT_PLUGIN2(skeletonapplet, SkeletonApplet)
 
-class SkeletonWidget : public DcpStylableWidget
+void SkeletonApplet::init()
 {
-    Q_OBJECT
-
-public:
-    SkeletonWidget(QGraphicsWidget *parent = 0);
-    virtual ~SkeletonWidget();
-
-protected:
-    void initWidget();
-
-protected slots:
-    void loadingFinished();
-
-private:
-    MLabel *m_aboutLabel;
 };
 
-#endif // SKELETONWIDGET_H
+DcpStylableWidget* SkeletonApplet::constructStylableWidget(int widgetId)
+{
+	return new SkeletonWidget(widgetId);
+}
+
+QString SkeletonApplet::title() const
+{
+    return QString();
+}
+
+QVector<MAction*> SkeletonApplet::viewMenuItems()
+{
+    QVector<MAction*> vector;
+    /*
+    vector[0] = new MAction("Start language applet", this);
+    vector[0]->setLocation(MAction::ApplicationMenuLocation);
+     */
+    return vector;
+}
 

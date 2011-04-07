@@ -67,8 +67,8 @@ DcpMainCategory::appendWidget ( QGraphicsWidget *component)
 inline void
 DcpMainCategory::appendSeparator ()
 {
-    MSeparator *sep = new MSeparator(this);
-    sep->setStyleName("CommonHeaderDividerInverted");
+    MSeparator *sep = new MSeparator();
+    sep->setStyleName("CommonHorizontalSeparatorInverted");
     mLayout()->addItem (sep);
 }
 

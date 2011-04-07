@@ -24,6 +24,7 @@
 #include <QPointer>
 
 class MApplicationPage;
+class MSceneWindow;
 class DcpPage;
 class DcpAppletMetadata;
 class DcpAppletObject;
@@ -78,7 +79,6 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event);
 
 private slots:
-    void pageChanged (MApplicationPage *page);
     void onDisplayEntered ();
     void mainPageFirstShown ();
     void completeCategoryPage ();
@@ -91,9 +91,10 @@ private:
     bool isCurrentPage (const PageHandle &handle);
     void closeHelpPage();
 
+    QList< MSceneWindow * > pageHistory ();
+
     static PageFactory     *sm_Instance;
     QPointer<DcpAppletPage> m_LastAppletPage;
-    QList<MApplicationPage *> m_Pages;
     static DcpAppletLauncherIf *sm_AppletLauncher;
     QPointer<MApplicationWindow> m_Win;
     /*! The page of which body needs to be created after the applets are

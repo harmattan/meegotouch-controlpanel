@@ -243,7 +243,16 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
         mLayout()->insertItem (getItemCount()-1, widget->graphicsWidget());
         mLayout()->setAlignment (widget->graphicsWidget(), Qt::AlignHCenter);
 
-    } else {
+    } else if (widgetId == DcpWidgetType::Slider) {
+        // unfortunately mlist does not seem to honor variable item height,
+        // that is why this slider hack here:
+        DcpContentItem *slider = new DcpContentItem (applet);
+        if (!applet) slider->setMetadata (metadata);
+        QString tdriverID = "DcpContentItem::" + tdriverPostfix;
+        slider->setTDriverID (tdriverID);
+        appendWidget (slider);
+
+    }else {
         QString tdriverID = "DcpContentItem::" + tdriverPostfix;
 
         QStandardItem* item = new QStandardItem();

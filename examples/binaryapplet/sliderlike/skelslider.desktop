@@ -20,7 +20,8 @@ X-Maemo-Fixed-Args=Skeleton
 X-DUIApplet-Applet=libdcpskelsliderapplet.so
 
 [DCP]
-Category=MainPage
+# Category=MainPage
+Category=Examples
 Order=0
 WidgetType=Slider
 SliderLeftImage=icon-m-camera-whitebalance-sunny-screen

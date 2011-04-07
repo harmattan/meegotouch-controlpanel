@@ -15,30 +15,29 @@
 **
 ****************************************************************************/
 
-#ifndef SKELETONWIDGET_H
-#define SKELETONWIDGET_H
+#ifndef SKELETONAPPLET_H
+#define SKELETONAPPLET_H
 
-#include <DcpStylableWidget>
+#include <DcpAppletIf>
+#include <QObject>
+class DcpStylableWidget;
+class MAction;
 
-class MLabel;
-
-class SkeletonWidget : public DcpStylableWidget
+class SkeletonApplet : public QObject, public DcpAppletIf
 {
-    Q_OBJECT
+	Q_OBJECT
+	Q_INTERFACES(DcpAppletIf)
 
 public:
-    SkeletonWidget(QGraphicsWidget *parent = 0);
-    virtual ~SkeletonWidget();
+    virtual void init();
+    virtual DcpStylableWidget* constructStylableWidget(int widgetId);
 
-protected:
-    void initWidget();
+    virtual QString title() const;
+    virtual QVector<MAction *> viewMenuItems();
 
 protected slots:
-    void loadingFinished();
-
-private:
-    MLabel *m_aboutLabel;
+    void startLanguageApplet();
 };
 
-#endif // SKELETONWIDGET_H
+#endif // SKELETONAPPLET_H
 

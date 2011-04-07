@@ -21,7 +21,7 @@
 #include <QString>
 
 namespace DcpApplet {
-    const QString DefaultPath = DESKTOP_DIR;
+    const QString DefaultPath = DESKTOP_DIR ":" DESKTOP_DIR2;
     const QString Lib = APPLET_LIBS;
     const QString MostUsedCategory = "MostUsedCategory";
     const QString OtherCategories = "OtherCategories";

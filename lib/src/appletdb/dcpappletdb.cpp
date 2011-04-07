@@ -49,8 +49,12 @@ DcpAppletDb::DcpAppletDb (
         const QString   &pathName,
         const QString   &nameFilter) : d_ptr(new DcpAppletDbPrivate())
 {
-    if (!pathName.isEmpty())
-        addFiles (pathName, nameFilter);
+    if (!pathName.isEmpty()) {
+        QStringList paths = pathName.split(':');
+        foreach (QString path, paths) {
+            addFiles (path, nameFilter);
+        }
+    }
 
 #ifdef MOSTUSED
     // try to restore the last used applet:
