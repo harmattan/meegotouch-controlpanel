@@ -130,7 +130,9 @@ M_EXPORT int main(int argc, char *argv[])
     DcpWrongApplets::disable();
 
     // parse options
-    QString desktopDir;
+    QStringList desktopDirs;
+    desktopDirs << DESKTOP_DIR;
+    desktopDirs << DESKTOP_DIR2;
     bool isAppletLoader = false; // are we the appletloader process?
     bool isOutprocess = false; // should we run applets outprocess?
 
@@ -156,8 +158,8 @@ M_EXPORT int main(int argc, char *argv[])
         } else if (s == "-desktopdir") {
             if (i + 1 < argc) {
                 i++;
-                desktopDir = argv[i];
-                qDebug() << "Using desktopdir:" << desktopDir;
+                desktopDirs = QStringList(argv[i]);
+                qDebug() << "Using desktopdir:" << argv[i];
             }
         } else if (s == "-outprocess") {
             isOutprocess = true;
@@ -183,13 +185,12 @@ M_EXPORT int main(int argc, char *argv[])
         // start the main process here:
         DcpRemoteBriefReceiver::setArguments (argc, argv);
 
-        if (desktopDir.isEmpty()) {
-            desktopDir = DcpApplet::DefaultPath;
-        }
-        DCP_DEBUG ("### Using desktopdir '%s'.", 
-                   DCP_STR(desktopDir));
         DcpAppletManager *mng = DcpAppletManager::instance();
-        mng->addDesktopDir(desktopDir);
+        foreach (QString dir, desktopDirs) {
+            DCP_DEBUG ("### Using desktopdir '%s'.", 
+                       DCP_STR(dir));
+            mng->addDesktopDir(dir);
+        }
 
         result = startMainApplication (argc, argv);
     }
