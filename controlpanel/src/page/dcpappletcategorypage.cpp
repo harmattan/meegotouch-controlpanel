@@ -112,6 +112,10 @@ DcpAppletCategoryPage::addCategoryToLayoutOrdered (
 void
 DcpAppletCategoryPage::createContent ()
 {
+    // ensures that the translation for the title is loaded:
+    DcpRetranslator::instance()->ensureTranslationsAreLoaded (
+                m_CategoryInfo->translationCategories());
+
     DcpPage::createContent ();
 
     // Most Used Items:
