@@ -3,8 +3,10 @@ duicontrolpanel (0.12.10~unreleased) unstable; urgency=low
   * Fixes: NB#235703 - COREWEB
   * Fixes: NB#243609 - ResetApplet: Missing info icon in header
   * New: HelpId can be specified for a category, see doc for details
+  * Fixes: NB#242796 - com.nokia.DuiControlPanelIf.appletPage does not
+    work for declarative applets
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 06 Apr 2011 16:10:37 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 08 Apr 2011 11:54:32 +0200
 
 duicontrolpanel (0.12.9) unstable; urgency=low
 

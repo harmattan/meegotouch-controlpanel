@@ -62,6 +62,7 @@ DcpContentItem::DcpContentItem (
     MListItem (parent),
     d_ptr (new DcpContentItemPrivate)
 {
+    setContentsMargins (0,0,0,0);
     connect (this, SIGNAL (clicked()), this, SLOT (onClicked()));
 //    setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Minimum);
     setApplet (applet);

@@ -209,8 +209,11 @@ PageFactory::createAppletPage (PageHandle &handle)
 {
     DcpAppletObject *applet = DcpAppletDb::instance()->applet (handle.param);
 
-    if (applet && applet->metadata() &&
-        applet->metadata()->widgetTypeID() == DcpWidgetType::Button)
+    /*
+     * If the applet does not have a main view then we show the page which
+     * contains its briefview instead.
+     */
+    if (applet && applet->metadata() && !applet->metadata()->hasMainView())
     {
         PageHandle handle (PageHandle::APPLETCATEGORY, applet->metadata()->category());
         return createAppletCategoryPage(handle);
@@ -231,7 +234,6 @@ PageFactory::createAppletPage (PageHandle &handle)
      * We do not cache appletpages (only with back mechanism).
      */
     DcpAppletPage* appletPage = new DcpAppletPage(applet, handle.widgetId);
-
     registerPage (appletPage);
 
     // we do this because we need to know if the page has a widget or not
