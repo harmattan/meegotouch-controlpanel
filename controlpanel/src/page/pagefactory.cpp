@@ -168,6 +168,19 @@ PageFactory::createPage (const PageHandle &handle)
 
         case PageHandle::APPLETCATEGORY:
         default:
+            const Category *info =
+                DcpCategories::instance()->categoryById (myHandle.param);
+            if (!info) break;
+
+            /*
+             * if appletAutoStart=1 then the metadatas need to be loaded
+             * to know if we have to create a categorypage here or an appletPage
+             * Mostly this means creating the appletpage anyway.
+             */
+            if (info->appletAutoStart() && !mng->isMetadataLoaded()) {
+                mng->loadMetadata();
+            }
+
             if (mng->isMetadataLoaded()) {
                 page = createAppletCategoryPage (myHandle);
             } else {
@@ -178,8 +191,6 @@ PageFactory::createPage (const PageHandle &handle)
                     qWarning() << "request for re-creating a main page while another one is being built";
                     break;
                 }
-                const Category *info =
-                    DcpCategories::instance()->categoryById (myHandle.param);
                 m_PageWithDelayedContent = 
                     createAppletCategoryPageIncomplete(info);
                 page = m_PageWithDelayedContent;
