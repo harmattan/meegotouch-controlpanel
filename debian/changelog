@@ -1,4 +1,4 @@
-duicontrolpanel (0.12.10~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.10) unstable; urgency=low
 
   * Fixes: NB#235703 - COREWEB
   * Fixes: NB#243609 - ResetApplet: Missing info icon in header
