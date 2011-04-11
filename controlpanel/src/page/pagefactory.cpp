@@ -122,8 +122,7 @@ PageFactory::instance ()
 }
 
 DcpPage* 
-PageFactory::createPage (
-        const PageHandle &handle)
+PageFactory::createPage (const PageHandle &handle)
 {
     PageHandle myHandle = handle;
     DcpPage *page = 0;
@@ -143,7 +142,7 @@ PageFactory::createPage (
              */
             DCP_DEBUG ("## MAIN ##");
             if (mng->isMetadataLoaded()) {
-                page = qobject_cast<DcpPage *>(createMainPage());
+                page = createMainPage();
             } else {
                 if (!mng->isMetadataLoadStarted()) {
                     // start loading the desktop files
@@ -157,7 +156,7 @@ PageFactory::createPage (
                     DcpCategories::instance()->mainPageCategory();
                 m_PageWithDelayedContent = 
                     createAppletCategoryPageIncomplete(mainCat);
-                page = qobject_cast<DcpPage *>(m_PageWithDelayedContent);
+                page = m_PageWithDelayedContent;
             }
             break;
         case PageHandle::APPLET:
@@ -183,7 +182,7 @@ PageFactory::createPage (
                     DcpCategories::instance()->categoryById (myHandle.param);
                 m_PageWithDelayedContent = 
                     createAppletCategoryPageIncomplete(info);
-                page = qobject_cast<DcpPage *>(m_PageWithDelayedContent);
+                page = m_PageWithDelayedContent;
             }
     }
 
