@@ -112,6 +112,10 @@ DcpAppletCategoryPage::addCategoryToLayoutOrdered (
 void
 DcpAppletCategoryPage::createContent ()
 {
+    // ensures that the translation for the title is loaded:
+    DcpRetranslator::instance()->ensureTranslationsAreLoaded (
+                m_CategoryInfo->translationCategories());
+
     DcpPage::createContent ();
     if (!m_DelayedContent) {
         createBody();
@@ -201,7 +205,7 @@ DcpAppletCategoryPage::createBody()
 
     // create the applet list:
     m_Category = new DcpAppletButtons(m_CategoryInfo);
-    
+
     // add them to the layout:
     if (hasMostUsed) {
         // box around them:
