@@ -42,6 +42,12 @@ DcpRetranslator::DcpRetranslator (): priv(new DcpRetranslatorPriv())
 {
 }
 
+DcpRetranslator::~DcpRetranslator()
+{
+    delete priv;
+    DcpRetranslatorPriv::instance = 0;
+}
+
 void
 DcpRetranslator::retranslate ()
 {
@@ -72,6 +78,12 @@ DcpRetranslator::ensureTranslationLoaded(DcpAppletMetadata* metadata)
     priv->loadedTranslations.unite(catalogList.toSet());
 }
 
+void
+DcpRetranslator::ensureTranslationsAreLoaded(const QStringList &catalogs)
+{
+    priv->loadedTranslations.unite(catalogs.toSet());
+}
+
 
 DcpRetranslator*
 DcpRetranslator::instance()
@@ -83,3 +95,8 @@ DcpRetranslator::instance()
     return DcpRetranslatorPriv::instance;
 }
 
+bool
+DcpRetranslator::eventFilter(QObject *obj, QEvent *event)
+{
+    return QObject::eventFilter(obj, event);
+}

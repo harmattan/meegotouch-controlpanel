@@ -56,6 +56,7 @@ HEADERS += \
     $$SRCDIR/component/dcpmaincategory.h \
     $$SRCDIR/component/dcpmostused.h \
     $$SRCDIR/component/dcpsinglecomponent.h \
+    $$LIBDCPSRC/dcpretranslator.h \
 
 # base classes
 HEADERS += \
