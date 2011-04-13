@@ -21,6 +21,7 @@
 #include "dcpcontentitemcellcreator.h"
 #include "category.h"
 #include "dcpcategories.h"
+#include "dcpappletmanager.h"
 
 #include <QObject>
 #include <QGraphicsSceneMouseEvent>
@@ -33,6 +34,7 @@
 
 void Ut_DcpAppletButtons::init()
 {
+    DcpAppletManager::instance()->loadMetadata();
 }
 
 void Ut_DcpAppletButtons::cleanup()

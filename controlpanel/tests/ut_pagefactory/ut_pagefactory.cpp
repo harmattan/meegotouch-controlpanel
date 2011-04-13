@@ -22,6 +22,7 @@
 #include <dcppage.h>
 #include <dcpappletpage.h>
 #include <dcpappletobject.h>
+#include "dcpappletmanager.h"
 
 #include <QObject>
 
@@ -146,6 +147,8 @@ void Ut_PageFactory::testAppletWantsToStart()
 {
     PageFactory* factory = PageFactory::instance();
 
+    DcpAppletManager::instance()->loadMetadata();
+
     // switch to an appletpage
     PageHandle handle(PageHandle::APPLET, "fake-name");
     factory->changePage (handle);
@@ -159,6 +162,7 @@ void Ut_PageFactory::testAppletWantsToStart()
      * an appletobject)
      */
     DcpAppletObject* applet = page->applet();
+    QVERIFY(applet);
     factory->onAppletLoaded (applet); // this is necessery because the fake db
                                       // does not emit a signal for us
     applet->activateSlot(1);

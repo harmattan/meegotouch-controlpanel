@@ -64,6 +64,12 @@ DcpAppletMetadata::isModified() const
     return false;
 }
 
+bool
+DcpAppletMetadata::isHidden() const
+{
+    return false;
+}
+
 QString 
 DcpAppletMetadata::category () const
 {

@@ -52,7 +52,6 @@ public:
          * - mostUsed (which is only returned with the most used list
          */
         sm_fakeMap[mng] = this;
-        createTestApplet("fake");
     }
 
     ~FakeDcpAppletManager() 
@@ -72,15 +71,19 @@ public:
 
     DcpAppletObject *applet(const QString &name)
     {
-        return m_AppletObjectsByName[name];
+        return m_AppletObjectsByName.value(name, 0);
     }
 
     DcpAppletMetadata *metadata(const QString &name)
     {
-        return m_AppletsByName[name];
+        return m_AppletsByName.value(name, 0);
     }
 
-private:
+    DcpAppletMetadataList list()
+    {
+        return m_AppletsByName.values();
+    }
+
     QMap<QString,DcpAppletMetadata *> m_AppletsByName;
     QMap<QString,DcpAppletMetadata *> m_AppletsByFile;
     QMap<QString,DcpAppletObject *> m_AppletObjectsByName;
@@ -120,6 +123,7 @@ DcpAppletManager::destroyInstance()
 void
 DcpAppletManager::loadMetadata()
 {
+    FAKE->createTestApplet("fake");
 }
 
 void
@@ -144,6 +148,7 @@ DcpAppletManager::isMetadataLoadStarted()
 bool
 DcpAppletManager::loadDesktopFile(const QString &path)
 {
+    Q_UNUSED(path);
     return true;
 }
 
@@ -194,20 +199,39 @@ QList<DcpAppletObject*> DcpAppletManager::loadedApplets () const
 DcpAppletMetadataList
 DcpAppletManager::list() const
 {
-    return QList<DcpAppletMetadata*>();
+    return FAKE->list();
 }
 
 DcpAppletMetadataList 
 DcpAppletManager::listByCategory(const QString &category) const
 {
-    return QList<DcpAppletMetadata*>();
+    QList<DcpAppletMetadata*> filtered;
+
+    foreach (DcpAppletMetadata *item, FAKE->m_AppletsByFile) {
+        if (category.compare(item->category(), Qt::CaseInsensitive) == 0)
+            filtered.append(item);
+    }
+
+    return filtered;
 }
 
 DcpAppletMetadataList
 DcpAppletManager::listByCategory(const QStringList &categories,
                                  CheckCategory checkFunction) const
 {
-    return QList<DcpAppletMetadata*>();
+    Q_UNUSED(checkFunction);
+    QList<DcpAppletMetadata*> filtered;
+
+    foreach (DcpAppletMetadata *item, FAKE->m_AppletsByFile) {
+        foreach (QString cat, categories) {
+            if (cat.compare(item->category(), Qt::CaseInsensitive) == 0) {
+                filtered.append(item);
+                break;
+            }
+        }
+    }
+
+    return filtered;
 }
 
 QStringList
@@ -218,11 +242,13 @@ DcpAppletManager::appletNames() const
        
 bool DcpAppletManager::containsFile(const QString &name) const
 {
+    Q_UNUSED(name);
     return false;
 }
 
 bool DcpAppletManager::containsName(const QString &name) const
 {
+    Q_UNUSED(name);
     return false;
 }
 
