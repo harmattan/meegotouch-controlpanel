@@ -1,8 +1,12 @@
 duicontrolpanel (0.12.11~unreleased) unstable; urgency=low
 
-  * new version
+  [ Viktor Nagy ]
+  * Speed improvements for shorter startup time
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 12 Apr 2011 11:10:47 +0200
+  [ Robert Manner ]
+  * Fixes: NB#244769 - Stop using .launch suffix
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 13 Apr 2011 11:46:42 +0200
 
 duicontrolpanel (0.12.10) unstable; urgency=low
 
