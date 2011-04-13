@@ -37,7 +37,6 @@ public:
 protected slots:
     void onCommandArrival (const QString& command);
     void onBriefChanged ();
-    void onNewConnection ();
     void onLocaleChange ();
     void onConnectionDisconnected();
 
@@ -57,7 +56,6 @@ protected:
 
 private:
     class Stream* m_Stream;
-    class QLocalServer* m_Server;
 };
 
 

@@ -19,7 +19,6 @@
 
 #include <QtDebug>
 #include <QCoreApplication>
-#include <QLocalServer>
 #include <QLocalSocket>
 
 #include <dcpappletdb.h>
@@ -47,21 +46,14 @@ BriefSupplier::BriefSupplier(const QString &desktopDir):
     connect (m_Stream, SIGNAL (newCommand(QString)),
              this, SLOT (onCommandArrival(QString)));
 
-    // init the server:
-    m_Server = new QLocalServer (this);
-    connect (m_Server, SIGNAL (newConnection()),
-             this, SLOT (onNewConnection()));
-    bool ok = m_Server->listen (BServerId);
-    if (!ok) {
-        syslog (LOG_WARNING, "can not listen on localsocket, trying cleanup");
-        QLocalServer::removeServer (BServerId);
-        ok = m_Server->listen (BServerId);
-    }
-    if (!ok) {
-        qWarning ("Brief supplier process is not able to listen");
-        qApp->exit(1);
-        return;
-    }
+    // connect to controlpanel
+    QLocalSocket* socket = new QLocalSocket (this);
+    connect (socket, SIGNAL (error (QLocalSocket::LocalSocketError)),
+             this, SLOT (onConnectionDisconnected ()));
+    connect (socket, SIGNAL (disconnected ()),
+             this, SLOT (onConnectionDisconnected ()));
+    setIODevice (socket);
+    socket->connectToServer (BSupplier::BServerId);
 
     // init the db:
     DcpAppletDb *db = desktopDir.isEmpty() ? DcpAppletDb::instance() :
@@ -74,23 +66,8 @@ BriefSupplier::BriefSupplier(const QString &desktopDir):
 
 BriefSupplier::~BriefSupplier()
 {
-    m_Server->close();
-    delete m_Stream;
 }
 
-void BriefSupplier::onNewConnection ()
-{
-    static int connectionCount = 0;
-    connectionCount++;
-    if (connectionCount == 1) {
-        QLocalServer* server = qobject_cast<QLocalServer*>(sender());
-        dcp_failfunc_unless (server);
-        QLocalSocket* socket = server->nextPendingConnection ();
-        setIODevice (socket);
-        connect (socket, SIGNAL (disconnected ()),
-                 this, SLOT (onConnectionDisconnected()));
-    }
-}
 
 void BriefSupplier::onConnectionDisconnected()
 {

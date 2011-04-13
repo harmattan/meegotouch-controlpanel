@@ -22,6 +22,7 @@
 #include <QCoreApplication>
 #include <QTimer>
 #include <dcpdebug.h>
+#include <syslog.h>
 
 // the millisec after which the connection trial will be retried on failure
 static const int RETRY_TIME = 500;
@@ -32,30 +33,22 @@ QStringList DcpRemoteBriefReceiverPriv::args;
 
 
 DcpRemoteBriefReceiverPriv::DcpRemoteBriefReceiverPriv ():
-    send (&socket),
-    receive (&socket),
+    socket (0),
     currentBrief (0)
 {
-    send.setCodec("UTF-8");
-    receive.setCodec("UTF-8");
 }
 
 
 DcpRemoteBriefReceiver::DcpRemoteBriefReceiver():
     priv (new DcpRemoteBriefReceiverPriv())
 {
-    connect (this, SIGNAL (started()), this, SLOT (onStarted()));
-    connect (& priv->socket, SIGNAL (readyRead()), this, SLOT (onReadyRead()));
+    createServer();
+
     connect (this, SIGNAL (finished (int, QProcess::ExitStatus)),
              this, SLOT (onFinished (int, QProcess::ExitStatus)));
-
     setProcessChannelMode (QProcess::ForwardedChannels);
     startProcess();
 
-    connect (& priv->socket, SIGNAL (error (QLocalSocket::LocalSocketError)),
-             this, SLOT (onConnectError ()));
-    connect (& priv->socket, SIGNAL (connected ()),
-             this, SLOT (onConnected ()));
 }
 
 DcpRemoteBriefReceiver::~DcpRemoteBriefReceiver()
@@ -68,6 +61,48 @@ DcpRemoteBriefReceiver::~DcpRemoteBriefReceiver()
     delete priv;
 }
 
+void DcpRemoteBriefReceiver::createServer()
+{
+    // init the server:
+    priv->server = new QLocalServer (this);
+    connect (priv->server, SIGNAL (newConnection()),
+             this, SLOT (onNewConnection()));
+    bool ok = priv->server->listen (BSupplier::BServerId);
+    if (!ok) {
+        syslog (LOG_WARNING, "can not listen on localsocket, trying cleanup");
+        QLocalServer::removeServer (BSupplier::BServerId);
+        ok = priv->server->listen (BSupplier::BServerId);
+    }
+    if (!ok) {
+        syslog (LOG_WARNING, "Control panel process is not able to listen");
+        return;
+    }
+}
+
+void DcpRemoteBriefReceiver::onNewConnection()
+{
+    delete priv->socket;
+    priv->socket = priv->server->nextPendingConnection ();
+    dcp_failfunc_unless (priv->socket);
+
+    priv->send.setDevice (priv->socket);
+    priv->send.setCodec("UTF-8");
+    priv->receive.setDevice (priv->socket);
+    priv->receive.setCodec("UTF-8");
+    connect (priv->socket, SIGNAL (readyRead()), this, SLOT (onReadyRead()));
+
+    connect (priv->socket, SIGNAL (disconnected ()),
+             this, SLOT (onConnectionDisconnected()));
+    onConnected();
+}
+
+void
+DcpRemoteBriefReceiver::onConnectionDisconnected()
+{
+    delete priv->socket;
+    priv->socket = 0;
+}
+
 void
 DcpRemoteBriefReceiver::startProcess ()
 {
@@ -78,22 +113,23 @@ DcpRemoteBriefReceiver::startProcess ()
 void
 DcpRemoteBriefReceiver::onConnected ()
 {
+    dcp_failfunc_unless (priv->socket);
+
     // runs all the commands which arrived when we were not connected:
     if (!priv->waitingCommands.isEmpty()) {
         foreach (QString command, priv->waitingCommands) {
             priv->send << command << endl;
         }
         priv->send.flush ();
-        priv->socket.flush ();
+        priv->socket->flush ();
         priv->waitingCommands.clear();
-    } else {
-        static bool firstTime = true;
-        if (firstTime) {
-            // this signal is used for determining when to preload
-            // an applet launcher instance
-            emit firstConnected ();
-            firstTime = false;
-        }
+    }
+    static bool firstTime = true;
+    if (firstTime) {
+        // this signal is used for determining when to preload
+        // an applet launcher instance
+        emit firstConnected ();
+        firstTime = false;
     }
 }
 
@@ -128,19 +164,6 @@ void DcpRemoteBriefReceiver::disable ()
     DcpRemoteBriefReceiverPriv::disabled = true;
 }
 
-
-void DcpRemoteBriefReceiver::onStarted ()
-{
-    priv->socket.connectToServer (BSupplier::BServerId);
-}
-
-void DcpRemoteBriefReceiver::onConnectError ()
-{
-    // retry:
-    QTimer::singleShot (RETRY_TIME, this, SLOT (onStarted ()));
-    qWarning ("Error connecting to the helper process: %s, retry",
-              qPrintable (priv->socket.errorString ()));
-}
 
 void DcpRemoteBriefReceiver::watch (DcpRemoteBrief* brief)
 {
@@ -202,10 +225,10 @@ void DcpRemoteBriefReceiver::setValue(const QString& appletName,
 void DcpRemoteBriefReceiver::cmd (
         const QString& command, const QString& appletName)
 {
-    if (priv->socket.state() == QLocalSocket::ConnectedState) {
+    if (priv->socket && priv->socket->state() == QLocalSocket::ConnectedState) {
         priv->send << command << appletName << endl;
         priv->send.flush ();
-        priv->socket.flush ();
+        priv->socket->flush ();
     } else {
         priv->waitingCommands.append (command + appletName);
     }
