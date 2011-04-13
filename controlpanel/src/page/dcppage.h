@@ -58,6 +58,7 @@ signals:
 protected:
     void setTitleLabel (const QString& helpId = QString());
     void appendWidget (QGraphicsWidget *widget);
+    void setTitleStyleName (const QString& style);
 
 private:
     void createLayout();

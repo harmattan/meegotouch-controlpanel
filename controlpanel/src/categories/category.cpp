@@ -92,6 +92,11 @@ QString Category::helpId () const
     return value (HelpId);
 }
 
+QString Category::titleStyle () const
+{
+    return value (TitleStyleId);
+}
+
 QStringList Category::referenceIds() const
 {
     QStringList result = valueList (AliasesId);

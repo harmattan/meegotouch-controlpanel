@@ -112,3 +112,7 @@ DcpPage::setTitleLabel (const QString&)
 {
 }
 
+void DcpPage::setTitleStyleName (const QString&)
+{
+}
+

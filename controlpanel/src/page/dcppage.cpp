@@ -233,3 +233,10 @@ DcpPage::setTitleLabel (const QString& helpId)
 #endif
 }
 
+void DcpPage::setTitleStyleName (const QString& style)
+{
+    if (m_TitleLabel) {
+        m_TitleLabel->setStyleName (style);
+    }
+}
+

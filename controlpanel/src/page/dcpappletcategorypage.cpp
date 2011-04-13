@@ -121,6 +121,9 @@ DcpAppletCategoryPage::createContent ()
         createBody();
     }
     retranslateUi();
+    if (!m_CategoryInfo->titleStyle().isEmpty()) {
+        setTitleStyleName (m_CategoryInfo->titleStyle());
+    }
     mainLayout()->addStretch();
 }
 

@@ -98,6 +98,10 @@ Its value can define a help id for the category. If it is present, a help button
 will appear next to the title of the page, and if the user clicks on that, the
 specified help content will be opened in the current userguide application.
 
+\par TitleStyle
+Its value can override the style name for the title in case the default is not
+acceptable.
+
 Example:
 \code
 Parent=MainPage

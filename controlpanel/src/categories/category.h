@@ -71,6 +71,8 @@ public:
 
     QString helpId () const;
 
+    QString titleStyle () const;
+
 protected:
     static const char* componentOrderToString (ComponentOrderType order);
 
@@ -91,6 +93,7 @@ protected:
         AppletSortId,
         AppletAutoStartId,
         HelpId,
+        TitleStyleId,
         KeyIdMax
     };
 

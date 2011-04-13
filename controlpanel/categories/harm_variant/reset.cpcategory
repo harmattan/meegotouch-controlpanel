@@ -2,6 +2,7 @@ Parent=MainPage
 
 Name=Reset
 Name-logical-id=qtn_sett_main_reset
+TitleStyle=CommonHeaderInverted
 
 Icon=icon-m-settings-reset
 
