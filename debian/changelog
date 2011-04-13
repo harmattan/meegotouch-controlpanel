@@ -1,4 +1,4 @@
-duicontrolpanel (0.12.11~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.11) unstable; urgency=low
 
   [ Viktor Nagy ]
   * Speed improvements for shorter startup time
