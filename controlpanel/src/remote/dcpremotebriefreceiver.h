@@ -47,7 +47,6 @@ protected slots:
     void onFinished ( int exitCode, QProcess::ExitStatus exitStatus );
     void onConnected ();
     void onNewConnection ();
-    void onConnectionDisconnected ();
 
 protected:
     void cmd (const QString& command, const QString& appletName);
@@ -58,7 +57,7 @@ private:
     class DcpRemoteBriefReceiverPriv* priv;
     void unregister (const QString& appletName);
     void createServer();
-
+    void serverListen();
 };
 
 

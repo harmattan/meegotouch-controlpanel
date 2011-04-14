@@ -19,13 +19,8 @@
 #include "dcpremotebriefreceiver_p.h"
 
 #include <../../briefsupplier/src/bsuppliercommands.h>
-#include <QCoreApplication>
-#include <QTimer>
 #include <dcpdebug.h>
 #include <syslog.h>
-
-// the millisec after which the connection trial will be retried on failure
-static const int RETRY_TIME = 500;
 
 DcpRemoteBriefReceiver* DcpRemoteBriefReceiverPriv::instance = 0;
 bool DcpRemoteBriefReceiverPriv::disabled = false;
@@ -42,13 +37,12 @@ DcpRemoteBriefReceiverPriv::DcpRemoteBriefReceiverPriv ():
 DcpRemoteBriefReceiver::DcpRemoteBriefReceiver():
     priv (new DcpRemoteBriefReceiverPriv())
 {
-    createServer();
-
     connect (this, SIGNAL (finished (int, QProcess::ExitStatus)),
              this, SLOT (onFinished (int, QProcess::ExitStatus)));
     setProcessChannelMode (QProcess::ForwardedChannels);
-    startProcess();
 
+    createServer();
+    startProcess();
 }
 
 DcpRemoteBriefReceiver::~DcpRemoteBriefReceiver()
@@ -67,6 +61,13 @@ void DcpRemoteBriefReceiver::createServer()
     priv->server = new QLocalServer (this);
     connect (priv->server, SIGNAL (newConnection()),
              this, SLOT (onNewConnection()));
+    serverListen();
+}
+
+void DcpRemoteBriefReceiver::serverListen()
+{
+    if (priv->server->isListening()) return;
+
     bool ok = priv->server->listen (BSupplier::BServerId);
     if (!ok) {
         syslog (LOG_WARNING, "can not listen on localsocket, trying cleanup");
@@ -81,9 +82,12 @@ void DcpRemoteBriefReceiver::createServer()
 
 void DcpRemoteBriefReceiver::onNewConnection()
 {
-    delete priv->socket;
-    priv->socket = priv->server->nextPendingConnection ();
-    dcp_failfunc_unless (priv->socket);
+    QLocalSocket* socket = priv->server->nextPendingConnection ();
+    dcp_failfunc_unless (socket);
+
+    // stop listening to other connections:
+    priv->server->close();
+    priv->socket = socket;
 
     priv->send.setDevice (priv->socket);
     priv->send.setCodec("UTF-8");
@@ -91,16 +95,7 @@ void DcpRemoteBriefReceiver::onNewConnection()
     priv->receive.setCodec("UTF-8");
     connect (priv->socket, SIGNAL (readyRead()), this, SLOT (onReadyRead()));
 
-    connect (priv->socket, SIGNAL (disconnected ()),
-             this, SLOT (onConnectionDisconnected()));
     onConnected();
-}
-
-void
-DcpRemoteBriefReceiver::onConnectionDisconnected()
-{
-    delete priv->socket;
-    priv->socket = 0;
 }
 
 void
@@ -311,6 +306,12 @@ void DcpRemoteBriefReceiver::onFinished (
 {
     Q_UNUSED (exitCode);
 
+    if (priv->socket) {
+        priv->socket->abort();
+        delete priv->socket;
+        priv->socket = 0;
+    }
+
     static int maxRestart = 10;
     if (exitStatus & QProcess::CrashExit) {
         maxRestart--;
@@ -319,7 +320,7 @@ void DcpRemoteBriefReceiver::onFinished (
             disable ();
             return;
         }
-        qWarning ("briefsupplier crashed, restarting (has %d chances left",
+        syslog (LOG_WARNING, "briefsupplier crashed, restarting (has %d chances left",
                   maxRestart);
         // process crashed, we need to resend the watches to be in sync
         // (crash protection will ensure that the crashed applet wont be loaded
@@ -328,6 +329,7 @@ void DcpRemoteBriefReceiver::onFinished (
             cmd (BSupplier::CmdWatch, appletName);
         }
         priv->currentBrief = 0;
+        serverListen ();
         startProcess ();
 
     } else {

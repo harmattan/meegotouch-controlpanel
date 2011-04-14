@@ -169,6 +169,14 @@ DcpAppletPlugin::loadPluginFile (const QString &binaryPath)
 
     dcpSyslog ("loading " + binaryPath);
     d_ptr->loader.setFileName (binaryPath);
+
+    // this makes loading a bit longer, but protects controlpanel from crash
+    // in case the plugin has an unresolved symbol which situation cant be
+    // avoided during SSU upgrades
+#if 0
+    d_ptr->loader.setLoadHints(QLibrary::ResolveAllSymbolsHint);
+#endif
+
     if (!d_ptr->loader.load ()) {
         d_ptr->errorMsg = "Loading of the '" + binaryPath + "/" +
             d_ptr->appletMetadata->name() +

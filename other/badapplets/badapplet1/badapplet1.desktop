@@ -12,6 +12,6 @@ X-DUIApplet-ImageLandscape=Widget_landscape_weather.png
 X-DUIApplet-ImagePortrait=Widget_portrait_weather.png
 
 [DCP]
-Category= Look & Feel
+Category=Examples
 Order=4
 
