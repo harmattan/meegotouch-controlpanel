@@ -77,12 +77,21 @@ DcpAppletPluginPrivate::~DcpAppletPluginPrivate ()
  *     delete appletInstance;
  */
     appletInstance = 0;
+
+    /*
+     * I have disabled this because it has no benefit for us to explicitly
+     * unload the
+     * plugin, as we only do that on application quits, and it has caused
+     * problems with symbol resolving in case of lazy linking, see NB#246257.
+     */
+#if 0
     if (loader.isLoaded()) {
         if (appletMetadata) {
             dcpSyslog ("unloading " + appletMetadata->binary());
         }
         loader.unload();
     }
+#endif
 }
 
 DcpAppletPlugin::~DcpAppletPlugin()
