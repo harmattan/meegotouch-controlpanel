@@ -405,11 +405,20 @@ PageFactory::currentPage ()
  */
 void PageFactory::preloadAppletLauncher ()
 {
-#if 1
     if (isInProcessApplets()) return;
     dcp_failfunc_unless (sm_AppletLauncher->isValid());
+
+    /*
+     * First appletLauncher gets started after the breifsupplier has finished,
+     * further appletlauncher preloads will be handled by this:
+     */
+    static bool notConnected = true;
+    if (notConnected && m_Win) {
+        connect (m_Win, SIGNAL(displayEntered()), this, SLOT(onDisplayEntered()));
+        notConnected = false;
+    }
+
     sm_AppletLauncher->prestart ();
-#endif
 }
 
 bool PageFactory::maybeRunOutOfProcess (const QString& appletName)
@@ -708,9 +717,6 @@ void PageFactory::newWin ()
 #endif // FREE_ORIENTATION
 
     m_Win->setStyleName ("CommonApplicationWindowInverted");
-
-    // Connect some signals for the new window:
-    connect (m_Win, SIGNAL(displayEntered()), this, SLOT(onDisplayEntered()));
 
     // filters out unnecessery retranslate events:
     m_Win->installEventFilter(DcpRetranslator::instance());

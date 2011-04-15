@@ -20,9 +20,6 @@ SOFTWARE {
 DISABLE_LAUNCHER {
     DEFINES += DISABLE_LAUNCHER
 } else {
-    QMAKE_CXXFLAGS += -fPIC -fvisibility=hidden -fvisibility-inlines-hidden
-    QMAKE_LFLAGS += -pie -rdynamic
-
     PREFIX += "/usr/bin/invoker --type=m "
 }
 

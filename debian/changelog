@@ -1,8 +1,9 @@
 duicontrolpanel (0.12.12~unreleased) unstable; urgency=low
 
   * new version
+  * Fixes: NB#241369 - Some brightness indicator is not visible
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 13 Apr 2011 15:18:24 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 15 Apr 2011 14:52:52 +0200
 
 duicontrolpanel (0.12.11) unstable; urgency=low
 
