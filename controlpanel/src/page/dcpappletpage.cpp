@@ -157,10 +157,12 @@ DcpAppletPage::load ()
 
         //% "Plugin not available"
         m_MissingLabel = new MLabel (qtTrId("dcp_no_applet_name"));
+        m_MissingLabel->setStyleName ("CommonTitleInverted");
         m_MissingLabel->setAlignment (Qt::AlignCenter);
         appendWidget (m_MissingLabel);
         //% "Missing plugin"
         setTitle (qtTrId("dcp_no_applet_title"));
+        setTitleLabel ();
     }
 }
 
