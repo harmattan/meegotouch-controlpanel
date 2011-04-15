@@ -1,3 +1,10 @@
+duicontrolpanel (0.12.12~unreleased) unstable; urgency=low
+
+  * Fixes: NB#246239 - Settings application re-opens slowly, if swiped
+    to background few times in a row
+
+ -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Fri, 15 Apr 2011 12:51:11 +0200
+
 duicontrolpanel (0.12.11) unstable; urgency=low
 
   [ Viktor Nagy ]
