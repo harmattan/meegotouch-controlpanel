@@ -218,6 +218,8 @@ DcpPage::setTitleLabel (const QString& helpId)
             m_HelpButton = new MHelpButton (helpId);
             m_HelpButton->setStyleName ("CommonRightIcon");
             QGraphicsLinearLayout* labelLayout = new QGraphicsLinearLayout();
+            labelLayout->setSpacing(0);
+            labelLayout->setContentsMargins(0, 0, 0, 0);
             labelLayout->addItem (m_TitleLabel);
             labelLayout->addItem (m_HelpButton);
             labelLayout->setAlignment (m_HelpButton, Qt::AlignVCenter);

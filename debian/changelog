@@ -9,7 +9,10 @@ duicontrolpanel (0.12.12~unreleased) unstable; urgency=low
   * Fixes: NB#246257 - COREWEB: duicontrolpanel-briefsupplier '_dl_fixup
     _dl_runtime_resolve
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 15 Apr 2011 15:20:34 +0200
+  [ Sandor Pinter ]
+  * Fixes: NB#243609 - ResetApplet: Missing info icon in header
+
+ -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Mon, 18 Apr 2011 08:56:29 +0200
 
 duicontrolpanel (0.12.11) unstable; urgency=low
 
