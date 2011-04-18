@@ -3,16 +3,12 @@ duicontrolpanel (0.12.12~unreleased) unstable; urgency=low
   [ Sandor Pinter ]
   * Fixes: NB#246239 - Settings application re-opens slowly, if swiped
     to background few times in a row
+  * Fixes: NB#243609 - ResetApplet: Missing info icon in header
 
   [ Robert Manner ]
   * Fixes: NB#241369 - Some brightness indicator is not visible
-  * Fixes: NB#246257 - COREWEB: duicontrolpanel-briefsupplier '_dl_fixup
-    _dl_runtime_resolve
 
-  [ Sandor Pinter ]
-  * Fixes: NB#243609 - ResetApplet: Missing info icon in header
-
- -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Mon, 18 Apr 2011 08:56:29 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 15 Apr 2011 15:00:45 +0200
 
 duicontrolpanel (0.12.11) unstable; urgency=low
 
