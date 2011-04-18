@@ -1,4 +1,4 @@
-duicontrolpanel (0.12.12~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.12) unstable; urgency=low
 
   [ Sandor Pinter ]
   * Fixes: NB#246239 - Settings application re-opens slowly, if swiped
