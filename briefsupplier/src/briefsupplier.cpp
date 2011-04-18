@@ -20,6 +20,7 @@
 #include <QtDebug>
 #include <QCoreApplication>
 #include <QLocalSocket>
+#include <QLibrary>
 
 #include <dcpappletdb.h>
 #include <dcpappletobject.h>
@@ -42,6 +43,11 @@ using namespace BSupplier;
 BriefSupplier::BriefSupplier(const QString &desktopDir):
     m_Stream (new Stream(this))
 {
+    // this makes loading a bit longer, but protects controlpanel from crash
+    // in case the plugin has an unresolved symbol which situation cant be
+    // avoided during SSU upgrades
+    DcpAppletPlugin::setDefaultLoadHints (QLibrary::ResolveAllSymbolsHint);
+
     // init the stream:
     connect (m_Stream, SIGNAL (newCommand(QString)),
              this, SLOT (onCommandArrival(QString)));

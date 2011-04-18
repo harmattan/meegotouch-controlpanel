@@ -88,3 +88,7 @@ DcpAppletPlugin::interfaceVersion() const
     return 999999;
 }
 
+void DcpAppletPlugin::setDefaultLoadHints (int)
+{
+}
+

@@ -46,6 +46,8 @@ public:
     const QString errorMsg () const;
     int interfaceVersion() const;
 
+    static void setDefaultLoadHints (int hints);
+
 protected:
     virtual void load ();
     virtual bool loadPluginFile (const QString &binaryPath);

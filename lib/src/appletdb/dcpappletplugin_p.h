@@ -32,6 +32,8 @@ public:
     DcpAppletIf* appletInstance;
     QString errorMsg;
     QPluginLoader loader;
+
+    static QLibrary::LoadHints defaultLoadHints;
 };
 
 #endif // DCPAPPLETPLUGINPRIVATE_H
