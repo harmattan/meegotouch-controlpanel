@@ -94,10 +94,6 @@ void PageFactory::preloadBriefReceiver()
 {
 }
 
-void PageFactory::mainPageFirstShown()
-{
-}
-
 void PageFactory::onDisplayEntered ()
 {
 }

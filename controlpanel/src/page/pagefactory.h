@@ -80,7 +80,6 @@ protected:
 
 private slots:
     void onDisplayEntered ();
-    void mainPageFirstShown ();
     void completeCategoryPage ();
     void onMetadataLoaded ();
 
@@ -104,6 +103,11 @@ private:
 
     // for testability
     friend class Ut_PageFactory;
+
+    enum StartupState {
+        NothingStarted,
+        BriefSupplierStarted
+    } m_StartupState;
 };
 
 #endif

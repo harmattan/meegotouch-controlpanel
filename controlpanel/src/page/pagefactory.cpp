@@ -54,7 +54,8 @@ PageFactory::PageFactory ():
     QObject (),
     m_Win (0),
     m_PageWithDelayedContent (0),
-    m_AppletsRegistered (false)
+    m_AppletsRegistered (false),
+    m_StartupState (NothingStarted)
 {
     // Run onAppletLoaded for all the applets that are already loaded
     // and run it later for the applets loaded in the future.
@@ -207,6 +208,9 @@ PageFactory::createPage (const PageHandle &handle)
 
 void PageFactory::preloadBriefReceiver ()
 {
+    if (m_StartupState != NothingStarted) return;
+    m_StartupState = BriefSupplierStarted;
+
     // this loads the helper process a little bit earlier so that it can preload
     // some applets
     DcpRemoteBriefReceiver* receiver = DcpRemoteBriefReceiver::instance ();
@@ -215,23 +219,10 @@ void PageFactory::preloadBriefReceiver ()
     if (receiver) {
         connect (receiver, SIGNAL (firstConnected()),
                  this, SLOT (preloadAppletLauncher()));
+        receiver->startProcess ();
     }
 }
 
-void PageFactory::mainPageFirstShown()
-{
-    MApplicationPage* mainPage = qobject_cast<MApplicationPage*>(sender());
-    if (!mainPage) return;
-
-    // disconnect so as not to receive this event any more:
-    disconnect (mainPage, SIGNAL(appeared()),
-                this, SLOT(mainPageFirstShown()));
-
-    // unfortunately appeared signal comes before the page becomes visible on
-    // the screen so this function gets called after a delay to start some
-    // heavier
-    QTimer::singleShot (1000, this, SLOT(preloadBriefReceiver()));
-}
 
 void
 PageFactory::completeCategoryPage ()
@@ -244,6 +235,11 @@ PageFactory::completeCategoryPage ()
         m_PageWithDelayedContent = 0;
     }
     DcpDebug::end("completeCategoryPage");
+
+    // this starts the briefsupplier process:
+    if (m_StartupState == NothingStarted) {
+        QTimer::singleShot (0, this, SLOT(preloadBriefReceiver()));
+    }
 }
 
 /*!
@@ -255,8 +251,6 @@ PageFactory::createMainPage ()
     DcpPage* mainPage = new DcpAppletCategoryPage (
                 DcpCategories::instance()->mainPageCategory());
     registerPage (mainPage);
-    connect (mainPage, SIGNAL(appeared()),
-             this, SLOT(mainPageFirstShown()));
 
     return mainPage;
 }

@@ -38,6 +38,7 @@ public:
     void switchToggle (const QString& appletName);
     void setValue(const QString& appletName, const QVariant& value);
     void preload (const QString& appletName);
+    void startProcess ();
 
 signals:
     void firstConnected ();
@@ -51,7 +52,6 @@ protected slots:
 protected:
     void cmd (const QString& command, const QString& appletName);
     DcpRemoteBriefReceiver();
-    void startProcess ();
 
 private:
     class DcpRemoteBriefReceiverPriv* priv;

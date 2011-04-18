@@ -29,6 +29,7 @@ QStringList DcpRemoteBriefReceiverPriv::args;
 
 DcpRemoteBriefReceiverPriv::DcpRemoteBriefReceiverPriv ():
     socket (0),
+    server (0),
     currentBrief (0)
 {
 }
@@ -40,9 +41,6 @@ DcpRemoteBriefReceiver::DcpRemoteBriefReceiver():
     connect (this, SIGNAL (finished (int, QProcess::ExitStatus)),
              this, SLOT (onFinished (int, QProcess::ExitStatus)));
     setProcessChannelMode (QProcess::ForwardedChannels);
-
-    createServer();
-    startProcess();
 }
 
 DcpRemoteBriefReceiver::~DcpRemoteBriefReceiver()
@@ -57,6 +55,9 @@ DcpRemoteBriefReceiver::~DcpRemoteBriefReceiver()
 
 void DcpRemoteBriefReceiver::createServer()
 {
+    // do not init it double times:
+    if (priv->server) return;
+
     // init the server:
     priv->server = new QLocalServer (this);
     connect (priv->server, SIGNAL (newConnection()),
@@ -66,7 +67,7 @@ void DcpRemoteBriefReceiver::createServer()
 
 void DcpRemoteBriefReceiver::serverListen()
 {
-    if (priv->server->isListening()) return;
+    if (!priv->server || priv->server->isListening()) return;
 
     bool ok = priv->server->listen (BSupplier::BServerId);
     if (!ok) {
@@ -101,6 +102,9 @@ void DcpRemoteBriefReceiver::onNewConnection()
 void
 DcpRemoteBriefReceiver::startProcess ()
 {
+    if (state() != QProcess::NotRunning) return;
+
+    createServer();
     start ("duicontrolpanel-briefsupplier",
            DcpRemoteBriefReceiverPriv::args);
 }
