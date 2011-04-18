@@ -83,6 +83,8 @@ private slots:
     void completeCategoryPage ();
     void onMetadataLoaded ();
 
+    void newMainPageInSeparateProcess ();
+
 private:
     bool tryOpenPageBackward (const PageHandle &handle);
     void registerPage (DcpPage *page);

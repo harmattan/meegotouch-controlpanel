@@ -34,6 +34,7 @@
 #include <DcpWidgetTypes>
 #include <DcpRetranslator>
 #include "dcpappletlauncherif.h"
+#include "duicontrolpanelif.h"
 
 #include <MApplication>
 #include <MComponentCache>
@@ -231,6 +232,7 @@ PageFactory::completeCategoryPage ()
     if (m_PageWithDelayedContent) {
         DcpDebug::start("createBody");
         m_PageWithDelayedContent->createBody();
+        registerPage (m_PageWithDelayedContent);
         DcpDebug::end("createBody");
         m_PageWithDelayedContent = 0;
     }
@@ -562,6 +564,9 @@ PageFactory::registerPage (
 {
     connect (page, SIGNAL(openSubPage (const PageHandle &)), 
             this, SLOT(changePage(const PageHandle &)));
+
+    connect (page, SIGNAL(mainPageIconClicked ()), this,
+             SLOT (newMainPageInSeparateProcess()));
 }
 
 
@@ -749,4 +754,12 @@ PageFactory::closeHelpPage()
     connection.asyncCall(message);
 }
 
+void
+PageFactory::newMainPageInSeparateProcess()
+{
+    DuiControlPanelIf iface;
+    if (iface.isValid()) {
+        iface.mainPage();
+    }
+}
 

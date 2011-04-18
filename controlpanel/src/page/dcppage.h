@@ -54,6 +54,7 @@ public:
 signals:
     void openSubPage (PageHandle handle);
     void openSubPageWithReferer (const PageHandle &, const QString &, int);
+    void mainPageIconClicked ();
 
 protected:
     void setTitleLabel (const QString& helpId = QString());

@@ -28,6 +28,8 @@
 #include <MStylableWidget>
 #include <MPannableViewport>
 #include <MPositionIndicator>
+#include <MWidgetAction>
+#include <MButton>
 
 #include "mwidgetcreator.h"
 M_REGISTER_WIDGET(DcpPage)
@@ -106,6 +108,23 @@ DcpPage::setHandle (
     
     DCP_DEBUG ("*** m_Handle  = %s", DCP_STR (m_Handle.getStringVariant()));
     DCP_DEBUG ("*** m_Referer = %s", DCP_STR (m_Referer.getStringVariant()));
+
+    /* A button for moving back to mainpage:
+     */
+    if (handle.isStandalone)  {
+        MWidgetAction* mainPageAction = new MWidgetAction(this);
+        mainPageAction->setLocation (MAction::ToolBarLocation);
+
+        MButton* iconButton = new MButton();
+        iconButton->setViewType(MButton::iconType);
+        iconButton->setIconID ("icon-l-settings-main-view");
+        mainPageAction->setWidget (iconButton);
+
+        connect (iconButton, SIGNAL (clicked()),
+                 this, SIGNAL (mainPageIconClicked()));
+
+        addAction (mainPageAction);
+    }
 }
 
 /*!

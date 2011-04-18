@@ -130,3 +130,8 @@ void PageFactory::completeCategoryPage()
 void PageFactory::onMetadataLoaded()
 {
 }
+
+void PageFactory::newMainPageInSeparateProcess()
+{
+}
+

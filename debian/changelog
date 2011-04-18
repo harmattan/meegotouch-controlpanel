@@ -1,3 +1,10 @@
+duicontrolpanel (0.12.13~unreleased) unstable; urgency=low
+
+  * Fixes: NB#247927 - clicking settings from events object view opens
+    view with no toolbar
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 18 Apr 2011 15:00:21 +0200
+
 duicontrolpanel (0.12.12) unstable; urgency=low
 
   [ Sandor Pinter ]

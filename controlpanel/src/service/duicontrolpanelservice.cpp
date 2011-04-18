@@ -136,7 +136,7 @@ DuiControlPanelService::appletPage (const QString& appletName)
         }
     }
 
-    PageHandle handle (PageHandle::APPLET, appletName);
+    PageHandle handle (PageHandle::APPLET, appletName, -1, true);
     sheduleStart(handle);
 
     // TODO this hack prevents a servicefw issue, that the app does not get the
@@ -219,7 +219,7 @@ DuiControlPanelService::sheduleStart (
 void
 DuiControlPanelService::categoryPage (const QString& category)
 {
-    PageHandle handle (PageHandle::APPLETCATEGORY, category);
+    PageHandle handle (PageHandle::APPLETCATEGORY, category, -1, true);
     sheduleStart(handle);
 }
 
