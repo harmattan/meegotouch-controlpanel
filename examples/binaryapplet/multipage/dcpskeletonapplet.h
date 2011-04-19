@@ -35,8 +35,8 @@ public:
     virtual QString title() const;
     virtual QVector<MAction *> viewMenuItems();
 
-protected slots:
-    void startLanguageApplet();
+protected:
+    class SkeletonWidget* currentWidget;
 };
 
 #endif // SKELETONAPPLET_H

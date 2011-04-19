@@ -22,12 +22,14 @@
 #include <mlabel.h>
 #include <mbutton.h>
 #include <mwidgetcreator.h>
+#include <maction.h>
 
 M_REGISTER_WIDGET_NO_CREATE (SkeletonWidget)
 
 SkeletonWidget::SkeletonWidget (int num, QGraphicsWidget *parent)
 	    :DcpStylableWidget(parent)
 {
+    // build the ui:
     MLayout *mainLayout = new MLayout(this);
     MLinearLayoutPolicy *mainLayoutPolicy =
             new MLinearLayoutPolicy (mainLayout, Qt::Vertical);
@@ -67,6 +69,8 @@ void SkeletonWidget::onPageOpenRequest ()
     if (!button) return;
 
     int num = button->text().toInt();
+
+    // Example for how to open another page of the applet:
     emit changeWidget (num);
 }
 
@@ -74,9 +78,34 @@ SkeletonWidget::~SkeletonWidget()
 {
 }
 
+/*
+ * This gets called before closing the page.
+ * If we return false here, the page will not be closed.
+ */
 bool SkeletonWidget::back()
 {
     qDebug ("BACK was asked from me: %d", !m_PreventQuitToggle->isChecked());
     return ! m_PreventQuitToggle->isChecked();
+}
+
+/*
+ * Example for having a menu item:
+ */
+QVector<MAction*> SkeletonWidget::menuItems()
+{
+    QVector<MAction*> vector (1);
+    vector[0] = new MAction("Start singlepage skeletonapplet", this);
+    vector[0]->setLocation(MAction::ApplicationMenuLocation);
+    connect (vector[0], SIGNAL(triggered()),
+             this, SLOT(startLanguageApplet()));
+    return vector;
+}
+
+/*
+ * Example for how to start another applet:
+ */
+void SkeletonWidget::startLanguageApplet()
+{
+    emit activatePluginByName("Skeleton");
 }
 

@@ -32,7 +32,8 @@ void SkeletonApplet::init()
 
 DcpStylableWidget* SkeletonApplet::constructStylableWidget(int widgetId)
 {
-	return new SkeletonWidget(widgetId);
+    this->currentWidget = new SkeletonWidget(widgetId);
+    return this->currentWidget;
 }
 
 QString SkeletonApplet::title() const
@@ -42,11 +43,6 @@ QString SkeletonApplet::title() const
 
 QVector<MAction*> SkeletonApplet::viewMenuItems()
 {
-    QVector<MAction*> vector;
-    /*
-    vector[0] = new MAction("Start language applet", this);
-    vector[0]->setLocation(MAction::ApplicationMenuLocation);
-     */
-    return vector;
+    return currentWidget ? currentWidget->menuItems() : QVector<MAction*>();
 }
 

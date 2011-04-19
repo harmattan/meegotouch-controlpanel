@@ -22,6 +22,7 @@
 
 class MLabel;
 class MButton;
+class MAction;
 
 class SkeletonWidget : public DcpStylableWidget
 {
@@ -32,9 +33,11 @@ public:
     virtual ~SkeletonWidget();
 
     virtual bool back ();
+    virtual QVector<MAction*> menuItems();
 
 protected slots:
     void onPageOpenRequest ();
+    void startLanguageApplet();
 
 private:
     MButton* createButton (const QString& title, const char* method);
