@@ -84,6 +84,8 @@ private slots:
     void onMetadataLoaded ();
 
     void newMainPageInSeparateProcess ();
+    void switchToMainPageWithPageDropping ();
+    void destroyPageHistory ();
 
 private:
     bool tryOpenPageBackward (const PageHandle &handle);

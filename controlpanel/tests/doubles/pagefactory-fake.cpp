@@ -135,3 +135,12 @@ void PageFactory::newMainPageInSeparateProcess()
 {
 }
 
+void PageFactory::switchToMainPageWithPageDropping ()
+{
+}
+
+void PageFactory::destroyPageHistory()
+{
+}
+
+

@@ -565,10 +565,38 @@ PageFactory::registerPage (
     connect (page, SIGNAL(openSubPage (const PageHandle &)), 
             this, SLOT(changePage(const PageHandle &)));
 
-    connect (page, SIGNAL(mainPageIconClicked ()), this,
-             SLOT (newMainPageInSeparateProcess()));
+    if (qobject_cast<DcpAppletPage*>(page)) {
+        connect (page, SIGNAL(mainPageIconClicked ()), this,
+                 SLOT (newMainPageInSeparateProcess()));
+    } else {
+        connect (page, SIGNAL(mainPageIconClicked ()), this,
+                 SLOT (switchToMainPageWithPageDropping ()));
+    }
 }
 
+void PageFactory::switchToMainPageWithPageDropping ()
+{
+    DcpPage* page = createPage (PageHandle(PageHandle::MAIN));
+    dcp_failfunc_unless (page);
+
+    page->setEscapeMode (MApplicationPageModel::EscapeCloseWindow);
+    page->appear ();
+
+    // destroy all pages after the animation has finished:
+    connect (page, SIGNAL (appeared()), this, SLOT(destroyPageHistory()));
+}
+
+void PageFactory::destroyPageHistory()
+{
+    if (!m_Win) return;
+    MSceneManager* manager = m_Win->sceneManager();
+    if (!manager) return;
+    foreach (MSceneWindow* page, manager->pageHistory()) {
+        delete page;
+//      this does not do the job it seems:
+//      manager->dismissSceneWindowNow (page);
+    }
+}
 
 /*!
  * Returns the page history including the current page
@@ -580,7 +608,6 @@ QList< MSceneWindow * > PageFactory::pageHistory ()
     MSceneManager* manager = m_Win->sceneManager();
     if (!manager) return pageList;
     pageList = manager->pageHistory();
-    pageList.append (m_Win->currentPage()); // TODO might want to avoid this (PERF)
     return pageList;
 }
 
@@ -610,6 +637,9 @@ PageFactory::tryOpenPageBackward (const PageHandle &handle)
      * We try to find the requested page in the stack.
      */
     QList< MSceneWindow * > history = pageHistory();
+    if (m_Win) {
+        history.append (m_Win->currentPage()); // TODO might want to avoid this (PERF)
+    }
     for (n = 0; n < history.count(); n++) {
         page = qobject_cast<DcpPage*> (history.at(n));
 
