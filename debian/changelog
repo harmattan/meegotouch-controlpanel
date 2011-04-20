@@ -1,11 +1,16 @@
 duicontrolpanel (0.12.13~unreleased) unstable; urgency=low
 
+  [ Robert Manner ]
   * Fixes: NB#247927 - clicking settings from events object view opens
     view with no toolbar
   * Fixes: NB#244666 - [TASK] Control panel shall implement splash
     screen
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 19 Apr 2011 16:41:48 +0200
+  [ Sandor Pinter ]
+  * Fixes: NB#247954 - The device shows previously opened screen when
+    Settings application is opened
+
+ -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Wed, 20 Apr 2011 11:16:02 +0200
 
 duicontrolpanel (0.12.12) unstable; urgency=low
 
