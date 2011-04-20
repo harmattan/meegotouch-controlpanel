@@ -1,4 +1,4 @@
-duicontrolpanel (0.12.13~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.13) unstable; urgency=low
 
   [ Robert Manner ]
   * Fixes: NB#247927 - clicking settings from events object view opens
