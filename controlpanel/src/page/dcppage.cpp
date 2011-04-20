@@ -67,6 +67,7 @@ DcpPage::createLayout ()
         new QGraphicsLinearLayout (Qt::Vertical, centralWidget());
 
     // we should not have margins around the mainwidget
+    layout->setSpacing (0);
     layout->setContentsMargins (0,0,0,0);
 }
 
@@ -225,7 +226,7 @@ DcpPage::setTitleLabel (const QString& helpId)
     if (!m_TitleLabel) {
         m_TitleLabel = new MLabel();
         m_TitleLabel->setWordWrap(true);
-        m_TitleLabel->setStyleName ("CommonApplicationHeaderInverted");
+        m_TitleLabel->setStyleName ("CommonHeaderInverted");
         if (!helpId.isEmpty()) {
             // this can be here, because the help button does not need
             // retranslation. But it also meens that recalling the setTitleLabel
@@ -244,6 +245,9 @@ DcpPage::setTitleLabel (const QString& helpId)
         } else {
             mainLayout()->insertItem (0, m_TitleLabel);
         }
+        MSeparator* divider = new MSeparator();
+        divider->setStyleName ("CommonHeaderDividerInverted");
+        mainLayout()->insertItem (1, divider);
     }
 
     m_TitleLabel->setText (title ());
