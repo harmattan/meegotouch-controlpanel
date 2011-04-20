@@ -250,7 +250,7 @@ DuiControlPanelService::createStartPage()
     // From now on, pagefactory will be able to notify the applets running
     // in separate process to close down through this, but only if we
     // are the main process (not an appletlauncher)
-    if (m_IsRegistered && handle->id != PageHandle::NOPAGE) {
+    if (m_IsRegistered) {
         PageFactory* pf = PageFactory::instance();
         connect (pf, SIGNAL (resetAppletLauncherProcesses()),
                  this, SIGNAL (closeAppletLaunchers()));
