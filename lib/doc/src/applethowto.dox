@@ -97,8 +97,8 @@ SOURCES       = dcpskeletonapplet.cpp \
 DESTDIR       = ./lib
 TARGET        = $$qtLibraryTarget(dcpskeletonapplet)
 desktop.files += *.desktop
-desktop.path = /usr/lib/duicontrolpanel
-target.path += /usr/lib/duicontrolpanel/applet
+desktop.path = /usr/share/duicontrolpanel/desktops
+target.path += /usr/lib/duicontrolpanel/applets
 
 INSTALLS += target \
             desktop

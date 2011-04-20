@@ -70,7 +70,7 @@ DcpDeclWidget::DcpDeclWidget(const QString& xmlPath)
 void DcpDeclWidget::createErrorLabel(const QString& text)
 {
     MLabel* label;
-    
+
     /*
      * It seems that he MSettingsLanguageParser can't tell us what was wrong.
      * Maybe we should add an implementation for that.
@@ -78,6 +78,7 @@ void DcpDeclWidget::createErrorLabel(const QString& text)
     label = new MLabel(this);
     label->setText("ERROR: " + text + "\nCheck log for details.");
     label->setWordWrap (true);
+    label->setStyleName ("CommonBodyTextInverted");
     ((QGraphicsLinearLayout*)(layout()))->addItem(label);
 
     DCP_WARNING(qPrintable(text));

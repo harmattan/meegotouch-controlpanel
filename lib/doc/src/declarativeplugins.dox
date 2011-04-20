@@ -91,7 +91,7 @@ Part=example1.xml
 \subsection mainwidget The .xml description of the main widget
 
 The .xml file which describes the main widget should be located
-under "/usr/lib/duicontrolpanel/uidescriptions".
+under "/usr/share/duicontrolpanel/uidescriptions".
 
 For details about how you can create input widgets, check libdui-doc about
 Declarative Settings Language.
