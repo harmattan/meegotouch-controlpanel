@@ -22,4 +22,7 @@ MWidgetController::MWidgetController(QGraphicsItem *parent){ QGraphicsItem::setP
 void MWidgetController::setObjectName (const QString&) {}
 void MWidgetController::setStyleName (QString const&) {}
 MWidgetController::~MWidgetController() {}
-
+QVariant MWidgetController::itemChange(GraphicsItemChange, const QVariant &)
+{
+    return QVariant();
+}

@@ -15,34 +15,10 @@
 **
 ****************************************************************************/
 
-#ifndef UT_DCPSINGLECOMPONENT_H
-#define UT_DCPSINGLECOMPONENT_H
+#include <QGraphicsLayoutItem>
 
-#include <QtTest/QtTest>
-#include <QObject>
-
-// the real unit/DcpSingleComponent class declaration
-#include <dcpsinglecomponent.h>
-
-Q_DECLARE_METATYPE(DcpSingleComponent*);
-
-class Ut_DcpSingleComponent : public QObject
+void QGraphicsLayoutItem::setSizePolicy(QSizePolicy::Policy, QSizePolicy::Policy, QSizePolicy::ControlType)
 {
-    Q_OBJECT
 
-private slots:
-    void init();
-    void cleanup();
-    void initTestCase();
-    void cleanupTestCase();
-    void testCreation();
-    void testTitle();
-    void testSubtitle();
-    void testActivate();
-    void testCreateLayout(); 
+}
 
-private:
-    DcpSingleComponent* m_subject;
-};
-
-#endif

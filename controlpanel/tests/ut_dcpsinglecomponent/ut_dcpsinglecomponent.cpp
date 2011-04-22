@@ -26,6 +26,8 @@
 #include "dcppage.h"
 #include "pagefactory.h"
 #include "memorycategory.h"
+#include "qgraphicslayoutitem-fake.h"
+#include "mlabel-fake.h"
 
 void Ut_DcpSingleComponent::init()
 {
@@ -77,6 +79,11 @@ void Ut_DcpSingleComponent::testActivate()
     page = PageFactory::instance()->currentPage();
     QVERIFY(page->handle().id == PageHandle::APPLETCATEGORY);
     QVERIFY(page->handle().param == "Personalize");
+}
+
+void Ut_DcpSingleComponent::testCreateLayout()
+{
+    QVERIFY(m_subject->createLayout());
 }
 
 
