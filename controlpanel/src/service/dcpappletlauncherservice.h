@@ -39,7 +39,7 @@ public slots:
     void close ();
 
 private:
-    void sheduleApplet (const QString& appletPath);
+    bool sheduleApplet (const QString& appletPath);
     PageHandle m_PageHandle;
     QString m_AppletPath;
 };

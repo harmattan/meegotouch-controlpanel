@@ -1,8 +1,10 @@
 duicontrolpanel (0.12.14~unreleased) unstable; urgency=low
 
   * some layout fixes
+  * Fixes: NB#247999 - Looks as if multiple taps on a applet opens the
+    applet multiple times
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 20 Apr 2011 15:05:29 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 22 Apr 2011 10:48:38 +0200
 
 duicontrolpanel (0.12.13) unstable; urgency=low
 

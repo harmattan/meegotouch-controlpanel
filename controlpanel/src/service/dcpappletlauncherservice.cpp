@@ -88,8 +88,8 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
     bool success = pageFactory->changePage (m_PageHandle);
 
     if (success) {
-        unregisterService ();
         pageFactory->raiseMainWindow ();
+        unregisterService ();
     } else {
         close ();
     }
@@ -97,20 +97,23 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
     return success;
 }
 
-void DcpAppletLauncherService::sheduleApplet (const QString& appletPath)
+bool DcpAppletLauncherService::sheduleApplet (const QString& appletPath)
 {
+    // only care about the first request
+    if (m_PageHandle.id != PageHandle::NOPAGE) return false;
+
     m_PageHandle.id = PageHandle::APPLET;
     m_PageHandle.param = QString();
     m_PageHandle.widgetId = -1;
     m_PageHandle.isStandalone = false;
     m_AppletPath = appletPath;
+    return true;
 }
 
 
 bool DcpAppletLauncherService::appletPage (const QString& appletPath)
 {
-    sheduleApplet (appletPath);
-    return maybeAppletRealStart();
+    return sheduleApplet (appletPath) && maybeAppletRealStart();
 }
 
 bool DcpAppletLauncherService::registerService ()
