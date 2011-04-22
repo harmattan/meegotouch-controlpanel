@@ -41,6 +41,7 @@ private slots:
     void testLoadMetadataAsync();
     void testDesktopDirs();
     void testAccessors();
+    void testUseless();
 
 private:
     DcpAppletManager* m_subject;

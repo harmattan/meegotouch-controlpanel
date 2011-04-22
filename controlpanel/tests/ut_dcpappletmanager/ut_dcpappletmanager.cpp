@@ -58,6 +58,9 @@ void Ut_DcpAppletManager::testLoadDesktopFile()
     QVERIFY(ret);
     QVERIFY(m_subject->containsFile(fileName));
     QVERIFY(m_subject->m_AppletsByFile[fileName]->fileName() == fileName);
+    QCOMPARE(m_subject->appletNames()[0], fileName + "-name");
+    QCOMPARE(m_subject->containsName(fileName + "-name"), true);
+    QCOMPARE(m_subject->appletNames().count(), 1);
 }
 
 void Ut_DcpAppletManager::testLoadMetadata()
@@ -174,7 +177,15 @@ void Ut_DcpAppletManager::testAccessors()
         DcpAppletObject *obj = m_subject->applet(fakeName);
         QVERIFY(obj);
     }
+    QCOMPARE(m_subject->isAppletLoaded("file1.desktop-name"), true);
+    QCOMPARE(m_subject->loadedApplets().count(), 3);
 
+
+}
+
+void Ut_DcpAppletManager::testUseless()
+{
+    m_subject->listMostUsed();
 
 }
 

@@ -4,6 +4,7 @@ CONFIG += meegotouch duicontrolpanel
 
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
 
+INCLUDEPATH += $$LIBDCPSRC/appletdb
 TARGET = ut_dcpappletmanager
 
 TEST_SOURCES = \
