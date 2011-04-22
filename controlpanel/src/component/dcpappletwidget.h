@@ -59,6 +59,8 @@ signals:
 private:
     QPointer<DcpWidget> m_Widget;
     QPointer<DcpStylableWidget> m_StylableWidget;
+
+    friend class Ut_DcpAppletWidget;
 };
 
 
