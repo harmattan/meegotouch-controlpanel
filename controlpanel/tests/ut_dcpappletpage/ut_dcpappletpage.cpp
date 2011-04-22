@@ -17,6 +17,7 @@
 
 #include <QObject>
 #include <QGraphicsSceneMouseEvent>
+#include <MDismissEvent>
 
 #include <dcpappletpage.h>
 #include <dcpappletwidget.h>
@@ -24,6 +25,8 @@
 #include <dcpappletobject.h>
 
 #include "ut_dcpappletpage.h"
+
+extern bool isLoaded;
 
 void Ut_DcpAppletPage::init()
 {
@@ -34,7 +37,8 @@ void Ut_DcpAppletPage::init()
 
 void Ut_DcpAppletPage::cleanup()
 {
-    m_subject->deleteLater();
+    delete m_subject;
+//    m_subject->deleteLater();
     m_subject = 0;
 }
 
@@ -70,7 +74,6 @@ void Ut_DcpAppletPage::testWidgetId()
     QCOMPARE(m_subject->widgetId(), 10);
 }
 
-
 void Ut_DcpAppletPage::testLoad()
 {
     m_subject->createContent();
@@ -79,6 +82,9 @@ void Ut_DcpAppletPage::testLoad()
     QVERIFY(m_subject->m_Applet->metadata()->isActive());
     QVERIFY(m_subject->m_Applet->isAppletLoaded());
     QVERIFY(!m_subject->m_MissingLabel);
+
+    isLoaded = false;
+    m_subject->load();
 }
 
 void Ut_DcpAppletPage::testLoadMissing()
@@ -97,6 +103,13 @@ void Ut_DcpAppletPage::testApplet()
 
 void Ut_DcpAppletPage::cleanupTestCase()
 {
+}
+
+void Ut_DcpAppletPage::testUseless()
+{
+    m_subject->preventQuit();
+    MDismissEvent ev;
+    m_subject->dismissEvent(&ev);
 }
 
 QTEST_APPLESS_MAIN(Ut_DcpAppletPage)
