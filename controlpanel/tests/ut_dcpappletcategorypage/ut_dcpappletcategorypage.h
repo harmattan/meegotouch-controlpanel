@@ -43,7 +43,7 @@ private slots:
     void testCleanup();
     void testRetranslateUi();
     void testAddComponent();
-    
+    void testCreateCategories();
 
 private:
     DcpAppletCategoryPage* m_subject;
