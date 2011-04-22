@@ -53,6 +53,9 @@ void Ut_DcpMainCategory::testAppendWidget()
     m_subject->appendWidget(component1);
     item1 = m_subject->layout()->itemAt(0);
     QCOMPARE((void*)component1, (void*)(QGraphicsWidget*)item1);
+    item1 = m_subject->widgetAt(0);
+    QCOMPARE((void*)component1, (void*)(QGraphicsWidget*)item1);
+
     delete component1;
 }
 
