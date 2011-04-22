@@ -27,10 +27,13 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QStandardItemModel>
 #include <QStandardItem>
+#include <DcpWidgetTypes>
 
 #define fakeInfo *(DcpCategories::instance()->categoryById("fake-category"))
 #define zeroCategory *(DcpCategories::instance()->categoryById("ZERO"))
 #define mostUsedCategory *(DcpCategories::instance()->categoryById("mostUsed"))
+
+extern int currentWidgetType;
 
 void Ut_DcpAppletButtons::init()
 {
@@ -85,7 +88,18 @@ void Ut_DcpAppletButtons::testAddComponent()
     QCOMPARE (model.rowCount(), 1);
     QCOMPARE (model.item(0)->data().value<DcpAppletMetadata*>()->name(),
               QString("fake-name"));
+
+    currentWidgetType = DcpWidgetType::Button;
+    buttons1.addComponent(metadata, &model);
+
+    currentWidgetType = DcpWidgetType::Special;
+    buttons1.addComponent(metadata, &model);
+
+    currentWidgetType = DcpWidgetType::Slider;
+    buttons1.addComponent(metadata, &model);
+
     delete metadata;
+    currentWidgetType = 0;
 }
 
 void Ut_DcpAppletButtons::testReload()
@@ -107,6 +121,29 @@ void Ut_DcpAppletButtons::testReload()
     buttons1.reload();
 
     QCOMPARE (buttons1.metadataCount(), 0);
+}
+
+void Ut_DcpAppletButtons::testCategoryInfo()
+{
+    DcpAppletButtons buttons1(&zeroCategory);
+
+    buttons1.setCategoryInfo(&fakeInfo);
+}
+
+void Ut_DcpAppletButtons::testIDs()
+{
+
+    DcpAppletButtons buttons1(&zeroCategory);
+
+    buttons1.setMattiID("id1");
+    QCOMPARE(buttons1.m_TDriverID, QString("id1"));
+    QCOMPARE(buttons1.mattiID(), QString("id1"));
+    QCOMPARE(buttons1.TDriverID(), QString("id1"));
+
+    buttons1.setTDriverID("id2");
+    QCOMPARE(buttons1.m_TDriverID, QString("id2"));
+    QCOMPARE(buttons1.mattiID(), QString("id2"));
+    QCOMPARE(buttons1.TDriverID(), QString("id2"));
 }
 
 QTEST_APPLESS_MAIN(Ut_DcpAppletButtons)
