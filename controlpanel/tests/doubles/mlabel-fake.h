@@ -21,3 +21,7 @@ QString MLabel::text()const
 {
     return QString();
 }
+void MLabel::setText(const QString &)
+{
+
+}

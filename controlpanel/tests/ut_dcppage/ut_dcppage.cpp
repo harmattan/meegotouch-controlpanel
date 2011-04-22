@@ -21,7 +21,7 @@
 #include <dcppage.h>
 
 #include "ut_dcppage.h"
-#include "mlabel.h"
+#include "mlabel-fake.h"
 #include <QGraphicsLinearLayout>
 
 MLabel::MLabel(QGraphicsItem *parent, MLabelModel *model)
@@ -102,5 +102,14 @@ void Ut_DcpPage::testAppendWidget()
     m_subject->appendWidget(label1);
     QCOMPARE(m_subject->mainLayout()->itemAt(0), (QGraphicsLayoutItem*)label1);
 }
+
+void Ut_DcpPage::testSetTitleLabel()
+{
+    m_subject->setTitle("habala");
+    m_subject->setTitleLabel("ize");
+    m_subject->setTitle("");
+    m_subject->setTitleLabel("ize2");
+}
+
 QTEST_APPLESS_MAIN(Ut_DcpPage)
 
