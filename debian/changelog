@@ -4,7 +4,8 @@ duicontrolpanel (0.12.14~unreleased) unstable; urgency=low
   * Fixes: NB#247999 - Looks as if multiple taps on a applet opens the
     applet multiple times
   * Fixes: "Special" briefview can not request page close (for reset applet)
-  * Fixes: not possible to disable the slider after it got some value
+  * Fixes: NB#250458 - not possible to disable the slider after it got some
+    value
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 26 Apr 2011 15:34:03 +0200
 
