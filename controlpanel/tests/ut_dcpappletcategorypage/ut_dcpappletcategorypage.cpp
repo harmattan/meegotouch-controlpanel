@@ -127,6 +127,14 @@ void Ut_DcpAppletCategoryPage::testCreateCategories()
     delete mc2;
 }
 
+void Ut_DcpAppletCategoryPage::testUseless()
+{
+    m_subject->mostUsedAppears();
+    QCOMPARE(m_subject->appletCount(), 0);
+    QVERIFY(!m_subject->appletMetadata(0));
+    m_subject->setDelayedContent(false);
+    m_subject->onLoadingFinished();
+}
 
 QTEST_APPLESS_MAIN(Ut_DcpAppletCategoryPage)
 
