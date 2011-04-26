@@ -50,7 +50,7 @@ protected:
     // output:
     void outputStart ();
     void outputEnd ();
-    void output (const char* key, const QString& value);
+    void output (const char* key, const QString& value, bool forced = false);
     void output (const char* key, int value);
     void outputBrief (DcpAppletObject* applet, bool textOnly = false);
 
