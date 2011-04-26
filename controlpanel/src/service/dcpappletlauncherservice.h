@@ -30,18 +30,19 @@ public:
     DcpAppletLauncherService ();
 
     virtual bool registerService ();
-    virtual bool unregisterService ();
     bool maybeAppletRealStart ();
 
 public slots:
     bool appletPage (const QString& appletPath);
     void prestart ();
     void close ();
+    virtual bool unregisterService ();
 
 private:
     bool sheduleApplet (const QString& appletPath);
     PageHandle m_PageHandle;
     QString m_AppletPath;
+    bool m_IsServiceRegistered;
 };
 
 

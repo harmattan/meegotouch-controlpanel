@@ -35,7 +35,8 @@ static const char* serviceName = "com.nokia.DcpAppletLauncher";
 
 
 DcpAppletLauncherService::DcpAppletLauncherService ():
-    MApplicationService (serviceName)
+    MApplicationService (serviceName),
+    m_IsServiceRegistered (false)
 {
     DuiControlPanelIf* iface = new DuiControlPanelIf ("", this);
     // this makes us die if the main process dies anyhow:
@@ -88,8 +89,12 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
     bool success = pageFactory->changePage (m_PageHandle);
 
     if (success) {
+        // we only unregister the service if the window is shown to prevent
+        // the user click on the appletbutton after that (it would open another
+        // instace)
+        connect (pageFactory, SIGNAL (windowShown()),
+                 this, SLOT (unregisterService()));
         pageFactory->raiseMainWindow ();
-        unregisterService ();
     } else {
         close ();
     }
@@ -118,6 +123,7 @@ bool DcpAppletLauncherService::appletPage (const QString& appletPath)
 
 bool DcpAppletLauncherService::registerService ()
 {
+    if (m_IsServiceRegistered) return true;
     // memory owned by QDBusAbstractAdaptor instance and must be on the heap
     new DcpAppletLauncherIfAdaptor(this);
 
@@ -136,11 +142,14 @@ bool DcpAppletLauncherService::registerService ()
     if (!ret) {
         handleServiceRegistrationFailure();
     }
+    m_IsServiceRegistered = true;
     return ret;
 }
 
 bool DcpAppletLauncherService::unregisterService ()
 {
+    if (!m_IsServiceRegistered) return true;
+
     QDBusConnection connection = QDBusConnection::sessionBus();
 
     connection.unregisterObject("/");
@@ -150,6 +159,7 @@ bool DcpAppletLauncherService::unregisterService ()
         qWarning ("Unregistering the service failed (%s): %s",
                 qPrintable (error.name()), qPrintable (error.message()));
     }
+    m_IsServiceRegistered = false;
     return ret;
 }
 

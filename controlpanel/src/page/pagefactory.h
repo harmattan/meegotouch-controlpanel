@@ -65,6 +65,7 @@ public slots:
 
 signals:
     void resetAppletLauncherProcesses ();
+    void windowShown ();
 
 protected:
     PageFactory ();
@@ -79,7 +80,6 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event);
 
 private slots:
-    void onDisplayEntered ();
     void completeCategoryPage ();
     void onMetadataLoaded ();
 

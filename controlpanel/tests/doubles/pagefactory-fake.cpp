@@ -94,10 +94,6 @@ void PageFactory::preloadBriefReceiver()
 {
 }
 
-void PageFactory::onDisplayEntered ()
-{
-}
-
 bool
 PageFactory::isCurrentPage (const PageHandle &)
 {
