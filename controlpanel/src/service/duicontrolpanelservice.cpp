@@ -71,11 +71,8 @@ DuiControlPanelService::launch ()
 void
 DuiControlPanelService::launch (const QStringList &parameters)
 {
-    if (parameters.isEmpty()) {
-        launch();
-    } else {
-        appletPage (parameters.at(0));
-    }
+    Q_UNUSED (parameters);
+    launch();
 }
 
 
