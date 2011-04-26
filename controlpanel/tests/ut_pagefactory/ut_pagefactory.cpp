@@ -187,5 +187,29 @@ void Ut_PageFactory::testRegisterPage()
     QSKIP("incomplete", SkipSingle);
 }
 
+void Ut_PageFactory::testUseless()
+{
+    PageFactory* factory = PageFactory::instance();
+
+    factory->preloadBriefReceiver();
+    factory->completeCategoryPage();
+//    factory->createAppletCategoryPageIncomplete();
+//    factory->createAppletPage();
+    factory->changeToAppletPage("haba");
+    factory->preloadAppletLauncher();
+//    factory->isCurrentPage();
+//    factory->raiseMainWindow();
+    factory->switchToMainPageWithPageDropping();
+    factory->destroyPageHistory();
+    factory->onMetadataLoaded();
+    factory->setInProcessApplets(true);
+    factory->onDisplayEntered();
+//    factory->newWin();
+//    QEvent event;
+//    factory->eventFilter(this, &event);
+    factory->newMainPageInSeparateProcess();
+
+}
+
 QTEST_APPLESS_MAIN (Ut_PageFactory);
 
