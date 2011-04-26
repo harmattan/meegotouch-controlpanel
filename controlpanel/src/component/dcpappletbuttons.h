@@ -26,6 +26,7 @@
 class DcpAppletMetadata;
 class QStandardItemModel;
 class Category;
+class DcpPage;
 
 class DcpAppletButtons :
     public DcpMainCategory
@@ -37,7 +38,8 @@ class DcpAppletButtons :
 public:
     DcpAppletButtons (
             const Category  *categoryInfo,
-            QGraphicsWidget *parent = 0);
+            QGraphicsWidget *parent = 0,
+            DcpPage* ownerPage = 0);
     ~DcpAppletButtons ();
 
     void setCategoryInfo (const Category *categoryInfo);
@@ -68,6 +70,7 @@ private:
 
     class MList* m_List;
     QString m_TDriverID;
+    DcpPage* m_Page; // the page the widget is on, or 0 if unknown
 };
 
 #endif

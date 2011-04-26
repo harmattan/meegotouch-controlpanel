@@ -45,10 +45,12 @@
 
 DcpAppletButtons::DcpAppletButtons (
         const Category *categoryInfo,
-        QGraphicsWidget        *parent)
+        QGraphicsWidget        *parent,
+        DcpPage        *ownerPage)
 : DcpMainCategory (parent),
     m_CategoryInfo (categoryInfo),
-    m_List (new MList(this))
+    m_List (new MList(this)),
+    m_Page (ownerPage)
 {
     DcpContentItemCellCreator* cellCreator = new DcpContentItemCellCreator();
     m_List->setCellCreator(cellCreator);
@@ -234,7 +236,7 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
         int widgetId = applet->getMainWidgetId();
         // we can specify the page here if we need support for menu items, progress indicator etc
         DcpAppletWidget* widget =
-            DcpAppletPage::constructAppletWidget (applet, 0, widgetId);
+            DcpAppletPage::constructAppletWidget (applet, m_Page, widgetId);
         if (!widget) {
             qWarning ("Warning: special type of briefview did not supply an icon, skipped");
             return;
