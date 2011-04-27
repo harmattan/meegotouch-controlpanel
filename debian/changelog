@@ -1,4 +1,4 @@
-duicontrolpanel (0.12.14~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.14) unstable; urgency=low
 
   * some layout fixes
   * Fixes: NB#247999 - Looks as if multiple taps on a applet opens the

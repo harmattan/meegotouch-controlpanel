@@ -9,14 +9,12 @@ This is the easiest way of creating an applet, but it is less flexible (currentl
 
     <ul>
         <li>You can not create a custom launch button, the launch button of your applet
-will contain only the applet's title.
+will contain only the applet's title (and optionally subtitle)
         <li>You can only use some predefined widgets, the ones which are supported by
 declarative language.
         <li>You can only store your preferences in GConf.
-	<li>Your applet can only have one page.
+        <li>Your applet can only have one page.
     </ul>
-
-Some of these restrictions will most likely change in the near future.
 
 \code
 <settings>
@@ -93,8 +91,8 @@ Part=example1.xml
 The .xml file which describes the main widget should be located
 under "/usr/share/duicontrolpanel/uidescriptions".
 
-For details about how you can create input widgets, check libdui-doc about
-Declarative Settings Language.
+For details about how you can create input widgets, check libmeegotouch-doc
+about Declarative Settings Language.
 
 All keys of the input widgets are considered as GConf paths, where the
 value of the user feedback gets stored.
@@ -103,3 +101,4 @@ For an example, check duicontrolpanel-skeletonapplet package, or the
 directory examples/binaryapplet/itemlike in control panel repository.
 
 */
+
