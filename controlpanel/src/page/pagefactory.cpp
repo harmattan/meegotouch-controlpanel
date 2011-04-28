@@ -772,6 +772,9 @@ PageFactory::closeHelpPage()
     args.append((uint)m_Win->winId());
     message.setArguments(args);
 
+    // do not start userguide if it is not running:
+    message.setAutoStartService (false);
+
     connection.asyncCall(message);
 }
 
