@@ -1,8 +1,9 @@
 duicontrolpanel (0.12.15~unreleased) unstable; urgency=low
 
-  * new version
+  * Doc & Example about how to localize a Declarative applet
+  * Fixes: closing controlpanel could result in starting userguide
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 28 Apr 2011 13:08:08 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 28 Apr 2011 17:21:14 +0200
 
 duicontrolpanel (0.12.14) unstable; urgency=low
 
