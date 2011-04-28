@@ -21,11 +21,14 @@
 #include "mapplication.h"
 #include <dcppage.h>
 #include <dcpappletpage.h>
+#include <dcpcategories.h>
 #include <dcpappletobject.h>
+#include <dcpappletmetadata.h>
 #include "dcpappletmanager.h"
 
 #include <QObject>
 
+#define CATEGORY DcpCategories::instance()->categoryById("fake-category")
 
 void Ut_PageFactory::init()
 {
@@ -193,11 +196,14 @@ void Ut_PageFactory::testUseless()
 
     factory->preloadBriefReceiver();
     factory->completeCategoryPage();
-//    factory->createAppletCategoryPageIncomplete();
-//    factory->createAppletPage();
+    factory->createAppletCategoryPageIncomplete(CATEGORY);
+    DcpAppletMetadata *metadata = new DcpAppletMetadata("dummy-binary");
+    QVERIFY(factory->createAppletPage(metadata));
     factory->changeToAppletPage("haba");
     factory->preloadAppletLauncher();
-//    factory->isCurrentPage();
+
+    PageHandle pageH;
+    factory->isCurrentPage(pageH);
 //    factory->raiseMainWindow();
     factory->switchToMainPageWithPageDropping();
     factory->destroyPageHistory();
@@ -205,8 +211,8 @@ void Ut_PageFactory::testUseless()
     factory->setInProcessApplets(true);
     factory->onDisplayEntered();
 //    factory->newWin();
-//    QEvent event;
-//    factory->eventFilter(this, &event);
+    QEvent event(QEvent::None);
+    factory->eventFilter(this, &event);
     factory->newMainPageInSeparateProcess();
 
 }

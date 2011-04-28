@@ -187,12 +187,7 @@ void Ut_DcpAppletMetadata::testAlign()
 
 void Ut_DcpAppletMetadata::testToggle()
 {
-    QSKIP("!!!! UnableToLoadAnyApplet bug under fixxing by Lgal !!!!",
-            SkipSingle);
-
-/*    
-    if (QTest::currentTestFailed()) return;
- */
+    m_subject->toggle();
 }
 
 void Ut_DcpAppletMetadata::testImageName()
@@ -317,5 +312,42 @@ void Ut_DcpAppletMetadata::testActive()
     QVERIFY(!m_subject->isActive());
 }
 
+void Ut_DcpAppletMetadata::testDefaultSOPath()
+{
+    m_subject->setDefaultSOPath("subidubi");
+    QCOMPARE(m_subject->defaultSOPath(), QString("subidubi/"));
+}
+
+void Ut_DcpAppletMetadata::testTextOrientation()
+{
+    QCOMPARE(m_subject->textOrientation(), Qt::Vertical);
+}
+
+void Ut_DcpAppletMetadata::testText1()
+{
+    QCOMPARE(m_subject->text1(), QString("!! "));
+}
+
+void Ut_DcpAppletMetadata::testToggleIconId()
+{
+    QCOMPARE(m_subject->toggleIconId(), QString());
+}
+
+void Ut_DcpAppletMetadata::testIsUnique()
+{
+    QCOMPARE(m_subject->isUnique(), false);
+}
+
+void Ut_DcpAppletMetadata::testLessThans()
+{
+    QCOMPARE(m_subject->nameLessThan(m_subject, m_subject), false);
+    QCOMPARE(m_subject->titleLessThan(m_subject, m_subject), false);
+    QCOMPARE(m_subject->usageGreatherThan(m_subject, m_subject), false);
+}
+void Ut_DcpAppletMetadata::testUseless()
+{
+    m_subject->usage();
+    m_subject->incrementUsage();
+}
 
 QTEST_APPLESS_MAIN(Ut_DcpAppletMetadata)
