@@ -33,6 +33,7 @@
 #include <dcpappletdb.h>
 
 static const char* serviceName = "com.nokia.DuiControlPanel";
+static const char* serviceNameAppl = "com.nokia.DcpAppletLauncher";
 bool DuiControlPanelService::isStartedByServiceFw = false;
 
 #include "dcpdebug.h"
@@ -70,11 +71,8 @@ DuiControlPanelService::launch ()
 void
 DuiControlPanelService::launch (const QStringList &parameters)
 {
-    if (parameters.isEmpty()) {
-        launch();
-    } else {
-        appletPage (parameters.at(0));
-    }
+    Q_UNUSED (parameters);
+    launch();
 }
 
 
@@ -150,11 +148,30 @@ void
 DuiControlPanelService::receiveCloseSignal ()
 {
     QDBusServiceWatcher* watcher =
-        new QDBusServiceWatcher ("com.nokia.DuiControlPanel",
+        new QDBusServiceWatcher (serviceName,
                 QDBusConnection::sessionBus(),
                 QDBusServiceWatcher::WatchForRegistration, this);
     connect (watcher, SIGNAL (serviceRegistered(QString)),
              qApp, SLOT (quit()));
+}
+
+void
+DuiControlPanelService::receivePreloadSignal ()
+{
+    QDBusServiceWatcher* watcher =
+        new QDBusServiceWatcher (serviceNameAppl,
+                QDBusConnection::sessionBus(),
+                QDBusServiceWatcher::WatchForUnregistration, this);
+    connect (watcher, SIGNAL (serviceUnregistered(QString)),
+             this, SLOT (preloadAppletLauncher()));
+}
+
+void
+DuiControlPanelService::preloadAppletLauncher ()
+{
+    PageFactory* pf = PageFactory::instance();
+    dcp_failfunc_unless (pf);
+    QTimer::singleShot (1000, pf, SLOT(preloadAppletLauncher()));
 }
 
 // FIXME XXX we should consider a common base class with DcpAppletLauncherService
@@ -254,6 +271,9 @@ DuiControlPanelService::createStartPage()
         PageFactory* pf = PageFactory::instance();
         connect (pf, SIGNAL (resetAppletLauncherProcesses()),
                  this, SIGNAL (closeAppletLaunchers()));
+
+        // applet launcher preloading:
+        receivePreloadSignal();
     }
 
     delete handle;

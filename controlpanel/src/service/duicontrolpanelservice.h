@@ -45,11 +45,13 @@ public Q_SLOTS:
     void mainPage();
     bool registerService ();
     bool unregisterService ();
+    void preloadAppletLauncher ();
 
 private:
     void sheduleStart (const PageHandle &handle);
     void startPageForReal(const PageHandle &handle);
     void receiveCloseSignal ();
+    void receivePreloadSignal ();
 
     // stores the startpage until the app is not started, after that it is 0
     PageHandle *m_StartPage;

@@ -1,8 +1,19 @@
-duicontrolpanel (0.12.14~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.15~unreleased) unstable; urgency=low
+
+  * new version
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 28 Apr 2011 13:08:08 +0200
+
+duicontrolpanel (0.12.14) unstable; urgency=low
 
   * some layout fixes
+  * Fixes: NB#247999 - Looks as if multiple taps on a applet opens the
+    applet multiple times
+  * Fixes: "Special" briefview can not request page close (for reset applet)
+  * Fixes: NB#250458 - not possible to disable the slider after it got some
+    value
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 20 Apr 2011 15:05:29 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 26 Apr 2011 15:34:03 +0200
 
 duicontrolpanel (0.12.13) unstable; urgency=low
 

@@ -207,7 +207,7 @@ DcpAppletCategoryPage::createBody()
     QGraphicsWidget* categoryWidget = createCategories();
 
     // create the applet list:
-    m_Category = new DcpAppletButtons(m_CategoryInfo);
+    m_Category = new DcpAppletButtons(m_CategoryInfo, 0, this);
 
     // add them to the layout:
     if (hasMostUsed) {

@@ -699,17 +699,6 @@ void PageFactory::setInProcessApplets (bool inProcess)
     }
 }
 
-void PageFactory::onDisplayEntered ()
-{
-    // we preload an appletlauncher instance in case we are again
-    // on the categorypage (most likely the user tapped the back button
-    // on an applet)
-    if (qobject_cast<DcpAppletCategoryPage*>(currentPage()))
-    {
-        preloadAppletLauncher();
-    }
-}
-
 MApplicationWindow* PageFactory::window ()
 {
     if (!m_Win && !MApplication::windows().isEmpty()) {
@@ -764,6 +753,8 @@ bool PageFactory::eventFilter(QObject *obj, QEvent *event)
             event->ignore ();
             return true;
         }
+    } else if (event->type() == QEvent::Show) {
+        emit windowShown ();
     }
     // standard event processing
     return QObject::eventFilter(obj, event);
@@ -780,6 +771,9 @@ PageFactory::closeHelpPage()
     QList<QVariant> args;
     args.append((uint)m_Win->winId());
     message.setArguments(args);
+
+    // do not start userguide if it is not running:
+    message.setAutoStartService (false);
 
     connection.asyncCall(message);
 }

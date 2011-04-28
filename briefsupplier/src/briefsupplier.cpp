@@ -214,7 +214,7 @@ void BriefSupplier::outputBrief (DcpAppletObject* applet, bool textOnly)
             if (minValue != 0) output (OutputMinValue, minValue);
             if (maxValue != 100) output (OutputMaxValue, maxValue);
             if (sliderSteps != 0) output (OutputValueStep, sliderSteps);
-            output (OutputValue, value.toString());
+            output (OutputValue, value.toString(), true);
         }
         output (OutputHelpId, helpId);
     }
@@ -271,9 +271,9 @@ void BriefSupplier::outputEnd ()
     m_Stream->flush ();
 }
 
-void BriefSupplier::output (const char* key, const QString& value)
+void BriefSupplier::output (const char* key, const QString& value, bool forced)
 {
-    if (!value.isEmpty ()) {
+    if (forced || !value.isEmpty ()) {
         // the key and value is separated by the first "="
         m_Stream->writeLine (QString(key) + "=" + value);
     }
