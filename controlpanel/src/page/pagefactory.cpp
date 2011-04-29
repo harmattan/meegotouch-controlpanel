@@ -717,7 +717,7 @@ void PageFactory::newWin ()
     }
     if (m_Win) {
         m_LastAppletPage = 0;
-        delete m_Win;
+        m_Win->close();
         m_Win = 0;
     }
 
