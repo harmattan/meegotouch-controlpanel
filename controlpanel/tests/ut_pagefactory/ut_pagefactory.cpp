@@ -209,7 +209,6 @@ void Ut_PageFactory::testUseless()
     factory->destroyPageHistory();
     factory->onMetadataLoaded();
     factory->setInProcessApplets(true);
-    factory->onDisplayEntered();
 //    factory->newWin();
     QEvent event(QEvent::None);
     factory->eventFilter(this, &event);
