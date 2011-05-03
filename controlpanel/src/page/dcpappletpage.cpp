@@ -260,7 +260,7 @@ DcpAppletPage::constructAppletWidget (DcpAppletObject* applet,
 
         // add the actions:
         foreach (MAction* action, applet->applet()->viewMenuItems()) {
-            page->addAction(action);
+            page->addMAction(action);
         }
     }
 

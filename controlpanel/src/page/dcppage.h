@@ -46,10 +46,12 @@ public:
     virtual void setReferer (
                     PageHandle::PageTypeId id, 
                     const QString &param = "");
-    
+
     QGraphicsLinearLayout *mainLayout();
 
     virtual void reload();
+
+    void addMAction (MAction* action);
 
 signals:
     void openSubPage (PageHandle handle);
@@ -63,11 +65,13 @@ protected:
 
 private:
     void createLayout();
+    MAction* createSpacerAction();
 
     MLabel* m_TitleLabel;
     MHelpButton* m_HelpButton;
     PageHandle m_Handle;
     PageHandle m_Referer;
+    MAction* m_ActionHack;
     friend class Ut_DcpPage;
 };
 

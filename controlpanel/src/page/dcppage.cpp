@@ -28,7 +28,7 @@
 #include <MStylableWidget>
 #include <MPannableViewport>
 #include <MPositionIndicator>
-#include <MAction>
+#include <MWidgetAction>
 
 #include "mwidgetcreator.h"
 M_REGISTER_WIDGET(DcpPage)
@@ -39,7 +39,8 @@ M_REGISTER_WIDGET(DcpPage)
 DcpPage::DcpPage () :
     MApplicationPage (),
     m_TitleLabel (0),
-    m_HelpButton (0)
+    m_HelpButton (0),
+    m_ActionHack (0)
 {
     setStyleName("CommonApplicationPageInverted");
     dcp_failfunc_unless (pannableViewport());
@@ -95,31 +96,57 @@ DcpPage::handle () const
     return m_Handle;
 }
 
+MAction*
+DcpPage::createSpacerAction()
+{
+    MWidgetAction* result = new MWidgetAction (this);
+    MWidget* spacer = new MWidget ();
+    spacer->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
+    result->setLocation (MAction::ToolBarLocation);
+    result->setWidget (spacer);
+    result->setEnabled (false);
+    return result;
+}
+
+void
+DcpPage::addMAction (MAction* action)
+{
+    if (m_ActionHack && (action->location() & MAction::ToolBarLocation)) {
+        // insert between the two spacers so that they can remain centered:
+        removeAction (m_ActionHack);
+        delete m_ActionHack;
+    }
+    addAction (action);
+}
+
 /*!
  * \brief Sets the handle (symbolic representation) of the page.
  * Sets the handle for the page. The handle is a purely symbolic representation
  * of the page. The default value of the handle is PageHandle::NOPAGE.
  */
-void 
-DcpPage::setHandle (
-        const PageHandle &handle) 
+void
+DcpPage::setHandle (const PageHandle &handle)
 {
     m_Handle = handle;
-    
+
     DCP_DEBUG ("*** m_Handle  = %s", DCP_STR (m_Handle.getStringVariant()));
     DCP_DEBUG ("*** m_Referer = %s", DCP_STR (m_Referer.getStringVariant()));
 
     /* A button for moving back to mainpage:
      */
-    if (handle.isStandalone)  {
-        //% "Settings"
-        QString appName = qtTrId("qtn_sett_main_title");
-        //% "Go to %1"
-        QString formatStr = qtTrId("qtn_comm_viewmenu_goto");
-        MAction* action = new MAction(formatStr.arg(appName), this);
-        action->setLocation(MAction::ApplicationMenuLocation);
-        this->addAction(action);
-        connect(action, SIGNAL(triggered()), 
+    if (handle.isStandalone && !m_ActionHack)  {
+        MAction* mainBack = new MAction (this);
+        mainBack->setLocation (MAction::ToolBarLocation);
+        mainBack->setIconID ("icon-l-settings-main-view");
+        QAction* firstAction = actions().isEmpty() ? 0 : actions().first();
+        insertAction (firstAction, mainBack);
+
+        // this hack action makes the mainBack align to the left, and the
+        // other spacers align centered
+        m_ActionHack = createSpacerAction ();
+        insertAction (firstAction, m_ActionHack);
+
+        connect(mainBack, SIGNAL(triggered()),
                 this, SIGNAL (mainPageIconClicked()));
     }
 }
