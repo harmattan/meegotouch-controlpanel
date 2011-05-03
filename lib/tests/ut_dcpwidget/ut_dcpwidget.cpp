@@ -88,6 +88,11 @@ void Ut_DcpWidget::testProgressIndicator()
     QVERIFY(!spy.takeFirst().at(0).toBool());
 }
 
+void Ut_DcpWidget::testUseless()
+{
+    m_subject->setReferer(0);
+    QCOMPARE(m_subject->title(), QString());
+}
 
 QTEST_APPLESS_MAIN(Ut_DcpWidget)
 
