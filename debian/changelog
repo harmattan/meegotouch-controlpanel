@@ -2,8 +2,10 @@ duicontrolpanel (0.12.16~unreleased) unstable; urgency=low
 
   * Fixes: NB#247927 - [TASK] clicking settings from events object view
     opens view with no toolbar
+  * Fixes: NB#250358 - Info icon incorrect for flight mode
+  * Fixes: NB#250359 - Info icon incorrect for reset settings header
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 02 May 2011 17:16:00 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 03 May 2011 17:39:41 +0200
 
 duicontrolpanel (0.12.15) unstable; urgency=low
 

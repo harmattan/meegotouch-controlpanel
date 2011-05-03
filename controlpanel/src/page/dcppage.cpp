@@ -259,6 +259,8 @@ DcpPage::setTitleLabel (const QString& helpId)
             // retranslation. But it also meens that recalling the setTitleLabel
             // will not refresh the help id (currently not used)
             m_HelpButton = new MHelpButton (helpId);
+            m_HelpButton->setViewType(MButton::iconType);
+            m_HelpButton->setIconID ("icon-s-description-inverse");
             m_HelpButton->setStyleName ("CommonRightIcon");
             QGraphicsLinearLayout* labelLayout = new QGraphicsLinearLayout();
             labelLayout->setSpacing(0);
