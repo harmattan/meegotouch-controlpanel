@@ -36,10 +36,10 @@ private slots:
     void testConstructor();
     void testSetApplet();
     void testTDriverID();
-    void testUpdateContents();
     void testRetranslateUi();
     void testShowHideEvent();
     void testUpdateText();
+    void testUseless();
 
 private:
     DcpContentButton* m_Target;
