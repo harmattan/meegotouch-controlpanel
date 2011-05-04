@@ -100,5 +100,16 @@ value of the user feedback gets stored.
 For an example, check duicontrolpanel-skeletonapplet package, or the
 directory examples/binaryapplet/itemlike in control panel repository.
 
+\subsection Localization
+In the ui describtion .xml file translation ids can also be used instead of
+text like at "title" key to support multiple languages. These translation ids
+can be translated as usual through Qt translation catalogs. The applet should
+specify its catalog(s) through its .desktop file with the key:
+\code
+X-translation-catalog=catalog1,catalog2
+\endcode
+You can find an example about how to do this under
+examples/declarativeapplets/localized in controlpanel source.
+
 */
 

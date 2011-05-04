@@ -260,13 +260,12 @@ DcpContentItem::ensureHelpIsCreated()
 
     } else {
         if (!help) {
-            // FIXME: this will be MMHelpButton once the feature got into libmeegotouch
             help = new MHelpButton(helpID());
             help->setViewType(MButton::iconType);
             help->setStyleName ("CommonSwitchIcon");
-            help->setIconID ("icon-m-content-description-inverse");
+            help->setIconID ("icon-s-description-inverse");
             d_ptr->m_LayoutIsToBeChanged = true;
-	    connect(help, SIGNAL(pressed()), this, SLOT(helpClicked()));
+            connect(help, SIGNAL(pressed()), this, SLOT(helpClicked()));
         } else {
             help->setPageID (helpID());
         }

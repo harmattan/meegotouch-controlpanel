@@ -4,5 +4,5 @@ CATALOGNAME = duicontrolpanel-skeletonapplet
 SOURCEDIR = ../itemlike
 TRANSLATIONDIR = $$PWD
 TRANSLATION_INSTALLDIR = /usr/share/l10n/meegotouch
-include(../../translations.pri)
+include(../../../translations.pri)
 

@@ -3,11 +3,9 @@
   <group title="Group 1">
       <text key="/apps/ControlPanel/Example/Text1"
             title="Please specify a text" >
-          something
       </text>
       <text key="/apps/ControlPanel/Example/Text2"
             title="Please specify a text" >
-          something
       </text>
       <selection key="/apps/ControlPanel/Example/Enum1"
                  title="Please select a value">

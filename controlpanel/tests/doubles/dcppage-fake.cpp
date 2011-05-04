@@ -116,3 +116,15 @@ void DcpPage::setTitleStyleName (const QString&)
 {
 }
 
+MAction*
+DcpPage::createSpacerAction()
+{
+    return 0;
+}
+
+void
+DcpPage::addMAction (MAction*)
+{
+}
+
+

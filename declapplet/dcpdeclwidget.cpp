@@ -77,6 +77,7 @@ void DcpDeclWidget::createErrorLabel(const QString& text)
      */
     label = new MLabel(this);
     label->setText("ERROR: " + text + "\nCheck log for details.");
+    label->setWrapMode (QTextOption::WrapAtWordBoundaryOrAnywhere);
     label->setWordWrap (true);
     label->setStyleName ("CommonBodyTextInverted");
     ((QGraphicsLinearLayout*)(layout()))->addItem(label);

@@ -1,8 +1,21 @@
-duicontrolpanel (0.12.15~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.16~unreleased) unstable; urgency=low
 
-  * new version
+  * Fixes: NB#247927 - [TASK] clicking settings from events object view
+    opens view with no toolbar
+  * Fixes: NB#250358 - Info icon incorrect for flight mode
+  * Fixes: NB#250359 - Info icon incorrect for reset settings header
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 28 Apr 2011 13:08:08 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 03 May 2011 17:39:41 +0200
+
+duicontrolpanel (0.12.15) unstable; urgency=low
+
+  * Doc & Example about how to localize a Declarative applet
+  * Fixes: closing controlpanel could result in starting userguide
+  * Fixes: NB#248758 - Duicontrolpanel searches for declarative settings
+    XML files from /usr/share/duicontrolpanel/uidescriptions but the
+    documentation says /usr/lib/duicontrolpanel/uidescriptions
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 29 Apr 2011 11:12:05 +0200
 
 duicontrolpanel (0.12.14) unstable; urgency=low
 
