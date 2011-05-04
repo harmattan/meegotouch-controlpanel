@@ -25,3 +25,13 @@ void MLabel::setText(const QString &)
 {
 
 }
+
+void MLabel::setWrapMode(QTextOption::WrapMode)
+{
+
+}
+
+void MLabel::setWordWrap(bool)
+{
+
+}
