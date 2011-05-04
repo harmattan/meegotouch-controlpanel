@@ -5,8 +5,10 @@ duicontrolpanel (0.12.16~unreleased) unstable; urgency=low
   * Fixes: NB#250358 - Info icon incorrect for flight mode
   * Fixes: NB#250359 - Info icon incorrect for reset settings header
   * Fixes: NB#252136 - Settings notifications has an unnecessary line
+  * Fixes: NB#251900 - [SSU]:Error seen at 'MSplashScreen couldn't load
+    ...splash...
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 04 May 2011 13:56:03 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 04 May 2011 15:40:32 +0200
 
 duicontrolpanel (0.12.15) unstable; urgency=low
 

@@ -28,7 +28,7 @@ DISABLE_LAUNCHER {
     PREFIX += "/usr/bin/invoker --type=m "
 
     # splash screen:
-    PREFIX2 += "--splash=/usr/share/themes/blanco/images/splash/meegotouch-settings-splash.jpg "
+    PREFIX2 += "--splash=/usr/share/themes/blanco/meegotouch/images/splash/meegotouch-settings-splash.jpg "
 }
 
 # make the shell scripts:
