@@ -73,6 +73,8 @@ public:
 
     QString titleStyle () const;
 
+    bool hasSeparatorLine () const;
+
 protected:
     static const char* componentOrderToString (ComponentOrderType order);
 
@@ -94,6 +96,7 @@ protected:
         AppletAutoStartId,
         HelpId,
         TitleStyleId,
+        HasSeparatorLineId,
         KeyIdMax
     };
 

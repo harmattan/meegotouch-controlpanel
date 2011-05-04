@@ -6,7 +6,6 @@ Name-logical-id=qtn_sett_main_reset
 Icon=icon-m-settings-reset
 
 Aliases=qtn_sett_main_reset
-Translation-catalogs=
 
 HelpId=IDUG_MEEGO_SETT_RESTORE.html
 

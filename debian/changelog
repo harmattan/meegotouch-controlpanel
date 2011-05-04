@@ -4,8 +4,9 @@ duicontrolpanel (0.12.16~unreleased) unstable; urgency=low
     opens view with no toolbar
   * Fixes: NB#250358 - Info icon incorrect for flight mode
   * Fixes: NB#250359 - Info icon incorrect for reset settings header
+  * Fixes: NB#252136 - Settings notifications has an unnecessary line
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 03 May 2011 17:39:41 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 04 May 2011 13:56:03 +0200
 
 duicontrolpanel (0.12.15) unstable; urgency=low
 

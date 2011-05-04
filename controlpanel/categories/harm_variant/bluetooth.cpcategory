@@ -5,8 +5,6 @@ Name-logical-id=qtn_sett_main_bluetooth
 
 Icon=icon-m-bluetooth
 
-Aliases=
-Translation-catalogs=
 
 AutoStartApplet=1
 

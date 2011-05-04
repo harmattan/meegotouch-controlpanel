@@ -6,8 +6,9 @@ Name-logical-id=qtn_sett_main_applications
 Icon=icon-m-settings-applications
 
 Aliases=Uncategorized
-Translation-catalogs=
 AppletSort=SortByTitle
 
 Order=55
+
+HasSeparatorLine=0
 

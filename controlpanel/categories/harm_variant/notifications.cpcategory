@@ -3,12 +3,9 @@ Parent=Notifications & Events
 Name="Notifications"
 Name-logical-id=qtn_noti_settings_title 
 
-Icon=
 
-Aliases=
 Translation-catalogs=notification
 
 AutoStartApplet=1
 
 Order=10
-

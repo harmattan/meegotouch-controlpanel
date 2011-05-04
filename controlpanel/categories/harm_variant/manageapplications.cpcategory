@@ -3,9 +3,7 @@ Parent=Applications
 Name="Manage applications"
 Name-logical-id=qtn_pmgr_plug_pmgr
 
-Icon=
 
-Aliases=
 Translation-catalogs=packagemanager
 
 AutoStartApplet=1
