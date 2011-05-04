@@ -348,6 +348,16 @@ void Ut_DcpAppletMetadata::testUseless()
 {
     m_subject->usage();
     m_subject->incrementUsage();
+    QCOMPARE((void*)m_subject->lastUsed(), (void*)DcpAppletMetadataPrivate::sm_LastUsed);
+    m_subject->setLastUsed(m_subject);
+    QCOMPARE((void*)DcpAppletMetadataPrivate::sm_LastUsed, (void*)m_subject);
+    m_subject->storedLastUsedItem();
+    QCOMPARE(m_subject->isHidden(), false);
+    QCOMPARE(m_subject->hasMainView(), true);
+    QCOMPARE(m_subject->sliderLeftImage(), QString());
+    QCOMPARE(m_subject->sliderRightImage(), QString());
+    QCOMPARE(m_subject->hasInProcessBrief(), false);
+
 }
 
 QTEST_APPLESS_MAIN(Ut_DcpAppletMetadata)
