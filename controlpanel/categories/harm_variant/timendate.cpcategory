@@ -6,7 +6,6 @@ Name-logical-id=qtn_sett_main_timelanguage
 Icon=icon-m-settings-time-date
 
 Aliases="qtn_sett_main_timedate,Time & Date"
-Translation-catalogs=
 
 Order=50
 

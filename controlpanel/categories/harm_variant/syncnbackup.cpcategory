@@ -6,7 +6,6 @@ Name-logical-id=qtn_sett_main_syncbackup
 Icon=icon-m-transfer-sync
 
 Aliases=qtn_sett_main_backup
-Translation-catalogs=
 
 Order=80
 

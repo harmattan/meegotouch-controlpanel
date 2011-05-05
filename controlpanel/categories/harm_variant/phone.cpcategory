@@ -6,7 +6,6 @@ Name-logical-id=qtn_sett_main_phone
 Icon=icon-m-bluetooth-device-root
 
 Aliases=qtn_sett_main_battery
-Translation-catalogs=
 
 Order=10
 

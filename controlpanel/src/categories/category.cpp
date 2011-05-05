@@ -201,3 +201,10 @@ bool Category::appletAutoStart () const
     return autoSt == "1";
 }
 
+bool Category::hasSeparatorLine () const
+{
+    QString hasSep = value (HasSeparatorLineId);
+    qDebug ("XXX %s", qPrintable (hasSep));
+    return hasSep != "0";
+}
+

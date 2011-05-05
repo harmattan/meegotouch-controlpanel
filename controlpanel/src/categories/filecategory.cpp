@@ -33,7 +33,8 @@ const char* FileCategory::keys[KeyIdMax] = {
     "AppletSort",
     "AutoStartApplet",
     "HelpId",
-    "TitleStyle"
+    "TitleStyle",
+    "HasSeparatorLine"
 };
 
 FileCategory::FileCategory(const QString& fileName):

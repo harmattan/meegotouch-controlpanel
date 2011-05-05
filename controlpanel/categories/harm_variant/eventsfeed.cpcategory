@@ -3,9 +3,7 @@ Parent=Notifications & Events
 Name="Events feed"
 Name-logical-id=qtn_home_events_settings_title
 
-Icon=
 
-Aliases=
 Translation-catalogs=home
 
 AutoStartApplet=1

@@ -59,7 +59,9 @@ DcpAppletCategoryPage::createCategories ()
         return otherCategories;
     }
 
-    if (m_CategoryInfo->componentOrder() == Category::AppletsFirst) {
+    bool hasSeparator = m_CategoryInfo->hasSeparatorLine();
+    if (hasSeparator &&
+        m_CategoryInfo->componentOrder() == Category::AppletsFirst) {
         otherCategories->appendSeparator();
     }
 
@@ -73,7 +75,8 @@ DcpAppletCategoryPage::createCategories ()
         otherCategories->appendWidget(button);
     }
 
-    if (m_CategoryInfo->componentOrder() == Category::CategoriesFirst) {
+    if (hasSeparator &&
+        m_CategoryInfo->componentOrder() == Category::CategoriesFirst) {
         otherCategories->appendSeparator();
     }
 
