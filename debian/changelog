@@ -1,4 +1,4 @@
-duicontrolpanel (0.12.16~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.16) unstable; urgency=low
 
   * Fixes: NB#247927 - [TASK] clicking settings from events object view
     opens view with no toolbar
