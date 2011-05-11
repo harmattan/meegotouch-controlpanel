@@ -1,3 +1,9 @@
+duicontrolpanel (0.12.17~unreleased) unstable; urgency=low
+
+  * new version
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 11 May 2011 17:37:39 +0200
+
 duicontrolpanel (0.12.16) unstable; urgency=low
 
   * Fixes: NB#247927 - [TASK] clicking settings from events object view

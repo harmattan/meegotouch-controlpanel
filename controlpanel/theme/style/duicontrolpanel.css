@@ -17,5 +17,11 @@ MWindowStyle.Landscape {
 #CommonSliderInverted:disabled {
     handle-pixmap: ;
     background-elapsed-image: ;
+    padding-top: 14;
+    margin-left: 16;
+    margin-right: 16;
+    preferred-size: -1 64;
+    minimum-size: -1 64;
+    maximum-size: -1 64;
 }
 
