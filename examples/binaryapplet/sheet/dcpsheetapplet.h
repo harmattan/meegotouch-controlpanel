@@ -29,10 +29,11 @@ class SheetApplet : public QObject, public DcpAppletIf
 
 public:
     virtual void init();
-    virtual DcpStylableWidget* constructStylableWidget(int widgetId);
 
     virtual QString title() const;
     virtual QVector<MAction *> viewMenuItems();
+
+    virtual MSheet* constructSheet (int widgetId);
 };
 
 #endif // SHEETAPPLET_H

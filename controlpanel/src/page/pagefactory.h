@@ -78,6 +78,7 @@ protected:
     void appear (MApplicationPage* page);
 
     bool eventFilter(QObject *obj, QEvent *event);
+    bool popupSheetIfAny (const PageHandle& handle);
 
 private slots:
     void completeCategoryPage ();

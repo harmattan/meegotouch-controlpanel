@@ -31,7 +31,7 @@ void SheetApplet::init()
 {
 };
 
-DcpStylableWidget* SheetApplet::constructStylableWidget(int widgetId)
+MSheet* SheetApplet::constructSheet (int widgetId)
 {
     Q_UNUSED (widgetId);
 
@@ -42,11 +42,10 @@ DcpStylableWidget* SheetApplet::constructStylableWidget(int widgetId)
     connect(header->positiveAction(), SIGNAL(triggered()), sheet, SLOT(dismiss()));
     connect(header->negativeAction(), SIGNAL(triggered()), sheet, SLOT(dismiss()));
     sheet->setHeaderWidget (header);
-    sheet->setCentralWidget (new MLabel ("This is a sheet"));
+    sheet->setCentralWidget (
+            new MLabel ("This is a sheet, please accept or refuse. Do you accept?"));
 
-    // this way the sheet will use its own window:
-    sheet->appearSystemwide (MSceneWindow::DestroyWhenDone);
-    return 0;
+    return sheet;
 }
 
 QString SheetApplet::title() const

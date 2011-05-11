@@ -42,6 +42,7 @@
 #include <MPannableViewport>
 #include <MSceneManager>
 #include <QTimer>
+#include <MSheet>
 
 // this also specifies if the applet views should be shown inprocess or outprocess
 DcpAppletLauncherIf * PageFactory::sm_AppletLauncher = 0;
@@ -268,6 +269,46 @@ PageFactory::createAppletCategoryPageIncomplete (const Category *category)
     return page;
 }
 
+bool
+PageFactory::popupSheetIfAny (const PageHandle& handle)
+{
+    DcpAppletObject* applet =
+        DcpAppletManager::instance()->applet (handle.param);
+    if (!applet) return false;
+    DcpAppletIf* appletIf = applet->applet();
+    if (!appletIf) return false;
+
+    // fixup unknown widgetid
+    int widgetId = handle.widgetId < 0 ? applet->getMainWidgetId() :
+                                         handle.widgetId;
+
+    MSheet* sheet = applet->interfaceVersion() >= 9 ?
+                        appletIf->constructSheet (widgetId) : 0;
+    if (sheet) {
+        if (m_Win && m_Win->currentPage()) {
+            // if we already have a visible window, we make the sheet appear on that:
+            sheet->appear (m_Win, MSceneWindow::DestroyWhenDone);
+
+        } else {
+            // if we do not have a page yet, we can only display the sheet on a
+            // new window (applet launcher process) -> systemWide
+
+            // if we have a precached hidden window, we delete it to avoid the
+            // "page" openning like animation mix with the sheet animation
+            if (m_Win) {
+                m_Win->close();
+                m_Win = 0;
+            }
+
+            // handle the window shown event:
+            connect (sheet, SIGNAL (appeared ()), this, SIGNAL (windowShown()));
+
+            sheet->appearSystemwide (MSceneWindow::DestroyWhenDone);
+        }
+    }
+
+    return sheet;
+}
 
 /*!
  * Creates an applet page for the default widget of the applet variant
@@ -412,6 +453,7 @@ bool PageFactory::maybeRunOutOfProcess (const QString& appletName)
     DcpAppletManager* mng = DcpAppletManager::instance();
     DcpAppletMetadata* metadata = mng->metadata(appletName);
     if (!metadata || !metadata->isValid()) return false;
+
     QString binary = metadata->binary();
 
     /* 
@@ -438,8 +480,8 @@ bool PageFactory::maybeRunOutOfProcess (const QString& appletName)
 /*!
  * Creates a new page and sets as the current page.
  *
- * Returns true if the page change was successful, otherwise it
- * returns false.
+ * Returns true if the page change was successful or was done in a separate
+ * process, otherwise it returns false.
  */
 bool
 PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
@@ -454,8 +496,14 @@ PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
     }
 
     // if we could run it out of process then we do not change the page:
-    if (handle.id == PageHandle::APPLET && maybeRunOutOfProcess(handle.param)) {
-        return false;
+    if (handle.id == PageHandle::APPLET) {
+        if (maybeRunOutOfProcess(handle.param)) {
+            return false;
+        }
+
+        if (popupSheetIfAny (handle)) {
+            return true;
+        }
     }
 
     DcpPage *page;
@@ -501,11 +549,10 @@ PageFactory::isCurrentPage (const PageHandle &handle)
 void
 PageFactory::raiseMainWindow()
 {
-    MApplicationWindow* win = window();
-    dcp_failfunc_unless (win);
-    win->show();
-    win->raise();
-    win->activateWindow();
+    if (!m_Win) return;
+    m_Win->show();
+    m_Win->raise();
+    m_Win->activateWindow();
 }
 
 void
