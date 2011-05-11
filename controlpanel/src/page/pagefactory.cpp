@@ -404,16 +404,6 @@ void PageFactory::preloadAppletLauncher ()
     if (isInProcessApplets()) return;
     dcp_failfunc_unless (sm_AppletLauncher->isValid());
 
-    /*
-     * First appletLauncher gets started after the breifsupplier has finished,
-     * further appletlauncher preloads will be handled by this:
-     */
-    static bool notConnected = true;
-    if (notConnected && m_Win) {
-        connect (m_Win, SIGNAL(displayEntered()), this, SLOT(onDisplayEntered()));
-        notConnected = false;
-    }
-
     sm_AppletLauncher->prestart ();
 }
 
