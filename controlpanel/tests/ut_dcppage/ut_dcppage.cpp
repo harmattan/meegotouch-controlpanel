@@ -24,11 +24,6 @@
 #include "mlabel-fake.h"
 #include <QGraphicsLinearLayout>
 
-MLabel::MLabel(QGraphicsItem *parent, MLabelModel *model)
-{
-    Q_UNUSED(parent);
-    Q_UNUSED(model);
-};
 void Ut_DcpPage::init()
 {
     m_subject = new DcpPage();
