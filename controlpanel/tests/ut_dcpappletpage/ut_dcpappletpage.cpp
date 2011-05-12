@@ -24,6 +24,8 @@
 #include <dcpappletmetadata.h>
 #include <dcpappletobject.h>
 
+#include "mlabel-fake.h"
+
 #include "ut_dcpappletpage.h"
 
 extern bool isLoaded;

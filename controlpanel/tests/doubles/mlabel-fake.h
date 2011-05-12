@@ -17,13 +17,37 @@
 
 #include <MLabel>
 
+class MLabelFake
+{
+    public:
+        QString text;
+};
+
+static QHash<const MLabel*, MLabelFake *> fake;
+
+MLabel::MLabel(QGraphicsItem *, MLabelModel *)
+{
+    fake.insert(this, new MLabelFake());
+}
+
+MLabel::MLabel(QString const &, QGraphicsItem *)
+{
+    fake.insert(this, new MLabelFake());
+}
+
+MLabel::~MLabel()
+{
+    delete fake.take(this);
+}
+
 QString MLabel::text()const
 {
-    return QString();
+    return fake[this]->text;
 }
-void MLabel::setText(const QString &)
-{
 
+void MLabel::setText(const QString &text)
+{
+    fake[this]->text = text;
 }
 
 void MLabel::setWrapMode(QTextOption::WrapMode)
@@ -34,4 +58,8 @@ void MLabel::setWrapMode(QTextOption::WrapMode)
 void MLabel::setWordWrap(bool)
 {
 
+}
+
+void MLabel::setAlignment(Qt::Alignment)
+{
 }

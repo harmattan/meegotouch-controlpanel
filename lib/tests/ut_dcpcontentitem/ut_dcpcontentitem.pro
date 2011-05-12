@@ -1,6 +1,7 @@
 include(../common_top.pri)
 
 INCLUDEPATH += $$system(find $$SRCDIR -type d)
+INCLUDEPATH += ../../../controlpanel/tests/doubles
 
 TEST_SOURCES = \
     $$SRCDIR/widget/dcpcontentitem.cpp \
@@ -26,6 +27,8 @@ SOURCES += \
 HEADERS += \
     ut_dcpcontentitem.h \
     ../../../controlpanel/tests/doubles/dcpappletplugin-applet.h \
+    ../../../controlpanel/tests/doubles/mlabel-fake.h \
+    ../../../controlpanel/tests/doubles/qgraphicslayoutitem-fake.h \
     $$SRCDIR/widget/dcpcontentitem.h \
 
 # base classes

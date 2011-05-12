@@ -21,6 +21,9 @@
 #include <MImageWidget>
 #include <QPixmap>
 
+#include "mlabel-fake.h"
+#include "qgraphicslayoutitem-fake.h"
+
 extern int currentWidgetType;
 void Ut_DcpContentItem::initTestCase()
 {

@@ -24,6 +24,8 @@
 #include <dcpcategories.h>
 #include "memorycategory.h"
 
+#include "mlabel-fake.h"
+
 #define CATEGORY DcpCategories::instance()->categoryById("fake-category")
 #define CATEGORY2 DcpCategories::instance()->categoryById("ZERO")
 

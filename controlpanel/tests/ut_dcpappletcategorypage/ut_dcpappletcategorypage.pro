@@ -49,6 +49,7 @@ SOURCES += \
 HEADERS += \
     ut_dcpappletcategorypage.h \
     $$STUBSDIR/dcpappletplugin-applet.h \
+    $$STUBSDIR/mlabel-fake.h \
     $$SRCDIR/component/dcpappletbuttons.h \
     $$SRCDIR/page/dcpappletcategorypage.h \
     $$SRCDIR/page/dcppage.h \
