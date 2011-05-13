@@ -18,10 +18,10 @@
 #include <QObject>
 #include <QGraphicsSceneMouseEvent>
 #include <QCoreApplication>
+#include <MLabel>
 #include <dcppage.h>
 
 #include "ut_dcppage.h"
-#include "mlabel-fake.h"
 #include <QGraphicsLinearLayout>
 
 void Ut_DcpPage::init()

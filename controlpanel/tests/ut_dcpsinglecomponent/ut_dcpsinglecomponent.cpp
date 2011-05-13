@@ -27,7 +27,6 @@
 #include "pagefactory.h"
 #include "memorycategory.h"
 #include "qgraphicslayoutitem-fake.h"
-#include "mlabel-fake.h"
 
 void Ut_DcpSingleComponent::init()
 {

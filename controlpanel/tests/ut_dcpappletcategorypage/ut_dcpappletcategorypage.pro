@@ -39,6 +39,7 @@ SOURCES += \
     $$STUBSDIR/dcpmaincategory-fake.cpp \
     $$STUBSDIR/dcpcategories-fake.cpp \
     $$STUBSDIR/qgraphicsobject-fake.cpp \
+    $$STUBSDIR/mlabel-fake.cpp \
     $$TEST_SOURCES \ 
 
 # base classes
@@ -49,7 +50,6 @@ SOURCES += \
 HEADERS += \
     ut_dcpappletcategorypage.h \
     $$STUBSDIR/dcpappletplugin-applet.h \
-    $$STUBSDIR/mlabel-fake.h \
     $$SRCDIR/component/dcpappletbuttons.h \
     $$SRCDIR/page/dcpappletcategorypage.h \
     $$SRCDIR/page/dcppage.h \

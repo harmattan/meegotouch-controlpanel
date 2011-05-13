@@ -21,6 +21,7 @@ SOURCES += \
     ../doubles/dcpappletplugin-fake.cpp \
     ../doubles/mdesktopentry-fake.cpp \
     ../doubles/mbasiclistitem-fake.cpp \
+    ../doubles/mlabel-fake.cpp \
     $$LIBDCPFAKES/mgconfitem-fake.cpp \
     $$LIBDCPFAKES/mimagewidget-fake.cpp \
     ../doubles/mapplication-fake.cpp \

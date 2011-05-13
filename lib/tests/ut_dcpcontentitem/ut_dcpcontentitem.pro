@@ -15,6 +15,7 @@ SOURCES += \
     ../../../controlpanel/tests/doubles/mlayout-fake.cpp \
     ../../../controlpanel/tests/doubles/mgridlayoutpolicy-fake.cpp \
     ../../../controlpanel/tests/doubles/mabstractlayoutpolicy-fake.cpp \
+    ../../../controlpanel/tests/doubles/mlabel-fake.cpp \
     ../doubles/mimagewidget-fake.cpp \
     ../doubles/mhelpbutton-fake.cpp \
     $$TEST_SOURCES \
@@ -27,7 +28,6 @@ SOURCES += \
 HEADERS += \
     ut_dcpcontentitem.h \
     ../../../controlpanel/tests/doubles/dcpappletplugin-applet.h \
-    ../../../controlpanel/tests/doubles/mlabel-fake.h \
     ../../../controlpanel/tests/doubles/qgraphicslayoutitem-fake.h \
     $$SRCDIR/widget/dcpcontentitem.h \
 

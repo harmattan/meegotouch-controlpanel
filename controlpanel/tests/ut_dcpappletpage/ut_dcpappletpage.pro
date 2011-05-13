@@ -36,6 +36,7 @@ SOURCES += \
     $$STUBSDIR/dcpretranslator-fake.cpp \
     $$STUBSDIR/qgraphicslinearlayout-fake.cpp \
     $$STUBSDIR/qgraphicsobject-fake.cpp \
+    $$STUBSDIR/mlabel-fake.cpp \
     $$TEST_SOURCES \ 
 
 # base classes
@@ -46,7 +47,6 @@ SOURCES += \
 HEADERS += \
     ut_dcpappletpage.h \
     $$STUBSDIR/dcpappletplugin-applet.h \
-    $$STUBSDIR/mlabel-fake.h \
     $$SRCDIR/page/dcpappletpage.h \
     $$SRCDIR/page/dcppage.h \
     $$SRCDIR/page/pages.h \
