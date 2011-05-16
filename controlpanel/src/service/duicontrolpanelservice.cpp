@@ -31,6 +31,7 @@
 #include <MApplicationWindow>
 #include <QDBusServiceWatcher>
 #include <dcpappletdb.h>
+#include <dcpappletmetadata.h>
 
 static const char* serviceName = "com.nokia.DuiControlPanel";
 static const char* serviceNameAppl = "com.nokia.DcpAppletLauncher";
@@ -110,8 +111,18 @@ DuiControlPanelService::registerService ()
 bool
 DuiControlPanelService::appletPage (const QString& appletName)
 {
-    MApplicationWindow* win = MApplication::activeApplicationWindow();
-    if (!PageFactory::isInProcessApplets()) {
+    DcpAppletManager *mng = DcpAppletManager::instance();
+    mng->loadMetadata ();
+    DcpAppletMetadata* metadata = mng->metadata (appletName);
+
+    // if the applet does not have a main view, we pop up its category page:
+    if (metadata && !metadata->hasMainView()) {
+        categoryPage (metadata->category());
+        return true;
+
+    } else if (!PageFactory::isInProcessApplets()) {
+        MApplicationWindow* win = MApplication::activeApplicationWindow();
+
         // if we have no page yet and this is the first applet start,
         // then we run it inprocess and behave like an appletlauncher
         if (isStartedByServiceFw && (!win || !win->currentPage()))
@@ -119,9 +130,8 @@ DuiControlPanelService::appletPage (const QString& appletName)
             bool success = unregisterService ();
             dcp_failfunc_unless (success, false);
             receiveCloseSignal ();
-            DcpAppletManager *mng = DcpAppletManager::instance();
-            mng->loadMetadata ();
             mng->applet (appletName);
+
         } else {
             // if we already have a page, then we start another instance,
             // and exit from mainloop:

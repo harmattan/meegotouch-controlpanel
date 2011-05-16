@@ -64,6 +64,8 @@ void DcpAppletManager::addDesktopDir(const QString &dir)
  */
 void DcpAppletManager::loadMetadata()
 {
+    if (m_IsMetadataLoaded) return;
+
     QStringList nameFilters(AppletFilter);
     foreach (QString dirName, m_DesktopDirs) {
         QDir dir(dirName);
