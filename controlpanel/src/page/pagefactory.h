@@ -46,7 +46,7 @@ public:
     ~PageFactory ();
     static PageFactory *instance ();
     static void setInProcessApplets (bool inProcess);;
-    static bool isInProcessApplets () { return sm_AppletLauncher == 0; }
+    static bool isInProcessApplets () { return sm_IsInProcessModeEnabled; }
     static void destroy();
     DcpPage* createPage (const PageHandle &handle);
     DcpPage* currentPage ();
@@ -94,12 +94,16 @@ private:
     void newWin ();
     bool isCurrentPage (const PageHandle &handle);
     void closeHelpPage();
+    bool verifyAppletLauncherIsOk();
 
     QList< MSceneWindow * > pageHistory ();
 
     static PageFactory     *sm_Instance;
     QPointer<DcpAppletPage> m_LastAppletPage;
-    static DcpAppletLauncherIf *sm_AppletLauncher;
+
+    DcpAppletLauncherIf *m_AppletLauncher;
+    static bool sm_IsInProcessModeEnabled;
+
     QPointer<MApplicationWindow> m_Win;
     /*! The page of which body needs to be created after the applets are
         registered */

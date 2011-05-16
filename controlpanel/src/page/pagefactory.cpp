@@ -44,8 +44,8 @@
 #include <QTimer>
 #include <MSheet>
 
-// this also specifies if the applet views should be shown inprocess or outprocess
-DcpAppletLauncherIf * PageFactory::sm_AppletLauncher = 0;
+// this specifies if the applet views should be shown inprocess or outprocess
+bool PageFactory::sm_IsInProcessModeEnabled = true;
 
 #include "dcpdebug.h"
 
@@ -54,6 +54,7 @@ PageFactory *PageFactory::sm_Instance = 0;
 
 PageFactory::PageFactory ():
     QObject (),
+    m_AppletLauncher (0),
     m_Win (0),
     m_PageWithDelayedContent (0),
     m_AppletsRegistered (false),
@@ -78,9 +79,9 @@ PageFactory::PageFactory ():
 
 PageFactory::~PageFactory ()
 {
-    delete sm_AppletLauncher;
+    delete m_AppletLauncher;
 
-    sm_AppletLauncher = 0;
+    m_AppletLauncher = 0;
     sm_Instance = 0;
     if (m_Win) {
         // close help pages if any:
@@ -447,9 +448,10 @@ PageFactory::currentPage ()
 void PageFactory::preloadAppletLauncher ()
 {
     if (isInProcessApplets()) return;
-    dcp_failfunc_unless (sm_AppletLauncher->isValid());
 
-    sm_AppletLauncher->prestart ();
+    dcp_failfunc_unless (verifyAppletLauncherIsOk());
+
+    m_AppletLauncher->prestart ();
 }
 
 bool PageFactory::maybeRunOutOfProcess (const QString& appletName)
@@ -473,11 +475,21 @@ bool PageFactory::maybeRunOutOfProcess (const QString& appletName)
         binary != "libdeclarative.so";
 
     if (runOutProcess) {
-        dcp_failfunc_unless (sm_AppletLauncher->isValid(), false);
-        sm_AppletLauncher->appletPage (metadata->fileName());
+        dcp_failfunc_unless (verifyAppletLauncherIsOk(), false);
+        m_AppletLauncher->appletPage (metadata->fileName());
     }
 
     return runOutProcess;
+}
+
+
+bool PageFactory::verifyAppletLauncherIsOk()
+{
+    dcp_failfunc_unless (!isInProcessApplets(), false);
+    if (!m_AppletLauncher) {
+        m_AppletLauncher = new DcpAppletLauncherIf();
+    }
+    return m_AppletLauncher->isValid();
 }
 
 
@@ -731,13 +743,7 @@ PageFactory::tryOpenPageBackward (const PageHandle &handle)
 
 void PageFactory::setInProcessApplets (bool inProcess)
 {
-    if (!inProcess && !sm_AppletLauncher) {
-        sm_AppletLauncher = new DcpAppletLauncherIf();
-    } else
-    if (inProcess && sm_AppletLauncher) {
-        delete sm_AppletLauncher;
-        sm_AppletLauncher = 0;
-    }
+    sm_IsInProcessModeEnabled = inProcess;
 }
 
 MApplicationWindow* PageFactory::window ()
