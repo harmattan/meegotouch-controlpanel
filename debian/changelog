@@ -1,8 +1,9 @@
 duicontrolpanel (0.12.17~unreleased) unstable; urgency=low
 
-  * new version
+  * Fixes: NB#255261 - Brightness slider missing when accessed from a
+    deep link
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 11 May 2011 17:37:39 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 16 May 2011 16:14:18 +0200
 
 duicontrolpanel (0.12.16) unstable; urgency=low
 

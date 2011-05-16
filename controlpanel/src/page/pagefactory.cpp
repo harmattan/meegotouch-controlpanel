@@ -68,7 +68,11 @@ PageFactory::PageFactory ():
         onAppletLoaded (applet);
     }
 
-    connect (mng, SIGNAL(metadataLoaded()), this, SLOT(onMetadataLoaded()));
+    if (mng->isMetadataLoaded()) {
+        onMetadataLoaded ();
+    } else {
+        connect (mng, SIGNAL(metadataLoaded()), this, SLOT(onMetadataLoaded()));
+    }
 }
 
 PageFactory::~PageFactory ()

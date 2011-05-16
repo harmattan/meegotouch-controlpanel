@@ -79,6 +79,7 @@ void DcpAppletManager::loadMetadata()
         }
     }
     m_IsMetadataLoaded = true;
+    emit metadataLoaded();
  }
 
 /*! \brief Loads applet definitions from .desktop files in an asynchronous way.
