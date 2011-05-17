@@ -1,3 +1,9 @@
+duicontrolpanel (0.12.18~unreleased) unstable; urgency=low
+
+  * changelog up
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 17 May 2011 13:42:42 +0200
+
 duicontrolpanel (0.12.17) unstable; urgency=low
 
   * Fixes: NB#255261 - Brightness slider missing when accessed from a
