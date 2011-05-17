@@ -1,4 +1,4 @@
-duicontrolpanel (0.12.17~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.17) unstable; urgency=low
 
   * Fixes: NB#255261 - Brightness slider missing when accessed from a
     deep link
