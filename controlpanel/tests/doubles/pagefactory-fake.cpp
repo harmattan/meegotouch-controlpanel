@@ -139,4 +139,9 @@ void PageFactory::destroyPageHistory()
 {
 }
 
+bool
+PageFactory::popupSheetIfAny (const PageHandle&)
+{
+    return false;
+}
 

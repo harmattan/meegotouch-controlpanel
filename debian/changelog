@@ -5,8 +5,10 @@ duicontrolpanel (0.12.17~unreleased) unstable; urgency=low
   * Fixes: NB#255038 - Settings; while searching for the string
     Brigtnees will be shown as Display in Settings view
   * Fixes: NB#254883 - Settings main page layout jumps when opened
+  * Fixes: NB#255158 - controlpanel does not support MSheet as the main view
+    of an applet
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 17 May 2011 09:53:11 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 11 May 2011 15:58:49 +0200
 
 duicontrolpanel (0.12.16) unstable; urgency=low
 

@@ -1,6 +1,7 @@
 TEMPLATE      = subdirs
 
 SUBDIRS += itemlike \
+           sheet \
            buttonlike \
            sliderlike \
            multipage \

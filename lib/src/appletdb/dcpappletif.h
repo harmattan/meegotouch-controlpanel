@@ -24,6 +24,7 @@ class DcpWidget;
 class DcpStylableWidget;
 class MAction;
 class DcpBrief;
+class MSheet;
 
 /*!
  * \brief Applet interface for DuiControlPanel applets.
@@ -104,7 +105,7 @@ public:
      * the interface the plugin was compiled with. It lets controlpanel
      * extend the interface without the need to recompile all applets.
      */
-    virtual int interfaceVersion() { return 8; }
+    virtual int interfaceVersion() { return 9; }
 
     /*!
      * \brief Contstructs the widget specified by widgetId that the applet
@@ -121,6 +122,11 @@ public:
      * of using themes (.css files).
      */
     virtual DcpStylableWidget *constructStylableWidget (int widgetId) {
+        Q_UNUSED (widgetId);
+        return 0;
+    }
+
+    virtual MSheet *constructSheet (int widgetId) {
         Q_UNUSED (widgetId);
         return 0;
     }
