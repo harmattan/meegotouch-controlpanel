@@ -2,8 +2,11 @@ duicontrolpanel (0.12.17~unreleased) unstable; urgency=low
 
   * Fixes: NB#255261 - Brightness slider missing when accessed from a
     deep link
+  * Fixes: NB#255038 - Settings; while searching for the string
+    Brigtnees will be shown as Display in Settings view
+  * Fixes: NB#254883 - Settings main page layout jumps when opened
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 16 May 2011 16:14:18 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 17 May 2011 09:53:11 +0200
 
 duicontrolpanel (0.12.16) unstable; urgency=low
 
