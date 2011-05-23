@@ -36,6 +36,7 @@ static const char* toggleObjectName = "CommonRightSwitchInverted";
 static const char* sliderObjectName = "CommonSliderInverted";
 static const char* commonPanelObjectName = "CommonPanelInverted";
 static const char* largePanelObjectName = "CommonLargePanelInverted";
+static const char* sliderSeparatorStyleName = "CommonItemDividerInverted";
 
 DcpContentItemPrivate::DcpContentItemPrivate ():
     m_Applet (0),
@@ -49,7 +50,8 @@ DcpContentItemPrivate::DcpContentItemPrivate ():
     m_ButtonW (0),
     m_Slider (0),
     m_Spacer (0),
-    m_Separator (0)
+    m_Separator (0),
+    m_Separator2 (0)
 {
 }
 
@@ -150,8 +152,9 @@ DcpContentItem::ensureSliderIsCreated()
     {
         if (!d_ptr->m_Separator) {
             d_ptr->m_Separator = new MSeparator();
-            d_ptr->m_Separator->
-                setStyleName("CommonHorizontalSeparatorInverted");
+            d_ptr->m_Separator->setStyleName(sliderSeparatorStyleName);
+            d_ptr->m_Separator2 = new MSeparator();
+            d_ptr->m_Separator2->setStyleName(sliderSeparatorStyleName);
         }
 
         MSlider* &slider = d_ptr->m_Slider;
@@ -207,7 +210,9 @@ DcpContentItem::ensureSliderIsCreated()
             d_ptr->m_LayoutIsToBeChanged = true;
         }
         delete d_ptr->m_Separator;
+        delete d_ptr->m_Separator2;
         d_ptr->m_Separator = 0;
+        d_ptr->m_Separator2 = 0;
     }
 }
 
@@ -396,6 +401,7 @@ DcpContentItem::ensureWidgetsAreLayouted()
         grid->addItem (d_ptr->m_Text1W, 1, textX);
         grid->addItem (d_ptr->m_Slider, 2, textX, 1,
                        columnCount, Qt::AlignCenter);
+        grid->addItem (d_ptr->m_Separator2, 3, textX, 1, columnCount);
         if (styleName() != largePanelObjectName) {
             setStyleName (largePanelObjectName);
         }

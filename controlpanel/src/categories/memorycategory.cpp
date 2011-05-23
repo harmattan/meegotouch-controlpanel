@@ -36,6 +36,7 @@ MemoryCategory::MemoryCategory(const QString& name,
     data.insert (IconId, iconId);
     data.insert (AliasesId, compatibilityIds.join(QChar(',')));
     data.insert (OrderId, QString::number (order));
+    data.insert (HasSeparatorLineId, QString::number (0));
 }
 
 QString MemoryCategory::value(int key) const

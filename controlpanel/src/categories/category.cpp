@@ -204,7 +204,6 @@ bool Category::appletAutoStart () const
 bool Category::hasSeparatorLine () const
 {
     QString hasSep = value (HasSeparatorLineId);
-    qDebug ("XXX %s", qPrintable (hasSep));
     return hasSep != "0";
 }
 

@@ -57,6 +57,7 @@ public:
     MSlider* m_Slider;
     QGraphicsWidget* m_Spacer;
     MSeparator* m_Separator;
+    MSeparator* m_Separator2;
 };
 
 #endif // DCPCONTENTITEMPRIVATE_H
