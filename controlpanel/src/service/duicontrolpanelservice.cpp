@@ -32,6 +32,7 @@
 #include <QDBusServiceWatcher>
 #include <dcpappletdb.h>
 #include <dcpappletmetadata.h>
+#include <dcpremotebriefreceiver.h>
 
 static const char* serviceName = "com.nokia.DuiControlPanel";
 static const char* serviceNameAppl = "com.nokia.DcpAppletLauncher";
@@ -132,6 +133,10 @@ DuiControlPanelService::appletPage (const QString& appletName)
             receiveCloseSignal ();
             mng->applet (appletName);
 
+            // we do not need the receiver in this process,
+            // this ensures that it wont get started
+            DcpRemoteBriefReceiver::disable ();
+
         } else {
             // if we already have a page, then we start another instance,
             // and exit from mainloop:
@@ -162,7 +167,12 @@ DuiControlPanelService::receiveCloseSignal ()
                 QDBusConnection::sessionBus(),
                 QDBusServiceWatcher::WatchForRegistration, this);
     connect (watcher, SIGNAL (serviceRegistered(QString)),
-             qApp, SLOT (quit()));
+             this, SLOT (quitWithDelay()));
+}
+
+void DuiControlPanelService::quitWithDelay ()
+{
+    QTimer::singleShot (1000, qApp, SLOT(quit()));
 }
 
 void

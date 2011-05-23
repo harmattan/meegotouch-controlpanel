@@ -47,6 +47,9 @@ public Q_SLOTS:
     bool unregisterService ();
     void preloadAppletLauncher ();
 
+protected slots:
+    void quitWithDelay ();
+
 private:
     void sheduleStart (const PageHandle &handle);
     void startPageForReal(const PageHandle &handle);

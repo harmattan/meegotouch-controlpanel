@@ -4,8 +4,10 @@ duicontrolpanel (0.12.18~unreleased) unstable; urgency=low
     connection created before QCoreApplication. Application may
     misbehave'
   * Fixes: NB#256581 - Updated to style for horizontal separators
+  * Fixes: NB#256331 - [TASK] Closing transition is not proper while
+    closing the windows
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 23 May 2011 10:15:42 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 23 May 2011 15:32:16 +0200
 
 duicontrolpanel (0.12.17) unstable; urgency=low
 

@@ -177,6 +177,10 @@ M_EXPORT int main(int argc, char *argv[])
     int result;
 
     if (isAppletLoader) {
+        // we do not need briefs for the appletloader process, so we should
+        // not start it
+        DcpRemoteBriefReceiver::disable ();
+
         // start the appletloader process here:
         result = startAppletLoader (argc, argv);
 
