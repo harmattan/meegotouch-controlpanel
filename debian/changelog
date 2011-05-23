@@ -6,8 +6,10 @@ duicontrolpanel (0.12.18~unreleased) unstable; urgency=low
   * Fixes: NB#256581 - Updated to style for horizontal separators
   * Fixes: NB#256331 - [TASK] Closing transition is not proper while
     closing the windows
+  * Fixes: NB#253644 - Settings; String §qtn_locfw_positioning§ is
+    clipped in Russian language
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 23 May 2011 15:32:16 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 23 May 2011 15:56:03 +0200
 
 duicontrolpanel (0.12.17) unstable; urgency=low
 

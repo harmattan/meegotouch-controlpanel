@@ -291,10 +291,12 @@ DcpContentItem::ensureTextsAreCreated()
     if (!label1) {
         label1 = new MLabel();
         label1->setStyleName (singleTitleObjectName);
+        label1->setTextElide (true);
         d_ptr->m_LayoutIsToBeChanged = true;
     }
     if (!label2 && !text2.isEmpty()) {
         label2 = new MLabel();
+        label2->setTextElide (true);
         label2->setStyleName(subtitleObjectName);
         if (!d_ptr->m_Spacer) {
             d_ptr->m_Spacer = new QGraphicsWidget();
