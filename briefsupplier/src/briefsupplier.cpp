@@ -165,7 +165,6 @@ void BriefSupplier::outputBrief (DcpAppletObject* applet, bool textOnly)
     QString helpId;
     QString icon;
     QString image;
-    bool toggle = false;
     QVariant value;
     int minValue = 0;
     int maxValue = 0;
@@ -178,7 +177,7 @@ void BriefSupplier::outputBrief (DcpAppletObject* applet, bool textOnly)
         switch (widgetTypeID) {
             case DcpWidgetType::Toggle:
             case DcpWidgetType::Button:
-                toggle = brief->toggle();
+                value = brief->value();
                 break;
             case DcpWidgetType::Image:
                 icon = brief->icon();
@@ -204,9 +203,10 @@ void BriefSupplier::outputBrief (DcpAppletObject* applet, bool textOnly)
         output (OutputWidgetTypeID, widgetTypeID);
         output (OutputIcon, image.isEmpty() ? icon : image);
         if (widgetTypeID == DcpWidgetType::Toggle ||
-            widgetTypeID == DcpWidgetType::Button)
+            widgetTypeID == DcpWidgetType::Button ||
+            widgetTypeID == DcpWidgetType::Slider)
         {
-            output (OutputToggle, (int)toggle);
+            output (OutputValue, value.toString(), true);
         }
         if (widgetTypeID == DcpWidgetType::Slider) {
             // TODO we could minimize the traffic by remembering the last sent

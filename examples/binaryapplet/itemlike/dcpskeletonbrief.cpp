@@ -64,6 +64,9 @@ void SkeletonBrief::setToggle (bool toggle)
 void SkeletonBrief::timerEvent(QTimerEvent*)
 {
     ++m_Value;
+    if (m_Value % 5) {
+        m_ToggleState = false;
+    }
     emit valuesChanged();
 }
 

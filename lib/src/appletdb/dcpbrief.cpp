@@ -121,6 +121,11 @@ void DcpBrief::setValue(const QVariant& value)
 
 QVariant DcpBrief::value() const
 {
+    // for compatibility with DcpBrief::toggle
+    if (widgetTypeID () == DcpWidgetType::Toggle) {
+        return QVariant (toggle());
+    }
+
     return QVariant();
 }
 
