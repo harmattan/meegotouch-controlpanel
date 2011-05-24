@@ -26,3 +26,4 @@ QVariant MWidgetController::itemChange(GraphicsItemChange, const QVariant &)
 {
     return QVariant();
 }
+
