@@ -1,4 +1,4 @@
-duicontrolpanel (0.12.19~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.19) unstable; urgency=low
 
   * Fixes: NB#258212 - On reopening the settings , the settings app is
     getting minimized
