@@ -525,7 +525,7 @@ PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
     DcpPage *page;
 
     // we drop the window if needed
-    if (dropOtherPages && !isCurrentPage (handle)) {
+    if (dropOtherPages) {
         newWin ();
     }
 

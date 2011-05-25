@@ -1,3 +1,10 @@
+duicontrolpanel (0.12.19~unreleased) unstable; urgency=low
+
+  * Fixes: NB#258212 - On reopening the settings , the settings app is
+    getting minimized
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 25 May 2011 10:42:10 +0200
+
 duicontrolpanel (0.12.18) unstable; urgency=low
 
   * Fixes: NB#255312 - Error seen at 'QDBusConnection: session D-Bus
