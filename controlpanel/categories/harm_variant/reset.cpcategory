@@ -7,7 +7,5 @@ Icon=icon-m-settings-reset
 
 Aliases=qtn_sett_main_reset
 
-HelpId=IDUG_MEEGO_SETT_RESTORE.html
-
 Order=110
 

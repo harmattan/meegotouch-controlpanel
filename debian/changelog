@@ -1,3 +1,10 @@
+duicontrolpanel (0.12.20~unreleased) unstable; urgency=low
+
+  * Fixes: NB#260186 - Please remove the help icon from the reset
+    category header...
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 26 May 2011 16:12:04 +0200
+
 duicontrolpanel (0.12.19) unstable; urgency=low
 
   * Fixes: NB#258212 - On reopening the settings , the settings app is
