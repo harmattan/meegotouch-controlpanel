@@ -2,8 +2,10 @@ duicontrolpanel (0.12.20~unreleased) unstable; urgency=low
 
   * Fixes: NB#260186 - Please remove the help icon from the reset
     category header...
+  * Fixes: NB#259996 - When opening settings, all the content comes with
+    a flicker
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 26 May 2011 16:12:04 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 27 May 2011 15:23:43 +0200
 
 duicontrolpanel (0.12.19) unstable; urgency=low
 

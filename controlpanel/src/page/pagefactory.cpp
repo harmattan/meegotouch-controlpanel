@@ -838,3 +838,8 @@ PageFactory::newMainPageInSeparateProcess()
     }
 }
 
+void PageFactory::enableUpdates (bool enable)
+{
+    window()->setUpdatesEnabled (enable);
+}
+
