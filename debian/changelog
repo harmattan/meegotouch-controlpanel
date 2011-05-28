@@ -1,4 +1,4 @@
-duicontrolpanel (0.12.20~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.20) unstable; urgency=low
 
   * Fixes: NB#260186 - Please remove the help icon from the reset
     category header...
