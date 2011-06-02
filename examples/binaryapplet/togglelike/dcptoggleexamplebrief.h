@@ -15,21 +15,30 @@
 **
 ****************************************************************************/
 
-#ifndef SKELETONAPPLET_H
-#define SKELETONAPPLET_H
+#ifndef TOGGLEEXAMPLEBRIEF_H
+#define TOGGLEEXAMPLEBRIEF_H
 
-#include <DcpAppletIf>
-#include <QObject>
+#include <DcpBrief>
+#include <QVariant>
 
-class SliderExampleApplet : public QObject, public DcpAppletIf
+class ToggleExampleBrief: public DcpBrief
 {
-	Q_OBJECT
-	Q_INTERFACES(DcpAppletIf)
-
+    Q_OBJECT
 public:
-    virtual QVector<MAction *> viewMenuItems();
-    virtual DcpBrief* constructBrief(int);
+    ToggleExampleBrief ();
+
+    virtual QString valueText () const;
+    virtual int widgetTypeID () const;
+    virtual QVariant value () const;
+    virtual void setValue (const QVariant& variant);
+
+protected:
+    virtual void timerEvent (QTimerEvent* event);
+
+private:
+    QVariant m_ToggleState;
+    int m_Timer;
 };
 
-#endif // SKELETONAPPLET_H
+#endif // TOGGLEEXAMPLEBRIEF
 

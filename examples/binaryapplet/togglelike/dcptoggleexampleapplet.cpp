@@ -15,21 +15,23 @@
 **
 ****************************************************************************/
 
-#ifndef SKELETONAPPLET_H
-#define SKELETONAPPLET_H
+#include <MAction>
+#include <MLibrary>
 
-#include <DcpAppletIf>
-#include <QObject>
+#include "dcptoggleexampleapplet.h"
+#include "dcptoggleexamplebrief.h"
 
-class SliderExampleApplet : public QObject, public DcpAppletIf
+M_LIBRARY
+Q_EXPORT_PLUGIN2(toggleexampleapplet, ToggleExampleApplet)
+
+QVector<MAction*> ToggleExampleApplet::viewMenuItems()
 {
-	Q_OBJECT
-	Q_INTERFACES(DcpAppletIf)
+    QVector<MAction*> vector;
+    return vector;
+}
 
-public:
-    virtual QVector<MAction *> viewMenuItems();
-    virtual DcpBrief* constructBrief(int);
-};
-
-#endif // SKELETONAPPLET_H
+DcpBrief* ToggleExampleApplet::constructBrief(int)
+{
+    return new ToggleExampleBrief();
+}
 

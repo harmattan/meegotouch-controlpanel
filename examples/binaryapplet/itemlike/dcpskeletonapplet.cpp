@@ -15,8 +15,6 @@
 **
 ****************************************************************************/
 
-#include <QtGui>
-#include <QDebug>
 #include <MAction>
 #include <MLibrary>
 
@@ -49,7 +47,7 @@ DcpStylableWidget* SkeletonApplet::constructStylableWidget(int widgetId)
                     break;
         // more cases here if applet has more pages
         default:
-                    qDebug() << "Page Unknown";
+                    qDebug("Page Unknown");
                     return 0;
                     break;
     };

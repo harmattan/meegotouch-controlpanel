@@ -20,7 +20,6 @@
 
 #include <DcpAppletIf>
 #include <QObject>
-class DcpWidget;
 class MAction;
 
 class SkelButtonApplet : public QObject, public DcpAppletIf 
@@ -29,10 +28,10 @@ class SkelButtonApplet : public QObject, public DcpAppletIf
 	Q_INTERFACES(DcpAppletIf)
 
 public:
-    virtual void init();
-    virtual DcpWidget* constructWidget(int widgetId);
     virtual QString title() const;
     virtual QVector<MAction *> viewMenuItems();
     virtual DcpBrief* constructBrief(int);
 };
+
 #endif // SKELBUTTONAPPLET_H
+

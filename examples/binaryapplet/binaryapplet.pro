@@ -4,6 +4,7 @@ SUBDIRS += itemlike \
            sheet \
            buttonlike \
            sliderlike \
+           togglelike \
            multipage \
            translations
 

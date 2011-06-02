@@ -21,10 +21,10 @@
 #include <DcpBrief>
 #include <QVariant>
 
-class SkeletonBrief: public DcpBrief{
+class SliderExampleBrief: public DcpBrief{
     Q_OBJECT
 public:
-    SkeletonBrief();
+    SliderExampleBrief();
     virtual int widgetTypeID() const;
 
     QVariant value() const;

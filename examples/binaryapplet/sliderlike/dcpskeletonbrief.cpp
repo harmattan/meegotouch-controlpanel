@@ -19,7 +19,7 @@
 #include "dcpskeletonbrief.h"
 #include <QtDebug>
 
-SkeletonBrief::SkeletonBrief():
+SliderExampleBrief::SliderExampleBrief():
     m_Value(50)
 {
     qDebug() << "slider applet got loaded" << m_Value;
@@ -30,23 +30,23 @@ SkeletonBrief::SkeletonBrief():
 #endif
 }
 
-int SkeletonBrief::widgetTypeID() const
+int SliderExampleBrief::widgetTypeID() const
 {
     return DcpWidgetType::Slider;
 }
 
-QVariant SkeletonBrief::value() const
+QVariant SliderExampleBrief::value() const
 {
     return m_Value;
 }
 
-void SkeletonBrief::setValue(const QVariant& value)
+void SliderExampleBrief::setValue(const QVariant& value)
 {
     m_Value = value.toInt();
     qDebug() << "slider applet: new value is" << m_Value;
 }
 
-void SkeletonBrief::timerEvent ( QTimerEvent * )
+void SliderExampleBrief::timerEvent ( QTimerEvent * )
 {
     // increase the value and notify controlpanel that it changed:
     m_Value++;

@@ -28,8 +28,6 @@ class SheetApplet : public QObject, public DcpAppletIf
 	Q_INTERFACES(DcpAppletIf)
 
 public:
-    virtual void init();
-
     virtual QString title() const;
     virtual QVector<MAction *> viewMenuItems();
 

@@ -15,13 +15,15 @@
 **
 ****************************************************************************/
 
-#ifndef SKELETONAPPLET_H
-#define SKELETONAPPLET_H
+#ifndef TOGGLEEXAMPLEAPPLET_H
+#define TOGGLEEXAMPLEAPPLET_H
 
 #include <DcpAppletIf>
 #include <QObject>
+class DcpStylableWidget;
+class MAction;
 
-class SliderExampleApplet : public QObject, public DcpAppletIf
+class ToggleExampleApplet : public QObject, public DcpAppletIf 
 {
 	Q_OBJECT
 	Q_INTERFACES(DcpAppletIf)
@@ -31,5 +33,5 @@ public:
     virtual DcpBrief* constructBrief(int);
 };
 
-#endif // SKELETONAPPLET_H
+#endif // TOGGLEEXAMPLEAPPLET_H
 
