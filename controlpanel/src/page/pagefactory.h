@@ -52,8 +52,10 @@ public:
     DcpPage* currentPage ();
     bool maybeRunOutOfProcess (const QString& appletName);
     MApplicationWindow* window ();
+
 public slots:
     void appletWantsToStart (int widgetId = -1);
+    void enableUpdates(bool enable = true);
 
     void raiseMainWindow();
     bool changePage (const PageHandle &handle, bool dropOtherPages = false);

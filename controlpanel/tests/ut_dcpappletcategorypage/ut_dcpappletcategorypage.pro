@@ -30,6 +30,7 @@ SOURCES += \
     $$STUBSDIR/mcontainer-fake.cpp \
     $$LIBDCPFAKES/mgconfitem-fake.cpp \
     $$STUBSDIR/dcpappletdb-fake.cpp \
+    $$STUBSDIR/pagefactory-fake.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
     $$STUBSDIR/dcpappletbuttons-fake.cpp \
     $$STUBSDIR/dcpmostused-fake.cpp \
@@ -52,6 +53,7 @@ HEADERS += \
     $$STUBSDIR/dcpappletplugin-applet.h \
     $$SRCDIR/component/dcpappletbuttons.h \
     $$SRCDIR/page/dcpappletcategorypage.h \
+    $$SRCDIR/page/pagefactory.h \
     $$SRCDIR/page/dcppage.h \
     $$SRCDIR/page/pages.h \
     $$SRCDIR/component/dcpmaincategory.h \

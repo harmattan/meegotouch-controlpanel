@@ -14,6 +14,7 @@ SOURCES += \
     ../../../controlpanel/tests/doubles/dcpappletplugin-fake.cpp \
     ../../../controlpanel/tests/doubles/mlayout-fake.cpp \
     ../../../controlpanel/tests/doubles/mgridlayoutpolicy-fake.cpp \
+    ../../../controlpanel/tests/doubles/mwidgetcontroller-fake.cpp \
     ../../../controlpanel/tests/doubles/mabstractlayoutpolicy-fake.cpp \
     ../../../controlpanel/tests/doubles/mlabel-fake.cpp \
     ../doubles/mimagewidget-fake.cpp \

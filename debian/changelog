@@ -1,4 +1,26 @@
-duicontrolpanel (0.12.18~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.21~unreleased) unstable; urgency=low
+
+  * up
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 02 Jun 2011 09:12:45 +0200
+
+duicontrolpanel (0.12.20) unstable; urgency=low
+
+  * Fixes: NB#260186 - Please remove the help icon from the reset
+    category header...
+  * Fixes: NB#259996 - When opening settings, all the content comes with
+    a flicker
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 27 May 2011 15:23:43 +0200
+
+duicontrolpanel (0.12.19) unstable; urgency=low
+
+  * Fixes: NB#258212 - On reopening the settings , the settings app is
+    getting minimized
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 25 May 2011 10:42:10 +0200
+
+duicontrolpanel (0.12.18) unstable; urgency=low
 
   * Fixes: NB#255312 - Error seen at 'QDBusConnection: session D-Bus
     connection created before QCoreApplication. Application may

@@ -55,6 +55,11 @@ void MLabel::setWrapMode(QTextOption::WrapMode)
 
 }
 
+void MLabel::setTextElide(bool)
+{
+
+}
+
 void MLabel::setWordWrap(bool)
 {
 

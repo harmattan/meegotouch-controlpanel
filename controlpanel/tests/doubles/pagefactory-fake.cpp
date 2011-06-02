@@ -145,3 +145,8 @@ PageFactory::popupSheetIfAny (const PageHandle&)
     return false;
 }
 
+void PageFactory::enableUpdates (bool enable)
+{
+    Q_UNUSED (enable);
+}
+

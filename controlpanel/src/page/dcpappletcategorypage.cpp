@@ -26,6 +26,7 @@
 #include "pages.h"
 #include "dcpmostused.h"
 #include "dcpdebug.h"
+#include "pagefactory.h"
 
 #include <DcpAppletMetadata>
 #include <DcpAppletObject>
@@ -33,6 +34,7 @@
 
 #include <QtDebug>
 #include <QGraphicsLinearLayout>
+#include <QTimer>
 
 
 DcpAppletCategoryPage::DcpAppletCategoryPage (
@@ -79,7 +81,6 @@ DcpAppletCategoryPage::createCategories ()
         m_CategoryInfo->componentOrder() == Category::CategoriesFirst) {
         otherCategories->appendSeparator();
     }
-
     return otherCategories;
 }
 
@@ -127,7 +128,10 @@ DcpAppletCategoryPage::createContent ()
     if (!m_CategoryInfo->titleStyle().isEmpty()) {
         setTitleStyleName (m_CategoryInfo->titleStyle());
     }
-    mainLayout()->addStretch();
+
+    QGraphicsWidget* spacer = new QGraphicsWidget();
+    spacer->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
+    mainLayout()->addItem(spacer);
 }
 
 const QString 
@@ -193,6 +197,13 @@ DcpAppletCategoryPage::setDelayedContent(bool delayed)
 void
 DcpAppletCategoryPage::createBody()
 {
+    if (m_DelayedContent) {
+        PageFactory::instance()->enableUpdates (false);
+    }
+
+    QGraphicsLayoutItem* spacer = mainLayout()->itemAt (mainLayout()->count()-1);
+    mainLayout()->removeItem (spacer);
+
     // Most Used Items:
     bool hasMostUsed = m_CategoryInfo->hasMostUsed();
     if (hasMostUsed) {
@@ -239,7 +250,12 @@ DcpAppletCategoryPage::createBody()
              this, SLOT (onLoadingFinished()));
     setProgressIndicatorVisible (true);
 #endif
-    mainLayout()->addStretch();
+
+    mainLayout()->addItem (spacer);
+
+    if (m_DelayedContent) {
+        QTimer::singleShot (0, PageFactory::instance(), SLOT(enableUpdates()));
+    }
 }
 
 void

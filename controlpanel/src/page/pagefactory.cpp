@@ -525,7 +525,7 @@ PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
     DcpPage *page;
 
     // we drop the window if needed
-    if (dropOtherPages && !isCurrentPage (handle)) {
+    if (dropOtherPages) {
         newWin ();
     }
 
@@ -836,5 +836,10 @@ PageFactory::newMainPageInSeparateProcess()
     if (iface.isValid()) {
         iface.mainPage();
     }
+}
+
+void PageFactory::enableUpdates (bool enable)
+{
+    window()->setUpdatesEnabled (enable);
 }
 
