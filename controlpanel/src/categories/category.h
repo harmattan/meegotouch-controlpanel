@@ -75,6 +75,9 @@ public:
 
     bool hasSeparatorLine () const;
 
+    QString subHeaderText () const;
+    QString subHeaderTextLogicalId () const;
+
 protected:
     static const char* componentOrderToString (ComponentOrderType order);
 
@@ -97,6 +100,8 @@ protected:
         HelpId,
         TitleStyleId,
         HasSeparatorLineId,
+        SubHeaderTextId,
+        SubHeaderTextLogicalId,
         KeyIdMax
     };
 

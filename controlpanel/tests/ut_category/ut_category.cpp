@@ -82,8 +82,8 @@ void Ut_Category::testTitle()
 {
     // title
     QCOMPARE (memCat->title(), QString("!! Name"));
-    QCOMPARE (invalidMemCat->title(), QString("!! "));
-    QCOMPARE (fileCat->title(), QString("!! "));
+    QCOMPARE (invalidMemCat->title(), QString());
+    QCOMPARE (fileCat->title(), QString());
 
     // titleId
     QCOMPARE (memCat->titleId(), QString("TitleId"));

@@ -40,7 +40,7 @@ DcpAppletCategoryPage::createContent ()
 }
 
 void
-DcpAppletCategoryPage::createBody ()
+DcpAppletCategoryPage::createBody (bool)
 {
 }
 

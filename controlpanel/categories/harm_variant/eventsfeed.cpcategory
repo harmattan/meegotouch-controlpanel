@@ -3,6 +3,8 @@ Parent=Notifications & Events
 Name="Events feed"
 Name-logical-id=qtn_home_events_settings_title
 
+SubHeaderText="Show events from:"
+SubHeaderText-logical-id=qtn_home_events_settings_subheader
 
 Translation-catalogs=home
 

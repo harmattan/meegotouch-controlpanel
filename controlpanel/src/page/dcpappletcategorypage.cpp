@@ -35,6 +35,7 @@
 #include <QtDebug>
 #include <QGraphicsLinearLayout>
 #include <QTimer>
+#include <MLabel>
 
 
 DcpAppletCategoryPage::DcpAppletCategoryPage (
@@ -43,7 +44,8 @@ DcpAppletCategoryPage::DcpAppletCategoryPage (
     m_CategoryInfo (categoryInfo),
     m_Category (0),
     m_MostUsed (0),
-    m_DelayedContent (0)
+    m_DelayedContent (0),
+    m_SubHeader (0)
 {
 }
 
@@ -90,7 +92,7 @@ DcpAppletCategoryPage::mostUsedAppears ()
     dcp_failfunc_unless (m_MostUsed);
     QGraphicsLinearLayout* layout = mainLayout();
     dcp_failfunc_unless (layout);
-    layout->insertItem (1, m_MostUsed);
+    layout->insertItem (1, m_MostUsed); // TODO XXX this might be wrong
     m_MostUsed->show();
 }
 
@@ -121,10 +123,19 @@ DcpAppletCategoryPage::createContent ()
                 m_CategoryInfo->translationCategories());
 
     DcpPage::createContent ();
+
+    QString subHeaderText = m_CategoryInfo->subHeaderText();
+    if (!subHeaderText.isEmpty() && !m_SubHeader) {
+        m_SubHeader = new MLabel (subHeaderText);
+        m_SubHeader->setStyleName ("CommonBodyTextInverted");
+        mainLayout()->addItem (m_SubHeader);
+    }
+
     if (!m_DelayedContent) {
-        createBody();
+        createBody(false);
     }
     retranslateUi();
+
     if (!m_CategoryInfo->titleStyle().isEmpty()) {
         setTitleStyleName (m_CategoryInfo->titleStyle());
     }
@@ -195,14 +206,17 @@ DcpAppletCategoryPage::setDelayedContent(bool delayed)
  * Create and show the body content of the page.
  */
 void
-DcpAppletCategoryPage::createBody()
+DcpAppletCategoryPage::createBody(bool hasSpacerAtTheEnd)
 {
     if (m_DelayedContent) {
         PageFactory::instance()->enableUpdates (false);
     }
 
-    QGraphicsLayoutItem* spacer = mainLayout()->itemAt (mainLayout()->count()-1);
-    mainLayout()->removeItem (spacer);
+    QGraphicsLayoutItem* spacer = 0;
+    if (hasSpacerAtTheEnd) {
+        spacer = mainLayout()->itemAt (mainLayout()->count()-1);
+        mainLayout()->removeItem (spacer);
+    }
 
     // Most Used Items:
     bool hasMostUsed = m_CategoryInfo->hasMostUsed();
@@ -251,7 +265,9 @@ DcpAppletCategoryPage::createBody()
     setProgressIndicatorVisible (true);
 #endif
 
-    mainLayout()->addItem (spacer);
+    if (hasSpacerAtTheEnd) {
+        mainLayout()->addItem (spacer);
+    }
 
     if (m_DelayedContent) {
         QTimer::singleShot (0, PageFactory::instance(), SLOT(enableUpdates()));
@@ -266,8 +282,13 @@ DcpAppletCategoryPage::retranslateUi()
     if (isContentCreated()) {
         setTitleLabel (m_CategoryInfo->helpId());
     }
-}
 
+    QString subHeaderText = m_CategoryInfo ? m_CategoryInfo->subHeaderText()
+                            : QString();
+    if (!subHeaderText.isEmpty() && m_SubHeader) {
+        m_SubHeader->setText (subHeaderText);
+    }
+}
 
 void
 DcpAppletCategoryPage::onLoadingFinished ()
