@@ -1,3 +1,9 @@
+duicontrolpanel (0.12.21~unreleased) unstable; urgency=low
+
+  * up
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 02 Jun 2011 09:12:45 +0200
+
 duicontrolpanel (0.12.20) unstable; urgency=low
 
   * Fixes: NB#260186 - Please remove the help icon from the reset
