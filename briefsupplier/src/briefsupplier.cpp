@@ -38,7 +38,7 @@
 using namespace BSupplier;
 
 #define returnIf(test, st, param)  \
-    if (test) { qWarning(st ": \"%s\"",qPrintable(param)); return; }
+    if (test) { syslog(LOG_WARNING, st ": \"%s\"",qPrintable(param)); return; }
 
 BriefSupplier::BriefSupplier(const QString &desktopDir):
     m_Stream (new Stream(this))
@@ -86,8 +86,6 @@ void BriefSupplier::onCommandArrival (const QString& command)
         watch (command.mid (CmdWatch.count()));
     } else if (command.startsWith(CmdUnwatch)) {
         unwatch (command.mid (CmdUnwatch.count()));
-    } else if (command.startsWith(CmdSwitchToggle)) {
-        switchToggle (command.mid (CmdSwitchToggle.count()));
     } else if (command.startsWith(CmdSetValue)) {
         setValue (command.mid (CmdSetValue.count()));
     } else {
@@ -220,15 +218,6 @@ void BriefSupplier::outputBrief (DcpAppletObject* applet, bool textOnly)
     }
 
     outputEnd();
-}
-
-void BriefSupplier::switchToggle (const QString& appletName)
-{
-    returnIf (appletName.isEmpty(), "No appletName was specified", appletName);
-    DcpAppletObject* applet = DcpAppletDb::instance ()->applet (appletName);
-    returnIf (!applet, "No such applet", appletName);
-
-    applet->setToggle (!applet->toggle());
 }
 
 void BriefSupplier::setValue (const QString& params)

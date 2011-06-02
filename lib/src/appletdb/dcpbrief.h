@@ -91,6 +91,10 @@ public:
      * 
      * If the widget type is toggle, then this function returns
      * the initial state of the toggle button. The default value is false.
+     *
+     * You can also use value() instead, which has the benefit that you will
+     * have a way to show that the slider is disabled by returning an invalid
+     * QVariant.
      */
     virtual bool toggle () const;
 
@@ -100,6 +104,8 @@ public:
      *   button state, this function will be called, so that the applet can
      *   handle the setting change.
      * \param toggle The new state
+     *
+     * You can also use setValue instead.
      */
     virtual void setToggle (bool toggle);
 
@@ -183,9 +189,14 @@ public:
 
     /*!
      * returns simple value of an applet
-     * It is used currently for the slider to return its current position.
+     * It is used currently for the slider to return its current position,
+     * and for the toggle to return its pressed or not pressed state (bool).
      * The applet should emit valuesChanged() if the value changes and the
-     * slider has to be updated.
+     * slider/toggle has to be updated.
+     *
+     * If the returned value is an invalid variant constructed with the
+     * QVariant() default constructor, that means the slider/toggle has no
+     * value which is considered a disabled state for them.
      */
     virtual QVariant value() const;
 

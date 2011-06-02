@@ -35,7 +35,6 @@ public:
     void watch (DcpRemoteBrief* brief);
     int watchCount ();
     void unwatch (DcpRemoteBrief* brief);
-    void switchToggle (const QString& appletName);
     void setValue(const QString& appletName, const QVariant& value);
     void preload (const QString& appletName);
     void startProcess ();

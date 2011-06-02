@@ -247,7 +247,7 @@ void
 DcpAppletObject::setToggle(bool checked)
 {
     if (brief()) {
-        brief()->setToggle(checked);
+        brief()->setValue (QVariant(checked));
     } else {
         qWarning("Can not set toggle state for the applet %s",
                  qPrintable(metadata()->fileName()));

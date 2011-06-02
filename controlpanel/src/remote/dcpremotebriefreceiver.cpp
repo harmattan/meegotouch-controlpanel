@@ -209,11 +209,6 @@ void DcpRemoteBriefReceiver::unwatch(DcpRemoteBrief* brief)
     cmd (BSupplier::CmdUnwatch, appletName);
 }
 
-void DcpRemoteBriefReceiver::switchToggle(const QString& appletName)
-{
-    cmd (BSupplier::CmdSwitchToggle, appletName);
-}
-
 void DcpRemoteBriefReceiver::setValue(const QString& appletName,
                                       const QVariant& value)
 {
@@ -281,7 +276,6 @@ void DcpRemoteBriefReceiver::onReadyRead()
                 BSupplier::OutputWidgetTypeID,
                 BSupplier::OutputValueText,
                 BSupplier::OutputIcon,
-                BSupplier::OutputToggle,
                 BSupplier::OutputTitleText,
                 BSupplier::OutputHelpId,
                 BSupplier::OutputValue,

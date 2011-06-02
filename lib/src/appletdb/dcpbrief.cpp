@@ -82,8 +82,7 @@ DcpBrief::image() const
 }
 
 void 
-DcpBrief::setToggle (
-        bool) 
+DcpBrief::setToggle (bool)
 {
 }
 
@@ -116,7 +115,11 @@ int DcpBrief::sliderSteps() const
 
 void DcpBrief::setValue(const QVariant& value)
 {
-    Q_UNUSED(value);
+    // for compatibility with DcpBrief::toggle
+    if (widgetTypeID () == DcpWidgetType::Toggle && value.isValid()) {
+        bool newState = value.toBool();
+        setToggle (newState);
+    }
 }
 
 QVariant DcpBrief::value() const
