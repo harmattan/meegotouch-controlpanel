@@ -12,11 +12,8 @@
 void Security::restrictTo (DcpAppletMetadata* metadata)
 {
     if (!PageFactory::isInProcessApplets()) {
-        // FIXME for compatibility we do not drop the credentials yet if the
-        // library does not specify credential for itself
-        creds_t myCreds = creds_gettask (0);
-        creds_confine2 (qPrintable(metadata->fullBinary()), 0, myCreds);
-        creds_free (myCreds);
+        long result = creds_confine (qPrintable(metadata->fullBinary()));
+        syslog (LOG_DEBUG, "XXX %ld", result);
     }
 }
 
