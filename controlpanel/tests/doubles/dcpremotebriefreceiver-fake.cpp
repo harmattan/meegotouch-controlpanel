@@ -22,3 +22,7 @@ DcpRemoteBriefReceiver* DcpRemoteBriefReceiver::instance ()
     return 0;
 }
 
+void DcpRemoteBriefReceiver::startProcess()
+{
+}
+

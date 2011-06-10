@@ -24,7 +24,14 @@ HEADERS += $$system(find ./ -name \'*.h\')
 SOURCES += $$system(find ./ -name \'*.cpp\')
 SOURCES += ../../briefsupplier/src/bsuppliercommands.cpp
 
-CONFIG += meegotouch build_all warn_on debug
+CONFIG += build_all warn_on debug
+
+DISABLE_LAUNCHER {
+    CONFIG += meegotouch
+} else {
+    CONFIG += meegotouch-boostable
+}
+
 QT += network dbus
 LIBS += -lduicontrolpanel
 

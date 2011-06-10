@@ -27,17 +27,20 @@
 
 #include "dcpappletdb.h"
 
-static const QString subtitleObjectName = "CommonSubTitleInverted";
-static const QString singleTitleObjectName = "CommonSingleTitleInverted";
-static const QString iconObjectName = "CommonMainIcon";
-static const QString drillDownObjectName = "CommonDrillDownIcon";
-static const QString toggleObjectName = "CommonRightSwitchInverted";
-static const QString sliderObjectName = "CommonSliderInverted";
+static const char* subtitleObjectName = "CommonSubTitleInverted";
+static const char* singleTitleObjectName = "CommonSingleTitleInverted";
+static const char* titleObjectName = "CommonTitleInverted";
+static const char* iconObjectName = "CommonMainIcon";
+static const char* drillDownObjectName = "CommonDrillDownIcon";
+static const char* toggleObjectName = "CommonRightSwitchInverted";
+static const char* sliderObjectName = "CommonSliderInverted";
+static const char* commonPanelObjectName = "CommonPanelInverted";
+static const char* largePanelObjectName = "CommonLargePanelInverted";
+static const char* sliderSeparatorStyleName = "CommonItemDividerInverted";
 
 DcpContentItemPrivate::DcpContentItemPrivate ():
     m_Applet (0),
     m_Metadata (0),
-    m_Hidden (true),
     m_LayoutIsToBeChanged (true),
     m_ImageW (0),
     m_DrillImage (0),
@@ -46,7 +49,9 @@ DcpContentItemPrivate::DcpContentItemPrivate ():
     m_Help (0),
     m_ButtonW (0),
     m_Slider (0),
-    m_Spacer (0)
+    m_Spacer (0),
+    m_Separator (0),
+    m_Separator2 (0)
 {
 }
 
@@ -59,15 +64,19 @@ DcpContentItem::DcpContentItem (
     MListItem (parent),
     d_ptr (new DcpContentItemPrivate)
 {
+    setContentsMargins (0,0,0,0);
     connect (this, SIGNAL (clicked()), this, SLOT (onClicked()));
-    setStyleName ("CommonPanelInverted");
-    setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
+//    setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Minimum);
     setApplet (applet);
 }
 
 
 DcpContentItem::~DcpContentItem ()
 {
+    // these widgets might not be on the layout, so we ensure they are removed:
+    delete d_ptr->m_Text2W;
+    delete d_ptr->m_Spacer;
+
     delete d_ptr;
 }
 
@@ -103,8 +112,9 @@ DcpContentItem::ensureLayoutIsCreated (QGraphicsGridLayout*& grid)
     grid = static_cast<QGraphicsGridLayout*>(this->layout());
     if (!grid) {
         grid = new QGraphicsGridLayout (this);
-        grid->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
+//        grid->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Minimum);
         grid->setContentsMargins (0,0,0,0);
+        grid->setMaximumSize (QSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX));
         grid->setSpacing(0);
         d_ptr->m_LayoutIsToBeChanged = true;
     }
@@ -139,12 +149,20 @@ DcpContentItem::ensureSliderIsCreated()
 {
     // create / free up image:
     if (widgetType() == DcpWidgetType::Slider)
-     {
+    {
+        if (!d_ptr->m_Separator) {
+            d_ptr->m_Separator = new MSeparator();
+            d_ptr->m_Separator->setStyleName(sliderSeparatorStyleName);
+            d_ptr->m_Separator2 = new MSeparator();
+            d_ptr->m_Separator2->setStyleName(sliderSeparatorStyleName);
+        }
+
         MSlider* &slider = d_ptr->m_Slider;
         if (!slider) {
             slider = new MSlider();
             slider->setStyleName (sliderObjectName);
-            slider->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+//            slider->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
             slider->setMaximumWidth (-1);
             connect(slider, SIGNAL(valueChanged(int)), this, SLOT(sliderChanged(int)));
 
@@ -191,6 +209,10 @@ DcpContentItem::ensureSliderIsCreated()
             d_ptr->m_Slider = 0;
             d_ptr->m_LayoutIsToBeChanged = true;
         }
+        delete d_ptr->m_Separator;
+        delete d_ptr->m_Separator2;
+        d_ptr->m_Separator = 0;
+        d_ptr->m_Separator2 = 0;
     }
 }
 
@@ -215,11 +237,6 @@ DcpContentItem::ensureToggleIsCreated()
             connect (button, SIGNAL (toggled(bool)),
                      this, SLOT(onToggleChanged(bool)));
             d_ptr->m_LayoutIsToBeChanged = true;
-
-            // clicking on the item is disabled (only toggle is clickable)
-            if (!metadata() || !metadata()->hasMainView()) {
-                setAcceptedMouseButtons (Qt::NoButton);
-            }
         }
         // update switch state:
         button->setChecked (isChecked());
@@ -228,14 +245,6 @@ DcpContentItem::ensureToggleIsCreated()
             delete d_ptr->m_ButtonW;
             d_ptr->m_ButtonW = 0;
             d_ptr->m_LayoutIsToBeChanged = true;
-
-            // clicking on the item is enabled
-            if (!metadata() || metadata()->hasMainView()) {
-                setAcceptedMouseButtons (
-                        Qt::LeftButton | Qt::RightButton | Qt::MidButton |
-                        Qt::XButton1 | Qt::XButton2
-                );
-            }
         }
     }
 }
@@ -256,13 +265,12 @@ DcpContentItem::ensureHelpIsCreated()
 
     } else {
         if (!help) {
-            // FIXME: this will be MMHelpButton once the feature got into libmeegotouch
             help = new MHelpButton(helpID());
             help->setViewType(MButton::iconType);
             help->setStyleName ("CommonSwitchIcon");
-            help->setIconID ("icon-m-content-description-inverse");
+            help->setIconID ("icon-s-description-inverse");
             d_ptr->m_LayoutIsToBeChanged = true;
-	    connect(help, SIGNAL(pressed()), this, SLOT(helpClicked()));
+            connect(help, SIGNAL(pressed()), this, SLOT(helpClicked()));
         } else {
             help->setPageID (helpID());
         }
@@ -274,34 +282,50 @@ DcpContentItem::ensureTextsAreCreated()
 {
     dcp_failfunc_unless (metadata());
     QString text2 = this->subtitle();
+    MLabel* &label1 = d_ptr->m_Text1W;
+    MLabel* &label2 = d_ptr->m_Text2W;
+
+    bool hadTwoLine = label2 && !label2->text().isEmpty();
 
     // create the text widgets:
-    if (!d_ptr->m_Text1W) {
-        d_ptr->m_Text1W = new MLabel();
-        d_ptr->m_LayoutIsToBeChanged = true;
-        d_ptr->m_Text1W->setStyleName(singleTitleObjectName);
-        d_ptr->m_Text1W->setAlignment (Qt::AlignBottom);
-    }
-    if (!d_ptr->m_Text2W) {
-        d_ptr->m_Text2W = new MLabel();
-        d_ptr->m_Text2W->setStyleName(subtitleObjectName);
-
+    if (!label1) {
+        label1 = new MLabel();
+        label1->setStyleName (singleTitleObjectName);
+        label1->setTextElide (true);
         d_ptr->m_LayoutIsToBeChanged = true;
     }
+    if (!label2 && !text2.isEmpty()) {
+        label2 = new MLabel();
+        label2->setTextElide (true);
+        label2->setStyleName(subtitleObjectName);
+        if (!d_ptr->m_Spacer) {
+            d_ptr->m_Spacer = new QGraphicsWidget();
+            d_ptr->m_Spacer->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
+        }
+        d_ptr->m_LayoutIsToBeChanged = true;
+    }
 
-    Qt::Alignment text2Align =
-        metadata()->textOrientation() == Qt::Horizontal ?
-        Qt::AlignRight | Qt::AlignTop : Qt::AlignTop;
-    if (d_ptr->m_Text2W->alignment() != text2Align) {
-        // this means that the text orientation has changed,
-        // so we will need to relayout
-        d_ptr->m_Text2W->setAlignment (text2Align);
+    /*
+     * we have to set some styleNames based on
+     * - the row count of the texts
+     * - if we have are a slider
+     */
+    bool rowCountChanged = (hadTwoLine == text2.isEmpty());
+    bool hadSlider = d_ptr->m_Slider;
+    bool willHaveSlider = (widgetType() == DcpWidgetType::Slider);
+    bool havingSliderChanged = (hadSlider != willHaveSlider);
+    if (rowCountChanged || havingSliderChanged) {
+        if (text2.isEmpty() && !willHaveSlider) {
+            label1->setStyleName (singleTitleObjectName);
+        } else {
+            label1->setStyleName (titleObjectName);
+        }
         d_ptr->m_LayoutIsToBeChanged = true;
     }
 
     // update their texts:
-    d_ptr->m_Text1W->setText (title());
-    d_ptr->m_Text2W->setText (text2);
+    label1->setText (title());
+    if (label2) label2->setText (text2);
 }
 
 
@@ -323,49 +347,77 @@ DcpContentItem::ensureWidgetsAreLayouted()
         grid->removeAt(i);
     }
 
+    // clicking on the item is disabled based on if the applet has a mainView
+    if (!metadata() || !metadata()->hasMainView()) {
+        setAcceptedMouseButtons (Qt::NoButton);
+    } else {
+        setAcceptedMouseButtons (
+                Qt::LeftButton | Qt::RightButton | Qt::MidButton |
+                Qt::XButton1 | Qt::XButton2
+        );
+    }
+
     // layout the items again:
     int textX = d_ptr->m_ImageW ? 1 : 0;
+    bool secondLineHasText =
+        d_ptr->m_Text2W && !d_ptr->m_Text2W->text().isEmpty();
     bool isTextHorizontal = metadata()->textOrientation() == Qt::Horizontal;
-    int textLinesCount = d_ptr->m_Slider ? 1 : 3;
+
+    int rowCount = 1;
+    if (!d_ptr->m_Slider && secondLineHasText && !isTextHorizontal) rowCount=3;
+
+    // icon:
     if (d_ptr->m_ImageW) {
         grid->addItem (d_ptr->m_ImageW, 0,0,
-                       textLinesCount, 1, Qt::AlignCenter);
+                       rowCount, 1, Qt::AlignCenter);
     }
-    // slider does not have the labels:
+
+    // slider is somewhat special:
     if (!d_ptr->m_Slider) {
         if (!isTextHorizontal) {
-            grid->addItem (new QGraphicsWidget, 0, textX);
-            grid->addItem (d_ptr->m_Text1W, 1, textX/*, Qt::AlignBottom*/);
-            if (!d_ptr->m_ButtonW) {
-                grid->addItem (d_ptr->m_Text2W, 2, textX, Qt::AlignTop);
+            // vertical mode:
+            if (!secondLineHasText) {
+                // one line text
+                grid->addItem (d_ptr->m_Text1W, 0, textX, Qt::AlignVCenter);
+                if (d_ptr->m_Text2W) d_ptr->m_Text2W->hide();
+                if (d_ptr->m_Spacer) d_ptr->m_Spacer->hide();
             } else {
-                grid->addItem (new QGraphicsWidget, 2, textX);
-            }
-            if (d_ptr->m_Spacer) {
-                d_ptr->m_Spacer->deleteLater();
-                d_ptr->m_Spacer = 0;
+                // two line text
+                grid->addItem (d_ptr->m_Text1W, 0, textX, Qt::AlignBottom);
+                grid->addItem (d_ptr->m_Text2W, 1, textX, Qt::AlignTop);
+                grid->addItem (d_ptr->m_Spacer, 2, textX);
+                d_ptr->m_Text2W->show();
             }
         } else {
-            // this hack lets the labels start at the same y even in horizontal mode
-            if (!d_ptr->m_Spacer) d_ptr->m_Spacer = new MLabel("");
-            grid->addItem (d_ptr->m_Text1W, 0, textX, Qt::AlignBottom);
-            grid->addItem (d_ptr->m_Text2W, 0, textX+1, Qt::AlignBottom);
-            grid->addItem (d_ptr->m_Spacer, 1, textX, 1, 2, Qt::AlignTop);
+            // horizontal mode
+            grid->addItem (d_ptr->m_Text1W, 0, textX, Qt::AlignVCenter);
+            grid->addItem (d_ptr->m_Text2W, 0, textX+1, Qt::AlignVCenter);
             textX++;
         }
+        if (styleName() != commonPanelObjectName) {
+            setStyleName (commonPanelObjectName);
+        }
     } else {
-        grid->addItem (d_ptr->m_Slider, 0, textX, Qt::AlignCenter);
+        int columnCount = d_ptr->m_Help ? 2 : 1;
+        grid->addItem (d_ptr->m_Separator, 0, textX, 1, columnCount);
+        grid->addItem (d_ptr->m_Text1W, 1, textX);
+        grid->addItem (d_ptr->m_Slider, 2, textX, 1,
+                       columnCount, Qt::AlignCenter);
+        grid->addItem (d_ptr->m_Separator2, 3, textX, 1, columnCount);
+        if (styleName() != largePanelObjectName) {
+            setStyleName (largePanelObjectName);
+        }
     }
 
     int toggleX = textX+1;
     if (d_ptr->m_Help) {
-        grid->addItem (d_ptr->m_Help, 0, toggleX,
-                       textLinesCount, 1, Qt::AlignCenter);
+        grid->addItem (d_ptr->m_Help, d_ptr->m_Slider ? 1 : 0, toggleX,
+                       rowCount, 1, Qt::AlignCenter);
         toggleX++;
     }
     if (d_ptr->m_ButtonW) {
         grid->addItem (d_ptr->m_ButtonW, 0, toggleX,
-                       textLinesCount, 1, Qt::AlignCenter);
+                       rowCount, 1, Qt::AlignCenter);
         toggleX++;
     }
 
@@ -376,7 +428,7 @@ DcpContentItem::ensureWidgetsAreLayouted()
             d_ptr->m_DrillImage->setStyleName(drillDownObjectName);
         }
 
-        grid->addItem(d_ptr->m_DrillImage, 0, toggleX, textLinesCount, 1);
+        grid->addItem(d_ptr->m_DrillImage, 0, toggleX, rowCount, 1);
         grid->setAlignment(d_ptr->m_DrillImage, Qt::AlignVCenter | Qt::AlignRight);
     } else {
         delete d_ptr->m_DrillImage;
@@ -415,7 +467,6 @@ QString
 DcpContentItem::title() const
 {
     if (applet()) {
-        if (widgetType() == DcpWidgetType::Slider) return QString();
         return applet()->text1();
     }
     if (d_ptr->m_Metadata) return d_ptr->m_Metadata->text1();

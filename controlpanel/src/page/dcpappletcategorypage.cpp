@@ -26,14 +26,16 @@
 #include "pages.h"
 #include "dcpmostused.h"
 #include "dcpdebug.h"
+#include "pagefactory.h"
 
-#include <DcpAppletDb>
 #include <DcpAppletMetadata>
 #include <DcpAppletObject>
 #include <DcpRetranslator>
 
 #include <QtDebug>
 #include <QGraphicsLinearLayout>
+#include <QTimer>
+#include <MLabel>
 
 
 DcpAppletCategoryPage::DcpAppletCategoryPage (
@@ -41,7 +43,9 @@ DcpAppletCategoryPage::DcpAppletCategoryPage (
     DcpPage (),
     m_CategoryInfo (categoryInfo),
     m_Category (0),
-    m_MostUsed (0)
+    m_MostUsed (0),
+    m_DelayedContent (0),
+    m_SubHeader (0)
 {
 }
 
@@ -59,7 +63,9 @@ DcpAppletCategoryPage::createCategories ()
         return otherCategories;
     }
 
-    if (m_CategoryInfo->componentOrder() == Category::AppletsFirst) {
+    bool hasSeparator = m_CategoryInfo->hasSeparatorLine();
+    if (hasSeparator &&
+        m_CategoryInfo->componentOrder() == Category::AppletsFirst) {
         otherCategories->appendSeparator();
     }
 
@@ -73,10 +79,10 @@ DcpAppletCategoryPage::createCategories ()
         otherCategories->appendWidget(button);
     }
 
-    if (m_CategoryInfo->componentOrder() == Category::CategoriesFirst) {
+    if (hasSeparator &&
+        m_CategoryInfo->componentOrder() == Category::CategoriesFirst) {
         otherCategories->appendSeparator();
     }
-
     return otherCategories;
 }
 
@@ -86,7 +92,7 @@ DcpAppletCategoryPage::mostUsedAppears ()
     dcp_failfunc_unless (m_MostUsed);
     QGraphicsLinearLayout* layout = mainLayout();
     dcp_failfunc_unless (layout);
-    layout->insertItem (1, m_MostUsed);
+    layout->insertItem (1, m_MostUsed); // TODO XXX this might be wrong
     m_MostUsed->show();
 }
 
@@ -112,57 +118,31 @@ DcpAppletCategoryPage::addCategoryToLayoutOrdered (
 void
 DcpAppletCategoryPage::createContent ()
 {
+    // ensures that the translation for the title is loaded:
+    DcpRetranslator::instance()->ensureTranslationsAreLoaded (
+                m_CategoryInfo->translationCategories());
+
     DcpPage::createContent ();
 
-    // Most Used Items:
-    bool hasMostUsed = m_CategoryInfo->hasMostUsed();
-    if (hasMostUsed) {
-        m_MostUsed = new DcpMostUsed(this);
-        m_MostUsed->hide ();
-        connect (m_MostUsed, SIGNAL (itemsBecameAvailable()),
-                 this, SLOT (mostUsedAppears()));
-        if (m_MostUsed->itemsAvailable()) {
-            mostUsedAppears();
-        }
-        connect (this, SIGNAL (appearing()), m_MostUsed, SLOT(refresh()));
+    QString subHeaderText = m_CategoryInfo->subHeaderText();
+    if (!subHeaderText.isEmpty() && !m_SubHeader) {
+        m_SubHeader = new MLabel (subHeaderText);
+        m_SubHeader->setStyleName ("CommonBodyTextInverted");
+        mainLayout()->addItem (m_SubHeader);
     }
 
-    // create the categories:
-    QGraphicsWidget* categoryWidget = createCategories();
-
-    // create the applet list:
-    m_Category = new DcpAppletButtons(m_CategoryInfo);
-    
-    // add them to the layout:
-    if (hasMostUsed) {
-        // box around them:
-        MContainer* container = new MContainer();
-        container->setStyleName ("CommonContainerInverted");
-        // TODO no retranslateUi is implemented for this -V
-        //% "All settings"
-        container->setTitle (qtTrId("qtn_sett_main_other"));
-        mainLayout()->addItem(container);
-
-        // put them in the box:
-        QGraphicsLinearLayout* clayout =
-            new QGraphicsLinearLayout (Qt::Vertical,
-                                       container->centralWidget());
-        addCategoryToLayoutOrdered (clayout, categoryWidget, m_Category);
-
-    } else {
-        // just add them to the layout without box:
-        addCategoryToLayoutOrdered (mainLayout(), categoryWidget, m_Category);
+    if (!m_DelayedContent) {
+        createBody(false);
     }
-
-#ifdef PROGRESS_INDICATOR
-    // show progress indicator while loading the applets:
-    connect (m_Category, SIGNAL (loadingFinished()),
-             this, SLOT (onLoadingFinished()));
-    setProgressIndicatorVisible (true);
-#endif
-    mainLayout()->addStretch();
-
     retranslateUi();
+
+    if (!m_CategoryInfo->titleStyle().isEmpty()) {
+        setTitleStyleName (m_CategoryInfo->titleStyle());
+    }
+
+    QGraphicsWidget* spacer = new QGraphicsWidget();
+    spacer->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
+    mainLayout()->addItem(spacer);
 }
 
 const QString 
@@ -210,16 +190,105 @@ DcpAppletCategoryPage::appletMetadata(int i)
     }
 }
 
+/*!
+ * If delayed is true, createContent creates an empty page that contains
+ * the header label only. The body can be created later with createBody();
+ *
+ * The default behaviour is not delaying the creation of the body.
+ */
+void
+DcpAppletCategoryPage::setDelayedContent(bool delayed)
+{
+    m_DelayedContent = delayed;
+}
+
+/*!
+ * Create and show the body content of the page.
+ */
+void
+DcpAppletCategoryPage::createBody(bool hasSpacerAtTheEnd)
+{
+    if (m_DelayedContent) {
+        PageFactory::instance()->enableUpdates (false);
+    }
+
+    QGraphicsLayoutItem* spacer = 0;
+    if (hasSpacerAtTheEnd) {
+        spacer = mainLayout()->itemAt (mainLayout()->count()-1);
+        mainLayout()->removeItem (spacer);
+    }
+
+    // Most Used Items:
+    bool hasMostUsed = m_CategoryInfo->hasMostUsed();
+    if (hasMostUsed) {
+        m_MostUsed = new DcpMostUsed(this);
+        m_MostUsed->hide ();
+        connect (m_MostUsed, SIGNAL (itemsBecameAvailable()),
+                 this, SLOT (mostUsedAppears()));
+        if (m_MostUsed->itemsAvailable()) {
+            mostUsedAppears();
+        }
+        connect (this, SIGNAL (appearing()), m_MostUsed, SLOT(refresh()));
+    }
+
+    // create the categories:
+    QGraphicsWidget* categoryWidget = createCategories();
+
+    // create the applet list:
+    m_Category = new DcpAppletButtons(m_CategoryInfo, 0, this);
+
+    // add them to the layout:
+    if (hasMostUsed) {
+        // box around them:
+        MContainer* container = new MContainer();
+        container->setStyleName ("CommonContainerInverted");
+        // TODO no retranslateUi is implemented for this -V
+        //% "All settings"
+        container->setTitle (qtTrId("qtn_sett_main_other"));
+        mainLayout()->addItem(container);
+
+        // put them in the box:
+        QGraphicsLinearLayout* clayout =
+            new QGraphicsLinearLayout (Qt::Vertical,
+                                       container->centralWidget());
+        addCategoryToLayoutOrdered (clayout, categoryWidget, m_Category);
+
+    } else {
+        // just add them to the layout without box:
+        addCategoryToLayoutOrdered (mainLayout(), categoryWidget, m_Category);
+    }
+
+#ifdef PROGRESS_INDICATOR
+    // show progress indicator while loading the applets:
+    connect (m_Category, SIGNAL (loadingFinished()),
+             this, SLOT (onLoadingFinished()));
+    setProgressIndicatorVisible (true);
+#endif
+
+    if (hasSpacerAtTheEnd) {
+        mainLayout()->addItem (spacer);
+    }
+
+    if (m_DelayedContent) {
+        QTimer::singleShot (0, PageFactory::instance(), SLOT(enableUpdates()));
+    }
+}
+
 void
 DcpAppletCategoryPage::retranslateUi()
 {
     // briefwidgets take care of themselves, so we only update titles here
     setTitle(m_CategoryInfo ? m_CategoryInfo->title() : QString());
     if (isContentCreated()) {
-        setTitleLabel ();
+        setTitleLabel (m_CategoryInfo->helpId());
+    }
+
+    QString subHeaderText = m_CategoryInfo ? m_CategoryInfo->subHeaderText()
+                            : QString();
+    if (!subHeaderText.isEmpty() && m_SubHeader) {
+        m_SubHeader->setText (subHeaderText);
     }
 }
-
 
 void
 DcpAppletCategoryPage::onLoadingFinished ()

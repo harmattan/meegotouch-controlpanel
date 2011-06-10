@@ -22,6 +22,7 @@
 #include "dcpremotebrief.h"
 #include <QHash>
 #include <QLocalSocket>
+#include <QLocalServer>
 #include <QStringList>
 
 class DcpRemoteBriefReceiver;
@@ -31,7 +32,8 @@ class DcpRemoteBriefReceiverPriv
 public:
     DcpRemoteBriefReceiverPriv ();
 
-    QLocalSocket socket;
+    QLocalSocket* socket;
+    QLocalServer* server;
     QTextStream send;
     QTextStream receive;
     DcpRemoteBrief* currentBrief;

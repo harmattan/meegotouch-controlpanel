@@ -1,0 +1,15 @@
+Parent=Examples
+
+Name=Category with title only
+Name-logical-id=qtn_sett_example_category
+
+Value=
+Value-logical-id=
+
+Icon=
+
+Aliases=Category1
+Translation-catalogs="catalog1,catalog2"
+
+Order=0
+

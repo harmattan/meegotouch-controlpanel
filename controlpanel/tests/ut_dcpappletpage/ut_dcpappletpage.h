@@ -41,8 +41,8 @@ private slots:
     void testWidgetId();
     void testLoad();
     void testLoadMissing();
-//    void testLoadCommand();
-    void testApplet();    
+    void testApplet();
+    void testUseless();
 
 private:
     DcpAppletPage* m_subject;

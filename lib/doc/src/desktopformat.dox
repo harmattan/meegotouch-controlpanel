@@ -3,8 +3,9 @@
 \section description Description
 
 Each applet should have a .desktop file. By default its location
-should be under /usr/lib/duicontrolpanel. (This can be changed with the
-control panel option
+should be under "/usr/share/duicontrolpanel/desktops"
+(the path "/usr/lib/duicontrolpanel" is also supported for compatibility).
+(This can be changed with the control panel option
 -desktopdir.) The desktop file specifies information about the
 applet.
 

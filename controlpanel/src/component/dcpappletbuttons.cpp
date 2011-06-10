@@ -28,7 +28,7 @@
 #include "dcpcategories.h"
 
 #include "pages.h"
-#include <DcpAppletDb>
+#include "dcpappletmanager.h"
 #include <DcpAppletMetadata>
 #include <DcpApplet>
 #include <DcpContentButton>
@@ -45,10 +45,12 @@
 
 DcpAppletButtons::DcpAppletButtons (
         const Category *categoryInfo,
-        QGraphicsWidget        *parent)
+        QGraphicsWidget        *parent,
+        DcpPage        *ownerPage)
 : DcpMainCategory (parent),
     m_CategoryInfo (categoryInfo),
-    m_List (new MList(this))
+    m_List (new MList(this)),
+    m_Page (ownerPage)
 {
     DcpContentItemCellCreator* cellCreator = new DcpContentItemCellCreator();
     m_List->setCellCreator(cellCreator);
@@ -108,11 +110,11 @@ DcpAppletButtons::createContents ()
     DcpAppletMetadataList metadatas;
     bool isMostUsed = m_CategoryInfo->name() == MostUsed;
     if (isMostUsed) {
-        metadatas = DcpAppletDb::instance()->listMostUsed();
+        metadatas = DcpAppletManager::instance()->listMostUsed();
     } else {
         bool withUncategorized = m_CategoryInfo->containsUncategorized();
         metadatas =
-            DcpAppletDb::instance()->listByCategory (
+            DcpAppletManager::instance()->listByCategory (
                     m_CategoryInfo->referenceIds(),
                     withUncategorized ? DcpCategories::hasCategory : NULL);
     }
@@ -180,9 +182,9 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
     // set the applet directly instead of its metadata only
     DcpAppletObject* applet = 0;
     QString name = metadata->name();
-    DcpAppletDb* db = DcpAppletDb::instance();
-    if (db->isAppletLoaded (name) || metadata->hasInProcessBrief()) {
-        applet = db->applet (name);
+    DcpAppletManager* mng = DcpAppletManager::instance();
+    if (mng->isAppletLoaded (name) || metadata->hasInProcessBrief()) {
+        applet = mng->applet (name);
     } else {
         applet = new DcpRemoteAppletObject (metadata, model);
     }
@@ -234,7 +236,7 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
         int widgetId = applet->getMainWidgetId();
         // we can specify the page here if we need support for menu items, progress indicator etc
         DcpAppletWidget* widget =
-            DcpAppletPage::constructAppletWidget (applet, 0, widgetId);
+            DcpAppletPage::constructAppletWidget (applet, m_Page, widgetId);
         if (!widget) {
             qWarning ("Warning: special type of briefview did not supply an icon, skipped");
             return;
@@ -243,7 +245,16 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
         mLayout()->insertItem (getItemCount()-1, widget->graphicsWidget());
         mLayout()->setAlignment (widget->graphicsWidget(), Qt::AlignHCenter);
 
-    } else {
+    } else if (widgetId == DcpWidgetType::Slider) {
+        // unfortunately mlist does not seem to honor variable item height,
+        // that is why this slider hack here:
+        DcpContentItem *slider = new DcpContentItem (applet);
+        if (!applet) slider->setMetadata (metadata);
+        QString tdriverID = "DcpContentItem::" + tdriverPostfix;
+        slider->setTDriverID (tdriverID);
+        appendWidget (slider);
+
+    }else {
         QString tdriverID = "DcpContentItem::" + tdriverPostfix;
 
         QStandardItem* item = new QStandardItem();

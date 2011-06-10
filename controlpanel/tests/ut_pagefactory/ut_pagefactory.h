@@ -45,6 +45,7 @@ private slots:
     void testAppletWantsToStart();
     void testMainPageFirstShown();
     void testRegisterPage(); 
+    void testUseless();
 };
 
 #endif

@@ -31,8 +31,7 @@
  *   Panel
  *
  * \details Applet database can be filled with desktop files and then can
- *   be queried by category, usage, by applet name.  The database is live, so
- *   any changes in the desktop files are applied on refresg
+ *   be queried by category, usage, by applet name. 
  */
 class DcpAppletMetadata;
 class DcpAppletObject;
@@ -51,6 +50,7 @@ public:
      *
      * This function has two optional arguments, so the path and the filter can
      * be initialized as the very first step.
+     * Pathname can also be a list of paths separated by ':'.
      */
     static DcpAppletDb *instance (
             const QString &pathName = DcpApplet::DefaultPath,

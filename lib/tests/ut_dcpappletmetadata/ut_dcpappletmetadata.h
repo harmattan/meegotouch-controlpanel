@@ -64,6 +64,13 @@ private slots:
     void testDisabled();
     void testOrderLessThan();
     void testActive();
+    void testDefaultSOPath();
+    void testTextOrientation();
+    void testText1();
+    void testToggleIconId();
+    void testIsUnique();
+    void testLessThans();
+    void testUseless();
 private:
     DcpAppletMetadata* m_subject;
     QString            desktopOrigFile, desktopTestFile, desktopBadTestFile;

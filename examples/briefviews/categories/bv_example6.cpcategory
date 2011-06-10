@@ -1,0 +1,15 @@
+Parent=Examples
+
+Name=Category with icon
+Name-logical-id=qtn_sett_example_category
+
+Value=
+Value-logical-id=
+
+Icon=icon-m-settings-applications
+
+Aliases=Category2
+Translation-catalogs="catalog1,catalog2"
+
+Order=10
+

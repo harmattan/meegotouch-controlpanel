@@ -21,9 +21,11 @@
 
 DcpAppletButtons::DcpAppletButtons (
         const Category  *categoryInfo,
-        QGraphicsWidget        *parent)
+        QGraphicsWidget        *parent,
+        DcpPage         *ownerPage)
 : DcpMainCategory (parent),
-    m_CategoryInfo (categoryInfo)
+    m_CategoryInfo (categoryInfo),
+    m_Page (ownerPage)
 {
 }
 

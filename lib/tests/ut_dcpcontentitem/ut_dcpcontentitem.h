@@ -50,9 +50,11 @@ private slots:
     void testTextGetters();
     void testEnsureLayoutIsCreated();
     void testEnsureImageIsCreated();
+    void testEnsureSliderIsCreated();
     void testEnsureToggleIsCreated();
     void testEnsureTextsAreCreated();
     void testEnsureWidgetsAreLayouted();
+    void testUseless();
 
 private:
     DcpContentItem* m_Target;

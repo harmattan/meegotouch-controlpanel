@@ -39,7 +39,7 @@ private slots:
     void testTitle();
     void testSubtitle();
     void testActivate();
-    
+    void testCreateLayout(); 
 
 private:
     DcpSingleComponent* m_subject;

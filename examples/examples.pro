@@ -6,5 +6,6 @@ CONFIG += conf
 
 SUBDIRS += binaryapplet
 include (declarativeapplet/declarativeapplet.pri)
+include (briefviews/briefviews.pri)
 include (externalapplet/desktop.pri)
 

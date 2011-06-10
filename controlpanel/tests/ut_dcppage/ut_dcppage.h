@@ -39,6 +39,7 @@ private slots:
     void testReferer();
     void testMainLayout();
     void testAppendWidget();
+    void testSetTitleLabel();
 private:
     DcpPage* m_subject;
 };

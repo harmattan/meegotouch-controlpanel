@@ -20,7 +20,8 @@ X-Maemo-Fixed-Args=MultiPage
 X-DUIApplet-Applet=libdcpmultipageapplet.so
 
 [DCP]
-Category=MainPage
+# Category=MainPage
+Category=Examples
 Order=0
 WidgetType=Label
 

@@ -2,6 +2,7 @@
 
 DcpMostUsed::DcpMostUsed(QGraphicsWidget* parent)
 {
+    Q_UNUSED (parent);
 }
 
 void DcpMostUsed::refresh()

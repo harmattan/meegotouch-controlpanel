@@ -19,7 +19,6 @@
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 #include "dcpretranslator.h"
 
-#include "dcpappletdb.h"
 #include "dcpappletmetadata.h"
 
 #include <QString>
@@ -40,6 +39,12 @@ DcpRetranslatorPriv::DcpRetranslatorPriv ()
 
 DcpRetranslator::DcpRetranslator (): priv(new DcpRetranslatorPriv())
 {
+}
+
+DcpRetranslator::~DcpRetranslator()
+{
+    delete priv;
+    DcpRetranslatorPriv::instance = 0;
 }
 
 void
@@ -72,6 +77,12 @@ DcpRetranslator::ensureTranslationLoaded(DcpAppletMetadata* metadata)
     priv->loadedTranslations.unite(catalogList.toSet());
 }
 
+void
+DcpRetranslator::ensureTranslationsAreLoaded(const QStringList &catalogs)
+{
+    priv->loadedTranslations.unite(catalogs.toSet());
+}
+
 
 DcpRetranslator*
 DcpRetranslator::instance()
@@ -83,3 +94,8 @@ DcpRetranslator::instance()
     return DcpRetranslatorPriv::instance;
 }
 
+bool
+DcpRetranslator::eventFilter(QObject *obj, QEvent *event)
+{
+    return QObject::eventFilter(obj, event);
+}

@@ -21,7 +21,8 @@
 #include <DcpRetranslator>
 #include "service/duicontrolpanelservice.h"
 #include "service/dcpappletlauncherservice.h"
-#include "dcpappletdb.h"
+#include "dcpappletmanager.h"
+#include "dcpapplet.h"
 #include "dcpwrongapplets.h"
 #include "dcpremotebriefreceiver.h"
 #include "pagefactory.h"
@@ -54,6 +55,7 @@ int
 startMainApplication (int argc, char* argv[])
 {
     DCP_DEBUG ("");
+    DcpDebug::start("start_app");
     openlog ("dcp-main", LOG_PID, LOG_USER);
 
     // init servicefw api:
@@ -75,6 +77,7 @@ startMainApplication (int argc, char* argv[])
     // we create the start page here
     service->createStartPage();
 
+    DcpDebug::end("start_app");
     int result = app->exec();
 
     return result;
@@ -85,10 +88,6 @@ startAppletLoader (int argc, char* argv[])
 {
     DCP_DEBUG ("");
     openlog ("dcp-appletloader", LOG_PID, LOG_USER);
-
-    // force the db to be empty, so that we do not popuplate it on the
-    // instance call (and parse the .desktop files)
-    DcpAppletDb::initEmptyDb();
 
     // init servicefw api:
     DcpAppletLauncherService* service = new DcpAppletLauncherService ();
@@ -113,22 +112,26 @@ void cleanup ()
     DcpWrongApplets::destroyInstance();
     MostUsedCounter::destroy();
     DcpCategories::destroy();
-    DcpAppletDb::destroy();
+    DcpAppletManager::destroyInstance();
 
     // free up application:
     // This was disabled as a temporary workaround for a bug which I could not
     // reproduce, but which keeps coming on coreweb (NB#223592)
-    // delete MApplication::instance();
+    // Again enabled because disabling it makes NB#235703 crash more frequent
+    delete MApplication::instance();
 }
 
 
 M_EXPORT int main(int argc, char *argv[])
 {
+    DcpDebug::start("main_init");
     // disables applet supervisor since only the helper process needs it
     DcpWrongApplets::disable();
 
     // parse options
-    QString desktopDir;
+    QStringList desktopDirs;
+    desktopDirs << DESKTOP_DIR;
+    desktopDirs << DESKTOP_DIR2;
     bool isAppletLoader = false; // are we the appletloader process?
     bool isOutprocess = false; // should we run applets outprocess?
 
@@ -154,8 +157,8 @@ M_EXPORT int main(int argc, char *argv[])
         } else if (s == "-desktopdir") {
             if (i + 1 < argc) {
                 i++;
-                desktopDir = argv[i];
-                qDebug() << "Using desktopdir:" << desktopDir;
+                desktopDirs = QStringList(argv[i]);
+                qDebug() << "Using desktopdir:" << argv[i];
             }
         } else if (s == "-outprocess") {
             isOutprocess = true;
@@ -168,9 +171,15 @@ M_EXPORT int main(int argc, char *argv[])
         }
     }
 
+    DcpDebug::end("main_init");
+
     int result;
 
     if (isAppletLoader) {
+        // we do not need briefs for the appletloader process, so we should
+        // not start it
+        DcpRemoteBriefReceiver::disable ();
+
         // start the appletloader process here:
         result = startAppletLoader (argc, argv);
 
@@ -179,14 +188,11 @@ M_EXPORT int main(int argc, char *argv[])
         // start the main process here:
         DcpRemoteBriefReceiver::setArguments (argc, argv);
 
-        /*!
-         * FIXME: If we have a desktop directory we have to load the desktop files
-         * now. We could delay it by changing the DcpAppletDb class implementation.
-         */
-        if (!desktopDir.isEmpty()) {
-            DCP_DEBUG ("### Creating DcpAppletDb in directory '%s'.", 
-                    DCP_STR(desktopDir));
-            DcpAppletDb::instance (desktopDir);
+        DcpAppletManager *mng = DcpAppletManager::instance();
+        foreach (QString dir, desktopDirs) {
+            DCP_DEBUG ("### Using desktopdir '%s'.", 
+                       DCP_STR(dir));
+            mng->addDesktopDir(dir);
         }
 
         result = startMainApplication (argc, argv);

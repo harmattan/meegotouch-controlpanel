@@ -45,6 +45,7 @@ private slots:
     void testImage();
     void testActivate();
     void testTitleText();
+    void testUseless();
     
 
 private:

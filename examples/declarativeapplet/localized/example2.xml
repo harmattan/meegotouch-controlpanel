@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<settings>
+  <group title="declexample_group_title">
+      <text key="/apps/ControlPanel/Example/Text1"
+            title="declexample_text_title" >
+      </text>
+      <text key="/apps/ControlPanel/Example/Text2"
+            title="declexample_text_title2" >
+      </text>
+      <selection key="/apps/ControlPanel/Example/Enum1"
+                 title="declexample_value_title">
+        <option title="declexample_value1" >1</option>
+        <option title="declexample_value2" >2</option>
+        <option title="declexample_value3" >3</option>
+    </selection>
+  </group>
+  <group title="declexample_group_title2">
+      <boolean key="/apps/ControlPanel/Example/Bool1"
+               title="declexample_switch_title">
+      </boolean>
+      <integer key="/apps/ControlPanel/Example/Integer1"
+               title="declexample_select_title" min="30" max="60">
+      </integer>
+  </group>
+</settings>
+

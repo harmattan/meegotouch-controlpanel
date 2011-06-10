@@ -64,6 +64,12 @@ DcpAppletMetadata::isModified() const
     return false;
 }
 
+bool
+DcpAppletMetadata::isHidden() const
+{
+    return false;
+}
+
 QString 
 DcpAppletMetadata::category () const
 {
@@ -100,10 +106,11 @@ DcpAppletMetadata::fullBinary () const
     return d_ptr->m_FileName + "-fullBinary";
 }
 
+int currentWidgetType = 0;
 int 
 DcpAppletMetadata::widgetTypeID () const
 {
-    return 0;
+    return currentWidgetType;
 }
 
 Qt::Alignment 
@@ -257,5 +264,10 @@ bool
 DcpAppletMetadata::hasInProcessBrief () const
 {
     return true;
+}
+
+QString DcpAppletMetadata::helpId() const
+{
+    return "HelpID";
 }
 

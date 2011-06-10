@@ -15,7 +15,8 @@ X-logical-id=controlpanel_example_applet
 X-translation-catalog=catalog1
 
 [DCP]
-Category=Applications
+#Category=Applications
+Category=Examples
 Order=3
 WidgetType=Label
 

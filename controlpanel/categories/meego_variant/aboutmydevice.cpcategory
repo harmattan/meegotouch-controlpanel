@@ -1,6 +1,6 @@
 Parent=MainPage
 
-Name="About my NXX"
+Name="About my device"
 Name-logical-id=qtn_sett_main_aboutmy
 
 Value="Warranty, About product"
@@ -8,7 +8,7 @@ Value-logical-id=qtn_sett_main_aboutmy_label2
 
 Icon=icon-m-settings-description
 
-Aliases="About,About my device"
+Aliases="About,About my NXX"
 Translation-catalogs=
 
 Order=120

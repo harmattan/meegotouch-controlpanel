@@ -22,6 +22,7 @@
 #include <dcpmaincategory.h>
 #include <category.h>
 #include <dcpcategories.h>
+#include "memorycategory.h"
 
 #define CATEGORY DcpCategories::instance()->categoryById("fake-category")
 #define CATEGORY2 DcpCategories::instance()->categoryById("ZERO")
@@ -96,6 +97,43 @@ void Ut_DcpAppletCategoryPage::testRetranslateUi()
 void Ut_DcpAppletCategoryPage::testAddComponent()
 {
     QSKIP("incomplete", SkipSingle);   // remove this when you've finished
+}
+
+void Ut_DcpAppletCategoryPage::testCreateCategories()
+{
+    m_subject->createCategories();
+    m_subject->createCategories();
+
+    MemoryCategory *mc1 = new MemoryCategory (
+                      "FAKE-CATEGORY1",
+                      "fake-category1",
+                      "MainPage1",
+                      "qtn_subtitle1",
+                      "Value line1",
+                      "icon1");
+    MemoryCategory *mc2 = new MemoryCategory (
+                      "FAKE-CATEGORY2",
+                      "fake-category2",
+                      "MainPage2",
+                      "qtn_subtitle2",
+                      "Value line2",
+                      "icon2");
+    mc1->addChild(mc2);
+    DcpAppletCategoryPage *subject2 = new DcpAppletCategoryPage(mc1);
+    subject2->createCategories();
+
+    delete subject2;
+    delete mc1;
+    delete mc2;
+}
+
+void Ut_DcpAppletCategoryPage::testUseless()
+{
+    m_subject->mostUsedAppears();
+    QCOMPARE(m_subject->appletCount(), 0);
+    QVERIFY(!m_subject->appletMetadata(0));
+    m_subject->setDelayedContent(false);
+    m_subject->onLoadingFinished();
 }
 
 QTEST_APPLESS_MAIN(Ut_DcpAppletCategoryPage)

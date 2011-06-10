@@ -30,6 +30,7 @@ SOURCES += \
     $$STUBSDIR/mcontainer-fake.cpp \
     $$LIBDCPFAKES/mgconfitem-fake.cpp \
     $$STUBSDIR/dcpappletdb-fake.cpp \
+    $$STUBSDIR/pagefactory-fake.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
     $$STUBSDIR/dcpappletbuttons-fake.cpp \
     $$STUBSDIR/dcpmostused-fake.cpp \
@@ -39,6 +40,7 @@ SOURCES += \
     $$STUBSDIR/dcpmaincategory-fake.cpp \
     $$STUBSDIR/dcpcategories-fake.cpp \
     $$STUBSDIR/qgraphicsobject-fake.cpp \
+    $$STUBSDIR/mlabel-fake.cpp \
     $$TEST_SOURCES \ 
 
 # base classes
@@ -51,11 +53,13 @@ HEADERS += \
     $$STUBSDIR/dcpappletplugin-applet.h \
     $$SRCDIR/component/dcpappletbuttons.h \
     $$SRCDIR/page/dcpappletcategorypage.h \
+    $$SRCDIR/page/pagefactory.h \
     $$SRCDIR/page/dcppage.h \
     $$SRCDIR/page/pages.h \
     $$SRCDIR/component/dcpmaincategory.h \
     $$SRCDIR/component/dcpmostused.h \
     $$SRCDIR/component/dcpsinglecomponent.h \
+    $$LIBDCPSRC/dcpretranslator.h \
 
 # base classes
 HEADERS += \

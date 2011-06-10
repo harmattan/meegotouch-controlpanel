@@ -17,6 +17,8 @@ SOURCES += \
     $$STUBSDIR/mlayout-fake.cpp \
     $$STUBSDIR/mapplicationpage-fake.cpp \
     $$STUBSDIR/mapplicationwindow-fake.cpp \
+    $$STUBSDIR/mlabel-fake.cpp \
+    $$LIBDCPFAKES/mhelpbutton-fake.cpp \
     $$SRCDIR/../../lib/src/dcpdebug.cpp\
     $$TEST_SOURCES \ 
 

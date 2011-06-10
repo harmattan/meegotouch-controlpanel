@@ -38,9 +38,9 @@ private slots:
     void cleanupTestCase();
     void testLoadBinaryOk();
     void testLoadBinaryError();
-    void testLoadDsl();
     void testMetadata();
     void testInterfaceVersion();
+    void testLoadHints();
 
 private:
     DcpAppletPlugin* m_subject;

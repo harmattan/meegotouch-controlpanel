@@ -1,18 +1,158 @@
-duicontrolpanel (0.13.0) unstable; urgency=low
+duicontrolpanel (0.13.1~unreleased) unstable; urgency=low
 
   * Security restrictions on the applets, see doc
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 01 Mar 2011 10:00:36 +0100
 
-duicontrolpanel (0.12.9~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.21) unstable; urgency=low
 
+  * Fixes: NB#260681 - 'Show events from:'
+    §qtn_home_events_settings_subheader§ subheader should be shown in
+    Notifications -> Events feed
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 02 Jun 2011 15:45:48 +0200
+
+duicontrolpanel (0.12.20) unstable; urgency=low
+
+  * Fixes: NB#260186 - Please remove the help icon from the reset
+    category header...
+  * Fixes: NB#259996 - When opening settings, all the content comes with
+    a flicker
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 27 May 2011 15:23:43 +0200
+
+duicontrolpanel (0.12.19) unstable; urgency=low
+
+  * Fixes: NB#258212 - On reopening the settings , the settings app is
+    getting minimized
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 25 May 2011 10:42:10 +0200
+
+duicontrolpanel (0.12.18) unstable; urgency=low
+
+  * Fixes: NB#255312 - Error seen at 'QDBusConnection: session D-Bus
+    connection created before QCoreApplication. Application may
+    misbehave'
+  * Fixes: NB#256581 - Updated to style for horizontal separators
+  * Fixes: NB#256331 - [TASK] Closing transition is not proper while
+    closing the windows
+  * Fixes: NB#253644 - Settings; String §qtn_locfw_positioning§ is
+    clipped in Russian language
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 23 May 2011 15:56:03 +0200
+
+duicontrolpanel (0.12.17) unstable; urgency=low
+
+  * Fixes: NB#255261 - Brightness slider missing when accessed from a
+    deep link
+  * Fixes: NB#255038 - Settings; while searching for the string
+    Brigtnees will be shown as Display in Settings view
+  * Fixes: NB#254883 - Settings main page layout jumps when opened
+  * Fixes: NB#255158 - controlpanel does not support MSheet as the main view
+    of an applet
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 11 May 2011 15:58:49 +0200
+
+duicontrolpanel (0.12.16) unstable; urgency=low
+
+  * Fixes: NB#247927 - [TASK] clicking settings from events object view
+    opens view with no toolbar
+  * Fixes: NB#250358 - Info icon incorrect for flight mode
+  * Fixes: NB#250359 - Info icon incorrect for reset settings header
+  * Fixes: NB#252136 - Settings notifications has an unnecessary line
+  * Fixes: NB#251900 - [SSU]:Error seen at 'MSplashScreen couldn't load
+    ...splash...
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 04 May 2011 15:40:32 +0200
+
+duicontrolpanel (0.12.15) unstable; urgency=low
+
+  * Doc & Example about how to localize a Declarative applet
+  * Fixes: closing controlpanel could result in starting userguide
+  * Fixes: NB#248758 - Duicontrolpanel searches for declarative settings
+    XML files from /usr/share/duicontrolpanel/uidescriptions but the
+    documentation says /usr/lib/duicontrolpanel/uidescriptions
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 29 Apr 2011 11:12:05 +0200
+
+duicontrolpanel (0.12.14) unstable; urgency=low
+
+  * some layout fixes
+  * Fixes: NB#247999 - Looks as if multiple taps on a applet opens the
+    applet multiple times
+  * Fixes: "Special" briefview can not request page close (for reset applet)
+  * Fixes: NB#250458 - not possible to disable the slider after it got some
+    value
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 26 Apr 2011 15:34:03 +0200
+
+duicontrolpanel (0.12.13) unstable; urgency=low
+
+  [ Robert Manner ]
+  * Fixes: NB#247927 - clicking settings from events object view opens
+    view with no toolbar
+  * Fixes: NB#244666 - [TASK] Control panel shall implement splash
+    screen
+
+  [ Sandor Pinter ]
+  * Fixes: NB#247954 - The device shows previously opened screen when
+    Settings application is opened
+
+ -- Sandor Pinter <sandor.pinter@blumsoft.eu>  Wed, 20 Apr 2011 11:16:02 +0200
+
+duicontrolpanel (0.12.12) unstable; urgency=low
+
+  [ Sandor Pinter ]
+  * Fixes: NB#246239 - Settings application re-opens slowly, if swiped
+    to background few times in a row
+  * Fixes: NB#243609 - ResetApplet: Missing info icon in header
+
+  [ Robert Manner ]
+  * Fixes: NB#241369 - Some brightness indicator is not visible
+  * Fixes: NB#246257 - COREWEB: duicontrolpanel-briefsupplier '_dl_fixup
+    _dl_runtime_resolve
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 15 Apr 2011 15:00:45 +0200
+
+duicontrolpanel (0.12.11) unstable; urgency=low
+
+  [ Viktor Nagy ]
+  * Speed improvements for shorter startup time
+
+  [ Robert Manner ]
+  * Fixes: NB#244769 - Stop using .launch suffix
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 13 Apr 2011 11:46:42 +0200
+
+duicontrolpanel (0.12.10) unstable; urgency=low
+
+  * Fixes: NB#235703 - COREWEB
+  * Fixes: NB#243609 - ResetApplet: Missing info icon in header
+  * New: HelpId can be specified for a category, see doc for details
+  * Fixes: NB#242796 - com.nokia.DuiControlPanelIf.appletPage does not
+    work for declarative applets
+  * Fixes: NB#244960 - Events heading is different when opened from
+    settings and from events view
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 08 Apr 2011 12:47:17 +0200
+
+duicontrolpanel (0.12.9) unstable; urgency=low
+
+  [ Robert Manner ]
   * Fixes: emitting DcpWidget::closePage on first page of the applet
     leads to a window without pages
   * Fixes: DcpWidget::back() can not prevent closing the first page of
     the applet
   * New: example applet for multiple page situation
+  * Updates according to the layout guide
+  * Support for an additional .desktop file directory under /usr/share
+  * Updates the declarative example to have group titles
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 28 Mar 2011 13:04:21 +0200
+  [ Sandor Pinter ]
+  * Fixes: NB#239966 - Bluetooth icon in settings
+  * Fixes: NB#239969 - Device icon in Settings is incorrect
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 31 Mar 2011 16:18:41 +0200
 
 duicontrolpanel (0.12.8.1) unstable; urgency=low
 

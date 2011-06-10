@@ -58,6 +58,13 @@ void Ut_DcpAppletPlugin::testLoadBinaryOk()
     QVERIFY(m_subject->applet());
     appl = dynamic_cast<DcpAppletPluginApplet*>(m_subject->applet());
     QVERIFY(appl && appl->initialized());
+    QVERIFY(m_subject->isAppletLoaded());
+    delete m_subject;
+
+    m_subject = new DcpAppletPlugin(metadata, true);
+    QVERIFY(m_subject->applet());
+    appl = dynamic_cast<DcpAppletPluginApplet*>(m_subject->applet());
+    QVERIFY(appl && appl->initialized());
     delete metadata;
     QVERIFY(m_subject->isAppletLoaded());
 }
@@ -80,17 +87,6 @@ void Ut_DcpAppletPlugin::testLoadBinaryError()
 }
 
 /**
- * TODO
- */
-void Ut_DcpAppletPlugin::testLoadDsl()
-{
-    DcpAppletMetadataFake::appletType = 
-        DcpAppletMetadataFake::TYPE_DSL;
-    QSKIP("TODO: test DSL loading", SkipAll);
-}
-
-
-/**
  * checks if metadata() returns the same pointer that was given in
  * initialization
  */
@@ -110,11 +106,17 @@ void Ut_DcpAppletPlugin::testInterfaceVersion()
     DcpAppletMetadata *metadata = new DcpAppletMetadata("dummy-binary");
     m_subject = new DcpAppletPlugin(metadata);
     QVERIFY(m_subject->applet());
-    QCOMPARE(m_subject->interfaceVersion(), 8);
+    QCOMPARE(m_subject->interfaceVersion(), 9);
     delete m_subject->d_ptr->appletInstance;
     m_subject->d_ptr->appletInstance = 0;
     QCOMPARE(m_subject->interfaceVersion(), -1);
     delete metadata;
+}
+
+void Ut_DcpAppletPlugin::testLoadHints()
+{
+    DcpAppletPlugin::setDefaultLoadHints(1);
+    QCOMPARE(DcpAppletPluginPrivate::defaultLoadHints, 1);
 }
 
 QTEST_APPLESS_MAIN(Ut_DcpAppletPlugin)

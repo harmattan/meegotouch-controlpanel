@@ -35,6 +35,7 @@ void Ut_DcpRetranslator::init()
 
 void Ut_DcpRetranslator::cleanup()
 {
+    delete m_subject;
 }
 
 void Ut_DcpRetranslator::initTestCase()
@@ -177,5 +178,11 @@ void Ut_DcpRetranslator::testLoadAppletTranslationNOK()
     delete metadata;
 }
 
+void Ut_DcpRetranslator::testUseless()
+{
+    m_subject->destroy();
+    m_subject = DcpRetranslator::instance();
+
+}
 QTEST_APPLESS_MAIN(Ut_DcpRetranslator)
 

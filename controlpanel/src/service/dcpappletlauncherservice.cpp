@@ -19,6 +19,7 @@
 
 #include "pagefactory.h"
 #include "security.h"
+#include "dcpappletmanager.h"
 
 #include "dcpappletlauncherifadaptor.h"
 
@@ -26,7 +27,6 @@
 #include <MApplication>
 #include <MApplicationWindow>
 #include <QDBusError>
-#include <DcpAppletDb>
 #include <dcpdebug.h>
 #include <DuiControlPanelIf>
 #include <QDBusServiceWatcher>
@@ -36,7 +36,8 @@ static const char* serviceName = "com.nokia.DcpAppletLauncher";
 
 
 DcpAppletLauncherService::DcpAppletLauncherService ():
-    MApplicationService (serviceName)
+    MApplicationService (serviceName),
+    m_IsServiceRegistered (false)
 {
     DuiControlPanelIf* iface = new DuiControlPanelIf ("", this);
     // this makes us die if the main process dies anyhow:
@@ -73,24 +74,28 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
     PageFactory* pageFactory = PageFactory::instance();
 
     // the db is empty, so we add the started applet into it:
-    DcpAppletDb* db = DcpAppletDb::instance();
-    if (!db->addFile (m_AppletPath)) {
+    DcpAppletManager* mng = DcpAppletManager::instance();
+    if (!mng->loadDesktopFile (m_AppletPath)) {
         close ();
     }
 
     // we get the name of the applet:
-    DcpAppletMetadataList list = db->list();
+    DcpAppletMetadataList list = mng->list();
     dcp_failfunc_unless (list.count() >= 1, false);
     m_PageHandle.param = list.last()->name();
 
-    // the pagefactory starts the applet out of process and refuses to load it,
-    // in case it is not already loaded, so we load it here:
+    // we drop our credentials here and load the applet with the credentials
+    // it specifies only:
     Security::loadAppletRestricted (m_PageHandle.param);
 
     bool success = pageFactory->changePage (m_PageHandle);
 
     if (success) {
-        unregisterService ();
+        // we only unregister the service if the window is shown to prevent
+        // the user click on the appletbutton after that (it would open another
+        // instace)
+        connect (pageFactory, SIGNAL (windowShown()),
+                 this, SLOT (unregisterService()));
         pageFactory->raiseMainWindow ();
     } else {
         close ();
@@ -99,24 +104,28 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
     return success;
 }
 
-void DcpAppletLauncherService::sheduleApplet (const QString& appletPath)
+bool DcpAppletLauncherService::sheduleApplet (const QString& appletPath)
 {
+    // only care about the first request
+    if (m_PageHandle.id != PageHandle::NOPAGE) return false;
+
     m_PageHandle.id = PageHandle::APPLET;
     m_PageHandle.param = QString();
-    m_PageHandle.widgetId = 0;
+    m_PageHandle.widgetId = -1;
     m_PageHandle.isStandalone = false;
     m_AppletPath = appletPath;
+    return true;
 }
 
 
 bool DcpAppletLauncherService::appletPage (const QString& appletPath)
 {
-    sheduleApplet (appletPath);
-    return maybeAppletRealStart();
+    return sheduleApplet (appletPath) && maybeAppletRealStart();
 }
 
 bool DcpAppletLauncherService::registerService ()
 {
+    if (m_IsServiceRegistered) return true;
     // memory owned by QDBusAbstractAdaptor instance and must be on the heap
     new DcpAppletLauncherIfAdaptor(this);
 
@@ -135,11 +144,14 @@ bool DcpAppletLauncherService::registerService ()
     if (!ret) {
         handleServiceRegistrationFailure();
     }
+    m_IsServiceRegistered = true;
     return ret;
 }
 
 bool DcpAppletLauncherService::unregisterService ()
 {
+    if (!m_IsServiceRegistered) return true;
+
     QDBusConnection connection = QDBusConnection::sessionBus();
 
     connection.unregisterObject("/");
@@ -149,6 +161,7 @@ bool DcpAppletLauncherService::unregisterService ()
         qWarning ("Unregistering the service failed (%s): %s",
                 qPrintable (error.name()), qPrintable (error.message()));
     }
+    m_IsServiceRegistered = false;
     return ret;
 }
 

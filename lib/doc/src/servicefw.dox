@@ -37,7 +37,8 @@ You can either pop up the mainpage, an applet or an appletcategory.
 Use DuiControlPanelIf::appletPage() with the applet name as parameter.
 
 You can find out the applet's name from the desktop file of the applet,
-which is a file under /usr/lib/duicontrolpanel/*.desktop. For example you find there that:
+which is a file under /usr/share/duicontrolpanel/desktops/*.desktop or
+/usr/lib/duicontrolpanel/*.desktop. For example you find there that:
 
 \code
 [Desktop Entry]

@@ -21,6 +21,9 @@
 #include <MImageWidget>
 #include <QPixmap>
 
+#include "qgraphicslayoutitem-fake.h"
+
+extern int currentWidgetType;
 void Ut_DcpContentItem::initTestCase()
 {
 }
@@ -66,6 +69,8 @@ void Ut_DcpContentItem::testTDriverID()
     QString tdriver = "12345";
     m_Target->setTDriverID(tdriver);
     QCOMPARE (m_Target->TDriverID(), tdriver);
+    m_Target->setMattiID(tdriver);
+    QCOMPARE (m_Target->mattiID(), tdriver);
 }
 
 void Ut_DcpContentItem::testUpdateContents()
@@ -164,7 +169,7 @@ void Ut_DcpContentItem::testHasTwoTextLines()
 
 void Ut_DcpContentItem::testIsChecked()
 {
-    QSKIP ("Not implemented.", SkipAll);
+    QCOMPARE(m_Target->isChecked(), false);
 }
 
 void Ut_DcpContentItem::testTextGetters()
@@ -179,12 +184,63 @@ void Ut_DcpContentItem::testEnsureLayoutIsCreated()
 
 void Ut_DcpContentItem::testEnsureImageIsCreated()
 {
-    QSKIP ("Not implemented.", SkipAll);
+    DcpAppletObject* applet =
+        new DcpAppletObject(new DcpAppletMetadata("fake"));
+    m_Target->setApplet (applet);
+
+    currentWidgetType = DcpWidgetType::Image;
+    QCOMPARE (m_Target->widgetType(), (int)DcpWidgetType::Image);
+    m_Target->ensureImageIsCreated();
+    QVERIFY (m_Target->d_ptr->m_ImageW);
+
+    currentWidgetType = DcpWidgetType::Label;
+    m_Target->ensureImageIsCreated();
+    QVERIFY (!m_Target->d_ptr->m_ImageW);
+    QCOMPARE (m_Target->d_ptr->m_ImageName, QString(""));
+
+}
+
+void Ut_DcpContentItem::testEnsureSliderIsCreated()
+{
+    DcpAppletObject* applet =
+        new DcpAppletObject(new DcpAppletMetadata("fake"));
+    m_Target->setApplet (applet);
+
+    QVERIFY (!m_Target->d_ptr->m_Separator);
+    QVERIFY (!m_Target->d_ptr->m_Slider);
+
+
+    currentWidgetType = DcpWidgetType::Slider;
+    QCOMPARE (m_Target->widgetType(), (int)DcpWidgetType::Slider);
+    m_Target->ensureSliderIsCreated();
+    QVERIFY (m_Target->d_ptr->m_Separator);
+    QVERIFY (m_Target->d_ptr->m_Slider);
+
+    currentWidgetType = DcpWidgetType::Label;
+    m_Target->ensureSliderIsCreated();
+    QVERIFY (!m_Target->d_ptr->m_Slider);
+    QVERIFY (!m_Target->d_ptr->m_Separator);
+
 }
 
 void Ut_DcpContentItem::testEnsureToggleIsCreated()
 {
-    QSKIP ("Not implemented.", SkipAll);
+    DcpAppletObject* applet =
+        new DcpAppletObject(new DcpAppletMetadata("fake"));
+    m_Target->setApplet (applet);
+
+    QVERIFY (!m_Target->d_ptr->m_ButtonW);
+
+
+    currentWidgetType = DcpWidgetType::Toggle;
+    QCOMPARE (m_Target->widgetType(), (int)DcpWidgetType::Toggle);
+    m_Target->ensureToggleIsCreated();
+    QVERIFY (m_Target->d_ptr->m_ButtonW);
+
+    currentWidgetType = DcpWidgetType::Label;
+    m_Target->ensureToggleIsCreated();
+    QVERIFY (!m_Target->d_ptr->m_ButtonW);
+
 }
 
 void Ut_DcpContentItem::testEnsureTextsAreCreated()
@@ -197,6 +253,21 @@ void Ut_DcpContentItem::testEnsureWidgetsAreLayouted()
     QSKIP ("Not implemented.", SkipAll);
 }
 
+void Ut_DcpContentItem::testUseless()
+{
+    m_Target->onToggleChanged(false);
+    m_Target->onClicked();
+    DcpAppletMetadata *mdata = new DcpAppletMetadata("fake");
+    m_Target->setMetadata(mdata);
+    QVERIFY((void*)m_Target->d_ptr->m_Metadata == (void*)mdata);
+    QCOMPARE(m_Target->imageID(), QString());
+    m_Target->updateContents();
+    m_Target->showEvent(0);
+    m_Target->hideEvent(0);
+    m_Target->loadApplet();
+    m_Target->sliderChanged(1);
+    m_Target->helpClicked();
+}
 
 QTEST_APPLESS_MAIN(Ut_DcpContentItem)
 

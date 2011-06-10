@@ -6,6 +6,7 @@ INCLUDEPATH += $$system(find $$SRCDIR -type d)
 INCLUDEPATH += $${LIBDCPINCLUDE}
 APPLETDBINCLUDE = $${LIBDCPINCLUDE}/../appletdb
 INCLUDEPATH += $${APPLETDBINCLUDE}
+INCLUDEPATH += $${APPLETDBINCLUDE}/../appletmanager
 INCLUDEPATH += $${STUBSDIR}
 
 TARGET = ut_dcpappletbuttons
@@ -23,7 +24,7 @@ SOURCES += \
     *.cpp \
     $$STUBSDIR/dcpappletplugin-fake.cpp \
     $$STUBSDIR/dcpremoteappletobject-fake.cpp \
-    $$STUBSDIR/dcpappletdb-fake.cpp \
+    $$STUBSDIR/dcpappletmanager-fake.cpp \
     $$LIBDCPFAKES/mgconfitem-fake.cpp \
     $$LIBDCPFAKES/mhelpbutton-fake.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
@@ -53,6 +54,7 @@ HEADERS += \
     $$SRCDIR/categories/dcpcategories.h \
     $$SRCDIR/component/dcpcontentitemcellcreator.h \
     $$SRCDIR/remote/dcpremoteappletobject.h \
+    $$SRCDIR/appletmanager/dcpappletmanager.h \
 
 # base classes
 HEADERS += \

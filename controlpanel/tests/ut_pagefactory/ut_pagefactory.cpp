@@ -21,10 +21,14 @@
 #include "mapplication.h"
 #include <dcppage.h>
 #include <dcpappletpage.h>
+#include <dcpcategories.h>
 #include <dcpappletobject.h>
+#include <dcpappletmetadata.h>
+#include "dcpappletmanager.h"
 
 #include <QObject>
 
+#define CATEGORY DcpCategories::instance()->categoryById("fake-category")
 
 void Ut_PageFactory::init()
 {
@@ -146,6 +150,8 @@ void Ut_PageFactory::testAppletWantsToStart()
 {
     PageFactory* factory = PageFactory::instance();
 
+    DcpAppletManager::instance()->loadMetadata();
+
     // switch to an appletpage
     PageHandle handle(PageHandle::APPLET, "fake-name");
     factory->changePage (handle);
@@ -159,6 +165,7 @@ void Ut_PageFactory::testAppletWantsToStart()
      * an appletobject)
      */
     DcpAppletObject* applet = page->applet();
+    QVERIFY(applet);
     factory->onAppletLoaded (applet); // this is necessery because the fake db
                                       // does not emit a signal for us
     applet->activateSlot(1);
@@ -181,6 +188,32 @@ void Ut_PageFactory::testMainPageFirstShown()
 void Ut_PageFactory::testRegisterPage()
 {
     QSKIP("incomplete", SkipSingle);
+}
+
+void Ut_PageFactory::testUseless()
+{
+    PageFactory* factory = PageFactory::instance();
+
+    factory->preloadBriefReceiver();
+    factory->completeCategoryPage();
+    factory->createAppletCategoryPageIncomplete(CATEGORY);
+    DcpAppletMetadata *metadata = new DcpAppletMetadata("dummy-binary");
+    QVERIFY(factory->createAppletPage(metadata));
+    factory->changeToAppletPage("haba");
+    factory->preloadAppletLauncher();
+
+    PageHandle pageH;
+    factory->isCurrentPage(pageH);
+//    factory->raiseMainWindow();
+    factory->switchToMainPageWithPageDropping();
+    factory->destroyPageHistory();
+    factory->onMetadataLoaded();
+    factory->setInProcessApplets(true);
+//    factory->newWin();
+    QEvent event(QEvent::None);
+    factory->eventFilter(this, &event);
+    factory->newMainPageInSeparateProcess();
+
 }
 
 QTEST_APPLESS_MAIN (Ut_PageFactory);

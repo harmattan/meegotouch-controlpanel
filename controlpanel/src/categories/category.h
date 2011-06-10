@@ -69,6 +69,15 @@ public:
 
     bool appletAutoStart () const;
 
+    QString helpId () const;
+
+    QString titleStyle () const;
+
+    bool hasSeparatorLine () const;
+
+    QString subHeaderText () const;
+    QString subHeaderTextLogicalId () const;
+
 protected:
     static const char* componentOrderToString (ComponentOrderType order);
 
@@ -88,6 +97,11 @@ protected:
         ComponentOrderId,
         AppletSortId,
         AppletAutoStartId,
+        HelpId,
+        TitleStyleId,
+        HasSeparatorLineId,
+        SubHeaderTextId,
+        SubHeaderTextLogicalId,
         KeyIdMax
     };
 

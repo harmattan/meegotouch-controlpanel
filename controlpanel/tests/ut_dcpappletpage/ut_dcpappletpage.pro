@@ -36,6 +36,7 @@ SOURCES += \
     $$STUBSDIR/dcpretranslator-fake.cpp \
     $$STUBSDIR/qgraphicslinearlayout-fake.cpp \
     $$STUBSDIR/qgraphicsobject-fake.cpp \
+    $$STUBSDIR/mlabel-fake.cpp \
     $$TEST_SOURCES \ 
 
 # base classes

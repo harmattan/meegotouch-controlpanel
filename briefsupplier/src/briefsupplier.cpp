@@ -19,8 +19,8 @@
 
 #include <QtDebug>
 #include <QCoreApplication>
-#include <QLocalServer>
 #include <QLocalSocket>
+#include <QLibrary>
 
 #include <dcpappletdb.h>
 #include <dcpappletobject.h>
@@ -43,25 +43,23 @@ using namespace BSupplier;
 BriefSupplier::BriefSupplier(const QString &desktopDir):
     m_Stream (new Stream(this))
 {
+    // this makes loading a bit longer, but protects controlpanel from crash
+    // in case the plugin has an unresolved symbol which situation cant be
+    // avoided during SSU upgrades
+    DcpAppletPlugin::setDefaultLoadHints (QLibrary::ResolveAllSymbolsHint);
+
     // init the stream:
     connect (m_Stream, SIGNAL (newCommand(QString)),
              this, SLOT (onCommandArrival(QString)));
 
-    // init the server:
-    m_Server = new QLocalServer (this);
-    connect (m_Server, SIGNAL (newConnection()),
-             this, SLOT (onNewConnection()));
-    bool ok = m_Server->listen (BServerId);
-    if (!ok) {
-        syslog (LOG_WARNING, "can not listen on localsocket, trying cleanup");
-        QLocalServer::removeServer (BServerId);
-        ok = m_Server->listen (BServerId);
-    }
-    if (!ok) {
-        qWarning ("Brief supplier process is not able to listen");
-        qApp->exit(1);
-        return;
-    }
+    // connect to controlpanel
+    QLocalSocket* socket = new QLocalSocket (this);
+    connect (socket, SIGNAL (error (QLocalSocket::LocalSocketError)),
+             this, SLOT (onConnectionDisconnected ()));
+    connect (socket, SIGNAL (disconnected ()),
+             this, SLOT (onConnectionDisconnected ()));
+    setIODevice (socket);
+    socket->connectToServer (BSupplier::BServerId);
 
     // init the db:
     DcpAppletDb *db = desktopDir.isEmpty() ? DcpAppletDb::instance() :
@@ -74,23 +72,8 @@ BriefSupplier::BriefSupplier(const QString &desktopDir):
 
 BriefSupplier::~BriefSupplier()
 {
-    m_Server->close();
-    delete m_Stream;
 }
 
-void BriefSupplier::onNewConnection ()
-{
-    static int connectionCount = 0;
-    connectionCount++;
-    if (connectionCount == 1) {
-        QLocalServer* server = qobject_cast<QLocalServer*>(sender());
-        dcp_failfunc_unless (server);
-        QLocalSocket* socket = server->nextPendingConnection ();
-        setIODevice (socket);
-        connect (socket, SIGNAL (disconnected ()),
-                 this, SLOT (onConnectionDisconnected()));
-    }
-}
 
 void BriefSupplier::onConnectionDisconnected()
 {
@@ -231,7 +214,7 @@ void BriefSupplier::outputBrief (DcpAppletObject* applet, bool textOnly)
             if (minValue != 0) output (OutputMinValue, minValue);
             if (maxValue != 100) output (OutputMaxValue, maxValue);
             if (sliderSteps != 0) output (OutputValueStep, sliderSteps);
-            output (OutputValue, value.toString());
+            output (OutputValue, value.toString(), true);
         }
         output (OutputHelpId, helpId);
     }
@@ -288,9 +271,9 @@ void BriefSupplier::outputEnd ()
     m_Stream->flush ();
 }
 
-void BriefSupplier::output (const char* key, const QString& value)
+void BriefSupplier::output (const char* key, const QString& value, bool forced)
 {
-    if (!value.isEmpty ()) {
+    if (forced || !value.isEmpty ()) {
         // the key and value is separated by the first "="
         m_Stream->writeLine (QString(key) + "=" + value);
     }

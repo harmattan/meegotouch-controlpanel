@@ -49,8 +49,12 @@ DcpAppletDb::DcpAppletDb (
         const QString   &pathName,
         const QString   &nameFilter) : d_ptr(new DcpAppletDbPrivate())
 {
-    if (!pathName.isEmpty())
-        addFiles (pathName, nameFilter);
+    if (!pathName.isEmpty()) {
+        QStringList paths = pathName.split(':');
+        foreach (QString path, paths) {
+            addFiles (path, nameFilter);
+        }
+    }
 
 #ifdef MOSTUSED
     // try to restore the last used applet:
@@ -174,6 +178,7 @@ DcpAppletDb::addFiles (
 
     bool success = true;
     appDir.setNameFilters (nameFilters);
+
     foreach (QString appFile, appDir.entryList (QDir::Files)) {
         DCP_DEBUG ("Adding file '%s'", 
                 DCP_STR (appDir.absoluteFilePath(appFile)));
@@ -288,8 +293,6 @@ DcpAppletDb::listMostUsed ()
 /*!
  * \brief Returns the applet found in the database by its name.
  *
- * FIXME: This is actually a localized name, that is changed when the language
- * settings are changed. This might cause some problems in the future.
  */
 DcpAppletObject *
 DcpAppletDb::applet (const QString &name)

@@ -11,7 +11,7 @@ application.
 
 For this to work you will need a .desktop file for your application
 (like for any other control panel applet) and install it under
-"/usr/lib/duicontrolpanel".
+"/usr/share/duicontrolpanel/desktops".
 
 The important key is that you will need to specify the application you
 want to start in the key "Exec".

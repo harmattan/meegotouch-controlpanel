@@ -100,5 +100,15 @@ void Ut_DcpBrief::testTitleText()
     QCOMPARE(m_subject->titleText(), QString());
 }
 
+void Ut_DcpBrief::testUseless()
+{
+    m_subject->setToggle(false);
+    QCOMPARE(m_subject->helpId(), QString());
+    QCOMPARE(m_subject->minValue(), 0);
+    QCOMPARE(m_subject->maxValue(), 100);
+    QCOMPARE(m_subject->sliderSteps(), 0);
+    m_subject->setValue(0);
+    QCOMPARE(m_subject->value(), QVariant());
+}
 
 QTEST_APPLESS_MAIN(Ut_DcpBrief)

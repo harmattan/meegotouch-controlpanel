@@ -94,14 +94,6 @@ void PageFactory::preloadBriefReceiver()
 {
 }
 
-void PageFactory::mainPageFirstShown()
-{
-}
-
-void PageFactory::onDisplayEntered ()
-{
-}
-
 bool
 PageFactory::isCurrentPage (const PageHandle &)
 {
@@ -127,4 +119,34 @@ bool PageFactory::eventFilter(QObject *obj, QEvent *event)
     return QObject::eventFilter (obj, event);
 }
 
+void PageFactory::completeCategoryPage()
+{
+}
+
+void PageFactory::onMetadataLoaded()
+{
+}
+
+void PageFactory::newMainPageInSeparateProcess()
+{
+}
+
+void PageFactory::switchToMainPageWithPageDropping ()
+{
+}
+
+void PageFactory::destroyPageHistory()
+{
+}
+
+bool
+PageFactory::popupSheetIfAny (const PageHandle&)
+{
+    return false;
+}
+
+void PageFactory::enableUpdates (bool enable)
+{
+    Q_UNUSED (enable);
+}
 

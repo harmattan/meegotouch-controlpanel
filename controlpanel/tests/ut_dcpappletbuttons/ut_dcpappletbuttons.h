@@ -38,6 +38,8 @@ private slots:
     void testCreation();
     void testAddComponent();
     void testReload();
+    void testCategoryInfo();
+    void testIDs();
 };
 
 #endif

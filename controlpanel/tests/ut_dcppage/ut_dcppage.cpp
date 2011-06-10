@@ -18,17 +18,12 @@
 #include <QObject>
 #include <QGraphicsSceneMouseEvent>
 #include <QCoreApplication>
+#include <MLabel>
 #include <dcppage.h>
 
 #include "ut_dcppage.h"
-#include "mlabel.h"
 #include <QGraphicsLinearLayout>
 
-MLabel::MLabel(QGraphicsItem *parent, MLabelModel *model)
-{
-    Q_UNUSED(parent);
-    Q_UNUSED(model);
-};
 void Ut_DcpPage::init()
 {
     m_subject = new DcpPage();
@@ -102,5 +97,14 @@ void Ut_DcpPage::testAppendWidget()
     m_subject->appendWidget(label1);
     QCOMPARE(m_subject->mainLayout()->itemAt(0), (QGraphicsLayoutItem*)label1);
 }
+
+void Ut_DcpPage::testSetTitleLabel()
+{
+    m_subject->setTitle("habala");
+    m_subject->setTitleLabel("ize");
+    m_subject->setTitle("");
+    m_subject->setTitleLabel("ize2");
+}
+
 QTEST_APPLESS_MAIN(Ut_DcpPage)
 

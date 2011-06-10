@@ -13,14 +13,15 @@ X-Maemo-Service=com.nokia.DuiControlPanel
 X-Maemo-Method=com.nokia.DuiControlPanelIf.appletPage
 X-Maemo-Object-Path=/
 # this has to be the same as Name
-X-Maemo-Fixed-Args=Skeleton
+X-Maemo-Fixed-Args=SkelSlider
 
 
 [DUI]
 X-DUIApplet-Applet=libdcpskelsliderapplet.so
 
 [DCP]
-Category=MainPage
+# Category=MainPage
+Category=Examples
 Order=0
 WidgetType=Slider
 SliderLeftImage=icon-m-camera-whitebalance-sunny-screen

@@ -44,10 +44,11 @@ DcpAppletPlugin::applet() const
     return d_ptr->appletInstance; 
 }
 
+bool isLoaded = true;
 bool
 DcpAppletPlugin::isAppletLoaded() const
 {
-    return d_ptr->appletInstance != 0;
+    return isLoaded;
 }
 
 DcpAppletMetadata*
@@ -86,5 +87,9 @@ int
 DcpAppletPlugin::interfaceVersion() const
 {
     return 999999;
+}
+
+void DcpAppletPlugin::setDefaultLoadHints (int)
+{
 }
 

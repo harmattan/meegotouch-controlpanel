@@ -58,33 +58,50 @@ QStringList Category::translationCategories () const
     return valueList (TranslationId);
 }
 
-QString Category::title() const
+inline QString qtTrTranslated (const QString& id, const QString& engineering)
 {
-    QString id = titleId();
+    if (id.isEmpty() && engineering.isEmpty()) return id;
     QString translated = qtTrId(qPrintable(id));
 
     if (translated == id)
-        return "!! " + name ();
+        return "!! " + engineering;
     else
         return translated;
 }
 
+QString Category::title() const
+{
+    return qtTrTranslated (titleId(), name());
+}
+
+QString Category::subHeaderText () const
+{
+    return qtTrTranslated (subHeaderTextLogicalId(), value(SubHeaderTextId));
+}
+
+QString Category::subHeaderTextLogicalId () const
+{
+    return value (SubHeaderTextLogicalId);
+}
+
 QString Category::subtitle() const
 {
-    QString id = subtitleId();
-    if (id.isEmpty()) return id;
-    QString translated = qtTrId(qPrintable(id));
-
-    if (translated == id) {
-        return "!! " + value (ValueId);
-    } else {
-        return translated;
-    }
+    return qtTrTranslated (subtitleId(), value (ValueId));
 }
 
 QString Category::iconId() const
 {
     return value (IconId);
+}
+
+QString Category::helpId () const
+{
+    return value (HelpId);
+}
+
+QString Category::titleStyle () const
+{
+    return value (TitleStyleId);
 }
 
 QStringList Category::referenceIds() const
@@ -189,5 +206,11 @@ bool Category::appletAutoStart () const
 {
     QString autoSt = value (AppletAutoStartId);
     return autoSt == "1";
+}
+
+bool Category::hasSeparatorLine () const
+{
+    QString hasSep = value (HasSeparatorLineId);
+    return hasSep != "0";
 }
 

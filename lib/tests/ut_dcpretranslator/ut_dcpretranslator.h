@@ -42,6 +42,7 @@ private slots:
     void testRetrenslate();
     void testLoadAppletTranslationOK();
     void testLoadAppletTranslationNOK();
+    void testUseless();
     
     
 private:

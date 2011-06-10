@@ -20,6 +20,7 @@
 #include <QHash>
 #include <QList>
 #include <QString>
+#include <MCollator>
 
 class FakeLocale {
     public:
@@ -73,4 +74,29 @@ void MLocale::setDefault(const MLocale &locale)
     defLocale = &locale;
 }
 
+MCollator::MCollator(const MLocale &):
+    d_ptr(0)
+{
 
+}
+
+MCollator::MCollator(const MCollator&):
+        d_ptr(0)
+{
+
+}
+
+MCollator::~MCollator()
+{
+
+}
+
+bool MCollator::operator()(const QString &, const QString &)const
+{
+    return true;
+}
+
+MLocale::Comparison MCollator::compare(const QString &, const QString &)
+{
+    return MLocale::GreaterThan;
+}

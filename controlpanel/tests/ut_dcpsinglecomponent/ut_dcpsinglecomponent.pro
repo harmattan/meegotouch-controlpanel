@@ -8,7 +8,11 @@ INCLUDEPATH += $$LIBDCPSRC/appletdb
 TARGET = ut_dcpsinglecomponent
 
 TEST_SOURCES = \
-    $$SRCDIR/component/dcpsinglecomponent.cpp \
+    $$SRCDIR/component/dcpsinglecomponent.cpp
+
+# unit test and unit
+SOURCES += \
+    ut_dcpsinglecomponent.cpp \
     $$SRCDIR/page/pages.cpp \
     $$SRCDIR/categories/category.cpp \
     $$SRCDIR/categories/memorycategory.cpp \
@@ -17,15 +21,13 @@ TEST_SOURCES = \
     ../doubles/dcpappletplugin-fake.cpp \
     ../doubles/mdesktopentry-fake.cpp \
     ../doubles/mbasiclistitem-fake.cpp \
+    ../doubles/mlabel-fake.cpp \
     $$LIBDCPFAKES/mgconfitem-fake.cpp \
     $$LIBDCPFAKES/mimagewidget-fake.cpp \
     ../doubles/mapplication-fake.cpp \
     ../doubles/mapplicationpage-fake.cpp \
-    ../doubles/mapplicationwindow-fake.cpp \
-
-# unit test and unit
-SOURCES += \
-    ut_dcpsinglecomponent.cpp \
+    ../doubles/mwidgetcontroller-fake.cpp \
+   ../doubles/mapplicationwindow-fake.cpp \
     $$TEST_SOURCES \ 
 
 # base classes

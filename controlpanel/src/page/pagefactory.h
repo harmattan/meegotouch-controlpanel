@@ -32,6 +32,8 @@ class DcpAppletPage;
 class DcpAppletCategoryPage;
 class DcpAppletLauncherIf;
 class MApplicationWindow;
+class Category;
+
 /*!
  * Implements methods to create new views (pages), show views and change between
  * views.
@@ -44,14 +46,16 @@ public:
     ~PageFactory ();
     static PageFactory *instance ();
     static void setInProcessApplets (bool inProcess);;
-    static bool isInProcessApplets () { return sm_AppletLauncher == 0; }
+    static bool isInProcessApplets () { return sm_IsInProcessModeEnabled; }
     static void destroy();
     DcpPage* createPage (const PageHandle &handle);
     DcpPage* currentPage ();
     bool maybeRunOutOfProcess (const QString& appletName);
     MApplicationWindow* window ();
+
 public slots:
     void appletWantsToStart (int widgetId = -1);
+    void enableUpdates(bool enable = true);
 
     void raiseMainWindow();
     bool changePage (const PageHandle &handle, bool dropOtherPages = false);
@@ -63,20 +67,28 @@ public slots:
 
 signals:
     void resetAppletLauncherProcesses ();
+    void windowShown ();
 
 protected:
     PageFactory ();
     DcpPage* createMainPage ();
+    DcpAppletCategoryPage* createAppletCategoryPageIncomplete (
+         const Category *);
     DcpPage* createAppletPage(PageHandle& applet);
     DcpPage* createAppletPage (DcpAppletMetadata* metadata);
     DcpPage* createAppletCategoryPage (const PageHandle& pageId);
     void appear (MApplicationPage* page);
 
     bool eventFilter(QObject *obj, QEvent *event);
+    bool popupSheetIfAny (const PageHandle& handle);
 
 private slots:
-    void onDisplayEntered ();
-    void mainPageFirstShown ();
+    void completeCategoryPage ();
+    void onMetadataLoaded ();
+
+    void newMainPageInSeparateProcess ();
+    void switchToMainPageWithPageDropping ();
+    void destroyPageHistory ();
 
 private:
     bool tryOpenPageBackward (const PageHandle &handle);
@@ -84,15 +96,29 @@ private:
     void newWin ();
     bool isCurrentPage (const PageHandle &handle);
     void closeHelpPage();
+    bool verifyAppletLauncherIsOk();
 
     QList< MSceneWindow * > pageHistory ();
 
     static PageFactory     *sm_Instance;
     QPointer<DcpAppletPage> m_LastAppletPage;
-    static DcpAppletLauncherIf *sm_AppletLauncher;
+
+    DcpAppletLauncherIf *m_AppletLauncher;
+    static bool sm_IsInProcessModeEnabled;
+
     QPointer<MApplicationWindow> m_Win;
+    /*! The page of which body needs to be created after the applets are
+        registered */
+    DcpAppletCategoryPage *m_PageWithDelayedContent;
+    bool m_AppletsRegistered;
+
     // for testability
     friend class Ut_PageFactory;
+
+    enum StartupState {
+        NothingStarted,
+        BriefSupplierStarted
+    } m_StartupState;
 };
 
 #endif

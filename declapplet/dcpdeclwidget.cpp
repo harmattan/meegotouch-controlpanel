@@ -28,7 +28,7 @@
 #include "dynamicgconfdatastore.h"
 #include <dcpdebug.h>
 
-static const QString defaultPath = "/usr/lib/duicontrolpanel/uidescriptions/";
+static const QString defaultPath = DCP_UIDESC_DIR "/";
 
 DcpDeclWidget::DcpDeclWidget(const QString& xmlPath)
 {
@@ -70,14 +70,16 @@ DcpDeclWidget::DcpDeclWidget(const QString& xmlPath)
 void DcpDeclWidget::createErrorLabel(const QString& text)
 {
     MLabel* label;
-    
+
     /*
      * It seems that he MSettingsLanguageParser can't tell us what was wrong.
      * Maybe we should add an implementation for that.
      */
     label = new MLabel(this);
     label->setText("ERROR: " + text + "\nCheck log for details.");
+    label->setWrapMode (QTextOption::WrapAtWordBoundaryOrAnywhere);
     label->setWordWrap (true);
+    label->setStyleName ("CommonBodyTextInverted");
     ((QGraphicsLinearLayout*)(layout()))->addItem(label);
 
     DCP_WARNING(qPrintable(text));

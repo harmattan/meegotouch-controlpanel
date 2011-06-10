@@ -70,10 +70,20 @@ QString SkeletonApplet::title() const
 
 QVector<MAction*> SkeletonApplet::viewMenuItems()
 {
-    QVector<MAction*> vector(1);
+    QVector<MAction*> vector(3);
+
     //% "Example action"
     vector[0] = new MAction(qtTrId("dcp_skel_appl_action"), this);
     vector[0]->setLocation(MAction::ApplicationMenuLocation);
+
+    vector[1] = new MAction(this);
+    vector[1]->setIconID ("icon-m-input-reset");
+    vector[1]->setLocation(MAction::ToolBarLocation);
+
+    vector[2] = new MAction(this);
+    vector[2]->setIconID ("icon-m-input-add");
+    vector[2]->setLocation(MAction::ToolBarLocation);
+
     return vector;
 }
 

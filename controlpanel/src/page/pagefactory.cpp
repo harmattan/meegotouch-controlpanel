@@ -26,14 +26,15 @@
 #include "dcpcategories.h"
 #include "category.h"
 #include "dcpremotebriefreceiver.h"
+#include "dcpappletmanager.h"
 
-#include <DcpAppletDb>
 #include <DcpAppletIf>
 #include <DcpAppletMetadata>
 #include <DcpAppletObject>
 #include <DcpWidgetTypes>
 #include <DcpRetranslator>
 #include "dcpappletlauncherif.h"
+#include "duicontrolpanelif.h"
 
 #include <MApplication>
 #include <MComponentCache>
@@ -41,9 +42,10 @@
 #include <MPannableViewport>
 #include <MSceneManager>
 #include <QTimer>
+#include <MSheet>
 
-// this also specifies if the applet views should be shown inprocess or outprocess
-DcpAppletLauncherIf * PageFactory::sm_AppletLauncher = 0;
+// this specifies if the applet views should be shown inprocess or outprocess
+bool PageFactory::sm_IsInProcessModeEnabled = true;
 
 #include "dcpdebug.h"
 
@@ -52,23 +54,34 @@ PageFactory *PageFactory::sm_Instance = 0;
 
 PageFactory::PageFactory ():
     QObject (),
-    m_Win (0)
+    m_AppletLauncher (0),
+    m_Win (0),
+    m_PageWithDelayedContent (0),
+    m_AppletsRegistered (false),
+    m_StartupState (NothingStarted)
 {
-    // run appletLoaded for all applets:
-    DcpAppletDb* db = DcpAppletDb::instance();
-    connect (db, SIGNAL(appletLoaded(DcpAppletObject*)),
+    // Run onAppletLoaded for all the applets that are already loaded
+    // and run it later for the applets loaded in the future.
+    DcpAppletManager* mng = DcpAppletManager::instance();
+    connect (mng, SIGNAL(appletLoaded(DcpAppletObject*)),
              this, SLOT(onAppletLoaded(DcpAppletObject*)));
-    QList<DcpAppletObject*> loadedApplets = db->loadedApplets();
+    QList<DcpAppletObject*> loadedApplets = mng->loadedApplets();
     foreach (DcpAppletObject* applet, loadedApplets) {
         onAppletLoaded (applet);
+    }
+
+    if (mng->isMetadataLoaded()) {
+        onMetadataLoaded ();
+    } else {
+        connect (mng, SIGNAL(metadataLoaded()), this, SLOT(onMetadataLoaded()));
     }
 }
 
 PageFactory::~PageFactory ()
 {
-    delete sm_AppletLauncher;
+    delete m_AppletLauncher;
 
-    sm_AppletLauncher = 0;
+    m_AppletLauncher = 0;
     sm_Instance = 0;
     if (m_Win) {
         // close help pages if any:
@@ -117,11 +130,11 @@ PageFactory::instance ()
 }
 
 DcpPage* 
-PageFactory::createPage (
-        const PageHandle &handle)
+PageFactory::createPage (const PageHandle &handle)
 {
     PageHandle myHandle = handle;
     DcpPage *page = 0;
+    DcpAppletManager *mng = DcpAppletManager::instance();
 
     DCP_DEBUG ("****************************");
     DCP_DEBUG ("*** handle = %s", DCP_STR (myHandle.getStringVariant()));
@@ -136,16 +149,60 @@ PageFactory::createPage (
              * when closed.
              */
             DCP_DEBUG ("## MAIN ##");
-            page = createMainPage();
+            if (mng->isMetadataLoaded()) {
+                page = createMainPage();
+            } else {
+                if (!mng->isMetadataLoadStarted()) {
+                    // start loading the desktop files
+                    mng->loadMetadataAsync(); 
+                }
+                if (m_PageWithDelayedContent) {
+                    qWarning() << "request for re-creating a main page while another one is being built";
+                    break;
+                }
+                const Category *mainCat = 
+                    DcpCategories::instance()->mainPageCategory();
+                m_PageWithDelayedContent = 
+                    createAppletCategoryPageIncomplete(mainCat);
+                page = m_PageWithDelayedContent;
+            }
             break;
         case PageHandle::APPLET:
             DCP_DEBUG ("## APPLET ##");
+            // applets are already registered if this is shown
+            // from a category page or the single desktop file was loaded 
             page = createAppletPage (myHandle);
             break;
 
         case PageHandle::APPLETCATEGORY:
         default:
-            page = createAppletCategoryPage (myHandle);
+            const Category *info =
+                DcpCategories::instance()->categoryById (myHandle.param);
+            if (!info) break;
+
+            /*
+             * if appletAutoStart=1 then the metadatas need to be loaded
+             * to know if we have to create a categorypage here or an appletPage
+             * Mostly this means creating the appletpage anyway.
+             */
+            if (info->appletAutoStart() && !mng->isMetadataLoaded()) {
+                mng->loadMetadata();
+            }
+
+            if (mng->isMetadataLoaded()) {
+                page = createAppletCategoryPage (myHandle);
+            } else {
+                if (!mng->isMetadataLoadStarted()) {
+                    mng->loadMetadataAsync();
+                }
+                if (m_PageWithDelayedContent) {
+                    qWarning() << "request for re-creating a main page while another one is being built";
+                    break;
+                }
+                m_PageWithDelayedContent = 
+                    createAppletCategoryPageIncomplete(info);
+                page = m_PageWithDelayedContent;
+            }
     }
 
     if (page) {
@@ -158,28 +215,39 @@ PageFactory::createPage (
 
 void PageFactory::preloadBriefReceiver ()
 {
+    if (m_StartupState != NothingStarted) return;
+    m_StartupState = BriefSupplierStarted;
+
     // this loads the helper process a little bit earlier so that it can preload
     // some applets
     DcpRemoteBriefReceiver* receiver = DcpRemoteBriefReceiver::instance ();
 
     // this preloads an applet launcher process when the receiver has finished
-    connect (receiver, SIGNAL (firstConnected()),
-             this, SLOT (preloadAppletLauncher()));
+    if (receiver) {
+        connect (receiver, SIGNAL (firstConnected()),
+                 this, SLOT (preloadAppletLauncher()));
+        receiver->startProcess ();
+    }
 }
 
-void PageFactory::mainPageFirstShown()
+
+void
+PageFactory::completeCategoryPage ()
 {
-    MApplicationPage* mainPage = qobject_cast<MApplicationPage*>(sender());
-    if (!mainPage) return;
+    DcpDebug::start("completeCategoryPage");
+    if (m_PageWithDelayedContent) {
+        DcpDebug::start("createBody");
+        m_PageWithDelayedContent->createBody();
+        registerPage (m_PageWithDelayedContent);
+        DcpDebug::end("createBody");
+        m_PageWithDelayedContent = 0;
+    }
+    DcpDebug::end("completeCategoryPage");
 
-    // disconnect so as not to receive this event any more:
-    disconnect (mainPage, SIGNAL(appeared()),
-                this, SLOT(mainPageFirstShown()));
-
-    // unfortunately appeared signal comes before the page becomes visible on
-    // the screen so this function gets called after a delay to start some
-    // heavier
-    QTimer::singleShot (1000, this, SLOT(preloadBriefReceiver()));
+    // this starts the briefsupplier process:
+    if (m_StartupState == NothingStarted) {
+        QTimer::singleShot (0, this, SLOT(preloadBriefReceiver()));
+    }
 }
 
 /*!
@@ -191,10 +259,60 @@ PageFactory::createMainPage ()
     DcpPage* mainPage = new DcpAppletCategoryPage (
                 DcpCategories::instance()->mainPageCategory());
     registerPage (mainPage);
-    connect (mainPage, SIGNAL(appeared()),
-             this, SLOT(mainPageFirstShown()));
 
     return mainPage;
+}
+
+/*!
+ * Creates an empty category page, its content will be created later.
+ */
+DcpAppletCategoryPage *
+PageFactory::createAppletCategoryPageIncomplete (const Category *category)
+{
+    DcpAppletCategoryPage *page = new DcpAppletCategoryPage(category);
+    page->setDelayedContent(true);
+    return page;
+}
+
+bool
+PageFactory::popupSheetIfAny (const PageHandle& handle)
+{
+    DcpAppletObject* applet =
+        DcpAppletManager::instance()->applet (handle.param);
+    if (!applet) return false;
+    DcpAppletIf* appletIf = applet->applet();
+    if (!appletIf) return false;
+
+    // fixup unknown widgetid
+    int widgetId = handle.widgetId < 0 ? applet->getMainWidgetId() :
+                                         handle.widgetId;
+
+    MSheet* sheet = applet->interfaceVersion() >= 9 ?
+                        appletIf->constructSheet (widgetId) : 0;
+    if (sheet) {
+        if (m_Win && m_Win->currentPage()) {
+            // if we already have a visible window, we make the sheet appear on that:
+            sheet->appear (m_Win, MSceneWindow::DestroyWhenDone);
+
+        } else {
+            // if we do not have a page yet, we can only display the sheet on a
+            // new window (applet launcher process) -> systemWide
+
+            // if we have a precached hidden window, we delete it to avoid the
+            // "page" openning like animation mix with the sheet animation
+            if (m_Win) {
+                m_Win->close();
+                m_Win = 0;
+            }
+
+            // handle the window shown event:
+            connect (sheet, SIGNAL (appeared ()), this, SIGNAL (windowShown()));
+
+            sheet->appearSystemwide (MSceneWindow::DestroyWhenDone);
+        }
+    }
+
+    return sheet;
 }
 
 /*!
@@ -205,10 +323,13 @@ PageFactory::createMainPage ()
 DcpPage *
 PageFactory::createAppletPage (PageHandle &handle)
 {
-    DcpAppletObject *applet = DcpAppletDb::instance()->applet (handle.param);
+    DcpAppletObject *applet = DcpAppletManager::instance()->applet (handle.param);
 
-    if (applet && applet->metadata() &&
-        applet->metadata()->widgetTypeID() == DcpWidgetType::Button)
+    /*
+     * If the applet does not have a main view then we show the page which
+     * contains its briefview instead.
+     */
+    if (applet && applet->metadata() && !applet->metadata()->hasMainView())
     {
         PageHandle handle (PageHandle::APPLETCATEGORY, applet->metadata()->category());
         return createAppletCategoryPage(handle);
@@ -229,7 +350,6 @@ PageFactory::createAppletPage (PageHandle &handle)
      * We do not cache appletpages (only with back mechanism).
      */
     DcpAppletPage* appletPage = new DcpAppletPage(applet, handle.widgetId);
-
     registerPage (appletPage);
 
     // we do this because we need to know if the page has a widget or not
@@ -294,9 +414,9 @@ PageFactory::createAppletCategoryPage (const PageHandle& handle)
      */
     if (info->appletAutoStart() && info->children().count() == 0) {
         // TODO might make sense to move this to class Category
-        DcpAppletDb* db = DcpAppletDb::instance();
+        DcpAppletManager* mng = DcpAppletManager::instance();
         bool withUncategorized = info->containsUncategorized();
-        DcpAppletMetadataList list = db->listByCategory (info->referenceIds(),
+        DcpAppletMetadataList list = mng->listByCategory (info->referenceIds(),
                     withUncategorized ? DcpCategories::hasCategory : NULL);
         if (list.count() == 1) {
             DcpAppletMetadata* metadata = list.at(0);
@@ -327,18 +447,19 @@ PageFactory::currentPage ()
  */
 void PageFactory::preloadAppletLauncher ()
 {
-#if 1
     if (isInProcessApplets()) return;
-    dcp_failfunc_unless (sm_AppletLauncher->isValid());
-    sm_AppletLauncher->prestart ();
-#endif
+
+    dcp_failfunc_unless (verifyAppletLauncherIsOk());
+
+    m_AppletLauncher->prestart ();
 }
 
 bool PageFactory::maybeRunOutOfProcess (const QString& appletName)
 {
-    DcpAppletDb* db = DcpAppletDb::instance();
-    DcpAppletMetadata* metadata = db->metadata(appletName);
+    DcpAppletManager* mng = DcpAppletManager::instance();
+    DcpAppletMetadata* metadata = mng->metadata(appletName);
     if (!metadata || !metadata->isValid()) return false;
+
     QString binary = metadata->binary();
 
     /* 
@@ -350,23 +471,33 @@ bool PageFactory::maybeRunOutOfProcess (const QString& appletName)
      */
     bool runOutProcess = !isInProcessApplets() &&
         !binary.isEmpty() &&
-        !db->isAppletLoaded (appletName) &&
+        !mng->isAppletLoaded (appletName) &&
         binary != "libdeclarative.so";
 
     if (runOutProcess) {
-        dcp_failfunc_unless (sm_AppletLauncher->isValid(), false);
-        sm_AppletLauncher->appletPage (metadata->fileName());
+        dcp_failfunc_unless (verifyAppletLauncherIsOk(), false);
+        m_AppletLauncher->appletPage (metadata->fileName());
     }
 
     return runOutProcess;
 }
 
 
+bool PageFactory::verifyAppletLauncherIsOk()
+{
+    dcp_failfunc_unless (!isInProcessApplets(), false);
+    if (!m_AppletLauncher) {
+        m_AppletLauncher = new DcpAppletLauncherIf();
+    }
+    return m_AppletLauncher->isValid();
+}
+
+
 /*!
  * Creates a new page and sets as the current page.
  *
- * Returns true if the page change was successful, otherwise it
- * returns false.
+ * Returns true if the page change was successful or was done in a separate
+ * process, otherwise it returns false.
  */
 bool
 PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
@@ -381,14 +512,20 @@ PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
     }
 
     // if we could run it out of process then we do not change the page:
-    if (handle.id == PageHandle::APPLET && maybeRunOutOfProcess(handle.param)) {
-        return false;
+    if (handle.id == PageHandle::APPLET) {
+        if (maybeRunOutOfProcess(handle.param)) {
+            return false;
+        }
+
+        if (popupSheetIfAny (handle)) {
+            return true;
+        }
     }
 
     DcpPage *page;
 
     // we drop the window if needed
-    if (dropOtherPages && !isCurrentPage (handle)) {
+    if (dropOtherPages) {
         newWin ();
     }
 
@@ -428,11 +565,10 @@ PageFactory::isCurrentPage (const PageHandle &handle)
 void
 PageFactory::raiseMainWindow()
 {
-    MApplicationWindow* win = window();
-    dcp_failfunc_unless (win);
-    win->show();
-    win->raise();
-    win->activateWindow();
+    if (!m_Win) return;
+    m_Win->show();
+    m_Win->raise();
+    m_Win->activateWindow();
 }
 
 void
@@ -481,8 +617,39 @@ PageFactory::registerPage (
 {
     connect (page, SIGNAL(openSubPage (const PageHandle &)), 
             this, SLOT(changePage(const PageHandle &)));
+
+    if (qobject_cast<DcpAppletPage*>(page)) {
+        connect (page, SIGNAL(mainPageIconClicked ()), this,
+                 SLOT (newMainPageInSeparateProcess()));
+    } else {
+        connect (page, SIGNAL(mainPageIconClicked ()), this,
+                 SLOT (switchToMainPageWithPageDropping ()));
+    }
 }
 
+void PageFactory::switchToMainPageWithPageDropping ()
+{
+    DcpPage* page = createPage (PageHandle(PageHandle::MAIN));
+    dcp_failfunc_unless (page);
+
+    page->setEscapeMode (MApplicationPageModel::EscapeCloseWindow);
+    page->appear ();
+
+    // destroy all pages after the animation has finished:
+    connect (page, SIGNAL (appeared()), this, SLOT(destroyPageHistory()));
+}
+
+void PageFactory::destroyPageHistory()
+{
+    if (!m_Win) return;
+    MSceneManager* manager = m_Win->sceneManager();
+    if (!manager) return;
+    foreach (MSceneWindow* page, manager->pageHistory()) {
+        delete page;
+//      this does not do the job it seems:
+//      manager->dismissSceneWindowNow (page);
+    }
+}
 
 /*!
  * Returns the page history including the current page
@@ -494,8 +661,14 @@ QList< MSceneWindow * > PageFactory::pageHistory ()
     MSceneManager* manager = m_Win->sceneManager();
     if (!manager) return pageList;
     pageList = manager->pageHistory();
-    pageList.append (m_Win->currentPage()); // TODO might want to avoid this (PERF)
     return pageList;
+}
+
+void PageFactory::onMetadataLoaded ()
+{
+    DcpDebug::end("applet reg");
+    m_AppletsRegistered = true;
+    completeCategoryPage();
 }
 
 /*!
@@ -517,6 +690,9 @@ PageFactory::tryOpenPageBackward (const PageHandle &handle)
      * We try to find the requested page in the stack.
      */
     QList< MSceneWindow * > history = pageHistory();
+    if (m_Win) {
+        history.append (m_Win->currentPage()); // TODO might want to avoid this (PERF)
+    }
     for (n = 0; n < history.count(); n++) {
         page = qobject_cast<DcpPage*> (history.at(n));
 
@@ -542,7 +718,7 @@ PageFactory::tryOpenPageBackward (const PageHandle &handle)
     /*
      * We close all the pages that are above the requested page.
      */
-    while (history.count() > foundAtIndex + 1) {
+    while (history.count() > foundAtIndex+1) {
         MSceneWindow *mPage = history.takeLast();
 
         // the page can refuse its closing, then we stop:
@@ -567,24 +743,7 @@ PageFactory::tryOpenPageBackward (const PageHandle &handle)
 
 void PageFactory::setInProcessApplets (bool inProcess)
 {
-    if (!inProcess && !sm_AppletLauncher) {
-        sm_AppletLauncher = new DcpAppletLauncherIf();
-    } else
-    if (inProcess && sm_AppletLauncher) {
-        delete sm_AppletLauncher;
-        sm_AppletLauncher = 0;
-    }
-}
-
-void PageFactory::onDisplayEntered ()
-{
-    // we preload an appletlauncher instance in case we are again
-    // on the categorypage (most likely the user tapped the back button
-    // on an applet)
-    if (qobject_cast<DcpAppletCategoryPage*>(currentPage()))
-    {
-        preloadAppletLauncher();
-    }
+    sm_IsInProcessModeEnabled = inProcess;
 }
 
 MApplicationWindow* PageFactory::window ()
@@ -604,8 +763,12 @@ void PageFactory::newWin ()
             qobject_cast<MApplicationWindow*>(MApplication::windows().at(0));
     }
     if (m_Win) {
+        if (! m_Win->currentPage()) {
+            // we already have a brand new window
+            return;
+        }
         m_LastAppletPage = 0;
-        delete m_Win;
+        m_Win->close();
         m_Win = 0;
     }
 
@@ -624,11 +787,6 @@ void PageFactory::newWin ()
 
     m_Win->setStyleName ("CommonApplicationWindowInverted");
 
-    // Connect some signals for the new window:
-    connect (m_Win, SIGNAL(pageChanged(MApplicationPage *)),
-            this, SLOT(pageChanged(MApplicationPage *)));
-    connect (m_Win, SIGNAL(displayEntered()), this, SLOT(onDisplayEntered()));
-
     // filters out unnecessery retranslate events:
     m_Win->installEventFilter(DcpRetranslator::instance());
     // filters out close event if the page would refuse it:
@@ -646,6 +804,8 @@ bool PageFactory::eventFilter(QObject *obj, QEvent *event)
             event->ignore ();
             return true;
         }
+    } else if (event->type() == QEvent::Show) {
+        emit windowShown ();
     }
     // standard event processing
     return QObject::eventFilter(obj, event);
@@ -663,6 +823,23 @@ PageFactory::closeHelpPage()
     args.append((uint)m_Win->winId());
     message.setArguments(args);
 
+    // do not start userguide if it is not running:
+    message.setAutoStartService (false);
+
     connection.asyncCall(message);
+}
+
+void
+PageFactory::newMainPageInSeparateProcess()
+{
+    DuiControlPanelIf iface;
+    if (iface.isValid()) {
+        iface.mainPage();
+    }
+}
+
+void PageFactory::enableUpdates (bool enable)
+{
+    window()->setUpdatesEnabled (enable);
 }
 

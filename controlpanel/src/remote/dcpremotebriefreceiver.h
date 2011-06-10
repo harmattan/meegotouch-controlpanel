@@ -38,6 +38,7 @@ public:
     void switchToggle (const QString& appletName);
     void setValue(const QString& appletName, const QVariant& value);
     void preload (const QString& appletName);
+    void startProcess ();
 
 signals:
     void firstConnected ();
@@ -46,18 +47,17 @@ protected slots:
     void onReadyRead ();
     void onFinished ( int exitCode, QProcess::ExitStatus exitStatus );
     void onConnected ();
-    void onStarted ();
-    void onConnectError ();
+    void onNewConnection ();
 
 protected:
     void cmd (const QString& command, const QString& appletName);
     DcpRemoteBriefReceiver();
-    void startProcess ();
 
 private:
     class DcpRemoteBriefReceiverPriv* priv;
     void unregister (const QString& appletName);
-
+    void createServer();
+    void serverListen();
 };
 
 

@@ -37,7 +37,6 @@ public:
 protected slots:
     void onCommandArrival (const QString& command);
     void onBriefChanged ();
-    void onNewConnection ();
     void onLocaleChange ();
     void onConnectionDisconnected();
 
@@ -51,13 +50,12 @@ protected:
     // output:
     void outputStart ();
     void outputEnd ();
-    void output (const char* key, const QString& value);
+    void output (const char* key, const QString& value, bool forced = false);
     void output (const char* key, int value);
     void outputBrief (DcpAppletObject* applet, bool textOnly = false);
 
 private:
     class Stream* m_Stream;
-    class QLocalServer* m_Server;
 };
 
 

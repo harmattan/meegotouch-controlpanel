@@ -1,5 +1,4 @@
 usr/bin/duicontrolpanel*
-usr/bin/dcpappletlauncher
 usr/share/themes/base/meegotouch/duicontrolpanel/style/duicontrolpanel.*
 # usr/share/themes/base/meegotouch/duicontrolpanel/images
 # usr/share/themes/base/meegotouch/duicontrolpanel/svg
@@ -8,4 +7,4 @@ usr/share/applications/duicontrolpanel.desktop
 usr/lib/duicontrolpanel/applets/libdeclarative.so
 usr/share/dbus-1
 etc/osso-rfs-scripts/controlpanel-rfs.sh
-usr/share/duicontrolpanel/categories
+usr/share/duicontrolpanel/categories/*.cpcategory

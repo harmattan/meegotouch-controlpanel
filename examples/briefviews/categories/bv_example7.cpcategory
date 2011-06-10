@@ -1,0 +1,15 @@
+Parent=Examples
+
+Name=Category with second label
+Name-logical-id=qtn_sett_example_category
+
+Value=Here is the second label
+Value-logical-id=qtn_sett_example_category
+
+Icon=
+
+Aliases=Category3
+Translation-catalogs="catalog1,catalog2"
+
+Order=20
+

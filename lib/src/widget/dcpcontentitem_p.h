@@ -27,6 +27,7 @@
 #include <MSlider>
 #include <MLabel>
 #include <MHelpButton>
+#include <MSeparator>
 
 /******************************************************************************
  * Private data class for the DcpContentItem class.
@@ -38,8 +39,6 @@ public:
     // one of these is non null
     DcpAppletObject *m_Applet;
     DcpAppletMetadata *m_Metadata;
-
-    bool m_Hidden;
 
     QString m_TDriverID;
 
@@ -57,6 +56,8 @@ public:
     MButton* m_ButtonW;
     MSlider* m_Slider;
     QGraphicsWidget* m_Spacer;
+    MSeparator* m_Separator;
+    MSeparator* m_Separator2;
 };
 
 #endif // DCPCONTENTITEMPRIVATE_H

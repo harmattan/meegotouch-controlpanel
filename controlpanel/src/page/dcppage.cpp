@@ -23,10 +23,12 @@
 #include "dcppage.h"
 #include <QGraphicsLinearLayout>
 #include <MLabel>
+#include <MHelpButton>
 #include <MSeparator>
 #include <MStylableWidget>
 #include <MPannableViewport>
 #include <MPositionIndicator>
+#include <MWidgetAction>
 
 #include "mwidgetcreator.h"
 M_REGISTER_WIDGET(DcpPage)
@@ -36,7 +38,9 @@ M_REGISTER_WIDGET(DcpPage)
 
 DcpPage::DcpPage () :
     MApplicationPage (),
-    m_TitleLabel (0)
+    m_TitleLabel (0),
+    m_HelpButton (0),
+    m_ActionHack (0)
 {
     setStyleName("CommonApplicationPageInverted");
     dcp_failfunc_unless (pannableViewport());
@@ -64,6 +68,7 @@ DcpPage::createLayout ()
         new QGraphicsLinearLayout (Qt::Vertical, centralWidget());
 
     // we should not have margins around the mainwidget
+    layout->setSpacing (0);
     layout->setContentsMargins (0,0,0,0);
 }
 
@@ -91,19 +96,59 @@ DcpPage::handle () const
     return m_Handle;
 }
 
+MAction*
+DcpPage::createSpacerAction()
+{
+    MWidgetAction* result = new MWidgetAction (this);
+    MWidget* spacer = new MWidget ();
+    spacer->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
+    result->setLocation (MAction::ToolBarLocation);
+    result->setWidget (spacer);
+    result->setEnabled (false);
+    return result;
+}
+
+void
+DcpPage::addMAction (MAction* action)
+{
+    if (m_ActionHack && (action->location() & MAction::ToolBarLocation)) {
+        // insert between the two spacers so that they can remain centered:
+        removeAction (m_ActionHack);
+        delete m_ActionHack;
+    }
+    addAction (action);
+}
+
 /*!
  * \brief Sets the handle (symbolic representation) of the page.
  * Sets the handle for the page. The handle is a purely symbolic representation
  * of the page. The default value of the handle is PageHandle::NOPAGE.
  */
-void 
-DcpPage::setHandle (
-        const PageHandle &handle) 
+void
+DcpPage::setHandle (const PageHandle &handle)
 {
     m_Handle = handle;
-    
+
     DCP_DEBUG ("*** m_Handle  = %s", DCP_STR (m_Handle.getStringVariant()));
     DCP_DEBUG ("*** m_Referer = %s", DCP_STR (m_Referer.getStringVariant()));
+
+    /* A button for moving back to mainpage:
+     */
+    if (handle.isStandalone && !m_ActionHack)  {
+        MAction* mainBack = new MAction (this);
+        mainBack->setLocation (MAction::ToolBarLocation);
+        mainBack->setIconID ("icon-l-settings-main-view");
+        QAction* firstAction = actions().isEmpty() ? 0 : actions().first();
+        insertAction (firstAction, mainBack);
+
+        // this hack action makes the mainBack align to the left, and the
+        // other spacers align centered
+        m_ActionHack = createSpacerAction ();
+        insertAction (firstAction, m_ActionHack);
+
+        connect(mainBack, SIGNAL(triggered()),
+                this, SIGNAL (mainPageIconClicked()));
+    }
 }
 
 /*!
@@ -188,7 +233,7 @@ DcpPage::mainLayout ()
  * If there is no title label yet, it creates it.
  */
 void
-DcpPage::setTitleLabel ()
+DcpPage::setTitleLabel (const QString& helpId)
 {
 #ifndef MEEGO
     if (! mainLayout()) return;
@@ -197,9 +242,10 @@ DcpPage::setTitleLabel ()
         if (m_TitleLabel) {
             QGraphicsLayoutItem* title = mainLayout()->itemAt(0);
             QGraphicsLayoutItem* separator = mainLayout()->itemAt(1);
-            delete title;
+            delete title; // this deletes the helpbutton (if any) & title
             delete separator;
             m_TitleLabel = 0;
+            m_HelpButton = 0;
         }
         return;
     }
@@ -207,14 +253,40 @@ DcpPage::setTitleLabel ()
     if (!m_TitleLabel) {
         m_TitleLabel = new MLabel();
         m_TitleLabel->setWordWrap(true);
-        m_TitleLabel->setStyleName ("CommonApplicationHeaderInverted");
-        mainLayout()->insertItem (0, m_TitleLabel);
-
-        MSeparator* separator = new MSeparator();
-        separator->setStyleName ("CommonSmallSpacer");
-        mainLayout()->insertItem (1, separator);
+        m_TitleLabel->setStyleName ("CommonHeaderInverted");
+        if (!helpId.isEmpty()) {
+            // this can be here, because the help button does not need
+            // retranslation. But it also meens that recalling the setTitleLabel
+            // will not refresh the help id (currently not used)
+            m_HelpButton = new MHelpButton (helpId);
+            m_HelpButton->setViewType(MButton::iconType);
+            m_HelpButton->setIconID ("icon-s-description-inverse");
+            m_HelpButton->setStyleName ("CommonRightIcon");
+            QGraphicsLinearLayout* labelLayout = new QGraphicsLinearLayout();
+            labelLayout->setSpacing(0);
+            labelLayout->setContentsMargins(0, 0, 0, 0);
+            labelLayout->addItem (m_TitleLabel);
+            labelLayout->addItem (m_HelpButton);
+            labelLayout->setAlignment (m_HelpButton, Qt::AlignVCenter);
+            m_TitleLabel->setSizePolicy (QSizePolicy::Expanding,
+                                         QSizePolicy::Fixed);
+            mainLayout()->insertItem (0, labelLayout);
+        } else {
+            mainLayout()->insertItem (0, m_TitleLabel);
+        }
+        MSeparator* divider = new MSeparator();
+        divider->setStyleName ("CommonHeaderDividerInverted");
+        mainLayout()->insertItem (1, divider);
     }
+
     m_TitleLabel->setText (title ());
 #endif
+}
+
+void DcpPage::setTitleStyleName (const QString& style)
+{
+    if (m_TitleLabel) {
+        m_TitleLabel->setStyleName (style);
+    }
 }
 

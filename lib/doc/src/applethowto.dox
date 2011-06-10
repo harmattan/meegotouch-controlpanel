@@ -97,8 +97,8 @@ SOURCES       = dcpskeletonapplet.cpp \
 DESTDIR       = ./lib
 TARGET        = $$qtLibraryTarget(dcpskeletonapplet)
 desktop.files += *.desktop
-desktop.path = /usr/lib/duicontrolpanel
-target.path += /usr/lib/duicontrolpanel/applet
+desktop.path = /usr/share/duicontrolpanel/desktops
+target.path += /usr/lib/duicontrolpanel/applets
 
 INSTALLS += target \
             desktop
@@ -123,7 +123,7 @@ See also <a href="binaryplugins.html">binary applets</a> section for details.
 
 The following example illustrates how to create a declarative applet.
 
-\include declarativeapplet/example1.xml
+\include declarativeapplet/simple/example1.xml
 
 This is the easiest way of creating an applet, but it is less flexible (currently):
     <ul>

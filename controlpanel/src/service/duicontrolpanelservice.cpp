@@ -20,6 +20,7 @@
 
 #include "duicontrolpanelservice.h"
 #include "pagefactory.h"
+#include "dcpappletmanager.h"
 
 #include "duicontrolpanelifadaptor.h"
 #include "duicontrolpanelif.h"
@@ -30,9 +31,11 @@
 #include <MApplication>
 #include <MApplicationWindow>
 #include <QDBusServiceWatcher>
-#include <dcpappletdb.h>
+#include <dcpappletmetadata.h>
+#include <dcpremotebriefreceiver.h>
 
 static const char* serviceName = "com.nokia.DuiControlPanel";
+static const char* serviceNameAppl = "com.nokia.DcpAppletLauncher";
 bool DuiControlPanelService::isStartedByServiceFw = false;
 
 #include "dcpdebug.h"
@@ -70,11 +73,8 @@ DuiControlPanelService::launch ()
 void
 DuiControlPanelService::launch (const QStringList &parameters)
 {
-    if (parameters.isEmpty()) {
-        launch();
-    } else {
-        appletPage (parameters.at(0));
-    }
+    Q_UNUSED (parameters);
+    launch();
 }
 
 
@@ -112,8 +112,20 @@ DuiControlPanelService::registerService ()
 bool
 DuiControlPanelService::appletPage (const QString& appletName)
 {
-    MApplicationWindow* win = MApplication::activeApplicationWindow();
-    if (!PageFactory::isInProcessApplets()) {
+    DcpAppletManager *mng = DcpAppletManager::instance();
+    // TODO we could do some optimization here for popping up an applet the first
+    // time (do not parse all .desktops)
+    mng->loadMetadata ();
+    DcpAppletMetadata* metadata = mng->metadata (appletName);
+
+    // if the applet does not have a main view, we pop up its category page:
+    if (metadata && !metadata->hasMainView()) {
+        categoryPage (metadata->category());
+        return true;
+
+    } else if (!PageFactory::isInProcessApplets()) {
+        MApplicationWindow* win = MApplication::activeApplicationWindow();
+
         // if we have no page yet and this is the first applet start,
         // then we run it inprocess and behave like an appletlauncher
         if (isStartedByServiceFw && (!win || !win->currentPage()))
@@ -122,6 +134,11 @@ DuiControlPanelService::appletPage (const QString& appletName)
             dcp_failfunc_unless (success, false);
             receiveCloseSignal ();
             Security::loadAppletRestricted (appletName);
+
+            // we do not need the receiver in this process,
+            // this ensures that it wont get started
+            DcpRemoteBriefReceiver::disable ();
+
         } else {
             // if we already have a page, then we start another instance,
             // and exit from mainloop:
@@ -134,7 +151,7 @@ DuiControlPanelService::appletPage (const QString& appletName)
         }
     }
 
-    PageHandle handle (PageHandle::APPLET, appletName, 0, false);
+    PageHandle handle (PageHandle::APPLET, appletName, -1, true);
     sheduleStart(handle);
 
     // TODO this hack prevents a servicefw issue, that the app does not get the
@@ -148,11 +165,35 @@ void
 DuiControlPanelService::receiveCloseSignal ()
 {
     QDBusServiceWatcher* watcher =
-        new QDBusServiceWatcher ("com.nokia.DuiControlPanel",
+        new QDBusServiceWatcher (serviceName,
                 QDBusConnection::sessionBus(),
                 QDBusServiceWatcher::WatchForRegistration, this);
     connect (watcher, SIGNAL (serviceRegistered(QString)),
-             qApp, SLOT (quit()));
+             this, SLOT (quitWithDelay()));
+}
+
+void DuiControlPanelService::quitWithDelay ()
+{
+    QTimer::singleShot (1000, qApp, SLOT(quit()));
+}
+
+void
+DuiControlPanelService::receivePreloadSignal ()
+{
+    QDBusServiceWatcher* watcher =
+        new QDBusServiceWatcher (serviceNameAppl,
+                QDBusConnection::sessionBus(),
+                QDBusServiceWatcher::WatchForUnregistration, this);
+    connect (watcher, SIGNAL (serviceUnregistered(QString)),
+             this, SLOT (preloadAppletLauncher()));
+}
+
+void
+DuiControlPanelService::preloadAppletLauncher ()
+{
+    PageFactory* pf = PageFactory::instance();
+    dcp_failfunc_unless (pf);
+    QTimer::singleShot (1000, pf, SLOT(preloadAppletLauncher()));
 }
 
 // FIXME XXX we should consider a common base class with DcpAppletLauncherService
@@ -217,16 +258,14 @@ DuiControlPanelService::sheduleStart (
 void
 DuiControlPanelService::categoryPage (const QString& category)
 {
-    PageHandle handle (PageHandle::APPLETCATEGORY, category, 0, false);
+    PageHandle handle (PageHandle::APPLETCATEGORY, category, -1, true);
     sheduleStart(handle);
 }
 
 void
 DuiControlPanelService::mainPage()
 {
-    PageHandle handle;
-    handle.id = PageHandle::MAIN;
-    handle.param = "";
+    PageHandle handle (PageHandle::MAIN);
     sheduleStart(handle);
 }
 
@@ -250,10 +289,13 @@ DuiControlPanelService::createStartPage()
     // From now on, pagefactory will be able to notify the applets running
     // in separate process to close down through this, but only if we
     // are the main process (not an appletlauncher)
-    if (m_IsRegistered && handle->id != PageHandle::NOPAGE) {
+    if (m_IsRegistered) {
         PageFactory* pf = PageFactory::instance();
         connect (pf, SIGNAL (resetAppletLauncherProcesses()),
                  this, SIGNAL (closeAppletLaunchers()));
+
+        // applet launcher preloading:
+        receivePreloadSignal();
     }
 
     delete handle;

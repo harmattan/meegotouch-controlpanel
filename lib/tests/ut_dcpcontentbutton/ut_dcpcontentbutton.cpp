@@ -62,11 +62,8 @@ void Ut_DcpContentButton::testTDriverID()
     QString tdriver = "12345";
     m_Target->setTDriverID(tdriver);
     QCOMPARE (m_Target->TDriverID(), tdriver);
-}
-
-void Ut_DcpContentButton::testUpdateContents()
-{
-    
+    m_Target->setMattiID(tdriver);
+    QCOMPARE (m_Target->mattiID(), tdriver);
 }
 
 void Ut_DcpContentButton::testRetranslateUi()
@@ -92,6 +89,7 @@ void Ut_DcpContentButton::testShowHideEvent()
     m_Target->showEvent(0);
     QCOMPARE (m_Target->text(), applet->text2());
 
+    m_Target->hideEvent(0);
     // check if signals gets reconnected on showEvent
     // ... TODO
 }
@@ -109,6 +107,13 @@ void Ut_DcpContentButton::testUpdateText()
     QCOMPARE (m_Target->text(), QString("fake-text2"));
 }
 
+void Ut_DcpContentButton::testUseless()
+{
+    m_Target->setMetadata(new DcpAppletMetadata("fake"));
+    m_Target->loadApplet();
+    m_Target->onClicked();
+
+}
 
 QTEST_APPLESS_MAIN(Ut_DcpContentButton)
 

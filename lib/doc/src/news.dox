@@ -1,5 +1,14 @@
 /*! \page news What's New in DuiControlPanel
 
+\section v0CA 0.12.10
+\subsection new New features
+Help can be specified for a category page, see the HelpId key in the category
+documentation.
+
+\section v0C9 0.12.9
+\subsection new New features
+Applet .desktop files can also be under /usr/share/duicontrolpanel/desktops
+
 \section v0B8 0.11.8
 \subsection new New features
 Applet auto starting if a category contains one applet only can

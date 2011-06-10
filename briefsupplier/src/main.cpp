@@ -30,7 +30,7 @@
 #include <unistd.h>
 #include <dcpdebug.h>
 #include "syslog.h"
-#define LOW_PRIORITY
+// #define LOW_PRIORITY
 
 void cleanup ()
 {

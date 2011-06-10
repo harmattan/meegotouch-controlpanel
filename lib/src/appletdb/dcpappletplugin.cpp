@@ -28,6 +28,8 @@
 #include "syslog.h"
 #include <QTime>
 
+QLibrary::LoadHints DcpAppletPluginPrivate::defaultLoadHints = 0;
+
 /*!
  * \brief creates an applet from the metadata and loads the plugin
  *
@@ -169,6 +171,8 @@ DcpAppletPlugin::loadPluginFile (const QString &binaryPath)
 
     dcpSyslog ("loading " + binaryPath);
     d_ptr->loader.setFileName (binaryPath);
+    d_ptr->loader.setLoadHints(DcpAppletPluginPrivate::defaultLoadHints);
+
     if (!d_ptr->loader.load ()) {
         d_ptr->errorMsg = "Loading of the '" + binaryPath + "/" +
             d_ptr->appletMetadata->name() +
@@ -236,4 +240,8 @@ DcpAppletPlugin::interfaceVersion() const
     }
 }
 
+void DcpAppletPlugin::setDefaultLoadHints (int hints)
+{
+    DcpAppletPluginPrivate::defaultLoadHints = (QLibrary::LoadHints) hints;
+}
 
