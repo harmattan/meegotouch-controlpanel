@@ -1,4 +1,4 @@
-duicontrolpanel (0.12.21~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.21) unstable; urgency=low
 
   * Fixes: NB#260681 - 'Show events from:'
     §qtn_home_events_settings_subheader§ subheader should be shown in
