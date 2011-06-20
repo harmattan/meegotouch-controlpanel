@@ -78,6 +78,8 @@ public:
     QString subHeaderText () const;
     QString subHeaderTextLogicalId () const;
 
+    QStringList mainApplets () const;
+
 protected:
     static const char* componentOrderToString (ComponentOrderType order);
 
@@ -102,6 +104,7 @@ protected:
         HasSeparatorLineId,
         SubHeaderTextId,
         SubHeaderTextLogicalId,
+        MainAppletsId,
         KeyIdMax
     };
 

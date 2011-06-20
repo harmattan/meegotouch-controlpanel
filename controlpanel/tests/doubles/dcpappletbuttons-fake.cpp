@@ -44,7 +44,8 @@ DcpAppletButtons::createContents ()
 
 void
 DcpAppletButtons::addComponent (
-        DcpAppletMetadata *metadata, QStandardItemModel*)
+        DcpAppletMetadata *metadata, QStandardItemModel*,
+        const QStringList&)
 {
     Q_UNUSED(metadata);
 }

@@ -30,7 +30,12 @@ Category::~Category ()
 
 QStringList Category::valueList (int key) const
 {
-    return value (key).split(QChar(','));
+    QString val = value (key);
+    if (val.isEmpty()) {
+        return QStringList();
+    } else {
+        return val.split(QChar(','));
+    }
 }
 
 QString Category::parentId() const
@@ -212,5 +217,10 @@ bool Category::hasSeparatorLine () const
 {
     QString hasSep = value (HasSeparatorLineId);
     return hasSep != "0";
+}
+
+QStringList Category::mainApplets () const
+{
+    return valueList (MainAppletsId);
 }
 

@@ -87,3 +87,7 @@ pcfilelink.commands += $(SYMLINK) "$$TARGET".pc "$$QMAKE_PKGCONFIG_NAME".pc && m
 pcfilelink.path += $$[QT_INSTALL_LIBS]/pkgconfig
 
 INSTALLS += pcfilelink
+
+DEFINES += QT_USE_FAST_CONCATENATION
+DEFINES += QT_USE_FAST_OPERATOR_PLUS
+

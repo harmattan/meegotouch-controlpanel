@@ -32,6 +32,7 @@
 #include <DcpAppletMetadata>
 #include <DcpApplet>
 #include <DcpContentButton>
+#include <DcpContentItem>
 #include <DcpWidgetTypes>
 
 #include <DcpRetranslator>
@@ -40,7 +41,7 @@
 #include <QStandardItemModel>
 #include <QStandardItem>
 #include <QVariant>
-
+#include <MSeparator>
 #include <MHelpButton>
 
 DcpAppletButtons::DcpAppletButtons (
@@ -133,8 +134,17 @@ DcpAppletButtons::createContents ()
 
     // add the elements:
     QStandardItemModel* model = new QStandardItemModel(m_List);
+    QStringList mainApplets = m_CategoryInfo->mainApplets();
     foreach (DcpAppletMetadata* metadata, metadatas) {
-        addComponent (metadata, model);
+        addComponent (metadata, model, mainApplets);
+    }
+
+    // separator for the main applets
+    if (!mainApplets.isEmpty()) {
+        qDebug ("XXX not empty: \"%s\"", qPrintable(mainApplets.at(0)));
+        MSeparator* sep = new MSeparator();
+        sep->setStyleName ("CommonItemDividerInverted");
+        mLayout()->insertItem (getItemCount()-1, sep);
     }
 
     QAbstractItemModel* prevModel = m_List->itemModel();
@@ -173,7 +183,8 @@ DcpAppletButtons::appletMetadata (int pos)
 
 void
 DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
-                                QStandardItemModel* model)
+                                QStandardItemModel* model,
+                                const QStringList& mainApplets)
 {
     metadata->markActive();
     int widgetId = metadata->widgetTypeID();
@@ -189,82 +200,138 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
         applet = new DcpRemoteAppletObject (metadata, model);
     }
 
-    QString tdriverPostfix = QString(m_CategoryInfo->titleId()) +
-                           "::" + metadata->category() + "::" + name;
-
-    if (widgetId == DcpWidgetType::Button) {
-        DcpContentButton *button = new DcpContentButton (applet);
-
-        button->setTDriverID ("DcpContentButton::" + tdriverPostfix);
-        button->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
-
-        // put it before the mlist:
-        QGraphicsWidget* c = new QGraphicsWidget();
-        QGraphicsWidget* spacer1 = new QGraphicsWidget();
-        QGraphicsWidget* spacer2 = new QGraphicsWidget();
-        c->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
-        spacer1->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
-        spacer2->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
-        QGraphicsLinearLayout* wlayout = new QGraphicsLinearLayout(c);
-        wlayout->setContentsMargins(0,0,0,0);
-
-        QString helpId = applet ? applet->helpId():
-                         metadata ? metadata->helpId():
-                         QString();
-        if (!helpId.isEmpty()) {
-            MHelpButton* help = new MHelpButton (helpId);
-            help->setViewType(MButton::iconType);
-            help->setIconID ("icon-s-description-inverse");
-            wlayout->addItem (help);
-        }
-
-        wlayout->addItem (spacer1);
-        wlayout->addItem (button);
-        wlayout->addItem (spacer2);
-        mLayout()->insertItem (getItemCount()-1, c);
-
-    /*
-     * The special type of applet brief creates its own icon,
-     * please do not use it.
-     */
-    } else if (widgetId == DcpWidgetType::Special) {
-        if (!applet || !applet->applet()) {
-            qWarning ("Warning: no applet for special type of briefview, skipped");
-            return;
-        }
-
-        int widgetId = applet->getMainWidgetId();
-        // we can specify the page here if we need support for menu items, progress indicator etc
-        DcpAppletWidget* widget =
-            DcpAppletPage::constructAppletWidget (applet, m_Page, widgetId);
-        if (!widget) {
-            qWarning ("Warning: special type of briefview did not supply an icon, skipped");
-            return;
-        }
-        widget->setParent (this);
-        mLayout()->insertItem (getItemCount()-1, widget->graphicsWidget());
-        mLayout()->setAlignment (widget->graphicsWidget(), Qt::AlignHCenter);
-
-    } else if (widgetId == DcpWidgetType::Slider) {
-        // unfortunately mlist does not seem to honor variable item height,
-        // that is why this slider hack here:
-        DcpContentItem *slider = new DcpContentItem (applet);
-        if (!applet) slider->setMetadata (metadata);
-        QString tdriverID = "DcpContentItem::" + tdriverPostfix;
-        slider->setTDriverID (tdriverID);
-        appendWidget (slider);
-
-    }else {
-        QString tdriverID = "DcpContentItem::" + tdriverPostfix;
-
-        QStandardItem* item = new QStandardItem();
-        item->setData (QVariant::fromValue(metadata),
-                       DcpContentItemCellCreator::MetadataRole);
-        item->setData (QVariant::fromValue(applet),
-                       DcpContentItemCellCreator::AppletRole);
-        item->setData (tdriverID, DcpContentItemCellCreator::TDriverRole);
-        model->appendRow(item);
+    // main applets are the first applets of a category, visually separated
+    // from the others:
+    if (mainApplets.contains (name)) {
+        mLayout()->insertItem (getItemCount()-1,
+                               createDefault (applet, metadata));
+        return;
     }
+
+    switch (widgetId) {
+        case DcpWidgetType::Button:
+            mLayout()->insertItem (getItemCount()-1,
+                               createButton (applet, metadata));
+            break;
+
+        case DcpWidgetType::Special: {
+            /*
+             * The special type of applet brief creates its own icon,
+             * please do not use it.
+             */
+            QGraphicsWidget* widget = createSpecial (applet);
+            if (widget) {
+                mLayout()->insertItem (getItemCount()-1, widget);
+                mLayout()->setAlignment (widget, Qt::AlignHCenter);
+            }
+                                     }
+            break;
+
+        case DcpWidgetType::Slider:
+            // unfortunately mlist does not seem to honor variable item height,
+            // that is why this slider hack here:
+            appendWidget (createSlider(applet, metadata));
+            break;
+
+        default: {
+            // the normal items come into the list:
+            QString tdriverID = genTDriverID("DcpContentItem::", metadata);
+
+            QStandardItem* item = new QStandardItem();
+            item->setData (QVariant::fromValue(metadata),
+                           DcpContentItemCellCreator::MetadataRole);
+            item->setData (QVariant::fromValue(applet),
+                           DcpContentItemCellCreator::AppletRole);
+            item->setData (tdriverID, DcpContentItemCellCreator::TDriverRole);
+            model->appendRow(item);
+                 }
+            break;
+    };
+}
+
+QGraphicsWidget* DcpAppletButtons::createSlider (DcpAppletObject* applet,
+                                                 DcpAppletMetadata* metadata)
+{
+    DcpContentItem *slider = new DcpContentItem (applet);
+    if (!applet) slider->setMetadata (metadata);
+    slider->setTDriverID (genTDriverID("DcpContentItem::", metadata));
+    return slider;
+}
+
+QString DcpAppletButtons::genTDriverID (const char* prefix,
+                                        DcpAppletMetadata* metadata)
+{
+    return prefix + m_CategoryInfo->titleId() + "::" +
+           metadata->category() + "::" + metadata->name();
+}
+
+QGraphicsWidget* DcpAppletButtons::createSpecial (DcpAppletObject* applet)
+{
+    if (!applet || !applet->applet()) {
+        qWarning ("Warning: no applet for special type of briefview, skipped");
+        return 0;
+    }
+
+    int widgetId = applet->getMainWidgetId();
+    // we can specify the page here if we need support for menu items, progress indicator etc
+    DcpAppletWidget* widget =
+        DcpAppletPage::constructAppletWidget (applet, m_Page, widgetId);
+    if (!widget) {
+        qWarning ("Warning: special type of briefview did not supply an icon, skipped");
+        return 0;
+    }
+    widget->setParent (this);
+    return widget->graphicsWidget();
+}
+
+QGraphicsWidget* DcpAppletButtons::createButton (DcpAppletObject* applet,
+                                                 DcpAppletMetadata* metadata)
+{
+    DcpContentButton *button = new DcpContentButton (applet);
+
+    button->setTDriverID (genTDriverID("DcpContentButton::", metadata));
+    button->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+    // put it before the mlist:
+    QGraphicsWidget* c = new QGraphicsWidget();
+    QGraphicsWidget* spacer1 = new QGraphicsWidget();
+    QGraphicsWidget* spacer2 = new QGraphicsWidget();
+    c->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
+    spacer1->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
+    spacer2->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
+    QGraphicsLinearLayout* wlayout = new QGraphicsLinearLayout(c);
+    wlayout->setContentsMargins(0,0,0,0);
+
+    QString helpId = applet ? applet->helpId():
+                     metadata ? metadata->helpId():
+                     QString();
+    if (!helpId.isEmpty()) {
+        MHelpButton* help = new MHelpButton (helpId);
+        help->setViewType(MButton::iconType);
+        help->setIconID ("icon-s-description-inverse");
+        wlayout->addItem (help);
+    }
+
+    wlayout->addItem (spacer1);
+    wlayout->addItem (button);
+    wlayout->addItem (spacer2);
+    return c;
+}
+
+QGraphicsWidget* DcpAppletButtons::createDefault (DcpAppletObject* applet,
+        DcpAppletMetadata* metadata)
+{
+    DcpContentItem* cell = new DcpContentItem();
+    cell->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+    if (applet) {
+        cell->setApplet (applet);
+    } else {
+        cell->setMetadata (metadata);
+    }
+
+    cell->setTDriverID (genTDriverID("DcpContentItem::", metadata));
+    return cell;
 }
 
 

@@ -27,6 +27,7 @@ class DcpAppletMetadata;
 class QStandardItemModel;
 class Category;
 class DcpPage;
+class DcpAppletObject;
 
 class DcpAppletButtons :
     public DcpMainCategory
@@ -60,10 +61,21 @@ signals:
 
 protected:
     virtual void createContents();
-    void addComponent (DcpAppletMetadata *metadata, QStandardItemModel* model);
+    void addComponent (DcpAppletMetadata *metadata, QStandardItemModel* model,
+                       const QStringList& mainApplets = QStringList());
 
 private:
     void markAllInactive();
+
+    QGraphicsWidget* createSlider (DcpAppletObject* applet,
+                                   DcpAppletMetadata* metadata);
+    QGraphicsWidget* createSpecial (DcpAppletObject* applet);
+    QGraphicsWidget* createButton (DcpAppletObject* applet,
+                                   DcpAppletMetadata* metadata);
+    QGraphicsWidget* createDefault (DcpAppletObject* applet,
+                                    DcpAppletMetadata* metadata);
+    inline QString genTDriverID (const char* prefix,
+                                 DcpAppletMetadata* metadata);
 
     const Category *m_CategoryInfo;
     friend class Ut_DcpAppletButtons;
