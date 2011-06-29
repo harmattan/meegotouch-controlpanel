@@ -198,7 +198,7 @@ void BriefSupplier::outputBrief (DcpAppletObject* applet, bool textOnly)
     outputStart();
     output (OutputName, appletName);
     output (OutputTitleText, titleText);
-    output (OutputValueText, valueText);
+    output (OutputValueText, valueText, true);
 
     if (!textOnly) {
         output (OutputWidgetTypeID, widgetTypeID);

@@ -27,6 +27,7 @@ public:
     SkeletonBrief();
     virtual int widgetTypeID() const;
 
+    QString valueText() const;
     QVariant value() const;
     virtual void setValue(const QVariant& value);
 

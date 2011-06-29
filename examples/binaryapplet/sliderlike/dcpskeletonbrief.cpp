@@ -24,9 +24,9 @@ SkeletonBrief::SkeletonBrief():
 {
     qDebug() << "slider applet got loaded" << m_Value;
 
-#if 0
-    // this makes the slider increase in every 2nd sec
-    startTimer (2000);
+#if 1
+    // this makes the slider increase in every sec
+    startTimer (1000);
 #endif
 }
 
@@ -35,9 +35,21 @@ int SkeletonBrief::widgetTypeID() const
     return DcpWidgetType::Slider;
 }
 
+QString SkeletonBrief::valueText() const
+{
+    return (m_Value / 4) % 2 ?
+        // Here we return no description about why the slider is disabled,
+        // which will result in a disabled slider showing no value
+        QString()
+
+        // Here we return description about why the slider is disabled,
+        // this will result in the message in place of the slider:
+        : "Slider is disabled";
+}
+
 QVariant SkeletonBrief::value() const
 {
-    return m_Value;
+    return m_Value % 2 ? m_Value : QVariant();
 }
 
 void SkeletonBrief::setValue(const QVariant& value)
