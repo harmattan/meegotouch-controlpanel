@@ -2,8 +2,10 @@ duicontrolpanel (0.12.22~unreleased) unstable; urgency=low
 
   * Fixes: NB#265196 - "Privacy mode" plug-in on Notifications settings page
     should be visually separated from rest of the plug-ins
+  * Fixes: NB#268370 - [TASK] Brigthness slider needs info about power
+    save mode
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 20 Jun 2011 16:34:44 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 29 Jun 2011 17:01:11 +0200
 
 duicontrolpanel (0.12.21) unstable; urgency=low
 
