@@ -1,4 +1,4 @@
-duicontrolpanel (0.12.22~unreleased) unstable; urgency=low
+duicontrolpanel (0.12.22) unstable; urgency=low
 
   * Fixes: NB#270097 - there is only one applet in about category
 
