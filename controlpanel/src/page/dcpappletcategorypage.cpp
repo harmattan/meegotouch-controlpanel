@@ -35,7 +35,6 @@
 #include <QtDebug>
 #include <QGraphicsLinearLayout>
 #include <QTimer>
-#include <MLabel>
 
 
 DcpAppletCategoryPage::DcpAppletCategoryPage (
@@ -44,8 +43,7 @@ DcpAppletCategoryPage::DcpAppletCategoryPage (
     m_CategoryInfo (categoryInfo),
     m_Category (0),
     m_MostUsed (0),
-    m_DelayedContent (0),
-    m_SubHeader (0)
+    m_DelayedContent (0)
 {
 }
 
@@ -123,13 +121,6 @@ DcpAppletCategoryPage::createContent ()
                 m_CategoryInfo->translationCategories());
 
     DcpPage::createContent ();
-
-    QString subHeaderText = m_CategoryInfo->subHeaderText();
-    if (!subHeaderText.isEmpty() && !m_SubHeader) {
-        m_SubHeader = new MLabel (subHeaderText);
-        m_SubHeader->setStyleName ("CommonBodyTextInverted");
-        mainLayout()->addItem (m_SubHeader);
-    }
 
     if (!m_DelayedContent) {
         createBody(false);
@@ -281,12 +272,6 @@ DcpAppletCategoryPage::retranslateUi()
     setTitle(m_CategoryInfo ? m_CategoryInfo->title() : QString());
     if (isContentCreated()) {
         setTitleLabel (m_CategoryInfo->helpId());
-    }
-
-    QString subHeaderText = m_CategoryInfo ? m_CategoryInfo->subHeaderText()
-                            : QString();
-    if (!subHeaderText.isEmpty() && m_SubHeader) {
-        m_SubHeader->setText (subHeaderText);
     }
 }
 

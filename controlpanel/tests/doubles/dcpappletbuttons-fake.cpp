@@ -43,6 +43,11 @@ DcpAppletButtons::createContents ()
 }
 
 void
+DcpAppletButtons::retranslateUi ()
+{
+}
+
+void
 DcpAppletButtons::addComponent (
         DcpAppletMetadata *metadata, QStandardItemModel*,
         const QStringList&)

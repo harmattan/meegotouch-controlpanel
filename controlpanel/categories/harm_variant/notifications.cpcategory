@@ -6,6 +6,11 @@ Name-logical-id=qtn_noti_settings_title
 MainApplets=PrivateMode
 Translation-catalogs=notification
 
+SubHeaderText="Show notifications for:"
+SubHeaderText-logical-id=qtn_noti_settings_subheader
+
+Translation-catalogs=notification
+
 AutoStartApplet=1
 
 Order=10

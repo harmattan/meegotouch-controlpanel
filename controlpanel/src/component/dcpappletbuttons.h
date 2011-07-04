@@ -28,6 +28,7 @@ class QStandardItemModel;
 class Category;
 class DcpPage;
 class DcpAppletObject;
+class MLabel;
 
 class DcpAppletButtons :
     public DcpMainCategory
@@ -60,6 +61,7 @@ signals:
     void loadingFinished();
 
 protected:
+    virtual void retranslateUi();
     virtual void createContents();
     void addComponent (DcpAppletMetadata *metadata, QStandardItemModel* model,
                        const QStringList& mainApplets = QStringList());
@@ -83,6 +85,7 @@ private:
     class MList* m_List;
     QString m_TDriverID;
     DcpPage* m_Page; // the page the widget is on, or 0 if unknown
+    MLabel* m_SubHeader;
 };
 
 #endif

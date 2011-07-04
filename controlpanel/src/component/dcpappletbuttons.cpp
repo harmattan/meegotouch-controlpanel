@@ -43,6 +43,7 @@
 #include <QVariant>
 #include <MSeparator>
 #include <MHelpButton>
+#include <MLabel>
 
 DcpAppletButtons::DcpAppletButtons (
         const Category *categoryInfo,
@@ -51,7 +52,8 @@ DcpAppletButtons::DcpAppletButtons (
 : DcpMainCategory (parent),
     m_CategoryInfo (categoryInfo),
     m_List (new MList(this)),
-    m_Page (ownerPage)
+    m_Page (ownerPage),
+    m_SubHeader (0)
 {
     DcpContentItemCellCreator* cellCreator = new DcpContentItemCellCreator();
     m_List->setCellCreator(cellCreator);
@@ -98,6 +100,15 @@ DcpAppletButtons::markAllInactive()
     }
 }
 
+void
+DcpAppletButtons::retranslateUi()
+{
+    QString subHeaderText = m_CategoryInfo ? m_CategoryInfo->subHeaderText()
+                            : QString();
+    if (m_SubHeader) {
+        m_SubHeader->setText (subHeaderText);
+    }
+}
 
 void
 DcpAppletButtons::createContents ()
@@ -145,6 +156,13 @@ DcpAppletButtons::createContents ()
         MSeparator* sep = new MSeparator();
         sep->setStyleName ("CommonItemDividerInverted");
         mLayout()->insertItem (getItemCount()-1, sep);
+    }
+
+    QString subHeaderText = m_CategoryInfo->subHeaderText();
+    if (!subHeaderText.isEmpty() && !m_SubHeader) {
+        m_SubHeader = new MLabel (subHeaderText);
+        m_SubHeader->setStyleName ("CommonBodyTextInverted");
+        mLayout()->insertItem (getItemCount()-1, m_SubHeader);
     }
 
     QAbstractItemModel* prevModel = m_List->itemModel();

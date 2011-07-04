@@ -4,8 +4,10 @@ duicontrolpanel (0.12.22~unreleased) unstable; urgency=low
     should be visually separated from rest of the plug-ins
   * Fixes: NB#268370 - [TASK] Brigthness slider needs info about power
     save mode
+  * Fixes: NB#269545 - Notification: §qtn_noti_settings_subheader§ [Show
+    notifications for:] is missing
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 29 Jun 2011 17:01:11 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 04 Jul 2011 16:41:24 +0200
 
 duicontrolpanel (0.12.21) unstable; urgency=low
 

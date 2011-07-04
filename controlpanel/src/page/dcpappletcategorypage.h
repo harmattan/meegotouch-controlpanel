@@ -25,7 +25,6 @@ class DcpAppletMetadata;
 class DcpAppletButtons;
 class Category;
 class DcpMostUsed;
-class MLabel;
 
 class DcpAppletCategoryPage : public DcpPage
 {
@@ -70,7 +69,6 @@ private:
     DcpMostUsed *m_MostUsed;
     friend class Ut_DcpAppletCategoryPage;
     bool m_DelayedContent;
-    MLabel* m_SubHeader;
 };
 
 #endif
