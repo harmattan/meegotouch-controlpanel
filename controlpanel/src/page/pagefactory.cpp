@@ -136,9 +136,6 @@ PageFactory::createPage (const PageHandle &handle)
     DcpPage *page = 0;
     DcpAppletManager *mng = DcpAppletManager::instance();
 
-    DCP_DEBUG ("****************************");
-    DCP_DEBUG ("*** handle = %s", DCP_STR (myHandle.getStringVariant()));
-    DCP_DEBUG ("****************************");
     switch (myHandle.id) {
         case PageHandle::NOPAGE:
         case PageHandle::MAIN:
@@ -275,6 +272,26 @@ PageFactory::createAppletCategoryPageIncomplete (const Category *category)
 }
 
 bool
+PageFactory::hasPage () const
+{
+    // if we do not have a window, we do not have a page
+    if (!m_Win) return false;
+
+    // if the window does not have a page
+    MApplicationPage* page = m_Win->currentPage();
+    if (!page) return false;
+
+    // if we have a precached appletpage only, we do not have a page
+    DcpAppletPage* appletPage = qobject_cast<DcpAppletPage*>(page);
+    if (appletPage && appletPage->applet() == 0) {
+        return false;
+    }
+
+    // otherwise we have a page:
+    return true;
+}
+
+bool
 PageFactory::popupSheetIfAny (const PageHandle& handle)
 {
     DcpAppletObject* applet =
@@ -290,7 +307,7 @@ PageFactory::popupSheetIfAny (const PageHandle& handle)
     MSheet* sheet = applet->interfaceVersion() >= 9 ?
                         appletIf->constructSheet (widgetId) : 0;
     if (sheet) {
-        if (m_Win && m_Win->currentPage()) {
+        if (hasPage ()) {
             // if we already have a visible window, we make the sheet appear on that:
             sheet->appear (m_Win, MSceneWindow::DestroyWhenDone);
 
@@ -315,6 +332,7 @@ PageFactory::popupSheetIfAny (const PageHandle& handle)
     return sheet;
 }
 
+
 /*!
  * Creates an applet page for the default widget of the applet variant
  * represented by the metadata. Also will try to re-use the already existing
@@ -323,7 +341,14 @@ PageFactory::popupSheetIfAny (const PageHandle& handle)
 DcpPage *
 PageFactory::createAppletPage (PageHandle &handle)
 {
-    DcpAppletObject *applet = DcpAppletManager::instance()->applet (handle.param);
+    bool hasApplet = !handle.param.isEmpty();
+    DcpAppletObject *applet = hasApplet ?
+        DcpAppletManager::instance()->applet (handle.param) : 0;
+
+    if (hasApplet && !applet) {
+        DCP_WARNING ("Could not find the applet %s", qPrintable(handle.param));
+        return 0;
+    }
 
     /*
      * If the applet does not have a main view then we show the page which
@@ -342,30 +367,63 @@ PageFactory::createAppletPage (PageHandle &handle)
     if (applet && handle.widgetId < 0) { // fixup unknown widgetid for the comparing
         handle.widgetId = applet->getMainWidgetId();
     }
-    if (m_LastAppletPage && m_LastAppletPage->handle() == handle) {
+    if (applet && m_LastAppletPage && m_LastAppletPage->handle() == handle) {
+        return 0;
+    }
+
+    /* If it has a separate executable, we do not have to create a page:
+     */
+    if (applet && applet->metadata() &&
+            applet->metadata()->startApplicationCommand()) {
         return 0;
     }
 
     /*
-     * We do not cache appletpages (only with back mechanism).
+     * We might have an empty (== does not have applet set) appletPage preloaded,
+     * if not, then we create one:
      */
-    DcpAppletPage* appletPage = new DcpAppletPage(applet, handle.widgetId);
-    registerPage (appletPage);
-
-    // we do this because we need to know if the page has a widget or not
-    // TODO
-    appletPage->createContent();
-
-    if (!appletPage->hasWidget() && !appletPage->hasError()) {
-        // the applet does not provide a page (e.g. just a dialog)
-        return 0;
+    DcpAppletPage* appletPage = m_LastAppletPage;
+    if (! appletPage || appletPage->applet()) {
+        appletPage = new DcpAppletPage (applet, handle.widgetId);
+        registerPage (appletPage);
     } else {
-        handle.widgetId = appletPage->widgetId();
-        m_LastAppletPage = appletPage;
-        return appletPage;
+        appletPage->setApplet (applet, handle.widgetId);
     }
+
+    // if the page is an empty preloaded appletPage
+    // or the applet has provided a widget -> we are ready
+    appletPage->createContent();
+    if (!applet || appletPage->hasWidget()) {
+        m_LastAppletPage = appletPage;
+    } else {
+        appletPage->setApplet (applet, handle.widgetId);
+        /*
+         * If the plugin
+         * - could not be loaded
+         * - it does not provide a widget (eg. it has sheet instead)
+         * or some error happened, we close the page.
+         */
+//      QTimer::singleShot (0, appletPage, SIGNAL(backButtonClicked ()));
+        delete appletPage;
+        appletPage = 0;
+    }
+
+    return appletPage;
 }
 
+void
+PageFactory::preloadAppletPage ()
+{
+    // ensures that there is a window:
+    window();
+
+    // create the page:
+    PageHandle handle;
+    handle.id = PageHandle::APPLET;
+    DcpPage* page = createPage (handle);
+    dcp_failfunc_unless (page);
+    appear (page);
+}
 
 /*!
  * Creates the applet page based on the applet's metadata

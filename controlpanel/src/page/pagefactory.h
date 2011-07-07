@@ -52,6 +52,7 @@ public:
     DcpPage* currentPage ();
     bool maybeRunOutOfProcess (const QString& appletName);
     MApplicationWindow* window ();
+    bool hasPage () const;
 
 public slots:
     void appletWantsToStart (int widgetId = -1);
@@ -64,6 +65,7 @@ public slots:
     void onAppletLoaded (DcpAppletObject *applet);
     void preloadAppletLauncher ();
     void preloadBriefReceiver ();
+    void preloadAppletPage ();
 
 signals:
     void resetAppletLauncherProcesses ();

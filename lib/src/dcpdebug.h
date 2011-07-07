@@ -18,6 +18,8 @@
 /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 
+#include <syslog.h>
+
 /******************************************************************************
  * The first part of the header can be loaded and loaded again, so we can turn
  * on and off the debug facility for each source file.
@@ -141,7 +143,7 @@ namespace DcpDebug
 
 #define dcp_failfunc_unless(x, return_value...) \
     if (!(x)) { \
-        qWarning (#x " is false at %s", Q_FUNC_INFO); \
+        syslog (LOG_WARNING, #x " is false at %s", Q_FUNC_INFO); \
         return return_value; \
     }
 

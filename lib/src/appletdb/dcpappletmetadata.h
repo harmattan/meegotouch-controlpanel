@@ -62,7 +62,8 @@ public:
     QString binary () const;
     QString dslFilename () const;
     QString applicationCommand () const;
-    bool    hasApplicationCommand () const;
+    bool hasApplicationCommand () const;
+    bool startApplicationCommand () const;
     bool toggle() const;
     QString fullBinary () const;
 

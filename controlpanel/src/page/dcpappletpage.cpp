@@ -26,26 +26,18 @@
 #include <DcpAppletObject>
 #include <DcpRetranslator>
 
-#include <MLabel>
-#include <MLocale>
 #include <MAction>
-#include <MSceneManager>
-#include <mwidgetcreator.h>
 #include <QProcess>
-#include <QCoreApplication>
 #include <MDismissEvent>
 #include <QCloseEvent>
 
 #include "dcpdebug.h"
 
-M_REGISTER_WIDGET_NO_CREATE(DcpAppletPage)
-
 DcpAppletPage::DcpAppletPage (DcpAppletObject *applet, int widgetId):
     DcpPage (),
     m_Applet(applet),
     m_WidgetId(widgetId),
-    m_MainWidget (0),
-    m_MissingLabel (0)
+    m_MainWidget (0)
 {
 }
 
@@ -58,22 +50,41 @@ DcpAppletPage::~DcpAppletPage ()
 }
 
 void
-DcpAppletPage::createContent ()
+DcpAppletPage::setApplet (DcpAppletObject* applet, int widgetId)
 {
-    DcpPage::createContent ();
-    load();
+    // changing the applet is not implemented, we have not needed it so far:
+    if (m_Applet) return;
+
+    m_Applet = applet;
+    m_WidgetId = widgetId;
+    if (m_Applet) {
+        load ();
+    }
 }
 
+void
+DcpAppletPage::createContent ()
+{
+    if (isContentCreated()) return;
+
+    // we do not create the layout because we dont use it
+    MApplicationPage::createContent ();
+
+    // load
+    if (m_Applet) {
+        load ();
+    }
+}
+
+/*!
+ * Returns if the page has a widget or not.
+ * The page will not have immediately a widget even if the applet
+ * provides one, because the widget creation might get delayed.
+ */
 bool 
 DcpAppletPage::hasWidget ()
 {
     return m_MainWidget;
-}
-
-bool 
-DcpAppletPage::hasError ()
-{
-    return m_MissingLabel;
 }
 
 int 
@@ -81,6 +92,7 @@ DcpAppletPage::widgetId ()
 {
     return m_WidgetId;
 }
+
 
 /*!
  * This function might do three things. If the applet variant has a binary
@@ -94,8 +106,6 @@ DcpAppletPage::widgetId ()
 void
 DcpAppletPage::load ()
 {
-    DCP_DEBUG ("");
-
     if (m_Applet) {
         m_Applet->metadata()->markActive();
         DcpRetranslator::instance()->ensureTranslationLoaded(
@@ -114,55 +124,12 @@ DcpAppletPage::load ()
             loadWidget (m_WidgetId);
 
             return;
-        } else if (m_Applet->metadata()->hasApplicationCommand ()) {
-            /*
-             * If the applet is not loaded from a binary file, but it has an
-             * activation command line we execute an external application.
-             */
-            QString command = m_Applet->metadata()->applicationCommand();
-            QProcess *process = new QProcess();
-
-            /* redirect std io channels to /dev/null
-             * because otherwise if command is applauncher's invoker 
-             * it will pass pipes created by QProcess to the launched 
-             * application, which are not valid anymore 
-             * see bug 182372
-             */            
-            process->setStandardInputFile("/dev/null");
-            process->setStandardOutputFile("/dev/null");
-            process->setStandardErrorFile("/dev/null");
-
-            // this will free up the QProcess when the process ended:
-            connect (process, SIGNAL(finished ( int, QProcess::ExitStatus)),
-                     process, SLOT(deleteLater()));
-
-            process->start(command);
-            return;
         }
 
         DCP_WARNING ("The applet has no loaded plugin nor an external "
                 "command defined");
     } else {
         DCP_WARNING ("The applet is not valid.");
-    }
-
-    /*
-     * Showing the 'plugin not available' label. We currently show this only if
-     * the plugin is really not available, we will not show this if the plugin
-     * is crashed. The plugin will be re-enabled (and most likely crash again)
-     * when the user activates the applet by clicking on the brief.
-     */
-    if (!m_MissingLabel) {
-        // FIXME: these are temporary translation ids and not present anywhere
-
-        //% "Plugin not available"
-        m_MissingLabel = new MLabel (qtTrId("dcp_no_applet_name"));
-        m_MissingLabel->setStyleName ("CommonBodyTextInverted");
-        m_MissingLabel->setAlignment (Qt::AlignCenter);
-        appendWidget (m_MissingLabel);
-        //% "Missing plugin"
-        setTitle (qtTrId("dcp_no_applet_title"));
-        setTitleLabel ();
     }
 }
 
@@ -278,15 +245,13 @@ DcpAppletPage::loadWidget (int widgetId)
 
     setPannable (m_MainWidget->pagePans());
 
-    appendWidget (m_MainWidget->graphicsWidget());
+    setCentralWidget (m_MainWidget->graphicsWidget());
     retranslateUi();
 }
 
 void
 DcpAppletPage::retranslateUi ()
 {
-    DCP_DEBUG ("");
-
     if (m_Applet && m_Applet->applet()) {
         QString title;
         if (m_MainWidget && m_Applet->interfaceVersion() >= 3) {

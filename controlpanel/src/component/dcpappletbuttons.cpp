@@ -152,7 +152,6 @@ DcpAppletButtons::createContents ()
 
     // separator for the main applets
     if (!mainApplets.isEmpty()) {
-        qDebug ("XXX not empty: \"%s\"", qPrintable(mainApplets.at(0)));
         MSeparator* sep = new MSeparator();
         sep->setStyleName ("CommonItemDividerInverted");
         mLayout()->insertItem (getItemCount()-1, sep);

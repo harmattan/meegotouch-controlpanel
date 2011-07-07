@@ -25,7 +25,6 @@
 
 class DcpAppletWidget;
 class DcpAppletObject;
-class MLabel;
 class MAction;
 class MDismissEvent;
 
@@ -34,13 +33,13 @@ class DcpAppletPage : public DcpPage
 Q_OBJECT
 
 public:
-    DcpAppletPage(DcpAppletObject *applet, int widgetId = -1);
+    DcpAppletPage (DcpAppletObject *applet, int widgetId = -1);
     virtual ~DcpAppletPage();
 
     virtual void createContent ();
 
+    void setApplet (DcpAppletObject* applet, int widgetId = -1);
     bool hasWidget ();
-    bool hasError ();
     int widgetId ();
     DcpAppletObject* applet();
     static DcpAppletWidget* constructAppletWidget (DcpAppletObject* applet,
@@ -52,14 +51,15 @@ protected:
     virtual void retranslateUi ();
     virtual void dismissEvent (MDismissEvent *event);
 
+protected slots:
+    void load ();
+
 private:
     void loadWidget (int widgetId);
-    void load ();
 
     DcpAppletObject   *m_Applet;
     int                m_WidgetId;
     DcpAppletWidget   *m_MainWidget;
-    MLabel            *m_MissingLabel;
 
     friend class Ut_DcpAppletPage;
 };

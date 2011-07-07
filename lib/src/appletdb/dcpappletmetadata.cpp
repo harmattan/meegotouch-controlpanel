@@ -28,6 +28,7 @@
 
 #include <MGConfItem>
 #include <MLocale>
+#include <QProcess>
 #include <mcollator.h>
 #ifndef MEEGO
 #include <sysinfo.h>
@@ -182,6 +183,41 @@ DcpAppletMetadata::applicationCommand () const
     return command.isEmpty() ? desktopEntryStr (KeyApplicationCommand)
         : command;
 }
+
+/*!
+ * Start the applet's executable if it is an external applet.
+ * Returns true if there was an executable,
+ * returns false otherwise.
+ */
+bool DcpAppletMetadata::startApplicationCommand () const
+{
+    /*
+     * If the applet is not loaded from a binary file, but it has an
+     * activation command line we execute an external application.
+     */
+    QString command = this->applicationCommand();
+    if (command.isEmpty()) return false;
+
+    QProcess *process = new QProcess();
+
+    /* redirect std io channels to /dev/null
+     * because otherwise if command is applauncher's invoker 
+     * it will pass pipes created by QProcess to the launched 
+     * application, which are not valid anymore 
+     * see bug 182372
+     */
+    process->setStandardInputFile("/dev/null");
+    process->setStandardOutputFile("/dev/null");
+    process->setStandardErrorFile("/dev/null");
+
+    // this will free up the QProcess when the process ended:
+    connect (process, SIGNAL(finished ( int, QProcess::ExitStatus)),
+             process, SLOT(deleteLater()));
+
+    process->start(command);
+    return true;
+}
+
 
 /*!
  * Returns true if the metadata has a shell command associated to it.

@@ -31,6 +31,20 @@
 #include <QDBusServiceWatcher>
 #include <DcpAppletMetadata>
 
+/* If the below gets defined, then the applet page in outprocess mode will
+ * be drawn empty first and the applet can finish its animation during the
+ * page-like animation which compositor provides for us.
+ *
+ * Else, controlpanel will wait until the applet creates its widget and only
+ * displays it afterwards.
+ */
+#define DELAYED_APPLET_PAGE
+#ifdef DELAYED_APPLET_PAGE
+#    define PROCESS_EVENTS QCoreApplication::processEvents();
+#else
+#    define PROCESS_EVENTS
+#endif
+
 static const char* serviceName = "com.nokia.DcpAppletLauncher";
 
 
@@ -85,15 +99,20 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
 
     // the pagefactory starts the applet out of process and refuses to load it,
     // in case it is not already loaded, so we load it here:
+
+    // these ugly processEvent calls makes the page animation look right if the
+    // applet page gets drawn delayed
+    PROCESS_EVENTS
     mng->applet (m_PageHandle.param);
+    PROCESS_EVENTS
     bool success = pageFactory->changePage (m_PageHandle);
+    PROCESS_EVENTS
 
     if (success) {
         // we only unregister the service if the window is shown to prevent
         // the user click on the appletbutton after that (it would open another
         // instace)
-        connect (pageFactory, SIGNAL (windowShown()),
-                 this, SLOT (unregisterService()));
+        QTimer::singleShot (1000, this, SLOT (unregisterService()));
         pageFactory->raiseMainWindow ();
     } else {
         close ();
@@ -118,7 +137,18 @@ bool DcpAppletLauncherService::sheduleApplet (const QString& appletPath)
 
 bool DcpAppletLauncherService::appletPage (const QString& appletPath)
 {
-    return sheduleApplet (appletPath) && maybeAppletRealStart();
+    sheduleApplet (appletPath);
+
+    // we start the mainwindow animation before loading the applet:
+    PageFactory::instance()->raiseMainWindow ();
+
+#ifdef DELAYED_APPLET_PAGE
+    // TODO unfortunately this ruins the animation somehow (why?)
+    QTimer::singleShot (0, this, SLOT (maybeAppletRealStart()));
+    return true;
+#else
+    return maybeAppletRealStart();
+#endif
 }
 
 bool DcpAppletLauncherService::registerService ()
@@ -165,7 +195,10 @@ bool DcpAppletLauncherService::unregisterService ()
 
 void DcpAppletLauncherService::prestart ()
 {
-    MApplicationWindow* win = PageFactory::instance()->window();
+    PageFactory* pf = PageFactory::instance();
+    dcp_failfunc_unless (pf);
+    pf->preloadAppletPage ();
+    MApplicationWindow* win = pf->window();
     dcp_failfunc_unless (win);
     win->hide();
 }
