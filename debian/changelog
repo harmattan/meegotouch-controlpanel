@@ -6,8 +6,9 @@ duicontrolpanel (0.12.23~unreleased) unstable; urgency=low
     save mode
   * Fixes: NB#269545 - Notification: §qtn_noti_settings_subheader§ [Show
     notifications for:] is missing
+  * fixed 243414 - [TASK] page->dismiss only works for 2 history stack
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 04 Jul 2011 16:48:42 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 08 Jul 2011 18:33:57 +0200
 
 duicontrolpanel (0.12.22) unstable; urgency=low
 

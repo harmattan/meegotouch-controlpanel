@@ -671,6 +671,16 @@ void PageFactory::onMetadataLoaded ()
     completeCategoryPage();
 }
 
+inline bool pagePreventsQuit (MSceneWindow* mPage)
+{
+    // applet page can prevent quit:
+    DcpAppletPage* appletPage = qobject_cast<DcpAppletPage*>(mPage);
+    if (appletPage && appletPage->preventQuit()) {
+        return true;
+    }
+    return false;
+}
+
 /*!
  * This function will try to activate the page by dismissing pages, that is if a
  * page with the given handle is already opened the function will dismiss all
@@ -682,19 +692,20 @@ void PageFactory::onMetadataLoaded ()
 bool
 PageFactory::tryOpenPageBackward (const PageHandle &handle)
 {
-    DcpPage *page;
-    int foundAtIndex = -1;
-    int n;
-
     /*
      * We try to find the requested page in the stack.
      */
-    QList< MSceneWindow * > history = pageHistory();
-    if (m_Win) {
-        history.append (m_Win->currentPage()); // TODO might want to avoid this (PERF)
+    DcpPage* currentPage = this->currentPage();
+
+    if (currentPage && currentPage->handle() == handle) {
+        // fount it: it is the current page
+        return true;
     }
-    for (n = 0; n < history.count(); n++) {
-        page = qobject_cast<DcpPage*> (history.at(n));
+
+    int foundAtIndex = -1;
+    QList< MSceneWindow * > history = pageHistory();
+    for (int n = 0; n < history.count(); n++) {
+        DcpPage *page = qobject_cast<DcpPage*> (history.at(n));
 
         if (page && page->handle() == handle) {
             foundAtIndex = n;
@@ -715,28 +726,28 @@ PageFactory::tryOpenPageBackward (const PageHandle &handle)
         return false;
     }
 
+    // if the current page would like to prevent its closing, we do nothing:
+    if (pagePreventsQuit (currentPage)) {
+        return true;
+    }
+
     /*
      * We close all the pages that are above the requested page.
      */
+    // first we delete all pages between the found and the current:
     while (history.count() > foundAtIndex+1) {
         MSceneWindow *mPage = history.takeLast();
 
         // the page can refuse its closing, then we stop:
-        if (!mPage->dismiss ()) {
+        if (pagePreventsQuit (mPage)) {
             break;
         }
+        mPage->deleteLater();
     }
 
-    /*
-     * A simple debug tool to print the page stack.
-     */
-    #ifdef DEBUG
-    for (n = 0; n < history.size(); ++n) {
-        page = qobject_cast<DcpPage*> (history[n]);
-        DCP_DEBUG ("page[%d] = %s", n,
-                DCP_STR(page->handle().getStringVariant()));
-    }
-    #endif
+    // do the animation of switching back
+    // this had to be sheduled after the deleteLater calls
+    QTimer::singleShot (0, currentPage, SLOT(dismiss()));
 
     return true;
 }
