@@ -271,3 +271,8 @@ QString DcpAppletMetadata::helpId() const
     return "HelpID";
 }
 
+bool DcpAppletMetadata::startApplicationCommand() const
+{
+    return false;
+}
+

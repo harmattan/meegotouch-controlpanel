@@ -52,13 +52,6 @@ void Ut_DcpAppletPage::testCreateContents()
     m_subject->createContent();
 }
 
-void Ut_DcpAppletPage::testHasError()
-{
-    QVERIFY(!(m_subject->m_MissingLabel || m_subject->hasError()));
-    m_subject->m_MissingLabel = (MLabel*)1; //not 0
-    QVERIFY(m_subject->hasError());
-}
-
 void Ut_DcpAppletPage::testHasWidget()
 {
     QVERIFY(!(m_subject->m_MainWidget || m_subject->hasWidget()));
@@ -81,7 +74,6 @@ void Ut_DcpAppletPage::testLoad()
     QVERIFY(m_subject->m_Applet);
     QVERIFY(m_subject->m_Applet->metadata()->isActive());
     QVERIFY(m_subject->m_Applet->isAppletLoaded());
-    QVERIFY(!m_subject->m_MissingLabel);
 
     isLoaded = false;
     m_subject->load();
@@ -92,7 +84,7 @@ void Ut_DcpAppletPage::testLoadMissing()
     delete m_subject->m_Applet;
     m_subject->m_Applet = 0;
     m_subject->createContent();
-    QVERIFY(m_subject->m_MissingLabel);
+    QVERIFY(!m_subject->hasWidget());
 }
 
 void Ut_DcpAppletPage::testApplet()

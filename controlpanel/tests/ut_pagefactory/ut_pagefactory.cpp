@@ -63,6 +63,7 @@ void Ut_PageFactory::testInstance()
 void Ut_PageFactory::testCreatePage()
 {
     PageFactory *factory = PageFactory::instance();
+    DcpAppletManager::instance()->loadMetadata();
     DcpPage *page;
 
     // a mainpage:
@@ -79,7 +80,7 @@ void Ut_PageFactory::testCreatePage()
 
     // an appletpage with nonexistant applet:
     page = factory->createPage(PageHandle(PageHandle::APPLET, "xxx"));
-    QVERIFY(page); // TODO this should return NULL, shouldnt it?
+    QVERIFY(!page);
 
     // an applet category page:
     page = factory->createPage(PageHandle(PageHandle::APPLETCATEGORY, "ZERO"));
@@ -101,6 +102,7 @@ void Ut_PageFactory::testCreateMainPage()
 void Ut_PageFactory::testCreateAppletPage()
 {
     PageFactory *factory = PageFactory::instance();
+    DcpAppletManager::instance()->loadMetadata();
     PageHandle handle(PageHandle::APPLET, "fake-name");
     DcpPage *page =
         factory->createAppletPage(handle);
@@ -198,7 +200,7 @@ void Ut_PageFactory::testUseless()
     factory->completeCategoryPage();
     factory->createAppletCategoryPageIncomplete(CATEGORY);
     DcpAppletMetadata *metadata = new DcpAppletMetadata("dummy-binary");
-    QVERIFY(factory->createAppletPage(metadata));
+    QVERIFY(!factory->createAppletPage(metadata));
     factory->changeToAppletPage("haba");
     factory->preloadAppletLauncher();
 

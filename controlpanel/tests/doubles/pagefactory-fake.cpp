@@ -105,6 +105,10 @@ MApplicationWindow* PageFactory::window ()
     return 0;
 }
 
+void PageFactory::preloadAppletPage ()
+{
+}
+
 void PageFactory::newWin ()
 {
 }

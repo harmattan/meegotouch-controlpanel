@@ -21,8 +21,7 @@ DcpAppletPage::DcpAppletPage (DcpAppletObject *applet, int widgetId) :
     DcpPage(),
     m_Applet (applet),
     m_WidgetId (widgetId),
-    m_MainWidget (0),
-    m_MissingLabel (0)
+    m_MainWidget (0)
 {
 }
 
@@ -42,10 +41,8 @@ DcpAppletPage::hasWidget ()
     return true;
 }
 
-bool 
-DcpAppletPage::hasError ()
+void DcpAppletPage::setApplet(DcpAppletObject*, int)
 {
-    return false;
 }
 
 int 
