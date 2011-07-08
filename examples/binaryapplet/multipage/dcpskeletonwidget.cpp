@@ -94,7 +94,7 @@ bool SkeletonWidget::back()
 QVector<MAction*> SkeletonWidget::menuItems()
 {
     QVector<MAction*> vector (1);
-    vector[0] = new MAction("Start singlepage skeletonapplet", this);
+    vector[0] = new MAction("singlepage example", this);
     vector[0]->setLocation(MAction::ApplicationMenuLocation);
     connect (vector[0], SIGNAL(triggered()),
              this, SLOT(startLanguageApplet()));

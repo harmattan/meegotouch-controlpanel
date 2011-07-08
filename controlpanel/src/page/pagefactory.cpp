@@ -379,12 +379,31 @@ PageFactory::createAppletPage (DcpAppletMetadata* metadata)
     return createAppletPage (handle);
 }
 
+/*!
+ * \brief Changes to the main view of the specified applet.
+ *
+ * If the applet is not in the db yet, it searches also
+ * in the default applet directories.
+ * This gets called for example when an applet requests another
+ * applet.
+ */
 bool
 PageFactory::changeToAppletPage (const QString& appletName)
 {
     PageHandle handle;
     handle.id = PageHandle::APPLET;
     handle.param = appletName;
+
+    // this is needed to be able to find the desktop file also in the
+    // applet launcher process (where the db only contains the running applet's
+    // metadata). Since it is quite a rare case, we do it only here when needed
+    DcpAppletManager* db = DcpAppletManager::instance();
+    if (!db->containsName (appletName)) {
+        db->addDesktopDir (DESKTOP_DIR);
+        db->addDesktopDir (DESKTOP_DIR2);
+        db->loadMetadata ();
+    }
+
     return changePage (handle);
 }
 
