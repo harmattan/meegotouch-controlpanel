@@ -9,8 +9,10 @@ duicontrolpanel (0.12.23~unreleased) unstable; urgency=low
   * fixed 243414 - [TASK] page->dismiss only works for 2 history stack
   * fixed 271925 - Declarative settings applet names have a "!!"
     prefix on the Applications page of the Settings application
+  * fixed 268757 - Notification; String §qtn_noti_settings_private_mode§
+    is truncated in Russian;
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 11 Jul 2011 12:45:40 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 13 Jul 2011 12:23:26 +0200
 
 duicontrolpanel (0.12.22) unstable; urgency=low
 
