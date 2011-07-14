@@ -32,7 +32,7 @@ To avoid this, there can be categories (currently the Applications category)
 which is flagged to display all applets. To do so, the category should also have
 the special alias "Uncategorized".
 
-\section format Category description format
+\section categoryformat Category description format
 
 \par Parent
 The parent of the category. The category will be displayed as a submenu of

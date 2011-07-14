@@ -35,6 +35,9 @@ DISABLE_LAUNCHER {
 QT += network dbus
 LIBS += -lduicontrolpanel
 
+# libcreds2
+LIBS += -lcreds
+
 # a fake check target so as not to stop the testing:
 QMAKE_EXTRA_TARGETS += check
 

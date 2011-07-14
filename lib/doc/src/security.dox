@@ -1,0 +1,74 @@
+/*! \page security Security for binary applets
+
+\section description Description
+
+Some binary applets will need to have access to restricted areas of the device,
+accessing, modifying some functionalities a normal process does not and should
+not have authorization for.
+Requesting the possibility to do that is handled by the security framework.
+This page briefly summarize the steps which are needed in this special case of
+control panel binary applets with little explanation.
+
+\section howtodo How to do that?
+Steps are below:
+<ul>
+<li> Identify which security tokens your applet will need. In our example below,
+we require the credentials "TrackerReadAccess", "mce::LEDControl". Please note
+that for some credentials you need to specify the package which provides the
+credential (in the example, "mce"). In which case, your package should depend
+on that package.
+</li>
+<li>
+List them in an .aegis file. You will need to request the credential
+for 3-4 places:
+    <ul>
+        <li>Your applet binary (/usr/lib/duicontrolpanel/applets/<yourapplet>.so).
+        Controlpanel uses this information to restrict the process in which the
+        applet is loaded to have these credentials only. This ensures that the
+        applet will not get any more than what it needs.
+        </li>
+        <li>For the controlpanel executable:
+            "/usr/bin/duicontrolpanel.launch" and "/usr/bin/applauncherd.bin".
+            Note that it is necessery to include which packages provides them
+            (duicontrolpanel and applauncherd-launcher).
+        </li>
+        <li>Optional: you only need this if your applet has a custom brief,
+            eg. its briefview responds to user events (toggle or switch type
+            of briefview), or it has a custom and non static second (value) line
+            on its icon, it will have to request credential for
+\code
+    <for path="duicontrolpanel::/usr/bin/duicontrolpanel-briefsupplier" />
+\endcode
+        </li>
+    </ul>
+</li>
+
+<li> Install this aegis file into the package. For a debian based
+system, you will need to call something like this after the package creation:
+\code
+aegis-deb-add -control debian/<pkg>/DEBIAN/control .. debian/<pkg>.aegis=_aegis
+\endcode
+</li>
+<li>Just a note here that all these will only work for the applet if the
+repository (source) from which the user installs the applet is trusted.
+</li>
+</ul>
+For the details, please refer to the security framework documentation.
+
+\section aegisexample Example aegis file
+The following example aegis file requests two tokens for an applet without
+custom briefview:
+\code
+<aegis>
+  <request>
+    <credential name="TrackerReadAccess" />
+    <credential name="mce::LEDControl" />
+    <for path="/usr/lib/duicontrolpanel/applets/libdcpskeletonapplet.so" />
+    <for path="duicontrolpanel::/usr/bin/duicontrolpanel.launch" />
+    <for path="applauncherd-launcher::/usr/bin/applauncherd.bin" />
+  </request>
+</aegis>
+\endcode
+
+*/
+

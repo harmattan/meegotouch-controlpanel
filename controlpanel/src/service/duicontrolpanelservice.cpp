@@ -25,13 +25,13 @@
 #include "duicontrolpanelifadaptor.h"
 #include "duicontrolpanelif.h"
 #include "dcpappletlauncherif.h"
+#include "security.h"
 
 #include <MApplicationIfAdaptor>
 #include <QtDebug>
 #include <MApplication>
 #include <MApplicationWindow>
 #include <QDBusServiceWatcher>
-#include <dcpappletdb.h>
 #include <dcpappletmetadata.h>
 #include <dcpremotebriefreceiver.h>
 
@@ -114,6 +114,8 @@ bool
 DuiControlPanelService::appletPage (const QString& appletName)
 {
     DcpAppletManager *mng = DcpAppletManager::instance();
+    // TODO we could do some optimization here for popping up an applet the first
+    // time (do not parse all .desktops)
     mng->loadMetadata ();
     DcpAppletMetadata* metadata = mng->metadata (appletName);
     dcp_failfunc_unless (metadata, false);
@@ -133,7 +135,7 @@ DuiControlPanelService::appletPage (const QString& appletName)
             bool success = unregisterService ();
             dcp_failfunc_unless (success, false);
             receiveCloseSignal ();
-            mng->applet (appletName);
+            Security::loadAppletRestricted (appletName);
 
             // we do not need the receiver in this process,
             // this ensures that it wont get started

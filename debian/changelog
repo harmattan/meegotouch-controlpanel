@@ -1,4 +1,4 @@
-duicontrolpanel (0.12.23~unreleased) unstable; urgency=low
+duicontrolpanel (0.13.1~unreleased) unstable; urgency=low
 
   * Fixes: NB#265196 - "Privacy mode" plug-in on Notifications settings page
     should be visually separated from rest of the plug-ins
@@ -14,8 +14,10 @@ duicontrolpanel (0.12.23~unreleased) unstable; urgency=low
   * fixed 267658 - Opening Bluetooth from Status menu is very slow and
     shows bad transition
   * fixed 255760 - [TASK] API: Function to disable toggle type dcpbrief
+  * Fixes: NB#264064 - Control panel grants full set of credentials for
+    3rd party libraries
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 14 Jul 2011 16:36:01 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 14 Jul 2011 17:07:59 +0200
 
 duicontrolpanel (0.12.22) unstable; urgency=low
 

@@ -21,7 +21,6 @@
 #include <DcpRetranslator>
 #include "service/duicontrolpanelservice.h"
 #include "service/dcpappletlauncherservice.h"
-#include "dcpappletdb.h"
 #include "dcpappletmanager.h"
 #include "dcpapplet.h"
 #include "dcpwrongapplets.h"
