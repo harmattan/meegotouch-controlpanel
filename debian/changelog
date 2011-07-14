@@ -11,8 +11,10 @@ duicontrolpanel (0.12.23~unreleased) unstable; urgency=low
     prefix on the Applications page of the Settings application
   * fixed 268757 - Notification; String §qtn_noti_settings_private_mode§
     is truncated in Russian;
+  * fixed 267658 - Opening Bluetooth from Status menu is very slow and
+    shows bad transition
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 13 Jul 2011 12:23:26 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 14 Jul 2011 15:27:40 +0200
 
 duicontrolpanel (0.12.22) unstable; urgency=low
 
