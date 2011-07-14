@@ -1,0 +1,32 @@
+[Desktop Entry]
+Type=ControlPanelApplet
+Name=Toggle Example
+Icon=
+Exec=
+X-logical-id=qtn_sett_main_toggleexampletitle
+X-translation-catalog=toggleexampleapplet1,toggleexampleapplet2
+
+# This has to be specified in order that the .desktop file can also be
+# used as an action (for example for search to know how to
+# open the applet)
+X-Maemo-Service=com.nokia.DuiControlPanel
+X-Maemo-Method=com.nokia.DuiControlPanelIf.appletPage
+X-Maemo-Object-Path=/
+# this has to be the same as Name
+X-Maemo-Fixed-Args=Toggle Example
+
+
+[DUI]
+X-DUIApplet-Applet=libdcptoggleexampleapplet.so
+
+[DCP]
+# Category=Applications
+Category=Examples
+Order=5
+WidgetType=Toggle
+
+# this text will be shown as second label,
+# until the applet gets loaded and supplies its value from DcpBrief:
+Text2=Loading...
+Text2-logical-id=qtn_sett_toggleexamplevalue
+

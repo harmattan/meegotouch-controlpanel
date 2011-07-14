@@ -78,24 +78,6 @@ QString DcpRemoteBrief::icon () const
     return get (BSupplier::OutputIcon);
 }
 
-
-bool DcpRemoteBrief::toggle () const
-{
-    QString value = this->get (BSupplier::OutputToggle);
-    return value == "1";
-}
-
-
-void DcpRemoteBrief::setToggle (bool toggle)
-{
-    if (this->toggle () != toggle) {
-        DcpRemoteBriefReceiver* receiver = DcpRemoteBriefReceiver::instance();
-        if (receiver) {
-            receiver->switchToggle (name ());
-        }
-    }
-}
-
 void DcpRemoteBrief::setValue (const QVariant& value)
 {
     if (this->value() != value) {
@@ -108,10 +90,7 @@ void DcpRemoteBrief::setValue (const QVariant& value)
 
 QVariant DcpRemoteBrief::value () const
 {
-    bool ok;
-    QString valStr = get (BSupplier::OutputValue);
-    int result = valStr.toInt(&ok);
-    return ok ? result : QVariant();
+    return get (BSupplier::OutputValue);
 }
 
 int DcpRemoteBrief::minValue () const

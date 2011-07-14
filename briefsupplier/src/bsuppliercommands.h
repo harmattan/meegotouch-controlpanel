@@ -30,7 +30,6 @@ extern const QString BServerId;
 // available commands (m_Input):
 extern const QString CmdWatch;
 extern const QString CmdUnwatch;
-extern const QString CmdSwitchToggle;
 extern const QString CmdSetValue;
 
 // available responses (output):
@@ -42,7 +41,6 @@ extern const char* OutputName;
 extern const char* OutputWidgetTypeID;
 extern const char* OutputValueText;
 extern const char* OutputIcon;
-extern const char* OutputToggle;
 extern const char* OutputTitleText;
 extern const char* OutputHelpId;
 extern const char* OutputValue;

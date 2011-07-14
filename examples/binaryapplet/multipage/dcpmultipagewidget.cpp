@@ -16,7 +16,7 @@
 ****************************************************************************/
 
 
-#include "dcpskeletonwidget.h"
+#include "dcpmultipagewidget.h"
 #include <mlayout.h>
 #include <mlinearlayoutpolicy.h>
 #include <mlabel.h>
@@ -24,9 +24,9 @@
 #include <mwidgetcreator.h>
 #include <maction.h>
 
-M_REGISTER_WIDGET_NO_CREATE (SkeletonWidget)
+M_REGISTER_WIDGET_NO_CREATE (MultiPageWidget)
 
-SkeletonWidget::SkeletonWidget (int num, QGraphicsWidget *parent)
+MultiPageWidget::MultiPageWidget (int num, QGraphicsWidget *parent)
 	    :DcpStylableWidget(parent)
 {
     // build the ui:
@@ -57,13 +57,13 @@ SkeletonWidget::SkeletonWidget (int num, QGraphicsWidget *parent)
     setLayout(mainLayout);
 }
 
-MButton* SkeletonWidget::createButton (const QString& title, const char* method) {
+MButton* MultiPageWidget::createButton (const QString& title, const char* method) {
     MButton* result = new MButton(title);
     connect (result, SIGNAL(clicked()), this, method);
     return result;
 }
 
-void SkeletonWidget::onPageOpenRequest ()
+void MultiPageWidget::onPageOpenRequest ()
 {
     MButton* button = qobject_cast<MButton*>(sender());
     if (!button) return;
@@ -74,7 +74,7 @@ void SkeletonWidget::onPageOpenRequest ()
     emit changeWidget (num);
 }
 
-SkeletonWidget::~SkeletonWidget()
+MultiPageWidget::~MultiPageWidget()
 {
 }
 
@@ -82,7 +82,7 @@ SkeletonWidget::~SkeletonWidget()
  * This gets called before closing the page.
  * If we return false here, the page will not be closed.
  */
-bool SkeletonWidget::back()
+bool MultiPageWidget::back()
 {
     qDebug ("BACK was asked from me: %d", !m_PreventQuitToggle->isChecked());
     return ! m_PreventQuitToggle->isChecked();
@@ -91,7 +91,7 @@ bool SkeletonWidget::back()
 /*
  * Example for having a menu item:
  */
-QVector<MAction*> SkeletonWidget::menuItems()
+QVector<MAction*> MultiPageWidget::menuItems()
 {
     QVector<MAction*> vector (1);
     vector[0] = new MAction("singlepage example", this);
@@ -104,8 +104,8 @@ QVector<MAction*> SkeletonWidget::menuItems()
 /*
  * Example for how to start another applet:
  */
-void SkeletonWidget::startLanguageApplet()
+void MultiPageWidget::startLanguageApplet()
 {
-    emit activatePluginByName("Skeleton");
+    emit activatePluginByName("MultiPage");
 }
 

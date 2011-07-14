@@ -15,34 +15,30 @@
 **
 ****************************************************************************/
 
-#ifndef SKELETONWIDGET_H
-#define SKELETONWIDGET_H
+#include <QDebug>
+#include <MAction>
+#include <MLibrary>
 
 #include <DcpStylableWidget>
+#include "dcpmultipageapplet.h"
+#include "dcpmultipagewidget.h"
 
-class MLabel;
-class MButton;
-class MAction;
+M_LIBRARY
+Q_EXPORT_PLUGIN2(multipageapplet, MultiPageApplet)
 
-class SkeletonWidget : public DcpStylableWidget
+DcpStylableWidget* MultiPageApplet::constructStylableWidget(int widgetId)
 {
-    Q_OBJECT
+    this->currentWidget = new MultiPageWidget(widgetId);
+    return this->currentWidget;
+}
 
-public:
-    SkeletonWidget(int num, QGraphicsWidget *parent = 0);
-    virtual ~SkeletonWidget();
+QString MultiPageApplet::title() const
+{
+    return QString();
+}
 
-    virtual bool back ();
-    virtual QVector<MAction*> menuItems();
-
-protected slots:
-    void onPageOpenRequest ();
-    void startLanguageApplet();
-
-private:
-    MButton* createButton (const QString& title, const char* method);
-    MButton* m_PreventQuitToggle;
-};
-
-#endif // SKELETONWIDGET_H
+QVector<MAction*> MultiPageApplet::viewMenuItems()
+{
+    return currentWidget ? currentWidget->menuItems() : QVector<MAction*>();
+}
 

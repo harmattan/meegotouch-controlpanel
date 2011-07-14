@@ -23,17 +23,17 @@
 #include "dcpskeletonbrief.h"
 
 M_LIBRARY
-Q_EXPORT_PLUGIN2(skeletonapplet, SkeletonApplet)
+Q_EXPORT_PLUGIN2(skeletonapplet, SliderExampleApplet)
 
 
-QVector<MAction*> SkeletonApplet::viewMenuItems()
+QVector<MAction*> SliderExampleApplet::viewMenuItems()
 {
     QVector<MAction*> vector;
     return vector;
 }
 
-DcpBrief* SkeletonApplet::constructBrief(int)
+DcpBrief* SliderExampleApplet::constructBrief(int)
 {
-    return new SkeletonBrief();
+    return new SliderExampleBrief();
 }
 

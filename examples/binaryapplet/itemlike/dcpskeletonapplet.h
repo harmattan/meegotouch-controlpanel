@@ -30,7 +30,6 @@ class SkeletonApplet : public QObject, public DcpAppletIf
 
 public:
     virtual void init();
-	virtual DcpWidget* constructWidget(int) { return 0; } // FIXME XXX
 	virtual DcpStylableWidget* constructStylableWidget(int widgetId);
 
 	virtual DcpStylableWidget* pageMain();

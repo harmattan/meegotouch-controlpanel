@@ -19,7 +19,7 @@
 #include "dcpskeletonbrief.h"
 #include <QtDebug>
 
-SkeletonBrief::SkeletonBrief():
+SliderExampleBrief::SliderExampleBrief():
     m_Value(50)
 {
     qDebug() << "slider applet got loaded" << m_Value;
@@ -30,12 +30,12 @@ SkeletonBrief::SkeletonBrief():
 #endif
 }
 
-int SkeletonBrief::widgetTypeID() const
+int SliderExampleBrief::widgetTypeID() const
 {
     return DcpWidgetType::Slider;
 }
 
-QString SkeletonBrief::valueText() const
+QString SliderExampleBrief::valueText() const
 {
     return (m_Value / 4) % 2 ?
         // Here we return no description about why the slider is disabled,
@@ -47,18 +47,18 @@ QString SkeletonBrief::valueText() const
         : "Slider is disabled";
 }
 
-QVariant SkeletonBrief::value() const
+QVariant SliderExampleBrief::value() const
 {
     return m_Value % 2 ? m_Value : QVariant();
 }
 
-void SkeletonBrief::setValue(const QVariant& value)
+void SliderExampleBrief::setValue(const QVariant& value)
 {
     m_Value = value.toInt();
     qDebug() << "slider applet: new value is" << m_Value;
 }
 
-void SkeletonBrief::timerEvent ( QTimerEvent * )
+void SliderExampleBrief::timerEvent ( QTimerEvent * )
 {
     // increase the value and notify controlpanel that it changed:
     m_Value++;

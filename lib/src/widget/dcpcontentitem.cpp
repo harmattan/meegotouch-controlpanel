@@ -251,8 +251,14 @@ DcpContentItem::ensureToggleIsCreated()
                      this, SLOT(onToggleChanged(bool)));
             d_ptr->m_LayoutIsToBeChanged = true;
         }
+
         // update switch state:
-        button->setChecked (isChecked());
+        QVariant value = applet() ? applet()->value() : QVariant();
+        button->setEnabled (!value.isNull());
+        if (!value.isNull()) {
+            button->setChecked (value.toBool());
+        }
+
     } else {
         if (d_ptr->m_ButtonW) {
             delete d_ptr->m_ButtonW;

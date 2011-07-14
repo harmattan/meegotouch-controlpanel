@@ -27,10 +27,6 @@
 M_LIBRARY
 Q_EXPORT_PLUGIN2(sheetapplet, SheetApplet)
 
-void SheetApplet::init()
-{
-};
-
 MSheet* SheetApplet::constructSheet (int widgetId)
 {
     Q_UNUSED (widgetId);
