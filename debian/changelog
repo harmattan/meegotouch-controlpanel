@@ -7,9 +7,9 @@ duicontrolpanel (0.12.23~unreleased) unstable; urgency=low
   * Fixes: NB#269545 - Notification: §qtn_noti_settings_subheader§ [Show
     notifications for:] is missing
   * fixed 243414 - [TASK] page->dismiss only works for 2 history stack
-  * fixed 271925 - Declarative settings applet names have a "!!"
+  * Fixes: NB#271925 - Declarative settings applet names have a "!!"
     prefix on the Applications page of the Settings application
-  * fixed 268757 - Notification; String §qtn_noti_settings_private_mode§
+  * Fixes: NB#268757 - Notification; String §qtn_noti_settings_private_mode§
     is truncated in Russian;
   * fixed 267658 - Opening Bluetooth from Status menu is very slow and
     shows bad transition
