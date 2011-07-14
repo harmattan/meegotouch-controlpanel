@@ -13,8 +13,9 @@ duicontrolpanel (0.12.23~unreleased) unstable; urgency=low
     is truncated in Russian;
   * fixed 267658 - Opening Bluetooth from Status menu is very slow and
     shows bad transition
+  * fixed 255760 - [TASK] API: Function to disable toggle type dcpbrief
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 14 Jul 2011 15:27:40 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 14 Jul 2011 16:36:01 +0200
 
 duicontrolpanel (0.12.22) unstable; urgency=low
 
