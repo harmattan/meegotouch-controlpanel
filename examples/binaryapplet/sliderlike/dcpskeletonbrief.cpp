@@ -24,8 +24,8 @@ SliderExampleBrief::SliderExampleBrief():
 {
     qDebug() << "slider applet got loaded" << m_Value;
 
-#if 1
-    // this makes the slider increase in every sec
+#if 0
+    // this makes the slider changing in every sec
     startTimer (1000);
 #endif
 }

@@ -78,6 +78,6 @@ void ToggleExampleBrief::setValue (const QVariant& value)
 
 QVariant ToggleExampleBrief::value () const
 {
-    return m_ToggleState;
+    return m_Timer > 5 ? QVariant() : m_ToggleState;
 }
 
