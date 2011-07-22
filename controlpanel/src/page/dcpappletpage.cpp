@@ -33,8 +33,6 @@
 #include <mwidgetcreator.h>
 #include <QProcess>
 #include <QCoreApplication>
-#include <MDismissEvent>
-#include <QCloseEvent>
 
 #include "dcpdebug.h"
 
@@ -176,19 +174,7 @@ DcpAppletPage::preventQuit ()
     if (m_MainWidget && !m_MainWidget->back()) {
         return true;
     }
-    return false;
-}
-
-// This function might prevent closing the window for the applet
-// in a normal back button pressed situation (when not the last page)
-void
-DcpAppletPage::dismissEvent (MDismissEvent *event)
-{
-    if (preventQuit ()) {
-        event->ignore();
-        return;
-    }
-    DcpPage::dismissEvent (event);
+    return DcpPage::preventQuit();
 }
 
 /*! \brief Constructs the applet's widget

@@ -194,7 +194,7 @@ DuiControlPanelService::preloadAppletLauncher ()
 {
     PageFactory* pf = PageFactory::instance();
     dcp_failfunc_unless (pf);
-    QTimer::singleShot (1000, pf, SLOT(preloadAppletLauncher()));
+    pf->preloadAppletLauncher();
 }
 
 // FIXME XXX we should consider a common base class with DcpAppletLauncherService

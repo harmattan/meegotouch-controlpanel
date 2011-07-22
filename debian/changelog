@@ -16,8 +16,11 @@ duicontrolpanel (0.13.1~unreleased) unstable; urgency=low
   * fixed 255760 - [TASK] API: Function to disable toggle type dcpbrief
   * Fixes: NB#264064 - Control panel grants full set of credentials for
     3rd party libraries
+  * fixed 272868 - Settings main view is showing before opening the
+    applet in the given scenario
+  * fixed 273726 - some times applet views flashes twice in settings
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 14 Jul 2011 17:07:59 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 22 Jul 2011 15:23:00 +0200
 
 duicontrolpanel (0.12.22) unstable; urgency=low
 

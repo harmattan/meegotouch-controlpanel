@@ -127,4 +127,15 @@ DcpPage::addMAction (MAction*)
 {
 }
 
+void
+DcpPage::dismissEvent(MDismissEvent* event)
+{
+    MApplicationPage::dismissEvent (event);
+}
+
+bool
+DcpPage::preventQuit ()
+{
+    return false;
+}
 

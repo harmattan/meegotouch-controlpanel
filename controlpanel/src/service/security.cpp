@@ -7,13 +7,10 @@
 #include <DcpAppletMetadata>
 #include <dcpdebug.h>
 
-#include <syslog.h>
-
 void Security::restrictTo (DcpAppletMetadata* metadata)
 {
     if (!PageFactory::isInProcessApplets()) {
-        long result = creds_confine (qPrintable(metadata->fullBinary()));
-        syslog (LOG_DEBUG, "XXX %ld", result);
+        creds_confine (qPrintable(metadata->fullBinary()));
     }
 }
 

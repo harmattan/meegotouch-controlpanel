@@ -29,6 +29,7 @@
 #include <MPannableViewport>
 #include <MPositionIndicator>
 #include <MWidgetAction>
+#include <MDismissEvent>
 
 #include "mwidgetcreator.h"
 M_REGISTER_WIDGET(DcpPage)
@@ -40,7 +41,8 @@ DcpPage::DcpPage () :
     MApplicationPage (),
     m_TitleLabel (0),
     m_HelpButton (0),
-    m_ActionHack (0)
+    m_ActionHack (0),
+    m_PreventQuit (false)
 {
     setStyleName("CommonApplicationPageInverted");
     dcp_failfunc_unless (pannableViewport());
@@ -117,6 +119,28 @@ DcpPage::addMAction (MAction* action)
         delete m_ActionHack;
     }
     addAction (action);
+}
+
+/*!
+ * This function returns if the page would like to prevent its closing,
+ * when the user presses the close or back button.
+ */
+bool
+DcpPage::preventQuit ()
+{
+    return m_PreventQuit;
+}
+
+// This function might prevent closing the window for the applet
+// in a normal back button pressed situation (when not the last page)
+void
+DcpPage::dismissEvent (MDismissEvent *event)
+{
+    if (preventQuit ()) {
+        event->ignore();
+        return;
+    }
+    MApplicationPage::dismissEvent (event);
 }
 
 /*!

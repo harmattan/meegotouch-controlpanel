@@ -53,6 +53,9 @@ public:
 
     void addMAction (MAction* action);
 
+    virtual bool preventQuit ();
+    void setPreventQuit (bool prevent) { m_PreventQuit = prevent; }
+
 signals:
     void openSubPage (PageHandle handle);
     void openSubPageWithReferer (const PageHandle &, const QString &, int);
@@ -62,6 +65,7 @@ protected:
     void setTitleLabel (const QString& helpId = QString());
     void appendWidget (QGraphicsWidget *widget);
     void setTitleStyleName (const QString& style);
+    virtual void dismissEvent (MDismissEvent *event);
 
 private:
     void createLayout();
@@ -72,6 +76,7 @@ private:
     PageHandle m_Handle;
     PageHandle m_Referer;
     MAction* m_ActionHack;
+    bool m_PreventQuit;
     friend class Ut_DcpPage;
 };
 

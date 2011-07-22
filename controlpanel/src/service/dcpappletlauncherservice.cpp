@@ -94,8 +94,7 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
         // we only unregister the service if the window is shown to prevent
         // the user click on the appletbutton after that (it would open another
         // instace)
-        connect (pageFactory, SIGNAL (windowShown()),
-                 this, SLOT (unregisterService()));
+        QTimer::singleShot (1000, this, SLOT (unregisterService()));
         pageFactory->raiseMainWindow ();
     } else {
         close ();

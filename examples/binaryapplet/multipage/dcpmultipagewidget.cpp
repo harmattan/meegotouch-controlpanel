@@ -106,6 +106,6 @@ QVector<MAction*> MultiPageWidget::menuItems()
  */
 void MultiPageWidget::startLanguageApplet()
 {
-    emit activatePluginByName("MultiPage");
+    emit activatePluginByName("Skeleton");
 }
 

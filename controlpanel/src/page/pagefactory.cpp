@@ -58,7 +58,8 @@ PageFactory::PageFactory ():
     m_Win (0),
     m_PageWithDelayedContent (0),
     m_AppletsRegistered (false),
-    m_StartupState (NothingStarted)
+    m_StartupState (NothingStarted),
+    m_PageChangeDisabled (false)
 {
     // Run onAppletLoaded for all the applets that are already loaded
     // and run it later for the applets loaded in the future.
@@ -521,6 +522,9 @@ bool PageFactory::verifyAppletLauncherIsOk()
 bool
 PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
 {
+    // this prevents handling multiple page change requests in very short time
+    if (m_PageChangeDisabled) return false;
+
     if (dropOtherPages) {
         closeHelpPage();
         // in outprocess mode we should also drop pages running in other instances
@@ -533,6 +537,7 @@ PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
     // if we could run it out of process then we do not change the page:
     if (handle.id == PageHandle::APPLET) {
         if (maybeRunOutOfProcess(handle.param)) {
+            enablePageChange (false);
             return false;
         }
 
@@ -693,8 +698,8 @@ void PageFactory::onMetadataLoaded ()
 inline bool pagePreventsQuit (MSceneWindow* mPage)
 {
     // applet page can prevent quit:
-    DcpAppletPage* appletPage = qobject_cast<DcpAppletPage*>(mPage);
-    if (appletPage && appletPage->preventQuit()) {
+    DcpPage* page = qobject_cast<DcpPage*>(mPage);
+    if (page && page->preventQuit()) {
         return true;
     }
     return false;
@@ -829,8 +834,7 @@ void PageFactory::newWin ()
 bool PageFactory::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::Close) {
-        DcpAppletPage* appletPage = qobject_cast<DcpAppletPage*>(currentPage());
-        if (appletPage && appletPage->preventQuit()) {
+        if (pagePreventsQuit (currentPage())) {
             event->ignore ();
             return true;
         }
@@ -839,6 +843,23 @@ bool PageFactory::eventFilter(QObject *obj, QEvent *event)
     }
     // standard event processing
     return QObject::eventFilter(obj, event);
+}
+
+/*!
+ * Disables page changing until a little time.
+ */
+void PageFactory::enablePageChange(bool enable)
+{
+    if (enable == !m_PageChangeDisabled) return;
+
+    m_PageChangeDisabled = !enable;
+    if (m_PageChangeDisabled) {
+        QTimer::singleShot (3000, this, SLOT(enablePageChange()));
+    }
+
+    // does the same disabling for the back button (NB#272868):
+    DcpPage* page = this->currentPage();
+    page->setPreventQuit (m_PageChangeDisabled);
 }
 
 void

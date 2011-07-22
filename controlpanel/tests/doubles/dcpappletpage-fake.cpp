@@ -77,11 +77,6 @@ DcpAppletPage::constructAppletWidget(DcpAppletObject*, DcpPage*, int)
     return 0;
 }
 
-void
-DcpAppletPage::dismissEvent (MDismissEvent *)
-{
-}
-
 bool
 DcpAppletPage::preventQuit()
 {

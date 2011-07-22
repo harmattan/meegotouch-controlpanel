@@ -89,6 +89,7 @@ private slots:
     void newMainPageInSeparateProcess ();
     void switchToMainPageWithPageDropping ();
     void destroyPageHistory ();
+    void enablePageChange (bool enable = true);
 
 private:
     bool tryOpenPageBackward (const PageHandle &handle);
@@ -119,6 +120,8 @@ private:
         NothingStarted,
         BriefSupplierStarted
     } m_StartupState;
+
+    bool m_PageChangeDisabled;
 };
 
 #endif
