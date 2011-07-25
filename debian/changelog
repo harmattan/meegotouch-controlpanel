@@ -1,4 +1,4 @@
-duicontrolpanel (0.13.1~unreleased) unstable; urgency=low
+duicontrolpanel (0.13.1) unstable; urgency=low
 
   * Fixes: NB#265196 - "Privacy mode" plug-in on Notifications settings page
     should be visually separated from rest of the plug-ins
