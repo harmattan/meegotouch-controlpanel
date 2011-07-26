@@ -1,4 +1,4 @@
-duicontrolpanel (0.13.1) unstable; urgency=low
+duicontrolpanel (0.13.1.1) unstable; urgency=low
 
   * Fixes: NB#265196 - "Privacy mode" plug-in on Notifications settings page
     should be visually separated from rest of the plug-ins
@@ -11,8 +11,6 @@ duicontrolpanel (0.13.1) unstable; urgency=low
     prefix on the Applications page of the Settings application
   * Fixes: NB#268757 - Notification; String §qtn_noti_settings_private_mode§
     is truncated in Russian;
-  * fixed 267658 - Opening Bluetooth from Status menu is very slow and
-    shows bad transition
   * fixed 255760 - [TASK] API: Function to disable toggle type dcpbrief
   * Fixes: NB#264064 - Control panel grants full set of credentials for
     3rd party libraries
