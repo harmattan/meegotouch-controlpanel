@@ -44,6 +44,7 @@
 #include <MSeparator>
 #include <MHelpButton>
 #include <MLabel>
+#include <QGraphicsLinearLayout>
 
 DcpAppletButtons::DcpAppletButtons (
         const Category *categoryInfo,
@@ -150,18 +151,33 @@ DcpAppletButtons::createContents ()
         addComponent (metadata, model, mainApplets);
     }
 
+    QString subHeaderText = m_CategoryInfo->subHeaderText();
+
     // separator for the main applets
-    if (!mainApplets.isEmpty()) {
+    // if we do not have a subheader
+    if (!mainApplets.isEmpty() && subHeaderText.isEmpty()) {
         MSeparator* sep = new MSeparator();
         sep->setStyleName ("CommonItemDividerInverted");
         mLayout()->insertItem (getItemCount()-1, sep);
     }
 
-    QString subHeaderText = m_CategoryInfo->subHeaderText();
+    // subheader with separator if we have
     if (!subHeaderText.isEmpty() && !m_SubHeader) {
+        QGraphicsLinearLayout *lout = new QGraphicsLinearLayout(Qt::Horizontal);
+        lout->setContentsMargins(0, 0, 0, 0);
+        lout->setSpacing(0);
+
+        MSeparator *sep = new MSeparator();
+        sep->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sep->setContentsMargins(0, 0, 0, 0);
+        sep->setStyleName("CommonGroupHeaderDividerInverted");
+
         m_SubHeader = new MLabel (subHeaderText);
         m_SubHeader->setStyleName ("CommonBodyTextInverted");
-        mLayout()->insertItem (getItemCount()-1, m_SubHeader);
+        lout->addItem(sep);
+        lout->addItem(m_SubHeader);
+
+        mLayout()->insertItem (getItemCount()-1, lout);
     }
 
     QAbstractItemModel* prevModel = m_List->itemModel();
