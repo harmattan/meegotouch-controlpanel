@@ -38,6 +38,7 @@
 #include <DcpRetranslator>
 
 #include <MList>
+#include <MListItem>
 #include <QStandardItemModel>
 #include <QStandardItem>
 #include <QVariant>
@@ -163,7 +164,11 @@ DcpAppletButtons::createContents ()
 
     // subheader with separator if we have
     if (!subHeaderText.isEmpty() && !m_SubHeader) {
-        QGraphicsLinearLayout *lout = new QGraphicsLinearLayout(Qt::Horizontal);
+        MListItem* row = new MListItem();
+        row->setStyleName ("CommonGroupHeaderPanelInverted");
+
+        QGraphicsLinearLayout *lout =
+            new QGraphicsLinearLayout(Qt::Horizontal, row);
         lout->setContentsMargins(0, 0, 0, 0);
         lout->setSpacing(0);
 
