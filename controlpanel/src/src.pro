@@ -68,3 +68,12 @@ meego {
 DEFINES += QT_USE_FAST_CONCATENATION
 DEFINES += QT_USE_FAST_OPERATOR_PLUS
 
+MT_VERSION = $$system(pkg-config --modversion meegotouch)
+message ("Version of libmeegotouch:" $$MT_VERSION)
+greaterThan (MT_VERSION, 0.23.1) {
+    DEFINES += SHEET_ORIENTATION_FIX
+} else {
+    warning ("Sheet orientation fix is disabled due to low libmeegotouch version")
+}
+
+
