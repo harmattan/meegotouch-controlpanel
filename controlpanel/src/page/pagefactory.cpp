@@ -309,6 +309,8 @@ PageFactory::popupSheetIfAny (const PageHandle& handle)
             // handle the window shown event:
             connect (sheet, SIGNAL (appeared ()), this, SIGNAL (windowShown()));
 
+            sheet->setSystemwideModeOrientation (
+                    MSheet::FollowsCurrentAppWindowOrientation);
             sheet->appearSystemwide (MSceneWindow::DestroyWhenDone);
         }
     }
