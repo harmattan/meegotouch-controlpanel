@@ -173,7 +173,7 @@ DcpAppletButtons::createContents ()
         sep->setStyleName("CommonGroupHeaderDividerInverted");
 
         m_SubHeader = new MLabel (subHeaderText);
-        m_SubHeader->setStyleName ("CommonBodyTextInverted");
+        m_SubHeader->setStyleName ("CommonGroupHeaderInverted");
         lout->addItem(sep);
         lout->addItem(m_SubHeader);
 
