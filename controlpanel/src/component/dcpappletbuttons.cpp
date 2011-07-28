@@ -163,7 +163,7 @@ DcpAppletButtons::createContents ()
     }
 
     // subheader with separator if we have
-    if (!subHeaderText.isEmpty() && !m_SubHeader) {
+    if (!subHeaderText.isEmpty() && !mainApplets.isEmpty() && !m_SubHeader) {
         MListItem* row = new MListItem();
         row->setStyleName ("CommonGroupHeaderPanelInverted");
 
@@ -183,6 +183,13 @@ DcpAppletButtons::createContents ()
         lout->addItem(m_SubHeader);
 
         mLayout()->insertItem (getItemCount()-1, lout);
+    }
+
+    // subheader without separator
+    if (!subHeaderText.isEmpty() && mainApplets.isEmpty() && !m_SubHeader) {
+        m_SubHeader = new MLabel (subHeaderText);
+        m_SubHeader->setStyleName ("CommonBodyTextInverted");
+        mLayout()->insertItem (getItemCount()-1, m_SubHeader);
     }
 
     QAbstractItemModel* prevModel = m_List->itemModel();
