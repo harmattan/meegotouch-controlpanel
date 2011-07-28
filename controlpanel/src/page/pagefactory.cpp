@@ -35,6 +35,7 @@
 #include <DcpRetranslator>
 #include "dcpappletlauncherif.h"
 #include "duicontrolpanelif.h"
+#include "categoryutils.h"
 
 #include <MApplication>
 #include <MComponentCache>
@@ -438,11 +439,8 @@ PageFactory::createAppletCategoryPage (const PageHandle& handle)
      * This functionality has to be enabled from the category config file.
      */
     if (info->appletAutoStart() && info->children().count() == 0) {
-        // TODO might make sense to move this to class Category
-        DcpAppletManager* mng = DcpAppletManager::instance();
-        bool withUncategorized = info->containsUncategorized();
-        DcpAppletMetadataList list = mng->listByCategory (info->referenceIds(),
-                    withUncategorized ? DcpCategories::hasCategory : NULL);
+        DcpAppletMetadataList list = CategoryUtils::metadataList (info);
+
         if (list.count() == 1) {
             DcpAppletMetadata* metadata = list.at(0);
             if (metadata->hasMainView()) {

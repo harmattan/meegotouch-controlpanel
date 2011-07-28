@@ -3,8 +3,10 @@ duicontrolpanel (0.13.2~unreleased) unstable; urgency=low
   * Changes fix for NB#265196 to use common group header instead of
     putting the separator and the label under each other
   * Fixes: sheet does not follow dcp orientation
+  * fixed 273261 - China variant:Suggest to remove Feed on home screen
+    option in Notifications setting from PRC image
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 27 Jul 2011 14:33:36 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 28 Jul 2011 15:08:47 +0200
 
 duicontrolpanel (0.13.1.1) unstable; urgency=low
 

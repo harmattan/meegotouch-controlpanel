@@ -26,6 +26,7 @@
 #include "dcpappletpage.h"
 #include "category.h"
 #include "dcpcategories.h"
+#include "categoryutils.h"
 
 #include "pages.h"
 #include "dcpappletmanager.h"
@@ -126,11 +127,7 @@ DcpAppletButtons::createContents ()
     if (isMostUsed) {
         metadatas = DcpAppletManager::instance()->listMostUsed();
     } else {
-        bool withUncategorized = m_CategoryInfo->containsUncategorized();
-        metadatas =
-            DcpAppletManager::instance()->listByCategory (
-                    m_CategoryInfo->referenceIds(),
-                    withUncategorized ? DcpCategories::hasCategory : NULL);
+        metadatas = CategoryUtils::metadataList (m_CategoryInfo);
     }
 
     // ensure that all needed catalogs are loaded for the applets before

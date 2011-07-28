@@ -16,6 +16,7 @@ TEST_SOURCES = \
     $$SRCDIR/page/pages.cpp \
     $$SRCDIR/categories/category.cpp \
     $$SRCDIR/categories/memorycategory.cpp \
+    $$SRCDIR/categories/categoryutils.cpp \
     $$SRCDIR/component/dcpmaincategory.cpp \
     $$SRCDIR/component/dcpappletwidget.cpp \
 

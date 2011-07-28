@@ -37,7 +37,8 @@ const char* FileCategory::keys[KeyIdMax] = {
     "HasSeparatorLine",
     "SubHeaderText",
     "SubHeaderText-logical-id",
-    "MainApplets"
+    "MainApplets",
+    "HideIfEmpty"
 };
 
 FileCategory::FileCategory(const QString& fileName):

@@ -27,6 +27,7 @@
 #include "dcpmostused.h"
 #include "dcpdebug.h"
 #include "pagefactory.h"
+#include "categoryutils.h"
 
 #include <DcpAppletMetadata>
 #include <DcpAppletObject>
@@ -68,6 +69,9 @@ DcpAppletCategoryPage::createCategories ()
     }
 
     foreach (const Category *info, categoryList) {
+        // hide hidden categories:
+        if (!CategoryUtils::isVisible (info)) continue;
+
         DcpRetranslator::instance()->ensureTranslationsAreLoaded (
                 info->translationCategories());
         DcpSingleComponent *button =

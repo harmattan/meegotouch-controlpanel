@@ -22,6 +22,7 @@ TEST_SOURCES = \
 SOURCES += \
     ut_dcpappletcategorypage.cpp \
     $$STUBSDIR/mapplication-fake.cpp \
+    $$STUBSDIR/categoryutils-fake.cpp \
     $$STUBSDIR/mapplicationwindow-fake.cpp \
     $$STUBSDIR/mgridlayoutpolicy-fake.cpp \
     $$STUBSDIR/mabstractlayoutpolicy-fake.cpp \
