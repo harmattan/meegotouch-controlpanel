@@ -297,6 +297,10 @@ PageFactory::popupSheetIfAny (const PageHandle& handle)
             sheet->appear (m_Win, MSceneWindow::DestroyWhenDone);
 
         } else {
+            // sheet is the first page, so its translation might not be loaded yet
+            DcpRetranslator::instance()->ensureTranslationLoaded (
+                    applet->metadata());
+
             // if we do not have a page yet, we can only display the sheet on a
             // new window (applet launcher process) -> systemWide
 
