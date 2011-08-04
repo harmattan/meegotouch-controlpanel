@@ -37,7 +37,8 @@ static const char* serviceName = "com.nokia.DcpAppletLauncher";
 
 DcpAppletLauncherService::DcpAppletLauncherService ():
     MApplicationService (serviceName),
-    m_IsServiceRegistered (false)
+    m_IsServiceRegistered (false),
+    m_SkipNextClosing (false)
 {
     m_MainIface = new DuiControlPanelIf ("", this);
     // this makes us die if the main process dies anyhow:
@@ -57,7 +58,7 @@ DcpAppletLauncherService::DcpAppletLauncherService ():
     // the main process will be able able to close us down if needed even if
     // the appletlauncher does not provide the service anymore,
     // through its (main process's) own service:
-    connect (m_MainIface, SIGNAL (closeAppletLaunchers()), this, SLOT (close()));
+    connect (m_MainIface, SIGNAL (closeAppletLaunchers()), this, SLOT (closeWithDelay()));
 }
 
 
@@ -125,21 +126,16 @@ bool DcpAppletLauncherService::appletPage (const QString& appletPath)
 
 void DcpAppletLauncherService::closeWithDelay ()
 {
-    QTimer::singleShot (1500, qApp, SLOT(quit()));
+    if (m_SkipNextClosing) {
+        m_SkipNextClosing = false;
+        return;
+    }
+    QTimer::singleShot (800, qApp, SLOT(quit()));
 }
 
 bool DcpAppletLauncherService::appletPageAlone (const QString& appletPath)
 {
-    // we prevent closing if the main application process unregisters.
-    // But we need to close if it registers (a new instance gets started).
-    m_MainUnregistrationWatcher->setWatchMode (QDBusServiceWatcher::WatchForRegistration);
-    disconnect (m_MainUnregistrationWatcher, SIGNAL (serviceUnregistered(QString)),
-             this, SLOT (close()));
-    connect (m_MainUnregistrationWatcher, SIGNAL (serviceRegistered(QString)),
-             this, SLOT (closeWithDelay()));
-    delete m_MainIface;
-    m_MainIface = 0;
-
+    m_SkipNextClosing = true;
     return sheduleApplet (appletPath, true) && maybeAppletRealStart();
 }
 

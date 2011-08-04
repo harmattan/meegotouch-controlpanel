@@ -143,11 +143,12 @@ DuiControlPanelService::appletPage (const QString& appletName)
 
         } else {
             // if we already have a page, then we start the applet in an
-            // appletlauncher and exit from mainloop:
+            // appletlauncher:
             DcpAppletLauncherIf iface;
             dcp_failfunc_unless (iface.isValid(), false);
             iface.appletPageAlone (metadata->fileName());
-            quitWithDelay();
+            emit closeAppletLaunchers();
+
             return true;
         }
     }

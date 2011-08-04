@@ -49,6 +49,7 @@ private:
     bool m_IsServiceRegistered;
     DuiControlPanelIf* m_MainIface;
     QDBusServiceWatcher* m_MainUnregistrationWatcher;
+    bool m_SkipNextClosing;
 };
 
 
