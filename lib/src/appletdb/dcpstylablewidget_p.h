@@ -23,6 +23,7 @@ public:
     DcpStylableWidgetPrivate ();
     int m_WidgetId;
     bool isProgressIndicatorVisible;
+    bool isAutoTitleEnabled;
 };
 
 #endif //DCPSTYLABLEWIDGETPRIVATE_H 

@@ -25,7 +25,8 @@
 
 DcpStylableWidgetPrivate::DcpStylableWidgetPrivate ():
     m_WidgetId (-1),
-    isProgressIndicatorVisible (false)
+    isProgressIndicatorVisible (false),
+    isAutoTitleEnabled (false)
 {
 }
 
@@ -135,6 +136,16 @@ void DcpStylableWidget::setProgressIndicatorVisible(bool visible)
 bool DcpStylableWidget::isProgressIndicatorVisible() const
 {
     return d_ptr->isProgressIndicatorVisible;
+}
+
+void DcpStylableWidget::enableAutoTitle (bool enable)
+{
+    d_ptr->isAutoTitleEnabled = enable;
+}
+
+bool DcpStylableWidget::isAutoTitleEnabled () const
+{
+    return d_ptr->isAutoTitleEnabled;
 }
 
 

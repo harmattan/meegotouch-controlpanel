@@ -105,6 +105,10 @@ bool DcpAppletWidget::isProgressIndicatorVisible() const
     RETURN (isProgressIndicatorVisible(), false);
 }
 
+bool DcpAppletWidget::isAutoTitleEnabled () const
+{
+    RETURN (isAutoTitleEnabled(), false);
+}
 
 void DcpAppletWidget::setProgressIndicatorVisible(bool visible)
 {

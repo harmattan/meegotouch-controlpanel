@@ -65,6 +65,8 @@ DcpDeclWidget::DcpDeclWidget(const QString& xmlPath)
         MSettingsLanguageWidgetFactory::createWidget(*binary, datastore );
     dcp_failfunc_unless(widget);
     layout->addItem(widget);
+
+    enableAutoTitle();
 }
 
 void DcpDeclWidget::createErrorLabel(const QString& text)

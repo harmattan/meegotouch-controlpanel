@@ -289,6 +289,9 @@ DcpAppletPage::retranslateUi ()
         }
 
         setTitle(title);
+        if (m_MainWidget && m_MainWidget->isAutoTitleEnabled()) {
+            setTitleLabel();
+        }
     }
 }
 
