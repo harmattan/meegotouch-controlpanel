@@ -22,6 +22,8 @@
 #include "pages.h"
 
 class MApplicationWindow;
+class DuiControlPanelIf;
+class QDBusServiceWatcher;
 
 class DcpAppletLauncherService: public MApplicationService
 {
@@ -34,15 +36,19 @@ public:
 
 public slots:
     bool appletPage (const QString& appletPath);
+    bool appletPageAlone (const QString& appletPath);
     void prestart ();
     void close ();
+    void closeWithDelay ();
     virtual bool unregisterService ();
 
 private:
-    bool sheduleApplet (const QString& appletPath);
+    bool sheduleApplet (const QString& appletPath, bool isStandalone = false);
     PageHandle m_PageHandle;
     QString m_AppletPath;
     bool m_IsServiceRegistered;
+    DuiControlPanelIf* m_MainIface;
+    QDBusServiceWatcher* m_MainUnregistrationWatcher;
 };
 
 

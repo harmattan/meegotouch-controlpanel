@@ -24,6 +24,7 @@
 
 #include "duicontrolpanelifadaptor.h"
 #include "duicontrolpanelif.h"
+#include "dcpappletlauncherif.h"
 #include "security.h"
 
 #include <MApplicationIfAdaptor>
@@ -117,9 +118,10 @@ DuiControlPanelService::appletPage (const QString& appletName)
     // time (do not parse all .desktops)
     mng->loadMetadata ();
     DcpAppletMetadata* metadata = mng->metadata (appletName);
+    dcp_failfunc_unless (metadata, false);
 
     // if the applet does not have a main view, we pop up its category page:
-    if (metadata && !metadata->hasMainView()) {
+    if (!metadata->hasMainView()) {
         categoryPage (metadata->category());
         return true;
 
@@ -140,13 +142,12 @@ DuiControlPanelService::appletPage (const QString& appletName)
             DcpRemoteBriefReceiver::disable ();
 
         } else {
-            // if we already have a page, then we start another instance,
-            // and exit from mainloop:
-            unregisterService ();
-            DuiControlPanelIf iface;
+            // if we already have a page, then we start the applet in an
+            // appletlauncher and exit from mainloop:
+            DcpAppletLauncherIf iface;
             dcp_failfunc_unless (iface.isValid(), false);
-            iface.appletPage (appletName);
-            qApp->exit ();
+            iface.appletPageAlone (metadata->fileName());
+            quitWithDelay();
             return true;
         }
     }
@@ -174,7 +175,7 @@ DuiControlPanelService::receiveCloseSignal ()
 
 void DuiControlPanelService::quitWithDelay ()
 {
-    QTimer::singleShot (1000, qApp, SLOT(quit()));
+    QTimer::singleShot (1500, qApp, SLOT(quit()));
 }
 
 void

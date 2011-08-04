@@ -96,7 +96,7 @@ DcpAppletPage::load ()
 
     if (m_Applet) {
         m_Applet->metadata()->markActive();
-        DcpRetranslator::instance()->ensureTranslationLoaded(
+        DcpRetranslator::instance()->ensureTranslationLoaded (
                m_Applet->metadata());
 
        if (m_Applet->isAppletLoaded()) {

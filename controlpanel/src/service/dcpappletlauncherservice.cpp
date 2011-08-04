@@ -39,25 +39,25 @@ DcpAppletLauncherService::DcpAppletLauncherService ():
     MApplicationService (serviceName),
     m_IsServiceRegistered (false)
 {
-    DuiControlPanelIf* iface = new DuiControlPanelIf ("", this);
+    m_MainIface = new DuiControlPanelIf ("", this);
     // this makes us die if the main process dies anyhow:
 #if 0
     // TODO this would be nicer, but does not work:
     connect (iface, SIGNAL (serviceUnavailable(QString)),
              this, SLOT (close()));
 #else
-    QDBusServiceWatcher* watcher =
+    m_MainUnregistrationWatcher =
         new QDBusServiceWatcher ("com.nokia.DuiControlPanel",
                 QDBusConnection::sessionBus(),
                 QDBusServiceWatcher::WatchForUnregistration, this);
-    connect (watcher, SIGNAL (serviceUnregistered(QString)),
+    connect (m_MainUnregistrationWatcher, SIGNAL (serviceUnregistered(QString)),
              this, SLOT (close()));
 #endif
 
     // the main process will be able able to close us down if needed even if
     // the appletlauncher does not provide the service anymore,
     // through its (main process's) own service:
-    connect (iface, SIGNAL (closeAppletLaunchers()), this, SLOT (close()));
+    connect (m_MainIface, SIGNAL (closeAppletLaunchers()), this, SLOT (close()));
 }
 
 
@@ -103,7 +103,8 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
     return success;
 }
 
-bool DcpAppletLauncherService::sheduleApplet (const QString& appletPath)
+bool DcpAppletLauncherService::sheduleApplet (const QString& appletPath,
+                                              bool isStandalone)
 {
     // only care about the first request
     if (m_PageHandle.id != PageHandle::NOPAGE) return false;
@@ -111,7 +112,7 @@ bool DcpAppletLauncherService::sheduleApplet (const QString& appletPath)
     m_PageHandle.id = PageHandle::APPLET;
     m_PageHandle.param = QString();
     m_PageHandle.widgetId = -1;
-    m_PageHandle.isStandalone = false;
+    m_PageHandle.isStandalone = isStandalone;
     m_AppletPath = appletPath;
     return true;
 }
@@ -120,6 +121,26 @@ bool DcpAppletLauncherService::sheduleApplet (const QString& appletPath)
 bool DcpAppletLauncherService::appletPage (const QString& appletPath)
 {
     return sheduleApplet (appletPath) && maybeAppletRealStart();
+}
+
+void DcpAppletLauncherService::closeWithDelay ()
+{
+    QTimer::singleShot (1500, qApp, SLOT(quit()));
+}
+
+bool DcpAppletLauncherService::appletPageAlone (const QString& appletPath)
+{
+    // we prevent closing if the main application process unregisters.
+    // But we need to close if it registers (a new instance gets started).
+    m_MainUnregistrationWatcher->setWatchMode (QDBusServiceWatcher::WatchForRegistration);
+    disconnect (m_MainUnregistrationWatcher, SIGNAL (serviceUnregistered(QString)),
+             this, SLOT (close()));
+    connect (m_MainUnregistrationWatcher, SIGNAL (serviceRegistered(QString)),
+             this, SLOT (closeWithDelay()));
+    delete m_MainIface;
+    m_MainIface = 0;
+
+    return sheduleApplet (appletPath, true) && maybeAppletRealStart();
 }
 
 bool DcpAppletLauncherService::registerService ()

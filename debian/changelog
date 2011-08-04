@@ -5,6 +5,8 @@ duicontrolpanel (0.13.2~unreleased) unstable; urgency=low
   * Fixes: sheet does not follow dcp orientation
   * fixed 273261 - China variant:Suggest to remove Feed on home screen
     option in Notifications setting from PRC image
+  * fixed 267658 - Opening Bluetooth from Status menu is very slow and
+    shows bad transition
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 28 Jul 2011 15:08:47 +0200
 
