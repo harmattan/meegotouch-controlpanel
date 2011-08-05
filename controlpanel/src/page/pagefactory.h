@@ -65,6 +65,8 @@ public slots:
     void preloadAppletLauncher ();
     void preloadBriefReceiver ();
 
+    void closeHelpPage();
+
 signals:
     void resetAppletLauncherProcesses ();
     void windowShown ();
@@ -96,7 +98,6 @@ private:
     void registerPage (DcpPage *page);
     void newWin ();
     bool isCurrentPage (const PageHandle &handle);
-    void closeHelpPage();
     bool verifyAppletLauncherIsOk();
 
     QList< MSceneWindow * > pageHistory ();

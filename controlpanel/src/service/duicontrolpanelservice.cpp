@@ -147,7 +147,10 @@ DuiControlPanelService::appletPage (const QString& appletName)
             DcpAppletLauncherIf iface;
             dcp_failfunc_unless (iface.isValid(), false);
             iface.appletPageAlone (metadata->fileName());
+
+            // close other chained windows:
             emit closeAppletLaunchers();
+            PageFactory::instance()->closeHelpPage();
 
             return true;
         }

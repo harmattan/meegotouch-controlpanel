@@ -154,3 +154,7 @@ void PageFactory::enablePageChange (bool)
 {
 }
 
+void PageFactory::closeHelpPage()
+{
+}
+
