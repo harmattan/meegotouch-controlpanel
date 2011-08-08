@@ -1,6 +1,7 @@
-duicontrolpanel (0.13.2~unreleased) unstable; urgency=low
+duicontrolpanel (0.13.2) unstable; urgency=low
 
-  * Changes fix for NB#265196 to use common group header instead of
+  * Fixes: NB#265196
+    Changes fix for NB#265196 to use common group header instead of
     putting the separator and the label under each other
   * Fixes: sheet does not follow dcp orientation
   * fixed 273261 - China variant:Suggest to remove Feed on home screen
