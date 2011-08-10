@@ -151,6 +151,10 @@ DuiControlPanelService::appletPage (const QString& appletName)
             // close other chained windows:
             emit closeAppletLaunchers();
             PageFactory::instance()->closeHelpPage();
+            if (win->isMinimized()) {
+                win->hide();
+                win->showMinimized();
+            }
 
             return true;
         }

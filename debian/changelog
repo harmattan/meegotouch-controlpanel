@@ -1,4 +1,4 @@
-duicontrolpanel (0.13.2) unstable; urgency=low
+duicontrolpanel (0.13.2.1) unstable; urgency=low
 
   * Fixes: NB#265196
     Changes fix for NB#265196 to use common group header instead of

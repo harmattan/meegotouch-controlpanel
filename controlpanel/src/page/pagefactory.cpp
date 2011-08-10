@@ -555,14 +555,14 @@ PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
 
     DcpPage *page;
 
-    // we drop the window if needed
-    if (dropOtherPages) {
-        newWin ();
-    }
-
     // if it is already open, we switch back to it:
     if (tryOpenPageBackward(handle)) {
         return true;
+    }
+
+    // we drop the window if needed
+    if (dropOtherPages) {
+        newWin ();
     }
 
     /*
@@ -598,7 +598,6 @@ PageFactory::raiseMainWindow()
 {
     if (!m_Win) return;
     m_Win->show();
-    m_Win->raise();
     m_Win->activateWindow();
 }
 
