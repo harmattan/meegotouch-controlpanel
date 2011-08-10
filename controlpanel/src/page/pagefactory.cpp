@@ -860,7 +860,7 @@ void PageFactory::enablePageChange(bool enable)
 
     m_PageChangeDisabled = !enable;
     if (m_PageChangeDisabled) {
-        QTimer::singleShot (3000, this, SLOT(enablePageChange()));
+        QTimer::singleShot (2000, this, SLOT(enablePageChange()));
     }
 
     // does the same disabling for the back button (NB#272868):
