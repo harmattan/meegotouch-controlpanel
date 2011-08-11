@@ -44,7 +44,6 @@ protected:
     // commands:
     void watch (const QString& appletName);
     void unwatch (const QString& appletName);
-    void switchToggle (const QString& appletName);
     void setValue (const QString& params);
 
     // output:

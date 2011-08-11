@@ -15,6 +15,7 @@ TARGET = ut_pagefactory
 SOURCES += \
     *.cpp \
     $$STUBSDIR/dcppage-fake.cpp \
+    $$STUBSDIR/categoryutils-fake.cpp \
     $$STUBSDIR/dcpappletcategorypage-fake.cpp \
     $$STUBSDIR/dcpappletpage-fake.cpp \
     $$STUBSDIR/mapplicationpage-fake.cpp \

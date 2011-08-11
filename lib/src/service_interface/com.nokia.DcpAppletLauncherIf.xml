@@ -5,6 +5,10 @@
         <method name="appletPage" chainTask="true" asyncTask="true">
             <arg name="appletPath" type="s" direction="in" />
         </method>
+        <method name="appletPageAlone" asyncTask="false">
+            <arg name="appletPath" type="s" direction="in" />
+            <arg name="" type="b" direction="out" />
+        </method>
         <method name="prestart" chainTask="true" asyncTask="true">
         </method>
         <method name="close" asyncTask="false">

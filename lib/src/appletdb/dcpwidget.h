@@ -50,6 +50,26 @@ public:
     int getWidgetId ();
     bool setWidgetId (int widgetId);
 
+    /*!
+     * \brief Enables displaying a title automatically by control panel.
+     *
+     * Must be set during widget constructor, otherwise control panel will
+     * not care about its value.
+     *
+     * Default is false in which case control panel will not display the
+     * applet's title, the applet has to take care of that.
+     */
+    void enableAutoTitle (bool enable = true);
+
+    /*! \brief Returns if the widget would like control panel to display its title.
+     *
+     * If false, it means the applet would like to display its title on its own,
+     * if true, control panel should display the title the common way.
+     *
+     * \sa enableAutoTitle()
+     */
+    bool isAutoTitleEnabled () const;
+
 signals:
     /*!
      * \brief Emitted when the windget change is requested

@@ -15,34 +15,28 @@
 **
 ****************************************************************************/
 
-#include <QDebug>
-#include <MAction>
-#include <MLibrary>
+#ifndef MULTIPAGEAPPLET_H
+#define MULTIPAGEAPPLET_H
 
-#include <DcpStylableWidget>
-#include "dcpskeletonapplet.h"
-#include "dcpskeletonwidget.h"
+#include <DcpAppletIf>
+#include <QObject>
+class DcpStylableWidget;
+class MAction;
 
-M_LIBRARY
-Q_EXPORT_PLUGIN2(skeletonapplet, SkeletonApplet)
-
-void SkeletonApplet::init()
+class MultiPageApplet : public QObject, public DcpAppletIf
 {
+	Q_OBJECT
+	Q_INTERFACES(DcpAppletIf)
+
+public:
+    virtual DcpStylableWidget* constructStylableWidget(int widgetId);
+
+    virtual QString title() const;
+    virtual QVector<MAction *> viewMenuItems();
+
+protected:
+    class MultiPageWidget* currentWidget;
 };
 
-DcpStylableWidget* SkeletonApplet::constructStylableWidget(int widgetId)
-{
-    this->currentWidget = new SkeletonWidget(widgetId);
-    return this->currentWidget;
-}
-
-QString SkeletonApplet::title() const
-{
-    return QString();
-}
-
-QVector<MAction*> SkeletonApplet::viewMenuItems()
-{
-    return currentWidget ? currentWidget->menuItems() : QVector<MAction*>();
-}
+#endif // MULTIPAGEAPPLET_H
 

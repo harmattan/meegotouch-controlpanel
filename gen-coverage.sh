@@ -31,3 +31,7 @@ echo "After compilation use 'make coverage'";
 echo "Results :";
 echo "           ./coverage/index.html";
 echo
+
+make -j4
+make coverage
+

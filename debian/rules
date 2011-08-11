@@ -148,6 +148,7 @@ binary-arch: build install
 
 	# for the security framework
 	aegis-deb-add -control debian/duicontrolpanel/DEBIAN/control .. debian/duicontrolpanel.aegis=_aegis
+	aegis-deb-add -control debian/duicontrolpanel-skeletonapplet/DEBIAN/control .. debian/duicontrolpanel-skeletonapplet.aegis=_aegis
 
 binary: binary-indep binary-arch
 .PHONY: build clean binary-indep binary-arch binary install configure

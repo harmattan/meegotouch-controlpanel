@@ -28,8 +28,6 @@
 
 #include <MAction>
 #include <QProcess>
-#include <MDismissEvent>
-#include <QCloseEvent>
 
 #include "dcpdebug.h"
 
@@ -108,7 +106,7 @@ DcpAppletPage::load ()
 {
     if (m_Applet) {
         m_Applet->metadata()->markActive();
-        DcpRetranslator::instance()->ensureTranslationLoaded(
+        DcpRetranslator::instance()->ensureTranslationLoaded (
                m_Applet->metadata());
 
        if (m_Applet->isAppletLoaded()) {
@@ -143,19 +141,7 @@ DcpAppletPage::preventQuit ()
     if (m_MainWidget && !m_MainWidget->back()) {
         return true;
     }
-    return false;
-}
-
-// This function might prevent closing the window for the applet
-// in a normal back button pressed situation (when not the last page)
-void
-DcpAppletPage::dismissEvent (MDismissEvent *event)
-{
-    if (preventQuit ()) {
-        event->ignore();
-        return;
-    }
-    DcpPage::dismissEvent (event);
+    return DcpPage::preventQuit();
 }
 
 /*! \brief Constructs the applet's widget
@@ -268,6 +254,9 @@ DcpAppletPage::retranslateUi ()
         }
 
         setTitle(title);
+        if (m_MainWidget && m_MainWidget->isAutoTitleEnabled()) {
+            setTitleLabel();
+        }
     }
 }
 

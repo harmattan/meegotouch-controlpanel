@@ -26,7 +26,6 @@
 class DcpAppletWidget;
 class DcpAppletObject;
 class MAction;
-class MDismissEvent;
 
 class DcpAppletPage : public DcpPage
 {
@@ -45,11 +44,10 @@ public:
     static DcpAppletWidget* constructAppletWidget (DcpAppletObject* applet,
                                              DcpPage* page, int widgetId);
 
-    bool preventQuit();
+    virtual bool preventQuit();
 
 protected:
     virtual void retranslateUi ();
-    virtual void dismissEvent (MDismissEvent *event);
 
 protected slots:
     void load ();

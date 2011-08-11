@@ -9,6 +9,7 @@ SubHeaderText-logical-id=qtn_home_events_settings_subheader
 Translation-catalogs=home
 
 AutoStartApplet=1
+HideIfEmpty=1
 
 Order=20
 

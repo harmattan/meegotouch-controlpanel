@@ -224,3 +224,9 @@ QStringList Category::mainApplets () const
     return valueList (MainAppletsId);
 }
 
+bool Category::hideIfEmpty () const
+{
+    QString hide = value (HideIfEmptyId);
+    return hide == "1";
+}
+

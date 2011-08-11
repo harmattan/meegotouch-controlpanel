@@ -2,8 +2,8 @@ Source: duicontrolpanel
 Section: devel
 Priority: extra
 Maintainer: Robert Manner <robert.manner@blumsoft.eu>
-Build-Depends: debhelper (>= 5), libmeegotouch-dev (>= 0.20), doxygen,
-               clean-device-dev, aegis-builder, libsysinfo-dev
+Build-Depends: debhelper (>= 5), libmeegotouch-dev (>= 0.20.88), doxygen, applauncherd-launcher,
+               clean-device-dev, aegis-builder, libsysinfo-dev, libcreds2-dev
 Standards-Version: 3.7.2
 
 Package: libduicontrolpanel
@@ -29,8 +29,9 @@ Section: x11
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
          libduicontrolpanel (= ${Source-Version}),
-         applauncherd-launcher, clean-device, dsme, timed, devicelock,
-         duicontrolpanel-l10n-engineering-english (= ${Source-Version})
+         applauncherd-launcher, clean-device,
+         duicontrolpanel-l10n-engineering-english (= ${Source-Version}),
+         libcreds2
 Description: Control Panel
  Control Panel provides an application which uses various plugins to present
  configuration possibilities for the user.

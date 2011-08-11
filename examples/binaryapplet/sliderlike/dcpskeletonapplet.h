@@ -21,7 +21,7 @@
 #include <DcpAppletIf>
 #include <QObject>
 
-class SkeletonApplet : public QObject, public DcpAppletIf
+class SliderExampleApplet : public QObject, public DcpAppletIf
 {
 	Q_OBJECT
 	Q_INTERFACES(DcpAppletIf)

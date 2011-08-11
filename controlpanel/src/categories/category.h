@@ -80,6 +80,8 @@ public:
 
     QStringList mainApplets () const;
 
+    bool hideIfEmpty () const;
+
 protected:
     static const char* componentOrderToString (ComponentOrderType order);
 
@@ -105,6 +107,7 @@ protected:
         SubHeaderTextId,
         SubHeaderTextLogicalId,
         MainAppletsId,
+        HideIfEmptyId,
         KeyIdMax
     };
 

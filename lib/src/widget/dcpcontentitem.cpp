@@ -251,8 +251,14 @@ DcpContentItem::ensureToggleIsCreated()
                      this, SLOT(onToggleChanged(bool)));
             d_ptr->m_LayoutIsToBeChanged = true;
         }
+
         // update switch state:
-        button->setChecked (isChecked());
+        QVariant value = applet() ? applet()->value() : QVariant();
+        button->setEnabled (!value.isNull());
+        if (!value.isNull()) {
+            button->setChecked (value.toBool());
+        }
+
     } else {
         if (d_ptr->m_ButtonW) {
             delete d_ptr->m_ButtonW;
@@ -304,8 +310,10 @@ DcpContentItem::ensureTextsAreCreated()
     if (!label1) {
         label1 = new MLabel();
         label1->setStyleName (singleTitleObjectName);
-        label1->setTextElide (true);
         d_ptr->m_LayoutIsToBeChanged = true;
+        label1->setTextElide (false);
+        label1->setWordWrap (true);
+        label1->setWrapMode (QTextOption::WordWrap);
     }
     if (!label2 && !text2.isEmpty()) {
         label2 = new MLabel();
@@ -331,8 +339,13 @@ DcpContentItem::ensureTextsAreCreated()
     if (rowCountChanged || havingSliderChanged) {
         if (text2.isEmpty() && !willHaveSlider) {
             label1->setStyleName (singleTitleObjectName);
+            label1->setTextElide (false);
+            label1->setWordWrap (true);
+            label1->setWrapMode (QTextOption::WordWrap);
         } else {
             label1->setStyleName (titleObjectName);
+            label1->setTextElide (true);
+            label1->setWordWrap (false);
         }
         d_ptr->m_LayoutIsToBeChanged = true;
     }

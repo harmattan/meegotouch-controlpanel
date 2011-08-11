@@ -235,7 +235,7 @@ DcpAppletDb::listByCategory (
 }
 
 
-    DcpAppletMetadataList
+DcpAppletMetadataList
 DcpAppletDb::listByCategory (const QStringList& categories,
         checkCategory   checkFunction)
 {
@@ -261,7 +261,7 @@ DcpAppletDb::listByCategory (const QStringList& categories,
 }
 
 
-    DcpAppletMetadataList 
+DcpAppletMetadataList 
 DcpAppletDb::listMostUsed ()
 {
     DcpAppletMetadataList mostUsed;

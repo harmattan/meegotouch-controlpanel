@@ -25,7 +25,7 @@ target.path = $${DCP_INSTALL_LIB}/duicontrolpanel-tests
 INSTALLS += target
 include(check.pri)
 include(coverage.pri)
-LIBS += -L../../../lib/lib -lduicontrolpanel
+LIBS = ../../../lib/lib/libduicontrolpanel.so
 QMAKE_CXXFLAGS += -Wno-deprecated
 message($$target.path)
 

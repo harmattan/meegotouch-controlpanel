@@ -90,4 +90,13 @@ bool DcpStylableWidget::isProgressIndicatorVisible() const
     return curPIV;
 }
 
+void DcpStylableWidget::enableAutoTitle (bool)
+{
+}
+
+bool DcpStylableWidget::isAutoTitleEnabled () const
+{
+    return false;
+}
+
 

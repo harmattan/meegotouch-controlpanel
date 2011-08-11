@@ -1,4 +1,23 @@
-duicontrolpanel (0.12.23~unreleased) unstable; urgency=low
+duicontrolpanel (0.13.3~unreleased) unstable; urgency=low
+
+  * new version
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 11 Aug 2011 10:41:11 +0200
+
+duicontrolpanel (0.13.2.1) unstable; urgency=low
+
+  * Fixes: NB#265196
+    Changes fix for NB#265196 to use common group header instead of
+    putting the separator and the label under each other
+  * Fixes: sheet does not follow dcp orientation
+  * fixed 273261 - China variant:Suggest to remove Feed on home screen
+    option in Notifications setting from PRC image
+  * fixed 267658 - Opening Bluetooth from Status menu is very slow and
+    shows bad transition
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 28 Jul 2011 15:08:47 +0200
+
+duicontrolpanel (0.13.1.1) unstable; urgency=low
 
   * Fixes: NB#265196 - "Privacy mode" plug-in on Notifications settings page
     should be visually separated from rest of the plug-ins
@@ -6,8 +25,19 @@ duicontrolpanel (0.12.23~unreleased) unstable; urgency=low
     save mode
   * Fixes: NB#269545 - Notification: §qtn_noti_settings_subheader§ [Show
     notifications for:] is missing
+  * fixed 243414 - [TASK] page->dismiss only works for 2 history stack
+  * Fixes: NB#271925 - Declarative settings applet names have a "!!"
+    prefix on the Applications page of the Settings application
+  * Fixes: NB#268757 - Notification; String §qtn_noti_settings_private_mode§
+    is truncated in Russian;
+  * fixed 255760 - [TASK] API: Function to disable toggle type dcpbrief
+  * Fixes: NB#264064 - Control panel grants full set of credentials for
+    3rd party libraries
+  * fixed 272868 - Settings main view is showing before opening the
+    applet in the given scenario
+  * fixed 273726 - some times applet views flashes twice in settings
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 04 Jul 2011 16:48:42 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 22 Jul 2011 15:23:00 +0200
 
 duicontrolpanel (0.12.22) unstable; urgency=low
 

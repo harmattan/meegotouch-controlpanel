@@ -24,13 +24,14 @@
 
 #include "duicontrolpanelifadaptor.h"
 #include "duicontrolpanelif.h"
+#include "dcpappletlauncherif.h"
+#include "security.h"
 
 #include <MApplicationIfAdaptor>
 #include <QtDebug>
 #include <MApplication>
 #include <MApplicationWindow>
 #include <QDBusServiceWatcher>
-#include <dcpappletdb.h>
 #include <dcpappletmetadata.h>
 #include <dcpremotebriefreceiver.h>
 
@@ -113,11 +114,14 @@ bool
 DuiControlPanelService::appletPage (const QString& appletName)
 {
     DcpAppletManager *mng = DcpAppletManager::instance();
+    // TODO we could do some optimization here for popping up an applet the first
+    // time (do not parse all .desktops)
     mng->loadMetadata ();
     DcpAppletMetadata* metadata = mng->metadata (appletName);
+    dcp_failfunc_unless (metadata, false);
 
     // if the applet does not have a main view, we pop up its category page:
-    if (metadata && !metadata->hasMainView()) {
+    if (!metadata->hasMainView()) {
         categoryPage (metadata->category());
         return true;
 
@@ -131,20 +135,27 @@ DuiControlPanelService::appletPage (const QString& appletName)
             bool success = unregisterService ();
             dcp_failfunc_unless (success, false);
             receiveCloseSignal ();
-            mng->applet (appletName);
+            Security::loadAppletRestricted (appletName);
 
             // we do not need the receiver in this process,
             // this ensures that it wont get started
             DcpRemoteBriefReceiver::disable ();
 
         } else {
-            // if we already have a page, then we start another instance,
-            // and exit from mainloop:
-            unregisterService ();
-            DuiControlPanelIf iface;
+            // if we already have a page, then we start the applet in an
+            // appletlauncher:
+            DcpAppletLauncherIf iface;
             dcp_failfunc_unless (iface.isValid(), false);
-            iface.appletPage (appletName);
-            qApp->exit ();
+            iface.appletPageAlone (metadata->fileName());
+
+            // close other chained windows:
+            emit closeAppletLaunchers();
+            PageFactory::instance()->closeHelpPage();
+            if (win->isMinimized()) {
+                win->hide();
+                win->showMinimized();
+            }
+
             return true;
         }
     }
@@ -172,7 +183,7 @@ DuiControlPanelService::receiveCloseSignal ()
 
 void DuiControlPanelService::quitWithDelay ()
 {
-    QTimer::singleShot (1000, qApp, SLOT(quit()));
+    QTimer::singleShot (1500, qApp, SLOT(quit()));
 }
 
 void
@@ -191,7 +202,7 @@ DuiControlPanelService::preloadAppletLauncher ()
 {
     PageFactory* pf = PageFactory::instance();
     dcp_failfunc_unless (pf);
-    QTimer::singleShot (1000, pf, SLOT(preloadAppletLauncher()));
+    pf->preloadAppletLauncher();
 }
 
 // FIXME XXX we should consider a common base class with DcpAppletLauncherService

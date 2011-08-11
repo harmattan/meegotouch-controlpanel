@@ -18,6 +18,7 @@
 #include "dcpappletlauncherservice.h"
 
 #include "pagefactory.h"
+#include "security.h"
 #include "dcpappletmanager.h"
 
 #include "dcpappletlauncherifadaptor.h"
@@ -50,27 +51,28 @@ static const char* serviceName = "com.nokia.DcpAppletLauncher";
 
 DcpAppletLauncherService::DcpAppletLauncherService ():
     MApplicationService (serviceName),
-    m_IsServiceRegistered (false)
+    m_IsServiceRegistered (false),
+    m_SkipNextClosing (false)
 {
-    DuiControlPanelIf* iface = new DuiControlPanelIf ("", this);
+    m_MainIface = new DuiControlPanelIf ("", this);
     // this makes us die if the main process dies anyhow:
 #if 0
     // TODO this would be nicer, but does not work:
     connect (iface, SIGNAL (serviceUnavailable(QString)),
              this, SLOT (close()));
 #else
-    QDBusServiceWatcher* watcher =
+    m_MainUnregistrationWatcher =
         new QDBusServiceWatcher ("com.nokia.DuiControlPanel",
                 QDBusConnection::sessionBus(),
                 QDBusServiceWatcher::WatchForUnregistration, this);
-    connect (watcher, SIGNAL (serviceUnregistered(QString)),
+    connect (m_MainUnregistrationWatcher, SIGNAL (serviceUnregistered(QString)),
              this, SLOT (close()));
 #endif
 
     // the main process will be able able to close us down if needed even if
     // the appletlauncher does not provide the service anymore,
     // through its (main process's) own service:
-    connect (iface, SIGNAL (closeAppletLaunchers()), this, SLOT (close()));
+    connect (m_MainIface, SIGNAL (closeAppletLaunchers()), this, SLOT (closeWithDelay()));
 }
 
 
@@ -103,8 +105,11 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
     // these ugly processEvent calls makes the page animation look right if the
     // applet page gets drawn delayed
     PROCESS_EVENTS
-    mng->applet (m_PageHandle.param);
+    // we drop our credentials here and load the applet with the credentials
+    // it specifies only:
+    Security::loadAppletRestricted (m_PageHandle.param);
     PROCESS_EVENTS
+
     bool success = pageFactory->changePage (m_PageHandle);
     PROCESS_EVENTS
 
@@ -121,7 +126,8 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
     return success;
 }
 
-bool DcpAppletLauncherService::sheduleApplet (const QString& appletPath)
+bool DcpAppletLauncherService::sheduleApplet (const QString& appletPath,
+                                              bool isStandalone)
 {
     // only care about the first request
     if (m_PageHandle.id != PageHandle::NOPAGE) return false;
@@ -129,7 +135,7 @@ bool DcpAppletLauncherService::sheduleApplet (const QString& appletPath)
     m_PageHandle.id = PageHandle::APPLET;
     m_PageHandle.param = QString();
     m_PageHandle.widgetId = -1;
-    m_PageHandle.isStandalone = false;
+    m_PageHandle.isStandalone = isStandalone;
     m_AppletPath = appletPath;
     return true;
 }
@@ -149,6 +155,21 @@ bool DcpAppletLauncherService::appletPage (const QString& appletPath)
 #else
     return maybeAppletRealStart();
 #endif
+}
+
+void DcpAppletLauncherService::closeWithDelay ()
+{
+    if (m_SkipNextClosing) {
+        m_SkipNextClosing = false;
+        return;
+    }
+    QTimer::singleShot (0, qApp, SLOT(quit()));
+}
+
+bool DcpAppletLauncherService::appletPageAlone (const QString& appletPath)
+{
+    m_SkipNextClosing = true;
+    return sheduleApplet (appletPath, true) && maybeAppletRealStart();
 }
 
 bool DcpAppletLauncherService::registerService ()

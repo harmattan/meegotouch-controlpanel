@@ -67,6 +67,8 @@ public slots:
     void preloadBriefReceiver ();
     void preloadAppletPage ();
 
+    void closeHelpPage();
+
 signals:
     void resetAppletLauncherProcesses ();
     void windowShown ();
@@ -91,13 +93,13 @@ private slots:
     void newMainPageInSeparateProcess ();
     void switchToMainPageWithPageDropping ();
     void destroyPageHistory ();
+    void enablePageChange (bool enable = true);
 
 private:
     bool tryOpenPageBackward (const PageHandle &handle);
     void registerPage (DcpPage *page);
     void newWin ();
     bool isCurrentPage (const PageHandle &handle);
-    void closeHelpPage();
     bool verifyAppletLauncherIsOk();
 
     QList< MSceneWindow * > pageHistory ();
@@ -121,6 +123,8 @@ private:
         NothingStarted,
         BriefSupplierStarted
     } m_StartupState;
+
+    bool m_PageChangeDisabled;
 };
 
 #endif

@@ -31,7 +31,6 @@ public:
     virtual int widgetTypeID() const;
     virtual QString valueText() const;
     virtual QString icon() const;
-    virtual bool toggle() const;
     virtual QString titleText() const;
     virtual QString helpId() const;
     virtual int minValue() const;
@@ -44,9 +43,6 @@ public:
     QString get (const char* id) const;
     void set (const char* id, const QString& value);
     void emitChange ();
-
-public slots:
-    virtual void setToggle(bool toggle);
 
 private:
     class DcpRemoteBriefPriv* priv;

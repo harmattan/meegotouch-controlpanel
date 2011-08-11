@@ -22,5 +22,6 @@ public:
     DcpWidgetPrivate ();
     int m_WidgetId;
     bool isProgressIndicatorVisible;
+    bool isAutoTitleEnabled;
 };
 #endif //DCPWIDGETPRIVATE_H 

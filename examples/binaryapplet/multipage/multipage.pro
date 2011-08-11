@@ -5,11 +5,11 @@ CONFIG       += plugin gui meegotouch debug
 MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects
 
-HEADERS       += dcpskeletonapplet.h \
-                 dcpskeletonwidget.h \
+HEADERS       += dcpmultipageapplet.h \
+                 dcpmultipagewidget.h \
 
-SOURCES       = dcpskeletonapplet.cpp \
-                dcpskeletonwidget.cpp
+SOURCES       = dcpmultipageapplet.cpp \
+                dcpmultipagewidget.cpp
 
 DESTDIR       = ../lib
 TARGET        = $$qtLibraryTarget(dcpmultipageapplet)

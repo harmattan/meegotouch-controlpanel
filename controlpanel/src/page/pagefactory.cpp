@@ -35,6 +35,7 @@
 #include <DcpRetranslator>
 #include "dcpappletlauncherif.h"
 #include "duicontrolpanelif.h"
+#include "categoryutils.h"
 
 #include <MApplication>
 #include <MComponentCache>
@@ -58,7 +59,8 @@ PageFactory::PageFactory ():
     m_Win (0),
     m_PageWithDelayedContent (0),
     m_AppletsRegistered (false),
-    m_StartupState (NothingStarted)
+    m_StartupState (NothingStarted),
+    m_PageChangeDisabled (false)
 {
     // Run onAppletLoaded for all the applets that are already loaded
     // and run it later for the applets loaded in the future.
@@ -312,6 +314,10 @@ PageFactory::popupSheetIfAny (const PageHandle& handle)
             sheet->appear (m_Win, MSceneWindow::DestroyWhenDone);
 
         } else {
+            // sheet is the first page, so its translation might not be loaded yet
+            DcpRetranslator::instance()->ensureTranslationLoaded (
+                    applet->metadata());
+
             // if we do not have a page yet, we can only display the sheet on a
             // new window (applet launcher process) -> systemWide
 
@@ -324,6 +330,11 @@ PageFactory::popupSheetIfAny (const PageHandle& handle)
 
             // handle the window shown event:
             connect (sheet, SIGNAL (appeared ()), this, SIGNAL (windowShown()));
+
+#ifdef SHEET_ORIENTATION_FIX
+            sheet->setSystemwideModeOrientation (
+                    MSheet::FollowsCurrentAppWindowOrientation);
+#endif
 
             sheet->appearSystemwide (MSceneWindow::DestroyWhenDone);
         }
@@ -437,12 +448,31 @@ PageFactory::createAppletPage (DcpAppletMetadata* metadata)
     return createAppletPage (handle);
 }
 
+/*!
+ * \brief Changes to the main view of the specified applet.
+ *
+ * If the applet is not in the db yet, it searches also
+ * in the default applet directories.
+ * This gets called for example when an applet requests another
+ * applet.
+ */
 bool
 PageFactory::changeToAppletPage (const QString& appletName)
 {
     PageHandle handle;
     handle.id = PageHandle::APPLET;
     handle.param = appletName;
+
+    // this is needed to be able to find the desktop file also in the
+    // applet launcher process (where the db only contains the running applet's
+    // metadata). Since it is quite a rare case, we do it only here when needed
+    DcpAppletManager* db = DcpAppletManager::instance();
+    if (!db->containsName (appletName)) {
+        db->addDesktopDir (DESKTOP_DIR);
+        db->addDesktopDir (DESKTOP_DIR2);
+        db->loadMetadata ();
+    }
+
     return changePage (handle);
 }
 
@@ -471,11 +501,8 @@ PageFactory::createAppletCategoryPage (const PageHandle& handle)
      * This functionality has to be enabled from the category config file.
      */
     if (info->appletAutoStart() && info->children().count() == 0) {
-        // TODO might make sense to move this to class Category
-        DcpAppletManager* mng = DcpAppletManager::instance();
-        bool withUncategorized = info->containsUncategorized();
-        DcpAppletMetadataList list = mng->listByCategory (info->referenceIds(),
-                    withUncategorized ? DcpCategories::hasCategory : NULL);
+        DcpAppletMetadataList list = CategoryUtils::metadataList (info);
+
         if (list.count() == 1) {
             DcpAppletMetadata* metadata = list.at(0);
             if (metadata->hasMainView()) {
@@ -560,6 +587,9 @@ bool PageFactory::verifyAppletLauncherIsOk()
 bool
 PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
 {
+    // this prevents handling multiple page change requests in very short time
+    if (m_PageChangeDisabled) return false;
+
     if (dropOtherPages) {
         closeHelpPage();
         // in outprocess mode we should also drop pages running in other instances
@@ -572,6 +602,7 @@ PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
     // if we could run it out of process then we do not change the page:
     if (handle.id == PageHandle::APPLET) {
         if (maybeRunOutOfProcess(handle.param)) {
+            enablePageChange (false);
             return false;
         }
 
@@ -582,14 +613,14 @@ PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
 
     DcpPage *page;
 
-    // we drop the window if needed
-    if (dropOtherPages) {
-        newWin ();
-    }
-
     // if it is already open, we switch back to it:
     if (tryOpenPageBackward(handle)) {
         return true;
+    }
+
+    // we drop the window if needed
+    if (dropOtherPages) {
+        newWin ();
     }
 
     /*
@@ -625,7 +656,6 @@ PageFactory::raiseMainWindow()
 {
     if (!m_Win) return;
     m_Win->show();
-    m_Win->raise();
     m_Win->activateWindow();
 }
 
@@ -729,6 +759,16 @@ void PageFactory::onMetadataLoaded ()
     completeCategoryPage();
 }
 
+inline bool pagePreventsQuit (MSceneWindow* mPage)
+{
+    // applet page can prevent quit:
+    DcpPage* page = qobject_cast<DcpPage*>(mPage);
+    if (page && page->preventQuit()) {
+        return true;
+    }
+    return false;
+}
+
 /*!
  * This function will try to activate the page by dismissing pages, that is if a
  * page with the given handle is already opened the function will dismiss all
@@ -740,19 +780,20 @@ void PageFactory::onMetadataLoaded ()
 bool
 PageFactory::tryOpenPageBackward (const PageHandle &handle)
 {
-    DcpPage *page;
-    int foundAtIndex = -1;
-    int n;
-
     /*
      * We try to find the requested page in the stack.
      */
-    QList< MSceneWindow * > history = pageHistory();
-    if (m_Win) {
-        history.append (m_Win->currentPage()); // TODO might want to avoid this (PERF)
+    DcpPage* currentPage = this->currentPage();
+
+    if (currentPage && currentPage->handle() == handle) {
+        // fount it: it is the current page
+        return true;
     }
-    for (n = 0; n < history.count(); n++) {
-        page = qobject_cast<DcpPage*> (history.at(n));
+
+    int foundAtIndex = -1;
+    QList< MSceneWindow * > history = pageHistory();
+    for (int n = 0; n < history.count(); n++) {
+        DcpPage *page = qobject_cast<DcpPage*> (history.at(n));
 
         if (page && page->handle() == handle) {
             foundAtIndex = n;
@@ -773,28 +814,28 @@ PageFactory::tryOpenPageBackward (const PageHandle &handle)
         return false;
     }
 
+    // if the current page would like to prevent its closing, we do nothing:
+    if (pagePreventsQuit (currentPage)) {
+        return true;
+    }
+
     /*
      * We close all the pages that are above the requested page.
      */
+    // first we delete all pages between the found and the current:
     while (history.count() > foundAtIndex+1) {
         MSceneWindow *mPage = history.takeLast();
 
         // the page can refuse its closing, then we stop:
-        if (!mPage->dismiss ()) {
+        if (pagePreventsQuit (mPage)) {
             break;
         }
+        mPage->deleteLater();
     }
 
-    /*
-     * A simple debug tool to print the page stack.
-     */
-    #ifdef DEBUG
-    for (n = 0; n < history.size(); ++n) {
-        page = qobject_cast<DcpPage*> (history[n]);
-        DCP_DEBUG ("page[%d] = %s", n,
-                DCP_STR(page->handle().getStringVariant()));
-    }
-    #endif
+    // do the animation of switching back
+    // this had to be sheduled after the deleteLater calls
+    QTimer::singleShot (0, currentPage, SLOT(dismiss()));
 
     return true;
 }
@@ -857,8 +898,7 @@ void PageFactory::newWin ()
 bool PageFactory::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::Close) {
-        DcpAppletPage* appletPage = qobject_cast<DcpAppletPage*>(currentPage());
-        if (appletPage && appletPage->preventQuit()) {
+        if (pagePreventsQuit (currentPage())) {
             event->ignore ();
             return true;
         }
@@ -867,6 +907,23 @@ bool PageFactory::eventFilter(QObject *obj, QEvent *event)
     }
     // standard event processing
     return QObject::eventFilter(obj, event);
+}
+
+/*!
+ * Disables page changing until a little time.
+ */
+void PageFactory::enablePageChange(bool enable)
+{
+    if (enable == !m_PageChangeDisabled) return;
+
+    m_PageChangeDisabled = !enable;
+    if (m_PageChangeDisabled) {
+        QTimer::singleShot (2000, this, SLOT(enablePageChange()));
+    }
+
+    // does the same disabling for the back button (NB#272868):
+    DcpPage* page = this->currentPage();
+    page->setPreventQuit (m_PageChangeDisabled);
 }
 
 void

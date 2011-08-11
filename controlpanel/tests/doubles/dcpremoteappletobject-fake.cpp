@@ -18,7 +18,6 @@
 #include "dcpremoteappletobject.h"
 
 #include <DcpAppletMetadata>
-#include <DcpAppletDb>
 
 DcpRemoteAppletObject::DcpRemoteAppletObject (DcpAppletMetadata* metadata,
                                               QObject* parent)

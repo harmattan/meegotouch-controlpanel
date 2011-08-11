@@ -44,6 +44,7 @@ public:
     bool setWidgetId (int widgetId);
     QString title() const;
     bool isProgressIndicatorVisible () const;
+    bool isAutoTitleEnabled () const;
 
     QGraphicsWidget* graphicsWidget () const;
 

@@ -29,6 +29,7 @@
 #include <MPannableViewport>
 #include <MPositionIndicator>
 #include <MWidgetAction>
+#include <MDismissEvent>
 
 #include "mwidgetcreator.h"
 M_REGISTER_WIDGET(DcpPage)
@@ -40,7 +41,8 @@ DcpPage::DcpPage () :
     MApplicationPage (),
     m_TitleLabel (0),
     m_HelpButton (0),
-    m_ActionHack (0)
+    m_ActionHack (0),
+    m_PreventQuit (false)
 {
     setStyleName("CommonApplicationPageInverted");
     dcp_failfunc_unless (pannableViewport());
@@ -120,6 +122,28 @@ DcpPage::addMAction (MAction* action)
 }
 
 /*!
+ * This function returns if the page would like to prevent its closing,
+ * when the user presses the close or back button.
+ */
+bool
+DcpPage::preventQuit ()
+{
+    return m_PreventQuit;
+}
+
+// This function might prevent closing the window for the applet
+// in a normal back button pressed situation (when not the last page)
+void
+DcpPage::dismissEvent (MDismissEvent *event)
+{
+    if (preventQuit ()) {
+        event->ignore();
+        return;
+    }
+    MApplicationPage::dismissEvent (event);
+}
+
+/*!
  * \brief Sets the handle (symbolic representation) of the page.
  * Sets the handle for the page. The handle is a purely symbolic representation
  * of the page. The default value of the handle is PageHandle::NOPAGE.
@@ -135,6 +159,9 @@ DcpPage::setHandle (const PageHandle &handle)
     /* A button for moving back to mainpage:
      */
     if (handle.isStandalone && !m_ActionHack)  {
+        // this hack hides the back button:
+        setComponentsDisplayMode (MApplicationPage::EscapeButton, MApplicationPageModel::Hide);
+
         MAction* mainBack = new MAction (this);
         mainBack->setLocation (MAction::ToolBarLocation);
         mainBack->setIconID ("icon-l-settings-main-view");

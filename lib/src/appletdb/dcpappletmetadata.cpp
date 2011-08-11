@@ -332,8 +332,7 @@ DcpAppletMetadata::text1 () const
 {
     QString id = desktopEntryStr(KeyNameId);
     if (qtTrId(qPrintable(id)) == id) {
-        QString name = desktopEntryStr(KeyName);
-        return "!! " + name;
+        return desktopEntryStr(KeyName);
     } else {
         return qtTrId(qPrintable(id));
     }
@@ -348,14 +347,7 @@ DcpAppletMetadata::text2 () const
 
     QString id = desktopEntryStr(KeyText2Id);
     if (id.isEmpty() || qtTrId(qPrintable(id)) == id) {
-        QString text = desktopEntryStr(KeyText2);
-        if (text.isEmpty()) {
-            // no text 2
-            return text;
-        } else {
-            // no translation for text 2
-            return "!! " + text;
-        }
+        return desktopEntryStr(KeyText2);
     } else {
         return qtTrId(qPrintable(id));
     }

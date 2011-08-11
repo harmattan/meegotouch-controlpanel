@@ -270,7 +270,7 @@ void Ut_DcpAppletMetadata::testTranslationCatalog()
 void Ut_DcpAppletMetadata::testText2()
 {
     if (QTest::currentTestFailed()) return;
-    QCOMPARE(m_subject->text2(), QString("!! firefox")); 
+    QCOMPARE(m_subject->text2(), QString("firefox")); 
     m_subject->d_ptr->m_Disabled = true;
     QCOMPARE(m_subject->text2(), QString("Disabled")); 
 }
@@ -325,7 +325,7 @@ void Ut_DcpAppletMetadata::testTextOrientation()
 
 void Ut_DcpAppletMetadata::testText1()
 {
-    QCOMPARE(m_subject->text1(), QString("!! "));
+    QCOMPARE(m_subject->text1(), QString(""));
 }
 
 void Ut_DcpAppletMetadata::testToggleIconId()

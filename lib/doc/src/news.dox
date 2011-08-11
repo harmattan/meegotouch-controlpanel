@@ -1,6 +1,5 @@
 /*! \page news What's New in DuiControlPanel
 
-
 \section v0CA 0.12.10
 \subsection new New features
 Help can be specified for a category page, see the HelpId key in the category
