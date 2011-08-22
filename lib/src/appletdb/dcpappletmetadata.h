@@ -124,6 +124,8 @@ public:
 
     Qt::Orientation textOrientation () const;
 
+    bool isSheetOnly () const;
+
 protected:
     MDesktopEntry* desktopEntry () const;
     QString desktopEntryStr (int id) const;

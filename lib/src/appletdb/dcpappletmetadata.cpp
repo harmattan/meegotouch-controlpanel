@@ -375,6 +375,12 @@ DcpAppletMetadata::isUnique () const
     return !desktopEntryStr(KeyUnique).isEmpty();
 }
 
+bool
+DcpAppletMetadata::isSheetOnly () const
+{
+    return desktopEntryStr(KeyIsSheetOnly) == "1";
+}
+
 QString 
 DcpAppletMetadata::part () const
 {

@@ -51,6 +51,7 @@ static const char* serviceName = "com.nokia.DcpAppletLauncher";
 
 DcpAppletLauncherService::DcpAppletLauncherService ():
     MApplicationService (serviceName),
+    m_IsSheetOnly (false),
     m_IsServiceRegistered (false),
     m_SkipNextClosing (false)
 {
@@ -88,17 +89,6 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
 
     PageFactory* pageFactory = PageFactory::instance();
 
-    // the db is empty, so we add the started applet into it:
-    DcpAppletManager* mng = DcpAppletManager::instance();
-    if (!mng->loadDesktopFile (m_AppletPath)) {
-        close ();
-    }
-
-    // we get the name of the applet:
-    DcpAppletMetadataList list = mng->list();
-    dcp_failfunc_unless (list.count() >= 1, false);
-    m_PageHandle.param = list.last()->name();
-
     // the pagefactory starts the applet out of process and refuses to load it,
     // in case it is not already loaded, so we load it here:
 
@@ -111,14 +101,12 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
     PROCESS_EVENTS
 
     bool success = pageFactory->changePage (m_PageHandle);
-    PROCESS_EVENTS
 
     if (success) {
         // we only unregister the service if the window is shown to prevent
         // the user click on the appletbutton after that (it would open another
         // instace)
         QTimer::singleShot (1000, this, SLOT (unregisterService()));
-        pageFactory->raiseMainWindow ();
     } else {
         close ();
     }
@@ -137,6 +125,20 @@ bool DcpAppletLauncherService::sheduleApplet (const QString& appletPath,
     m_PageHandle.widgetId = -1;
     m_PageHandle.isStandalone = isStandalone;
     m_AppletPath = appletPath;
+
+    // the db is empty, so we add the started applet into it:
+    DcpAppletManager* mng = DcpAppletManager::instance();
+    if (!mng->loadDesktopFile (m_AppletPath)) {
+        close ();
+    }
+
+    // we get the name of the applet:
+    DcpAppletMetadataList list = mng->list();
+    dcp_failfunc_unless (list.count() >= 1, false);
+    DcpAppletMetadata* metadata = list.last();
+    m_PageHandle.param = metadata->name();
+    m_IsSheetOnly = metadata->isSheetOnly();
+
     return true;
 }
 
@@ -146,7 +148,9 @@ bool DcpAppletLauncherService::appletPage (const QString& appletPath)
     sheduleApplet (appletPath);
 
     // we start the mainwindow animation before loading the applet:
-    PageFactory::instance()->raiseMainWindow ();
+    if (!m_IsSheetOnly) {
+        PageFactory::instance()->raiseMainWindow ();
+    }
 
 #ifdef DELAYED_APPLET_PAGE
     // TODO unfortunately this ruins the animation somehow (why?)
@@ -169,7 +173,18 @@ void DcpAppletLauncherService::closeWithDelay ()
 bool DcpAppletLauncherService::appletPageAlone (const QString& appletPath)
 {
     m_SkipNextClosing = true;
-    return sheduleApplet (appletPath, true) && maybeAppletRealStart();
+
+    bool success = sheduleApplet (appletPath, true);
+
+    // we start the mainwindow animation before loading the applet:
+    if (!m_IsSheetOnly) {
+        PageFactory::instance()->raiseMainWindow ();
+    }
+
+    if (success) {
+        success = maybeAppletRealStart();
+    }
+    return success;
 }
 
 bool DcpAppletLauncherService::registerService ()

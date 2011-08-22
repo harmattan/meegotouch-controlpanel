@@ -45,6 +45,7 @@ public slots:
 private:
     bool sheduleApplet (const QString& appletPath, bool isStandalone = false);
     PageHandle m_PageHandle;
+    bool m_IsSheetOnly;
     QString m_AppletPath;
     bool m_IsServiceRegistered;
     DuiControlPanelIf* m_MainIface;
