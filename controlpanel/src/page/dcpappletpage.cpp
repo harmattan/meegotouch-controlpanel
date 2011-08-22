@@ -71,6 +71,9 @@ DcpAppletPage::createContent ()
     // load
     if (m_Applet) {
         load ();
+    } else {
+        // force creating an empty centralWidget:
+        centralWidget();
     }
 }
 
@@ -231,7 +234,15 @@ DcpAppletPage::loadWidget (int widgetId)
 
     setPannable (m_MainWidget->pagePans());
 
-    setCentralWidget (m_MainWidget->graphicsWidget());
+    QGraphicsWidget* newWidget = m_MainWidget->graphicsWidget();
+
+    // FIXME this geometry hack prevents that the layout is building the
+    // size of the widget in front of the user which creates flickering.
+    // (We do not know the reason so far...)
+    if (centralWidget()) {
+        newWidget->setGeometry (centralWidget()->geometry());
+    }
+    setCentralWidget (newWidget);
     retranslateUi();
 }
 
