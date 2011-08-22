@@ -1,6 +1,7 @@
-duicontrolpanel (0.13.3~unreleased) unstable; urgency=low
+duicontrolpanel (0.13.3rc1) unstable; urgency=low
 
-  * new version
+  * Fixes: NB#264592 - NFT: Opening different pages from settings takes too
+    long
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 11 Aug 2011 10:41:11 +0200
 
