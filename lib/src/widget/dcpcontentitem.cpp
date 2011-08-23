@@ -186,8 +186,6 @@ DcpContentItem::ensureSliderIsCreated()
             d_ptr->m_LayoutIsToBeChanged = true;
         }
 
-        bool previousSliderVisibility = d_ptr->m_Slider->isVisible();
-
         QVariant value;
         if (applet()) value = applet()->value();
         if (!value.isNull() && value.isValid()) {
@@ -197,22 +195,17 @@ DcpContentItem::ensureSliderIsCreated()
 
             if (!slider->isEnabled()) {
                 slider->setEnabled(true);
-            }
-
-            // this ensures that the slider gets into the layout if it was not there before:
-            if (!previousSliderVisibility) {
+                d_ptr->m_Slider->setOpacity (1.0);
                 d_ptr->m_LayoutIsToBeChanged = true;
             }
+
         } else {
             bool newSliderVisibility = this->subtitle().isEmpty();
             // disabling the slider because its value is not yet available
             // (eg. applet is not yet loaded)
             if (slider->isEnabled()) {
                 slider->setEnabled (false);
-            }
-
-            // this ensures that the slider gets into the layout if it was not there before:
-            if (newSliderVisibility != previousSliderVisibility) {
+                d_ptr->m_Slider->setOpacity (0.6);
                 d_ptr->m_LayoutIsToBeChanged = true;
             }
         }
@@ -426,21 +419,17 @@ DcpContentItem::ensureWidgetsAreLayouted()
         }
     } else {
         int columnCount = d_ptr->m_Help ? 2 : 1;
-        int rows = 3;
+        int rows = 2;
         grid->addItem (d_ptr->m_Separator, 0, textX, 1, columnCount);
         grid->addItem (d_ptr->m_Text1W, 1, textX);
         if (!d_ptr->m_Slider->isEnabled() && secondLineHasText) {
             grid->addItem (d_ptr->m_Text2W, 2, textX, 1,
                            columnCount, Qt::AlignTop);
-            grid->addItem (d_ptr->m_Spacer, 3, textX);
-            d_ptr->m_Slider->hide();
+//            grid->addItem (d_ptr->m_Spacer, 3, textX);
             d_ptr->m_Text2W->show();
-            d_ptr->m_Spacer->show();
+//            d_ptr->m_Spacer->show();
             rows++;
         } else {
-            grid->addItem (d_ptr->m_Slider, 2, textX, 1,
-                           columnCount, Qt::AlignCenter);
-            d_ptr->m_Slider->show();
             if (d_ptr->m_Text2W) {
                 d_ptr->m_Text2W->hide();
             }
@@ -448,7 +437,9 @@ DcpContentItem::ensureWidgetsAreLayouted()
                 d_ptr->m_Spacer->hide();
             }
         }
-        grid->addItem (d_ptr->m_Separator2, rows, textX, 1, columnCount);
+        grid->addItem (d_ptr->m_Slider, rows, textX, 1,
+                       columnCount, Qt::AlignCenter);
+        grid->addItem (d_ptr->m_Separator2, ++rows, textX, 1, columnCount);
         if (styleName() != largePanelObjectName) {
             setStyleName (largePanelObjectName);
         }
