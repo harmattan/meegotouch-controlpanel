@@ -555,14 +555,23 @@ PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
 
     DcpPage *page;
 
-    // if it is already open, we switch back to it:
-    if (tryOpenPageBackward(handle)) {
-        return true;
-    }
-
     // we drop the window if needed
     if (dropOtherPages) {
+        // This seems a bit stupid, but:
+        // we have to create a new window if dcp is minimized because otherwise
+        // - animation is wrong if dcp is covered by a chained win
+        // - already open dialogs are not closed
+        // But, if we are not minimized, and just reopening the current page
+        // we should not create new win, because if our window is a chain
+        // parent, it has to stay that way for proper page animation
+        if (m_Win && !m_Win->isInSwitcher() && tryOpenPageBackward(handle)) {
+            return true;
+        }
         newWin ();
+
+    // if it is already open, we switch back to it
+    } else if (tryOpenPageBackward(handle)) {
+        return true;
     }
 
     /*
