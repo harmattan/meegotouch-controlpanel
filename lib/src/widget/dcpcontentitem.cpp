@@ -200,7 +200,6 @@ DcpContentItem::ensureSliderIsCreated()
             }
 
         } else {
-            bool newSliderVisibility = this->subtitle().isEmpty();
             // disabling the slider because its value is not yet available
             // (eg. applet is not yet loaded)
             if (slider->isEnabled()) {

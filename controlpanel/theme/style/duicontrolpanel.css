@@ -1,0 +1,10 @@
+MWindowStyle {
+    x11-startup-pixmap: ;
+    startup-fill-color: black;
+}
+
+MWindowStyle.Landscape {
+    x11-startup-pixmap: ;
+    startup-fill-color: black;
+}
+
