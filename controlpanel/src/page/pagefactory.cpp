@@ -60,7 +60,8 @@ PageFactory::PageFactory ():
     m_PageWithDelayedContent (0),
     m_AppletsRegistered (false),
     m_StartupState (NothingStarted),
-    m_PageChangeDisabled (false)
+    m_PageChangeDisabled (false),
+    m_CloseMainProcessOnQuitEnabled (false)
 {
     // Run onAppletLoaded for all the applets that are already loaded
     // and run it later for the applets loaded in the future.
@@ -79,6 +80,24 @@ PageFactory::PageFactory ():
     }
 }
 
+void closeMainProcess ()
+{
+    static bool once = false;
+    if (once) return;
+    once = true;
+
+    QDBusConnection connection = QDBusConnection::sessionBus();
+    QDBusMessage message = QDBusMessage::createMethodCall(
+        "com.nokia.DuiControlPanel",
+        "/org/maemo/m", "com.nokia.MApplicationIf", "exit");
+
+    // do not start it if it is not running:
+    message.setAutoStartService (false);
+
+    connection.asyncCall(message);
+}
+
+
 PageFactory::~PageFactory ()
 {
     delete m_AppletLauncher;
@@ -91,6 +110,10 @@ PageFactory::~PageFactory ()
 
         // delete the m_Win if not already deleted:
         m_Win->close ();
+    }
+
+    if (m_CloseMainProcessOnQuitEnabled) {
+        closeMainProcess();
     }
 }
 
@@ -608,6 +631,7 @@ PageFactory::raiseMainWindow()
     if (!m_Win) return;
     m_Win->show();
     m_Win->activateWindow();
+    m_Win->raise();
 }
 
 void
@@ -895,9 +919,11 @@ PageFactory::closeHelpPage()
     connection.asyncCall(message);
 }
 
+
 void
 PageFactory::newMainPageInSeparateProcess()
 {
+    enableCloseMainProcessOnQuit (false);
     DuiControlPanelIf iface;
     if (iface.isValid()) {
         iface.mainPage();

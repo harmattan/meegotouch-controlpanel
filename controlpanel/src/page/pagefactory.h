@@ -34,6 +34,7 @@ class DcpAppletLauncherIf;
 class MApplicationWindow;
 class Category;
 
+
 /*!
  * Implements methods to create new views (pages), show views and change between
  * views.
@@ -52,6 +53,11 @@ public:
     DcpPage* currentPage ();
     bool maybeRunOutOfProcess (const QString& appletName);
     MApplicationWindow* window ();
+    void newWin ();
+    bool hasPage () const;
+    void enableCloseMainProcessOnQuit (bool enable = true) {
+        m_CloseMainProcessOnQuitEnabled = enable;
+    }
 
 public slots:
     void appletWantsToStart (int widgetId = -1);
@@ -96,7 +102,6 @@ private slots:
 private:
     bool tryOpenPageBackward (const PageHandle &handle);
     void registerPage (DcpPage *page);
-    void newWin ();
     bool isCurrentPage (const PageHandle &handle);
     bool verifyAppletLauncherIsOk();
 
@@ -123,6 +128,8 @@ private:
     } m_StartupState;
 
     bool m_PageChangeDisabled;
+
+    bool m_CloseMainProcessOnQuitEnabled;
 };
 
 #endif
