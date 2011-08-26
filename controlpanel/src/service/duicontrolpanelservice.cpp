@@ -142,6 +142,9 @@ DuiControlPanelService::appletPage (const QString& appletName)
             DcpRemoteBriefReceiver::disable ();
 
         } else {
+            win->hide();
+            QCoreApplication::processEvents();
+
             // if we already have a page, then we start the applet in an
             // appletlauncher:
             DcpAppletLauncherIf iface;
@@ -151,10 +154,6 @@ DuiControlPanelService::appletPage (const QString& appletName)
             // close other chained windows:
             emit closeAppletLaunchers();
             PageFactory::instance()->closeHelpPage();
-            if (win->isMinimized()) {
-                win->hide();
-                win->showMinimized();
-            }
 
             return true;
         }

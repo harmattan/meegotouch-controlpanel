@@ -167,7 +167,7 @@ void DcpAppletLauncherService::closeWithDelay ()
         m_SkipNextClosing = false;
         return;
     }
-    QTimer::singleShot (0, qApp, SLOT(quit()));
+    QTimer::singleShot (0, this, SLOT(close()));
 }
 
 bool DcpAppletLauncherService::appletPageAlone (const QString& appletPath)
@@ -178,8 +178,13 @@ bool DcpAppletLauncherService::appletPageAlone (const QString& appletPath)
 
     // we start the mainwindow animation before loading the applet:
     if (!m_IsSheetOnly) {
+        PageFactory::instance()->newWin ();
         PageFactory::instance()->raiseMainWindow ();
     }
+
+    // in this scenario the main process hides its window, and we must
+    // ensure that it will close if our window gets closed
+    PageFactory::instance()->enableCloseMainProcessOnQuit();
 
     if (success) {
         success = maybeAppletRealStart();
@@ -241,6 +246,10 @@ void DcpAppletLauncherService::prestart ()
 
 void DcpAppletLauncherService::close ()
 {
+    // this ensures that we never close the main process if it was the
+    // one which instructed us to close
+    PageFactory::instance()->enableCloseMainProcessOnQuit (false);
+
     MApplication* app = MApplication::instance();
     if (app) {
         app->exit (0);
