@@ -29,3 +29,6 @@ WidgetType=Label
 # until the applet gets loaded and supplies its value from DcpBrief:
 Text2=Demonstrates how to create a sheet
 
+# sheet is the applet's main view
+SheetOnly=1
+
