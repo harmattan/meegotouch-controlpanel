@@ -243,6 +243,13 @@ DcpAppletPage::loadWidget (int widgetId)
         newWidget->setGeometry (centralWidget()->geometry());
     }
     setCentralWidget (newWidget);
+
+    // this ensures that the widget will be visible.
+    // So far devicelock gives back a hidden widget :(
+    if (!newWidget->isVisible()) {
+        newWidget->show();
+    }
+
     retranslateUi();
 }
 
