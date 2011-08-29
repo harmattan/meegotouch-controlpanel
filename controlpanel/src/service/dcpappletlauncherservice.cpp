@@ -130,7 +130,7 @@ void DcpAppletLauncherService::closeWithDelay ()
         m_SkipNextClosing = false;
         return;
     }
-    QTimer::singleShot (0, this, SLOT(close()));
+    QTimer::singleShot (2000, this, SLOT(close()));
 }
 
 bool DcpAppletLauncherService::appletPageAlone (const QString& appletPath)
