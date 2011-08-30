@@ -65,8 +65,7 @@ DcpAppletPage::createContent ()
 {
     if (isContentCreated()) return;
 
-    // we do not create the layout because we dont use it
-    MApplicationPage::createContent ();
+    DcpPage::createContent ();
 
     // load
     if (m_Applet) {
@@ -242,7 +241,7 @@ DcpAppletPage::loadWidget (int widgetId)
     if (centralWidget()) {
         newWidget->setGeometry (centralWidget()->geometry());
     }
-    setCentralWidget (newWidget);
+    appendWidget (newWidget);
 
     // this ensures that the widget will be visible.
     // So far devicelock gives back a hidden widget :(

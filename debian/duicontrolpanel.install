@@ -5,6 +5,7 @@ usr/share/themes/base/meegotouch/duicontrolpanel/style/duicontrolpanel.*
 # usr/share/themes/base/meegotouch/duicontrolpanel/duicontrolpanel.conf
 usr/share/applications/duicontrolpanel.desktop
 usr/lib/duicontrolpanel/applets/libdeclarative.so
+usr/lib/duicontrolpanel/applets/libqml.so
 usr/share/dbus-1
 etc/osso-rfs-scripts/controlpanel-rfs.sh
 usr/share/duicontrolpanel/categories/*.cpcategory

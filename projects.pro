@@ -7,6 +7,7 @@ SUBDIRS += lib \
            controlpanel \
            briefsupplier \
            declapplet \
+           qmlapplet \
            examples \ 
 
 include(debian/deb.pri)

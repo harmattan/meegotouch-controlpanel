@@ -1,7 +1,7 @@
 include(../lib/dcpconfig.pri)
 QMAKE_LIBDIR += ../lib/lib/ 
 TEMPLATE = lib
-TARGET = lib/declarative
+TARGET = lib/qml
 DEPENDPATH += .
 INCLUDEPATH += $$DEPENDPATH ../lib/src/include
 OBJECTS_DIR = ../tmp
@@ -11,7 +11,8 @@ MOC_DIR = ../tmp
 HEADERS += $$system(find ./ -name \'*.h\')
 SOURCES += $$system(find ./ -name \'*.cpp\')
 
-CONFIG += plugin gui meegotouch silent debug
+CONFIG += plugin gui meegotouch silent debug 
+QT += declarative
 LIBS += -lduicontrolpanel
 
 # a fake check target so as not to stop the testing:
