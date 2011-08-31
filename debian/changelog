@@ -1,3 +1,9 @@
+duicontrolpanel (0.13.4) unstable; urgency=low
+
+  * Fixes: NB#280032 - Settings: Wrong alignment in settings view
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 31 Aug 2011 11:36:25 +0200
+
 duicontrolpanel (0.13.2.2) unstable; urgency=low
 
   * Fixes: NB#279039 - regressions about reopening control panel
