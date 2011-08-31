@@ -37,7 +37,7 @@ DcpAppletPage::createContent ()
 }
 
 bool 
-DcpAppletPage::hasWidget ()
+DcpAppletPage::hasWidget () const
 {
     return true;
 }

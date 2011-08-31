@@ -30,7 +30,8 @@ class MAction;
 
 class DcpAppletPage : public DcpPage
 {
-Q_OBJECT
+    Q_OBJECT
+    Q_PROPERTY(bool hasWidget READ hasWidget)
 
 public:
     DcpAppletPage(DcpAppletObject *applet, int widgetId = -1);
@@ -38,8 +39,9 @@ public:
 
     virtual void createContent ();
 
-    bool hasWidget ();
     bool hasError ();
+    void setApplet (DcpAppletObject* applet, int widgetId = -1);
+    bool hasWidget () const;
     int widgetId ();
     DcpAppletObject* applet();
     static DcpAppletWidget* constructAppletWidget (DcpAppletObject* applet,
