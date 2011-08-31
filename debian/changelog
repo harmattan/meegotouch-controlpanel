@@ -1,3 +1,9 @@
+duicontrolpanel (0.13.4~unreleased) unstable; urgency=low
+
+  * Fixes: NB#280032 - Settings: Wrong alignment in settings view
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 31 Aug 2011 11:36:25 +0200
+
 duicontrolpanel (0.13.3.2) unstable; urgency=low
 
   * Fixes: NB#264592 - NFT: Opening different pages from settings takes too

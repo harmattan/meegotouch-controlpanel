@@ -82,7 +82,7 @@ DcpAppletPage::createContent ()
  * provides one, because the widget creation might get delayed.
  */
 bool 
-DcpAppletPage::hasWidget ()
+DcpAppletPage::hasWidget () const
 {
     return m_MainWidget;
 }

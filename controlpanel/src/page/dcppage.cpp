@@ -273,6 +273,7 @@ DcpPage::setTitleLabel (const QString& helpId)
 
     if (!m_TitleLabel) {
         m_TitleLabel = new MLabel();
+        m_TitleLabel->setAlignment (Qt::AlignLeft | Qt::AlignAbsolute);
         m_TitleLabel->setWordWrap(true);
         m_TitleLabel->setStyleName ("CommonHeaderInverted");
         if (!helpId.isEmpty()) {

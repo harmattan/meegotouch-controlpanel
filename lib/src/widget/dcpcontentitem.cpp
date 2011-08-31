@@ -301,6 +301,8 @@ DcpContentItem::ensureTextsAreCreated()
     // create the text widgets:
     if (!label1) {
         label1 = new MLabel();
+        label1->setAlignment (Qt::AlignLeft | Qt::AlignAbsolute |
+                              Qt::AlignVCenter);
         label1->setStyleName (singleTitleObjectName);
         d_ptr->m_LayoutIsToBeChanged = true;
         label1->setTextElide (false);
@@ -309,6 +311,8 @@ DcpContentItem::ensureTextsAreCreated()
     }
     if (!label2 && !text2.isEmpty()) {
         label2 = new MLabel();
+        label2->setAlignment (Qt::AlignLeft | Qt::AlignAbsolute |
+                              Qt::AlignVCenter);
         label2->setTextElide (true);
         label2->setStyleName(subtitleObjectName);
         if (!d_ptr->m_Spacer) {
