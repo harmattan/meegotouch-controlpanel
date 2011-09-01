@@ -16,31 +16,7 @@ declarative language.
         <li>Your applet can only have one page.
     </ul>
 
-\code
-<settings>
-  <group>
-      <text key="/apps/ControlPanel/Example/Text1" title="Please specify a text:" >
-          something
-      </text>
-      <text key="/apps/ControlPanel/Example/Text2" title="Please specify a text:" >
-          something
-      </text>
-    <selection key="/apps/ControlPanel/Example/Enum1">
-        <option title="first value" >1</option>
-        <option title="second value" >2</option>
-        <option title="third value" >3</option>
-        <option title="fourth value" >4</option>
-    </selection>
-  </group>
-  <group>
-    <boolean key="/apps/ControlPanel/Example/Bool1" title="Please switch me">
-    </boolean>
-    <integer key="/apps/ControlPanel/Example/Integer1"
-        title="Select a number" min="30" max="60">
-    </integer>
-  </group>
-</settings>
-\endcode
+\include declarativeapplet/simple/example1.xml
 example1.xml describing a declarative applet
 
 
@@ -59,31 +35,7 @@ This must be "libdeclarative.so" for a declarative applet.
 For declarative plugins this value contains the name of the xml file, which
 describes the content of their main widget.
 
-\code
-[Desktop Entry]
-Type=ControlPanelApplet
-Name=Declarative Example 1
-X-logical-id=decl_exampl_1
-X-translation-catalog=examplecatalog
-Icon=
-
-# This has to be specified in order that the .desktop file can also be
-# used as an action (for example for search to know how to
-# open the applet)
-X-Maemo-Service=com.nokia.DuiControlPanel
-X-Maemo-Method=com.nokia.DuiControlPanelIf.appletPage
-X-Maemo-Object-Path=/
-# this has to be the same as Name
-X-Maemo-Fixed-Args=Declarative Example 1
-
-[DUI]
-X-DUIApplet-Applet=libdeclarative.so
-
-[DCP]
-Category=Applications
-Order=100
-Part=example1.xml
-\endcode
+\include declarativeapplet/simple/declexample.desktop
 .destktop file for example1.xml
 
 \subsection mainwidget The .xml description of the main widget
