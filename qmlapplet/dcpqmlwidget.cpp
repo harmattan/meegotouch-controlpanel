@@ -38,6 +38,7 @@ DcpQmlWidget::DcpQmlWidget(const QString& qmlPath)
     if (object) {
         // all fine, make it visible
         object->setParentItem (this);
+        setPreferredSize (object->boundingRect().size());
     } else {
         // error happened
         createErrorLabel (QString("Error loading %1").arg(qmlPath));
