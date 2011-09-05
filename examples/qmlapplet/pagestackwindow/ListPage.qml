@@ -6,6 +6,8 @@ Page {
     id: listPage
     anchors.margins: UiConstants.DefaultMargin
 
+    orientationLock: PageStatus.LockPortrait
+
     tools: commonTools
 
     function openFile(file) {
@@ -141,6 +143,7 @@ Page {
     ScrollDecorator {
         flickableItem: listView
     }
+
 
 }
 

@@ -52,6 +52,7 @@ PageStackWindow {
 
     Component.onCompleted: {
         theme.inverted = true;
+        screen.allowedOrientation = Screen.Portrait;
     }
 }
 
