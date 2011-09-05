@@ -16,26 +16,42 @@
 ****************************************************************************/
 
 #include "dcpqmlapplet.h"
-#include <QDebug>
-#include <MAction>
 #include "dcpqmlwidget.h"
 #include "dcpqmlbrief.h"
+#include "dcpqmlcontacter.h"
 
-Q_EXPORT_PLUGIN2(declarative, DcpQmlApplet)
+#include <QDebug>
+#include <dcpdebug.h>
+#include <MAction>
+#include <QtDeclarative>
+
+
+Q_EXPORT_PLUGIN2(qml, DcpQmlApplet)
+
+DcpQmlApplet* DcpQmlApplet::sm_Applet = 0;
+
+DcpQmlApplet::DcpQmlApplet ()
+{
+    sm_Applet = this;
+}
 
 void DcpQmlApplet::init()
 {
+    qmlRegisterType<DcpQmlContacter> (
+            "com.nokia.controlpanel", 0, 1, "Dcp"
+    );
 }
 
 DcpWidget* DcpQmlApplet::constructWidget(int widgetId)
 {
     if (widgetId >= 0 && widgetId < m_QmlPaths.count()) {
-        return new DcpQmlWidget(m_QmlPaths.at(widgetId));
+        m_CurrentWidget = new DcpQmlWidget(m_QmlPaths.at(widgetId));
     } else {
         qWarning("declarative applet was called with non valid widgetid: %d",
                  widgetId);
-        return 0;
+        m_CurrentWidget = 0;
     }
+    return m_CurrentWidget;
 }
 
 
@@ -63,5 +79,17 @@ int DcpQmlApplet::partID(const QString& partStr)
         m_QmlPaths.append(partStr);
     }
     return id;
+}
+
+void DcpQmlApplet::requestPage (const QString& qmlPath)
+{
+    dcp_failfunc_unless (m_CurrentWidget);
+    int id = partID (qmlPath);
+    m_CurrentWidget->requestPage (id);
+}
+
+DcpQmlApplet* DcpQmlApplet::instance()
+{
+    return sm_Applet;
 }
 

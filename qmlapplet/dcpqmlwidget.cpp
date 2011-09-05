@@ -64,3 +64,8 @@ void DcpQmlWidget::createErrorLabel(const QString& text)
     DCP_WARNING(qPrintable(text));
 }
 
+void DcpQmlWidget::requestPage (int id)
+{
+    emit changeWidget (id);
+}
+

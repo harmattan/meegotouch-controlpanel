@@ -2,117 +2,121 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 import com.nokia.extras 1.1
 import "/usr/lib/qt4/imports/com/meego/extras/constants.js" as UI
+import com.nokia.controlpanel 0.1
 
-ListView {
- ListModel {
-    id: listModel
+    ListView {
 
-    ListElement {
-        page: "PageStackWindowPage.qml"
-        title: "Pop up sheet"
-        subtitle: "pops up an example sheet"
-    }
-    ListElement {
-        page: "1.qml"
-        title: "Example element"
-        subtitle: "pam pam"
-    }
-    ListElement {
-        page: "1.qml"
-        title: "Example element"
-        subtitle: "pam pam"
-    }
-    ListElement {
-        page: "1.qml"
-        title: "Example element"
-        subtitle: "pam pam"
-    }
-    ListElement {
-        page: "1.qml"
-        title: "Example element"
-        subtitle: "pam pam"
-    }
-    ListElement {
-        page: "1.qml"
-        title: "Example element"
-        subtitle: "pam pam"
-    }
-    ListElement {
-        page: "1.qml"
-        title: "Example element"
-        subtitle: "pam pam"
-    }
-    ListElement {
-        page: "1.qml"
-        title: "Example element"
-        subtitle: "pam pam"
-    }
-    ListElement {
-        page: "1.qml"
-        title: "Example element"
-        subtitle: "pam pam"
-    }
-    ListElement {
-        page: "1.qml"
-        title: "Example element"
-        subtitle: "pam pam"
-    }
-    ListElement {
-        page: "1.qml"
-        title: "Example element"
-        subtitle: "pam pam"
-    }
-    ListElement {
-        page: "1.qml"
-        title: "Example element"
-        subtitle: "pam pam"
-    }
-    ListElement {
-        page: "1.qml"
-        title: "Example element"
-        subtitle: "pam pam"
-    }
-    ListElement {
-        page: "1.qml"
-        title: "Example element"
-        subtitle: "pam pam"
-    }
-    ListElement {
-        page: "1.qml"
-        title: "Example element"
-        subtitle: "pam pam"
-    }
-    ListElement {
-        page: "1.qml"
-        title: "Example element"
-        subtitle: "pam pam"
-    }
-    ListElement {
-        page: "1.qml"
-        title: "Example element"
-        subtitle: "pam pam"
-    }
-    ListElement {
-        page: "1.qml"
-        title: "Example element"
-        subtitle: "pam pam"
-    }
-}
+         ListModel {
+            id: listModel
 
-Component {
-    id: listDelegate
-    ListDelegate {
-        Image {
-            source: "image://theme/icon-m-common-drilldown-arrow-inverse"
-            anchors.right: parent.right;
-            anchors.verticalCenter: parent.verticalCenter
+            ListElement {
+                page: "page2.qml"
+                title: "Pop up sheet"
+                subtitle: "pops up an example sheet"
+            }
+            ListElement {
+                page: "1.qml"
+                title: "Example element"
+                subtitle: "pam pam"
+            }
+            ListElement {
+                page: "1.qml"
+                title: "Example element"
+                subtitle: "pam pam"
+            }
+            ListElement {
+                page: "1.qml"
+                title: "Example element"
+                subtitle: "pam pam"
+            }
+            ListElement {
+                page: "1.qml"
+                title: "Example element"
+                subtitle: "pam pam"
+            }
+            ListElement {
+                page: "1.qml"
+                title: "Example element"
+                subtitle: "pam pam"
+            }
+            ListElement {
+                page: "1.qml"
+                title: "Example element"
+                subtitle: "pam pam"
+            }
+            ListElement {
+                page: "1.qml"
+                title: "Example element"
+                subtitle: "pam pam"
+            }
+            ListElement {
+                page: "1.qml"
+                title: "Example element"
+                subtitle: "pam pam"
+            }
+            ListElement {
+                page: "1.qml"
+                title: "Example element"
+                subtitle: "pam pam"
+            }
+            ListElement {
+                page: "1.qml"
+                title: "Example element"
+                subtitle: "pam pam"
+            }
+            ListElement {
+                page: "1.qml"
+                title: "Example element"
+                subtitle: "pam pam"
+            }
+            ListElement {
+                page: "1.qml"
+                title: "Example element"
+                subtitle: "pam pam"
+            }
+            ListElement {
+                page: "1.qml"
+                title: "Example element"
+                subtitle: "pam pam"
+            }
+            ListElement {
+                page: "1.qml"
+                title: "Example element"
+                subtitle: "pam pam"
+            }
+            ListElement {
+                page: "1.qml"
+                title: "Example element"
+                subtitle: "pam pam"
+            }
+            ListElement {
+                page: "1.qml"
+                title: "Example element"
+                subtitle: "pam pam"
+            }
+            ListElement {
+                page: "1.qml"
+                title: "Example element"
+                subtitle: "pam pam"
+            }
         }
-    }
-}
+
+        Component {
+            id: listDelegate
+            ListDelegate {
+                Image {
+                    source: "image://theme/icon-m-common-drilldown-arrow-inverse"
+                    anchors.right: parent.right;
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                onClicked: { Dcp.newPage(page) }
+            }
+        }
 
         id: listView
         model: listModel
         delegate: listDelegate
+        interactive: false
 
     // these are to be eliminated:
     Component.onCompleted: theme.inverted = true;
@@ -121,5 +125,6 @@ Component {
     x: 10
     width: 460
     height: listModel.count * UI.LIST_ITEM_HEIGHT
-}
+
+    }
 

@@ -23,6 +23,7 @@
 #include <QString>
 #include <QList>
 class DcpWidget;
+class DcpQmlWidget;
 class MAction;
 
 class DcpQmlApplet: public QObject, public DcpAppletIf
@@ -31,16 +32,24 @@ class DcpQmlApplet: public QObject, public DcpAppletIf
     Q_INTERFACES(DcpAppletIf)
 
 public:
+    DcpQmlApplet ();
     virtual void init();
     virtual DcpWidget* constructWidget(int widgetId);
 
     virtual QString title() const;
     virtual QVector<MAction *> viewMenuItems();
     virtual DcpBrief* constructBrief(int);
-    virtual int partID(const QString& xmlpath);
+    virtual int partID(const QString& qmlPath);
+
+    void requestPage (const QString& qmlPath);
+
+    static DcpQmlApplet* instance();
 
 private:
     QList<QString> m_QmlPaths;
+    DcpQmlWidget* m_CurrentWidget;
+    static DcpQmlApplet* sm_Applet;
 };
 
 #endif // DCPQMLAPPLET_H
+

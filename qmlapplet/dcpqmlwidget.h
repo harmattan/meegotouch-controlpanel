@@ -26,6 +26,9 @@ class DcpQmlWidget: public DcpWidget
 public:
     DcpQmlWidget(const QString& qmlPath);
 
+public slots:
+    void requestPage (int id);
+
 private:
     void createErrorLabel(const QString& text);
 
