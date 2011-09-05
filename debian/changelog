@@ -1,4 +1,4 @@
-duicontrolpanel (0.13.2.2~unreleased) unstable; urgency=low
+duicontrolpanel (0.13.2.2) unstable; urgency=low
 
   * Fixes: NB#279039 - regressions about reopening control panel
 
