@@ -1,0 +1,26 @@
+[Desktop Entry]
+Type=ControlPanelApplet
+Name=Qml Window Example
+X-logical-id=qml_example_title2
+X-translation-catalog=
+Icon=
+
+# This has to be specified in order that the .desktop file can also be
+# used as an action (for example for search to know how to
+# open the applet)
+X-Maemo-Service=com.nokia.DuiControlPanel
+X-Maemo-Method=com.nokia.DuiControlPanelIf.appletPage
+X-Maemo-Object-Path=/
+# this has to be the same as Name
+X-Maemo-Fixed-Args=Qml Applet Example
+
+[DUI]
+X-DUIApplet-Applet=libqml.so
+
+[DCP]
+# Category= Applications
+Category=Examples
+Order=0
+Part=/usr/share/duicontrolpanel/qml-example2/qmlexample2.qml
+Label2=full control about the window
+

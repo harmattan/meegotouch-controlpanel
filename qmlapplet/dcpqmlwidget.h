@@ -26,12 +26,21 @@ class DcpQmlWidget: public DcpWidget
 public:
     DcpQmlWidget(const QString& qmlPath);
 
+    bool handlesItsOwnWindow() const;
+    bool pagePans () const;
+
+protected:
+    void polishEvent ();
+    void resizeEvent ( QGraphicsSceneResizeEvent * event );
+
 public slots:
     void requestPage (int id);
 
 private:
     void createErrorLabel(const QString& text);
 
+    QGraphicsObject* m_Object;
+    bool m_HandlesItsOwnWindow;
 };
 
 
