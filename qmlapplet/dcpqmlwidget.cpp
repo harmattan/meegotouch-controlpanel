@@ -24,6 +24,9 @@
 #include <QDeclarativeEngine>
 #include <QDeclarativeComponent>
 
+
+#include <QDebug>
+
 DcpQmlWidget::DcpQmlWidget(const QString& qmlPath)
 {
     QGraphicsLinearLayout* layout = new QGraphicsLinearLayout(
@@ -33,6 +36,7 @@ DcpQmlWidget::DcpQmlWidget(const QString& qmlPath)
     // create the qml widget:
     QDeclarativeEngine *engine = new QDeclarativeEngine (this);
     QDeclarativeComponent component(engine, QUrl::fromLocalFile(qmlPath));
+     
     QGraphicsObject *object =
         qobject_cast<QGraphicsObject *>(component.create());
     if (object) {
