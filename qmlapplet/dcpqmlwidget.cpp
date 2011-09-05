@@ -26,10 +26,13 @@
 #include <QDeclarativeItem>
 #include <MApplicationPage>
 #include <QGraphicsSceneResizeEvent>
+#include <QDebug>
 
 DcpQmlWidget::DcpQmlWidget(const QString& qmlPath):
     m_Object (0),
     m_HandlesItsOwnWindow (false)
+
+DcpQmlWidget::DcpQmlWidget(const QString& qmlPath)
 {
     // for the error labels:
     new QGraphicsLinearLayout(Qt::Vertical, this);

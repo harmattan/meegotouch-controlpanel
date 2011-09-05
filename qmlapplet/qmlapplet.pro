@@ -8,7 +8,8 @@ OBJECTS_DIR = ../tmp
 MOC_DIR = ../tmp
 
 # Input
-HEADERS += $$system(find ./ -name \'*.h\')
+HEADERS += $$system(find ./ -name \'*.h\') \
+    dcpqmlgconfitem.h
 SOURCES += $$system(find ./ -name \'*.cpp\')
 
 CONFIG += plugin gui meegotouch silent debug 
@@ -22,4 +23,5 @@ target.path += $$DCP_APPLET_DIR
 
 INSTALLS += target
 QT += xml
+
 

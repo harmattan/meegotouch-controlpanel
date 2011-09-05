@@ -26,6 +26,8 @@
 #include <QtDeclarative>
 
 
+#include "dcpqmlgconfitem.h"
+
 Q_EXPORT_PLUGIN2(qml, DcpQmlApplet)
 
 DcpQmlApplet* DcpQmlApplet::sm_Applet = 0;
@@ -39,6 +41,11 @@ void DcpQmlApplet::init()
 {
     qmlRegisterType<DcpQmlContacter> (
             "com.nokia.controlpanel", 0, 1, "Dcp"
+    );
+    
+    
+    qmlRegisterType<DcpQmlGConfItem> (
+            "com.nokia.controlpanel", 0, 1, "DcpQmlGConfItem"
     );
 }
 
