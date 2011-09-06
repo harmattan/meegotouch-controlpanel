@@ -14,7 +14,11 @@ PageStackWindow {
             iconId: "toolbar-back";
             onClicked: {
                 myMenu.close();
-                pageStack.pop();
+                if (pageStack.depth > 1) {
+                    pageStack.pop();
+                } else {
+                    Qt.quit();
+                }
             }
         }
 
@@ -52,7 +56,11 @@ PageStackWindow {
 
     Component.onCompleted: {
         theme.inverted = true;
-        screen.allowedOrientation = Screen.Portrait;
+
+// unfortunately this does not work, so doing the rotation instead
+//        screen.allowedOrientations = Screen.Portrait;
     }
+
+    rotation: 90
 }
 

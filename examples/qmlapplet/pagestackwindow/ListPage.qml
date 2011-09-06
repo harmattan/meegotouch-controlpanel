@@ -6,7 +6,8 @@ Page {
     id: listPage
     anchors.margins: UiConstants.DefaultMargin
 
-    orientationLock: PageStatus.LockPortrait
+// unfortunately this does not work, so doing the rotation instead for the Window
+//    orientationLock: PageOrientation.LockPortrait
 
     tools: commonTools
 

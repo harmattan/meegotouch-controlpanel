@@ -25,6 +25,7 @@ class DcpQmlWidget: public DcpWidget
     Q_OBJECT
 public:
     DcpQmlWidget(const QString& qmlPath);
+    ~DcpQmlWidget();
 
     bool handlesItsOwnWindow() const;
     bool pagePans () const;

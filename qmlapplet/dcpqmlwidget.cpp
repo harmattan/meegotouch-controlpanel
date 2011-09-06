@@ -27,6 +27,8 @@
 #include <MApplicationPage>
 #include <QGraphicsSceneResizeEvent>
 #include <QDebug>
+#include <MApplicationWindow>
+#include <MApplication>
 
 DcpQmlWidget::DcpQmlWidget(const QString& qmlPath):
     m_Object (0),
@@ -54,12 +56,22 @@ DcpQmlWidget::DcpQmlWidget(const QString& qmlPath):
             setPreferredSize (m_Object->boundingRect().size());
             enableAutoTitle();
         }
+        connect (engine, SIGNAL(quit()), this, SIGNAL(closePage()));
+
     } else {
         // error happened
         createErrorLabel (QString("Error loading %1").arg(qmlPath));
         foreach (QDeclarativeError error, component.errors()) {
             createErrorLabel (error.toString());
         }
+    }
+}
+
+DcpQmlWidget::~DcpQmlWidget() {
+    MApplicationWindow* win = MApplication::activeApplicationWindow();
+    if (win) {
+        // restore the hidden statusbar etc.
+        win->showNormal();
     }
 }
 
@@ -89,6 +101,12 @@ void DcpQmlWidget::polishEvent ()
 
     page->setComponentsDisplayMode (MApplicationPage::AllComponents,
                                     MApplicationPageModel::Hide);
+
+    MApplicationWindow* win = MApplication::activeApplicationWindow();
+    if (win) {
+        // hide everything:
+        win->showFullScreen();
+    }
 }
 
 bool DcpQmlWidget::pagePans () const
