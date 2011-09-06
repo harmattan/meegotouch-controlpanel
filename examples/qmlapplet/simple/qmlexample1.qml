@@ -5,18 +5,18 @@ import "/usr/lib/qt4/imports/com/meego/extras/constants.js" as UI
 import com.nokia.controlpanel 0.1
 
     ListView {
-        
+
          DcpQmlGConfItem {
              id: dcpQmlrectangleColor
              key: "/meegotouch/DcpQmlrectangleColor"
              value: "ASDASD"
-             
+
              onValueChanged: {
                  rectText.text = "green"
                  gconfrectange.color = dcpQmlrectangleColor.value
              }
          }
-         
+
          Rectangle {
              id: gconfrectange;
              x: 0
@@ -41,12 +41,11 @@ import com.nokia.controlpanel 0.1
                      dcpQmlrectangleColor.value = "#00FF00";
                  }
              }
-         }         
+         }
 
          ListModel {
             id: listModel
 
-            
             ListElement {
                 page: "page2.qml"
                 title: "Pop up sheet"

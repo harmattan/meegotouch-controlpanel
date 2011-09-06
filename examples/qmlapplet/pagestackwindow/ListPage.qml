@@ -1,6 +1,8 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 import com.nokia.extras 1.1
+import "/usr/lib/qt4/imports/com/meego/UIConstants.js" as UI1
+import "/usr/lib/qt4/imports/com/meego/extras/constants.js" as UI2
 
 Page {
     id: listPage
@@ -20,11 +22,45 @@ Page {
             console.log("Error loading component:", component.errorString());
     }
 
+Flickable {
+    id: flickable
+    anchors.fill: parent
+    flickableDirection: Flickable.VerticalFlick
+
+    // page's title:
+    Label {
+        id: titleLabel
+        text: "Qml Window Example " + pageStack.depth
+        anchors.topMargin: UI1.HEADER_DEFAULT_TOP_SPACING_PORTRAIT
+        anchors.bottomMargin: UI1.HEADER_DEFAULT_BOTTOM_SPACING_PORTRAIT
+        height: UI1.HEADER_DEFAULT_HEIGHT_PORTRAIT
+        width: parent.width
+        verticalAlignment: Text.AlignVCenter
+
+        platformStyle: LabelStyle {
+            fontFamily: UI1.FONT_FAMILY_LIGHT
+            fontPixelSize: UI1.FONT_XLARGE
+        }
+
+        Rectangle {
+            id: titleSeparator
+            height: 1
+            width: parent.width
+            anchors.bottom: parent.bottom
+            color: "#404060" // FIXME
+        }
+    }
 
     ListView {
         id: listView
-        anchors.fill: parent
+        anchors.top: titleLabel.bottom
+        anchors.left: titleLabel.left
+        anchors.topMargin: UI1.MARGIN_XLARGE
+
+        width: parent.width
         model: pagesModel
+        height: pagesModel.count * UI2.LIST_ITEM_HEIGHT
+        interactive: false
 
         delegate:  ListDelegate {
             Image {
@@ -37,6 +73,9 @@ Page {
         }
     }
 
+    contentHeight: listView.height + titleLabel.height
+}
+
     ListModel {
         id: pagesModel
         ListElement {
@@ -45,12 +84,12 @@ Page {
             subtitle: "open this page again"
         }
         ListElement {
-            page: "LabelPage.qml"
+            page: "DialogPage.qml"
             title: "Dialog"
             subtitle: "open a dialog"
         }
         ListElement {
-            page: "1.qml"
+            page: "SheetPage.qml"
             title: "Sheet"
             subtitle: "open a sheet"
         }
@@ -142,10 +181,8 @@ Page {
     }
 
     ScrollDecorator {
-        flickableItem: listView
+        flickableItem: flickable
     }
-
-
 }
 
 
