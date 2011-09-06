@@ -39,7 +39,7 @@
  * Else, controlpanel will wait until the applet creates its widget and only
  * displays it afterwards.
  */
-#define DELAYED_APPLET_PAGE
+// #define DELAYED_APPLET_PAGE
 #ifdef DELAYED_APPLET_PAGE
 #    define PROCESS_EVENTS QCoreApplication::processEvents();
 #else
@@ -107,6 +107,9 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
         // the user click on the appletbutton after that (it would open another
         // instace)
         QTimer::singleShot (1000, this, SLOT (unregisterService()));
+#ifndef DELAYED_APPLET_PAGE
+        pageFactory->raiseMainWindow ();
+#endif
     } else {
         close ();
     }
@@ -147,12 +150,12 @@ bool DcpAppletLauncherService::appletPage (const QString& appletPath)
 {
     sheduleApplet (appletPath);
 
+#ifdef DELAYED_APPLET_PAGE
     // we start the mainwindow animation before loading the applet:
     if (!m_IsSheetOnly) {
         PageFactory::instance()->raiseMainWindow ();
     }
 
-#ifdef DELAYED_APPLET_PAGE
     // TODO unfortunately this ruins the animation somehow (why?)
     QTimer::singleShot (0, this, SLOT (maybeAppletRealStart()));
     return true;
@@ -176,11 +179,13 @@ bool DcpAppletLauncherService::appletPageAlone (const QString& appletPath)
 
     bool success = sheduleApplet (appletPath, true);
 
+#ifdef DELAYED_APPLET_PAGE
     // we start the mainwindow animation before loading the applet:
     if (!m_IsSheetOnly) {
         PageFactory::instance()->newWin ();
         PageFactory::instance()->raiseMainWindow ();
     }
+#endif
 
     // in this scenario the main process hides its window, and we must
     // ensure that it will close if our window gets closed
