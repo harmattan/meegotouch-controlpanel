@@ -37,9 +37,15 @@ protected:
 public slots:
     void requestPage (int id);
 
+protected slots:
+    void create ();
+    void adjustObjectSize();
+
 private:
     void createErrorLabel(const QString& text);
+    void hideAllControls();
 
+    QString m_Path;
     QGraphicsObject* m_Object;
     bool m_HandlesItsOwnWindow;
 };

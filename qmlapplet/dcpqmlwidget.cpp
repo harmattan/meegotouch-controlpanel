@@ -26,11 +26,12 @@
 #include <QDeclarativeItem>
 #include <MApplicationPage>
 #include <QGraphicsSceneResizeEvent>
-#include <QDebug>
 #include <MApplicationWindow>
 #include <MApplication>
+#include <QTimer>
 
 DcpQmlWidget::DcpQmlWidget(const QString& qmlPath):
+    m_Path (qmlPath),
     m_Object (0),
     m_HandlesItsOwnWindow (false)
 {
@@ -40,34 +41,11 @@ DcpQmlWidget::DcpQmlWidget(const QString& qmlPath):
     // get as much space as possible:
     setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    // create the qml widget:
-    QDeclarativeEngine *engine = new QDeclarativeEngine (this);
-    QDeclarativeComponent component(engine, QUrl::fromLocalFile(qmlPath));
-    m_Object =
-        qobject_cast<QGraphicsObject *>(component.create());
-    if (m_Object) {
-        // all fine, make it visible
-        m_Object->setParentItem (this);
-        m_HandlesItsOwnWindow =
-            QString(m_Object->metaObject()->className()).startsWith ("PageStackWindow_");
-
-        if (handlesItsOwnWindow()) {
-        } else {
-            setPreferredSize (m_Object->boundingRect().size());
-            enableAutoTitle();
-        }
-        connect (engine, SIGNAL(quit()), this, SIGNAL(closePage()));
-
-    } else {
-        // error happened
-        createErrorLabel (QString("Error loading %1").arg(qmlPath));
-        foreach (QDeclarativeError error, component.errors()) {
-            createErrorLabel (error.toString());
-        }
-    }
+    QTimer::singleShot (0, this, SLOT(create()));
 }
 
-DcpQmlWidget::~DcpQmlWidget() {
+DcpQmlWidget::~DcpQmlWidget()
+{
     MApplicationWindow* win = MApplication::activeApplicationWindow();
     if (win) {
         // restore the hidden statusbar etc.
@@ -75,21 +53,57 @@ DcpQmlWidget::~DcpQmlWidget() {
     }
 }
 
-void DcpQmlWidget::resizeEvent ( QGraphicsSceneResizeEvent * event )
+void DcpQmlWidget::create()
 {
-    if (!handlesItsOwnWindow()) return;
+    // create has already run?
+    if (m_Object) return;
 
-    // handle the size of the main m_Object (it is not a widget, so could
-    // not put it into a layout)
-    QDeclarativeItem* item = qobject_cast<QDeclarativeItem*>(m_Object);
-    dcp_failfunc_unless (item);
-    item->setSize (event->newSize());
+    // create the qml widget:
+    QDeclarativeEngine *engine = new QDeclarativeEngine (this);
+    QDeclarativeComponent component(engine, QUrl::fromLocalFile(m_Path));
+
+    m_Object =
+        qobject_cast<QGraphicsObject *>(component.create());
+    if (m_Object) {
+        // all fine
+        m_HandlesItsOwnWindow =
+            QString(m_Object->metaObject()->className()).startsWith ("PageStackWindow_");
+
+        if (handlesItsOwnWindow()) {
+            // the root object is a PageStackWindow, we let it handle everything
+            hideAllControls();
+
+            QTimer::singleShot (0, this, SLOT(adjustObjectSize()));
+        } else {
+            // the root object is not a PageStackWindow, we handle it as a widget
+            m_Object->setParentItem (this);
+            setPreferredSize (m_Object->boundingRect().size());
+            enableAutoTitle();
+        }
+        connect (engine, SIGNAL(quit()), this, SIGNAL(closePage()));
+
+    } else {
+        // error happened
+        createErrorLabel (QString("Error loading %1").arg(m_Path));
+        foreach (QDeclarativeError error, component.errors()) {
+            createErrorLabel (error.toString());
+        }
+    }
 }
 
-void DcpQmlWidget::polishEvent ()
-{
-    if (!handlesItsOwnWindow()) return;
 
+void DcpQmlWidget::adjustObjectSize()
+{
+    QDeclarativeItem* item = qobject_cast<QDeclarativeItem*>(m_Object);
+    if (!item) return;
+    item->setSize (size());
+    if (!m_Object->parentItem()) {
+        m_Object->setParentItem (this);
+    }
+}
+
+void DcpQmlWidget::hideAllControls()
+{
     // hide everything on the page (qml displays its window totally)
     QGraphicsWidget* item = this;
     MApplicationPage* page = 0;
@@ -101,12 +115,26 @@ void DcpQmlWidget::polishEvent ()
 
     page->setComponentsDisplayMode (MApplicationPage::AllComponents,
                                     MApplicationPageModel::Hide);
+    page->setPannable (false);
 
     MApplicationWindow* win = MApplication::activeApplicationWindow();
     if (win) {
         // hide everything:
         win->showFullScreen();
     }
+}
+
+void DcpQmlWidget::resizeEvent ( QGraphicsSceneResizeEvent * )
+{
+    if (!handlesItsOwnWindow()) return;
+
+    // handle the size of the main m_Object (it is not a widget, so could
+    // not put it into a layout)
+    adjustObjectSize ();
+}
+
+void DcpQmlWidget::polishEvent ()
+{
 }
 
 bool DcpQmlWidget::pagePans () const
