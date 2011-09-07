@@ -106,7 +106,7 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
         // we only unregister the service if the window is shown to prevent
         // the user click on the appletbutton after that (it would open another
         // instace)
-        QTimer::singleShot (1000, this, SLOT (unregisterService()));
+        QTimer::singleShot (0, this, SLOT (unregisterService()));
 #ifndef DELAYED_APPLET_PAGE
         pageFactory->raiseMainWindow ();
 #endif
@@ -170,7 +170,7 @@ void DcpAppletLauncherService::closeWithDelay ()
         m_SkipNextClosing = false;
         return;
     }
-    QTimer::singleShot (2000, this, SLOT(close()));
+    QTimer::singleShot (1500, this, SLOT(close()));
 }
 
 bool DcpAppletLauncherService::appletPageAlone (const QString& appletPath)
@@ -179,13 +179,14 @@ bool DcpAppletLauncherService::appletPageAlone (const QString& appletPath)
 
     bool success = sheduleApplet (appletPath, true);
 
-#ifdef DELAYED_APPLET_PAGE
-    // we start the mainwindow animation before loading the applet:
     if (!m_IsSheetOnly) {
+        // we do not want to be chained, so open a non chained window here:
+        PageFactory::instance()->window();
         PageFactory::instance()->newWin ();
+#ifdef DELAYED_APPLET_PAGE
         PageFactory::instance()->raiseMainWindow ();
-    }
 #endif
+    }
 
     // in this scenario the main process hides its window, and we must
     // ensure that it will close if our window gets closed

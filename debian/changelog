@@ -11,6 +11,10 @@ duicontrolpanel (0.13.3.2) unstable; urgency=low
   * Fixes: NB#267545 - [TASK] Brigthness slider needs info about power
     save mode (styling improvement)
 
+duicontrolpanel (0.13.2.2) unstable; urgency=low
+
+  * Fixes: NB#279039 - regressions about reopening control panel
+
  -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 23 Aug 2011 17:34:54 +0200
 
 duicontrolpanel (0.13.2.1) unstable; urgency=low

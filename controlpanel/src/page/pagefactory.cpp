@@ -895,10 +895,6 @@ void PageFactory::newWin ()
             qobject_cast<MApplicationWindow*>(MApplication::windows().at(0));
     }
     if (m_Win) {
-        if (! m_Win->currentPage()) {
-            // we already have a brand new window
-            return;
-        }
         m_LastAppletPage = 0;
         m_Win->close();
         m_Win = 0;
