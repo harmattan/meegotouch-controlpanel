@@ -21,6 +21,6 @@ X-DUIApplet-Applet=libqml.so
 # Category= Applications
 Category=Examples
 Order=0
-Part=/usr/share/duicontrolpanel/qml-example2/qmlexample2.qml
-Label2=full control about the window
+Part=/usr/share/duicontrolpanel/qml-example2/main.qml
+Text2=example which controls all the window
 

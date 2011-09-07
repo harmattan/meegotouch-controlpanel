@@ -5,11 +5,9 @@ import com.nokia.meego 1.0
 Page {
     id: sheetPage
     anchors.margins: UiConstants.DefaultMargin
+    anchors.fill: parent
 
-    tools: ToolBarLayout {
-        ToolIcon { iconId: "toolbar-back"; onClicked: pageStack.pop(); }
-        ToolIcon { iconId: "toolbar-view-menu";}
-    }
+    tools: DcpToolBar {}
 
     Flickable {
         anchors.fill: parent
@@ -21,6 +19,10 @@ Page {
             id: col
             spacing: 30
 
+            DcpPageTitle {
+                text: "Page About Sheets"
+            }
+
             Button {
                 text: "Launch Sheet"
                 onClicked: sheet.open()
@@ -30,7 +32,7 @@ Page {
                 text: "Launch empty Sheet"
                 onClicked: emptySheet.open()
             }
-            
+
             Label {
                 id: label
             }

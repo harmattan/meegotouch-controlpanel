@@ -5,6 +5,7 @@ Page {
     id: root
     tools: tabTools
     anchors.margins: UiConstants.DefaultMargin
+    anchors.fill: parent
 
     QueryDialog {
         id: query
@@ -29,21 +30,6 @@ Page {
             ListElement { name: "ListElement #2" }
             ListElement { name: "ListElement #3" }
             ListElement { name: "ListElement #4" }
-            ListElement { name: "ListElement #5" }
-            ListElement { name: "ListElement #6" }
-            ListElement { name: "ListElement #7" }
-            ListElement { name: "ListElement #8" }
-            ListElement { name: "ListElement #9" }
-            ListElement { name: "ListElement #10" }
-            ListElement { name: "ListElement #11" }
-            ListElement { name: "ListElement #12" }
-            ListElement { name: "ListElement #14" }
-            ListElement { name: "ListElement #15" }
-            ListElement { name: "ListElement #16" }
-            ListElement { name: "ListElement #17" }
-            ListElement { name: "ListElement #18" }
-            ListElement { name: "ListElement #19" }
-            ListElement { name: "ListElement #20" }
         }
     }
 
@@ -65,9 +51,13 @@ Page {
         flickableDirection: Flickable.VerticalFlick
         pressDelay: 100
 
-        Column {            
+        Column {
             id: dialogs
             spacing: 24
+
+            DcpPageTitle {
+                text: "Page About Dialogs"
+            }
 
             Row {
                 spacing: 32
@@ -155,11 +145,9 @@ Page {
         }
     }    
 
-    ToolBarLayout {
+    DcpToolBar {
         id: tabTools
-
-        ToolIcon { iconId: "toolbar-back"; onClicked: { colorMenu.close(); pageStack.pop(); }  }
-        ToolIcon { iconId: "toolbar-view-menu" ; onClicked: colorMenu.open(); }
+        viewMenu: colorMenu
     }
 
     Menu {
@@ -174,3 +162,4 @@ Page {
         }
     }
 }
+
