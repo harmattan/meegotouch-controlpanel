@@ -6,10 +6,10 @@ duicontrolpanel (0.13.4~unreleased) unstable; urgency=low
 
 duicontrolpanel (0.13.3.2) unstable; urgency=low
 
-  * Fixes: NB#264592 - NFT: Opening different pages from settings takes too
-    long
   * Fixes: NB#267545 - [TASK] Brigthness slider needs info about power
     save mode (styling improvement)
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 23 Aug 2011 17:34:54 +0200
 
 duicontrolpanel (0.13.2.2) unstable; urgency=low
 

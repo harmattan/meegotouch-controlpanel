@@ -35,6 +35,7 @@
         CONNECT_SIG (widget, activatePluginByName (QString)); \
         CONNECT_SIG (widget, closePage ()); \
         CONNECT_SIG (widget, inProgress (bool)); \
+        CONNECT_SIG (widget, autoTitleEnabledChanged ()); \
     }
 
 

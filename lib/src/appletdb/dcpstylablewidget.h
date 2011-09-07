@@ -92,6 +92,12 @@ signals:
      */
     bool activatePluginByName (const QString &appletName) const;
 
+    /*!
+     * \brief Emitted when the applet changes if auto title is enabled
+     * \sa setAutoTitleEnabled()
+     */
+    void autoTitleEnabledChanged ();
+
 private:
     DcpStylableWidgetPrivate* const d_ptr;
     Q_DISABLE_COPY(DcpStylableWidget);

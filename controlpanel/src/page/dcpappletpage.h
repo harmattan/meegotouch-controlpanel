@@ -52,6 +52,7 @@ protected:
 
 protected slots:
     void load ();
+    void onAutoTitleEnabledChanged ();
 
 private:
     void loadWidget (int widgetId);

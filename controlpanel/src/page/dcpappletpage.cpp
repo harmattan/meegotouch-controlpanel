@@ -241,6 +241,10 @@ DcpAppletPage::loadWidget (int widgetId)
     if (centralWidget()) {
         newWidget->setGeometry (centralWidget()->geometry());
     }
+    connect (m_MainWidget, SIGNAL (autoTitleEnabledChanged()),
+             this, SLOT (onAutoTitleEnabledChanged()));
+    retranslateUi();
+
     appendWidget (newWidget);
 
     // this ensures that the widget will be visible.
@@ -248,8 +252,6 @@ DcpAppletPage::loadWidget (int widgetId)
     if (!newWidget->isVisible()) {
         newWidget->show();
     }
-
-    retranslateUi();
 }
 
 void
@@ -275,6 +277,11 @@ DcpAppletPage::retranslateUi ()
             setTitleLabel();
         }
     }
+}
+
+void DcpAppletPage::onAutoTitleEnabledChanged ()
+{
+    retranslateUi ();
 }
 
 DcpAppletObject* DcpAppletPage::applet()

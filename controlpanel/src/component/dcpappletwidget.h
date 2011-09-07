@@ -56,6 +56,7 @@ signals:
     bool activatePluginByName (const QString &appletName) const;
     void closePage();
     void inProgress (bool isInProgress);
+    void autoTitleEnabledChanged ();
 
 private:
     QPointer<DcpWidget> m_Widget;

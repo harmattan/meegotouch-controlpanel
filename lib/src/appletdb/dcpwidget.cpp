@@ -140,7 +140,9 @@ bool DcpWidget::isProgressIndicatorVisible() const
 
 void DcpWidget::enableAutoTitle (bool enable)
 {
+    if (d_ptr->isAutoTitleEnabled == enable) return;
     d_ptr->isAutoTitleEnabled = enable;
+    emit autoTitleEnabledChanged ();
 }
 
 bool DcpWidget::isAutoTitleEnabled () const
