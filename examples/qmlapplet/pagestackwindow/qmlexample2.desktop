@@ -15,12 +15,19 @@ X-Maemo-Object-Path=/
 X-Maemo-Fixed-Args=Qml Applet Example
 
 [DUI]
-X-DUIApplet-Applet=libqml.so
+X-DUIApplet-Applet=qml
 
 [DCP]
 # Category= Applications
 Category=Examples
 Order=0
-Part=/usr/share/duicontrolpanel/qml-example2/main.qml
 Text2=example which controls all the window
+
+# The applet specifies here the path to its main item:
+Part=/usr/share/duicontrolpanel/qml-example2/main.qml
+
+# The applet can force running inprocess with specifying this
+# Note however, if it does so, it will not be able to extend its capabilities
+# through libraries from untrusted source:
+# ForceInProcessBrief=1
 

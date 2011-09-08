@@ -580,7 +580,8 @@ bool PageFactory::maybeRunOutOfProcess (const QString& appletName)
     bool runOutProcess = !isInProcessApplets() &&
         !binary.isEmpty() &&
         !mng->isAppletLoaded (appletName) &&
-        binary != "libdeclarative.so";
+        binary != "libdeclarative.so" &&
+        binary != "declarative";
 
     if (runOutProcess) {
         dcp_failfunc_unless (verifyAppletLauncherIsOk(), false);

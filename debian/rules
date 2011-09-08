@@ -140,6 +140,10 @@ binary-arch: build install
 #	dh_perl
 	dh_makeshlibs
 	dh_installdeb $(EXCLUDE)
+
+	# create some symbolic links
+	{ cd debian/duicontrolpanel/usr/lib/duicontrolpanel/applets/; ln -s libqml.so qml; ln -s libdeclarative.so declarative; cd -; }
+
 	dh_shlibdeps
 	dh_gencontrol $(EXCLUDE)
 	dh_md5sums $(EXCLUDE)

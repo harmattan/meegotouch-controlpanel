@@ -15,7 +15,7 @@ X-Maemo-Object-Path=/
 X-Maemo-Fixed-Args=Declarative2
 
 [DUI]
-X-DUIApplet-Applet=libdeclarative.so
+X-DUIApplet-Applet=declarative
 
 [DCP]
 # Category= Applications
