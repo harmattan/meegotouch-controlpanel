@@ -5,12 +5,5 @@ PageStackWindow {
     id: rootWindow
 
     initialPage: ListPage { }
-
-    Component.onCompleted: {
-        theme.inverted = true;
-        screen.allowedOrientations = Screen.Portrait;
-    }
-
-    rotation: 90
 }
 

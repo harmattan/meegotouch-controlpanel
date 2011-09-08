@@ -23,6 +23,7 @@
 #include <QDeclarativeError>
 #include <QDeclarativeEngine>
 #include <QDeclarativeComponent>
+#include <QDeclarativeExpression>
 #include <QDeclarativeItem>
 #include <MApplicationPage>
 #include <QGraphicsSceneResizeEvent>
@@ -65,6 +66,9 @@ void DcpQmlWidget::create()
     m_Object =
         qobject_cast<QGraphicsObject *>(component.create());
     if (m_Object) {
+        QDeclarativeExpression (engine->rootContext(), m_Object,
+                    "theme.inverted = true").evaluate();
+
         // all fine
         m_HandlesItsOwnWindow =
             QString(m_Object->metaObject()->className()).startsWith ("PageStackWindow_");
@@ -72,6 +76,9 @@ void DcpQmlWidget::create()
         if (handlesItsOwnWindow()) {
             // the root object is a PageStackWindow, we let it handle everything
             hideAllControls();
+            QDeclarativeExpression (engine->rootContext(), m_Object,
+                    "screen.allowedOrientations = Screen.Portrait").evaluate();
+            m_Object->setRotation (90);
 
             QTimer::singleShot (0, this, SLOT(adjustObjectSize()));
         } else {
