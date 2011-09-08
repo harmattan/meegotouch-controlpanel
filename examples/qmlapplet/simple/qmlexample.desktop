@@ -21,6 +21,7 @@ X-DUIApplet-Applet=qml
 # Category= Applications
 Category=Examples
 Order=0
+Text2=shows how to store a config to GConf
 
 # The applet specifies here the path to its main item:
 Part=/usr/share/duicontrolpanel/qml-example/qmlexample1.qml
@@ -28,5 +29,5 @@ Part=/usr/share/duicontrolpanel/qml-example/qmlexample1.qml
 # The applet can force running inprocess with specifying this
 # Note however, if it does so, it will not be able to extend its capabilities
 # through libraries from untrusted source:
-# ForceInProcessBrief=1
+ForceInProcessBrief=1
 

@@ -54,10 +54,25 @@ Flickable {
         }
     }
 
-    ListView {
-        id: listView
+    Label {
+        id: descriptionText
         anchors.top: titleLabel.bottom
         anchors.left: titleLabel.left
+        anchors.topMargin: UI1.MARGIN_XLARGE
+
+        text: "This example show how to have full control over the page flow " +
+              "of control panel from Qml: open several pages, handle a view "+
+              "menu, pop up dialogs and sheets. Just use the widgets offered "+
+              "by qt-components!"
+        width: parent.width
+        wrapMode: Text.Wrap
+        horizontalAlignment: Text.AlignJustify
+    }
+
+    ListView {
+        id: listView
+        anchors.top: descriptionText.bottom
+        anchors.left: descriptionText.left
         anchors.topMargin: UI1.MARGIN_XLARGE
 
         width: parent.width

@@ -21,7 +21,7 @@ X-DUIApplet-Applet=qml
 # Category= Applications
 Category=Examples
 Order=0
-Text2=example which controls all the window
+Text2=shows how to use pages, dialogs, sheets
 
 # The applet specifies here the path to its main item:
 Part=/usr/share/duicontrolpanel/qml-example2/main.qml
@@ -29,5 +29,5 @@ Part=/usr/share/duicontrolpanel/qml-example2/main.qml
 # The applet can force running inprocess with specifying this
 # Note however, if it does so, it will not be able to extend its capabilities
 # through libraries from untrusted source:
-# ForceInProcessBrief=1
+ForceInProcessBrief=1
 
