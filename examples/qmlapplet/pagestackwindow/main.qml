@@ -5,5 +5,9 @@ PageStackWindow {
     id: rootWindow
 
     initialPage: ListPage { }
+
+    Component.onCompleted: {
+        screen.allowedOrientations = Screen.Portrait;
+    }
 }
 

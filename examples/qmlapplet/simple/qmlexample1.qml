@@ -1,164 +1,60 @@
 import QtQuick 1.1
-import com.nokia.meego 1.0
-import com.nokia.extras 1.1
-import "/usr/lib/qt4/imports/com/meego/extras/constants.js" as UI
 import com.nokia.controlpanel 0.1
 
-ListView {
+Item {
+Column {
+     spacing: 30
+     anchors.fill: parent
+     anchors.margins: 16
 
-     DcpQmlGConfItem {
-         id: dcpQmlrectangleColor
-         key: "/meegotouch/DcpQmlrectangleColor"
-         value: "ASDASD"
+     DcpGConfItem {
+         id: colorGConf
 
-         onValueChanged: {
-             rectText.text = "green"
-             gconfrectange.color = dcpQmlrectangleColor.value
-         }
+         // the gconf key that the item represents:
+         key: "/apps/duicontrolpanel/qmlexample1/color"
+
+         // the initial value if the gconf path does not exists:
+         defaultValue: "gray"
+
+         onValueChanged: console.log ("GConf Item changed to " + value);
+     }
+
+     Text {
+         text: "You can change the color of this rectangle. " +
+               "The current value gets stored in gconf under " +
+               colorGConf.key
+         width: parent.width
+         font.pointSize: 16;
+         color: "lightgray"
+         wrapMode: Text.Wrap
+         horizontalAlignment: Text.AlignJustify
      }
 
      Rectangle {
-         id: gconfrectange;
-         x: 0
-         y: 0
+         id: rectangle;
          width: 200
          height: 200
-         color: "#FF0000";
+         color: rectText.text;
+         anchors.centerIn: parent
+
          Text {
              id: rectText;
-             x: 20
-             y: 20
+             anchors.centerIn: parent
              font.pointSize: 24;
-             text: "red";
+
+             // this text shows the value of our gconf item:
+             text: colorGConf.value
          }
 
          MouseArea {
-             x: 0
-             y: 0
-             width: 200
-             height: 200
+             anchors.fill: parent
              onClicked: {
-                 dcpQmlrectangleColor.value = "#00FF00";
+                 console.log ("mouseArea clicked");
+                 colorGConf.value =
+                     rectText.text == "green" ? "red" : "green";
              }
          }
      }
-
-     ListModel {
-        id: listModel
-
-        ListElement {
-            page: "page2.qml"
-            title: "Pop up sheet"
-            subtitle: "pops up an example sheet"
-        }
-        ListElement {
-            page: "1.qml"
-            title: "Example element"
-            subtitle: "pam pam"
-        }
-        ListElement {
-            page: "1.qml"
-            title: "Example element"
-            subtitle: "pam pam"
-        }
-        ListElement {
-            page: "1.qml"
-            title: "Example element"
-            subtitle: "pam pam"
-        }
-        ListElement {
-            page: "1.qml"
-            title: "Example element"
-            subtitle: "pam pam"
-        }
-        ListElement {
-            page: "1.qml"
-            title: "Example element"
-            subtitle: "pam pam"
-        }
-        ListElement {
-            page: "1.qml"
-            title: "Example element"
-            subtitle: "pam pam"
-        }
-        ListElement {
-            page: "1.qml"
-            title: "Example element"
-            subtitle: "pam pam"
-        }
-        ListElement {
-            page: "1.qml"
-            title: "Example element"
-            subtitle: "pam pam"
-        }
-        ListElement {
-            page: "1.qml"
-            title: "Example element"
-            subtitle: "pam pam"
-        }
-        ListElement {
-            page: "1.qml"
-            title: "Example element"
-            subtitle: "pam pam"
-        }
-        ListElement {
-            page: "1.qml"
-            title: "Example element"
-            subtitle: "pam pam"
-        }
-        ListElement {
-            page: "1.qml"
-            title: "Example element"
-            subtitle: "pam pam"
-        }
-        ListElement {
-            page: "1.qml"
-            title: "Example element"
-            subtitle: "pam pam"
-        }
-        ListElement {
-            page: "1.qml"
-            title: "Example element"
-            subtitle: "pam pam"
-        }
-        ListElement {
-            page: "1.qml"
-            title: "Example element"
-            subtitle: "pam pam"
-        }
-        ListElement {
-            page: "1.qml"
-            title: "Example element"
-            subtitle: "pam pam"
-        }
-        ListElement {
-            page: "1.qml"
-            title: "Example element"
-            subtitle: "pam pam"
-        }
-    }
-
-    Component {
-        id: listDelegate
-        ListDelegate {
-            Image {
-                source: "image://theme/icon-m-common-drilldown-arrow-inverse"
-                anchors.right: parent.right;
-                anchors.verticalCenter: parent.verticalCenter
-            }
-            onClicked: { Dcp.newPage(page) }
-        }
-    }
-
-    id: listView
-    model: listModel
-    delegate: listDelegate
-    interactive: false
-
-    anchors.margins: UiConstants.DefaultMargin
-    x: 10
-    width: 460
-    height: listModel.count * UI.LIST_ITEM_HEIGHT
-
+}
 }
 

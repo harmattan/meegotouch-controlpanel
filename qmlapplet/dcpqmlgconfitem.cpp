@@ -2,47 +2,62 @@
 
 #include <MGConfItem>
 
-DcpQmlGConfItem::DcpQmlGConfItem(QObject *parent) :
+DcpQmlGConfItem::DcpQmlGConfItem (QObject *parent) :
     QObject (parent),
-    item(0)
+    m_Item (0)
 {
-    qmlRegisterType<DcpQmlGConfItem> (
-            "com.nokia.controlpanel", 0, 1, "DcpQmlGConfItem"
-    );
 }
 
-const QString 
-DcpQmlGConfItem::key() const
+const QString
+DcpQmlGConfItem::key () const
 {
-    if(item)
-    {
-        return item->key();
+    if (m_Item) {
+        return m_Item->key ();
     }
-    
+    return QString ();
+}
+
+void
+DcpQmlGConfItem::setKey (const QString& key)
+{
+    if (!m_Item) {
+        m_Item = new MGConfItem (key);
+        connect (m_Item, SIGNAL (valueChanged ()), this, SIGNAL (valueChanged ()));
+        if (!m_Item->value().isValid() && !m_DefaultValue.isNull()) {
+            setValue (m_DefaultValue);
+        }
+    }
+}
+
+const QString
+DcpQmlGConfItem::value () const
+{
+    if (m_Item) {
+        return m_Item->value ().toString ();
+    }
     return QString();
 }
-void 
-DcpQmlGConfItem::setKey(const QString key)
+
+void
+DcpQmlGConfItem::setValue (const QString& value)
 {
-    if(!item)
-    {
-        item = new MGConfItem(key);
-        connect(item, SIGNAL(valueChanged()), this, SIGNAL(valueChanged()));
+    if (m_Item) {
+        m_Item->set (value);
     }
 }
+
 const QString
-DcpQmlGConfItem::value() const
+DcpQmlGConfItem::defaultValue () const
 {
-    if(item)
-    {
-        return item->value().toString();
+    return m_DefaultValue;
+}
+
+void
+DcpQmlGConfItem::setDefaultValue (const QString& value)
+{
+    m_DefaultValue = value;
+    if (m_Item && !m_Item->value().isValid()) {
+        setValue (m_DefaultValue);
     }
 }
-void 
-DcpQmlGConfItem::setValue(const QString value)
-{
-    if(item)
-    {
-        item->set(QVariant(value));
-    }    
-}
+

@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=ControlPanelApplet
-Name=Qml Applet Example
+Name=Qml Simple Applet Example
 X-logical-id=qml_example_title
 X-translation-catalog=
 Icon=
@@ -12,7 +12,7 @@ X-Maemo-Service=com.nokia.DuiControlPanel
 X-Maemo-Method=com.nokia.DuiControlPanelIf.appletPage
 X-Maemo-Object-Path=/
 # this has to be the same as Name
-X-Maemo-Fixed-Args=Qml Applet Example
+X-Maemo-Fixed-Args=Qml Simple Applet Example
 
 [DUI]
 X-DUIApplet-Applet=libqml.so

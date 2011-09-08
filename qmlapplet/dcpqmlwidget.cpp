@@ -66,6 +66,7 @@ void DcpQmlWidget::create()
     m_Object =
         qobject_cast<QGraphicsObject *>(component.create());
     if (m_Object) {
+        // TODO XXX this is somehow not working
         QDeclarativeExpression (engine->rootContext(), m_Object,
                     "theme.inverted = true").evaluate();
 
@@ -133,8 +134,6 @@ void DcpQmlWidget::hideAllControls()
 
 void DcpQmlWidget::resizeEvent ( QGraphicsSceneResizeEvent * )
 {
-    if (!handlesItsOwnWindow()) return;
-
     // handle the size of the main m_Object (it is not a widget, so could
     // not put it into a layout)
     adjustObjectSize ();
