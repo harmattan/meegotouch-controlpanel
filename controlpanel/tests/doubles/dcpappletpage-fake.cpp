@@ -80,3 +80,7 @@ DcpAppletPage::preventQuit()
     return false;
 }
 
+void DcpAppletPage::onAutoTitleEnabledChanged ()
+{
+}
+
