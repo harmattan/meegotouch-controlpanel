@@ -29,5 +29,5 @@ Part=/usr/share/duicontrolpanel/qml-example/qmlexample1.qml
 # The applet can force running inprocess with specifying this
 # Note however, if it does so, it will not be able to extend its capabilities
 # through libraries from untrusted source:
-ForceInProcessBrief=1
+# ForceInProcessBrief=1
 
