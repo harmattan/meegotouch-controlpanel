@@ -7,12 +7,10 @@ INCLUDEPATH += $$DEPENDPATH ../lib/src/include
 OBJECTS_DIR = ../tmp
 MOC_DIR = ../tmp
 
-# Input
-HEADERS += $$system(find ./ -name \'*.h\') \
-    dcpqmlgconfitem.h
+HEADERS += $$system(find ./ -name \'*.h\')
 SOURCES += $$system(find ./ -name \'*.cpp\')
 
-CONFIG += plugin gui meegotouch silent debug 
+CONFIG += plugin gui meegotouch silent debug
 QT += declarative
 LIBS += -lduicontrolpanel
 
@@ -21,7 +19,9 @@ QMAKE_EXTRA_TARGETS += check
 
 target.path += $$DCP_APPLET_DIR
 
-INSTALLS += target
-QT += xml
+# installs the com.nokia.controlpanel qml elements:
+qmlapi.files += com/nokia/controlpanel
+qmlapi.path += /usr/lib/qt4/imports/com/nokia/
 
+INSTALLS += target qmlapi
 

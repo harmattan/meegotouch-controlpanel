@@ -1,6 +1,7 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 import com.nokia.extras 1.1
+import com.nokia.controlpanel 0.1
 import "/usr/lib/qt4/imports/com/meego/UIConstants.js" as UI1
 import "/usr/lib/qt4/imports/com/meego/extras/constants.js" as UI2
 
