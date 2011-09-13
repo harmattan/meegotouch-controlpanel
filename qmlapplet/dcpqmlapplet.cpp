@@ -18,12 +18,11 @@
 #include "dcpqmlapplet.h"
 #include "dcpqmlwidget.h"
 #include "dcpqmlbrief.h"
-#include "dcpqmlcontacter.h"
 
 #include <QDebug>
 #include <dcpdebug.h>
 #include <MAction>
-#include <QtDeclarative>
+#include <QDeclarativeEngine>
 
 
 #include "dcpqmlgconfitem.h"
@@ -39,10 +38,6 @@ DcpQmlApplet::DcpQmlApplet ()
 
 void DcpQmlApplet::init()
 {
-    qmlRegisterType<DcpQmlContacter> (
-        "com.nokia.controlpanel", 0, 1, "Dcp"
-    );
-
     qmlRegisterType<DcpQmlGConfItem> (
         "com.nokia.controlpanel", 0, 1, "DcpGConfItem"
     );

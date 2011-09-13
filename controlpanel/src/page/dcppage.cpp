@@ -312,3 +312,8 @@ void DcpPage::setTitleStyleName (const QString& style)
     }
 }
 
+bool DcpPage::isStandalone () const
+{
+    return m_Handle.isStandalone;
+}
+

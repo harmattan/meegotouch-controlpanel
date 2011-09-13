@@ -16,6 +16,7 @@
 ****************************************************************************/
 
 #include "dcpqmlwidget.h"
+#include "dcpqmlcontacter.h"
 
 #include <MLabel>
 #include <dcpdebug.h>
@@ -23,6 +24,7 @@
 #include <QDeclarativeError>
 #include <QDeclarativeEngine>
 #include <QDeclarativeComponent>
+#include <QDeclarativeContext>
 #include <QDeclarativeExpression>
 #include <QDeclarativeItem>
 #include <MApplicationPage>
@@ -65,11 +67,18 @@ void DcpQmlWidget::create()
     // create the qml widget:
     QDeclarativeEngine *engine = new QDeclarativeEngine (this);
     engine->addImportPath (baseDir);
+
     QDeclarativeComponent component(engine, QUrl::fromLocalFile(m_Path));
 
     m_Object =
         qobject_cast<QGraphicsObject *>(component.create());
     if (m_Object) {
+        // register the contacter object which enables notifications
+        // between the qml and control panel
+        engine->rootContext()->setContextProperty("dcp", new DcpQmlContacter);
+        qmlRegisterUncreatableType<DcpQmlContacter>("com.nokia.controlpanel", 0, 1,
+                "Dcp", "Please just use \"dcp\" object directly.");
+
         // TODO XXX this is somehow not working
         QDeclarativeExpression (engine->rootContext(), m_Object,
                     "theme.inverted = true").evaluate();
@@ -114,15 +123,25 @@ void DcpQmlWidget::adjustObjectSize()
     }
 }
 
-void DcpQmlWidget::hideAllControls()
+/*
+ * Returns the page the widget is in case it is on a page,
+ * otherwise returns 0.
+ */
+MApplicationPage* DcpQmlWidget::page ()
 {
-    // hide everything on the page (qml displays its window totally)
     QGraphicsWidget* item = this;
     MApplicationPage* page = 0;
     do {
         page = qobject_cast<MApplicationPage*>(item);
         item = item->parentWidget();
-    } while (!page);
+    } while (!page && item);
+    return page;
+}
+
+void DcpQmlWidget::hideAllControls()
+{
+    // hide everything on the page (qml displays its window totally)
+    MApplicationPage* page = this->page();
     dcp_failfunc_unless (page);
 
     page->setComponentsDisplayMode (MApplicationPage::AllComponents,

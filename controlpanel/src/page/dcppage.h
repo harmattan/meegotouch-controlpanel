@@ -28,6 +28,7 @@ class MHelpButton;
 class DcpPage : public MApplicationPage
 {
     Q_OBJECT
+    Q_PROPERTY (bool isStandalone READ isStandalone);
 
 public:
     DcpPage();
@@ -55,6 +56,7 @@ public:
 
     virtual bool preventQuit ();
     void setPreventQuit (bool prevent) { m_PreventQuit = prevent; }
+    bool isStandalone () const;
 
 signals:
     void openSubPage (PageHandle handle);

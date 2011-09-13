@@ -45,6 +45,8 @@ public:
 
     static DcpQmlApplet* instance();
 
+    DcpQmlWidget* currentWidget() const { return m_CurrentWidget; }
+
 private:
     QList<QString> m_QmlPaths;
     DcpQmlWidget* m_CurrentWidget;

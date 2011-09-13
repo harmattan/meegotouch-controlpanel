@@ -139,3 +139,8 @@ DcpPage::preventQuit ()
     return false;
 }
 
+bool DcpPage::isStandalone () const
+{
+    return false;
+}
+

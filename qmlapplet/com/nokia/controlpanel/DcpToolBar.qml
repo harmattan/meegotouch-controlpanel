@@ -1,17 +1,22 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
+import com.nokia.controlpanel 0.1
 
 ToolBarLayout {
     property Menu viewMenu
 
     ToolIcon {
-        iconId: "toolbar-back";
+        iconSource: (pageStack.depth == 1 && dcp.isStandalone) ?
+                    "image://theme/icon-l-settings-main-view" :
+                    "image://theme/icon-m-toolbar-back-white";
         onClicked: {
             if (parent.viewMenu != null) {
                 parent.viewMenu.close();
             }
             if (pageStack.depth > 1) {
                 pageStack.pop();
+            } else if (dcp.isStandalone) {
+                dcp.popupMainPageAlone();
             } else {
                 Qt.quit();
             }
@@ -20,7 +25,7 @@ ToolBarLayout {
 
     ToolIcon {
         id: viewMenuButton
-        iconId: "toolbar-view-menu"
+        iconSource: "image://theme/icon-m-toolbar-view-menu-white"
 
         visible: false
 
@@ -33,6 +38,8 @@ ToolBarLayout {
         }
     }
 
-    onViewMenuChanged: if (!viewMenuButton.visible) viewMenuButton.visible = true;
+    onViewMenuChanged: {
+        if (!viewMenuButton.visible) viewMenuButton.visible = true;
+    }
 }
 

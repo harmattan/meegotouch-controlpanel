@@ -30,6 +30,8 @@ public:
     bool handlesItsOwnWindow() const;
     bool pagePans () const;
 
+    MApplicationPage* page ();
+
 protected:
     void polishEvent ();
     void resizeEvent ( QGraphicsSceneResizeEvent * event );
