@@ -1,0 +1,28 @@
+[Desktop Entry]
+Type=ControlPanelApplet
+Name=Qml Extended Example
+X-logical-id=qml_example_title3
+X-translation-catalog=
+Icon=
+
+# This has to be specified in order that the .desktop file can also be
+# used as an action (for example for search to know how to
+# open the applet)
+X-Maemo-Service=com.nokia.DuiControlPanel
+X-Maemo-Method=com.nokia.DuiControlPanelIf.appletPage
+X-Maemo-Object-Path=/
+# this has to be the same as Name
+X-Maemo-Fixed-Args=Qml Extended Example
+
+[DUI]
+X-DUIApplet-Applet=qml
+
+[DCP]
+# Category= Applications
+Category=Examples
+Order=0
+Text2=extend qml's abilities through C++
+
+# The applet specifies here the path to its main item:
+Part=/usr/share/duicontrolpanel/qml-example3/qmlexample3.qml
+

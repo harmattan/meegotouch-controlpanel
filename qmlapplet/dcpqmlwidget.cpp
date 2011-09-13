@@ -30,6 +30,7 @@
 #include <MApplicationWindow>
 #include <MApplication>
 #include <QTimer>
+#include <QFileInfo>
 
 DcpQmlWidget::DcpQmlWidget(const QString& qmlPath):
     m_Path (qmlPath),
@@ -59,8 +60,11 @@ void DcpQmlWidget::create()
     // create has already run?
     if (m_Object) return;
 
+    QString baseDir = QFileInfo(m_Path).absolutePath();
+
     // create the qml widget:
     QDeclarativeEngine *engine = new QDeclarativeEngine (this);
+    engine->addImportPath (baseDir);
     QDeclarativeComponent component(engine, QUrl::fromLocalFile(m_Path));
 
     m_Object =
