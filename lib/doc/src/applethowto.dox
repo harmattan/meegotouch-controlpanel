@@ -26,6 +26,15 @@ For more information, see
 <a href="#declarativeapplet">Declarative applets</a>.
 
 \li
+Qml declarative applet: An applet that is implemented in Qt's declarative
+language. They have the benefit of declarative applets that
+they still can be easily created, but they still have equal possibilities
+as the binary applets, because they can be extended through
+shared objects written in C++.
+For more information, see
+<a href="#qmlapplet">Qml applets</a>.
+
+\li
 External applet: An applet that is implemented as a separate application.
 When the user taps your applet's launch button, the control panel starts
 your application. This applet is not recommended, since the user experience
@@ -133,6 +142,14 @@ This is the easiest way of creating an applet, but it is less flexible (currentl
     </ul>
 
 See <a href="declarativeplugins.html">declarative applets</a> section for details.
+
+\subsection qmlapplet Qml applet
+
+The following example illustrates how to create a Qml applet.
+
+\include qmlapplet/pagestackwindow/main.qml
+
+See <a href="qmlplugins.html">Qml applets</a> section for details.
 
 \subsection externalapplet External applet
 

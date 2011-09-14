@@ -1,5 +1,13 @@
 /*! \page declarativeplugins Declarative applets
 
+\warning
+This page is about the applets written in the MeeGo Touch declarative language.
+An alternative declarative way to write applets are Qml applets which provides
+more flexibility. See
+<a href="qmlplugins.html">their page</a>
+if you are searching for them.
+\endwarning
+
 \section description Description
 A declarative applet has all of its content declared in user readable file formats.
 It has a .desktop file, like all applets, and an .xml file which describes its

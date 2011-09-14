@@ -1,0 +1,146 @@
+/*! \page qmlplugins Qml applets
+
+\section description Description
+
+This page is about applets written in Qt's declarative language (Qml).
+
+Qml applets provides an alternative to the applets written in
+MeegoTouch Settings Language. They have the benefit of declarative applets
+that they still can be easily created, but they still have equal possibilities as the
+shared object based applets, because they can be extended through shared objects
+written in C++.
+
+\section desktopfile The .desktop file
+The plugin should have a .desktop file like any other plugin, see
+<a href="desktopformat.html">Desktop file format</a> for details.
+
+Only difference is that you have to specify the followings:
+
+\par DUI / X-DUIApplet-Applet
+This must be "qml" for a Qml applet.
+
+\par DCP / Part
+For Qml applets this value contains the path to the Qml file, which
+describes the content of the main widget.
+
+\include qmlapplet/simple/qmlexample.desktop
+.destktop file for the example applet
+
+\section qmlfile The root Qml Item
+
+There is two ways to write the main Qml Item. If the applet needs to
+have only one page, no dialogs, it is fine to provide an item which
+control panel will display on its page.
+
+If more flexibility is needed (more pages, dialogs, menu items in the
+view menu etc.), the main Qml Item can take control of the whole window
+by using a PageStackWindow as its root item. If doing so, it will be
+responsible for implementing all page logic inside the applet.
+
+PageStackWindow and other useful widgets are available in qt-components
+package.
+
+Here is a simple single widget example:
+
+\include qmlapplet/simple/qmlexample1.qml
+qmlexample1.qml a simple main widget written in qml
+
+\section dcpqmlapi Qml API provided by control panel
+
+Control panel provides some extra features for the plugins to make
+their development easier. If you want to use them you have to make the following
+import:
+\code
+import com.nokia.controlpanel 0.1
+\endcode
+
+\subsection DcpGConfItem
+DcpGConfItem provides way to read/write to GConf. It has the following properties:
+\li key: a string which specifies the gconf key the item is watching
+\li value: a string which always reflects the current value of the GConf item:
+changes if GConf gets modified, and changes GConf if its value gets modified.
+\li defaultValue: a string which will be the starting value of value if the
+key with the given path in GConf does not exist or unset.
+
+\subsection DcpToolBar
+DcpToolBar provides a tool bar with the same behaviour, look and feel which
+control panel's tool bar has. It is meant to be used inside a page of a
+PageStackWindow.
+
+\li It has a back button with arrow or a main page icon depending
+on if the applet gets displayed as a first page or not.
+\li Provides page flow handling of the back button: pressing it either
+pops a page from the page stack of the applet, or quits the applet and returns
+to the last page of control panel, or pops up the main page of control panel,
+whichever needed.
+\li Optionally it can display a view menu.
+
+Properties:
+\li Menu viewMenu:
+If set, the toolbar will have a view menu icon on its right side. If the user
+clicks that, the specified menu will pop up.
+
+Example:
+
+\code
+Page {
+    tools: DcpToolBar {
+        viewMenu: Menu {
+            visualParent: pageStack
+            MenuLayout {
+                MenuItem { text: "Menu1" }
+            }
+        }
+    }
+    ...
+}
+\endcode
+
+\subsection DcpPageTitle
+Most applets have a page title on their top in control panel with a common
+look. This component makes it easy to add one. It inherits a Label.
+
+Example:
+
+\code
+DcpPageTitle {
+    text: "My Applet Page Title"
+}
+\endcode
+
+\subsection dcp
+The applet can communicate with control panel through an object called "dcp".
+
+Current features:
+\li dcp.isStandalone: returns true if the applet runs standalone (eg. it was
+started through search application). The applet is considered standalone if
+it is displaying on the first page of the application. Otherwise it is false.
+
+\li dcp.popupMainPageAlone(): same as the DBus function
+DuiControlPanel::mainPage(). Pops up the main page of control panel and
+drops all other control panel pages.
+
+\section extendqml Extending the Qml language in C++
+
+Qml can be extended through shared objects written in C++. This offers the
+Qml applet same unlimited possibilities as the shared object based applets.
+
+For how to do this, you can check the "Qml Extended Applet" example. The shared
+object has to implement a QDeclarativeExtensionPlugin, and can register types
+from it with qmlRegisterType().
+
+The following example registers the "Time" class to Qml which is provided by
+the C++ class "TimeModel".
+\include qmlapplet/extended/exampletimeplugin.h
+\include qmlapplet/extended/exampletimeplugin.cpp
+
+\section Localization
+
+...
+
+\section examples Examples
+
+You can find examples in duicontrolpanel-skeletonapplets package.
+
+*/
+

@@ -18,6 +18,7 @@
       <li><a href="binaryplugins.html">Binary applets</a></li>
       <li><a href="security.html">Access to security restricted functionalities</a></li>
       <li><a href="declarativeplugins.html">Declarative applets</a></li>
+      <li><a href="qmlplugins.html">Qml applets</a></li>
       <li><a href="externalplugins.html">External applets</a></li>
       <li><a href="servicefw.html">ServiceFw API - Controlling control panel</a></li>
       <li><a href="categories.html">Applet categories</a></li>
