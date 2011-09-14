@@ -92,7 +92,7 @@ Flickable {
         }
     }
 
-    contentHeight: listView.height + titleLabel.height
+    contentHeight: listView.height + titleLabel.height + descriptionText.height
 }
 
     ListModel {
