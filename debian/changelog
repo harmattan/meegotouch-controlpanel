@@ -1,4 +1,11 @@
-duicontrolpanel (0.13.4~unreleased) unstable; urgency=low
+duicontrolpanel (0.14.0~unreleased) unstable; urgency=low
+
+  * supports applets written in qml
+  * Fixes: NB#281433 - [FEA] qml based applets for control panel
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 14 Sep 2011 13:03:56 +0200
+
+duicontrolpanel (0.13.4) unstable; urgency=low
 
   * Fixes: NB#280032 - Settings: Wrong alignment in settings view
 
