@@ -2,6 +2,8 @@ duicontrolpanel (0.14.0~unreleased) unstable; urgency=low
 
   * supports applets written in qml
   * Fixes: NB#281433 - [FEA] qml based applets for control panel
+  * Fixes: NB#267545 - [TASK] Brigthness slider needs info about power
+    save mode (styling improvement)
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 14 Sep 2011 13:03:56 +0200
 
@@ -10,13 +12,6 @@ duicontrolpanel (0.13.4) unstable; urgency=low
   * Fixes: NB#280032 - Settings: Wrong alignment in settings view
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 31 Aug 2011 11:36:25 +0200
-
-duicontrolpanel (0.13.3.2) unstable; urgency=low
-
-  * Fixes: NB#267545 - [TASK] Brigthness slider needs info about power
-    save mode (styling improvement)
-
- -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 23 Aug 2011 17:34:54 +0200
 
 duicontrolpanel (0.13.2.2) unstable; urgency=low
 
