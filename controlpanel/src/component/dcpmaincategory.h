@@ -34,8 +34,10 @@ class DcpMainCategory : public QGraphicsWidget
 public:
     DcpMainCategory(QGraphicsWidget  *parent = 0);
 
-    virtual void appendWidget (QGraphicsWidget *component);
-    virtual void appendSeparator ();
+    void appendWidget (QGraphicsWidget *component);
+    void appendSeparator ();
+    void appendSpacer ();
+    void insertSpacer (int pos);
     QGraphicsWidget* widgetAt (int i);
     int getItemCount () { return layout()->count(); };
     void deleteItems();
@@ -62,6 +64,7 @@ inline void
 DcpMainCategory::appendWidget ( QGraphicsWidget *component)
 {
     mLayout()->addItem (component);
+    mLayout()->setAlignment (component, Qt::AlignHCenter);
 }
 
 inline void

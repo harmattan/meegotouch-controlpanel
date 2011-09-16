@@ -230,3 +230,11 @@ bool Category::hideIfEmpty () const
     return hide == "1";
 }
 
+Category::WidgetType Category::widgetType() const
+{
+    if (value (WidgetTypeId) == "Button") {
+        return WButton;
+    }
+    return WLabel;
+}
+

@@ -3,10 +3,10 @@ Parent=Applications
 Name="Manage applications"
 Name-logical-id=qtn_pmgr_plug_pmgr
 
-
 Translation-catalogs=packagemanager
 
 AutoStartApplet=1
 
 Order=10
+WidgetType=Button
 

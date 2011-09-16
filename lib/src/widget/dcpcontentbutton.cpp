@@ -70,15 +70,12 @@ DcpContentButton::setApplet (DcpAppletObject *applet)
 
     d_ptr->m_Applet = applet;
     d_ptr->m_Metadata = applet ? applet->metadata() : 0;
-    if (!d_ptr->m_Applet)
-        return;
 
-    // we only update if we are visible, since showEvent also updates
-    if (isVisible()) {
-        updateContents ();
-        connect (d_ptr->m_Applet, SIGNAL (briefChanged ()),
+    if (applet) {
+        connect (applet, SIGNAL (briefChanged ()),
                  this, SLOT (updateContents()));
     }
+    updateContents ();
 }
 
 void
@@ -93,8 +90,8 @@ DcpContentButton::retranslateUi ()
 void
 DcpContentButton::updateText ()
 {
-    QString text = applet() ? applet()->text2() :
-                   metadata () ? metadata()->text2() : "...";
+    QString text = applet() ? applet()->text1() :
+                   metadata () ? metadata()->text1() : "...";
     setText(text);
 }
 
@@ -115,30 +112,12 @@ DcpContentButton::updateContents ()
 void
 DcpContentButton::showEvent (QShowEvent * event)
 {
-    if (d_ptr->m_Hidden) {
-        // prevents multiple showEvents coming
-        d_ptr->m_Hidden = false;
-
-        if (d_ptr->m_Applet) {
-            connect (d_ptr->m_Applet, SIGNAL (briefChanged ()),
-                     this, SLOT (updateContents()));
-        }
-
-        updateContents();
-    }
     MButton::showEvent(event);
 }
 
 void
 DcpContentButton::hideEvent (QHideEvent * event)
 {
-    if (!d_ptr->m_Hidden) {// prevents multiple hideEvents coming
-        d_ptr->m_Hidden = true;
-
-        if (d_ptr->m_Applet)
-            disconnect (d_ptr->m_Applet, SIGNAL (briefChanged()),
-                this, SLOT (updateContents()));
-    }
     MButton::hideEvent(event);
 }
 
@@ -162,7 +141,7 @@ QString DcpContentButton::TDriverID () const
     return d_ptr->m_TDriverID;
 }
 
-void DcpContentButton::setMetadata(DcpAppletMetadata* metadata)
+void DcpContentButton::setMetadata (DcpAppletMetadata* metadata)
 {
     // only supports setting this once for now
     dcp_failfunc_unless (!d_ptr->m_Metadata);
@@ -171,10 +150,7 @@ void DcpContentButton::setMetadata(DcpAppletMetadata* metadata)
     d_ptr->m_Metadata = metadata;
 
     if (metadata) {
-        // we only update if we are visible, since showEvent also updates
-        if (isVisible()) {
-            updateContents ();
-        }
+        updateContents ();
     }
 }
 
@@ -198,6 +174,14 @@ void DcpContentButton::loadApplet()
 void DcpContentButton::onClicked ()
 {
     if (!applet()) return;
-    applet ()->setToggle (!applet ()->toggle());
+
+    if (!applet()->applet()) {
+        // if we only have an external command, we do not toggle, but invoke
+        // metadata()->startApplicationCommand();
+        applet()->slotClicked ();
+    } else {
+        // for a binary applet we toggle
+        applet ()->setToggle (!applet ()->toggle());
+    }
 }
 

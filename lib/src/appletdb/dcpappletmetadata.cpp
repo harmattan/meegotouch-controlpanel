@@ -263,6 +263,12 @@ void DcpAppletMetadata::setDefaultSOPath (const QString& path) {
 int 
 DcpAppletMetadata::widgetTypeID () const
 {
+    // the external applet is forced to Button type because this way it will be
+    // more obvious for the user that pressing it will open a new application
+    if (binary().isEmpty() && hasApplicationCommand()) {
+        return DcpWidgetType::Button;
+    }
+
     QString typeName = desktopEntryStr (KeyWidgetType);
     if (!typeName.isEmpty()) {
         for (int retval = DcpWidgetType::BriefInvalid; retval < DcpWidgetType::IdMax; retval++) {

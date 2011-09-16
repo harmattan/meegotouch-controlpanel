@@ -75,23 +75,14 @@ void Ut_DcpContentButton::testRetranslateUi()
     // test if updateText gets called on retranslateUi
     m_Target->setText ("xxx");
     m_Target->retranslateUi();
-    QCOMPARE (m_Target->text(), applet->text2());
+    QCOMPARE (m_Target->text(), applet->text1());
 }
 
 void Ut_DcpContentButton::testShowHideEvent()
 {
-    DcpAppletObject* applet =
-        new DcpAppletObject(new DcpAppletMetadata("fake"));
-    m_Target->setApplet (applet);
-
-    // check if the widget updates on showEvent
-    m_Target->setText ("xxx");
+    // show and hide events are no more used for anything
     m_Target->showEvent(0);
-    QCOMPARE (m_Target->text(), applet->text2());
-
     m_Target->hideEvent(0);
-    // check if signals gets reconnected on showEvent
-    // ... TODO
 }
 
 void Ut_DcpContentButton::testUpdateText()
@@ -104,7 +95,7 @@ void Ut_DcpContentButton::testUpdateText()
     m_Target->updateText();
 
     // updates the texts:
-    QCOMPARE (m_Target->text(), QString("fake-text2"));
+    QCOMPARE (m_Target->text(), QString("fake-text1"));
 }
 
 void Ut_DcpContentButton::testUseless()

@@ -41,7 +41,7 @@ namespace DcpWidgetType
             Image,
             Button,
             Special,
-	    Slider,
+            Slider,
             IdMax
         };
         const QString  

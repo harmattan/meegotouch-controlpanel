@@ -25,4 +25,3 @@ DcpAppletMetadataList CategoryUtils::metadataList (const Category* category)
              withUncategorized ? DcpCategories::hasCategory : NULL);
 }
 
-

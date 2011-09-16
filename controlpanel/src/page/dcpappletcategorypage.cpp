@@ -28,6 +28,7 @@
 #include "dcpdebug.h"
 #include "pagefactory.h"
 #include "categoryutils.h"
+#include "dcppageopenbutton.h"
 
 #include <DcpAppletMetadata>
 #include <DcpAppletObject>
@@ -68,17 +69,49 @@ DcpAppletCategoryPage::createCategories ()
         otherCategories->appendSeparator();
     }
 
+    bool wasButton = false;
     foreach (const Category *info, categoryList) {
         // hide hidden categories:
         if (!CategoryUtils::isVisible (info)) continue;
 
         DcpRetranslator::instance()->ensureTranslationsAreLoaded (
                 info->translationCategories());
-        DcpSingleComponent *button =
-            new DcpSingleComponent(otherCategories, info);
-        button->setSubPage(
-                PageHandle(PageHandle::APPLETCATEGORY, info->name()));
-        otherCategories->appendWidget(button);
+
+        PageHandle subPage(PageHandle::APPLETCATEGORY, info->name());
+        int wtype = info->widgetType();
+        QGraphicsWidget* widget = 0;
+        switch (wtype) {
+            case Category::WButton:
+                {
+                    if (!wasButton) {
+                        otherCategories->appendSpacer();
+                        wasButton = true;
+                    }
+                    DcpPageOpenButton* button =
+                        new DcpPageOpenButton (subPage, info->titleId());
+                    widget = button;
+                }
+                break;
+            case Category::WLabel:
+                {
+                    if (wasButton) {
+                        otherCategories->appendSpacer();
+                        wasButton = false;
+                    }
+                    DcpSingleComponent *button =
+                        new DcpSingleComponent(otherCategories, info);
+                    button->setSubPage(subPage);
+                    widget = button;
+                }
+                break;
+        };
+        if (widget) {
+            otherCategories->appendWidget(widget);
+        }
+    }
+    if (wasButton) {
+        otherCategories->appendSpacer();
+        wasButton = false;
     }
 
     if (hasSeparator &&

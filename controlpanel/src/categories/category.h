@@ -82,6 +82,12 @@ public:
 
     bool hideIfEmpty () const;
 
+    enum WidgetType {
+        WLabel,
+        WButton
+    };
+    WidgetType widgetType() const;
+
 protected:
     static const char* componentOrderToString (ComponentOrderType order);
 
@@ -108,6 +114,7 @@ protected:
         SubHeaderTextLogicalId,
         MainAppletsId,
         HideIfEmptyId,
+        WidgetTypeId,
         KeyIdMax
     };
 

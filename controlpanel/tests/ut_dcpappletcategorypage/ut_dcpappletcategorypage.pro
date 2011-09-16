@@ -41,6 +41,7 @@ SOURCES += \
     $$STUBSDIR/dcpmaincategory-fake.cpp \
     $$STUBSDIR/dcpcategories-fake.cpp \
     $$STUBSDIR/qgraphicsobject-fake.cpp \
+    $$STUBSDIR/dcppageopenbutton-fake.cpp \
     $$STUBSDIR/mlabel-fake.cpp \
     $$TEST_SOURCES \ 
 
@@ -53,6 +54,7 @@ HEADERS += \
     ut_dcpappletcategorypage.h \
     $$STUBSDIR/dcpappletplugin-applet.h \
     $$SRCDIR/component/dcpappletbuttons.h \
+    $$SRCDIR/component/dcppageopenbutton.h \
     $$SRCDIR/page/dcpappletcategorypage.h \
     $$SRCDIR/page/pagefactory.h \
     $$SRCDIR/page/dcppage.h \

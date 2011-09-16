@@ -56,7 +56,8 @@ DcpAppletButtons::DcpAppletButtons (
     m_CategoryInfo (categoryInfo),
     m_List (new MList(this)),
     m_Page (ownerPage),
-    m_SubHeader (0)
+    m_SubHeader (0),
+    m_HasButton (false)
 {
     DcpContentItemCellCreator* cellCreator = new DcpContentItemCellCreator();
     m_List->setCellCreator(cellCreator);
@@ -147,6 +148,11 @@ DcpAppletButtons::createContents ()
     QStringList mainApplets = m_CategoryInfo->mainApplets();
     foreach (DcpAppletMetadata* metadata, metadatas) {
         addComponent (metadata, model, mainApplets);
+    }
+
+    // spacer for the buttons if any
+    if (m_HasButton) {
+        insertSpacer (getItemCount()-1);
     }
 
     QString subHeaderText = m_CategoryInfo->subHeaderText();
@@ -252,6 +258,10 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
 
     switch (widgetId) {
         case DcpWidgetType::Button:
+            if (!m_HasButton) {
+                m_HasButton = true;
+                insertSpacer (getItemCount()-1);
+            }
             mLayout()->insertItem (getItemCount()-1,
                                createButton (applet, metadata));
             break;
@@ -266,7 +276,7 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
                 mLayout()->insertItem (getItemCount()-1, widget);
                 mLayout()->setAlignment (widget, Qt::AlignHCenter);
             }
-                                     }
+            }
             break;
 
         case DcpWidgetType::Slider:
@@ -330,6 +340,9 @@ QGraphicsWidget* DcpAppletButtons::createButton (DcpAppletObject* applet,
                                                  DcpAppletMetadata* metadata)
 {
     DcpContentButton *button = new DcpContentButton (applet);
+    if (!applet) {
+        button->setMetadata (metadata);
+    }
 
     button->setTDriverID (genTDriverID("DcpContentButton::", metadata));
     button->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Fixed);

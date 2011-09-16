@@ -11,6 +11,7 @@ namespace CategoryUtils
     bool isVisible (const Category* category);
     bool isEmpty (const Category* category);
     DcpAppletMetadataList metadataList (const Category* category);
+
 };
 
 #endif // CATEGORYUTILS_H

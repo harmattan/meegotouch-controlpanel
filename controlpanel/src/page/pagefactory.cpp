@@ -384,6 +384,14 @@ PageFactory::createAppletPage (PageHandle &handle)
         return 0;
     }
 
+    /* If it has a separate executable, we do not have to create a page:
+     */
+    if (applet && applet->metadata() &&
+            applet->metadata()->startApplicationCommand()) {
+        enablePageChange (false);
+        return 0;
+    }
+
     /*
      * If the applet does not have a main view then we show the page which
      * contains its briefview instead.
@@ -402,13 +410,6 @@ PageFactory::createAppletPage (PageHandle &handle)
         handle.widgetId = applet->getMainWidgetId();
     }
     if (applet && m_LastAppletPage && m_LastAppletPage->handle() == handle) {
-        return 0;
-    }
-
-    /* If it has a separate executable, we do not have to create a page:
-     */
-    if (applet && applet->metadata() &&
-            applet->metadata()->startApplicationCommand()) {
         return 0;
     }
 

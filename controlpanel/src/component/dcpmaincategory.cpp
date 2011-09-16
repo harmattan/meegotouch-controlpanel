@@ -20,6 +20,7 @@
 #include "dcpmaincategory.h"
 
 #include "dcpdebug.h"
+#include <MStylableWidget>
 
 DcpMainCategory::DcpMainCategory (QGraphicsWidget *parent):
     QGraphicsWidget (parent)
@@ -63,5 +64,22 @@ DcpMainCategory::widgetAt (int i)
     return (QGraphicsWidget*)(item->graphicsItem());
 }
 
+void
+DcpMainCategory::insertSpacer (int pos)
+{
+    MStylableWidget *spacer = new MStylableWidget();
+    spacer->setStyleName("CommonLargeSpacer");
+    if (pos>=0) {
+        mLayout()->insertItem (pos, spacer);
+    } else {
+        mLayout()->addItem (spacer);
+    }
+}
+
+void
+DcpMainCategory::appendSpacer ()
+{
+    insertSpacer (-1);
+}
 
 

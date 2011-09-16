@@ -49,4 +49,13 @@ DcpMainCategory::widgetAt (int)
     return 0;
 }
 
+void
+DcpMainCategory::appendSpacer()
+{
+}
+
+void
+DcpMainCategory::insertSpacer(int)
+{
+}
 
