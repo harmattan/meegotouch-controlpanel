@@ -4,8 +4,12 @@ duicontrolpanel (0.14.0~unreleased) unstable; urgency=low
   * Fixes: NB#281433 - [FEA] qml based applets for control panel
   * Fixes: NB#267545 - [TASK] Brigthness slider needs info about power
     save mode (styling improvement)
+  * Fixes: NB#282673 - [TASK] Manage applications should appear as
+    button instead of drilldown
+  * Fixes: NB#282669 - [TASK] Sync & Backup subview should use buttons
+    instead of drilldowns
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 14 Sep 2011 13:03:56 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 19 Sep 2011 09:45:18 +0200
 
 duicontrolpanel (0.13.4) unstable; urgency=low
 
