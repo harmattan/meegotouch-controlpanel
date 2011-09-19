@@ -529,7 +529,7 @@ PageFactory::createAppletCategoryPage (const PageHandle& handle)
 
         if (list.count() == 1) {
             DcpAppletMetadata* metadata = list.at(0);
-            if (metadata->hasMainView()) {
+            if (metadata->hasMainView() || metadata->hasApplicationCommand()) {
                 changeToAppletPage (metadata->name());
                 return 0;
             }

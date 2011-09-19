@@ -8,6 +8,8 @@ DcpPageOpenButton::DcpPageOpenButton (const PageHandle& handle,
 {
     setStyleName ("CommonSingleButtonInverted");
 
+    connect (this, SIGNAL(clicked()), this, SLOT(onClicked()));
+
     if (!m_TitleId.isEmpty()) {
         retranslateUi();
     }
