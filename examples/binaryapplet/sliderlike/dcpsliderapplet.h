@@ -15,29 +15,21 @@
 **
 ****************************************************************************/
 
-#ifndef SKELETONBRIEF_H
-#define SKELETONBRIEF_H
+#ifndef SLIDERAPPLET_H
+#define SLIDERAPPLET_H
 
-#include <DcpBrief>
-#include <QVariant>
+#include <DcpAppletIf>
+#include <QObject>
 
-class SliderExampleBrief: public DcpBrief{
-    Q_OBJECT
+class SliderExampleApplet : public QObject, public DcpAppletIf
+{
+	Q_OBJECT
+	Q_INTERFACES(DcpAppletIf)
+
 public:
-    SliderExampleBrief();
-    virtual int widgetTypeID() const;
-
-    QString valueText() const;
-    QVariant value() const;
-    virtual void setValue(const QVariant& value);
-
-protected:
-    virtual void timerEvent ( QTimerEvent * event );
-
-private:
-    int m_Value;
+    virtual QVector<MAction *> viewMenuItems();
+    virtual DcpBrief* constructBrief(int);
 };
 
-
-#endif // SKELETONBRIEF
+#endif // SLIDERAPPLET_H
 

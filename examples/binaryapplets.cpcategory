@@ -1,0 +1,6 @@
+Parent=Examples
+
+Name=Binary Applets
+Value=Example shared object based applets
+Order=0
+

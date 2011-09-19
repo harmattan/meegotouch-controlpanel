@@ -12,5 +12,4 @@ usr/share/duicontrolpanel/uidescriptions/example*.xml
 usr/share/duicontrolpanel/qml-exampl*
 usr/lib/duicontrolpanel/externalapp.desktop
 usr/share/themes/base/meegotouch/libdcpskeletonapplet/style/libdcpskeletonapplet.css
-usr/share/duicontrolpanel/categories/examples/bv_example* usr/share/duicontrolpanel/categories
-
+usr/share/duicontrolpanel/categories/examples/*cpcategory usr/share/duicontrolpanel/categories

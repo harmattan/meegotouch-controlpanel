@@ -1,4 +1,4 @@
-Parent=Examples
+Parent="Empty Applet Briefviews"
 
 Name=Category with icon
 Name-logical-id=qtn_sett_example_category

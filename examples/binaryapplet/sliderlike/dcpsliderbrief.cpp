@@ -16,11 +16,11 @@
 ****************************************************************************/
 
 #include <DcpWidgetTypes>
-#include "dcpskeletonbrief.h"
+#include "dcpsliderbrief.h"
 #include <QtDebug>
 
 SliderExampleBrief::SliderExampleBrief():
-    m_Value(50)
+    m_Value(3)
 {
     qDebug() << "slider applet got loaded" << m_Value;
 
@@ -37,19 +37,19 @@ int SliderExampleBrief::widgetTypeID() const
 
 QString SliderExampleBrief::valueText() const
 {
-    return (m_Value / 4) % 2 ?
+    return (m_Value / 7) % 2 ?
         // Here we return no description about why the slider is disabled,
         // which will result in a disabled slider showing no value
         QString()
 
         // Here we return description about why the slider is disabled,
-        // this will result in the message in place of the slider:
+        // this will show the message as well:
         : "Slider is disabled";
 }
 
 QVariant SliderExampleBrief::value() const
 {
-    return m_Value % 2 ? m_Value : QVariant();
+    return m_Value % 7 < 6 ? m_Value % 7 : QVariant();
 }
 
 void SliderExampleBrief::setValue(const QVariant& value)

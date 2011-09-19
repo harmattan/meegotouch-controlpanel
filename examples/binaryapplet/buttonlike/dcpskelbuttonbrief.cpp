@@ -23,14 +23,14 @@ SkelButtonBrief::SkelButtonBrief():
 {
 }
 
-QString SkelButtonBrief::valueText() const
+QString SkelButtonBrief::titleText() const
 {
     QString value = m_ToggleState ? "On" : "Off";
     qDebug() << value;
     return "value is " + value;
 }
 
-QString SkelButtonBrief::titleText() const
+QString SkelButtonBrief::valueText() const
 {
     return "Button-like applet";
 }

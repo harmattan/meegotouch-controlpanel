@@ -17,9 +17,8 @@ X-Maemo-Fixed-Args=SkelButton
 X-DUIApplet-Applet=libdcpskelbuttonapplet.so
 
 [DCP]
-# Category=Applications
-Category=Examples
-Order=4
-WidgetType= Button
+Category=Binary Applets
+Order=0
+WidgetType=Button
 HelpId=IDUG_MEEGO_CONN_CLOSE.html
 

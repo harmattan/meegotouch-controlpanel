@@ -20,9 +20,8 @@ X-Maemo-Fixed-Args=Skeleton
 X-DUIApplet-Applet=libdcpskeletonapplet.so
 
 [DCP]
-# Category=Applications
-Category=Examples
-Order=4
+Category=Binary Applets
+Order=5
 WidgetType= Label
 
 # this text will be shown as second label,

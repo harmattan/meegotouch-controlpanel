@@ -18,8 +18,7 @@ X-Maemo-Fixed-Args=Declarative2
 X-DUIApplet-Applet=declarative
 
 [DCP]
-# Category= Applications
-Category=Examples
+Category=Declarative Applets
 Order=100
 Part=example2.xml
 Text2=only EN (default) and HU translations

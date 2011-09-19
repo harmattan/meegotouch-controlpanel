@@ -68,10 +68,15 @@ inline QString qtTrTranslated (const QString& id, const QString& engineering)
     if (id.isEmpty() && engineering.isEmpty()) return id;
     QString translated = qtTrId(qPrintable(id));
 
-    if (translated == id)
-        return "!! " + engineering;
-    else
+    if (translated == id) {
+        if (id.isEmpty()) {
+            return engineering;
+        } else {
+            return "!! " + engineering;
+        }
+    } else {
         return translated;
+    }
 }
 
 QString Category::title() const

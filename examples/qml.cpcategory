@@ -1,0 +1,6 @@
+Parent=Examples
+
+Name=Qml Applets
+Value=Applets written in Qml
+Order=10
+

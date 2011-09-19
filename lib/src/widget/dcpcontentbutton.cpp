@@ -106,6 +106,11 @@ DcpContentButton::updateContents ()
         return;
 
     updateText();
+
+    if (applet() && applet()->brief()) {
+        if (!isCheckable()) setCheckable (true);
+        setChecked (applet()->value().toBool());
+    }
 }
 
 
@@ -175,13 +180,14 @@ void DcpContentButton::onClicked ()
 {
     if (!applet()) return;
 
-    if (!applet()->applet()) {
+    if (!applet()->brief()) {
         // if we only have an external command, we do not toggle, but invoke
-        // metadata()->startApplicationCommand();
-        applet()->slotClicked ();
+        if (metadata() && metadata()->hasApplicationCommand()) {
+            applet()->slotClicked ();
+        }
     } else {
         // for a binary applet we toggle
-        applet ()->setToggle (!applet ()->toggle());
+        applet ()->setValue (!applet ()->value().toBool());
     }
 }
 

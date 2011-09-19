@@ -18,8 +18,7 @@ X-Maemo-Fixed-Args=Qml Simple Applet Example
 X-DUIApplet-Applet=qml
 
 [DCP]
-# Category= Applications
-Category=Examples
+Category=Qml Applets
 Order=0
 Text2=shows how to store a config to GConf
 

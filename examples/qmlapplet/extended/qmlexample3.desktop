@@ -18,9 +18,8 @@ X-Maemo-Fixed-Args=Qml Extended Example
 X-DUIApplet-Applet=qml
 
 [DCP]
-# Category= Applications
-Category=Examples
-Order=0
+Category=Qml Applets
+Order=40
 Text2=extend qml's abilities through C++
 
 # The applet specifies here the path to its main item:

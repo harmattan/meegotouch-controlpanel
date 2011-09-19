@@ -18,9 +18,8 @@ X-Maemo-Fixed-Args=Qml Applet l10n Example
 X-DUIApplet-Applet=qml
 
 [DCP]
-# Category= Applications
-Category=Examples
-Order=0
+Category=Qml Applets
+Order=10
 Text2=has hungarian and english translations
 Text2-logical-id=qml_example4_subtitle
 

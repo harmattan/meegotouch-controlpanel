@@ -19,11 +19,11 @@
 #include <MAction>
 #include <MLibrary>
 
-#include "dcpskeletonapplet.h"
-#include "dcpskeletonbrief.h"
+#include "dcpsliderapplet.h"
+#include "dcpsliderbrief.h"
 
 M_LIBRARY
-Q_EXPORT_PLUGIN2(skeletonapplet, SliderExampleApplet)
+Q_EXPORT_PLUGIN2(dcpskelsliderapplet, SliderExampleApplet)
 
 
 QVector<MAction*> SliderExampleApplet::viewMenuItems()

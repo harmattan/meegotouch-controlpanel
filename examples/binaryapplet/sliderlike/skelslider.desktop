@@ -4,7 +4,7 @@ Name=SkelSlider
 Icon=
 Exec=
 X-logical-id=qtn_sett_main_skelslider_title
-X-translation-catalog=skeletonapplet1,skeletonapplet2
+X-translation-catalog=sliderapplet1,sliderapplet2
 
 # This has to be specified in order that the .desktop file can also be
 # used as an action (for example for search to know how to
@@ -20,9 +20,8 @@ X-Maemo-Fixed-Args=SkelSlider
 X-DUIApplet-Applet=libdcpskelsliderapplet.so
 
 [DCP]
-# Category=MainPage
-Category=Examples
-Order=0
+Category=Binary Applets
+Order=40
 WidgetType=Slider
 SliderLeftImage=icon-m-camera-whitebalance-sunny-screen
 SliderRightImage=icon-m-camera-whitebalance-sunny-selected

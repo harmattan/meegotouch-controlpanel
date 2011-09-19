@@ -5,11 +5,11 @@ CONFIG       += plugin gui meegotouch silent debug
 MOC_DIR	      = .moc
 OBJECTS_DIR   = .objects
 
-HEADERS       = dcpskeletonapplet.h \
-                dcpskeletonbrief.h
+HEADERS       = dcpsliderapplet.h \
+                dcpsliderbrief.h
 
-SOURCES       = dcpskeletonapplet.cpp \
-                dcpskeletonbrief.cpp
+SOURCES       = dcpsliderapplet.cpp \
+                dcpsliderbrief.cpp
 
 DESTDIR       = ../lib
 TARGET        = $$qtLibraryTarget(dcpskelsliderapplet)

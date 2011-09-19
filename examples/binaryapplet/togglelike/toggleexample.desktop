@@ -20,9 +20,8 @@ X-Maemo-Fixed-Args=Toggle Example
 X-DUIApplet-Applet=libdcptoggleexampleapplet.so
 
 [DCP]
-# Category=Applications
-Category=Examples
-Order=5
+Category=Binary Applets
+Order=30
 WidgetType=Toggle
 
 # this text will be shown as second label,

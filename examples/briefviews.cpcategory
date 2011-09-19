@@ -1,0 +1,8 @@
+Parent=Examples
+
+Name=Empty Applet Briefviews
+Value=Shows the possibilities of applet buttons
+Order=50
+
+HasSeparatorLine=0
+

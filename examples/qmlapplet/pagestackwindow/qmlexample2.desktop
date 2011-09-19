@@ -18,9 +18,8 @@ X-Maemo-Fixed-Args=Qml Applet Example
 X-DUIApplet-Applet=qml
 
 [DCP]
-# Category= Applications
-Category=Examples
-Order=0
+Category=Qml Applets
+Order=30
 Text2=shows how to use pages, dialogs, sheets
 
 # The applet specifies here the path to its main item:

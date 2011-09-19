@@ -1,0 +1,6 @@
+Parent=Examples
+
+Name=Declarative Applets
+Value=Applets using MeegoTouch Declarative Language
+Order=30
+

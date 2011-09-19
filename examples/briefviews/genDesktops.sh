@@ -35,7 +35,7 @@ text2() {
 }
 
 image() {
-    echo "icon-l-backup"
+    echo "icon-m-bluetooth-device-root"
 }
 
 name() {
@@ -66,7 +66,11 @@ echo "
 [Desktop Entry]
 Type=Application
 Name=$(name)
-Exec=true
+Exec=
+
+[DUI]
+# this makes dcp believe that there is a binary applet here
+X-DUIApplet-Applet=fail
 
 [DCP]
 Category=$(category)
