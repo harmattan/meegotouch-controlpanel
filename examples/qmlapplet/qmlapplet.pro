@@ -17,5 +17,7 @@ qmlexample.path = /usr/share/duicontrolpanel/qml-example/
 qmlexample2.files += pagestackwindow/*.qml
 qmlexample2.path = /usr/share/duicontrolpanel/qml-example2/
 
+include (l10n/l10n.pri)
+
 INSTALLS += qmlexample qmlexample2 desktop
 

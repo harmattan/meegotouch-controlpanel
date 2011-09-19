@@ -1,0 +1,34 @@
+[Desktop Entry]
+Type=ControlPanelApplet
+Name=Qml Applet l10n Example
+X-logical-id=qml_example4_title
+X-translation-catalog=dcpqmlexample
+Icon=
+
+# This has to be specified in order that the .desktop file can also be
+# used as an action (for example for search to know how to
+# open the applet)
+X-Maemo-Service=com.nokia.DuiControlPanel
+X-Maemo-Method=com.nokia.DuiControlPanelIf.appletPage
+X-Maemo-Object-Path=/
+# this has to be the same as Name
+X-Maemo-Fixed-Args=Qml Applet l10n Example
+
+[DUI]
+X-DUIApplet-Applet=qml
+
+[DCP]
+# Category= Applications
+Category=Examples
+Order=0
+Text2=has hungarian and english translations
+Text2-logical-id=qml_example4_subtitle
+
+# The applet specifies here the path to its main item:
+Part=/usr/share/duicontrolpanel/qml-example4/qmll10nexample.qml
+
+# The applet can force running inprocess with specifying this
+# Note however, if it does so, it will not be able to extend its capabilities
+# through libraries from untrusted source:
+# ForceInProcessBrief=1
+
