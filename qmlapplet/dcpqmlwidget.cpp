@@ -79,7 +79,6 @@ void DcpQmlWidget::create()
         qmlRegisterUncreatableType<DcpQmlContacter>("com.nokia.controlpanel", 0, 1,
                 "Dcp", "Please just use \"dcp\" object directly.");
 
-        // TODO XXX this is somehow not working
         QDeclarativeExpression (engine->rootContext(), m_Object,
                     "theme.inverted = true").evaluate();
 
@@ -90,8 +89,12 @@ void DcpQmlWidget::create()
         if (handlesItsOwnWindow()) {
             // the root object is a PageStackWindow, we let it handle everything
             hideAllControls();
+#if 0
+        // TODO this is somehow not working
             QDeclarativeExpression (engine->rootContext(), m_Object,
-                    "screen.allowedOrientations = Screen.Portrait").evaluate();
+                    "screen.setAllowedOrientations(Screen.Portrait);"
+                    ).evaluate();
+#endif
             m_Object->setRotation (90);
 
             QTimer::singleShot (0, this, SLOT(adjustObjectSize()));

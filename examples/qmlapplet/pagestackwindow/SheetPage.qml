@@ -7,6 +7,7 @@ Page {
     id: sheetPage
     anchors.margins: UiConstants.DefaultMargin
     anchors.fill: parent
+    orientationLock: PageOrientation.LockPortrait
 
     tools: DcpToolBar {}
 

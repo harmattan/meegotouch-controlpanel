@@ -7,6 +7,7 @@ Page {
     tools: tabTools
     anchors.margins: UiConstants.DefaultMargin
     anchors.fill: parent
+    orientationLock: PageOrientation.LockPortrait
 
     QueryDialog {
         id: query

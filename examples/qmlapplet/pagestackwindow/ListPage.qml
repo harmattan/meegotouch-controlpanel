@@ -10,8 +10,7 @@ Page {
     anchors.margins: UiConstants.DefaultMargin
     anchors.fill: parent
 
-// unfortunately this does not work, so doing the rotation instead for the Window
-//    orientationLock: PageOrientation.LockPortrait
+    orientationLock: PageOrientation.LockPortrait
 
     tools: DcpToolBar {
         viewMenu: Menu {
