@@ -42,6 +42,7 @@ public slots:
 protected slots:
     void create ();
     void adjustObjectSize();
+    void closing ();
 
 private:
     void createErrorLabel(const QString& text);
@@ -54,3 +55,4 @@ private:
 
 
 #endif // DCPQMLWIDGET_H
+

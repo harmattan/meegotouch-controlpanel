@@ -44,17 +44,11 @@ DcpQmlWidget::DcpQmlWidget(const QString& qmlPath):
 
     // get as much space as possible:
     setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
-
     QTimer::singleShot (0, this, SLOT(create()));
 }
 
 DcpQmlWidget::~DcpQmlWidget()
 {
-    MApplicationWindow* win = MApplication::activeApplicationWindow();
-    if (win) {
-        // restore the hidden statusbar etc.
-        win->showNormal();
-    }
 }
 
 void DcpQmlWidget::create()
@@ -104,7 +98,7 @@ void DcpQmlWidget::create()
             setPreferredSize (m_Object->boundingRect().size());
             enableAutoTitle();
         }
-        connect (engine, SIGNAL(quit()), this, SIGNAL(closePage()));
+        connect (engine, SIGNAL(quit()), this, SLOT(closing()));
 
     } else {
         // error happened
@@ -113,6 +107,16 @@ void DcpQmlWidget::create()
             createErrorLabel (error.toString());
         }
     }
+}
+
+void DcpQmlWidget::closing ()
+{
+    MApplicationWindow* win = MApplication::activeApplicationWindow();
+    if (win) {
+        // restore the hidden statusbar etc.
+        win->showNormal();
+    }
+    QTimer::singleShot (0, this, SIGNAL(closePage()));
 }
 
 
