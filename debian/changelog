@@ -1,4 +1,4 @@
-duicontrolpanel (0.14.0.1~unreleased) unstable; urgency=low
+duicontrolpanel (0.14.0.1) unstable; urgency=low
 
   * supports applets written in qml
   * Fixes: NB#281433 - [FEA] qml based applets for control panel
