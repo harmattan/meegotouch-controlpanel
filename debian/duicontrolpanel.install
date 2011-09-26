@@ -10,4 +10,4 @@ usr/lib/qt4/imports/com/nokia/controlpanel
 usr/share/dbus-1
 etc/osso-rfs-scripts/controlpanel-rfs.sh
 usr/share/duicontrolpanel/categories/*.cpcategory
-
+etc/duicontrolpanel.conf

@@ -32,7 +32,7 @@
 
 #include <DcpAppletMetadata>
 #include <DcpAppletObject>
-#include <DcpRetranslator>
+#include "dcptranslationmanager.h"
 
 #include <QtDebug>
 #include <QGraphicsLinearLayout>
@@ -45,7 +45,8 @@ DcpAppletCategoryPage::DcpAppletCategoryPage (
     m_CategoryInfo (categoryInfo),
     m_Category (0),
     m_MostUsed (0),
-    m_DelayedContent (0)
+    m_DelayedContent (0),
+    m_Spacer (0)
 {
 }
 
@@ -74,7 +75,7 @@ DcpAppletCategoryPage::createCategories ()
         // hide hidden categories:
         if (!CategoryUtils::isVisible (info)) continue;
 
-        DcpRetranslator::instance()->ensureTranslationsAreLoaded (
+        DcpTranslationManager::instance()->ensureTranslationsAreLoaded (
                 info->translationCategories());
 
         PageHandle subPage(PageHandle::APPLETCATEGORY, info->name());
@@ -99,7 +100,7 @@ DcpAppletCategoryPage::createCategories ()
                         wasButton = false;
                     }
                     DcpSingleComponent *button =
-                        new DcpSingleComponent(otherCategories, info);
+                        new DcpSingleComponent(0, info);
                     button->setSubPage(subPage);
                     widget = button;
                 }
@@ -134,6 +135,9 @@ DcpAppletCategoryPage::mostUsedAppears ()
 /*
  * Helper function which adds the "categories" and the "applets"
  * in the correct order to the layout
+ *
+ * if there are elements in the layout (eg. a spacer at the end),
+ * then it adds them before the last element
  */
 void
 DcpAppletCategoryPage::addCategoryToLayoutOrdered (
@@ -141,12 +145,22 @@ DcpAppletCategoryPage::addCategoryToLayoutOrdered (
         QGraphicsWidget* category,
         QGraphicsWidget* appletBriefs)
 {
+    // this hack moves the widgets out of screen until the layout sets
+    // their geometry correctly. It is needed to avoid layouting flicker
+    // when the first category page is popped up
+    category->setGeometry (900, 0, 480, 1);
+    appletBriefs->setGeometry (900, 0, 480, 1);
+
+    // the position of the last item:
+    int pos = layout->count();
+    if (pos > 0) pos--;
+
     if (m_CategoryInfo->componentOrder() == Category::CategoriesFirst) {
-        layout->addItem (category);
-        layout->addItem (appletBriefs);
+        layout->insertItem (pos,category);
+        layout->insertItem (pos+1,appletBriefs);
     } else {
-        layout->addItem (appletBriefs);
-        layout->addItem (category);
+        layout->insertItem (pos,appletBriefs);
+        layout->insertItem (pos+1,category);
     }
 }
 
@@ -154,23 +168,25 @@ void
 DcpAppletCategoryPage::createContent ()
 {
     // ensures that the translation for the title is loaded:
-    DcpRetranslator::instance()->ensureTranslationsAreLoaded (
+    DcpTranslationManager::instance()->ensureTranslationsAreLoaded (
                 m_CategoryInfo->translationCategories());
 
     DcpPage::createContent ();
 
+    m_Spacer = new QGraphicsWidget();
+    m_Spacer->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_Spacer->setContentsMargins (0,0,0,0);
+    m_Spacer->setMinimumHeight (1);
+
     if (!m_DelayedContent) {
-        createBody(false);
+        createBody();
     }
     retranslateUi();
 
     if (!m_CategoryInfo->titleStyle().isEmpty()) {
         setTitleStyleName (m_CategoryInfo->titleStyle());
     }
-
-    QGraphicsWidget* spacer = new QGraphicsWidget();
-    spacer->setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
-    mainLayout()->addItem(spacer);
+    mainLayout()->addItem(m_Spacer);
 }
 
 const QString 
@@ -234,17 +250,15 @@ DcpAppletCategoryPage::setDelayedContent(bool delayed)
  * Create and show the body content of the page.
  */
 void
-DcpAppletCategoryPage::createBody(bool hasSpacerAtTheEnd)
+DcpAppletCategoryPage::createBody()
 {
-    if (m_DelayedContent) {
-        PageFactory::instance()->enableUpdates (false);
+    if (!m_Spacer) {
+        // createContent did not run yet, so we can delay until it gets called:
+        m_DelayedContent = false;
+        return;
     }
 
-    QGraphicsLayoutItem* spacer = 0;
-    if (hasSpacerAtTheEnd) {
-        spacer = mainLayout()->itemAt (mainLayout()->count()-1);
-        mainLayout()->removeItem (spacer);
-    }
+    QGraphicsLinearLayout* layout = mainLayout();
 
     // Most Used Items:
     bool hasMostUsed = m_CategoryInfo->hasMostUsed();
@@ -263,7 +277,7 @@ DcpAppletCategoryPage::createBody(bool hasSpacerAtTheEnd)
     QGraphicsWidget* categoryWidget = createCategories();
 
     // create the applet list:
-    m_Category = new DcpAppletButtons(m_CategoryInfo, 0, this);
+    m_Category = new DcpAppletButtons(m_CategoryInfo, 0, 0);
 
     // add them to the layout:
     if (hasMostUsed) {
@@ -273,7 +287,7 @@ DcpAppletCategoryPage::createBody(bool hasSpacerAtTheEnd)
         // TODO no retranslateUi is implemented for this -V
         //% "All settings"
         container->setTitle (qtTrId("qtn_sett_main_other"));
-        mainLayout()->addItem(container);
+        layout->addItem(container);
 
         // put them in the box:
         QGraphicsLinearLayout* clayout =
@@ -283,7 +297,7 @@ DcpAppletCategoryPage::createBody(bool hasSpacerAtTheEnd)
 
     } else {
         // just add them to the layout without box:
-        addCategoryToLayoutOrdered (mainLayout(), categoryWidget, m_Category);
+        addCategoryToLayoutOrdered (layout, categoryWidget, m_Category);
     }
 
 #ifdef PROGRESS_INDICATOR
@@ -292,14 +306,6 @@ DcpAppletCategoryPage::createBody(bool hasSpacerAtTheEnd)
              this, SLOT (onLoadingFinished()));
     setProgressIndicatorVisible (true);
 #endif
-
-    if (hasSpacerAtTheEnd) {
-        mainLayout()->addItem (spacer);
-    }
-
-    if (m_DelayedContent) {
-        QTimer::singleShot (0, PageFactory::instance(), SLOT(enableUpdates()));
-    }
 }
 
 void

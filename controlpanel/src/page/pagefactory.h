@@ -94,6 +94,7 @@ protected:
 private slots:
     void completeCategoryPage ();
     void onMetadataLoaded ();
+    void onMetadataPreloaded ();
 
     void newMainPageInSeparateProcess ();
     void switchToMainPageWithPageDropping ();

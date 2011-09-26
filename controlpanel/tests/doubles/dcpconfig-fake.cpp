@@ -1,6 +1,6 @@
 /***************************************************************************
 **
-** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+** Copyright (C) 2011 Nokia Corporation and/or its subsidiary(-ies).
 ** All rights reserved.
 ** Contact: Karoliina T. Salminen <karoliina.t.salminen@nokia.com>
 **
@@ -15,21 +15,25 @@
 **
 ****************************************************************************/
 
-#include <QGraphicsObject>
-#include <QGraphicsWidget>
-#include <QGraphicsLayoutItem>
+/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
+/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 
-void QGraphicsObject::grabGesture (Qt::GestureType, Qt::GestureFlags)
+#include <QtDebug>
+#include "dcpconfig.h"
+#include "dcpconfig-fake.h"
+
+FakeDcpConfig FakeDcpConfig::fakeDcpConfigInstance;
+
+DcpConfig::DcpConfig(const QString &path)
+{
+    Q_UNUSED(path);
+}
+
+DcpConfig::~DcpConfig()
 {
 }
 
-void QGraphicsLayoutItem::setSizePolicy ( QSizePolicy::Policy,
-                                          QSizePolicy::Policy,
-                                          QSizePolicy::ControlType )
+QStringList DcpConfig::desktopsToPreload()
 {
+    return FakeDcpConfig::fakeDcpConfigInstance.desktopsToPreload();
 }
-
-void QGraphicsWidget::setGeometry (const QRectF &rect)
-{
-}
-

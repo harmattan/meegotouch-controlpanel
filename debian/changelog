@@ -1,3 +1,11 @@
+duicontrolpanel (0.14.1~unreleased) unstable; urgency=low
+
+  [ Viktor Nagy ]
+  * Fixes: NB#266453 - [Performance] Response time open settings
+    application is above target
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 26 Sep 2011 16:33:54 +0200
+
 duicontrolpanel (0.14.0.1) unstable; urgency=low
 
   * supports applets written in qml

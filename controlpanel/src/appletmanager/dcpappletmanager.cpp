@@ -26,6 +26,8 @@
 #include "dcpappletmetadata.h"
 #include "dcpappletobject.h"
 #include "dcpdebug.h"
+#include "dcpconfig.h"
+#include "dcpcategories.h"
 
 const QString AppletFilter = "*.desktop";
 DcpAppletManager *DcpAppletManager::sm_Instance = 0;
@@ -46,7 +48,10 @@ void DcpAppletManager::destroyInstance()
 
 DcpAppletManager::DcpAppletManager() :
     m_IsMetadataLoaded(false),
-    m_IsMetadataLoadStarted(false)
+    m_IsMetadataLoadStarted(false),
+    m_MainPageAppletFound(false),
+    m_IsMetadataPreloaded(false),
+    m_IsMetadataPreloadStarted(false)
 {
 }
 
@@ -65,6 +70,10 @@ void DcpAppletManager::addDesktopDir(const QString &dir)
 void DcpAppletManager::loadMetadata()
 {
     if (m_IsMetadataLoaded) return;
+
+    if (isMetadataLoadStarted()) {
+        qCritical() << "metadata loading is in progress";
+    }
 
     QStringList nameFilters(AppletFilter);
     foreach (QString dirName, m_DesktopDirs) {
@@ -90,8 +99,13 @@ void DcpAppletManager::loadMetadata()
  */
 void DcpAppletManager::loadMetadataAsync()
 {
+    if (isMetadataPreloadStarted()) {
+        qCritical() << "cannot load while preloading is in progress";
+        return;
+    }
     m_IsMetadataLoadStarted = true;
     m_IsMetadataLoaded = false;
+    m_MainPageAppletFound = false;
     QStringList nameFilters(AppletFilter);
     foreach (QString dirName, m_DesktopDirs) {
         QDir dir(dirName);
@@ -103,6 +117,54 @@ void DcpAppletManager::loadMetadataAsync()
     QTimer::singleShot(0, this, SLOT(processSingleDesktopFile()));
 }
 
+/*! \brief Loads applet definitions from .desktop files that are selected for preloading in duicontrolpanel.conf
+ */
+void DcpAppletManager::preloadMetadata()
+{
+    DcpConfig conf(DCP_CONFIG_PATH);
+    foreach (QString desktopFileName, conf.desktopsToPreload()) {
+        foreach (QString dirName, m_DesktopDirs) {
+            QDir dir(dirName);
+            if (!dir.exists(desktopFileName)) {
+                continue;
+            }
+            QString path(dirName + "/" + desktopFileName);
+            DCP_DEBUG ("Loading %s", DCP_STR(path));
+            if (!loadDesktopFile(path)) {
+                qWarning() << "Failed to load" << path;
+            }
+        }
+    }
+    m_IsMetadataPreloaded = true;
+    emit metadataPreloaded();
+}
+
+/*! \brief Loads applet definitions from .desktop files that are selected for
+ * preloading in duicontrolpanel.conf in asynchronous way.
+ */
+void DcpAppletManager::preloadMetadataAsync()
+{
+    if (isMetadataLoadStarted()) {
+        qCritical() << "cannot preload while metadata loading is in progress";
+        return;
+    }
+    m_IsMetadataPreloadStarted = true;
+    m_IsMetadataPreloaded = false;    
+    DcpConfig conf(DCP_CONFIG_PATH);
+    foreach (QString desktopFileName, conf.desktopsToPreload()) {
+        foreach (QString dirName, m_DesktopDirs) {
+            QString path(dirName + "/" + desktopFileName);
+            QFile desktopFile(path);
+            if (!desktopFile.exists()) {
+                continue;
+            }
+            m_DesktopFilesToProcess.append(path);
+        }
+    }
+    QTimer::singleShot(0, this, SLOT(processSingleDesktopFile()));
+}
+
+
 bool DcpAppletManager::isMetadataLoaded()
 {
     return m_IsMetadataLoaded;
@@ -113,6 +175,27 @@ bool DcpAppletManager::isMetadataLoadStarted()
     return m_IsMetadataLoadStarted;
 }
 
+/** \brief Returns whether an applet's metadata was loaded which belongs 
+  to the main view but was not loaded in the preload phase 
+ 
+  These applets should have been preloaded.
+ */
+bool DcpAppletManager::mainPageAppletFound()
+{
+    return m_MainPageAppletFound;
+}
+
+bool DcpAppletManager::isMetadataPreloaded()
+{
+    return m_IsMetadataPreloaded;
+}
+
+bool DcpAppletManager::isMetadataPreloadStarted()
+{
+    return m_IsMetadataPreloadStarted;
+}
+
+
 /*! \brief Adds a single applet defined in path to the manager
  */
 bool DcpAppletManager::loadDesktopFile(const QString &path)
@@ -122,7 +205,9 @@ bool DcpAppletManager::loadDesktopFile(const QString &path)
         return false;
     }
 
+    DcpDebug::start("new DcpAppletMetadata");
     DcpAppletMetadata *metadata = new DcpAppletMetadata(path);
+    DcpDebug::end("new DcpAppletMetadata");
     if (!metadata->isValid()) {
         qWarning() << "invalid desktop file:" << path;
         delete metadata;
@@ -137,6 +222,13 @@ bool DcpAppletManager::loadDesktopFile(const QString &path)
     DCP_DEBUG ("Adding applet name '%s'", DCP_STR (metadata->name()));
     m_AppletsByName[metadata->name()] = metadata;
     m_AppletsByFile[path] = metadata;
+
+    if (m_IsMetadataLoadStarted && 
+        metadata->category() == DcpCategories::mainPageCategoryName()) {
+        qWarning() << "desktop file should have been preloaded" << path;
+        m_MainPageAppletFound = true;
+    }
+
     return true;
 }
 
@@ -266,16 +358,27 @@ QList<DcpAppletObject*> DcpAppletManager::loadedApplets() const
 void DcpAppletManager::processSingleDesktopFile()
 {
     if (m_DesktopFilesToProcess.isEmpty()) {
-        DCP_DEBUG ("metadata load finished");
-        m_IsMetadataLoaded = true;
-        m_IsMetadataLoadStarted = false;
-        emit metadataLoaded();
+        if (m_IsMetadataLoadStarted) {
+            DCP_DEBUG ("metadata load finished");
+            m_IsMetadataLoaded = true;
+            m_IsMetadataLoadStarted = false;
+            emit metadataLoaded();
+        } else if (m_IsMetadataPreloadStarted) {
+            DCP_DEBUG ("metadata preload finished");
+            m_IsMetadataPreloaded = true;
+            m_IsMetadataPreloadStarted = false;
+            emit metadataPreloaded();
+        } else {
+            qCritical() << "unexpected state, what did loading start?";
+        }
         return;
     }
 
     QString file = m_DesktopFilesToProcess.takeFirst();
     DCP_DEBUG ("Loading %s", DCP_STR(file));
+    DcpDebug::start("load_desktop");
     bool st = loadDesktopFile(file);
+    DcpDebug::end("load_desktop");
     if (!st) {
         qWarning() << "Failed to load" << file;
     }

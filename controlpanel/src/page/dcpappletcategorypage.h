@@ -42,7 +42,7 @@ public:
     int appletCount();
     DcpAppletMetadata* appletMetadata(int i);
     void setDelayedContent(bool);
-    void createBody(bool hasSpacerAtTheEnd = true);
+    void createBody();
 
 protected:
     virtual void retranslateUi();
@@ -69,6 +69,7 @@ private:
     DcpMostUsed *m_MostUsed;
     friend class Ut_DcpAppletCategoryPage;
     bool m_DelayedContent;
+    QGraphicsWidget* m_Spacer;
 };
 
 #endif

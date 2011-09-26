@@ -36,7 +36,7 @@ SOURCES += \
     $$STUBSDIR/dcpappletbuttons-fake.cpp \
     $$STUBSDIR/dcpmostused-fake.cpp \
     $$STUBSDIR/dcpappletplugin-fake.cpp \
-    $$STUBSDIR/dcpretranslator-fake.cpp \
+    $$STUBSDIR/dcptranslationmanager-fake.cpp \
     $$STUBSDIR/dcpsinglecomponent-fake.cpp \
     $$STUBSDIR/dcpmaincategory-fake.cpp \
     $$STUBSDIR/dcpcategories-fake.cpp \
@@ -62,7 +62,7 @@ HEADERS += \
     $$SRCDIR/component/dcpmaincategory.h \
     $$SRCDIR/component/dcpmostused.h \
     $$SRCDIR/component/dcpsinglecomponent.h \
-    $$LIBDCPSRC/dcpretranslator.h \
+    $$SRCDIR/appletmanager/dcptranslationmanager.h \
 
 # base classes
 HEADERS += \

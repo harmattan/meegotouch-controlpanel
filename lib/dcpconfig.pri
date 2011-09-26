@@ -62,6 +62,8 @@ meego {
 	DEFINES += MOSTUSEDCOUNTER_GCONFKEY=\\\"\"$$DCP_MOSTUSEDCOUNTER_GCONFKEY\"\\\"
 
 	DEFINES += DCP_CATEGORY_DIR=\\\"\"$$DCP_CATEGORY_DIR\"\\\"
+
+        DEFINES += DCP_CONFIG_PATH=\\\"/etc/duicontrolpanel.conf\\\"
 }
 }
 

@@ -131,6 +131,10 @@ void PageFactory::onMetadataLoaded()
 {
 }
 
+void PageFactory::onMetadataPreloaded()
+{
+}
+
 void PageFactory::newMainPageInSeparateProcess()
 {
 }

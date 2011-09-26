@@ -23,6 +23,7 @@
 
 #include "ut_dcpappletmanager.h"
 #include "qdir-fake.h"
+#include "dcpconfig-fake.h"
 
 void Ut_DcpAppletManager::init()
 {
@@ -71,7 +72,7 @@ void Ut_DcpAppletManager::testLoadMetadata()
     QDirFake::createFakeDir("testdir", dirContent);
     m_subject->loadMetadata();
     foreach (QString file, dirContent) {
-        QVERIFY(m_subject->containsFile(file));
+        QVERIFY(m_subject->containsFile("testdir/" + file));
     }
     QVERIFY(m_subject->m_AppletsByFile.size());
 }
@@ -93,7 +94,45 @@ void Ut_DcpAppletManager::testLoadMetadataAsync()
 
     QCOMPARE(spy.count(), 1);
     foreach (QString file, dirContent) {
-        m_subject->containsFile(file);
+        m_subject->containsFile("testdir/" + file);
+    }
+    QVERIFY(m_subject->isMetadataLoaded());
+}
+
+void Ut_DcpAppletManager::testPreloadMetadata()
+{
+    m_subject->addDesktopDir("testdir");
+    QStringList dirContent;
+    dirContent << "file1.desktop" << "file2.desktop" << "file3.desktop";
+    QDirFake::createFakeDir("testdir", dirContent);
+
+    QStringList desktops = dirContent;
+    FakeDcpConfig::setDesktopsToPreload(desktops);
+    m_subject->preloadMetadata();
+    foreach (QString file, desktops) {
+        QVERIFY(m_subject->containsFile("testdir/" + file));
+    }
+    QVERIFY(m_subject->m_AppletsByFile.size());
+}
+
+void Ut_DcpAppletManager::testPreloadMetadataAsync()
+{
+    m_subject->addDesktopDir("testdir");
+    QStringList dirContent;
+    dirContent << "file1.desktop" << "file2.desktop" << "file3.desktop";
+    QDirFake::createFakeDir("testdir", dirContent);
+    QSignalSpy spy(m_subject, SIGNAL(metadataLoaded()));
+    m_subject->loadMetadataAsync();
+    QVERIFY(m_subject->isMetadataLoadStarted());
+
+    // run event loop for 100 ms
+    QEventLoop loop;
+    QTimer::singleShot(100, &loop, SLOT(quit()));    
+    loop.exec();
+
+    QCOMPARE(spy.count(), 1);
+    foreach (QString file, dirContent) {
+        m_subject->containsFile("testdir/" + file);
     }
     QVERIFY(m_subject->isMetadataLoaded());
 }
@@ -113,8 +152,11 @@ void Ut_DcpAppletManager::testDesktopDirs()
     QVERIFY(m_subject->m_DesktopDirs.contains("testdir2"));
     
     m_subject->loadMetadata();
-    foreach (QString file, dirContent1 + dirContent2) {
-        QVERIFY(m_subject->containsFile(file));
+    foreach (QString file, dirContent1) {
+        QVERIFY(m_subject->containsFile("testdir1/" + file));
+    }
+    foreach (QString file, dirContent2) {
+        QVERIFY(m_subject->containsFile("testdir2/" + file));
     }
     
     m_subject->clearData();
@@ -125,7 +167,7 @@ void Ut_DcpAppletManager::testDesktopDirs()
 
 bool testCheckFunction(const QString &cat)
 {
-    if (cat == "file1.desktop-category") {
+    if (cat == "testdir/file1.desktop-category") {
         return false;
     }
     return true;
@@ -137,7 +179,12 @@ void Ut_DcpAppletManager::testAccessors()
     QStringList dirContent;
     dirContent << "file1.desktop" << "file2.desktop" << "file3.desktop";
     QDirFake::createFakeDir("testdir", dirContent);
-    QSet<QString> origFiles = QSet<QString>::fromList(dirContent);
+    QStringList filePathList;
+    foreach (QString file, dirContent) {
+        filePathList << "testdir/" + file;
+    }
+    QSet<QString> origFiles = QSet<QString>::fromList(filePathList);
+
     m_subject->loadMetadata();
 
     // test list()
@@ -150,6 +197,7 @@ void Ut_DcpAppletManager::testAccessors()
 
     // test listByCategory(QString)
     foreach (QString fileName, dirContent) {
+        fileName = "testdir/" + fileName;
         QString fakeCategory = fileName + "-category";
         DcpAppletMetadataList metadataList = 
             m_subject->listByCategory(fakeCategory);
@@ -159,7 +207,7 @@ void Ut_DcpAppletManager::testAccessors()
 
     // test listByCategory(QStringList, CheckFunction)
     QStringList categories;
-    categories << "file2.desktop-category";
+    categories << "testdir/file2.desktop-category";
     // expected applets: file1.desktop from testCheckFunction, 
     //                   file2.desktop from categories
     metadataList = m_subject->listByCategory(categories, testCheckFunction);
@@ -168,16 +216,16 @@ void Ut_DcpAppletManager::testAccessors()
         filteredFiles.append(metadata->fileName());
     }
     QCOMPARE(filteredFiles.size(), 2);
-    QVERIFY(filteredFiles.contains("file1.desktop"));
-    QVERIFY(filteredFiles.contains("file2.desktop"));
+    QVERIFY(filteredFiles.contains("testdir/file1.desktop"));
+    QVERIFY(filteredFiles.contains("testdir/file2.desktop"));
 
     // test applet()
     foreach (QString fileName, dirContent) {
-        QString fakeName = fileName + "-name";
+        QString fakeName = "testdir/" + fileName + "-name";
         DcpAppletObject *obj = m_subject->applet(fakeName);
         QVERIFY(obj);
     }
-    QCOMPARE(m_subject->isAppletLoaded("file1.desktop-name"), true);
+    QCOMPARE(m_subject->isAppletLoaded("testdir/file1.desktop-name"), true);
     QCOMPARE(m_subject->loadedApplets().count(), 3);
 
 

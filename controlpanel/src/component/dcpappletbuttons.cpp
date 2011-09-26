@@ -36,7 +36,7 @@
 #include <DcpContentItem>
 #include <DcpWidgetTypes>
 
-#include <DcpRetranslator>
+#include "dcptranslationmanager.h"
 
 #include <MList>
 #include <MListItem>
@@ -47,6 +47,7 @@
 #include <MHelpButton>
 #include <MLabel>
 #include <QGraphicsLinearLayout>
+#include <MStylableWidget>
 
 DcpAppletButtons::DcpAppletButtons (
         const Category *categoryInfo,
@@ -132,7 +133,7 @@ DcpAppletButtons::createContents ()
     }
 
     // ensure that all needed catalogs are loaded for the applets before
-    DcpRetranslator::instance()->ensureTranslationsAreLoaded(metadatas);
+    DcpTranslationManager::instance()->ensureTranslationsAreLoaded(metadatas);
 
     // sort it: (mostused is already sorted)
     if (!isMostUsed) {
@@ -167,7 +168,7 @@ DcpAppletButtons::createContents ()
 
     // subheader with separator if we have
     if (!subHeaderText.isEmpty() && !mainApplets.isEmpty() && !m_SubHeader) {
-        MListItem* row = new MListItem();
+        MStylableWidget* row = new MStylableWidget();
         row->setStyleName ("CommonGroupHeaderPanelInverted");
 
         QGraphicsLinearLayout *lout =
@@ -183,6 +184,7 @@ DcpAppletButtons::createContents ()
         m_SubHeader = new MLabel (subHeaderText);
         m_SubHeader->setStyleName ("CommonGroupHeaderInverted");
         lout->addItem(sep);
+        lout->setAlignment (sep, Qt::AlignVCenter);
         lout->addItem(m_SubHeader);
 
         mLayout()->insertItem (getItemCount()-1, lout);

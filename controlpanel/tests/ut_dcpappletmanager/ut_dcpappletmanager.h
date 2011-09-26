@@ -39,6 +39,8 @@ private slots:
     void testLoadDesktopFile();
     void testLoadMetadata();
     void testLoadMetadataAsync();
+    void testPreloadMetadata();
+    void testPreloadMetadataAsync();
     void testDesktopDirs();
     void testAccessors();
     void testUseless();

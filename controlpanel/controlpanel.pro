@@ -18,6 +18,11 @@ minimal {
 }
 
 # install targets:
+
+config.files = duicontrolpanel.conf
+config.path = /etc
+INSTALLS += config
+
 include (common.pri)
 include (../platform.pri)
 include(theme/theme.pri)

@@ -29,7 +29,7 @@ SOURCES += \
     $$LIBDCPFAKES/mgconfitem-fake.cpp \
     $$LIBDCPFAKES/mhelpbutton-fake.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
-    $$STUBSDIR/dcpretranslator-fake.cpp \
+    $$STUBSDIR/dcptranslationmanager-fake.cpp \
     $$STUBSDIR/mwidgetcontroller-fake.cpp \
     $$STUBSDIR/dcpcontentitem-fake.cpp \
     $$STUBSDIR/dcpcontentitemcellcreator-fake.cpp \
@@ -56,6 +56,7 @@ HEADERS += \
     $$SRCDIR/component/dcpcontentitemcellcreator.h \
     $$SRCDIR/remote/dcpremoteappletobject.h \
     $$SRCDIR/appletmanager/dcpappletmanager.h \
+    $$SRCDIR/appletmanager/dcptranslationmanager.h \
 
 # base classes
 HEADERS += \

@@ -55,7 +55,7 @@ void QDir::setNameFilters(const QStringList &)
 
 QString QDir::absoluteFilePath(const QString &fileName) const
 {
-    return fileName;
+    return s_FakeDirMap[this] + "/" + fileName;
 }
 
 QStringList QDir::entryList(const QStringList & nameFilters, 
@@ -76,4 +76,10 @@ QStringList QDir::entryList(Filters filters,
     Q_UNUSED(sort);
 
     return s_FakeDirContentMap[s_FakeDirMap[this]];
+}
+
+bool QDir::exists(const QString &name) const
+{
+    qDebug() << "exists" << name << s_FakeDirContentMap[s_FakeDirMap[this]].contains(name);
+    return s_FakeDirContentMap[s_FakeDirMap[this]].contains(name);
 }

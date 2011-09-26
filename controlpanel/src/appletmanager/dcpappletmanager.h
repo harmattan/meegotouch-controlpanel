@@ -59,8 +59,13 @@ class DcpAppletManager : public QObject
         void addDesktopDir(const QString &dir);
         void loadMetadata();
         void loadMetadataAsync();
+        void preloadMetadata();
+        void preloadMetadataAsync();
         bool isMetadataLoaded();
         bool isMetadataLoadStarted();
+        bool mainPageAppletFound();
+        bool isMetadataPreloaded();
+        bool isMetadataPreloadStarted();
         bool loadDesktopFile(const QString &path);
 
         DcpAppletMetadataList list() const;
@@ -78,6 +83,7 @@ class DcpAppletManager : public QObject
 
     signals:
         void metadataLoaded();
+        void metadataPreloaded();
         void appletLoaded(DcpAppletObject *applet);
 
     protected:
@@ -99,6 +105,9 @@ class DcpAppletManager : public QObject
         QStringList m_DesktopFilesToProcess;
         bool m_IsMetadataLoaded;
         bool m_IsMetadataLoadStarted;
+        bool m_MainPageAppletFound;
+        bool m_IsMetadataPreloaded;
+        bool m_IsMetadataPreloadStarted;
 
         friend class Ut_DcpAppletManager;
 };

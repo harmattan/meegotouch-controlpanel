@@ -6,8 +6,6 @@ INCLUDEPATH += $$system(find $$SRCDIR -type d)
 INCLUDEPATH += $${LIBDCPINCLUDE}
 APPLETDBINCLUDE = $${LIBDCPINCLUDE}/../appletdb
 INCLUDEPATH += $${APPLETDBINCLUDE}
-INCLUDEPATH += $${LIBDCPINCLUDE}/../appletmanager
-INCLUDEPATH += /usr/include/m
 
 TARGET = ut_pagefactory
 
@@ -23,6 +21,7 @@ SOURCES += \
     $$STUBSDIR/mapplicationwindow-fake.cpp \
     $$LIBDCPFAKES/mgconfitem-fake.cpp \
     $$STUBSDIR/dcpappletmanager-fake.cpp \
+    $$STUBSDIR/dcptranslationmanager-fake.cpp \
     $$STUBSDIR/dcpcategories-fake.cpp \
     $$STUBSDIR/dcpappletplugin-fake.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
@@ -43,6 +42,7 @@ HEADERS += \
     $$SRCDIR/page/dcpappletpage.h \
     $$STUBSDIR/dcpappletplugin-applet.h \
     $$SRCDIR/appletmanager/dcpappletmanager.h \
+    $$SRCDIR/appletmanager/dcptranslationmanager.h \
 
 include(../common_bot.pri)
 

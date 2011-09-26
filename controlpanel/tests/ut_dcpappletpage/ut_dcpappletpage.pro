@@ -33,7 +33,7 @@ SOURCES += \
     $$STUBSDIR/dcpappletplugin-fake.cpp \
     $$STUBSDIR/dcpappletobject-fake.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
-    $$STUBSDIR/dcpretranslator-fake.cpp \
+    $$STUBSDIR/dcptranslationmanager-fake.cpp \
     $$STUBSDIR/qgraphicslinearlayout-fake.cpp \
     $$STUBSDIR/qgraphicsobject-fake.cpp \
     $$STUBSDIR/mlabel-fake.cpp \
@@ -51,6 +51,7 @@ HEADERS += \
     $$SRCDIR/page/dcppage.h \
     $$SRCDIR/page/pages.h \
     $$SRCDIR/component/dcpappletwidget.h \
+    $$SRCDIR/appletmanager/dcptranslationmanager.h \
 
 # base classes
 HEADERS += \

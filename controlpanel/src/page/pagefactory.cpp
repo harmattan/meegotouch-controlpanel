@@ -32,7 +32,7 @@
 #include <DcpAppletMetadata>
 #include <DcpAppletObject>
 #include <DcpWidgetTypes>
-#include <DcpRetranslator>
+#include "dcptranslationmanager.h"
 #include "dcpappletlauncherif.h"
 #include "duicontrolpanelif.h"
 #include "categoryutils.h"
@@ -73,9 +73,14 @@ PageFactory::PageFactory ():
         onAppletLoaded (applet);
     }
 
-    if (mng->isMetadataLoaded()) {
-        onMetadataLoaded ();
+    if (mng->isMetadataPreloaded()) {
+        onMetadataPreloaded();
+        if (mng->isMetadataLoaded()) {
+            onMetadataLoaded();
+        }
     } else {
+        connect (mng, SIGNAL(metadataPreloaded()), this, 
+                 SLOT(onMetadataPreloaded()));
         connect (mng, SIGNAL(metadataLoaded()), this, SLOT(onMetadataLoaded()));
     }
 }
@@ -171,13 +176,14 @@ PageFactory::createPage (const PageHandle &handle)
              * when closed.
              */
             DCP_DEBUG ("## MAIN ##");
-            if (mng->isMetadataLoaded()) {
+            if (mng->isMetadataPreloaded()) {
                 page = createMainPage();
             } else {
-                if (!mng->isMetadataLoadStarted()) {
-                    // start loading the desktop files
-                    mng->loadMetadataAsync(); 
-                }
+                // preload applet desktops that are shown on the main view
+                DcpDebug::start("preload_desktops");
+                // diable page change until applet desktops are fully loaded
+                m_PageChangeDisabled = true;
+                mng->preloadMetadataAsync();
                 if (m_PageWithDelayedContent) {
                     qWarning() << "request for re-creating a main page while another one is being built";
                     break;
@@ -189,6 +195,7 @@ PageFactory::createPage (const PageHandle &handle)
                 page = m_PageWithDelayedContent;
             }
             break;
+
         case PageHandle::APPLET:
             DCP_DEBUG ("## APPLET ##");
             // applets are already registered if this is shown
@@ -263,6 +270,12 @@ PageFactory::completeCategoryPage ()
         registerPage (m_PageWithDelayedContent);
         DcpDebug::end("createBody");
         m_PageWithDelayedContent = 0;
+    } else {
+        if (DcpAppletManager::instance()->mainPageAppletFound()) {
+            // there's a main page applet which was not loaded in the 
+            // preload phase, so we have to recreate the main view
+            switchToMainPageWithPageDropping();
+        }
     }
     DcpDebug::end("completeCategoryPage");
 
@@ -338,7 +351,7 @@ PageFactory::popupSheetIfAny (const PageHandle& handle)
 
         } else {
             // sheet is the first page, so its translation might not be loaded yet
-            DcpRetranslator::instance()->ensureTranslationLoaded (
+            DcpTranslationManager::instance()->ensureTranslationLoaded (
                     applet->metadata());
 
             // if we do not have a page yet, we can only display the sheet on a
@@ -692,6 +705,7 @@ PageFactory::raiseMainWindow()
     m_Win->show();
     m_Win->activateWindow();
     m_Win->raise();
+    qApp->flush();
 }
 
 void
@@ -791,8 +805,25 @@ void PageFactory::onMetadataLoaded ()
 {
     DcpDebug::end("applet reg");
     m_AppletsRegistered = true;
+    m_PageChangeDisabled = false;
     completeCategoryPage();
 }
+
+void PageFactory::onMetadataPreloaded ()
+{
+    DcpDebug::end("preload_desktops");
+    completeCategoryPage();
+
+    DcpAppletManager* mng = DcpAppletManager::instance();
+    if (!mng->isMetadataLoaded()) {
+        if (!mng->isMetadataLoadStarted()) {
+            // start loading the other desktop files
+            DcpDebug::start("applet reg");
+            mng->loadMetadataAsync(); 
+        }
+    }
+}
+
 
 inline bool pagePreventsQuit (MSceneWindow* mPage)
 {
@@ -918,7 +949,7 @@ void PageFactory::newWin ()
     m_Win->setStyleName ("CommonApplicationWindowInverted");
 
     // filters out unnecessery retranslate events:
-    m_Win->installEventFilter(DcpRetranslator::instance());
+    m_Win->installEventFilter(DcpTranslationManager::instance());
     // filters out close event if the page would refuse it:
     m_Win->installEventFilter(this);
 }

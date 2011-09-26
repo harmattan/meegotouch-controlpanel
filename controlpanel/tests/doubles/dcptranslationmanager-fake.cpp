@@ -17,43 +17,43 @@
 
 /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
-#include "dcpretranslator.h"
+#include "dcptranslationmanager.h"
 
 #include "dcpappletmetadata.h"
 
 #include <QString>
 #include <QSet>
 
-class DcpRetranslatorPriv {
+class DcpTranslationManagerPriv {
 public:
-    DcpRetranslatorPriv();
+    DcpTranslationManagerPriv();
     QSet<QString> loadedTranslations;
-    static DcpRetranslator* instance;
+    static DcpTranslationManager* instance;
 };
 
-DcpRetranslator* DcpRetranslatorPriv::instance = 0;
+DcpTranslationManager* DcpTranslationManagerPriv::instance = 0;
 
-DcpRetranslatorPriv::DcpRetranslatorPriv ()
+DcpTranslationManagerPriv::DcpTranslationManagerPriv ()
 {
 }
 
-DcpRetranslator::DcpRetranslator (): priv(new DcpRetranslatorPriv())
+DcpTranslationManager::DcpTranslationManager (): priv(new DcpTranslationManagerPriv())
 {
 }
 
-DcpRetranslator::~DcpRetranslator()
+DcpTranslationManager::~DcpTranslationManager()
 {
     delete priv;
-    DcpRetranslatorPriv::instance = 0;
+    DcpTranslationManagerPriv::instance = 0;
 }
 
 void
-DcpRetranslator::retranslate ()
+DcpTranslationManager::retranslate ()
 {
 }
 
 bool
-DcpRetranslator::loadAppletTranslation (
+DcpTranslationManager::loadAppletTranslation (
         MLocale                &,
         const DcpAppletMetadata  *metadata)
 {
@@ -63,7 +63,7 @@ DcpRetranslator::loadAppletTranslation (
 }
 
 void
-DcpRetranslator::ensureTranslationsAreLoaded(const DcpAppletMetadataList& list)
+DcpTranslationManager::ensureTranslationsAreLoaded(const DcpAppletMetadataList& list)
 {
     foreach (DcpAppletMetadata* metadata, list) {
         ensureTranslationLoaded(metadata);
@@ -71,31 +71,31 @@ DcpRetranslator::ensureTranslationsAreLoaded(const DcpAppletMetadataList& list)
 }
 
 void
-DcpRetranslator::ensureTranslationLoaded(DcpAppletMetadata* metadata)
+DcpTranslationManager::ensureTranslationLoaded(DcpAppletMetadata* metadata)
 {
     QStringList catalogList = metadata->translationCatalogs();
     priv->loadedTranslations.unite(catalogList.toSet());
 }
 
 void
-DcpRetranslator::ensureTranslationsAreLoaded(const QStringList &catalogs)
+DcpTranslationManager::ensureTranslationsAreLoaded(const QStringList &catalogs)
 {
     priv->loadedTranslations.unite(catalogs.toSet());
 }
 
 
-DcpRetranslator*
-DcpRetranslator::instance()
+DcpTranslationManager*
+DcpTranslationManager::instance()
 {
-    if (DcpRetranslatorPriv::instance == NULL)
+    if (DcpTranslationManagerPriv::instance == NULL)
     {
-        DcpRetranslatorPriv::instance = new DcpRetranslator();
+        DcpTranslationManagerPriv::instance = new DcpTranslationManager();
     }
-    return DcpRetranslatorPriv::instance;
+    return DcpTranslationManagerPriv::instance;
 }
 
 bool
-DcpRetranslator::eventFilter(QObject *obj, QEvent *event)
+DcpTranslationManager::eventFilter(QObject *obj, QEvent *event)
 {
     return QObject::eventFilter(obj, event);
 }

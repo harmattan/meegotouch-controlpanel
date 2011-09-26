@@ -10,6 +10,7 @@ TARGET = ut_dcpappletmanager
 TEST_SOURCES = \
     $$SRCDIR/appletmanager/dcpappletmanager.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
+    $$STUBSDIR/dcpconfig-fake.cpp \
     $$STUBSDIR/qdir-fake.cpp \
 
 # unit test and unit
@@ -25,5 +26,6 @@ SOURCES += \
 HEADERS += \
     ut_dcpappletmanager.h \
     $$SRCDIR/appletmanager/dcpappletmanager.h \
+    $$STUBSDIR/dcpconfig-fake.h \
     $$STUBSDIR/qdir-fake.h \
 

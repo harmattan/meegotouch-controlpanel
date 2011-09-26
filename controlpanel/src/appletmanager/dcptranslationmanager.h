@@ -30,21 +30,16 @@ typedef QList<DcpAppletMetadata*> DcpAppletMetadataList;
 /*! \brief makes translation reload automatically
  *  \details MApplication's localeSettingsChanged signal should be connected
  *  on the retranslate slot, which loads the new translation.
- *  Also handles loading applet translations, they just should have the filename
- *  "duicontrolpanel-<appletname>.qm"
+ *  Also handles loading applet translations, using DcpAsyncDb
  *
  * Widgets have to define their retranslateUi() virtual function properly, so
  * that changes (new translations) could be shown immediately. */
-#   ifndef DCP_DISABLE_DEPRECATION_WARNING
-class Q_DECL_DEPRECATED DcpRetranslator : public QObject
-#   else
-class DcpRetranslator : public QObject
-#   endif
+class DcpTranslationManager : public QObject
 {
     Q_OBJECT
 public:
-    static DcpRetranslator* instance();
-    ~DcpRetranslator();
+    static DcpTranslationManager* instance();
+    ~DcpTranslationManager();
     static void destroy();
 
     void setMainCatalogName (const QString& catalogName);
@@ -56,15 +51,15 @@ public slots:
    void retranslate();
 
 protected:
-    DcpRetranslator();
+    DcpTranslationManager();
     bool eventFilter(QObject *obj, QEvent *event);
     bool loadAppletTranslation (
             MLocale               &locale,
             const DcpAppletMetadata *metadata);
     bool loadTranslations (MLocale& locale,
                            const QStringList& catalogList);
-    class DcpRetranslatorPriv* priv;
-    friend class Ut_DcpRetranslator;
+    class DcpTranslationManagerPriv* priv;
+    friend class Ut_DcpTranslationManager;
 };
 
 #endif

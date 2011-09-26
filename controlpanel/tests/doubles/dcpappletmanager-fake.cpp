@@ -130,7 +130,7 @@ void
 DcpAppletManager::loadMetadataAsync()
 {
 //    QTimer::singleShot(0, this, SLOT(processSingleDesktopFile()));
-    processSingleDesktopFile();
+    emit metadataLoaded();
 }
 
 bool
@@ -141,6 +141,31 @@ DcpAppletManager::isMetadataLoaded()
 
 bool
 DcpAppletManager::isMetadataLoadStarted()
+{
+    return false;
+}
+
+void
+DcpAppletManager::preloadMetadata()
+{
+    FAKE->createTestApplet("preloaded-fake");
+}
+
+void
+DcpAppletManager::preloadMetadataAsync()
+{
+//    QTimer::singleShot(0, this, SLOT(processSingleDesktopFile()));
+    emit metadataPreloaded();
+}
+
+bool
+DcpAppletManager::isMetadataPreloaded()
+{
+    return true;
+}
+
+bool
+DcpAppletManager::isMetadataPreloadStarted()
 {
     return false;
 }
@@ -254,5 +279,11 @@ bool DcpAppletManager::containsName(const QString &name) const
 
 void DcpAppletManager::processSingleDesktopFile()
 {
-    emit metadataLoaded();
 }
+
+bool DcpAppletManager::mainPageAppletFound()
+{
+    return false;
+}
+
+

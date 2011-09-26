@@ -24,7 +24,7 @@
 #include <DcpAppletIf>
 #include <DcpAppletMetadata>
 #include <DcpAppletObject>
-#include <DcpRetranslator>
+#include "dcptranslationmanager.h"
 
 #include <MAction>
 #include <QProcess>
@@ -108,7 +108,7 @@ DcpAppletPage::load ()
 {
     if (m_Applet) {
         m_Applet->metadata()->markActive();
-        DcpRetranslator::instance()->ensureTranslationLoaded (
+        DcpTranslationManager::instance()->ensureTranslationLoaded (
                m_Applet->metadata());
 
        if (m_Applet->isAppletLoaded()) {

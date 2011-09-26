@@ -18,7 +18,7 @@
 /* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
 /* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
 
-#include <DcpRetranslator>
+#include "dcptranslationmanager.h"
 #include "service/duicontrolpanelservice.h"
 #include "service/dcpappletlauncherservice.h"
 #include "dcpappletmanager.h"
@@ -64,7 +64,7 @@ startMainApplication (int argc, char* argv[])
     MApplication *app = createApplication (argc, argv, service);
 
     // install the new translations if locale changes:
-    DcpRetranslator* retranslator = DcpRetranslator::instance();
+    DcpTranslationManager* retranslator = DcpTranslationManager::instance();
     QObject::connect(app, SIGNAL(localeSettingsChanged()),
                      retranslator, SLOT(retranslate()));
 
@@ -72,7 +72,7 @@ startMainApplication (int argc, char* argv[])
      * the translations of duicontrolpanel turned out to be in catalog
      * "settings"
      */
-    DcpRetranslator::instance()->setMainCatalogName("settings");
+    DcpTranslationManager::instance()->setMainCatalogName("settings");
 
     // we create the start page here
     service->createStartPage();
@@ -108,7 +108,7 @@ void cleanup ()
     PageFactory::destroy();
 
     // free up singletons:
-    DcpRetranslator::destroy();
+    DcpTranslationManager::destroy();
     DcpWrongApplets::destroyInstance();
     MostUsedCounter::destroy();
     DcpCategories::destroy();
