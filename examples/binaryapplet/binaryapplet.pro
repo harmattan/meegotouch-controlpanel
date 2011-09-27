@@ -3,6 +3,7 @@ TEMPLATE      = subdirs
 SUBDIRS += itemlike \
            sheet \
            buttonlike \
+           combobox \
            sliderlike \
            togglelike \
            multipage \

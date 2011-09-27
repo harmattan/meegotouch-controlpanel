@@ -66,6 +66,7 @@ public:
 
     DcpBrief* brief() const;
     QVariant value() const;
+    QVariantList possibleValues() const;
     int minValue() const;
     int maxValue() const;
     int sliderSteps() const;

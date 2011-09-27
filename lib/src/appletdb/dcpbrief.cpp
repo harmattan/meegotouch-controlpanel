@@ -137,3 +137,8 @@ QVariant DcpBrief::value() const
     return QVariant();
 }
 
+QVariantList DcpBrief::possibleValues() const
+{
+    return QVariantList();
+}
+

@@ -42,6 +42,7 @@ namespace DcpWidgetType
             Button,
             Special,
             Slider,
+            ComboBox,
             IdMax
         };
         const QString  
@@ -53,7 +54,8 @@ namespace DcpWidgetType
             "Image",
             "Button",
             "Special",
-            "Slider"
+            "Slider",
+            "ComboBox"
         };
         bool isIdValid(int id); 
 };

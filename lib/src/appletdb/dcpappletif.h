@@ -105,7 +105,7 @@ public:
      * the interface the plugin was compiled with. It lets controlpanel
      * extend the interface without the need to recompile all applets.
      */
-    virtual int interfaceVersion() { return 9; }
+    virtual int interfaceVersion() { return 10; }
 
     /*!
      * \brief Contstructs the widget specified by widgetId that the applet

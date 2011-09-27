@@ -37,6 +37,7 @@ static const char* sliderObjectName = "CommonSliderInverted";
 static const char* commonPanelObjectName = "CommonPanelInverted";
 static const char* largePanelObjectName = "CommonLargePanelInverted";
 static const char* sliderSeparatorStyleName = "CommonItemDividerInverted";
+static const char* comboBoxStyleName = "CommonComboBoxInverted";
 
 DcpContentItemPrivate::DcpContentItemPrivate ():
     m_Applet (0),
@@ -51,7 +52,8 @@ DcpContentItemPrivate::DcpContentItemPrivate ():
     m_Slider (0),
     m_Spacer (0),
     m_Separator (0),
-    m_Separator2 (0)
+    m_Separator2 (0),
+    m_ComboBox (0)
 {
 }
 
@@ -74,6 +76,7 @@ DcpContentItem::DcpContentItem (
 DcpContentItem::~DcpContentItem ()
 {
     // these widgets might not be on the layout, so we ensure they are removed:
+    delete d_ptr->m_Text1W;
     delete d_ptr->m_Text2W;
     delete d_ptr->m_Spacer;
 
@@ -229,6 +232,61 @@ DcpContentItem::onToggleChanged (bool toggle)
 }
 
 void
+DcpContentItem::onComboBoxActivated (int pos)
+{
+    if (applet()) {
+        applet()->setValue (pos);
+    }
+}
+
+void
+DcpContentItem::ensureComboBoxIsCreated()
+{
+    // create / free up combobox:
+    MComboBox* &combo = d_ptr->m_ComboBox;
+    if (widgetType() == DcpWidgetType::ComboBox) {
+        if (!combo) {
+            combo = new MComboBox ();
+            combo->setStyleName (comboBoxStyleName);
+            combo->setMinimumWidth (0);
+            d_ptr->m_LayoutIsToBeChanged = true;
+            connect (combo, SIGNAL (activated(int)),
+                     this, SLOT (onComboBoxActivated(int)));
+        }
+
+        combo->setTitle (title());
+        combo->clear();
+
+        if (applet()) {
+            // set the current list of items:
+            QVariantList list = applet()->possibleValues();
+            foreach (QVariant value, list) {
+                QString valueStr = value.toString();
+                if (!valueStr.isEmpty()) {
+                    combo->addItem (value.toString());
+                } else {
+                    qWarning ("\"%s\": ComboBox possible value skipped (empty),"
+                              " the index will not be in sync!",
+                              qPrintable (metadata()->name()));
+                }
+            }
+
+            // set the current position:
+            bool ok = false;
+            int pos = applet()->value().toInt(&ok);
+            if (!ok) pos = -1;
+            combo->setCurrentIndex (pos);
+        }
+    } else {
+        if (combo) {
+            delete combo;
+            combo = 0;
+            d_ptr->m_LayoutIsToBeChanged = true;
+        }
+    }
+}
+
+void
 DcpContentItem::ensureToggleIsCreated()
 {
     // create / free up toggle:
@@ -292,6 +350,10 @@ void
 DcpContentItem::ensureTextsAreCreated()
 {
     dcp_failfunc_unless (metadata());
+
+    // these widgets does not need labels:
+    if (widgetType() == DcpWidgetType::ComboBox) return;
+
     QString text2 = this->subtitle();
     MLabel* &label1 = d_ptr->m_Text1W;
     MLabel* &label2 = d_ptr->m_Text2W;
@@ -371,7 +433,9 @@ DcpContentItem::ensureWidgetsAreLayouted()
     }
 
     // clicking on the item is disabled based on if the applet has a mainView
-    if (!metadata() || !metadata()->hasMainView()) {
+    if (!d_ptr->m_ComboBox &&
+        (!metadata() || !metadata()->hasMainView()))
+    {
         setAcceptedMouseButtons (Qt::NoButton);
     } else {
         setAcceptedMouseButtons (
@@ -395,8 +459,39 @@ DcpContentItem::ensureWidgetsAreLayouted()
                        rowCount, 1, Qt::AlignCenter);
     }
 
-    // slider is somewhat special:
-    if (!d_ptr->m_Slider) {
+    if (d_ptr->m_Slider) {
+        // slider:
+        int columnCount = d_ptr->m_Help ? 2 : 1;
+        int rows = 2;
+        grid->addItem (d_ptr->m_Separator, 0, textX, 1, columnCount);
+        grid->addItem (d_ptr->m_Text1W, 1, textX);
+        if (!d_ptr->m_Slider->isEnabled() && secondLineHasText) {
+            grid->addItem (d_ptr->m_Text2W, 2, textX, 1,
+                           columnCount, Qt::AlignTop);
+            d_ptr->m_Text2W->show();
+            rows++;
+        } else {
+            if (d_ptr->m_Text2W) {
+                d_ptr->m_Text2W->hide();
+            }
+        }
+        grid->addItem (d_ptr->m_Slider, rows, textX, 1,
+                       columnCount, Qt::AlignCenter);
+        grid->addItem (d_ptr->m_Separator2, ++rows, textX, 1, columnCount);
+        if (styleName() != largePanelObjectName) {
+            setStyleName (largePanelObjectName);
+        }
+        if (d_ptr->m_Spacer) d_ptr->m_Spacer->hide();
+
+    } else if (d_ptr->m_ComboBox) {
+        // combobox:
+        grid->addItem (d_ptr->m_ComboBox, 0, textX, Qt::AlignCenter);
+        if (d_ptr->m_Text1W) d_ptr->m_Text1W->hide();
+        if (d_ptr->m_Text2W) d_ptr->m_Text2W->hide();
+        if (d_ptr->m_Spacer) d_ptr->m_Spacer->hide();
+
+    } else {
+        // normal (not slider, not combobox):
         if (!isTextHorizontal) {
             // vertical mode:
             if (!secondLineHasText) {
@@ -417,34 +512,11 @@ DcpContentItem::ensureWidgetsAreLayouted()
             grid->addItem (d_ptr->m_Text2W, 0, textX+1, Qt::AlignVCenter);
             textX++;
         }
+    }
+
+    if (!d_ptr->m_Slider) {
         if (styleName() != commonPanelObjectName) {
             setStyleName (commonPanelObjectName);
-        }
-    } else {
-        int columnCount = d_ptr->m_Help ? 2 : 1;
-        int rows = 2;
-        grid->addItem (d_ptr->m_Separator, 0, textX, 1, columnCount);
-        grid->addItem (d_ptr->m_Text1W, 1, textX);
-        if (!d_ptr->m_Slider->isEnabled() && secondLineHasText) {
-            grid->addItem (d_ptr->m_Text2W, 2, textX, 1,
-                           columnCount, Qt::AlignTop);
-//            grid->addItem (d_ptr->m_Spacer, 3, textX);
-            d_ptr->m_Text2W->show();
-//            d_ptr->m_Spacer->show();
-            rows++;
-        } else {
-            if (d_ptr->m_Text2W) {
-                d_ptr->m_Text2W->hide();
-            }
-            if (d_ptr->m_Spacer) {
-                d_ptr->m_Spacer->hide();
-            }
-        }
-        grid->addItem (d_ptr->m_Slider, rows, textX, 1,
-                       columnCount, Qt::AlignCenter);
-        grid->addItem (d_ptr->m_Separator2, ++rows, textX, 1, columnCount);
-        if (styleName() != largePanelObjectName) {
-            setStyleName (largePanelObjectName);
         }
     }
 
@@ -460,7 +532,7 @@ DcpContentItem::ensureWidgetsAreLayouted()
         toggleX++;
     }
 
-    if (!d_ptr->m_ButtonW && !d_ptr->m_Slider) {
+    if (!d_ptr->m_ButtonW && !d_ptr->m_Slider && !d_ptr->m_ComboBox) {
         if (!d_ptr->m_DrillImage) {
             d_ptr->m_DrillImage =
                 new MImageWidget("icon-m-common-drilldown-arrow-inverse", this);
@@ -496,6 +568,7 @@ DcpContentItem::constructRealWidget ()
     ensureImageIsCreated();
     ensureToggleIsCreated();
     ensureTextsAreCreated();
+    ensureComboBoxIsCreated();
     ensureSliderIsCreated();
 
     // we set them in the layout correctly
@@ -613,6 +686,7 @@ void
 DcpContentItem::updateText ()
 {
     ensureTextsAreCreated();
+    ensureComboBoxIsCreated();
     ensureWidgetsAreLayouted();
 }
 

@@ -368,6 +368,14 @@ QVariant DcpAppletObject::value() const
     return QVariant();
 }
 
+QVariantList DcpAppletObject::possibleValues() const
+{
+    if (briefVersion() >= 10) {
+        return brief()->possibleValues();
+    }
+    return QVariantList();
+}
+
 /*! \brief Version of the DcpBrief of the applet.
  *
  * Similar to interfaceVersion(), except that this function returns the

@@ -200,6 +200,15 @@ public:
      */
     virtual QVariant value() const;
 
+
+    /*!
+     * returns a list of possible values
+     * It is used currently for the ComboBox type to return the possible
+     * values the user can choose from.
+     * The applet can emit valuesChanged() if the possible values changes.
+     */
+    virtual QVariantList possibleValues () const;
+
 };
 
 

@@ -101,6 +101,7 @@ protected slots:
     void updateContents ();
 
     void onClicked ();
+    void onComboBoxActivated (int position);
     void sliderChanged(int value);
     void onToggleChanged (bool toggle);
 
@@ -136,6 +137,7 @@ private:
     // creating widgets, layouts:
     void ensureLayoutIsCreated(QGraphicsGridLayout*& layout);
     void ensureImageIsCreated();
+    void ensureComboBoxIsCreated();
     void ensureToggleIsCreated();
     void ensureTextsAreCreated();
     void ensureWidgetsAreLayouted();
