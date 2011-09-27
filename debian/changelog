@@ -1,4 +1,4 @@
-duicontrolpanel (0.14.1~unreleased) unstable; urgency=low
+duicontrolpanel (0.14.1) unstable; urgency=low
 
   [ Viktor Nagy ]
   * Fixes: NB#266453 - [Performance] Response time open settings
