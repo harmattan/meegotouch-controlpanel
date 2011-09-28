@@ -126,6 +126,7 @@ The widget type of the launch button. Can be one of the following:
 <li>Toggle - Like Label with a toggle button on the right
 <li>Button - A big button with the applet title on it which can be toggled.
 <li>Slider - A slider, optionally with two icons on the left and right side without any labels
+<li>ComboBox - A combo box which offers a choice from elements through a dialog
 </ul>
 
 \par HelpId
