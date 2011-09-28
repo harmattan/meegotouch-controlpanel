@@ -186,6 +186,8 @@ void BriefSupplier::outputBrief (DcpAppletObject* applet, bool textOnly)
                 maxValue = brief->maxValue();
                 sliderSteps = brief->sliderSteps();
                 value = brief->value();
+            case DcpWidgetType::ComboBox:
+                value = brief->value();
             default:
                 break;
         }
@@ -196,6 +198,18 @@ void BriefSupplier::outputBrief (DcpAppletObject* applet, bool textOnly)
     output (OutputName, appletName);
     output (OutputTitleText, titleText);
     output (OutputValueText, valueText, true);
+    if (widgetTypeID == DcpWidgetType::ComboBox) {
+        QVariantList list = brief->possibleValues();
+        QString listStr;
+        listStr.reserve (128);
+        foreach (QVariant value, list) {
+            listStr += value.toString() + BSupplier::ParamSeparator;
+        }
+        if (listStr.endsWith (BSupplier::ParamSeparator)) {
+            listStr.chop(1);
+        }
+        output (OutputPossibleValues, listStr);
+    }
 
     if (!textOnly) {
         output (OutputWidgetTypeID, widgetTypeID);

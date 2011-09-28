@@ -130,6 +130,19 @@ QString DcpRemoteBrief::helpId () const
     return get (BSupplier::OutputHelpId);
 }
 
+QVariantList DcpRemoteBrief::possibleValues () const
+{
+    QString listStr = get (BSupplier::OutputPossibleValues);
+    if (listStr.isEmpty()) return QVariantList();
+
+    QStringList list = listStr.split (BSupplier::ParamSeparator);
+    QVariantList vlist;
+    foreach (QString item, list) {
+        vlist << item;
+    }
+    return vlist;
+}
+
 QString DcpRemoteBrief::get (const char* id) const
 {
     return priv->values.value (id).trimmed();
@@ -144,4 +157,5 @@ void DcpRemoteBrief::emitChange ()
 {
     emit valuesChanged ();
 }
+
 

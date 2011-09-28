@@ -281,7 +281,8 @@ void DcpRemoteBriefReceiver::onReadyRead()
                 BSupplier::OutputValue,
                 BSupplier::OutputMinValue,
                 BSupplier::OutputMaxValue,
-                BSupplier::OutputValueStep
+                BSupplier::OutputValueStep,
+                BSupplier::OutputPossibleValues
             };
             int keyCount = sizeof(keys)/sizeof(const char*);
             int i;

@@ -47,6 +47,7 @@ extern const char* OutputValue;
 extern const char* OutputMinValue;
 extern const char* OutputMaxValue;
 extern const char* OutputValueStep;
+extern const char* OutputPossibleValues;
 
 // parameter separator:
 extern const QChar ParamSeparator;

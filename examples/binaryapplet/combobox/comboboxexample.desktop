@@ -20,5 +20,4 @@ X-DUIApplet-Applet=libdcpcomboboxapplet.so
 Category=Binary Applets
 Order=100
 WidgetType=ComboBox
-ForceInProcessBrief=1
 

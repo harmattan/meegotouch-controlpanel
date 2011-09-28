@@ -39,7 +39,7 @@ const char* BSupplier::OutputValue = "value";
 const char* BSupplier::OutputMinValue = "minValue";
 const char* BSupplier::OutputMaxValue = "maxValue";
 const char* BSupplier::OutputValueStep = "sliderSteps";
-
+const char* BSupplier::OutputPossibleValues = "possibleValues";
 
 const QChar BSupplier::ParamSeparator;
 

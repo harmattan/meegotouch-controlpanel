@@ -38,6 +38,7 @@ public:
     virtual QVariant value() const;
     virtual int sliderSteps() const;
     virtual void setValue(const QVariant& value);
+    virtual QVariantList possibleValues () const;
 
     QString name () const;
     QString get (const char* id) const;
