@@ -59,7 +59,8 @@ DcpAppletButtons::DcpAppletButtons (
     m_List (new MList(this)),
     m_Page (ownerPage),
     m_SubHeader (0),
-    m_HasButton (false)
+    m_HasButton (false),
+    m_MainAppletCount (0)
 {
     DcpContentItemCellCreator* cellCreator = new DcpContentItemCellCreator();
     m_List->setCellCreator(cellCreator);
@@ -177,7 +178,7 @@ DcpAppletButtons::createContents ()
     }
 
     // subheader with separator if we have
-    if (!subHeaderText.isEmpty() && !mainApplets.isEmpty() && !m_SubHeader) {
+    if (!subHeaderText.isEmpty() && m_MainAppletCount > 0 && !m_SubHeader) {
         MStylableWidget* row = new MStylableWidget();
         row->setStyleName ("CommonGroupHeaderPanelInverted");
 
@@ -201,7 +202,7 @@ DcpAppletButtons::createContents ()
     }
 
     // subheader without separator
-    if (!subHeaderText.isEmpty() && mainApplets.isEmpty() && !m_SubHeader) {
+    if (!subHeaderText.isEmpty() && m_MainAppletCount == 0 && !m_SubHeader) {
         m_SubHeader = new MLabel ();
         m_SubHeader->setStyleName ("CommonBodyTextInverted");
 
@@ -267,6 +268,7 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
     if (mainApplets.contains (name)) {
         mLayout()->insertItem (getItemCount()-1,
                                createDefault (applet, metadata));
+        m_MainAppletCount++;
         return;
     }
 

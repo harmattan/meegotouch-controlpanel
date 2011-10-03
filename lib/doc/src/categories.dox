@@ -102,6 +102,12 @@ specified help content will be opened in the current userguide application.
 Its value can override the style name for the title in case the default is not
 acceptable.
 
+\par MainApplets
+The main applets are the first applets of a category, visually
+separated from the others. This key can contain a list of their names separated
+by commas. Default is no main applets.
+
+
 Example:
 \code
 Parent=MainPage

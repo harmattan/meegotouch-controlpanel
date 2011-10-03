@@ -87,6 +87,7 @@ private:
     DcpPage* m_Page; // the page the widget is on, or 0 if unknown
     MLabel* m_SubHeader;
     bool m_HasButton;
+    int m_MainAppletCount;
 };
 
 #endif

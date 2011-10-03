@@ -11,5 +11,7 @@ Translation-catalogs=home
 AutoStartApplet=1
 HideIfEmpty=1
 
+MainApplets=EventFeedUpdate
+
 Order=20
 
