@@ -1,4 +1,4 @@
-duicontrolpanel (0.14.2) unstable; urgency=low
+duicontrolpanel (0.14.2.1~unreleased) unstable; urgency=low
 
   * Fixes: NB#283817 - [TASK] support for adding combobox-plugin into a
     settings category page
@@ -25,6 +25,13 @@ duicontrolpanel (0.14.0.1) unstable; urgency=low
     instead of drilldowns
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 19 Sep 2011 09:45:18 +0200
+
+duicontrolpanel (0.13.5) unstable; urgency=low
+
+  * Fixes: NB#284849 - Settings: Label 'Show events from' with colon ':'
+    needs to appear on the right side
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 03 Oct 2011 10:12:10 +0200
 
 duicontrolpanel (0.13.4) unstable; urgency=low
 

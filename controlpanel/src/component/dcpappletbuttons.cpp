@@ -37,6 +37,7 @@
 #include <DcpWidgetTypes>
 
 #include "dcptranslationmanager.h"
+#include <MLocale>
 
 #include <MList>
 #include <MListItem>
@@ -112,6 +113,15 @@ DcpAppletButtons::retranslateUi()
                             : QString();
     if (m_SubHeader) {
         m_SubHeader->setText (subHeaderText);
+
+        // this works around a meegotouch limitation that the MLabel does not set
+        // the text direction correctly:
+        m_SubHeader->setAlignment (
+                MLocale::directionForText (subHeaderText) == Qt::RightToLeft ?
+                Qt::AlignAbsolute | Qt::AlignRight : Qt::AlignLeft
+        );
+
+
     }
 }
 
@@ -181,7 +191,7 @@ DcpAppletButtons::createContents ()
         sep->setContentsMargins(0, 0, 0, 0);
         sep->setStyleName("CommonGroupHeaderDividerInverted");
 
-        m_SubHeader = new MLabel (subHeaderText);
+        m_SubHeader = new MLabel ();
         m_SubHeader->setStyleName ("CommonGroupHeaderInverted");
         lout->addItem(sep);
         lout->setAlignment (sep, Qt::AlignVCenter);
@@ -192,8 +202,9 @@ DcpAppletButtons::createContents ()
 
     // subheader without separator
     if (!subHeaderText.isEmpty() && mainApplets.isEmpty() && !m_SubHeader) {
-        m_SubHeader = new MLabel (subHeaderText);
+        m_SubHeader = new MLabel ();
         m_SubHeader->setStyleName ("CommonBodyTextInverted");
+
         mLayout()->insertItem (getItemCount()-1, m_SubHeader);
     }
 
@@ -205,6 +216,7 @@ DcpAppletButtons::createContents ()
             QString ("DcpAppletButtons::") +
             m_CategoryInfo->titleId() + "::" +
             m_CategoryInfo->name());
+    retranslateUi ();
 }
 
 
