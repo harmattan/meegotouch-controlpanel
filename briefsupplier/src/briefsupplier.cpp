@@ -216,7 +216,8 @@ void BriefSupplier::outputBrief (DcpAppletObject* applet, bool textOnly)
         output (OutputIcon, image.isEmpty() ? icon : image);
         if (widgetTypeID == DcpWidgetType::Toggle ||
             widgetTypeID == DcpWidgetType::Button ||
-            widgetTypeID == DcpWidgetType::Slider)
+            widgetTypeID == DcpWidgetType::Slider ||
+            widgetTypeID == DcpWidgetType::ComboBox)
         {
             output (OutputValue, value.toString(), true);
         }
