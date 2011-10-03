@@ -33,6 +33,9 @@ public:
 
     virtual QVariantList possibleValues () const;
 
+public slots:
+    void nextValue ();
+
 private:
     QString currentValueStr () const;
 

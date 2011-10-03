@@ -17,13 +17,22 @@
 
 #include <DcpWidgetTypes>
 #include "dcpcomboboxbrief.h"
+#include <QTimer>
 
+// #define VALUES_ALWAYS_CHANGE
 
 ComboBoxExampleBrief::ComboBoxExampleBrief():
     m_CurrentIndex(-1)
 {
     m_PossibleValues << QString("red") << QString("green") << QString ("blue")
                      << QString("Previous");
+
+#ifdef VALUES_ALWAYS_CHANGE
+    // tests if it is possible to change the value
+    QTimer * timer = new QTimer (this);
+    connect (timer, SIGNAL(timeout()), this, SLOT(nextValue()));
+    timer->start (1000);
+#endif
 }
 
 QString ComboBoxExampleBrief::currentValueStr () const
@@ -73,5 +82,13 @@ int ComboBoxExampleBrief::widgetTypeID() const
 QVariantList ComboBoxExampleBrief::possibleValues () const
 {
     return m_PossibleValues;
+}
+
+// this slot demonstrates that control panel reflects if the value
+// changes. valuesChanged() signal has to be emitted, to notify control
+// panel
+void ComboBoxExampleBrief::nextValue ()
+{
+    setValue ((m_CurrentIndex+1) % 3);
 }
 
