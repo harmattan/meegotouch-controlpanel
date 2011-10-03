@@ -1,3 +1,10 @@
+duicontrolpanel (0.13.5) unstable; urgency=low
+
+  * Fixes: NB#284849 - Settings: Label 'Show events from' with colon ':'
+    needs to appear on the right side
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Mon, 03 Oct 2011 10:12:10 +0200
+
 duicontrolpanel (0.13.4) unstable; urgency=low
 
   * Fixes: NB#280032 - Settings: Wrong alignment in settings view

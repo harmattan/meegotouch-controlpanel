@@ -100,3 +100,9 @@ MLocale::Comparison MCollator::compare(const QString &, const QString &)
 {
     return MLocale::GreaterThan;
 }
+
+Qt::LayoutDirection  MLocale::directionForText (const QString &text)
+{
+    return Qt::LeftToRight;
+}
+

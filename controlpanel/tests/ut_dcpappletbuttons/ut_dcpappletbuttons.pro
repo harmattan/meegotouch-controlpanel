@@ -28,6 +28,7 @@ SOURCES += \
     $$STUBSDIR/dcpappletmanager-fake.cpp \
     $$LIBDCPFAKES/mgconfitem-fake.cpp \
     $$LIBDCPFAKES/mhelpbutton-fake.cpp \
+    $$LIBDCPFAKES/mlocale-fake.cpp \
     $$STUBSDIR/dcpappletmetadata-fake.cpp \
     $$STUBSDIR/dcpretranslator-fake.cpp \
     $$STUBSDIR/mwidgetcontroller-fake.cpp \
