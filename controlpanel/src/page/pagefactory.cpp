@@ -36,6 +36,7 @@
 #include "dcpappletlauncherif.h"
 #include "duicontrolpanelif.h"
 #include "categoryutils.h"
+#include "dcpperflogger.h"
 
 #include <MApplication>
 #include <MComponentCache>
@@ -269,7 +270,9 @@ PageFactory::completeCategoryPage ()
         m_PageWithDelayedContent->createBody();
         registerPage (m_PageWithDelayedContent);
         DcpDebug::end("createBody");
+        DCP_PERF_RECORD_EVENT("complete_category_page");
         m_PageWithDelayedContent = 0;
+        QTimer::singleShot (0, this, SLOT(postCompleteCategoryPage()));
     } else {
         if (DcpAppletManager::instance()->mainPageAppletFound()) {
             // there's a main page applet which was not loaded in the 
@@ -283,6 +286,12 @@ PageFactory::completeCategoryPage ()
     if (m_StartupState == NothingStarted) {
         QTimer::singleShot (0, this, SLOT(preloadBriefReceiver()));
     }
+}
+
+void
+PageFactory::postCompleteCategoryPage ()
+{
+    DCP_PERF_RECORD_EVENT("complete_category_page_post");
 }
 
 /*!

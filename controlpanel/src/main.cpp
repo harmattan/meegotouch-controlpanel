@@ -30,6 +30,7 @@
 #include "dcpcategories.h"
 
 #include "dcpdebug.h"
+#include "dcpperflogger.h"
 
 #include <cstdio>
 #include <sys/wait.h>
@@ -124,6 +125,8 @@ void cleanup ()
 
 M_EXPORT int main(int argc, char *argv[])
 {
+    DCP_PERF_RECORD_EVENT("process_start");
+    
     DcpDebug::start("main_init");
     // disables applet supervisor since only the helper process needs it
     DcpWrongApplets::disable();
