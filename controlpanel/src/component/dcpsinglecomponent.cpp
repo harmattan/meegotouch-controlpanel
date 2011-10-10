@@ -23,6 +23,7 @@
 
 #include "dcpdebug.h"
 #include "category.h"
+#include "dcpperflogger.h"
 
 #include <QtGui/QGraphicsGridLayout>
 
@@ -103,6 +104,7 @@ QGraphicsLayout *DcpSingleComponent::createLayout()
 void
 DcpSingleComponent::activate ()
 {
+    DCP_PERF_RECORD_EVENT(m_TDriverID + "_activated");
     PageFactory *pageFactory = PageFactory::instance();
     pageFactory->changePage (subPage());
 }

@@ -715,6 +715,7 @@ PageFactory::raiseMainWindow()
     m_Win->activateWindow();
     m_Win->raise();
     qApp->flush();
+    DCP_PERF_RECORD_EVENT("main_window_raised");
 }
 
 void
@@ -734,6 +735,7 @@ PageFactory::appear (MApplicationPage* page)
         // with animation:
         page->appear (win,MSceneWindow::DestroyWhenDismissed);
     }
+    DCP_PERF_RECORD_EVENT("page_appearing");
 }
 
 void

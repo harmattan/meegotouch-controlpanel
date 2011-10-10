@@ -29,19 +29,11 @@
 
 #include "dcpperflogger.h"
 
+#ifdef PERF_MEASUREMENT
 static DcpPerfLogger g_dcpPerfLoggerInstance;
 
-const char *LogfileName = "/tmp/dcpperf.log";
-
-DcpPerfLogger::DcpPerfLogger() : m_logFd(-1), m_pid(0)
+DcpPerfLogger::DcpPerfLogger() : m_logFd(-1)
 {
-    m_logFd = open(LogfileName, O_WRONLY | O_CREAT | O_APPEND, 
-                   S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-    if (m_logFd < 0) {
-        qCritical() << "could not open" << LogfileName << errno;
-    }
-
-    m_pid = getpid();
 }
 
 DcpPerfLogger::~DcpPerfLogger()
@@ -60,6 +52,16 @@ DcpPerfLogger &DcpPerfLogger::instance()
     return g_dcpPerfLoggerInstance;
 }
 
+void DcpPerfLogger::startLogging(const QString &filename)
+{
+    m_logFd = open(filename.toAscii().data(), 
+                   O_WRONLY | O_CREAT | O_APPEND, 
+                   S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+    if (m_logFd < 0) {
+        qCritical() << "could not open" << filename << errno;
+    }
+}
+
 void DcpPerfLogger::recordEvent(const QString &event)
 {
     if (m_logFd < 0) {
@@ -69,7 +71,7 @@ void DcpPerfLogger::recordEvent(const QString &event)
     static char buf[1024];
     qint64 msecs = QDateTime::currentDateTime().toMSecsSinceEpoch();
     int len = snprintf(buf, sizeof(buf), "%lld %s %d\n", 
-                       msecs, event.toUtf8().data(), m_pid); 
+                       msecs, event.toUtf8().data(), getpid()); 
     int writeSt = 0;
     if (len >= (int)sizeof(buf)) {
         qWarning() << "message truncated in performance log:" << msecs << event;
@@ -83,3 +85,4 @@ void DcpPerfLogger::recordEvent(const QString &event)
     }
 }
 
+#endif // PERF_MEASUREMENT

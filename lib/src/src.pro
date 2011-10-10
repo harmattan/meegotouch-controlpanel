@@ -16,6 +16,10 @@ MOSTUSED {
 # this has to be above finds, because it generates .h .cpp files
 include(service_interface/service_interface.pri)
 
+PERF_MEASUREMENT {
+    DEFINES += PERF_MEASUREMENT
+}
+
 # Input
 HEADERS += $$system(find ./ -name \'*.h\')
 SOURCES += $$system(find ./ -name \'*.cpp\' -not -name \'moc_*\')
