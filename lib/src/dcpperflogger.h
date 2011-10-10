@@ -35,7 +35,6 @@ class DcpPerfLogger {
 
     private:
         int m_logFd;
-        pid_t m_pid;
 #endif //PERF_MEASUREMENT        
 };
 
