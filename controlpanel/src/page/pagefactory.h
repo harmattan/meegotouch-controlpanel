@@ -93,6 +93,7 @@ protected:
 
 private slots:
     void completeCategoryPage ();
+    void postCompleteCategoryPage ();
     void onMetadataLoaded ();
     void onMetadataPreloaded ();
 

@@ -4,6 +4,10 @@ MOSTUSED {
     DEFINES += MOSTUSED
 }
 
+PERF_MEASUREMENT {
+    DEFINES += PERF_MEASUREMENT
+}
+
 QMAKE_LIBDIR += ../../lib/lib/
 
 include (launchers/launchers.pri)
