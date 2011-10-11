@@ -1,3 +1,9 @@
+duicontrolpanel (0.14.3~unreleased) unstable; urgency=low
+
+  * changelog up
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Tue, 11 Oct 2011 10:41:51 +0200
+
 duicontrolpanel (0.14.2.2) unstable; urgency=low
 
   * Fixes: NB#283817 - [TASK] support for adding combobox-plugin into a

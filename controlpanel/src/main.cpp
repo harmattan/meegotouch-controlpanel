@@ -114,6 +114,13 @@ void cleanup ()
     DcpCategories::destroy();
     DcpAppletManager::destroyInstance();
 
+#if 0
+    // debug tool
+    foreach (QObject* object, MApplication::instance()->children()) {
+        qDebug ("application children: %s", object->metaObject()->className());
+    }
+#endif
+
     // free up application:
     // This was disabled as a temporary workaround for a bug which I could not
     // reproduce, but which keeps coming on coreweb (NB#223592)
