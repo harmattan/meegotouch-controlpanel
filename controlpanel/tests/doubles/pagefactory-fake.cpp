@@ -127,6 +127,10 @@ void PageFactory::completeCategoryPage()
 {
 }
 
+void PageFactory::postCompleteCategoryPage()
+{
+}
+
 void PageFactory::onMetadataLoaded()
 {
 }

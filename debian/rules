@@ -57,6 +57,10 @@ ifneq (,$(filter mostused,$(TMP_BUILD_OPTS)))
     QMAKE_ARG += CONFIG+=MOSTUSED
 endif
 
+ifneq (,$(filter perfmeasurement,$(TMP_BUILD_OPTS)))
+    QMAKE_ARG += CONFIG+=PERF_MEASUREMENT
+endif
+
 ifneq (,$(filter parallel=%,$(TMP_BUILD_OPTS)))
     NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(TMP_BUILD_OPTS)))
     PARALLEL_MAKEFLAGS += -j$(NUMJOBS)
