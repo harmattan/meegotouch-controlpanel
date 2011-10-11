@@ -25,16 +25,17 @@
 #include <QString>
 
 class DcpPerfLogger {
-
+#ifdef PERF_MEASUREMENT
     public:
         DcpPerfLogger();
         ~DcpPerfLogger();
         static DcpPerfLogger &instance();
+        void startLogging(const QString &filename);
         void recordEvent(const QString &event);
 
     private:
         int m_logFd;
-        pid_t m_pid;
+#endif //PERF_MEASUREMENT        
 };
 
 inline
@@ -43,6 +44,15 @@ void DCP_PERF_RECORD_EVENT(const QString &event) {
     DcpPerfLogger::instance().recordEvent(event);
 #else
     Q_UNUSED(event)
+#endif
+}
+
+inline
+void DCP_PERF_START_LOGGING(const QString &filename) {
+#ifdef PERF_MEASUREMENT
+    DcpPerfLogger::instance().startLogging(filename);
+#else
+    Q_UNUSED(filename);
 #endif
 }
 

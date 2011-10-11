@@ -22,6 +22,7 @@
 #include "dcpcontentitem_p.h"
 
 #include "dcpdebug.h"
+#include "dcpperflogger.h"
 #include <QGraphicsGridLayout>
 #include <QVariant>
 
@@ -649,6 +650,7 @@ void DcpContentItem::onClicked ()
 {
     dcp_failfunc_unless (metadata());
 
+    DCP_PERF_RECORD_EVENT(d_ptr->m_TDriverID + "_activated");
     /*
      * Activate the applet if it has a mainview.
      */

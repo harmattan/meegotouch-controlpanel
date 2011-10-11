@@ -132,6 +132,7 @@ void cleanup ()
 
 M_EXPORT int main(int argc, char *argv[])
 {
+    DCP_PERF_START_LOGGING("/tmp/dcpperf.log");
     DCP_PERF_RECORD_EVENT("process_start");
     
     DcpDebug::start("main_init");
