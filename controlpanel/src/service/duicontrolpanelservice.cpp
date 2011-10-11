@@ -57,18 +57,7 @@ DuiControlPanelService::launch ()
 {
 //    MApplicationService::launch ();
 
-    /* this method not supposed to change the current page,
-     * so we only setup a default if there is not any yet
-     */
-
-#ifdef NO_PAGE_DROPPING
-    MApplicationWindow *win = MApplication::activeApplicationWindow();
-    if ((m_StartPage && m_StartPage->id == PageHandle::NOPAGE) ||
-        (!m_StartPage && win && !win->currentPage()))
-#endif
-    {
-        mainPage();
-    }
+    mainPage();
 }
 
 void
@@ -118,7 +107,14 @@ DuiControlPanelService::appletPage (const QString& appletName)
     // time (do not parse all .desktops)
     mng->loadMetadata ();
     DcpAppletMetadata* metadata = mng->metadata (appletName);
-    dcp_failfunc_unless (metadata, false);
+    if (!metadata) {
+        // no applet, we have to shut down
+        syslog (LOG_WARNING, "No desktop file for \"%s\" applet.", qPrintable(appletName));
+        if (!PageFactory::instance()->hasPage()) {
+            qApp->quit ();
+        }
+        return false;
+    }
 
     // if the applet does not have a main view, we pop up its category page:
     if (!metadata->hasMainView()) {
@@ -126,11 +122,9 @@ DuiControlPanelService::appletPage (const QString& appletName)
         return true;
 
     } else if (!PageFactory::isInProcessApplets()) {
-        MApplicationWindow* win = MApplication::activeApplicationWindow();
-
         // if we have no page yet and this is the first applet start,
         // then we run it inprocess and behave like an appletlauncher
-        if (isStartedByServiceFw && (!win || !win->currentPage()))
+        if (isStartedByServiceFw && !PageFactory::instance()->hasPage())
         {
             bool success = unregisterService ();
             dcp_failfunc_unless (success, false);
@@ -142,7 +136,9 @@ DuiControlPanelService::appletPage (const QString& appletName)
             DcpRemoteBriefReceiver::disable ();
 
         } else {
+            MApplicationWindow* win = MApplication::activeApplicationWindow();
             win->hide();
+
             QCoreApplication::processEvents();
 
             // if we already have a page, then we start the applet in an

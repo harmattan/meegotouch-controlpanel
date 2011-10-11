@@ -167,6 +167,13 @@ PageFactory::createPage (const PageHandle &handle)
     DcpPage *page = 0;
     DcpAppletManager *mng = DcpAppletManager::instance();
 
+    // mainpage is also a categorypage, so we simplificate it here:
+    if (myHandle.id == PageHandle::APPLETCATEGORY &&
+        myHandle.param == DcpCategories::mainPageCategoryName ())
+    {
+        myHandle.id = PageHandle::MAIN;
+    }
+
     switch (myHandle.id) {
         case PageHandle::NOPAGE:
         case PageHandle::MAIN:
@@ -453,7 +460,6 @@ PageFactory::createAppletPage (PageHandle &handle)
     if (!applet || appletPage->hasWidget()) {
         m_LastAppletPage = appletPage;
     } else {
-        appletPage->setApplet (applet, handle.widgetId);
         /*
          * If the plugin
          * - could not be loaded

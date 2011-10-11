@@ -152,7 +152,7 @@ DcpPage::setHandle (const PageHandle &handle)
 
     /* A button for moving back to mainpage:
      */
-    if (handle.isStandalone && !m_ActionHack)  {
+    if (handle.isStandalone && handle.id != PageHandle::MAIN && !m_ActionHack)  {
         // this hack hides the back button:
         setComponentsDisplayMode (MApplicationPage::EscapeButton, MApplicationPageModel::Hide);
 
