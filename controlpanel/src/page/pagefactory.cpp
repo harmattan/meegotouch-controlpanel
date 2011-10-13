@@ -868,6 +868,8 @@ PageFactory::tryOpenPageBackward (const PageHandle &handle)
      */
     DcpPage* currentPage = this->currentPage();
 
+    if (!currentPage) return false;
+
     if (currentPage && currentPage->handle() == handle) {
         // fount it: it is the current page
         return true;
@@ -1002,7 +1004,9 @@ void PageFactory::enablePageChange(bool enable)
 
     // does the same disabling for the back button (NB#272868):
     DcpPage* page = this->currentPage();
-    page->setPreventQuit (m_PageChangeDisabled);
+    if (page) {
+        page->setPreventQuit (m_PageChangeDisabled);
+    }
 }
 
 void
