@@ -34,6 +34,7 @@
 #include <QDBusServiceWatcher>
 #include <dcpappletmetadata.h>
 #include <dcpremotebriefreceiver.h>
+#include <QTimer>
 
 static const char* serviceName = "com.nokia.DuiControlPanel";
 static const char* serviceNameAppl = "com.nokia.DcpAppletLauncher";
@@ -136,16 +137,13 @@ DuiControlPanelService::appletPage (const QString& appletName)
             DcpRemoteBriefReceiver::disable ();
 
         } else {
-            MApplicationWindow* win = MApplication::activeApplicationWindow();
-            win->hide();
-
-            QCoreApplication::processEvents();
-
             // if we already have a page, then we start the applet in an
             // appletlauncher:
             DcpAppletLauncherIf iface;
             dcp_failfunc_unless (iface.isValid(), false);
             iface.appletPageAlone (metadata->fileName());
+
+            QTimer::singleShot (1000, this, SLOT(hideWin()));
 
             // close other chained windows:
             emit closeAppletLaunchers();
@@ -162,6 +160,14 @@ DuiControlPanelService::appletPage (const QString& appletName)
     // first query
     // Result means nothing...
     return true;
+}
+
+void DuiControlPanelService::hideWin ()
+{
+    MApplicationWindow* win = MApplication::activeApplicationWindow();
+    if (win) {
+        win->hide();
+    }
 }
 
 // this function makes us close if the main process arrives:
