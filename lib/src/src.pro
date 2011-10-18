@@ -50,6 +50,7 @@ install_headers.files += $$system(echo include/D*) \
     widget/dcpcontentbutton.h \
     widget/dcpcontentitem.h \
     dcpdebug.h \
+    dcpperflogger.h \
     dcpretranslator.h \
     service_interface/dcpappletlauncherif.h \
     service_interface/dcpappletlauncherifproxy.h \

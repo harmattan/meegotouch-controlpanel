@@ -29,7 +29,6 @@
 
 #include "dcpperflogger.h"
 
-#ifdef PERF_MEASUREMENT
 static DcpPerfLogger g_dcpPerfLoggerInstance;
 
 DcpPerfLogger::DcpPerfLogger() : m_logFd(-1)
@@ -39,7 +38,6 @@ DcpPerfLogger::DcpPerfLogger() : m_logFd(-1)
 DcpPerfLogger::~DcpPerfLogger()
 {
     if (m_logFd >= 0) {
-        qWarning() << "XXX close";
         int st = close(m_logFd);
         if (st < 0) {
             qCritical() << "close error in performance log" << errno;
@@ -85,4 +83,3 @@ void DcpPerfLogger::recordEvent(const QString &event)
     }
 }
 
-#endif // PERF_MEASUREMENT

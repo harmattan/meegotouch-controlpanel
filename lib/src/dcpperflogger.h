@@ -25,7 +25,6 @@
 #include <QString>
 
 class DcpPerfLogger {
-#ifdef PERF_MEASUREMENT
     public:
         DcpPerfLogger();
         ~DcpPerfLogger();
@@ -35,7 +34,6 @@ class DcpPerfLogger {
 
     private:
         int m_logFd;
-#endif //PERF_MEASUREMENT        
 };
 
 inline
