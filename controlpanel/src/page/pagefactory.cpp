@@ -184,13 +184,14 @@ PageFactory::createPage (const PageHandle &handle)
              * when closed.
              */
             DCP_DEBUG ("## MAIN ##");
-            if (mng->isMetadataPreloaded()) {
+            if (mng->isMetadataPreloaded() || mng->isMetadataLoaded()) {
                 page = createMainPage();
             } else {
                 // preload applet desktops that are shown on the main view
                 DcpDebug::start("preload_desktops");
                 // diable page change until applet desktops are fully loaded
                 m_PageChangeDisabled = true;
+
                 mng->preloadMetadataAsync();
                 if (m_PageWithDelayedContent) {
                     qWarning() << "request for re-creating a main page while another one is being built";
