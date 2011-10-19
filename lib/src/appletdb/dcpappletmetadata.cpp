@@ -437,7 +437,7 @@ DcpAppletMetadata::desktopEntry () const
 QString 
 DcpAppletMetadata::name () const
 {
-    return desktopEntry()->name().trimmed();
+    return desktopEntry()->nameUnlocalized().trimmed();
 }
 
 QString 
