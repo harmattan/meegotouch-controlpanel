@@ -1,8 +1,9 @@
 duicontrolpanel (0.14.4~unreleased) unstable; urgency=low
 
-  * new version
+  * Fixes: NB#281450 - Launcher view is shown for a while before
+    bluetooth settings gets opened
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 20 Oct 2011 09:18:15 +0200
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 20 Oct 2011 09:20:17 +0200
 
 duicontrolpanel (0.14.3.1) unstable; urgency=low
 
