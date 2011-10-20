@@ -49,6 +49,7 @@ public Q_SLOTS:
 
 protected slots:
     void quitWithDelay ();
+    void hideWin();
 
 private:
     void sheduleStart (const PageHandle &handle);
