@@ -1,4 +1,4 @@
-duicontrolpanel (0.14.4~unreleased) unstable; urgency=low
+duicontrolpanel (0.14.4) unstable; urgency=low
 
   * Fixes: NB#281450 - Launcher view is shown for a while before
     bluetooth settings gets opened
