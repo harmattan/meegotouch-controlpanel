@@ -62,10 +62,12 @@ DcpAppletPluginPrivate::DcpAppletPluginPrivate(DcpAppletMetadata* metadata):
 {
 }
 
+#ifdef DEBUG
 void dcpSyslog (const QString& log)
 {
     syslog (LOG_DEBUG, qPrintable(log));
 }
+#endif
 
 DcpAppletPluginPrivate::~DcpAppletPluginPrivate ()
 {
@@ -80,10 +82,19 @@ DcpAppletPluginPrivate::~DcpAppletPluginPrivate ()
  */
     appletInstance = 0;
     if (loader.isLoaded()) {
+#ifdef DEBUG
         if (appletMetadata) {
             dcpSyslog ("unloading " + appletMetadata->binary());
         }
-        loader.unload();
+#endif
+	/* Anyway, it is not a good idea to do io in a destructor... */
+        if (! loader.unload ()) {
+            QString binaryPath = appletMetadata->fullBinary();
+            errorMsg = "Unloading of the '" + binaryPath + "/" +
+                    appletMetadata->name() +
+                    "' applet failed: " + loader.errorString();
+            syslog (LOG_WARNING, qPrintable(errorMsg));
+        }
     }
 }
 
@@ -169,7 +180,9 @@ DcpAppletPlugin::loadPluginFile (const QString &binaryPath)
         return false;
     }
 
+#ifdef DEBUG
     dcpSyslog ("loading " + binaryPath);
+#endif
     d_ptr->loader.setFileName (binaryPath);
     d_ptr->loader.setLoadHints(DcpAppletPluginPrivate::defaultLoadHints);
 

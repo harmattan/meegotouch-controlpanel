@@ -1,8 +1,9 @@
 duicontrolpanel (0.14.5~unreleased) unstable; urgency=low
 
-  * DUMMY
+  [ Peter Csaszar ]
+  * Fixes: NB#268142 - duicontrolpanel spamming syslog at startup
 
- -- Viktor Nagy <viktor.nagy@blumsoft.eu>  Tue, 25 Oct 2011 17:05:33 +0200
+ -- Peter Csaszar <peter.csaszar@blumsoft.eu>  Wed, 26 Oct 2011 13:27:58 +0200
 
 duicontrolpanel (0.14.4) unstable; urgency=low
 
