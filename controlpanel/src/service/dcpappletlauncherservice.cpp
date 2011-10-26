@@ -244,6 +244,11 @@ void DcpAppletLauncherService::prestart ()
 {
     PageFactory* pf = PageFactory::instance();
     dcp_failfunc_unless (pf);
+
+    // if we already has a page we do not do anything:
+    if (pf->hasPage()) return;
+
+    // otherwise we preload a window with an empty applet page:
     pf->preloadAppletPage ();
     MApplicationWindow* win = pf->window();
     dcp_failfunc_unless (win);

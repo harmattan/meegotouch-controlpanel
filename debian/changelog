@@ -1,3 +1,10 @@
+duicontrolpanel (0.14.5~unreleased) unstable; urgency=low
+
+  * fixed: 287787 - Sounds and vibration does not open, if tapped
+    immediately after opening Settings view
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 26 Oct 2011 14:01:34 +0200
+
 duicontrolpanel (0.14.4) unstable; urgency=low
 
   * Fixes: NB#281450 - Launcher view is shown for a while before

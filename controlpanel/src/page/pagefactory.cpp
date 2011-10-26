@@ -160,7 +160,7 @@ PageFactory::instance ()
     return sm_Instance;
 }
 
-DcpPage* 
+DcpPage*
 PageFactory::createPage (const PageHandle &handle)
 {
     PageHandle myHandle = handle;
@@ -189,8 +189,6 @@ PageFactory::createPage (const PageHandle &handle)
             } else {
                 // preload applet desktops that are shown on the main view
                 DcpDebug::start("preload_desktops");
-                // diable page change until applet desktops are fully loaded
-                m_PageChangeDisabled = true;
 
                 mng->preloadMetadataAsync();
                 if (m_PageWithDelayedContent) {
