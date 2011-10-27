@@ -466,6 +466,7 @@ DcpContentItem::ensureWidgetsAreLayouted()
         int rows = 2;
         grid->addItem (d_ptr->m_Separator, 0, textX, 1, columnCount);
         grid->addItem (d_ptr->m_Text1W, 1, textX);
+        d_ptr->m_Text1W->show();
         if (!d_ptr->m_Slider->isEnabled() && secondLineHasText) {
             grid->addItem (d_ptr->m_Text2W, 2, textX, 1,
                            columnCount, Qt::AlignTop);
@@ -493,6 +494,7 @@ DcpContentItem::ensureWidgetsAreLayouted()
 
     } else {
         // normal (not slider, not combobox):
+        d_ptr->m_Text1W->show();
         if (!isTextHorizontal) {
             // vertical mode:
             if (!secondLineHasText) {
@@ -505,6 +507,7 @@ DcpContentItem::ensureWidgetsAreLayouted()
                 grid->addItem (d_ptr->m_Text1W, 0, textX, Qt::AlignBottom);
                 grid->addItem (d_ptr->m_Text2W, 1, textX, Qt::AlignTop);
                 grid->addItem (d_ptr->m_Spacer, 2, textX);
+                d_ptr->m_Spacer->show();
                 d_ptr->m_Text2W->show();
             }
         } else {
