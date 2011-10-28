@@ -1,10 +1,10 @@
-duicontrolpanel (0.14.5~unreleased) unstable; urgency=low
+duicontrolpanel (0.14.5) unstable; urgency=low
 
   [ Peter Csaszar ]
   * Fixes: NB#268142 - duicontrolpanel spamming syslog at startup
 
   [ Robert Manner ]
-  * fixed: 287787 - Sounds and vibration does not open, if tapped
+  * Fixes: NB#287787 - Sounds and vibration does not open, if tapped
     immediately after opening Settings view
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 26 Oct 2011 14:07:42 +0200
