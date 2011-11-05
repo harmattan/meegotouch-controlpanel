@@ -389,6 +389,9 @@ PageFactory::popupSheetIfAny (const PageHandle& handle)
 
             sheet->appearSystemwide (MSceneWindow::DestroyWhenDone);
         }
+
+        DCP_PERF_RECORD_EVENT("sheet_appearing");
+
     }
 
     return sheet;
