@@ -90,6 +90,9 @@ DcpAppletCategoryPage::createCategories ()
                     }
                     DcpPageOpenButton* button =
                         new DcpPageOpenButton (subPage, info->titleId());
+                    button->setTDriverID ("DcpPageOpenButton::" +
+                            m_CategoryInfo->titleId() + "::" +
+                            info->titleId());
                     widget = button;
                 }
                 break;
