@@ -653,7 +653,11 @@ void DcpContentItem::onClicked ()
 {
     dcp_failfunc_unless (metadata());
 
-    DCP_PERF_RECORD_EVENT(d_ptr->m_TDriverID + "_activated");
+#ifdef PERF_MEASUREMENT
+    QString id(d_ptr->m_TDriverID);
+    id.replace(' ', '_');
+    DCP_PERF_RECORD_EVENT(id + "_activated");
+#endif    
     /*
      * Activate the applet if it has a mainview.
      */
