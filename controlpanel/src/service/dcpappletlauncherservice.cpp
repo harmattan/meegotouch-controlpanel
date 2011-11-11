@@ -150,6 +150,15 @@ bool DcpAppletLauncherService::appletPage (const QString& appletPath)
 {
     sheduleApplet (appletPath);
 
+    // Window that has been created by prestart() have outdated
+    // chaining data. We have to updated it with the data we got now.
+    // The window id of Settings application might
+    // have changed from the time prestart() was called to now.
+    // This happens if the window is minimized and restored
+    // between prestart() and appletPage().
+    // Check DcpAppletLauncherIfAdaptor::appletPage() for details
+    PageFactory::instance()->window()->updateChainTaskData();
+
 #ifdef DELAYED_APPLET_PAGE
     // we start the mainwindow animation before loading the applet:
     if (!m_IsSheetOnly) {
