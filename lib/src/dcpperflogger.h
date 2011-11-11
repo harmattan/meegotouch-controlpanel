@@ -36,6 +36,9 @@ class DcpPerfLogger {
         int m_logFd;
 };
 
+/**
+ * \param event: event identification, must not contain spaces
+ */
 inline
 void DCP_PERF_RECORD_EVENT(const QString &event) {
 #ifdef PERF_MEASUREMENT
