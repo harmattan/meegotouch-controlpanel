@@ -179,11 +179,8 @@ DcpAppletButtons::createContents ()
 
     // subheader with separator if we have
     if (!subHeaderText.isEmpty() && m_MainAppletCount > 0 && !m_SubHeader) {
-        MStylableWidget* row = new MStylableWidget();
-        row->setStyleName ("CommonGroupHeaderPanelInverted");
-
         QGraphicsLinearLayout *lout =
-            new QGraphicsLinearLayout(Qt::Horizontal, row);
+            new QGraphicsLinearLayout(Qt::Horizontal);
         lout->setContentsMargins(0, 0, 0, 0);
         lout->setSpacing(0);
 
