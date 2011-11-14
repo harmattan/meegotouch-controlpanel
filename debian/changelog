@@ -1,4 +1,4 @@
-duicontrolpanel (0.14.6~unreleased) unstable; urgency=low
+duicontrolpanel (0.14.6) unstable; urgency=low
 
   * Fixes: NB#290007 - _MEEGOTOUCH_WM_INVOKED_BY/WM_TRANSIENT_FOR are
     not always set properly
