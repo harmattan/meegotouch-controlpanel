@@ -1,6 +1,8 @@
 duicontrolpanel (0.14.7~unreleased) unstable; urgency=low
 
-  * Fixes: NB#284251 - COREWEB: /usr/bin/duicontrolpanel.launch -servicefw -outprocess QGraphicsWidget::event QApplicationPrivate::notify_helper QApplication::notify MApplication::notify QCoreApplication::notifyInternal
+  * Fixes: NB#284251 - COREWEB: /usr/bin/duicontrolpanel.launch -servicefw
+    -outprocess QGraphicsWidget::event QApplicationPrivate::notify_helper
+    QApplication::notify MApplication::notify QCoreApplication::notifyInternal
 
  -- Viktor Nagy <viktor.nagy@blumsoft.eu>  Mon, 14 Nov 2011 16:56:01 +0100
 
