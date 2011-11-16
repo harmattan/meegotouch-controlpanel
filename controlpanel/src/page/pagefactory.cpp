@@ -932,7 +932,7 @@ PageFactory::tryOpenPageBackward (const PageHandle &handle)
     }
 
     // do the animation of switching back
-    // this had to be sheduled after the deleteLater calls
+    // this had to be scheduled after the deleteLater calls
     QTimer::singleShot (0, currentPage, SLOT(dismiss()));
 
     return true;

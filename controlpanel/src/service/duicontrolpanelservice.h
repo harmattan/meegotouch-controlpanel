@@ -52,7 +52,7 @@ protected slots:
     void hideWin();
 
 private:
-    void sheduleStart (const PageHandle &handle);
+    void scheduleStart (const PageHandle &handle);
     void startPageForReal(const PageHandle &handle);
     void receiveCloseSignal ();
     void receivePreloadSignal ();

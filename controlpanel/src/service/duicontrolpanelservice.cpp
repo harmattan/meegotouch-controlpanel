@@ -154,7 +154,7 @@ DuiControlPanelService::appletPage (const QString& appletName)
     }
 
     PageHandle handle (PageHandle::APPLET, appletName, -1, true);
-    sheduleStart(handle);
+    scheduleStart(handle);
 
     // TODO this hack prevents a servicefw issue, that the app does not get the
     // first query
@@ -250,10 +250,10 @@ void DuiControlPanelService::startPageForReal(const PageHandle &handle)
     }
 }
 
-/* Either starts the page or shedules starting it if the window is not yet
+/* Either starts the page or schedules starting it if the window is not yet
  * created. */
 void
-DuiControlPanelService::sheduleStart (
+DuiControlPanelService::scheduleStart (
                 const PageHandle &handle)
 {
     /* start contains the page to start when the window has appeared.
@@ -269,14 +269,14 @@ void
 DuiControlPanelService::categoryPage (const QString& category)
 {
     PageHandle handle (PageHandle::APPLETCATEGORY, category, -1, true);
-    sheduleStart(handle);
+    scheduleStart(handle);
 }
 
 void
 DuiControlPanelService::mainPage()
 {
     PageHandle handle (PageHandle::MAIN);
-    sheduleStart(handle);
+    scheduleStart(handle);
 }
 
 // this method gets called after mainwindow has been created,

@@ -117,7 +117,7 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
     return success;
 }
 
-bool DcpAppletLauncherService::sheduleApplet (const QString& appletPath,
+bool DcpAppletLauncherService::scheduleApplet (const QString& appletPath,
                                               bool isStandalone)
 {
     // only care about the first request
@@ -148,7 +148,7 @@ bool DcpAppletLauncherService::sheduleApplet (const QString& appletPath,
 
 bool DcpAppletLauncherService::appletPage (const QString& appletPath)
 {
-    sheduleApplet (appletPath);
+    scheduleApplet (appletPath);
 
     // Window that has been created by prestart() have outdated
     // chaining data. We have to updated it with the data we got now.
@@ -189,7 +189,7 @@ bool DcpAppletLauncherService::appletPageAlone (const QString& appletPath)
 {
     m_SkipNextClosing = true;
 
-    bool success = sheduleApplet (appletPath, true);
+    bool success = scheduleApplet (appletPath, true);
 
     if (!m_IsSheetOnly) {
         // we do not want to be chained, so open a non chained window here:

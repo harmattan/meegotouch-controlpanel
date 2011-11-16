@@ -43,7 +43,7 @@ public slots:
     bool maybeAppletRealStart ();
 
 private:
-    bool sheduleApplet (const QString& appletPath, bool isStandalone = false);
+    bool scheduleApplet (const QString& appletPath, bool isStandalone = false);
     PageHandle m_PageHandle;
     bool m_IsSheetOnly;
     QString m_AppletPath;
