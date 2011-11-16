@@ -117,6 +117,11 @@ bool DcpAppletLauncherService::maybeAppletRealStart ()
     return success;
 }
 
+/*
+ * Schedules an applet for running. Returns false if the applet starting was
+ * prevented to get scheduled by some error, eg. no such applet, already has
+ * an applet etc.
+ */
 bool DcpAppletLauncherService::scheduleApplet (const QString& appletPath,
                                               bool isStandalone)
 {
@@ -129,9 +134,11 @@ bool DcpAppletLauncherService::scheduleApplet (const QString& appletPath,
     m_PageHandle.isStandalone = isStandalone;
     m_AppletPath = appletPath;
 
-    // the db is empty, so we add the started applet into it:
+    // if the db is empty, we add the started applet into it:
     DcpAppletManager* mng = DcpAppletManager::instance();
-    if (!mng->loadDesktopFile (m_AppletPath)) {
+    if (!mng->containsFile(m_AppletPath) &&
+        !mng->loadDesktopFile (m_AppletPath))
+    {
         close ();
     }
 
@@ -148,7 +155,7 @@ bool DcpAppletLauncherService::scheduleApplet (const QString& appletPath,
 
 bool DcpAppletLauncherService::appletPage (const QString& appletPath)
 {
-    scheduleApplet (appletPath);
+    if (!scheduleApplet (appletPath)) return false;
 
     // Window that has been created by prestart() have outdated
     // chaining data. We have to updated it with the data we got now.
