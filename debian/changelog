@@ -1,10 +1,15 @@
 duicontrolpanel (0.14.7~unreleased) unstable; urgency=low
 
+  [ Viktor Nagy ]
   * Fixes: NB#284251 - COREWEB: /usr/bin/duicontrolpanel.launch -servicefw
     -outprocess QGraphicsWidget::event QApplicationPrivate::notify_helper
     QApplication::notify MApplication::notify QCoreApplication::notifyInternal
 
- -- Viktor Nagy <viktor.nagy@blumsoft.eu>  Mon, 14 Nov 2011 16:56:01 +0100
+  [ Robert Manner ]
+  * Fixes: NB#289899 - Multiple taps on language item results in opening
+    the the language list for 'n' number of times
+
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 16 Nov 2011 14:07:06 +0100
 
 duicontrolpanel (0.14.6) unstable; urgency=low
 
