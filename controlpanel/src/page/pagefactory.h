@@ -33,6 +33,7 @@ class DcpAppletCategoryPage;
 class DcpAppletLauncherIf;
 class MApplicationWindow;
 class Category;
+class MSheet;
 
 
 /*!
@@ -133,6 +134,9 @@ private:
     bool m_PageChangeDisabled;
 
     bool m_CloseMainProcessOnQuitEnabled;
+
+    QPointer<MSheet> m_PreviousSheet;
+    PageHandle m_PreviousSheetHandle;
 };
 
 #endif

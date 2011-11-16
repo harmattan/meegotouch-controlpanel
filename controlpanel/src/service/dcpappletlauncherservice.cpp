@@ -157,7 +157,10 @@ bool DcpAppletLauncherService::appletPage (const QString& appletPath)
     // This happens if the window is minimized and restored
     // between prestart() and appletPage().
     // Check DcpAppletLauncherIfAdaptor::appletPage() for details
-    PageFactory::instance()->window()->updateChainTaskData();
+    MApplicationWindow* win = MApplication::activeApplicationWindow();
+    if (win) {
+        win->updateChainTaskData();
+    }
 
 #ifdef DELAYED_APPLET_PAGE
     // we start the mainwindow animation before loading the applet:

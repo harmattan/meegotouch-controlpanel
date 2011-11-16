@@ -357,6 +357,13 @@ PageFactory::popupSheetIfAny (const PageHandle& handle)
     int widgetId = handle.widgetId < 0 ? applet->getMainWidgetId() :
                                          handle.widgetId;
 
+    // if we get two requests for the same sheet popup, we do not create
+    // another:
+    if (m_PreviousSheet && handle.param == m_PreviousSheetHandle.param &&
+                           m_PreviousSheetHandle.widgetId == widgetId) {
+        return true;
+    }
+
     MSheet* sheet = applet->interfaceVersion() >= 9 ?
                         appletIf->constructSheet (widgetId) : 0;
     if (sheet) {
@@ -392,6 +399,10 @@ PageFactory::popupSheetIfAny (const PageHandle& handle)
 
         DCP_PERF_RECORD_EVENT("sheet_appearing");
 
+        // log the previous sheet:
+        m_PreviousSheet = sheet;
+        m_PreviousSheetHandle = handle;
+        m_PreviousSheetHandle.widgetId = widgetId;
     }
 
     return sheet;
