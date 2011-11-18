@@ -654,7 +654,7 @@ bool DcpAppletMetadata::hasMainView () const
     // return default:
     int type = widgetTypeID();
     if (type == DcpWidgetType::Toggle || type == DcpWidgetType::Button ||
-        type == DcpWidgetType::Slider)
+        type == DcpWidgetType::Slider || type == DcpWidgetType::ComboBox)
     {
         return false;
     } else {

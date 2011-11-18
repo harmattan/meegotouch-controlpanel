@@ -8,8 +8,10 @@ duicontrolpanel (0.14.7~unreleased) unstable; urgency=low
   [ Robert Manner ]
   * Fixes: NB#289899 - Multiple taps on language item results in opening
     the the language list for 'n' number of times
+  * Fixes: NB#291087 - "Tap to Select " is displayed for a while for the
+    Automatic updates option
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 16 Nov 2011 14:07:06 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 18 Nov 2011 14:15:47 +0100
 
 duicontrolpanel (0.14.6) unstable; urgency=low
 

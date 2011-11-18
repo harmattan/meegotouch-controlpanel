@@ -261,6 +261,13 @@ DcpContentItem::ensureComboBoxIsCreated()
         if (applet()) {
             // set the current list of items:
             QVariantList list = applet()->possibleValues();
+
+            // until possible values does not arrive, we want to have no text
+            // in the combobox value line
+            if (list.isEmpty()) {
+                combo->addItem (QString(" "));
+            }
+
             foreach (QVariant value, list) {
                 QString valueStr = value.toString();
                 if (!valueStr.isEmpty()) {
@@ -273,9 +280,12 @@ DcpContentItem::ensureComboBoxIsCreated()
             }
 
             // set the current position:
-            bool ok = false;
-            int pos = applet()->value().toInt(&ok);
-            if (!ok) pos = -1;
+            int pos = 0;
+            if (!list.isEmpty()) {
+                bool ok = false;
+                pos = applet()->value().toInt(&ok);
+                if (!ok) pos = -1;
+            }
             combo->setCurrentIndex (pos);
         }
     } else {
