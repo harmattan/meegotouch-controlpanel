@@ -10,8 +10,10 @@ duicontrolpanel (0.14.7~unreleased) unstable; urgency=low
     the the language list for 'n' number of times
   * Fixes: NB#291087 - "Tap to Select " is displayed for a while for the
     Automatic updates option
+  * Fixes: NB#292482 - "Internet connection" UI flashes back to
+    "Settings" UI when it has been open again from "settings".
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Fri, 18 Nov 2011 14:15:47 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 24 Nov 2011 11:18:57 +0100
 
 duicontrolpanel (0.14.6) unstable; urgency=low
 

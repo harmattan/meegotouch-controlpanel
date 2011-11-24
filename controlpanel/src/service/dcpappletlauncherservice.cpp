@@ -73,7 +73,7 @@ DcpAppletLauncherService::DcpAppletLauncherService ():
     // the main process will be able able to close us down if needed even if
     // the appletlauncher does not provide the service anymore,
     // through its (main process's) own service:
-    connect (m_MainIface, SIGNAL (closeAppletLaunchers()), this, SLOT (closeWithDelay()));
+    connect (m_MainIface, SIGNAL (closeAppletLaunchers()), this, SLOT (onCloseSignalReceived()));
 }
 
 
@@ -183,12 +183,18 @@ bool DcpAppletLauncherService::appletPage (const QString& appletPath)
 #endif
 }
 
-void DcpAppletLauncherService::closeWithDelay ()
+void DcpAppletLauncherService::onCloseSignalReceived ()
 {
     if (m_SkipNextClosing) {
         m_SkipNextClosing = false;
         return;
     }
+
+    // We do not close if we are an empty preloaded applet launcher.
+    if (!PageFactory::instance()->hasPage()) {
+        return;
+    }
+
     QTimer::singleShot (1500, this, SLOT(close()));
 }
 

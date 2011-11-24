@@ -38,7 +38,7 @@ public slots:
     bool appletPageAlone (const QString& appletPath);
     void prestart ();
     void close ();
-    void closeWithDelay ();
+    void onCloseSignalReceived ();
     virtual bool unregisterService ();
     bool maybeAppletRealStart ();
 
