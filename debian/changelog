@@ -12,8 +12,11 @@ duicontrolpanel (0.14.7~unreleased) unstable; urgency=low
     Automatic updates option
   * Fixes: NB#292482 - "Internet connection" UI flashes back to
     "Settings" UI when it has been open again from "settings".
+  * Fixes: NB#292898 - Item title "Show notifications for:" is displayed
+    in the wrong place when opening Notifications from Search
+    application.
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Thu, 24 Nov 2011 11:18:57 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 30 Nov 2011 10:51:34 +0100
 
 duicontrolpanel (0.14.6) unstable; urgency=low
 
