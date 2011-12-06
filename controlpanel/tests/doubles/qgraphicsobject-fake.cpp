@@ -33,3 +33,7 @@ void QGraphicsWidget::setGeometry (const QRectF &rect)
 {
 }
 
+void QGraphicsWidget::adjustSize ()
+{
+}
+
