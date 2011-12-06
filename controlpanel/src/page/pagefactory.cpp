@@ -115,7 +115,7 @@ PageFactory::~PageFactory ()
         closeHelpPage();
 
         // delete the m_Win if not already deleted:
-        m_Win->close ();
+        delete m_Win;
     }
 
     if (m_CloseMainProcessOnQuitEnabled) {
@@ -970,7 +970,11 @@ void PageFactory::newWin ()
 #else // DISABLE_LAUNCHER
     m_Win = new MApplicationWindow();
 #endif
-    m_Win->setAttribute (Qt::WA_DeleteOnClose, true);
+
+// we do not do use this to avoid the crash when MDialog::exec() runs its
+// event loop and the window gets closed.
+// Instead the pagefactory destructor ensures the window gets destroyed.
+    m_Win->setAttribute (Qt::WA_DeleteOnClose, false);
 
 #ifndef FREE_ORIENTATION
     // Fixes the orientation to portrait mode
