@@ -1,4 +1,4 @@
-duicontrolpanel (0.14.7) unstable; urgency=low
+duicontrolpanel (0.14.7.1) unstable; urgency=low
 
   [ Viktor Nagy ]
   * 284251 - COREWEB: /usr/bin/duicontrolpanel.launch -servicefw
