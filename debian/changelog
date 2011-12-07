@@ -1,21 +1,21 @@
-duicontrolpanel (0.14.7~unreleased) unstable; urgency=low
+duicontrolpanel (0.14.7) unstable; urgency=low
 
   [ Viktor Nagy ]
-  * Fixes: NB#284251 - COREWEB: /usr/bin/duicontrolpanel.launch -servicefw
+  * 284251 - COREWEB: /usr/bin/duicontrolpanel.launch -servicefw
     -outprocess QGraphicsWidget::event QApplicationPrivate::notify_helper
     QApplication::notify MApplication::notify QCoreApplication::notifyInternal
 
   [ Robert Manner ]
-  * Fixes: NB#289899 - Multiple taps on language item results in opening
+  * Fixes: NB#293910 - crash if an applet is using MDialog::exec()
+  * 289899 - Multiple taps on language item results in opening
     the the language list for 'n' number of times
-  * Fixes: NB#291087 - "Tap to Select " is displayed for a while for the
+  * 291087 - "Tap to Select " is displayed for a while for the
     Automatic updates option
-  * Fixes: NB#292482 - "Internet connection" UI flashes back to
+  * 292482 - "Internet connection" UI flashes back to
     "Settings" UI when it has been open again from "settings".
-  * Fixes: NB#292898 - Item title "Show notifications for:" is displayed
+  * 292898 - Item title "Show notifications for:" is displayed
     in the wrong place when opening Notifications from Search
     application.
-  * Fixes: NB#293910 - crash if an applet is using MDialog::exec()
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 07 Dec 2011 10:26:53 +0100
 
