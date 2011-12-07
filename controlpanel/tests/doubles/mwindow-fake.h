@@ -28,6 +28,7 @@ class MSceneManager;
 
 class MWindow: public QObject {
     public:
+        ~MWindow() {}
         void raise();
         void lower();
 

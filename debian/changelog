@@ -15,8 +15,9 @@ duicontrolpanel (0.14.7~unreleased) unstable; urgency=low
   * Fixes: NB#292898 - Item title "Show notifications for:" is displayed
     in the wrong place when opening Notifications from Search
     application.
+  * Fixes: NB#293910 - crash if an applet is using MDialog::exec()
 
- -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 30 Nov 2011 10:51:34 +0100
+ -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 07 Dec 2011 10:26:53 +0100
 
 duicontrolpanel (0.14.6) unstable; urgency=low
 

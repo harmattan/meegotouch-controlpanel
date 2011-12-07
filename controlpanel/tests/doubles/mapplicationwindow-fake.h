@@ -42,6 +42,7 @@ class MApplicationWindow: public MWindow
     Q_OBJECT
 public:
     MApplicationWindow();
+    ~MApplicationWindow() {}
 
     MApplicationPage* currentPage() const;
     void setCurrentPage(MApplicationPage* currentPage);

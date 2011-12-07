@@ -20,8 +20,9 @@
 #include "mwindow.h"
 
 #include <QList>
+#include <QPointer>
 
-static MApplicationWindow* win = 0;
+static QPointer<MApplicationWindow> win;
 
 MApplicationWindow * MApplication::activeApplicationWindow ()
 {
