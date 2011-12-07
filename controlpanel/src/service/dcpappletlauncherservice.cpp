@@ -165,7 +165,7 @@ bool DcpAppletLauncherService::appletPage (const QString& appletPath)
     // between prestart() and appletPage().
     // Check DcpAppletLauncherIfAdaptor::appletPage() for details
     MApplicationWindow* win = MApplication::activeApplicationWindow();
-    if (win) {
+    if (win && !m_IsSheetOnly) {
         win->updateChainTaskData();
     }
 
