@@ -65,9 +65,9 @@ contains(DCP_BUILD_FEATURES,coverage) {
 DEFINES += DCP_DISABLE_DEPRECATION_WARNING
 
 # Meego specific configurations:
-meego {
+#meego {
     DEFINES += FREE_ORIENTATION
-}
+#}
 
 DEFINES += QT_USE_FAST_CONCATENATION
 DEFINES += QT_USE_FAST_OPERATOR_PLUS

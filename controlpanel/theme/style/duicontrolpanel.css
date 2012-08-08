@@ -1,3 +1,5 @@
+@import "landscapehacks.css";
+
 MWindowStyle {
     x11-startup-pixmap: ;
     startup-fill-color: black;

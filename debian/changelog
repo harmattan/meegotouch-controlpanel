@@ -1,3 +1,17 @@
+duicontrolpanel (0.14.7.1+0m7+landscape0) unstable; urgency=low
+
+  * Unlock orientation
+  * Various css hacks to fix plugins in landscape
+
+ -- Christian Ratzenhofer <christian_ratzenhofer@yahoo.de>  Tue, 24 Jul 2012 02:07:19 +0200
+
+duicontrolpanel (0.14.7.1+0m7) unstable; urgency=low
+
+  * This entry has been added by BIFH queue processor
+    version has been changed to 0.14.7.1+0m7
+
+ -- BIFH Bot <sysint@maemo.research.nokia.com>  Wed, 07 Dec 2011 11:26:54 +0200
+
 duicontrolpanel (0.14.7.1) unstable; urgency=low
 
   [ Viktor Nagy ]

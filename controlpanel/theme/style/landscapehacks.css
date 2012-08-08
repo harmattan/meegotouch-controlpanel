@@ -1,0 +1,122 @@
+/* split buttons are by default horizontal in meegotouch, but are forced to be vertically aligned in all widgets */
+
+@const CSB_M_TOP:    0.7mm;
+@const CSB_M_BOTTOM: 0.6mm;
+@const CSB_M_LEFT:   $INDENT_DEFAULT;
+@const CSB_M_RIGHT:  $INDENT_DEFAULT;
+@const CSB_FONT:     $FONT_BUTTON;
+@const CSB_FONT_COLOR: $COLOR_BUTTON_FOREGROUND;
+@const CSB_FONT_COLOR_INVERTED: #FFFFFF;
+@const CSB_FONT_COLOR_INVERTED_PRESSED: #797979;
+@const CSB_FONT_COLOR_INVERTED_SELECTED: #FFFFFF;
+@const CSB_FONT_COLOR_INVERTED_DISABLED: #4E4E4E;
+@const CSB_SPACE_TOP:    0;
+@const CSB_SPACE_BOTTOM: 0;
+@const CSB_BG_INVERTED:          meegotouch-button-inverted-background;
+@const CSB_BG_POSITIVE:          meegotouch-button-positive-background;
+@const CSB_BG_ACCENT:            meegotouch-button-accent-background;
+@const CSB_BG_NEGATIVE:          meegotouch-button-negative-background;
+@const CSB_BG_POSITIVE_INVERTED:          meegotouch-button-positive-inverted-background;
+@const CSB_BG_ACCENT_INVERTED:          meegotouch-button-accent-inverted-background;
+@const CSB_BG_NEGATIVE_INVERTED:          meegotouch-button-negative-inverted-background;
+
+#CommonTopSplitButtonInverted.Landscape {
+background-tiles:;
+margin-top:      $CSB_M_TOP;
+margin-left:     $CSB_M_LEFT;
+text-color:      $CSB_FONT_COLOR_INVERTED;
+background-image:meegotouch-button-inverted-background-vertical-top $CORNER_MARGINS;
+margin-bottom:   $CSB_SPACE_BOTTOM;
+margin-right:    $CSB_M_RIGHT;
+}
+#CommonTopSplitButtonInverted.Landscape:pressed {
+background-image:meegotouch-button-inverted-background-pressed-vertical-top $CORNER_MARGINS;
+text-color:      $CSB_FONT_COLOR_INVERTED_PRESSED;
+}
+#CommonTopSplitButtonInverted.Landscape:selected {
+background-image:meegotouch-button-inverted-background-selected-vertical-top $CORNER_MARGINS;
+text-color:      $CSB_FONT_COLOR_INVERTED_SELECTED;
+}
+#CommonTopSplitButtonInverted.Landscape:disabled {
+background-image:meegotouch-button-inverted-background-disabled-vertical-top $CORNER_MARGINS;
+text-color:      $CSB_FONT_COLOR_INVERTED_DISABLED;
+}
+
+#CommonVerticalCenterSplitButtonInverted.Landscape {
+background-tiles:;
+text-color:      $CSB_FONT_COLOR_INVERTED;
+background-image:meegotouch-button-inverted-background-vertical-center $CORNER_MARGINS;
+margin-top:      $CSB_SPACE_TOP;
+margin-bottom:   $CSB_SPACE_BOTTOM;
+margin-left:     $CSB_M_LEFT;
+margin-right:    $CSB_M_RIGHT;
+}
+
+#CommonVerticalCenterSplitButtonInverted.Landscape:pressed {
+background-image:meegotouch-button-inverted-background-pressed-vertical-center $CORNER_MARGINS;
+text-color:      $CSB_FONT_COLOR_INVERTED_PRESSED;
+}
+#CommonVerticalCenterSplitButtonInverted.Landscape:selected {
+background-image:meegotouch-button-inverted-background-selected-vertical-center $CORNER_MARGINS;
+text-color:      $CSB_FONT_COLOR_INVERTED_SELECTED;
+}
+#CommonVerticalCenterSplitButtonInverted.Landscape:disabled {
+background-image:meegotouch-button-inverted-background-disabled-vertical-center $CORNER_MARGINS;
+text-color:      $CSB_FONT_COLOR_INVERTED_DISABLED;
+}
+
+#CommonBottomSplitButtonInverted.Landscape {
+background-tiles:;
+margin-bottom:   $CSB_M_BOTTOM;
+margin-right:    $CSB_M_RIGHT;
+text-color:      $CSB_FONT_COLOR_INVERTED;
+background-image:meegotouch-button-inverted-background-vertical-bottom $CORNER_MARGINS;
+margin-top:      $CSB_SPACE_TOP;
+margin-left:     $CSB_M_LEFT;
+}
+
+#CommonBottomSplitButtonInverted.Landscape:pressed {
+background-image:meegotouch-button-inverted-background-pressed-vertical-bottom $CORNER_MARGINS;
+text-color:      $CSB_FONT_COLOR_INVERTED_PRESSED;
+}
+#CommonBottomSplitButtonInverted.Landscape:selected {
+background-image:meegotouch-button-inverted-background-selected-vertical-bottom $CORNER_MARGINS;
+text-color:      $CSB_FONT_COLOR_INVERTED_SELECTED;
+}
+#CommonBottomSplitButtonInverted.Landscape:disabled {
+background-image:meegotouch-button-inverted-background-disabled-vertical-bottom $CORNER_MARGINS;
+text-color:      $CSB_FONT_COLOR_INVERTED_DISABLED;
+}
+
+/* sound settings had fixed size on the sliders */
+
+AlertToneAppletWidget VolumeBarStyle.Landscape
+{
+/* media volume */
+minimum-size: 82.2mm 3.0mm;
+maximum-size: 82.2mm 3.0mm;
+}
+
+AlertToneAppletWidget ProfileVolumeBarStyle.Landscape
+{
+/* profile volume */
+minimum-size: 82.2mm 3.0mm;
+maximum-size: 82.2mm 3.0mm;
+}
+
+/* the brightness slider is small in landscape */
+
+#CommonSliderInverted.Landscape {
+margin-top:      $MARGIN_DOUBLE;
+margin-bottom:   $MARGIN_DOUBLE;
+margin-left:     0;
+margin-right:    0;
+minimum-size:    96.6mm -1;
+preferred-size:  82.2mm -1;
+maximum-size:    82.2mm -1;
+}
+
+
+
+/* TODO the html / plain selector for mail is not centered
+TODO swype is right aligned */
